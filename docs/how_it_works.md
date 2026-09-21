@@ -231,7 +231,24 @@ one offense gained equals what the other defense allowed (0 mismatches). The fir
 (pass attempts counted sacks and two-point tries, return fumbles were charged to the kicking team) and they
 are fixed.
 
-## 12. What would make it a real edge
+## 12. The weekly loop (Phase 5)
+
+Two GitHub Actions workflows run from `main`. **Tuesday 06:00 ET and Saturday 10:00 ET** (`weekly.yml`):
+pull the season's play-by-play, schedules, injuries and snap counts; rebuild every table; run the
+verification (the run halts if scores or mirrors break, and says so); fetch kickoff forecasts for unplayed
+outdoor games and put them in the wind and temperature fields the model reads; rebuild ratings, trends and
+the model; grade last week's flagged picks and your bets; write this week's picks with the flags; export the
+data room; write `reports/weekly_latest.md` with every step's status. **Every 10 minutes** (`lines.yml`):
+log the spread, total and moneyline from the ESPN scoreboard (whose provider is DraftKings) and the
+DraftKings feed to `data/lines/lines_log.csv`, raw responses kept. Picks are recorded with the line at the
+time and never on a game that has kicked off; when the game is graded, closing line value is the recorded
+line minus the close. The splits feed (bets % vs money %) is not wired: no stable public endpoint has been
+confirmed, so the report says "none" rather than inventing one.
+
+Not automated here: republishing the page. A Claude routine on the same schedule pulls the repo and
+republishes the data room with the new files and writes the recap.
+
+## 13. What would make it a real edge
 
 In order of what the data says: (1) bet at the opener or midweek and measure closing line value, which needs
 the line log that starts in the first live week; (2) price injuries and the player model before the line

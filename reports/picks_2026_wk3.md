@@ -5,7 +5,7 @@ Bet flag: spread when the edge is 5+ points, total when 6+. These are the thresh
 
 | Game      | Date       | Our score          | Old model   | Our line        | Vegas            | Edge (spread / total)   | Win               | Cover the spread   | Total                | Flag      |
 |:----------|:-----------|:-------------------|:------------|:----------------|:-----------------|:------------------------|:------------------|:-------------------|:---------------------|:----------|
-| ATL @ GB  | 2026-09-24 | ATL 20.1, GB 25.7  | -10.8-14.3  | GB -5.5 / 45.8  | GB -7 / 43.5     | -1.5 / +2.3             | GB 66% / ATL 34%  | GB 41% / ATL 59%   | Over 57% / Under 43% |           |
+| ATL @ GB  | 2026-09-24 | ATL 20.1, GB 25.7  | -10.8-14.3  | GB -5.5 / 45.8  | GB -6.5 / 43.5   | -1.0 / +2.3             | GB 66% / ATL 34%  | GB 44% / ATL 56%   | Over 57% / Under 43% |           |
 | LAC @ BUF | 2026-09-27 | LAC 19.7, BUF 29.3 | 12.6-52.6   | BUF -9.6 / 49.0 | BUF -7 / 50.5    | +2.6 / -1.5             | BUF 76% / LAC 24% | BUF 54% / LAC 46%  | Over 45% / Under 55% |           |
 | CAR @ CLE | 2026-09-27 | CAR 21.1, CLE 23.4 | 37.5-15.8   | CLE -2.3 / 44.5 | CLE +3 / 42.5    | +5.3 / +2.0             | CLE 57% / CAR 43% | CLE 67% / CAR 33%  | Over 56% / Under 44% | CLE +3    |
 | NYJ @ DET | 2026-09-27 | NYJ 22.6, DET 28.5 | 32.6-27.5   | DET -5.9 / 51.1 | DET -6.5 / 48.5  | -0.6 / +2.6             | DET 67% / NYJ 33% | DET 45% / NYJ 55%  | Over 58% / Under 42% |           |

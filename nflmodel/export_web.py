@@ -185,6 +185,23 @@ def main():
         allc = ["game_id"] + cols
         recs = [[clean(v) for v in r] for r in rows[allc].itertuples(index=False, name=None)]
         (WEB / f"{t}.js").write_text(f'window.TEAMDATA=window.TEAMDATA||{{}};window.TEAMDATA["{t}"]=' + json.dumps({"cols": allc, "rows": recs}, separators=(",", ":")) + ";")
+    # this week's picks and the track record for the dashboard tabs
+    from . import lines as LN, picks as P, tracker as TK
+    cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
+    try:
+        pk = P.table(cur_season, cur_week)
+        wk = []
+        for r in pk.itertuples():
+            h = LN.history(r.game_id)
+            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week,
+                      "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt)} for t, src, hs, tt in
+                                       zip(h.ts, h.source, h.home_spread, h.total)] if len(h) else []})
+        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")
+    except Exception as e:  # noqa
+        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
+    gr = TK.TR / "graded.csv"
+    g = pd.read_csv(gr).to_dict("records") if gr.exists() else []
+    (WEB / "track.js").write_text("window.TRACK=" + json.dumps(g, default=clean, separators=(",", ":")) + ";")
     sizes = sum(f.stat().st_size for f in WEB.glob("*.js"))
     print(f"{len(teams)} teams, {len(cols)} columns, {sizes/1e6:.1f} MB")
 

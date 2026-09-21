@@ -54,6 +54,7 @@ td.sticky2,th.sticky2{position:sticky;left:52px;background:var(--panel);z-index:
 thead th.sticky,thead th.sticky2{z-index:4}
 th .u{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4px;vertical-align:middle}
 tbody tr:hover td{background:var(--rule-2)}
+tr.clickable{cursor:pointer}
 td.win{color:var(--good)} td.loss{color:var(--bad)}
 .mono{font-family:var(--mono)}
 .note{color:var(--ink-2);font-size:13px;max-width:70ch;margin:0 0 12px}
@@ -85,12 +86,29 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   </div>
 </header>
 <nav class="tabs" role="tablist">
+  <button role="tab" aria-selected="false" data-tab="week" id="tab-week">This week</button>
   <button role="tab" aria-selected="true" data-tab="games" id="tab-games">Games</button>
   <button role="tab" aria-selected="false" data-tab="ratings" id="tab-ratings">Ratings by week</button>
   <button role="tab" aria-selected="false" data-tab="inputs" id="tab-inputs">Inputs to a prediction</button>
   <button role="tab" aria-selected="false" data-tab="dict" id="tab-dict">Every column</button>
+  <button role="tab" aria-selected="false" data-tab="track" id="tab-track">Track record</button>
   <button role="tab" aria-selected="false" data-tab="log" id="tab-log">Data log</button>
 </nav>
+
+<section class="tab" id="week" hidden>
+  <p class="note" id="weeknote">Every game this week: our score, the line, the edge, the chance of each side covering and of the over, and the flag. Click a game for the inputs behind it.</p>
+  <div class="tablewrap"><table id="weektable"></table></div>
+  <div class="status" id="weekstatus"></div>
+</section>
+
+<section class="tab" id="track" hidden>
+  <p class="note">Model picks (flagged at the thresholds) and Matt's bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Your bets go in data/tracker/my_bets.csv (game_id, bet, odds, stake).</p>
+  <div class="grid2">
+    <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
+    <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
+  </div>
+  <div class="tablewrap" style="margin-top:14px"><table id="tracktable"></table></div>
+</section>
 
 <section class="tab" id="games">
   <p class="note">One row per game. Turn column groups on and off; hover a header for the definition. Stats are this team's unless the group says allowed, which is what its defense gave up.</p>
@@ -131,6 +149,8 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 </div>
 
 <script src="data/meta.js"></script>
+<script src="data/week.js"></script>
+<script src="data/track.js"></script>
 <script>
 (function(){
   const META = window.META;
@@ -300,6 +320,41 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
       ["Injuries", `offense starters out ${fmt(r.off_starters_out)} · defense ${fmt(r.def_starters_out)} · QB out ${r.qb_out ? "yes" : "no"}`]];
     $("gamekv").innerHTML = kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join("");
   }
+  function pct(v) { return v == null ? "" : (v * 100).toFixed(0) + "%"; }
+  function renderWeek() {
+    const W = window.WEEK || {};
+    if (!W.games) { $("weektable").innerHTML = ""; $("weekstatus").textContent = W.error || "No week exported."; return; }
+    $("weeknote").textContent = `Week ${W.week}, ${W.season}. Our line is the home spread / total. Edge = model minus Vegas. Flag: spread edge ${W.spread_edge}+ or total edge ${W.total_edge}+ (the ROI-best thresholds in the backtest, small samples). 52.4% is break-even at -110.`;
+    let h = "<thead><tr><th class='l'>Game</th><th class='l'>Kickoff</th><th class='l'>Our score</th><th class='l'>Our line</th><th class='l'>Vegas close/current</th><th>Edge spread</th><th>Edge total</th><th class='l'>Win</th><th class='l'>Cover</th><th class='l'>Total</th><th class='l'>Line moves logged</th><th class='l'>Flag</th></tr></thead><tbody>";
+    W.games.forEach(g => {
+      const hasLine = g.spread_line != null;
+      h += `<tr class="clickable" data-game="${g.game_id}"><td class="l"><b>${g.away_team} @ ${g.home_team}</b></td><td class="l">${g.gameday || ""}</td><td class="l mono">${g.away_team} ${g.away_exp.toFixed(1)}, ${g.home_team} ${g.home_exp.toFixed(1)}</td><td class="l mono">${g.home_team} ${(-g.model_spread).toFixed(1)} / ${g.model_total.toFixed(1)}</td><td class="l mono">${hasLine ? g.home_team + " " + (-g.spread_line > 0 ? "+" : "") + (-g.spread_line) + " / " + g.total_line : "no line yet"}</td><td class="mono ${g.spread_edge > 0 ? "pos" : "neg"}">${hasLine ? (g.spread_edge >= 0 ? "+" : "") + g.spread_edge.toFixed(1) : ""}</td><td class="mono ${g.total_edge > 0 ? "pos" : "neg"}">${hasLine ? (g.total_edge >= 0 ? "+" : "") + g.total_edge.toFixed(1) : ""}</td><td class="l">${g.home_team} ${pct(g.p_home)} / ${g.away_team} ${pct(1 - g.p_home)}</td><td class="l">${hasLine ? g.home_team + " " + pct(g.p_cover_home) + " / " + g.away_team + " " + pct(1 - g.p_cover_home) : ""}</td><td class="l">${hasLine ? "Over " + pct(g.p_over) + " / Under " + pct(1 - g.p_over) : ""}</td><td class="l">${g.line_history.length ? g.line_history.length + " snapshots, spread " + g.line_history[0].home_spread + " to " + g.line_history[g.line_history.length - 1].home_spread : "none yet"}</td><td class="l"><b>${g.bet || ""}</b></td></tr>`;
+    });
+    $("weektable").innerHTML = h + "</tbody>";
+    $("weekstatus").textContent = `${W.games.length} games. Click a row to open its inputs. Line snapshots come from the 10-minute line watch once it runs.`;
+    $("weektable").querySelectorAll("tr.clickable").forEach(tr => tr.addEventListener("click", () => {
+      const g = W.games.find(x => x.game_id === tr.dataset.game); if (!g) return;
+      team = g.home_team; season = W.season; $("team").value = team; $("season").value = season; save();
+      const go = () => { const rs = rows(); gameIdx = Math.max(0, rs.findIndex(r => r.game_id === g.game_id)); document.querySelector('[data-tab="inputs"]').click(); };
+      if (window.TEAMDATA && window.TEAMDATA[team]) { data = window.TEAMDATA[team]; go(); } else { const sc = document.createElement("script"); sc.src = "data/" + team + ".js"; sc.onload = () => { data = window.TEAMDATA[team]; go(); }; document.head.appendChild(sc); }
+    }));
+  }
+  function trackSummary(rows) {
+    const s = rows.filter(r => ["win", "loss", "push"].includes(r.result));
+    const w = s.filter(r => r.result === "win").length, l = s.filter(r => r.result === "loss").length, p = s.filter(r => r.result === "push").length;
+    const units = s.reduce((a, r) => a + (r.units || 0), 0);
+    const clv = rows.filter(r => r.clv != null); const avgclv = clv.length ? clv.reduce((a, r) => a + r.clv, 0) / clv.length : null;
+    if (!rows.length) return "<p class='note'>No bets recorded yet.</p>";
+    return `<div class="kv"><b>Record</b><span>${w}-${l}${p ? "-" + p : ""} (${w + l ? ((w / (w + l)) * 100).toFixed(1) + "%" : ""})</span><b>Units</b><span>${units >= 0 ? "+" : ""}${units.toFixed(2)}</span><b>Pending</b><span>${rows.filter(r => r.result === "pending").length}</span><b>Avg CLV</b><span>${avgclv == null ? "no lines logged yet" : (avgclv >= 0 ? "+" : "") + avgclv.toFixed(2)}</span></div>`;
+  }
+  function renderTrack() {
+    const T = window.TRACK || [];
+    $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
+    $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
+    let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th>Odds</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Recorded</th></tr></thead><tbody>";
+    T.slice().reverse().forEach(r => { h += `<tr><td class="l">${r.who}</td><td>${r.season}</td><td>${r.week}</td><td class="l mono">${r.game_id}</td><td class="l">${r.bet}</td><td class="mono">${r.odds}</td><td class="mono">${r.close == null ? "" : r.close}</td><td class="mono">${r.clv == null ? "" : (r.clv >= 0 ? "+" : "") + r.clv.toFixed(1)}</td><td class="l ${r.result === "win" ? "pos" : (r.result === "loss" ? "neg" : "")}">${r.result || ""}</td><td class="mono">${r.units == null ? "" : r.units.toFixed(2)}</td><td class="l">${r.run_at || ""}</td></tr>`; });
+    $("tracktable").innerHTML = h + "</tbody>";
+  }
   function renderDict() {
     let h = "<thead><tr><th class='l'>Column</th><th class='l'>Group</th><th class='l'>Definition</th><th class='l'>Source</th><th>3.0</th><th>Old sheet</th></tr></thead><tbody>";
     META.columns.filter(c => !HIDE.has(c)).forEach(c => { const d = META.dictionary[c] || {}; h += `<tr><td class="l mono">${c}</td><td class="l">${d.group||""}</td><td class="l" style="white-space:normal;min-width:260px">${d.definition||""}</td><td class="l">${d.source||""}</td><td>${d.used_v3 ? "<span class='dot v3'></span>" : ""}</td><td>${d.used_old ? "<span class='dot old'></span>" : ""}</td></tr>`; });
@@ -312,14 +367,18 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
     $("verification").textContent = META.verification || "No verification report exported.";
   }
   function render() {
+    if (tab === "week") { renderWeek(); return; }
+    if (tab === "track") { renderTrack(); return; }
     if (!data) return;
     if (tab === "games") renderGames();
     if (tab === "ratings") renderRatings();
     if (tab === "inputs") renderInputs();
     if (tab === "dict") renderDict();
+    if (tab === "week") renderWeek();
+    if (tab === "track") renderTrack();
     if (tab === "log") renderLog();
   }
-  renderDict(); renderLog();
+  renderDict(); renderLog(); renderWeek(); renderTrack();
   load();
 })();
 </script>

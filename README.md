@@ -11,8 +11,8 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` |
 | 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep, `reports/backtest_v3.md`, `reports/decision_log.md` |
 | 4. Go / no-go: tuned on 2019 to 2022, judged on 2023 to 2025 | Numbers are in `reports/backtest_v3.md`; the decision is Matt's |
-| 5. Automate + dashboard | Not started |
-| 6. Extras (player model, line history, splits, sizing) | Not started |
+| 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Runs from `main` via GitHub Actions once merged |
+| 6. Extras (player model, splits, sizing, timing tests on the logged lines) | After a few weeks of logs |
 
 ## Layout
 
@@ -27,6 +27,12 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs old model vs Vegas, tuning vs held-out windows, market blend).
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
 - `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
+- `nflmodel/weekly.py`    the weekly run: pull, build, verify, weather, ratings, trends, model, grade, picks, export, recap (`reports/weekly_latest.md`, `data/runs/run_log.csv`).
+- `nflmodel/lines.py`     line watch: ESPN scoreboard (DraftKings provider) and the DraftKings feed every 10 minutes to `data/lines/lines_log.csv`, raw JSON kept; splits hook pending a confirmed endpoint.
+- `nflmodel/weather.py`   Open-Meteo kickoff forecasts for unplayed outdoor games, applied before pricing, logged.
+- `nflmodel/tracker.py`   model picks and Matt's bets (`data/tracker/my_bets.csv`) graded with closing line value (`reports/track_record.md`).
+- `nflmodel/audit.py`     backtest audit: leakage test, coverage, bootstrap intervals on every rejected input, rejected ideas as standalone bets (`reports/audit.md`).
+- `.github/workflows/`    `weekly.yml` (Tue 06:00 and Sat 10:00 ET) and `lines.yml` (every 10 minutes); both commit their outputs.
 - `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz).
 - `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference and the schedule; fails the build on a mismatch.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
@@ -70,6 +76,13 @@ python -m nflmodel.picks --season 2026 --week 4
 python -m nflmodel.verify
 python -m nflmodel.trends
 python -m nflmodel.export_web
+```
+
+Weekly run by hand (about 6 minutes; `--skip-network` in a sandbox that cannot reach nflverse, ESPN or Open-Meteo):
+
+```
+python -m nflmodel.weekly
+python -m nflmodel.lines        # one line snapshot
 ```
 
 Tuning (writes `reports/tuning_ratings.csv` and `reports/ablation.csv`, about 10 minutes):
