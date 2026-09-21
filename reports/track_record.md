@@ -10,8 +10,8 @@ Every bet:
 
 |   season |   week | game_id         | bet       |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:----------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      3 | 2026_03_CAR_CLE | CLE +3    |   -110 |     3   |     0 | pending  |     nan |
-|     2026 |      3 | 2026_03_KC_MIA  | MIA +11.5 |   -110 |    11.5 |     0 | pending  |     nan |
+|     2026 |      3 | 2026_03_CAR_CLE | CLE +3    |   -110 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_KC_MIA  | MIA +11.5 |   -110 |     nan |   nan | pending  |     nan |
 
 ## Matt's bets
 

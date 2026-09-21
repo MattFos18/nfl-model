@@ -59,8 +59,11 @@ def grade_rows(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
             row["result"] = "unparsed"
             out.append(row)
             continue
-        # closing line value from this side's view (positive = you got a better number than the close)
-        if kind == "spread":
+        # closing line value from this side's view (positive = you got a better number than the close).
+        # Only once the game is played: before that nflverse's line is the current line, not the close.
+        if pd.isna(x.home_score):
+            row["close"], row["clv"] = np.nan, np.nan
+        elif kind == "spread":
             # closing handicap from this side's view: nflverse spread_line is positive when the home team is favoured,
             # so the home side's closing number is -spread_line and the away side's is +spread_line
             close = -x.spread_line if side == x.home_team else x.spread_line
@@ -74,6 +77,7 @@ def grade_rows(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
             row["clv"] = np.nan
         if pd.isna(x.home_score):
             row["result"] = "pending"
+            row["units"] = np.nan
             out.append(row)
             continue
         margin = x.result if side == x.home_team else -x.result

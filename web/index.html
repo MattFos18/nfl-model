@@ -71,6 +71,15 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 .pos{color:var(--good)} .neg{color:var(--bad)}
 .status{font-size:12px;color:var(--muted);margin-top:6px}
 .badge{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid var(--rule);color:var(--ink-2);margin-left:6px}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:10px 12px;min-width:150px;flex:1 1 180px;display:flex;flex-direction:column;gap:2px}
+.tile b{font-family:var(--display);font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--ink-2)}
+.rk{font-size:10.5px;color:var(--muted)}
+.flag{font-weight:600;color:var(--accent)}
+th.sortable{cursor:pointer} th.sortable.on{color:var(--ink);border-bottom:2px solid var(--accent)}
+tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:0 0 12px}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
 
@@ -91,6 +100,10 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   <button role="tab" aria-selected="false" data-tab="ratings" id="tab-ratings">Ratings by week</button>
   <button role="tab" aria-selected="false" data-tab="inputs" id="tab-inputs">Inputs to a prediction</button>
   <button role="tab" aria-selected="false" data-tab="dict" id="tab-dict">Every column</button>
+  <button role="tab" aria-selected="false" data-tab="backtest" id="tab-backtest">Backtest</button>
+  <button role="tab" aria-selected="false" data-tab="rank" id="tab-rank">Rankings</button>
+  <button role="tab" aria-selected="false" data-tab="how" id="tab-how">How a rating is built</button>
+  <button role="tab" aria-selected="false" data-tab="methods" id="tab-methods">Methods</button>
   <button role="tab" aria-selected="false" data-tab="track" id="tab-track">Track record</button>
   <button role="tab" aria-selected="false" data-tab="log" id="tab-log">Data log</button>
 </nav>
@@ -99,6 +112,35 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   <p class="note" id="weeknote">Every game this week: our score, the line, the edge, the chance of each side covering and of the over, and the flag. Click a game for the inputs behind it.</p>
   <div class="tablewrap"><table id="weektable"></table></div>
   <div class="status" id="weekstatus"></div>
+</section>
+
+<section class="tab" id="backtest" hidden>
+  <p class="note">Every regular-season game the model priced, walk-forward (each week priced with only earlier games; the regression refit each season on prior seasons). Model score, the old sheet's score, the Vegas implied score, and what happened. The model's lean on each game is the side its line favours against the closing line; "Covered" grades that lean at any edge size, so it is the all-games record, and the 5+ flag marks the bets the page would have flagged.</p>
+  <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
+  <div id="bksummary"></div>
+  <div class="tablewrap"><table id="bktable"></table></div>
+</section>
+
+<section class="tab" id="rank" hidden>
+  <p class="note">Every team ranked on every rating, as of the chosen week of the selected season (top right). Click a column to sort. The small number is the rank on that column.</p>
+  <div class="row"><label class="ctl">As of <select id="rkweek"></select></label></div>
+  <div class="tablewrap"><table id="rktable"></table></div>
+  <div class="status" id="rkstatus"></div>
+</section>
+
+<section class="tab" id="how" hidden>
+  <p class="note">Follow one rating from the raw game data to the number. Pick the team and season at the top right, the week and stat here. Every row is a game the model used, with its weight; the sums at the bottom give the rating, and it is checked against the number the model actually used.</p>
+  <div class="row"><label class="ctl">As of <select id="howweek"></select></label><label class="ctl">Stat <select id="howstat"><option value="epa_play">EPA per play (main rating)</option><option value="pass_epa">Pass EPA</option><option value="rush_epa">Rush EPA</option><option value="pf">Points</option><option value="plays">Pace (plays)</option><option value="success">Success rate (computed, not in the regression)</option></select></label><label class="ctl">Side <select id="howside"><option value="off">Offense</option><option value="def">Defense</option></select></label></div>
+  <p class="note" id="howformula"></p>
+  <div class="tablewrap" style="max-height:56vh"><table id="howtable"></table></div>
+  <div id="howsum" style="margin-top:12px"></div>
+</section>
+
+<section class="tab" id="methods" hidden>
+  <p class="note">Every method that produces a score, side by side. The old sheet blended five tabs with fixed weights (10/35/35/15/5, last-year tabs at 0). 3.0 is one method: a regression whose fitted coefficients are the weights, shown per game on the Inputs tab. Below, each method's miss on the same 2019 to 2025 games, then this week's games scored by every method.</p>
+  <div class="tablewrap" style="max-height:40vh"><table id="methodstable"></table></div>
+  <h3 style="font-family:var(--display);margin:18px 0 8px">This week by every method</h3>
+  <div class="tablewrap"><table id="methodsweek"></table></div>
 </section>
 
 <section class="tab" id="track" hidden>
@@ -151,6 +193,8 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 <script src="data/meta.js"></script>
 <script src="data/week.js"></script>
 <script src="data/track.js"></script>
+<script src="data/rankings.js"></script>
+<script src="data/backtest.js"></script>
 <script>
 (function(){
   const META = window.META;
@@ -183,8 +227,8 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   $("team").value = team;
   for (let s = 2026; s >= 2012; s--) { const o = document.createElement("option"); o.value = s; o.textContent = s; $("season").appendChild(o); }
   $("season").value = season;
-  $("team").addEventListener("change", e => { team = e.target.value; save(); load(); });
-  $("season").addEventListener("change", e => { season = +e.target.value; save(); render(); });
+  $("team").addEventListener("change", e => { team = e.target.value; gameIdx = 0; save(); load(); });
+  $("season").addEventListener("change", e => { season = +e.target.value; rkWeek = null; howWeek = null; gameIdx = 0; save(); render(); });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     tab = b.dataset.tab;
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
@@ -208,7 +252,7 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
     return data.rows.filter(r => r[idx.season] === season).map(r => { const o = {}; data.cols.forEach((c, i) => o[c] = r[i]); return o; });
   }
   function usedDot(c) { const d = META.dictionary[c] || {}; return (d.used_v3 ? '<span class="u" style="background:var(--v3)"></span>' : '') + (d.used_old ? '<span class="u" style="background:var(--old)"></span>' : ''); }
-  function label(c) { return c.replace(/^r_/, "").replace(/^off_/, "").replace(/^def_/, "").replace(/^m_/, "").replace(/_ng$/, ""); }
+  function label(c) { return c.replace(/^box_/, "").replace(/^r_/, "").replace(/^off_/, "").replace(/^def_/, "").replace(/^m_/, "").replace(/_ng$/, ""); }
 
   function renderGames() {
     const rs = rows();
@@ -262,7 +306,8 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
       el.addEventListener("mouseleave", () => tip.style.display = "none");
     });
     const cols = ["r_off_epa_play","r_own_def_epa_play","r_off_pass_epa","r_off_rush_epa","r_off_pf","r_off_plays","qb_rating","n_games"];
-    let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${(META.dictionary[c]||{}).definition||c}">${label(c)}</th>`).join("") + "</tr></thead><tbody>";
+    const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pass_epa: "Pass EPA", r_off_rush_epa: "Rush EPA", r_off_pf: "Points", r_off_plays: "Pace", qb_rating: "QB", n_games: "Games in"};
+    let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${(META.dictionary[c]||{}).definition||c}">${RL[c]}</th>`).join("") + "</tr></thead><tbody>";
     rs.forEach(r => { h += `<tr><td class="sticky">${r.week}</td><td class="l">${r.home ? "vs " : "@ "}${r.opp}</td>` + cols.map(c => `<td class="mono">${fmt(r[c], c)}</td>`).join("") + "</tr>"; });
     $("ratingstable").innerHTML = h + "</tbody>";
   }
@@ -324,11 +369,11 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("weektable").innerHTML = ""; $("weekstatus").textContent = W.error || "No week exported."; return; }
-    $("weeknote").textContent = `Week ${W.week}, ${W.season}. Our line is the home spread / total. Edge = model minus Vegas. Flag: spread edge ${W.spread_edge}+ or total edge ${W.total_edge}+ (the ROI-best thresholds in the backtest, small samples). 52.4% is break-even at -110.`;
-    let h = "<thead><tr><th class='l'>Game</th><th class='l'>Kickoff</th><th class='l'>Our score</th><th class='l'>Our line</th><th class='l'>Vegas close/current</th><th>Edge spread</th><th>Edge total</th><th class='l'>Win</th><th class='l'>Cover</th><th class='l'>Total</th><th class='l'>Line moves logged</th><th class='l'>Flag</th></tr></thead><tbody>";
+    $("weeknote").textContent = `Week ${W.week}, ${W.season}. Our line is the home spread / total. Edge = model minus Vegas; a positive spread edge means the model likes the home side more than the market, negative the away side. Flag: spread edge ${W.spread_edge}+ or total edge ${W.total_edge}+ (the ROI-best thresholds in the backtest, small samples). 52.4% is break-even at -110.`;
+    let h = "<thead><tr><th class='l'>Game</th><th class='l'>Kickoff</th><th class='l'>Our score</th><th class='l'>Our line</th><th class='l'>Vegas close/current</th><th>Edge spread</th><th>Edge total</th><th class='l'>Actual</th><th class='l'>Win</th><th class='l'>Cover</th><th class='l'>Total</th><th class='l'>Line moves logged</th><th class='l'>Flag</th></tr></thead><tbody>";
     W.games.forEach(g => {
       const hasLine = g.spread_line != null;
-      h += `<tr class="clickable" data-game="${g.game_id}"><td class="l"><b>${g.away_team} @ ${g.home_team}</b></td><td class="l">${g.gameday || ""}</td><td class="l mono">${g.away_team} ${g.away_exp.toFixed(1)}, ${g.home_team} ${g.home_exp.toFixed(1)}</td><td class="l mono">${g.home_team} ${(-g.model_spread).toFixed(1)} / ${g.model_total.toFixed(1)}</td><td class="l mono">${hasLine ? g.home_team + " " + (-g.spread_line > 0 ? "+" : "") + (-g.spread_line) + " / " + g.total_line : "no line yet"}</td><td class="mono ${g.spread_edge > 0 ? "pos" : "neg"}">${hasLine ? (g.spread_edge >= 0 ? "+" : "") + g.spread_edge.toFixed(1) : ""}</td><td class="mono ${g.total_edge > 0 ? "pos" : "neg"}">${hasLine ? (g.total_edge >= 0 ? "+" : "") + g.total_edge.toFixed(1) : ""}</td><td class="l">${g.home_team} ${pct(g.p_home)} / ${g.away_team} ${pct(1 - g.p_home)}</td><td class="l">${hasLine ? g.home_team + " " + pct(g.p_cover_home) + " / " + g.away_team + " " + pct(1 - g.p_cover_home) : ""}</td><td class="l">${hasLine ? "Over " + pct(g.p_over) + " / Under " + pct(1 - g.p_over) : ""}</td><td class="l">${g.line_history.length ? g.line_history.length + " snapshots, spread " + g.line_history[0].home_spread + " to " + g.line_history[g.line_history.length - 1].home_spread : "none yet"}</td><td class="l"><b>${g.bet || ""}</b></td></tr>`;
+      h += `<tr class="clickable" data-game="${g.game_id}"><td class="l"><b>${g.away_team} @ ${g.home_team}</b></td><td class="l">${g.gameday || ""}</td><td class="l mono">${g.away_team} ${g.away_exp.toFixed(1)}, ${g.home_team} ${g.home_exp.toFixed(1)}</td><td class="l mono">${g.home_team} ${(-g.model_spread).toFixed(1)} / ${g.model_total.toFixed(1)}</td><td class="l mono">${hasLine ? g.home_team + " " + (-g.spread_line > 0 ? "+" : "") + (-g.spread_line) + " / " + g.total_line : "no line yet"}</td><td class="mono ${hasLine && Math.abs(g.spread_edge) >= W.spread_edge ? "flag" : ""}">${hasLine ? (g.spread_edge >= 0 ? "+" : "") + g.spread_edge.toFixed(1) : ""}</td><td class="mono ${hasLine && Math.abs(g.total_edge) >= W.total_edge ? "flag" : ""}">${hasLine ? (g.total_edge >= 0 ? "+" : "") + g.total_edge.toFixed(1) : ""}</td><td class="l mono">${g.home_score == null ? "" : g.away_team + " " + g.away_score + ", " + g.home_team + " " + g.home_score}</td><td class="l">${g.home_team} ${pct(g.p_home)} / ${g.away_team} ${pct(1 - g.p_home)}</td><td class="l">${hasLine ? g.home_team + " " + pct(g.p_cover_home) + " / " + g.away_team + " " + pct(1 - g.p_cover_home) : ""}</td><td class="l">${hasLine ? "Over " + pct(g.p_over) + " / Under " + pct(1 - g.p_over) : ""}</td><td class="l">${g.line_history.length ? g.line_history.length + " snapshots, spread " + g.line_history[0].home_spread + " to " + g.line_history[g.line_history.length - 1].home_spread : "none yet"}</td><td class="l"><b>${g.bet || ""}</b></td></tr>`;
     });
     $("weektable").innerHTML = h + "</tbody>";
     $("weekstatus").textContent = `${W.games.length} games. Click a row to open its inputs. Line snapshots come from the 10-minute line watch once it runs.`;
@@ -343,18 +388,161 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
     const s = rows.filter(r => ["win", "loss", "push"].includes(r.result));
     const w = s.filter(r => r.result === "win").length, l = s.filter(r => r.result === "loss").length, p = s.filter(r => r.result === "push").length;
     const units = s.reduce((a, r) => a + (r.units || 0), 0);
-    const clv = rows.filter(r => r.clv != null); const avgclv = clv.length ? clv.reduce((a, r) => a + r.clv, 0) / clv.length : null;
+    const clv = rows.filter(r => r.clv != null && !isNaN(r.clv)); const avgclv = clv.length ? clv.reduce((a, r) => a + r.clv, 0) / clv.length : null;
     if (!rows.length) return "<p class='note'>No bets recorded yet.</p>";
-    return `<div class="kv"><b>Record</b><span>${w}-${l}${p ? "-" + p : ""} (${w + l ? ((w / (w + l)) * 100).toFixed(1) + "%" : ""})</span><b>Units</b><span>${units >= 0 ? "+" : ""}${units.toFixed(2)}</span><b>Pending</b><span>${rows.filter(r => r.result === "pending").length}</span><b>Avg CLV</b><span>${avgclv == null ? "no lines logged yet" : (avgclv >= 0 ? "+" : "") + avgclv.toFixed(2)}</span></div>`;
+    const settledTxt = w + l ? `${w}-${l}${p ? "-" + p : ""} (${((w / (w + l)) * 100).toFixed(1)}%)` : "nothing settled yet";
+    return `<div class="kv"><b>Record</b><span>${settledTxt}</span><b>Units</b><span>${w + l ? (units >= 0 ? "+" : "") + units.toFixed(2) : ""}</span><b>Pending</b><span>${rows.filter(r => r.result === "pending").length}</span><b>Avg CLV</b><span>${avgclv == null ? "known once games close" : (avgclv >= 0 ? "+" : "") + avgclv.toFixed(2)}</span></div>`;
   }
   function renderTrack() {
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
     let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th>Odds</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Recorded</th></tr></thead><tbody>";
-    T.slice().reverse().forEach(r => { h += `<tr><td class="l">${r.who}</td><td>${r.season}</td><td>${r.week}</td><td class="l mono">${r.game_id}</td><td class="l">${r.bet}</td><td class="mono">${r.odds}</td><td class="mono">${r.close == null ? "" : r.close}</td><td class="mono">${r.clv == null ? "" : (r.clv >= 0 ? "+" : "") + r.clv.toFixed(1)}</td><td class="l ${r.result === "win" ? "pos" : (r.result === "loss" ? "neg" : "")}">${r.result || ""}</td><td class="mono">${r.units == null ? "" : r.units.toFixed(2)}</td><td class="l">${r.run_at || ""}</td></tr>`; });
+    T.slice().reverse().forEach(r => { h += `<tr><td class="l">${r.who}</td><td>${r.season}</td><td>${r.week}</td><td class="l mono">${r.game_id}</td><td class="l">${r.bet}</td><td class="mono">${r.odds}</td><td class="mono">${r.close == null || isNaN(r.close) ? "" : r.close}</td><td class="mono">${r.clv == null || isNaN(r.clv) ? "" : (r.clv >= 0 ? "+" : "") + r.clv.toFixed(1)}</td><td class="l ${r.result === "win" ? "pos" : (r.result === "loss" ? "neg" : "")}">${r.result || ""}</td><td class="mono">${r.units == null || isNaN(r.units) ? "" : r.units.toFixed(2)}</td><td class="l">${r.run_at || ""}</td></tr>`; });
     $("tracktable").innerHTML = h + "</tbody>";
   }
+  // ---------- Backtest ----------
+  function bkRows() {
+    const B = window.BACKTEST || {cols: [], rows: []};
+    const idx = {}; B.cols.forEach((c, i) => idx[c] = i);
+    return B.rows.map(r => { const o = {}; B.cols.forEach((c, i) => o[c] = r[i]); return o; });
+  }
+  let bkSeason = null;
+  function renderBacktest() {
+    const all = bkRows().filter(r => r.home_score != null);
+    if (!all.length) { $("bktable").innerHTML = ""; $("bksummary").innerHTML = "<p class='note'>No graded games exported.</p>"; return; }
+    const seasons = [...new Set(all.map(r => r.season))].sort((a, b) => b - a);
+    const sel = $("bkseason");
+    if (!sel.options.length) { const o0 = document.createElement("option"); o0.value = "all"; o0.textContent = "2019 to now"; sel.appendChild(o0); seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); }); sel.value = "all"; sel.onchange = () => { bkSeason = sel.value; renderBacktest(); }; }
+    const rs = (bkSeason && bkSeason !== "all") ? all.filter(r => r.season == bkSeason) : all;
+    const g = rs.map(r => {
+      const margin = r.home_score - r.away_score, total = r.home_score + r.away_score;
+      const ms = r.home_exp - r.away_exp, mt = r.home_exp + r.away_exp;
+      const edge = r.spread_line == null ? null : ms - r.spread_line, tedge = r.total_line == null ? null : mt - r.total_line;
+      const pick = edge == null ? null : (edge > 0 ? r.home_team : r.away_team);
+      const coverMargin = r.spread_line == null ? null : margin - r.spread_line;   // >0 home covers
+      const pickWon = coverMargin == null || coverMargin === 0 ? null : (edge > 0 ? coverMargin > 0 : coverMargin < 0);
+      const ouPick = tedge == null ? null : (tedge > 0 ? "Over" : "Under");
+      const ouWon = tedge == null || total === r.total_line ? null : (tedge > 0 ? total > r.total_line : total < r.total_line);
+      const suPick = r.p_home >= 0.5 ? r.home_team : r.away_team;
+      const suWon = margin === 0 ? null : (r.p_home >= 0.5 ? margin > 0 : margin < 0);
+      const vegasFav = r.spread_line == null ? null : (r.spread_line > 0 ? r.home_team : r.away_team);
+      const vegasSuWon = r.spread_line == null || margin === 0 ? null : (r.spread_line > 0 ? margin > 0 : margin < 0);
+      return {...r, margin, total, ms, mt, edge, tedge, pick, pickWon, ouPick, ouWon, suPick, suWon, vegasSuWon,
+              mErr: (Math.abs(r.home_exp - r.home_score) + Math.abs(r.away_exp - r.away_score)) / 2,
+              vErr: r.home_implied == null ? null : (Math.abs(r.home_implied - r.home_score) + Math.abs(r.away_implied - r.away_score)) / 2,
+              mMargErr: Math.abs(ms - margin), vMargErr: r.spread_line == null ? null : Math.abs(r.spread_line - margin)};
+    });
+    const rec = (arr, key) => { const w = arr.filter(x => x[key] === true).length, l = arr.filter(x => x[key] === false).length; return {w, l, pct: w + l ? (w / (w + l) * 100).toFixed(1) + "%" : ""}; };
+    const su = rec(g, "suWon"), vsu = rec(g, "vegasSuWon"), ats = rec(g, "pickWon"), ats5 = rec(g.filter(x => x.edge != null && Math.abs(x.edge) >= 5), "pickWon"), ou = rec(g, "ouWon"), ou6 = rec(g.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6), "ouWon");
+    const mean = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(2) : ""; };
+    $("bksummary").innerHTML = `<div class="tiles">
+      <div class="tile"><b>${g.length}</b><span>games graded</span></div>
+      <div class="tile"><b>${su.pct}</b><span>straight-up: model favourite won (${su.w}-${su.l}). Vegas favourite: ${vsu.pct}</span></div>
+      <div class="tile"><b>${ats.pct}</b><span>against the spread, every game, side = model's lean (${ats.w}-${ats.l}). Break-even 52.4%</span></div>
+      <div class="tile"><b>${ats5.pct}</b><span>against the spread when the edge is 5+ (${ats5.w}-${ats5.l})</span></div>
+      <div class="tile"><b>${ou.pct}</b><span>over/under, every game (${ou.w}-${ou.l}); at 6+ edge ${ou6.pct} (${ou6.w}-${ou6.l})</span></div>
+      <div class="tile"><b>${mean(g, "mErr")}</b><span>team points miss, model. Vegas implied: ${mean(g, "vErr")}</span></div>
+      <div class="tile"><b>${mean(g, "mMargErr")}</b><span>margin miss, model. Vegas: ${mean(g, "vMargErr")}</span></div></div>`;
+    const yn = v => v === true ? "<span class='pos'>yes</span>" : (v === false ? "<span class='neg'>no</span>" : "push");
+    let h = "<thead><tr><th>Wk</th><th class='l'>Date</th><th class='l'>Game</th><th class='l'>Model score</th><th class='l'>Old sheet</th><th class='l'>Vegas implied</th><th class='l'>Actual</th><th>Model spread</th><th>Vegas spread</th><th>Actual margin</th><th class='l'>Model pick</th><th>Edge</th><th class='l'>Covered</th><th>Model total</th><th>Vegas total</th><th>Actual total</th><th class='l'>O/U call</th><th class='l'>Hit</th><th>Home win %</th><th class='l'>Winner</th></tr></thead><tbody>";
+    g.forEach(r => {
+      h += `<tr><td>${r.week}</td><td class="l">${r.gameday || ""}</td><td class="l"><b>${r.away_team} @ ${r.home_team}</b></td><td class="l mono">${r.away_exp.toFixed(1)} - ${r.home_exp.toFixed(1)}</td><td class="l mono">${r.old_away == null ? "" : r.old_away.toFixed(1) + " - " + r.old_home.toFixed(1)}</td><td class="l mono">${r.away_implied == null ? "" : r.away_implied.toFixed(1) + " - " + r.home_implied.toFixed(1)}</td><td class="l mono"><b>${r.away_score} - ${r.home_score}</b></td><td class="mono">${r.home_team} ${(-r.ms).toFixed(1)}</td><td class="mono">${r.spread_line == null ? "" : r.home_team + " " + (-r.spread_line > 0 ? "+" : "") + (-r.spread_line)}</td><td class="mono">${r.home_team} ${r.margin > 0 ? "+" : ""}${r.margin}</td><td class="l">${r.pick || ""}</td><td class="mono ${r.edge != null && Math.abs(r.edge) >= 5 ? "flag" : ""}">${r.edge == null ? "" : (r.edge > 0 ? "+" : "") + r.edge.toFixed(1)}</td><td class="l">${r.pick ? yn(r.pickWon) : ""}</td><td class="mono">${r.mt.toFixed(1)}</td><td class="mono">${r.total_line ?? ""}</td><td class="mono">${r.total}</td><td class="l">${r.ouPick || ""}${r.tedge != null && Math.abs(r.tedge) >= 6 ? " <span class='badge'>6+</span>" : ""}</td><td class="l">${r.ouPick ? yn(r.ouWon) : ""}</td><td class="mono">${pct(r.p_home)}</td><td class="l">${r.margin > 0 ? r.home_team : (r.margin < 0 ? r.away_team : "tie")} ${r.suWon === true ? "<span class='pos'>✓</span>" : (r.suWon === false ? "<span class='neg'>✗</span>" : "")}</td></tr>`;
+    });
+    $("bktable").innerHTML = h + "</tbody>";
+  }
+
+  // ---------- Rankings ----------
+  let rkWeek = null, rkSort = "power", rkDir = -1;
+  function renderRankings() {
+    const RK = window.RANK; if (!RK) return;
+    const S = String(season);
+    const weeks = RK.seasons[S] ? Object.keys(RK.seasons[S]).map(Number).sort((a, b) => a - b) : [];
+    const sel = $("rkweek"); sel.innerHTML = "";
+    if (!weeks.length) { $("rktable").innerHTML = ""; $("rkstatus").textContent = `No rankings for ${S} (the model trains from 2013, rankings start in 2014).`; return; }
+    // default: the latest week with games played (n_games grows), i.e. the last week where any team has n_games > 0 ... use the max week whose table exists after the last played week
+    weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = "going into Week " + w; sel.appendChild(o); });
+    if (rkWeek == null || !weeks.includes(rkWeek)) { const rs = rows(); const played = rs.filter(r => r.pf != null).map(r => r.week); const nxt = played.length ? Math.max(...played) + 1 : weeks[0]; rkWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
+    sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
+    const tab = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tab.teams);
+    const old = (RK.old_sheet.season == season && RK.old_sheet.weeks[String(rkWeek)] && !RK.old_sheet.weeks[String(rkWeek)].error) ? RK.old_sheet.weeks[String(rkWeek)] : null;
+    const cols = [["power", "Power (pts vs avg team)", 1], ["power_pf", "Points for vs avg", 1], ["power_pa", "Points allowed vs avg", -1], ["off_epa_play", "Off EPA rating", 1], ["def_epa_play", "Def EPA rating", 1],
+                  ["off_pass_epa", "Pass EPA", 1], ["off_rush_epa", "Rush EPA", 1], ["off_pf", "Points rating (off)", 1], ["def_pf", "Points rating (def)", 1], ["off_plays", "Pace", 1], ["qb_rating", "QB rating", 1], ["n_games", "Games", 1]];
+    const oldcols = old ? [["overall_off", "Sheet OVERALL off", 1], ["overall_def", "Sheet OVERALL def (low = good)", -1], ["two_off", "Sheet 2.0 off", 1], ["two_def", "Sheet 2.0 def (low = good)", -1], ["last3_off", "Sheet LAST 3 off", 1], ["last3_def", "Sheet LAST 3 def", -1]] : [];
+    const val = (t, k) => (k in tab.teams[t]) ? tab.teams[t][k] : (old && old[t] ? old[t][k] : null);
+    const ranks = {}; [...cols, ...oldcols].forEach(([k, , dir]) => { const sorted = teams.slice().sort((a, b) => (val(b, k) - val(a, k)) * dir); ranks[k] = {}; sorted.forEach((t, i) => ranks[k][t] = i + 1); });
+    const dirOf = Object.fromEntries([...cols, ...oldcols].map(([k, , d]) => [k, d]));
+    const order = teams.slice().sort((a, b) => (val(b, rkSort) - val(a, rkSort)) * (dirOf[rkSort] || 1) * (rkDir === -1 ? 1 : -1));
+    let h = "<thead><tr><th>#</th><th class='l'>Team</th>" + [...cols, ...oldcols].map(([k, lab]) => `<th data-k="${k}" class="sortable ${k === rkSort ? "on" : ""}" title="click to sort">${lab}</th>`).join("") + "</tr></thead><tbody>";
+    order.forEach((t, i) => { h += `<tr><td>${i + 1}</td><td class="l"><b>${t}</b></td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s} <span class="rk">${k === "n_games" ? "" : "#" + ranks[k][t]}</span></td>`; }).join("") + "</tr>"; });
+    $("rktable").innerHTML = h + "</tbody>";
+    $("rktable").querySelectorAll("th.sortable").forEach(th => th.addEventListener("click", () => { if (rkSort === th.dataset.k) rkDir = -rkDir; else { rkSort = th.dataset.k; rkDir = -1; } renderRankings(); }));
+    $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}: what every team carried into that week (nothing from that week or later). Power = the model's points for minus points allowed against a league-average opponent on a neutral field, using that season's fitted coefficients. Defense EPA rating: positive is good. ${old ? "Sheet columns are the old spreadsheet's strength indexes on the same data, ratio to league average (1.00 = average)." : "The old sheet's indexes are shown for the current season only."} League averages this week: EPA/play ${tab.mu.epa_play}, points ${tab.mu.pf.toFixed(1)}; home bump on points ${tab.h.pf.toFixed(2)}.`;
+  }
+
+  // ---------- How a rating is built ----------
+  let howWeek = null, howStat = "epa_play", howSide = "off";
+  const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
+  function renderHow() {
+    const RK = window.RANK; if (!RK || !data) return;
+    const S = String(season), P = RK.params;
+    const weeks = RK.seasons[S] ? Object.keys(RK.seasons[S]).map(Number).sort((a, b) => a - b) : [];
+    const wsel = $("howweek"); wsel.innerHTML = ""; weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = "going into Week " + w; wsel.appendChild(o); });
+    if (!weeks.length) { $("howtable").innerHTML = ""; $("howsum").innerHTML = "<p class='note'>No ratings for this season (they start in 2014).</p>"; return; }
+    if (howWeek == null || !weeks.includes(howWeek)) { const rs = rows(); const played = rs.filter(r => r.pf != null).map(r => r.week); const nxt = played.length ? Math.max(...played) + 1 : weeks[0]; howWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
+    wsel.value = howWeek; wsel.onchange = () => { howWeek = +wsel.value; renderHow(); };
+    $("howstat").value = howStat; $("howstat").onchange = e => { howStat = e.target.value; renderHow(); };
+    $("howside").value = howSide; $("howside").onchange = e => { howSide = e.target.value; renderHow(); };
+    const W = howWeek, tab = RK.seasons[S][String(W)], mu = tab.mu[howStat], hb = tab.h[howStat];
+    const all = data.rows.map(r => { const o = {}; data.cols.forEach((c, i) => o[c] = r[i]); return o; }).filter(r => r.pf != null);
+    const lastEnd = RK.season_end[String(season - 1)] || 18;
+    const cur = all.filter(r => r.season === season && r.week < W).map(r => ({...r, age: W - r.week, last: false}));
+    const last = all.filter(r => r.season === season - 1).map(r => ({...r, age: W + (lastEnd + 1 - r.week), last: true}));
+    const gl = [...last, ...cur];
+    const statCol = howSide === "off" ? howStat : (howStat === "pf" ? "pa" : "def_" + howStat);
+    let sw = 0, swa = 0; const trs = [];
+    gl.forEach(r => {
+      let y = r[statCol]; if (y == null && howStat === "plays") y = RK.plays_fill;
+      const oppRating = tab.teams[r.opp] ? (howSide === "off" ? tab.teams[r.opp]["def_" + howStat] : tab.teams[r.opp]["off_" + howStat]) : 0;
+      const homeFlag = howSide === "off" ? (r.home ? 1 : 0) : (r.home ? 0 : 1);   // for the defense view the home bump belongs to the opponent's offense
+      const adj = howSide === "off" ? (y - mu - hb * homeFlag + oppRating) : (mu + oppRating + hb * homeFlag - y);
+      const w = (r.last ? P.prior : 1) * Math.pow(P.decay, r.age);
+      sw += w; swa += w * adj;
+      trs.push({r, y, oppRating, homeFlag, adj, w});
+    });
+    const rating = swa / (sw + P.alpha);
+    const solved = tab.teams[team] ? tab.teams[team][(howSide === "off" ? "off_" : "def_") + howStat] : null;
+    const offense = howSide === "off";
+    $("howformula").innerHTML = offense
+      ? `<b>${team}'s offense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}</b><br>For each game the team's offense played: adjusted value = what it did &minus; league average (${mu}) &minus; home bump (${hb}) if at home + the opponent's defense rating that week. Each game is weighted ${P.decay} to the power of its age in weeks, and last season's games are also multiplied by ${P.prior}. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}); the ${P.alpha} is the pull toward average.`
+      : `<b>${team}'s defense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}</b> (positive = good, it takes this much away)<br>For each game: adjusted value = league average (${mu}) + the opponent offense's rating that week + home bump (${hb}) if the opponent was at home &minus; what that offense actually did against ${team}. Weighted the same way. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}).`;
+    let h = `<thead><tr><th>Season</th><th>Wk</th><th class='l'>Opp</th><th class='l'>Site</th><th title="${STAT_LABEL[howStat]} in this game, ${offense ? team + "'s offense" : "the opponent's offense against " + team}">${offense ? team : "Opp"} ${STAT_LABEL[howStat]}</th><th>League avg</th><th>Home bump</th><th title="the ${offense ? "opponent's defense" : "opponent's offense"} rating as of Week ${W}, from the joint solve">${offense ? "Opp def rating" : "Opp off rating"}</th><th>Adjusted</th><th>Age (wks)</th><th>Weight</th><th>Weight × adj</th></tr></thead><tbody>`;
+    trs.forEach(({r, y, oppRating, homeFlag, adj, w}) => { h += `<tr class="${r.last ? "lastyr" : ""}"><td>${r.season}</td><td>${r.week}${r.game_type !== "REG" ? " <span class='badge'>" + r.game_type + "</span>" : ""}</td><td class="l">${r.opp}</td><td class="l">${r.home ? "home" : "away"}</td><td class="mono">${fmtn(y)}</td><td class="mono">${mu}</td><td class="mono">${homeFlag ? (offense ? "-" : "+") + Math.abs(hb) : "0"}</td><td class="mono">${oppRating >= 0 ? "+" : ""}${fmtn(oppRating)}</td><td class="mono">${fmtn(adj)}</td><td>${r.age}</td><td class="mono">${w.toFixed(3)}</td><td class="mono">${(w * adj).toFixed(4)}</td></tr>`; });
+    h += `<tr class="sum"><td colspan="9" class="l"><b>Sums over ${trs.length} games (${last.length} from last season at ${P.prior} weight, ${cur.length} this season)</b></td><td></td><td class="mono"><b>${sw.toFixed(3)}</b></td><td class="mono"><b>${swa.toFixed(4)}</b></td></tr></tbody>`;
+    $("howtable").innerHTML = h;
+    $("howsum").innerHTML = `<div class="tiles"><div class="tile"><b>${swa.toFixed(4)} ÷ (${sw.toFixed(3)} + ${P.alpha}) = ${rating.toFixed(5)}</b><span>rating from this table</span></div><div class="tile"><b>${solved == null ? "n/a" : solved.toFixed(5)}</b><span>rating the model actually used (joint solve of all 64 offenses and defenses at once)</span></div><div class="tile"><b>${solved == null ? "" : Math.abs(rating - solved) < 5e-5 ? "match" : "differs by " + (rating - solved).toFixed(5)}</b><span>${solved == null ? "" : "the joint solve satisfies exactly this equation for every team, so the two agree to rounding"}</span></div></div>
+      <p class="note">Where it goes next: this number is the input "${offense ? "Own offense" : "Own defense"} ${STAT_LABEL[howStat]} rating" in the points equation (Inputs tab), where it is multiplied by that season's fitted coefficient. The opponents' ratings in the table come from the same week's joint solve, which is why the Rankings tab and this tab agree.</p>`;
+  }
+  function fmtn(v) { return v == null ? "" : (Math.abs(v) < 1 ? v.toFixed(4) : v.toFixed(2)); }
+
+  // ---------- Methods ----------
+  function renderMethods() {
+    const RK = window.RANK, W = window.WEEK || {};
+    if (!RK) return;
+    const M_ = [["overall", "OVERALL"], ["two", "2.0"], ["last3", "LAST 3"], ["homeaway", "HOME/AWAY"], ["pfpa", "PF/PA"], ["lastyear", "LAST YEAR"], ["lastyear2", "LAST YR 2.0"], ["old", "Sheet blend"], ["v3", "3.0"], ["vegas", "Vegas"]];
+    let h = "<thead><tr><th class='l'>Method</th><th>Sheet weight</th><th>Team points miss 2019-25</th><th>Margin miss</th><th class='l'>What it is</th></tr></thead><tbody>";
+    RK.methods.forEach(m => { h += `<tr><td class="l"><b>${m.short}</b></td><td class="mono">${m.weight == null ? "" : m.weight}</td><td class="mono">${m.team_mae}</td><td class="mono">${m.margin_mae}</td><td class="l" style="white-space:normal;min-width:320px">${m.desc}</td></tr>`; });
+    $("methodstable").innerHTML = h + "</tbody>";
+    if (!W.games) { $("methodsweek").innerHTML = ""; return; }
+    let g = `<thead><tr><th class='l'>Game</th>` + M_.map(([k, lab]) => `<th>${lab}</th>`).join("") + `<th class='l'>Actual</th></tr></thead><tbody>`;
+    W.games.forEach(x => {
+      const c = x.methods || {};
+      const cell = (a, b) => a == null ? "" : `${x.away_team} ${a.toFixed(1)}<br>${x.home_team} ${b.toFixed(1)}`;
+      g += `<tr><td class="l"><b>${x.away_team} @ ${x.home_team}</b></td>` + M_.map(([k]) => { if (k === "v3") return `<td class="mono">${cell(x.away_exp, x.home_exp)}</td>`; if (k === "vegas") return `<td class="mono">${x.spread_line == null ? "" : cell((x.total_line - x.spread_line) / 2, (x.total_line + x.spread_line) / 2)}</td>`; const v = c[k]; return `<td class="mono">${v ? cell(v[0], v[1]) : ""}</td>`; }).join("") + `<td class="l mono">${x.away_score == null ? "not played" : x.away_team + " " + x.away_score + "<br>" + x.home_team + " " + x.home_score}</td></tr>`;
+    });
+    $("methodsweek").innerHTML = g + "</tbody>";
+  }
+
   function renderDict() {
     let h = "<thead><tr><th class='l'>Column</th><th class='l'>Group</th><th class='l'>Definition</th><th class='l'>Source</th><th>3.0</th><th>Old sheet</th></tr></thead><tbody>";
     META.columns.filter(c => !HIDE.has(c)).forEach(c => { const d = META.dictionary[c] || {}; h += `<tr><td class="l mono">${c}</td><td class="l">${d.group||""}</td><td class="l" style="white-space:normal;min-width:260px">${d.definition||""}</td><td class="l">${d.source||""}</td><td>${d.used_v3 ? "<span class='dot v3'></span>" : ""}</td><td>${d.used_old ? "<span class='dot old'></span>" : ""}</td></tr>`; });
@@ -369,7 +557,11 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
   function render() {
     if (tab === "week") { renderWeek(); return; }
     if (tab === "track") { renderTrack(); return; }
+    if (tab === "backtest") { renderBacktest(); return; }
+    if (tab === "methods") { renderMethods(); return; }
+    if (tab === "rank") { renderRankings(); return; }
     if (!data) return;
+    if (tab === "how") renderHow();
     if (tab === "games") renderGames();
     if (tab === "ratings") renderRatings();
     if (tab === "inputs") renderInputs();
