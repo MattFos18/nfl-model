@@ -27,6 +27,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs old model vs Vegas, tuning vs held-out windows, market blend).
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
 - `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
+- `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz).
 - `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference and the schedule; fails the build on a mismatch.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
@@ -66,6 +67,9 @@ python -m nflmodel.model --seasons 2019-2026                        # 3.0
 python -m nflmodel.backtest data/processed/pred_v3.parquet --name "3.0"
 python -m nflmodel.report
 python -m nflmodel.picks --season 2026 --week 4
+python -m nflmodel.verify
+python -m nflmodel.trends
+python -m nflmodel.export_web
 ```
 
 Tuning (writes `reports/tuning_ratings.csv` and `reports/ablation.csv`, about 10 minutes):
