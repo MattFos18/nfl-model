@@ -61,9 +61,11 @@ def grade_rows(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
             continue
         # closing line value from this side's view (positive = you got a better number than the close)
         if kind == "spread":
-            close = x.spread_line if side == x.home_team else -x.spread_line
+            # closing handicap from this side's view: nflverse spread_line is positive when the home team is favoured,
+            # so the home side's closing number is -spread_line and the away side's is +spread_line
+            close = -x.spread_line if side == x.home_team else x.spread_line
             row["close"] = close
-            row["clv"] = (line - close) if pd.notna(close) else np.nan
+            row["clv"] = (line - close) if pd.notna(close) else np.nan   # positive = you got more points than the close
         elif kind == "total":
             row["close"] = x.total_line
             row["clv"] = (x.total_line - line) if side == "over" else (line - x.total_line)
