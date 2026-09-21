@@ -131,6 +131,7 @@ def two_strength(x: pd.DataFrame) -> pd.DataFrame:
 def poisson_win(exp_a, exp_h, n=61):
     """P(away wins), P(home wins) from independent Poissons on 0..60, ties split."""
     k = np.arange(n)
+    exp_a, exp_h = max(exp_a, 0.01), max(exp_h, 0.01)  # the sheet's index can go negative on 1 or 2 games; POISSON.DIST would error
     pa = poisson.pmf(k, exp_a)
     ph = poisson.pmf(k, exp_h)
     grid = np.outer(pa, ph)  # [away, home]

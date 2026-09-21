@@ -21,7 +21,7 @@ from sklearn.pipeline import make_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
-RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "success", "pf", "plays"] for s in ["off", "def"]]
+RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]]  # success rate dropped: ablation (reports/ablation.csv)
 SIT_FEATS = ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime"]
 FEATS = RATING_FEATS + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + SIT_FEATS
 MARGIN_RANGE = np.arange(-60, 61)
@@ -38,7 +38,7 @@ def prep(f: pd.DataFrame) -> pd.DataFrame:
     return f
 
 
-def fit_points(train: pd.DataFrame, alpha: float = 3.0):
+def fit_points(train: pd.DataFrame, alpha: float = 10.0):
     m = make_pipeline(StandardScaler(), Ridge(alpha=alpha))
     m.fit(train[FEATS].values, train.pf.values)
     return m
@@ -68,7 +68,7 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=3.0, min_train_season=2013, verbose=False) -> pd.DataFrame:
+def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_season=2013, verbose=False) -> pd.DataFrame:
     """Refit on every season before each test season; return one row per game."""
     f = prep(f)
     played = f[f.pf.notna()]
@@ -111,14 +111,14 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=3.0, min_train_seaso
         # what each adjustment was worth this season (points, home team's view), for the game card
         coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))
         for k in SIT_FEATS:
-            g[f"coef_{k}"] = coefs[k]
+            g[f"coef_{k}"] = coefs.get(k, np.nan)
         out.append(g)
         if verbose:
             print(f"season {s}: trained on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)
     return pd.concat(out, ignore_index=True)
 
 
-def coefficient_table(f: pd.DataFrame, train_seasons, ridge_alpha=3.0) -> pd.DataFrame:
+def coefficient_table(f: pd.DataFrame, train_seasons, ridge_alpha=10.0) -> pd.DataFrame:
     f = prep(f)
     train = f[f.pf.notna() & f.season.isin(train_seasons)]
     m = fit_points(train, ridge_alpha)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--features", default=str(OUT / "features_asof.parquet"))
     ap.add_argument("--seasons", default="2019-2026")
-    ap.add_argument("--alpha", type=float, default=3.0)
+    ap.add_argument("--alpha", type=float, default=10.0)
     a = ap.parse_args()
     lo, hi = a.seasons.split("-")
     f = pd.read_parquet(a.features)

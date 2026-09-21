@@ -34,6 +34,11 @@ def grid(out: Path):
     qb = pd.read_parquet(OUT / "qb_games.parquet")
     rows = []
     combos = list(itertools.product([0.93, 0.96, 0.99], [0.3, 0.5, 0.8], [2.0, 4.0, 8.0]))
+    combos += list(itertools.product([0.85, 0.90], [0.5], [8.0, 16.0, 32.0])) + [(0.93, 0.5, 16.0), (0.93, 0.5, 32.0)]
+    if out.exists():
+        done = pd.read_csv(out)
+        rows = done.to_dict("records")
+        combos = [c for c in combos if not ((done.decay == c[0]) & (done.prior == c[1]) & (done.alpha == c[2])).any()]
     for decay, prior, alpha in combos:
         p = {**ratings.DEFAULT, "decay": decay, "prior": prior, "alpha": alpha}
         t0 = time.time()

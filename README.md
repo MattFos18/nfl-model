@@ -28,7 +28,26 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, probabilities and bet flag.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
-- `reports/`              backtest reports, tuning results, decision log, weekly picks
+- `reports/`              backtest reports, tuning results, decision log, weekly picks:
+  - `backtest_v3.md` the go / no-go numbers: 3.0 vs old model vs Vegas, tuning window vs held-out, thresholds, market blend
+  - `baseline_backtest.md` the old model's full record; `v3_backtest_full.md` the same tables for 3.0 over 2019 to 2026
+  - `decision_log.md` every claim tested, the result, and what was decided
+  - `lab.md` stat correlations (predictive vs same-season) and reliability; `ablation.csv`, `tuning_ratings.csv`, `v3_coefficients.txt`
+  - `picks_2026_wk3.md`, `picks_2026_wk4.md` the weekly picks tables (Week 4 fills in once lines post)
+
+## Headline results (held-out 2023 to 2025, 816 games)
+
+| | 3.0 | Old model | Vegas close |
+|---|---|---|---|
+| Team points miss | 7.34 | 9.02 | 7.21 |
+| Margin miss | 10.16 | 12.66 | 9.74 |
+| Total miss | 10.32 | 12.80 | 10.12 |
+| Brier (win odds) | 0.220 | 0.294 | 0.210 |
+| Spreads at 3+ pt edge | 107-107, -4.5% ROI | 307-289, -1.7% | |
+| Totals at 4+ pt edge | 71-65, -0.3% ROI | 258-262, -5.3% | |
+
+3.0 is far more accurate than the old model and close to the closing line on points, but it does not beat the
+close by betting against it. The picks tables are readings until something does (see the decision log).
 
 ## Run
 
