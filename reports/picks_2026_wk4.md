@@ -1,7 +1,7 @@
 # Week 4, 2026: model picks
 
 Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over).
-Bet flag: spread when the edge is 3+ points, total when 4+. These are the sheet's rules and they have NOT been shown to make money in the backtest; treat them as readings.
+Bet flag: spread when the edge is 5+ points, total when 6+. These are the thresholds with the best ROI that held in both backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 131 spread bets at 5+ went 54.2% (+3.5% ROI), 57 total bets at 6+ went 61.4%. Edges under those thresholds have lost money in every window. Full table in docs/how_it_works.md.
 
 | Game      | Date       | Our score          | Old model   | Our line        | Vegas       | Edge (spread / total)   | Home win   | Home cover   | Over   | Bet   |
 |:----------|:-----------|:-------------------|:------------|:----------------|:------------|:------------------------|:-----------|:-------------|:-------|:------|

@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
-SPREAD_EDGE, TOTAL_EDGE = 3.0, 4.0
+SPREAD_EDGE, TOTAL_EDGE = 5.0, 6.0  # ROI-best thresholds that hold in both backtest windows; see docs/how_it_works.md section 8
 
 
 def fair_ml(p):
@@ -64,7 +64,9 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     df = pd.DataFrame(rows)
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over).",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points, total when {TOTAL_EDGE:g}+. These are the sheet's rules and they have NOT been shown to make money in the backtest; treat them as readings.", ""]
+           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points, total when {TOTAL_EDGE:g}+. These are the thresholds with the best ROI that held in both "
+           "backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 131 spread bets at 5+ went 54.2% (+3.5% ROI), 57 total bets at 6+ went 61.4%. "
+           "Edges under those thresholds have lost money in every window. Full table in docs/how_it_works.md.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 
