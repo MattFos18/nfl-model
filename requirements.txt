@@ -3,3 +3,4 @@ pyarrow
 numpy
 requests
 scikit-learn
+tabulate

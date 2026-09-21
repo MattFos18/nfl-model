@@ -54,18 +54,19 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         our_line = f"{r.home_team} {-r.model_spread:+.1f} / {r.model_total:.1f}"
         vegas = f"{r.home_team} {-r.spread_line:+g} / {r.total_line:g}" if pd.notna(r.spread_line) else "no line yet"
         edge = f"{r.spread_edge:+.1f} / {r.total_edge:+.1f}" if pd.notna(r.spread_line) else ""
-        cover = f"{r.p_cover_home:.0%}" if pd.notna(r.p_cover_home) else ""
-        over = f"{r.p_over:.0%}" if pd.notna(r.p_over) else ""
+        cover = f"{r.home_team} {r.p_cover_home:.0%} / {r.away_team} {1 - r.p_cover_home:.0%}" if pd.notna(r.p_cover_home) else ""
+        over = f"Over {r.p_over:.0%} / Under {1 - r.p_over:.0%}" if pd.notna(r.p_over) else ""
         old = f"{r.old_away:.1f}-{r.old_home:.1f}" if "old_home" in p.columns and pd.notna(r.old_home) else ""
         rows.append({"Game": f"{r.away_team} @ {r.home_team}", "Date": r.gameday,
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Old model": old, "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
-                     "Home win": f"{r.p_home:.0%}", "Home cover": cover, "Over": over, "Bet": r.bet})
+                     "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet})
     df = pd.DataFrame(rows)
     hdr = [f"# Week {week}, {season}: model picks", "",
-           "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over).",
+           "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
+           "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points, total when {TOTAL_EDGE:g}+. These are the thresholds with the best ROI that held in both "
-           "backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 131 spread bets at 5+ went 54.2% (+3.5% ROI), 57 total bets at 6+ went 61.4%. "
+           "backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 127 spread bets at 5+ went 53.5% (+2.2% ROI), 61 total bets at 6+ went 60.7% (+15.8%). "
            "Edges under those thresholds have lost money in every window. Full table in docs/how_it_works.md.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 

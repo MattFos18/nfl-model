@@ -25,7 +25,9 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/backtest.py`  grades any prediction table: points miss vs Vegas, Brier and calibration, ATS and totals record and ROI at -110, by season and edge size, threshold sweeps.
 - `nflmodel/tune.py`      parameter grid and feature ablation on 2019 to 2022 only.
 - `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs old model vs Vegas, tuning vs held-out windows, market blend).
-- `nflmodel/picks.py`     weekly picks table with our score, line, edge, probabilities and bet flag.
+- `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
+- `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
+- `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference and the schedule; fails the build on a mismatch.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
 - `reports/`              backtest reports, tuning results, decision log, weekly picks:
@@ -39,15 +41,17 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 
 | | 3.0 | Old model | Vegas close |
 |---|---|---|---|
-| Team points miss | 7.34 | 9.02 | 7.21 |
-| Margin miss | 10.16 | 12.66 | 9.74 |
-| Total miss | 10.32 | 12.80 | 10.12 |
+| Team points miss | 7.35 | 9.00 | 7.21 |
+| Margin miss | 10.16 | 12.61 | 9.74 |
+| Total miss | 10.35 | 12.75 | 10.12 |
 | Brier (win odds) | 0.220 | 0.294 | 0.210 |
-| Spreads at 3+ pt edge | 107-107, -4.5% ROI | 307-289, -1.7% | |
-| Totals at 4+ pt edge | 71-65, -0.3% ROI | 258-262, -5.3% | |
+| Spreads at 3+ pt edge | 109-105, -2.8% ROI | old model 51.5%, -1.7% | |
+| Spreads at 5+ pt edge (the flag) | 31-28, +0.3% (2019 to 2025: 68-59, +2.2%) | | |
+| Totals at 6+ pt edge (the flag) | 14-8, +21.5% (2019 to 2025: 37-24, +15.8%) | | |
 
-3.0 is far more accurate than the old model and close to the closing line on points, but it does not beat the
-close by betting against it. The picks tables are readings until something does (see the decision log).
+3.0 is far more accurate than the old model and close to the closing line on points. Small disagreements with the close lose;
+5+ point spread edges and 6+ point total edges have won in both backtest windows, on small samples (a lead, not proof).
+Every number in the tables is checked against Pro-Football-Reference and the schedule by `verify.py` (`reports/verification.md`).
 
 ## Run
 

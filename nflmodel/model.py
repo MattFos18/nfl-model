@@ -23,8 +23,24 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]]  # success rate dropped: ablation (reports/ablation.csv)
 SIT_FEATS = ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime"]
-FEATS = RATING_FEATS + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + SIT_FEATS
+FEATS = RATING_FEATS + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + SIT_FEATS + ["qb_out"]  # qb_out: reports/additions.csv
 MARGIN_RANGE = np.arange(-60, 61)
+
+
+TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_home_cover", "ref_pen", "sun_late",
+               "body_clock_early", "cold_edge", "wind_edge", "off_home_split", "off_starters_out", "def_starters_out", "qb_out"]
+
+
+def with_trends(f: pd.DataFrame) -> pd.DataFrame:
+    """Merge the as-of trend and injury table (trends.py) onto the feature table; missing values become 0 / league."""
+    t = pd.read_parquet(OUT / "trends_asof.parquet")
+    t = t[["game_id", "team"] + TREND_FEATS]
+    f = f.merge(t, on=["game_id", "team"], how="left")
+    fill = {"ref_over": 0.5, "ref_home_cover": 0.5}
+    for c in TREND_FEATS:
+        f[c] = f[c].fillna(fill.get(c, 0.0))
+    f["home_edge_in_play"] = f.team_home_edge * f.home            # own edge counts only at home
+    return f
 
 
 def prep(f: pd.DataFrame) -> pd.DataFrame:
@@ -135,7 +151,7 @@ if __name__ == "__main__":
     ap.add_argument("--alpha", type=float, default=10.0)
     a = ap.parse_args()
     lo, hi = a.seasons.split("-")
-    f = pd.read_parquet(a.features)
+    f = with_trends(pd.read_parquet(a.features))
     pred = walk_forward(f, range(int(lo), int(hi) + 1), a.alpha, verbose=True)
     pred.to_parquet(OUT / "pred_v3.parquet", index=False)
     print(pred.shape)

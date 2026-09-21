@@ -25,7 +25,8 @@ COLS = ["game_id", "season", "week", "season_type", "home_team", "away_team", "p
         "penalty", "penalty_team", "penalty_yards", "yards_gained", "fixed_drive", "fixed_drive_result",
         "drive_inside20", "drive_start_yard_line", "kickoff_attempt", "kick_distance", "punt_attempt",
         "field_goal_attempt", "field_goal_result", "extra_point_result", "two_point_conv_result", "safety",
-        "epa", "success", "wp", "qb_epa", "passer_player_id", "down", "yardline_100", "game_seconds_remaining", "return_team", "return_yards"]
+        "epa", "success", "wp", "qb_epa", "passer_player_id", "two_point_attempt", "fumbled_1_team",
+        "first_down_rush", "first_down_pass", "first_down_penalty", "drive_play_count", "down", "yardline_100", "game_seconds_remaining", "return_team", "return_yards"]
 
 
 def load_pbp(seasons) -> pd.DataFrame:
@@ -54,12 +55,22 @@ def offense_box(p: pd.DataFrame) -> pd.DataFrame:
     for c in ["pass", "rush", "qb_dropback", "sack", "complete_pass", "pass_attempt", "rush_attempt", "interception",
               "fumble_lost", "pass_touchdown", "rush_touchdown", "first_down", "third_down_converted",
               "third_down_failed", "fourth_down_converted", "fourth_down_failed", "penalty", "passing_yards",
-              "rushing_yards", "yards_gained", "kickoff_attempt", "kick_distance", "qb_scramble", "qb_kneel", "qb_spike"]:
+              "rushing_yards", "yards_gained", "kickoff_attempt", "kick_distance", "qb_scramble", "qb_kneel", "qb_spike",
+              "two_point_attempt", "first_down_rush", "first_down_pass", "first_down_penalty"]:
         d[c] = _num(d[c])
-    scrim = d.play_type.isin(["pass", "run"])
+    # Definitions checked against Pro-Football-Reference 2024 team totals (nflmodel/verify.py):
+    #   a pass attempt is a counted pass play that was not a sack or a two-point try, plus spikes;
+    #   a rush attempt is a counted run or kneel that was not a two-point try; fumbles lost belong to the team
+    #   that fumbled (return fumbles were being charged to the kicking team); first downs = rush + pass + penalty.
+    not2 = d.two_point_attempt == 0
+    scrim = d.play_type.isin(["pass", "run"]) & not2
     d["scrim_play"] = scrim.astype(int)
     d["scrim_yards"] = np.where(scrim, d.yards_gained, 0)
     d["sack_yards"] = np.where(d.sack == 1, -d.yards_gained, 0)
+    d["pass_attempt"] = (((d.play_type == "pass") & (d.sack == 0) & not2) | (d.play_type == "qb_spike")).astype(int)
+    d["rush_attempt"] = (d.play_type.isin(["run", "qb_kneel"]) & not2).astype(int)
+    d["first_down"] = d.first_down_rush + d.first_down_pass + d.first_down_penalty
+    d["fumble_lost"] = 0  # re-attributed below by the fumbling team
     d["ko_yards"] = np.where(d.kickoff_attempt == 1, d.kick_distance, 0)
     d["rush_td"] = d.rush_touchdown
     d["pass_td"] = d.pass_touchdown
@@ -82,8 +93,14 @@ def offense_box(p: pd.DataFrame) -> pd.DataFrame:
     pen = pen.groupby(["game_id", "penalty_team"]).agg(penalties=("penalty", "size"), penalty_yards=("penalty_yards", "sum"))
     pen.index.names = ["game_id", "posteam"]
     box = box.join(pen).fillna({"penalties": 0, "penalty_yards": 0})
+    fl = p[(_num(p.fumble_lost) == 1) & p.fumbled_1_team.notna()].groupby(["game_id", "fumbled_1_team"]).size().rename("fumbles_lost")
+    fl.index.names = ["game_id", "posteam"]
+    box = box.drop(columns="fumbles_lost").join(fl).fillna({"fumbles_lost": 0})
     # drives: one row per (game, team, fixed_drive)
+    # drives, excluding kneel-only drives (PFR does not count them)
+    kneel_only = d[d.fixed_drive.notna()].groupby(["game_id", "posteam", "fixed_drive"]).play_type.agg(lambda s: set(s.dropna()) <= {"qb_kneel", "no_play"})
     dr = d[d.fixed_drive.notna()].drop_duplicates(["game_id", "posteam", "fixed_drive"]).copy()
+    dr = dr.merge(kneel_only[~kneel_only].reset_index()[["game_id", "posteam", "fixed_drive"]], on=["game_id", "posteam", "fixed_drive"])
     dr["score"] = dr.fixed_drive_result.isin(["Touchdown", "Field goal"]).astype(int)
     dr["td"] = dr.fixed_drive_result.eq("Touchdown").astype(int)
     dr["rz"] = _num(dr.drive_inside20).astype(int)

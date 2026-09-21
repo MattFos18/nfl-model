@@ -20,7 +20,7 @@ def score(pred: pd.DataFrame, games: pd.DataFrame) -> dict:
     d = backtest.join(pred, games)
     d = d[(d.game_type == "REG") & d.season.isin(TUNE_SEASONS)]
     pm = backtest.points_miss(d).set_index("target")
-    sp = backtest.summarize_bets(backtest.grade_spread(d, 3.0)).iloc[0]
+    sp = backtest.summarize_bets(backtest.grade_spread(d, 5.0)).iloc[0]
     to = backtest.summarize_bets(backtest.grade_total(d, 4.0)).iloc[0]
     br = backtest.brier(d)
     return {"team_mae": pm.loc["team points", "model_mae"], "margin_mae": pm.loc["margin", "model_mae"],
@@ -68,7 +68,7 @@ GROUPS = {
 
 
 def ablation(features_path: Path, ridge: float, out: Path):
-    f = pd.read_parquet(features_path)
+    f = model.with_trends(pd.read_parquet(features_path))
     games = pd.read_parquet(OUT / "games.parquet")
     full = model.FEATS.copy()
     rows = []
@@ -87,10 +87,49 @@ def ablation(features_path: Path, ridge: float, out: Path):
     return df
 
 
+ADDITIONS = {
+    "team home edge": ["home_edge_in_play"],
+    "head-to-head": ["h2h_cover"],
+    "coach ATS": ["coach_ats"],
+    "QB ATS": ["qb_ats"],
+    "off a loss": ["off_loss"],
+    "referee over/under": ["ref_over"],
+    "referee home cover": ["ref_home_cover"],
+    "referee penalties": ["ref_pen"],
+    "late slot / body clock": ["sun_late", "body_clock_early"],
+    "cold and wind team edges": ["cold_edge", "wind_edge"],
+    "home/away EPA split": ["off_home_split"],
+    "injuries: starters out": ["off_starters_out", "def_starters_out"],
+    "injuries: QB out": ["qb_out"],
+}
+
+
+def additions(features_path: Path, ridge: float, out: Path, test_seasons=None):
+    """Add each candidate group to the locked model, one at a time; keep what lowers the tuning-window miss."""
+    f = model.with_trends(pd.read_parquet(features_path))
+    games = pd.read_parquet(OUT / "games.parquet")
+    base_feats = model.FEATS.copy()
+    rows = []
+    base = score(model.walk_forward(f, TUNE_SEASONS, ridge), games)
+    rows.append({"added": "(none)", **base})
+    print("base", round(base["team_mae"], 4), flush=True)
+    for name, cols in ADDITIONS.items():
+        model.FEATS = base_feats + cols
+        r = score(model.walk_forward(f, TUNE_SEASONS, ridge), games)
+        rows.append({"added": name, **r})
+        print(name, round(r["team_mae"], 4), round(r["team_mae"] - base["team_mae"], 4), "ats5", round(r["ats_pct"], 3), flush=True)
+    model.FEATS = base_feats
+    df = pd.DataFrame(rows)
+    df["delta_team_mae"] = df.team_mae - base["team_mae"]
+    df.to_csv(out, index=False)
+    return df
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--grid", action="store_true")
     ap.add_argument("--ablation", action="store_true")
+    ap.add_argument("--additions", action="store_true")
     ap.add_argument("--features", default=str(OUT / "features_asof.parquet"))
     ap.add_argument("--ridge", type=float, default=3.0)
     a = ap.parse_args()
@@ -99,3 +138,5 @@ if __name__ == "__main__":
         grid(REP / "tuning_ratings.csv")
     if a.ablation:
         ablation(Path(a.features), a.ridge, REP / "ablation.csv")
+    if a.additions:
+        additions(Path(a.features), a.ridge, REP / "additions.csv")
