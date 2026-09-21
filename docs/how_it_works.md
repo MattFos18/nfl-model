@@ -196,7 +196,30 @@ across recent form and the season. What changes is where each number comes from.
 | Refs, coaches, head-to-head, weather teams | Typed in from memory and sites | Computed as-of, tested, shown with a label | None of them improved the score; refs and coaches do not persist |
 | Tracking | SLIP tab by hand | Graded automatically, model picks and your bets kept apart (Phase 5) | |
 
-## 10. Verification
+## 10. How much to trust the backtest
+
+`nflmodel/audit.py` (`reports/audit.md`) checks the backtest itself:
+
+- **No leakage.** Every game from Week 10 of 2024 onward was corrupted (EPA flipped, 20 points added, QB EPA
+  set to -50, results changed) and the ratings for Weeks 1 to 9 rebuilt: not one number changed. The 2024
+  regression was refit with 2024-onward targets corrupted: not one prediction changed. Nothing after a game
+  reaches the numbers used to predict it.
+- **Same games.** 3.0 and the old model are graded on the identical 1,871 regular-season games, no
+  duplicates, every one with a closing line.
+- **How sure each keep/drop call is.** Each rejected input was added back to the locked model and the change
+  in points miss measured with a paired bootstrap (the same games, 2,000 resamples), on both windows. The
+  90% intervals are about plus or minus 0.007 points. No rejected input has an interval entirely below zero
+  on both windows, and most point estimates are on the wrong side. The QB rating (+0.080 when dropped) and
+  weather (+0.040) are the only inputs whose effect is larger than the interval.
+- **What "no benefit" means.** No benefit the data can detect, on 2,110 tuning and 1,632 held-out team-games.
+  It is not a proof of zero; no sample can give that. A benefit of 0.003 points per team, which is what a
+  real but small trend would look like, is invisible here and would also be worthless to bet on.
+- **Rejected ideas as bets.** Each trend was also graded as a standalone bet against the closing line (bet the
+  side it favours, top or bottom quartile). All lose or sit at break-even in both windows except one: West
+  Coast teams at 1pm ET on the road went 105-81 (56.5%) with the sign holding in both windows. It is logged as a
+  lead and tracked live; 186 bets is not proof.
+
+## 11. Verification
 
 `verify.py` runs after every data rebuild (`reports/verification.md`). It checks the 2024 season totals
 from play-by-play against the Pro-Football-Reference table that was pasted into your sheet, 24 stats for 32
@@ -208,7 +231,7 @@ one offense gained equals what the other defense allowed (0 mismatches). The fir
 (pass attempts counted sacks and two-point tries, return fumbles were charged to the kicking team) and they
 are fixed.
 
-## 11. What would make it a real edge
+## 12. What would make it a real edge
 
 In order of what the data says: (1) bet at the opener or midweek and measure closing line value, which needs
 the line log that starts in the first live week; (2) price injuries and the player model before the line
