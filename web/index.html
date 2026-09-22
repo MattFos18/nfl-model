@@ -237,6 +237,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <button data-sub="ratings">Ratings by week</button>
     <button data-sub="how">How a rating is built</button>
     <button data-sub="inputs">Game deep dive</button>
+    <button data-sub="players">Players</button>
   </nav>
   <div id="games">
     <p class="note">One row per game for the team and season chosen at the top right, straight from the built tables: the box score (checked against Pro-Football-Reference), the EPA stats, the ratings carried into the game, the trend readings, the model's call and the closing line. Turn column groups on and off; hover a header for the definition and source. "Allowed" groups are what the defense gave up.</p>
@@ -258,6 +259,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <p class="note" id="howformula"></p>
     <div class="tablewrap" style="max-height:56vh"><table id="howtable"></table></div>
     <div id="howsum" style="margin-top:12px"></div>
+  </div>
+  <div id="players" hidden>
+    <p class="note">Every RB, WR and TE with a touch in his last eight games, valued as of the coming week. <b>EPA per touch</b> is the player's own EPA per carry or target, decayed by game and shrunk toward replacement level (the 25th percentile of players with 100+ touches). <b>Above replacement</b> is that gap times his share of the team's touches, in EPA per team play. <b>Points if out</b> is what the model takes off the team's expected points when he is listed Out or Doubtful: the value times the fitted weight. A player traded in keeps the usage he had elsewhere. Status is this week's injury report.</p>
+    <div class="tablewrap" style="max-height:70vh"><table id="playerstable"></table></div>
   </div>
   <div id="inputs" hidden>
     <p class="note">Pick a game. Every input the regression used, its value, what one unit is worth in points that season, and its contribution: coefficient times the input's distance from its baseline (the league average for a rating, zero for a situation flag). The base plus every contribution adds up exactly to the model's expected points.</p>
@@ -514,13 +519,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   const recPct = arr => { const w = arr.filter(x => x > 0).length, n = arr.filter(x => x !== 0).length; return n ? ` (${Math.round(100 * w / n)}%)` : ""; };
   function form(t, games) { const ss = games.map(g => side(g, t)).filter(Boolean); return {n: ss.length, su: wl(ss.map(x => Math.sign(x.mg))), ats: wl(ss.map(x => x.cov).filter(x => x != null)) + recPct(ss.map(x => x.cov).filter(x => x != null)), ou: wl(ss.map(x => x.ov).filter(x => x != null)), pf: ss.length ? (ss.reduce((a, x) => a + x.pf, 0) / ss.length).toFixed(1) : "", pa: ss.length ? (ss.reduce((a, x) => a + x.pa, 0) / ss.length).toFixed(1) : ""}; }
   const kvp = (k, v) => `<span>${k}</span><b>${v}</b>`;
-  // the both-window test of candidate inputs (reports/additions_both.csv): change in the points miss, negative = better
-  function addedTable(keys, title) {
-    const rows = (META.analysis && META.analysis.additions_both) || []; const by = Object.fromEntries(rows.map(r => [r.added, r]));
-    const ks = keys.filter(k => by[k]); if (!ks.length) return "";
-    const d = v => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(3);
-    return `<div><p class="cap">${title}</p><div class="tablewrap"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points miss, 2019-22</th><th class="n">Points miss, 2023-25</th><th class="n">Flags 2019-22</th><th class="n">Flags 2023-25</th><th>Verdict</th></tr></thead><tbody>${ks.map(k => { const r = by[k]; const v = r.verdict === "helps both" ? "In the model" : (r.verdict === "helps one" ? "Helps one window only: not used" : "No effect: not used"); return `<tr><td>${k}</td><td class="n">${d(r["delta_2019-22"])}</td><td class="n">${d(r["delta_2023-25"])}</td><td class="n">${r["ats5_2019-22"]}</td><td class="n">${r["ats5_2023-25"]}</td><td>${v}</td></tr>`; }).join("")}</tbody></table></div><div class="mv"><span class="chip mute">Change in the average points miss when added on its own; below zero is better; noise about ±0.005</span></div></div>`;
-  }
   function h2hHtml(A, B, g) {
     if (!G) return `<p class="note" style="margin:0">No game history exported.</p>`;
     const played = G.filter(x => x.hs != null);
@@ -564,7 +562,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     [A, B].forEach(t => { const f5 = form(t, last(t, 5)), f10 = form(t, last(t, 10)); const two = played.filter(x => (x.home === t || x.away === t) && x.season >= (cur ? cur.season : 2026) - 1); const fav = form(t, two.filter(x => side(x, t).sp != null && side(x, t).sp < 0)), dog = form(t, two.filter(x => side(x, t).sp != null && side(x, t).sp > 0));
       h += `<tr><td><b>${t}</b></td><td class="n">${f5.su}</td><td class="n">${f10.ats}</td><td class="n">${f10.ou}</td><td class="n">${f10.pf} / ${f10.pa}</td><td class="n">${fav.n ? fav.ats : ""}</td><td class="n">${dog.n ? dog.ats : ""}</td></tr>`; });
     h += `</tbody></table></div></div>`;
-    h += addedTable(["head-to-head", "coach ATS", "QB ATS", "team home edge", "all matchup history factors together"], "Tested as model inputs");
     return h;
   }
   function renderWeek() {
@@ -663,7 +660,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
         const id = `x${gIdx}_${ti}_${gi}`;
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
-        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table></td></tr>`;
+        let extra = "";
+        if (gname.startsWith("Injuries")) { const opp = g.sides[t === g.home_team ? g.away_team : g.home_team] || {}; const chips = (arr, who) => (arr || []).map(x => `<span class="chip">${who} out: ${esc(x.name)} · ${x.value >= 0 ? "" : "+"}${(-co.per_unit.skill_out_value * x.value).toFixed(1)} pts</span>`).join("");
+          extra = chips(inp.skill_out_players, t) + (opp.skill_out_players || []).map(x => `<span class="chip">Opponent out: ${esc(x.name)} · ${x.value >= 0 ? "+" : ""}${(co.per_unit.opp_skill_out_value * x.value).toFixed(1)} pts</span>`).join(""); extra = extra ? `<div class="mv">${extra}</div>` : `<div class="mv"><span class="chip mute">Nobody of note listed out</span></div>`; }
+        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table>${extra}</td></tr>`;
       });
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
       h += `<div class="mv"><span class="chip">QB ${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (listed out)" : (inp.qb_carried ? " (last starter)" : "")}</span><span class="chip">Rest ${inp.rest} days</span><span class="chip">Starters out: offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</span></div></div>`;
@@ -978,6 +978,14 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (f === "qb_out") return r.qb_out ? 1 : 0;
     return r[f] != null ? r[f] : null;
   }
+  function renderPlayers() {
+    const P = (data && data.players) || []; const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
+    if (!P.length) { $("playerstable").innerHTML = "<tbody><tr><td>No player values exported for this team.</td></tr></tbody>"; return; }
+    const st = v => !v ? "" : (/^Out|^Doubtful/.test(v) ? `<span class="badge flag">${esc(v)}</span>` : esc(v));
+    let h = "<thead><tr><th class='l'>Player</th><th>Pos</th><th class='l'>Status this week</th><th>Games</th><th>Touches per game</th><th>Share of team touches</th><th>EPA per touch</th><th>Above replacement, EPA per team play</th><th>Points if out</th></tr></thead><tbody>";
+    P.forEach(r => { h += `<tr><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position || "")}</td><td class="l">${st(r.status)}</td><td class="mono">${r.games}</td><td class="mono">${r.touches_per_game}</td><td class="mono">${(100 * r.share).toFixed(0)}%</td><td class="mono">${r.epa_per_touch.toFixed(3)}</td><td class="mono">${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}</td><td class="mono">${r.value_above_replacement > 0 ? "-" + (w * r.value_above_replacement).toFixed(1) : "0"}</td></tr>`; });
+    $("playerstable").innerHTML = h + "</tbody>";
+  }
   function renderInputs() {
     const rs = rows();
     const sel = $("game"); sel.innerHTML = "";
@@ -1202,7 +1210,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (tab === "history") return renderBacktest();
     if (tab === "track") return renderTrack();
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); if (s === "players") renderPlayers(); }
   }
   showTab(); render(); load();
 })();

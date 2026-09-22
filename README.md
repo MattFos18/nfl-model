@@ -56,11 +56,11 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | | 3.0 | Vegas close |
 |---|---|---|
 | Team points miss | 7.34 | 7.21 |
-| Margin miss | 10.11 | 9.74 |
+| Margin miss | 10.10 | 9.74 |
 | Total miss | 10.29 | 10.12 |
 | Brier (win odds) | 0.220 | 0.210 |
-| Spreads at 3+ pt edge | 106-96 | |
-| Spreads at 5+ pt edge (the flag) | 26-17 (2019 to 2025: 66-49; 62-41 outside Week 18) | |
+| Spreads at 3+ pt edge | 108-95 | |
+| Spreads at 5+ pt edge (the flag) | 25-16 (2019 to 2025: 67-45; 62-37 outside Week 18) | |
 | Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 60-56 (2019 to 2025: 141-117) | |
 
 These rows are written by `report.py` from the same prediction table as the page and the reports, on every run.

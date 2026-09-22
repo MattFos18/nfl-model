@@ -385,8 +385,21 @@ Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row 
 toward a replacement level set at the 25th percentile of players with 100+ plays in earlier seasons.
 
 Phase 2 (`injury_value`, `data/processed/player_injury.parquet`): for each game and team, the value lost to RB, WR
-and TE listed Out or Doubtful on the final report: value above replacement times the player's share of the team's
-touches over its previous eight games, summed. In the model since 22 Sep 2026, own and opponent
+and TE listed Out or Doubtful on the final report: value above replacement times the player's usage share, summed.
+Usage is the player's own share of his team's touches over his last eight games on any team, so a star who changed
+teams in the offseason (A.J. Brown to New England, valued 0.045 EPA per team play above replacement from his
+Eagles games) counts in full if he is listed out, even before he has played for the new team. A player the
+play-by-play has never seen counts as nothing, which is right: there is no evidence he is above replacement.
+
+**How a player's impact is rated.** Each rusher or receiver has an EPA per touch: the average EPA of the plays he
+carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 80 touches of weight
+(a rookie with 20 touches is mostly the prior; a veteran with 300 is mostly himself). Replacement level is the 25th
+percentile of players with 100+ touches in earlier seasons, about 0.05 EPA per touch for receivers and -0.1 for
+rushers. The player's value is (EPA per touch minus replacement) times his share of the team's touches, in EPA per
+team play; a star receiver with 20% of the touches at 0.35 EPA per target is about 0.06. The model's fitted weight
+(about -13 points per unit) turns that into points: about 0.8 points off the team's expected score when he sits.
+Team -> Players lists every skill player with these numbers and this week's injury status; a card names who is out
+under "Injuries beyond the QB". In the model since 22 Sep 2026, own and opponent
 (`experiments/player_injury.py`, `reports/player_injury.csv`): margin miss 10.152 to 10.143 (2019-22) and 10.117
 to 10.105 (2023-25). Small, but the same sign on both windows and larger than any situational input added this
 year. The QB stays on its own flag (`qb_out`), which already carries the biggest injury effect.

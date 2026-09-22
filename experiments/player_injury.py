@@ -4,7 +4,7 @@ import pandas as pd
 from nflmodel import model as M
 from nflmodel.model import OUT
 from experiments.common import both
-f = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
+f = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")).drop(columns=[c for c in M.INJ_FEATS if c in M.FEATS or True], errors="ignore")
 iv = pd.read_parquet(OUT / "player_injury.parquet")
 f = f.merge(iv, on=["game_id", "team"], how="left")
 for c in ["skill_out_value", "skill_out_share", "n_skill_out"]:
@@ -13,7 +13,7 @@ for c in ["skill_out_value", "skill_out_share", "n_skill_out"]:
 opp = iv.rename(columns={"team": "opp", "skill_out_value": "opp_skill_out_value"})[["game_id", "opp", "opp_skill_out_value"]]
 f = f.merge(opp, on=["game_id", "opp"], how="left"); f["opp_skill_out_value"] = f.opp_skill_out_value.fillna(0.0)
 f["off_epa_adj"] = f.off_epa_play - f.skill_out_value
-base_feats = M.FEATS.copy(); rows = []
+base_feats = [c for c in M.FEATS if c not in M.INJ_FEATS]; rows = []   # the model already carries these; test them from the base without
 def run(name, feats, frame):
     M.FEATS = feats; r = both(frame); M.FEATS = base_feats
     rows.append({"variant": name, **{f"{k}_{w}": v for w, d in r.items() for k, v in d.items()}}); print(name, {w: (r[w]["team_mae"], r[w]["ats5"]) for w in r}, flush=True)
