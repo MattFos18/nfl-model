@@ -1,4 +1,4 @@
-"""Assemble reports/backtest_v3.md: 3.0 against the old model and the closing line, tuned on 2019 to 2022,
+"""Assemble reports/backtest_v3.md: 3.0 against the closing line, tuned on 2019 to 2022,
 judged on 2023 to 2025, with the market blend and the threshold sweep on the tuning window only.
 
 Usage: python -m nflmodel.report
@@ -13,14 +13,10 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 TUNE, TEST = range(2019, 2023), range(2023, 2026)
 
 
-def compare_points(new: pd.DataFrame, old: pd.DataFrame, seasons) -> pd.DataFrame:
-    n = new[new.season.isin(seasons) & (new.game_type == "REG")]
-    o = old[old.season.isin(seasons) & (old.game_type == "REG")]
-    ids = n.game_id.isin(o.game_id)
-    n = n[ids]
-    o = o[o.game_id.isin(n.game_id)]
-    pn, po = bt.points_miss(n).set_index("target"), bt.points_miss(o).set_index("target")
-    return pd.DataFrame({"3.0": pn.model_mae, "old model": po.model_mae, "Vegas close": pn.vegas_mae, "games": pn.n}).round(2)
+def compare_points(new: pd.DataFrame, seasons) -> pd.DataFrame:
+    n = new[new.season.isin(seasons) & (new.game_type == "REG") & new.spread_line.notna()]
+    pn = bt.points_miss(n).set_index("target")
+    return pd.DataFrame({"3.0": pn.model_mae, "Vegas close": pn.vegas_mae, "games": pn.n}).round(2)
 
 
 def market_blend(new: pd.DataFrame):
@@ -57,23 +53,20 @@ def clv_proxy(d: pd.DataFrame, edge: float) -> str:
 
 def main():
     new = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
-    old = bt.join(pd.read_parquet(OUT / "pred_baseline.parquet"))
     L = ["# NFL Model 3.0 backtest", "",
-         "Walk-forward: every week is priced with only games played before it; the points regression is refit each season on all "
-         "prior seasons from 2013. Rating parameters, ridge strength and bet thresholds were chosen on 2019 to 2022 only. "
+         "Walk-forward: every week is priced with only games played before it; the points regression is refit before every week on every "
+         "played game since 2013. Rating parameters, ridge strength and bet thresholds were chosen on 2019 to 2022 only. "
          "2023 to 2025 is the held-out test the tuning never saw.", ""]
-    L += ["## 1. Points miss (mean absolute error) against the old model and Vegas", "",
-          "Tuning window 2019 to 2022:", "", compare_points(new, old, TUNE).to_markdown(), "",
-          "Held-out 2023 to 2025:", "", compare_points(new, old, TEST).to_markdown(), "",
-          "Held-out, Week 5 on:", "", compare_points(new[new.week > 4], old[old.week > 4], TEST).to_markdown(), ""]
+    L += ["## 1. Points miss (mean absolute error) against Vegas", "",
+          "Tuning window 2019 to 2022:", "", compare_points(new, TUNE).to_markdown(), "",
+          "Held-out 2023 to 2025:", "", compare_points(new, TEST).to_markdown(), "",
+          "Held-out, Week 5 on:", "", compare_points(new[new.week > 4], TEST).to_markdown(), ""]
     for name, seasons in [("2019 to 2022 (tuning)", TUNE), ("2023 to 2025 (held out)", TEST)]:
         d = new[new.season.isin(seasons) & (new.game_type == "REG")]
-        o = old[old.season.isin(seasons) & (old.game_type == "REG")]
-        bs, bo = bt.brier(d), bt.brier(o)
+        bs = bt.brier(d)
         L += [f"## 2. Win probability, {name}", "",
-              f"Brier score (lower is better): 3.0 {bs['brier_model']:.4f}, old model {bo['brier_model']:.4f}, market moneyline {bs['brier_market']:.4f}.", "",
-              "3.0 calibration:", "", bt.calibration(d).round(3).to_markdown(), "",
-              "Old model calibration (the Poisson grid problem):", "", bt.calibration(o).round(3).to_markdown(), ""]
+              f"Brier score (lower is better): 3.0 {bs['brier_model']:.4f}, market moneyline {bs['brier_market']:.4f}.", "",
+              "3.0 calibration:", "", bt.calibration(d).round(3).to_markdown(), ""]
     d_t = new[new.season.isin(TUNE) & (new.game_type == "REG")]
     d_v = new[new.season.isin(TEST) & (new.game_type == "REG")]
     L += ["## 3. Spreads: threshold sweep on the tuning window (2019 to 2022)", "", threshold_table(d_t, "spread").to_markdown(index=False), "",
@@ -84,14 +77,12 @@ def main():
     s_ok = st[st.bets >= 100].sort_values("roi", ascending=False).iloc[0]
     t_ok = tt[tt.bets >= 100].sort_values("roi", ascending=False).iloc[0]
     L += [f"Best spread threshold with 100+ bets on the tuning window: {s_ok.edge:g} (ROI {s_ok.roi:+.3f}). "
-          f"Best total threshold: {t_ok.edge:g} (ROI {t_ok.roi:+.3f}). The held-out results below use the sheet's 3 and 4 and, separately, these.", ""]
-    for label, se, te in [("sheet rules (3 / 4)", 3.0, 4.0), (f"tuned ({s_ok.edge:g} / {t_ok.edge:g})", float(s_ok.edge), float(t_ok.edge))]:
+          f"Best total threshold: {t_ok.edge:g} (ROI {t_ok.roi:+.3f}). The held-out results below use the live flags (5 / 6) and, separately, these.", ""]
+    for label, se, te in [("live flags (5 / 6)", 5.0, 6.0), (f"tuned ({s_ok.edge:g} / {t_ok.edge:g})", float(s_ok.edge), float(t_ok.edge))]:
         sp, to = bt.grade_spread(d_v, se), bt.grade_total(d_v, te)
         L += [f"## 5. Held-out 2023 to 2025, {label}", "", "Spreads:", "", bt.summarize_bets(sp).round(3).to_markdown(), "",
               bt.summarize_bets(sp, "season").round(3).to_markdown(), "", "By edge size:", "", bt.edge_buckets(sp, edges=(se, se + 1, se + 2, se + 4, 99)).round(3).to_markdown(), "",
               "Totals:", "", bt.summarize_bets(to).round(3).to_markdown(), "", bt.summarize_bets(to, "season").round(3).to_markdown(), ""]
-        so, oo = bt.grade_spread(old[old.season.isin(TEST) & (old.game_type == "REG")], se), bt.grade_total(old[old.season.isin(TEST) & (old.game_type == "REG")], te)
-        L += ["Old model on the same seasons and rules:", "", pd.concat([bt.summarize_bets(so).assign(kind="spreads"), bt.summarize_bets(oo).assign(kind="totals")]).round(3).to_markdown(), ""]
     a, mb = market_blend(new)
     L += ["## 6. Market plus model", "",
           f"Blend the model line with the closing line, pred = a x model + (1 - a) x line. Best a on 2019 to 2022 by margin MAE: {a:g}.", "",

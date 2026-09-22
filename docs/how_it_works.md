@@ -137,16 +137,61 @@ the line with pushes taken out, over probability from the normal on the total.
 Calibration held out (2023 to 2025, `reports/backtest_v3.md`): games called 55% won 57%, called 65% won
 64%, called 78% won 76%. Brier 0.220 against the market's 0.210 (the old model: 0.294).
 
-## 7. The old model, for comparison
+## 7. Timing: what each game is priced with
 
-`baseline.py` is the Google Sheet formula for formula: seven tabs (OVERALL, 2.0, LAST 3, HOME/AWAY, PF/PA,
-two last-year tabs), each computing offense strength x opponent defense strength x league average x home
-factor from both the points-for and points-against side, blended 10/35/35/15/5/0/0, then the Poisson grid.
-Strength indexes are the sheet's own: the teamrankings one (3 PPG + RZ TD + rating - 2 giveaways + ... over
-4.5) and the 2.0 one (ten PFR stats weighted by same-season correlation). Run walk-forward on the same games
-it is 49.4% against the spread over 2019 to 2025 and misses team points by 9.0 against 3.0's 7.3.
+Every number used to price a game is dated before that game's week. This is the walk-forward rule and it is
+mechanical, not a matter of care:
 
-## 8. Betting thresholds: what the sweep says
+- **Ratings.** `ratings.window` takes this season's games with `week < the game's week` plus last season's games,
+  nothing else. A Thursday game and the Sunday games of the same week therefore see identical ratings, through the
+  previous week. Nothing from the game itself or later can enter.
+- **QB rating.** The starter's dropbacks and EPA from games with `week < the game's week`, decayed. For played games the
+  starter is the one who actually started (nflverse); for the coming week it is the listed starter; for later unplayed
+  weeks it is the team's most recent starter carried forward (until 22 Sep the fallback for those weeks was a
+  replacement-level placeholder, which is why "going into Week 4" on the Rankings tab dragged every team down; that
+  affected only unplayed future weeks, never a backtest row, and the selector now stops at the next unplayed week).
+- **Regression.** Refit before every week on every played game so far, this season's included, never the week being
+  priced or anything after it (section 8).
+- **Lines.** The closing spread and total from nflverse for played games; the current line for unplayed ones. The
+  backtest is therefore "the model against the close". Live, the tracker records the line the pick was made at and
+  the closing line value once the game closes.
+- **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
+  games is the recorded game-time weather.
+
+`audit.py` checks the rule by force: every game from Week 10 of 2024 onward was corrupted and the earlier weeks'
+numbers rebuilt; not one changed (section 10).
+
+## 8. Learning as the season goes
+
+The regression is refit before every week on all played games since 2013, so each week's coefficients include last
+week's results (18 refits a season instead of one). Tested walk-forward against the original once-a-season refit and
+against a "learn from your misses" input (each team's mean out-of-sample miss over its last 8 games, shrunk):
+
+| Build (experiment harness, `reports/learning_experiments.csv`) | Margin miss 2019-25 | Spread flags at 5+, 2019-22 | 2023-25 | 2019-25 |
+|---|---|---|---|---|
+| Refit once a season (original) | 10.164 | 36-30 | 29-28 | 65-58 (52.8%) |
+| Refit every week (now) | 10.161 | 36-27 | 29-27 | 65-54 (54.6%) |
+| Weekly + mean-miss input | 10.169 | 37-27 | 31-28 | 68-55 (55.3%), 3+ edges worse (48.5%) |
+
+The production build with weekly refit (`reports/backtest_v3.md`, the History tab) grades the same rule at 64-56 (53.3%) over
+2019 to 2025, 30-28 held out, and 57-46 (55.3%) with Week 18 excluded; totals at 6+ are 35-23 (60.3%), 16-7 held out. The
+harness and the production grader differ by a few bets in how pushes and the season's first week are handled.
+
+Accuracy is the same to three decimals: the ratings already carry the season's information, so the regression's
+weights barely move within a year. Weekly refit is kept because it is the natural rule and costs nothing; the
+mean-miss input is rejected (no accuracy gain, and the 3+ record fell). Learning is in the ratings, which update
+after every game, not in a memory of past misses. (`reports/learning_experiments.csv`.)
+
+**Why 2025 went 6-11 on flags.** The model's accuracy in 2025 was normal: margin miss 10.17 against 10.0 to 10.3 in
+other seasons, Vegas at 9.74 as usual. The flags simply lost: 17 bets, and a 6-11 run has about a 17% chance under a
+coin flip and 7% at the model's earlier 56% rate. Four of the eleven losses were Week 18 games, where teams rest
+starters and the line knows it before the ratings do. Week 18 flags went 7-10 over 2019 to 2025 in the production build, so Week 18 is no
+longer flagged (the rest of the record becomes 57-46, 55.3%). Weeks 1 to 6 are also weak (17-20) because ratings on
+few games are noisy; that is not made a rule, because 37 bets cannot carry one, but it is the reason the flag
+thresholds are shown with their sample sizes. The whole 5+ record is +0.9 units after 129 bets: a lead, not an edge,
+and the live tracker is what settles it.
+
+## 9. Betting thresholds: what the sweep says
 
 The 3 point rule was the sheet's idea, so 3.0 was swept from 0 to 7 points of disagreement with the closing
 line, on all of 2019 to 2025 and on the two windows separately (spreads; totals below):
@@ -173,28 +218,6 @@ really above zero at 69% and for 6+ at 87% (totals 6+: 93%); the plan's bar is 9
 spreads and 6 for totals (the ROI-best thresholds that hold in both windows), with the sample size printed
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
-
-## 9. Your method and this one, piece by piece
-
-Your sheet did one thing that this model keeps exactly: each team's expected score is its offense strength
-against the opponent's defense strength, scaled to the league scoring level, adjusted for home, blended
-across recent form and the season. What changes is where each number comes from.
-
-| Piece | Your sheet | 3.0 | Why the change |
-|---|---|---|---|
-| Choosing stats | Correlation of each stat with wins, spread and points over about five seasons, same-season | Correlation of each stat through Week 8 with points in Weeks 9 to 17 (predictive), then an ablation that removes each input and measures the miss | Same-season correlations reward outcomes (PF, red zone TD%, Sc%) that do not repeat. Red zone TD% is 0.47 same-season and 0.19 predictive. EPA per play is the best predictor at 0.50 |
-| Stat weights | The correlations themselves, 3x on PPG in the OVERALL index | Fitted by ridge regression on 14,000 team-games, refit every season | Lets the data set the weights and shrinks the ones that do not earn their place |
-| Opponent adjustment | None: a team's stats were taken as is | All 32 offenses and defenses solved together | Stats against bad defenses count less |
-| Recent form | LAST 3 tab at weight 35, whole season at 35 + 10 + 5 | One decay curve, 0.90 per week, fit by grid search | A fixed last-3 window throws away the fourth game and treats the third as equal to the first |
-| Last year | Weight 0 by Week 2 | Half weight, decaying, pulled toward average | Week 1 and 2 ratings on one game are mostly noise; last year at 0.4 to 0.5 of face value is what the data says |
-| Home field | 0.92 / 1.08 on OVERALL, 0.98 / 1.02 elsewhere, hand-set | One fitted number, 1.9 points, plus fitted rest, wind, dome, division, primetime | The multipliers were guesses; a 1.08 on a 24-point team is 1.9 points, so they were not far off, but only on one tab |
-| Home/away splits | HOME/AWAY tab at weight 15 | Tested, not used | Split stats double the noise and did not help |
-| QB | Not in the model (injuries typed by hand) | The starter's own career EPA per dropback, plus a QB-out flag | Biggest single input, 1.5 points per standard deviation |
-| Win % | Poisson grid | Normal on the margin with key-number weights, calibrated | The grid said 91% for favourites that won 66% |
-| Cover % | Not computed | Both sides on every game, at the current line | |
-| Bet rule | 3 points on spreads, 4 to 5 on totals | 5 and 6, the ROI-best thresholds that hold in both windows, with the sample size shown | Under 4.5 lost in every window |
-| Refs, coaches, head-to-head, weather teams | Typed in from memory and sites | Computed as-of, tested, shown with a label | None of them improved the score; refs and coaches do not persist |
-| Tracking | SLIP tab by hand | Graded automatically, model picks and your bets kept apart (Phase 5) | |
 
 ## 10. How much to trust the backtest
 

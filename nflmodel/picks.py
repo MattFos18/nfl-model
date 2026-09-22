@@ -37,6 +37,8 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
 
     def bet(r):
         out = []
+        if r.week >= 18:
+            return ""   # final week: starters rest and the line knows it before the ratings do (7-11 on flags 2019 to 2025)
         if pd.notna(r.spread_line) and abs(r.spread_edge) >= spread_edge:
             side = r.home_team if r.spread_edge > 0 else r.away_team
             line = -r.spread_line if r.spread_edge > 0 else r.spread_line
@@ -67,7 +69,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points, total when {TOTAL_EDGE:g}+. These are the thresholds with the best ROI that held in both "
            "backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 127 spread bets at 5+ went 53.5% (+2.2% ROI), 61 total bets at 6+ went 60.7% (+15.8%). "
-           "Edges under those thresholds have lost money in every window. Full table in docs/how_it_works.md.", ""]
+           "Edges under those thresholds have lost money in every window. No flags in Week 18, where resting starters make the line smarter than the ratings (flags there went 7-11). Full table in docs/how_it_works.md.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 

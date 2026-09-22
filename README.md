@@ -8,7 +8,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | Phase | Status |
 |---|---|
 | 1. Setup: repo, data pulls 2012 to 2026, games and team-game tables | Done 21 Sep |
-| 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` |
+| 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` (kept in the repo for the record; no longer on the page) |
 | 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep, `reports/backtest_v3.md`, `reports/decision_log.md` |
 | 4. Go / no-go: tuned on 2019 to 2022, judged on 2023 to 2025 | Numbers are in `reports/backtest_v3.md`; the decision is Matt's |
 | 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Runs from `main` via GitHub Actions once merged |
@@ -24,7 +24,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/model.py`     3.0: ridge regression from ratings and situation to team points, refit per season on all prior seasons; key-number margin distribution; win, cover and over probabilities. Writes `pred_v3.parquet`.
 - `nflmodel/backtest.py`  grades any prediction table: points miss vs Vegas, Brier and calibration, ATS and totals record and ROI at -110, by season and edge size, threshold sweeps.
 - `nflmodel/tune.py`      parameter grid and feature ablation on 2019 to 2022 only.
-- `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs old model vs Vegas, tuning vs held-out windows, market blend).
+- `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs Vegas, tuning vs held-out windows, market blend).
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
 - `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
 - `nflmodel/weekly.py`    the weekly run: pull, build, verify, weather, ratings, trends, model, grade, picks, export, recap (`reports/weekly_latest.md`, `data/runs/run_log.csv`).
@@ -44,7 +44,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
 - `reports/`              backtest reports, tuning results, decision log, weekly picks:
-  - `backtest_v3.md` the go / no-go numbers: 3.0 vs old model vs Vegas, tuning window vs held-out, thresholds, market blend
+  - `backtest_v3.md` the go / no-go numbers: 3.0 vs Vegas, tuning window vs held-out, thresholds, market blend; `learning_experiments.csv` weekly refit and residual-learning tests
   - `baseline_backtest.md` the old model's full record; `v3_backtest_full.md` the same tables for 3.0 over 2019 to 2026
   - `decision_log.md` every claim tested, the result, and what was decided
   - `lab.md` stat correlations (predictive vs same-season) and reliability; `ablation.csv`, `tuning_ratings.csv`, `v3_coefficients.txt`
@@ -52,18 +52,19 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 
 ## Headline results (held-out 2023 to 2025, 816 games)
 
-| | 3.0 | Old model | Vegas close |
-|---|---|---|---|
-| Team points miss | 7.35 | 9.00 | 7.21 |
-| Margin miss | 10.16 | 12.61 | 9.74 |
-| Total miss | 10.35 | 12.75 | 10.12 |
-| Brier (win odds) | 0.220 | 0.294 | 0.210 |
-| Spreads at 3+ pt edge | 109-105, -2.8% ROI | old model 51.5%, -1.7% | |
-| Spreads at 5+ pt edge (the flag) | 31-28, +0.3% (2019 to 2025: 68-59, +2.2%) | | |
-| Totals at 6+ pt edge (the flag) | 14-8, +21.5% (2019 to 2025: 37-24, +15.8%) | | |
+| | 3.0 | Vegas close |
+|---|---|---|
+| Team points miss | 7.35 | 7.21 |
+| Margin miss | 10.15 | 9.74 |
+| Total miss | 10.33 | 10.12 |
+| Brier (win odds) | 0.220 | 0.210 |
+| Spreads at 3+ pt edge | 109-102 | |
+| Spreads at 5+ pt edge (the flag) | 30-28 (2019 to 2025: 64-56; 57-46 outside Week 18) | |
+| Totals at 6+ pt edge (the flag) | 16-7 (2019 to 2025: 35-23) | |
 
-3.0 is far more accurate than the old model and close to the closing line on points. Small disagreements with the close lose;
-5+ point spread edges and 6+ point total edges have won in both backtest windows, on small samples (a lead, not proof).
+3.0 is close to the closing line on points. Small disagreements with the close lose; 5+ point spread edges and 6+ point
+total edges have won in both backtest windows, on small samples (a lead, not proof). The regression is refit before every
+week on every played game since 2013; no flags in Week 18, where resting starters make the line smarter than the ratings.
 Every number in the tables is checked against Pro-Football-Reference and the schedule by `verify.py` (`reports/verification.md`).
 
 ## Run

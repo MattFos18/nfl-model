@@ -84,53 +84,64 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_season=2013, verbose=False) -> pd.DataFrame:
-    """Refit on every season before each test season; return one row per game."""
+def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_season=2013, verbose=False, refit="week") -> pd.DataFrame:
+    """One row per game, priced with only earlier games. refit="week": the regression is refit before every week on every
+    played game so far, this season's included (the model keeps learning as the season goes). refit="season": refit once per
+    season on prior seasons only (the original 3.0 rule; same accuracy, kept for comparison). The ratings inside f are as-of
+    each game already (ratings.build_features), so nothing from a game's own week or later reaches its prediction."""
     f = prep(f)
     played = f[f.pf.notna()]
     out = []
     for s in test_seasons:
-        train = played[(played.season < s) & (played.season >= min_train_season)]
-        m = fit_points(train, ridge_alpha)
-        tr_pred = m.predict(train[FEATS].values)
-        test = f[f.season == s].copy()
-        test["exp"] = m.predict(test[FEATS].values)
-        # per-game rows
-        h = test[test.home == 1].set_index("game_id")
-        a = test[test.home == 0].set_index("game_id")
-        ids = h.index.intersection(a.index)
-        g = pd.DataFrame({"game_id": ids, "season": s, "week": h.loc[ids, "week"].values, "game_type": h.loc[ids, "game_type"].values,
-                          "home_team": h.loc[ids, "team"].values, "away_team": a.loc[ids, "team"].values,
-                          "home_exp": h.loc[ids, "exp"].values, "away_exp": a.loc[ids, "exp"].values,
-                          "spread_line": h.loc[ids, "spread_line"].values, "total_line": h.loc[ids, "total_line"].values,
-                          "home_qb_rating": h.loc[ids, "qb_rating"].values, "away_qb_rating": a.loc[ids, "qb_rating"].values,
-                          "home_n_games": h.loc[ids, "n_games"].values})
-        g["model_spread"] = g.home_exp - g.away_exp
-        g["model_total"] = g.home_exp + g.away_exp
-        # residual scale and key numbers from the training games (game level)
-        trg = train.assign(pred=tr_pred)
-        th = trg[trg.home == 1].set_index("game_id")
-        ta = trg[trg.home == 0].set_index("game_id")
-        tid = th.index.intersection(ta.index)
-        tr_margin = (th.loc[tid, "pf"] - ta.loc[tid, "pf"]).values
-        tr_mu = (th.loc[tid, "pred"] - ta.loc[tid, "pred"]).values
-        tr_total = (th.loc[tid, "pf"] + ta.loc[tid, "pf"]).values
-        tr_tmu = (th.loc[tid, "pred"] + ta.loc[tid, "pred"]).values
-        sigma_m = float(np.std(tr_margin - tr_mu))
-        sigma_t = float(np.std(tr_total - tr_tmu))
-        K = key_weights(tr_margin, tr_mu, sigma_m)
-        wc = [probs_from_margin(mu, sigma_m, K, line) for mu, line in zip(g.model_spread, g.spread_line)]
-        g["p_home"] = [w for w, c in wc]
-        g["p_cover_home"] = [c for w, c in wc]
-        g["p_over"] = 1 - norm.cdf((g.total_line - g.model_total) / sigma_t)
-        g["sigma_margin"], g["sigma_total"] = sigma_m, sigma_t
-        # what each adjustment was worth this season (points, home team's view), for the game card
-        coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))
-        for k in SIT_FEATS:
-            g[f"coef_{k}"] = coefs.get(k, np.nan)
-        out.append(g)
-        if verbose:
-            print(f"season {s}: trained on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)
+        test_all = f[f.season == s]
+        weeks = sorted(test_all.week.unique()) if refit == "week" else [None]
+        for wk in weeks:
+            if wk is None:
+                train = played[(played.season < s) & (played.season >= min_train_season)]
+                test = test_all.copy()
+            else:
+                train = played[(played.season >= min_train_season) & ((played.season < s) | ((played.season == s) & (played.week < wk)))]
+                test = test_all[test_all.week == wk].copy()
+            m = fit_points(train, ridge_alpha)
+            tr_pred = m.predict(train[FEATS].values)
+            test["exp"] = m.predict(test[FEATS].values)
+            h = test[test.home == 1].set_index("game_id")
+            a = test[test.home == 0].set_index("game_id")
+            ids = h.index.intersection(a.index)
+            if len(ids) == 0:
+                continue
+            g = pd.DataFrame({"game_id": ids, "season": s, "week": h.loc[ids, "week"].values, "game_type": h.loc[ids, "game_type"].values,
+                              "home_team": h.loc[ids, "team"].values, "away_team": a.loc[ids, "team"].values,
+                              "home_exp": h.loc[ids, "exp"].values, "away_exp": a.loc[ids, "exp"].values,
+                              "spread_line": h.loc[ids, "spread_line"].values, "total_line": h.loc[ids, "total_line"].values,
+                              "home_qb_rating": h.loc[ids, "qb_rating"].values, "away_qb_rating": a.loc[ids, "qb_rating"].values,
+                              "home_n_games": h.loc[ids, "n_games"].values})
+            g["model_spread"] = g.home_exp - g.away_exp
+            g["model_total"] = g.home_exp + g.away_exp
+            # residual scale and key numbers from the training games (game level)
+            trg = train.assign(pred=tr_pred)
+            th = trg[trg.home == 1].set_index("game_id")
+            ta = trg[trg.home == 0].set_index("game_id")
+            tid = th.index.intersection(ta.index)
+            tr_margin = (th.loc[tid, "pf"] - ta.loc[tid, "pf"]).values
+            tr_mu = (th.loc[tid, "pred"] - ta.loc[tid, "pred"]).values
+            tr_total = (th.loc[tid, "pf"] + ta.loc[tid, "pf"]).values
+            tr_tmu = (th.loc[tid, "pred"] + ta.loc[tid, "pred"]).values
+            sigma_m = float(np.std(tr_margin - tr_mu))
+            sigma_t = float(np.std(tr_total - tr_tmu))
+            K = key_weights(tr_margin, tr_mu, sigma_m)
+            wc = [probs_from_margin(mu, sigma_m, K, line) for mu, line in zip(g.model_spread, g.spread_line)]
+            g["p_home"] = [w for w, c in wc]
+            g["p_cover_home"] = [c for w, c in wc]
+            g["p_over"] = 1 - norm.cdf((g.total_line - g.model_total) / sigma_t)
+            g["sigma_margin"], g["sigma_total"] = sigma_m, sigma_t
+            g["n_train"] = len(train)
+            coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))
+            for k in SIT_FEATS:
+                g[f"coef_{k}"] = coefs.get(k, np.nan)
+            out.append(g)
+            if verbose and (wk is None or wk == weeks[-1]):
+                print(f"season {s}: last fit on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)
     return pd.concat(out, ignore_index=True)
 
 

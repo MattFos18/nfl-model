@@ -102,7 +102,6 @@ BASE = {
     "m_exp_pf": ("Model", "3.0 expected points for this team", "model.py", False, False), "m_exp_pa": ("Model", "3.0 expected points against", "model.py", False, False),
     "m_win": ("Model", "3.0 win probability", "model.py", False, False), "m_cover": ("Model", "3.0 probability of covering the closing spread", "model.py", False, False),
     "m_over": ("Model", "3.0 probability the game goes over the closing total", "model.py", False, False),
-    "old_exp_pf": ("Model", "Old sheet model's expected points for this team", "baseline.py", False, False),
 }
 
 
@@ -144,7 +143,6 @@ def main():
     box = pd.read_parquet(OUT / "team_box.parquet")
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     pred = pd.read_parquet(OUT / "pred_v3.parquet")
-    base = pd.read_parquet(OUT / "pred_baseline.parquet")
     games = pd.read_parquet(OUT / "games.parquet").set_index("game_id")
     tg = tg.drop(columns=[c for c in ["kickoff_et"] if c in tg.columns])
     box_cols = [c for c in box.columns if c.startswith("off_") or c.startswith("def_")]
@@ -157,14 +155,12 @@ def main():
     d = d.merge(fe, on=["game_id", "team"], how="left")
     # model prediction from this team's view
     pv = pred.set_index("game_id")
-    bv = base.set_index("game_id")
     d["gameday"] = d.game_id.map(games.gameday)
     d["m_exp_pf"] = [pv.home_exp.get(g, np.nan) if h else pv.away_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_exp_pa"] = [pv.away_exp.get(g, np.nan) if h else pv.home_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_win"] = [pv.p_home.get(g, np.nan) if h else 1 - pv.p_home.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_cover"] = [pv.p_cover_home.get(g, np.nan) if h else 1 - pv.p_cover_home.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_over"] = d.game_id.map(pv.p_over)
-    d["old_exp_pf"] = [bv.home_exp.get(g, np.nan) if h else bv.away_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["team_spread"] = np.where(d.home, d.spread_line, -d.spread_line)
     d = d.sort_values(["season", "week"])
     cols = [c for c in d.columns if c not in ("game_id",)]
@@ -207,24 +203,18 @@ def main():
     cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
     try:
         pk = P.table(cur_season, cur_week)
-        bl = pd.read_parquet(OUT / "pred_baseline.parquet").set_index("game_id")
         fp = M.prep(feats).set_index(["game_id", "team"])
         side_cols = M.FEATS + ["r_" + c for c in rcols if c in feats.columns] + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS
         wk = []
         for r in pk.itertuples():
             h = LN.history(r.game_id)
-            comp = {}
-            if r.game_id in bl.index:
-                for k in ["overall", "two", "last3", "homeaway", "pfpa", "lastyear", "lastyear2"]:
-                    comp[k] = [clean(bl.loc[r.game_id, f"{k}_away"]), clean(bl.loc[r.game_id, f"{k}_home"])]
-                comp["old"] = [clean(bl.loc[r.game_id, "away_exp"]), clean(bl.loc[r.game_id, "home_exp"])]
             sides = {}
             for tm in [r.home_team, r.away_team]:
                 if (r.game_id, tm) in fp.index:
                     row = fp.loc[(r.game_id, tm)]
                     sides[tm] = {c: clean(row[c]) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
             gmeta = games.loc[r.game_id] if r.game_id in games.index else None
-            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "methods": comp, "sides": sides,
+            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                        "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
@@ -248,7 +238,7 @@ if __name__ == "__main__":
 # Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
 # ---------------------------------------------------------------------------------------------
 def export_rankings_and_methods():
-    from . import ratings as R, baseline as B, backtest as bt
+    from . import ratings as R, backtest as bt
     tg = pd.read_parquet(OUT / "team_games.parquet")
     played = tg[tg.pf.notna()].copy()
     played["plays"] = played.plays.fillna(played.plays.mean())
@@ -268,8 +258,9 @@ def export_rankings_and_methods():
         per_unit = dict(zip(M.FEATS, m[-1].coef_ / m[0].scale_))
         mean = dict(zip(M.FEATS, m[0].mean_))
         intercept = float(train.pf.mean())
-        weeks = sorted(games[(games.season == s) & (games.game_type == "REG")].week.unique())
-        # include the week after the last played week so the current standings show
+        # regular-season weeks through the one holding the next unplayed game; a later "going into" is this table decayed
+        last_played = int(played[played.season == s].week.max()) if (played.season == s).any() else 0
+        weeks = [int(w) for w in sorted(games[(games.season == s) & (games.game_type == "REG")].week.unique()) if w <= last_played + 1]
         out[str(s)] = {}
         for w in weeks:
             Rt = R.team_ratings(played, s, w, p)
@@ -297,58 +288,18 @@ def export_rankings_and_methods():
             out[str(s)][str(w)] = {"mu": {st: round(float(Rt.attrs[f"mu_{st}"]), 5) for st in R.STATS},
                                    "h": {st: round(float(Rt.attrs[f"hfa_{st}"]), 5) for st in R.STATS}, "teams": teams}
         print("rankings", s, flush=True)
-    # old-sheet strength indexes for the current season's weeks (the sheet's methods rank teams too)
-    box = pd.read_parquet(OUT / "team_box.parquet")
-    s = int(games.season.max())
-    old = {}
-    for w in sorted(games[(games.season == s) & (games.game_type == "REG")].week.unique()):
-        try:
-            win = B.Windows(box, s, w)
-            X = {k: B.ratio(getattr(win, k + "_rates")) for k in ["season", "last3", "home", "away"]}
-            S_ = {"overall": B.ts_strength(X["season"]), "two": B.two_strength(X["season"]), "last3": B.ts_strength(X["last3"]),
-                  "home": B.ts_strength(X["home"], "homeaway"), "away": B.ts_strength(X["away"], "homeaway")}
-            old[str(w)] = {t: {f"{k}_off": round(float(v["off"].get(t, np.nan)), 4), f"{k}_def": round(float(v["def"].get(t, np.nan)), 4)}
-                           for t in win.teams for k, v in [(k, S_[k]) for k in S_]}
-            # merge dict comprehension above produced only last k; rebuild properly
-            old[str(w)] = {t: {f"{k}_{side}": round(float(S_[k][side].get(t, np.nan)), 4) for k in S_ for side in ["off", "def"]} for t in win.teams}
-        except Exception as e:  # noqa
-            old[str(w)] = {"error": str(e)[:100]}
-    # methods comparison: every method's miss on 2019 to 2025 regular season
-    base = bt.join(pd.read_parquet(OUT / "pred_baseline.parquet"))
-    base = base[(base.game_type == "REG") & base.season.between(2019, 2025)]
-    v3 = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
-    v3 = v3[(v3.game_type == "REG") & v3.season.between(2019, 2025)]
-    methods = []
-    for k, name, wgt in [("overall", "OVERALL|Old sheet tab: the teamrankings.com strength index (3 PPG + red zone TD + passer rating - 2 giveaways + ...), season to date, times opponent's index times league scoring", 10),
-                         ("two", "2.0|Old sheet tab: the Pro-Football-Reference index, ten stats weighted by their same-season correlation with points", 35),
-                         ("last3", "LAST 3|Old sheet tab: the teamrankings index on the last three games only", 35), ("homeaway", "HOME/AWAY|Old sheet tab: the same index on home-only and away-only splits", 15),
-                         ("pfpa", "PF/PA|Old sheet tab: the season index scaled by the team's own points for and against instead of the league average", 5),
-                         ("lastyear", "LAST YEAR|Old sheet tab: OVERALL on last season's stats", 0), ("lastyear2", "LAST YEAR 2.0|Old sheet tab: 2.0 on last season's stats", 0)]:
-        e = np.concatenate([(base[f"{k}_home"] - base.home_score).values, (base[f"{k}_away"] - base.away_score).values])
-        mg = (base[f"{k}_home"] - base[f"{k}_away"] - base.result).values
-        short, desc = name.split("|")
-        methods.append({"key": k, "name": name, "short": short, "desc": desc, "weight": wgt, "team_mae": round(float(np.nanmean(np.abs(e))), 2), "margin_mae": round(float(np.nanmean(np.abs(mg))), 2)})
-    e = np.concatenate([base.home_err.values, base.away_err.values])
-    methods.append({"key": "old", "short": "Sheet blend", "desc": "The old sheet's final number: weighted average of the tabs above (10/35/35/15/5, last-year tabs 0), then a Poisson grid for the odds", "name": "Sheet blend", "weight": None, "team_mae": round(float(np.abs(e).mean()), 2), "margin_mae": round(float(np.abs(base.margin_err).mean()), 2)})
-    e = np.concatenate([v3.home_err.values, v3.away_err.values])
-    methods.append({"key": "v3", "short": "3.0", "desc": "One method: opponent-adjusted decayed ratings and the situation, through a regression refit each season; the fitted coefficients are the weights (Inputs tab)", "name": "3.0", "weight": None, "team_mae": round(float(np.abs(e).mean()), 2), "margin_mae": round(float(np.abs(v3.margin_err).mean()), 2)})
-    e = np.concatenate([v3.v_home_err.values, v3.v_away_err.values])
-    methods.append({"key": "vegas", "short": "Vegas close", "desc": "Implied team totals from the closing spread and total", "name": "Vegas", "weight": None, "team_mae": round(float(np.abs(e).mean()), 2), "margin_mae": round(float(np.abs(v3.v_margin_err).mean()), 2)})
-    # backtest: every priced game 2019 to now with model, Vegas and actual, plus the old sheet's score
+    # backtest: every priced game 2019 to now with model, Vegas and actual
     allv = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     allv = allv[allv.game_type == "REG"].sort_values(["season", "week", "game_id"])
-    bl = pd.read_parquet(OUT / "pred_baseline.parquet").set_index("game_id")
     gd = games.set_index("game_id").gameday
     cols = ["game_id", "season", "week", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
             "spread_line", "total_line", "p_home", "p_cover_home", "p_over"]
     bk = allv[cols].copy()
     bk["gameday"] = bk.game_id.map(gd)
-    bk["old_away"] = bk.game_id.map(bl.away_exp)
-    bk["old_home"] = bk.game_id.map(bl.home_exp)
     recs = [[clean(v) for v in r] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
     season_end = {str(k): int(v) for k, v in played.groupby("season").week.max().items()}
-    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out, "old_sheet": {"season": s, "weeks": old}, "methods": methods}, default=clean, separators=(",", ":")) + ";")
+    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out}, default=clean, separators=(",", ":")) + ";")
     print("rankings.js", (WEB / "rankings.js").stat().st_size / 1e6, "MB")
 
 

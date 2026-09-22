@@ -112,6 +112,9 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     played = tg[tg.pf.notna()].copy()
     played["plays"] = played.plays.fillna(played.plays.mean())
     qbr = QBRatings(qb, p["qb_k"], p["qb_decay"])
+    # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
+    named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
+    last_qb = {}
     feats = []
     for s in seasons:
         weeks = sorted(games[games.season == s].week.unique())
@@ -119,6 +122,11 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
             gw = games[(games.season == s) & (games.week == wk)]
             if len(gw) == 0:
                 continue
+            for g in named[(named.season == s) & (named.week == wk)].itertuples():
+                if isinstance(g.home_qb_id, str):
+                    last_qb[g.home_team] = g.home_qb_id
+                if isinstance(g.away_qb_id, str):
+                    last_qb[g.away_team] = g.away_qb_id
             R = team_ratings(played, s, wk, p)
             hfa = R.attrs.get("hfa_pf", 0.0)
             for g in gw.itertuples():
@@ -138,10 +146,16 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
                         row[f"def_{st}"] = R.loc[o, f"def_{st}"]          # the defense this offense faces
                         row[f"own_def_{st}"] = R.loc[t, f"def_{st}"]
                         row[f"opp_off_{st}"] = R.loc[o, f"off_{st}"]
+                    # nflverse names the starters only for played games and the coming week. For a later unplayed game
+                    # carry each team's most recent starter forward rather than pricing a replacement-level QB.
                     qid = getattr(g, f"{side}_qb_id")
+                    if not isinstance(qid, str) and pd.isna(getattr(g, f"{side}_score")):
+                        qid = last_qb.get(t)
                     row["qb_id"] = qid
                     row["qb_rating"] = qbr.rating(qid, s, wk) if isinstance(qid, str) else qbr.prior
                     oqid = getattr(g, f"{opp}_qb_id")
+                    if not isinstance(oqid, str) and pd.isna(getattr(g, f"{side}_score")):
+                        oqid = last_qb.get(o)
                     row["opp_qb_rating"] = qbr.rating(oqid, s, wk) if isinstance(oqid, str) else qbr.prior
                     feats.append(row)
         if verbose:
