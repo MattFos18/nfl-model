@@ -319,6 +319,9 @@ def main():
         side_cols = M.FEATS + ["r_" + c for c in rcols if c in feats.columns] + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS
         from . import weather as WX
         wxs = WX.status_by_game(games.reset_index())
+        # the coming week's starters are carried forward by id (ratings.py); give the card the name
+        gq = games.reset_index()
+        qb_names = {**dict(zip(gq.home_qb_id, gq.home_qb_name)), **dict(zip(gq.away_qb_id, gq.away_qb_name))}
         wk = []
         for r in pk.itertuples():
             h = LN.history(r.game_id)
@@ -327,6 +330,9 @@ def main():
                 if (r.game_id, tm) in fp.index:
                     row = fp.loc[(r.game_id, tm)]
                     sides[tm] = {c: clean(row[c]) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
+                    if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
+                        sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
+                        sides[tm]["qb_carried"] = True
             gmeta = games.loc[r.game_id] if r.game_id in games.index else None
             wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
