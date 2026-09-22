@@ -263,8 +263,10 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
         sn = sn[sn.week == sn.groupby("team").week.transform("max")]
         norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
         snap = {(r.team, norm(r.player)): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples()}
-    vf = OUT / "player_values.parquet"
+    vf = OUT / "player_values_all.parquet" if (OUT / "player_values_all.parquet").exists() else OUT / "player_values.parquet"
     vals = pd.read_parquet(vf).set_index(["team", "player_id"]) if vf.exists() else None
+    if vals is not None and "epa_per_play" in vals.columns:
+        vals = vals.rename(columns={"epa_per_play": "epa_per_touch"})
     norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
     rows = []
     for r in wk.itertuples():
@@ -274,7 +276,8 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
                      "roster": ROSTER_LABEL.get(r.status, {"ACT": "Active", "DEV": "Practice squad", "INA": "Inactive", "CUT": "Cut"}.get(r.status, r.status)),
                      "unit": dp[2], "slot": dp[0], "depth": dp[1], "report": ij[0], "practice": ij[1], "injury": ij[2],
                      "off_pct": sp[0] if sp else None, "def_pct": sp[1] if sp else None, "st_pct": sp[2] if sp else None,
-                     "value": float(v.value_above_replacement) if v is not None else None, "epa_per_touch": float(v.epa_per_touch) if v is not None else None, "share": float(v.share) if v is not None else None})
+                     "value": float(v.value_above_replacement) if v is not None and pd.notna(v.value_above_replacement) else None, "epa_per_touch": float(v.epa_per_touch) if v is not None and pd.notna(v.epa_per_touch) else None, "share": float(v.share) if v is not None and pd.notna(v.share) else None,
+                     "group": str(v.group) if v is not None and "group" in v.index else None, "basis": str(v.basis) if v is not None and "basis" in v.index else ""})
     out = pd.DataFrame(rows)
     out["order"] = out.slot.map({p: i for i, p in enumerate(DEPTH_ORDER)}).fillna(99)
     return out.sort_values(["team", "unit", "order", "depth", "name"], na_position="last").drop(columns=["order"])
@@ -283,7 +286,9 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
 def player_history(pg: pd.DataFrame) -> pd.DataFrame:
     """One row per player, season, team and role: games, plays, EPA per play. The Players tab's history, which follows
     a player across teams."""
-    h = pg.groupby(["player_id", "season", "team", "role"]).agg(games=("game_id", "nunique"), plays=("plays", "sum"), epa=("epa", "sum"), name=("name", "last")).reset_index()
+    extra = [pd.read_parquet(OUT / f) for f in ["defender_games.parquet", "kicking_games.parquet"] if (OUT / f).exists()]
+    allg = pd.concat([pg] + extra, ignore_index=True) if extra else pg
+    h = allg.groupby(["player_id", "season", "team", "role"]).agg(games=("game_id", "nunique"), plays=("plays", "sum"), epa=("epa", "sum"), name=("name", "last")).reset_index()
     h["epa_play"] = (h.epa / h.plays).round(3)
     return h.sort_values(["player_id", "season", "role"])
 
@@ -300,9 +305,6 @@ if __name__ == "__main__":
     tp = team_players(games, pg, cs, cw)
     tp.to_parquet(OUT / "player_values.parquet", index=False)
     print("player_values", tp.shape, "as of", cs, cw)
-    ro = team_roster(games, cs, cw)
-    ro.to_parquet(OUT / "roster_now.parquet", index=False)
-    player_history(pg).to_parquet(OUT / "player_history.parquet", index=False)
-    print("roster_now", ro.shape)
+    player_history(pg).to_parquet(OUT / "player_history.parquet", index=False)   # roster_now is written by positions.py, after every value exists
     print("player_injury", iv.shape, "rows with a skill player out:", int((iv.n_skill_out > 0).sum()))
     print(iv[iv.n_skill_out > 0].describe().to_string())
