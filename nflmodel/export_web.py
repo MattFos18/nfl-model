@@ -93,6 +93,10 @@ BASE = {
     "ref_pen": ("Trends (shown, not used)", "Referee's penalties per game vs league, shrunk", "trends.py", False, True),
     "sun_late": ("Trends (shown, not used)", "Sunday late window", "trends.py", False, True), "body_clock_early": ("Trends (shown, not used)", "West Coast team at 1pm ET on the road", "trends.py", False, True),
     "cold_edge": ("Trends (shown, not used)", "Team's cold-game margin edge, applied when cold", "trends.py", False, True),
+    "rain": ("Situation", "Rain, showers or a storm at kickoff (play-by-play weather text; the forecast for unplayed games)", "play-by-play / Open-Meteo", True, False),
+    "snow": ("Trends (shown, not used)", "Snow, flurries or sleet in the play-by-play weather text (outdoor games)", "play-by-play", False, False),
+    "travel_miles": ("Trends (shown, not used)", "Miles from the team's home stadium to the venue (0 at home)", "trends.py", False, False),
+    "tz_shift": ("Trends (shown, not used)", "Time zones crossed to reach the venue, hours (positive = east; 0 at home)", "trends.py", False, False),
     "wind_edge": ("Trends (shown, not used)", "Team's windy-game margin edge, applied when windy", "trends.py", False, True),
     "off_home_split": ("Trends (shown, not used)", "Home minus away EPA/play, shrunk", "trends.py", False, True),
     "off_starters_out": ("Injuries", "Offense starters (50%+ snaps last game) listed Out/Doubtful", "injuries + snap counts", False, True),
@@ -111,7 +115,7 @@ def used_by_v3(col: str):
     if col.startswith("r_"):
         return col[2:] in F
     raw = {"pf": True, "pa": True, "home": True, "epa_play": True, "def_epa_play": True, "qb_name": True, "qb_rating": True, "qb_out": "qb_out" in F,
-           "dome": "dome" in F, "wind": "wind_out" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
+           "dome": "dome" in F, "wind": "wind_out" in F, "rain": "rain" in F, "snow": "snow" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
            "opp_rest": "opp_rest_short" in F or "opp_rest_long" in F, "div_game": "div_game" in F, "primetime": "primetime" in F,
            "pass_epa": "off_pass_epa" in F, "def_pass_epa": "def_pass_epa" in F, "rush_epa": "off_rush_epa" in F, "def_rush_epa": "def_rush_epa" in F,
            "plays": "off_plays" in F, "def_plays": "def_plays" in F, "opp_qb_rating": "opp_qb_rating" in F, "success": "off_success" in F, "def_success": "def_success" in F}
@@ -174,6 +178,22 @@ def situation_facts(feats: pd.DataFrame) -> dict:
     for lo, hi, lab in [(-1, 0, "0 (indoors or calm)"), (0, 5, "1 to 5"), (5, 10, "6 to 10"), (10, 15, "11 to 15"), (15, 99, "16+")]:
         x = f[(f.wind_out > lo) & (f.wind_out <= hi)]
         out["wind"].append({"bucket": lab, "n": int(len(x)), "pf": round(float(x.pf.mean()), 2)})
+    # the tested-and-not-used situations, raw: points scored and the margin against the closing spread with the flag on vs off
+    out["tested"] = {}
+    for k in ["snow", "primetime", "div_game", "rest_short", "rest_long", "body_clock_early"]:
+        if k not in f.columns:
+            continue
+        on, off = f[f[k] == 1], f[f[k] == 0]
+        out["tested"][k] = {"n_on": int(len(on)), "pf_on": round(float(on.pf.mean()), 2), "pf_off": round(float(off.pf.mean()), 2),
+                            "ats_on": round(float(((on.pf - on.pa) > -on.spread_line * np.where(on.home == 1, 1, -1)).mean()), 3) if "spread_line" in f.columns else None}
+    for k, edges, labs in [("travel_miles", [-1, 0, 500, 1000, 1500, 9000], ["home", "1 to 500", "501 to 1000", "1001 to 1500", "1500+"]),
+                           ("tz_shift", [-9, -2.5, -0.5, 0.5, 2.5, 9], ["3 west", "1 to 2 west", "none", "1 to 2 east", "3 east"])]:
+        if k not in f.columns:
+            continue
+        out[k] = []
+        for lo, hi, lab in zip(edges[:-1], edges[1:], labs):
+            x = f[(f[k] > lo) & (f[k] <= hi)]
+            out[k].append({"bucket": lab, "n": int(len(x)), "pf": round(float(x.pf.mean()), 2) if len(x) else None})
     return out
 
 

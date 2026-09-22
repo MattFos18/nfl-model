@@ -186,6 +186,61 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
     return pd.DataFrame(rows)
 
 
+def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame:
+    """Per (game, team): rain and snow at kickoff (from the play-by-play weather text, outdoor games only), miles travelled
+    from the team's home stadium to the venue, and the time-zone shift in hours (positive = travelling east). Home teams
+    travel 0. International venues use the stadium name. Known before kickoff, so usable as-of."""
+    import pyarrow.parquet as pq
+    from .weather import STADIUM, INTL
+    wx = {}
+    for s in seasons:
+        f = ROOT / "data" / "raw" / "pbp" / f"play_by_play_{s}.parquet"
+        if not f.exists():
+            continue
+        t = pq.read_table(f, columns=["game_id", "weather"]).to_pandas()
+        wx.update(t.groupby("game_id").weather.first().to_dict())
+    def venue(g):
+        for k, v in INTL.items():
+            if isinstance(g.stadium, str) and k.lower() in g.stadium.lower():
+                return v
+        if isinstance(g.stadium, str) and any(k in g.stadium.lower() for k in ["wembley", "tottenham", "twickenham", "craven"]):
+            return INTL["London"]
+        if isinstance(g.stadium, str) and ("allianz" in g.stadium.lower() or "deutsche bank" in g.stadium.lower() or "waldstadion" in g.stadium.lower()):
+            return INTL["Munich"] if "allianz" in g.stadium.lower() else INTL["Frankfurt"]
+        if isinstance(g.stadium, str) and "azteca" in g.stadium.lower():
+            return INTL["Mexico City"]
+        return STADIUM.get(g.home_team)
+    def hav(a, b):
+        if a is None or b is None:
+            return np.nan
+        la1, lo1, la2, lo2 = map(np.radians, [a[0], a[1], b[0], b[1]])
+        h = np.sin((la2 - la1) / 2) ** 2 + np.cos(la1) * np.cos(la2) * np.sin((lo2 - lo1) / 2) ** 2
+        return 3958.8 * 2 * np.arcsin(np.sqrt(h))
+    # unplayed games: the latest kickoff forecast (weather.py) stands in for the weather text
+    fc = {}
+    fcf = ROOT / "data" / "weather" / "forecast_latest.csv"
+    if fcf.exists():
+        d = pd.read_csv(fcf)
+        d = d[d.status == "ok"]
+        fc = {r.game_id: (float(r.precip_prob) if pd.notna(r.precip_prob) else 0.0, float(r.precip) if pd.notna(r.precip) else 0.0) for r in d.itertuples()}
+    rows = []
+    for g in games.itertuples():
+        w = str(wx.get(g.game_id, "") or "").lower()
+        outdoor = g.roof in ("outdoors", "open") if isinstance(g.roof, str) else True
+        rain = float(outdoor and any(k in w for k in ["rain", "shower", "drizzle", "storm"]))
+        if not w and g.game_id in fc and outdoor:
+            rain = float(fc[g.game_id][0] >= 50 or fc[g.game_id][1] >= 0.04)
+        snow = float(outdoor and any(k in w for k in ["snow", "flurr", "sleet"]))
+        v = venue(g)
+        for side in ["home", "away"]:
+            t = getattr(g, f"{side}_team")
+            hm = STADIUM.get(t)
+            miles = 0.0 if (side == "home" and not g.neutral) else hav(hm, v)
+            tz = 0.0 if (side == "home" and not g.neutral) else ((((round((v[1] - hm[1]) / 15.0) + 12) % 24) - 12) if (v and hm) else np.nan)
+            rows.append({"game_id": g.game_id, "team": t, "rain": rain, "snow": snow, "travel_miles": miles, "tz_shift": tz})
+    return pd.DataFrame(rows)
+
+
 def persistence(games: pd.DataFrame) -> pd.DataFrame:
     """Do referee, coach and head-to-head records persist from 2012 to 2018 into 2019 to 2025?"""
     d = long_games(games[(games.game_type == "REG") & games.home_score.notna()].copy())
@@ -215,6 +270,7 @@ if __name__ == "__main__":
     t = trend_table(games, tg)
     i = injury_table(games)
     t = t.merge(i, on=["game_id", "team"], how="left")
+    t = t.merge(situation_extras(games), on=["game_id", "team"], how="left")
     t.to_parquet(OUT / "trends_asof.parquet", index=False)
     print(t.shape)
     print(t[t.season == 2024].describe().T.round(3).to_string())

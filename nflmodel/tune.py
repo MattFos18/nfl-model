@@ -102,7 +102,16 @@ ADDITIONS = {
     "cold and wind team edges": ["cold_edge", "wind_edge"],
     "home/away EPA split": ["off_home_split"],
     "injuries: starters out": ["off_starters_out", "def_starters_out"],
-    "injuries: QB out": ["qb_out"],
+    "primetime": ["primetime"],
+    "division game": ["div_game"],
+    "rest: short week and bye (both teams)": ["rest_short", "rest_long", "opp_rest_short", "opp_rest_long"],
+    "snow": ["snow"],
+    "travel distance (miles)": ["travel_miles"],
+    "time-zone shift (hours)": ["tz_shift"],
+    "West Coast team at 1pm ET": ["body_clock_early"],
+    "pass/rush EPA split": ["off_pass_epa", "def_pass_epa", "off_rush_epa", "def_rush_epa"],
+    "pace (plays per game)": ["off_plays", "def_plays"],
+    "opponent QB and other side of the ball": ["opp_qb_rating", "opp_off_epa_play", "own_def_epa_play"],
 }
 
 

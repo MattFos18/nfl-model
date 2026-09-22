@@ -109,7 +109,8 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .m{color:var(--model)} .blk .v{color:var(--vegas)}
 .blk .edge{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline;margin-top:2px;padding-top:4px;border-top:1px dashed var(--rule)}
 .blk .edge span{color:var(--ink-2)} .blk .edge b{font-family:var(--display);font-size:16px;font-weight:600}
-.blk .edge b.flag{color:var(--accent)} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
+.blk .edge b.flag{color:var(--accent)}
+.chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
 .blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
 .blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .blk .ptab span{color:var(--ink-2)} .blk .ptab b{font-weight:600}
@@ -119,7 +120,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .bar .lead{font-weight:600}
 .why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
 .whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px}
-@media(min-width:700px){.whybox{grid-template-columns:1fr 1fr}}
+@media(min-width:1500px){.whybox{grid-template-columns:1fr 1fr}}
 .ctab{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
 .ctab th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:2px 4px;border-bottom:1px solid var(--rule)}
 .ctab td{padding:2px 4px;border-bottom:1px solid var(--rule-2);vertical-align:middle}
@@ -129,7 +130,13 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .ctab tr.base td{color:var(--ink-2)}
 .ctab tr.grp td{font-weight:600;background:var(--panel-2);border-bottom:1px solid var(--rule)}
 .ctab td.ind{padding-left:14px}
-.ctab.main{margin-top:4px} .ctab.main > tbody > tr.grp > td{padding:6px 4px}
+.whybox > div{min-width:0}
+.ctab.main{margin-top:4px;table-layout:fixed;width:100%}
+.ctab.main > tbody > tr > td:last-child{width:64px}
+.ctab.main .ctab{table-layout:auto;width:100%}
+.ctab.main .ctab td.v{white-space:nowrap;font-size:11px;width:180px}
+.ctab.main .ctab td.b{width:70px}
+.ctab.main .ctab td.lbl{white-space:normal} .ctab.main > tbody > tr.grp > td{padding:6px 4px}
 .ctab.main > tbody > tr.sub > td{padding:0 0 8px 0;background:var(--panel)}
 .ctab.main > tbody > tr.sub .ctab{margin:0}
 button.open{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
@@ -327,7 +334,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
     opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
-    dome:"Dome or closed roof", wind_out:"Wind, mph (0 indoors)", cold:"Under 35F outdoors", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
+    dome:"Dome or closed roof", wind_out:"Wind, mph (0 indoors)", cold:"Under 35F outdoors", rain:"Rain at kickoff", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
   $("built").textContent = "Data built " + META.built + ".";
 
@@ -380,11 +387,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   // Situational inputs are measured from zero (away, outdoors, no wind, normal rest, no bye, not a division game, not primetime),
   // rating inputs from the league average. The base is the regression's intercept moved to that neutral situation, so a dome
   // game shows "dome +0.2" and nothing for wind, instead of "wind +0.84" for having none. Both bookkeepings sum to the same points.
-  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]);
+  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "div_game", "primetime", "qb_out"]);
   const GROUPS = [["Offense: this team's ratings", ["off_epa_play", "off_pf"]],
                   ["Defense it faces: the opponent's ratings", ["def_epa_play", "def_pf"]],
                   ["Quarterback", ["qb_rating", "qb_out"]],
-                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold"]]];
+                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain"]]];
   const EXPLAIN = {
     off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
     off_pf: "Points the offense scores against an average defense, opponent-adjusted and decayed. 0 = league average.",
@@ -396,7 +403,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
     dome: "1 indoors or under a closed roof. Indoor teams scored 1.47 more points than outdoor ones raw; most of that is the teams that play indoors, which the ratings already know, so the fitted bump is small.",
     wind_out: "Wind at kickoff in mph, 0 indoors. Each mph costs a fraction of a point: offenses averaged 23.8 points in calm air and 21.4 at 11 to 15 mph. For an unplayed outdoor game with no forecast yet the league-typical 7 mph is used until the Saturday forecast lands.",
-    cold: "1 when the kickoff temperature is under 35F outdoors. Cold games score about half a point less."
+    cold: "1 when the kickoff temperature is under 35F outdoors. Cold games score about half a point less.",
+    rain: "1 when the play-by-play weather text says rain, showers or a storm (outdoor games); for an unplayed game, 1 when the kickoff forecast gives 50%+ chance of precipitation. Added 22 Sep 2026: it lowered the points miss on both backtest windows."
   };
   function neutralBase(co) { let b = co.intercept; META.feats.forEach(f => { if (SIT.has(f)) b -= co.per_unit[f] * co.mean[f]; }); return b; }
   function contributions(inputs, s) {
@@ -448,13 +456,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<small class="note" style="font-size:11px">Model gives ${g.p_cover_home >= 0.5 ? H : A} ${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} points more chance to cover than the line implies</small>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<small class="note" style="font-size:11px">Model gives the ${g.p_over >= 0.5 ? "over" : "under"} ${Math.round(100 * Math.abs(g.p_over - 0.5))} points more chance than the line implies</small>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -467,7 +475,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
             ${vw == null ? `<small class="note" style="font-size:11px">no moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
             ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
-            <small class="note" style="font-size:11px">${vw == null ? "chance each side wins outright" : `Model gives ${g.p_home >= vw ? H : A} ${Math.round(100 * Math.abs(g.p_home - vw))} points more chance than Vegas`}</small>
+            ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
           </section>
         </div>
         <button class="why" data-i="${i}" aria-expanded="false">Why these numbers ▾</button>
@@ -506,7 +514,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const co = coefsFor(s); const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
       const maxc = Math.max(...c.items.map(x => Math.abs(x.c)), 0.01);
       let h = `<div><p class="cap">${t}: ${c.total.toFixed(1)} expected points</p><table class="ctab main"><tbody>`;
-      h += `<tr class="base"><td>Base: league-average team, neutral game <button class="q" data-how="b${ti}" title="how this is calculated">?</button></td><td class="n">${c.base.toFixed(1)}</td></tr><tr class="howrow" id="b${ti}" hidden><td colspan="2"><div class="how">The regression's intercept (${co.intercept.toFixed(2)}, the average score in the training games) moved to an away game, outdoors, no wind, not cold. Every team starts here.</div></td></tr>`;
+      h += `<tr class="base"><td>Base: league-average team, neutral game <button class="q" data-how="b${ti}" title="how this is calculated">?</button></td><td class="n">${c.base.toFixed(1)}</td></tr><tr class="howrow" id="b${ti}" hidden><td colspan="2"><div class="how">The regression's intercept (${co.intercept.toFixed(2)}, the average score in the training games) moved to an away game, outdoors, no wind, not cold, no rain. Every team starts here.</div></td></tr>`;
       GROUPS.forEach(([gname, fs], gi) => {
         const items = fs.filter(f => META.feats.includes(f)).map(f => byF[f] || {f, v: inp[f] == null ? null : inp[f], c: 0});
         const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
@@ -796,6 +804,14 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     return h;
     function inline(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>"); }
   }
+  const TESTED_LABEL = {rain: "Rain at kickoff (outdoor)", snow: "Snow at kickoff (outdoor)", primetime: "Primetime (TNF, SNF, MNF)", div_game: "Division game", rest_short: "Short week (Thursday)", rest_long: "Long rest (10+ days)", body_clock_early: "West Coast team at 1pm ET on the road"};
+  function testedTable() {
+    const SF = (META.analysis || {}).situation_facts || {}; const T = SF.tested || {};
+    let h = "<div class='tablewrap' style='max-height:40vh'><table><thead><tr><th class='l'>Situation</th><th>Team-games with it</th><th>Points with it</th><th>Points without</th><th>Raw gap</th></tr></thead><tbody>";
+    Object.entries(T).forEach(([k, x]) => { h += `<tr><td class="l">${TESTED_LABEL[k] || k}</td><td class="mono">${x.n_on.toLocaleString()}</td><td class="mono">${x.pf_on}</td><td class="mono">${x.pf_off}</td><td class="mono">${sgn(x.pf_on - x.pf_off, 2)}</td></tr>`; });
+    [["travel_miles", "Travel distance"], ["tz_shift", "Time zones crossed"]].forEach(([k, lab]) => { (SF[k] || []).forEach(b => { h += `<tr><td class="l">${lab}: ${b.bucket}</td><td class="mono">${b.n.toLocaleString()}</td><td class="mono">${b.pf == null ? "" : b.pf}</td><td></td><td></td></tr>`; }); });
+    return h + "</tbody></table></div>";
+  }
   function renderAnalysis() {
     const A = META.analysis || {}; const co = coefsFor(season);
     const terms = META.feats.map(f => ({f, c: co.per_unit[f], mu: co.mean[f]})).sort((a, b) => Math.abs(b.c * 1) - Math.abs(a.c * 1));
@@ -836,8 +852,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <h2>What each input is worth: ablation</h2>
       <p class="note">Each group of inputs removed from the locked model, one at a time, on 2019 to 2022. A rise in the miss means the input earns its place. Changes under about 0.01 are inside the noise (reports/audit.md has the bootstrap intervals).</p>
       ${dTable(abl, "dropped", "Removed")}
-      <h2>Your ideas, each added and tested</h2>
+      <h2>Every idea, tested: injuries, referees, primetime, head-to-head, division, travel, time zones, snow, rest</h2>
+      <p class="note">Each one is computed as-of every game (nothing from the game itself), then added to the eleven-input model one at a time and run walk-forward on 2019 to 2022. "Change vs full model" is the change in the team points miss: below zero means the idea made the model more accurate; the bootstrap noise on this number is about ±0.01, so anything inside that is no detectable effect. Where an idea lives now: <b>injuries</b>: the starting QB is in the model (his rating, and a flag when last game's starter is out); counts of other starters out were tested and did not help. <b>Referees</b> (over rate, home-cover rate, penalties), <b>head-to-head</b>, <b>coach and QB ATS records</b>, <b>primetime</b>, <b>division games</b>, <b>rest</b>, <b>snow</b>, <b>travel distance</b>, <b>time-zone shift</b> and <b>West Coast teams at 1pm ET</b> are tested below and shown on every game as readings. Temperature, wind and rain are in the model (rain was added from this test on 22 Sep 2026: it lowered the points miss on both windows, the one idea in the list that did). The table is regenerated from reports/additions.csv on every run.</p>
       ${dTable(add, "added", "Added")}
+      <h3 style="margin-top:14px">The raw data behind the tested situations</h3>
+      <p class="note">Points scored per team with the situation present vs absent, 2013 to the last full season, before any adjustment. A raw gap can vanish once the ratings are in (good teams get primetime slots), which is why the test above is the one that counts.</p>
+      ${testedTable()}
       <h2>Do the record-type trends persist?</h2>
       <p class="note">Each trend measured on 2012 to 2018, then checked on 2019 to 2025. A correlation near zero means the leaders of the first period were not the leaders of the second.</p>
       <div class="tablewrap" style="max-height:30vh"><table><thead><tr><th class='l'>Trend</th><th>Keys with enough games</th><th>Correlation between periods</th><th>Top 5 in period 1</th><th>Those same 5 in period 2</th></tr></thead><tbody>${pers.map(r => `<tr><td class="l">${r.trend}</td><td class="mono">${r.n_keys}</td><td class="mono">${r.corr_between_periods}</td><td class="mono">${r.top5_period1}</td><td class="mono">${r.top5_in_period2}</td></tr>`).join("")}</tbody></table></div>

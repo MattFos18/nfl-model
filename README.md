@@ -44,7 +44,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
 - `reports/`              backtest reports, tuning results, decision log, weekly picks:
-  - `backtest_v3.md` the go / no-go numbers: 3.0 vs Vegas, tuning window vs held-out, thresholds, market blend; `learning_experiments.csv` weekly refit and residual-learning tests; `input_set_experiments.csv` the eleven-input test
+  - `backtest_v3.md` the go / no-go numbers: 3.0 vs Vegas, tuning window vs held-out, thresholds, market blend; `learning_experiments.csv` weekly refit and residual-learning tests; `input_set_experiments.csv` the input-set test; `additions.csv` every idea (injuries, referees, primetime, head-to-head, division, travel, time zones, rain, snow, rest) added and tested
   - `baseline_backtest.md` the old model's full record; `v3_backtest_full.md` the same tables for 3.0 over 2019 to 2026
   - `decision_log.md` every claim tested, the result, and what was decided
   - `lab.md` stat correlations (predictive vs same-season) and reliability; `ablation.csv`, `tuning_ratings.csv`, `v3_coefficients.txt`
@@ -54,17 +54,17 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 
 | | 3.0 | Vegas close |
 |---|---|---|
-| Team points miss | 7.37 | 7.21 |
+| Team points miss | 7.36 | 7.21 |
 | Margin miss | 10.13 | 9.74 |
-| Total miss | 10.37 | 10.12 |
+| Total miss | 10.32 | 10.12 |
 | Brier (win odds) | 0.221 | 0.210 |
-| Spreads at 3+ pt edge | 104-100 | |
+| Spreads at 3+ pt edge | 103-101 | |
 | Spreads at 5+ pt edge (the flag) | 26-16 (2019 to 2025: 68-48; 63-39 outside Week 18) | |
-| Totals at 6+ pt edge (the flag) | 10-8 (2019 to 2025: 26-22) | |
+| Totals at 6+ pt edge (the flag) | 12-11 (2019 to 2025: 27-26) | |
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
 disagreements with the close lose; 5+ point spread edges have won in both backtest windows on small samples (a lead,
-not proof), and the live tracker is what settles it. The model has eleven inputs, each with one plain meaning
+not proof), and the live tracker is what settles it. The model has twelve inputs, each with one plain meaning
 (`docs/how_it_works.md` section 4), the regression is refit before every week on every played game since 2013, and
 there are no flags in Week 18, where resting starters make the line smarter than the ratings. Every number in the
 tables is checked against Pro-Football-Reference and the schedule by `verify.py` (`reports/verification.md`).

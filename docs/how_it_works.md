@@ -70,7 +70,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 22 Sep 2026 the model has eleven inputs, each with one
+team carried into a game to the points it scored. Since 22 Sep 2026 the model has twelve inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -87,12 +87,13 @@ printed on the page, Model → How it was built, and refit before every week):
 | Cold under 35F | -0.07 | |
 | Neutral site | -0.06 | |
 | Dome | +0.06 | Indoor teams score more raw (+1.5), but the ratings already know who plays indoors |
+| Rain at kickoff | about -1 point when it applies | From the play-by-play weather text; the kickoff forecast (50%+ chance of precipitation) for unplayed games. Added from the ideas test below: -0.010 and -0.013 on the points miss in the two windows |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
 coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Why eleven and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+**Why twelve and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
 primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
 
@@ -107,8 +108,17 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Eleven inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Twelve inputs a reader can check beats twenty-six that
 score the same.
+
+**Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
+the team points miss; noise about ±0.01). Injuries as counts of starters out +0.004; head-to-head +0.006; coach ATS -0.005;
+QB ATS +0.007; referee over rate -0.002, home-cover rate -0.004, penalties 0.000; primetime 0.000; division game -0.007
+(-0.005 held out: inside the noise, not adopted); rest flags +0.013; rain -0.010 (-0.013 held out: adopted); snow +0.006;
+travel distance -0.004; time-zone shift +0.001; West Coast teams at 1pm ET +0.002; the pass/rush split -0.005; pace -0.007
+(+0.018 held out); opponent QB and other side of the ball +0.002. Rain is the one idea that improved the model on both
+windows. Every one of these is still computed for every game and shown on the game card as a reading, with its raw
+gap in the data (Model → How it was built), so the test reruns automatically as seasons accumulate.
 
 **Ablation** on the eleven (`reports/ablation.csv`, drop one group at a time, 2019 to 2022 points miss): QB +0.063,
 weather/dome +0.036, points ratings +0.026, EPA ratings +0.002, home -0.019 (dropping home lowers the miss slightly on

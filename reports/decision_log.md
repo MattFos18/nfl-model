@@ -49,6 +49,7 @@ on record, ROI at -110 and, once logged, closing line value. Tuned on 2019 to 20
 | 22 Sep 2026 | Rankings "power" and the scatter were unclear | Page | Power = expected margin vs an average team on a neutral field from the full equation; the scatter is only the two EPA ratings | Titles and note rewritten; the scatter's defense axis label was wrong (said down = better) and is fixed |
 | 22 Sep 2026 | Ratings for future weeks shown on the Team tab | Page | Beyond the next unplayed week an as-of rating is this week's number decayed and the starter is a guess | Those rows are blank now (export_web) |
 | 22 Sep 2026 | Tracker held a CLE +3 flag from the 26-input model | The eleven-input model prices the same game at a 4.2 edge, under the flag | Game not yet kicked off | Withdrawn from model_picks.csv; MIA +11.5 stands (edge 5.2 under both) |
+| 22 Sep 2026 | Rain, snow, travel distance, time-zone shift, and every earlier idea, re-tested against the twelve-input model | Each added alone, walk-forward 2019 to 2022, then the survivors checked on 2023 to 2025 (reports/additions.csv) | Rain -0.010 / -0.013 on the two windows; division -0.007 / -0.005; pace -0.007 / +0.018; everything else within ±0.007 | Rain adopted as the twelfth input (forecast fills it for unplayed games). Division inside the noise, not adopted. The rest stay as readings on every game |
 
 ## What the held-out result means
 
