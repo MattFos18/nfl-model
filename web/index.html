@@ -112,6 +112,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge b.flag{color:var(--accent)}
 .spark{width:100%;max-width:220px;height:44px;margin-top:6px;display:block}
 .spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
+.chip.alt{background:var(--accent-soft);color:var(--accent)}
 .chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
 .blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
 .blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -198,7 +199,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <dt>Vegas points</dt><dd>What the line implies: (total ± spread) ÷ 2.</dd>
       <dt>Edge</dt><dd>Model line minus the Vegas line, in points, with the side it favours. The flag fires at <span id="thr"></span>: the thresholds that won in both backtest windows (History tab), on small samples.</dd>
       <dt>Win %</dt><dd>Model: the chance the final margin lands above zero when the margin is treated as a bell curve centred on the model spread with a 13-point spread (the actual miss over 2013 to 2025), reshaped so 3 and 7 get their true share. Vegas: the moneyline with the bookmaker's cut removed, so the two sides sum to 100%.</dd>
-      <dt>Cover %</dt><dd>The same bell curve: the chance the margin beats the Vegas spread. Vegas's own number is 50% by construction, so the model's cover % is the whole disagreement.</dd>
+      <dt>Cover %</dt><dd>The same bell curve: the chance the margin beats the Vegas spread, which is 50% by construction from the line's side. The model's number is optimistic because the line carries information the model does not, so the green chip beside it gives the honest figure: what edges of that size have actually covered in the backtest since 2019.</dd>
       <dt>Over %</dt><dd>The chance the total lands above the Vegas total, bell curve centred on the model total, 13.4-point spread.</dd>
       <dt>Break-even</dt><dd>52.4% at −110. A cover or over % below that is a losing bet even if the model is right on average.</dd>
     </dl>
@@ -451,6 +452,16 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     } else moved = Math.abs(d) < 0.01 ? "no move" : `moved ${Math.abs(d).toFixed(1)} ${d > 0 ? "up (toward the over, the public side)" : "down (toward the under, the side the money usually takes)"}`;
     return svg + `<small class="note" style="font-size:11px">${vals.length} snapshots since ${ts[0].slice(5, 16).replace("T", " ")} UTC: ${moved}</small>`;
   }
+  function histCover(edge) {
+    // what past edges of this size actually covered, from the backtest rows (1-point buckets up to 7, then 7+)
+    if (!window.BACKTEST || edge == null) return "";
+    const e = Math.abs(edge); if (e < 1) return "";
+    const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
+    const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
+    if (rows.length < 10) return "";
+    const w = rows.filter(r => r.pickWon).length;
+    return `<span class="chip alt" title="every backtest game since 2019 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side">edges of ${lo}${hi === 99 ? "+" : " to " + hi} covered ${(100 * w / rows.length).toFixed(0)}% (${rows.length} bets)</span>`;
+  }
   function lineTxt(team, num) { return `${team} ${num > 0 ? "+" : ""}${Number.isInteger(num) ? num : num.toFixed(1)}`; }
   function renderWeek() {
     const W = window.WEEK || {};
@@ -480,7 +491,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A})}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span> ${histCover(g.spread_edge)}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A})}` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
@@ -683,9 +694,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     // when the flags were wrong: what an edge should convert to, and what differed between winning and losing flags
     const Phi = z => { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); const pp = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - pp : pp; };
     const sig = all.find(r => r.sigma_margin) ? all.filter(r => r.sigma_margin).reduce((a, r) => a + r.sigma_margin, 0) / all.filter(r => r.sigma_margin).length : 13.1;
-    let mh = `<p class="note"><b>Why a 7-point edge does not win 70% of the time.</b> Two reasons, and the table separates them. First, football is noisy: the model's own miss on the margin is about ${sig.toFixed(1)} points, so even a perfectly right 5-point edge covers only ${(100 * Phi(5 / sig)).toFixed(0)}% of the time. Second, the model's biggest disagreements with the line are partly the model being wrong: if the truth sits halfway between the model and the line, the expected cover rate is the last column, and that is what the record looks like. The line has information the model does not (injury news, the money), so large disagreements should be trusted less, not more.</p>
-      <table><thead><tr><th class='l'>Edge</th><th>Bets</th><th>Covered</th><th>If the model were exactly right</th><th>If the truth is halfway to the line</th></tr></thead><tbody>`;
-    [[3, 4], [4, 5], [5, 6], [6, 7], [7, 99]].forEach(([lo, hi]) => { const x = all.filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null); if (!x.length) return; const e = x.reduce((a, r) => a + Math.abs(r.edge), 0) / x.length; const w = x.filter(r => r.pickWon).length; mh += `<tr><td class="l">${lo} to ${hi === 99 ? "" : hi}${hi === 99 ? "+" : ""}</td><td class="mono">${x.length}</td><td class="mono">${(100 * w / x.length).toFixed(1)}%</td><td class="mono">${(100 * Phi(e / sig)).toFixed(1)}%</td><td class="mono">${(100 * Phi(e / 2 / sig)).toFixed(1)}%</td></tr>`; });
+    const bucketRate = (lo, hi) => { const x = all.filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null); const w = x.filter(r => r.pickWon).length; return {n: x.length, w, pct: x.length ? w / x.length : null, e: x.length ? x.reduce((a, r) => a + Math.abs(r.edge), 0) / x.length : null}; };
+    const BUCKETS = [[3, 4], [4, 5], [5, 6], [6, 7], [7, 99]];
+    let mh = `<p class="note"><b>What this tells us.</b> (1) A bigger edge is not a safer bet. The model's spread misses by about ${sig.toFixed(1)} points on average, so even a perfectly right 5-point edge would cover only ${(100 * Phi(5 / sig)).toFixed(0)}% of the time; nothing in football pays out like a sure thing. (2) Past about 6 points the model is usually the one that is wrong, not the line: the cover rate falls back to a coin flip. The line carries injury news and the money; the model does not. (3) The losing flags were not games with a missed injury. The injury readings of winning and losing flags are the same to within a fraction of a starter, and most losses were blowouts, not near misses. <b>What changed because of it:</b> each card now shows, next to the model's cover odds, what edges of that size have actually covered in the backtest, so you read the real conversion rate and not the model's optimism; the flag stays at 5 because 5 to 7 is where the record is best; and the home/away split below is logged as a lead.</p>
+      <table><thead><tr><th class='l'>Edge</th><th>Bets</th><th>Actually covered</th><th>If the model were exactly right</th><th>If the truth is halfway to the line</th></tr></thead><tbody>`;
+    BUCKETS.forEach(([lo, hi]) => { const bkt = bucketRate(lo, hi); if (!bkt.n) return; mh += `<tr><td class="l">${lo} to ${hi === 99 ? "" : hi}${hi === 99 ? "+" : ""}</td><td class="mono">${bkt.n}</td><td class="mono"><b>${(100 * bkt.pct).toFixed(1)}%</b></td><td class="mono">${(100 * Phi(bkt.e / sig)).toFixed(1)}%</td><td class="mono">${(100 * Phi(bkt.e / 2 / sig)).toFixed(1)}%</td></tr>`; });
     mh += "</tbody></table>";
     const flg = all.filter(r => r.edge != null && Math.abs(r.edge) >= 5 && r.pickWon !== null);
     const pickSide = r => ({home: r.edge > 0, qbOut: r.edge > 0 ? r.home_qb_out : r.away_qb_out, oppQbOut: r.edge > 0 ? r.away_qb_out : r.home_qb_out,
@@ -696,7 +709,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const avgOf = (arr, k) => arr.length ? arr.reduce((a, x) => a + (+x[k] || 0), 0) / arr.length : 0;
     const rowsM = [["Pick was the home team", "home", v => (100 * v).toFixed(0) + "%"], ["Pick was the underdog", "dog", v => (100 * v).toFixed(0) + "%"], ["Pick's last starter QB listed out", "qbOut", v => (100 * v).toFixed(0) + "%"], ["Opponent's starter QB listed out", "oppQbOut", v => (100 * v).toFixed(0) + "%"], ["Pick's starters out (offense + defense)", "starters", v => v.toFixed(2)], ["Opponent's starters out", "oppStarters", v => v.toFixed(2)]];
     const hw = flg.filter(r => r.edge > 0), aw = flg.filter(r => r.edge < 0);
-    mh += `<p class="note" style="margin-top:12px"><b>Winning flags vs losing flags, ${W_.length} and ${L_.length}.</b> If the losses were games where something was missed, it should show here as a gap between the two columns. What the data says: the injury readings barely differ (a fraction of one starter), so a missed injury is not what separates them. The losses were mostly big misses, not near misses: ${L_.filter(x => x.short <= -7).length} of ${L_.length} fell short of the line by a touchdown or more. That is variance and model error, which is what the table above already says. The one gap with any size is home versus away: home-team flags are ${hw.filter(r => r.pickWon).length}-${hw.filter(r => !r.pickWon).length}, away-team flags ${aw.filter(r => r.pickWon).length}-${aw.filter(r => !r.pickWon).length}. On ${aw.length} away bets that is a lead to watch, not a rule.</p>
+    mh += `<p class="note" style="margin-top:12px"><b>Winning flags vs losing flags, ${W_.length} and ${L_.length}.</b> Home-team flags ${hw.filter(r => r.pickWon).length}-${hw.filter(r => !r.pickWon).length}, away-team flags ${aw.filter(r => r.pickWon).length}-${aw.filter(r => !r.pickWon).length}. ${L_.filter(x => x.short <= -7).length} of ${L_.length} losses fell short of the line by a touchdown or more.</p>
       <table><thead><tr><th class='l'>Reading</th><th>Winning flags</th><th>Losing flags</th></tr></thead><tbody>` + rowsM.map(([lab, k, f]) => `<tr><td class="l">${lab}</td><td class="mono">${f(avgOf(W_, k))}</td><td class="mono">${f(avgOf(L_, k))}</td></tr>`).join("") + "</tbody></table>";
     $("misses").innerHTML = mh;
     // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange, not flagged; shown for the record), one unit each at -110
