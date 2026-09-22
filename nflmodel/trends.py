@@ -140,6 +140,9 @@ def _norm(name: pd.Series) -> pd.Series:
     return name.fillna("").str.lower().str.replace(r"[^a-z]", "", regex=True)
 
 
+OL_POS = {"T", "G", "C", "OL", "OT", "OG"}
+
+
 def _roster_names(seasons) -> dict:
     """gsis_id -> full name from the weekly rosters (snap counts carry names, not ids, so the join is by name)."""
     out = {}
@@ -184,7 +187,7 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
     for r in long.itertuples():
         g = prev_lookup.get((r.season, r.team))
         if g is None:
-            rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": np.nan, "def_starters_out": np.nan, "qb_out": np.nan})
+            rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": np.nan, "def_starters_out": np.nan, "qb_out": np.nan, "ol_out": np.nan, "off_snap_out": np.nan, "def_snap_out": np.nan})
             continue
         before = g[g.week < r.week]
         if len(before) == 0:
@@ -197,7 +200,13 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
         starters_def = set(before[before.defense_pct >= 0.5].key)
         qb = set(before[(before.position == "QB") & (before.offense_pct >= 0.5)].key)
         out = set(inj[(inj.season == r.season) & (inj.week == r.week) & (inj.team == r.team)].key) | ros_out.get((r.season, r.week, r.team), set())
-        rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": float(len(starters_off & out)),
+        # offensive line continuity and snap-weighted absences: which of last game's linemen are out, and what share of
+        # last game's offensive and defensive snaps belonged to players now out (a starter at 95% counts more than a 55% one)
+        ol = before[before.position.isin(OL_POS) & (before.offense_pct >= 0.5)]
+        ol_out = float(len(set(ol.key) & out))
+        off_snap_out = float(before[before.key.isin(out)].offense_pct.clip(0, 1).sum())
+        def_snap_out = float(before[before.key.isin(out)].defense_pct.clip(0, 1).sum())
+        rows.append({"game_id": r.game_id, "team": r.team, "ol_out": ol_out, "off_snap_out": off_snap_out, "def_snap_out": def_snap_out, "off_starters_out": float(len(starters_off & out)),
                      "def_starters_out": float(len(starters_def & out)), "qb_out": float(len(qb & out) > 0)})
     return pd.DataFrame(rows)
 

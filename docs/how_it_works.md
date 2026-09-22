@@ -70,7 +70,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 22 Sep 2026 the model has sixteen inputs, each with one
+team carried into a game to the points it scored. Since 22 Sep 2026 the model has eighteen inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -92,12 +92,14 @@ printed on the page, Model → How it was built, and refit before every week):
 | Division game | -0.67 points for each team when it applies | Familiar opponents score a little less. Added 22 Sep 2026 from the both-window test (section 14): -0.006 and -0.006 on the points miss; it moves both teams alike, so the spread barely changes |
 | Skill players out: value lost | -13 points per unit of EPA per play lost (a star receiver out, about 0.03, is -0.4 points) | Player model (section 15): the EPA per touch above replacement of every RB, WR and TE listed Out or Doubtful, times their touch share, summed. Added 22 Sep 2026: with the opponent's loss, -0.009 and -0.012 on the margin miss in the two windows |
 | Opponent's skill players out: value lost | +36 points per unit (the same star out on the other side is +1.1 points for this team) | The same loss on the other side of the ball, in this team's own points equation |
+| Offensive snaps out | negative per share of snaps missing | Sum of last game's offensive snap shares of the players now out: linemen, fullbacks, anyone the touch value cannot see. Player model phase 3, 22 Sep 2026 |
+| Opponent's defensive snaps out | positive | The same sum for the opponent's defense |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
 coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Why sixteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+**Why eighteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
 primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
 
@@ -112,7 +114,7 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Sixteen inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Eighteen inputs a reader can check beats twenty-six that
 score the same.
 
 **Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
@@ -408,10 +410,34 @@ under "Injuries beyond the QB". In the model since 22 Sep 2026, own and opponent
 to 10.105 (2023-25). Small, but the same sign on both windows and larger than any situational input added this
 year. The QB stays on its own flag (`qb_out`), which already carries the biggest injury effect.
 
-Not done yet, in order of expected value: offensive line (no EPA attribution exists for linemen; snap counts and
-a line-continuity count are the only handles), defensive players (the same problem: EPA attributes to the
-offense), and a full availability-weighted offense rating (every player's value times expected usage, rather than
-only the ones listed out). Each is a test like the ones above, and none goes in unless it helps on both windows.
+Phase 3 (22 Sep 2026, `experiments/line_defense.py`, `experiments/snap_pair.py`): the line and the defense.
+EPA does not attribute to linemen or defenders, so the handle is snaps: from the team's previous game, the sum of
+the snap shares of every player now out (Out or Doubtful on the report, or IR, PUP, suspended or exempt on the
+roster). Tested on both windows against the sixteen-input model:
+
+| Input | Points 2019-22 | Margin 2019-22 | Points 2023-25 | Margin 2023-25 | Verdict |
+|---|---|---|---|---|---|
+| Own offensive-line starters out (count) | +0.001 | -0.004 | 0.000 | 0.000 | nothing |
+| Own offensive snaps out | 0.000 | -0.008 | -0.001 | -0.004 | margin only |
+| Opponent offensive-line starters out | -0.004 | -0.008 | +0.001 | -0.001 | mixed |
+| Opponent defensive snaps out | -0.006 | -0.001 | -0.013 | -0.002 | points only |
+| Own offensive snaps out + opponent defensive snaps out | -0.008 | -0.010 | -0.015 | -0.009 | adopted |
+| The pair + the line count | -0.009 | -0.011 | -0.014 | -0.007 | the count adds nothing |
+
+So the model has eighteen inputs: the pair went in (flags 48-40 and 29-18 against 42-35 and 28-19 without).
+The offensive line is inside "offensive snaps out" (a lineman at 100% of snaps counts a full share); a separate
+line count added nothing once the snap share was there. The defense is covered the same way from the other side.
+
+Still open: a full availability-weighted offense rating (every player's value times expected usage, rather than
+only the ones listed out), and a defensive player value that would need a different attribution than EPA. Each is
+a test like the ones above, and nothing goes in unless it helps on both windows.
+
+**Where the player data lives on the page.** Players (top tab): every skill player league-wide, ranked by value
+above replacement, with a search, team and position filters, this week's status, and a click-through to his
+history by season and team (raw play-by-play totals, so a trade shows as a new team row with the same player).
+Team -> Roster and depth chart: this week's roster, the latest depth chart by slot and rank, the injury report with
+practice status and the injury, last game's snap share, and the value for skill players, with everyone the model
+prices as unavailable listed at the top. Team -> Players: the same values for that team only.
 
 Neither the division flag nor the value out helps the totals equation (`reports/totals_div.csv`), so that stays as it was. The weekly run builds all of this (`players` step after `trends`); the card shows the value out under "Injuries
 beyond the QB" in the breakdown.

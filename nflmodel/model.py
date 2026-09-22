@@ -29,7 +29,8 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 # (the rest pair only ever appeared together; pass and rush EPA overlap EPA per play).
 RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pf"] for s in ["off", "def"]]
 SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]   # rain, warm_in_cold and div_game added 22 Sep 2026 (each lowered the miss on both windows)
-INJ_FEATS = ["skill_out_value", "opp_skill_out_value"]   # player model, phase 2 (22 Sep 2026): value lost to RB/WR/TE listed out, own and opponent
+INJ_FEATS = ["skill_out_value", "opp_skill_out_value",   # player model, phase 2 (22 Sep 2026): value lost to RB/WR/TE listed out, own and opponent
+             "off_snap_out", "opp_def_snap_out"]          # phase 3 (22 Sep 2026): share of last game's offensive snaps now out; the opponent's defensive snaps out
 # teams whose home is warm or indoors, for the "warm or dome team playing in the cold" flag (static; a team's climate does not change)
 WARM_OR_DOME = {"MIA", "TB", "JAX", "ARI", "LAC", "LA", "LV", "SF", "HOU", "NO", "ATL", "DAL", "CAR", "TEN", "DET", "MIN", "IND"}
 FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS
@@ -41,7 +42,7 @@ MARGIN_RANGE = np.arange(-60, 61)
 
 TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_home_cover", "ref_pen", "sun_late",
                "body_clock_early", "cold_edge", "wind_edge", "off_home_split", "off_starters_out", "def_starters_out", "qb_out",
-               "rain", "snow", "travel_miles", "tz_shift"]
+               "rain", "snow", "travel_miles", "tz_shift", "ol_out", "off_snap_out", "def_snap_out"]
 
 
 def with_trends(f: pd.DataFrame) -> pd.DataFrame:
@@ -59,6 +60,10 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
         iv = pd.read_parquet(pi)[["game_id", "team", "skill_out_value"]]
         f = f.merge(iv, on=["game_id", "team"], how="left")
         f = f.merge(iv.rename(columns={"team": "opp", "skill_out_value": "opp_skill_out_value"}), on=["game_id", "opp"], how="left")
+    # the opponent's defensive absences (snap-weighted), from the same trends table joined on the opponent
+    od = t.rename(columns={"team": "opp", "def_snap_out": "opp_def_snap_out"})[["game_id", "opp", "opp_def_snap_out"]] if "def_snap_out" in t.columns else None
+    if od is not None:
+        f = f.merge(od, on=["game_id", "opp"], how="left")
     for c in INJ_FEATS:
         f[c] = f[c].fillna(0.0) if c in f.columns else 0.0
     return f
