@@ -227,6 +227,7 @@ def main():
             wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "methods": comp, "sides": sides,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
+                       "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt)} for t, src, hs, tt in
                                        zip(h.ts, h.source, h.home_spread, h.total)] if len(h) else []})
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")
