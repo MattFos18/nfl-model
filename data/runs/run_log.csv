@@ -63,3 +63,24 @@ record picks,ok,"                 run_at  season  week  ... spread_edge total_ed
 grade,ok,,0.0,2026-09-22 17:46 UTC
 export data room,ok,,5.4,2026-09-22 17:46 UTC
 audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.7,2026-09-22 17:46 UTC
+pull,ok,"[('2026-09-22T18:43:26', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180001, '0e9108d0c704'), ('2026-09-22T18:43:26', 'pbp', 2012, 'ht",25.2,2026-09-22 18:43 UTC
+build,ok,"team_games (8202, 142)",214.6,2026-09-22 18:43 UTC
+features,ok,[40 rows x 8 columns],15.1,2026-09-22 18:43 UTC
+verify,ok,Result: PASS,0.5,2026-09-22 18:43 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-22 14:47
+1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09",149.1,2026-09-22 18:43 UTC
+ratings,ok,"(7668, 49)",25.8,2026-09-22 18:43 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,48.1,2026-09-22 18:43 UTC
+players,ok,max           0.151042         1.357485    14.000000,114.0,2026-09-22 18:43 UTC
+model,ok,            neutral            0.142       0.133          0.019,13.0,2026-09-22 18:43 UTC
+picks,ok,"              game_id  season  week  ...   old_home   old_away        bet
+1992   2026_03_ATL_GB    2026     3  ...  14.268737 -10.812540           
+1993  2026_03_LAC_BUF    2026     3  ...  52.645364 ",0.0,2026-09-22 18:43 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-09-22 18:43 UTC    2026     3  ...        6.57       0.39    0.703
+
+[1 rows x 10 columns]",0.0,2026-09-22 18:43 UTC
+grade,ok,,0.0,2026-09-22 18:43 UTC
+export data room,ok,,4.7,2026-09-22 18:43 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.7,2026-09-22 18:43 UTC
