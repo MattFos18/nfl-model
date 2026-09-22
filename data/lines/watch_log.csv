@@ -1,0 +1,2 @@
+ts,season,week,rows,errors
+2026-09-22T15-23-21Z,2026,3,0,espn: 403 Client Error: Forbidden for url: https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?week=3&season; draftkings: 403 Client Error: Forbidden for url: https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/88808?format=json
