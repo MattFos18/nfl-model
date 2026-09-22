@@ -9,7 +9,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 |---|---|
 | 1. Setup: repo, data pulls 2012 to 2026, games and team-game tables | Done 21 Sep |
 | 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` (kept in the repo for the record; no longer on the page) |
-| 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep, `reports/backtest_v3.md`, `reports/decision_log.md` |
+| 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep; 22 Sep: twelve inputs, weekly refit, rain, a totals equation, every idea tested (`reports/backtest_v3.md`, `reports/decision_log.md`) |
 | 4. Go / no-go: tuned on 2019 to 2022, judged on 2023 to 2025 | Numbers are in `reports/backtest_v3.md`; the decision is Matt's |
 | 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Merged to `main` 22 Sep; both GitHub Actions workflows are live (first runs: the weekly pipeline passed pull, build and features; the line feeds answered 403 from GitHub's runners, fallbacks added) |
 | 6. Extras (player model, splits, sizing, timing tests on the logged lines) | After a few weeks of logs |

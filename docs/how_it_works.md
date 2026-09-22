@@ -125,6 +125,16 @@ weather/dome +0.036, points ratings +0.026, EPA ratings +0.002, home -0.019 (dro
 that window but the home coefficient is the best-established number in football, 1.9 points raw on 3,400 games each
 side; it stays).
 
+**The total has its own equation** (22 Sep 2026). Adding the two team scores gave a total that missed by 10.66 and 10.32 on the
+two windows. A ridge regression fit to the game total directly, from both teams' ratings summed, the two QB ratings, QB-out
+flags, wind, rain, cold and the roof, misses by 10.64 and 10.30: a small gain, but on both windows (`reports/totals_experiments.csv`).
+The team scores still drive the spread and the points shown on the cards; the total shown is this equation's number, so the two
+team scores do not add exactly to it. Totals are still not flagged; the new equation's 4+ edges went 77-53 then 62-56, a lead to
+re-sweep after the season.
+
+**More training years do not help.** The regression's training start was tried at 2012, 2013, 2015 and 2017; every result was
+within 0.01 on both windows. The game drifts enough that seasons before about 2013 would add nothing.
+
 ## 5. Why EPA and not the old stats
 
 `reports/lab.md`: for every stat, the correlation of a team's average through Week 8 with its points per
