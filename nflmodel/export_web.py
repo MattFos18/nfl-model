@@ -287,8 +287,8 @@ def main():
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                        "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
-                      "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt)} for t, src, hs, tt in
-                                       zip(h.ts, h.source, h.home_spread, h.total)] if len(h) else []})
+                      "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
+                                       for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
@@ -331,6 +331,25 @@ def export_rankings_and_methods():
         out[str(s)] = {}
         for w in weeks:
             Rt = R.team_ratings(played, s, w, p)
+            # alternative windows for the current season only: this season equal-weight, last three weeks, last week, last season
+            variants = {}
+            if s == max(range(2014, 2027)) or s == int(games.season.max()):
+                for kind in ["season", "last3", "last1", "lastseason"]:
+                    try:
+                        Rv = R.team_ratings(played, s, w, p, kind)
+                    except Exception:  # noqa
+                        continue
+                    if len(Rv) == 0:
+                        continue
+                    vt = {}
+                    for t in Rv.index:
+                        if t not in Rt.index:
+                            continue
+                        row = {"off_" + st: round(float(Rv.loc[t, "off_" + st]), 5) for st in R.STATS} | {"def_" + st: round(float(Rv.loc[t, "def_" + st]), 5) for st in R.STATS}
+                        row["qb_rating"] = None   # filled below from the model's QB rating
+                        row["n_games"] = int(Rv.n_games.get(t, 0)) if kind != "lastseason" else 0
+                        vt[t] = row
+                    variants[kind] = vt
             teams = {}
             for t in Rt.index:
                 row = {}
@@ -351,8 +370,18 @@ def export_rankings_and_methods():
                 row["power_pf"], row["power_pa"], row["power"] = round(pf, 2), round(pa, 2), round(pf - pa, 2)
                 row["n_games"] = int(Rt.n_games.get(t, 0))
                 teams[t] = row
+                for kind, vt in variants.items():
+                    if t not in vt:
+                        continue
+                    v = vt[t]; v["qb_rating"] = row["qb_rating"]
+                    xo = {k: v[k] for k in own if k in v} | {"qb_rating": row["qb_rating"]}
+                    xd = {k: v[k] for k in opp if k in v}
+                    vpf = intercept + sum(per_unit[k] * (xo[k] - mean[k]) for k in own)
+                    vpa = intercept + sum(per_unit[k] * (xd[k] - mean[k]) for k in opp)
+                    v["power_pf"], v["power_pa"], v["power"] = round(vpf, 2), round(vpa, 2), round(vpf - vpa, 2)
             out[str(s)][str(w)] = {"mu": {st: round(float(Rt.attrs[f"mu_{st}"]), 5) for st in R.STATS},
-                                   "h": {st: round(float(Rt.attrs[f"hfa_{st}"]), 5) for st in R.STATS}, "teams": teams}
+                                   "h": {st: round(float(Rt.attrs[f"hfa_{st}"]), 5) for st in R.STATS}, "teams": teams,
+                                   "windows": {k: v for k, v in variants.items() if v}}
         print("rankings", s, flush=True)
     # backtest: every priced game 2019 to now with model, Vegas and actual
     allv = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))

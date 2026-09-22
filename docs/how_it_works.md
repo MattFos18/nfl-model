@@ -216,6 +216,11 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
+**Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
+sweep, recomputed from the backtest on every run, is on the History tab (Every threshold, tested). On the current model, spread
+cutoffs from 4 to 5.5 make money in both windows and 5 has the best return (68-48 over 2019 to 2025; 6 and up flip negative held
+out). No total cutoff makes money in both windows (6+ went 27-26), so totals are no longer flagged; the edge is still shown.
+
 The 3 point rule was the sheet's idea, so 3.0 was swept from 0 to 7 points of disagreement with the closing
 line, on all of 2019 to 2025 and on the two windows separately (spreads; totals below):
 

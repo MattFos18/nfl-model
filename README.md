@@ -28,7 +28,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
 - `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
 - `nflmodel/weekly.py`    the weekly run: pull, build, verify, weather, ratings, trends, model, grade, picks, export, recap (`reports/weekly_latest.md`, `data/runs/run_log.csv`).
-- `nflmodel/lines.py`     line watch: ESPN scoreboard (DraftKings provider) and the DraftKings feed every 10 minutes to `data/lines/lines_log.csv`, raw JSON kept; splits hook pending a confirmed endpoint.
+- `nflmodel/lines.py`     line watch every 10 minutes to `data/lines/lines_log.csv`: ESPN scoreboard (DraftKings-provider line, with fallbacks), The Odds API every two hours when the `ODDS_API_KEY` secret is set (free tier, ten US books), DraftKings direct (refused from GitHub's servers); raw JSON kept; splits hook pending a source.
 - `nflmodel/weather.py`   Open-Meteo kickoff forecasts for unplayed outdoor games, applied before pricing, logged.
 - `nflmodel/tracker.py`   model picks and Matt's bets (`data/tracker/my_bets.csv`) graded with closing line value (`reports/track_record.md`).
 - `nflmodel/audit.py`     backtest audit: leakage test, coverage, bootstrap intervals on every rejected input, rejected ideas as standalone bets (`reports/audit.md`).
@@ -60,7 +60,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | Brier (win odds) | 0.221 | 0.210 |
 | Spreads at 3+ pt edge | 103-101 | |
 | Spreads at 5+ pt edge (the flag) | 26-16 (2019 to 2025: 68-48; 63-39 outside Week 18) | |
-| Totals at 6+ pt edge (the flag) | 12-11 (2019 to 2025: 27-26) | |
+| Totals at 6+ pt edge (not flagged: no total cutoff wins in both windows) | 12-11 (2019 to 2025: 27-26) | |
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
 disagreements with the close lose; 5+ point spread edges have won in both backtest windows on small samples (a lead,

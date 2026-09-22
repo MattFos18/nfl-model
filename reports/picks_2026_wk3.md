@@ -1,7 +1,7 @@
 # Week 3, 2026: model picks
 
 Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.
-Bet flag: spread when the edge is 5+ points, total when 6+. These are the thresholds with the best ROI that held in both backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 127 spread bets at 5+ went 53.5% (+2.2% ROI), 61 total bets at 6+ went 60.7% (+15.8%). Edges under those thresholds have lost money in every window. No flags in Week 18, where resting starters make the line smarter than the ratings (flags there went 7-11). Full table in docs/how_it_works.md.
+Bet flag: spread when the edge is 5+ points. That is the threshold with the best return that held in both backtest windows (2019 to 2022 and 2023 to 2025), on small samples: 116 spread bets at 5+ went 68-48. Totals are not flagged: no total threshold won in both windows (the 6+ rule went 27-26). No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the History tab of the data room.
 
 | Game      | Date       | Our score          | Old model   | Our line        | Vegas            | Edge (spread / total)   | Win               | Cover the spread   | Total                | Flag      |
 |:----------|:-----------|:-------------------|:------------|:----------------|:-----------------|:------------------------|:------------------|:-------------------|:---------------------|:----------|

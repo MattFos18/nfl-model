@@ -63,8 +63,29 @@ def window(tg: pd.DataFrame, season: int, week: int, decay: float, prior: float)
     return pd.concat([cur, last]), w
 
 
-def team_ratings(tg: pd.DataFrame, season: int, week: int, p: dict) -> pd.DataFrame:
-    rows, w = window(tg, season, week, p["decay"], p["prior"])
+def window_variant(tg: pd.DataFrame, season: int, week: int, p: dict, kind: str):
+    """Alternative windows for the Rankings tab. "model" is the real one (decay, last season at half weight). The others
+    answer "who is playing well lately" without decay or last season: "season" = this season's games, equal weight;
+    "last3" = the last three weeks; "last1" = last week only; "lastseason" = all of last season, equal weight."""
+    if kind == "model":
+        return window(tg, season, week, p["decay"], p["prior"])
+    if kind == "lastseason":
+        last = tg[tg.season == season - 1]
+        return last, np.ones(len(last))
+    cur = tg[(tg.season == season) & (tg.week < week)]
+    if kind == "season":
+        return cur, np.ones(len(cur))
+    if kind == "last3":
+        cur = cur[cur.week >= week - 3]
+        return cur, np.ones(len(cur))
+    if kind == "last1":
+        cur = cur[cur.week == week - 1]
+        return cur, np.ones(len(cur))
+    raise ValueError(kind)
+
+
+def team_ratings(tg: pd.DataFrame, season: int, week: int, p: dict, kind: str = "model") -> pd.DataFrame:
+    rows, w = window_variant(tg, season, week, p, kind)
     teams = sorted(set(tg[tg.season == season].team) | set(rows.team))
     out = pd.DataFrame(index=teams)
     for s in STATS:

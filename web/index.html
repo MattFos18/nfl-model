@@ -110,6 +110,8 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline;margin-top:2px;padding-top:4px;border-top:1px dashed var(--rule)}
 .blk .edge span{color:var(--ink-2)} .blk .edge b{font-family:var(--display);font-size:16px;font-weight:600}
 .blk .edge b.flag{color:var(--accent)}
+.spark{width:100%;max-width:220px;height:44px;margin-top:6px;display:block}
+.spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
 .chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
 .blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
 .blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -127,6 +129,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .ctab td.v{color:var(--muted);font-family:var(--mono);font-size:11.5px}
 .ctab tr.tot td{font-weight:600;border-top:2px solid var(--rule);border-bottom:0}
 .ctab tr.base td{color:var(--ink-2)}
+tr.hit td{background:var(--accent-soft)}
 .ctab tr.grp td{font-weight:600;background:var(--panel-2);border-bottom:1px solid var(--rule)}
 .ctab td.ind{padding-left:14px}
 .whybox > div{min-width:0}
@@ -205,7 +208,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 
 <section class="tab" id="rank" hidden>
   <p class="note">Every team on every rating as of a chosen week, then plotted. <b>Power</b> is the model's full opinion of a team: run the fitted equation with this team's offense ratings and QB against a league-average defense, then an average offense against this team's defense, on a neutral field with no weather; power = points for − points allowed. It uses every input the model has except the game situation. The <b>scatter</b> is narrower: just the two EPA-per-play ratings, offense across and defense up, so you can see which side of the ball a team's strength comes from. Click a column to sort; the small number is the rank on that column.</p>
-  <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label></div>
+  <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model">Model (decayed, last season at half weight)</option><option value="season">This season only, equal weight</option><option value="last3">Last three weeks</option><option value="last1">Last week only</option><option value="lastseason">Last season only</option></select></label></div>
   <div class="grid2e" style="margin-bottom:14px">
     <div class="card viz-root" id="scatcard"><h3>Offense vs defense EPA rating</h3><div id="scatter"></div><div class="tip" id="tip2"></div></div>
     <div class="card viz-root"><h3>Power: expected margin against an average team, neutral field</h3><div id="powerbar"></div></div>
@@ -219,8 +222,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
+    <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
-    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the flags, cumulative: spreads at 5+ and totals at 6+</h3><div id="unitschart"></div></div>
+    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at 5+, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
   <div class="tablewrap"><table id="bktable"></table></div>
 </section>
@@ -341,7 +345,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 
   // ---------- state ----------
   let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "games", model: "analysis"}, gameIdx = 0;
-  let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
+  let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = o.sub; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
   const GROUP_ORDER = ["Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
     "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
@@ -428,13 +432,31 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     return null;
   }
   function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - p : p; }
+  function spark(hist, key, modelVal, H) {
+    // the logged line over time (one point per snapshot, consensus = mean across sources at each timestamp) with the model's number dashed
+    const byTs = {}; (hist || []).forEach(r => { if (r[key] == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(r[key]); });
+    const ts = Object.keys(byTs).sort(); const vals = ts.map(t => byTs[t].reduce((a, b) => a + b, 0) / byTs[t].length);
+    if (vals.length < 2) return `<div class="spark none">${vals.length ? "1 line snapshot so far; movement shows once the 10-minute watch has logged more" : "no line snapshots yet"}</div>`;
+    const W = 220, Hh = 44, m = 4; const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
+    const x = i => m + i / (vals.length - 1) * (W - 2 * m), y = v => m + (hi - v) / (hi - lo) * (Hh - 2 * m);
+    let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="line movement">`;
+    if (modelVal != null) svg += `<line x1="${m}" x2="${W - m}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-dasharray="3 3"/>`;
+    svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="1.8"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="2.5" fill="var(--vegas)"/></svg>`;
+    const d = vals[vals.length - 1] - vals[0];
+    let moved;
+    if (key === "home_spread") {
+      if (Math.abs(d) < 0.01) moved = "no move";
+      else { const towardDog = Math.abs(vals[vals.length - 1]) < Math.abs(vals[0]) || Math.sign(vals[vals.length - 1]) !== Math.sign(vals[0]); moved = `moved ${Math.abs(d).toFixed(1)} toward ${d > 0 ? H.home : H.away}` + (towardDog ? " (the underdog: the side the money usually takes)" : " (the favourite: the side the public usually takes)"); }
+    } else moved = Math.abs(d) < 0.01 ? "no move" : `moved ${Math.abs(d).toFixed(1)} ${d > 0 ? "up (toward the over, the public side)" : "down (toward the under, the side the money usually takes)"}`;
+    return svg + `<small class="note" style="font-size:11px">${vals.length} snapshots since ${ts[0].slice(5, 16).replace("T", " ")} UTC: ${moved}</small>`;
+  }
   function lineTxt(team, num) { return `${team} ${num > 0 ? "+" : ""}${Number.isInteger(num) ? num : num.toFixed(1)}`; }
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
     const flagged = W.games.filter(g => g.bet);
     $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}.</b> ${W.games.length} games, ${flagged.length} flagged. Blue is the model, orange is Vegas. Each card splits into the spread, the total, the points behind them and the win odds; the edge under each market is the model's line minus the Vegas line. 52.4% is break-even at −110.`;
-    if ($("thr")) $("thr").textContent = `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
+    if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points (totals are not flagged: no total threshold won in both backtest windows; History → Every threshold, tested)` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
     const withLine = W.games.filter(g => g.spread_line != null);
     $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>flagged games: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>average disagreement with the current spread, points</span></div>
@@ -445,7 +467,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const vh = hasLine ? (g.total_line + g.spread_line) / 2 : null, va = hasLine ? (g.total_line - g.spread_line) / 2 : null;
       const sh = g.sides && g.sides[H] || {};
       const wx = sh.dome ? "dome" : [(sh.temp != null ? sh.temp + "F" : null), (sh.wind != null ? "wind " + sh.wind + " mph" : null)].filter(Boolean).join(", ") || "weather unknown";
-      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && Math.abs(g.total_edge) >= W.total_edge;
+      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && W.total_edge != null && Math.abs(g.total_edge) >= W.total_edge;
       const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = hasLine ? (g.total_edge > 0 ? "Over" : "Under") : null;
       const vw = vegasWin(g);
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
@@ -457,13 +479,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A})}` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>${spark(g.line_history, "total", g.model_total, {home: H, away: A})}` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -529,7 +551,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         <span>Not used <span class="badge noise">noise</span></span><b style="font-weight:400;color:var(--ink-2)">coach ATS ${fmtn(inp.coach_ats)} · QB ATS ${fmtn(inp.qb_ats)} · head-to-head ${fmtn(inp.h2h_cover)} · home edge ${fmtn(inp.team_home_edge)} · referee over ${pct(inp.ref_over)}</b></div></div>`;
       return h;
     });
-    const hist = g.line_history && g.line_history.length ? `<p class="note" style="grid-column:1 / -1;margin:0">Line log: ${g.line_history.length} snapshots, spread ${g.line_history[0].home_spread} → ${g.line_history[g.line_history.length - 1].home_spread}, total ${g.line_history[0].total} → ${g.line_history[g.line_history.length - 1].total}.</p>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
+    const hist = g.line_history && g.line_history.length ? `<div style="grid-column:1 / -1"><p class="cap">Line log: ${g.line_history.length} snapshots</p><div class="tablewrap" style="max-height:32vh"><table class="ctab"><thead><tr><th>Time (UTC)</th><th>Source</th><th class="n">${g.home_team} spread</th><th class="n">Total</th><th class="n">${g.home_team} ML</th><th class="n">${g.away_team} ML</th></tr></thead><tbody>${g.line_history.slice().reverse().map(r => `<tr><td>${r.ts.slice(0, 16).replace("T", " ")}</td><td>${esc(r.source)}</td><td class="n">${r.home_spread == null ? "" : (-r.home_spread > 0 ? "+" : "") + (-r.home_spread)}</td><td class="n">${r.total ?? ""}</td><td class="n">${r.home_ml ?? ""}</td><td class="n">${r.away_ml ?? ""}</td></tr>`).join("")}</tbody></table></div><p class="note" style="margin:6px 0 0">Bet and money splits: no free source yet; the watch tries the public consensus page each run and logs what it gets. When splits exist they appear here as bets % and money % per side, with a note when the line moves against the majority of bets.</p></div>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
     return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation. What each input is and how it is measured: Model → Inputs explained. Every number here is regenerated from the data on each weekly run.</p>`;
   }
   document.addEventListener("click", ev => { const q = ev.target.closest("button.q"); if (q) { const r = $(q.dataset.how); r.hidden = !r.hidden; return; } const b = ev.target.closest("button.open"); if (!b) return; const row = $(b.dataset.open); const open = row.hidden; row.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = (open ? "▾ " : "▸ ") + b.textContent.slice(2); });
@@ -550,10 +572,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (rkWeek == null || !weeks.includes(rkWeek)) { const bk = bkRows().filter(r => r.season === rkSeason && r.home_score != null); const nxt = bk.length ? Math.max(...bk.map(r => r.week)) + 1 : weeks[weeks.length - 1]; rkWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
     sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
     const tabl = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tabl.teams);
+    const wsel = $("rkwin"); const haveWin = tabl.windows && Object.keys(tabl.windows).length; wsel.disabled = !haveWin; if (!haveWin) rkWin = "model"; wsel.value = rkWin; wsel.onchange = () => { rkWin = wsel.value; renderRankings(); };
+    const src = (rkWin !== "model" && tabl.windows && tabl.windows[rkWin]) ? tabl.windows[rkWin] : tabl.teams;
     const cols = [["power", "Power (pts vs avg team)", 1], ["power_pf", "Points for vs avg", 1], ["power_pa", "Points allowed vs avg", -1], ["off_epa_play", "Off EPA rating", 1], ["def_epa_play", "Def EPA rating", 1],
                   ["off_pf", "Points rating (off)", 1], ["def_pf", "Points rating (def)", 1], ["qb_rating", "QB rating", 1], ["n_games", "Games", 1]];
     const oldcols = [];
-    const val = (t, k) => (k in tabl.teams[t]) ? tabl.teams[t][k] : null;
+    const val = (t, k) => (src[t] && k in src[t] && src[t][k] != null) ? src[t][k] : ((k in tabl.teams[t]) ? tabl.teams[t][k] : null);
     const ranks = {}; [...cols, ...oldcols].forEach(([k, , dir]) => { const sorted = teams.slice().sort((a, b) => (val(b, k) - val(a, k)) * dir); ranks[k] = {}; sorted.forEach((t, i) => ranks[k][t] = i + 1); });
     const dirOf = Object.fromEntries([...cols, ...oldcols].map(([k, , d]) => [k, d]));
     const order = teams.slice().sort((a, b) => (val(b, rkSort) - val(a, rkSort)) * (dirOf[rkSort] || 1) * (rkDir === -1 ? 1 : -1));
@@ -561,7 +585,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     order.forEach((t, i) => { h += `<tr><td>${i + 1}</td><td class="l"><b>${t}</b></td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s2 = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s2} <span class="rk">${k === "n_games" ? "" : "#" + ranks[k][t]}</span></td>`; }).join("") + "</tr>"; });
     $("rktable").innerHTML = h + "</tbody>";
     $("rktable").querySelectorAll("th.sortable").forEach(th => th.addEventListener("click", () => { if (rkSort === th.dataset.k) rkDir = -rkDir; else { rkSort = th.dataset.k; rkDir = -1; } renderRankings(); }));
-    $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}: what every team carried into that week, nothing from that week or later. Defense EPA rating: positive is good. League averages this week: EPA/play ${tabl.mu.epa_play}, points ${tabl.mu.pf.toFixed(1)}; home bump on points ${tabl.h.pf.toFixed(2)}.`;
+    const winNote = {model: "the model's ratings (every game weighted by age, last season at half weight, pulled toward average)", season: "this season's games only, equal weight, no last season (still opponent-adjusted and pulled toward average, so early weeks sit near zero)", last3: "the last three weeks only, equal weight: who is playing well right now", last1: "last week only: one game, so mostly noise, but it is what happened", lastseason: "all of last season, equal weight: where teams ended last year"}[rkWin];
+    $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}, window: ${winNote}. Nothing from that week or later. Defense EPA rating: positive is good. League averages this week: EPA/play ${tabl.mu.epa_play}, points ${tabl.mu.pf.toFixed(1)}; home bump on points ${tabl.h.pf.toFixed(2)}.`;
     // scatter: offense vs defense EPA rating
     const W = 520, Hh = 400, m = {t: 16, r: 16, b: 36, l: 44};
     const xs = teams.map(t => val(t, "off_epa_play")), ys = teams.map(t => val(t, "def_epa_play"));
@@ -628,7 +653,33 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
       bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
-    // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange), one unit each at -110
+    // threshold sweep: every cutoff on spreads and totals, on the tuning window, the held-out window and both
+    const wins = [["2019 to 2022 (tuning)", r => r.season <= 2022], ["2023 to 2025 (held out)", r => r.season >= 2023 && r.season <= 2025], ["2019 to 2025", r => r.season <= 2025]];
+    const roiOf = (w, l) => w + l ? (w - 1.1 * l) / (1.1 * (w + l)) : null;
+    const sweepTable = (key, wonKey, ths, label) => {
+      let h = `<table><thead><tr><th class='l'>${label} edge</th>` + wins.map(w => `<th colspan="3">${w[0]}</th>`).join("") + `</tr><tr><th></th>` + wins.map(() => "<th>Record</th><th>Win %</th><th>ROI</th>").join("") + "</tr></thead><tbody>";
+      ths.forEach(th => {
+        const cells = wins.map(([, f]) => { const x = all.filter(r => f(r) && r[key] != null && Math.abs(r[key]) >= th && r[wonKey] !== null); const w = x.filter(r => r[wonKey] === true).length, l = x.length - w; return {w, l, roi: roiOf(w, l)}; });
+        const both = cells[0].roi != null && cells[1].roi != null && cells[0].roi > 0 && cells[1].roi > 0;
+        h += `<tr class="${both ? "hit" : ""}"><td class="l"><b>${th}+</b>${both ? " <span class='rk'>positive in both windows</span>" : ""}</td>` + cells.map(c => `<td class="mono">${c.w}-${c.l}</td><td class="mono">${c.w + c.l ? (100 * c.w / (c.w + c.l)).toFixed(1) + "%" : ""}</td><td class="mono ${c.roi > 0 ? "pos" : (c.roi < 0 ? "neg" : "")}">${c.roi == null ? "" : (c.roi >= 0 ? "+" : "") + (100 * c.roi).toFixed(1) + "%"}</td>`).join("") + "</tr>";
+      });
+      return h + "</tbody></table>";
+    };
+    const bySeasonTable = (key, wonKey, ths, label) => {
+      const yrs = [...new Set(all.map(r => r.season))].filter(y => y <= 2025).sort();
+      let h = `<table><thead><tr><th class='l'>${label} edge</th>` + yrs.map(y => `<th>${y}</th>`).join("") + `<th>Years in profit</th></tr></thead><tbody>`;
+      ths.forEach(th => {
+        const cells = yrs.map(y => { const x = all.filter(r => r.season === y && r[key] != null && Math.abs(r[key]) >= th && r[wonKey] !== null); const w = x.filter(r => r[wonKey] === true).length, l = x.length - w; return {w, l, roi: roiOf(w, l)}; });
+        const nPos = cells.filter(c => c.roi != null && c.roi > 0).length, nAll = cells.filter(c => c.roi != null).length;
+        h += `<tr class="${nPos === nAll && nAll ? "hit" : ""}"><td class="l"><b>${th}+</b></td>` + cells.map(c => `<td class="mono ${c.roi > 0 ? "pos" : (c.roi < 0 ? "neg" : "")}">${c.w}-${c.l}<br><span class="rk">${c.roi == null ? "" : (c.roi >= 0 ? "+" : "") + (100 * c.roi).toFixed(0) + "%"}</span></td>`).join("") + `<td class="mono"><b>${nPos} of ${nAll}</b></td></tr>`;
+      });
+      return h + "</tbody></table>";
+    };
+    $("sweep").innerHTML = `<p class="note"><b>How to read this.</b> Every game since 2019 where the model disagreed with the closing line by at least the cutoff, bet on the model's side at −110, one unit each. ROI is units won per unit risked. <b>Tuning</b> (2019 to 2022) is the stretch of seasons the model's settings were chosen on, so a rule can look good there just because it was picked to. <b>Held out</b> (2023 to 2025) is the stretch the model never saw while it was being built: the honest test. A cutoff is only worth using if it made money on both; rows that do are marked. The spread flag is set at 5 (the best return that holds in both); 4 also holds with more bets and a smaller return per bet. No total cutoff holds in both, so totals are not flagged. Samples are small: a 5+ row is about seventeen bets a season. Recomputed from the backtest on every run.</p>
+      <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${sweepTable("edge", "pickWon", [1, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8], "Spread")}</div><div class="tablewrap" style="max-height:48vh;margin-bottom:14px">${sweepTable("tedge", "ouWon", [1, 2, 3, 4, 5, 6, 7, 8], "Total")}</div>
+      <h3 style="margin-top:6px">Year by year</h3><p class="note">The same cutoffs, one season at a time: record and ROI. A rule that made money in every single season would be marked. None does; the best spread cutoffs win six of seven seasons and no total cutoff wins more than four, which is what a small real edge plus luck looks like on the spread side and no edge on the total side.</p>
+      <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${bySeasonTable("edge", "pickWon", [3, 4, 4.5, 5, 5.5, 6], "Spread")}</div><div class="tablewrap" style="max-height:48vh">${bySeasonTable("tedge", "ouWon", [3, 4, 5, 6, 7], "Total")}</div>`;
+    // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange, not flagged; shown for the record), one unit each at -110
     const series = [["spread", all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null), "pickWon", "var(--series-1)"],
                     ["total", all.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6 && x.ouWon !== null), "ouWon", "var(--vegas)"]];
     const runs = series.map(([name, fl, key, color]) => { const f = fl.slice().sort((a, b) => a.season - b.season || a.week - b.week); let cum = 0; return {name, color, f, pts: f.map(x => { cum += x[key] ? 1 : -1.1; return cum; }), cum}; });
@@ -681,25 +732,36 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const W = 640, H = 300, m = {t: 18, r: 16, b: 32, l: 48};
     const xs = rs.map(r => r.week), ys = rs.flatMap(r => [r.r_off_epa_play, r.r_own_def_epa_play]).filter(v => v != null);
     if (!rs.length) { $("chart").innerHTML = ""; $("ratingstable").innerHTML = ""; $("charttitle").textContent = "No ratings for this season"; return; }
-    const span = Math.max(0.04, Math.max(...ys) - Math.min(...ys)); const ymin = Math.min(...ys) - span * 0.15, ymax = Math.max(...ys) + span * 0.15;
+    // league context: for each week, the middle half of the 32 teams on each rating, and this team's rank
+    const wk = (RK && RK.seasons[String(season)]) || {};
+    const q = (arr, p) => { const a = arr.slice().sort((u, v) => u - v); if (!a.length) return null; const i = (a.length - 1) * p; const lo = Math.floor(i), hi = Math.ceil(i); return a[lo] + (a[hi] - a[lo]) * (i - lo); };
+    const bands = rs.map(r => { const T = (wk[String(r.week)] || {}).teams || {}; const offs = Object.values(T).map(t => t.off_epa_play), defs = Object.values(T).map(t => t.def_epa_play);
+      const rankOf = (arr, v) => arr.length ? arr.filter(u => u > v).length + 1 : null;
+      return {week: r.week, o25: q(offs, .25), o75: q(offs, .75), d25: q(defs, .25), d75: q(defs, .75), oRank: rankOf(offs, r.r_off_epa_play), dRank: rankOf(defs, r.r_own_def_epa_play), n: offs.length}; });
+    const bandVals = bands.flatMap(b => [b.o25, b.o75, b.d25, b.d75]).filter(v => v != null);
+    const allY = ys.concat(bandVals);
+    const span = Math.max(0.04, Math.max(...allY) - Math.min(...allY)); const ymin = Math.min(...allY) - span * 0.15, ymax = Math.max(...allY) + span * 0.15;
     const x = w => m.l + (w - Math.min(...xs)) / Math.max(1, (Math.max(...xs) - Math.min(...xs))) * (W - m.l - m.r), y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
     const path = key => rs.map((r, i) => (i ? "L" : "M") + x(r.week).toFixed(1) + " " + y(r[key]).toFixed(1)).join(" ");
     const raw = (ymax - ymin) / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 5, 10].map(k => k * mag).find(k => k >= raw);
     const ticks = []; for (let v = Math.ceil(ymin / step) * step; v <= ymax + 1e-9; v = +(v + step).toFixed(4)) ticks.push(v);
     let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Offense and defense EPA rating by week">`;
+    const bandPath = (lo, hi, fill) => { const ok = bands.filter(b => b[lo] != null); if (ok.length < 2) return ""; return `<path d="${ok.map((b, i) => (i ? "L" : "M") + x(b.week).toFixed(1) + " " + y(b[hi]).toFixed(1)).join(" ")} ${ok.slice().reverse().map(b => "L" + x(b.week).toFixed(1) + " " + y(b[lo]).toFixed(1)).join(" ")} Z" fill="${fill}" opacity="0.5"/>`; };
+    s += bandPath("o25", "o75", "var(--model-soft)") + bandPath("d25", "d75", "var(--vegas-soft)");
     ticks.forEach(v => { s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule-2)"/><text x="${m.l - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--text-secondary)">${v.toFixed(step < 0.01 ? 3 : 2)}</text>`; });
     s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/>`;
     xs.forEach(w => { s += `<text x="${x(w)}" y="${H - 10}" text-anchor="middle" font-size="11" fill="var(--text-secondary)">${w}</text>`; });
     s += `<text x="${(m.l + W - m.r) / 2}" y="${H}" text-anchor="middle" font-size="11" fill="var(--text-secondary)">week</text>`;
     s += `<path d="${path("r_off_epa_play")}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round"/><path d="${path("r_own_def_epa_play")}" fill="none" stroke="var(--series-2)" stroke-width="2" stroke-linejoin="round"/>`;
     rs.forEach(r => { s += `<circle cx="${x(r.week)}" cy="${y(r.r_off_epa_play)}" r="3.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/><circle cx="${x(r.week)}" cy="${y(r.r_own_def_epa_play)}" r="3.5" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>`; });
-    const l = rs[rs.length - 1]; s += `<text x="${x(l.week) - 6}" y="${y(l.r_off_epa_play) - 8}" text-anchor="end" font-size="11" fill="var(--text-primary)">offense ${l.r_off_epa_play.toFixed(3)}</text><text x="${x(l.week) - 6}" y="${y(l.r_own_def_epa_play) + 16}" text-anchor="end" font-size="11" fill="var(--text-primary)">defense ${l.r_own_def_epa_play.toFixed(3)}</text>`;
+    const l = rs[rs.length - 1], lb = bands[bands.length - 1]; const rk = (n, tot) => n ? ` (${n} of ${tot})` : "";
+    s += `<text x="${x(l.week) - 6}" y="${y(l.r_off_epa_play) - 8}" text-anchor="end" font-size="11" fill="var(--text-primary)">offense ${l.r_off_epa_play.toFixed(3)}${rk(lb.oRank, lb.n)}</text><text x="${x(l.week) - 6}" y="${y(l.r_own_def_epa_play) + 16}" text-anchor="end" font-size="11" fill="var(--text-primary)">defense ${l.r_own_def_epa_play.toFixed(3)}${rk(lb.dRank, lb.n)}</text>`;
     rs.forEach(r => { s += `<rect class="hit" data-w="${r.week}" x="${x(r.week) - 12}" y="${m.t}" width="24" height="${H - m.t - m.b}" fill="transparent"/>`; });
     s += "</svg>";
-    $("chart").innerHTML = `<div class="legend"><span><span class="dot" style="background:var(--series-1)"></span>offense EPA rating</span><span><span class="dot" style="background:var(--series-2)"></span>own defense EPA rating (positive = good)</span></div>` + s;
+    $("chart").innerHTML = `<div class="legend"><span><span class="dot" style="background:var(--series-1)"></span>offense EPA rating</span><span><span class="dot" style="background:var(--series-2)"></span>own defense EPA rating (positive = good)</span><span><span class="dot" style="background:var(--model-soft)"></span>middle half of the league, offense</span><span><span class="dot" style="background:var(--vegas-soft)"></span>middle half of the league, defense</span><span>labels show the rank of 32</span></div>` + s;
     $("charttitle").textContent = `${team} ${season}: offense and defense EPA rating by week`;
     const tip = $("tip");
-    $("chart").querySelectorAll("rect.hit").forEach(el => { el.addEventListener("mousemove", ev => { const r = rs.find(q => q.week == el.dataset.w); const box = $("chartcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; tip.innerHTML = `<b>Week ${r.week}</b> ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " (" + r.pf + "-" + r.pa + ")" : ""}<br>offense ${r.r_off_epa_play.toFixed(3)} · defense ${r.r_own_def_epa_play.toFixed(3)}<br>QB ${esc(r.qb_name || "")} ${r.qb_rating != null ? r.qb_rating.toFixed(3) : ""} · ${r.n_games} games in`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
+    $("chart").querySelectorAll("rect.hit").forEach(el => { el.addEventListener("mousemove", ev => { const r = rs.find(q => q.week == el.dataset.w); const box = $("chartcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; const bb = bands.find(b => b.week == r.week) || {}; tip.innerHTML = `<b>Week ${r.week}</b> ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " (" + r.pf + "-" + r.pa + ")" : ""}<br>offense ${r.r_off_epa_play.toFixed(3)}${bb.oRank ? " (" + bb.oRank + " of " + bb.n + ")" : ""} · defense ${r.r_own_def_epa_play.toFixed(3)}${bb.dRank ? " (" + bb.dRank + " of " + bb.n + ")" : ""}<br>QB ${esc(r.qb_name || "")} ${r.qb_rating != null ? r.qb_rating.toFixed(3) : ""} · ${r.n_games} games in`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
     const cols = ["r_off_epa_play","r_own_def_epa_play","r_off_pf","r_own_def_pf","qb_rating","n_games"];
     const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pf: "Off points", r_own_def_pf: "Def points", qb_rating: "QB", n_games: "Games in"};
     let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${esc((META.dictionary[c]||{}).definition||c)}">${RL[c]}</th>`).join("") + "</tr></thead><tbody>";
