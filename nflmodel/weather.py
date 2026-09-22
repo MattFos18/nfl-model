@@ -87,15 +87,55 @@ def run(days_ahead=10) -> pd.DataFrame:
     return df
 
 
-def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
-    """Fill temp/wind for unplayed outdoor games from the latest forecast."""
+USE_WITHIN_DAYS = 4   # a kickoff forecast is used only this close to the game; further out the league-typical weather stands in
+
+
+def usable_forecast() -> pd.DataFrame:
+    """The latest forecast rows the model may use: fetched without error and within USE_WITHIN_DAYS of kickoff.
+    A forecast five or more days out is too loose to move a line on, so those games are priced as typical weather
+    (7 mph, not cold, no rain) until a later run, Thursday for Sunday games, is close enough."""
     f = WX / "forecast_latest.csv"
     if not f.exists():
-        return games
+        return pd.DataFrame(columns=["game_id", "temp", "wind", "precip_prob", "precip", "days_out"]).set_index("game_id")
     fc = pd.read_csv(f)
-    fc = fc[fc.status == "ok"].set_index("game_id")
+    fc = fc[fc.status == "ok"].copy()
+    fc["days_out"] = (pd.to_datetime(fc.kickoff_et) - pd.to_datetime(fc.fetched_at)).dt.total_seconds() / 86400
+    return fc[fc.days_out <= USE_WITHIN_DAYS].set_index("game_id")
+
+
+def status_by_game(games: pd.DataFrame) -> dict:
+    """What the card should say about the weather for each unplayed game: dome, forecast in use (and how many days
+    out it was fetched), too far out to use, fetch failed, beyond the forecast range, or never fetched."""
+    f = WX / "forecast_latest.csv"
+    fc = pd.read_csv(f).set_index("game_id") if f.exists() else pd.DataFrame()
+    now = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+    out = {}
+    for g in games[games.home_score.isna()].itertuples():
+        if g.roof in ("dome", "closed"):
+            out[g.game_id] = {"s": "dome"}
+            continue
+        if len(fc) and g.game_id in fc.index:
+            r = fc.loc[g.game_id]
+            fetched = pd.to_datetime(r.fetched_at)
+            days = (pd.to_datetime(r.kickoff_et) - fetched).total_seconds() / 86400
+            st = str(r.status)
+            s = "far" if days > USE_WITHIN_DAYS else ("forecast" if st == "ok" else ("range" if st.startswith("beyond") else "failed"))
+            out[g.game_id] = {"s": s, "days": round(days, 1), "fetched": fetched.strftime("%Y-%m-%d %H:%M"), "use_within": USE_WITHIN_DAYS}
+        else:
+            days = (g.kickoff_et - now).total_seconds() / 86400 if pd.notna(g.kickoff_et) else None
+            out[g.game_id] = {"s": "none", "days": None if days is None else round(days, 1), "use_within": USE_WITHIN_DAYS}
+    return out
+
+
+def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
+    """Fill temp/wind for unplayed outdoor games from the latest usable forecast (within USE_WITHIN_DAYS of kickoff);
+    everything else unplayed is left blank so the model uses the league-typical weather."""
+    fc = usable_forecast()
     g = games.copy()
-    m = g.game_id.isin(fc.index) & g.home_score.isna()
+    un = g.home_score.isna()
+    g.loc[un, "temp"] = np.nan
+    g.loc[un, "wind"] = np.nan
+    m = g.game_id.isin(fc.index) & un
     g.loc[m, "temp"] = g.loc[m, "game_id"].map(fc.temp)
     g.loc[m, "wind"] = g.loc[m, "game_id"].map(fc.wind)
     return g

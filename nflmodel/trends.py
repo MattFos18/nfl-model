@@ -217,12 +217,10 @@ def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataF
         h = np.sin((la2 - la1) / 2) ** 2 + np.cos(la1) * np.cos(la2) * np.sin((lo2 - lo1) / 2) ** 2
         return 3958.8 * 2 * np.arcsin(np.sqrt(h))
     # unplayed games: the latest kickoff forecast (weather.py) stands in for the weather text
-    fc = {}
-    fcf = ROOT / "data" / "weather" / "forecast_latest.csv"
-    if fcf.exists():
-        d = pd.read_csv(fcf)
-        d = d[d.status == "ok"]
-        fc = {r.game_id: (float(r.precip_prob) if pd.notna(r.precip_prob) else 0.0, float(r.precip) if pd.notna(r.precip) else 0.0) for r in d.itertuples()}
+    # (only forecasts within weather.USE_WITHIN_DAYS of kickoff; further out the game is priced as dry)
+    from .weather import usable_forecast
+    d = usable_forecast().reset_index()
+    fc = {r.game_id: (float(r.precip_prob) if pd.notna(r.precip_prob) else 0.0, float(r.precip) if pd.notna(r.precip) else 0.0) for r in d.itertuples()}
     rows = []
     for g in games.itertuples():
         w = str(wx.get(g.game_id, "") or "").lower()
