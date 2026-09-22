@@ -432,12 +432,45 @@ Still open: a full availability-weighted offense rating (every player's value ti
 only the ones listed out), and a defensive player value that would need a different attribution than EPA. Each is
 a test like the ones above, and nothing goes in unless it helps on both windows.
 
+**Phase 4: every position valued** (22 Sep 2026, `nflmodel/positions.py`, `data/processed/player_values_all.parquet`).
+Nobody outside the skill positions has a play attributed to him in the play-by-play, so each unit gets the handle
+the data allows, always the same shape: a decayed, shrunk rate per play as of a week, replacement level at the 25th
+percentile of regulars in earlier seasons, and a value above replacement times the player's share of his unit's
+plays, in EPA per team play.
+
+| Unit | Rate | Plays | Share |
+|---|---|---|---|
+| QB | EPA per dropback (the QB rating, `ratings.QBRatings`) | dropbacks | one starter, so none |
+| RB, WR, TE | EPA per carry or target (phase 1) | touches | share of the team's touches, last eight games on any team |
+| Offensive line | on/off: team EPA per play in games he played 50%+ of the snaps minus the team's games without him, last 34 games, shrunk by the smaller side's games | games | snap share |
+| Defense | impact plays: the EPA taken away on every play he is credited on (tackle 1, assist 0.5, tackle for loss +0.5, sack 1, QB hit 0.5, pass defended 1, interception 1, forced or recovered fumble 0.5; one credit per play at most), per defensive snap; decayed 0.99, shrunk with 300 snaps | defensive snaps (snap counts, matched by name) | snap share |
+| K, P | EPA per kick (field goals and extra points), EPA per punt | kicks, punts | one |
+
+What each handle can and cannot see. The skill value is the cleanest: the play is his. The QB rating has been in
+the model from the start. The defensive value rewards players who end plays and take the ball away, per snap, so
+an edge rusher with sacks and a corner with interceptions rank high; a corner who is never thrown at ranks low,
+which is the known blind spot of any credit-based defensive stat. The line value is the weakest: on/off at the
+game level is noisy and a lineman who never misses a game sits at zero because the data cannot separate him from
+his line. Values compare within a unit, never across.
+
+**Phase 4 as model inputs** (`experiments/positions.py`, `reports/positions.csv`): each new value was tried on
+both windows against the eighteen-input model. The opponent's defenders' value out: +0.003 / -0.005 on points,
++0.007 / -0.009 on the margin, one window each way. Own defenders: nothing. Linemen's on/off out, own or
+opponent: nothing or worse. The availability-weighted skill offense (every regular who is playing): margin
+-0.006 / -0.003 but points +0.001 / +0.005, and replacing the value-out input with it is worse on both windows.
+None adopted. The snap-weighted absences already carry what the line and the defense lose; a value per defender
+adds noise on top. The values stay on the page as readings, and the tests are printed under Inputs explained.
+
 **Where the player data lives on the page.** Players (top tab): every skill player league-wide, ranked by value
 above replacement, with a search, team and position filters, this week's status, and a click-through to his
 history by season and team (raw play-by-play totals, so a trade shows as a new team row with the same player).
 Team -> Roster and depth chart: this week's roster, the latest depth chart by slot and rank, the injury report with
 practice status and the injury, last game's snap share, and the value for skill players, with everyone the model
-prices as unavailable listed at the top. Team -> Players: the same values for that team only.
+prices as unavailable listed at the top. Team -> Players: every unit for that team, grouped, with the handle named. Teams -> Overview: record, power
+and ratings with ranks, the next game with the model's line, the last five, who is out, and the most valuable
+players by unit. The tabs are This week, Rankings, Teams, Players, Results (the backtest and the live picks and
+bets) and Model (how it was built, the inputs, how a rating is built for any team, every column, data pulls,
+the decision log, definitions and sources).
 
 Neither the division flag nor the value out helps the totals equation (`reports/totals_div.csv`), so that stays as it was. The weekly run builds all of this (`players` step after `trends`); the card shows the value out under "Injuries
 beyond the QB" in the breakdown.

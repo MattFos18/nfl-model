@@ -302,7 +302,7 @@ def main():
     tun = pd.read_csv(REPD / "tuning_ratings.csv") if (REPD / "tuning_ratings.csv").exists() else pd.DataFrame()
     analysis = {"correlations": csv_rows("lab_stat_correlations.csv"), "reliability": csv_rows("lab_stat_reliability.csv"),
                 "ablation": csv_rows("ablation.csv"), "additions": csv_rows("additions.csv"), "additions_both": csv_rows("additions_both.csv"), "combo": csv_rows("combo.csv"),
-                "equation_checks": csv_rows("equation_checks.csv"), "starter_share": csv_rows("starter_share.csv"), "player_injury": csv_rows("player_injury.csv"), "line_defense": csv_rows("line_defense.csv"), "snap_pair": csv_rows("snap_pair.csv"), "persistence": csv_rows("trend_persistence.csv"),
+                "equation_checks": csv_rows("equation_checks.csv"), "starter_share": csv_rows("starter_share.csv"), "player_injury": csv_rows("player_injury.csv"), "line_defense": csv_rows("line_defense.csv"), "snap_pair": csv_rows("snap_pair.csv"), "positions": csv_rows("positions.csv"), "persistence": csv_rows("trend_persistence.csv"),
                 "tuning_best": tun.sort_values("team_mae").head(10).round(4).to_dict("records") if len(tun) else [],
                 "tuning_by": {k: tun.groupby(k).team_mae.mean().round(4).to_dict() for k in ["decay", "prior", "alpha", "ridge"]} if len(tun) else {},
                 "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
@@ -312,8 +312,10 @@ def main():
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
-    pvf = OUT / "player_values.parquet"
+    pvf = OUT / "player_values_all.parquet"
     pvals = pd.read_parquet(pvf) if pvf.exists() else pd.DataFrame(columns=["team"])
+    if len(pvals):
+        pvals = pvals[pvals.value_above_replacement.notna()].copy()
     rnf = OUT / "roster_now.parquet"
     rnow = pd.read_parquet(rnf) if rnf.exists() else pd.DataFrame(columns=["team"])
     # players.js: every valued skill player league-wide, and each player's history across seasons and teams
@@ -326,7 +328,7 @@ def main():
         names = {r.player_id: r.name for r in ph.drop_duplicates("player_id", keep="last").itertuples()}
         if len(pvals):
             names.update({r.player_id: r.name for r in pvals.itertuples()})
-        (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.to_dict("records")],
+        (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.drop(columns=[c for c in ["basis"] if c in pvals.columns]).to_dict("records")], "basis": {g: b for g, b in pvals.groupby("group").basis.first().items()} if "basis" in pvals.columns else {},
                                                                           "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"]}, default=clean, separators=(",", ":")) + ";")
     for t in teams:
         rows = d[d.team == t]
