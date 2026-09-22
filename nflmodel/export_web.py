@@ -105,9 +105,28 @@ BASE = {
 }
 
 
+def used_by_v3(col: str):
+    """Whether a column feeds the current model, derived from model.FEATS so the page's markers follow the input set."""
+    F = set(M.FEATS)
+    if col.startswith("r_"):
+        return col[2:] in F
+    raw = {"pf": True, "pa": True, "home": True, "epa_play": True, "def_epa_play": True, "qb_name": True, "qb_rating": True, "qb_out": "qb_out" in F,
+           "dome": "dome" in F, "wind": "wind_out" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
+           "opp_rest": "opp_rest_short" in F or "opp_rest_long" in F, "div_game": "div_game" in F, "primetime": "primetime" in F,
+           "pass_epa": "off_pass_epa" in F, "def_pass_epa": "def_pass_epa" in F, "rush_epa": "off_rush_epa" in F, "def_rush_epa": "def_rush_epa" in F,
+           "plays": "off_plays" in F, "def_plays": "def_plays" in F, "opp_qb_rating": "opp_qb_rating" in F, "success": "off_success" in F, "def_success": "def_success" in F}
+    return bool(raw.get(col, False))
+
+
 def describe(col: str):
+    out = _describe(col)
+    out["used_v3"] = used_by_v3(col)
+    return out
+
+
+def _describe(col: str):
     if col.startswith("box_"):
-        return describe(col[4:])
+        return _describe(col[4:])
     if col in BASE:
         g, d, s, u3, uo = BASE[col]
         return {"group": g, "definition": d, "source": s, "used_v3": u3, "used_old": uo}
@@ -137,6 +156,27 @@ def clean(v):
     return v
 
 
+def situation_facts(feats: pd.DataFrame) -> dict:
+    """Raw averages behind every situational input, recomputed on each export: points scored with the flag on vs off,
+    2013 to the last completed season, regular season, plus wind in buckets. The page shows these next to the fitted
+    coefficient so a reader can see the raw gap the regression started from."""
+    f = M.prep(feats)
+    last = int(f[f.pf.notna()].season.max())
+    if (f[(f.season == last) & f.pf.notna()].week.max() or 0) < 18:
+        last -= 1   # the season in progress is not a full season
+    f = f[f.pf.notna() & (f.season >= 2013) & (f.season <= last) & (f.game_type == "REG")]
+    out = {"seasons": f"2013 to {last}", "team_games": int(len(f)), "flags": {}, "wind": []}
+    for k in M.SIT_FEATS + ["qb_out"]:
+        if k == "wind_out" or k not in f.columns:
+            continue
+        on, off = f[f[k] == 1], f[f[k] == 0]
+        out["flags"][k] = {"n_on": int(len(on)), "on": round(float(on.pf.mean()), 2), "off": round(float(off.pf.mean()), 2), "diff": round(float(on.pf.mean() - off.pf.mean()), 2)}
+    for lo, hi, lab in [(-1, 0, "0 (indoors or calm)"), (0, 5, "1 to 5"), (5, 10, "6 to 10"), (10, 15, "11 to 15"), (15, 99, "16+")]:
+        x = f[(f.wind_out > lo) & (f.wind_out <= hi)]
+        out["wind"].append({"bucket": lab, "n": int(len(x)), "pf": round(float(x.pf.mean()), 2)})
+    return out
+
+
 def main():
     WEB.mkdir(parents=True, exist_ok=True)
     tg = pd.read_parquet(OUT / "team_games.parquet")
@@ -156,6 +196,14 @@ def main():
     # model prediction from this team's view
     pv = pred.set_index("game_id")
     d["gameday"] = d.game_id.map(games.gameday)
+    # beyond the week holding the next unplayed game, an "as-of" rating is just this week's number decayed and the starter is a
+    # guess, so those rows carry no ratings, QB or model columns: the page shows them blank rather than as a forecast
+    cur_s = int(games.season.max())
+    played_w = games[(games.season == cur_s) & games.home_score.notna()].week.max()
+    cutoff = int(played_w) + 1 if pd.notna(played_w) else 1
+    future = (d.season == cur_s) & (d.week > cutoff)
+    d.loc[future, ["r_" + c for c in rcols] + ["qb_rating", "opp_qb_rating"]] = np.nan
+    pv = pv[~((pv.season == cur_s) & (pv.week > cutoff))]
     d["m_exp_pf"] = [pv.home_exp.get(g, np.nan) if h else pv.away_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_exp_pa"] = [pv.away_exp.get(g, np.nan) if h else pv.home_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_win"] = [pv.p_home.get(g, np.nan) if h else 1 - pv.p_home.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
@@ -189,7 +237,8 @@ def main():
                 "tuning_best": tun.sort_values("team_mae").head(10).round(4).to_dict("records") if len(tun) else [],
                 "tuning_by": {k: tun.groupby(k).team_mae.mean().round(4).to_dict() for k in ["decay", "prior", "alpha", "ridge"]} if len(tun) else {},
                 "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
-                "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else ""}
+                "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else "",
+                "situation_facts": situation_facts(feats)}
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis,
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
@@ -246,10 +295,8 @@ def export_rankings_and_methods():
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     f2 = M.prep(feats)
     p = R.DEFAULT
-    own = ["off_epa_play", "off_pass_epa", "off_rush_epa", "off_pf", "off_plays", "qb_rating", "own_def_epa_play"]
-    opp = ["def_epa_play", "def_pass_epa", "def_rush_epa", "def_pf", "def_plays", "opp_qb_rating", "opp_off_epa_play", "opp_off_plays"]
-    own_of = {"def_epa_play": "def_epa_play", "def_pass_epa": "def_pass_epa", "def_rush_epa": "def_rush_epa", "def_pf": "def_pf", "def_plays": "def_plays",
-              "opp_qb_rating": "qb_rating", "opp_off_epa_play": "off_epa_play", "opp_off_plays": "off_plays"}
+    own = [k for k in M.FEATS if k.startswith("off_") or k == "qb_rating"]
+    opp = [k for k in M.FEATS if k.startswith("def_")]
     out = {}
     qb_by = feats.set_index(["season", "week", "team"]).qb_rating
     for s in range(2014, 2027):
@@ -276,11 +323,10 @@ def export_rankings_and_methods():
                     q = prev.qb_rating.iloc[-1] if len(prev) else -0.05
                 row["qb_rating"] = round(float(q), 4)
                 # power: points for vs an average opponent at a neutral site, and points allowed to that opponent
-                x_own = {"off_epa_play": row["off_epa_play"], "off_pass_epa": row["off_pass_epa"], "off_rush_epa": row["off_rush_epa"], "off_pf": row["off_pf"],
-                         "off_plays": row["off_plays"], "qb_rating": row["qb_rating"], "own_def_epa_play": row["def_epa_play"]}
+                # power: points for vs an average opponent at a neutral site, and points allowed to that opponent
+                x_own = {k: row[k] for k in own}
                 pf = intercept + sum(per_unit[k] * (x_own[k] - mean[k]) for k in own)
-                x_opp = {"def_epa_play": row["def_epa_play"], "def_pass_epa": row["def_pass_epa"], "def_rush_epa": row["def_rush_epa"], "def_pf": row["def_pf"],
-                         "def_plays": row["def_plays"], "opp_qb_rating": row["qb_rating"], "opp_off_epa_play": row["off_epa_play"], "opp_off_plays": row["off_plays"]}
+                x_opp = {k: row[k] for k in opp}
                 pa = intercept + sum(per_unit[k] * (x_opp[k] - mean[k]) for k in opp)
                 row["power_pf"], row["power_pa"], row["power"] = round(pf, 2), round(pa, 2), round(pf - pa, 2)
                 row["n_games"] = int(Rt.n_games.get(t, 0))

@@ -70,37 +70,50 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Inputs and what they were worth (fit on 2013 to 2022,
-points per one standard deviation of the input, from `reports/v3_coefficients.txt`):
+team carried into a game to the points it scored. Since 22 Sep 2026 the model has eleven inputs, each with one
+plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
+printed on the page, Model → How it was built, and refit before every week):
 
 | Input | Points per SD | Reading |
 |---|---|---|
-| Starting QB rating | +1.52 | A QB one SD above average adds 1.5 points a game to his team |
-| Own offense points rating | +1.09 | |
-| Home | +0.94 (1.88 points home vs away) | League home field, 2013 to 2025 |
-| Opponent defense points rating | -0.85 | |
-| Wind (outdoor) | -0.74 (-0.13 per mph) | |
-| Own offense EPA per play | +0.65 | |
-| Opponent defense EPA per play | -0.53 | |
-| Opponent offense EPA per play | -0.44 | Good opposing offenses hold the ball; fewer possessions for you |
-| Opponent defense pace (plays allowed) | -0.43 | |
-| Division game | -0.37 (-0.78 points per team) | |
-| Short week (Thursday) | +0.35 for the short-week team, -0.26 for its opponent | |
-| Own rush EPA rating | +0.23 | |
-| Own defense EPA | +0.19 | Good own defense gives the offense field position |
-| Own pass EPA rating | -0.18 | Negative because overall EPA already carries it (collinear) |
-| Opponent QB rating | -0.17 | |
-| Dome | +0.13 | |
-| Primetime | -0.13 | |
-| Off a bye | +0.09 | |
-| Cold under 35F | +0.02 | |
+| Starting QB rating | +1.4 | The starter's own career EPA per dropback, decayed and shrunk toward replacement level |
+| Own offense points rating | +1.3 | Points the offense scores against an average defense, opponent-adjusted |
+| Opponent defense points rating | -1.3 | Points the opponent's defense allows against an average offense |
+| Home | +1.0 (1.98 points home vs away) | Home teams scored 1.90 more than away teams raw, 2013 to 2025 |
+| Wind (outdoor) | -0.75 (-0.135 per mph) | Offenses average 23.8 points in calm air, 21.4 at 11 to 15 mph |
+| Own offense EPA per play | +0.6 | What the offense adds beyond its points rating and its QB |
+| Opponent defense EPA per play | -0.4 | |
+| Last game's QB listed out | -0.25 (-1.8 points when it applies) | Those games scored about 4 fewer points than the ratings said |
+| Cold under 35F | -0.07 | |
+| Neutral site | -0.06 | |
+| Dome | +0.06 | Indoor teams score more raw (+1.5), but the ratings already know who plays indoors |
 
-The regression is refit every season on all seasons before it (2013 to S-1), so a 2024 prediction has never
-seen a 2024 game. Two expected scores per game give the spread (home minus away) and the total.
+Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
+ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
+coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Ablation** (`reports/ablation.csv`, drop one group at a time, 2019 to 2022 points miss): QB +0.080,
-weather/dome +0.040, points ratings +0.017, EPA ratings +0.008; rest, division, primetime, pace within 0.007
-of zero; success rate -0.013 (dropped); pass/rush split 0.000 (kept for the matchup display only).
+**Why eleven and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
+primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
+
+| Input set | Team points miss 2019-22 | 2023-25 | Margin miss 2019-22 | 2023-25 |
+|---|---|---|---|---|
+| Full, 26 inputs | 7.453 | 7.346 | 10.159 | 10.152 |
+| Eleven inputs (now) | 7.453 | 7.373 | 10.160 | 10.131 |
+| Eleven plus the other side of the ball | 7.446 | 7.360 | 10.145 | 10.141 |
+| Eleven plus the rest pair | 7.455 | 7.373 | 10.164 | 10.131 |
+
+Same accuracy to within the noise (the bootstrap interval on these misses is about 0.01), and the dropped inputs
+had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
+short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
+out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
+EPA came out negative because EPA per play already carries it. Eleven inputs a reader can check beats twenty-six that
+score the same.
+
+**Ablation** on the eleven (`reports/ablation.csv`, drop one group at a time, 2019 to 2022 points miss): QB +0.063,
+weather/dome +0.036, points ratings +0.026, EPA ratings +0.002, home -0.019 (dropping home lowers the miss slightly on
+that window but the home coefficient is the best-established number in football, 1.9 points raw on 3,400 games each
+side; it stays).
 
 ## 5. Why EPA and not the old stats
 

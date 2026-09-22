@@ -141,3 +141,5 @@ pulled_at,dataset,season,url,status,bytes,sha256
 2026-09-21T21:59:32,depth_charts,2024,https://github.com/nflverse/nflverse-data/releases/download/depth_charts/depth_charts_2024.parquet,ok,482923,2b5e72fa37f6
 2026-09-21T21:59:32,depth_charts,2025,https://github.com/nflverse/nflverse-data/releases/download/depth_charts/depth_charts_2025.parquet,ok,2584724,14f74185b3c2
 2026-09-21T21:59:32,depth_charts,2026,https://github.com/nflverse/nflverse-data/releases/download/depth_charts/depth_charts_2026.parquet,ok,2575764,e28e262168bb
+2026-09-22T14:35:08,schedules,all,https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv,ok,2179538,16a0c9541156
+2026-09-22T14:35:08,pbp,2026,https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_2026.parquet,ok,2498674,ed905f0bf594

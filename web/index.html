@@ -57,7 +57,7 @@ th[title]{cursor:help}
 th.grp{top:0;text-align:left;font-family:var(--display);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:0;padding:8px 8px 2px 14px;border-left:1px solid var(--rule-2)}
 thead tr:nth-child(2) th{top:26px}
 th.l,td.l{text-align:left}
-td.sticky,th.sticky{position:sticky;left:0;background:var(--panel);z-index:3}
+td.sticky,th.sticky{position:sticky;left:0;background:var(--panel);z-index:3;min-width:52px;max-width:52px;width:52px;box-sizing:border-box}
 td.sticky2,th.sticky2{position:sticky;left:52px;background:var(--panel);z-index:3;border-right:1px solid var(--rule)}
 thead th.sticky,thead th.sticky2{z-index:4}
 th .u{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4px;vertical-align:middle}
@@ -129,6 +129,15 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .ctab tr.base td{color:var(--ink-2)}
 .ctab tr.grp td{font-weight:600;background:var(--panel-2);border-bottom:1px solid var(--rule)}
 .ctab td.ind{padding-left:14px}
+.ctab.main{margin-top:4px} .ctab.main > tbody > tr.grp > td{padding:6px 4px}
+.ctab.main > tbody > tr.sub > td{padding:0 0 8px 0;background:var(--panel)}
+.ctab.main > tbody > tr.sub .ctab{margin:0}
+button.open{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.how{font-weight:400;color:var(--ink-2);font-size:11.5px;line-height:1.4;padding:4px 6px 6px 14px;max-width:70ch}
+.ctab td.lbl{white-space:nowrap}
+button.q{display:inline-block;width:15px;height:15px;line-height:13px;border:1px solid var(--rule);border-radius:50%;background:var(--panel);color:var(--muted);font-size:10px;font-weight:600;padding:0;cursor:pointer;vertical-align:middle}
+button.q:hover{border-color:var(--accent);color:var(--accent)}
+tr.howrow td{background:var(--panel-2)}
 .brow{display:grid;grid-template-columns:44px 1fr;gap:6px;align-items:center;margin-top:4px}
 .brow .bl{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
 .brow .bl.m{color:var(--model)} .brow .bl.v{color:var(--vegas)}
@@ -193,11 +202,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 </section>
 
 <section class="tab" id="rank" hidden>
-  <p class="note">Every team on every rating as of a chosen week, then plotted. Power = the model's points for minus points allowed against a league-average opponent on a neutral field, using that season's fitted coefficients. Click a column to sort; the small number is the rank on that column.</p>
+  <p class="note">Every team on every rating as of a chosen week, then plotted. <b>Power</b> is the model's full opinion of a team: run the fitted equation with this team's offense ratings and QB against a league-average defense, then an average offense against this team's defense, on a neutral field with no weather; power = points for − points allowed. It uses every input the model has except the game situation. The <b>scatter</b> is narrower: just the two EPA-per-play ratings, offense across and defense up, so you can see which side of the ball a team's strength comes from. Click a column to sort; the small number is the rank on that column.</p>
   <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label></div>
   <div class="grid2e" style="margin-bottom:14px">
     <div class="card viz-root" id="scatcard"><h3>Offense vs defense EPA rating</h3><div id="scatter"></div><div class="tip" id="tip2"></div></div>
-    <div class="card viz-root"><h3>Power rating, points vs an average team</h3><div id="powerbar"></div></div>
+    <div class="card viz-root"><h3>Power: expected margin against an average team, neutral field</h3><div id="powerbar"></div></div>
   </div>
   <div class="tablewrap"><table id="rktable"></table></div>
   <div class="status" id="rkstatus"></div>
@@ -372,11 +381,23 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   // rating inputs from the league average. The base is the regression's intercept moved to that neutral situation, so a dome
   // game shows "dome +0.2" and nothing for wind, instead of "wind +0.84" for having none. Both bookkeepings sum to the same points.
   const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]);
-  const GROUPS = [["Own offense (ratings, vs league average)", ["off_epa_play", "off_pass_epa", "off_rush_epa", "off_pf", "off_plays"]],
-                  ["Opponent's defense (ratings, vs league average)", ["def_epa_play", "def_pass_epa", "def_rush_epa", "def_pf", "def_plays"]],
-                  ["Quarterbacks", ["qb_rating", "opp_qb_rating", "qb_out"]],
-                  ["Other side of the ball: field position and pace", ["own_def_epa_play", "opp_off_epa_play", "opp_off_plays"]],
-                  ["Situation (from a neutral game)", ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime"]]];
+  const GROUPS = [["Offense: this team's ratings", ["off_epa_play", "off_pf"]],
+                  ["Defense it faces: the opponent's ratings", ["def_epa_play", "def_pf"]],
+                  ["Quarterback", ["qb_rating", "qb_out"]],
+                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold"]]];
+  const EXPLAIN = {
+    off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
+    off_pf: "Points the offense scores against an average defense, opponent-adjusted and decayed. 0 = league average.",
+    def_epa_play: "EPA per play the opponent's defense allows, opponent-adjusted and decayed. Positive = a defense that allows less than average, which lowers this team's points.",
+    def_pf: "Points the opponent's defense allows against an average offense, opponent-adjusted. Positive = stingy.",
+    qb_rating: "The starter's own EPA per dropback over his career, decayed and shrunk toward replacement level. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry.",
+    qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement. Fitted on those games: they scored about 4 fewer points than the team's ratings said.",
+    home: "1 at home, 0 away. Home teams scored 1.90 more points per game than away teams over 2013 to 2025 before any adjustment; the regression's estimate with the ratings held fixed is what is shown. Away teams get 0, not a subtraction: the base is an away game.",
+    neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
+    dome: "1 indoors or under a closed roof. Indoor teams scored 1.47 more points than outdoor ones raw; most of that is the teams that play indoors, which the ratings already know, so the fitted bump is small.",
+    wind_out: "Wind at kickoff in mph, 0 indoors. Each mph costs a fraction of a point: offenses averaged 23.8 points in calm air and 21.4 at 11 to 15 mph. For an unplayed outdoor game with no forecast yet the league-typical 7 mph is used until the Saturday forecast lands.",
+    cold: "1 when the kickoff temperature is under 35F outdoors. Cold games score about half a point less."
+  };
   function neutralBase(co) { let b = co.intercept; META.feats.forEach(f => { if (SIT.has(f)) b -= co.per_unit[f] * co.mean[f]; }); return b; }
   function contributions(inputs, s) {
     const co = coefsFor(s); const out = []; const base = neutralBase(co); let total = base;
@@ -427,13 +448,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<small class="note" style="font-size:11px">chance each side covers ${lineTxt(H, -g.spread_line)}; the line itself is priced 50/50</small>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<small class="note" style="font-size:11px">Model gives ${g.p_cover_home >= 0.5 ? H : A} ${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} points more chance to cover than the line implies</small>` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<small class="note" style="font-size:11px">chance the total lands over or under ${g.total_line}; the line itself is priced 50/50</small>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<small class="note" style="font-size:11px">Model gives the ${g.p_over >= 0.5 ? "over" : "under"} ${Math.round(100 * Math.abs(g.p_over - 0.5))} points more chance than the line implies</small>` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -468,28 +489,40 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     });
     return out.sort((x, y) => Math.abs(y.c) - Math.abs(x.c));
   }
+  function factLine(f) {
+    const SF = (META.analysis || {}).situation_facts; if (!SF) return "";
+    if (f === "wind_out" && SF.wind) return "Raw data " + SF.seasons + ": points scored by wind, " + SF.wind.map(w => `${w.bucket} mph ${w.pf}`).join(" · ") + ".";
+    const x = SF.flags && SF.flags[f]; if (!x) return "";
+    return `Raw data ${SF.seasons}: with it ${x.on} points (${x.n_on.toLocaleString()} team-games), without ${x.off}, gap ${x.diff > 0 ? "+" : ""}${x.diff}. The fitted number differs because the ratings and the other inputs are held fixed.`;
+  }
+  function rowHtml(x, co, maxc) {
+    const unit = SIT.has(x.f) ? `${co.per_unit[x.f].toFixed(3)} × ${fmt(x.v, x.f)}` : `${co.per_unit[x.f].toFixed(3)} × (${fmt(x.v, x.f)} − ${co.mean[x.f].toFixed(3)})`;
+    const id = "how" + Math.random().toString(36).slice(2, 8);
+    return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f} <button class="q" data-how="${id}" title="how this is calculated">?</button></td><td class="v">${unit}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c > 0 ? "var(--good)" : (x.c < 0 ? "var(--bad)" : "transparent")}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr><tr class="howrow" id="${id}" hidden><td colspan="4"><div class="how">${EXPLAIN[x.f] || ""} ${factLine(x.f)}</div></td></tr>`;
+  }
   function whyHtml(g, s) {
-    const cols = [g.home_team, g.away_team].map(t => {
+    const cols = [g.home_team, g.away_team].map((t, ti) => {
       const inp = g.sides && g.sides[t]; if (!inp) return `<div><b>${t}</b><p class="note">No inputs exported.</p></div>`;
-      const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
+      const co = coefsFor(s); const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
       const maxc = Math.max(...c.items.map(x => Math.abs(x.c)), 0.01);
-      let h = `<div><p class="cap">${t}: ${c.total.toFixed(1)} expected points</p><table class="ctab"><thead><tr><th>Input</th><th class="n">Value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>`;
-      h += `<tr class="base"><td title="away, outdoors, no wind, normal rest, not a division game, not primetime">Base: league-average team, neutral game</td><td class="v"></td><td class="b"></td><td class="n">${c.base.toFixed(1)}</td></tr>`;
-      GROUPS.forEach(([gname, fs]) => {
-        const items = fs.map(f => byF[f]).filter(x => x && (!x.sit || x.v !== 0));
-        if (!items.length) return;
-        const gsum = items.reduce((a, x) => a + x.c, 0);
-        h += `<tr class="grp"><td>${gname}</td><td></td><td></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
-        items.forEach(x => { h += `<tr><td class="ind">${FEAT_LABEL[x.f] || x.f}</td><td class="v">${fmt(x.v, x.f)}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c >= 0 ? "var(--good)" : "var(--bad)"}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`; });
+      let h = `<div><p class="cap">${t}: ${c.total.toFixed(1)} expected points</p><table class="ctab main"><tbody>`;
+      h += `<tr class="base"><td>Base: league-average team, neutral game <button class="q" data-how="b${ti}" title="how this is calculated">?</button></td><td class="n">${c.base.toFixed(1)}</td></tr><tr class="howrow" id="b${ti}" hidden><td colspan="2"><div class="how">The regression's intercept (${co.intercept.toFixed(2)}, the average score in the training games) moved to an away game, outdoors, no wind, not cold. Every team starts here.</div></td></tr>`;
+      GROUPS.forEach(([gname, fs], gi) => {
+        const items = fs.filter(f => META.feats.includes(f)).map(f => byF[f] || {f, v: inp[f] == null ? null : inp[f], c: 0});
+        const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
+        const id = `x${ti}${gi}`;
+        h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
+        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc)).join("")}</tbody></table></td></tr>`;
       });
-      h += `<tr class="tot"><td>Expected points</td><td></td><td></td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
+      h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
       h += `<div class="facts"><span>Starting QB</span><b>${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (last game's starter listed out)" : ""}</b><span>Rest</span><b>${inp.rest} days</b><span>Starters out</span><b>offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</b>
         <span>Not used <span class="badge noise">noise</span></span><b style="font-weight:400;color:var(--ink-2)">coach ATS ${fmtn(inp.coach_ats)} · QB ATS ${fmtn(inp.qb_ats)} · head-to-head ${fmtn(inp.h2h_cover)} · home edge ${fmtn(inp.team_home_edge)} · referee over ${pct(inp.ref_over)}</b></div></div>`;
       return h;
     });
     const hist = g.line_history && g.line_history.length ? `<p class="note" style="grid-column:1 / -1;margin:0">Line log: ${g.line_history.length} snapshots, spread ${g.line_history[0].home_spread} → ${g.line_history[g.line_history.length - 1].home_spread}, total ${g.line_history[0].total} → ${g.line_history[g.line_history.length - 1].total}.</p>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
-    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Rating rows are measured from the league average (a rating of 0.000 contributes nothing); situation rows from a neutral game (away, outdoors, no wind, normal rest, not a division game, not primetime), and only the ones that apply are listed. The QB rows are not double counting: the regression fits every input at once, so the QB coefficient is what the starter adds beyond what the team's offense ratings already say (Model → How it was built has the numbers). Every coefficient: Team → Game deep dive.</p>`;
+    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation (Model → How it was built prints it). Rating inputs are measured from the league average, situation inputs from a neutral game. Every number here is regenerated from the data on each weekly run.</p>`;
   }
+  document.addEventListener("click", ev => { const q = ev.target.closest("button.q"); if (q) { const r = $(q.dataset.how); r.hidden = !r.hidden; return; } const b = ev.target.closest("button.open"); if (!b) return; const row = $(b.dataset.open); const open = row.hidden; row.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = (open ? "▾ " : "▸ ") + b.textContent.slice(2); });
 
   // ---------- Rankings ----------
   function renderRankings() {
@@ -508,7 +541,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
     const tabl = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tabl.teams);
     const cols = [["power", "Power (pts vs avg team)", 1], ["power_pf", "Points for vs avg", 1], ["power_pa", "Points allowed vs avg", -1], ["off_epa_play", "Off EPA rating", 1], ["def_epa_play", "Def EPA rating", 1],
-                  ["off_pass_epa", "Pass EPA", 1], ["off_rush_epa", "Rush EPA", 1], ["off_pf", "Points rating (off)", 1], ["def_pf", "Points rating (def)", 1], ["off_plays", "Pace", 1], ["qb_rating", "QB rating", 1], ["n_games", "Games", 1]];
+                  ["off_pf", "Points rating (off)", 1], ["def_pf", "Points rating (def)", 1], ["qb_rating", "QB rating", 1], ["n_games", "Games", 1]];
     const oldcols = [];
     const val = (t, k) => (k in tabl.teams[t]) ? tabl.teams[t][k] : null;
     const ranks = {}; [...cols, ...oldcols].forEach(([k, , dir]) => { const sorted = teams.slice().sort((a, b) => (val(b, k) - val(a, k)) * dir); ranks[k] = {}; sorted.forEach((t, i) => ranks[k][t] = i + 1); });
@@ -526,7 +559,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const x = v => m.l + (v + lim) / (2 * lim) * (W - m.l - m.r), y = v => m.t + (lim - v) / (2 * lim) * (Hh - m.t - m.b);
     let sv = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Offense EPA rating against defense EPA rating, one dot per team">`;
     sv += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/><line x1="${x(0)}" x2="${x(0)}" y1="${m.t}" y2="${Hh - m.b}" stroke="var(--rule)"/>`;
-    sv += `<text x="${W - m.r}" y="${Hh - 8}" text-anchor="end" font-size="11" fill="var(--text-secondary)">offense EPA rating → better</text><text transform="translate(12 ${m.t + 10}) rotate(90)" font-size="11" fill="var(--text-secondary)" text-anchor="start">defense EPA rating (down = better)</text>`;
+    sv += `<text x="${W - m.r}" y="${Hh - 8}" text-anchor="end" font-size="11" fill="var(--text-secondary)">offense EPA rating → better</text><text transform="translate(12 ${m.t + 10}) rotate(90)" font-size="11" fill="var(--text-secondary)" text-anchor="start">defense EPA rating ↑ better</text>`;
     sv += `<text x="${W - m.r - 4}" y="${m.t + 12}" text-anchor="end" font-size="11" fill="var(--text-secondary)">good offense, good defense</text><text x="${m.l + 4}" y="${Hh - m.b - 6}" font-size="11" fill="var(--text-secondary)">weak both</text>`;
     teams.forEach((t, i) => { sv += `<circle class="pt" data-t="${t}" cx="${x(xs[i]).toFixed(1)}" cy="${y(ys[i]).toFixed(1)}" r="4.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="1.5"/><text x="${(x(xs[i]) + 6).toFixed(1)}" y="${(y(ys[i]) + 4).toFixed(1)}" font-size="10.5" fill="var(--text-primary)">${t}</text>`; });
     sv += "</svg>";
@@ -579,9 +612,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="tile"><b>${mean(g, "mErr")}</b><span>team points miss, model. Vegas implied ${mean(g, "vErr")}</span></div>
       <div class="tile"><b>${mean(g, "mMargErr")}</b><span>margin miss, model. Vegas ${mean(g, "vMargErr")}</span></div></div>`;
     // by season
-    let bs = "<thead><tr><th>Season</th><th>Games</th><th>SU model</th><th>SU Vegas</th><th>ATS all</th><th>ATS 5+</th><th>O/U all</th><th>O/U 6+</th><th>Pts miss model</th><th>Pts miss Vegas</th></tr></thead><tbody>";
+    let bs = "<thead><tr><th class='grp'></th><th class='grp'></th><th class='grp' colspan='2'>Winner picked</th><th class='grp' colspan='4'>Against the spread</th><th class='grp' colspan='3'>Over / under</th><th class='grp' colspan='2'>Points miss per team</th></tr>"
+           + "<tr><th>Season</th><th>Games</th><th>Model</th><th>Vegas</th><th>Every game</th><th>Record</th><th>Flags (5+)</th><th>Record</th><th>Every game</th><th>Flags (6+)</th><th>Record</th><th>Model</th><th>Vegas</th></tr></thead><tbody>";
     seasons.slice().reverse().forEach(s => { const x = all.filter(r => r.season === s); const a = rec(x, "suWon"), b = rec(x, "vegasSuWon"), c = rec(x, "pickWon"), d = rec(x.filter(q => q.edge != null && Math.abs(q.edge) >= 5), "pickWon"), e = rec(x, "ouWon"), f = rec(x.filter(q => q.tedge != null && Math.abs(q.tedge) >= 6), "ouWon");
-      bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${a.pct}</td><td class="mono">${b.pct}</td><td class="mono">${c.pct} <span class="rk">${c.w}-${c.l}</span></td><td class="mono">${d.pct} <span class="rk">${d.w}-${d.l}</span></td><td class="mono">${e.pct}</td><td class="mono">${f.pct} <span class="rk">${f.w}-${f.l}</span></td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
+      const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
+      bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
     // cumulative units on 5+ flags
     const fl = all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null).sort((a, b) => a.season - b.season || a.week - b.week);
@@ -644,8 +679,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     $("charttitle").textContent = `${team} ${season}: offense and defense EPA rating by week`;
     const tip = $("tip");
     $("chart").querySelectorAll("rect.hit").forEach(el => { el.addEventListener("mousemove", ev => { const r = rs.find(q => q.week == el.dataset.w); const box = $("chartcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; tip.innerHTML = `<b>Week ${r.week}</b> ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " (" + r.pf + "-" + r.pa + ")" : ""}<br>offense ${r.r_off_epa_play.toFixed(3)} · defense ${r.r_own_def_epa_play.toFixed(3)}<br>QB ${esc(r.qb_name || "")} ${r.qb_rating != null ? r.qb_rating.toFixed(3) : ""} · ${r.n_games} games in`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
-    const cols = ["r_off_epa_play","r_own_def_epa_play","r_off_pass_epa","r_off_rush_epa","r_off_pf","r_off_plays","qb_rating","n_games"];
-    const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pass_epa: "Pass EPA", r_off_rush_epa: "Rush EPA", r_off_pf: "Points", r_off_plays: "Pace", qb_rating: "QB", n_games: "Games in"};
+    const cols = ["r_off_epa_play","r_own_def_epa_play","r_off_pf","r_own_def_pf","qb_rating","n_games"];
+    const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pf: "Off points", r_own_def_pf: "Def points", qb_rating: "QB", n_games: "Games in"};
     let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${esc((META.dictionary[c]||{}).definition||c)}">${RL[c]}</th>`).join("") + "</tr></thead><tbody>";
     rs.forEach(r => { h += `<tr><td class="sticky">${r.week}</td><td class="l">${r.home ? "vs " : "@ "}${r.opp}</td>` + cols.map(c => `<td class="mono">${fmt(r[c], c)}</td>`).join("") + "</tr>"; });
     $("ratingstable").innerHTML = h + "</tbody>";
@@ -682,9 +717,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const rating = swa / (sw + P.alpha);
     const solved = tabl.teams[team] ? tabl.teams[team][(offense ? "off_" : "def_") + howStat] : null;
     $("howformula").innerHTML = offense
-      ? `<b>${team}'s offense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}.</b> For each game the offense played: adjusted value = what it did &minus; league average (${mu}) &minus; home bump (${hb}) if at home + the opponent's defense rating that week. Weight = ${P.decay} to the power of the game's age in weeks, times ${P.prior} for last season's games. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}); the ${P.alpha} is the pull toward average.`
+      ? `<b>${team}'s offense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}.</b> For each game the offense played: adjusted value = what it did &minus; league average (${mu}) &minus; home bump (${hb}) if at home + the opponent's defense rating that week. The league average and the home bump are the intercept and home term of this week's joint solve: one number each for the whole window (this season's games plus last season's, weighted the same way), so they are the same on every row here and move a little each week as the window moves. Weight = ${P.decay} to the power of the game's age in weeks, times ${P.prior} for last season's games. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}); the ${P.alpha} is the pull toward average.`
       : `<b>${team}'s defense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}</b> (positive = good). For each game: adjusted value = league average (${mu}) + the opponent offense's rating that week + home bump (${hb}) if the opponent was at home &minus; what that offense did against ${team}. Weighted the same way. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}).`;
-    let h = `<thead><tr><th>Season</th><th>Wk</th><th class='l'>Opp</th><th class='l'>Site</th><th>${offense ? team : "Opp"} ${STAT_LABEL[howStat]}</th><th>League avg</th><th>Home bump</th><th>${offense ? "Opp def rating" : "Opp off rating"}</th><th>Adjusted</th><th>Age (wks)</th><th>Weight</th><th>Weight × adj</th></tr></thead><tbody>`;
+    let h = `<thead><tr><th>Season</th><th>Wk</th><th class='l'>Opp</th><th class='l'>Site</th><th>${offense ? team : "Opp"} ${STAT_LABEL[howStat]}</th><th title="the intercept of this week's joint solve: one number for the whole window, so it is the same on every row">League avg (this solve)</th><th>Home bump</th><th>${offense ? "Opp def rating" : "Opp off rating"}</th><th>Adjusted</th><th>Age (wks)</th><th>Weight</th><th>Weight × adj</th></tr></thead><tbody>`;
     trs.forEach(({r, y, oppRating, homeFlag, adj, w}) => { h += `<tr class="${r.last ? "lastyr" : ""}"><td>${r.season}</td><td>${r.week}${r.game_type !== "REG" ? " <span class='badge'>" + r.game_type + "</span>" : ""}</td><td class="l">${r.opp}</td><td class="l">${r.home ? "home" : "away"}</td><td class="mono">${fmtn(y)}</td><td class="mono">${mu}</td><td class="mono">${homeFlag ? (offense ? "-" : "+") + Math.abs(hb) : "0"}</td><td class="mono">${oppRating >= 0 ? "+" : ""}${fmtn(oppRating)}</td><td class="mono">${fmtn(adj)}</td><td>${r.age}</td><td class="mono">${w.toFixed(3)}</td><td class="mono">${(w * adj).toFixed(4)}</td></tr>`; });
     h += `<tr class="sum"><td colspan="9" class="l"><b>Sums over ${trs.length} games (${last.length} from last season at ${P.prior} weight, ${cur.length} this season)</b></td><td></td><td class="mono"><b>${sw.toFixed(3)}</b></td><td class="mono"><b>${swa.toFixed(4)}</b></td></tr></tbody>`;
     $("howtable").innerHTML = h;
@@ -783,13 +818,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="eq">${eq}</div>
       <p class="note">Coefficients are in points per unit of the input. Sign and size are what the data fitted, not hand-set: for example home field is worth ${co.per_unit.home.toFixed(2)} points and each mph of wind costs ${Math.abs(co.per_unit.wind_out).toFixed(3)}.</p>
       <h2>Why every game starts at the league average</h2>
-      <p class="note">The equation is additive: expected points = league average + Σ coefficient × (input − league-average input). A team with every input exactly average is expected to score the league average, so that is where every team starts, and each input then moves it up or down by its distance from average times what a unit of it has been worth since 2013. This is the same shape as "league average × offense strength × opponent defense strength": for deviations of the size teams actually have, multiplying and adding give nearly the same number (L × (1 + a) × (1 + b) = L + L·a + L·b + L·a·b, and the last term is about 0.2 points). The differences that matter: the strengths are opponent-adjusted and time-decayed with a pull toward average early in the season (Team → How a rating is built), the points each strength is worth are fitted rather than chosen, and the regression sees several strengths at once so their overlap is accounted for.</p>
+      <p class="note">The equation is additive: expected points = league average + Σ coefficient × (input − league-average input). A team with every input exactly average is expected to score the league average, so that is where every team starts, and each input then moves it up or down by its distance from average times what a unit of it has been worth since 2013. This is the same shape as "league average × offense strength × opponent defense strength": for deviations of the size teams actually have, multiplying and adding give nearly the same number (L × (1 + a) × (1 + b) = L + L·a + L·b + L·a·b, and the last term is about 0.2 points). The differences that matter: the strengths are opponent-adjusted and time-decayed with a pull toward average early in the season (Team → How a rating is built), the points each strength is worth are fitted rather than chosen, and the regression sees the strengths at once (EPA per play, points, the QB) so their overlap is accounted for.</p>
       <h2>Strength of schedule</h2>
       <p class="note">Built into every rating, not bolted on. Each game the offense played enters the solver as one equation: what it did = league average + its offense rating − the opponent's defense rating + home bump. All 32 offense and 32 defense ratings are solved together, so a team that piled up EPA against weak defenses is credited less than one that did the same against strong ones, and the strong defenses it faced get credit for holding it down. Team → How a rating is built shows the "Opp def rating" column doing exactly this on every game, and the QB rating is likewise per dropback against the defenses actually faced through the team ratings it sits beside in the regression.</p>
-      <h2>Reading a coefficient: the short week</h2>
-      <p class="note">"Short week" (rest of 5 days or fewer) shows as ${sgn(co.per_unit.rest_short, 2)} points for the team and ${sgn(co.per_unit.opp_rest_short, 2)} when the opponent is on one. On their own those look odd. They almost never appear alone: in 430 of 440 short-rest team-games since 2013 both teams were short, because it is a Thursday game. When two inputs always move together the regression cannot tell their effects apart, only their sum, and the sum is what a Thursday game gets: ${sgn(co.per_unit.rest_short + co.per_unit.opp_rest_short, 2)} points per team. That matches the raw data (teams on Thursday averaged 23.0 points against 22.8 overall) and it is inside the noise: removing rest from the model changes the points miss by less than 0.01 (ablation below). The cards show the pair as one line, "Thursday game: both on a short week", for that reason.</p>
+      <h2>Reading the situation coefficients</h2>
+      <p class="note">Each situation input is a 0/1 flag (wind is mph). Its coefficient is the points it adds with the ratings and the other inputs held fixed, fitted on every regular-season game since 2013. The raw gaps in the data, recomputed on every export, are next to each one on the cards. Home is the big one: home teams scored 1.90 more points than away teams raw and ${co.per_unit.home.toFixed(2)} in the fit. Away is the base, so an away team shows 0 for home rather than a subtraction; the two readings are the same equation. Wind costs ${Math.abs(co.per_unit.wind_out).toFixed(3)} points per mph (offenses average 23.8 points in calm air and 21.4 at 11 to 15 mph). Cold and the dome are small once the ratings are in. Rest, division games, primetime, pace, the pass/rush split and the opponent's QB were in the model until 22 Sep 2026 and were removed: a walk-forward test showed the same accuracy without them (reports/input_set_experiments.csv), and several could not be read on their own (the two rest flags only ever appeared together, so their sizes were arbitrary; primetime came out negative after the ratings even though primetime teams score more raw, because good teams get primetime slots).</p>
       <h2>Do the QB rating and the offense ratings double count?</h2>
-      <p class="note">No, but they overlap, and the regression is what sorts that out. The starter's QB rating and the team's offense EPA rating move together (correlation 0.68 across 2013 to 2025). Because every input is fitted at once, each coefficient is the effect of that input with the others held fixed: the QB coefficient (+1.5 points per standard deviation) is what the starter adds beyond what the offense ratings already say, and the offense EPA coefficient (+0.8 per SD) is what the offense adds beyond its QB. Drop the QB rating and refit, and the offense EPA coefficient rises to +2.1 per SD: the shared credit goes back to the offense, it is not counted twice. The QB rating earns its place because a team's stats do not know when the QB changes, and because the QB's own history (across teams and seasons) is a longer record than one team's last few weeks; the ablation puts its value at 0.08 points of accuracy, the largest of any input.</p>
+      <p class="note">No, but they overlap, and the regression is what sorts that out. The starter's QB rating and the team's offense EPA rating move together (correlation 0.68 across 2013 to 2025). Because every input is fitted at once, each coefficient is the effect of that input with the others held fixed: the QB coefficient (+1.4 points per standard deviation) is what the starter adds beyond what the offense ratings already say, and the offense EPA coefficient (+0.6 per SD) is what the offense adds beyond its QB. Drop the QB rating and refit, and the offense EPA coefficient rises to +1.4 per SD: the shared credit goes back to the offense, it is not counted twice. The QB rating earns its place because a team's stats do not know when the QB changes, and because the QB's own history (across teams and seasons) is a longer record than one team's last few weeks; the ablation puts its value at 0.08 points of accuracy, the largest of any input.</p>
       <h2>Why the breakdown starts from a neutral game</h2>
       <p class="note">The regression's intercept is the average score in the training games, which were played half at home, in wind of about 6 mph, and so on. Read against that average, a dome game would show "wind +0.84" for having none, which is true but confusing. The cards and the deep dive therefore move the intercept to a neutral game (away, outdoors, no wind, normal rest, no long rest, not a division game, not primetime) and list only the situation inputs that apply; the ratings are still measured from the league average, since a rating is a distance from average by construction. The sum is identical either way.</p>
       <h2>How the stats were chosen</h2>

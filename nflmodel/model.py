@@ -21,9 +21,17 @@ from sklearn.pipeline import make_pipeline
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
-RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]]  # success rate dropped: ablation (reports/ablation.csv)
-SIT_FEATS = ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime"]
-FEATS = RATING_FEATS + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + SIT_FEATS + ["qb_out"]  # qb_out: reports/additions.csv
+# The input set, 22 Sep 2026: eleven inputs, each with one plain meaning. The offense's EPA-per-play and points ratings, the
+# opponent defense's two ratings, the starting QB (and whether last game's starter is out), and five situation flags. The pass/rush
+# splits, pace, the other-side-of-the-ball terms, the opponent's QB, rest, division and primetime were dropped after a walk-forward
+# test showed the same accuracy without them (reports/input_set_experiments.csv); several of them could not be read on their own
+# (the rest pair only ever appeared together; pass and rush EPA overlap EPA per play).
+RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pf"] for s in ["off", "def"]]
+SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold"]
+FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"]
+# the wider set the model carried before, kept for the ablation and the experiments
+FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
+             ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]
 MARGIN_RANGE = np.arange(-60, 61)
 
 

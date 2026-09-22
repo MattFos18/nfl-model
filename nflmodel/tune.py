@@ -76,6 +76,8 @@ def ablation(features_path: Path, ridge: float, out: Path):
     rows.append({"dropped": "(none)", **base})
     print("full", round(base["team_mae"], 4), flush=True)
     for name, cols in GROUPS.items():
+        if not any(c in model.FEATS for c in cols):
+            continue
         model.FEATS = [c for c in full if c not in cols]
         r = score(model.walk_forward(f, TUNE_SEASONS, ridge), games)
         rows.append({"dropped": name, **r})
