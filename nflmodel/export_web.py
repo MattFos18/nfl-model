@@ -180,7 +180,21 @@ def main():
     pull = pd.read_csv(RAW / "pull_log.csv").tail(120)
     ver = (ROOT / "reports" / "verification.md").read_text() if (ROOT / "reports" / "verification.md").exists() else ""
     teams = sorted(d[d.season == 2026].team.unique())
-    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams,
+    REPD = ROOT / "reports"
+    def csv_rows(name):
+        f = REPD / name
+        return pd.read_csv(f).round(4).to_dict("records") if f.exists() else []
+    def txt(name):
+        f = REPD / name
+        return f.read_text() if f.exists() else ""
+    tun = pd.read_csv(REPD / "tuning_ratings.csv") if (REPD / "tuning_ratings.csv").exists() else pd.DataFrame()
+    analysis = {"correlations": csv_rows("lab_stat_correlations.csv"), "reliability": csv_rows("lab_stat_reliability.csv"),
+                "ablation": csv_rows("ablation.csv"), "additions": csv_rows("additions.csv"), "persistence": csv_rows("trend_persistence.csv"),
+                "tuning_best": tun.sort_values("team_mae").head(10).round(4).to_dict("records") if len(tun) else [],
+                "tuning_by": {k: tun.groupby(k).team_mae.mean().round(4).to_dict() for k in ["decay", "prior", "alpha", "ridge"]} if len(tun) else {},
+                "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
+                "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else ""}
+    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis,
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
     for t in teams:
@@ -194,6 +208,8 @@ def main():
     try:
         pk = P.table(cur_season, cur_week)
         bl = pd.read_parquet(OUT / "pred_baseline.parquet").set_index("game_id")
+        fp = M.prep(feats).set_index(["game_id", "team"])
+        side_cols = M.FEATS + ["r_" + c for c in rcols if c in feats.columns] + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS
         wk = []
         for r in pk.itertuples():
             h = LN.history(r.game_id)
@@ -202,7 +218,15 @@ def main():
                 for k in ["overall", "two", "last3", "homeaway", "pfpa", "lastyear", "lastyear2"]:
                     comp[k] = [clean(bl.loc[r.game_id, f"{k}_away"]), clean(bl.loc[r.game_id, f"{k}_home"])]
                 comp["old"] = [clean(bl.loc[r.game_id, "away_exp"]), clean(bl.loc[r.game_id, "home_exp"])]
-            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "methods": comp,
+            sides = {}
+            for tm in [r.home_team, r.away_team]:
+                if (r.game_id, tm) in fp.index:
+                    row = fp.loc[(r.game_id, tm)]
+                    sides[tm] = {c: clean(row[c]) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
+            gmeta = games.loc[r.game_id] if r.game_id in games.index else None
+            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "methods": comp, "sides": sides,
+                       "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
+                       "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt)} for t, src, hs, tt in
                                        zip(h.ts, h.source, h.home_spread, h.total)] if len(h) else []})
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")

@@ -33,7 +33,13 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/tracker.py`   model picks and Matt's bets (`data/tracker/my_bets.csv`) graded with closing line value (`reports/track_record.md`).
 - `nflmodel/audit.py`     backtest audit: leakage test, coverage, bootstrap intervals on every rejected input, rejected ideas as standalone bets (`reports/audit.md`).
 - `.github/workflows/`    `weekly.yml` (Tue 06:00 and Sat 10:00 ET) and `lines.yml` (every 10 minutes); both commit their outputs.
-- `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz).
+- `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz). `--rankings` also writes the per-week rankings and the full backtest table. The page's tabs:
+  - **This week**: one card per game, model vs Vegas vs actual, win / cover / over odds for both sides, the flag, and "Why these numbers" (every input's contribution to each team's expected points).
+  - **Rankings**: every team on every rating as of any week, sortable with ranks, offense-vs-defense plot and power bars, plus the old sheet's indexes.
+  - **History**: every priced game since 2019, model expected vs Vegas implied vs actual, by-season record, cumulative units on the flags.
+  - **Team**: the raw game log (box score, EPA, ratings into the game, trends, injuries), ratings by week, how a rating is built (every game and weight, summed and checked), and the game deep dive (every coefficient times input).
+  - **Model**: what kind of model it is and the full fitted equation, the stat analysis (predictive vs same-season correlations, reliability, ablation, additions, persistence, tuning), methods compared, every column's definition and source, data pulls and verification, decision log and audit.
+  - **Track record**: model picks and Matt's bets graded with closing line value.
 - `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference and the schedule; fails the build on a mismatch.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
