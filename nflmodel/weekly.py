@@ -65,6 +65,7 @@ def main(full=False, skip_network=False):
     games.to_parquet(OUT / "games.parquet", index=False)
     step("ratings", lambda: sh(["nflmodel.ratings"]), log)
     step("trends", lambda: sh(["nflmodel.trends"]), log)
+    step("players", lambda: sh(["nflmodel.players"]), log)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2019-{season}"]), log)
     from . import lines
     cur_season, cur_week = lines.current_week(games)

@@ -70,7 +70,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 22 Sep 2026 the model has thirteen inputs, each with one
+team carried into a game to the points it scored. Since 22 Sep 2026 the model has sixteen inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -89,12 +89,15 @@ printed on the page, Model → How it was built, and refit before every week):
 | Dome | +0.06 | Indoor teams score more raw (+1.5), but the ratings already know who plays indoors |
 | Warm-climate or dome team outdoors under 35F | about -1.5 points when it applies | Those teams score 19.7 in the cold against 22.3 for everyone in the cold (119 team-games). Cold teams in heat show nothing. Added 22 Sep 2026 |
 | Rain at kickoff | about -1 point when it applies | From the play-by-play weather text; the kickoff forecast (50%+ chance of precipitation) for unplayed games. Added from the ideas test below: -0.010 and -0.013 on the points miss in the two windows |
+| Division game | -0.67 points for each team when it applies | Familiar opponents score a little less. Added 22 Sep 2026 from the both-window test (section 14): -0.006 and -0.006 on the points miss; it moves both teams alike, so the spread barely changes |
+| Skill players out: value lost | -13 points per unit of EPA per play lost (a star receiver out, about 0.03, is -0.4 points) | Player model (section 15): the EPA per touch above replacement of every RB, WR and TE listed Out or Doubtful, times their touch share, summed. Added 22 Sep 2026: with the opponent's loss, -0.009 and -0.012 on the margin miss in the two windows |
+| Opponent's skill players out: value lost | +36 points per unit (the same star out on the other side is +1.1 points for this team) | The same loss on the other side of the ball, in this team's own points equation |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
 coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Why thirteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+**Why sixteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
 primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
 
@@ -109,7 +112,7 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Thirteen inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Sixteen inputs a reader can check beats twenty-six that
 score the same.
 
 **Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
@@ -328,3 +331,70 @@ republishes the data room with the new files and writes the recap.
 In order of what the data says: (1) bet at the opener or midweek and measure closing line value, which needs
 the line log that starts in the first live week; (2) price injuries and the player model before the line
 moves; (3) splits and reverse line movement after a season of logging. None can be tested on today's data.
+
+## 14. Every idea, both windows, and what was adopted (22 Sep 2026)
+
+Until today candidate inputs were screened on the tuning window (2019 to 2022) and only the promising ones were
+checked held out. Today every candidate was run on both windows with the weekly refit, on its own and then in
+combination (`experiments/additions_both.py`, `experiments/combo.py`; `reports/additions_both.csv`,
+`reports/combo.csv`). The rule: an input goes in only if it lowers the miss on both windows on its own and still
+does with the others present. Change in the average team points miss (below zero is better; noise about ±0.005):
+
+| Idea | 2019-22 | 2023-25 | Verdict |
+|---|---|---|---|
+| Division game | -0.006 | -0.006 | adopted (points; the margin is unchanged) |
+| Skill players' value out, own and opponent | -0.002 | -0.006 | adopted: the margin miss falls -0.009 and -0.012 |
+| Pass and rush EPA split | -0.004 | -0.015 | rejected: the points miss falls but the margin miss rises on both windows (+0.003, +0.006), and the spread is what gets bet |
+| Travel distance | -0.004 | -0.002 | rejected: with the others present the margin miss moves in opposite directions on the two windows |
+| Head-to-head | +0.006 | -0.008 | one window only |
+| Coach ATS | -0.004 | +0.005 | one window only |
+| QB ATS | +0.007 | -0.004 | one window only |
+| Team home edge | +0.002 | +0.000 | nothing |
+| All four matchup-history factors together | +0.014 | -0.005 | one window only, and worse than any alone |
+| Referee over rate, home-cover rate, penalties | 0 / -0.004 / -0.002 | +0.004 / 0 / +0.003 | nothing consistent |
+| Primetime | 0 | -0.003 | one window only |
+| Pace | -0.008 | +0.018 | one window only, and badly wrong held out |
+| Starters out (counts) | +0.004 | +0.002 | nothing |
+| Snow, time zones, West Coast at 1pm, late slot, cold and wind team edges, home/away split, off a loss | mixed | mixed | nothing |
+
+So the matchup-history factors on the cards (head-to-head, the coaches, the QBs, the stadium) are readings, not
+inputs: each helps one window and hurts the other, which is what noise looks like.
+
+**Is the equation itself saturated?** (`experiments/equation_checks.py`, `reports/equation_checks.csv`)
+
+- The ridge penalty does not matter: alpha 1 to 100 moves the miss by less than 0.001.
+- Interactions and squares of the five ratings: worse on the tuning window (+0.015), better held out (-0.020),
+  the same split as the noisy ideas above. Not adopted.
+- Gradient-boosted trees on the same inputs: worse on both windows by 0.1 points or more (7.56 vs 7.45; 7.44 vs
+  7.36). The relationship is linear at the resolution this data allows, and the weights are as fitted as they get.
+
+**In-game QB injuries** (the Giants game: Dart hurt on the first drive, the model had LA 27-24, the final was
+28-6). The QB rating was never fooled: it is computed per passer from the play-by-play, so Dart's rating took his
+five dropbacks and the backup's took his twenty-nine. The team offense rating did take the whole game as a Giants
+reading. Down-weighting games by the named starter's share of dropbacks (`experiments/starter_share.py`,
+`reports/starter_share.csv`; 189 such games of 7,722) was tested three ways: none helped on both windows (the
+best, quarter weight when the starter threw under half the dropbacks, was +0.005 tuning and -0.004 held out). Not
+adopted; a game with the backup is still real evidence about the offense, and the next games repair the rating.
+Before kickoff no model can price a first-drive injury; that game is noise for the model and for the line alike.
+
+## 15. The player model
+
+Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
+(passer, rusher, receiver) from the play-by-play since 2013, with plays and EPA; about 95,000 rows, 2,400 players.
+`PlayerValues` gives any player a decayed (0.985 per game), shrunk (k = 80 touches) EPA per play as of a week,
+toward a replacement level set at the 25th percentile of players with 100+ plays in earlier seasons.
+
+Phase 2 (`injury_value`, `data/processed/player_injury.parquet`): for each game and team, the value lost to RB, WR
+and TE listed Out or Doubtful on the final report: value above replacement times the player's share of the team's
+touches over its previous eight games, summed. In the model since 22 Sep 2026, own and opponent
+(`experiments/player_injury.py`, `reports/player_injury.csv`): margin miss 10.152 to 10.143 (2019-22) and 10.117
+to 10.105 (2023-25). Small, but the same sign on both windows and larger than any situational input added this
+year. The QB stays on its own flag (`qb_out`), which already carries the biggest injury effect.
+
+Not done yet, in order of expected value: offensive line (no EPA attribution exists for linemen; snap counts and
+a line-continuity count are the only handles), defensive players (the same problem: EPA attributes to the
+offense), and a full availability-weighted offense rating (every player's value times expected usage, rather than
+only the ones listed out). Each is a test like the ones above, and none goes in unless it helps on both windows.
+
+Neither the division flag nor the value out helps the totals equation (`reports/totals_div.csv`), so that stays as it was. The weekly run builds all of this (`players` step after `trends`); the card shows the value out under "Injuries
+beyond the QB" in the breakdown.
