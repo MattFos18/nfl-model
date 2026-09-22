@@ -1,7 +1,8 @@
 """Line watch: log spreads, totals and moneylines from free sources every run.
 
 Sources
-  ESPN public scoreboard (site.api.espn.com): one consensus line per game with the provider named.
+  ESPN public scoreboard (site.api.espn.com, with fallbacks): one consensus line per game with the provider named.
+  The Odds API (free tier, key in ODDS_API_KEY): every US book's spread, total and moneyline, every two hours.
   DraftKings sportsbook public event-group feed (event group 88808 = NFL): spread, total, moneyline per game.
   DraftKings betting splits: no stable public endpoint found yet; the hook is here and returns nothing until
   one is confirmed. The report says so rather than pretending.
@@ -151,6 +152,47 @@ def draftkings(season: int, week: int, ts: str) -> list[dict]:
     return list(rows.values())
 
 
+def odds_api(season: int, week: int, ts: str) -> list[dict]:
+    """The Odds API (the-odds-api.com), free tier: 500 requests a month, one request returns every NFL game across the US books.
+    Needs ODDS_API_KEY in the environment (a GitHub Actions secret); silently skipped without it. Called at most every two hours
+    by the workflow so a month stays inside the free allowance."""
+    import os
+    key = os.environ.get("ODDS_API_KEY", "").strip()
+    if not key:
+        return []
+    r = requests.get("https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds", timeout=30,
+                     params={"regions": "us", "markets": "spreads,totals,h2h", "oddsFormat": "american", "apiKey": key})
+    r.raise_for_status()
+    j = r.json()
+    _save_raw("oddsapi", j, ts)
+    rows = []
+    for ev in j:
+        home, away = team_from_name(ev.get("home_team")), team_from_name(ev.get("away_team"))
+        if not home or not away:
+            continue
+        for bk in ev.get("bookmakers", []):
+            row = {"ts": ts, "source": "oddsapi:" + bk.get("key", ""), "season": season, "week": week, "home": home, "away": away,
+                   "home_spread": None, "total": None, "home_ml": None, "away_ml": None, "spread_odds_home": None, "spread_odds_away": None,
+                   "start": ev.get("commence_time")}
+            for m in bk.get("markets", []):
+                for oc in m.get("outcomes", []):
+                    t = team_from_name(oc.get("name")) if m["key"] != "totals" else None
+                    if m["key"] == "spreads" and t == home and oc.get("point") is not None:
+                        row["home_spread"], row["spread_odds_home"] = -float(oc["point"]), oc.get("price")
+                    elif m["key"] == "spreads" and t == away:
+                        row["spread_odds_away"] = oc.get("price")
+                    elif m["key"] == "totals" and str(oc.get("name", "")).lower() == "over" and oc.get("point") is not None:
+                        row["total"], row["over_odds"] = float(oc["point"]), oc.get("price")
+                    elif m["key"] == "totals" and str(oc.get("name", "")).lower() == "under":
+                        row["under_odds"] = oc.get("price")
+                    elif m["key"] == "h2h" and t == home:
+                        row["home_ml"] = oc.get("price")
+                    elif m["key"] == "h2h" and t == away:
+                        row["away_ml"] = oc.get("price")
+            rows.append(row)
+    return rows
+
+
 def draftkings_splits(season: int, week: int, ts: str) -> list[dict]:
     """Bets % and money % per side. No confirmed public endpoint yet; returns [] and the report says so."""
     return []
@@ -187,7 +229,11 @@ def run(season=None, week=None) -> pd.DataFrame:
         season, week = current_week(games)
     ts = dt.datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%SZ")
     rows, errors = [], []
-    for name, fn in [("espn", espn), ("draftkings", draftkings), ("dk_splits", draftkings_splits)]:
+    import os
+    sources = [("espn", espn), ("draftkings", draftkings), ("dk_splits", draftkings_splits)]
+    if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or dt.datetime.utcnow().hour % 2 == 0 and dt.datetime.utcnow().minute < 10):
+        sources.append(("oddsapi", odds_api))     # once every two hours on the 10-minute watch: ~360 requests a month, under the free 500
+    for name, fn in sources:
         try:
             rows += fn(season, week, ts)
         except Exception as e:  # noqa

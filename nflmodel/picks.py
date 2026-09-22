@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
-SPREAD_EDGE, TOTAL_EDGE = 5.0, 6.0  # ROI-best thresholds that hold in both backtest windows; see docs/how_it_works.md section 8
+SPREAD_EDGE, TOTAL_EDGE = 5.0, None  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 
 
 def fair_ml(p):
@@ -43,7 +43,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             side = r.home_team if r.spread_edge > 0 else r.away_team
             line = -r.spread_line if r.spread_edge > 0 else r.spread_line
             out.append(f"{side} {line:+g}")
-        if pd.notna(r.total_line) and abs(r.total_edge) >= total_edge:
+        if total_edge is not None and pd.notna(r.total_line) and abs(r.total_edge) >= total_edge:
             out.append(("Over " if r.total_edge > 0 else "Under ") + f"{r.total_line:g}")
         return ", ".join(out) if out else ""
     p["bet"] = p.apply(bet, axis=1)
@@ -67,9 +67,9 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points, total when {TOTAL_EDGE:g}+. These are the thresholds with the best ROI that held in both "
-           "backtest windows (2019 to 2022 and 2023 to 2025), but the samples are small: 127 spread bets at 5+ went 53.5% (+2.2% ROI), 61 total bets at 6+ went 60.7% (+15.8%). "
-           "Edges under those thresholds have lost money in every window. No flags in Week 18, where resting starters make the line smarter than the ratings (flags there went 7-11). Full table in docs/how_it_works.md.", ""]
+           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. That is the threshold with the best return that held in both backtest windows "
+           "(2019 to 2022 and 2023 to 2025), on small samples: 116 spread bets at 5+ went 68-48. Totals are not flagged: no total threshold won in both windows "
+           "(the 6+ rule went 27-26). No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the History tab of the data room.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 

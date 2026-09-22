@@ -110,6 +110,8 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline;margin-top:2px;padding-top:4px;border-top:1px dashed var(--rule)}
 .blk .edge span{color:var(--ink-2)} .blk .edge b{font-family:var(--display);font-size:16px;font-weight:600}
 .blk .edge b.flag{color:var(--accent)}
+.spark{width:100%;max-width:220px;height:44px;margin-top:6px;display:block}
+.spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
 .chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
 .blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
 .blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -127,6 +129,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .ctab td.v{color:var(--muted);font-family:var(--mono);font-size:11.5px}
 .ctab tr.tot td{font-weight:600;border-top:2px solid var(--rule);border-bottom:0}
 .ctab tr.base td{color:var(--ink-2)}
+tr.hit td{background:var(--accent-soft)}
 .ctab tr.grp td{font-weight:600;background:var(--panel-2);border-bottom:1px solid var(--rule)}
 .ctab td.ind{padding-left:14px}
 .whybox > div{min-width:0}
@@ -219,8 +222,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
+    <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
-    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the flags, cumulative: spreads at 5+ and totals at 6+</h3><div id="unitschart"></div></div>
+    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at 5+, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
   <div class="tablewrap"><table id="bktable"></table></div>
 </section>
@@ -428,13 +432,27 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     return null;
   }
   function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - p : p; }
+  function spark(hist, key, modelVal, H) {
+    // the logged line over time (one point per snapshot, consensus = mean across sources at each timestamp) with the model's number dashed
+    const byTs = {}; (hist || []).forEach(r => { if (r[key] == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(r[key]); });
+    const ts = Object.keys(byTs).sort(); const vals = ts.map(t => byTs[t].reduce((a, b) => a + b, 0) / byTs[t].length);
+    if (vals.length < 2) return `<div class="spark none">${vals.length ? "1 line snapshot so far; movement shows once the 10-minute watch has logged more" : "no line snapshots yet"}</div>`;
+    const W = 220, Hh = 44, m = 4; const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
+    const x = i => m + i / (vals.length - 1) * (W - 2 * m), y = v => m + (hi - v) / (hi - lo) * (Hh - 2 * m);
+    let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="line movement">`;
+    if (modelVal != null) svg += `<line x1="${m}" x2="${W - m}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-dasharray="3 3"/>`;
+    svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="1.8"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="2.5" fill="var(--vegas)"/></svg>`;
+    const d = vals[vals.length - 1] - vals[0];
+    const moved = key === "home_spread" ? (Math.abs(d) < 0.01 ? "no move" : `moved ${Math.abs(d).toFixed(1)} toward ${d > 0 ? H.home : H.away}`) : (Math.abs(d) < 0.01 ? "no move" : `moved ${Math.abs(d).toFixed(1)} ${d > 0 ? "up" : "down"}`);
+    return svg + `<small class="note" style="font-size:11px">${vals.length} snapshots since ${ts[0].slice(5, 16).replace("T", " ")} UTC: ${moved}</small>`;
+  }
   function lineTxt(team, num) { return `${team} ${num > 0 ? "+" : ""}${Number.isInteger(num) ? num : num.toFixed(1)}`; }
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
     const flagged = W.games.filter(g => g.bet);
     $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}.</b> ${W.games.length} games, ${flagged.length} flagged. Blue is the model, orange is Vegas. Each card splits into the spread, the total, the points behind them and the win odds; the edge under each market is the model's line minus the Vegas line. 52.4% is break-even at −110.`;
-    if ($("thr")) $("thr").textContent = `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
+    if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points (totals are not flagged: no total threshold won in both backtest windows; History → Every threshold, tested)` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
     const withLine = W.games.filter(g => g.spread_line != null);
     $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>flagged games: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>average disagreement with the current spread, points</span></div>
@@ -445,7 +463,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const vh = hasLine ? (g.total_line + g.spread_line) / 2 : null, va = hasLine ? (g.total_line - g.spread_line) / 2 : null;
       const sh = g.sides && g.sides[H] || {};
       const wx = sh.dome ? "dome" : [(sh.temp != null ? sh.temp + "F" : null), (sh.wind != null ? "wind " + sh.wind + " mph" : null)].filter(Boolean).join(", ") || "weather unknown";
-      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && Math.abs(g.total_edge) >= W.total_edge;
+      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && W.total_edge != null && Math.abs(g.total_edge) >= W.total_edge;
       const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = hasLine ? (g.total_edge > 0 ? "Over" : "Under") : null;
       const vw = vegasWin(g);
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
@@ -457,13 +475,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A})}` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "no line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>${spark(g.line_history, "total", g.model_total, {home: H, away: A})}` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -628,7 +646,21 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
       bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
-    // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange), one unit each at -110
+    // threshold sweep: every cutoff on spreads and totals, on the tuning window, the held-out window and both
+    const wins = [["2019 to 2022 (tuning)", r => r.season <= 2022], ["2023 to 2025 (held out)", r => r.season >= 2023 && r.season <= 2025], ["2019 to 2025", r => r.season <= 2025]];
+    const roiOf = (w, l) => w + l ? (w - 1.1 * l) / (1.1 * (w + l)) : null;
+    const sweepTable = (key, wonKey, ths, label) => {
+      let h = `<table><thead><tr><th class='l'>${label} edge</th>` + wins.map(w => `<th colspan="3">${w[0]}</th>`).join("") + `</tr><tr><th></th>` + wins.map(() => "<th>Record</th><th>Win %</th><th>ROI</th>").join("") + "</tr></thead><tbody>";
+      ths.forEach(th => {
+        const cells = wins.map(([, f]) => { const x = all.filter(r => f(r) && r[key] != null && Math.abs(r[key]) >= th && r[wonKey] !== null); const w = x.filter(r => r[wonKey] === true).length, l = x.length - w; return {w, l, roi: roiOf(w, l)}; });
+        const both = cells[0].roi != null && cells[1].roi != null && cells[0].roi > 0 && cells[1].roi > 0;
+        h += `<tr class="${both ? "hit" : ""}"><td class="l"><b>${th}+</b>${both ? " <span class='rk'>positive in both windows</span>" : ""}</td>` + cells.map(c => `<td class="mono">${c.w}-${c.l}</td><td class="mono">${c.w + c.l ? (100 * c.w / (c.w + c.l)).toFixed(1) + "%" : ""}</td><td class="mono ${c.roi > 0 ? "pos" : (c.roi < 0 ? "neg" : "")}">${c.roi == null ? "" : (c.roi >= 0 ? "+" : "") + (100 * c.roi).toFixed(1) + "%"}</td>`).join("") + "</tr>";
+      });
+      return h + "</tbody></table>";
+    };
+    $("sweep").innerHTML = `<p class="note">Every game since 2019 where the model disagreed with the closing line by at least the cutoff, bet on the model's side at −110, one unit each. ROI is units won per unit risked. A cutoff is only worth using if it made money on the tuning window <b>and</b> on the held-out window, which the model never saw when it was tuned; rows that do are marked. The spread flag is set at 5 (the best return that holds in both windows); 4 also holds with more bets and a smaller return per bet. No total cutoff holds in both windows, so totals are not flagged. Samples are small: a 5+ row is about seventeen bets a season. Recomputed from the backtest on every run.</p>
+      <div class="grid2"><div class="tablewrap" style="max-height:48vh">${sweepTable("edge", "pickWon", [1, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8], "Spread")}</div><div class="tablewrap" style="max-height:48vh">${sweepTable("tedge", "ouWon", [1, 2, 3, 4, 5, 6, 7, 8], "Total")}</div></div>`;
+    // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange, not flagged; shown for the record), one unit each at -110
     const series = [["spread", all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null), "pickWon", "var(--series-1)"],
                     ["total", all.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6 && x.ouWon !== null), "ouWon", "var(--vegas)"]];
     const runs = series.map(([name, fl, key, color]) => { const f = fl.slice().sort((a, b) => a.season - b.season || a.week - b.week); let cum = 0; return {name, color, f, pts: f.map(x => { cum += x[key] ? 1 : -1.1; return cum; }), cum}; });

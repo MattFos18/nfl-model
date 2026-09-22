@@ -20,6 +20,8 @@ jobs:
           cache: pip
       - run: pip install pandas pyarrow requests
       - name: log lines
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python -m nflmodel.lines
       - name: commit log
         run: |
