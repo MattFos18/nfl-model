@@ -422,9 +422,13 @@ stays the model's own, so the edge shown means what it says; totals stay unflagg
 model's picks, with closing line value, on Results -> Live picks and bets; the note travels with the bet and the
 card shows it, so your judgment gets a track record next to the model's.
 
-**The line watch without GitHub's cron.** GitHub never fired the scheduled line watch on this repository. The
-workflow now also runs on any push to the branch `kick`, and a standing Claude routine pushes an empty commit
-there every hour. GitHub's cron, if it ever starts, simply adds runs.
+**The line watch and GitHub's cron.** GitHub did not fire the scheduled line watch for the first five hours
+after the schedule was set; its first scheduled run came at 19:58 UTC on 22 Sep 2026, which is the delay GitHub
+documents for new schedules. Two fallbacks exist: the workflow also runs on any push to the branch `kick` (an
+empty commit there starts a run that checks out and logs to main), and a routine bound to the build session can
+dispatch the workflow directly. A routine in a fresh session cannot push or dispatch (no GitHub credentials there),
+so that version is disabled. The Saturday recap reads the watch log and reports the number of snapshots, which is
+the check that the schedule is holding.
 
 ## 15. The player model
 
