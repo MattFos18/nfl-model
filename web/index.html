@@ -295,7 +295,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div class="tablewrap"><table id="bktable"></table></div>
   </div>
   <div id="live" hidden>
-  <p class="note">Model picks (flagged at the thresholds) and Matt's bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Your bets go in data/tracker/my_bets.csv (game_id, bet, odds, stake).</p>
+  <p class="note">Model picks (flagged at the thresholds, at the best number) and your bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Your bets go in data/tracker/my_bets.csv: game_id, bet (KC -3, Over 47.5, MIA ML), odds, stake, and a note with your read on the game, so your judgment gets graded next to the model's.</p>
   <div class="grid2e">
     <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
     <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
@@ -669,6 +669,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
           </section>
         </div>
+        ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
         <div class="row" style="gap:10px"><button class="why" data-i="${i}" aria-expanded="false">Why these numbers ▾</button><button class="why h2h" data-i="${i}" aria-expanded="false">Matchup history ▾</button></div>
         <div class="whybox" id="why${i}" hidden></div>
         <div class="whybox" id="h2h${i}" hidden></div>
@@ -1341,10 +1342,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
-    let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th>Odds</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Recorded</th></tr></thead><tbody>";
-    T.slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who}</td><td>${r.season}</td><td>${r.week}</td><td class="l mono">${r.game_id}</td><td class="l">${r.bet}</td><td class="mono">${r.odds}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono">${ok(r.clv) ? sgn(r.clv) : ""}</td><td class="l ${r.result === "win" ? "pos" : (r.result === "loss" ? "neg" : "")}">${r.result || ""}</td><td class="mono">${ok(r.units) ? r.units.toFixed(2) : ""}</td><td class="l">${r.run_at || ""}</td></tr>`; });
+    let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th class='l'>Book</th><th>Odds</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Note</th><th class='l'>Recorded</th></tr></thead><tbody>";
+    T.slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who === "matt" ? "You" : "Model"}</td><td>${r.season ?? ""}</td><td>${r.week ?? ""}</td><td class="l mono">${r.game_id}</td><td class="l"><b>${esc(r.bet)}</b></td><td class="l">${esc(r.book || "")}</td><td class="mono">${r.odds ?? ""}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono ${ok(r.clv) ? (r.clv > 0 ? "pos" : (r.clv < 0 ? "neg" : "")) : ""}">${ok(r.clv) ? (r.clv > 0 ? "+" : "") + Number(r.clv).toFixed(1) : ""}</td><td class="l">${esc(r.result || "")}</td><td class="mono ${ok(r.units) ? (r.units > 0 ? "pos" : (r.units < 0 ? "neg" : "")) : ""}">${ok(r.units) ? Number(r.units).toFixed(2) : ""}</td><td class="l" style="white-space:normal;max-width:320px">${esc(r.note || "")}</td><td class="l rk">${esc(r.run_at || "")}</td></tr>`; });
     $("tracktable").innerHTML = h + "</tbody>";
   }
+
 
   // ---------- dispatch ----------
   function render() {

@@ -409,6 +409,23 @@ to the eighteen-input model on both windows. Nothing helps on both: the kicker v
 miss (-0.002 points, -0.007 margin) and raises the held-out points miss (+0.007); the team rating raises the
 margin miss on both windows. Not adopted; the values stay on the Players tab.
 
+**Totals inputs re-tested** (22 Sep 2026, `experiments/totals_inputs.py`, `reports/totals_inputs.csv`): the rating
+gap (a mismatch runs short), pace, and the market total itself as inputs to the totals equation, both windows.
+Gap and pace: nothing (-0.000 / -0.005 and +0.012 / +0.000). The market total: 10.510 / 10.124 against the
+model's 10.636 / 10.271 and the closing line's 10.541 / 10.161. That equation beats the line by 0.03 points on
+both windows, but nine tenths of it is the line, and what is left to bet on is thin: over/under on the residual
+at half a point or more went 432-366 (54.1%) on the tuning window and 318-289 (52.4%, exactly break-even at
+-110) held out; at 2 points, 73-57 then 39-39 (`reports/totals_blend_bets.csv`). The model total on the cards
+stays the model's own, so the edge shown means what it says; totals stay unflagged.
+
+**Your bets, with your read** (`data/tracker/my_bets.csv`: game_id, bet, odds, stake, note). Graded like the
+model's picks, with closing line value, on Results -> Live picks and bets; the note travels with the bet and the
+card shows it, so your judgment gets a track record next to the model's.
+
+**The line watch without GitHub's cron.** GitHub never fired the scheduled line watch on this repository. The
+workflow now also runs on any push to the branch `kick`, and a standing Claude routine pushes an empty commit
+there every hour. GitHub's cron, if it ever starts, simply adds runs.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
