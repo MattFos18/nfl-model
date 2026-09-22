@@ -112,6 +112,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge b.flag{color:var(--accent)}
 .spark{width:100%;max-width:220px;height:44px;margin-top:6px;display:block}
 .spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
+.score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
 .chip.alt{background:var(--accent-soft);color:var(--accent)}
 .chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
@@ -203,22 +204,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div class="card viz-root" id="scatcard"><h3>Offense vs defense EPA rating</h3><div id="scatter"></div><div class="tip" id="tip2"></div></div>
     <div class="card viz-root"><h3>Power: expected margin against an average team, neutral field</h3><div id="powerbar"></div></div>
   </div>
-  <div class="card" style="margin-bottom:14px"><h3>Hypothetical matchup</h3>
-    <p class="note">Two teams on a neutral field, priced from the ratings selected above (season, as-of week and window) with this season's coefficients: no home field, no weather. Open "Settings" to add a home side or weather. Same equation as the cards, so a real game priced here matches its card apart from the total, which on the cards comes from its own equation.</p>
+  <div class="card" style="margin-bottom:14px"><h3>Matchup</h3>
     <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
       <label class="ctl">Team A <select id="muA"></select></label>
       <label class="ctl">Team B <select id="muB"></select></label>
-      <details style="margin:0"><summary style="font-size:12.5px">Settings</summary><div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end;margin-top:6px">
-      <label class="ctl">Site <select id="muSite"><option value="N">Neutral field</option><option value="A">A at home</option><option value="B">B at home</option></select></label>
-      <label class="ctl">Roof <select id="muRoof"><option value="out">Outdoors</option><option value="dome">Dome or closed</option></select></label>
-      <label class="ctl">Wind, mph <input id="muWind" type="number" min="0" max="40" value="0" style="width:64px"></label>
-      <label class="ctl">Cold (under 35F) <select id="muCold"><option value="0">No</option><option value="1">Yes</option></select></label>
-      <label class="ctl">Rain <select id="muRain"><option value="0">No</option><option value="1">Yes</option></select></label>
-      </div></details>
     </div>
     <div id="muOut" style="margin-top:10px"></div>
-    <p class="note" id="muNote" style="margin:8px 0 0"></p>
-    <details style="margin-top:10px"><summary style="font-size:13px;font-weight:600">Matchup history</summary><div class="whybox" id="muH2H" style="margin-top:8px"></div></details>
   </div>
   <div class="tablewrap"><table id="rktable"></table></div>
   <div class="status" id="rkstatus"></div>
@@ -230,7 +221,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
     <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
-    <div class="card" style="grid-column:1 / -1"><h3>When the flags were wrong</h3><div id="misses"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
     <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at 5+, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
@@ -324,6 +314,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <dt>Win %</dt><dd>Model: the chance the final margin lands above zero when the margin is treated as a bell curve centred on the model spread with a 13-point spread (the actual miss over 2013 to 2025), reshaped so 3 and 7 get their true share. Vegas: the moneyline with the bookmaker's cut removed, so the two sides sum to 100%.</dd>
       <dt>Cover %</dt><dd>The same bell curve: the chance the margin beats the Vegas spread, which is 50% by construction from the line's side. The model's number is optimistic because the line carries information the model does not, so the green chip beside it gives the honest figure: what edges of that size have actually covered in the backtest since 2019.</dd>
       <dt>Over %</dt><dd>The chance the total lands above the Vegas total, bell curve centred on the model total, 13.4-point spread.</dd>
+      <dt>Books now</dt><dd>Under "Why these numbers": every book's current spread and total from the last line snapshot, and the best available number for the model's side. A half point at a key number (3, 7) is worth real money over a season, so a flagged bet goes at the best price, not the first one. The full log (every book, every 30 minutes) is folded underneath; it grades closing line value on the Track record tab and, after a season, tests whether lines that move toward the model beat the ones that move away.</dd>
+      <dt>Matchup history</dt><dd>Last meetings, coaches, quarterbacks, stadium and form, built automatically on every weekly run from the nflverse schedule (every game since 2013 with its score, closing line, coaches and starting QBs). Nothing here changes the model's numbers: each of these was tested as an input and none improved the backtest (Decision log). It is context for reading a card, not an input.</dd>
       <dt>Break-even</dt><dd>52.4% at −110. A cover or over % below that is a losing bet even if the model is right on average.</dd>
     </dl></div>
   </div>
@@ -620,8 +612,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       </article>`;
     });
     $("cards").innerHTML = h;
-    $("cards").querySelectorAll("button.why.h2h").forEach(b => b.addEventListener("click", () => { const g = W.games[+b.dataset.i]; const box = $("h2h" + b.dataset.i); const open = box.hidden; box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Matchup history ▴" : "Matchup history ▾"; if (open && !box.innerHTML) box.innerHTML = h2hHtml(g.home_team, g.away_team, g); }));
-    $("cards").querySelectorAll("button.why:not(.h2h)").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
+    const closeOther = (i, keep) => { const o = $((keep === "why" ? "h2h" : "why") + i); if (o && !o.hidden) { o.hidden = true; const ob = $("cards").querySelector(`button.why${keep === "why" ? ".h2h" : ":not(.h2h)"}[data-i="${i}"]`); if (ob) { ob.setAttribute("aria-expanded", "false"); ob.textContent = ob.textContent.replace("▴", "▾"); } } };
+    $("cards").querySelectorAll("button.why.h2h").forEach(b => b.addEventListener("click", () => { const g = W.games[+b.dataset.i]; const box = $("h2h" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "h2h"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Matchup history ▴" : "Matchup history ▾"; if (open && !box.innerHTML) box.innerHTML = h2hHtml(g.home_team, g.away_team, g); }));
+    $("cards").querySelectorAll("button.why:not(.h2h)").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "why"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
   }
   // pair the rest inputs when both teams share the situation (a Thursday game puts both on a short week), so the reader sees the net effect
   function mergePairs(items) {
@@ -662,12 +655,30 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table></td></tr>`;
       });
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
-      h += `<div class="facts"><span>Starting QB</span><b>${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (last game's starter listed out)" : ""}</b><span>Rest</span><b>${inp.rest} days</b><span>Starters out</span><b>offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</b>
-        <span>Not used <span class="badge noise">noise</span></span><b style="font-weight:400;color:var(--ink-2)">coach ATS ${fmtn(inp.coach_ats)} · QB ATS ${fmtn(inp.qb_ats)} · head-to-head ${fmtn(inp.h2h_cover)} · home edge ${fmtn(inp.team_home_edge)} · referee over ${pct(inp.ref_over)}</b></div></div>`;
+      h += `<div class="mv"><span class="chip">QB ${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (listed out)" : (inp.qb_carried ? " (last starter)" : "")}</span><span class="chip">Rest ${inp.rest} days</span><span class="chip">Starters out: offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</span></div></div>`;
       return h;
     });
-    const hist = g.line_history && g.line_history.length ? `<div style="grid-column:1 / -1"><p class="cap">Line log: ${g.line_history.length} snapshots</p><div class="tablewrap" style="max-height:32vh"><table class="ctab"><thead><tr><th>Time (UTC)</th><th>Source</th><th class="n">${g.home_team} spread</th><th class="n">Total</th><th class="n">${g.home_team} ML</th><th class="n">${g.away_team} ML</th></tr></thead><tbody>${g.line_history.slice().reverse().map(r => `<tr><td>${r.ts.slice(0, 16).replace("T", " ")}</td><td>${esc(r.source)}</td><td class="n">${r.home_spread == null ? "" : (-r.home_spread > 0 ? "+" : "") + (-r.home_spread)}</td><td class="n">${r.total ?? ""}</td><td class="n">${r.home_ml ?? ""}</td><td class="n">${r.away_ml ?? ""}</td></tr>`).join("")}</tbody></table></div><p class="note" style="margin:6px 0 0">Bet and money splits: no free source yet; the watch tries the public consensus page each run and logs what it gets. When splits exist they appear here as bets % and money % per side, with a note when the line moves against the majority of bets.</p></div>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
-    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation. What each input is and how it is measured: Model → Inputs explained. Every number here is regenerated from the data on each weekly run.</p>`;
+    return cols.join("") + booksHtml(g);
+  }
+  // the books right now: where each number sits, the best price for the model's side, and the full log folded away
+  function booksHtml(g) {
+    const L = (g.line_history || []).filter(r => r.home_spread != null || r.total != null);
+    if (!L.length) return `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet.</p>`;
+    const H = g.home_team, A = g.away_team;
+    const book = src => src.replace(/^oddsapi:/, "").replace(/^espn:/, "").replace(/ag$/, "").replace(/^draft kings$/i, "DraftKings (ESPN)").replace(/^draftkings$/i, "DraftKings").replace(/^betmgm$/i, "BetMGM").replace(/^fanduel$/i, "FanDuel").replace(/^betrivers$/i, "BetRivers").replace(/^betonline$/i, "BetOnline").replace(/^lowvig$/i, "LowVig").replace(/^mybookie$/i, "MyBookie").replace(/^betus$/i, "BetUS").replace(/^bovada$/i, "Bovada").replace(/^williamhill_us$/i, "Caesars");
+    const last = L[L.length - 1].ts; const now = L.filter(r => r.ts === last);
+    const groups = (key) => { const m = {}; now.filter(r => r[key] != null).forEach(r => { const b = book(r.source); (m[r[key]] = m[r[key]] || []).includes(b) || m[r[key]].push(b); }); return Object.entries(m).map(([v, b]) => [+v, b]).sort((x, y) => x[0] - y[0]); };
+    const few = b => b.length > 3 ? b.slice(0, 3).join(", ") + " +" + (b.length - 3) : b.join(", ");
+    const sp = groups("home_spread"), tt = groups("total");
+    const chips = (arr, lab) => arr.map(([v, b]) => `<span class="chip">${lab(v)} · ${b.length > 2 ? b.length + " books" : b.join(", ")}</span>`).join("");
+    let best = "";
+    // home_spread is positive when the home team is favoured: the home side wants the smallest number, the away side the largest
+    if (sp.length && g.spread_edge != null) { const homeSide = g.spread_edge > 0; const pick = homeSide ? sp[0] : sp[sp.length - 1]; best += `<span class="chip alt">Best for ${homeSide ? H : A}: ${lineTxt(homeSide ? H : A, homeSide ? -pick[0] : pick[0])} at ${few(pick[1])}</span>`; }
+    if (tt.length && g.total_edge != null) { const over = g.total_edge > 0; const pick = over ? tt[0] : tt[tt.length - 1]; best += `<span class="chip alt">Best for ${over ? "Over" : "Under"}: ${pick[0]} at ${few(pick[1])}</span>`; }
+    const stamp = last.slice(0, 16).replace("T", " ");
+    return `<div style="grid-column:1 / -1"><p class="cap">Books now <span class="rk">${stamp} UTC</span></p>
+      <div class="mv">${chips(sp, v => lineTxt(H, -v))}</div><div class="mv">${chips(tt, v => "Total " + v)}</div>${best ? `<div class="mv">${best}</div>` : ""}
+      <details style="margin-top:8px"><summary style="font-size:12px;color:var(--muted)">Full log · ${g.line_history.length} rows</summary><div class="tablewrap" style="max-height:32vh;margin-top:6px"><table class="ctab"><thead><tr><th>Time (UTC)</th><th>Book</th><th class="n">${H} spread</th><th class="n">Total</th><th class="n">${H} ML</th><th class="n">${A} ML</th></tr></thead><tbody>${g.line_history.slice().reverse().map(r => `<tr><td>${r.ts.slice(0, 16).replace("T", " ")}</td><td>${esc(book(r.source))}</td><td class="n">${r.home_spread == null ? "" : (-r.home_spread > 0 ? "+" : "") + (-r.home_spread)}</td><td class="n">${r.total ?? ""}</td><td class="n">${r.home_ml ?? ""}</td><td class="n">${r.away_ml ?? ""}</td></tr>`).join("")}</tbody></table></div></details></div>`;
   }
   document.addEventListener("click", ev => { const q = ev.target.closest("button.q"); if (q) { const r = $(q.dataset.how); r.hidden = !r.hidden; return; } const b = ev.target.closest("button.open"); if (!b) return; const row = $(b.dataset.open); const open = row.hidden; row.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = (open ? "▾ " : "▸ ") + b.textContent.slice(2); });
 
@@ -704,29 +715,14 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     ["muA", "muB"].forEach(id => { const sel = $(id); if (!sel.options.length) { teams.slice().sort().forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; sel.appendChild(o); }); } sel.value = mu[id === "muA" ? "A" : "B"]; });
     const price = () => {
       mu.A = $("muA").value; mu.B = $("muB").value;
-      const co = coefsFor(rkSeason); const site = $("muSite").value, dome = $("muRoof").value === "dome" ? 1 : 0, wind = dome ? 0 : (+$("muWind").value || 0), cold = dome ? 0 : +$("muCold").value, rain = dome ? 0 : +$("muRain").value;
-      const inputsFor = (t, o, home) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0,
-        home: home, neutral: site === "N" ? 1 : 0, dome, wind_out: wind, cold, rain, warm_in_cold: cold && (META.warm_or_dome || []).includes(t) ? 1 : 0});
+      const co = coefsFor(rkSeason);
+      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0});
       const pts = inp => { let x = co.intercept; META.feats.forEach(f => { if (inp[f] == null) return; x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
-      const iA = inputsFor(mu.A, mu.B, site === "A" ? 1 : 0), iB = inputsFor(mu.B, mu.A, site === "B" ? 1 : 0);
-      const pA = pts(iA), pB = pts(iB), spread = pA - pB, tot = pA + pB;
-      const sg = (window.WEEK && WEEK.games && WEEK.games[0] && WEEK.games[0].sigma_margin) || 13.1;
-      const winA = normCdf(spread / sg);
-      const lbl = f => FEAT_LABEL[f] || f;
-      const rowsT = ["off_epa_play", "off_pf", "def_epa_play", "def_pf", "qb_rating", "home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold"];
-      $("muOut").innerHTML = `<div class="blocks" style="grid-template-columns:1fr 1fr 1fr">
-        <section class="blk"><div class="bh">Points</div><div class="ptab"><span></span><span class="hd">${mu.A}</span><span class="hd">${mu.B}</span><span>Model</span><b class="m">${pA.toFixed(1)}</b><b class="m">${pB.toFixed(1)}</b></div></section>
-        <section class="blk"><div class="bh">Spread and total</div><div class="kv2"><span>Spread</span><b class="m">${lineTxt(spread >= 0 ? mu.A : mu.B, -Math.abs(spread))}</b></div><div class="kv2"><span>Total</span><b class="m">${tot.toFixed(1)}</b></div><small class="note" style="font-size:11px">total = the two scores added; the cards use a separate totals equation</small></section>
-        <section class="blk"><div class="bh">Win</div>${bar(mu.A, winA, mu.B, 1 - winA, "h", "Model")}<small class="note" style="font-size:11px">${site === "N" ? "neutral field" : (site === "A" ? mu.A : mu.B) + " at home"}${dome ? ", indoors" : ", outdoors" + (wind ? ", " + wind + " mph wind" : "") + (cold ? ", cold" : "") + (rain ? ", rain" : "")}</small></section></div>
-        <div class="tablewrap" style="max-height:34vh;margin-top:10px"><table class="ctab"><thead><tr><th>Input</th><th class="n">${mu.A}</th><th class="n">${mu.B}</th><th class="n">Points per unit</th></tr></thead><tbody>${rowsT.filter(f => META.feats.includes(f)).map(f => `<tr><td>${lbl(f)}</td><td class="n">${fmt(iA[f], f)}</td><td class="n">${fmt(iB[f], f)}</td><td class="n">${co.per_unit[f].toFixed(3)}</td></tr>`).join("")}</tbody></table></div>`;
+      const pA = pts(inputsFor(mu.A, mu.B)), pB = pts(inputsFor(mu.B, mu.A));
+      $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${pA.toFixed(1)}</span><span class="dash">–</span><span>${pB.toFixed(1)} <b>${mu.B}</b></span></div><div class="mv"><span class="chip mute">Neutral field · Ratings going into Week ${rkWeek}, ${S}</span></div>`;
     };
-    ["muA", "muB", "muSite", "muRoof", "muWind", "muCold", "muRain"].forEach(id => { $(id).onchange = price; $(id).oninput = price; });
-    const muHist = () => { if ($("muH2H")) $("muH2H").innerHTML = h2hHtml(mu.A, mu.B, null); };
-    ["muA", "muB"].forEach(id => $(id).addEventListener("change", muHist)); muHist();
+    ["muA", "muB"].forEach(id => { $(id).onchange = price; });
     price();
-    const HE = (META.analysis || {}).home_edges;
-    if (HE && $("muNote")) $("muNote").innerHTML = `<b>Home field is one league-wide number (${coefsFor(rkSeason).per_unit.home.toFixed(2)} points), not a per-stadium one.</b> Each team's own raw home edge (home margin minus away margin, ${HE.seasons}): ${mu.A} ${sgn(HE.teams[mu.A], 1)}, ${mu.B} ${sgn(HE.teams[mu.B], 1)}, league ${sgn(HE.league, 1)}. Those numbers are mostly noise: the first half of the seasons predicts the second half with a correlation of only ${HE.corr_halves}, and giving every team its own home-field term made the model worse on both backtest windows (7.476 vs 7.443 points miss; 7.366 vs 7.360). So a reputation like Arrowhead's does not survive the data (KC's raw edge is below the league average), and the model uses one number.`;
-    ["muA", "muB"].forEach(id => $(id).addEventListener("change", () => { if (HE && $("muNote")) $("muNote").innerHTML = $("muNote").innerHTML.replace(/Each team's own raw home edge[^:]*: [^.]*\./, `Each team's own raw home edge (home margin minus away margin, ${HE.seasons}): ${$("muA").value} ${sgn(HE.teams[$("muA").value], 1)}, ${$("muB").value} ${sgn(HE.teams[$("muB").value], 1)}, league ${sgn(HE.league, 1)}.`); }));
     const winNote = {model: "the model's ratings (every game weighted by age, last season at half weight, pulled toward average)", season: "this season's games only, equal weight, no last season (still opponent-adjusted and pulled toward average, so early weeks sit near zero)", last3: "the last three weeks only, equal weight: who is playing well right now", last1: "last week only: one game, so mostly noise, but it is what happened", lastseason: "all of last season, equal weight: where teams ended last year"}[rkWin];
     $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}, window: ${winNote}. Nothing from that week or later. Defense EPA rating: positive is good. League averages this week: EPA/play ${tabl.mu.epa_play}, points ${tabl.mu.pf.toFixed(1)}; home bump on points ${tabl.h.pf.toFixed(2)}.`;
     // scatter: offense vs defense EPA rating
@@ -821,27 +817,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${sweepTable("edge", "pickWon", [1, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8], "Spread")}</div><div class="tablewrap" style="max-height:48vh;margin-bottom:14px">${sweepTable("tedge", "ouWon", [1, 2, 3, 4, 5, 6, 7, 8], "Total")}</div>
       <h3 style="margin-top:6px">Year by year</h3><p class="note">The same cutoffs, one season at a time: record and ROI. A rule that made money in every single season would be marked. None does; the best spread cutoffs win six of seven seasons and no total cutoff wins more than four, which is what a small real edge plus luck looks like on the spread side and no edge on the total side.</p>
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${bySeasonTable("edge", "pickWon", [3, 4, 4.5, 5, 5.5, 6], "Spread")}</div><div class="tablewrap" style="max-height:48vh">${bySeasonTable("tedge", "ouWon", [3, 4, 5, 6, 7], "Total")}</div>`;
-    // when the flags were wrong: what an edge should convert to, and what differed between winning and losing flags
-    const Phi = z => { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); const pp = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - pp : pp; };
-    const sig = all.find(r => r.sigma_margin) ? all.filter(r => r.sigma_margin).reduce((a, r) => a + r.sigma_margin, 0) / all.filter(r => r.sigma_margin).length : 13.1;
-    const bucketRate = (lo, hi) => { const x = all.filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null); const w = x.filter(r => r.pickWon).length; return {n: x.length, w, pct: x.length ? w / x.length : null, e: x.length ? x.reduce((a, r) => a + Math.abs(r.edge), 0) / x.length : null}; };
-    const BUCKETS = [[3, 4], [4, 5], [5, 6], [6, 7], [7, 99]];
-    let mh = `<p class="note"><b>What this tells us.</b> (1) A bigger edge is not a safer bet. The model's spread misses by about ${sig.toFixed(1)} points on average, so even a perfectly right 5-point edge would cover only ${(100 * Phi(5 / sig)).toFixed(0)}% of the time; nothing in football pays out like a sure thing. (2) Past about 6 points the model is usually the one that is wrong, not the line: the cover rate falls back to a coin flip. The line carries injury news and the money; the model does not. (3) The losing flags were not games with a missed injury. The injury readings of winning and losing flags are the same to within a fraction of a starter, and most losses were blowouts, not near misses. <b>What changed because of it:</b> each card now shows, next to the model's cover odds, what edges of that size have actually covered in the backtest, so you read the real conversion rate and not the model's optimism; the flag stays at 5 because 5 to 7 is where the record is best; and the home/away split below is logged as a lead.</p>
-      <table><thead><tr><th class='l'>Edge</th><th>Bets</th><th>Actually covered</th><th>If the model were exactly right</th><th>If the truth is halfway to the line</th></tr></thead><tbody>`;
-    BUCKETS.forEach(([lo, hi]) => { const bkt = bucketRate(lo, hi); if (!bkt.n) return; mh += `<tr><td class="l">${lo} to ${hi === 99 ? "" : hi}${hi === 99 ? "+" : ""}</td><td class="mono">${bkt.n}</td><td class="mono"><b>${(100 * bkt.pct).toFixed(1)}%</b></td><td class="mono">${(100 * Phi(bkt.e / sig)).toFixed(1)}%</td><td class="mono">${(100 * Phi(bkt.e / 2 / sig)).toFixed(1)}%</td></tr>`; });
-    mh += "</tbody></table>";
-    const flg = all.filter(r => r.edge != null && Math.abs(r.edge) >= 5 && r.pickWon !== null);
-    const pickSide = r => ({home: r.edge > 0, qbOut: r.edge > 0 ? r.home_qb_out : r.away_qb_out, oppQbOut: r.edge > 0 ? r.away_qb_out : r.home_qb_out,
-      starters: r.edge > 0 ? (r.home_off_starters_out || 0) + (r.home_def_starters_out || 0) : (r.away_off_starters_out || 0) + (r.away_def_starters_out || 0),
-      oppStarters: r.edge > 0 ? (r.away_off_starters_out || 0) + (r.away_def_starters_out || 0) : (r.home_off_starters_out || 0) + (r.home_def_starters_out || 0),
-      dog: r.spread_line != null && ((r.spread_line > 0) !== (r.edge > 0)), short: (r.edge > 0 ? 1 : -1) * (r.margin - r.spread_line)});
-    const W_ = flg.filter(r => r.pickWon).map(pickSide), L_ = flg.filter(r => !r.pickWon).map(pickSide);
-    const avgOf = (arr, k) => arr.length ? arr.reduce((a, x) => a + (+x[k] || 0), 0) / arr.length : 0;
-    const rowsM = [["Pick was the home team", "home", v => (100 * v).toFixed(0) + "%"], ["Pick was the underdog", "dog", v => (100 * v).toFixed(0) + "%"], ["Pick's last starter QB listed out", "qbOut", v => (100 * v).toFixed(0) + "%"], ["Opponent's starter QB listed out", "oppQbOut", v => (100 * v).toFixed(0) + "%"], ["Pick's starters out (offense + defense)", "starters", v => v.toFixed(2)], ["Opponent's starters out", "oppStarters", v => v.toFixed(2)]];
-    const hw = flg.filter(r => r.edge > 0), aw = flg.filter(r => r.edge < 0);
-    mh += `<p class="note" style="margin-top:12px"><b>Winning flags vs losing flags, ${W_.length} and ${L_.length}.</b> Home-team flags ${hw.filter(r => r.pickWon).length}-${hw.filter(r => !r.pickWon).length}, away-team flags ${aw.filter(r => r.pickWon).length}-${aw.filter(r => !r.pickWon).length}. ${L_.filter(x => x.short <= -7).length} of ${L_.length} losses fell short of the line by a touchdown or more.</p>
-      <table><thead><tr><th class='l'>Reading</th><th>Winning flags</th><th>Losing flags</th></tr></thead><tbody>` + rowsM.map(([lab, k, f]) => `<tr><td class="l">${lab}</td><td class="mono">${f(avgOf(W_, k))}</td><td class="mono">${f(avgOf(L_, k))}</td></tr>`).join("") + "</tbody></table>";
-    $("misses").innerHTML = mh;
     // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange, not flagged; shown for the record), one unit each at -110
     const series = [["spread", all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null), "pickWon", "var(--series-1)"],
                     ["total", all.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6 && x.ouWon !== null), "ouWon", "var(--vegas)"]];
