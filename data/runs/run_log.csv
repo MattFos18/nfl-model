@@ -106,3 +106,25 @@ record picks,ok,"                 run_at  season  week  ... spread_edge total_ed
 grade,ok,,0.0,2026-09-22 19:19 UTC
 export data room,ok,,4.4,2026-09-22 19:19 UTC
 audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.6,2026-09-22 19:19 UTC
+pull,ok,"[('2026-09-22T19:58:41', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180012, '56f92c0f2faa'), ('2026-09-22T19:58:41', 'pbp', 2025, 'ht",1.5,2026-09-22 19:58 UTC
+build,ok,"team_games (8202, 142)",249.8,2026-09-22 19:58 UTC
+features,ok,[40 rows x 8 columns],19.7,2026-09-22 19:58 UTC
+verify,ok,Result: PASS,0.5,2026-09-22 19:58 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-22 16:03
+1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09",152.3,2026-09-22 19:58 UTC
+ratings,ok,"(7668, 49)",32.1,2026-09-22 19:58 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,71.8,2026-09-22 19:58 UTC
+players,ok,max           0.151042         1.357485    14.000000,146.1,2026-09-22 19:58 UTC
+positions,ok,Skill    518.0  0.005764  0.00180  0.0750,14.1,2026-09-22 19:58 UTC
+model,ok,            neutral            0.129       0.133          0.017,19.2,2026-09-22 19:58 UTC
+picks,ok,"              game_id  season  week  ... best_line    best_book spread_edge_best
+1992   2026_03_ATL_GB    2026     3  ...       6.0  Draft Kings        -0.724311
+1993  2026_03_LAC_BUF    2026     3  .",0.2,2026-09-22 19:58 UTC
+record picks,ok,"                 run_at  season  week  ... total_edge p_cover         book
+0  2026-09-22 19:58 UTC    2026     3  ...       0.02   0.705  Draft Kings
+
+[1 rows x 11 columns]",0.0,2026-09-22 19:58 UTC
+grade,ok,,0.0,2026-09-22 19:58 UTC
+export data room,ok,,6.4,2026-09-22 19:58 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.8,2026-09-22 19:58 UTC
