@@ -20,4 +20,4 @@ Bet flag: spread when the edge is 5+ points. That is the threshold with the best
 | BAL @ DAL | 2026-09-27 | BAL 26.2, DAL 26.2 | 35.9-39.1   | DAL +0.0 / 51.7 | DAL +3 / 52.5    | +3.0 / -0.8             | DAL 50% / BAL 50% | DAL 59% / BAL 41%  | Over 48% / Under 52% |           |
 | LV @ NO   | 2026-09-27 | LV 21.8, NO 23.6   | 27.0-14.0   | NO -1.8 / 45.7  | NO -3 / 44.5     | -1.2 / +1.2             | NO 55% / LV 45%   | NO 46% / LV 54%    | Over 54% / Under 46% |           |
 | LA @ DEN  | 2026-09-27 | LA 23.7, DEN 22.4  | 11.0-18.9   | DEN +1.3 / 45.8 | DEN +2.5 / 45.5  | +1.2 / +0.3             | DEN 46% / LA 54%  | DEN 51% / LA 49%   | Over 51% / Under 49% |           |
-| PHI @ CHI | 2026-09-28 | PHI 22.8, CHI 22.7 | 22.8-25.6   | CHI +0.2 / 45.6 | CHI +3.5 / 42.5  | +3.3 / +3.1             | CHI 49% / PHI 51% | CHI 62% / PHI 38%  | Over 59% / Under 41% |           |
+| PHI @ CHI | 2026-09-28 | PHI 22.8, CHI 22.7 | 22.8-25.6   | CHI +0.2 / 45.6 | CHI +4.5 / 41.5  | +4.3 / +4.1             | CHI 49% / PHI 51% | CHI 65% / PHI 35%  | Over 62% / Under 38% |           |

@@ -1,2 +1,2 @@
 run_at,season,week,game_id,bet,odds,stake,spread_edge,total_edge,p_cover,kind,side,line,played,close,clv,result,units,who
-2026-09-22 18:43 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-110,1.0,6.57,0.39,0.703,spread,MIA,11.5,False,,,pending,,model
+2026-09-22 19:19 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-110,1.0,6.57,0.39,0.703,spread,MIA,11.5,False,,,pending,,model
