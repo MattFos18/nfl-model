@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: "*/10 * * * *"   # every 10 minutes; GitHub may delay or skip runs under load
   workflow_dispatch:
+    inputs:
+      force_odds:
+        description: "Call The Odds API on this run regardless of the two-hour cadence (to check the key)"
+        default: "false"
 permissions:
   contents: write
 concurrency:
@@ -22,6 +26,7 @@ jobs:
       - name: log lines
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          ODDS_API_EVERY_RUN: ${{ github.event.inputs.force_odds == 'true' && '1' || '' }}
         run: python -m nflmodel.lines
       - name: commit log
         run: |
