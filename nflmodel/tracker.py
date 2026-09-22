@@ -139,13 +139,18 @@ def main():
     games = pd.read_parquet(OUT / "games.parquet")
     TR.mkdir(parents=True, exist_ok=True)
     mp = pd.read_csv(TR / "model_picks.csv") if (TR / "model_picks.csv").exists() else pd.DataFrame(columns=["game_id", "bet", "odds", "stake"])
-    mb = pd.read_csv(TR / "my_bets.csv") if (TR / "my_bets.csv").exists() else pd.DataFrame(columns=["game_id", "bet", "odds", "stake"])
+    if not (TR / "my_bets.csv").exists():
+        (TR / "my_bets.csv").write_text("game_id,bet,odds,stake,note\n")   # your bets: one row each, with your read on the game in `note`
+    mb = pd.read_csv(TR / "my_bets.csv")
     gm = grade_rows(mp, games).assign(who="model") if len(mp) else pd.DataFrame()
     gb = grade_rows(mb, games).assign(who="matt") if len(mb) else pd.DataFrame()
     gr = pd.concat([gm, gb], ignore_index=True)
-    for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "result", "units", "kind", "who"]:
+    for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "result", "units", "kind", "who", "note", "book"]:
         if c not in gr.columns:
             gr[c] = np.nan
+    if len(gr) and "season" in gr.columns:
+        gi = games.set_index("game_id")
+        gr["season"] = gr.season.fillna(gr.game_id.map(gi.season)); gr["week"] = gr.week.fillna(gr.game_id.map(gi.week))
     gr.to_csv(TR / "graded.csv", index=False)
     L = ["# Track record", "", "Model picks and Matt's bets, graded against results, at the odds recorded. Closing line value (CLV) is the line "
          "recorded minus the closing line from the bet's side: positive means the number beat the close.", ""]
