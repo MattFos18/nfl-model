@@ -24,9 +24,17 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
+      # data/raw (play-by-play since 2012, ~300 MB) is not committed; keep it in the Actions cache between runs and
+      # re-pull everything when the cache is missing (first run, or evicted after a week unused)
+      - name: restore raw data
+        id: raw
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: nflverse-raw-v1
       - name: weekly pipeline
         run: |
-          if [ "${{ github.event.inputs.full }}" = "true" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
+          if [ "${{ github.event.inputs.full }}" = "true" ] || [ "${{ steps.raw.outputs.cache-hit }}" != "true" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
       - name: commit results
         run: |
           git config user.name "nfl-model bot"
