@@ -8,8 +8,10 @@ PlayerValues           a decayed, shrunk EPA per play for any player and role as
                        with 100+ plays in the seasons before the one asked for.
 injury_value()         per (game, team): the value the offense loses to skill players listed Out or Doubtful on the
                        final report, in EPA per team play: sum over those players of (value - replacement) x their usage
-                       share of the team's touches in the previous eight games. skill_out_value is the phase 2 candidate
-                       input (experiments/player_injury.py); the QB is excluded because qb_out already covers it.
+                       share, the player's own share of his team's touches over his last eight games on any team (so a
+                       star who changed teams in the offseason keeps his usage). In the model since 22 Sep 2026
+                       (skill_out_value, own and opponent); the QB is excluded because qb_out already covers it.
+team_players()         every skill player valued as of the coming week with this week's injury status, for the page.
 
 Usage: python -m nflmodel.players            builds player_games.parquet and player_injury.parquet
 """
@@ -85,44 +87,105 @@ class PlayerValues:
         return r
 
 
-def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027), p=DEFAULT) -> pd.DataFrame:
+def _usage_frames(pg: pd.DataFrame):
+    """Skill rows with each game's team touch count attached, indexed for the usage lookups."""
+    skill = pg[pg.role.isin(SKILL)]
+    team_touch = skill.groupby(["game_id", "season", "week", "team"]).plays.sum().rename("team_plays").reset_index()
+    skill = skill.merge(team_touch, on=["game_id", "season", "week", "team"]).sort_values(["season", "week"])
+    by_player = {pid: g for pid, g in skill.groupby("player_id")}
+    by_team = {t: g for t, g in skill.groupby("team")}
+    return skill, by_player, by_team
+
+
+def player_usage(by_player: dict, pid: str, season: int, week: int, n_games: int) -> tuple[float, float, int]:
+    """The player's share of his team's touches over his own last n games before (season, week), on any team: a
+    star traded in the offseason keeps the usage he had, instead of counting as nobody because his new team has
+    not seen him yet. Returns (share, touches per game, games)."""
+    g = by_player.get(pid)
+    if g is None:
+        return 0.0, 0.0, 0
+    h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
+    ids = h.game_id.drop_duplicates().tail(n_games)
+    h = h[h.game_id.isin(ids)]
+    if len(h) == 0:
+        return 0.0, 0.0, 0
+    tot = float(h.groupby("game_id").team_plays.first().sum())
+    return (float(h.plays.sum()) / tot if tot else 0.0), float(h.plays.sum()) / len(ids), int(len(ids))
+
+
+def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, week: int, n_games: int) -> dict:
+    """Value lost if this player is out: EPA per team play = sum over roles of (value - replacement) x role share."""
+    g = by_player.get(pid)
+    share, per_game, n = player_usage(by_player, pid, season, week, n_games)
+    if g is None or n == 0:
+        return {"value": 0.0, "share": 0.0, "per_game": 0.0, "games": 0, "epa_play": 0.0, "name": None}
+    h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
+    ids = h.game_id.drop_duplicates().tail(n_games); h = h[h.game_id.isin(ids)]
+    tot = float(h.groupby("game_id").team_plays.first().sum()) or 1.0
+    val, epa = 0.0, 0.0
+    for role in SKILL:
+        hr = h[h.role == role]
+        if len(hr) == 0:
+            continue
+        vv, _ = pv.value(pid, role, season, week)
+        rs = float(hr.plays.sum()) / tot
+        val += (vv - pv.prior(role, season)) * rs
+        epa += vv * rs
+    return {"value": val, "share": share, "per_game": per_game, "games": n, "epa_play": epa / share if share else 0.0, "name": str(h.name.iloc[-1])}
+
+
+def load_injuries(seasons) -> pd.DataFrame:
     inj = pd.concat([pd.read_parquet(RAW / "injuries" / f"injuries_{s}.parquet") for s in seasons if (RAW / "injuries" / f"injuries_{s}.parquet").exists()], ignore_index=True)
     inj["team"] = inj.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+    return inj
+
+
+def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027), p=DEFAULT) -> pd.DataFrame:
+    inj = load_injuries(seasons)
     inj = inj[inj.report_status.isin(["Out", "Doubtful"]) & (inj.position != "QB")]
     out_by = {k: set(g.gsis_id.dropna()) for k, g in inj.groupby(["season", "week", "team"])}
     pv = PlayerValues(pg, p["decay"], p["k"])
-    skill = pg[pg.role.isin(SKILL)]
-    team_touch = skill.groupby(["game_id", "season", "week", "team"]).plays.sum().rename("team_plays").reset_index()
-    skill = skill.merge(team_touch, on=["game_id", "season", "week", "team"])
-    by_team = {t: g.sort_values(["season", "week"]) for t, g in skill.groupby("team")}
+    _, by_player, _ = _usage_frames(pg)
     rows = []
     long = pd.concat([games[["game_id", "season", "week", "home_team"]].rename(columns={"home_team": "team"}), games[["game_id", "season", "week", "away_team"]].rename(columns={"away_team": "team"})])
     long = long[long.season.isin(seasons)]
     for r in long.itertuples():
         outs = out_by.get((r.season, r.week, r.team), set())
-        g = by_team.get(r.team)
-        if g is None or not outs:
-            rows.append({"game_id": r.game_id, "team": r.team, "skill_out_value": 0.0, "skill_out_share": 0.0, "n_skill_out": 0}); continue
-        h = g[(g.season < r.season) | ((g.season == r.season) & (g.week < r.week))]
-        recent_ids = h.game_id.drop_duplicates().tail(p["usage_games"])
-        h = h[h.game_id.isin(recent_ids)]
-        tot = float(h.groupby("game_id").team_plays.first().sum()) or 1.0
-        val, share, n = 0.0, 0.0, 0
+        val, share, n, detail = 0.0, 0.0, 0, []
         for pid in outs:
-            hp = h[h.player_id == pid]
-            if len(hp) == 0:
+            d = player_value_out(pv, by_player, pid, r.season, r.week, p["usage_games"])
+            if d["games"] == 0:
                 continue
-            s = float(hp.plays.sum()) / tot
-            v = 0.0
-            for role in SKILL:
-                hr = hp[hp.role == role]
-                if len(hr) == 0:
-                    continue
-                vv, _ = pv.value(pid, role, r.season, r.week)
-                v += (vv - pv.prior(role, r.season)) * float(hr.plays.sum()) / tot
-            val += v; share += s; n += 1
-        rows.append({"game_id": r.game_id, "team": r.team, "skill_out_value": val, "skill_out_share": share, "n_skill_out": n})
+            val += d["value"]; share += d["share"]; n += 1
+            detail.append(f"{d['name']}|{d['value']:.4f}|{d['share']:.3f}")
+        rows.append({"game_id": r.game_id, "team": r.team, "skill_out_value": val, "skill_out_share": share, "n_skill_out": n, "skill_out_detail": ";".join(detail)})
     return pd.DataFrame(rows)
+
+
+def team_players(games: pd.DataFrame, pg: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.DataFrame:
+    """Every skill player with a touch in his last eight games, valued as of (season, week), with this week's injury
+    status: what the page shows under Team -> Players and what the card lists when someone is out."""
+    pv = PlayerValues(pg, p["decay"], p["k"])
+    skill, by_player, by_team = _usage_frames(pg)
+    inj = load_injuries([season]); inj = inj[(inj.season == season) & (inj.week == week)]
+    status = {(r.team, r.gsis_id): (r.report_status if isinstance(r.report_status, str) else (r.practice_status if isinstance(r.practice_status, str) else "")) for r in inj.itertuples()}
+    ref = load_injuries(range(season - 2, season + 1)).drop_duplicates("gsis_id")
+    pos = {r.gsis_id: r.position for r in ref.itertuples()}
+    full = {r.gsis_id: r.full_name for r in ref.itertuples() if isinstance(r.full_name, str)}
+    passers = set(pg[(pg.role == "passer") & (pg.season >= season - 1)].player_id)
+    rows = []
+    for t, g in by_team.items():
+        h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
+        ids = h.game_id.drop_duplicates().tail(p["usage_games"])
+        for pid in h[h.game_id.isin(ids)].player_id.unique():
+            d = player_value_out(pv, by_player, pid, season, week, p["usage_games"])
+            last_team = by_player[pid].iloc[-1].team
+            if last_team != t or pos.get(pid) == "QB" or (pid in passers and pos.get(pid, "") == ""):
+                continue    # he has moved on, or he is the quarterback (qb_out covers him)
+            rows.append({"team": t, "player_id": pid, "name": full.get(pid, d["name"]), "position": pos.get(pid, ""), "games": d["games"], "touches_per_game": round(d["per_game"], 1),
+                         "share": round(d["share"], 3), "epa_per_touch": round(d["epa_play"], 3), "value_above_replacement": round(d["value"], 4),
+                         "status": status.get((t, pid), "")})
+    return pd.DataFrame(rows).sort_values(["team", "value_above_replacement"], ascending=[True, False])
 
 
 if __name__ == "__main__":
@@ -132,5 +195,10 @@ if __name__ == "__main__":
     print("player_games", pg.shape, pg.player_id.nunique(), "players")
     iv = injury_value(games, pg)
     iv.to_parquet(OUT / "player_injury.parquet", index=False)
+    from .lines import current_week
+    cs, cw = current_week(games)
+    tp = team_players(games, pg, cs, cw)
+    tp.to_parquet(OUT / "player_values.parquet", index=False)
+    print("player_values", tp.shape, "as of", cs, cw)
     print("player_injury", iv.shape, "rows with a skill player out:", int((iv.n_skill_out > 0).sum()))
     print(iv[iv.n_skill_out > 0].describe().to_string())

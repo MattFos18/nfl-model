@@ -308,11 +308,14 @@ def main():
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
+    pvf = OUT / "player_values.parquet"
+    pvals = pd.read_parquet(pvf) if pvf.exists() else pd.DataFrame(columns=["team"])
     for t in teams:
         rows = d[d.team == t]
         allc = ["game_id"] + cols
         recs = [[clean(v) for v in r] for r in rows[allc].itertuples(index=False, name=None)]
-        (WEB / f"{t}.js").write_text(f'window.TEAMDATA=window.TEAMDATA||{{}};window.TEAMDATA["{t}"]=' + json.dumps({"cols": allc, "rows": recs}, separators=(",", ":")) + ";")
+        players = [{k: clean(v) for k, v in r.items()} for r in pvals[pvals.team == t].drop(columns=["team"]).to_dict("records")]
+        (WEB / f"{t}.js").write_text(f'window.TEAMDATA=window.TEAMDATA||{{}};window.TEAMDATA["{t}"]=' + json.dumps({"cols": allc, "rows": recs, "players": players}, default=clean, separators=(",", ":")) + ";")
     # this week's picks and the track record for the dashboard tabs
     from . import lines as LN, picks as P, tracker as TK
     cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
@@ -325,6 +328,13 @@ def main():
         # the coming week's starters are carried forward by id (ratings.py); give the card the name
         gq = games.reset_index()
         qb_names = {**dict(zip(gq.home_qb_id, gq.home_qb_name)), **dict(zip(gq.away_qb_id, gq.away_qb_name))}
+        pif = OUT / "player_injury.parquet"
+        pinj = pd.read_parquet(pif).set_index(["game_id", "team"]) if pif.exists() else None
+        def out_detail(gid, tm):
+            if pinj is None or (gid, tm) not in pinj.index:
+                return []
+            d = pinj.loc[(gid, tm), "skill_out_detail"]
+            return [dict(zip(["name", "value", "share"], [x.split("|")[0], float(x.split("|")[1]), float(x.split("|")[2])])) for x in str(d).split(";") if x and "|" in x]
         wk = []
         for r in pk.itertuples():
             h = LN.history(r.game_id)
@@ -333,6 +343,7 @@ def main():
                 if (r.game_id, tm) in fp.index:
                     row = fp.loc[(r.game_id, tm)]
                     sides[tm] = {c: clean(row[c]) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
+                    sides[tm]["skill_out_players"] = out_detail(r.game_id, tm)
                     if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
                         sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
                         sides[tm]["qb_carried"] = True
