@@ -403,8 +403,9 @@ def export_rankings_and_methods():
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     f2 = M.prep(feats)
     p = R.DEFAULT
-    own = [k for k in M.FEATS if k.startswith("off_") or k == "qb_rating"]
-    opp = [k for k in M.FEATS if k.startswith("def_")]
+    # power uses the ratings only (offense and defense ratings, QB); situation and injury inputs sit at zero
+    own = [k for k in M.RATING_FEATS if k.startswith("off_")] + ["qb_rating"]
+    opp = [k for k in M.RATING_FEATS if k.startswith("def_")]
     out = {}
     qb_by = feats.set_index(["season", "week", "team"]).qb_rating
     for s in range(2014, 2027):

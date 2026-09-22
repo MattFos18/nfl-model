@@ -7,8 +7,8 @@ files in `nflmodel/`; every number below comes from `reports/`.
 
 | Thing | Status | Where |
 |---|---|---|
-| Recent form vs whole season | Built in. Every game is weighted by age: 0.90 per week, so a game 8 weeks old counts 43% of last week's. Fit, not picked (section 4) | `ratings.py` |
-| Last season | Built in. Last season's games count at half weight and keep decaying, so Week 1 is mostly last year pulled toward average, and this season takes over by about Week 5 | `ratings.py` |
+| Recent form vs whole season | Built in. Every game is weighted by age: 0.94 per week since 22 Sep 2026 (0.90 before), so a game 8 weeks old counts 61% of last week's. Fit, not picked (section 4) | `ratings.py` |
+| Last season | Built in. Last season's games count at 0.8 weight (0.5 before 22 Sep 2026) and keep decaying, so Week 1 is mostly last year pulled toward average, and this season takes over by about Week 7 | `ratings.py` |
 | Opponent strength | Built in. Ratings are solved jointly, so an offense that scored on bad defenses is marked down | `ratings.py` |
 | Starting QB | Built in. The schedule names each starter; his own EPA per dropback over his career (decayed, shrunk) is the single biggest input. A QB change moves the number the moment nflverse lists the new starter | `ratings.py`, `model.py` |
 | Home field | Built in as one fitted league number, 1.9 points. Team-specific home edges were tested (each team's home-minus-away margin over three seasons, shrunk) and made the points miss worse, so they are shown but not used | `model.py`, `trends.py` |
@@ -48,19 +48,23 @@ every game a team has played is one observation:
 with all 32 offenses and 32 defenses solved together by weighted least squares (`ratings.solve`). Three
 things shape the weights:
 
-- **Age.** Weight = 0.90 to the power of weeks ago. Last week 1.0, four weeks ago 0.66, eight weeks ago 0.43,
-  the whole of last season 0.10 to 0.15 after the offseason multiplier.
-- **Offseason reset.** Last season's games are multiplied by 0.5 on top of their age, so a team starts the
-  year at roughly half of last year's rating pulled toward average, and each new game moves it. This is the
-  fix for the Week 2 problem (KC at 93%).
+- **Age.** Weight = 0.94 to the power of weeks ago (0.90 until 22 Sep 2026). Last week 1.0, four weeks ago
+  0.78, eight weeks ago 0.61, the whole of last season 0.2 to 0.3 after the offseason multiplier.
+- **Offseason reset.** Last season's games are multiplied by 0.8 on top of their age (0.5 until 22 Sep 2026),
+  so a team starts the year at most of last year's rating pulled toward average, and each new game moves it.
+  This is the fix for the Week 2 problem (KC at 93%).
 - **Pull toward average.** A ridge penalty of 16 (in game-weight units) shrinks every rating toward zero.
   After one game a team's rating is about 6% of what that one game would say; after four games about 20%;
   by midseason the current season dominates. Defense is shrunk hardest in effect because defense stats are
   the noisiest (section 5).
 
-The three numbers (0.90, 0.5, 16) were chosen by grid search on 2019 to 2022 points miss
-(`reports/tuning_ratings.csv`, 35 settings). The spread across all settings is only 0.04 points, so the
-model is not sensitive to them; a nearly flat weighting (0.99) was the worst.
+The three numbers were first chosen by grid search on 2019 to 2022 points miss (`reports/tuning_ratings.csv`,
+35 settings: 0.90, 0.5, 16). On 22 Sep 2026 they were re-checked under the weekly refit with the eighteen
+inputs on both windows (`reports/retune.csv`, `retune2.csv`): slower decay and a heavier last season won on
+both, 0.94 and 0.8 (margin miss 10.052 / 10.040 against 10.098 / 10.063; points 7.403 / 7.304 against
+7.409 / 7.316), and 0.96 / 1.0 was worse again. The pull toward average (16), the QB shrinkage and the QB
+decay did not move. With the regression refit every week on the season's games, the ratings can afford to
+move slower: the equation carries the adaptation.
 
 **QB rating.** For the named starter, EPA per dropback over every game he has played (any team), decayed
 0.985 per game, shrunk toward -0.05 (replacement level) with a 150-dropback prior. A rookie with no
@@ -277,6 +281,12 @@ next to every pick, and the 3 point rule is retired. It is a lead, not a proven 
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
 
 ## 10. How much to trust the backtest
+
+**What is still held out, honestly.** The ridge strength and the bet thresholds were chosen on 2019 to 2022 and
+2023 to 2025 never touched them. Since 22 Sep 2026 every candidate input, and the rating decay and last-season
+weight, has been accepted only when it helps on both windows. That is a stricter filter than tuning on one window,
+but it means 2023 to 2025 is a second test window for those choices, not an untouched one. The live season, graded
+on the Results tab, is the only fully unseen test.
 
 `nflmodel/audit.py` (`reports/audit.md`) checks the backtest itself:
 

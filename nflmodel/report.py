@@ -80,7 +80,8 @@ def readme_block(new: pd.DataFrame) -> str:
          f"| Spreads at 3+ pt edge | {rec(f3v, f3v.edge, f3v.margin - f3v.spread_line)} | |",
          f"| Spreads at {se:g}+ pt edge (the flag) | {rec(f5v, f5v.edge, f5v.margin - f5v.spread_line)} (2019 to 2025: {rec(f5a, f5a.edge, f5a.margin - f5a.spread_line)}; {rec(f5n, f5n.edge, f5n.margin - f5n.spread_line)} outside Week 18) | |",
          f"| Totals at 4+ pt edge ({'the flag' if P.TOTAL_EDGE is not None else 'not flagged: no total cutoff wins in both windows'}) | {rec(t4v, t4v.tedge, t4v.total - t4v.total_line)} (2019 to 2025: {rec(t4a, t4a.tedge, t4a.total - t4a.total_line)}) | |", "",
-         "These rows are written by `report.py` from the same prediction table as the page and the reports, on every run."]
+         "These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. "
+         "Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test."]
     return "\n".join(L)
 
 
@@ -100,8 +101,10 @@ def main():
     new = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     L = ["# NFL Model 3.0 backtest", "",
          "Walk-forward: every week is priced with only games played before it; the points regression is refit before every week on every "
-         "played game since 2013. Rating parameters, ridge strength and bet thresholds were chosen on 2019 to 2022 only. "
-         "2023 to 2025 is the held-out test the tuning never saw.", ""]
+         "played game since 2013. Ridge strength and bet thresholds were chosen on 2019 to 2022 only, and 2023 to 2025 was the "
+         "held-out test for them. Since 22 Sep 2026 every new input, and the rating decay and last-season weight, is accepted only "
+         "when it helps on both windows, so for those choices 2023 to 2025 is a second test window rather than an untouched one; "
+         "the live season is the only fully unseen test.", ""]
     L += ["## 1. Points miss (mean absolute error) against Vegas", "",
           "Tuning window 2019 to 2022:", "", compare_points(new, TUNE).to_markdown(), "",
           "Held-out 2023 to 2025:", "", compare_points(new, TEST).to_markdown(), "",

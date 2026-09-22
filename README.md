@@ -55,15 +55,15 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 
 | | 3.0 | Vegas close |
 |---|---|---|
-| Team points miss | 7.32 | 7.21 |
-| Margin miss | 10.06 | 9.74 |
-| Total miss | 10.30 | 10.12 |
+| Team points miss | 7.30 | 7.21 |
+| Margin miss | 10.04 | 9.74 |
+| Total miss | 10.27 | 10.12 |
 | Brier (win odds) | 0.220 | 0.210 |
-| Spreads at 3+ pt edge | 104-88 | |
-| Spreads at 5+ pt edge (the flag) | 29-18 (2019 to 2025: 77-58; 71-51 outside Week 18) | |
-| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 61-60 (2019 to 2025: 143-119) | |
+| Spreads at 3+ pt edge | 97-88 | |
+| Spreads at 5+ pt edge (the flag) | 21-16 (2019 to 2025: 72-49; 67-43 outside Week 18) | |
+| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 60-67 (2019 to 2025: 144-132) | |
 
-These rows are written by `report.py` from the same prediction table as the page and the reports, on every run.
+These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test.
 <!-- results:end -->
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
