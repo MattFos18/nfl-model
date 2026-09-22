@@ -94,6 +94,31 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome"]
+
+
+def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
+    h = f[f.home == 1].set_index("game_id")
+    a = f[f.home == 0].set_index("game_id")
+    ids = h.index.intersection(a.index)
+    return pd.DataFrame({"total": (h.loc[ids, "pf"] + a.loc[ids, "pf"]).values,
+                         "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
+                         "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
+                         "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
+                         "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values}, index=ids)
+
+
+def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
+    """Predicted game total for every game in test (aligned to test's home rows in game_id order), fit on train."""
+    tr, te = _game_frame(train), _game_frame(test)
+    m = make_pipeline(StandardScaler(), Ridge(alpha=ridge_alpha)).fit(tr[TOTAL_FEATS].values, tr.total.values)
+    pred = pd.Series(m.predict(te[TOTAL_FEATS].values), index=te.index)
+    h = test[test.home == 1].set_index("game_id")
+    a = test[test.home == 0].set_index("game_id")
+    ids = h.index.intersection(a.index)
+    return pred.reindex(ids).values
+
+
 def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_season=2013, verbose=False, refit="week") -> pd.DataFrame:
     """One row per game, priced with only earlier games. refit="week": the regression is refit before every week on every
     played game so far, this season's included (the model keeps learning as the season goes). refit="season": refit once per
@@ -127,7 +152,10 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
                               "home_qb_rating": h.loc[ids, "qb_rating"].values, "away_qb_rating": a.loc[ids, "qb_rating"].values,
                               "home_n_games": h.loc[ids, "n_games"].values})
             g["model_spread"] = g.home_exp - g.away_exp
-            g["model_total"] = g.home_exp + g.away_exp
+            # the total from its own equation (22 Sep 2026): both teams' ratings summed, plus the game's weather and roof, fit
+            # to the game total. Marginally more accurate than adding the two team scores on both backtest windows
+            # (reports/totals_experiments.csv); the team scores above still drive the spread and the points shown.
+            g["model_total"] = total_model(train, test)
             # residual scale and key numbers from the training games (game level)
             trg = train.assign(pred=tr_pred)
             th = trg[trg.home == 1].set_index("game_id")
@@ -136,7 +164,7 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
             tr_margin = (th.loc[tid, "pf"] - ta.loc[tid, "pf"]).values
             tr_mu = (th.loc[tid, "pred"] - ta.loc[tid, "pred"]).values
             tr_total = (th.loc[tid, "pf"] + ta.loc[tid, "pf"]).values
-            tr_tmu = (th.loc[tid, "pred"] + ta.loc[tid, "pred"]).values
+            tr_tmu = total_model(train, train)   # in-sample totals fit, same game order as tid
             sigma_m = float(np.std(tr_margin - tr_mu))
             sigma_t = float(np.std(tr_total - tr_tmu))
             K = key_weights(tr_margin, tr_mu, sigma_m)

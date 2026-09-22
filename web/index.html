@@ -194,7 +194,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <details class="howbox"><summary>How every number on a card is made</summary>
     <dl>
       <dt>Model points</dt><dd>Each team's expected points from the fitted equation: a base for a league-average team in a neutral game, plus each rating's distance from the league average times what it is worth, plus the situation (home, rest, roof, wind, cold, division, primetime). "Why these numbers" on any card lists every input; Model → How it was built prints the whole equation.</dd>
-      <dt>Model spread and total</dt><dd>Home expected points minus away, and the two added together.</dd>
+      <dt>Model spread and total</dt><dd>The spread is home expected points minus away. The total comes from its own equation, fit to game totals from both teams' ratings, the QBs and the weather (it beat adding the two scores on both backtest windows), so the two team scores do not add exactly to it.</dd>
       <dt>Vegas points</dt><dd>What the line implies: (total ± spread) ÷ 2.</dd>
       <dt>Edge</dt><dd>Model line minus the Vegas line, in points, with the side it favours. The flag fires at <span id="thr"></span>: the thresholds that won in both backtest windows (History tab), on small samples.</dd>
       <dt>Win %</dt><dd>Model: the chance the final margin lands above zero when the margin is treated as a bell curve centred on the model spread with a 13-point spread (the actual miss over 2013 to 2025), reshaped so 3 and 7 get their true share. Vegas: the moneyline with the bookmaker's cut removed, so the two sides sum to 100%.</dd>
@@ -223,6 +223,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
     <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>When the flags were wrong</h3><div id="misses"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
     <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at 5+, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
@@ -679,6 +680,25 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${sweepTable("edge", "pickWon", [1, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8], "Spread")}</div><div class="tablewrap" style="max-height:48vh;margin-bottom:14px">${sweepTable("tedge", "ouWon", [1, 2, 3, 4, 5, 6, 7, 8], "Total")}</div>
       <h3 style="margin-top:6px">Year by year</h3><p class="note">The same cutoffs, one season at a time: record and ROI. A rule that made money in every single season would be marked. None does; the best spread cutoffs win six of seven seasons and no total cutoff wins more than four, which is what a small real edge plus luck looks like on the spread side and no edge on the total side.</p>
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${bySeasonTable("edge", "pickWon", [3, 4, 4.5, 5, 5.5, 6], "Spread")}</div><div class="tablewrap" style="max-height:48vh">${bySeasonTable("tedge", "ouWon", [3, 4, 5, 6, 7], "Total")}</div>`;
+    // when the flags were wrong: what an edge should convert to, and what differed between winning and losing flags
+    const Phi = z => { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); const pp = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - pp : pp; };
+    const sig = all.find(r => r.sigma_margin) ? all.filter(r => r.sigma_margin).reduce((a, r) => a + r.sigma_margin, 0) / all.filter(r => r.sigma_margin).length : 13.1;
+    let mh = `<p class="note"><b>Why a 7-point edge does not win 70% of the time.</b> Two reasons, and the table separates them. First, football is noisy: the model's own miss on the margin is about ${sig.toFixed(1)} points, so even a perfectly right 5-point edge covers only ${(100 * Phi(5 / sig)).toFixed(0)}% of the time. Second, the model's biggest disagreements with the line are partly the model being wrong: if the truth sits halfway between the model and the line, the expected cover rate is the last column, and that is what the record looks like. The line has information the model does not (injury news, the money), so large disagreements should be trusted less, not more.</p>
+      <table><thead><tr><th class='l'>Edge</th><th>Bets</th><th>Covered</th><th>If the model were exactly right</th><th>If the truth is halfway to the line</th></tr></thead><tbody>`;
+    [[3, 4], [4, 5], [5, 6], [6, 7], [7, 99]].forEach(([lo, hi]) => { const x = all.filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null); if (!x.length) return; const e = x.reduce((a, r) => a + Math.abs(r.edge), 0) / x.length; const w = x.filter(r => r.pickWon).length; mh += `<tr><td class="l">${lo} to ${hi === 99 ? "" : hi}${hi === 99 ? "+" : ""}</td><td class="mono">${x.length}</td><td class="mono">${(100 * w / x.length).toFixed(1)}%</td><td class="mono">${(100 * Phi(e / sig)).toFixed(1)}%</td><td class="mono">${(100 * Phi(e / 2 / sig)).toFixed(1)}%</td></tr>`; });
+    mh += "</tbody></table>";
+    const flg = all.filter(r => r.edge != null && Math.abs(r.edge) >= 5 && r.pickWon !== null);
+    const pickSide = r => ({home: r.edge > 0, qbOut: r.edge > 0 ? r.home_qb_out : r.away_qb_out, oppQbOut: r.edge > 0 ? r.away_qb_out : r.home_qb_out,
+      starters: r.edge > 0 ? (r.home_off_starters_out || 0) + (r.home_def_starters_out || 0) : (r.away_off_starters_out || 0) + (r.away_def_starters_out || 0),
+      oppStarters: r.edge > 0 ? (r.away_off_starters_out || 0) + (r.away_def_starters_out || 0) : (r.home_off_starters_out || 0) + (r.home_def_starters_out || 0),
+      dog: r.spread_line != null && ((r.spread_line > 0) !== (r.edge > 0)), short: (r.edge > 0 ? 1 : -1) * (r.margin - r.spread_line)});
+    const W_ = flg.filter(r => r.pickWon).map(pickSide), L_ = flg.filter(r => !r.pickWon).map(pickSide);
+    const avgOf = (arr, k) => arr.length ? arr.reduce((a, x) => a + (+x[k] || 0), 0) / arr.length : 0;
+    const rowsM = [["Pick was the home team", "home", v => (100 * v).toFixed(0) + "%"], ["Pick was the underdog", "dog", v => (100 * v).toFixed(0) + "%"], ["Pick's last starter QB listed out", "qbOut", v => (100 * v).toFixed(0) + "%"], ["Opponent's starter QB listed out", "oppQbOut", v => (100 * v).toFixed(0) + "%"], ["Pick's starters out (offense + defense)", "starters", v => v.toFixed(2)], ["Opponent's starters out", "oppStarters", v => v.toFixed(2)]];
+    const hw = flg.filter(r => r.edge > 0), aw = flg.filter(r => r.edge < 0);
+    mh += `<p class="note" style="margin-top:12px"><b>Winning flags vs losing flags, ${W_.length} and ${L_.length}.</b> If the losses were games where something was missed, it should show here as a gap between the two columns. What the data says: the injury readings barely differ (a fraction of one starter), so a missed injury is not what separates them. The losses were mostly big misses, not near misses: ${L_.filter(x => x.short <= -7).length} of ${L_.length} fell short of the line by a touchdown or more. That is variance and model error, which is what the table above already says. The one gap with any size is home versus away: home-team flags are ${hw.filter(r => r.pickWon).length}-${hw.filter(r => !r.pickWon).length}, away-team flags ${aw.filter(r => r.pickWon).length}-${aw.filter(r => !r.pickWon).length}. On ${aw.length} away bets that is a lead to watch, not a rule.</p>
+      <table><thead><tr><th class='l'>Reading</th><th>Winning flags</th><th>Losing flags</th></tr></thead><tbody>` + rowsM.map(([lab, k, f]) => `<tr><td class="l">${lab}</td><td class="mono">${f(avgOf(W_, k))}</td><td class="mono">${f(avgOf(L_, k))}</td></tr>`).join("") + "</tbody></table>";
+    $("misses").innerHTML = mh;
     // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange, not flagged; shown for the record), one unit each at -110
     const series = [["spread", all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null), "pickWon", "var(--series-1)"],
                     ["total", all.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6 && x.ouWon !== null), "ouWon", "var(--vegas)"]];

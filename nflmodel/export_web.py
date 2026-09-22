@@ -389,8 +389,21 @@ def export_rankings_and_methods():
     gd = games.set_index("game_id").gameday
     cols = ["game_id", "season", "week", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
             "spread_line", "total_line", "p_home", "p_cover_home", "p_over"]
-    bk = allv[cols].copy()
+    bk = allv[cols + ["sigma_margin"]].copy()
     bk["gameday"] = bk.game_id.map(gd)
+    # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
+    fx = M.prep(feats).set_index(["game_id", "team"])
+    def side_val(col, which):
+        out = []
+        for g, h, a in zip(bk.game_id, bk.home_team, bk.away_team):
+            t = h if which == "home" else a
+            out.append(fx[col].get((g, t), np.nan) if (g, t) in fx.index else np.nan)
+        return out
+    for col in ["qb_out", "off_starters_out", "def_starters_out", "rest"]:
+        bk["home_" + col] = side_val(col, "home")
+        bk["away_" + col] = side_val(col, "away")
+    for col in ["wind_out", "rain", "cold", "dome", "primetime", "div_game"]:
+        bk[col] = side_val(col, "home")
     recs = [[clean(v) for v in r] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
     season_end = {str(k): int(v) for k, v in played.groupby("season").week.max().items()}
