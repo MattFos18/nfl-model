@@ -214,6 +214,19 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div class="card viz-root" id="scatcard"><h3>Offense vs defense EPA rating</h3><div id="scatter"></div><div class="tip" id="tip2"></div></div>
     <div class="card viz-root"><h3>Power: expected margin against an average team, neutral field</h3><div id="powerbar"></div></div>
   </div>
+  <div class="card" style="margin-bottom:14px"><h3>Hypothetical matchup</h3>
+    <p class="note">Pick any two teams and a setting; the model prices the game from the ratings selected above (season, as-of week and window) with this season's coefficients. Same equation as the cards, so a real game priced here matches its card apart from the total, which on the cards comes from its own equation.</p>
+    <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
+      <label class="ctl">Team A <select id="muA"></select></label>
+      <label class="ctl">Team B <select id="muB"></select></label>
+      <label class="ctl">Site <select id="muSite"><option value="A">A at home</option><option value="B">B at home</option><option value="N">Neutral field</option></select></label>
+      <label class="ctl">Roof <select id="muRoof"><option value="out">Outdoors</option><option value="dome">Dome or closed</option></select></label>
+      <label class="ctl">Wind, mph <input id="muWind" type="number" min="0" max="40" value="0" style="width:64px"></label>
+      <label class="ctl">Cold (under 35F) <select id="muCold"><option value="0">No</option><option value="1">Yes</option></select></label>
+      <label class="ctl">Rain <select id="muRain"><option value="0">No</option><option value="1">Yes</option></select></label>
+    </div>
+    <div id="muOut" style="margin-top:10px"></div>
+  </div>
   <div class="tablewrap"><table id="rktable"></table></div>
   <div class="status" id="rkstatus"></div>
 </section>
@@ -347,7 +360,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 
   // ---------- state ----------
   let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "games", model: "analysis"}, gameIdx = 0;
-  let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
+  let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = o.sub; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
   const GROUP_ORDER = ["Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
     "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
@@ -597,6 +610,28 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     order.forEach((t, i) => { h += `<tr><td>${i + 1}</td><td class="l"><b>${t}</b></td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s2 = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s2} <span class="rk">${k === "n_games" ? "" : "#" + ranks[k][t]}</span></td>`; }).join("") + "</tr>"; });
     $("rktable").innerHTML = h + "</tbody>";
     $("rktable").querySelectorAll("th.sortable").forEach(th => th.addEventListener("click", () => { if (rkSort === th.dataset.k) rkDir = -rkDir; else { rkSort = th.dataset.k; rkDir = -1; } renderRankings(); }));
+    // hypothetical matchup
+    ["muA", "muB"].forEach(id => { const sel = $(id); if (!sel.options.length) { teams.slice().sort().forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; sel.appendChild(o); }); } sel.value = mu[id === "muA" ? "A" : "B"]; });
+    const price = () => {
+      mu.A = $("muA").value; mu.B = $("muB").value;
+      const co = coefsFor(rkSeason); const site = $("muSite").value, dome = $("muRoof").value === "dome" ? 1 : 0, wind = dome ? 0 : (+$("muWind").value || 0), cold = dome ? 0 : +$("muCold").value, rain = dome ? 0 : +$("muRain").value;
+      const inputsFor = (t, o, home) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0,
+        home: home, neutral: site === "N" ? 1 : 0, dome, wind_out: wind, cold, rain});
+      const pts = inp => { let x = co.intercept; META.feats.forEach(f => { if (inp[f] == null) return; x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
+      const iA = inputsFor(mu.A, mu.B, site === "A" ? 1 : 0), iB = inputsFor(mu.B, mu.A, site === "B" ? 1 : 0);
+      const pA = pts(iA), pB = pts(iB), spread = pA - pB, tot = pA + pB;
+      const sg = (window.WEEK && WEEK.games && WEEK.games[0] && WEEK.games[0].sigma_margin) || 13.1;
+      const winA = normCdf(spread / sg);
+      const lbl = f => FEAT_LABEL[f] || f;
+      const rowsT = ["off_epa_play", "off_pf", "def_epa_play", "def_pf", "qb_rating", "home", "neutral", "dome", "wind_out", "cold", "rain"];
+      $("muOut").innerHTML = `<div class="blocks" style="grid-template-columns:1fr 1fr 1fr">
+        <section class="blk"><div class="bh">Points</div><div class="ptab"><span></span><span class="hd">${mu.A}</span><span class="hd">${mu.B}</span><span>Model</span><b class="m">${pA.toFixed(1)}</b><b class="m">${pB.toFixed(1)}</b></div></section>
+        <section class="blk"><div class="bh">Spread and total</div><div class="kv2"><span>Spread</span><b class="m">${lineTxt(spread >= 0 ? mu.A : mu.B, -Math.abs(spread))}</b></div><div class="kv2"><span>Total</span><b class="m">${tot.toFixed(1)}</b></div><small class="note" style="font-size:11px">total = the two scores added; the cards use a separate totals equation</small></section>
+        <section class="blk"><div class="bh">Win</div>${bar(mu.A, winA, mu.B, 1 - winA, "h", "Model")}<small class="note" style="font-size:11px">${site === "N" ? "neutral field" : (site === "A" ? mu.A : mu.B) + " at home"}${dome ? ", indoors" : ", outdoors" + (wind ? ", " + wind + " mph wind" : "") + (cold ? ", cold" : "") + (rain ? ", rain" : "")}</small></section></div>
+        <div class="tablewrap" style="max-height:34vh;margin-top:10px"><table class="ctab"><thead><tr><th>Input</th><th class="n">${mu.A}</th><th class="n">${mu.B}</th><th class="n">Points per unit</th></tr></thead><tbody>${rowsT.filter(f => META.feats.includes(f)).map(f => `<tr><td>${lbl(f)}</td><td class="n">${fmt(iA[f], f)}</td><td class="n">${fmt(iB[f], f)}</td><td class="n">${co.per_unit[f].toFixed(3)}</td></tr>`).join("")}</tbody></table></div>`;
+    };
+    ["muA", "muB", "muSite", "muRoof", "muWind", "muCold", "muRain"].forEach(id => { $(id).onchange = price; $(id).oninput = price; });
+    price();
     const winNote = {model: "the model's ratings (every game weighted by age, last season at half weight, pulled toward average)", season: "this season's games only, equal weight, no last season (still opponent-adjusted and pulled toward average, so early weeks sit near zero)", last3: "the last three weeks only, equal weight: who is playing well right now", last1: "last week only: one game, so mostly noise, but it is what happened", lastseason: "all of last season, equal weight: where teams ended last year"}[rkWin];
     $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}, window: ${winNote}. Nothing from that week or later. Defense EPA rating: positive is good. League averages this week: EPA/play ${tabl.mu.epa_play}, points ${tabl.mu.pf.toFixed(1)}; home bump on points ${tabl.h.pf.toFixed(2)}.`;
     // scatter: offense vs defense EPA rating

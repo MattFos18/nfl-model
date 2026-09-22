@@ -229,7 +229,8 @@ def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataF
         outdoor = g.roof in ("outdoors", "open") if isinstance(g.roof, str) else True
         rain = float(outdoor and any(k in w for k in ["rain", "shower", "drizzle", "storm"]))
         if not w and g.game_id in fc and outdoor:
-            rain = float(fc[g.game_id][0] >= 50 or fc[g.game_id][1] >= 0.04)
+            # Open-Meteo gives precipitation in millimetres: rain when the hour's chance is 50%+ or 1 mm+ is forecast
+            rain = float(fc[g.game_id][0] >= 50 or fc[g.game_id][1] >= 1.0)
         snow = float(outdoor and any(k in w for k in ["snow", "flurr", "sleet"]))
         v = venue(g)
         for side in ["home", "away"]:
