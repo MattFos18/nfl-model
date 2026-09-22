@@ -51,6 +51,51 @@ def clv_proxy(d: pd.DataFrame, edge: float) -> str:
             "It starts being logged from the first live week (open, midweek, close).")
 
 
+def readme_block(new: pd.DataFrame) -> str:
+    """The README's headline table, computed from the same prediction table as everything else, so it can never go stale."""
+    from . import picks as P
+    d = new[(new.game_type == "REG") & new.spread_line.notna() & new.home_score.notna()].copy()
+    d["margin"] = d.home_score - d.away_score
+    d["total"] = d.home_score + d.away_score
+    d["edge"] = d.model_spread - d.spread_line
+    d["tedge"] = d.model_total - d.total_line
+    def rec(x, sig, res):
+        r = np.sign(res); w = int((r == np.sign(sig)).sum()); l = int(((r != 0) & (r != np.sign(sig))).sum()); return f"{w}-{l}"
+    v = d[d.season.isin(TEST)]
+    a = d[d.season.between(2019, 2025)]
+    tp = lambda x: ((x.home_exp - x.home_score).abs().mean() + (x.away_exp - x.away_score).abs().mean()) / 2
+    vp = lambda x: ((x.home_implied - x.home_score).abs().mean() + (x.away_implied - x.away_score).abs().mean()) / 2
+    br = bt.brier(v)
+    se = P.SPREAD_EDGE
+    f5v, f5a = v[v.edge.abs() >= se], a[a.edge.abs() >= se]
+    f5n = f5a[f5a.week < 18]
+    f3v = v[v.edge.abs() >= 3]
+    t4v, t4a = v[v.tedge.abs() >= 4], a[a.tedge.abs() >= 4]
+    L = [f"## Headline results (held-out {TEST[0]} to {TEST[-1]}, {len(v)} games)", "",
+         "| | 3.0 | Vegas close |", "|---|---|---|",
+         f"| Team points miss | {tp(v):.2f} | {vp(v):.2f} |",
+         f"| Margin miss | {(v.margin - v.model_spread).abs().mean():.2f} | {(v.margin - v.spread_line).abs().mean():.2f} |",
+         f"| Total miss | {(v.total - v.model_total).abs().mean():.2f} | {(v.total - v.total_line).abs().mean():.2f} |",
+         f"| Brier (win odds) | {br['brier_model']:.3f} | {br['brier_market']:.3f} |",
+         f"| Spreads at 3+ pt edge | {rec(f3v, f3v.edge, f3v.margin - f3v.spread_line)} | |",
+         f"| Spreads at {se:g}+ pt edge (the flag) | {rec(f5v, f5v.edge, f5v.margin - f5v.spread_line)} (2019 to 2025: {rec(f5a, f5a.edge, f5a.margin - f5a.spread_line)}; {rec(f5n, f5n.edge, f5n.margin - f5n.spread_line)} outside Week 18) | |",
+         f"| Totals at 4+ pt edge ({'the flag' if P.TOTAL_EDGE is not None else 'not flagged: no total cutoff wins in both windows'}) | {rec(t4v, t4v.tedge, t4v.total - t4v.total_line)} (2019 to 2025: {rec(t4a, t4a.tedge, t4a.total - t4a.total_line)}) | |", "",
+         "These rows are written by `report.py` from the same prediction table as the page and the reports, on every run."]
+    return "\n".join(L)
+
+
+def update_readme(new: pd.DataFrame):
+    p = ROOT / "README.md"
+    if not p.exists():
+        return
+    txt = p.read_text()
+    start, end = "<!-- results:start -->", "<!-- results:end -->"
+    if start in txt and end in txt:
+        a, b = txt.index(start) + len(start), txt.index(end)
+        txt = txt[:a] + "\n" + readme_block(new) + "\n" + txt[b:]
+        p.write_text(txt)
+
+
 def main():
     new = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     L = ["# NFL Model 3.0 backtest", "",
@@ -91,6 +136,7 @@ def main():
           "## 7. Closing line value", "", clv_proxy(new, 3.0), ""]
     txt = "\n".join(L)
     (REP / "backtest_v3.md").write_text(txt)
+    update_readme(new)
     print(txt)
 
 
