@@ -21,7 +21,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT, LN = ROOT / "data" / "processed", ROOT / "data" / "lines"
 H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
-     "Accept": "application/json, text/plain, */*"}
+     "Accept": "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9", "Referer": "https://www.espn.com/", "Origin": "https://www.espn.com"}
+HDK = {**H, "Referer": "https://sportsbook.draftkings.com/", "Origin": "https://sportsbook.draftkings.com"}
+
+
+def _get_json(urls, headers, params=None):
+    """Try each URL in turn; the first that answers with JSON wins. Every failure is kept for the log."""
+    errs = []
+    for u in urls:
+        try:
+            r = requests.get(u, headers=headers, timeout=30, params=params)
+            r.raise_for_status()
+            return r.json(), u
+        except Exception as e:  # noqa
+            errs.append(f"{u.split('/')[2]}: {str(e)[:60]}")
+    raise RuntimeError(" | ".join(errs))
 ESPN_ABBR = {"WSH": "WAS", "JAC": "JAX", "LAR": "LA"}
 DK_NAME = {"Arizona": "ARI", "Atlanta": "ATL", "Baltimore": "BAL", "Buffalo": "BUF", "Carolina": "CAR", "Chicago": "CHI", "Cincinnati": "CIN",
            "Cleveland": "CLE", "Dallas": "DAL", "Denver": "DEN", "Detroit": "DET", "Green Bay": "GB", "Houston": "HOU", "Indianapolis": "IND",
@@ -53,10 +67,11 @@ def _save_raw(source, obj, ts):
 
 
 def espn(season: int, week: int, ts: str) -> list[dict]:
-    r = requests.get("https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard", headers=H, timeout=30,
-                     params={"week": week, "seasontype": 2, "dates": season})
-    r.raise_for_status()
-    j = r.json()
+    j, _ = _get_json(["https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+                      "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+                      "https://cdn.espn.com/core/nfl/scoreboard?xhr=1"], H, params={"week": week, "seasontype": 2, "dates": season})
+    if "events" not in j and "content" in j:      # the cdn shape wraps the same scoreboard
+        j = (j.get("content") or {}).get("sbData") or {}
     _save_raw("espn", j, ts)
     rows = []
     for ev in j.get("events", []):
@@ -89,9 +104,9 @@ def espn(season: int, week: int, ts: str) -> list[dict]:
 
 
 def draftkings(season: int, week: int, ts: str) -> list[dict]:
-    r = requests.get("https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/88808", headers=H, timeout=30, params={"format": "json"})
-    r.raise_for_status()
-    j = r.json()
+    j, _ = _get_json(["https://sportsbook.draftkings.com/sites/US-SB/api/v5/eventgroups/88808",
+                      "https://sportsbook-nash.draftkings.com/sites/US-SB/api/v5/eventgroups/88808",
+                      "https://sportsbook-us-ny.draftkings.com/sites/US-NY/api/v5/eventgroups/88808"], HDK, params={"format": "json"})
     _save_raw("draftkings", j, ts)
     eg = j.get("eventGroup", {})
     events = {e["eventId"]: e for e in eg.get("events", [])}

@@ -1,7 +1,7 @@
 """Accuracy checks. Every table the model reads is checked against something published.
 
 1. 2024 season totals per team from play-by-play (team_box.parquet) against the Pro-Football-Reference team
-   offense table that was pasted into the old sheet (data/raw/pfr_2024_offense_from_sheet.csv).
+   offense table that was pasted into the old sheet (data/reference/pfr_2024_offense_from_sheet.csv, committed so the weekly run can check against it).
 2. Points in team_box equal the schedule's scores for every game.
 3. Every game's offense row and its opponent's defense row agree (what A gained is what B allowed).
 4. Known results spot check.
@@ -14,7 +14,7 @@ import numpy as np, pandas as pd
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-RAW, OUT, REP = ROOT / "data" / "raw", ROOT / "data" / "processed", ROOT / "reports"
+RAW, OUT, REP = ROOT / "data" / "reference", ROOT / "data" / "processed", ROOT / "reports"
 
 NAME = {"Arizona Cardinals": "ARI", "Atlanta Falcons": "ATL", "Baltimore Ravens": "BAL", "Buffalo Bills": "BUF",
         "Carolina Panthers": "CAR", "Chicago Bears": "CHI", "Cincinnati Bengals": "CIN", "Cleveland Browns": "CLE",

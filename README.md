@@ -11,7 +11,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` (kept in the repo for the record; no longer on the page) |
 | 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep, `reports/backtest_v3.md`, `reports/decision_log.md` |
 | 4. Go / no-go: tuned on 2019 to 2022, judged on 2023 to 2025 | Numbers are in `reports/backtest_v3.md`; the decision is Matt's |
-| 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Runs from `main` via GitHub Actions once merged |
+| 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Merged to `main` 22 Sep; both GitHub Actions workflows are live (first runs: the weekly pipeline passed pull, build and features; the line feeds answered 403 from GitHub's runners, fallbacks added) |
 | 6. Extras (player model, splits, sizing, timing tests on the logged lines) | After a few weeks of logs |
 
 ## Layout
@@ -40,7 +40,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
   - **Team**: the raw game log (box score, EPA, ratings into the game, trends, injuries), ratings by week, how a rating is built (every game and weight, summed and checked), and the game deep dive (every coefficient times input).
   - **Model**: what kind of model it is and the full fitted equation, the stat analysis (predictive vs same-season correlations, reliability, ablation, additions, persistence, tuning), methods compared, every column's definition and source, data pulls and verification, decision log and audit.
   - **Track record**: model picks and Matt's bets graded with closing line value.
-- `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference and the schedule; fails the build on a mismatch.
+- `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference (`data/reference/`) and the schedule; fails the build on a mismatch.
 - `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
 - `data/processed/`       built tables (committed so the dashboard and backtest can read them)
 - `reports/`              backtest reports, tuning results, decision log, weekly picks:
