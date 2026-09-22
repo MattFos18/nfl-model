@@ -484,7 +484,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       </article>`;
     });
     $("cards").innerHTML = h;
-    $("cards").querySelectorAll("button.why").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season); }));
+    $("cards").querySelectorAll("button.why").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
   }
   // pair the rest inputs when both teams share the situation (a Thursday game puts both on a short week), so the reader sees the net effect
   function mergePairs(items) {
@@ -510,7 +510,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const unit = SIT.has(x.f) ? `${co.per_unit[x.f].toFixed(3)} × ${val}` : `${co.per_unit[x.f].toFixed(3)} × (${val} − ${co.mean[x.f].toFixed(3)})`;
     return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f}</td><td class="v">${unit}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c > 0 ? "var(--good)" : (x.c < 0 ? "var(--bad)" : "transparent")}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`;
   }
-  function whyHtml(g, s) {
+  function whyHtml(g, s, gIdx) {
     const cols = [g.home_team, g.away_team].map((t, ti) => {
       const inp = g.sides && g.sides[t]; if (!inp) return `<div><b>${t}</b><p class="note">No inputs exported.</p></div>`;
       const co = coefsFor(s); const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
@@ -520,7 +520,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       GROUPS.forEach(([gname, fs], gi) => {
         const items = fs.filter(f => META.feats.includes(f)).map(f => byF[f] || {f, v: inp[f] == null ? null : inp[f], c: 0});
         const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
-        const id = `x${ti}${gi}`;
+        const id = `x${gIdx}_${ti}_${gi}`;
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
         h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table></td></tr>`;
       });
