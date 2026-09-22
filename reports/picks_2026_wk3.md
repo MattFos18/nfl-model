@@ -8,7 +8,7 @@ Bet flag: spread when the edge is 5+ points. That is the threshold with the best
 | ATL @ GB  | 2026-09-24 | ATL 21.2, GB 26.5  | -10.8-14.3  | GB -5.3 / 47.3  | GB -6 / 44.5     | -0.7 / +2.8             | GB 65% / ATL 35%  | GB 45% / ATL 55%   | Over 58% / Under 42% |           |
 | LAC @ BUF | 2026-09-27 | LAC 21.1, BUF 28.3 | 12.6-52.6   | BUF -7.1 / 48.2 | BUF -7 / 50.5    | +0.1 / -2.3             | BUF 70% / LAC 30% | BUF 46% / LAC 54%  | Over 43% / Under 57% |           |
 | CAR @ CLE | 2026-09-27 | CAR 20.3, CLE 22.3 | 37.5-15.8   | CLE -2.0 / 42.9 | CLE +2.5 / 42.5  | +4.5 / +0.4             | CLE 56% / CAR 44% | CLE 61% / CAR 39%  | Over 51% / Under 49% |           |
-| NYJ @ DET | 2026-09-27 | NYJ 21.8, DET 30.0 | 32.6-27.5   | DET -8.2 / 50.9 | DET -6.5 / 48.5  | +1.7 / +2.4             | DET 73% / NYJ 27% | DET 52% / NYJ 48%  | Over 57% / Under 43% |           |
+| NYJ @ DET | 2026-09-27 | NYJ 21.8, DET 30.0 | 32.6-27.5   | DET -8.2 / 50.9 | DET -6.5 / 47.5  | +1.7 / +3.4             | DET 73% / NYJ 27% | DET 52% / NYJ 48%  | Over 60% / Under 40% |           |
 | HOU @ IND | 2026-09-27 | HOU 22.8, IND 22.3 | 27.0-27.9   | IND +0.6 / 45.6 | IND +2.5 / 43.5  | +1.9 / +2.1             | IND 48% / HOU 52% | IND 53% / HOU 47%  | Over 56% / Under 44% |           |
 | NE @ JAX  | 2026-09-27 | NE 20.6, JAX 22.5  | 5.1-16.4    | JAX -1.9 / 43.6 | JAX -3 / 45.5    | -1.1 / -1.9             | JAX 56% / NE 44%  | JAX 46% / NE 54%   | Over 44% / Under 56% |           |
 | KC @ MIA  | 2026-09-27 | KC 25.8, MIA 20.9  | 48.8-10.6   | MIA +4.9 / 46.5 | MIA +11.5 / 46.5 | +6.6 / +0.0             | MIA 35% / KC 65%  | MIA 70% / KC 30%   | Over 50% / Under 50% | MIA +11.5 |
