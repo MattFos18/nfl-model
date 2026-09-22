@@ -172,10 +172,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <h1>3.0 Data Room</h1>
     <p class="sub">NFL Model 3.0: this week's numbers, every team ranked, every priced game since 2019 against Vegas and the result, and every data point behind every rating. <span id="built"></span></p>
   </div>
-  <div class="controls">
-    <label class="ctl">Team <select id="team"></select></label>
-    <label class="ctl">Season <select id="season"></select></label>
-  </div>
 </header>
 <nav class="tabs" role="tablist">
   <button role="tab" data-tab="week">This week</button>
@@ -230,6 +226,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 </section>
 
 <section class="tab" id="teamsec" hidden>
+  <div class="controls" style="margin:0 0 10px;justify-content:flex-start">
+    <label class="ctl">Team <select id="team"></select></label>
+    <label class="ctl">Season <select id="season"></select></label>
+  </div>
   <nav class="sub" id="teamsub">
     <button data-sub="games">Game log (raw data)</button>
     <button data-sub="ratings">Ratings by week</button>
