@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "processed"
 
 STATS = ["epa_play", "pass_epa", "rush_epa", "success", "pf", "plays"]
-DEFAULT = {"decay": 0.90, "prior": 0.5, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985}  # tuned on 2019-2022, reports/tuning_ratings.csv
+DEFAULT = {"decay": 0.94, "prior": 0.8, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985}  # 0.90 / 0.5 tuned on 2019-2022 (reports/tuning_ratings.csv); 0.94 / 0.8 re-checked 22 Sep 2026 under the weekly refit on both windows (reports/retune.csv, retune2.csv)
 
 
 def solve(rows: pd.DataFrame, y: np.ndarray, w: np.ndarray, teams: list, alpha: float):
