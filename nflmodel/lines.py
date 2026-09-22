@@ -217,6 +217,43 @@ def draftkings_splits(season: int, week: int, ts: str) -> list[dict]:
     return []   # splits go to their own log; the lines log keeps one shape
 
 
+# one fixed column order for the log, whatever a source happens to return; readers never depend on a row's field count
+SCHEMA = ["ts", "source", "season", "week", "home", "away", "home_spread", "total", "home_ml", "away_ml",
+          "spread_odds_home", "spread_odds_away", "over_odds", "under_odds", "start", "game_id"]
+_LEGACY_13 = SCHEMA[:12] + ["game_id"]
+_LEGACY_16 = SCHEMA[:12] + ["start", "over_odds", "under_odds", "game_id"]
+
+
+def load_log() -> pd.DataFrame:
+    """The lines log as a clean table. Rows written before the fixed schema (13 or 16 fields in an older order) are mapped
+    by field count, and the file is rewritten in the fixed order the first time that happens."""
+    f = LN / "lines_log.csv"
+    if not f.exists():
+        return pd.DataFrame(columns=SCHEMA)
+    lines = [l.rstrip("\n") for l in f.read_text().splitlines() if l.strip()]
+    header = lines[0].split(",")
+    rows, legacy = [], False
+    for l in lines[1:]:
+        parts = l.split(",")
+        if header == SCHEMA and len(parts) == len(SCHEMA):
+            names = SCHEMA
+        elif len(parts) == 13:
+            names, legacy = _LEGACY_13, True
+        elif len(parts) == 16 and header != SCHEMA:
+            names, legacy = _LEGACY_16, True
+        elif len(parts) == len(header):
+            names = header
+        else:
+            continue
+        rows.append({k: (v if v != "" else None) for k, v in zip(names, parts)})
+    d = pd.DataFrame(rows).reindex(columns=SCHEMA)
+    for c in ["season", "week", "home_spread", "total", "home_ml", "away_ml", "spread_odds_home", "spread_odds_away", "over_odds", "under_odds"]:
+        d[c] = pd.to_numeric(d[c], errors="coerce")
+    if legacy or header != SCHEMA:
+        d.to_csv(f, index=False)
+    return d
+
+
 def attach_game_ids(rows: list[dict]) -> pd.DataFrame:
     games = pd.read_parquet(OUT / "games.parquet")
     df = pd.DataFrame(rows)
@@ -261,7 +298,9 @@ def run(season=None, week=None) -> pd.DataFrame:
     LN.mkdir(parents=True, exist_ok=True)
     log = LN / "lines_log.csv"
     if len(df):
-        df.to_csv(log, mode="a", header=not log.exists(), index=False)
+        df = df.reindex(columns=SCHEMA)
+        old = load_log()          # also normalises any older rows to the fixed schema
+        pd.concat([old, df], ignore_index=True).to_csv(log, index=False)
     status = {"ts": ts, "season": season, "week": week, "rows": len(df), "errors": "; ".join(errors)}
     pd.DataFrame([status]).to_csv(LN / "watch_log.csv", mode="a", header=not (LN / "watch_log.csv").exists(), index=False)
     print(status)
@@ -270,10 +309,7 @@ def run(season=None, week=None) -> pd.DataFrame:
 
 def history(game_id: str) -> pd.DataFrame:
     """Every logged line for one game, oldest first (for the game card's movement chart and CLV)."""
-    f = LN / "lines_log.csv"
-    if not f.exists():
-        return pd.DataFrame()
-    d = pd.read_csv(f)
+    d = load_log()
     return d[d.game_id == game_id].sort_values("ts")
 
 
