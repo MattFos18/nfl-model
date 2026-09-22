@@ -42,3 +42,24 @@ record picks,ok,"                 run_at  season  week  ... spread_edge total_ed
 grade,ok,,0.0,2026-09-22 15:32 UTC
 export data room,ok,,5.3,2026-09-22 15:32 UTC
 audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.8,2026-09-22 15:32 UTC
+pull,ok,"[('2026-09-22T17:46:26', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2179537, '026fa88d85ed'), ('2026-09-22T17:46:26', 'pbp', 2025, 'ht",1.6,2026-09-22 17:46 UTC
+build,ok,"team_games (8202, 142)",257.8,2026-09-22 17:46 UTC
+features,ok,[40 rows x 8 columns],20.2,2026-09-22 17:46 UTC
+verify,ok,Result: PASS,0.6,2026-09-22 17:46 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-22 13:51
+1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09",148.9,2026-09-22 17:46 UTC
+ratings,ok,"(7668, 49)",31.1,2026-09-22 17:46 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,41.6,2026-09-22 17:46 UTC
+players,ok,max           0.122501         0.716854     5.000000,36.4,2026-09-22 17:46 UTC
+model,ok,            neutral            0.054       0.133          0.007,14.8,2026-09-22 17:46 UTC
+picks,ok,"              game_id  season  week  ...   old_home   old_away        bet
+1992   2026_03_ATL_GB    2026     3  ...  14.268737 -10.812540           
+1993  2026_03_LAC_BUF    2026     3  ...  52.645364 ",0.0,2026-09-22 17:46 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-09-22 17:46 UTC    2026     3  ...        6.38       0.35    0.697
+
+[1 rows x 10 columns]",0.0,2026-09-22 17:46 UTC
+grade,ok,,0.0,2026-09-22 17:46 UTC
+export data room,ok,,5.4,2026-09-22 17:46 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.7,2026-09-22 17:46 UTC
