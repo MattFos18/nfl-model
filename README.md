@@ -32,7 +32,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/weather.py`   Open-Meteo kickoff forecasts for unplayed outdoor games, applied before pricing, logged.
 - `nflmodel/tracker.py`   model picks and Matt's bets (`data/tracker/my_bets.csv`) graded with closing line value (`reports/track_record.md`).
 - `nflmodel/audit.py`     backtest audit: leakage test, coverage, bootstrap intervals on every rejected input, rejected ideas as standalone bets (`reports/audit.md`).
-- `.github/workflows/`    `weekly.yml` (Tue 06:00 and Sat 10:00 ET) and `lines.yml` (every 10 minutes); both commit their outputs.
+- `.github/workflows/`    `weekly.yml` (Tue 06:00, Thu 14:00, Sat 10:00 and Sun 09:00 ET) and `lines.yml` (every 10 minutes; The Odds API every two hours when the key is set); both commit their outputs.
 - `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz). `--rankings` also writes the per-week rankings and the full backtest table. The page's tabs:
   - **This week**: one card per game, model vs Vegas vs actual, win / cover / over odds for both sides, the flag, and "Why these numbers" (every input's contribution to each team's expected points).
   - **Rankings**: every team on every rating as of any week, sortable with ranks, offense-vs-defense plot and power bars, plus the old sheet's indexes.
@@ -50,17 +50,21 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
   - `lab.md` stat correlations (predictive vs same-season) and reliability; `ablation.csv`, `tuning_ratings.csv`, `v3_coefficients.txt`
   - `picks_2026_wk3.md`, `picks_2026_wk4.md` the weekly picks tables (Week 4 fills in once lines post)
 
+<!-- results:start -->
 ## Headline results (held-out 2023 to 2025, 816 games)
 
 | | 3.0 | Vegas close |
 |---|---|---|
 | Team points miss | 7.36 | 7.21 |
 | Margin miss | 10.13 | 9.74 |
-| Total miss | 10.32 | 10.12 |
+| Total miss | 10.29 | 10.12 |
 | Brier (win odds) | 0.221 | 0.210 |
 | Spreads at 3+ pt edge | 103-101 | |
 | Spreads at 5+ pt edge (the flag) | 26-16 (2019 to 2025: 68-48; 63-39 outside Week 18) | |
-| Totals at 6+ pt edge (not flagged: no total cutoff wins in both windows) | 12-11 (2019 to 2025: 27-26) | |
+| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 60-56 (2019 to 2025: 141-117) | |
+
+These rows are written by `report.py` from the same prediction table as the page and the reports, on every run.
+<!-- results:end -->
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
 disagreements with the close lose; 5+ point spread edges have won in both backtest windows on small samples (a lead,

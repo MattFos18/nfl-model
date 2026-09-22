@@ -1,0 +1,13 @@
+model,window,total_mae,vegas_mae,ats4,ats5
+"current (ratings, QBs, weather, roof)",2019-22,10.641,10.541,77-53,42-30
+"current (ratings, QBs, weather, roof)",2023-25,10.299,10.161,62-56,22-22
+"+ pace (plays per game, both offenses and both defenses)",2019-22,10.598,10.541,84-61,42-36
+"+ pace (plays per game, both offenses and both defenses)",2023-25,10.317,10.161,69-65,30-23
++ pace + slowest team,2019-22,10.607,10.541,85-64,44-36
++ pace + slowest team,2023-25,10.318,10.161,68-63,28-24
++ mismatch (rating gap) + primetime + division,2019-22,10.651,10.541,82-74,46-42
++ mismatch (rating gap) + primetime + division,2023-25,10.323,10.161,67-58,30-23
+"current, separate equations indoors and outdoors",2019-22,10.669,10.541,82-76,42-37
+"current, separate equations indoors and outdoors",2023-25,10.332,10.161,59-62,21-27
+"+ pace, separate equations indoors and outdoors",2019-22,10.604,10.541,90-71,46-41
+"+ pace, separate equations indoors and outdoors",2023-25,10.375,10.161,65-69,29-33
