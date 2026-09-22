@@ -47,7 +47,71 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             out.append(("Over " if r.total_edge > 0 else "Under ") + f"{r.total_line:g}")
         return ", ".join(out) if out else ""
     p["bet"] = p.apply(bet, axis=1)
+    # calibrated cover and over odds: what edges of this size have actually converted to, fitted on every graded
+    # backtest game before this season (the model's own cover odds run about 10 points hot: the line carries
+    # information the model does not)
+    cal_s, cal_t = calibration(pred, games, season)
+    p["p_cover_cal_home"] = [cal_p(cal_s, e) if e > 0 else 1 - cal_p(cal_s, e) for e in p.spread_edge.fillna(0)]
+    p["p_over_cal"] = [cal_p(cal_t, e) if e > 0 else 1 - cal_p(cal_t, e) for e in p.total_edge.fillna(0)]
+    p.loc[p.spread_line.isna(), "p_cover_cal_home"] = np.nan; p.loc[p.total_line.isna(), "p_over_cal"] = np.nan
+    # the best available number for the model's side across the books in the latest line snapshot
+    from . import lines as LN
+    best = [best_number(LN.history(r.game_id), r) for r in p.itertuples()]
+    p["best_line"] = [b[0] for b in best]; p["best_book"] = [b[1] for b in best]
+    p["spread_edge_best"] = [(r.model_spread - b[2]) if b[2] is not None else np.nan for r, b in zip(p.itertuples(), best)]
+    # a flagged spread is bet at the best available number (the flag itself is decided on the consensus line)
+    def at_best(r):
+        if not r.bet or r.best_line is None or pd.isna(r.best_line):
+            return r.bet
+        parts = []
+        for b in r.bet.split(", "):
+            if b.startswith(("Over", "Under")):
+                parts.append(b)
+            else:
+                parts.append(f"{b.split()[0]} {r.best_line:+g}")
+        return ", ".join(parts)
+    p["bet"] = p.apply(at_best, axis=1)
     return p.sort_values("gameday")
+
+
+def calibration(pred: pd.DataFrame, games: pd.DataFrame, season: int):
+    """Logistic fit of 'the model's side covered' on |edge| (capped at 7), regular season, seasons before `season`,
+    for spreads and for totals. Returns (intercept, slope) pairs."""
+    from sklearn.linear_model import LogisticRegression
+    g = games.set_index("game_id")
+    d = pred[(pred.game_type == "REG") & (pred.season < season) & (pred.season >= 2019)].copy()
+    d["hs"] = d.game_id.map(g.home_score); d["as_"] = d.game_id.map(g.away_score); d["sl"] = d.game_id.map(g.spread_line); d["tl"] = d.game_id.map(g.total_line)
+    d = d[d.hs.notna()]
+    out = []
+    for edge, res in [(d.model_spread - d.sl, np.sign(d.hs - d.as_ - d.sl)), (d.model_total - d.tl, np.sign(d.hs + d.as_ - d.tl))]:
+        ok = edge.notna() & (res != 0) & res.notna()
+        won = (np.sign(edge[ok]) == res[ok]).astype(int)
+        x = np.minimum(np.abs(edge[ok].values), 7.0)[:, None]
+        if len(won) < 200 or won.nunique() < 2:
+            out.append((0.0, 0.0)); continue
+        m = LogisticRegression(C=10.0).fit(x, won)
+        out.append((float(m.intercept_[0]), float(m.coef_[0][0])))
+    return out[0], out[1]
+
+
+def cal_p(cal, edge):
+    a, b = cal
+    return float(1.0 / (1.0 + np.exp(-(a + b * min(abs(float(edge)), 7.0)))))
+
+
+def best_number(hist: pd.DataFrame, r):
+    """(line for the model's side, book, home_spread used) from the latest snapshot; None when there is no log."""
+    if hist is None or len(hist) == 0 or pd.isna(r.spread_line):
+        return (None, None, None)
+    last = hist[hist.ts == hist.ts.max()]; last = last[last.home_spread.notna()]
+    if len(last) == 0:
+        return (None, None, None)
+    home_side = r.spread_edge > 0
+    pick = last.loc[last.home_spread.idxmin()] if home_side else last.loc[last.home_spread.idxmax()]
+    hs = float(pick.home_spread)
+    line = -hs if home_side else hs
+    book = str(pick.source).replace("oddsapi:", "").replace("espn:", "")
+    return (line, book, hs)
 
 
 def markdown(p: pd.DataFrame, season: int, week: int) -> str:

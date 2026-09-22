@@ -379,6 +379,26 @@ best, quarter weight when the starter threw under half the dropbacks, was +0.005
 adopted; a game with the backup is still real evidence about the offense, and the next games repair the rating.
 Before kickoff no model can price a first-drive injury; that game is noise for the model and for the line alike.
 
+**Cover odds, calibrated** (22 Sep 2026, `picks.calibration`). The model's own cover probability comes from the
+bell curve around its spread, and it runs about ten points hot: at a 4 to 5 point edge it says 64% and the
+backtest covered 54%, because the line carries information the model does not. The cards now show a calibrated
+figure instead: a logistic curve of "the model's side covered" against the size of the edge (capped at 7), fitted
+on every graded regular-season game before the current season and refit every run. On the same buckets it reads
+48%, 49%, 51%, 52%, 53%, 55%, 56%, 57% for edges of 0-1 up to 7+, against actual 49%, 44%, 50%, 52%, 54%, 57%,
+52%, 58% over 2019 to 2025. The same is done for the total. The raw bell-curve figure stays in the picks file.
+
+**Bet at the best number** (22 Sep 2026, `picks.best_number`). The flag is decided on the consensus line, but
+a flagged spread is written at the best available number for the model's side across the books in the latest
+line snapshot, with the book named, and the tracker records that as the line bet, so closing line value is
+measured against what a bettor could actually have taken. The card shows the edge at the best number when it
+differs from the consensus by a quarter point or more.
+
+**Special teams and the kicking game** (22 Sep 2026, `experiments/special_teams.py`, `reports/special_teams.csv`):
+a team special-teams EPA rating (own, opponent) and the kicker's and punter's value above replacement, each added
+to the eighteen-input model on both windows. Nothing helps on both: the kicker value lowers the tuning-window
+miss (-0.002 points, -0.007 margin) and raises the held-out points miss (+0.007); the team rating raises the
+margin miss on both windows. Not adopted; the values stay on the Players tab.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
