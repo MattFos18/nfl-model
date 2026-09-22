@@ -228,6 +228,66 @@ def team_players(games: pd.DataFrame, pg: pd.DataFrame, season: int, week: int, 
     return pd.DataFrame(rows).sort_values(["team", "value_above_replacement"], ascending=[True, False])
 
 
+DEPTH_ORDER = ["QB", "RB", "FB", "WR", "TE", "LT", "LG", "C", "RG", "RT", "T", "G", "OL",
+               "DE", "DT", "NT", "DL", "EDGE", "OLB", "ILB", "MLB", "LB", "CB", "NB", "S", "FS", "SS", "DB", "K", "P", "LS", "KR", "PR"]
+
+
+def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
+    """Every player on each team's weekly roster for (season, week) with: roster status (active, IR, PUP, practice
+    squad...), depth chart slot and rank from the latest chart, this week's injury report (status, practice, injury),
+    last game's snap share, and the skill value when he has one. What the page shows under Team -> Roster."""
+    rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    if not rf.exists():
+        return pd.DataFrame()
+    ros = pd.read_parquet(rf, columns=["season", "week", "team", "gsis_id", "full_name", "position", "status", "jersey_number", "years_exp"])
+    ros["team"] = ros.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+    wk = ros[ros.week == week] if (ros.week == week).any() else ros[ros.week == ros.week.max()]
+    wk = wk.dropna(subset=["gsis_id"]).drop_duplicates(["team", "gsis_id"]).copy()
+    # depth chart: the latest chart per team
+    df_ = RAW / "depth_charts" / f"depth_charts_{season}.parquet"
+    depth = {}
+    if df_.exists():
+        d = pd.read_parquet(df_, columns=["dt", "team", "gsis_id", "pos_grp", "pos_abb", "pos_rank"])
+        d["team"] = d.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+        d = d[d.dt == d.groupby("team").dt.transform("max")]
+        d = d[d.pos_grp != "Special Teams"].sort_values("pos_rank").drop_duplicates(["team", "gsis_id"])
+        depth = {(r.team, r.gsis_id): (r.pos_abb, int(r.pos_rank), "Defense" if str(r.pos_grp).endswith("D") else "Offense") for r in d.itertuples()}
+    inj = load_injuries([season]); inj = inj[(inj.season == season) & (inj.week == week)]
+    injd = {(r.team, r.gsis_id): (r.report_status if isinstance(r.report_status, str) else "", r.practice_status if isinstance(r.practice_status, str) else "",
+                                  r.report_primary_injury if isinstance(r.report_primary_injury, str) else (r.practice_primary_injury if isinstance(r.practice_primary_injury, str) else "")) for r in inj.itertuples()}
+    # last game's snap share, by name (snap counts carry no gsis id)
+    sf = RAW / "snap_counts" / f"snap_counts_{season}.parquet"
+    snap = {}
+    if sf.exists():
+        sn = pd.read_parquet(sf); sn["team"] = sn.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+        sn = sn[sn.week == sn.groupby("team").week.transform("max")]
+        norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
+        snap = {(r.team, norm(r.player)): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples()}
+    vf = OUT / "player_values.parquet"
+    vals = pd.read_parquet(vf).set_index(["team", "player_id"]) if vf.exists() else None
+    norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
+    rows = []
+    for r in wk.itertuples():
+        dp = depth.get((r.team, r.gsis_id), (None, None, None)); ij = injd.get((r.team, r.gsis_id), ("", "", "")); sp = snap.get((r.team, norm(r.full_name)))
+        v = vals.loc[(r.team, r.gsis_id)] if vals is not None and (r.team, r.gsis_id) in vals.index else None
+        rows.append({"team": r.team, "player_id": r.gsis_id, "name": r.full_name, "position": r.position, "number": r.jersey_number, "exp": r.years_exp,
+                     "roster": ROSTER_LABEL.get(r.status, {"ACT": "Active", "DEV": "Practice squad", "INA": "Inactive", "CUT": "Cut"}.get(r.status, r.status)),
+                     "unit": dp[2], "slot": dp[0], "depth": dp[1], "report": ij[0], "practice": ij[1], "injury": ij[2],
+                     "off_pct": sp[0] if sp else None, "def_pct": sp[1] if sp else None, "st_pct": sp[2] if sp else None,
+                     "value": float(v.value_above_replacement) if v is not None else None, "epa_per_touch": float(v.epa_per_touch) if v is not None else None, "share": float(v.share) if v is not None else None})
+    out = pd.DataFrame(rows)
+    out["order"] = out.slot.map({p: i for i, p in enumerate(DEPTH_ORDER)}).fillna(99)
+    return out.sort_values(["team", "unit", "order", "depth", "name"], na_position="last").drop(columns=["order"])
+
+
+def player_history(pg: pd.DataFrame) -> pd.DataFrame:
+    """One row per player, season, team and role: games, plays, EPA per play. The Players tab's history, which follows
+    a player across teams."""
+    h = pg.groupby(["player_id", "season", "team", "role"]).agg(games=("game_id", "nunique"), plays=("plays", "sum"), epa=("epa", "sum"), name=("name", "last")).reset_index()
+    h["epa_play"] = (h.epa / h.plays).round(3)
+    return h.sort_values(["player_id", "season", "role"])
+
+
 if __name__ == "__main__":
     games = pd.read_parquet(OUT / "games.parquet")
     pg = player_box(load(range(2013, 2027)))
@@ -240,5 +300,9 @@ if __name__ == "__main__":
     tp = team_players(games, pg, cs, cw)
     tp.to_parquet(OUT / "player_values.parquet", index=False)
     print("player_values", tp.shape, "as of", cs, cw)
+    ro = team_roster(games, cs, cw)
+    ro.to_parquet(OUT / "roster_now.parquet", index=False)
+    player_history(pg).to_parquet(OUT / "player_history.parquet", index=False)
+    print("roster_now", ro.shape)
     print("player_injury", iv.shape, "rows with a skill player out:", int((iv.n_skill_out > 0).sum()))
     print(iv[iv.n_skill_out > 0].describe().to_string())

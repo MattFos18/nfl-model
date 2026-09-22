@@ -184,6 +184,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <button role="tab" data-tab="rank">Rankings</button>
   <button role="tab" data-tab="history">History</button>
   <button role="tab" data-tab="teamsec">Team</button>
+  <button role="tab" data-tab="playersec">Players</button>
   <button role="tab" data-tab="model">Model</button>
   <button role="tab" data-tab="track">Track record</button>
 </nav>
@@ -237,6 +238,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <button data-sub="ratings">Ratings by week</button>
     <button data-sub="how">How a rating is built</button>
     <button data-sub="inputs">Game deep dive</button>
+    <button data-sub="roster">Roster and depth chart</button>
     <button data-sub="players">Players</button>
   </nav>
   <div id="games">
@@ -260,6 +262,15 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div class="tablewrap" style="max-height:56vh"><table id="howtable"></table></div>
     <div id="howsum" style="margin-top:12px"></div>
   </div>
+  <div id="roster" hidden>
+    <p class="note">This week's roster (nflverse weekly rosters), the latest depth chart, this week's injury report and practice status, last game's snap share, and the player model's value for skill players. Out means Out or Doubtful on the report, or IR, PUP, suspended or exempt on the roster; those are the players the model prices as unavailable.</p>
+    <div id="rosterout" class="mv" style="margin-bottom:8px"></div>
+    <div class="grid2">
+      <div class="card"><h3>Offense</h3><div class="tablewrap" style="max-height:70vh"><table id="rosteroff"></table></div></div>
+      <div class="card"><h3>Defense</h3><div class="tablewrap" style="max-height:70vh"><table id="rosterdef"></table></div></div>
+    </div>
+    <details style="margin-top:10px"><summary style="font-size:13px;font-weight:600">Everyone else on the roster</summary><div class="tablewrap" style="max-height:50vh;margin-top:6px"><table id="rosterrest"></table></div></details>
+  </div>
   <div id="players" hidden>
     <p class="note">Every RB, WR and TE with a touch in his last eight games, valued as of the coming week. <b>EPA per touch</b> is the player's own EPA per carry or target, decayed by game and shrunk toward replacement level (the 25th percentile of players with 100+ touches). <b>Above replacement</b> is that gap times his share of the team's touches, in EPA per team play. <b>Points if out</b> is what the model takes off the team's expected points when he is listed Out or Doubtful: the value times the fitted weight. A player traded in keeps the usage he had elsewhere. Status is this week's injury report, or the roster status when he is on IR, PUP or suspended.</p>
     <div class="tablewrap" style="max-height:70vh"><table id="playerstable"></table></div>
@@ -271,6 +282,20 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="card"><div class="tablewrap" style="max-height:60vh"><table id="inputstable"></table></div></div>
       <div class="card"><h3>This game</h3><div class="kv" id="gamekv"></div></div>
     </div>
+  </div>
+</section>
+
+<section class="tab" id="playersec" hidden>
+  <p class="note">Every RB, WR and TE with a touch in his last eight games, valued as of the coming week and ranked league-wide. The value follows the player, not the team: a trade or a signing carries his history with him. <b>EPA per touch</b>: his own EPA per carry or target, decayed by game and shrunk toward replacement level. <b>Above replacement</b>: that gap times his share of his team's touches, in EPA per team play. <b>Points if out</b>: what the model takes off his team when he is listed Out, Doubtful or on IR. Click a player for his history by season and team.</p>
+  <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
+    <label class="ctl">Search <input id="plq" type="search" placeholder="Player" style="width:160px"></label>
+    <label class="ctl">Team <select id="plteam"><option value="">All</option></select></label>
+    <label class="ctl">Position <select id="plpos"><option value="">All</option><option>RB</option><option>WR</option><option>TE</option></select></label>
+    <label class="ctl">Status <select id="plstatus"><option value="">All</option><option value="out">Out, Doubtful or IR</option><option value="q">Questionable or limited</option></select></label>
+  </div>
+  <div class="grid2" style="margin-top:10px;grid-template-columns:minmax(0,3fr) minmax(0,2fr)">
+    <div class="card"><div class="tablewrap" style="max-height:70vh"><table id="pltable"></table></div></div>
+    <div class="card"><h3 id="plname">Pick a player</h3><div id="plhist"></div></div>
   </div>
 </section>
 
@@ -342,6 +367,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 <script src="data/rankings.js"></script>
 <script src="data/backtest.js"></script>
 <script src="data/games.js"></script>
+<script src="data/players.js"></script>
 <script>
 (function(){
   const META = window.META, RK = window.RANK || null;
@@ -367,7 +393,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
     opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
-    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost"};
+    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost", off_snap_out:"Offensive snaps out (share of last game's)", opp_def_snap_out:"Opponent's defensive snaps out"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
   $("built").textContent = "Data built " + META.built + ".";
 
@@ -420,11 +446,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   // Situational inputs are measured from zero (away, outdoors, no wind, normal rest, no bye, not a division game, not primetime),
   // rating inputs from the league average. The base is the regression's intercept moved to that neutral situation, so a dome
   // game shows "dome +0.2" and nothing for wind, instead of "wind +0.84" for having none. Both bookkeepings sum to the same points.
-  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game", "primetime", "qb_out", "skill_out_value", "opp_skill_out_value"]);
+  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game", "primetime", "qb_out", "skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out"]);
   const GROUPS = [["Offense: this team's ratings", ["off_epa_play", "off_pf"]],
                   ["Defense it faces: the opponent's ratings", ["def_epa_play", "def_pf"]],
                   ["Quarterback", ["qb_rating", "qb_out"]],
-                  ["Injuries beyond the QB", ["skill_out_value", "opp_skill_out_value"]],
+                  ["Injuries beyond the QB", ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out"]],
                   ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]]];
   const EXPLAIN = {
     off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
@@ -435,6 +461,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement. Fitted on those games: they scored about 4 fewer points than the team's ratings said.",
     skill_out_value: "EPA per team play the offense loses to its RB, WR and TE listed Out or Doubtful on the final report: each player's decayed EPA per touch above replacement level, times their share of the team's touches over the previous eight games, summed. 0 when nobody of note is out. Added 22 Sep 2026 (player model, phase 2): lowered the points and margin miss on both windows.",
     opp_skill_out_value: "The same value lost on the opponent's side. A thinner opposing offense changes this team's game too (field position, possessions, game script), which is why it earned its place beside the team's own loss.",
+    off_snap_out: "How much of last game's offense is missing: the sum of the offensive snap shares (0 to 1 each) of the players now listed Out or Doubtful or on IR, including linemen and anyone the skill value cannot see. 1.0 means a full-time starter's worth of snaps is gone. Added 22 Sep 2026 (player model, phase 3): with the opponent's defensive absences it lowered the points and margin miss on both windows.",
+    opp_def_snap_out: "The same for the opponent's defense: how many of last game's defensive snaps belonged to players now out. A thinner defense across from this offense means more points.",
     div_game: "1 when the two teams share a division. Division games score a little less than the ratings say (familiarity). Added 22 Sep 2026: lowered the points miss on both windows; it moves both teams alike, so the spread barely changes.",
     home: "1 at home, 0 away. Home teams scored 1.90 more points per game than away teams over 2013 to 2025 before any adjustment; the regression's estimate with the ratings held fixed is what is shown. Away teams get 0, not a subtraction: the base is an away game.",
     neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
@@ -727,7 +755,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const price = () => {
       mu.A = $("muA").value; mu.B = $("muB").value;
       const co = coefsFor(rkSeason);
-      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0, div_game: 0, skill_out_value: 0, opp_skill_out_value: 0});
+      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0, div_game: 0, skill_out_value: 0, opp_skill_out_value: 0, off_snap_out: 0, opp_def_snap_out: 0});
       const pts = inp => { let x = co.intercept; META.feats.forEach(f => { if (inp[f] == null) return; x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
       const pA = pts(inputsFor(mu.A, mu.B)), pB = pts(inputsFor(mu.B, mu.A));
       $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${pA.toFixed(1)}</span><span class="dash">–</span><span>${pB.toFixed(1)} <b>${mu.B}</b></span></div><div class="mv"><span class="chip mute">Neutral field · Ratings going into Week ${rkWeek}, ${S}</span></div>`;
@@ -978,6 +1006,47 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (f === "qb_out") return r.qb_out ? 1 : 0;
     return r[f] != null ? r[f] : null;
   }
+  const OUT_RE = /^(Out|Doubtful|IR|PUP|Suspended|Exempt|NFI|Retired)/;
+  function statusChip(r) {
+    const ro = r.roster && r.roster !== "Active" ? r.roster : ""; const rep = r.report || ""; const pr = (r.practice || "").replace("Did Not Participate In Practice", "DNP").replace("Limited Participation in Practice", "Limited").replace("Full Participation in Practice", "Full");
+    const main = ro || rep; const cls = OUT_RE.test(main) ? "badge flag" : (main ? "badge" : "");
+    return (main ? `<span class="${cls}">${esc(main)}</span>` : "") + (pr && pr !== "Full" ? ` <span class="rk">${esc(pr)}</span>` : "") + (r.injury ? ` <span class="rk">${esc(r.injury)}</span>` : "");
+  }
+  function renderRoster() {
+    const R = (data && data.roster) || []; const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
+    if (!R.length) { $("rosteroff").innerHTML = "<tbody><tr><td>No roster exported.</td></tr></tbody>"; $("rosterdef").innerHTML = ""; $("rosterrest").innerHTML = ""; $("rosterout").innerHTML = ""; return; }
+    const rankOf = sl => { const t = String(sl || ""); const O = [/^QB/, /^(RB|HB)/, /^FB/, /WR$/, /^TE/, /^LT/, /^LG/, /^C$/, /^RG/, /^RT/, /^(T|G|OL)/, /(DE|EDGE)/, /(DT|NT|DL)/, /LB$/, /CB$|^NB/, /S$|^S/]; const i = O.findIndex(re => re.test(t)); return i < 0 ? 99 : i; };
+    const isOut = r => OUT_RE.test(r.roster && r.roster !== "Active" ? r.roster : (r.report || ""));
+    const outs = R.filter(isOut).sort((a, b) => (b.value || 0) - (a.value || 0));
+    $("rosterout").innerHTML = outs.length ? `<span class="chip mute">Not available this week</span>` + outs.map(r => `<span class="chip">${esc(r.name)} · ${esc(r.position)}${r.value > 0 ? " · -" + (w * r.value).toFixed(1) + " pts" : ""}</span>`).join("") : `<span class="chip mute">Nobody listed out yet this week</span>`;
+    const table = (rows, unit) => { rows = rows.slice().sort((a, b) => rankOf(a.slot) - rankOf(b.slot) || (a.depth || 9) - (b.depth || 9) || String(a.name).localeCompare(b.name));
+      let h = `<thead><tr><th>Slot</th><th>#</th><th class='l'>Player</th><th>Pos</th><th class='l'>Status</th><th>Snaps last game</th>${unit === "Offense" ? "<th>Above replacement</th><th>Points if out</th>" : ""}</tr></thead><tbody>`;
+      rows.forEach(r => { const sn = unit === "Offense" ? r.off_pct : r.def_pct; h += `<tr class="${isOut(r) ? "neg" : ""}"><td>${esc(r.slot || "")}${r.depth ? " <span class='rk'>" + r.depth + "</span>" : ""}</td><td class="mono">${r.number ?? ""}</td><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position)}</td><td class="l">${statusChip(r)}</td><td class="mono">${sn == null ? "" : Math.round(100 * sn) + "%"}</td>${unit === "Offense" ? `<td class="mono">${r.value == null ? "" : (r.value >= 0 ? "+" : "") + r.value.toFixed(3)}</td><td class="mono">${r.value > 0 ? "-" + (w * r.value).toFixed(1) : ""}</td>` : ""}</tr>`; });
+      return h + "</tbody>"; };
+    $("rosteroff").innerHTML = table(R.filter(r => r.unit === "Offense"), "Offense");
+    $("rosterdef").innerHTML = table(R.filter(r => r.unit === "Defense"), "Defense");
+    const rest = R.filter(r => !r.unit); let h = "<thead><tr><th class='l'>Player</th><th>Pos</th><th class='l'>Roster</th><th class='l'>Status</th></tr></thead><tbody>";
+    rest.sort((a, b) => String(a.roster).localeCompare(b.roster) || String(a.position).localeCompare(b.position)).forEach(r => { h += `<tr><td class="l">${esc(r.name)}</td><td>${esc(r.position)}</td><td class="l">${esc(r.roster)}</td><td class="l">${statusChip(r)}</td></tr>`; });
+    $("rosterrest").innerHTML = h + "</tbody>";
+  }
+  // ---------- Players tab (league-wide) ----------
+  let plSel = null;
+  function renderPlayersTab() {
+    const P = window.PLAYERS; if (!P) { $("pltable").innerHTML = "<tbody><tr><td>No player data exported.</td></tr></tbody>"; return; }
+    const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
+    const ts = $("plteam"); if (ts.options.length <= 1) [...new Set(P.values.map(r => r.team))].sort().forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; ts.appendChild(o); });
+    const q = ($("plq").value || "").toLowerCase(), tm = ts.value, pos = $("plpos").value, st = $("plstatus").value;
+    let rows = P.values.filter(r => (!q || String(r.name).toLowerCase().includes(q)) && (!tm || r.team === tm) && (!pos || r.position === pos));
+    if (st === "out") rows = rows.filter(r => OUT_RE.test(r.status || "")); if (st === "q") rows = rows.filter(r => /^Questionable|Limited/.test(r.status || ""));
+    rows.sort((a, b) => b.value_above_replacement - a.value_above_replacement);
+    let h = "<thead><tr><th>#</th><th class='l'>Player</th><th>Team</th><th>Pos</th><th class='l'>Status</th><th>Touches per game</th><th>Share</th><th>EPA per touch</th><th>Above replacement</th><th>Points if out</th></tr></thead><tbody>";
+    rows.forEach((r, i) => { const stt = r.status ? (OUT_RE.test(r.status) ? `<span class="badge flag">${esc(r.status)}</span>` : esc(r.status)) : ""; h += `<tr class="pl ${plSel === r.player_id ? "on" : ""}" data-pid="${r.player_id}" style="cursor:pointer"><td>${i + 1}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.team}</td><td>${esc(r.position || "")}</td><td class="l">${stt}</td><td class="mono">${r.touches_per_game}</td><td class="mono">${(100 * r.share).toFixed(0)}%</td><td class="mono">${r.epa_per_touch.toFixed(3)}</td><td class="mono">${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}</td><td class="mono">${r.value_above_replacement > 0 ? "-" + (w * r.value_above_replacement).toFixed(1) : "0"}</td></tr>`; });
+    $("pltable").innerHTML = h + "</tbody>";
+    $("pltable").querySelectorAll("tr.pl").forEach(tr => tr.addEventListener("click", () => { plSel = tr.dataset.pid; renderPlayersTab(); }));
+    if (plSel) { const hist = (P.history[plSel] || []).slice().sort((a, b) => b[0] - a[0] || String(a[2]).localeCompare(b[2])); $("plname").textContent = P.names[plSel] || plSel;
+      $("plhist").innerHTML = hist.length ? `<div class="tablewrap" style="max-height:60vh"><table><thead><tr><th>Season</th><th>Team</th><th class='l'>Role</th><th>Games</th><th>Plays</th><th>EPA per play</th></tr></thead><tbody>${hist.map(x => `<tr><td>${x[0]}</td><td>${x[1]}</td><td class="l">${x[2] === "receiver" ? "Targets" : (x[2] === "rusher" ? "Carries" : "Dropbacks")}</td><td class="mono">${x[3]}</td><td class="mono">${x[4]}</td><td class="mono">${x[5] == null ? "" : x[5].toFixed(3)}</td></tr>`).join("")}</tbody></table></div><p class="note" style="margin:6px 0 0">Raw play-by-play, no decay or shrinkage: what he actually did each season, on each team.</p>` : "<p class='note'>No plays on record.</p>"; }
+  }
+  ["plq", "plteam", "plpos", "plstatus"].forEach(id => { const el = $(id); if (el) { el.addEventListener("input", renderPlayersTab); el.addEventListener("change", renderPlayersTab); } });
   function renderPlayers() {
     const P = (data && data.players) || []; const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     if (!P.length) { $("playerstable").innerHTML = "<tbody><tr><td>No player values exported for this team.</td></tr></tbody>"; return; }
@@ -1054,6 +1123,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     skill_out_value: ["Skill players out: value lost", "Player model. Every rusher and receiver gets a value from the play-by-play: EPA per touch, decayed by game (0.985) and shrunk toward replacement level (the 25th percentile of players with 100+ touches). For each RB, WR or TE listed Out or Doubtful on the final report, that value above replacement times the player's share of the team's touches over its previous eight games; summed. In EPA per team play, so a star receiver out is about 0.02 to 0.05 and a depth player about 0.", ""],
     opp_skill_out_value: ["Opponent's skill players out: value lost", "The same number for the opponent, in this team's own points equation.", ""],
     div_game: ["Division game", "1 when the two teams share a division, from the schedule.", ""],
+    off_snap_out: ["Offensive snaps out", "From the snap counts of the team's previous game: each player's share of offensive snaps (0 to 1), summed over the players now listed Out or Doubtful on the final report or on IR, PUP, suspended or exempt on the roster. Covers linemen, fullbacks and anyone the touch-based value cannot see. Matched by name between the snap counts and the injury report.", ""],
+    opp_def_snap_out: ["Opponent's defensive snaps out", "The same sum for the opponent's defense, in this team's own points equation.", ""],
     home: ["Home field", "1 at home, 0 away. Away is the base, so away teams show 0, not a subtraction.", ""],
     neutral: ["Neutral site", "1 for London, Germany, Mexico, Brazil, Spain and relocated games (the schedule's location field).", ""],
     dome: ["Dome or closed roof", "1 when the schedule's roof field is dome or closed.", ""],
@@ -1061,7 +1132,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     cold: ["Under 35F outdoors", "1 when the kickoff temperature is below 35F and the game is outdoors.", ""],
     rain: ["Rain at kickoff", "1 when the play-by-play weather text for the game contains rain, showers or a storm (outdoor games); for an unplayed game, 1 when the forecast gives 50%+ chance of precipitation at kickoff.", ""]
   };
-  const TESTED_IN = ["div_game", "travel_miles", "off_pass_epa", "skill_out_value", "primetime", "snow", "tz_shift"];
+  const TESTED_IN = ["div_game", "travel_miles", "off_pass_epa", "skill_out_value", "primetime", "snow", "tz_shift", "off_snap_out"];
   const TESTED_IN_KEY = {div_game: "division game", travel_miles: "travel distance (miles)", off_pass_epa: "pass/rush EPA split", skill_out_value: "injuries: skill players' value out", primetime: "primetime", snow: "snow", tz_shift: "time-zone shift (hours)"};
   const TESTED = [
     ["pass/rush EPA split", "Pass and rush EPA split", "The offense's EPA per dropback and per carry, and the defense's, as four ratings alongside the overall EPA per play."],
@@ -1112,6 +1183,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const v = inModel ? "in the model" : (key === "injuries: QB out" ? "in the model" : (!r ? "not in the latest run" : (r.verdict === "helps both" ? "helps both windows" : (r.verdict === "helps one" ? "helps one window only: not used" : "no measurable effect"))));
       h += `<tr><td class="l"><b>${lab}</b></td><td class="l" style="white-space:normal;min-width:360px">${how}</td><td class="l" style="white-space:normal;min-width:220px">${rawFor(key)}</td><td class="mono">${r ? dd(r["delta_2019-22"] ?? r.delta_team_mae) : ""}</td><td class="mono">${r ? dd(r["delta_2023-25"]) : ""}</td><td class="l">${v}</td></tr>`; });
     h += "</tbody></table></div>";
+    const LD = (META.analysis.line_defense || []).concat(META.analysis.snap_pair || []).filter(r => !/^base/.test(r.variant));
+    if (LD.length) { const dd2 = v => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(3); const base = (META.analysis.line_defense || [])[0] || {};
+      h += `<h2>Player model tests: line and defense</h2><p class="note">Added to the model of the day, both windows, walk-forward. Change in the team points miss and the margin miss against that day's base; below zero is better. The pair that went in: offensive snaps out and the opponent's defensive snaps out. The offensive-line count added nothing once the snap share was in.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Variant</th><th>Points, 2019-22</th><th>Margin, 2019-22</th><th>Flags</th><th>Points, 2023-25</th><th>Margin, 2023-25</th><th>Flags</th></tr></thead><tbody>${LD.map(r => `<tr><td class="l">${esc(r.variant)}</td><td class="mono">${dd2(r["team_mae_2019-22"] - base["team_mae_2019-22"])}</td><td class="mono">${dd2(r["margin_mae_2019-22"] - base["margin_mae_2019-22"])}</td><td class="mono">${r["ats5_2019-22"]}</td><td class="mono">${dd2(r["team_mae_2023-25"] - base["team_mae_2023-25"])}</td><td class="mono">${dd2(r["margin_mae_2023-25"] - base["margin_mae_2023-25"])}</td><td class="mono">${r["ats5_2023-25"]}</td></tr>`).join("")}</tbody></table></div>`; }
     $("inputsx").innerHTML = h;
   }
   function renderAnalysis() {
@@ -1209,8 +1284,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (tab === "rank") return renderRankings();
     if (tab === "history") return renderBacktest();
     if (tab === "track") return renderTrack();
+    if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); if (s === "players") renderPlayers(); }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); if (s === "players") renderPlayers(); if (s === "roster") renderRoster(); }
   }
   showTab(); render(); load();
 })();
