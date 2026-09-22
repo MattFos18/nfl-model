@@ -390,6 +390,10 @@ Usage is the player's own share of his team's touches over his last eight games 
 teams in the offseason (A.J. Brown to New England, valued 0.045 EPA per team play above replacement from his
 Eagles games) counts in full if he is listed out, even before he has played for the new team. A player the
 play-by-play has never seen counts as nothing, which is right: there is no evidence he is above replacement.
+Players on injured reserve are not on the weekly injury report, so the weekly rosters (nflverse, pulled with the
+rest) supply them: a roster status of reserve/IR, PUP, suspended, exempt, non-football injury or retired for that
+week counts the player as out, in the player model and in the starter and QB flags alike. Game-day inactives are
+not used: they are known only ninety minutes before kickoff, so using them in the backtest would be cheating.
 
 **How a player's impact is rated.** Each rusher or receiver has an EPA per touch: the average EPA of the plays he
 carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 80 touches of weight

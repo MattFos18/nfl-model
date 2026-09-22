@@ -140,6 +140,17 @@ def _norm(name: pd.Series) -> pd.Series:
     return name.fillna("").str.lower().str.replace(r"[^a-z]", "", regex=True)
 
 
+def _roster_names(seasons) -> dict:
+    """gsis_id -> full name from the weekly rosters (snap counts carry names, not ids, so the join is by name)."""
+    out = {}
+    for s in seasons:
+        f = RAW / "rosters" / f"roster_weekly_{s}.parquet"
+        if f.exists():
+            r = pd.read_parquet(f, columns=["gsis_id", "full_name"]).dropna().drop_duplicates("gsis_id")
+            out.update(dict(zip(r.gsis_id, r.full_name)))
+    return out
+
+
 def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame:
     inj, snaps = [], []
     for s in seasons:
@@ -157,6 +168,11 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
     inj["key"] = _norm(inj.full_name)
     snaps["key"] = _norm(snaps.player)
     inj = inj[inj.report_status.isin(["Out", "Doubtful"])]
+    # players on IR, PUP, suspended or otherwise off the active roster are not on the injury report but are out all the same
+    from .players import load_rosters, NOT_AVAILABLE
+    ros = load_rosters(seasons); ros = ros[ros.status.isin(NOT_AVAILABLE)].copy()
+    ros["key"] = _norm(ros.gsis_id.map(_roster_names(seasons)))
+    ros_out = {k: set(g.key) for k, g in ros.groupby(["season", "week", "team"])}
     # the team's previous game with snap data
     snaps = snaps.sort_values(["season", "week"])
     rows = []
@@ -180,7 +196,7 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
         starters_off = set(before[before.offense_pct >= 0.5].key)
         starters_def = set(before[before.defense_pct >= 0.5].key)
         qb = set(before[(before.position == "QB") & (before.offense_pct >= 0.5)].key)
-        out = set(inj[(inj.season == r.season) & (inj.week == r.week) & (inj.team == r.team)].key)
+        out = set(inj[(inj.season == r.season) & (inj.week == r.week) & (inj.team == r.team)].key) | ros_out.get((r.season, r.week, r.team), set())
         rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": float(len(starters_off & out)),
                      "def_starters_out": float(len(starters_def & out)), "qb_out": float(len(qb & out) > 0)})
     return pd.DataFrame(rows)

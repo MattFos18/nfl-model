@@ -203,3 +203,17 @@ pulled_at,dataset,season,url,status,bytes,sha256
 2026-09-22T17:46:26,injuries,2026,https://github.com/nflverse/nflverse-data/releases/download/injuries/injuries_2026.parquet,ok,22001,24ceba0506a3
 2026-09-22T17:46:26,snap_counts,2025,https://github.com/nflverse/nflverse-data/releases/download/snap_counts/snap_counts_2025.parquet,cached,242090,
 2026-09-22T17:46:26,snap_counts,2026,https://github.com/nflverse/nflverse-data/releases/download/snap_counts/snap_counts_2026.parquet,ok,60248,ca5581473ed6
+2026-09-22T18:06:46,rosters,2013,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2013.parquet,ok,461709,bb68c0e5dba8
+2026-09-22T18:06:46,rosters,2014,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2014.parquet,ok,489433,51ae5047bb95
+2026-09-22T18:06:46,rosters,2015,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2015.parquet,ok,511974,61a57f4484a5
+2026-09-22T18:06:46,rosters,2016,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2016.parquet,ok,754038,70d0ceab6978
+2026-09-22T18:06:46,rosters,2017,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2017.parquet,ok,734927,2f633cf331f5
+2026-09-22T18:06:46,rosters,2018,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2018.parquet,ok,762634,0fcd3c3f098d
+2026-09-22T18:06:46,rosters,2019,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2019.parquet,ok,778811,08ef64996cec
+2026-09-22T18:06:46,rosters,2020,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2020.parquet,ok,843938,8d601bf5c5d6
+2026-09-22T18:06:46,rosters,2021,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2021.parquet,ok,817361,3e9f67569e94
+2026-09-22T18:06:46,rosters,2022,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2022.parquet,ok,803573,063c0da93f61
+2026-09-22T18:06:46,rosters,2023,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2023.parquet,ok,794392,0fa5abf9b462
+2026-09-22T18:06:46,rosters,2024,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2024.parquet,ok,829272,4b144e8eda5a
+2026-09-22T18:06:46,rosters,2025,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2025.parquet,ok,850871,a8764c947bfe
+2026-09-22T18:06:46,rosters,2026,https://github.com/nflverse/nflverse-data/releases/download/weekly_rosters/roster_weekly_2026.parquet,ok,691590,87248e4b8814

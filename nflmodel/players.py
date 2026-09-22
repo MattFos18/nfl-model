@@ -134,6 +134,29 @@ def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, w
     return {"value": val, "share": share, "per_game": per_game, "games": n, "epa_play": epa / share if share else 0.0, "name": str(h.name.iloc[-1])}
 
 
+NOT_AVAILABLE = {"RES", "PUP", "SUS", "EXE", "NON", "RET"}   # roster statuses known before kickoff that mean the player cannot play: reserve/IR, PUP, suspended, exempt, non-football injury, retired
+ROSTER_LABEL = {"RES": "IR", "PUP": "PUP", "SUS": "Suspended", "EXE": "Exempt", "NON": "NFI", "RET": "Retired"}
+
+
+def load_rosters(seasons) -> pd.DataFrame:
+    """Weekly rosters (nflverse): a row per player, team and week with his roster status that week."""
+    fs = [RAW / "rosters" / f"roster_weekly_{s}.parquet" for s in seasons]
+    fs = [f for f in fs if f.exists()]
+    if not fs:
+        return pd.DataFrame(columns=["season", "week", "team", "gsis_id", "status"])
+    r = pd.concat([pd.read_parquet(f, columns=["season", "week", "team", "gsis_id", "status", "game_type"]) for f in fs], ignore_index=True)
+    r["team"] = r.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+    return r[r.gsis_id.notna()]
+
+
+def unavailable_by_week(seasons) -> dict:
+    """(season, week, team) -> set of player ids on IR, PUP, suspended or otherwise off the active roster that week.
+    A player on IR is not on the weekly injury report, so without this the model would count him as available."""
+    r = load_rosters(seasons)
+    r = r[r.status.isin(NOT_AVAILABLE)]
+    return {k: set(g.gsis_id) for k, g in r.groupby(["season", "week", "team"])}
+
+
 def load_injuries(seasons) -> pd.DataFrame:
     inj = pd.concat([pd.read_parquet(RAW / "injuries" / f"injuries_{s}.parquet") for s in seasons if (RAW / "injuries" / f"injuries_{s}.parquet").exists()], ignore_index=True)
     inj["team"] = inj.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
@@ -144,8 +167,16 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
     inj = load_injuries(seasons)
     inj = inj[inj.report_status.isin(["Out", "Doubtful"]) & (inj.position != "QB")]
     out_by = {k: set(g.gsis_id.dropna()) for k, g in inj.groupby(["season", "week", "team"])}
+    for k, ids in unavailable_by_week(seasons).items():      # IR and the like: not on the injury report, still out
+        out_by[k] = out_by.get(k, set()) | ids
     pv = PlayerValues(pg, p["decay"], p["k"])
     _, by_player, _ = _usage_frames(pg)
+    names = {r.gsis_id: r.full_name for r in load_injuries(seasons).drop_duplicates("gsis_id").itertuples() if isinstance(r.full_name, str)}
+    for s_ in seasons:
+        rf = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
+        if rf.exists():
+            rr = pd.read_parquet(rf, columns=["gsis_id", "full_name"]).dropna().drop_duplicates("gsis_id")
+            names.update(dict(zip(rr.gsis_id, rr.full_name)))
     rows = []
     long = pd.concat([games[["game_id", "season", "week", "home_team"]].rename(columns={"home_team": "team"}), games[["game_id", "season", "week", "away_team"]].rename(columns={"away_team": "team"})])
     long = long[long.season.isin(seasons)]
@@ -157,7 +188,7 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
             if d["games"] == 0:
                 continue
             val += d["value"]; share += d["share"]; n += 1
-            detail.append(f"{d['name']}|{d['value']:.4f}|{d['share']:.3f}")
+            detail.append(f"{names.get(pid, d['name'])}|{d['value']:.4f}|{d['share']:.3f}")
         rows.append({"game_id": r.game_id, "team": r.team, "skill_out_value": val, "skill_out_share": share, "n_skill_out": n, "skill_out_detail": ";".join(detail)})
     return pd.DataFrame(rows)
 
@@ -169,9 +200,18 @@ def team_players(games: pd.DataFrame, pg: pd.DataFrame, season: int, week: int, 
     skill, by_player, by_team = _usage_frames(pg)
     inj = load_injuries([season]); inj = inj[(inj.season == season) & (inj.week == week)]
     status = {(r.team, r.gsis_id): (r.report_status if isinstance(r.report_status, str) else (r.practice_status if isinstance(r.practice_status, str) else "")) for r in inj.itertuples()}
+    ros = load_rosters([season]); ros = ros[(ros.week == week) & ros.status.isin(NOT_AVAILABLE)]
+    for r in ros.itertuples():                                # roster status wins: IR is definite
+        status[(r.team, r.gsis_id)] = ROSTER_LABEL.get(r.status, r.status)
     ref = load_injuries(range(season - 2, season + 1)).drop_duplicates("gsis_id")
     pos = {r.gsis_id: r.position for r in ref.itertuples()}
     full = {r.gsis_id: r.full_name for r in ref.itertuples() if isinstance(r.full_name, str)}
+    rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    if rf.exists():
+        rr = pd.read_parquet(rf, columns=["gsis_id", "full_name", "position"]).dropna(subset=["gsis_id"]).drop_duplicates("gsis_id")
+        full.update({r.gsis_id: r.full_name for r in rr.itertuples() if isinstance(r.full_name, str)})
+        for r in rr.itertuples():
+            pos.setdefault(r.gsis_id, r.position)
     passers = set(pg[(pg.role == "passer") & (pg.season >= season - 1)].player_id)
     rows = []
     for t, g in by_team.items():

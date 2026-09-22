@@ -261,7 +261,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div id="howsum" style="margin-top:12px"></div>
   </div>
   <div id="players" hidden>
-    <p class="note">Every RB, WR and TE with a touch in his last eight games, valued as of the coming week. <b>EPA per touch</b> is the player's own EPA per carry or target, decayed by game and shrunk toward replacement level (the 25th percentile of players with 100+ touches). <b>Above replacement</b> is that gap times his share of the team's touches, in EPA per team play. <b>Points if out</b> is what the model takes off the team's expected points when he is listed Out or Doubtful: the value times the fitted weight. A player traded in keeps the usage he had elsewhere. Status is this week's injury report.</p>
+    <p class="note">Every RB, WR and TE with a touch in his last eight games, valued as of the coming week. <b>EPA per touch</b> is the player's own EPA per carry or target, decayed by game and shrunk toward replacement level (the 25th percentile of players with 100+ touches). <b>Above replacement</b> is that gap times his share of the team's touches, in EPA per team play. <b>Points if out</b> is what the model takes off the team's expected points when he is listed Out or Doubtful: the value times the fitted weight. A player traded in keeps the usage he had elsewhere. Status is this week's injury report, or the roster status when he is on IR, PUP or suspended.</p>
     <div class="tablewrap" style="max-height:70vh"><table id="playerstable"></table></div>
   </div>
   <div id="inputs" hidden>
@@ -661,8 +661,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         const id = `x${gIdx}_${ti}_${gi}`;
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
         let extra = "";
-        if (gname.startsWith("Injuries")) { const opp = g.sides[t === g.home_team ? g.away_team : g.home_team] || {}; const chips = (arr, who) => (arr || []).map(x => `<span class="chip">${who} out: ${esc(x.name)} · ${x.value >= 0 ? "" : "+"}${(-co.per_unit.skill_out_value * x.value).toFixed(1)} pts</span>`).join("");
-          extra = chips(inp.skill_out_players, t) + (opp.skill_out_players || []).map(x => `<span class="chip">Opponent out: ${esc(x.name)} · ${x.value >= 0 ? "+" : ""}${(co.per_unit.opp_skill_out_value * x.value).toFixed(1)} pts</span>`).join(""); extra = extra ? `<div class="mv">${extra}</div>` : `<div class="mv"><span class="chip mute">Nobody of note listed out</span></div>`; }
+        if (gname.startsWith("Injuries")) { const opp = g.sides[t === g.home_team ? g.away_team : g.home_team] || {}; const pts = v => (v > 0 ? "+" : "") + v.toFixed(1); const chips = (arr, who) => (arr || []).map(x => `<span class="chip">${who} out: ${esc(x.name)} · ${pts(co.per_unit.skill_out_value * x.value)} pts</span>`).join("");
+          extra = chips(inp.skill_out_players, t) + (opp.skill_out_players || []).map(x => `<span class="chip">Opponent out: ${esc(x.name)} · ${pts(co.per_unit.opp_skill_out_value * x.value)} pts</span>`).join(""); extra = extra ? `<div class="mv">${extra}</div>` : `<div class="mv"><span class="chip mute">Nobody of note listed out</span></div>`; }
         h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table>${extra}</td></tr>`;
       });
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
@@ -981,7 +981,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   function renderPlayers() {
     const P = (data && data.players) || []; const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     if (!P.length) { $("playerstable").innerHTML = "<tbody><tr><td>No player values exported for this team.</td></tr></tbody>"; return; }
-    const st = v => !v ? "" : (/^Out|^Doubtful/.test(v) ? `<span class="badge flag">${esc(v)}</span>` : esc(v));
+    const st = v => !v ? "" : (/^Out|^Doubtful|^IR|^PUP|^Suspended|^NFI|^Exempt|^Retired/.test(v) ? `<span class="badge flag">${esc(v)}</span>` : esc(v));
     let h = "<thead><tr><th class='l'>Player</th><th>Pos</th><th class='l'>Status this week</th><th>Games</th><th>Touches per game</th><th>Share of team touches</th><th>EPA per touch</th><th>Above replacement, EPA per team play</th><th>Points if out</th></tr></thead><tbody>";
     P.forEach(r => { h += `<tr><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position || "")}</td><td class="l">${st(r.status)}</td><td class="mono">${r.games}</td><td class="mono">${r.touches_per_game}</td><td class="mono">${(100 * r.share).toFixed(0)}%</td><td class="mono">${r.epa_per_touch.toFixed(3)}</td><td class="mono">${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}</td><td class="mono">${r.value_above_replacement > 0 ? "-" + (w * r.value_above_replacement).toFixed(1) : "0"}</td></tr>`; });
     $("playerstable").innerHTML = h + "</tbody>";
