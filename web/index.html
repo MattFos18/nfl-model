@@ -362,7 +362,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
     opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
-    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
+    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
   $("built").textContent = "Data built " + META.built + ".";
 
@@ -415,11 +415,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   // Situational inputs are measured from zero (away, outdoors, no wind, normal rest, no bye, not a division game, not primetime),
   // rating inputs from the league average. The base is the regression's intercept moved to that neutral situation, so a dome
   // game shows "dome +0.2" and nothing for wind, instead of "wind +0.84" for having none. Both bookkeepings sum to the same points.
-  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game", "primetime", "qb_out"]);
+  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game", "primetime", "qb_out", "skill_out_value", "opp_skill_out_value"]);
   const GROUPS = [["Offense: this team's ratings", ["off_epa_play", "off_pf"]],
                   ["Defense it faces: the opponent's ratings", ["def_epa_play", "def_pf"]],
                   ["Quarterback", ["qb_rating", "qb_out"]],
-                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold"]]];
+                  ["Injuries beyond the QB", ["skill_out_value", "opp_skill_out_value"]],
+                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]]];
   const EXPLAIN = {
     off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
     off_pf: "Points the offense scores against an average defense, opponent-adjusted and decayed. 0 = league average.",
@@ -427,6 +428,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     def_pf: "Points the opponent's defense allows against an average offense, opponent-adjusted. Positive = stingy.",
     qb_rating: "The starter's own EPA per dropback over his career, decayed and shrunk toward replacement level. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry.",
     qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement. Fitted on those games: they scored about 4 fewer points than the team's ratings said.",
+    skill_out_value: "EPA per team play the offense loses to its RB, WR and TE listed Out or Doubtful on the final report: each player's decayed EPA per touch above replacement level, times their share of the team's touches over the previous eight games, summed. 0 when nobody of note is out. Added 22 Sep 2026 (player model, phase 2): lowered the points and margin miss on both windows.",
+    opp_skill_out_value: "The same value lost on the opponent's side. A thinner opposing offense changes this team's game too (field position, possessions, game script), which is why it earned its place beside the team's own loss.",
+    div_game: "1 when the two teams share a division. Division games score a little less than the ratings say (familiarity). Added 22 Sep 2026: lowered the points miss on both windows; it moves both teams alike, so the spread barely changes.",
     home: "1 at home, 0 away. Home teams scored 1.90 more points per game than away teams over 2013 to 2025 before any adjustment; the regression's estimate with the ratings held fixed is what is shown. Away teams get 0, not a subtraction: the base is an away game.",
     neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
     dome: "1 indoors or under a closed roof. Indoor teams scored 1.47 more points than outdoor ones raw; most of that is the teams that play indoors, which the ratings already know, so the fitted bump is small.",
@@ -510,6 +514,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   const recPct = arr => { const w = arr.filter(x => x > 0).length, n = arr.filter(x => x !== 0).length; return n ? ` (${Math.round(100 * w / n)}%)` : ""; };
   function form(t, games) { const ss = games.map(g => side(g, t)).filter(Boolean); return {n: ss.length, su: wl(ss.map(x => Math.sign(x.mg))), ats: wl(ss.map(x => x.cov).filter(x => x != null)) + recPct(ss.map(x => x.cov).filter(x => x != null)), ou: wl(ss.map(x => x.ov).filter(x => x != null)), pf: ss.length ? (ss.reduce((a, x) => a + x.pf, 0) / ss.length).toFixed(1) : "", pa: ss.length ? (ss.reduce((a, x) => a + x.pa, 0) / ss.length).toFixed(1) : ""}; }
   const kvp = (k, v) => `<span>${k}</span><b>${v}</b>`;
+  // the both-window test of candidate inputs (reports/additions_both.csv): change in the points miss, negative = better
+  function addedTable(keys, title) {
+    const rows = (META.analysis && META.analysis.additions_both) || []; const by = Object.fromEntries(rows.map(r => [r.added, r]));
+    const ks = keys.filter(k => by[k]); if (!ks.length) return "";
+    const d = v => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(3);
+    return `<div><p class="cap">${title}</p><div class="tablewrap"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points miss, 2019-22</th><th class="n">Points miss, 2023-25</th><th class="n">Flags 2019-22</th><th class="n">Flags 2023-25</th><th>Verdict</th></tr></thead><tbody>${ks.map(k => { const r = by[k]; const v = r.verdict === "helps both" ? "In the model" : (r.verdict === "helps one" ? "Helps one window only: not used" : "No effect: not used"); return `<tr><td>${k}</td><td class="n">${d(r["delta_2019-22"])}</td><td class="n">${d(r["delta_2023-25"])}</td><td class="n">${r["ats5_2019-22"]}</td><td class="n">${r["ats5_2023-25"]}</td><td>${v}</td></tr>`; }).join("")}</tbody></table></div><div class="mv"><span class="chip mute">Change in the average points miss when added on its own; below zero is better; noise about ±0.005</span></div></div>`;
+  }
   function h2hHtml(A, B, g) {
     if (!G) return `<p class="note" style="margin:0">No game history exported.</p>`;
     const played = G.filter(x => x.hs != null);
@@ -553,7 +564,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     [A, B].forEach(t => { const f5 = form(t, last(t, 5)), f10 = form(t, last(t, 10)); const two = played.filter(x => (x.home === t || x.away === t) && x.season >= (cur ? cur.season : 2026) - 1); const fav = form(t, two.filter(x => side(x, t).sp != null && side(x, t).sp < 0)), dog = form(t, two.filter(x => side(x, t).sp != null && side(x, t).sp > 0));
       h += `<tr><td><b>${t}</b></td><td class="n">${f5.su}</td><td class="n">${f10.ats}</td><td class="n">${f10.ou}</td><td class="n">${f10.pf} / ${f10.pa}</td><td class="n">${fav.n ? fav.ats : ""}</td><td class="n">${dog.n ? dog.ats : ""}</td></tr>`; });
     h += `</tbody></table></div></div>`;
-    h += `<p class="note" style="margin:0">Reference only. Head-to-head, coach and QB records against the spread were each tested as inputs and none improved the backtest, so nothing here moves the model's numbers (Model → Inputs explained).</p>`;
+    h += addedTable(["head-to-head", "coach ATS", "QB ATS", "team home edge", "all matchup history factors together"], "Tested as model inputs");
     return h;
   }
   function renderWeek() {
@@ -716,7 +727,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const price = () => {
       mu.A = $("muA").value; mu.B = $("muB").value;
       const co = coefsFor(rkSeason);
-      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0});
+      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0, div_game: 0, skill_out_value: 0, opp_skill_out_value: 0});
       const pts = inp => { let x = co.intercept; META.feats.forEach(f => { if (inp[f] == null) return; x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
       const pA = pts(inputsFor(mu.A, mu.B)), pB = pts(inputsFor(mu.B, mu.A));
       $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${pA.toFixed(1)}</span><span class="dash">–</span><span>${pB.toFixed(1)} <b>${mu.B}</b></span></div><div class="mv"><span class="chip mute">Neutral field · Ratings going into Week ${rkWeek}, ${S}</span></div>`;
@@ -1032,6 +1043,9 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     def_pf: ["Opponent's defense points rating", "Points the opponent's defense allowed, adjusted for the offenses it faced. Positive = stingy.", ""],
     qb_rating: ["Starting QB rating", "The named starter's EPA per dropback over his own career (all teams), each game decayed by 0.985 per game, with 150 dropbacks of replacement-level (−0.05) play mixed in so a rookie or backup starts near replacement. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry (drop it and refit, and the offense EPA coefficient rises from 0.6 to 1.4 per SD).", ""],
     qb_out: ["Last game's QB listed out", "1 when the QB who started the team's last game is on the injury report as out, doubtful or on IR before this game and no rating exists yet for the replacement. Those games scored about 4 fewer points than the ratings said.", ""],
+    skill_out_value: ["Skill players out: value lost", "Player model. Every rusher and receiver gets a value from the play-by-play: EPA per touch, decayed by game (0.985) and shrunk toward replacement level (the 25th percentile of players with 100+ touches). For each RB, WR or TE listed Out or Doubtful on the final report, that value above replacement times the player's share of the team's touches over its previous eight games; summed. In EPA per team play, so a star receiver out is about 0.02 to 0.05 and a depth player about 0.", ""],
+    opp_skill_out_value: ["Opponent's skill players out: value lost", "The same number for the opponent, in this team's own points equation.", ""],
+    div_game: ["Division game", "1 when the two teams share a division, from the schedule.", ""],
     home: ["Home field", "1 at home, 0 away. Away is the base, so away teams show 0, not a subtraction.", ""],
     neutral: ["Neutral site", "1 for London, Germany, Mexico, Brazil, Spain and relocated games (the schedule's location field).", ""],
     dome: ["Dome or closed roof", "1 when the schedule's roof field is dome or closed.", ""],
@@ -1039,7 +1053,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     cold: ["Under 35F outdoors", "1 when the kickoff temperature is below 35F and the game is outdoors.", ""],
     rain: ["Rain at kickoff", "1 when the play-by-play weather text for the game contains rain, showers or a storm (outdoor games); for an unplayed game, 1 when the forecast gives 50%+ chance of precipitation at kickoff.", ""]
   };
+  const TESTED_IN = ["div_game", "travel_miles", "off_pass_epa", "skill_out_value", "primetime", "snow", "tz_shift"];
+  const TESTED_IN_KEY = {div_game: "division game", travel_miles: "travel distance (miles)", off_pass_epa: "pass/rush EPA split", skill_out_value: "injuries: skill players' value out", primetime: "primetime", snow: "snow", tz_shift: "time-zone shift (hours)"};
   const TESTED = [
+    ["pass/rush EPA split", "Pass and rush EPA split", "The offense's EPA per dropback and per carry, and the defense's, as four ratings alongside the overall EPA per play."],
+    ["injuries: skill players' value out", "Injuries: skill players' value out", "For every RB, WR and TE listed Out or Doubtful on the final report: the player's decayed EPA per touch above replacement times their share of the team's touches over the previous eight games, summed; the opponent's loss likewise (player model, phase 2)."],
+    ["pace (plays per game)", "Pace", "Plays per game, offense and defense, as ratings."],
+    ["opponent QB and other side of the ball", "Opponent QB and own defense", "The opponent's QB rating and the team's own defense rating in the team's own points equation."],
     ["injuries: starters out", "Injuries: starters out", "Count of offensive and defensive starters (by depth chart) listed out, doubtful or on IR in the week's injury report, as of the game."],
     ["injuries: QB out", "Injuries: QB out", "In the model (above)."],
     ["referee over/under", "Referee: over rate", "The referee's share of games over the total, prior games only, shrunk toward 50%."],
@@ -1067,18 +1087,22 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   function renderInputsX() {
     const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
     const SF = (META.analysis || {}).situation_facts || {};
-    let h = `<h2>The twelve inputs</h2>
+    const NUM = {12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty"};
+    let h = `<h2>The ${NUM[META.feats.length] || META.feats.length} inputs</h2>
       <p class="note">What each input is, exactly how it is measured, the raw data behind it, and what a unit of it is worth in this season's fit. The two offense inputs are different views of the same offense: EPA per play scores every snap by how much it moved expected points (efficiency, play by play); the points rating is what the team actually put on the board (the outcome, including defensive and return scores). Everything the offense does on the field is inside those two; the QB rating adds the starter's own history beyond the team's recent games. The same pair from the defense's side covers the opponent. The regression weights the overlap between them (Model → How it was built).</p>
       <div class="tablewrap"><table><thead><tr><th class='l'>Input</th><th class='l'>How it is measured</th><th class='l'>Raw data, ${SF.seasons || ""}</th><th>Points per unit, ${Math.max(...Object.keys(META.coefs).map(Number))}</th></tr></thead><tbody>`;
     META.feats.forEach(f => { const m = MEASURE[f] || [FEAT_LABEL[f] || f, "", ""]; h += `<tr><td class="l"><b>${m[0]}</b></td><td class="l" style="white-space:normal;min-width:420px">${m[1]}${m[2] ? " " + m[2] : ""}</td><td class="l" style="white-space:normal;min-width:260px">${factLine(f).replace(/^Raw data [^:]*: /, "").replace(" The fitted number differs because the ratings and the other inputs are held fixed.", "")}</td><td class="mono">${co.per_unit[f].toFixed(3)}</td></tr>`; });
     h += `</tbody></table></div>
       <h2>Tested and not used</h2>
-      <p class="note">Each was measured as-of every game since 2012, added to the model on its own, and run walk-forward on 2019 to 2022; "change" is the change in the team points miss (below zero = more accurate; noise about ±0.01). Anything inside the noise is "no measurable effect": with this many games the test would see a real half-point effect, so a null here means the idea does not move points once the ratings are in, not that it was skipped. All of them are still computed for every game and shown on the cards as readings.</p>
-      <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>How it is measured</th><th class='l'>Raw data</th><th>Change in points miss</th><th class='l'>Verdict</th></tr></thead><tbody>`;
-    const add = Object.fromEntries((META.analysis.additions || []).map(r => [r.added, r]));
+      <p class="note">Each was measured as-of every game since 2012, added to the model on its own, and run walk-forward on both windows, 2019 to 2022 and 2023 to 2025; "change" is the change in the team points miss (below zero = more accurate; noise about ±0.005). An idea is adopted only when it helps on both windows, and it is re-tested with the others present before it goes in (reports/combo.csv). Anything inside the noise is "no measurable effect": with this many games the test would see a real half-point effect, so a null here means the idea does not move points once the ratings are in, not that it was skipped. All of them are still computed for every game and shown on the cards as readings.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>How it is measured</th><th class='l'>Raw data</th><th>Change, 2019-22</th><th>Change, 2023-25</th><th class='l'>Verdict</th></tr></thead><tbody>`;
+    const add = Object.fromEntries((META.analysis.additions_both || META.analysis.additions || []).map(r => [r.added, r]));
     const T = SF.tested || {};
     const rawFor = key => { const map = {"primetime": "primetime", "division game": "div_game", "snow": "snow", "rest: short week and bye (both teams)": "rest_short", "West Coast team at 1pm ET": "body_clock_early"}; const x = T[map[key]]; if (x) return `with it ${x.pf_on} points (${x.n_on.toLocaleString()} team-games), without ${x.pf_off}`; if (key === "travel distance (miles)" && SF.travel_miles) return "points by distance: " + SF.travel_miles.map(b => `${b.bucket} ${b.pf}`).join(" · "); if (key === "time-zone shift (hours)" && SF.tz_shift) return "points by shift: " + SF.tz_shift.map(b => `${b.bucket} ${b.pf}`).join(" · "); return ""; };
-    TESTED.forEach(([key, lab, how]) => { const r = add[key]; const d = r ? r.delta_team_mae : null; const v = key === "injuries: QB out" ? "in the model" : (d == null ? "not in the latest run" : (d < -0.01 ? "helps" : (d > 0.01 ? "hurts" : "no measurable effect"))); h += `<tr><td class="l"><b>${lab}</b></td><td class="l" style="white-space:normal;min-width:360px">${how}</td><td class="l" style="white-space:normal;min-width:220px">${rawFor(key)}</td><td class="mono ${d != null && d < -0.01 ? "pos" : (d != null && d > 0.01 ? "neg" : "")}">${d == null ? "" : sgn(d, 4)}</td><td class="l">${v}</td></tr>`; });
+    const dd = v => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(3);
+    TESTED.forEach(([key, lab, how]) => { const r = add[key]; const inModel = TESTED_IN.some(f => META.feats.includes(f) && TESTED_IN_KEY[f] === key);
+      const v = inModel ? "in the model" : (key === "injuries: QB out" ? "in the model" : (!r ? "not in the latest run" : (r.verdict === "helps both" ? "helps both windows" : (r.verdict === "helps one" ? "helps one window only: not used" : "no measurable effect"))));
+      h += `<tr><td class="l"><b>${lab}</b></td><td class="l" style="white-space:normal;min-width:360px">${how}</td><td class="l" style="white-space:normal;min-width:220px">${rawFor(key)}</td><td class="mono">${r ? dd(r["delta_2019-22"] ?? r.delta_team_mae) : ""}</td><td class="mono">${r ? dd(r["delta_2023-25"]) : ""}</td><td class="l">${v}</td></tr>`; });
     h += "</tbody></table></div>";
     $("inputsx").innerHTML = h;
   }

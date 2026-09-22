@@ -28,10 +28,11 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 # test showed the same accuracy without them (reports/input_set_experiments.csv); several of them could not be read on their own
 # (the rest pair only ever appeared together; pass and rush EPA overlap EPA per play).
 RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pf"] for s in ["off", "def"]]
-SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold"]   # rain and warm_in_cold added 22 Sep 2026 (both lowered the miss on both windows)
+SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]   # rain, warm_in_cold and div_game added 22 Sep 2026 (each lowered the miss on both windows)
+INJ_FEATS = ["skill_out_value", "opp_skill_out_value"]   # player model, phase 2 (22 Sep 2026): value lost to RB/WR/TE listed out, own and opponent
 # teams whose home is warm or indoors, for the "warm or dome team playing in the cold" flag (static; a team's climate does not change)
 WARM_OR_DOME = {"MIA", "TB", "JAX", "ARI", "LAC", "LA", "LV", "SF", "HOU", "NO", "ATL", "DAL", "CAR", "TEN", "DET", "MIN", "IND"}
-FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"]
+FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
              ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]
@@ -52,6 +53,14 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     for c in TREND_FEATS:
         f[c] = f[c].fillna(fill.get(c, 0.0))
     f["home_edge_in_play"] = f.team_home_edge * f.home            # own edge counts only at home
+    # player model: value lost to skill players listed out (players.py), own offense and the opponent's
+    pi = OUT / "player_injury.parquet"
+    if pi.exists():
+        iv = pd.read_parquet(pi)[["game_id", "team", "skill_out_value"]]
+        f = f.merge(iv, on=["game_id", "team"], how="left")
+        f = f.merge(iv.rename(columns={"team": "opp", "skill_out_value": "opp_skill_out_value"}), on=["game_id", "opp"], how="left")
+    for c in INJ_FEATS:
+        f[c] = f[c].fillna(0.0) if c in f.columns else 0.0
     return f
 
 
@@ -108,7 +117,8 @@ def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
                          "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
                          "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
                          "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
-                         "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values}, index=ids)
+                         "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
+                         "div_game": h.loc[ids, "div_game"].values, "skill_out_sum": (h.loc[ids, "skill_out_value"] + a.loc[ids, "skill_out_value"]).values}, index=ids)
 
 
 def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
