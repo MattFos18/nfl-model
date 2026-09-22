@@ -1,0 +1,5 @@
+data/raw/**/*.parquet
+data/raw/**/*.csv
+!data/raw/pull_log.csv
+__pycache__/
+*.pyc

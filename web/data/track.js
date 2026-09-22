@@ -1,0 +1,1 @@
+window.TRACK=[{"run_at":"2026-09-21 22:40 UTC","season":2026,"week":3,"game_id":"2026_03_KC_MIA","bet":"MIA +11.5","odds":-110,"stake":1.0,"spread_edge":5.23,"total_edge":1.74,"p_cover":0.675,"kind":"spread","side":"MIA","line":11.5,"played":false,"close":NaN,"clv":NaN,"result":"pending","units":NaN,"who":"model"}];

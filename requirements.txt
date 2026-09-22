@@ -1,0 +1,6 @@
+pandas>=2.2
+pyarrow
+numpy
+requests
+scikit-learn
+tabulate

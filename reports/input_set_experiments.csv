@@ -1,0 +1,11 @@
+set,window,team_pts_mae,margin_mae,ats5,n_flags
+A full (26),2019-22,7.453,10.159,34-28 (0.548),62
+A full (26),2023-25,7.346,10.152,30-28 (0.517),58
+B no rest/div/primetime/pace/cross/oppQB (15),2019-22,7.448,10.163,39-34 (0.534),73
+B no rest/div/primetime/pace/cross/oppQB (15),2023-25,7.358,10.136,24-16 (0.600),40
+C B without pass/rush splits (11),2019-22,7.453,10.16,42-32 (0.568),74
+C B without pass/rush splits (11),2023-25,7.373,10.131,26-16 (0.619),42
+D C plus cross terms (13),2019-22,7.446,10.145,34-22 (0.607),56
+D C plus cross terms (13),2023-25,7.36,10.141,25-26 (0.490),51
+E C plus rest pair (13),2019-22,7.455,10.164,42-33 (0.560),75
+E C plus rest pair (13),2023-25,7.373,10.131,26-16 (0.619),42

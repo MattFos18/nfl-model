@@ -1,0 +1,977 @@
+<title>3.0 Data Room</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F3EE; --panel:#FFFFFF; --panel-2:#FAF9F5; --ink:#191C1F; --ink-2:#4A5250; --muted:#767E78; --rule:#D9D5CB; --rule-2:#ECE9E1;
+  --accent:#1C6B47; --accent-ink:#FFFFFF; --accent-soft:#E3F0E9; --gold:#A8780A; --gold-soft:#F6EED8; --v3:#1C6B47; --old:#A8780A;
+  --model:#2a78d6; --model-soft:#E4EEFA; --vegas:#c95a24; --vegas-soft:#F9E7DD; --series-1:#2a78d6; --series-2:#eb6834; --surface-1:#FFFFFF; --text-primary:#191C1F; --text-secondary:#4A5250;
+  --good:#1C6B47; --warn:#A8780A; --bad:#B23A3A; --bad-soft:#F6E3E3;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#121517; --panel:#1B1F22; --panel-2:#20252A; --ink:#E9E7E1; --ink-2:#BDC3BE; --muted:#8F978F; --rule:#2E3437; --rule-2:#262C30;
+    --accent:#4FB98A; --accent-ink:#0F1A15; --accent-soft:#1D3328; --gold:#D8B14C; --gold-soft:#332C17; --v3:#4FB98A; --old:#D8B14C;
+    --model:#4A93E8; --model-soft:#1A2A3F; --vegas:#E07A45; --vegas-soft:#3A2418; --series-1:#3987e5; --series-2:#d95926; --surface-1:#1B1F22; --text-primary:#E9E7E1; --text-secondary:#BDC3BE;
+    --good:#4FB98A; --warn:#D8B14C; --bad:#E07070; --bad-soft:#3A1F1F;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#121517; --panel:#1B1F22; --panel-2:#20252A; --ink:#E9E7E1; --ink-2:#BDC3BE; --muted:#8F978F; --rule:#2E3437; --rule-2:#262C30;
+  --accent:#4FB98A; --accent-ink:#0F1A15; --accent-soft:#1D3328; --gold:#D8B14C; --gold-soft:#332C17; --v3:#4FB98A; --old:#D8B14C;
+  --model:#4A93E8; --model-soft:#1A2A3F; --vegas:#E07A45; --vegas-soft:#3A2418; --series-1:#3987e5; --series-2:#d95926; --surface-1:#1B1F22; --text-primary:#E9E7E1; --text-secondary:#BDC3BE;
+  --good:#4FB98A; --warn:#D8B14C; --bad:#E07070; --bad-soft:#3A1F1F;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.45;margin:0;padding-block:0 40px;padding-inline:16px}
+.wrap{max-width:1440px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding-block:18px 10px}
+h1{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.01em;margin:0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:19px;margin:18px 0 8px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:16px;margin:0 0 6px}
+.sub{color:var(--ink-2);margin:2px 0 0;max-width:70ch}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-left:auto}
+label.ctl{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+select{font:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;min-width:120px}
+select:focus,button:focus,.chip:focus,.why:focus{outline:2px solid var(--accent);outline-offset:1px}
+nav.tabs{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--rule)}
+nav.tabs button{font:inherit;font-family:var(--display);font-size:15.5px;font-weight:500;color:var(--ink-2);background:none;border:0;border-bottom:3px solid transparent;padding:9px 13px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.sub{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+nav.sub button{font:inherit;font-size:13px;color:var(--ink-2);background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+nav.sub button[aria-selected="true"]{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+section.tab{padding-top:12px}
+.note{color:var(--ink-2);font-size:13px;max-width:78ch;margin:0 0 12px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{font:inherit;font-size:12.5px;color:var(--ink-2);background:var(--panel);border:1px solid var(--rule);border-radius:999px;padding:4px 10px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--ink-2);font-size:12.5px;margin:0 0 10px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.dot.v3{background:var(--v3)} .dot.old{background:var(--old)}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--panel);max-height:72vh;overflow-y:auto}
+table{border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;font-size:12.5px;min-width:100%}
+th,td{padding:5px 8px;border-bottom:1px solid var(--rule-2);white-space:nowrap;text-align:right}
+th{position:sticky;top:0;background:var(--panel);z-index:2;font-weight:500;color:var(--ink-2);text-align:right;border-bottom:1px solid var(--rule)}
+th[title]{cursor:help}
+th.grp{top:0;text-align:left;font-family:var(--display);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:0;padding:8px 8px 2px 14px;border-left:1px solid var(--rule-2)}
+thead tr:nth-child(2) th{top:26px}
+th.l,td.l{text-align:left}
+td.sticky,th.sticky{position:sticky;left:0;background:var(--panel);z-index:3;min-width:52px;max-width:52px;width:52px;box-sizing:border-box}
+td.sticky2,th.sticky2{position:sticky;left:52px;background:var(--panel);z-index:3;border-right:1px solid var(--rule)}
+thead th.sticky,thead th.sticky2{z-index:4}
+th .u{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4px;vertical-align:middle}
+tbody tr:hover td{background:var(--rule-2)}
+tr.clickable{cursor:pointer}
+td.win{color:var(--good)} td.loss{color:var(--bad)}
+.mono{font-family:var(--mono)}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:960px){.grid2{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}}
+.grid2e{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:960px){.grid2e{grid-template-columns:1fr 1fr}}
+.card{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:14px}
+.viz-root{position:relative}
+.viz-root svg{width:100%;height:auto;display:block;max-width:100%}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;font-size:12px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.12);display:none;z-index:5;white-space:nowrap}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
+.kv b{font-weight:500;color:var(--ink-2)}
+pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-2);background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:12px;overflow-x:auto}
+.pos{color:var(--good)} .neg{color:var(--bad)}
+.status{font-size:12px;color:var(--muted);margin-top:6px}
+.badge{display:inline-block;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:3px;border:1px solid var(--rule);color:var(--ink-2);margin-left:6px;vertical-align:middle}
+.badge.flag{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.badge.model{background:var(--model-soft);color:var(--model);border-color:transparent}
+.badge.vegas{background:var(--vegas-soft);color:var(--vegas);border-color:transparent}
+.badge.noise{background:var(--rule-2);color:var(--muted);border-color:transparent}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
+.tile{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;min-width:150px;flex:1 1 170px;display:flex;flex-direction:column;gap:2px}
+.tile b{font-family:var(--display);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
+.tile span{font-size:12px;color:var(--ink-2)}
+.rk{font-size:10.5px;color:var(--muted)}
+.flag{font-weight:600;color:var(--accent)}
+th.sortable{cursor:pointer} th.sortable.on{color:var(--ink);border-bottom:2px solid var(--accent)}
+tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
+/* game cards */
+.cards{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:1000px){.cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.gcard{min-width:0}
+.gcard{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.gcard.flagged{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.gcard .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
+.gcard .top b{font-family:var(--display);font-size:18px;font-weight:600}
+.gcard .top .when{color:var(--muted);font-size:12.5px}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+@media(max-width:560px){.blocks{grid-template-columns:1fr}}
+.blk{border:1px solid var(--rule-2);border-radius:5px;padding:8px 10px;background:var(--panel-2);display:flex;flex-direction:column;gap:4px;font-size:13px;font-variant-numeric:tabular-nums}
+.blk .bh{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:2px}
+.blk .kv2{display:grid;grid-template-columns:52px 1fr;gap:2px 8px;align-items:baseline}
+.blk .kv2 span{color:var(--ink-2)} .blk .kv2 b{font-weight:600}
+.blk .m{color:var(--model)} .blk .v{color:var(--vegas)}
+.blk .edge{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline;margin-top:2px;padding-top:4px;border-top:1px dashed var(--rule)}
+.blk .edge span{color:var(--ink-2)} .blk .edge b{font-family:var(--display);font-size:16px;font-weight:600}
+.blk .edge b.flag{color:var(--accent)}
+.chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
+.blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
+.blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.blk .ptab span{color:var(--ink-2)} .blk .ptab b{font-weight:600}
+.bar{display:flex;height:18px;border-radius:3px;overflow:hidden;background:var(--rule-2);font-size:11.5px;line-height:18px;color:var(--ink);margin-top:4px}
+.bar span{padding:0 6px;white-space:nowrap;overflow:hidden}
+.bar .h{background:var(--model-soft)} .bar .a2{background:var(--rule-2)} .bar .o{background:var(--model-soft)}
+.bar .lead{font-weight:600}
+.why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
+.whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px}
+.ctab{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
+.ctab th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:2px 4px;border-bottom:1px solid var(--rule)}
+.ctab td{padding:2px 4px;border-bottom:1px solid var(--rule-2);vertical-align:middle}
+.ctab td{text-align:left;white-space:normal} .ctab td.n,.ctab th.n{text-align:right;font-family:var(--mono)}
+.ctab td.v{color:var(--muted);font-family:var(--mono);font-size:11.5px}
+.ctab tr.tot td{font-weight:600;border-top:2px solid var(--rule);border-bottom:0}
+.ctab tr.base td{color:var(--ink-2)}
+.ctab tr.grp td{font-weight:600;background:var(--panel-2);border-bottom:1px solid var(--rule)}
+.ctab td.ind{padding-left:14px}
+.whybox > div{min-width:0}
+.ctab.main{margin-top:4px;table-layout:fixed;width:100%}
+.ctab.main > tbody > tr > td:last-child{width:64px}
+.ctab.main .ctab{table-layout:auto;width:100%}
+.ctab.main .ctab td.v{white-space:nowrap;font-size:11px;width:180px}
+.ctab.main .ctab td.b{width:70px}
+.ctab.main .ctab td.lbl{white-space:normal} .ctab.main > tbody > tr.grp > td{padding:6px 4px}
+.ctab.main > tbody > tr.sub > td{padding:0 0 8px 0;background:var(--panel)}
+.ctab.main > tbody > tr.sub .ctab{margin:0}
+button.open{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.how{font-weight:400;color:var(--ink-2);font-size:11.5px;line-height:1.4;padding:4px 6px 6px 14px;max-width:70ch}
+.ctab td.lbl{white-space:nowrap}
+button.q{display:inline-block;width:15px;height:15px;line-height:13px;border:1px solid var(--rule);border-radius:50%;background:var(--panel);color:var(--muted);font-size:10px;font-weight:600;padding:0;cursor:pointer;vertical-align:middle}
+button.q:hover{border-color:var(--accent);color:var(--accent)}
+tr.howrow td{background:var(--panel-2)}
+.brow{display:grid;grid-template-columns:44px 1fr;gap:6px;align-items:center;margin-top:4px}
+.brow .bl{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.brow .bl.m{color:var(--model)} .brow .bl.v{color:var(--vegas)}
+.brow .bar{margin-top:0}
+.bar .v{background:var(--vegas-soft)}
+table tr.grp td{font-weight:600;background:var(--panel-2)}
+.ctab .pos{color:var(--good)} .ctab .neg{color:var(--bad)}
+.cbar{display:inline-block;height:6px;border-radius:2px;vertical-align:middle}
+.ctab td.b{width:64px}
+.cap{font-family:var(--display);font-size:14px;font-weight:600;margin:0 0 4px}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:12px;margin-top:8px}
+.facts span{color:var(--muted)}
+.howbox{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 14px;font-size:13px}
+.howbox summary{font-weight:600;color:var(--ink)}
+.howbox dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;margin:8px 0 0}
+.howbox dt{font-weight:600;color:var(--ink)} .howbox dd{margin:0;color:var(--ink-2)}
+.eq{font-family:var(--mono);font-size:12.5px;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:12px;white-space:pre-wrap;line-height:1.6}
+details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
+.md table{margin:8px 0} .md h1,.md h2,.md h3{font-family:var(--display)} .md p{max-width:90ch;color:var(--ink-2)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <div>
+    <h1>3.0 Data Room</h1>
+    <p class="sub">NFL Model 3.0: this week's numbers, every team ranked, every priced game since 2019 against Vegas and the result, and every data point behind every rating. <span id="built"></span></p>
+  </div>
+  <div class="controls">
+    <label class="ctl">Team <select id="team"></select></label>
+    <label class="ctl">Season <select id="season"></select></label>
+  </div>
+</header>
+<nav class="tabs" role="tablist">
+  <button role="tab" data-tab="week">This week</button>
+  <button role="tab" data-tab="rank">Rankings</button>
+  <button role="tab" data-tab="history">History</button>
+  <button role="tab" data-tab="teamsec">Team</button>
+  <button role="tab" data-tab="model">Model</button>
+  <button role="tab" data-tab="track">Track record</button>
+</nav>
+
+<section class="tab" id="week" hidden>
+  <div class="row" style="justify-content:space-between">
+    <p class="note" id="weeknote" style="margin:0"></p>
+    <div class="legend" style="margin:0"><span><span class="dot" style="background:var(--model)"></span>model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span><span><span class="badge flag">flag</span> edge past the threshold</span></div>
+  </div>
+  <div class="tiles" id="weektiles"></div>
+  <details class="howbox"><summary>How every number on a card is made</summary>
+    <dl>
+      <dt>Model points</dt><dd>Each team's expected points from the fitted equation: a base for a league-average team in a neutral game, plus each rating's distance from the league average times what it is worth, plus the situation (home, rest, roof, wind, cold, division, primetime). "Why these numbers" on any card lists every input; Model → How it was built prints the whole equation.</dd>
+      <dt>Model spread and total</dt><dd>Home expected points minus away, and the two added together.</dd>
+      <dt>Vegas points</dt><dd>What the line implies: (total ± spread) ÷ 2.</dd>
+      <dt>Edge</dt><dd>Model line minus the Vegas line, in points, with the side it favours. The flag fires at <span id="thr"></span>: the thresholds that won in both backtest windows (History tab), on small samples.</dd>
+      <dt>Win %</dt><dd>Model: the chance the final margin lands above zero when the margin is treated as a bell curve centred on the model spread with a 13-point spread (the actual miss over 2013 to 2025), reshaped so 3 and 7 get their true share. Vegas: the moneyline with the bookmaker's cut removed, so the two sides sum to 100%.</dd>
+      <dt>Cover %</dt><dd>The same bell curve: the chance the margin beats the Vegas spread. Vegas's own number is 50% by construction, so the model's cover % is the whole disagreement.</dd>
+      <dt>Over %</dt><dd>The chance the total lands above the Vegas total, bell curve centred on the model total, 13.4-point spread.</dd>
+      <dt>Break-even</dt><dd>52.4% at −110. A cover or over % below that is a losing bet even if the model is right on average.</dd>
+    </dl>
+  </details>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section class="tab" id="rank" hidden>
+  <p class="note">Every team on every rating as of a chosen week, then plotted. <b>Power</b> is the model's full opinion of a team: run the fitted equation with this team's offense ratings and QB against a league-average defense, then an average offense against this team's defense, on a neutral field with no weather; power = points for − points allowed. It uses every input the model has except the game situation. The <b>scatter</b> is narrower: just the two EPA-per-play ratings, offense across and defense up, so you can see which side of the ball a team's strength comes from. Click a column to sort; the small number is the rank on that column.</p>
+  <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label></div>
+  <div class="grid2e" style="margin-bottom:14px">
+    <div class="card viz-root" id="scatcard"><h3>Offense vs defense EPA rating</h3><div id="scatter"></div><div class="tip" id="tip2"></div></div>
+    <div class="card viz-root"><h3>Power: expected margin against an average team, neutral field</h3><div id="powerbar"></div></div>
+  </div>
+  <div class="tablewrap"><table id="rktable"></table></div>
+  <div class="status" id="rkstatus"></div>
+</section>
+
+<section class="tab" id="history" hidden>
+  <p class="note">Every regular-season game the model priced since 2019, walk-forward: each week priced with only earlier games, the regression refit each season on prior seasons only. The model's lean is the side its line favours against the closing line; "Covered" grades that lean on every game, and the flag marks the 5+ edges the page would have flagged.</p>
+  <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
+  <div id="bksummary"></div>
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
+    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the 5+ point spread flags, cumulative</h3><div id="unitschart"></div></div>
+  </div>
+  <div class="tablewrap"><table id="bktable"></table></div>
+</section>
+
+<section class="tab" id="teamsec" hidden>
+  <nav class="sub" id="teamsub">
+    <button data-sub="games">Game log (raw data)</button>
+    <button data-sub="ratings">Ratings by week</button>
+    <button data-sub="how">How a rating is built</button>
+    <button data-sub="inputs">Game deep dive</button>
+  </nav>
+  <div id="games">
+    <p class="note">One row per game for the team and season chosen at the top right, straight from the built tables: the box score (checked against Pro-Football-Reference), the EPA stats, the ratings carried into the game, the trend readings, the model's call and the closing line. Turn column groups on and off; hover a header for the definition and source. "Allowed" groups are what the defense gave up.</p>
+    <div class="chips" id="groupchips"></div>
+    <div class="legend"><span><span class="dot v3"></span>used by 3.0</span><span>points coloured by win/loss</span></div>
+    <div class="tablewrap"><table id="gamestable"></table></div>
+    <div class="status" id="gamesstatus"></div>
+  </div>
+  <div id="ratings" hidden>
+    <p class="note">What the team carried into each week: the offense EPA rating (better than an average offense per play, after opponents, decay and shrinkage) and its own defense EPA rating (positive = good). Week 1 is last season shrunk toward zero; each game moves it.</p>
+    <div class="grid2">
+      <div class="card viz-root" id="chartcard"><h3 id="charttitle"></h3><div id="chart"></div><div class="tip" id="tip"></div></div>
+      <div class="card"><h3>The same numbers as a table</h3><div class="tablewrap" style="max-height:52vh"><table id="ratingstable"></table></div></div>
+    </div>
+  </div>
+  <div id="how" hidden>
+    <p class="note">Follow one rating from the raw game data to the number. Every row is a game the model used, with its weight; the sums at the bottom give the rating, and it is checked against the number the model actually used.</p>
+    <div class="row"><label class="ctl">As of <select id="howweek"></select></label><label class="ctl">Stat <select id="howstat"><option value="epa_play">EPA per play (main rating)</option><option value="pass_epa">Pass EPA</option><option value="rush_epa">Rush EPA</option><option value="pf">Points</option><option value="plays">Pace (plays)</option><option value="success">Success rate (computed, not in the regression)</option></select></label><label class="ctl">Side <select id="howside"><option value="off">Offense</option><option value="def">Defense</option></select></label></div>
+    <p class="note" id="howformula"></p>
+    <div class="tablewrap" style="max-height:56vh"><table id="howtable"></table></div>
+    <div id="howsum" style="margin-top:12px"></div>
+  </div>
+  <div id="inputs" hidden>
+    <p class="note">Pick a game. Every input the regression used, its value, what one unit is worth in points that season, and its contribution: coefficient times the input's distance from its baseline (the league average for a rating, zero for a situation flag). The base plus every contribution adds up exactly to the model's expected points.</p>
+    <div class="row"><label class="ctl">Game <select id="game"></select></label></div>
+    <div class="grid2">
+      <div class="card"><div class="tablewrap" style="max-height:60vh"><table id="inputstable"></table></div></div>
+      <div class="card"><h3>This game</h3><div class="kv" id="gamekv"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="tab" id="model" hidden>
+  <nav class="sub" id="modelsub">
+    <button data-sub="analysis">How it was built</button>
+    <button data-sub="inputsx">Inputs explained</button>
+    <button data-sub="dict">Every column</button>
+    <button data-sub="log">Data pulls and verification</button>
+    <button data-sub="decisions">Decision log and audit</button>
+  </nav>
+  <div id="analysis"></div>
+  <div id="inputsx" hidden></div>
+  <div id="dict" hidden>
+    <p class="note">Every column in the data: where it comes from, what it means, and whether it feeds 3.0.</p>
+    <div class="tablewrap"><table id="dicttable"></table></div>
+  </div>
+  <div id="log" hidden>
+    <p class="note">Every nflverse download with its size and hash, and the verification that runs after each rebuild (2024 totals against Pro-Football-Reference, scores against the schedule, offense/defense mirrors).</p>
+    <div class="tablewrap" style="max-height:36vh"><table id="logtable"></table></div>
+    <h2>Verification</h2>
+    <div class="md" id="verification"></div>
+  </div>
+  <div id="decisions" hidden>
+    <p class="note">Every claim that was tested, the test, the result and the decision, newest first. Then the backtest audit.</p>
+    <div class="md" id="decisionlog"></div>
+    <h2>Backtest audit</h2>
+    <div class="md" id="auditmd"></div>
+  </div>
+</section>
+
+<section class="tab" id="track" hidden>
+  <p class="note">Model picks (flagged at the thresholds) and Matt's bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Your bets go in data/tracker/my_bets.csv (game_id, bet, odds, stake).</p>
+  <div class="grid2e">
+    <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
+    <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
+  </div>
+  <div class="tablewrap" style="margin-top:14px"><table id="tracktable"></table></div>
+</section>
+</div>
+
+<script src="data/meta.js"></script>
+<script src="data/week.js"></script>
+<script src="data/track.js"></script>
+<script src="data/rankings.js"></script>
+<script src="data/backtest.js"></script>
+<script>
+(function(){
+  const META = window.META, RK = window.RANK || null;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  const pct = v => v == null || isNaN(v) ? "" : (v * 100).toFixed(0) + "%";
+  const sgn = (v, d = 1) => v == null || isNaN(v) ? "" : (v >= 0 ? "+" : "") + v.toFixed(d);
+  const fmtn = v => v == null || isNaN(v) ? "" : (Math.abs(v) < 1 ? v.toFixed(4) : v.toFixed(2));
+  const fmt = (v, c) => {
+    if (v === null || v === undefined) return "";
+    if (typeof v === "boolean") return v ? "yes" : "";
+    if (typeof v === "number") {
+      if (isNaN(v)) return "";
+      if (/^(m_win|m_cover|m_over|success|.*_rate|.*_pct|third_conv|score_rate|td_rate|.*_success|pass_rate|cpoe|ref_over|ref_home_cover)$/.test(c) && Math.abs(v) <= 1.5) return (v*100).toFixed(1) + "%";
+      if (Number.isInteger(v)) return String(v);
+      if (Number.isInteger(v * 2)) return v.toFixed(1);
+      return Math.abs(v) < 1 ? v.toFixed(3) : (Math.abs(v) < 10 ? v.toFixed(2) : v.toFixed(1));
+    }
+    return String(v);
+  };
+  const FEAT_LABEL = {qb_rating:"Starting QB rating", opp_qb_rating:"Opponent QB rating", off_epa_play:"Own offense EPA rating", def_epa_play:"Opponent defense EPA rating",
+    off_pass_epa:"Own pass EPA rating", def_pass_epa:"Opponent pass-defense rating", off_rush_epa:"Own rush EPA rating", def_rush_epa:"Opponent rush-defense rating",
+    off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
+    opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
+    rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
+    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
+  const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
+  $("built").textContent = "Data built " + META.built + ".";
+
+  // ---------- state ----------
+  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "games", model: "analysis"}, gameIdx = 0;
+  let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
+  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = o.sub; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
+  const GROUP_ORDER = ["Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
+    "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
+  const DEFAULT_ON = new Set(["Result","Line","Situation","Model","EPA stats","Box score","Ratings into the game"]);
+  const HIDE = new Set(["season","week","game_type","team","opp","home","gameday","qb_id","game_id"]);
+  var on = new Set(DEFAULT_ON);
+  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.on) { on = new Set(o.on); } } } catch (e) {}
+  const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
+  const groupsOf = {};
+  META.columns.forEach(c => { if (HIDE.has(c)) return; const g = (META.dictionary[c]||{}).group || "Other"; (groupsOf[g] = groupsOf[g] || []).push(c); });
+  const groups = GROUP_ORDER.filter(g => groupsOf[g]).concat(Object.keys(groupsOf).filter(g => !GROUP_ORDER.includes(g)));
+
+  // ---------- controls ----------
+  META.teams.forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; $("team").appendChild(o); });
+  $("team").value = team;
+  for (let s = 2026; s >= 2012; s--) { const o = document.createElement("option"); o.value = s; o.textContent = s; $("season").appendChild(o); }
+  $("season").value = season;
+  $("team").addEventListener("change", e => { team = e.target.value; gameIdx = 0; save(); load(); });
+  $("season").addEventListener("change", e => { season = +e.target.value; howWeek = null; gameIdx = 0; save(); render(); });
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; save(); showTab(); render(); }));
+  document.querySelectorAll("nav.sub button").forEach(b => b.addEventListener("click", () => { const sec = b.closest("section").id; sub[sec] = b.dataset.sub; save(); showTab(); render(); }));
+  function showTab() {
+    document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
+    document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== tab);
+    ["teamsec", "model"].forEach(sec => { const cur = sub[sec]; document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
+      document.querySelectorAll(`#${sec} > div[id]`).forEach(d => d.hidden = d.id !== cur); });
+  }
+  groups.forEach(g => { const b = document.createElement("button"); b.className = "chip"; b.textContent = g; b.setAttribute("aria-pressed", on.has(g) ? "true" : "false");
+    b.addEventListener("click", () => { on.has(g) ? on.delete(g) : on.add(g); b.setAttribute("aria-pressed", on.has(g) ? "true" : "false"); save(); renderGames(); }); $("groupchips").appendChild(b); });
+
+  function load() {
+    if (window.TEAMDATA && window.TEAMDATA[team]) { data = window.TEAMDATA[team]; render(); return; }
+    $("gamesstatus").textContent = "Loading " + team + "...";
+    const s = document.createElement("script"); s.src = "data/" + team + ".js";
+    s.onload = () => { data = window.TEAMDATA[team]; render(); };
+    s.onerror = () => { $("gamesstatus").textContent = "Could not load data for " + team + "."; };
+    document.head.appendChild(s);
+  }
+  function allRows() { if (!data) return []; return data.rows.map(r => { const o = {}; data.cols.forEach((c, i) => o[c] = r[i]); return o; }); }
+  function rows() { return allRows().filter(r => r.season === season); }
+  function usedDot(c) { const d = META.dictionary[c] || {}; return (d.used_v3 ? '<span class="u" style="background:var(--v3)"></span>' : ''); }
+  function label(c) { return c.replace(/^box_/, "").replace(/^r_/, "").replace(/^off_/, "").replace(/^def_/, "").replace(/^m_/, "").replace(/_ng$/, ""); }
+  function coefsFor(s) { return META.coefs[String(s)] || META.coefs[Object.keys(META.coefs).sort().pop()]; }
+  // Situational inputs are measured from zero (away, outdoors, no wind, normal rest, no bye, not a division game, not primetime),
+  // rating inputs from the league average. The base is the regression's intercept moved to that neutral situation, so a dome
+  // game shows "dome +0.2" and nothing for wind, instead of "wind +0.84" for having none. Both bookkeepings sum to the same points.
+  const SIT = new Set(["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "rain", "div_game", "primetime", "qb_out"]);
+  const GROUPS = [["Offense: this team's ratings", ["off_epa_play", "off_pf"]],
+                  ["Defense it faces: the opponent's ratings", ["def_epa_play", "def_pf"]],
+                  ["Quarterback", ["qb_rating", "qb_out"]],
+                  ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain"]]];
+  const EXPLAIN = {
+    off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
+    off_pf: "Points the offense scores against an average defense, opponent-adjusted and decayed. 0 = league average.",
+    def_epa_play: "EPA per play the opponent's defense allows, opponent-adjusted and decayed. Positive = a defense that allows less than average, which lowers this team's points.",
+    def_pf: "Points the opponent's defense allows against an average offense, opponent-adjusted. Positive = stingy.",
+    qb_rating: "The starter's own EPA per dropback over his career, decayed and shrunk toward replacement level. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry.",
+    qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement. Fitted on those games: they scored about 4 fewer points than the team's ratings said.",
+    home: "1 at home, 0 away. Home teams scored 1.90 more points per game than away teams over 2013 to 2025 before any adjustment; the regression's estimate with the ratings held fixed is what is shown. Away teams get 0, not a subtraction: the base is an away game.",
+    neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
+    dome: "1 indoors or under a closed roof. Indoor teams scored 1.47 more points than outdoor ones raw; most of that is the teams that play indoors, which the ratings already know, so the fitted bump is small.",
+    wind_out: "Wind at kickoff in mph, 0 indoors. Each mph costs a fraction of a point: offenses averaged 23.8 points in calm air and 21.4 at 11 to 15 mph. For an unplayed outdoor game with no forecast yet the league-typical 7 mph is used until the Saturday forecast lands.",
+    cold: "1 when the kickoff temperature is under 35F outdoors. Cold games score about half a point less.",
+    rain: "1 when the play-by-play weather text says rain, showers or a storm (outdoor games); for an unplayed game, 1 when the kickoff forecast gives 50%+ chance of precipitation. Added 22 Sep 2026: it lowered the points miss on both backtest windows."
+  };
+  function neutralBase(co) { let b = co.intercept; META.feats.forEach(f => { if (SIT.has(f)) b -= co.per_unit[f] * co.mean[f]; }); return b; }
+  function contributions(inputs, s) {
+    const co = coefsFor(s); const out = []; const base = neutralBase(co); let total = base;
+    META.feats.forEach(f => { const v = inputs[f]; if (v == null) return; const c = SIT.has(f) ? co.per_unit[f] * v : co.per_unit[f] * (v - co.mean[f]); total += c; out.push({f, v, c, sit: SIT.has(f)}); });
+    return {items: out, total, base, intercept: co.intercept};
+  }
+
+  // ---------- This week: cards ----------
+  function bar(leftLabel, leftP, rightLabel, rightP, cls, rowLabel) {
+    const lp = Math.max(0, Math.min(100, Math.round(leftP * 100))), rp = 100 - lp;
+    const b = `<div class="bar"><span class="${cls} ${lp >= 52.4 ? "lead" : ""}" style="width:${lp}%">${leftLabel} ${lp}%</span><span class="a2 ${rp >= 52.4 ? "lead" : ""}" style="width:${rp}%;text-align:right">${rightLabel} ${rp}%</span></div>`;
+    return rowLabel ? `<div class="brow"><span class="bl ${cls === "v" ? "v" : "m"}">${rowLabel}</span>${b}</div>` : b;
+  }
+  function mlProb(ml) { if (ml == null || isNaN(ml)) return null; return ml < 0 ? (-ml) / (-ml + 100) : 100 / (ml + 100); }
+  function vegasWin(g) {
+    const ph = mlProb(g.home_ml), pa = mlProb(g.away_ml);
+    if (ph != null && pa != null) return ph / (ph + pa);
+    if (g.spread_line != null && g.sigma_margin) return normCdf(g.spread_line / g.sigma_margin);
+    return null;
+  }
+  function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - p : p; }
+  function lineTxt(team, num) { return `${team} ${num > 0 ? "+" : ""}${Number.isInteger(num) ? num : num.toFixed(1)}`; }
+  function renderWeek() {
+    const W = window.WEEK || {};
+    if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
+    const flagged = W.games.filter(g => g.bet);
+    $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}.</b> ${W.games.length} games, ${flagged.length} flagged. Blue is the model, orange is Vegas. Each card splits into the spread, the total, the points behind them and the win odds; the edge under each market is the model's line minus the Vegas line. 52.4% is break-even at −110.`;
+    if ($("thr")) $("thr").textContent = `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
+    const withLine = W.games.filter(g => g.spread_line != null);
+    $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>flagged games: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
+      <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>average disagreement with the current spread, points</span></div>
+      <div class="tile"><b>${W.games.filter(g => g.home_score != null).length}</b><span>games played so far this week</span></div>`;
+    let h = "";
+    W.games.forEach((g, i) => {
+      const H = g.home_team, A = g.away_team, hasLine = g.spread_line != null, played = g.home_score != null;
+      const vh = hasLine ? (g.total_line + g.spread_line) / 2 : null, va = hasLine ? (g.total_line - g.spread_line) / 2 : null;
+      const sh = g.sides && g.sides[H] || {};
+      const wx = sh.dome ? "dome" : [(sh.temp != null ? sh.temp + "F" : null), (sh.wind != null ? "wind " + sh.wind + " mph" : null)].filter(Boolean).join(", ") || "weather unknown";
+      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && Math.abs(g.total_edge) >= W.total_edge;
+      const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = hasLine ? (g.total_edge > 0 ? "Over" : "Under") : null;
+      const vw = vegasWin(g);
+      const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
+      const actualMargin = played ? g.home_score - g.away_score : null;
+      h += `<article class="gcard ${g.bet ? "flagged" : ""}">
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${(g.kickoff || g.gameday || "").replace("T", " ")} ET · ${wx}${g.referee ? " · ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}</div>
+        <div class="blocks">
+          <section class="blk"><div class="bh">Spread</div>
+            <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
+            <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "no line yet"}</b></div>
+            ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip">${g.p_cover_home >= 0.5 ? H : A} +${Math.round(100 * Math.abs(g.p_cover_home - 0.5))} vs line</span>` : ""}
+          </section>
+          <section class="blk"><div class="bh">Total</div>
+            <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
+            <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "no line yet"}</b></div>
+            ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip">${g.p_over >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs(g.p_over - 0.5))} vs line</span>` : ""}
+          </section>
+          <section class="blk"><div class="bh">Points</div>
+            <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
+              <span>Model</span><b class="m">${g.away_exp.toFixed(1)}</b><b class="m">${g.home_exp.toFixed(1)}</b>
+              <span>Vegas</span><b class="v">${hasLine ? va.toFixed(1) : ""}</b><b class="v">${hasLine ? vh.toFixed(1) : ""}</b>
+              ${played ? `<span>Actual</span><b>${g.away_score}</b><b>${g.home_score}</b>` : ""}
+            </div>
+          </section>
+          <section class="blk"><div class="bh">Win</div>
+            ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
+            ${vw == null ? `<small class="note" style="font-size:11px">no moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
+            ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
+            ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
+          </section>
+        </div>
+        <button class="why" data-i="${i}" aria-expanded="false">Why these numbers ▾</button>
+        <div class="whybox" id="why${i}" hidden></div>
+      </article>`;
+    });
+    $("cards").innerHTML = h;
+    $("cards").querySelectorAll("button.why").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
+  }
+  // pair the rest inputs when both teams share the situation (a Thursday game puts both on a short week), so the reader sees the net effect
+  function mergePairs(items) {
+    const byF = Object.fromEntries(items.map(x => [x.f, x]));
+    const out = items.slice();
+    [["rest_short", "opp_rest_short", "Thursday game: both on a short week"], ["rest_long", "opp_rest_long", "Both teams off a bye"]].forEach(([a, b, lab]) => {
+      if (byF[a] && byF[b] && byF[a].v == 1 && byF[b].v == 1) {
+        const i = out.indexOf(byF[a]), j = out.indexOf(byF[b]);
+        out.splice(Math.max(i, j), 1); out.splice(Math.min(i, j), 1, {f: a + "+" + b, v: 1, c: byF[a].c + byF[b].c, label: lab});
+      }
+    });
+    return out.sort((x, y) => Math.abs(y.c) - Math.abs(x.c));
+  }
+  function factLine(f) {
+    const SF = (META.analysis || {}).situation_facts; if (!SF) return "";
+    if (f === "wind_out" && SF.wind) return "Raw data " + SF.seasons + ": points scored by wind, " + SF.wind.map(w => `${w.bucket} mph ${w.pf}`).join(" · ") + ".";
+    const x = SF.flags && SF.flags[f]; if (!x) return "";
+    return `Raw data ${SF.seasons}: with it ${x.on} points (${x.n_on.toLocaleString()} team-games), without ${x.off}, gap ${x.diff > 0 ? "+" : ""}${x.diff}. The fitted number differs because the ratings and the other inputs are held fixed.`;
+  }
+  function rowHtml(x, co, maxc, inp) {
+    let val = fmt(x.v, x.f);
+    if (x.f === "wind_out" && inp && !inp.dome && inp.temp == null) val += " <span class='rk'>(typical; no forecast yet)</span>";
+    const unit = SIT.has(x.f) ? `${co.per_unit[x.f].toFixed(3)} × ${val}` : `${co.per_unit[x.f].toFixed(3)} × (${val} − ${co.mean[x.f].toFixed(3)})`;
+    return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f}</td><td class="v">${unit}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c > 0 ? "var(--good)" : (x.c < 0 ? "var(--bad)" : "transparent")}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`;
+  }
+  function whyHtml(g, s, gIdx) {
+    const cols = [g.home_team, g.away_team].map((t, ti) => {
+      const inp = g.sides && g.sides[t]; if (!inp) return `<div><b>${t}</b><p class="note">No inputs exported.</p></div>`;
+      const co = coefsFor(s); const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
+      const maxc = Math.max(...c.items.map(x => Math.abs(x.c)), 0.01);
+      let h = `<div><p class="cap">${t}: ${c.total.toFixed(1)} expected points</p><table class="ctab main"><tbody>`;
+      h += `<tr class="base"><td>Base: league-average team, neutral game</td><td class="n">${c.base.toFixed(1)}</td></tr>`;
+      GROUPS.forEach(([gname, fs], gi) => {
+        const items = fs.filter(f => META.feats.includes(f)).map(f => byF[f] || {f, v: inp[f] == null ? null : inp[f], c: 0});
+        const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
+        const id = `x${gIdx}_${ti}_${gi}`;
+        h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
+        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table></td></tr>`;
+      });
+      h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
+      h += `<div class="facts"><span>Starting QB</span><b>${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (last game's starter listed out)" : ""}</b><span>Rest</span><b>${inp.rest} days</b><span>Starters out</span><b>offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</b>
+        <span>Not used <span class="badge noise">noise</span></span><b style="font-weight:400;color:var(--ink-2)">coach ATS ${fmtn(inp.coach_ats)} · QB ATS ${fmtn(inp.qb_ats)} · head-to-head ${fmtn(inp.h2h_cover)} · home edge ${fmtn(inp.team_home_edge)} · referee over ${pct(inp.ref_over)}</b></div></div>`;
+      return h;
+    });
+    const hist = g.line_history && g.line_history.length ? `<p class="note" style="grid-column:1 / -1;margin:0">Line log: ${g.line_history.length} snapshots, spread ${g.line_history[0].home_spread} → ${g.line_history[g.line_history.length - 1].home_spread}, total ${g.line_history[0].total} → ${g.line_history[g.line_history.length - 1].total}.</p>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
+    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation. What each input is and how it is measured: Model → Inputs explained. Every number here is regenerated from the data on each weekly run.</p>`;
+  }
+  document.addEventListener("click", ev => { const q = ev.target.closest("button.q"); if (q) { const r = $(q.dataset.how); r.hidden = !r.hidden; return; } const b = ev.target.closest("button.open"); if (!b) return; const row = $(b.dataset.open); const open = row.hidden; row.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = (open ? "▾ " : "▸ ") + b.textContent.slice(2); });
+
+  // ---------- Rankings ----------
+  function renderRankings() {
+    if (!RK) return;
+    const seasons = Object.keys(RK.seasons).sort((a, b) => b - a);
+    const ss = $("rkseason"); if (!ss.options.length) { seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; ss.appendChild(o); }); ss.onchange = () => { rkSeason = +ss.value; rkWeek = null; renderRankings(); }; }
+    if (rkSeason == null) rkSeason = +seasons[0];
+    ss.value = rkSeason;
+    const S = String(rkSeason);
+    // only weeks the data can speak to: through the week holding the next unplayed game (a later "going into" would be this same table, decayed)
+    const playedWk = bkRows().filter(r => r.season === rkSeason && r.home_score != null).map(r => r.week);
+    const lastPlayed = playedWk.length ? Math.max(...playedWk) : 0;
+    const weeks = Object.keys(RK.seasons[S]).map(Number).sort((a, b) => a - b).filter(w => w <= lastPlayed + 1);
+    const sel = $("rkweek"); sel.innerHTML = ""; weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = "going into Week " + w; sel.appendChild(o); });
+    if (rkWeek == null || !weeks.includes(rkWeek)) { const bk = bkRows().filter(r => r.season === rkSeason && r.home_score != null); const nxt = bk.length ? Math.max(...bk.map(r => r.week)) + 1 : weeks[weeks.length - 1]; rkWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
+    sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
+    const tabl = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tabl.teams);
+    const cols = [["power", "Power (pts vs avg team)", 1], ["power_pf", "Points for vs avg", 1], ["power_pa", "Points allowed vs avg", -1], ["off_epa_play", "Off EPA rating", 1], ["def_epa_play", "Def EPA rating", 1],
+                  ["off_pf", "Points rating (off)", 1], ["def_pf", "Points rating (def)", 1], ["qb_rating", "QB rating", 1], ["n_games", "Games", 1]];
+    const oldcols = [];
+    const val = (t, k) => (k in tabl.teams[t]) ? tabl.teams[t][k] : null;
+    const ranks = {}; [...cols, ...oldcols].forEach(([k, , dir]) => { const sorted = teams.slice().sort((a, b) => (val(b, k) - val(a, k)) * dir); ranks[k] = {}; sorted.forEach((t, i) => ranks[k][t] = i + 1); });
+    const dirOf = Object.fromEntries([...cols, ...oldcols].map(([k, , d]) => [k, d]));
+    const order = teams.slice().sort((a, b) => (val(b, rkSort) - val(a, rkSort)) * (dirOf[rkSort] || 1) * (rkDir === -1 ? 1 : -1));
+    let h = "<thead><tr><th>#</th><th class='l'>Team</th>" + [...cols, ...oldcols].map(([k, lab]) => `<th data-k="${k}" class="sortable ${k === rkSort ? "on" : ""}" title="click to sort">${lab}</th>`).join("") + "</tr></thead><tbody>";
+    order.forEach((t, i) => { h += `<tr><td>${i + 1}</td><td class="l"><b>${t}</b></td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s2 = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s2} <span class="rk">${k === "n_games" ? "" : "#" + ranks[k][t]}</span></td>`; }).join("") + "</tr>"; });
+    $("rktable").innerHTML = h + "</tbody>";
+    $("rktable").querySelectorAll("th.sortable").forEach(th => th.addEventListener("click", () => { if (rkSort === th.dataset.k) rkDir = -rkDir; else { rkSort = th.dataset.k; rkDir = -1; } renderRankings(); }));
+    $("rkstatus").innerHTML = `Ratings going into Week ${rkWeek}, ${S}: what every team carried into that week, nothing from that week or later. Defense EPA rating: positive is good. League averages this week: EPA/play ${tabl.mu.epa_play}, points ${tabl.mu.pf.toFixed(1)}; home bump on points ${tabl.h.pf.toFixed(2)}.`;
+    // scatter: offense vs defense EPA rating
+    const W = 520, Hh = 400, m = {t: 16, r: 16, b: 36, l: 44};
+    const xs = teams.map(t => val(t, "off_epa_play")), ys = teams.map(t => val(t, "def_epa_play"));
+    const lim = Math.max(0.02, ...xs.map(Math.abs), ...ys.map(Math.abs)) * 1.15;
+    const x = v => m.l + (v + lim) / (2 * lim) * (W - m.l - m.r), y = v => m.t + (lim - v) / (2 * lim) * (Hh - m.t - m.b);
+    let sv = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Offense EPA rating against defense EPA rating, one dot per team">`;
+    sv += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/><line x1="${x(0)}" x2="${x(0)}" y1="${m.t}" y2="${Hh - m.b}" stroke="var(--rule)"/>`;
+    sv += `<text x="${W - m.r}" y="${Hh - 8}" text-anchor="end" font-size="11" fill="var(--text-secondary)">offense EPA rating → better</text><text transform="translate(12 ${m.t + 10}) rotate(90)" font-size="11" fill="var(--text-secondary)" text-anchor="start">defense EPA rating ↑ better</text>`;
+    sv += `<text x="${W - m.r - 4}" y="${m.t + 12}" text-anchor="end" font-size="11" fill="var(--text-secondary)">good offense, good defense</text><text x="${m.l + 4}" y="${Hh - m.b - 6}" font-size="11" fill="var(--text-secondary)">weak both</text>`;
+    teams.forEach((t, i) => { sv += `<circle class="pt" data-t="${t}" cx="${x(xs[i]).toFixed(1)}" cy="${y(ys[i]).toFixed(1)}" r="4.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="1.5"/><text x="${(x(xs[i]) + 6).toFixed(1)}" y="${(y(ys[i]) + 4).toFixed(1)}" font-size="10.5" fill="var(--text-primary)">${t}</text>`; });
+    sv += "</svg>";
+    $("scatter").innerHTML = sv;
+    const tip = $("tip2");
+    $("scatter").querySelectorAll("circle.pt").forEach(el => { el.addEventListener("mousemove", ev => { const t = el.dataset.t; const box = $("scatcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; tip.innerHTML = `<b>${t}</b> off ${val(t, "off_epa_play").toFixed(3)} (#${ranks.off_epa_play[t]}) · def ${val(t, "def_epa_play").toFixed(3)} (#${ranks.def_epa_play[t]}) · power ${sgn(val(t, "power"))}`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
+    // power bars
+    const ordP = teams.slice().sort((a, b) => val(b, "power") - val(a, "power"));
+    const maxP = Math.max(...ordP.map(t => Math.abs(val(t, "power"))), 1);
+    const rowH = 12, W2 = 520, H2 = m.t + ordP.length * rowH + 8, cx = W2 / 2 + 20;
+    let pb = `<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Power rating by team">`;
+    pb += `<line x1="${cx}" x2="${cx}" y1="${m.t - 4}" y2="${H2 - 4}" stroke="var(--rule)"/>`;
+    ordP.forEach((t, i) => { const v = val(t, "power"), w = Math.abs(v) / maxP * (W2 / 2 - 110), yy = m.t + i * rowH; pb += `<rect x="${v >= 0 ? cx : cx - w}" y="${yy}" width="${w.toFixed(1)}" height="${rowH - 3}" rx="2" fill="var(--series-1)"/><text x="${cx - (W2 / 2 - 110) - 40}" y="${yy + rowH - 4}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--text-primary)">${t}</text><text x="${v >= 0 ? cx + w + 4 : cx - w - 4}" y="${yy + rowH - 4}" text-anchor="${v >= 0 ? "start" : "end"}" font-size="9.5" fill="var(--text-secondary)">${sgn(v)}</text>`; });
+    pb += "</svg>";
+    $("powerbar").innerHTML = pb;
+  }
+
+  // ---------- History ----------
+  function bkRows() { const B = window.BACKTEST || {cols: [], rows: []}; const idx = {}; B.cols.forEach((c, i) => idx[c] = i); return B.rows.map(r => { const o = {}; B.cols.forEach((c, i) => o[c] = r[i]); return o; }); }
+  function gradeGame(r) {
+    const margin = r.home_score - r.away_score, total = r.home_score + r.away_score, ms = r.home_exp - r.away_exp, mt = r.home_exp + r.away_exp;
+    const edge = r.spread_line == null ? null : ms - r.spread_line, tedge = r.total_line == null ? null : mt - r.total_line;
+    const pick = edge == null ? null : (edge > 0 ? r.home_team : r.away_team);
+    const cm = r.spread_line == null ? null : margin - r.spread_line;
+    const pickWon = cm == null || cm === 0 ? null : (edge > 0 ? cm > 0 : cm < 0);
+    const ouPick = tedge == null ? null : (tedge > 0 ? "Over" : "Under");
+    const ouWon = tedge == null || total === r.total_line ? null : (tedge > 0 ? total > r.total_line : total < r.total_line);
+    const suWon = margin === 0 ? null : (r.p_home >= 0.5 ? margin > 0 : margin < 0);
+    const vegasSuWon = r.spread_line == null || margin === 0 ? null : (r.spread_line > 0 ? margin > 0 : margin < 0);
+    return {...r, margin, total, ms, mt, edge, tedge, pick, pickWon, ouPick, ouWon, suWon, vegasSuWon,
+      mErr: (Math.abs(r.home_exp - r.home_score) + Math.abs(r.away_exp - r.away_score)) / 2, vErr: r.home_implied == null ? null : (Math.abs(r.home_implied - r.home_score) + Math.abs(r.away_implied - r.away_score)) / 2,
+      mMargErr: Math.abs(ms - margin), vMargErr: r.spread_line == null ? null : Math.abs(r.spread_line - margin)};
+  }
+  const rec = (arr, key) => { const w = arr.filter(x => x[key] === true).length, l = arr.filter(x => x[key] === false).length; return {w, l, pct: w + l ? (w / (w + l) * 100).toFixed(1) + "%" : ""}; };
+  const mean = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(2) : ""; };
+  function renderBacktest() {
+    const all = bkRows().filter(r => r.home_score != null).map(gradeGame);
+    if (!all.length) { $("bksummary").innerHTML = "<p class='note'>No graded games exported.</p>"; return; }
+    const seasons = [...new Set(all.map(r => r.season))].sort((a, b) => b - a);
+    const sel = $("bkseason");
+    if (!sel.options.length) { const o0 = document.createElement("option"); o0.value = "all"; o0.textContent = "2019 to now"; sel.appendChild(o0); seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); }); sel.value = "all"; sel.onchange = () => { bkSeason = sel.value; renderBacktest(); }; }
+    const g = bkSeason !== "all" ? all.filter(r => r.season == bkSeason) : all;
+    const su = rec(g, "suWon"), vsu = rec(g, "vegasSuWon"), ats = rec(g, "pickWon"), ats5 = rec(g.filter(x => x.edge != null && Math.abs(x.edge) >= 5), "pickWon"), ou = rec(g, "ouWon"), ou6 = rec(g.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6), "ouWon");
+    $("bksummary").innerHTML = `<div class="tiles">
+      <div class="tile"><b>${g.length}</b><span>games graded</span></div>
+      <div class="tile"><b>${su.pct}</b><span>straight-up: model favourite won (${su.w}-${su.l}). Vegas favourite ${vsu.pct}</span></div>
+      <div class="tile"><b>${ats.pct}</b><span>against the spread, every game, side = model's lean (${ats.w}-${ats.l}). Break-even 52.4%</span></div>
+      <div class="tile"><b>${ats5.pct}</b><span>against the spread at a 5+ edge, the flag (${ats5.w}-${ats5.l})</span></div>
+      <div class="tile"><b>${ou.pct}</b><span>over/under, every game (${ou.w}-${ou.l}); at a 6+ edge ${ou6.pct} (${ou6.w}-${ou6.l})</span></div>
+      <div class="tile"><b>${mean(g, "mErr")}</b><span>team points miss, model. Vegas implied ${mean(g, "vErr")}</span></div>
+      <div class="tile"><b>${mean(g, "mMargErr")}</b><span>margin miss, model. Vegas ${mean(g, "vMargErr")}</span></div></div>`;
+    // by season
+    let bs = "<thead><tr><th class='grp'></th><th class='grp'></th><th class='grp' colspan='2'>Winner picked</th><th class='grp' colspan='4'>Against the spread</th><th class='grp' colspan='3'>Over / under</th><th class='grp' colspan='2'>Points miss per team</th></tr>"
+           + "<tr><th>Season</th><th>Games</th><th>Model</th><th>Vegas</th><th>Every game</th><th>Record</th><th>Flags (5+)</th><th>Record</th><th>Every game</th><th>Flags (6+)</th><th>Record</th><th>Model</th><th>Vegas</th></tr></thead><tbody>";
+    seasons.slice().reverse().forEach(s => { const x = all.filter(r => r.season === s); const a = rec(x, "suWon"), b = rec(x, "vegasSuWon"), c = rec(x, "pickWon"), d = rec(x.filter(q => q.edge != null && Math.abs(q.edge) >= 5), "pickWon"), e = rec(x, "ouWon"), f = rec(x.filter(q => q.tedge != null && Math.abs(q.tedge) >= 6), "ouWon");
+      const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
+      bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
+    $("bkseasons").innerHTML = bs + "</tbody>";
+    // cumulative units on 5+ flags
+    const fl = all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null).sort((a, b) => a.season - b.season || a.week - b.week);
+    let cum = 0; const pts = fl.map(x => { cum += x.pickWon ? 1 : -1.1; return cum; });
+    const Wc = 520, Hc = 220, mc = {t: 26, r: 16, b: 28, l: 40};
+    const ymin = Math.min(0, ...pts), ymax = Math.max(1, ...pts);
+    const xx = i => mc.l + (i / Math.max(1, pts.length - 1)) * (Wc - mc.l - mc.r), yy = v => mc.t + (ymax - v) / (ymax - ymin) * (Hc - mc.t - mc.b);
+    let uc = `<svg viewBox="0 0 ${Wc} ${Hc}" role="img" aria-label="Cumulative units on flagged spread bets"><line x1="${mc.l}" x2="${Wc - mc.r}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--rule)"/>`;
+    [ymin, 0, ymax].forEach(v => { uc += `<text x="${mc.l - 6}" y="${yy(v) + 4}" text-anchor="end" font-size="10.5" fill="var(--text-secondary)">${v.toFixed(0)}</text>`; });
+    if (pts.length) uc += `<path d="${pts.map((v, i) => (i ? "L" : "M") + xx(i).toFixed(1) + " " + yy(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--series-1)" stroke-width="2"/><circle cx="${xx(pts.length - 1)}" cy="${yy(cum)}" r="3.5" fill="var(--series-1)"/>`;
+    // the running total goes in the top-left corner, off the line
+    uc += `<text x="${mc.l + 4}" y="${mc.t - 10}" font-size="11.5" font-weight="600" fill="var(--text-primary)">${cum >= 0 ? "+" : ""}${cum.toFixed(1)} units after ${pts.length} bets at −110, one unit each</text>`;
+    // one season tick per season, at its first flagged bet, skipping any that would sit within 34px of the previous tick
+    let lastS = null, lastX = -99; fl.forEach((x, i) => { if (x.season !== lastS) { lastS = x.season; if (xx(i) - lastX >= 34 && xx(i) <= Wc - mc.r - 24) { uc += `<line x1="${xx(i)}" x2="${xx(i)}" y1="${Hc - mc.b}" y2="${Hc - mc.b + 4}" stroke="var(--rule)"/><text x="${xx(i)}" y="${Hc - 8}" font-size="10.5" fill="var(--text-secondary)">${x.season}</text>`; lastX = xx(i); } } });
+    $("unitschart").innerHTML = uc + "</svg>";
+    const yn = v => v === true ? "<span class='pos'>yes</span>" : (v === false ? "<span class='neg'>no</span>" : "push");
+    let h = "<thead><tr><th>Wk</th><th class='l'>Date</th><th class='l'>Game</th><th class='l'>Model score</th><th class='l'>Vegas implied</th><th class='l'>Actual</th><th>Model spread</th><th>Vegas spread</th><th>Actual margin</th><th class='l'>Model lean</th><th>Edge</th><th class='l'>Covered</th><th>Model total</th><th>Vegas total</th><th>Actual total</th><th class='l'>O/U call</th><th class='l'>Hit</th><th>Home win %</th><th class='l'>Winner</th></tr></thead><tbody>";
+    g.forEach(r => { h += `<tr><td>${r.week}</td><td class="l">${r.gameday || ""}</td><td class="l"><b>${r.away_team} @ ${r.home_team}</b></td><td class="l mono" style="color:var(--model)">${r.away_exp.toFixed(1)} - ${r.home_exp.toFixed(1)}</td><td class="l mono" style="color:var(--vegas)">${r.away_implied == null ? "" : r.away_implied.toFixed(1) + " - " + r.home_implied.toFixed(1)}</td><td class="l mono"><b>${r.away_score} - ${r.home_score}</b></td><td class="mono">${r.home_team} ${(-r.ms).toFixed(1)}</td><td class="mono">${r.spread_line == null ? "" : r.home_team + " " + (-r.spread_line > 0 ? "+" : "") + (-r.spread_line)}</td><td class="mono">${r.home_team} ${r.margin > 0 ? "+" : ""}${r.margin}</td><td class="l">${r.pick || ""}</td><td class="mono ${r.edge != null && Math.abs(r.edge) >= 5 ? "flag" : ""}">${sgn(r.edge)}</td><td class="l">${r.pick ? yn(r.pickWon) : ""}</td><td class="mono">${r.mt.toFixed(1)}</td><td class="mono">${r.total_line ?? ""}</td><td class="mono">${r.total}</td><td class="l">${r.ouPick || ""}${r.tedge != null && Math.abs(r.tedge) >= 6 ? " <span class='badge'>6+</span>" : ""}</td><td class="l">${r.ouPick ? yn(r.ouWon) : ""}</td><td class="mono">${pct(r.p_home)}</td><td class="l">${r.margin > 0 ? r.home_team : (r.margin < 0 ? r.away_team : "tie")} ${r.suWon === true ? "<span class='pos'>✓</span>" : (r.suWon === false ? "<span class='neg'>✗</span>" : "")}</td></tr>`; });
+    $("bktable").innerHTML = h + "</tbody>";
+  }
+
+  // ---------- Team: game log ----------
+  function renderGames() {
+    const rs = rows();
+    const cols = groups.filter(g => on.has(g)).flatMap(g => groupsOf[g]);
+    let h = "<thead><tr><th class='grp sticky'></th><th class='grp sticky2'></th>";
+    groups.filter(g => on.has(g)).forEach(g => { h += `<th class="grp" colspan="${groupsOf[g].length}">${g}</th>`; });
+    h += "</tr><tr><th class='sticky'>Wk</th><th class='sticky2 l'>Opp</th>";
+    cols.forEach(c => { const d = META.dictionary[c] || {}; h += `<th title="${esc(d.definition || c).replace(/"/g, "&quot;")} [${d.source || ""}]">${label(c)}${usedDot(c)}</th>`; });
+    h += "</tr></thead><tbody>";
+    rs.forEach(r => {
+      const wl = r.pf == null ? "" : (r.pf > r.pa ? "win" : (r.pf < r.pa ? "loss" : ""));
+      h += `<tr><td class="sticky">${r.week}${r.game_type !== "REG" ? "<span class='badge'>" + r.game_type + "</span>" : ""}</td><td class="sticky2 l">${r.home ? "vs " : "@ "}${r.opp}<span style="color:var(--muted)"> ${r.gameday || ""}</span></td>`;
+      cols.forEach(c => { const cls = (c === "pf" ? wl : "") + (typeof r[c] === "number" ? " mono" : ""); h += `<td class="${cls}">${fmt(r[c], c)}</td>`; });
+      h += "</tr>";
+    });
+    $("gamestable").innerHTML = h + "</tbody>";
+    $("gamesstatus").textContent = `${team} ${season}: ${rs.length} games, ${cols.length} of ${META.columns.length - HIDE.size} columns shown.`;
+  }
+
+  // ---------- Team: ratings by week ----------
+  function renderRatings() {
+    const rs = rows().filter(r => r.r_off_epa_play != null);
+    const W = 640, H = 300, m = {t: 18, r: 16, b: 32, l: 48};
+    const xs = rs.map(r => r.week), ys = rs.flatMap(r => [r.r_off_epa_play, r.r_own_def_epa_play]).filter(v => v != null);
+    if (!rs.length) { $("chart").innerHTML = ""; $("ratingstable").innerHTML = ""; $("charttitle").textContent = "No ratings for this season"; return; }
+    const span = Math.max(0.04, Math.max(...ys) - Math.min(...ys)); const ymin = Math.min(...ys) - span * 0.15, ymax = Math.max(...ys) + span * 0.15;
+    const x = w => m.l + (w - Math.min(...xs)) / Math.max(1, (Math.max(...xs) - Math.min(...xs))) * (W - m.l - m.r), y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
+    const path = key => rs.map((r, i) => (i ? "L" : "M") + x(r.week).toFixed(1) + " " + y(r[key]).toFixed(1)).join(" ");
+    const raw = (ymax - ymin) / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 5, 10].map(k => k * mag).find(k => k >= raw);
+    const ticks = []; for (let v = Math.ceil(ymin / step) * step; v <= ymax + 1e-9; v = +(v + step).toFixed(4)) ticks.push(v);
+    let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Offense and defense EPA rating by week">`;
+    ticks.forEach(v => { s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule-2)"/><text x="${m.l - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="var(--text-secondary)">${v.toFixed(step < 0.01 ? 3 : 2)}</text>`; });
+    s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/>`;
+    xs.forEach(w => { s += `<text x="${x(w)}" y="${H - 10}" text-anchor="middle" font-size="11" fill="var(--text-secondary)">${w}</text>`; });
+    s += `<text x="${(m.l + W - m.r) / 2}" y="${H}" text-anchor="middle" font-size="11" fill="var(--text-secondary)">week</text>`;
+    s += `<path d="${path("r_off_epa_play")}" fill="none" stroke="var(--series-1)" stroke-width="2" stroke-linejoin="round"/><path d="${path("r_own_def_epa_play")}" fill="none" stroke="var(--series-2)" stroke-width="2" stroke-linejoin="round"/>`;
+    rs.forEach(r => { s += `<circle cx="${x(r.week)}" cy="${y(r.r_off_epa_play)}" r="3.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2"/><circle cx="${x(r.week)}" cy="${y(r.r_own_def_epa_play)}" r="3.5" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2"/>`; });
+    const l = rs[rs.length - 1]; s += `<text x="${x(l.week) - 6}" y="${y(l.r_off_epa_play) - 8}" text-anchor="end" font-size="11" fill="var(--text-primary)">offense ${l.r_off_epa_play.toFixed(3)}</text><text x="${x(l.week) - 6}" y="${y(l.r_own_def_epa_play) + 16}" text-anchor="end" font-size="11" fill="var(--text-primary)">defense ${l.r_own_def_epa_play.toFixed(3)}</text>`;
+    rs.forEach(r => { s += `<rect class="hit" data-w="${r.week}" x="${x(r.week) - 12}" y="${m.t}" width="24" height="${H - m.t - m.b}" fill="transparent"/>`; });
+    s += "</svg>";
+    $("chart").innerHTML = `<div class="legend"><span><span class="dot" style="background:var(--series-1)"></span>offense EPA rating</span><span><span class="dot" style="background:var(--series-2)"></span>own defense EPA rating (positive = good)</span></div>` + s;
+    $("charttitle").textContent = `${team} ${season}: offense and defense EPA rating by week`;
+    const tip = $("tip");
+    $("chart").querySelectorAll("rect.hit").forEach(el => { el.addEventListener("mousemove", ev => { const r = rs.find(q => q.week == el.dataset.w); const box = $("chartcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; tip.innerHTML = `<b>Week ${r.week}</b> ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " (" + r.pf + "-" + r.pa + ")" : ""}<br>offense ${r.r_off_epa_play.toFixed(3)} · defense ${r.r_own_def_epa_play.toFixed(3)}<br>QB ${esc(r.qb_name || "")} ${r.qb_rating != null ? r.qb_rating.toFixed(3) : ""} · ${r.n_games} games in`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
+    const cols = ["r_off_epa_play","r_own_def_epa_play","r_off_pf","r_own_def_pf","qb_rating","n_games"];
+    const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pf: "Off points", r_own_def_pf: "Def points", qb_rating: "QB", n_games: "Games in"};
+    let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${esc((META.dictionary[c]||{}).definition||c)}">${RL[c]}</th>`).join("") + "</tr></thead><tbody>";
+    rs.forEach(r => { h += `<tr><td class="sticky">${r.week}</td><td class="l">${r.home ? "vs " : "@ "}${r.opp}</td>` + cols.map(c => `<td class="mono">${fmt(r[c], c)}</td>`).join("") + "</tr>"; });
+    $("ratingstable").innerHTML = h + "</tbody>";
+  }
+
+  // ---------- Team: how a rating is built ----------
+  function renderHow() {
+    if (!RK || !data) return;
+    const S = String(season), P = RK.params;
+    const weeks = RK.seasons[S] ? Object.keys(RK.seasons[S]).map(Number).sort((a, b) => a - b) : [];
+    const wsel = $("howweek"); wsel.innerHTML = ""; weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = "going into Week " + w; wsel.appendChild(o); });
+    if (!weeks.length) { $("howtable").innerHTML = ""; $("howformula").textContent = ""; $("howsum").innerHTML = "<p class='note'>No ratings for this season (they start in 2014).</p>"; return; }
+    if (howWeek == null || !weeks.includes(howWeek)) { const played = rows().filter(r => r.pf != null).map(r => r.week); const nxt = played.length ? Math.max(...played) + 1 : weeks[0]; howWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
+    wsel.value = howWeek; wsel.onchange = () => { howWeek = +wsel.value; renderHow(); };
+    $("howstat").value = howStat; $("howstat").onchange = e => { howStat = e.target.value; renderHow(); };
+    $("howside").value = howSide; $("howside").onchange = e => { howSide = e.target.value; renderHow(); };
+    const W = howWeek, tabl = RK.seasons[S][String(W)], mu = tabl.mu[howStat], hb = tabl.h[howStat];
+    const all = allRows().filter(r => r.pf != null);
+    const lastEnd = RK.season_end[String(season - 1)] || 18;
+    const cur = all.filter(r => r.season === season && r.week < W).map(r => ({...r, age: W - r.week, last: false}));
+    const last = all.filter(r => r.season === season - 1).map(r => ({...r, age: W + (lastEnd + 1 - r.week), last: true}));
+    const gl = [...last, ...cur];
+    const statCol = howSide === "off" ? howStat : (howStat === "pf" ? "pa" : "def_" + howStat);
+    const offense = howSide === "off";
+    let sw = 0, swa = 0; const trs = [];
+    gl.forEach(r => {
+      let y = r[statCol]; if (y == null && howStat === "plays") y = RK.plays_fill;
+      const oppRating = tabl.teams[r.opp] ? (offense ? tabl.teams[r.opp]["def_" + howStat] : tabl.teams[r.opp]["off_" + howStat]) : 0;
+      const homeFlag = offense ? (r.home ? 1 : 0) : (r.home ? 0 : 1);
+      const adj = offense ? (y - mu - hb * homeFlag + oppRating) : (mu + oppRating + hb * homeFlag - y);
+      const w = (r.last ? P.prior : 1) * Math.pow(P.decay, r.age);
+      sw += w; swa += w * adj; trs.push({r, y, oppRating, homeFlag, adj, w});
+    });
+    const rating = swa / (sw + P.alpha);
+    const solved = tabl.teams[team] ? tabl.teams[team][(offense ? "off_" : "def_") + howStat] : null;
+    $("howformula").innerHTML = offense
+      ? `<b>${team}'s offense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}.</b> For each game the offense played: adjusted value = what it did &minus; league average (${mu}) &minus; home bump (${hb}) if at home + the opponent's defense rating that week. The league average and the home bump are the intercept and home term of this week's joint solve: one number each for the whole window (this season's games plus last season's, weighted the same way), so they are the same on every row here and move a little each week as the window moves. Weight = ${P.decay} to the power of the game's age in weeks, times ${P.prior} for last season's games. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}); the ${P.alpha} is the pull toward average.`
+      : `<b>${team}'s defense ${STAT_LABEL[howStat]} rating going into Week ${W}, ${S}</b> (positive = good). For each game: adjusted value = league average (${mu}) + the opponent offense's rating that week + home bump (${hb}) if the opponent was at home &minus; what that offense did against ${team}. Weighted the same way. Rating = &Sigma;(weight &times; adjusted) &divide; (&Sigma;weight + ${P.alpha}).`;
+    let h = `<thead><tr><th>Season</th><th>Wk</th><th class='l'>Opp</th><th class='l'>Site</th><th>${offense ? team : "Opp"} ${STAT_LABEL[howStat]}</th><th title="the intercept of this week's joint solve: one number for the whole window, so it is the same on every row">League avg (this solve)</th><th>Home bump</th><th>${offense ? "Opp def rating" : "Opp off rating"}</th><th>Adjusted</th><th>Age (wks)</th><th>Weight</th><th>Weight × adj</th></tr></thead><tbody>`;
+    trs.forEach(({r, y, oppRating, homeFlag, adj, w}) => { h += `<tr class="${r.last ? "lastyr" : ""}"><td>${r.season}</td><td>${r.week}${r.game_type !== "REG" ? " <span class='badge'>" + r.game_type + "</span>" : ""}</td><td class="l">${r.opp}</td><td class="l">${r.home ? "home" : "away"}</td><td class="mono">${fmtn(y)}</td><td class="mono">${mu}</td><td class="mono">${homeFlag ? (offense ? "-" : "+") + Math.abs(hb) : "0"}</td><td class="mono">${oppRating >= 0 ? "+" : ""}${fmtn(oppRating)}</td><td class="mono">${fmtn(adj)}</td><td>${r.age}</td><td class="mono">${w.toFixed(3)}</td><td class="mono">${(w * adj).toFixed(4)}</td></tr>`; });
+    h += `<tr class="sum"><td colspan="9" class="l"><b>Sums over ${trs.length} games (${last.length} from last season at ${P.prior} weight, ${cur.length} this season)</b></td><td></td><td class="mono"><b>${sw.toFixed(3)}</b></td><td class="mono"><b>${swa.toFixed(4)}</b></td></tr></tbody>`;
+    $("howtable").innerHTML = h;
+    $("howsum").innerHTML = `<div class="tiles"><div class="tile"><b>${swa.toFixed(4)} ÷ (${sw.toFixed(3)} + ${P.alpha}) = ${rating.toFixed(5)}</b><span>rating from this table</span></div><div class="tile"><b>${solved == null ? "n/a" : solved.toFixed(5)}</b><span>rating the model used (joint solve of all 64 offenses and defenses)</span></div><div class="tile"><b>${solved == null ? "" : Math.abs(rating - solved) < 5e-5 ? "match" : "differs by " + (rating - solved).toFixed(5)}</b><span>the joint solve satisfies exactly this equation for every team, so the two agree to rounding</span></div></div>
+      <p class="note">Where it goes next: this number is the input "${offense ? "Own offense" : "Own defense"} ${STAT_LABEL[howStat]} rating" in the points equation (Game deep dive), multiplied by that season's fitted coefficient. The opponents' ratings in the table come from the same week's joint solve, so the Rankings tab and this table agree.</p>`;
+  }
+
+  // ---------- Team: game deep dive ----------
+  function featValue(r, f) {
+    const map = {off_epa_play:"r_off_epa_play", def_epa_play:"r_def_epa_play", off_pass_epa:"r_off_pass_epa", def_pass_epa:"r_def_pass_epa", off_rush_epa:"r_off_rush_epa", def_rush_epa:"r_def_rush_epa",
+      off_pf:"r_off_pf", def_pf:"r_def_pf", off_plays:"r_off_plays", def_plays:"r_def_plays", opp_off_epa_play:"r_opp_off_epa_play", own_def_epa_play:"r_own_def_epa_play", opp_off_plays:"r_opp_off_plays"};
+    if (map[f]) return r[map[f]];
+    if (f === "home") return r.home ? 1 : 0;
+    if (f === "neutral") return 0;
+    if (f === "rest_short") return r.rest != null && r.rest <= 5 ? 1 : 0;
+    if (f === "rest_long") return r.rest != null && r.rest >= 10 ? 1 : 0;
+    if (f === "opp_rest_short") return r.opp_rest != null && r.opp_rest <= 5 ? 1 : 0;
+    if (f === "opp_rest_long") return r.opp_rest != null && r.opp_rest >= 10 ? 1 : 0;
+    if (f === "dome") return r.dome ? 1 : 0;
+    if (f === "wind_out") return r.dome ? 0 : (r.wind != null ? r.wind : null);
+    if (f === "cold") return r.dome ? 0 : (r.temp != null && r.temp < 35 ? 1 : 0);
+    if (f === "div_game") return r.div_game ? 1 : 0;
+    if (f === "primetime") return r.primetime ? 1 : 0;
+    if (f === "qb_out") return r.qb_out ? 1 : 0;
+    return r[f] != null ? r[f] : null;
+  }
+  function renderInputs() {
+    const rs = rows();
+    const sel = $("game"); sel.innerHTML = "";
+    rs.forEach((r, i) => { const o = document.createElement("option"); o.value = i; o.textContent = `Wk ${r.week} ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " " + r.pf + "-" + r.pa : ""}`; sel.appendChild(o); });
+    if (gameIdx >= rs.length) gameIdx = 0;
+    sel.value = gameIdx; sel.onchange = e => { gameIdx = +e.target.value; renderInputs(); };
+    const r = rs[gameIdx]; if (!r) { $("inputstable").innerHTML = ""; $("gamekv").innerHTML = ""; return; }
+    const co = coefsFor(season);
+    let h = "<thead><tr><th class='l'>Input</th><th>Value</th><th>Points per unit</th><th title='league average for a rating, 0 for a situation flag'>Baseline</th><th>Contribution (pts)</th></tr></thead><tbody>";
+    const base = neutralBase(co);
+    let total = base, known = true;
+    h += `<tr><td class="l" title="the intercept ${co.intercept.toFixed(2)} moved to away, outdoors, no wind, normal rest, not a division game, not primetime"><b>Base: league-average team, neutral game</b></td><td></td><td></td><td></td><td class="mono">${base.toFixed(2)}</td></tr>`;
+    GROUPS.forEach(([gname, fs]) => {
+      h += `<tr class="grp"><td class="l" colspan="5"><b>${gname}</b></td></tr>`;
+      fs.filter(f => META.feats.includes(f)).forEach(f => { const v = featValue(r, f); const c = co.per_unit[f], mu = SIT.has(f) ? 0 : co.mean[f]; const contrib = v == null ? null : c * (v - mu); if (contrib == null) known = false; else total += contrib;
+        h += `<tr><td class="l" title="${f}">${FEAT_LABEL[f] || f}</td><td class="mono">${v == null ? "n/a" : fmt(v, f)}</td><td class="mono">${c.toFixed(3)}</td><td class="mono">${SIT.has(f) ? "0" : mu.toFixed(3)}</td><td class="mono ${contrib > 0 ? "pos" : (contrib < 0 ? "neg" : "")}">${contrib == null ? "" : sgn(contrib, 2)}</td></tr>`; });
+    });
+    h += `<tr class="sum"><td class="l"><b>Sum = expected points</b></td><td></td><td></td><td></td><td class="mono"><b>${total.toFixed(2)}</b>${known ? "" : " (an input is missing)"}</td></tr></tbody>`;
+    $("inputstable").innerHTML = h;
+    const kv = [["Model expected points", r.m_exp_pf != null ? r.m_exp_pf.toFixed(1) + " for, " + r.m_exp_pa.toFixed(1) + " against" : "not priced"],
+      ["Vegas implied", r.implied_pf != null ? r.implied_pf.toFixed(1) + " for, " + r.implied_pa.toFixed(1) + " against" : "no line"],
+      ["Closing line, this team", r.team_spread != null ? (r.team_spread > 0 ? "-" : "+") + Math.abs(r.team_spread) + " / " + r.total_line : ""],
+      ["Model win / cover / over", r.m_win != null ? pct(r.m_win) + " / " + pct(r.m_cover) + " / " + pct(r.m_over) : ""],
+      ["Result", r.pf != null ? r.pf + "-" + r.pa : "not played"],
+      ["Starting QB", esc(r.qb_name || "") + (r.qb_rating != null ? " (rating " + r.qb_rating.toFixed(3) + ")" : "")],
+      ["Coach / referee", esc(r.coach || "") + " / " + esc(r.referee || "")],
+      ["Weather", r.dome ? "dome" : ((r.temp != null ? r.temp + "F" : "") + (r.wind != null ? ", wind " + r.wind + " mph" : ""))],
+      ["Trend readings (shown, not used)", `home edge ${fmt(r.team_home_edge)} · h2h ${fmt(r.h2h_cover)} · coach ATS ${fmt(r.coach_ats)} · QB ATS ${fmt(r.qb_ats)} · ref over ${fmt(r.ref_over, "ref_over")} · ref home cover ${fmt(r.ref_home_cover, "ref_home_cover")}`],
+      ["Injuries", `offense starters out ${fmt(r.off_starters_out)} · defense ${fmt(r.def_starters_out)} · QB out ${r.qb_out ? "yes" : "no"}`]];
+    $("gamekv").innerHTML = kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join("");
+  }
+
+  // ---------- Model: how it was built ----------
+  function mdToHtml(md) {
+    const lines = md.split("\n"); let h = "", i = 0;
+    while (i < lines.length) {
+      const l = lines[i];
+      if (/^\|/.test(l)) { const rowsMd = []; while (i < lines.length && /^\|/.test(lines[i])) { rowsMd.push(lines[i]); i++; }
+        const cells = r => r.replace(/^\||\|$/g, "").split("|").map(c => c.trim()); const head = cells(rowsMd[0]); const body = rowsMd.slice(2).map(cells);
+        h += "<div class='tablewrap' style='max-height:none'><table><thead><tr>" + head.map(c => `<th class="l">${inline(c)}</th>`).join("") + "</tr></thead><tbody>" + body.map(r => "<tr>" + r.map(c => `<td class="l" style="white-space:normal">${inline(c)}</td>`).join("") + "</tr>").join("") + "</tbody></table></div>"; continue; }
+      if (/^#/.test(l)) { const n = l.match(/^#+/)[0].length; h += `<h${Math.min(n + 1, 4)}>${inline(l.replace(/^#+\s*/, ""))}</h${Math.min(n + 1, 4)}>`; i++; continue; }
+      if (/^\s*[-*] /.test(l)) { h += "<ul>"; while (i < lines.length && /^\s*[-*] /.test(lines[i])) { h += `<li>${inline(lines[i].replace(/^\s*[-*] /, ""))}</li>`; i++; } h += "</ul>"; continue; }
+      if (/^\s*\d+\. /.test(l)) { h += "<ol>"; while (i < lines.length && /^\s*\d+\. /.test(lines[i])) { h += `<li>${inline(lines[i].replace(/^\s*\d+\. /, ""))}</li>`; i++; } h += "</ol>"; continue; }
+      if (l.trim() === "") { i++; continue; }
+      const para = []; while (i < lines.length && lines[i].trim() !== "" && !/^\||^#|^\s*[-*] |^\s*\d+\. /.test(lines[i])) { para.push(lines[i]); i++; }
+      h += `<p>${inline(para.join(" "))}</p>`;
+    }
+    return h;
+    function inline(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>"); }
+  }
+  const TESTED_LABEL = {rain: "Rain at kickoff (outdoor)", snow: "Snow at kickoff (outdoor)", primetime: "Primetime (TNF, SNF, MNF)", div_game: "Division game", rest_short: "Short week (Thursday)", rest_long: "Long rest (10+ days)", body_clock_early: "West Coast team at 1pm ET on the road"};
+  function testedTable() {
+    const SF = (META.analysis || {}).situation_facts || {}; const T = SF.tested || {};
+    let h = "<div class='tablewrap' style='max-height:40vh'><table><thead><tr><th class='l'>Situation</th><th>Team-games with it</th><th>Points with it</th><th>Points without</th><th>Raw gap</th></tr></thead><tbody>";
+    Object.entries(T).forEach(([k, x]) => { h += `<tr><td class="l">${TESTED_LABEL[k] || k}</td><td class="mono">${x.n_on.toLocaleString()}</td><td class="mono">${x.pf_on}</td><td class="mono">${x.pf_off}</td><td class="mono">${sgn(x.pf_on - x.pf_off, 2)}</td></tr>`; });
+    [["travel_miles", "Travel distance"], ["tz_shift", "Time zones crossed"]].forEach(([k, lab]) => { (SF[k] || []).forEach(b => { h += `<tr><td class="l">${lab}: ${b.bucket}</td><td class="mono">${b.n.toLocaleString()}</td><td class="mono">${b.pf == null ? "" : b.pf}</td><td></td><td></td></tr>`; }); });
+    return h + "</tbody></table></div>";
+  }
+  const MEASURE = {
+    off_epa_play: ["Offense EPA-per-play rating", "Every offensive snap (pass or rush) is scored by expected points added: how much the play moved the team's expected points, given down, distance and field position. Averaged per play per game, then the season's games are solved jointly: each game's value = league average + this offense's rating − the defense's rating + home bump, weighted by age (0.90 per week, last season at half weight), pulled toward average by 16 games' worth of weight. The rating is the distance from the league average.", "Team → How a rating is built shows every row and reproduces the number."],
+    off_pf: ["Offense points rating", "Points the team scored in each game, solved the same joint way (against the defense it faced, decayed, shrunk). Points include every score the team put up, so a defensive or return touchdown counts here but not in EPA per play. EPA is the efficiency of every snap; points is the outcome. They overlap, and the regression weights them together.", ""],
+    def_epa_play: ["Opponent's defense EPA rating", "The same joint solve from the defense's side: EPA per play the opponent's defense allowed, adjusted for the offenses it faced. Positive = allows less than average.", ""],
+    def_pf: ["Opponent's defense points rating", "Points the opponent's defense allowed, adjusted for the offenses it faced. Positive = stingy.", ""],
+    qb_rating: ["Starting QB rating", "The named starter's EPA per dropback over his own career (all teams), each game decayed by 0.985 per game, with 150 dropbacks of replacement-level (−0.05) play mixed in so a rookie or backup starts near replacement. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry (drop it and refit, and the offense EPA coefficient rises from 0.6 to 1.4 per SD).", ""],
+    qb_out: ["Last game's QB listed out", "1 when the QB who started the team's last game is on the injury report as out, doubtful or on IR before this game and no rating exists yet for the replacement. Those games scored about 4 fewer points than the ratings said.", ""],
+    home: ["Home field", "1 at home, 0 away. Away is the base, so away teams show 0, not a subtraction.", ""],
+    neutral: ["Neutral site", "1 for London, Germany, Mexico, Brazil, Spain and relocated games (the schedule's location field).", ""],
+    dome: ["Dome or closed roof", "1 when the schedule's roof field is dome or closed.", ""],
+    wind_out: ["Wind at kickoff, mph", "Wind speed from the schedule's game record (played games) or the Open-Meteo kickoff forecast (unplayed, fetched Tuesday and Saturday). 0 indoors. It is a property of the game, so both teams get the same value. For an unplayed outdoor game with no forecast yet the league-typical 7 mph stands in, and the card says so.", ""],
+    cold: ["Under 35F outdoors", "1 when the kickoff temperature is below 35F and the game is outdoors.", ""],
+    rain: ["Rain at kickoff", "1 when the play-by-play weather text for the game contains rain, showers or a storm (outdoor games); for an unplayed game, 1 when the forecast gives 50%+ chance of precipitation at kickoff.", ""]
+  };
+  const TESTED = [
+    ["injuries: starters out", "Injuries: starters out", "Count of offensive and defensive starters (by depth chart) listed out, doubtful or on IR in the week's injury report, as of the game."],
+    ["injuries: QB out", "Injuries: QB out", "In the model (above)."],
+    ["referee over/under", "Referee: over rate", "The referee's share of games over the total, prior games only, shrunk toward 50%."],
+    ["referee home cover", "Referee: home-cover rate", "The referee's share of home covers, prior games only, shrunk."],
+    ["referee penalties", "Referee: penalties", "The referee's penalties per game, prior games only, relative to league."],
+    ["primetime", "Primetime", "1 for TNF, SNF, MNF (the schedule's slot)."],
+    ["head-to-head", "Head-to-head", "This matchup's cover margin over the previous three seasons, shrunk."],
+    ["coach ATS", "Coach ATS", "The head coach's cover rate, prior games, shrunk."],
+    ["QB ATS", "QB ATS", "The starting QB's cover rate, prior games, shrunk."],
+    ["division game", "Division game", "1 when the teams share a division."],
+    ["rest: short week and bye (both teams)", "Rest", "Days since each team's last game, as short (5 or fewer) and long (10 or more) flags for both teams."],
+    ["snow", "Snow", "Snow, flurries or sleet in the play-by-play weather text, outdoor games. Only 68 team-games since 2013 have it, so no test on it can say much."],
+    ["travel distance (miles)", "Travel distance", "Great-circle miles from the team's home stadium to the venue (0 at home; international venues by stadium name)."],
+    ["time-zone shift (hours)", "Time zones crossed", "Hours of time-zone change from the team's home stadium to the venue, positive travelling east."],
+    ["West Coast team at 1pm ET", "West Coast team at 1pm ET", "1 for a Pacific-time team playing a 1pm ET road game."],
+    ["late slot / body clock", "Late slot", "Sunday late-window game, and the West Coast flag above."],
+    ["cold and wind team edges", "Team cold and wind edges", "The team's own margin edge in cold or windy games over prior seasons, applied when the game is cold or windy."],
+    ["home/away EPA split", "Home/away split", "The team's EPA rating computed on home games only and away games only, instead of all games."],
+    ["team home edge", "Team home edge", "The team's own home-minus-away margin over three seasons, halved and shrunk, applied at home."],
+    ["off a loss", "Off a loss", "1 when the team lost its previous game."],
+    ["pass/rush EPA split", "Pass and rush EPA split", "Separate pass-EPA and rush-EPA ratings beside EPA per play."],
+    ["pace (plays per game)", "Pace", "Plays per game ratings for the offense and the defense faced."],
+    ["opponent QB and other side of the ball", "Opponent QB, own defense, opponent offense", "The opponent's QB rating, the team's own defense rating and the opponent's offense rating as inputs to this team's points."]
+  ];
+  function renderInputsX() {
+    const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
+    const SF = (META.analysis || {}).situation_facts || {};
+    let h = `<h2>The twelve inputs</h2>
+      <p class="note">What each input is, exactly how it is measured, the raw data behind it, and what a unit of it is worth in this season's fit. The two offense inputs are different views of the same offense: EPA per play scores every snap by how much it moved expected points (efficiency, play by play); the points rating is what the team actually put on the board (the outcome, including defensive and return scores). Everything the offense does on the field is inside those two; the QB rating adds the starter's own history beyond the team's recent games. The same pair from the defense's side covers the opponent. The regression weights the overlap between them (Model → How it was built).</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Input</th><th class='l'>How it is measured</th><th class='l'>Raw data, ${SF.seasons || ""}</th><th>Points per unit, ${Math.max(...Object.keys(META.coefs).map(Number))}</th></tr></thead><tbody>`;
+    META.feats.forEach(f => { const m = MEASURE[f] || [FEAT_LABEL[f] || f, "", ""]; h += `<tr><td class="l"><b>${m[0]}</b></td><td class="l" style="white-space:normal;min-width:420px">${m[1]}${m[2] ? " " + m[2] : ""}</td><td class="l" style="white-space:normal;min-width:260px">${factLine(f).replace(/^Raw data [^:]*: /, "").replace(" The fitted number differs because the ratings and the other inputs are held fixed.", "")}</td><td class="mono">${co.per_unit[f].toFixed(3)}</td></tr>`; });
+    h += `</tbody></table></div>
+      <h2>Tested and not used</h2>
+      <p class="note">Each was measured as-of every game since 2012, added to the model on its own, and run walk-forward on 2019 to 2022; "change" is the change in the team points miss (below zero = more accurate; noise about ±0.01). Anything inside the noise is "no measurable effect": with this many games the test would see a real half-point effect, so a null here means the idea does not move points once the ratings are in, not that it was skipped. All of them are still computed for every game and shown on the cards as readings.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>How it is measured</th><th class='l'>Raw data</th><th>Change in points miss</th><th class='l'>Verdict</th></tr></thead><tbody>`;
+    const add = Object.fromEntries((META.analysis.additions || []).map(r => [r.added, r]));
+    const T = SF.tested || {};
+    const rawFor = key => { const map = {"primetime": "primetime", "division game": "div_game", "snow": "snow", "rest: short week and bye (both teams)": "rest_short", "West Coast team at 1pm ET": "body_clock_early"}; const x = T[map[key]]; if (x) return `with it ${x.pf_on} points (${x.n_on.toLocaleString()} team-games), without ${x.pf_off}`; if (key === "travel distance (miles)" && SF.travel_miles) return "points by distance: " + SF.travel_miles.map(b => `${b.bucket} ${b.pf}`).join(" · "); if (key === "time-zone shift (hours)" && SF.tz_shift) return "points by shift: " + SF.tz_shift.map(b => `${b.bucket} ${b.pf}`).join(" · "); return ""; };
+    TESTED.forEach(([key, lab, how]) => { const r = add[key]; const d = r ? r.delta_team_mae : null; const v = key === "injuries: QB out" ? "in the model" : (d == null ? "not in the latest run" : (d < -0.01 ? "helps" : (d > 0.01 ? "hurts" : "no measurable effect"))); h += `<tr><td class="l"><b>${lab}</b></td><td class="l" style="white-space:normal;min-width:360px">${how}</td><td class="l" style="white-space:normal;min-width:220px">${rawFor(key)}</td><td class="mono ${d != null && d < -0.01 ? "pos" : (d != null && d > 0.01 ? "neg" : "")}">${d == null ? "" : sgn(d, 4)}</td><td class="l">${v}</td></tr>`; });
+    h += "</tbody></table></div>";
+    $("inputsx").innerHTML = h;
+  }
+  function renderAnalysis() {
+    const A = META.analysis || {}; const co = coefsFor(season);
+    const terms = META.feats.map(f => ({f, c: co.per_unit[f], mu: co.mean[f]})).sort((a, b) => Math.abs(b.c * 1) - Math.abs(a.c * 1));
+    const eq = `points for a team = ${co.intercept.toFixed(2)}\n` + META.feats.map(f => `  ${co.per_unit[f] >= 0 ? "+" : "-"} ${Math.abs(co.per_unit[f]).toFixed(3)} × (${FEAT_LABEL[f] || f} − ${co.mean[f].toFixed(3)})`).join("\n");
+    const corr = (A.correlations || []); const rel = (A.reliability || []);
+    const cTable = rows_ => "<div class='tablewrap' style='max-height:48vh'><table><thead><tr><th class='l'>Stat</th><th class='l'>Predicts</th><th>Predictive r (through Wk 8 vs Wks 9-17)</th><th>Same-season r (what the sheet used)</th><th>Drop</th></tr></thead><tbody>" + rows_.map(r => `<tr><td class="l mono">${r.stat}</td><td class="l">${r.target}</td><td class="mono"><b>${r.predictive_r}</b></td><td class="mono">${r.same_season_r}</td><td class="mono">${r.drop}</td></tr>`).join("") + "</tbody></table></div>";
+    const offc = corr.filter(r => r.target === "pf").slice(0, 14);
+    const maxr = Math.max(...offc.map(r => Math.abs(r.predictive_r)), 0.1);
+    let bars = `<svg viewBox="0 0 640 ${offc.length * 18 + 30}" role="img" aria-label="Predictive correlation with future points, offense stats">`;
+    offc.forEach((r, i) => { const w = Math.abs(r.predictive_r) / maxr * 300, y = 10 + i * 18; bars += `<text x="150" y="${y + 12}" text-anchor="end" font-size="11" fill="var(--text-primary)">${r.stat}</text><rect x="158" y="${y + 2}" width="${w.toFixed(1)}" height="12" rx="2" fill="var(--series-1)"/><rect x="158" y="${y + 2}" width="${(Math.abs(r.same_season_r) / maxr * 300 * (Math.abs(r.predictive_r) / Math.abs(r.same_season_r))).toFixed(1)}" height="0"/><text x="${162 + w}" y="${y + 12}" font-size="11" fill="var(--text-secondary)">${r.predictive_r} <tspan fill="var(--muted)">vs ${r.same_season_r} same-season</tspan></text>`; });
+    bars += `<text x="158" y="${offc.length * 18 + 24}" font-size="11" fill="var(--text-secondary)">bar = stat through Week 8 vs points in Weeks 9 to 17, 2012 to 2025</text></svg>`;
+    const abl = (A.ablation || []), add = (A.additions || []);
+    const dTable = (rows_, key, lab) => "<div class='tablewrap' style='max-height:40vh'><table><thead><tr><th class='l'>" + lab + "</th><th>Team points miss (2019-22)</th><th>Change vs full model</th><th>ATS at the flag</th><th class='l'>Read</th></tr></thead><tbody>" + rows_.map(r => `<tr><td class="l">${r[key]}</td><td class="mono">${r.team_mae}</td><td class="mono ${r.delta_team_mae > 0.01 ? "neg" : (r.delta_team_mae < -0.01 ? "pos" : "")}">${sgn(r.delta_team_mae, 4)}</td><td class="mono">${r.ats_pct != null ? (r.ats_pct * 100).toFixed(1) + "% (" + r.ats_bets + ")" : ""}</td><td class="l">${r[key] === "(none)" ? "the locked model" : (key === "dropped" ? (r.delta_team_mae > 0.01 ? "dropping it hurts: keep" : (r.delta_team_mae < -0.005 ? "dropping it helps: dropped" : "no measurable effect")) : (r.delta_team_mae < -0.005 ? "adding it helps" : (r.delta_team_mae > 0.005 ? "adding it hurts" : "no measurable effect")))}</td></tr>`).join("") + "</tbody></table></div>";
+    const tb = A.tuning_by || {};
+    const tune = Object.keys(tb).map(k => `<div class="card"><h3>${({decay: "Decay per week", prior: "Last season weight", alpha: "Pull toward average", ridge: "Regression ridge"})[k] || k}</h3><div class="kv">${Object.entries(tb[k]).map(([v, m]) => `<b>${v}</b><span class="mono">${m}</span>`).join("")}</div></div>`).join("");
+    const pers = (A.persistence || []);
+    $("analysis").innerHTML = `
+      <h2>What kind of model this is</h2>
+      <p class="note">Not a language model and not a black box. Three plain steps. (1) <b>Ratings</b>: for each stat, one equation per game, what the offense did = league average + offense rating − opponent's defense rating + home bump, solved for all 64 ratings at once by weighted least squares with a pull toward average (Team → How a rating is built shows every row). (2) <b>Points</b>: a linear equation, fit by ridge regression on every team-game since 2013 and refit each season on the seasons before it. Points = intercept + Σ coefficient × (input − training average). The whole equation for ${season} is below; Team → Game deep dive shows it filled in for any game. (3) <b>Odds</b>: the margin error has a 13.1-point spread; a normal centred on the predicted margin, reshaped by key-number weights so 3 and 7 get their real share, gives win, cover and over odds.</p>
+      <div class="eq">${eq}</div>
+      <p class="note">Coefficients are in points per unit of the input. Sign and size are what the data fitted, not hand-set: for example home field is worth ${co.per_unit.home.toFixed(2)} points and each mph of wind costs ${Math.abs(co.per_unit.wind_out).toFixed(3)}.</p>
+      <h2>Why every game starts at the league average</h2>
+      <p class="note">The equation is additive: expected points = league average + Σ coefficient × (input − league-average input). A team with every input exactly average is expected to score the league average, so that is where every team starts, and each input then moves it up or down by its distance from average times what a unit of it has been worth since 2013. This is the same shape as "league average × offense strength × opponent defense strength": for deviations of the size teams actually have, multiplying and adding give nearly the same number (L × (1 + a) × (1 + b) = L + L·a + L·b + L·a·b, and the last term is about 0.2 points). The differences that matter: the strengths are opponent-adjusted and time-decayed with a pull toward average early in the season (Team → How a rating is built), the points each strength is worth are fitted rather than chosen, and the regression sees the strengths at once (EPA per play, points, the QB) so their overlap is accounted for.</p>
+      <h2>Strength of schedule</h2>
+      <p class="note">Built into every rating, not bolted on. Each game the offense played enters the solver as one equation: what it did = league average + its offense rating − the opponent's defense rating + home bump. All 32 offense and 32 defense ratings are solved together, so a team that piled up EPA against weak defenses is credited less than one that did the same against strong ones, and the strong defenses it faced get credit for holding it down. Team → How a rating is built shows the "Opp def rating" column doing exactly this on every game, and the QB rating is likewise per dropback against the defenses actually faced through the team ratings it sits beside in the regression.</p>
+      <h2>Reading the situation coefficients</h2>
+      <p class="note">Each situation input is a 0/1 flag (wind is mph). Its coefficient is the points it adds with the ratings and the other inputs held fixed, fitted on every regular-season game since 2013. The raw gaps in the data, recomputed on every export, are next to each one on the cards. Home is the big one: home teams scored 1.90 more points than away teams raw and ${co.per_unit.home.toFixed(2)} in the fit. Away is the base, so an away team shows 0 for home rather than a subtraction; the two readings are the same equation. Wind costs ${Math.abs(co.per_unit.wind_out).toFixed(3)} points per mph (offenses average 23.8 points in calm air and 21.4 at 11 to 15 mph). Cold and the dome are small once the ratings are in. Rest, division games, primetime, pace, the pass/rush split and the opponent's QB were in the model until 22 Sep 2026 and were removed: a walk-forward test showed the same accuracy without them (reports/input_set_experiments.csv), and several could not be read on their own (the two rest flags only ever appeared together, so their sizes were arbitrary; primetime came out negative after the ratings even though primetime teams score more raw, because good teams get primetime slots).</p>
+      <h2>Do the QB rating and the offense ratings double count?</h2>
+      <p class="note">No, but they overlap, and the regression is what sorts that out. The starter's QB rating and the team's offense EPA rating move together (correlation 0.68 across 2013 to 2025). Because every input is fitted at once, each coefficient is the effect of that input with the others held fixed: the QB coefficient (+1.4 points per standard deviation) is what the starter adds beyond what the offense ratings already say, and the offense EPA coefficient (+0.6 per SD) is what the offense adds beyond its QB. Drop the QB rating and refit, and the offense EPA coefficient rises to +1.4 per SD: the shared credit goes back to the offense, it is not counted twice. The QB rating earns its place because a team's stats do not know when the QB changes, and because the QB's own history (across teams and seasons) is a longer record than one team's last few weeks; the ablation puts its value at 0.08 points of accuracy, the largest of any input.</p>
+      <h2>Why the breakdown starts from a neutral game</h2>
+      <p class="note">The regression's intercept is the average score in the training games, which were played half at home, in wind of about 6 mph, and so on. Read against that average, a dome game would show "wind +0.84" for having none, which is true but confusing. The cards and the deep dive therefore move the intercept to a neutral game (away, outdoors, no wind, normal rest, no long rest, not a division game, not primetime) and list only the situation inputs that apply; the ratings are still measured from the league average, since a rating is a distance from average by construction. The sum is identical either way.</p>
+      <h2>How the stats were chosen</h2>
+      <p class="note">Correlating a stat with points, wins or the spread over the same games rewards outcomes (points scored, red zone TD%, Sc%) that describe the past but repeat badly. The test here asks a stat through Week 8 to predict points in Weeks 9 to 17, every season 2012 to 2025. EPA per play is the best predictor; red zone TD% looks like 0.47 same-season and predicts at 0.19.</p>
+      <div class="grid2"><div class="card viz-root">${bars}</div><div>${cTable(corr)}</div></div>
+      <h2>How fast each stat settles</h2>
+      <p class="note">Split-half reliability within a season (odd games vs even games). A stat with low reliability needs more games before it means anything, which is what the pull toward average does.</p>
+      <div class="tablewrap" style="max-height:34vh"><table><thead><tr><th class='l'>Stat</th><th>Split-half r</th></tr></thead><tbody>${rel.map(r => `<tr><td class="l mono">${r.stat}</td><td class="mono">${r.split_half_r}</td></tr>`).join("")}</tbody></table></div>
+      <h2>What each input is worth: ablation</h2>
+      <p class="note">Each group of inputs removed from the locked model, one at a time, on 2019 to 2022. A rise in the miss means the input earns its place. Changes under about 0.01 are inside the noise (reports/audit.md has the bootstrap intervals).</p>
+      ${dTable(abl, "dropped", "Removed")}
+      <h2>Every idea, tested: injuries, referees, primetime, head-to-head, division, travel, time zones, snow, rest</h2>
+      <p class="note">Each one is computed as-of every game (nothing from the game itself), then added to the eleven-input model one at a time and run walk-forward on 2019 to 2022. "Change vs full model" is the change in the team points miss: below zero means the idea made the model more accurate; the bootstrap noise on this number is about ±0.01, so anything inside that is no detectable effect. Where an idea lives now: <b>injuries</b>: the starting QB is in the model (his rating, and a flag when last game's starter is out); counts of other starters out were tested and did not help. <b>Referees</b> (over rate, home-cover rate, penalties), <b>head-to-head</b>, <b>coach and QB ATS records</b>, <b>primetime</b>, <b>division games</b>, <b>rest</b>, <b>snow</b>, <b>travel distance</b>, <b>time-zone shift</b> and <b>West Coast teams at 1pm ET</b> are tested below and shown on every game as readings. Temperature, wind and rain are in the model (rain was added from this test on 22 Sep 2026: it lowered the points miss on both windows, the one idea in the list that did). The table is regenerated from reports/additions.csv on every run.</p>
+      ${dTable(add, "added", "Added")}
+      <h3 style="margin-top:14px">The raw data behind the tested situations</h3>
+      <p class="note">Points scored per team with the situation present vs absent, 2013 to the last full season, before any adjustment. A raw gap can vanish once the ratings are in (good teams get primetime slots), which is why the test above is the one that counts.</p>
+      ${testedTable()}
+      <h2>Do the record-type trends persist?</h2>
+      <p class="note">Each trend measured on 2012 to 2018, then checked on 2019 to 2025. A correlation near zero means the leaders of the first period were not the leaders of the second.</p>
+      <div class="tablewrap" style="max-height:30vh"><table><thead><tr><th class='l'>Trend</th><th>Keys with enough games</th><th>Correlation between periods</th><th>Top 5 in period 1</th><th>Those same 5 in period 2</th></tr></thead><tbody>${pers.map(r => `<tr><td class="l">${r.trend}</td><td class="mono">${r.n_keys}</td><td class="mono">${r.corr_between_periods}</td><td class="mono">${r.top5_period1}</td><td class="mono">${r.top5_in_period2}</td></tr>`).join("")}</tbody></table></div>
+      <h2>How the three rating knobs were chosen</h2>
+      <p class="note">Grid search on 2019 to 2022 team points miss: decay per week, last season's weight, pull toward average, and the regression's ridge. Average miss by setting; the differences are tiny (0.04 points across the whole grid), so the model is not sensitive to them. Chosen: decay ${RK ? RK.params.decay : ""}, last season ${RK ? RK.params.prior : ""}, pull ${RK ? RK.params.alpha : ""}, ridge 10.</p>
+      <div class="grid2e" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">${tune}</div>
+      <h2>The full write-up</h2>
+      <details><summary>docs/how_it_works.md, every section</summary><div class="md">${mdToHtml(A.how_it_works || "")}</div></details>
+      <details><summary>reports/backtest_v3.md, the go / no-go report</summary><div class="md">${mdToHtml(A.backtest_report || "")}</div></details>`;
+  }
+
+  // ---------- Model: dictionary, log, decisions ----------
+  function renderDict() {
+    let h = "<thead><tr><th class='l'>Column</th><th class='l'>Group</th><th class='l'>Definition</th><th class='l'>Source</th><th>Used by 3.0</th></tr></thead><tbody>";
+    META.columns.filter(c => !HIDE.has(c)).forEach(c => { const d = META.dictionary[c] || {}; h += `<tr><td class="l mono">${c}</td><td class="l">${d.group||""}</td><td class="l" style="white-space:normal;min-width:260px">${esc(d.definition||"")}</td><td class="l">${d.source||""}</td><td>${d.used_v3 ? "<span class='dot v3'></span>" : ""}</td></tr>`; });
+    $("dicttable").innerHTML = h + "</tbody>";
+  }
+  function renderLog() {
+    let h = "<thead><tr><th class='l'>Pulled at</th><th class='l'>Dataset</th><th>Season</th><th class='l'>Status</th><th>Bytes</th><th class='l'>Hash</th></tr></thead><tbody>";
+    META.pull_log.slice().reverse().forEach(r => { h += `<tr><td class="l mono">${r.pulled_at}</td><td class="l">${r.dataset}</td><td>${r.season}</td><td class="l">${r.status}</td><td class="mono">${r.bytes}</td><td class="l mono">${r.sha256||""}</td></tr>`; });
+    $("logtable").innerHTML = h + "</tbody>";
+    $("verification").innerHTML = mdToHtml((META.analysis && META.analysis.verification) || META.verification || "No verification report exported.");
+  }
+  function renderDecisions() { const A = META.analysis || {}; $("decisionlog").innerHTML = mdToHtml(A.decision_log || ""); $("auditmd").innerHTML = mdToHtml(A.audit || ""); }
+
+  // ---------- Track record ----------
+  function trackSummary(rows_) {
+    const s = rows_.filter(r => ["win", "loss", "push"].includes(r.result));
+    const w = s.filter(r => r.result === "win").length, l = s.filter(r => r.result === "loss").length, p = s.filter(r => r.result === "push").length;
+    const units = s.reduce((a, r) => a + (r.units || 0), 0);
+    const clv = rows_.filter(r => r.clv != null && !isNaN(r.clv)); const avgclv = clv.length ? clv.reduce((a, r) => a + r.clv, 0) / clv.length : null;
+    if (!rows_.length) return "<p class='note'>No bets recorded yet.</p>";
+    return `<div class="kv"><b>Record</b><span>${w + l ? `${w}-${l}${p ? "-" + p : ""} (${((w / (w + l)) * 100).toFixed(1)}%)` : "nothing settled yet"}</span><b>Units</b><span>${w + l ? sgn(units, 2) : ""}</span><b>Pending</b><span>${rows_.filter(r => r.result === "pending").length}</span><b>Avg CLV</b><span>${avgclv == null ? "known once games close" : sgn(avgclv, 2)}</span></div>`;
+  }
+  function renderTrack() {
+    const T = window.TRACK || [];
+    $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
+    $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
+    let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th>Odds</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Recorded</th></tr></thead><tbody>";
+    T.slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who}</td><td>${r.season}</td><td>${r.week}</td><td class="l mono">${r.game_id}</td><td class="l">${r.bet}</td><td class="mono">${r.odds}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono">${ok(r.clv) ? sgn(r.clv) : ""}</td><td class="l ${r.result === "win" ? "pos" : (r.result === "loss" ? "neg" : "")}">${r.result || ""}</td><td class="mono">${ok(r.units) ? r.units.toFixed(2) : ""}</td><td class="l">${r.run_at || ""}</td></tr>`; });
+    $("tracktable").innerHTML = h + "</tbody>";
+  }
+
+  // ---------- dispatch ----------
+  function render() {
+    if (tab === "week") return renderWeek();
+    if (tab === "rank") return renderRankings();
+    if (tab === "history") return renderBacktest();
+    if (tab === "track") return renderTrack();
+    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); }
+  }
+  showTab(); render(); load();
+})();
+</script>
