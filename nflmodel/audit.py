@@ -47,12 +47,14 @@ def leakage_test():
     num = [c for c in real.columns if real[c].dtype.kind in "fi" and c not in ("pf", "pa")]
     diff = (real[num].fillna(-999) - corrupt[num].fillna(-999)).abs().max().max()
     # regression side: predictions for 2024 must not change when 2024+ targets are corrupted
+    # (the regression is refit before every week on the games played so far, so corrupting this season's earlier
+    # weeks would rightly change later predictions; the leak test corrupts Week 10 on and checks Weeks 1 to 9)
     f = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     fbad = f.copy()
-    fm = fbad.season >= 2024
+    fm = (fbad.season > 2024) | ((fbad.season == 2024) & (fbad.week >= 10))
     fbad.loc[fm, "pf"] = fbad.loc[fm, "pf"] + 20
-    p1 = M.walk_forward(f, [2024])
-    p2 = M.walk_forward(fbad, [2024])
+    p1 = M.walk_forward(f, [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
+    p2 = M.walk_forward(fbad, [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
     pdiff = float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
     return {"rating_rows_compared": len(real), "max_rating_change_after_corrupting_future": float(diff),
             "max_prediction_change_after_corrupting_targets": pdiff}
