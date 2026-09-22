@@ -1,7 +1,7 @@
 name: line watch
 on:
   schedule:
-    - cron: "*/10 * * * *"   # every 10 minutes; GitHub may delay or skip runs under load
+    - cron: "*/30 * * * *"   # every 30 minutes: GitHub never started a */10 schedule on this repo; 30 is the cadence it honours
   workflow_dispatch:
     inputs:
       force_odds:
