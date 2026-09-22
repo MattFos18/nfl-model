@@ -220,7 +220,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
-    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the 5+ point spread flags, cumulative</h3><div id="unitschart"></div></div>
+    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the flags, cumulative: spreads at 5+ and totals at 6+</h3><div id="unitschart"></div></div>
   </div>
   <div class="tablewrap"><table id="bktable"></table></div>
 </section>
@@ -628,18 +628,26 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
       bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
-    // cumulative units on 5+ flags
-    const fl = all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null).sort((a, b) => a.season - b.season || a.week - b.week);
-    let cum = 0; const pts = fl.map(x => { cum += x.pickWon ? 1 : -1.1; return cum; });
-    const Wc = 520, Hc = 220, mc = {t: 26, r: 16, b: 28, l: 40};
-    const ymin = Math.min(0, ...pts), ymax = Math.max(1, ...pts);
-    const xx = i => mc.l + (i / Math.max(1, pts.length - 1)) * (Wc - mc.l - mc.r), yy = v => mc.t + (ymax - v) / (ymax - ymin) * (Hc - mc.t - mc.b);
-    let uc = `<svg viewBox="0 0 ${Wc} ${Hc}" role="img" aria-label="Cumulative units on flagged spread bets"><line x1="${mc.l}" x2="${Wc - mc.r}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--rule)"/>`;
+    // cumulative units on the flags: spreads at 5+ (blue) and totals at 6+ (orange), one unit each at -110
+    const series = [["spread", all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null), "pickWon", "var(--series-1)"],
+                    ["total", all.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6 && x.ouWon !== null), "ouWon", "var(--vegas)"]];
+    const runs = series.map(([name, fl, key, color]) => { const f = fl.slice().sort((a, b) => a.season - b.season || a.week - b.week); let cum = 0; return {name, color, f, pts: f.map(x => { cum += x[key] ? 1 : -1.1; return cum; }), cum}; });
+    const nmax = Math.max(1, ...runs.map(r => r.pts.length));
+    const Wc = 520, Hc = 220, mc = {t: 40, r: 16, b: 28, l: 40};
+    const ymin = Math.min(0, ...runs.flatMap(r => r.pts)), ymax = Math.max(1, ...runs.flatMap(r => r.pts));
+    const yy = v => mc.t + (ymax - v) / (ymax - ymin) * (Hc - mc.t - mc.b);
+    let uc = `<svg viewBox="0 0 ${Wc} ${Hc}" role="img" aria-label="Cumulative units on flagged bets"><line x1="${mc.l}" x2="${Wc - mc.r}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--rule)"/>`;
     [ymin, 0, ymax].forEach(v => { uc += `<text x="${mc.l - 6}" y="${yy(v) + 4}" text-anchor="end" font-size="10.5" fill="var(--text-secondary)">${v.toFixed(0)}</text>`; });
-    if (pts.length) uc += `<path d="${pts.map((v, i) => (i ? "L" : "M") + xx(i).toFixed(1) + " " + yy(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--series-1)" stroke-width="2"/><circle cx="${xx(pts.length - 1)}" cy="${yy(cum)}" r="3.5" fill="var(--series-1)"/>`;
-    // the running total goes in the top-left corner, off the line
-    uc += `<text x="${mc.l + 4}" y="${mc.t - 10}" font-size="11.5" font-weight="600" fill="var(--text-primary)">${cum >= 0 ? "+" : ""}${cum.toFixed(1)} units after ${pts.length} bets at −110, one unit each</text>`;
-    // one season tick per season, at its first flagged bet, skipping any that would sit within 34px of the previous tick
+    let pts = [], fl = [], cum = 0;
+    runs.forEach((r, ri) => {
+      // each series is spread over its own bets; both share the time axis by season order, so the x scale is per series
+      const xr = i => mc.l + (i / Math.max(1, r.pts.length - 1)) * (Wc - mc.l - mc.r);
+      if (r.pts.length) uc += `<path d="${r.pts.map((v, i) => (i ? "L" : "M") + xr(i).toFixed(1) + " " + yy(v).toFixed(1)).join(" ")}" fill="none" stroke="${r.color}" stroke-width="2"/><circle cx="${xr(r.pts.length - 1)}" cy="${yy(r.cum)}" r="3.5" fill="${r.color}"/>`;
+      uc += `<text x="${mc.l + 4}" y="${mc.t - 24 + ri * 13}" font-size="11.5" font-weight="600" fill="${r.color}">${r.name === "spread" ? "Spreads 5+" : "Totals 6+"}: ${r.cum >= 0 ? "+" : ""}${r.cum.toFixed(1)} units after ${r.pts.length} bets</text>`;
+      if (ri === 0) { pts = r.pts; fl = r.f; cum = r.cum; }
+    });
+    const xx = i => mc.l + (i / Math.max(1, pts.length - 1)) * (Wc - mc.l - mc.r);
+    // season ticks follow the spread series (the longer one); one per season, skipping any within 34px of the previous tick
     let lastS = null, lastX = -99; fl.forEach((x, i) => { if (x.season !== lastS) { lastS = x.season; if (xx(i) - lastX >= 34 && xx(i) <= Wc - mc.r - 24) { uc += `<line x1="${xx(i)}" x2="${xx(i)}" y1="${Hc - mc.b}" y2="${Hc - mc.b + 4}" stroke="var(--rule)"/><text x="${xx(i)}" y="${Hc - 8}" font-size="10.5" fill="var(--text-secondary)">${x.season}</text>`; lastX = xx(i); } } });
     $("unitschart").innerHTML = uc + "</svg>";
     const yn = v => v === true ? "<span class='pos'>yes</span>" : (v === false ? "<span class='neg'>no</span>" : "push");
