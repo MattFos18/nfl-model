@@ -193,9 +193,28 @@ def odds_api(season: int, week: int, ts: str) -> list[dict]:
     return rows
 
 
+STADIUM_TEAMS = {"ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LV", "LAC", "LA",
+                 "MIA", "MIN", "NE", "NO", "NYG", "NYJ", "PHI", "PIT", "SF", "SEA", "TB", "TEN", "WAS"}
+
+
 def draftkings_splits(season: int, week: int, ts: str) -> list[dict]:
-    """Bets % and money % per side. No confirmed public endpoint yet; returns [] and the report says so."""
-    return []
+    """Bets % and money % per side. No free API exists; this tries the public Covers consensus page and parses whatever team
+    abbreviations and percentages it can find near each other. Best effort: it logs rows when it works and an error when the
+    page changes, and nothing downstream depends on it."""
+    r = requests.get("https://www.covers.com/sports/nfl/matchups", headers={**H, "Referer": "https://www.covers.com/"}, timeout=30)
+    r.raise_for_status()
+    html = r.text
+    (LN / "raw").mkdir(parents=True, exist_ok=True)
+    (LN / "raw" / f"{ts}_covers.html").write_text(html[:3_000_000])
+    rows = []
+    for m in re.finditer(r"([A-Z]{2,3})[^%<]{0,80}?(\d{1,3})%", html):
+        ab = ESPN_ABBR.get(m.group(1), m.group(1))
+        if ab in STADIUM_TEAMS:
+            rows.append({"ts": ts, "source": "covers:consensus", "season": season, "week": week, "team": ab, "bets_pct": int(m.group(2))})
+    if not rows:
+        raise RuntimeError("covers page fetched but no consensus percentages recognised")
+    pd.DataFrame(rows).to_csv(LN / "splits_log.csv", mode="a", header=not (LN / "splits_log.csv").exists(), index=False)
+    return []   # splits go to their own log; the lines log keeps one shape
 
 
 def attach_game_ids(rows: list[dict]) -> pd.DataFrame:
