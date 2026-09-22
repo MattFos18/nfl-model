@@ -120,7 +120,6 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .bar .lead{font-weight:600}
 .why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
 .whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px}
-@media(min-width:1500px){.whybox{grid-template-columns:1fr 1fr}}
 .ctab{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
 .ctab th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:2px 4px;border-bottom:1px solid var(--rule)}
 .ctab td{padding:2px 4px;border-bottom:1px solid var(--rule-2);vertical-align:middle}
@@ -224,8 +223,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
-    <div class="card"><h3>By season</h3><div class="tablewrap" style="max-height:40vh"><table id="bkseasons"></table></div></div>
-    <div class="card viz-root"><h3>Units on the 5+ point spread flags, cumulative</h3><div id="unitschart"></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
+    <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units on the 5+ point spread flags, cumulative</h3><div id="unitschart"></div></div>
   </div>
   <div class="tablewrap"><table id="bktable"></table></div>
 </section>
@@ -271,11 +270,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 <section class="tab" id="model" hidden>
   <nav class="sub" id="modelsub">
     <button data-sub="analysis">How it was built</button>
+    <button data-sub="inputsx">Inputs explained</button>
     <button data-sub="dict">Every column</button>
     <button data-sub="log">Data pulls and verification</button>
     <button data-sub="decisions">Decision log and audit</button>
   </nav>
   <div id="analysis"></div>
+  <div id="inputsx" hidden></div>
   <div id="dict" hidden>
     <p class="note">Every column in the data: where it comes from, what it means, and whether it feeds 3.0.</p>
     <div class="tablewrap"><table id="dicttable"></table></div>
@@ -334,7 +335,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
     opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
-    dome:"Dome or closed roof", wind_out:"Wind, mph (0 indoors)", cold:"Under 35F outdoors", rain:"Rain at kickoff", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
+    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
   $("built").textContent = "Data built " + META.built + ".";
 
@@ -503,10 +504,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const x = SF.flags && SF.flags[f]; if (!x) return "";
     return `Raw data ${SF.seasons}: with it ${x.on} points (${x.n_on.toLocaleString()} team-games), without ${x.off}, gap ${x.diff > 0 ? "+" : ""}${x.diff}. The fitted number differs because the ratings and the other inputs are held fixed.`;
   }
-  function rowHtml(x, co, maxc) {
-    const unit = SIT.has(x.f) ? `${co.per_unit[x.f].toFixed(3)} × ${fmt(x.v, x.f)}` : `${co.per_unit[x.f].toFixed(3)} × (${fmt(x.v, x.f)} − ${co.mean[x.f].toFixed(3)})`;
-    const id = "how" + Math.random().toString(36).slice(2, 8);
-    return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f} <button class="q" data-how="${id}" title="how this is calculated">?</button></td><td class="v">${unit}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c > 0 ? "var(--good)" : (x.c < 0 ? "var(--bad)" : "transparent")}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr><tr class="howrow" id="${id}" hidden><td colspan="4"><div class="how">${EXPLAIN[x.f] || ""} ${factLine(x.f)}</div></td></tr>`;
+  function rowHtml(x, co, maxc, inp) {
+    let val = fmt(x.v, x.f);
+    if (x.f === "wind_out" && inp && !inp.dome && inp.temp == null) val += " <span class='rk'>(typical; no forecast yet)</span>";
+    const unit = SIT.has(x.f) ? `${co.per_unit[x.f].toFixed(3)} × ${val}` : `${co.per_unit[x.f].toFixed(3)} × (${val} − ${co.mean[x.f].toFixed(3)})`;
+    return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f}</td><td class="v">${unit}</td><td class="b"><span class="cbar" style="width:${Math.round(60 * Math.abs(x.c) / maxc)}px;background:${x.c > 0 ? "var(--good)" : (x.c < 0 ? "var(--bad)" : "transparent")}"></span></td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`;
   }
   function whyHtml(g, s) {
     const cols = [g.home_team, g.away_team].map((t, ti) => {
@@ -514,13 +516,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const co = coefsFor(s); const c = contributions(inp, s); const byF = Object.fromEntries(c.items.map(x => [x.f, x]));
       const maxc = Math.max(...c.items.map(x => Math.abs(x.c)), 0.01);
       let h = `<div><p class="cap">${t}: ${c.total.toFixed(1)} expected points</p><table class="ctab main"><tbody>`;
-      h += `<tr class="base"><td>Base: league-average team, neutral game <button class="q" data-how="b${ti}" title="how this is calculated">?</button></td><td class="n">${c.base.toFixed(1)}</td></tr><tr class="howrow" id="b${ti}" hidden><td colspan="2"><div class="how">The regression's intercept (${co.intercept.toFixed(2)}, the average score in the training games) moved to an away game, outdoors, no wind, not cold, no rain. Every team starts here.</div></td></tr>`;
+      h += `<tr class="base"><td>Base: league-average team, neutral game</td><td class="n">${c.base.toFixed(1)}</td></tr>`;
       GROUPS.forEach(([gname, fs], gi) => {
         const items = fs.filter(f => META.feats.includes(f)).map(f => byF[f] || {f, v: inp[f] == null ? null : inp[f], c: 0});
         const gsum = items.reduce((a, x) => a + (x.c || 0), 0);
         const id = `x${ti}${gi}`;
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
-        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc)).join("")}</tbody></table></td></tr>`;
+        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points per unit × value</th><th class="b"></th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table></td></tr>`;
       });
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
       h += `<div class="facts"><span>Starting QB</span><b>${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " (last game's starter listed out)" : ""}</b><span>Rest</span><b>${inp.rest} days</b><span>Starters out</span><b>offense ${inp.off_starters_out ?? "?"}, defense ${inp.def_starters_out ?? "?"}</b>
@@ -528,7 +530,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       return h;
     });
     const hist = g.line_history && g.line_history.length ? `<p class="note" style="grid-column:1 / -1;margin:0">Line log: ${g.line_history.length} snapshots, spread ${g.line_history[0].home_spread} → ${g.line_history[g.line_history.length - 1].home_spread}, total ${g.line_history[0].total} → ${g.line_history[g.line_history.length - 1].total}.</p>` : `<p class="note" style="grid-column:1 / -1;margin:0">No line snapshots yet; the 10-minute line watch fills this in once it runs.</p>`;
-    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation (Model → How it was built prints it). Rating inputs are measured from the league average, situation inputs from a neutral game. Every number here is regenerated from the data on each weekly run.</p>`;
+    return cols.join("") + hist + `<p class="note" style="grid-column:1 / -1;margin:0">Every input the model has is listed under its group, including the ones at zero for this game; there is nothing else in the equation. What each input is and how it is measured: Model → Inputs explained. Every number here is regenerated from the data on each weekly run.</p>`;
   }
   document.addEventListener("click", ev => { const q = ev.target.closest("button.q"); if (q) { const r = $(q.dataset.how); r.hidden = !r.hidden; return; } const b = ev.target.closest("button.open"); if (!b) return; const row = $(b.dataset.open); const open = row.hidden; row.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = (open ? "▾ " : "▸ ") + b.textContent.slice(2); });
 
@@ -629,13 +631,16 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     // cumulative units on 5+ flags
     const fl = all.filter(x => x.edge != null && Math.abs(x.edge) >= 5 && x.pickWon !== null).sort((a, b) => a.season - b.season || a.week - b.week);
     let cum = 0; const pts = fl.map(x => { cum += x.pickWon ? 1 : -1.1; return cum; });
-    const Wc = 520, Hc = 220, mc = {t: 12, r: 12, b: 28, l: 40};
+    const Wc = 520, Hc = 220, mc = {t: 26, r: 16, b: 28, l: 40};
     const ymin = Math.min(0, ...pts), ymax = Math.max(1, ...pts);
     const xx = i => mc.l + (i / Math.max(1, pts.length - 1)) * (Wc - mc.l - mc.r), yy = v => mc.t + (ymax - v) / (ymax - ymin) * (Hc - mc.t - mc.b);
     let uc = `<svg viewBox="0 0 ${Wc} ${Hc}" role="img" aria-label="Cumulative units on flagged spread bets"><line x1="${mc.l}" x2="${Wc - mc.r}" y1="${yy(0)}" y2="${yy(0)}" stroke="var(--rule)"/>`;
     [ymin, 0, ymax].forEach(v => { uc += `<text x="${mc.l - 6}" y="${yy(v) + 4}" text-anchor="end" font-size="10.5" fill="var(--text-secondary)">${v.toFixed(0)}</text>`; });
-    if (pts.length) uc += `<path d="${pts.map((v, i) => (i ? "L" : "M") + xx(i).toFixed(1) + " " + yy(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--series-1)" stroke-width="2"/><circle cx="${xx(pts.length - 1)}" cy="${yy(cum)}" r="3.5" fill="var(--series-1)"/><text x="${xx(pts.length - 1) - 6}" y="${yy(cum) - 8}" text-anchor="end" font-size="11" fill="var(--text-primary)">${sgn(cum)} units after ${pts.length} bets</text>`;
-    let lastS = null; fl.forEach((x, i) => { if (x.season !== lastS) { uc += `<text x="${xx(i)}" y="${Hc - 8}" font-size="10.5" fill="var(--text-secondary)">${x.season}</text>`; lastS = x.season; } });
+    if (pts.length) uc += `<path d="${pts.map((v, i) => (i ? "L" : "M") + xx(i).toFixed(1) + " " + yy(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--series-1)" stroke-width="2"/><circle cx="${xx(pts.length - 1)}" cy="${yy(cum)}" r="3.5" fill="var(--series-1)"/>`;
+    // the running total goes in the top-left corner, off the line
+    uc += `<text x="${mc.l + 4}" y="${mc.t - 10}" font-size="11.5" font-weight="600" fill="var(--text-primary)">${cum >= 0 ? "+" : ""}${cum.toFixed(1)} units after ${pts.length} bets at −110, one unit each</text>`;
+    // one season tick per season, at its first flagged bet, skipping any that would sit within 34px of the previous tick
+    let lastS = null, lastX = -99; fl.forEach((x, i) => { if (x.season !== lastS) { lastS = x.season; if (xx(i) - lastX >= 34 && xx(i) <= Wc - mc.r - 24) { uc += `<line x1="${xx(i)}" x2="${xx(i)}" y1="${Hc - mc.b}" y2="${Hc - mc.b + 4}" stroke="var(--rule)"/><text x="${xx(i)}" y="${Hc - 8}" font-size="10.5" fill="var(--text-secondary)">${x.season}</text>`; lastX = xx(i); } } });
     $("unitschart").innerHTML = uc + "</svg>";
     const yn = v => v === true ? "<span class='pos'>yes</span>" : (v === false ? "<span class='neg'>no</span>" : "push");
     let h = "<thead><tr><th>Wk</th><th class='l'>Date</th><th class='l'>Game</th><th class='l'>Model score</th><th class='l'>Vegas implied</th><th class='l'>Actual</th><th>Model spread</th><th>Vegas spread</th><th>Actual margin</th><th class='l'>Model lean</th><th>Edge</th><th class='l'>Covered</th><th>Model total</th><th>Vegas total</th><th>Actual total</th><th class='l'>O/U call</th><th class='l'>Hit</th><th>Home win %</th><th class='l'>Winner</th></tr></thead><tbody>";
@@ -812,6 +817,63 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     [["travel_miles", "Travel distance"], ["tz_shift", "Time zones crossed"]].forEach(([k, lab]) => { (SF[k] || []).forEach(b => { h += `<tr><td class="l">${lab}: ${b.bucket}</td><td class="mono">${b.n.toLocaleString()}</td><td class="mono">${b.pf == null ? "" : b.pf}</td><td></td><td></td></tr>`; }); });
     return h + "</tbody></table></div>";
   }
+  const MEASURE = {
+    off_epa_play: ["Offense EPA-per-play rating", "Every offensive snap (pass or rush) is scored by expected points added: how much the play moved the team's expected points, given down, distance and field position. Averaged per play per game, then the season's games are solved jointly: each game's value = league average + this offense's rating − the defense's rating + home bump, weighted by age (0.90 per week, last season at half weight), pulled toward average by 16 games' worth of weight. The rating is the distance from the league average.", "Team → How a rating is built shows every row and reproduces the number."],
+    off_pf: ["Offense points rating", "Points the team scored in each game, solved the same joint way (against the defense it faced, decayed, shrunk). Points include every score the team put up, so a defensive or return touchdown counts here but not in EPA per play. EPA is the efficiency of every snap; points is the outcome. They overlap, and the regression weights them together.", ""],
+    def_epa_play: ["Opponent's defense EPA rating", "The same joint solve from the defense's side: EPA per play the opponent's defense allowed, adjusted for the offenses it faced. Positive = allows less than average.", ""],
+    def_pf: ["Opponent's defense points rating", "Points the opponent's defense allowed, adjusted for the offenses it faced. Positive = stingy.", ""],
+    qb_rating: ["Starting QB rating", "The named starter's EPA per dropback over his own career (all teams), each game decayed by 0.985 per game, with 150 dropbacks of replacement-level (−0.05) play mixed in so a rookie or backup starts near replacement. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry (drop it and refit, and the offense EPA coefficient rises from 0.6 to 1.4 per SD).", ""],
+    qb_out: ["Last game's QB listed out", "1 when the QB who started the team's last game is on the injury report as out, doubtful or on IR before this game and no rating exists yet for the replacement. Those games scored about 4 fewer points than the ratings said.", ""],
+    home: ["Home field", "1 at home, 0 away. Away is the base, so away teams show 0, not a subtraction.", ""],
+    neutral: ["Neutral site", "1 for London, Germany, Mexico, Brazil, Spain and relocated games (the schedule's location field).", ""],
+    dome: ["Dome or closed roof", "1 when the schedule's roof field is dome or closed.", ""],
+    wind_out: ["Wind at kickoff, mph", "Wind speed from the schedule's game record (played games) or the Open-Meteo kickoff forecast (unplayed, fetched Tuesday and Saturday). 0 indoors. It is a property of the game, so both teams get the same value. For an unplayed outdoor game with no forecast yet the league-typical 7 mph stands in, and the card says so.", ""],
+    cold: ["Under 35F outdoors", "1 when the kickoff temperature is below 35F and the game is outdoors.", ""],
+    rain: ["Rain at kickoff", "1 when the play-by-play weather text for the game contains rain, showers or a storm (outdoor games); for an unplayed game, 1 when the forecast gives 50%+ chance of precipitation at kickoff.", ""]
+  };
+  const TESTED = [
+    ["injuries: starters out", "Injuries: starters out", "Count of offensive and defensive starters (by depth chart) listed out, doubtful or on IR in the week's injury report, as of the game."],
+    ["injuries: QB out", "Injuries: QB out", "In the model (above)."],
+    ["referee over/under", "Referee: over rate", "The referee's share of games over the total, prior games only, shrunk toward 50%."],
+    ["referee home cover", "Referee: home-cover rate", "The referee's share of home covers, prior games only, shrunk."],
+    ["referee penalties", "Referee: penalties", "The referee's penalties per game, prior games only, relative to league."],
+    ["primetime", "Primetime", "1 for TNF, SNF, MNF (the schedule's slot)."],
+    ["head-to-head", "Head-to-head", "This matchup's cover margin over the previous three seasons, shrunk."],
+    ["coach ATS", "Coach ATS", "The head coach's cover rate, prior games, shrunk."],
+    ["QB ATS", "QB ATS", "The starting QB's cover rate, prior games, shrunk."],
+    ["division game", "Division game", "1 when the teams share a division."],
+    ["rest: short week and bye (both teams)", "Rest", "Days since each team's last game, as short (5 or fewer) and long (10 or more) flags for both teams."],
+    ["snow", "Snow", "Snow, flurries or sleet in the play-by-play weather text, outdoor games. Only 68 team-games since 2013 have it, so no test on it can say much."],
+    ["travel distance (miles)", "Travel distance", "Great-circle miles from the team's home stadium to the venue (0 at home; international venues by stadium name)."],
+    ["time-zone shift (hours)", "Time zones crossed", "Hours of time-zone change from the team's home stadium to the venue, positive travelling east."],
+    ["West Coast team at 1pm ET", "West Coast team at 1pm ET", "1 for a Pacific-time team playing a 1pm ET road game."],
+    ["late slot / body clock", "Late slot", "Sunday late-window game, and the West Coast flag above."],
+    ["cold and wind team edges", "Team cold and wind edges", "The team's own margin edge in cold or windy games over prior seasons, applied when the game is cold or windy."],
+    ["home/away EPA split", "Home/away split", "The team's EPA rating computed on home games only and away games only, instead of all games."],
+    ["team home edge", "Team home edge", "The team's own home-minus-away margin over three seasons, halved and shrunk, applied at home."],
+    ["off a loss", "Off a loss", "1 when the team lost its previous game."],
+    ["pass/rush EPA split", "Pass and rush EPA split", "Separate pass-EPA and rush-EPA ratings beside EPA per play."],
+    ["pace (plays per game)", "Pace", "Plays per game ratings for the offense and the defense faced."],
+    ["opponent QB and other side of the ball", "Opponent QB, own defense, opponent offense", "The opponent's QB rating, the team's own defense rating and the opponent's offense rating as inputs to this team's points."]
+  ];
+  function renderInputsX() {
+    const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
+    const SF = (META.analysis || {}).situation_facts || {};
+    let h = `<h2>The twelve inputs</h2>
+      <p class="note">What each input is, exactly how it is measured, the raw data behind it, and what a unit of it is worth in this season's fit. The two offense inputs are different views of the same offense: EPA per play scores every snap by how much it moved expected points (efficiency, play by play); the points rating is what the team actually put on the board (the outcome, including defensive and return scores). Everything the offense does on the field is inside those two; the QB rating adds the starter's own history beyond the team's recent games. The same pair from the defense's side covers the opponent. The regression weights the overlap between them (Model → How it was built).</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Input</th><th class='l'>How it is measured</th><th class='l'>Raw data, ${SF.seasons || ""}</th><th>Points per unit, ${Math.max(...Object.keys(META.coefs).map(Number))}</th></tr></thead><tbody>`;
+    META.feats.forEach(f => { const m = MEASURE[f] || [FEAT_LABEL[f] || f, "", ""]; h += `<tr><td class="l"><b>${m[0]}</b></td><td class="l" style="white-space:normal;min-width:420px">${m[1]}${m[2] ? " " + m[2] : ""}</td><td class="l" style="white-space:normal;min-width:260px">${factLine(f).replace(/^Raw data [^:]*: /, "").replace(" The fitted number differs because the ratings and the other inputs are held fixed.", "")}</td><td class="mono">${co.per_unit[f].toFixed(3)}</td></tr>`; });
+    h += `</tbody></table></div>
+      <h2>Tested and not used</h2>
+      <p class="note">Each was measured as-of every game since 2012, added to the model on its own, and run walk-forward on 2019 to 2022; "change" is the change in the team points miss (below zero = more accurate; noise about ±0.01). Anything inside the noise is "no measurable effect": with this many games the test would see a real half-point effect, so a null here means the idea does not move points once the ratings are in, not that it was skipped. All of them are still computed for every game and shown on the cards as readings.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>How it is measured</th><th class='l'>Raw data</th><th>Change in points miss</th><th class='l'>Verdict</th></tr></thead><tbody>`;
+    const add = Object.fromEntries((META.analysis.additions || []).map(r => [r.added, r]));
+    const T = SF.tested || {};
+    const rawFor = key => { const map = {"primetime": "primetime", "division game": "div_game", "snow": "snow", "rest: short week and bye (both teams)": "rest_short", "West Coast team at 1pm ET": "body_clock_early"}; const x = T[map[key]]; if (x) return `with it ${x.pf_on} points (${x.n_on.toLocaleString()} team-games), without ${x.pf_off}`; if (key === "travel distance (miles)" && SF.travel_miles) return "points by distance: " + SF.travel_miles.map(b => `${b.bucket} ${b.pf}`).join(" · "); if (key === "time-zone shift (hours)" && SF.tz_shift) return "points by shift: " + SF.tz_shift.map(b => `${b.bucket} ${b.pf}`).join(" · "); return ""; };
+    TESTED.forEach(([key, lab, how]) => { const r = add[key]; const d = r ? r.delta_team_mae : null; const v = key === "injuries: QB out" ? "in the model" : (d == null ? "not in the latest run" : (d < -0.01 ? "helps" : (d > 0.01 ? "hurts" : "no measurable effect"))); h += `<tr><td class="l"><b>${lab}</b></td><td class="l" style="white-space:normal;min-width:360px">${how}</td><td class="l" style="white-space:normal;min-width:220px">${rawFor(key)}</td><td class="mono ${d != null && d < -0.01 ? "pos" : (d != null && d > 0.01 ? "neg" : "")}">${d == null ? "" : sgn(d, 4)}</td><td class="l">${v}</td></tr>`; });
+    h += "</tbody></table></div>";
+    $("inputsx").innerHTML = h;
+  }
   function renderAnalysis() {
     const A = META.analysis || {}; const co = coefsFor(season);
     const terms = META.feats.map(f => ({f, c: co.per_unit[f], mu: co.mean[f]})).sort((a, b) => Math.abs(b.c * 1) - Math.abs(a.c * 1));
@@ -907,7 +969,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (tab === "rank") return renderRankings();
     if (tab === "history") return renderBacktest();
     if (tab === "track") return renderTrack();
-    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
+    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "how") renderHow(); if (s === "inputs") renderInputs(); }
   }
   showTab(); render(); load();
