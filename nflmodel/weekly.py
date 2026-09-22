@@ -66,7 +66,6 @@ def main(full=False, skip_network=False):
     step("ratings", lambda: sh(["nflmodel.ratings"]), log)
     step("trends", lambda: sh(["nflmodel.trends"]), log)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2019-{season}"]), log)
-    step("baseline", lambda: sh(["nflmodel.baseline", "--seasons", f"2019-{season}"]), log)
     from . import lines
     cur_season, cur_week = lines.current_week(games)
     pk = step("picks", lambda: P.table(cur_season, cur_week), log)
