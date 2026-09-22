@@ -70,7 +70,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 22 Sep 2026 the model has twelve inputs, each with one
+team carried into a game to the points it scored. Since 22 Sep 2026 the model has thirteen inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -87,13 +87,14 @@ printed on the page, Model → How it was built, and refit before every week):
 | Cold under 35F | -0.07 | |
 | Neutral site | -0.06 | |
 | Dome | +0.06 | Indoor teams score more raw (+1.5), but the ratings already know who plays indoors |
+| Warm-climate or dome team outdoors under 35F | about -1.5 points when it applies | Those teams score 19.7 in the cold against 22.3 for everyone in the cold (119 team-games). Cold teams in heat show nothing. Added 22 Sep 2026 |
 | Rain at kickoff | about -1 point when it applies | From the play-by-play weather text; the kickoff forecast (50%+ chance of precipitation) for unplayed games. Added from the ideas test below: -0.010 and -0.013 on the points miss in the two windows |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
 coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Why twelve and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+**Why thirteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
 primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
 
@@ -108,7 +109,7 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Twelve inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Thirteen inputs a reader can check beats twenty-six that
 score the same.
 
 **Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
@@ -131,6 +132,11 @@ flags, wind, rain, cold and the roof, misses by 10.64 and 10.30: a small gain, b
 The team scores still drive the spread and the points shown on the cards; the total shown is this equation's number, so the two
 team scores do not add exactly to it. Totals are still not flagged; the new equation's 4+ edges went 77-53 then 62-56, a lead to
 re-sweep after the season.
+
+**Home field is one number.** Giving every team its own home-field term (32 inputs) made the model worse on both windows, and
+a team's raw home edge in the first half of the seasons predicts its second half with a correlation of only 0.34. Arrowhead's
+reputation does not survive the data: KC's raw home edge is +2.4 against a league +3.8. The matchup tool shows each team's raw
+edge as a reading.
 
 **More training years do not help.** The regression's training start was tried at 2012, 2013, 2015 and 2017; every result was
 within 0.01 on both windows. The game drifts enough that seasons before about 2013 would add nothing.
@@ -190,6 +196,14 @@ mechanical, not a matter of care:
   the closing line value once the game closes.
 - **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
   games is the recorded game-time weather.
+- **Forecasts are used only within 4 days of kickoff.** Open-Meteo gives a 10-day hourly forecast, but five days out
+  the wind and rain numbers are too loose to move a line on, and they change by the day. So `weather.apply_to_games`
+  and the rain flag take a forecast only when it was fetched within `USE_WITHIN_DAYS = 4` of kickoff; any other
+  unplayed outdoor game is priced as typical weather (7 mph, not cold, dry). With runs on Tuesday, Thursday, Saturday
+  and Sunday that means a Thursday game is priced with its forecast from Tuesday, and Sunday and Monday games from
+  Thursday and Saturday. The card says which applies ("Forecast 2 days out" or "5 days out, weather TBD, typical
+  assumed until 4 days out"). A fetch that fails is retried four times and, failing that, the game is simply priced as
+  typical; the next run tries again.
 
 `audit.py` checks the rule by force: every game from Week 10 of 2024 onward was corrupted and the earlier weeks'
 numbers rebuilt; not one changed (section 10).

@@ -115,7 +115,7 @@ def used_by_v3(col: str):
     if col.startswith("r_"):
         return col[2:] in F
     raw = {"pf": True, "pa": True, "home": True, "epa_play": True, "def_epa_play": True, "qb_name": True, "qb_rating": True, "qb_out": "qb_out" in F,
-           "dome": "dome" in F, "wind": "wind_out" in F, "rain": "rain" in F, "snow": "snow" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
+           "dome": "dome" in F, "wind": "wind_out" in F, "rain": "rain" in F, "snow": "snow" in F, "warm_in_cold": "warm_in_cold" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
            "opp_rest": "opp_rest_short" in F or "opp_rest_long" in F, "div_game": "div_game" in F, "primetime": "primetime" in F,
            "pass_epa": "off_pass_epa" in F, "def_pass_epa": "def_pass_epa" in F, "rush_epa": "off_rush_epa" in F, "def_rush_epa": "def_rush_epa" in F,
            "plays": "off_plays" in F, "def_plays": "def_plays" in F, "opp_qb_rating": "opp_qb_rating" in F, "success": "off_success" in F, "def_success": "def_success" in F}
@@ -160,6 +160,25 @@ def clean(v):
     return v
 
 
+def team_home_edges(tg: pd.DataFrame) -> dict:
+    """Each team's raw home-minus-away margin, 2013 to the last full season, and how well the first half predicts the second.
+    Shown beside the matchup tool; tested as an input (32 home-by-team terms) and rejected, so it is a reading."""
+    t = tg[tg.pf.notna() & (tg.season >= 2013) & (tg.game_type == "REG")].copy()
+    last = int(t.season.max())
+    if t[t.season == last].week.max() < 18:
+        last -= 1
+    t = t[t.season <= last]
+    t["mg"] = t.pf - t.pa
+    def edges(x):
+        h = x.groupby(["team", "home"]).mg.mean().unstack()
+        return (h[1.0] - h[0.0]) if 1.0 in h.columns and 0.0 in h.columns else pd.Series(dtype=float)
+    e = edges(t)
+    mid = (2013 + last) // 2
+    e1, e2 = edges(t[t.season <= mid]), edges(t[t.season > mid])
+    return {"seasons": f"2013 to {last}", "league": round(float(e.mean()), 2), "corr_halves": round(float(e1.corr(e2)), 3),
+            "teams": {k: round(float(v), 2) for k, v in e.items()}}
+
+
 def situation_facts(feats: pd.DataFrame) -> dict:
     """Raw averages behind every situational input, recomputed on each export: points scored with the flag on vs off,
     2013 to the last completed season, regular season, plus wind in buckets. The page shows these next to the fitted
@@ -195,6 +214,29 @@ def situation_facts(feats: pd.DataFrame) -> dict:
             x = f[(f[k] > lo) & (f[k] <= hi)]
             out[k].append({"bucket": lab, "n": int(len(x)), "pf": round(float(x.pf.mean()), 2) if len(x) else None})
     return out
+
+
+def write_games_js(games: pd.DataFrame, since: int = 2013):
+    """Every game since `since` (regular season and playoffs) with the score, closing line, coaches, starting QBs and
+    stadium, for the page's head-to-head section: last meetings, the two coaches, the two QBs, this stadium, recent
+    form. Names are interned so the file stays small. None of it feeds the model (all tested; see Inputs explained)."""
+    g = games[games.season >= since].sort_values(["season", "week", "gameday"]).copy()
+    names = {}
+    def iid(v):
+        if v is None or (isinstance(v, float) and np.isnan(v)):
+            return None
+        v = str(v)
+        if v not in names:
+            names[v] = len(names)
+        return names[v]
+    cols = ["game_id", "season", "week", "type", "gameday", "home", "away", "hs", "as", "spread", "total", "hcoach", "acoach", "hqb", "aqb", "stadium", "roof", "neutral"]
+    rows = []
+    for r in g.itertuples():
+        rows.append([r.game_id, int(r.season), int(r.week), str(r.game_type), str(r.gameday)[:10], r.home_team, r.away_team, clean(r.home_score), clean(r.away_score),
+                     clean(r.spread_line), clean(r.total_line), iid(r.home_coach), iid(r.away_coach), iid(r.home_qb_name), iid(r.away_qb_name), iid(r.stadium),
+                     r.roof if isinstance(r.roof, str) else None, int(bool(getattr(r, "neutral", 0)))])
+    (WEB / "games.js").write_text("window.GAMES=" + json.dumps({"cols": cols, "names": list(names), "rows": rows}, default=clean, separators=(",", ":")) + ";")
+    print("games.js", len(rows), "games", (WEB / "games.js").stat().st_size / 1e6, "MB")
 
 
 def main():
@@ -259,7 +301,8 @@ def main():
                 "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
                 "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else "",
                 "situation_facts": situation_facts(feats)}
-    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis,
+    analysis["home_edges"] = team_home_edges(tg)
+    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
     for t in teams:
@@ -274,6 +317,8 @@ def main():
         pk = P.table(cur_season, cur_week)
         fp = M.prep(feats).set_index(["game_id", "team"])
         side_cols = M.FEATS + ["r_" + c for c in rcols if c in feats.columns] + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS
+        from . import weather as WX
+        wxs = WX.status_by_game(games.reset_index())
         wk = []
         for r in pk.itertuples():
             h = LN.history(r.game_id)
@@ -286,12 +331,14 @@ def main():
             wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
+                       "wx": wxs.get(r.game_id), "home_coach": gmeta.home_coach if gmeta is not None else None, "away_coach": gmeta.away_coach if gmeta is not None else None,
                        "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
+    write_games_js(games.reset_index())
     gr = TK.TR / "graded.csv"
     g = pd.read_csv(gr).to_dict("records") if gr.exists() else []
     (WEB / "track.js").write_text("window.TRACK=" + json.dumps(g, default=clean, separators=(",", ":")) + ";")

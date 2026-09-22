@@ -55,12 +55,12 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 
 | | 3.0 | Vegas close |
 |---|---|---|
-| Team points miss | 7.36 | 7.21 |
-| Margin miss | 10.13 | 9.74 |
+| Team points miss | 7.35 | 7.21 |
+| Margin miss | 10.12 | 9.74 |
 | Total miss | 10.29 | 10.12 |
 | Brier (win odds) | 0.221 | 0.210 |
-| Spreads at 3+ pt edge | 103-101 | |
-| Spreads at 5+ pt edge (the flag) | 26-16 (2019 to 2025: 68-48; 63-39 outside Week 18) | |
+| Spreads at 3+ pt edge | 103-96 | |
+| Spreads at 5+ pt edge (the flag) | 25-17 (2019 to 2025: 66-49; 61-40 outside Week 18) | |
 | Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 60-56 (2019 to 2025: 141-117) | |
 
 These rows are written by `report.py` from the same prediction table as the page and the reports, on every run.
@@ -68,7 +68,7 @@ These rows are written by `report.py` from the same prediction table as the page
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
 disagreements with the close lose; 5+ point spread edges have won in both backtest windows on small samples (a lead,
-not proof), and the live tracker is what settles it. The model has twelve inputs, each with one plain meaning
+not proof), and the live tracker is what settles it. The model has thirteen inputs, each with one plain meaning
 (`docs/how_it_works.md` section 4), the regression is refit before every week on every played game since 2013, and
 there are no flags in Week 18, where resting starters make the line smarter than the ratings. Every number in the
 tables is checked against Pro-Football-Reference and the schedule by `verify.py` (`reports/verification.md`).

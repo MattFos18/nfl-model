@@ -28,7 +28,9 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 # test showed the same accuracy without them (reports/input_set_experiments.csv); several of them could not be read on their own
 # (the rest pair only ever appeared together; pass and rush EPA overlap EPA per play).
 RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pf"] for s in ["off", "def"]]
-SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain"]   # rain added 22 Sep 2026: -0.010 / -0.013 team points miss on the two windows
+SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold"]   # rain and warm_in_cold added 22 Sep 2026 (both lowered the miss on both windows)
+# teams whose home is warm or indoors, for the "warm or dome team playing in the cold" flag (static; a team's climate does not change)
+WARM_OR_DOME = {"MIA", "TB", "JAX", "ARI", "LAC", "LA", "LV", "SF", "HOU", "NO", "ATL", "DAL", "CAR", "TEN", "DET", "MIN", "IND"}
 FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"]
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
@@ -61,6 +63,7 @@ def prep(f: pd.DataFrame) -> pd.DataFrame:
     f["opp_rest_long"] = (f.opp_rest >= 10).astype(float)
     f["wind_out"] = np.where(f.dome == 1, 0.0, f.wind.fillna(f.wind.median()))
     f["cold"] = np.where(f.dome == 1, 0.0, (f.temp.fillna(60) < 35).astype(float))
+    f["warm_in_cold"] = f["cold"] * f.team.isin(WARM_OR_DOME).astype(float)   # warm-climate or dome team outdoors under 35F
     return f
 
 
