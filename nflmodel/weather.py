@@ -30,10 +30,20 @@ INTL = {"London": (51.5560, -0.2795), "Munich": (48.2188, 11.6247), "Frankfurt":
 
 
 def kickoff_forecast(lat, lon, kickoff: pd.Timestamp, tz="America/New_York"):
-    r = requests.get("https://api.open-meteo.com/v1/forecast", timeout=30, params={
-        "latitude": lat, "longitude": lon, "hourly": "temperature_2m,wind_speed_10m,wind_gusts_10m,precipitation_probability,precipitation",
-        "temperature_unit": "fahrenheit", "wind_speed_unit": "mph", "forecast_days": 10, "timezone": tz})
-    r.raise_for_status()
+    import time
+    last = None
+    for attempt in range(4):        # Open-Meteo drops a few of 15 quick requests from a runner; back off and retry
+        try:
+            r = requests.get("https://api.open-meteo.com/v1/forecast", timeout=30, params={
+                "latitude": lat, "longitude": lon, "hourly": "temperature_2m,wind_speed_10m,wind_gusts_10m,precipitation_probability,precipitation",
+                "temperature_unit": "fahrenheit", "wind_speed_unit": "mph", "forecast_days": 10, "timezone": tz})
+            r.raise_for_status()
+            break
+        except Exception as e:  # noqa
+            last = e
+            time.sleep(2 * (attempt + 1))
+    else:
+        raise last
     h = r.json()["hourly"]
     times = pd.to_datetime(h["time"])
     k = kickoff.floor("h")
