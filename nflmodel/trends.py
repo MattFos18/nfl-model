@@ -288,6 +288,37 @@ def persistence(games: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(out)
 
 
+def continuity_table(games: pd.DataFrame, seasons=range(2013, 2027)) -> pd.DataFrame:
+    """Offseason turnover, per (game, team): the share of last season's offensive and defensive snaps taken by players
+    on this week's active roster (weekly rosters by name against last season's snap counts). 1.0 means the same
+    unit; 0.6 means forty percent of last year's snaps walked out. In the model since 23 Sep 2026 as
+    off_turnover_early and opp_def_turnover_early: (1 - share) for weeks 1 to 8, when the ratings still lean on
+    last season (reports/continuity.csv, continuity2.csv)."""
+    from .positions import snaps_by_game, norm
+    snaps = snaps_by_game(range(min(seasons) - 1, max(seasons) + 1))
+    ros = []
+    for s in seasons:
+        f = RAW / "rosters" / f"roster_weekly_{s}.parquet"
+        if f.exists():
+            r = pd.read_parquet(f, columns=["season", "week", "team", "full_name", "status"]); r["team"] = r.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"}); ros.append(r[r.status == "ACT"])
+    ros = pd.concat(ros, ignore_index=True); ros["key"] = ros.full_name.map(norm)
+    roster_keys = {k: set(g.key) for k, g in ros.groupby(["season", "week", "team"])}
+    last_off, last_def = {}, {}
+    for (s, t), g in snaps.groupby(["season", "team"]):
+        last_off[(s, t)] = g.groupby("key").offense_snaps.sum(); last_def[(s, t)] = g.groupby("key").defense_snaps.sum()
+    def share(prev, keys):
+        if prev is None or keys is None or prev.sum() == 0:
+            return np.nan
+        return float(prev[prev.index.isin(keys)].sum() / prev.sum())
+    rows = []
+    for r in long_games(games).itertuples():
+        if r.season not in seasons:
+            continue
+        keys = roster_keys.get((r.season, r.week, r.team))
+        rows.append({"game_id": r.game_id, "team": r.team, "off_continuity": share(last_off.get((r.season - 1, r.team)), keys), "def_continuity": share(last_def.get((r.season - 1, r.team)), keys)})
+    return pd.DataFrame(rows)
+
+
 if __name__ == "__main__":
     games = pd.read_parquet(OUT / "games.parquet")
     tg = pd.read_parquet(OUT / "team_games.parquet")
@@ -295,6 +326,7 @@ if __name__ == "__main__":
     i = injury_table(games)
     t = t.merge(i, on=["game_id", "team"], how="left")
     t = t.merge(situation_extras(games), on=["game_id", "team"], how="left")
+    t = t.merge(continuity_table(games), on=["game_id", "team"], how="left")
     t.to_parquet(OUT / "trends_asof.parquet", index=False)
     print(t.shape)
     print(t[t.season == 2024].describe().T.round(3).to_string())

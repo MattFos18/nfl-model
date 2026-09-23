@@ -123,13 +123,15 @@ def record_model_picks(picks: pd.DataFrame, run_at: str):
                          "spread_edge": round(r.spread_edge, 2) if pd.notna(r.spread_edge) else np.nan,
                          "total_edge": round(r.total_edge, 2) if pd.notna(r.total_edge) else np.nan,
                          "p_cover": round(r.p_cover_home if r.home_team in b else 1 - r.p_cover_home, 3) if b[:2].isalpha() and pd.notna(r.p_cover_home) and not b.startswith(("Over", "Under")) else np.nan})
-    new = pd.DataFrame(rows)
+    new = pd.DataFrame(rows, columns=["run_at", "season", "week", "game_id", "bet", "odds", "stake", "book", "spread_edge", "total_edge", "p_cover"])
     f = TR / "model_picks.csv"
     if f.exists():
         old = pd.read_csv(f)
-        # keep old rows for games already kicked off; replace the rest with this run's
+        # keep old rows for games already kicked off; an unplayed game's earlier pick is replaced by this run's, or
+        # dropped when this run no longer flags it (the line or the inputs moved)
         played = old.game_id.map(games.home_score).notna()
-        old = old[played | ~old.game_id.isin(new.game_id)]
+        cur = set(picks[(picks.season == picks.season.max())].game_id)
+        old = old[played | ~old.game_id.isin(cur)]
         new = pd.concat([old, new], ignore_index=True)
     new.to_csv(f, index=False)
     return new

@@ -1,1 +1,1 @@
-window.TRACK=[{"run_at":"2026-09-22 19:54 UTC","season":2026,"week":3,"game_id":"2026_03_KC_MIA","bet":"MIA +11.5","odds":-110,"stake":1.0,"spread_edge":6.59,"total_edge":0.02,"p_cover":0.705,"book":"Draft Kings","kind":"spread","side":"MIA","line":11.5,"played":false,"close":NaN,"clv":NaN,"result":"pending","units":NaN,"who":"model","note":NaN}];
+window.TRACK=[];

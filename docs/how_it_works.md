@@ -74,7 +74,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 22 Sep 2026 the model has eighteen inputs, each with one
+team carried into a game to the points it scored. Since 23 Sep 2026 the model has twenty inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -98,12 +98,14 @@ printed on the page, Model → How it was built, and refit before every week):
 | Opponent's skill players out: value lost | +36 points per unit (the same star out on the other side is +1.1 points for this team) | The same loss on the other side of the ball, in this team's own points equation |
 | Offensive snaps out | negative per share of snaps missing | Sum of last game's offensive snap shares of the players now out: linemen, fullbacks, anyone the touch value cannot see. Player model phase 3, 22 Sep 2026 |
 | Opponent's defensive snaps out | positive | The same sum for the opponent's defense |
+| Offseason turnover, offense (weeks 1 to 8) | -4.7 per unit (a team that lost 20% of last year's snaps: -0.9 points) | 1 minus the share of last season's offensive snaps still on this week's roster. Added 23 Sep 2026 |
+| Opponent's offseason turnover, defense (weeks 1 to 8) | +4.8 per unit | The same share for the defense faced |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
 coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
 
-**Why eighteen and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
+**Why twenty and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
 primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`):
 
@@ -118,7 +120,7 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Eighteen inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Twenty inputs a reader can check beats twenty-six that
 score the same.
 
 **Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
@@ -429,6 +431,36 @@ empty commit there starts a run that checks out and logs to main), and a routine
 dispatch the workflow directly. A routine in a fresh session cannot push or dispatch (no GitHub credentials there),
 so that version is disabled. The Saturday recap reads the watch log and reports the number of snapshots, which is
 the check that the schedule is holding.
+
+**A third window nobody tuned on** (23 Sep 2026, `experiments/third_window.py`, `reports/third_window.csv`).
+Every input and knob was chosen on 2019 to 2022 and checked on 2023 to 2025; 2015 to 2018 was never looked
+at. On those 1,024 games (the closing line's spread miss there: 9.805):
+
+| Model | Spread miss | Points miss | Flags at 5+ |
+|---|---|---|---|
+| 18 inputs, decay 0.94 / last season 0.8 (today) | 10.031 | 7.436 | 21-30 |
+| 13 inputs, today's knobs | 10.041 | 7.426 | 30-30 |
+| 18 inputs, original knobs 0.90 / 0.5 | 10.062 | 7.441 | 22-28 |
+| 13 inputs, original knobs | 10.065 | 7.435 | 27-31 |
+
+The knob change holds (-0.03 on the spread miss) and the player inputs hold (-0.01), on seasons that had no say
+in either. The team points miss is a shade worse with the player inputs there (+0.009), and the flag records on
+50 to 60 bets are noise in both directions: a 5+ edge was 41% there with today's model and 50% without, and
+57% and 60% on the two later windows. The honest reading is that the spread accuracy gains are real and the flag
+rate is a small-sample number that will only settle live.
+
+**Recency-weighted refit** (`experiments/recency.py`, `reports/recency.csv`): weighting older training seasons
+down (0.95 to 0.7 per season) helps the tuning window and hurts held out at every setting. Equal weight stays.
+
+**Offseason turnover** (23 Sep 2026, `experiments/continuity.py`, `continuity2.py`; `trends.continuity_table`).
+Early in a season the ratings lean on last season, but the roster may not be last season's. For each team and
+week: the share of last season's offensive (and defensive) snaps taken by players on this week's active roster,
+from the weekly rosters and the snap counts matched by name. The inputs are 1 minus that share for weeks 1 to 8
+and 0 afterwards: `off_turnover_early` for the team's own offense and `opp_def_turnover_early` for the defense it
+faces. Both windows: spread miss 10.019 / 9.993 against 10.052 / 10.040, points 7.365 / 7.300 against 7.403 /
+7.304; the untouched 2015 to 2018 window agrees (10.013 against 10.031). Cutoffs of 4, 6, 8, 12 weeks and all
+season were tried; 8 was best held out. Fitted: about -4.7 points per unit of turnover on offense (a team that
+lost 20% of last year's snaps: -0.9 points early) and +4.8 for the opponent's defensive turnover. Twenty inputs.
 
 ## 15. The player model
 

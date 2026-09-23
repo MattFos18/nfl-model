@@ -33,7 +33,9 @@ INJ_FEATS = ["skill_out_value", "opp_skill_out_value",   # player model, phase 2
              "off_snap_out", "opp_def_snap_out"]          # phase 3 (22 Sep 2026): share of last game's offensive snaps now out; the opponent's defensive snaps out
 # teams whose home is warm or indoors, for the "warm or dome team playing in the cold" flag (static; a team's climate does not change)
 WARM_OR_DOME = {"MIA", "TB", "JAX", "ARI", "LAC", "LA", "LV", "SF", "HOU", "NO", "ATL", "DAL", "CAR", "TEN", "DET", "MIN", "IND"}
-FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS
+CONT_FEATS = ["off_turnover_early", "opp_def_turnover_early"]   # offseason turnover, weeks 1 to 8 (23 Sep 2026): share of last season's snaps gone, own offense and the opponent's defense
+EARLY_WEEKS = 8
+FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS + CONT_FEATS
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
              ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]
@@ -42,7 +44,7 @@ MARGIN_RANGE = np.arange(-60, 61)
 
 TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_home_cover", "ref_pen", "sun_late",
                "body_clock_early", "cold_edge", "wind_edge", "off_home_split", "off_starters_out", "def_starters_out", "qb_out",
-               "rain", "snow", "travel_miles", "tz_shift", "ol_out", "off_snap_out", "def_snap_out"]
+               "rain", "snow", "travel_miles", "tz_shift", "ol_out", "off_snap_out", "def_snap_out", "off_continuity", "def_continuity"]
 
 
 def with_trends(f: pd.DataFrame) -> pd.DataFrame:
@@ -50,7 +52,7 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     t = pd.read_parquet(OUT / "trends_asof.parquet")
     t = t[["game_id", "team"] + TREND_FEATS]
     f = f.merge(t, on=["game_id", "team"], how="left")
-    fill = {"ref_over": 0.5, "ref_home_cover": 0.5}
+    fill = {"ref_over": 0.5, "ref_home_cover": 0.5, "off_continuity": 0.83, "def_continuity": 0.83}   # continuity: league-typical share when unknown
     for c in TREND_FEATS:
         f[c] = f[c].fillna(fill.get(c, 0.0))
     f["home_edge_in_play"] = f.team_home_edge * f.home            # own edge counts only at home
@@ -64,6 +66,9 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     od = t.rename(columns={"team": "opp", "def_snap_out": "opp_def_snap_out"})[["game_id", "opp", "opp_def_snap_out"]] if "def_snap_out" in t.columns else None
     if od is not None:
         f = f.merge(od, on=["game_id", "opp"], how="left")
+    if "def_continuity" in t.columns:
+        f = f.merge(t.rename(columns={"team": "opp", "def_continuity": "opp_def_continuity"})[["game_id", "opp", "opp_def_continuity"]], on=["game_id", "opp"], how="left")
+    f["opp_def_continuity"] = f["opp_def_continuity"].fillna(0.83) if "opp_def_continuity" in f.columns else 0.83
     for c in INJ_FEATS:
         f[c] = f[c].fillna(0.0) if c in f.columns else 0.0
     return f
@@ -71,6 +76,9 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
 
 def prep(f: pd.DataFrame) -> pd.DataFrame:
     f = f.copy()
+    early = (f.week <= EARLY_WEEKS).astype(float)
+    f["off_turnover_early"] = (1.0 - f["off_continuity"]) * early if "off_continuity" in f.columns else 0.0
+    f["opp_def_turnover_early"] = (1.0 - f["opp_def_continuity"]) * early if "opp_def_continuity" in f.columns else 0.0
     f["rest_short"] = (f.rest <= 5).astype(float)          # Thursday game
     f["rest_long"] = (f.rest >= 10).astype(float)          # off a bye or long week
     f["opp_rest_short"] = (f.opp_rest <= 5).astype(float)
