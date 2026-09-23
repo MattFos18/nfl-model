@@ -115,17 +115,29 @@ def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]
     paged until a page adds nothing. Standard ("balanced") lines only, with Underdog's own higher/lower prices."""
     hdr = dict(UA, **{"Client-Type": "web", "Client-Version": "20260901", "Client-Request-Id": "nfl-model", "Referer": "https://underdogfantasy.com/", "Origin": "https://underdogfantasy.com"})
     lines, apps, players, teams, seen, errs = [], {}, {}, {}, set(), []
-    for page in range(1, 31):
-        url = f"https://api.underdogfantasy.com/v2/pickem_search/search_results?sport_id=NFL&page={page}&per_page=250"
-        try:
-            r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); j = r.json()
-        except Exception as e:  # noqa
-            errs.append(f"page {page}: {str(e)[:60]}"); break
+    def take(j, first):
         new = [ln for ln in j.get("over_under_lines", []) if ln.get("id") not in seen]
         for ln in new: seen.add(ln.get("id"))
-        lines += new; apps.update({a["id"]: a for a in j.get("appearances", [])}); players.update({p["id"]: p for p in j.get("players", [])}); teams.update({t["id"]: t.get("abbr") for t in j.get("teams", [])})
-        if page == 1: _save_raw("underdog", j, ts)
-        if not new: break
+        lines.extend(new); apps.update({a["id"]: a for a in j.get("appearances", [])}); players.update({p["id"]: p for p in j.get("players", [])}); teams.update({t["id"]: t.get("abbr") for t in j.get("teams", [])})
+        for g in j.get("games", []):   # a game's title carries both abbreviations when no teams list does
+            ab = str(g.get("abbreviated_title") or ""); parts = [x.strip() for x in ab.replace(" vs ", " @ ").split("@")]
+            if len(parts) == 2:
+                teams.setdefault(g.get("away_team_id"), parts[0]); teams.setdefault(g.get("home_team_id"), parts[1])
+        if first: _save_raw("underdog", j, ts)
+        return len(new)
+    # the whole board first (v1 answers with every game); the search pages as a fallback
+    try:
+        r = requests.get("https://api.underdogfantasy.com/v1/over_under_lines?sport_id=NFL", timeout=30, headers=hdr); r.raise_for_status(); take(r.json(), True)
+    except Exception as e:  # noqa
+        errs.append(f"v1: {str(e)[:60]}")
+    if not lines:
+        for page in range(1, 31):
+            url = f"https://api.underdogfantasy.com/v2/pickem_search/search_results?sport_id=NFL&page={page}&per_page=250"
+            try:
+                r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); n = take(r.json(), page == 1)
+            except Exception as e:  # noqa
+                errs.append(f"page {page}: {str(e)[:60]}"); break
+            if not n: break
     if not lines:
         raise RuntimeError(" | ".join(errs) or "no lines")
     if len(set(a.get("match_id") for a in apps.values())) < 3:   # one game came back: probe the other feeds once and say what answered
@@ -151,7 +163,8 @@ def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]
         if pl.get("sport_id") not in (None, "NFL"): continue
         team = teams.get(ap.get("team_id") or pl.get("team_id")); team = PP_TEAM.get(team, team); tg = team_game.get(team)
         if not tg: continue
-        name = f"{pl.get('first_name', '')} {pl.get('last_name', '')}".strip()
+        name = f"{pl.get('first_name', '')} {pl.get('last_name', '')}".strip() or next((o.get("selection_header") for o in ln.get("options", []) if o.get("selection_header")), "")
+        if not name: continue
         if (name, stat) in rows: continue
         prices = {(o.get("choice") or ""): o.get("american_price") for o in ln.get("options", [])}
         def _p(v):
