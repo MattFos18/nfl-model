@@ -628,19 +628,29 @@ Neither the division flag nor the value out helps the totals equation (`reports/
 beyond the QB" in the breakdown.
 
 
-## 16. Weekly health check (23 Sep 2026)
+## 16. Weekly audit (23 Sep 2026)
 
-`nflmodel/health.py` asks, from the logs the pipeline leaves behind, whether everything that should have run did
-run and passed: the weekly run is under 72 hours old with every step ok (including verify, both tie-out steps,
-the export and the pick recording); at least three runs in the last seven days; the verification suite and the
-tie-out both say PASS; the line watch logged a snapshot in the last 24 hours and is returning rows; the kickoff
-forecasts are under 96 hours old; the coming week has a picks file and the tracker holds the same flags; the page
-quotes the code's flag threshold, inputs and QB replacement level and was built in the last 96 hours. It writes
-`reports/health.md` (HEALTHY or BROKEN, one row per check, WARN for things worth a look) and exits non-zero on any
-FAIL.
+Every Monday at 9am ET, `.github/workflows/health.yml` ("weekly audit") runs `nflmodel/audit_weekly.py`, which is
+everything a program can check about the site and the model, in one report with one result
+(`reports/weekly_audit.md`):
 
-`.github/workflows/health.yml` runs it every Monday at 9am ET (and on demand), commits the report to main, and
-when it fails opens a GitHub issue labelled `health` with the report (or comments on the open one); when it passes
-again it closes that issue. The report is the first thing on Model → Data pulls and verification. A Monday Claude
-routine reads the same report and the workflow's conclusion and sends a one-line push and email: healthy, or what
-broke.
+1. **Health** (`nflmodel/health.py`, 19 rows): the weekly run is under 72 hours old with every step ok (verify,
+   both tie-out steps, the export and the pick recording among them); at least three runs in the last seven days;
+   the line watch logged a snapshot in the last 24 hours and is returning rows; kickoff forecasts under 96 hours
+   old; the coming week has a picks file and the tracker holds the same flags; the page quotes the code's flag
+   threshold, inputs and QB replacement level and was built in the last 96 hours.
+2. **Data verification** (`nflmodel/verify.py`): team points equal the schedule scores, what one offense gained
+   equals what the other defense allowed, 2024 totals against Pro-Football-Reference, known results.
+3. **Tie-out** (`nflmodel/tie_check.py`, 26 rows): every headline number recomputed from the prediction table and
+   compared with the README, the threshold sweep, the docs' threshold table, the picks file, the tracker and the
+   page's data files.
+4. **Leak test** (`nflmodel/audit.py`): every future game corrupted; no rating or prediction before the cut may move.
+5. **Page JavaScript parses** and **every page data file parses**.
+6. **Chromium walk** (`tools/page_walk.js`): every tab and sub-view rendered; no console or page errors, no
+   "undefined" or "NaN" text, nothing empty.
+
+When any section fails the workflow opens a GitHub issue labelled `health` with the report (or comments on the
+open one) and goes red; when everything passes again it closes the issue. The report is committed to main with
+the issue and run links at the bottom and sits first on Model → Data pulls and verification. At 9:45am ET a
+Claude routine reads it and sends a one-line push and email: clean, or exactly what failed and the likely fix.
+The same audit runs locally with `python -m nflmodel.audit_weekly` (about 30 seconds).

@@ -295,8 +295,9 @@ def main():
                          "mean": dict(zip(M.FEATS, m[0].mean_.round(5).tolist())), "intercept": float(np.mean(train.pf))}
     pull = pd.read_csv(RAW / "pull_log.csv").tail(120)
     ver = (ROOT / "reports" / "verification.md").read_text() if (ROOT / "reports" / "verification.md").exists() else ""
-    if (ROOT / "reports" / "health.md").exists():
-        ver = (ROOT / "reports" / "health.md").read_text() + "\n\n" + ver   # Monday health check (nflmodel.health), first
+    for name in ["health.md", "weekly_audit.md"]:   # the Monday audit and its health table go first
+        if (ROOT / "reports" / name).exists():
+            ver = (ROOT / "reports" / name).read_text() + "\n\n" + ver
     if (ROOT / "reports" / "tie_check.md").exists():
         ver += "\n\n" + (ROOT / "reports" / "tie_check.md").read_text()   # the tie-out written before this export (sources); the page part is checked after it
     teams = sorted(d[d.season == 2026].team.unique())
