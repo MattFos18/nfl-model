@@ -20,6 +20,11 @@ reports; 2019 to 2025 on both windows, every constant fitted on 2016 to 2018 onl
             his rate shrunk toward the league (K_TD), receiving and passing scores moved TD_MARGIN per point of
             expected margin; interceptions = dropbacks x the league rate (his own rate carried no information).
             Chosen in round 5 by absolute error (receptions) and Poisson log loss (scores, picks) on both windows
+  team:     each team's players are then moved part of the way (RECON_W) toward what the game model expects of the
+            team: its expected points (the game model's own, priced before the game) give the team's expected
+            receiving, rushing and passing yards and touchdowns (TEAM_FIT), and every player's line is scaled by
+            the ratio of that to what the players add up to (round 6: helps every stat on both windows, passing
+            yards by three yards; the game model's margin in place of the closing line changed nothing)
   passing:  the team's dropbacks are blended PACE (a quarter) toward what the opponent has allowed per game, and the
             line is cut WIND_C per mph of wind above 10 at kickoff once a forecast is usable (round 4: both helped
             passing yards on both windows; for receiving and rushing every round-4 layer was inside the noise)
@@ -45,11 +50,13 @@ MED = {"rec": 0.88, "rush": 0.84, "pass": 0.90}      # median factor on the yard
 K_CATCH, MED_CATCH = 25.0, 0.88                     # catch rate shrunk toward the league with 25 targets of weight; receptions line x 0.88 (round 5, both windows)
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
-BACKTEST_COUNTS = {"rec_catches": [1.438, 1.359], "rec_td_ll": [0.5101, 0.4869], "rush_td_ll": [0.5948, 0.5655], "pass_td_ll": [1.4868, 1.4543], "pass_int_ll": [1.1449, 1.1047]}   # reports/props_backtest5.csv: catches MAE (catch_K25_med), touchdown and interception Poisson log loss (td_K200_gs, td_K200, td_K400_gs, int_league)
+BACKTEST_COUNTS = {"rec_catches": [1.438, 1.359], "rec_td_ll": [0.5086, 0.4858], "rush_td_ll": [0.5922, 0.5629], "pass_td_ll": [1.4632, 1.4226], "pass_int_ll": [1.1449, 1.1047]}   # catches MAE and interception log loss from reports/props_backtest5.csv (catch_K25_med, int_league); touchdown log loss from props_backtest6.csv (td_recon50, td_recon50, td_recon100)
+RECON_W = {"rec": {"yds": 0.25, "td": 0.5}, "rush": {"yds": 0.25, "td": 0.5}, "pass": {"yds": 0.5, "td": 1.0}}   # round 6: weight of the move toward the team's expected yards and touchdowns from the game model's expected points (best row on both windows per stat)
+TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (73.77, 6.894)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
 PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
 PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {"rec_yards": [19.44, 18.46], "rush_yards": [18.36, 17.60], "pass_yards": [60.71, 61.08]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest4.csv rows base (receiving, rushing; = A85B_med in props_backtest3.csv) and combo (passing: pace and wind added)
+BACKTEST = {"rec_yards": [19.397, 18.421], "rush_yards": [18.231, 17.435], "pass_yards": [57.683, 57.305]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest6.csv rows yds_recon25 (receiving, rushing) and yds_recon50 (passing); before the reconciliation 19.44 / 18.46, 18.36 / 17.60, 60.71 / 61.08 (props_backtest4.csv base and combo)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -218,10 +225,30 @@ def implied(price: float) -> float:
     return 100 / (price + 100) if price > 0 else -price / (-price + 100)
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None) -> dict:
+def reconcile(rows: list, kind: str, exp_pts: float | None, yds_key: str, td_key: str, starter_only: bool = False) -> dict:
+    """Scale the players' yards and touchdowns toward the team's expected totals from the game model's expected points:
+    factor = 1 + w x (expected / what the players add up to - 1), the ratio clipped to [0.5, 2] as in the backtest. The
+    sum is over the players who are playing (the starter alone for passing); every row gets the factor, so a listed-out
+    player's "would have" line moves with his team."""
+    out = {"exp_pts": None if exp_pts is None or pd.isna(exp_pts) else round(float(exp_pts), 1), "yds_factor": 1.0, "td_factor": 1.0}
+    if out["exp_pts"] is None or not rows:
+        return out
+    act = [r for r in rows if not r["out"]]; act = act[:1] if starter_only else act
+    if not act:
+        return out
+    fy, ft = TEAM_FIT[kind]["yds"], TEAM_FIT[kind]["td"]; wy, wt = RECON_W[kind]["yds"], RECON_W[kind]["td"]
+    exp_y, exp_t = fy[0] + fy[1] * exp_pts, ft[0] + ft[1] * exp_pts; sum_y, sum_t = sum(r[yds_key] for r in act), sum(r[td_key] for r in act)
+    fac_y = 1 + wy * (min(max(exp_y / sum_y, 0.5), 2.0) - 1) if sum_y > 0 else 1.0; fac_t = 1 + wt * (min(max(exp_t / sum_t, 0.5), 2.0) - 1) if sum_t > 0 else 1.0
+    for r in rows:
+        r[yds_key] = round(r[yds_key] * fac_y, 1); r[yds_key + "_mean"] = round(r[yds_key + "_mean"] * fac_y, 1); r[td_key] = round(r[td_key] * fac_t, 3)
+    out.update({"team_yds_exp": round(exp_y, 1), "team_yds_players": round(sum_y, 1), "yds_factor": round(fac_y, 3), "team_td_exp": round(exp_t, 2), "team_td_players": round(sum_t, 2), "td_factor": round(fac_t, 3)})
+    return out
+
+
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
     team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
-    kickoff (None in a dome or before a usable forecast)."""
+    kickoff (None in a dome or before a usable forecast), exp_pts the game model's expected points for the team."""
     dd = D.get(opp, {}); base = V.get(team, {}); ro = roster[roster.team == team].set_index("player_id") if len(roster) else pd.DataFrame()
     me = 0.0 if margin is None or pd.isna(margin) else float(margin)
     vol = dict(base); vol.update({"pass_plays": round(game_script("rec", base.get("pass_plays_pg", 0), margin, total, dd.get("pass_plays_pg")), 1), "runs": round(game_script("rush", base.get("runs_pg", 0), margin, total, dd.get("runs_pg")), 1), "dropbacks": round(game_script("pass", base.get("dropbacks_pg", 0), margin, total, dd.get("dropbacks_pg")), 1), "margin": (None if margin is None or pd.isna(margin) else float(margin)), "total": (None if total is None or pd.isna(total) else float(total)), "wind": (None if wind is None or pd.isna(wind) else float(wind)), "wind_factor_pass": round(wind_factor("pass", wind), 3)})
@@ -272,12 +299,13 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         qbs.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "dropbacks_pg": p["dropbacks_pg"], "proj_dropbacks": round(dbs, 1), "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_shrunk": round(ypd_s, 2), "proj_ypd": round(ypd, 2),
                     "proj_pass_yards_mean": round(dbs * ypd * wind_factor("pass", wind), 1), "proj_pass_yards": round(dbs * ypd * MED["pass"] * wind_factor("pass", wind), 1), "td_db_proj": round(td_s, 4), "proj_pass_td": round(dbs * td_s, 3), "proj_int": round(dbs * L["int_db"], 3), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"]})
     qbs.sort(key=lambda r: (r["out"], -r["dropbacks_pg"]))
+    recon = {"rec": reconcile(rec, "rec", exp_pts, "proj_rec_yards", "proj_rec_td"), "rush": reconcile(rus, "rush", exp_pts, "proj_rush_yards", "proj_rush_td"), "pass": reconcile(qbs, "pass", exp_pts, "proj_pass_yards", "proj_pass_td", starter_only=True)}
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
     attach_market(rec, mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
     attach_market(rus, mk, [("rush_yards", "mkt_rush_yards"), ("anytime_td", "mkt_td")])
     attach_market(qbs, mk, [("pass_yards", "mkt_pass_yards")])
-    return {"defense": dd, "volume": vol, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4], "market_ts": (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None)}
+    return {"defense": dd, "volume": vol, "recon": recon, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4], "market_ts": (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None)}
 
 
 MARKET_STATS = {"rec_yards": "rec_yards", "rush_yards": "rush_yards", "pass_yards": "pass_yards", "rec_catches": "rec_catches"}
@@ -371,14 +399,16 @@ def main():
     roster = pd.read_parquet(OUT / "roster_now.parquet") if (OUT / "roster_now.parquet").exists() else pd.DataFrame(columns=["team", "player_id", "roster", "report"])
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
     wk = games[(games.season == season) & (games.week == week)]
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "league": L, "games": {},
+    pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest4.csv: base for receiving and rushing, combo for passing)")}
     rows = []
     for g in wk.itertuples():
         sp = None if pd.isna(g.spread_line) else float(g.spread_line)   # nflverse: positive when the home team is favoured
         wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
         mk = closing(plog, g.game_id) if len(plog) else None
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk)}
+        ha = (float(xp.loc[g.game_id, "home_exp"]), float(xp.loc[g.game_id, "away_exp"])) if g.game_id in xp.index else (None, None)
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1]), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0])}
         for team, side in out["games"][g.game_id].items():
             def add(r, stat, proj, volume):
                 rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": stat, "proj": proj, "proj_volume": volume, "run_at": run_at})
@@ -391,7 +421,7 @@ def main():
     pr = pd.DataFrame(rows)
     if len(pr):
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
-        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
+        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
     out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
     if (TR / "props_vs_market.csv").exists():

@@ -1047,6 +1047,32 @@ passing; on the two scoring windows K 200 is a hair better than 400 for passing,
 1.4659, but the fit window decides). Every column on the table is now graded live: receptions, receiving and
 rushing touchdowns, passing touchdowns and interceptions join the yards in `data/tracker/props_graded.csv`.
 
+**Round six: tied to the game model** (`experiments/props_backtest6.py`, `reports/props_backtest6.csv`). The player
+projections and the game model priced the same games separately: the game model from ratings, the QB and the
+weather; the players from the closing spread and total, adding up to nothing at the team level (Week 3 of 2026: the
+players' touchdowns summed to 2.57 a team against 3.08 implied by the game model's points, correlation 0.72 across
+the 32 teams). Two links, each on the round-five rule, walk-forward with the game model's own as-of expected points
+(`pred_v3.parquet`, priced before each game):
+
+| Link, on the adopted rule | Receiving yds | Rushing yds | Passing yds | Receiving TD (log loss) | Rushing TD | Passing TD |
+|---|---|---|---|---|---|---|
+| As adopted (closing spread and total) | 19.444 / 18.460 | 18.362 / 17.602 | 60.705 / 61.076 | 0.5101 / 0.4869 | 0.5948 / 0.5655 | 1.4868 / 1.4543 |
+| A. Game script from the model's expected margin and total | 19.443 / 18.462 | 18.362 / 17.604 | 60.579 / 61.124 | 0.5104 / 0.4870 | 0.5948 / 0.5655 | 1.4892 / 1.4554 |
+| A. Half and half with the closing line | 19.443 / 18.461 | 18.360 / 17.602 | 60.632 / 61.094 | 0.5102 / 0.4869 | 0.5948 / 0.5655 | 1.4875 / 1.4544 |
+| B. Reconciled to the team's expected points, a quarter of the way | **19.397 / 18.421** | **18.231 / 17.435** | 58.800 / 58.660 | 0.5090 / 0.4861 | 0.5926 / 0.5634 | 1.4754 / 1.4422 |
+| B. Half of the way | 19.464 / 18.524 | 18.245 / 17.400 | **57.683 / 57.305** | **0.5086 / 0.4858** | **0.5922 / 0.5629** | 1.4674 / 1.4328 |
+| B. All of the way | 19.935 / 19.119 | 18.689 / 17.724 | 58.019 / 57.784 | 0.5093 / 0.4867 | 0.5971 / 0.5676 | **1.4632 / 1.4226** |
+
+Link A does nothing: the closing line and the model's margin carry the same information for volume. Link B helps
+every stat on both windows. The team's expected receiving, rushing and passing yards and touchdowns are lines on
+its expected points fitted on 2016 to 2018 (receiving touchdowns -0.253 + 0.0748 x points, yards 86.2 + 6.48 x
+points; rushing -0.186 + 0.0409 x and 71.5 + 1.39 x; passing -0.262 + 0.0790 x and 73.8 + 6.89 x), and every
+player's line is scaled by the ratio of that to what his team's players add up to (the ratio clipped to 0.5 to 2),
+with the move weighted: yards a quarter of the way for receiving and rushing, half for passing; touchdowns half
+for receiving and rushing, all the way for passing. Adopted (bold): passing yards gain three yards on both windows,
+the rest a tenth or so, and the projections now carry the game model's read of the game. On the card each team
+shows its expected points and the two factors applied.
+
 **The rule over the years** (`experiments/props_by_season.py`; `reports/props_by_season.csv`, `props_by_position.csv`,
 `props_by_bucket.csv`; on the page under Results, Player projections). The adopted rule for all eight stats, run
 walk-forward over every charted season from 2017 (2016 is the first charted season, so its players have no history)

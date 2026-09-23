@@ -1,5 +1,5 @@
 """The adopted player-projection rule (nflmodel/props.py, rounds one to five), run walk-forward over every season the
-charted plays cover, 2017 to 2025 (2016 is the first charted season, so its players have no history), and scored the
+charted plays cover, 2017 on (2016 is the first charted season, so its players have no history), and scored the
 way the game backtest is: by season, by position and by size of the line. Every player-game with a touch is projected
 from the previous games of the player, his team and the opponent, nothing from the game itself. For each stat the
 rule's error is set against the raw rule the page carried before the backtests (flat 17-game rates, no game script,
@@ -17,6 +17,7 @@ d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass
 for c in ["complete_pass", "pass_touchdown", "rush_touchdown", "interception"]: d[c] = d[c].fillna(0).astype(float)
 games = pd.read_parquet(OUT / "games.parquet")[["game_id", "home_team", "away_team", "spread_line", "total_line"]]
 feat = pd.read_parquet(OUT / "features_asof.parquet", columns=["game_id", "team", "wind", "dome"]); feat["wind"] = np.where(feat.dome > 0, 0.0, feat.wind.fillna(0.0))
+pred = pd.read_parquet(OUT / "pred_v3.parquet", columns=["game_id", "home_exp", "away_exp"])   # the game model's expected points, priced before each game (round 6)
 names = names_by_id(range(2014, 2027)); pos_of = {pid: v[1] for pid, v in names.items()}
 def prev_sums(a, keys, cols, decay=None):
     a = a.sort_values(keys + ["season", "week"]).reset_index(drop=True); out = a[keys + ["season", "week", "game_id"]].copy()
@@ -64,6 +65,13 @@ def build(kind):
         elif k == "td": f["td_line"] = f.vol * (f[k] + PR.K_TD[kind] * lgc[k]) / (f.n + PR.K_TD[kind]) * (1 + PR.TD_MARGIN[kind] * f.me)
         else: f["int_line"] = f.vol * lgc[k]
         f[f"{k}_raw"] = vol_raw * f[k] / f.n
+    # round 6: the team's players moved toward the team's expected yards and touchdowns from the game model's expected points
+    f = f.merge(pred, on="game_id", how="left"); f["exp_pts"] = np.where(f.posteam == f.home_team, f.home_exp, f.away_exp)
+    fy, ft = PR.TEAM_FIT[kind]["yds"], PR.TEAM_FIT[kind]["td"]; wy, wt = PR.RECON_W[kind]["yds"], PR.RECON_W[kind]["td"]
+    tg = f.groupby(["game_id", "posteam"]).agg(sum_y=("yds_line", "sum"), sum_t=("td_line", "sum")).reset_index(); f = f.merge(tg, on=["game_id", "posteam"], how="left")
+    ok = f.exp_pts.notna()
+    scale_y = ((fy[0] + fy[1] * f.exp_pts) / f.sum_y.replace(0, np.nan)).clip(0.5, 2.0); scale_t = ((ft[0] + ft[1] * f.exp_pts) / f.sum_t.replace(0, np.nan)).clip(0.5, 2.0)
+    f["yds_line"] = np.where(ok & scale_y.notna(), f.yds_line * (1 + wy * (scale_y - 1)), f.yds_line); f["td_line"] = np.where(ok & scale_t.notna(), f.td_line * (1 + wt * (scale_t - 1)), f.td_line)
     f["pos"] = f.pid.map(pos_of).fillna("?"); return f, ev
 def score(x, line, actual, count=False):
     e = x[line] - x[actual]; out = {"n": int(len(x)), "mae": round(float(e.abs().mean()), 3 if count else 2), "bias": round(float(e.mean()), 3 if count else 2), "mean_line": round(float(x[line].mean()), 3 if count else 1), "mean_actual": round(float(x[actual].mean()), 3 if count else 1)}
