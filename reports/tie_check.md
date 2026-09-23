@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 22:34 UTC
+# Tie-out (sources and page), 2026-09-23 23:07 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -47,7 +47,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15, 30, 14, 49] | [71, 18, 37, 59, 38, 42, 15, 30, 14, 49] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
 | props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.35, 18.33], 'rush_yards': [18.12, 17.29], 'pass_yards': [57.68 | {'rec_yards': [19.354, 18.332], 'rush_yards': [18.121, 17.285], 'pass_yards': [5 | yes |
-| props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker) | 2896 | 2896 | yes |
+| props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker) | 2854 | 2854 | yes |
 | props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
 | props longest-play backtests on the page = props_backtest8.csv (l_blend_med) | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | yes |
 | props longest-play constants on the page = props_backtest8.csv (fitted) | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | yes |
@@ -55,13 +55,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props kicker constants on the page = props_backtest9.csv (fitted team blends) | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | yes |
 | props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
-| picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
-| picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
-| picks file stakes = tracker stakes | [0.54, 0.79, 0.97] | [0.54, 0.79, 0.97] | yes |
+| picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_PHI_CHI', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_PHI_CHI', '2026_03_TEN_NYG'] | yes |
+| picks file flags = tracker rows (bets) | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
+| picks file stakes = tracker stakes | [0.6, 0.6, 0.79, 0.97] | [0.6, 0.6, 0.79, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 201, 66, 32, 2026, 3] | [364, 201, 66, 32, 2026, 3] | yes |
-| props record on the page = every projection file, graded rows and market rows | [2896, 0, 0] | [2896, 0, 0] | yes |
+| props record on the page = every projection file, graded rows and market rows | [2854, 0, 0] | [2854, 0, 0] | yes |
 | player game logs on the page = player-games in the charted plays (receiving, rushing, passing) | 74141 | 74141 | yes |
 | page backtest file: games | 3060 | 3060 | yes |
 | page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
@@ -70,12 +70,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.006 | 0.01 or under | yes |
 | deep-dive breakdowns rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-23T21-57-37Z | 2026-09-23T21-57-37Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-23T22-35-41Z | 2026-09-23T22-35-41Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0004 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
-| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | yes |
+| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', 'CHI +4.5', 'MIA +11.5', 'NYG - | ['', '', '', '', '', '', '', '', '', '', '', '', 'CHI +4.5', 'MIA +11.5', 'NYG - | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
-| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
+| page live table = tracker (pending model rows) | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
 Result: PASS (73 of 73 tie)
