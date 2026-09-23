@@ -68,7 +68,7 @@ These rows are written by `report.py` from the same prediction table as the page
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
 disagreements with the close lose; 5+ point spread edges have won in both backtest windows on small samples (a lead,
-not proof), and the live tracker is what settles it. The model has thirteen inputs, each with one plain meaning
+not proof), and the live tracker is what settles it. The model has twenty inputs, each with one plain meaning
 (`docs/how_it_works.md` section 4), the regression is refit before every week on every played game since 2013, and
 there are no flags in Week 18, where resting starters make the line smarter than the ratings. Every number in the
 tables is checked against Pro-Football-Reference and the schedule by `verify.py` (`reports/verification.md`).
