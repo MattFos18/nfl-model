@@ -1130,6 +1130,21 @@ baseline 12.218 / 12.237; **the blend (16.3327 + 0.2340 x decayed longest + 0.05
 every stat on both. On the card the three lines sit beside the book's under Player props, in the calculation
 walk-through, in the weekly file and the grading (the longest gain per player-game from the same play-by-play).
 
+**Round nine: kickers** (`experiments/props_backtest9.py`, `reports/props_backtest9.csv`; `kicker_games`, `kickers`,
+`project_kicker` in `nflmodel/props.py`). PrizePicks posts kicking points and field goals made. One kicker per team
+and game from the raw play-by-play since 2016 (field goals made and tried, extra points made and tried; points =
+3 x field goals + extra points), projected walk-forward and scored by absolute error (tuning / held out). Kicking
+points: his own points a game over his last 17 2.919 / 3.051 (baseline); his own decayed 0.85 2.936 / 3.073; his
+team's points a game decayed 0.85, whoever kicked, 2.922 / 3.043; a line on the team's implied total from the
+closing line ((total + expected margin) / 2) 2.837 / 2.926; a blend of his own decayed rate and the implied total
+2.833 / 2.926; **the team's decayed rate and the implied total (2.4861 + 0.1843 x team points + 0.1489 x implied
+total) 2.832 / 2.925** (adopted); that x a median factor 0.96 2.817 / 2.933, better on tuning and worse held out,
+so not taken. Field goals made: baseline 0.979 / 1.018; **the team blend (1.0165 + 0.1757 x team field goals a
+game + 0.0155 x implied total) 0.969 / 1.001** (adopted); the median factor 1.02 0.970 / 0.999, mixed again. The
+team's rate was taken over his own because it scored the same or better on both windows and a new kicker inherits
+the offense that feeds him. The card's Player props panel gains a Kicking section with the roster's kicker, his two
+lines beside the book's, the walk-through, and the grading from the same kick plays.
+
 **Against the market** (`nflmodel/props_lines.py`, `data/lines/props_log.csv`, `data/tracker/props_vs_market.csv`).
 No historical player prop lines exist in the repo or in any free source: The Odds API keeps them from May 2023 on
 paid plans only, so the market comparison is live from Week 3 of 2026. The line watch pulls the player props from
@@ -1145,9 +1160,9 @@ logged 774 lines across 17 markets, among them longest reception, longest rush, 
 kicking points and field goals, which the free Odds API tier cannot afford. Underdog's over/under feed refuses
 the runner on every version tried (v6, v5, v3: 426 Upgrade Required), so it is not a source. Two projections were
 added so those lines have a comparison: targets (the projected targets already inside the receiving line) and pass
-plus rush yards (the QB's passing line plus his rushing line), graded like the rest. The kicking markets are
-logged but have no projection yet (a round of their own, to be backtested first); the longest-play markets got
-theirs in round eight. The props builder takes the last pull for each game, the median
+plus rush yards (the QB's passing line plus his rushing line), graded like the rest. The longest-play markets got their
+projections in round eight and the kicking markets in round nine, so every PrizePicks market on the board has a
+projection beside it. The props builder takes the last pull for each game, the median
 line across books, and puts it beside each projection on the card with the side the projection leans (over above
 the line, under below; for the anytime touchdown the book's price as an implied probability beside the
 projection's chance of at least one score, 1 - exp(-(receiving + rushing expected touchdowns))). When the game is

@@ -100,7 +100,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
         if (WEB / "props_backtest.js").exists():
             pb = _js("props_backtest.js")
-            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv", "props_backtest8.csv"]], [r["n_rows"] for r in pb["rounds"]])
+            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv", "props_backtest8.csv", "props_backtest9.csv"]], [r["n_rows"] for r in pb["rounds"]])
             if (REP / "props_vs_market_backtest.csv").exists():
                 tie("props market backtest on the page = report (rows)", len(pd.read_csv(REP / "props_vs_market_backtest.csv")), len(pb["market_backtest"]))
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
@@ -110,7 +110,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
-        tie("props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(5 * len([r for r in side["receivers"] if not r["out"]]) + 5 * len([r for r in side["rushers"] if not r["out"]]) + 7 * len([r for r in side["qb"][:1] if not r["out"]]) + 3 * len([r for r in side.get("defenders", []) if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
+        tie("props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(5 * len([r for r in side["receivers"] if not r["out"]]) + 5 * len([r for r in side["rushers"] if not r["out"]]) + 7 * len([r for r in side["qb"][:1] if not r["out"]]) + 3 * len([r for r in side.get("defenders", []) if not r["out"]]) + 2 * len([r for r in side.get("kicker", []) if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
         b7 = REP / "props_backtest7.csv"
         if b7.exists():
             r7 = pd.read_csv(b7)
@@ -120,6 +120,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             r8 = pd.read_csv(b8)
             tie("props longest-play backtests on the page = props_backtest8.csv (l_blend_med)", {k: [float(r8[(r8.stat == k) & (r8.variant == "l_blend_med")]["mae_2019-22"].iloc[0]), float(r8[(r8.stat == k) & (r8.variant == "l_blend_med")]["mae_2023-25"].iloc[0])] for k in ["rec_longest", "rush_longest", "pass_longest"]}, pj["backtest_longest"])
             tie("props longest-play constants on the page = props_backtest8.csv (fitted)", {k: [float(x) for x in re.findall(r"blend ([\d.]+) \+ ([\d.]+) x decayed longest \+ ([\d.]+) x yards per game \(median factor ([\d.]+)\)", r8[(r8.stat == k) & (r8.variant == "l_blend_med")]["fitted"].iloc[0])[0]] for k in ["rec_longest", "rush_longest", "pass_longest"]}, {k + "_longest": list(v) for k, v in pj["longest"].items()})
+        b9 = REP / "props_backtest9.csv"
+        if b9.exists():
+            r9 = pd.read_csv(b9); pick9 = {"kick_points": "k_blend_team", "field_goals": "g_blend_team"}
+            tie("props kicker backtests on the page = props_backtest9.csv (team blends)", {k: [float(r9[(r9.stat == k) & (r9.variant == v)]["mae_2019-22"].iloc[0]), float(r9[(r9.stat == k) & (r9.variant == v)]["mae_2023-25"].iloc[0])] for k, v in pick9.items()}, pj["backtest_kick"])
+            tie("props kicker constants on the page = props_backtest9.csv (fitted team blends)", {k: [float(x) for x in re.findall(r"team blend ([\d.]+) \+ ([\d.]+) x decayed team \+ ([\d.]+) x implied total", r9[(r9.stat == k) & (r9.variant == v)]["fitted"].iloc[0])[0]] for k, v in pick9.items()}, {"kick_points": list(pj["kick"]["pts"]), "field_goals": list(pj["kick"]["fgm"])})
         b5 = REP / "props_backtest5.csv"
         if b5.exists():
             r5 = pd.read_csv(b5); r6b = pd.read_csv(REP / "props_backtest6.csv"); pick5 = {"rec_catches": (r5, "rec_catch", "catch_K25_med", "mae"), "rec_td_ll": (r6b, "rec_td", "td_recon50", "ll"), "rush_td_ll": (r6b, "rush_td", "td_recon50", "ll"), "pass_td_ll": (r6b, "pass_td", "td_recon100", "ll"), "pass_int_ll": (r5, "pass_int", "int_league", "ll")}
