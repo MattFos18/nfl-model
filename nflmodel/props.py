@@ -132,8 +132,6 @@ def rushers(d: pd.DataFrame, names: dict) -> dict:
     t = d[d.play_type.eq("run") & d.rusher_player_id.notna()]
     team_run = t.groupby(["game_id", "posteam"]).size()
     for pid, g in t.groupby("rusher_player_id"):
-        if names.get(pid, ("", ""))[1] == "QB":
-            continue
         g_all = g; g = _last(g); n = len(g)
         if n < MIN_VOL:
             continue
@@ -424,6 +422,8 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     recon = {"rec": reconcile(rec, "rec", exp_pts, "proj_rec_yards", "proj_rec_td"), "rush": reconcile(rus, "rush", exp_pts, "proj_rush_yards", "proj_rush_td"), "pass": reconcile(qbs, "pass", exp_pts, "proj_pass_yards", "proj_pass_td", starter_only=True)}
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
+    for q in qbs:
+        u = next((u for u in rus if u["player_id"] == q["player_id"]), None); q["proj_rush_yards"] = u["proj_rush_yards"] if u else None; q["proj_rush_td"] = u["proj_rush_td"] if u else 0.0; q["proj_td_any"] = round(1 - np.exp(-q["proj_rush_td"]), 3)
     for r in rec: r["proj_rush_rec_yards"] = round(r["proj_rec_yards"] + next((u["proj_rush_yards"] for u in rus if u["player_id"] == r["player_id"]), 0.0), 1)
     for u in rus: u["proj_rush_rec_yards"] = round(u["proj_rush_yards"] + next((r["proj_rec_yards"] for r in rec if r["player_id"] == u["player_id"]), 0.0), 1)
     attach_market(rec, mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
