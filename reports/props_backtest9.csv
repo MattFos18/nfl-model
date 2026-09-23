@@ -1,0 +1,15 @@
+stat,variant,mae_2019-22,n_2019-22,mae_2023-25,n_2023-25,fitted
+kick_points,k_avg,2.919,2111,3.051,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_85,2.936,2111,3.073,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_team85,2.922,2111,3.043,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_tt,2.837,2111,2.926,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_blend_own,2.833,2111,2.926,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_blend_team,2.832,2111,2.925,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+kick_points,k_blend_med,2.817,2111,2.933,1624,own blend 2.4147 + 0.1970 x decayed own + 0.1475 x implied total; team blend 2.4861 + 0.1843 x decayed team + 0.1489 x implied total; median factor 0.96 on k_blend_own
+field_goals,g_avg,0.979,2111,1.018,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_85,0.979,2111,1.027,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_team85,0.974,2111,1.019,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_tt,0.972,2111,1.005,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_blend_own,0.969,2111,1.001,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_blend_team,0.969,2111,1.001,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
+field_goals,g_blend_med,0.97,2111,0.999,1624,own blend 0.9924 + 0.1930 x decayed own + 0.0151 x implied total; team blend 1.0165 + 0.1757 x decayed team + 0.0155 x implied total; median factor 1.02 on g_blend_own
