@@ -392,15 +392,16 @@ def main():
     (WEB / "track.js").write_text("window.TRACK=" + json.dumps(g, default=clean, separators=(",", ":")) + ";")
     sizes = sum(f.stat().st_size for f in WEB.glob("*.js"))
     print(f"{len(teams)} teams, {len(cols)} columns, {sizes/1e6:.1f} MB")
+    export_rankings_and_methods()   # rankings.js and backtest.js, on every export (about 75 seconds)
 
 
-if __name__ == "__main__":
-    main()
 
 
 # ---------------------------------------------------------------------------------------------
 # Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
 # ---------------------------------------------------------------------------------------------
+
+
 def export_rankings_and_methods():
     from . import ratings as R, backtest as bt
     tg = pd.read_parquet(OUT / "team_games.parquet")
@@ -479,12 +480,25 @@ def export_rankings_and_methods():
                                    "h": {st: round(float(Rt.attrs[f"hfa_{st}"]), 5) for st in R.STATS}, "teams": teams,
                                    "windows": {k: v for k, v in variants.items() if v}}
         print("rankings", s, flush=True)
-    # backtest: every priced game 2019 to now with model, Vegas and actual
+    season_end = {str(k): int(v) for k, v in played.groupby("season").week.max().items()}
+    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out}, default=clean, separators=(",", ":")) + ";")
+    print("rankings.js", (WEB / "rankings.js").stat().st_size / 1e6, "MB")
+    export_backtest_js(games, feats)
+
+
+def export_backtest_js(games=None, feats=None):
+    """backtest.js: every priced regular-season game 2019 to now with the model's numbers, Vegas and the result; the
+    Results tab grades everything from this file, so it is rewritten on every export (it was only written with
+    --rankings until 23 Sep 2026, which left the Results tab on a stale model)."""
+    from . import backtest as bt
+    games = pd.read_parquet(OUT / "games.parquet") if games is None else games
+    feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")) if feats is None else feats
+    gd = games.set_index("game_id").gameday
     allv = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     allv = allv[allv.game_type == "REG"].sort_values(["season", "week", "game_id"])
     gd = games.set_index("game_id").gameday
     cols = ["game_id", "season", "week", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
-            "spread_line", "total_line", "p_home", "p_cover_home", "p_over"]
+            "spread_line", "total_line", "p_home", "p_cover_home", "p_over", "model_spread", "model_total"]
     bk = allv[cols + ["sigma_margin"]].copy()
     bk["gameday"] = bk.game_id.map(gd)
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
@@ -502,10 +516,10 @@ def export_rankings_and_methods():
         bk[col] = side_val(col, "home")
     recs = [[clean(v) for v in r] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
-    season_end = {str(k): int(v) for k, v in played.groupby("season").week.max().items()}
-    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out}, default=clean, separators=(",", ":")) + ";")
-    print("rankings.js", (WEB / "rankings.js").stat().st_size / 1e6, "MB")
+    print("backtest.js", len(recs), "games", flush=True)
 
 
-if __name__ == "__main__" and "--rankings" in __import__("sys").argv:
-    export_rankings_and_methods()
+
+
+if __name__ == "__main__":
+    main()
