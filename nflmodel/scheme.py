@@ -15,7 +15,7 @@ import numpy as np, pandas as pd
 import pyarrow.parquet as pq
 from .features import RAW, OUT, TEAM_FIX
 
-PBP = ["game_id", "play_id", "season", "week", "posteam", "defteam", "play_type", "pass", "rush", "qb_dropback", "epa", "success", "down", "ydstogo", "passer_player_id", "receiver_player_id", "rusher_player_id",
+PBP = ["game_id", "play_id", "season", "week", "posteam", "defteam", "play_type", "pass", "rush", "qb_dropback", "epa", "success", "down", "ydstogo", "passer_player_id", "receiver_player_id", "rusher_player_id", "yards_gained", "pass_touchdown", "rush_touchdown", "interception", "fumble_lost",
        "yardline_100", "wp", "shotgun", "no_huddle", "sack", "qb_hit", "complete_pass", "air_yards", "xpass", "half_seconds_remaining", "game_seconds_remaining", "score_differential"]
 PART = ["nflverse_game_id", "play_id", "offense_formation", "offense_personnel", "defenders_in_box", "defense_personnel", "number_of_pass_rushers", "was_pressure",
         "defense_man_zone_type", "defense_coverage_type", "time_to_throw"]
