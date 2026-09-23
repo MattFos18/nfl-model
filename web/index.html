@@ -126,9 +126,11 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .bar .lead{font-weight:600}
 .why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
 .whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px} .whybox[hidden]{display:none}
-@media(min-width:1000px){article.gcard.open{grid-column:1 / -1} article.gcard.open .whybox{grid-template-columns:1fr 1fr} article.gcard.open .whybox > .full{grid-column:1 / -1}}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px} .jump a{font-size:12px;padding:3px 9px;border:1px solid var(--rule);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--panel)} .jump a.flag{border-color:var(--accent);color:var(--accent);font-weight:600} .jump a:hover{border-color:var(--accent)}
 .ptab2{width:100%;border-collapse:collapse;font-size:12.5px} .ptab2 th{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1px solid var(--rule)} .ptab2 th.l,.ptab2 td.l{text-align:left} .ptab2 td{padding:4px 6px;text-align:right;border-bottom:1px solid var(--rule-2);white-space:nowrap} .ptab2 tr.neg td{color:var(--muted)} .ptab2 b{font-variant-numeric:tabular-nums}
 .lean{font-size:11.5px;font-variant-numeric:tabular-nums} .lean.up{color:var(--good)} .lean.dn{color:var(--bad)}
+tr.calc{display:table-row} tr.calc[hidden]{display:none} .ptab2 tr.calc > td{background:var(--panel-2);padding:2px 6px}
+details.psec{margin-top:6px;border:1px solid var(--rule-2);border-radius:6px;padding:4px 8px} details.psec summary{cursor:pointer;font-size:13px;padding:4px 0} details.psec[open] summary{border-bottom:1px solid var(--rule-2);margin-bottom:4px}
 .ctab{width:100%;border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums}
 .ctab th{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:2px 4px;border-bottom:1px solid var(--rule)}
 .ctab td{padding:2px 4px;border-bottom:1px solid var(--rule-2);vertical-align:middle}
@@ -588,12 +590,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const lab = v => key === "home_spread" ? lineTxt(v >= 0 ? H.home : H.away, -Math.abs(v)) : (Number.isInteger(v) ? String(v) : v.toFixed(1)); const day = t => t.slice(5, 10).replace("-", "/");
     if (vals.length < 2) return `<div class="mv"><span class="chip">Open ${vals.length ? lab(vals[0]) : "–"}</span><span class="chip mute">${vals.length ? "1 snapshot" : "No snapshots yet"}</span></div>`;
     const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
-    const W = 320, Hh = 64, m = 6, ml = 44, mr = 70; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 8 + (hi - v) / (hi - lo) * (Hh - 2 * m - 16);
+    const W = 320, Hh = 52, m = 6, ml = 44, mr = 70; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 6 + (hi - v) / (hi - lo) * (Hh - 2 * m - 12);
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="line movement">`;
     if (modelVal != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-dasharray="3 3"/><text x="${W - mr + 4}" y="${(y(modelVal) + 3.5).toFixed(1)}" font-size="9.5" fill="var(--model)">Model ${lab(modelVal)}</text>`;
     svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="1.8"/><circle cx="${x(0)}" cy="${y(vals[0]).toFixed(1)}" r="2.5" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="2.5" fill="var(--vegas)"/>`;
     svg += `<text x="${ml - 4}" y="${(y(vals[0]) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="var(--vegas)">${lab(vals[0])}</text><text x="${W - mr + 4}" y="${(y(vals[vals.length - 1]) + (modelVal != null && Math.abs(y(modelVal) - y(vals[vals.length - 1])) < 10 ? (y(modelVal) <= y(vals[vals.length - 1]) ? 12 : -6) : 3.5)).toFixed(1)}" font-size="9.5" font-weight="600" fill="var(--vegas)">Line ${lab(vals[vals.length - 1])}</text>`;
-    svg += `<text x="${ml}" y="${Hh - 2}" font-size="9" fill="var(--text-muted)">${day(ts[0])}</text><text x="${W - mr}" y="${Hh - 2}" text-anchor="end" font-size="9" fill="var(--text-muted)">${day(ts[ts.length - 1])} · ${vals.length} snapshots</text></svg>`;
+    svg += `</svg>`;
     const d = vals[vals.length - 1] - vals[0];
     let moved;
     if (Math.abs(d) < 0.01) moved = "No move";
@@ -603,8 +605,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     let read = "";
     if (Math.abs(d) >= 0.5 && edge != null && edge !== 0) { const side = key === "home_spread" ? (edge > 0 ? H.home : H.away) : (edge > 0 ? "Over" : "Under"); const withModel = (d > 0) === (edge > 0);
       read = `<span class="chip mute" title="${withModel ? "The market moved the model's way since the first snapshot: the open was the better number for this side, and the model was there first (positive closing line value if it was bet early)." : "The market moved against the model since the first snapshot: this side gets a better number now than at the open, and the model's disagreement with the market has grown."}">${withModel ? `With the model: ${side} had the better number at the open` : `Against the model: ${side} gets a better number now than at the open`}</span>`; }
-    return `<div class="mv"><span class="chip">Open ${lab(vals[0])}</span><span class="chip">Now ${lab(vals[vals.length - 1])}</span></div>` + svg +
-      `<div class="mv"><span class="chip ${Math.abs(d) < 0.01 ? "mute" : "alt"}" title="${vals.length} snapshots, ${day(ts[0])} to ${day(ts[ts.length - 1])}">${moved}</span>${read}</div>`;
+    return svg + (Math.abs(d) < 0.01 && !read ? "" : `<div class="mv">${Math.abs(d) < 0.01 ? "" : `<span class="chip alt" title="${vals.length} snapshots, ${day(ts[0])} to ${day(ts[ts.length - 1])}">${moved}</span>`}${read}</div>`);
   }
   function flagReason(g) {
     // the three inputs that do most to set the model's line (home minus away contribution), for a flagged card
@@ -620,12 +621,19 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   function histCover(edge) {
     // what past edges of this size actually covered, from the backtest rows (1-point buckets up to 7, then 7+)
     if (!window.BACKTEST || edge == null) return "";
-    const e = Math.abs(edge); if (e < 1) return "";
-    const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
+    const e = Math.abs(edge); const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
     const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.pickWon).length;
-    return `<span class="chip alt" title="every backtest game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side">Edges of ${lo}${hi === 99 ? "+" : " to " + hi} covered ${(100 * w / rows.length).toFixed(0)}% (${rows.length} bets)</span>`;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side and graded against the close: what share covered">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${w}-${rows.length - w}, ${(100 * w / rows.length).toFixed(0)}% covered</span>`;
+  }
+  function histOver(tedge) {
+    if (!window.BACKTEST || tedge == null) return "";
+    const e = Math.abs(tedge); const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
+    const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.tedge != null && Math.abs(r.tedge) >= lo && Math.abs(r.tedge) < hi && r.ouWon !== null && r.ouWon !== undefined);
+    if (rows.length < 10) return "";
+    const w = rows.filter(r => r.ouWon).length;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model's total differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side: what share won">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${w}-${rows.length - w}, ${(100 * w / rows.length).toFixed(0)}% won</span>`;
   }
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
   function runMove(g, key, lab) {
@@ -651,7 +659,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()];
     let time = "", slot = "";
     if (m[4]) { const hh = +m[4], mm = m[5]; time = `${((hh + 11) % 12) + 1}:${mm} ${hh >= 12 ? "PM" : "AM"} ET`;
-      if (hh >= 19) slot = day === "Thursday" ? "Thursday Night Football" : (day === "Sunday" ? "Sunday Night Football" : (day === "Monday" ? "Monday Night Football" : `${day} night`));
       }
     const site = g.stadium ? ` · ${esc(g.stadium)}${g.roof && g.roof !== "outdoors" ? " (" + esc(g.roof) + ")" : ""}` : "";
     return `${day}, ${mon} ${d.getDate()}${time ? " · " + time : ""}${slot ? " · " + slot : ""}${site}`;
@@ -734,20 +741,20 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const vw = vegasWin(g);
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
       const actualMargin = played ? g.home_score - g.away_score : null;
-      h += `<article class="gcard ${g.bet ? "flagged" : ""}">
+      h += `<article class="gcard ${g.bet ? "flagged" : ""}" id="card${i}">
         <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}</div>
         <div class="blocks">
           <section class="blk"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "h", "Cover") : bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip" title="From the backtest: of every past game where the model's edge was this size, the share where its side covered. The model's own bell-curve figure runs about ten points hotter, because the line knows things the model does not.">${(g.p_cover_cal_home ?? g.p_cover_home) >= 0.5 ? H : A} covers ${Math.round(100 * Math.max(g.p_cover_cal_home ?? g.p_cover_home, 1 - (g.p_cover_cal_home ?? g.p_cover_home)))}% · past edges this size</span>${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${histCover(g.spread_edge)}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "h", "Cover") : bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${histCover(g.spread_edge)}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip" title="From the backtest: of every past game where the model's total edge was this size, the share that went the model's way.">${(g.p_over_cal ?? g.p_over) >= 0.5 ? "Over" : "Under"} ${Math.round(100 * Math.max(g.p_over_cal ?? g.p_over, 1 - (g.p_over_cal ?? g.p_over)))}% · past edges this size</span>${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -768,15 +775,15 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         <div class="whybox" id="box${i}" hidden data-k=""></div>
       </article>`;
     });
-    $("cards").innerHTML = h;
+    $("cards").innerHTML = `<div class="jump">${W.games.map((g, i) => `<a href="#card${i}" class="${g.bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}</a>`).join("")}</div>` + h;
     // one box per card; the tab row decides what it shows. Clicking the open tab closes it.
     const CARD_TAB = {take: g => takeawaysHtml(g, W), why: (g, i) => whyHtml(g, W.season, i), h2h: g => h2hHtml(g.home_team, g.away_team, g),
       sch: g => { const m = schemeMatchHtml(g.away_team, g.home_team) + schemeMatchHtml(g.home_team, g.away_team); return m ? m + `<div class="mv" style="grid-column:1 / -1"><span class="chip mute">Readings · not a model input</span><span class="chip mute">Offense in the look · defense allows · how often the defense uses it</span></div>` : "<p class='note' style='margin:0'>No charted plays for these teams yet.</p>"; },
       props: g => { const pr = propsHtml(g.game_id, g.away_team, g.home_team) + propsHtml(g.game_id, g.home_team, g.away_team); return pr ? pr + propsRecordHtml() : "<p class='note' style='margin:0'>No projections for these teams yet.</p>"; }};
     $("cards").querySelectorAll("button.why[data-k]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i, k = b.dataset.k, box = $("box" + i), g = W.games[i]; const same = !box.hidden && box.dataset.k === k;
       $("cards").querySelectorAll(`button.why[data-i="${i}"]`).forEach(o => { o.setAttribute("aria-expanded", "false"); o.textContent = o.textContent.replace("▴", "▾"); });
-      if (same) { box.hidden = true; box.dataset.k = ""; b.closest("article").classList.remove("open"); return; }
-      box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.closest("article").classList.add("open"); b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴"); }));
+      if (same) { box.hidden = true; box.dataset.k = ""; return; }
+      box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴"); }));
   }
   // Takeaways: the handful of readings on this card that bear on the outcome, each a short line, drawn from the same
   // tables the other tabs show (inputs, absences, the scheme matchup, the last meetings, the props against the book)
@@ -788,7 +795,6 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const line = [];
     if (g.spread_line != null) { const side = g.spread_edge > 0 ? H : A; const flag = Math.abs(g.spread_edge) >= W.spread_edge; const pc_ = g.p_cover_cal_home != null ? Math.round(100 * (g.spread_edge > 0 ? g.p_cover_cal_home : 1 - g.p_cover_cal_home)) : null; line.push(chip(`${side} ${Math.abs(g.spread_edge).toFixed(1)} vs line${pc_ != null ? " · " + pc_ + "% cover" : ""} · ${flag ? "flag" : "no flag"}`, flag ? "alt" : "")); }
     if (g.total_line != null) line.push(chip(`${g.total_edge > 0 ? "Over" : "Under"} ${Math.abs(g.total_edge).toFixed(1)} vs ${g.total_line}${g.p_over_cal != null ? " · " + Math.round(100 * (g.total_edge > 0 ? g.p_over_cal : 1 - g.p_over_cal)) + "%" : ""} · not flagged`));
-    out.push(grp("Model vs market", line));
     // what moves the points: the two largest inputs per team, and anyone of note out
     const drivers = [];
     [H, A].forEach(t => { const inp = g.sides && g.sides[t]; if (!inp) return; const c = contributions(inp, W.season); const top = c.items.filter(x => Math.abs(x.c) >= 0.4).sort((x, y) => Math.abs(y.c) - Math.abs(x.c)).slice(0, 2);
@@ -1250,26 +1256,83 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   // the book's closing line beside a projection: the line, then the side the projection leans and by how much
   const mktCell = (proj, line, books, flag) => line == null ? "<span class='rk'>—</span>" : `<span title="${books} book${books === 1 ? "" : "s"}">${line}</span> <span class="rk ${proj > line ? "pos" : (proj < line ? "neg" : "")}">${proj > line ? "over" : (proj < line ? "under" : "push")} ${Math.abs(proj - line).toFixed(1)}</span>${flag ? ` <span class="badge flag" title="the edge clears the cut the market backtest chose for this stat on both windows">✓ ${flag}</span>` : ""}`;
   const tdCell = r => r.mkt_td_prob == null ? "<span class='rk'>—</span>" : `<span title="anytime touchdown ${r.mkt_td_price > 0 ? "+" : ""}${r.mkt_td_price}, implied ${Math.round(100 * r.mkt_td_prob)}%; projection ${Math.round(100 * r.proj_td_any)}%">${Math.round(100 * r.mkt_td_prob)}% <span class="rk ${r.proj_td_any > r.mkt_td_prob ? "pos" : "neg"}">${r.proj_td_any > r.mkt_td_prob ? "yes" : "no"} ${Math.round(100 * r.proj_td_any)}%</span></span>`;
+  // one row per player and market: our projection where one exists, the book's line where it posts one, the lean between them
+  const implied = p => p == null ? null : (p > 0 ? 100 / (p + 100) : -p / (-p + 100));
+  document.addEventListener("click", ev => { const b = ev.target.closest("button.why.calc"); if (!b) return; let tr = b.closest("tr"); let n = tr.nextElementSibling; while (n && !n.classList.contains("calc")) n = n.nextElementSibling; if (n) { n.hidden = !n.hidden; } });
+  const MKT_ORDER = {pass: ["pass_yards", "pass_td", "pass_completions", "pass_attempts", "pass_int", "pass_longest", "rush_yards", "anytime_td"], rec: ["rec_yards", "rec_catches", "rec_longest", "rush_rec_yards", "anytime_td", "rush_yards"], rush: ["rush_yards", "rush_attempts", "rush_longest", "rush_rec_yards", "rec_yards", "rec_catches", "anytime_td"], def: ["def_tackles", "def_solo_tackles", "def_sacks", "def_int", "anytime_td"], other: ["kick_points", "field_goals", "anytime_td", "rec_yards", "rec_catches", "rush_yards"]};
+  const MKT_PROJ = {pass_yards: "proj_pass_yards", pass_td: "proj_pass_td", pass_completions: "proj_pass_completions", pass_attempts: "proj_pass_attempts", pass_int: "proj_int", rec_yards: "proj_rec_yards", rec_catches: "proj_catches", rush_yards: "proj_rush_yards", rush_attempts: "proj_rush_attempts", rush_rec_yards: "proj_rush_rec_yards", def_tackles: "proj_tackles", def_solo_tackles: "proj_solo_tackles", def_sacks: "proj_sacks", anytime_td: "proj_td_any"};
+  // the arithmetic behind one player's lines, in the order it runs (Definitions and Model → Player projections explain each step)
+  function calcHtml(r, kind, s) {
+    const rc = (s.recon || {})[kind] || {}, vol = s.volume || {}, L = PR.league || {}, c = PR, f1 = v => (+v).toFixed(1), f2 = v => (+v).toFixed(2), f3 = v => (+v).toFixed(3);
+    const row = (lab, val, how) => `<tr><td class="l">${lab}</td><td><b>${val}</b></td><td class="l rk">${how}</td></tr>`; let rows = "";
+    if (kind === "rec") {
+      rows += row("Team pass plays", f1(vol.pass_plays), `last 17 games ${vol.pass_plays_pg} a game, moved by the closing spread and total`);
+      rows += row("His share of targets", pc(r.share), `his targets over his team's pass plays, decayed ${c.decay} per game back`);
+      rows += row("Targets", f1(r.proj_targets), `pass plays x 97% x his share among the players who are playing`);
+      rows += row("Yards per target", `${r.ypt} → ${r.ypt_shrunk} → ${r.proj_ypt}`, `his last ${r.games} games (${r.targets} targets) → shrunk toward the league ${L.ypt} with ${c.k.rec} targets of weight → moved ${Math.round(100 * c.w.rec)}% toward what ${s.defense ? "this defense" : "the defense"} allows (${(s.defense || {}).ypt_allowed})`);
+      rows += row("Mean yards", f1(r.proj_targets * r.proj_ypt), `targets x yards per target`);
+      rows += row("Median factor", `x ${c.med.rec}`, `yards are right-skewed: the line off by least sits below the mean`);
+      rows += row("Team scaling", `x ${rc.yds_factor}`, `${team_(s)} players add up to ${rc.team_yds_players} receiving yards; the game model's ${rc.exp_pts} points imply ${rc.team_yds_exp}; moved a quarter of the way`);
+      rows += row("Receiving yards line", f1(r.proj_rec_yards), `targets x yards per target x ${c.med.rec} x ${rc.yds_factor}`);
+      rows += row("Receptions", f1(r.proj_catches), `targets x catch rate ${r.catch} → shrunk ${r.catch_shrunk} (${c.k_catch} targets of weight) x ${c.med_catch}`);
+      rows += row("Touchdowns", f3(r.proj_rec_td), `rate per target ${(100 * r.td_pt).toFixed(1)}% → shrunk (${c.k_td.rec} targets) and moved ${(100 * c.td_margin.rec).toFixed(0)}% per point of expected margin → ${(100 * r.td_pt_proj).toFixed(2)}% x targets x team scaling ${rc.td_factor}`);
+      rows += row("Anytime touchdown", pc(r.proj_td_any), `1 − e^−(receiving ${f3(r.proj_rec_td)} + rushing touchdowns)`);
+    } else if (kind === "rush") {
+      rows += row("Team runs", f1(vol.runs), `last 17 games ${vol.runs_pg} a game, moved by the closing spread and total`);
+      rows += row("His share of carries", pc(r.share), `his carries over his team's runs, decayed ${c.decay} per game back`);
+      rows += row("Carries", f1(r.proj_carries), `runs x his share among the players who are playing`);
+      rows += row("Yards per carry", `${r.ypc} → ${r.ypc_shrunk} → ${r.proj_ypc}`, `his last ${r.games} games (${r.carries} carries) → shrunk toward the league ${L.ypc} with ${c.k.rush} carries of weight → moved ${Math.round(100 * c.w.rush)}% toward what this defense allows (${(s.defense || {}).ypc_allowed})`);
+      rows += row("Mean yards", f1(r.proj_carries * r.proj_ypc), `carries x yards per carry`);
+      rows += row("Median factor", `x ${c.med.rush}`, `the line off by least sits below the mean`);
+      rows += row("Team scaling", `x ${rc.yds_factor}`, `players add up to ${rc.team_yds_players} rushing yards; the game model's ${rc.exp_pts} points imply ${rc.team_yds_exp}; a quarter of the way`);
+      rows += row("Rushing yards line", f1(r.proj_rush_yards), `carries x yards per carry x ${c.med.rush} x ${rc.yds_factor}`);
+      rows += row("Touchdowns", f3(r.proj_rush_td), `rate per carry ${(100 * r.td_pc).toFixed(1)}% → shrunk (${c.k_td.rush} carries) → ${(100 * r.td_pc_proj).toFixed(2)}% x carries x team scaling ${rc.td_factor}`);
+      rows += row("Anytime touchdown", pc(r.proj_td_any), `1 − e^−(rushing ${f3(r.proj_rush_td)} + receiving touchdowns)`);
+    } else if (kind === "pass") {
+      rows += row("Dropbacks", f1(r.proj_dropbacks), `the team's last 17 games ${vol.dropbacks_pg} a game, a quarter toward what the opponent allows, moved by the closing spread and total`);
+      rows += row("Yards per dropback", `${r.ypd} → ${r.ypd_shrunk} → ${r.proj_ypd}`, `his last ${r.games} games (${r.dropbacks} dropbacks) → shrunk toward the league ${L.ypd} with ${c.k.pass} dropbacks of weight → moved ${Math.round(100 * c.w.pass)}% toward what this defense allows (${(s.defense || {}).ypd_allowed})`);
+      rows += row("Mean yards", f1(r.proj_dropbacks * r.proj_ypd), `dropbacks x yards per dropback${vol.wind_factor_pass < 1 ? ` x wind ${vol.wind_factor_pass}` : ""}`);
+      rows += row("Median factor", `x ${c.med.pass}`, `the line off by least sits below the mean`);
+      rows += row("Team scaling", `x ${rc.yds_factor}`, `the game model's ${rc.exp_pts} points imply ${rc.team_yds_exp} passing yards against ${rc.team_yds_players} projected; half of the way`);
+      rows += row("Passing yards line", f1(r.proj_pass_yards), `dropbacks x yards per dropback x ${c.med.pass} x ${rc.yds_factor}`);
+      rows += row("Attempts, completions", `${f1(r.proj_pass_attempts)}, ${f1(r.proj_pass_completions)}`, `dropbacks x (1 − sack rate ${(100 * r.sack_rate).toFixed(1)}%); attempts x his completion rate ${r.comp != null ? (100 * r.comp).toFixed(1) + "%" : ""} shrunk toward the league`);
+      rows += row("Touchdowns", f2(r.proj_pass_td), `rate per dropback ${(100 * r.td_db).toFixed(1)}% → shrunk (${c.k_td.pass} dropbacks) and moved ${(100 * c.td_margin.pass).toFixed(0)}% per point of expected margin → ${(100 * r.td_db_proj).toFixed(2)}% x dropbacks x team scaling ${rc.td_factor}`);
+      rows += row("Interceptions", f2(r.proj_int), `dropbacks x the league rate ${(100 * L.int_db).toFixed(2)}% (his own rate carried no information)`);
+    } else if (kind === "def") {
+      rows += row("Opponent plays", f1(r.opp_plays), `the opponent's pass plays and runs per game, moved by the closing spread and total from its side`);
+      rows += row("His share of tackles", pc(r.share), `his tackles over his team's, decayed ${c.def_decay} per game back`);
+      rows += row("Mean tackles", f1(r.proj_tackles_mean), `opponent plays x the team's tackles per play x his share`);
+      rows += row("Tackles + assists line", f1(r.proj_tackles), `x median factor ${c.def_med}`);
+      rows += row("Solo tackles", f1(r.proj_solo_tackles), `x his solo share (${r.solo_pg} of ${r.tackles_pg} a game)`);
+      rows += row("Sacks", f2(r.proj_sacks), `his sacks per play faced shrunk toward the league with ${c.k_sack} plays of weight, x opponent plays`);
+    }
+    return `<tr class="sub calc" hidden><td colspan="6"><table class="ptab2" style="margin:2px 0 6px"><thead><tr><th class="l">Step</th><th>Value</th><th class="l">How</th></tr></thead><tbody>${rows}</tbody></table></td></tr>`;
+  }
+  const team_ = s => (s.recon && s.recon.rec && s.recon.rec.exp_pts != null) ? "the team's" : "the";
   function propsHtml(gameId, team, opp) {
     if (!PR || !PR.games[gameId] || !PR.games[gameId][team]) return "";
-    const s = PR.games[gameId][team], dd = s.defense || {}, L = PR.league || {}, rc = s.recon || {}, vol = s.volume || {};
+    const s = PR.games[gameId][team], dd = s.defense || {}, L = PR.league || {}, rc = s.recon || {}, vol = s.volume || {}, LAB = PR.market_labels || {};
     const f1 = v => v == null ? "" : (+v).toFixed(1), f2 = v => v == null ? "" : (+v).toFixed(2);
-    const who = (r, tip) => `<td class="l" title="${esc(tip)}">${esc(r.name)} <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>`;
-    const vsTip = (r, unit) => r.vs_opp ? ` Against ${opp} since 2016: ${r.vs_opp.games} games, ${f1(r.vs_opp.yds_pg)} ${unit} a game${r.vs_opp.td ? ", " + r.vs_opp.td + " TD" : ""} (${r.vs_opp.last.map(h => `${h.season} wk${h.week} ${h.yds}`).join(", ")}).` : ` No games against ${opp} on record.`;
-    const book = (line, n) => line == null ? `<td class="rk">—</td>` : `<td title="${n} book${n === 1 ? "" : "s"}, median line">${line}</td>`;
-    const lean = (proj, line, flag) => line == null ? `<td></td>` : `<td><span class="lean ${proj > line ? "up" : (proj < line ? "dn" : "")}">${proj > line ? "▲" : (proj < line ? "▼" : "=")} ${Math.abs(proj - line).toFixed(1)}</span>${flag ? ` <span class="badge flag">✓</span>` : ""}</td>`;
-    const tdp = r => `<td title="chance of at least one touchdown (receiving plus rushing)${r.mkt_td_prob != null ? "; the book's price implies " + pc(r.mkt_td_prob) : ""}">${pc(r.proj_td_any)}${r.mkt_td_prob != null ? ` <span class="rk">${pc(r.mkt_td_prob)}</span>` : ""}</td>`;
+    const price = v => v == null ? "" : (v > 0 ? "+" : "") + v;
     const st = (x, key, lab) => x && x[key] != null ? `${lab} ${(+x[key]).toFixed(key === "epa" ? 2 : 1)} (${x.n})` : "";
-    let h = `<div><p class="cap">${team} against ${opp}</p><div class="mv">${rc.rec && rc.rec.exp_pts != null ? `<span class="chip" title="the game model's expected points for ${team}; the players' lines are scaled toward what those points imply">Game model ${rc.rec.exp_pts} pts</span>` : ""}<span class="chip" title="the team's plays per game over its last 17, moved by the closing spread and total">${vol.pass_plays} pass · ${vol.runs} run</span><span class="chip" title="what ${opp} allows per target and per carry over its last 17 (league ${L.ypt} and ${L.ypc}); its mix of looks">${opp} allows ${dd.ypt_allowed} yd/tgt · ${dd.ypc_allowed} yd/carry · man ${pc(dd.man)} · pressure ${pc(dd.pressure)}</span>${vol.wind != null ? `<span class="chip">Wind ${vol.wind} mph</span>` : ""}</div>`;
-    const qb = (s.qb || []).slice(0, 1);
-    if (qb.length) h += `<table class="ptab2"><thead><tr><th class="l">Passing</th><th title="projected passing yards: dropbacks x yards per dropback x 0.90, scaled toward the game model">Yds</th><th title="closing book line, median across the US books">Book</th><th title="the side the projection takes and by how much">Lean</th><th>TD</th><th>INT</th></tr></thead><tbody>` + qb.map(q => `<tr class="${q.out ? "neg" : ""}">${who(q, `${q.proj_dropbacks} dropbacks; ${q.ypd} yards per dropback, shrunk ${q.ypd_shrunk}, against this defense ${q.proj_ypd}; EPA per dropback ${ep(q.epa_db)}; ${st(q.press, "epa", "pressured")}; ${st(q.clean, "epa", "clean")}; mean ${q.proj_pass_yards_mean}.` + vsTip(q, "yards"))}<td><b>${f1(q.proj_pass_yards)}</b></td>${book(q.mkt_pass_yards, q.mkt_pass_yards_books)}${lean(q.proj_pass_yards, q.mkt_pass_yards, q.mkt_pass_yards_flag)}<td>${f2(q.proj_pass_td)}</td><td>${f2(q.proj_int)}</td></tr>`).join("") + "</tbody></table>";
-    const rec = (s.receivers || []);
-    if (rec.length) h += `<table class="ptab2" style="margin-top:8px"><thead><tr><th class="l">Receiving</th><th title="projected receiving yards">Yds</th><th>Book</th><th>Lean</th><th title="projected receptions">Rec</th><th>Book</th><th>Lean</th><th title="chance of a touchdown, and the book's implied chance">TD</th></tr></thead><tbody>` + rec.map(r => `<tr class="${r.out ? "neg" : ""}">${who(r, `${pc(r.share)} of the team's targets (decayed), ${r.targets_pg} a game over his last ${r.games}; ${r.ypt} yards per target, shrunk ${r.ypt_shrunk}, against this defense ${r.proj_ypt}; ${st(r.vs_man, "yds", "vs man")}; ${st(r.vs_zone, "yds", "vs zone")}; ${st(r.vs_press, "yds", "QB pressured")}; ${r.proj_targets} targets projected; mean ${r.proj_rec_yards_mean} yards.` + vsTip(r, "yards"))}<td><b>${f1(r.proj_rec_yards)}</b></td>${book(r.mkt_rec_yards, r.mkt_rec_yards_books)}${lean(r.proj_rec_yards, r.mkt_rec_yards, r.mkt_rec_yards_flag)}<td>${f1(r.proj_catches)}</td>${book(r.mkt_catches, r.mkt_catches_books)}${lean(r.proj_catches, r.mkt_catches, r.mkt_catches_flag)}${tdp(r)}</tr>`).join("") + "</tbody></table>";
-    const rus = (s.rushers || []);
-    if (rus.length) h += `<table class="ptab2" style="margin-top:8px"><thead><tr><th class="l">Rushing</th><th title="projected rushing yards">Yds</th><th>Book</th><th>Lean</th><th title="chance of a touchdown, and the book's implied chance">TD</th></tr></thead><tbody>` + rus.map(r => `<tr class="${r.out ? "neg" : ""}">${who(r, `${pc(r.share)} of the team's carries (decayed), ${r.carries_pg} a game over his last ${r.games}; ${r.ypc} yards per carry, shrunk ${r.ypc_shrunk}, against this defense ${r.proj_ypc}; ${st(r.light, "yds", "light box")}; ${st(r.heavy, "yds", "heavy box")}; ${r.proj_carries} carries projected; mean ${r.proj_rush_yards_mean} yards.` + vsTip(r, "yards"))}<td><b>${f1(r.proj_rush_yards)}</b></td>${book(r.mkt_rush_yards, r.mkt_rush_yards_books)}${lean(r.proj_rush_yards, r.mkt_rush_yards, r.mkt_rush_yards_flag)}${tdp(r)}</tr>`).join("") + "</tbody></table>";
-    const dfn = (s.defenders || []);
-    if (dfn.length) h += `<table class="ptab2" style="margin-top:8px"><thead><tr><th class="l">Defense</th><th title="projected tackles plus assists">Tackles</th><th>Book</th><th>Lean</th><th title="expected sacks">Sacks</th></tr></thead><tbody>` + dfn.map(r => `<tr class="${r.out ? "neg" : ""}">${who(r, `${Math.round(100 * r.share)}% of the team's tackles (decayed); ${r.tackles_pg} a game (${r.solo_pg} solo) over his last ${r.games}; ${r.sacks_pg} sacks a game, ${r.ints} INT, ${r.pd} passes defended; ${r.opp_plays} opponent plays projected; mean ${r.proj_tackles_mean}.` + (r.vs_opp ? ` Against ${opp}: ${r.vs_opp.games} games, ${f1(r.vs_opp.n_pg)} tackles a game.` : ` No games against ${opp} on record.`))}<td><b>${f1(r.proj_tackles)}</b></td>${book(r.mkt_tackles, r.mkt_tackles_books)}${lean(r.proj_tackles, r.mkt_tackles, r.mkt_tackles_flag)}<td>${f2(r.proj_sacks)}</td></tr>`).join("") + "</tbody></table>";
-    return h + "</div>";
+    const vsTip = (r, unit) => r.vs_opp ? ` Against ${opp} since 2016: ${r.vs_opp.games} games, ${f1(r.vs_opp.yds_pg)} ${unit} a game${r.vs_opp.td ? ", " + r.vs_opp.td + " TD" : ""}.` : "";
+    const tips = {pass: q => `${q.proj_dropbacks} dropbacks projected; ${q.ypd} yards per dropback, shrunk ${q.ypd_shrunk}, against this defense ${q.proj_ypd}; EPA ${ep(q.epa_db)}; ${st(q.press, "epa", "pressured")}; ${st(q.clean, "epa", "clean")}.` + vsTip(q, "yards"),
+      rec: r => `${pc(r.share)} of the team's targets (decayed), ${r.targets_pg} a game over his last ${r.games}; ${r.ypt} yards per target, shrunk ${r.ypt_shrunk}, against this defense ${r.proj_ypt}; ${st(r.vs_man, "yds", "vs man")}; ${st(r.vs_zone, "yds", "vs zone")}; ${r.proj_targets} targets projected.` + vsTip(r, "yards"),
+      rush: r => `${pc(r.share)} of the team's carries (decayed), ${r.carries_pg} a game over his last ${r.games}; ${r.ypc} yards per carry, shrunk ${r.ypc_shrunk}, against this defense ${r.proj_ypc}; ${st(r.light, "yds", "light box")}; ${st(r.heavy, "yds", "heavy box")}; ${r.proj_carries} carries projected.` + vsTip(r, "yards"),
+      def: r => `${Math.round(100 * r.share)}% of the team's tackles (decayed); ${r.tackles_pg} a game (${r.solo_pg} solo) over his last ${r.games}; ${r.sacks_pg} sacks a game, ${r.ints} INT, ${r.pd} passes defended; ${r.opp_plays} opponent plays projected.` + (r.vs_opp ? ` Against ${opp}: ${r.vs_opp.games} games, ${f1(r.vs_opp.n_pg)} tackles a game.` : "")};
+    const rowsFor = (r, kind) => { const have = Object.fromEntries((r.markets || []).map(m => [m.stat, m])); const stats = MKT_ORDER[kind].filter(k => (MKT_PROJ[k] && r[MKT_PROJ[k]] != null && !(kind !== "pass" && k === "rush_yards" && r.proj_rush_yards == null)) || have[k]); if (!stats.length) return "";
+      return stats.map((k, i) => { const m = have[k]; const ours = MKT_PROJ[k] ? r[MKT_PROJ[k]] : null; const isTd = k === "anytime_td"; const oursTxt = ours == null ? "<span class='rk'>—</span>" : (isTd ? pc(ours) : (k === "pass_td" || k === "pass_int" || k === "def_sacks" ? f2(ours) : f1(ours)));
+        const bookTxt = !m ? "<span class='rk'>—</span>" : (isTd ? `${pc(implied(m.over))} <span class="rk">${price(m.over)}</span>` : `${m.line} <span class="rk">${price(m.over)} / ${price(m.under)}</span>`);
+        const openTxt = m && m.pulls > 1 && m.open != null && !isTd ? (m.open === m.line ? `<span class="rk" title="unchanged since the first pull">= ${m.open}</span>` : `<span class="rk" title="the first pull's line">${m.line > m.open ? "▲" : "▼"} from ${m.open}</span>`) : (m && m.pulls > 1 && isTd && m.open_over != null && m.open_over !== m.over ? `<span class="rk" title="the first pull's price">from ${price(m.open_over)}</span>` : "");
+        const cmp = isTd ? (m && ours != null ? implied(m.over) : null) : (m ? m.line : null); const leanTxt = cmp == null || ours == null ? "" : (isTd ? `<span class="lean ${ours > cmp ? "up" : "dn"}">${ours > cmp ? "yes" : "no"} ${Math.round(100 * Math.abs(ours - cmp))}%</span>` : `<span class="lean ${ours > cmp ? "up" : (ours < cmp ? "dn" : "")}">${ours > cmp ? "▲" : (ours < cmp ? "▼" : "=")} ${Math.abs(ours - cmp).toFixed(1)}</span>`);
+        return `<tr class="${r.out ? "neg" : ""}">${i === 0 ? `<td class="l" rowspan="${stats.length}" style="vertical-align:top" title="${esc(tips[kind](r))}"><button class="why calc" data-calc="1" style="font-size:12.5px">${esc(r.name)}</button> <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>` : ""}<td class="l">${LAB[k] || k}</td><td><b>${oursTxt}</b></td><td title="${m ? m.books + " books, median line, mean over / under price" : "no line posted"}">${bookTxt}</td><td>${openTxt}</td><td>${leanTxt}</td></tr>`; }).join("") + calcHtml(r, kind, s); };
+    const section = (title, list, kind) => { const body = list.map(r => rowsFor(r, kind)).join(""); if (!body) return ""; const n = list.length, nl = list.reduce((a, r) => a + (r.markets || []).length, 0);
+      return `<details class="psec"><summary><b>${title}</b> <span class="rk">${n} player${n === 1 ? "" : "s"} · ${nl} book line${nl === 1 ? "" : "s"}</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th title="our projection (the median line; touchdown as a chance)">Ours</th><th title="the book: median line across the US books, mean over / under price (anytime touchdown: implied chance and price)">Book</th><th title="movement since the first pull for this game">Open</th><th title="the side our projection takes and by how much">Lean</th></tr></thead><tbody>${body}</tbody></table></details>`; };
+    const others = (s.others || []); const byName = {}; others.forEach(m => (byName[m.name] = byName[m.name] || []).push(m));
+    const otherRows = Object.entries(byName).map(([name, ms]) => ms.map((m, i) => `<tr>${i === 0 ? `<td class="l" rowspan="${ms.length}" style="vertical-align:top">${esc(name)}</td>` : ""}<td class="l">${LAB[m.stat] || m.stat}</td><td class="rk">—</td><td title="${m.books} books">${m.stat === "anytime_td" ? `${pc(implied(m.over))} <span class="rk">${price(m.over)}</span>` : `${m.line} <span class="rk">${price(m.over)} / ${price(m.under)}</span>`}</td><td>${m.pulls > 1 && m.open != null && m.stat !== "anytime_td" ? (m.open === m.line ? `<span class="rk">= ${m.open}</span>` : `<span class="rk">${m.line > m.open ? "▲" : "▼"} from ${m.open}</span>`) : ""}</td><td></td></tr>`).join("")).join("");
+    const head = `<p class="cap">${team} against ${opp}</p><div class="mv">${rc.rec && rc.rec.exp_pts != null ? `<span class="chip" title="the game model's expected points for ${team}; the players' lines are scaled toward what those points imply">Game model ${rc.rec.exp_pts} pts</span>` : ""}<span class="chip" title="the team's plays per game over its last 17, moved by the closing spread and total">${vol.pass_plays} pass · ${vol.runs} run</span><span class="chip" title="what ${opp} allows per target and per carry over its last 17 (league ${L.ypt} and ${L.ypc}); its mix of looks">${opp} allows ${dd.ypt_allowed} yd/tgt · ${dd.ypc_allowed} yd/carry · man ${pc(dd.man)} · pressure ${pc(dd.pressure)}</span>${s.market_ts ? `<span class="chip mute" title="book lines pulled ${s.market_pulls || 1} time${(s.market_pulls || 1) === 1 ? "" : "s"} for this game, first ${String(s.market_open_ts || s.market_ts).slice(0, 16).replace("T", " ")} UTC">Lines ${String(s.market_ts).slice(0, 16).replace("T", " ")} UTC</span>` : `<span class="chip mute">No book lines pulled yet</span>`}</div>`;
+    const body = section("Passing", (s.qb || []).slice(0, 1), "pass") + section("Receiving", s.receivers || [], "rec") + section("Rushing", s.rushers || [], "rush") + section("Defense", s.defenders || [], "def") + (otherRows ? `<details class="psec"><summary><b>Other book lines</b> <span class="rk">${Object.keys(byName).length} players · no projection</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th>Ours</th><th>Book</th><th>Open</th><th></th></tr></thead><tbody>${otherRows}</tbody></table></details>` : "");
+    return body ? `<div>${head}${body}</div>` : "";
   }
   function propsRecordHtml() {
     if (!PR) return "";
