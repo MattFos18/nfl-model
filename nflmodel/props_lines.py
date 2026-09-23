@@ -113,11 +113,13 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
 def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
     """Underdog pick'em lines: the over/under lines feed with its appearances and players."""
     hdr = dict(UA, **{"Client-Type": "web", "Client-Version": "20260901", "Client-Request-Id": "nfl-model", "Referer": "https://underdogfantasy.com/", "Origin": "https://underdogfantasy.com"}); j = None; errs = []
-    for url in ["https://api.underdogfantasy.com/beta/v6/over_under_lines", "https://api.underdogfantasy.com/beta/v5/over_under_lines", "https://api.underdogfantasy.com/beta/v3/over_under_lines"]:
+    for url in ["https://api.underdogfantasy.com/v2/pickem_search/search_results?sport_id=NFL", "https://api.underdogfantasy.com/beta/v6/over_under_lines", "https://api.underdogfantasy.com/beta/v5/over_under_lines", "https://api.underdogfantasy.com/v1/over_under_lines"]:
         try:
-            r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); j = r.json(); break
+            r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); j = r.json()
+            if not j.get("over_under_lines"): raise RuntimeError("no over_under_lines in the response")
+            break
         except Exception as e:  # noqa
-            errs.append(f"{url.rsplit('/', 2)[1]}: {str(e)[:60]}")
+            errs.append(f"{url.split('.com/', 1)[1][:32]}: {str(e)[:60]}"); j = None
     if j is None:
         raise RuntimeError(" | ".join(errs))
     _save_raw("underdog", j, ts)
