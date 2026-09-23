@@ -598,6 +598,19 @@ the reason the dead-team flag (teams out of the race after Week 13) is worth the
 held-out window. The playoffs are 133 games; the model sits 0.22 behind the line and the flag is 10-5 on fifteen
 bets, too few to mean anything, and playoff games are not flagged.
 
+**A second model family** (23 Sep 2026, `experiments/gbm.py`, `reports/gbm.csv`). Gradient-boosted trees on the same
+twenty inputs, refit before each season, against ridge refit the same way. Trees lose clearly on both windows at
+every depth tried (team points 7.42 to 7.46 against ridge's 7.375 on the tuning window; 7.36 against 7.294 held
+out; spread miss 0.1 to 0.2 worse). The linear equation is not leaving interactions on the table that a tree can
+find with this much data. Ridge stays.
+
+**Late season** (23 Sep 2026, `experiments/late_season.py`, `reports/late_season.csv`; `late_third.py`). Weeks 14
+to 17 are the only stretch where the flag loses, and the model overrates teams out of the race late (about a
+point kinder than the line to a team with a 30% record). Candidates: a dead-team input (win rate through the
+previous week at or under 30% or 40%, from week 12 or 14, own and opponent), the record interacted with the late
+season, a plain late flag. The plain flag and the 30% cuts help held out only. From week 12 at a 40% win rate helps
+both windows (-0.0012 / -0.0026 on team points), narrowly; the 2015 to 2018 check decides whether it goes in.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
