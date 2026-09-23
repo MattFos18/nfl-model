@@ -1310,3 +1310,62 @@ with the error kept per player and stat in `data/tracker/props_graded.csv`, and 
 by stat shown on the cards. Nothing is compared with a market line yet: player prop lines are not logged. The
 projections are readings until the record says otherwise.
 
+## 19. Season: win totals, divisions, playoffs, the Super Bowl, player season totals (23 Sep 2026)
+
+**Team odds** (`nflmodel/season.py`, `web/data/season.js`, `reports/season_odds.csv`). The rest of the regular
+season is played out 10,000 times. Every remaining game gets an expected margin from the game model's own equation
+(section 5: the fit's coefficients, training means and intercept as of the week, applied to each team's ratings as
+of the week: its offense and defense ratings, its QB, its offseason turnover, its record for the out-of-the-race
+input), and the week being priced uses the model's actual predictions for those games (`pred_v3`, forecast and
+absences included). Games further out carry no forecast or absences: wind at the league-typical 7 mph outdoors, no
+one out. Margins are drawn from a normal with the model's residual scale (13.0 points); a margin within 0.07 of
+zero is a tie (about one game in 230, the league's rate). Standings settle by win share, then the league's
+tiebreakers as far as records go: head-to-head share among the tied, division record, conference record, then a
+coin flip (the strength-of-victory and points rules beyond those are not applied; on a probability they move
+nothing visible). The four division winners and the wild cards (three from 2020, two before) seed by the same
+order, the bracket plays with the higher seed at home and the Super Bowl on a neutral field. Each team's share of
+the runs is its odds; the tie check requires the odds to add up (one champion, two conference champions, eight
+division winners, fourteen playoff teams, two byes) and the expected wins across the league to equal the games.
+The equation is tied to the model every run: with the week's own situational inputs, it must rebuild the model's
+expected points for the week's games to a hundredth (it does, to zero).
+
+**Backtest** (`experiments/season_backtest.py`, `reports/season_backtest.csv`). The same odds made as of weeks 1,
+5, 9, 13 and 17 of every season 2019 to 2025 (the simulation sees the games before that week and the model's
+ratings and fit as of it), scored against what happened. Averaged over the as-of weeks, 2019-22 / 2023-25: expected
+wins off by 1.36 / 1.58 games per team against 1.61 / 1.73 for pace (current wins plus half the games left);
+division odds Brier 0.085 / 0.138 against 0.114 / 0.174 for "the current leader takes it" and 0.1875 flat; the
+division favorite won it 73% / 58% of the time; playoff odds Brier 0.123 / 0.148 against 0.243 / 0.246 flat; Super
+Bowl log loss 2.46 / 2.95 against 3.47 flat, the eventual champion ranked 4.8 / 7.8 on average in the Super Bowl
+odds (the 2023-25 window holds a champion the odds had far down the list). Two knobs were tested: shrinking the
+future-game margins toward zero (0.1, 0.2, 0.3) and widening the residual scale (1.15x). Every combination helped
+the held-out window and hurt the tuning window, so none is used; the simulation has no fitted knob of its own.
+
+**Player season totals** (`nflmodel/player_season.py`, `reports/player_season_totals.csv`). A player's season
+total = what he has so far + his per-game mean against an average defense x the games his team has left x a
+fitted share, blended with pace (his own per-game so far over the whole schedule; last season's total before
+anything is played). The per-game mean is the props rule's own volume and rate (section 18: his usage share
+decayed 0.85 per game back with the season and team fades, x his team's plays per game over its last 17, x his
+yards per touch shrunk toward the league), without the game script, the opponent and the median factor, since a
+season total is a sum of means. The share and the pace weight are fitted on 2016 to 2018 as of the same weeks on
+the season-total error: receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75. The share sits below
+the share of remaining games such players actually play (0.77, 0.75, 0.74) because the misses are one-sided (a
+player who is hurt loses everything, one who stays healthy gains nothing) and the pace half carries part of the
+load. A player is projected when he is active on his team's roster, has a profile and reaches 2.5 targets, 4
+carries or 20 dropbacks per game (the starting QB by dropbacks per team). Backtest
+(`experiments/player_season_backtest.py`, `reports/player_season_backtest.csv`): as of weeks 1, 5, 9 and 13 of
+2019 to 2025, mean absolute error of the season yards, 2019-22 / 2023-25: receiving 125 / 124 against pace 142 /
+140 and last season 232 / 226; rushing 162 / 149 against 180 / 162 and 298 / 305; passing 556 / 591 against 594 /
+634 and 978 / 1,031. Before the fit (the mean share of games played, no blend) passing was worse than pace on both
+windows (778 / 865), which is what the fit on 2016 to 2018 repaired. Breakout watch: a top-24 receiver, top-24
+rusher or top-12 passer projection at a per-game rate at least 1.25x his previous season's (so a return from a
+short injury season is not one); scored by whether he finished inside the top N at such a rate: receivers 66% /
+69% came true against a base rate of 16% / 19% among every top-24 projection, rushers 78% / 89% against 20% / 27%,
+passers 46% / 92% against 5% / 9% (13 and 12 flagged). "New to the top": a top projection with no previous season.
+
+**Props record, live** (Backtest tab, "Player projections, live"). Every projection graded against what the player
+did, by week and by stat, with the book line and the side where one was logged, and every row. The projections
+went live in Week 3 of 2026; Weeks 1 and 2 were projected after the fact with the data as of each week and the
+same rule (`python -m nflmodel.props --backfill 2026 1`, marked "after the fact" in the record) so the season's
+record starts at Week 1. Those two weeks already say something: passing-yard projections ran about 40 yards high
+(bias -40 and -48 on 29 and 32 QB-games), receiving and rushing a few yards high; the record is there to watch
+whether that holds.

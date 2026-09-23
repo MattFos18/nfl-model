@@ -27,6 +27,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs Vegas, tuning vs held-out windows, market blend).
 - `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
 - `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
+- `nflmodel/season.py`    season simulation (win totals, divisions, seeds, the Super Bowl) from the game model's equation; `nflmodel/player_season.py` player season totals and the breakout watch; backtests in `experiments/season_backtest.py` and `experiments/player_season_backtest.py`.
 - `nflmodel/weekly.py`    the weekly run: pull, build, verify, weather, ratings, trends, model, grade, picks, export, recap (`reports/weekly_latest.md`, `data/runs/run_log.csv`).
 - `nflmodel/lines.py`     line watch every 10 minutes to `data/lines/lines_log.csv`: ESPN scoreboard (DraftKings-provider line, with fallbacks), The Odds API every eight hours, player prop lines Thursday and Sunday; two hours when the `ODDS_API_KEY` secret is set (free tier, ten US books), DraftKings direct (refused from GitHub's servers); raw JSON kept; splits hook pending a source.
 - `nflmodel/weather.py`   Open-Meteo kickoff forecasts for unplayed outdoor games, applied before pricing, logged.
@@ -35,6 +36,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 - `.github/workflows/`    `weekly.yml` (Tue 06:00, Thu 14:00, Sat 10:00 and Sun 09:00 ET) and `lines.yml` (every 10 minutes; The Odds API every eight hours, player prop lines Thursday and Sunday, when the key is set); both commit their outputs.
 - `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz). `--rankings` also writes the per-week rankings and the full backtest table. The page's tabs:
   - **This week**: one card per game, model vs Vegas vs actual, win / cover / over odds for both sides, the flag, and "Why these numbers" (every input's contribution to each team's expected points).
+  - **Season**: win totals, division, playoff and Super Bowl odds from playing the season out 10,000 times on the model's numbers; player season totals with a breakout watch; both backtested on both windows (docs section 19).
   - **Rankings**: every team on every rating as of any week, sortable with ranks, offense-vs-defense plot and power bars, plus the old sheet's indexes.
   - **History**: every priced game since 2015 (2015 to 2018 were never used to choose anything), model expected vs Vegas implied vs actual, by-season record, cumulative units on the flags.
   - **Team**: the raw game log (box score, EPA, ratings into the game, trends, injuries), ratings by week, how a rating is built (every game and weight, summed and checked), and the game deep dive (every coefficient times input).
