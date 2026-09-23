@@ -1087,6 +1087,21 @@ edge is shown under Results, Player projections. Names are matched between the b
 normalised form (lower case, letters only, suffixes dropped). A record needs hundreds of graded lines before it
 says anything, and the honest prior is that the closing line is better than a 19-yard projection.
 
+**Historical lines, the pull that is ready.** The Odds API keeps player-prop snapshots from 3 May 2023 at five-minute
+intervals on its paid plans ($30 a month for 20,000 credits; the key already in the repo just needs the plan changed
+for one month). `nflmodel/props_history.py` and the `historical prop lines` workflow pull the closing snapshot one
+hour before every kickoff from the 2023 season on (2023 to 2025 and the 2026 games so far: 887 games in 425 kickoff
+slots; five markets from every US book), resume where they stop, and write `data/lines/props_history.csv` with the
+raw responses kept. Cost: 4,860 credits if the historical event endpoint charges the standard rate the
+oddsapiR package documents, 44,775 if it charges the ten-times rate the featured historical endpoint does, so the
+20K plan covers the first case and the 100K plan ($59) the second; the run stops at a credit budget and reports
+what it spent. `experiments/props_vs_market_backtest.py` then grades the walk-forward projection against those
+closing lines: the side it takes at every edge cut on a tuning window (2023 to 2024) and held out (2025 on), the
+book's own error beside the projection's and beside a blend of the two (which says whether the book's number
+should move the projection), and the anytime touchdown on both sides and on the yes side alone. The tables land
+under Results, Player projections, once the file exists; the pipeline was exercised end to end on a synthetic
+history built from the actual outcomes plus noise, then deleted, so nothing synthetic is in the repo.
+
 **Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
 week's projections are graded against the players' actual yards from the play-by-play (receiving, rushing, passing),
 with the error kept per player and stat in `data/tracker/props_graded.csv`, and the mean absolute error and bias

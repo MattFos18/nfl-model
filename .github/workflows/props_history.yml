@@ -1,0 +1,40 @@
+name: historical prop lines
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: "Seasons to pull (space separated), 2023 on"
+        default: "2023 2024 2025"
+      max_credits:
+        description: "Stop after this many credits (the run resumes where it stopped)"
+        default: "18000"
+permissions:
+  contents: write
+concurrency:
+  group: nfl-model-data
+  cancel-in-progress: false
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install pandas pyarrow requests
+      - name: pull closing prop lines
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: python -m nflmodel.props_history --seasons ${{ github.event.inputs.seasons }} --max-credits ${{ github.event.inputs.max_credits }}
+      - name: commit
+        run: |
+          git config user.name "nfl-model bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/lines/props_history.csv data/lines/raw/history
+          git diff --cached --quiet || git commit -m "Historical prop lines $(date -u +%Y-%m-%dT%H:%M)"
+          git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
+          git push
