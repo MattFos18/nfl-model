@@ -518,6 +518,10 @@ takes over. The threshold sweep and the third-window table below were re-run on 
 7.2962 against 7.3624 / 7.2972) and on the spread miss, but the gain is 0.001 on each window, under the adoption
 bar, and 40 to 80 are indistinguishable. 150 stays.
 
+**Cold cutoff** (23 Sep 2026, `experiments/weather_knobs.py`, `reports/weather_knobs.csv`). The cold flag fires
+under 35F, a hand-set number. 30F, 40F and 45F, and a continuous "degrees under 45F" term, are all worse on both
+windows (+0.004 to +0.012 on team points). 35F stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
