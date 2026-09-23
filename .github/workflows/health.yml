@@ -45,9 +45,9 @@ jobs:
             body="$(cat reports/weekly_audit.md; echo; echo; cat reports/health.md)"
             if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else
               gh label create health --color d73a4a --description "weekly audit" 2>/dev/null || true
-              gh issue create --title "Weekly audit failing: $(date -u +%Y-%m-%d)" --label health --body "$body"
-              n=$(gh issue list --label health --state open --json number --jq '.[0].number'); fi
-            echo "" >> reports/weekly_audit.md; echo "Issue: https://github.com/${{ github.repository }}/issues/$n" >> reports/weekly_audit.md
+              url=$(gh issue create --title "Weekly audit failing: $(date -u +%Y-%m-%d)" --label health --body "$body"); fi
+            [ -n "$n" ] && url="https://github.com/${{ github.repository }}/issues/$n"
+            echo "" >> reports/weekly_audit.md; echo "Issue: $url" >> reports/weekly_audit.md
           else
             if [ -n "$n" ]; then gh issue close "$n" --comment "Clean again on $(date -u +%Y-%m-%d): $(grep -m1 '^\*\*' reports/weekly_audit.md)"; fi
             echo "" >> reports/weekly_audit.md; echo "Issue: none open" >> reports/weekly_audit.md
