@@ -77,6 +77,56 @@ def pull(season: int, week: int, ts: str, within_hours: float | None = None) -> 
     return rows
 
 
+# DFS pick'em lines (no key, no credits): every market at even odds by construction. Their lines sit close to the
+# books' and cover markets the free Odds API tier cannot afford, so they are logged as books of their own.
+PP_STATS = {"Pass Yards": "pass_yards", "Pass TDs": "pass_td", "Pass Completions": "pass_completions", "Pass Attempts": "pass_attempts", "INT": "pass_int", "Rush Yards": "rush_yards", "Rush Attempts": "rush_attempts", "Receiving Yards": "rec_yards", "Receptions": "rec_catches", "Rush+Rec Yds": "rush_rec_yards",
+            "Longest Reception": "rec_longest", "Longest Rush": "rush_longest", "Longest Pass Completion": "pass_longest", "Tackles+Ast": "def_tackles", "Sacks": "def_sacks", "Solo Tackles": "def_solo_tackles", "Kicking Points": "kick_points", "FG Made": "field_goals", "Pass+Rush Yds": "pass_rush_yards", "Rec Targets": "rec_targets"}
+PP_TEAM = {"LAR": "LA", "JAC": "JAX", "WSH": "WAS", "ARZ": "ARI", "BLT": "BAL", "CLV": "CLE", "HST": "HOU"}
+UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", "Accept": "application/json"}
+
+
+def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
+    """PrizePicks projections for the NFL (league 9): standard lines only (no demon or goblin), one row per player and market."""
+    r = requests.get("https://api.prizepicks.com/projections", timeout=30, headers=UA, params={"league_id": 9, "per_page": 1000, "single_stat": "true"})
+    r.raise_for_status(); j = r.json(); _save_raw("prizepicks", j, ts)
+    players = {p["id"]: p["attributes"] for p in j.get("included", []) if p.get("type") == "new_player"}
+    wk = games[(games.season == season) & (games.week == week)]; team_game = {}
+    for g in wk.itertuples(): team_game[g.home_team] = (g.game_id, g.home_team, g.away_team); team_game[g.away_team] = (g.game_id, g.home_team, g.away_team)
+    rows = []
+    for d in j.get("data", []):
+        a = d.get("attributes", {}); stat = PP_STATS.get(a.get("stat_type"))
+        if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None: continue
+        pl = players.get(((d.get("relationships") or {}).get("new_player") or {}).get("data", {}).get("id"), {}); team = PP_TEAM.get(pl.get("team"), pl.get("team")); tg = team_game.get(team)
+        if not tg: continue
+        rows.append({"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": a.get("start_time"), "book": "prizepicks", "market": a.get("stat_type"), "stat": stat, "player": pl.get("name"), "line": float(a["line_score"]), "over_price": -119, "under_price": -119})
+    return rows
+
+
+def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
+    """Underdog pick'em lines: the over/under lines feed with its appearances and players."""
+    r = requests.get("https://api.underdogfantasy.com/beta/v5/over_under_lines", timeout=30, headers=UA); r.raise_for_status(); j = r.json(); _save_raw("underdog", j, ts)
+    players = {p["id"]: p for p in j.get("players", [])}; apps = {a["id"]: a for a in j.get("appearances", [])}
+    UD = {"passing_yds": "pass_yards", "passing_tds": "pass_td", "completions": "pass_completions", "pass_attempts": "pass_attempts", "interceptions": "pass_int", "rushing_yds": "rush_yards", "rush_attempts": "rush_attempts", "receiving_yds": "rec_yards", "receptions": "rec_catches", "rush_rec_yds": "rush_rec_yards", "longest_reception": "rec_longest", "longest_rush": "rush_longest", "tackles_assists": "def_tackles", "sacks": "def_sacks", "solo_tackles": "def_solo_tackles", "kicking_points": "kick_points", "fg_made": "field_goals", "targets": "rec_targets", "pass_rush_yds": "pass_rush_yards"}
+    wk = games[(games.season == season) & (games.week == week)]; team_game = {}
+    for g in wk.itertuples(): team_game[g.home_team] = (g.game_id, g.home_team, g.away_team); team_game[g.away_team] = (g.game_id, g.home_team, g.away_team)
+    rows = []
+    for ln in j.get("over_under_lines", []):
+        ou = ln.get("over_under") or {}; st = ((ou.get("appearance_stat") or {}).get("stat") or ""); stat = UD.get(st)
+        if not stat or ln.get("stat_value") is None: continue
+        ap = apps.get((ou.get("appearance_stat") or {}).get("appearance_id")) or {}; pl = players.get(ap.get("player_id")) or {}
+        if pl.get("sport_id") not in (None, "NFL"): continue
+        team = PP_TEAM.get(ap.get("team_id") or pl.get("team_id"), ap.get("team_id") or pl.get("team_id")); tg = team_game.get(team)
+        if not tg: continue
+        name = f"{pl.get('first_name', '')} {pl.get('last_name', '')}".strip()
+        rows.append({"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": None, "book": "underdog", "market": st, "stat": stat, "player": name, "line": float(ln["stat_value"]), "over_price": -119, "under_price": -119})
+    return rows
+
+
+def dfs_due(now: dt.datetime, force: bool) -> bool:
+    """Free lines: every six hours on the half-hour watch, and on a forced run."""
+    return force or (now.hour % 6 == 0 and now.minute < 30)
+
+
 def load_log() -> pd.DataFrame:
     f = LN / "props_log.csv"
     return pd.read_csv(f).reindex(columns=SCHEMA) if f.exists() else pd.DataFrame(columns=SCHEMA)
@@ -103,13 +153,19 @@ def run(season=None, week=None, force: bool = False) -> pd.DataFrame:
     now = dt.datetime.utcnow(); ts = now.strftime("%Y-%m-%dT%H-%M-%SZ")
     log = load_log()
     window = 168.0 if force else due(now, log)   # a forced pull takes the whole week ahead
-    if window is None:
+    rows = pull(season, week, ts, within_hours=window) if window is not None else []
+    if dfs_due(now, force):
+        for name, fn in [("prizepicks", prizepicks), ("underdog", underdog)]:
+            try:
+                got = fn(season, week, ts, games); rows += got; print({"source": name, "rows": len(got)}, flush=True)
+            except Exception as e:  # noqa
+                print({"source": name, "error": str(e)[:160]}, flush=True)
+    if not rows:
         return pd.DataFrame(columns=SCHEMA)
-    rows = pull(season, week, ts, within_hours=window)
     df = pd.DataFrame(rows)
     if len(df):
         key = games.set_index(["season", "week", "home_team", "away_team"]).game_id
-        df["game_id"] = [key.get((s, w, h, a)) for s, w, h, a in zip(df.season, df.week, df.home, df.away)]
+        df["game_id"] = [gid if isinstance(gid, str) else key.get((s, w, h, a)) for gid, s, w, h, a in zip(df.game_id if "game_id" in df else [None] * len(df), df.season, df.week, df.home, df.away)]
         df = df.reindex(columns=SCHEMA)
         LN.mkdir(parents=True, exist_ok=True)
         pd.concat([log, df], ignore_index=True).to_csv(LN / "props_log.csv", index=False)
@@ -123,8 +179,9 @@ def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     g = log[log.game_id == game_id]
     if not len(g):
         return pd.DataFrame(columns=["stat", "player", "key", "line", "books", "over_price", "under_price", "ts"])
-    last = g.ts.max(); first = g.ts.min(); cur = g[g.ts == last]
+    g = g.sort_values("ts"); last = g.ts.max(); first = g.ts.min()
+    cur = g.drop_duplicates(["book", "stat", "player"], keep="last")     # each book's latest line (the sources pull on different clocks)
     out = cur.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
-    op = g[g.ts == first].groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
+    op = g.drop_duplicates(["book", "stat", "player"], keep="first").groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
     out = out.merge(op, on=["stat", "player"], how="left"); out["key"] = out.player.map(norm_name); out["ts"] = last; out["open_ts"] = first; out["pulls"] = int(g.ts.nunique())
     return out
