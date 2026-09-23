@@ -1,4 +1,4 @@
-# Health check, 2026-09-23 03:48 UTC
+# Health check, 2026-09-23 03:57 UTC
 
 **HEALTHY**: 0 failing, 0 warnings, 21 ok.
 
@@ -14,7 +14,7 @@
 | OK | runs in the last seven days | 9 (four scheduled: Tue, Thu, Sat, Sun) |
 | OK | verification suite passed | Result: PASS |
 | OK | tie-out passed | Result: PASS (26 of 26 tie) |
-| OK | line watch is logging | last snapshot 0.6 hours ago, 10 in the last seven days (every 30 minutes when GitHub's cron fires) |
+| OK | line watch is logging | last snapshot 0.8 hours ago, 10 in the last seven days (every 30 minutes when GitHub's cron fires) |
 | OK | line watch returns rows | 1 of 10 snapshots in the last two days logged no lines |
 | OK | kickoff forecasts are fresh | fetched 6 hours ago (limit 96) |
 | OK | picks file for Week 3, 2026 | picks_2026_wk3.csv |
