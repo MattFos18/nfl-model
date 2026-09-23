@@ -1272,7 +1272,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   function renderInputsX() {
     const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
     const SF = (META.analysis || {}).situation_facts || {};
-    const NUM = {12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty"};
+    const NUM = {12: "twelve", 13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen", 18: "eighteen", 19: "nineteen", 20: "twenty", 21: "twenty-one", 22: "twenty-two", 23: "twenty-three", 24: "twenty-four"};
     let h = `<h2>The ${NUM[META.feats.length] || META.feats.length} inputs</h2>
       <p class="note">What each input is, exactly how it is measured, the raw data behind it, and what a unit of it is worth in this season's fit. The two offense inputs are different views of the same offense: EPA per play scores every snap by how much it moved expected points (efficiency, play by play); the points rating is what the team actually put on the board (the outcome, including defensive and return scores). Everything the offense does on the field is inside those two; the QB rating adds the starter's own history beyond the team's recent games. The same pair from the defense's side covers the opponent. The regression weights the overlap between them (Model → How it was built).</p>
       <div class="tablewrap"><table><thead><tr><th class='l'>Input</th><th class='l'>How it is measured</th><th class='l'>Raw data, ${SF.seasons || ""}</th><th>Points per unit, ${Math.max(...Object.keys(META.coefs).map(Number))}</th></tr></thead><tbody>`;
