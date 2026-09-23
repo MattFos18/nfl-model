@@ -119,11 +119,12 @@ def record_model_picks(picks: pd.DataFrame, run_at: str):
         if r.game_id in games.index and (pd.notna(games.loc[r.game_id, "home_score"]) or games.loc[r.game_id, "kickoff_et"] <= now):
             continue  # never record a pick on a game that has kicked off
         for b in r.bet.split(", "):
-            rows.append({"run_at": run_at, "season": r.season, "week": r.week, "game_id": r.game_id, "bet": b, "odds": -110, "stake": 1.0, "book": getattr(r, "best_book", None) if not b.startswith(("Over", "Under")) else None,
+            rows.append({"run_at": run_at, "season": r.season, "week": r.week, "game_id": r.game_id, "bet": b, "odds": int(getattr(r, "bet_odds", -110)) if pd.notna(getattr(r, "bet_odds", np.nan)) else -110, "stake": 1.0,
+                         "stake_pct": round(float(getattr(r, "stake_pct", np.nan)), 2) if pd.notna(getattr(r, "stake_pct", np.nan)) and not b.startswith(("Over", "Under")) else np.nan, "book": getattr(r, "best_book", None) if not b.startswith(("Over", "Under")) else None,
                          "spread_edge": round(r.spread_edge, 2) if pd.notna(r.spread_edge) else np.nan,
                          "total_edge": round(r.total_edge, 2) if pd.notna(r.total_edge) else np.nan,
                          "p_cover": round(r.p_cover_home if r.home_team in b else 1 - r.p_cover_home, 3) if b[:2].isalpha() and pd.notna(r.p_cover_home) and not b.startswith(("Over", "Under")) else np.nan})
-    new = pd.DataFrame(rows, columns=["run_at", "season", "week", "game_id", "bet", "odds", "stake", "book", "spread_edge", "total_edge", "p_cover"])
+    new = pd.DataFrame(rows, columns=["run_at", "season", "week", "game_id", "bet", "odds", "stake", "stake_pct", "book", "spread_edge", "total_edge", "p_cover"])
     f = TR / "model_picks.csv"
     if f.exists():
         old = pd.read_csv(f)
