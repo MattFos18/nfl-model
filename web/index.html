@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NFL Model</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -181,6 +182,24 @@ table tr.grp td{font-weight:600;background:var(--panel-2)}
 details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 .md table{margin:8px 0} .md h1,.md h2,.md h3{font-family:var(--display)} .md p{max-width:90ch;color:var(--ink-2)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+/* phones: the same page, reflowed. Grid children may not stretch past the screen; wide tables scroll inside their box */
+.wrap,.grid2>*,.grid2e>*,.tiles>*,.cards>*,.whybox{min-width:0}
+details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
+@media(max-width:700px){
+  body{padding-inline:12px;font-size:13.5px}
+  h1{font-size:22px} h2{font-size:17px}
+  header{gap:6px 16px;padding-block:12px 6px}
+  nav.tabs button{font-size:14.5px;padding:8px 9px}
+  nav.sub button,.chip{padding:5px 10px}
+  .tile{flex:1 1 140px;min-width:0;padding:8px 10px} .tile b{font-size:19px}
+  .gcard{padding:10px 12px} .gcard .top b{font-size:17px}
+  .spark{max-width:100%}
+  th,td{padding:4px 6px} table{font-size:12px}
+  .ptab2 th,.ptab2 td{padding:4px 5px} .ptab2 td.l{white-space:normal} .ptab2 td.l[rowspan]{max-width:110px}
+  details.psec .op{display:none}
+  .note{font-size:12.5px}
+  select{min-width:0}
+}
 </style>
 
 <div class="wrap">
@@ -1367,13 +1386,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         const bookTxt = !m ? "<span class='rk' title='not pulled for this game: the free plan pulls six markets; the full menu turns on with the paid plan'>—</span>" : (isTd ? `${pc(implied(m.over))}` : `${m.line}`);
         const openTxt = !m ? "" : (isTd ? `<span class="rk" title="the first pull's price ${price(m.open_over != null ? m.open_over : m.over)}">${pc(implied(m.open_over != null ? m.open_over : m.over))}</span>` : (m.open == null || m.open === m.line ? `<span class="rk" title="unchanged since the first pull">${m.line}</span>` : `<span class="rk" title="the first pull's line">${m.open} ${m.line > m.open ? "▲" : "▼"}</span>`));
         const cmp = isTd ? (m && ours != null ? implied(m.over) : null) : (m ? m.line : null); const leanTxt = cmp == null || ours == null ? "" : (isTd ? `<span class="lean ${ours > cmp ? "up" : "dn"}">${ours > cmp ? "yes" : "no"} ${Math.round(100 * Math.abs(ours - cmp))}%</span>` : `<span class="lean ${ours > cmp ? "up" : (ours < cmp ? "dn" : "")}">${ours > cmp ? "▲" : (ours < cmp ? "▼" : "=")} ${Math.abs(ours - cmp).toFixed(1)}</span>`);
-        return `<tr class="${r.out ? "neg" : ""}">${i === 0 ? `<td class="l" rowspan="${stats.length}" style="vertical-align:top" title="${esc(tips[kind](r))}"><button class="why calc" data-calc="1" style="font-size:12.5px">${esc(r.name)}</button> <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>` : ""}<td class="l">${LAB[k] || k}</td><td><b>${oursTxt}</b></td><td title="${m ? `${m.books} books, median line; price ${isTd ? price(m.over) : price(m.over) + " over, " + price(m.under) + " under"}` : "no line pulled"}">${bookTxt}</td><td>${openTxt}</td><td>${leanTxt}</td></tr>`; }).join("") + calcHtml(r, kind, s); };
+        return `<tr class="${r.out ? "neg" : ""}">${i === 0 ? `<td class="l" rowspan="${stats.length}" style="vertical-align:top" title="${esc(tips[kind](r))}"><button class="why calc" data-calc="1" style="font-size:12.5px">${esc(r.name)}</button> <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>` : ""}<td class="l">${LAB[k] || k}</td><td><b>${oursTxt}</b></td><td title="${m ? `${m.books} books, median line; price ${isTd ? price(m.over) : price(m.over) + " over, " + price(m.under) + " under"}` : "no line pulled"}">${bookTxt}</td><td class="op">${openTxt}</td><td>${leanTxt}</td></tr>`; }).join("") + calcHtml(r, kind, s); };
     const section = (title, list, kind) => { const body = list.map(r => rowsFor(r, kind)).join(""); if (!body) return ""; const n = list.length, nl = list.reduce((a, r) => a + (r.markets || []).length, 0);
-      return `<details class="psec"><summary><b>${title}</b> <span class="rk">${n} player${n === 1 ? "" : "s"} · ${nl} book line${nl === 1 ? "" : "s"}</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th title="our projection (the median line; touchdown as a chance)">Ours</th><th title="the book: median line across the US books (anytime touchdown: the chance the price implies); prices in hover">Book</th><th title="the line at the first pull for this game; an arrow when it has moved">Open</th><th title="the side our projection takes and by how much">Lean</th></tr></thead><tbody>${body}</tbody></table></details>`; };
+      return `<details class="psec"><summary><b>${title}</b> <span class="rk">${n} player${n === 1 ? "" : "s"} · ${nl} book line${nl === 1 ? "" : "s"}</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th title="our projection (the median line; touchdown as a chance)">Ours</th><th title="the book: median line across the US books (anytime touchdown: the chance the price implies); prices in hover">Book</th><th class="op" title="the line at the first pull for this game; an arrow when it has moved">Open</th><th title="the side our projection takes and by how much">Lean</th></tr></thead><tbody>${body}</tbody></table></details>`; };
     const others = (s.others || []); const byName = {}; others.forEach(m => (byName[m.name] = byName[m.name] || []).push(m));
-    const otherRows = Object.entries(byName).map(([name, ms]) => ms.map((m, i) => `<tr>${i === 0 ? `<td class="l" rowspan="${ms.length}" style="vertical-align:top">${esc(name)}</td>` : ""}<td class="l">${LAB[m.stat] || m.stat}</td><td class="rk">—</td><td title="${m.books} books; price ${price(m.over)}${m.under != null ? " over, " + price(m.under) + " under" : ""}">${m.stat === "anytime_td" ? pc(implied(m.over)) : m.line}</td><td>${m.stat === "anytime_td" ? "" : `<span class="rk">${m.open == null || m.open === m.line ? m.line : `${m.open} ${m.line > m.open ? "▲" : "▼"}`}</span>`}</td><td></td></tr>`).join("")).join("");
+    const otherRows = Object.entries(byName).map(([name, ms]) => ms.map((m, i) => `<tr>${i === 0 ? `<td class="l" rowspan="${ms.length}" style="vertical-align:top">${esc(name)}</td>` : ""}<td class="l">${LAB[m.stat] || m.stat}</td><td class="rk">—</td><td title="${m.books} books; price ${price(m.over)}${m.under != null ? " over, " + price(m.under) + " under" : ""}">${m.stat === "anytime_td" ? pc(implied(m.over)) : m.line}</td><td class="op">${m.stat === "anytime_td" ? "" : `<span class="rk">${m.open == null || m.open === m.line ? m.line : `${m.open} ${m.line > m.open ? "▲" : "▼"}`}</span>`}</td><td></td></tr>`).join("")).join("");
     const head = `<p class="cap">${team} against ${opp}</p><div class="mv">${rc.rec && rc.rec.exp_pts != null ? `<span class="chip" title="the game model's expected points for ${team}; the players' lines are scaled toward what those points imply">Game model ${rc.rec.exp_pts} pts</span>` : ""}<span class="chip" title="the team's plays per game over its last 17, moved by the closing spread and total">${vol.pass_plays} pass · ${vol.runs} run</span><span class="chip" title="what ${opp} allows per target and per carry over its last 17 (league ${L.ypt} and ${L.ypc}); its mix of looks">${opp} allows ${dd.ypt_allowed} yd/tgt · ${dd.ypc_allowed} yd/carry · man ${pc(dd.man)} · pressure ${pc(dd.pressure)}</span>${s.market_ts ? `<span class="chip mute" title="book lines pulled ${s.market_pulls || 1} time${(s.market_pulls || 1) === 1 ? "" : "s"} for this game, first ${etTime(s.market_open_ts || s.market_ts)}">Lines as of ${etTime(s.market_ts)}</span>` : `<span class="chip mute">No book lines pulled yet</span>`}</div>`;
-    const body = section("Passing", (s.qb || []).slice(0, 1), "pass") + section("Receiving", s.receivers || [], "rec") + section("Rushing", s.rushers || [], "rush") + section("Defense", s.defenders || [], "def") + section("Kicking", s.kicker || [], "kick") + (otherRows ? `<details class="psec"><summary><b>Other book lines</b> <span class="rk">${Object.keys(byName).length} players · no projection</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th>Ours</th><th>Book</th><th>Open</th><th></th></tr></thead><tbody>${otherRows}</tbody></table></details>` : "");
+    const body = section("Passing", (s.qb || []).slice(0, 1), "pass") + section("Receiving", s.receivers || [], "rec") + section("Rushing", s.rushers || [], "rush") + section("Defense", s.defenders || [], "def") + section("Kicking", s.kicker || [], "kick") + (otherRows ? `<details class="psec"><summary><b>Other book lines</b> <span class="rk">${Object.keys(byName).length} players · no projection</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th>Ours</th><th>Book</th><th class="op">Open</th><th></th></tr></thead><tbody>${otherRows}</tbody></table></details>` : "");
     return body ? `<div>${head}${body}</div>` : "";
   }
   function propsRecordHtml() {
