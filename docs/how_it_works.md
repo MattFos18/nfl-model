@@ -669,6 +669,17 @@ cost of a player's absence follows the player, not the team's history with him. 
 kept (`players.TEAM_WINDOW`) for a re-test when more traded-and-out cases exist, and the other half of the trade
 question, crediting a team for a player its ratings have not seen (`players.roster_delta`), is written and untested.
 
+**Scheme inputs for the game model** (23 Sep 2026, `experiments/scheme_inputs.py`, `reports/scheme_inputs.csv`).
+The first question of the matchup work is whether scheme moves the score. Candidates as of each game from the
+team's and the opponent's previous 17 charted games: three matchup fits (the offense's EPA in the mix the
+opponent plays, against its own passing average: coverage man/zone, pressure, blitz) and six raw tendencies (pass
+rate over expected, motion, play action; the opponent's man, pressure and blitz rates), each added alone and in
+groups to the twenty-two inputs, both windows. Nothing helps both: the coverage fit is flat (0.000 / +0.0006), the
+blitz fit and the opponent's pressure rate each help one window (blitz fit +0.0013 / -0.0019; pressure rate +0.0027
+/ -0.0081), the tendencies hurt (motion +0.013 / +0.011, all six together +0.025 / +0.011). The ratings already
+carry what a team's scheme has produced; the scheme tags say how, not how much. Nothing adopted; the profiles stay
+readings, and the next layers (player against scheme, player against player) are built for the props side first.
+
 **Kickoff-hour weather for the backtest** (23 Sep 2026, `nflmodel/weather_archive.py`, `experiments/weather_kickoff.py`,
 `reports/weather_kickoff.csv`). The backtest's wind, cold and rain come from the schedule's game-day readings. The
 Open-Meteo archive gives the reading at the kickoff hour at each stadium (2,572 outdoor games 2013 to 2025 in
