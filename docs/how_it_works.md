@@ -611,6 +611,21 @@ previous week at or under 30% or 40%, from week 12 or 14, own and opponent), the
 season, a plain late flag. The plain flag and the 30% cuts help held out only. From week 12 at a 40% win rate helps
 both windows (-0.0012 / -0.0026 on team points), narrowly; the 2015 to 2018 check decides whether it goes in.
 
+**The market as an input, side by side** (23 Sep 2026, `experiments/market_blend.py`, `reports/market_blend.csv`).
+The line's implied points for each team added as a twenty-first input, walk-forward on both windows:
+
+| Model | Team points, 2019-22 | Team points, 2023-25 | Spread miss, 2019-22 | Spread miss, 2023-25 |
+|---|---|---|---|---|
+| Pure model (today) | 7.360 | 7.289 | 10.023 | 9.970 |
+| The line alone | 7.291 | 7.213 | 9.891 | 9.747 |
+| Model + the line | 7.248 | 7.182 | 9.894 | 9.712 |
+
+Two readings. First, the model carries information the line does not: model plus line beats the line alone by
+0.04 on team points and by 0.03 on the held-out spread miss, which is the same finding as the encompassing test
+above, now in points. Second, a blended model flags nothing: with the line inside it, it never disagrees with the
+line by 4 points, so the flag would not exist. That is why the blend is not adopted and stays a side-by-side
+number: the pure model is the one that can disagree, and the flag lives in its disagreements.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
