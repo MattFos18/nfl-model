@@ -150,3 +150,25 @@ if __name__ == "__main__":
     if a.out:
         Path(a.out).write_text(txt)
     print(txt)
+
+WEEK_BUCKETS = [("1", 1, 1), ("2", 2, 2), ("3", 3, 3), ("4", 4, 4), ("5 to 8", 5, 8), ("9 to 13", 9, 13), ("14 to 17", 14, 17), ("18", 18, 18)]
+
+
+def by_week(d: pd.DataFrame, cut: float, seasons=(2015, 2025)) -> pd.DataFrame:
+    """Where in the season the model is strong and weak: per stretch of weeks (regular season) and the playoffs,
+    games, the model's spread miss minus the line's, the every-game cover rate on the model's side, and the flag's
+    record at the cut. d is join(pred, games) with a line; matches the Results tab's by-week table."""
+    d = d[d.season.between(*seasons) & d.spread_line.notna() & d.home_score.notna()]
+    e = d.model_spread - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
+    won = (((e > 0) & (cm > 0)) | ((e < 0) & (cm < 0))); ok = cm != 0
+    rows = []
+    for lab, a, b in WEEK_BUCKETS + [("Playoffs", None, None)]:
+        m = (d.game_type != "REG") if a is None else ((d.game_type == "REG") & d.week.between(a, b))
+        if not m.any():
+            continue
+        gap = (d.margin_err.abs()[m].mean() - d.v_margin_err.abs()[m].mean())
+        w, l = int((won & ok & m).sum()), int((~won & ok & m).sum())
+        f = m & (e.abs() >= cut); fw, fl = int((won & ok & f).sum()), int((~won & ok & f).sum())
+        rows.append({"weeks": lab, "games": int(m.sum()), "gap": round(float(gap), 2), "ats_pct": round(100 * w / (w + l)) if w + l else None,
+                     "flags": f"{fw}-{fl}", "flag_pct": round(100 * fw / (fw + fl)) if fw + fl else None, "mean_edge": round(float(e.abs()[m].mean()), 1)})
+    return pd.DataFrame(rows)

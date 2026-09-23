@@ -200,13 +200,20 @@ def main():
          "recorded minus the closing line from the bet's side: positive means the number beat the close.", ""]
     # rules compared: one line each, the bet rule and every shadow
     L += ["## Rules compared", "", "The flag is bet; the shadows are logged and graded on the same games but never bet, so the rule can be chosen on live results.", "",
-          "| Rule | Bets | Settled | Record | Units | Avg CLV |", "|---|---|---|---|---|---|"]
+          "Backtest columns: the same rule on the three backtest windows, regular season weeks 1 to 17 (`picks.rule_records`).", "",
+          "| Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |", "|---|---|---|---|---|---|---|---|---|"]
+    from . import backtest as B
+    from .picks import rule_records
+    _pred = pd.read_parquet(OUT / "pred_v3.parquet") if (OUT / "pred_v3.parquet").exists() else None
+    _d = B.join(_pred, games) if _pred is not None else None
+    rr = rule_records(_d[(_d.game_type == "REG") & _d.spread_line.notna()]).set_index("rule") if _d is not None else None
+    bt = lambda who: " | ".join(str(rr.loc[who, w]) for w in ["2015-18", "2019-22", "2023-25"]) if rr is not None and who in rr.index else " | ".join([""] * 3)
     for who, lab in [("model", f"{SPREAD_EDGE:g}+ edge (the flag, bet)")] + [(n, f"shadow: {lab}") for n, (_, _, lab) in SHADOWS.items()]:
         x = gr[gr.who == who] if len(gr) else gr
         st = x[x.result.isin(["win", "loss", "push"])] if len(x) else x
         w, l, pu = int((st.result == "win").sum()), int((st.result == "loss").sum()), int((st.result == "push").sum())
         clv = x.clv.fillna(x.clv_now).dropna() if len(x) and "clv_now" in x.columns else (x.clv.dropna() if len(x) else pd.Series(dtype=float))
-        L.append(f"| {lab} | {len(x)} | {len(st)} | {f'{w}-{l}' + (f'-{pu}' if pu else '') + (f' ({w / (w + l):.0%})' if w + l else '') if len(st) else 'nothing settled'} | {(f'{st.units.sum():+.2f}' if len(st) else '')} | {(f'{clv.mean():+.2f}' if len(clv) else '')} |" if len(x) else f"| {lab} | 0 | 0 | | | |")
+        L.append(f"| {lab} | {len(x)} | {len(st)} | {f'{w}-{l}' + (f'-{pu}' if pu else '') + (f' ({w / (w + l):.0%})' if w + l else '') if len(st) else 'nothing settled'} | {(f'{st.units.sum():+.2f}' if len(st) else '')} | {(f'{clv.mean():+.2f}' if len(clv) else '')} | {bt(who)} |" if len(x) else f"| {lab} | 0 | 0 | | | | {bt(who)} |")
     L.append("")
     for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:
         x = gr[gr.who == who] if len(gr) else gr
