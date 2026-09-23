@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 02:45 UTC
+# Tie-out (sources and page), 2026-09-23 03:28 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -20,7 +20,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | yes |
 | picks file stakes = tracker stakes | [0.82, 1.11, 1.37] | [0.82, 1.11, 1.37] | yes |
 | picks markdown names the live cut | True | True | yes |
-| page backtest file: games | 1903 | 1903 | yes |
+| page backtest file: games | 2927 | 2927 | yes |
 | page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
 | page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
