@@ -1,0 +1,341 @@
+ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,under_price
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Bijan Robinson,,-160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Christian Watson,,160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Drake London,,175,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Tucker Kraft,,185,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Kaleb Johnson,,195,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,MarShawn Lloyd,,195,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Matthew Golden,,210,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Chris Brooks,,235,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Kyle Pitts,,370,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Brian Robinson Jr.,,450,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Skyy Moore,,475,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Green Bay Packers D/ST,,500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jordan Love,,550,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Atlanta Falcons D/ST,,550,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jonnu Smith,,600,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jahan Dotson,,750,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Olamide Zaccheaus,,750,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Bo Melton,,850,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Zachariah Branch,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Michael Penix Jr.,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Austin Hooper,,1400,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Mark Redman,,1800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Josh Whyle,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Charlie Woerner,,2200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Nick Muse,,4000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_anytime_td,anytime_td,Chris Blair,,6000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_pass_yds,pass_yards,Jordan Love,227.5,-112,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_pass_yds,pass_yards,Michael Penix Jr.,201.5,-112,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Christian Watson,67.5,-111,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Drake London,66.5,-112,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Matthew Golden,52.5,-113,-111.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Tucker Kraft,46.5,-110,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Bijan Robinson,39.5,-111,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Kyle Pitts,35.5,-110,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jahan Dotson,17.5,-109,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Olamide Zaccheaus,10.5,-117,-107.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Skyy Moore,9.5,-110,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Chris Brooks,8.5,-106,-118.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jonnu Smith,8.5,-104,-121.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_reception_yds,rec_yards,MarShawn Lloyd,5.5,-113,-111.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Drake London,5.5,-101,-127.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Christian Watson,4.5,-127,100.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Bijan Robinson,4.5,-112,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Matthew Golden,4.5,104,-133.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Tucker Kraft,4.5,130,-166.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Kyle Pitts,3.5,-122,-104.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Jahan Dotson,1.5,-136,107.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Chris Brooks,1.5,106,-135.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Jonnu Smith,1.5,131,-168.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Skyy Moore,1.5,132,-170.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,Olamide Zaccheaus,1.5,143,-184.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_receptions,rec_catches,MarShawn Lloyd,1.5,155,-199.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Bijan Robinson,77.5,-111,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Kaleb Johnson,34.5,-111,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,MarShawn Lloyd,27.5,-115,-109.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-109,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Chris Brooks,15.5,-118,-106.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Jordan Love,7.5,-116,-108.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,draftkings,player_rush_yds,rush_yards,Michael Penix Jr.,3.5,-111,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Bijan Robinson,,-155,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Christian Watson,,155,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Kaleb Johnson,,190,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Drake London,,195,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Tucker Kraft,,200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Matthew Golden,,200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,MarShawn Lloyd,,200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Chris Brooks,,270,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Kyle Pitts,,380,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Brian Robinson Jr.,,450,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Skyy Moore,,470,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jordan Love,,600,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jahan Dotson,,650,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Atlanta Falcons Defense,,700,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jonnu Smith,,700,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Olamide Zaccheaus,,800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Green Bay Packers Defense,,800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Bo Melton,,900,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Michael Penix Jr.,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Austin Hooper,,1100,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Zachariah Branch,,1300,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Josh Whyle,,1800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Mark Redman,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,J. Michael Sturdivant,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Charlie Woerner,,2500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Chris Blair,,2500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_anytime_td,anytime_td,Nick Muse,,4500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_pass_yds,pass_yards,Michael Penix Jr.,205.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_pass_yds,pass_yards,Jordan Love,226.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Skyy Moore,10.5,-120,-108.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Olamide Zaccheaus,10.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Christian Watson,68.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Matthew Golden,54.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jonnu Smith,7.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Tucker Kraft,46.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Chris Brooks,7.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Drake London,65.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,MarShawn Lloyd,5.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Bijan Robinson,40.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Kyle Pitts,37.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jahan Dotson,19.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,MarShawn Lloyd,1.5,154,-210.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Chris Brooks,1.5,116,-154.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Tucker Kraft,3.5,-154,116.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Christian Watson,4.5,-130,-102.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Olamide Zaccheaus,1.5,136,-182.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Kyle Pitts,3.5,-140,106.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Drake London,5.5,106,-140.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Matthew Golden,4.5,102,-136.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Bijan Robinson,4.5,-130,-102.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Skyy Moore,1.5,130,-174.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Jahan Dotson,1.5,-162,122.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_receptions,rec_catches,Jonnu Smith,1.5,130,-174.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Michael Penix Jr.,4.5,108,-140.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Chris Brooks,16.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,MarShawn Lloyd,30.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Jordan Love,8.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Bijan Robinson,77.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,fanduel,player_rush_yds,rush_yards,Kaleb Johnson,34.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,MarShawn Lloyd,,190,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Charlie Woerner,,1800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Kyle Pitts,,350,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Tucker Kraft,,170,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Matthew Golden,,188,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Skyy Moore,,480,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Bijan Robinson,,-167,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jonnu Smith,,575,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Bo Melton,,800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jahan Dotson,,475,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Zachariah Branch,,1300,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Austin Hooper,,1300,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Michael Penix Jr.,,650,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jordan Love,,800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Drake London,,180,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Christian Watson,,143,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Mark Redman,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Chris Blair,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Kaleb Johnson,,200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Olamide Zaccheaus,,750,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Nick Muse,,2500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Brian Robinson Jr.,,375,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,J. Michael Sturdivant,,1200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Josh Whyle,,2200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_anytime_td,anytime_td,Chris Brooks,,245,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_pass_yds,pass_yards,Michael Penix Jr.,204.5,-114,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_pass_yds,pass_yards,Jordan Love,224.5,-114,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Tucker Kraft,45.5,-118,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Matthew Golden,52.5,-114,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Kyle Pitts,35.5,-117,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Bijan Robinson,41.5,-113,-118.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,MarShawn Lloyd,6.5,-109,-122.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Christian Watson,66.5,-117,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Jahan Dotson,19.5,-112,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Drake London,64.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_reception_yds,rec_yards,Chris Brooks,7.5,-110,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Tucker Kraft,3.5,-162,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Christian Watson,4.5,-143,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,MarShawn Lloyd,1.5,155,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Drake London,5.5,100,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Matthew Golden,4.5,118,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Jahan Dotson,1.5,-162,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Bijan Robinson,4.5,-143,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_receptions,rec_catches,Kyle Pitts,3.5,-125,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Chris Brooks,15.5,-114,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Michael Penix Jr.,3.5,-114,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Jordan Love,7.5,-120,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Kaleb Johnson,35.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,MarShawn Lloyd,27.5,-113,-117.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-118,-113.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betrivers,player_rush_yds,rush_yards,Bijan Robinson,78.5,-113,-118.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Kyle Pitts,,350,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Austin Hooper,,1100,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Drake London,,170,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Olamide Zaccheaus,,700,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jordan Love,,550,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Bo Melton,,550,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Christian Watson,,130,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Bijan Robinson,,-167,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Tucker Kraft,,160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Charlie Woerner,,1900,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,MarShawn Lloyd,,160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Chris Blair,,2400,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Michael Penix Jr.,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Chris Brooks,,190,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Matthew Golden,,180,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Josh Whyle,,1100,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Skyy Moore,,400,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Zachariah Branch,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Brian Robinson Jr.,,350,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jahan Dotson,,650,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Nick Muse,,2900,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Michael Penix Jr.,205.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Jordan Love,226.5,-115,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,MarShawn Lloyd,5.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Chris Brooks,7.5,-112,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Tucker Kraft,46.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Bijan Robinson,39.5,-119,-109.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Drake London,65.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Kyle Pitts,37.5,-130,100.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Matthew Golden,55.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Skyy Moore,9.5,-112,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Olamide Zaccheaus,9.5,-115,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Christian Watson,68.5,-115,-112.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jonnu Smith,7.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jahan Dotson,17.5,-111,-116.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Kyle Pitts,3.5,-130,100.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Christian Watson,4.5,-143,110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Bijan Robinson,4.5,-119,-109.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Matthew Golden,4.5,109,-141.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,MarShawn Lloyd,1.5,161,-213.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Jahan Dotson,1.5,-147,114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Drake London,5.5,107,-139.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Tucker Kraft,4.5,125,-164.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Skyy Moore,1.5,134,-175.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Olamide Zaccheaus,1.5,141,-185.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Jonnu Smith,1.5,136,-179.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_receptions,rec_catches,Chris Brooks,1.5,113,-147.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-112,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,MarShawn Lloyd,28.5,-116,-111.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Chris Brooks,16.5,-111,-116.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Michael Penix Jr.,3.5,-120,-108.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Jordan Love,7.5,-118,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Bijan Robinson,77.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Kaleb Johnson,34.5,-114,-114.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jordan Love,,575,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,MarShawn Lloyd,,185,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Kaleb Johnson,,175,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Chris Brooks,,270,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jonnu Smith,,675,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Tucker Kraft,,175,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Christian Watson,,135,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Matthew Golden,,165,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Skyy Moore,,675,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Josh Whyle,,1600,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Bo Melton,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Mark Redman,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Bijan Robinson,,-160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Nick Muse,,4000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Michael Penix Jr.,,1100,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Brian Robinson Jr.,,320,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Kyle Pitts,,310,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Drake London,,190,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jahan Dotson,,525,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Green Bay Packers D/ST,,450,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Atlanta Falcons D/ST,,575,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Charlie Woerner,,2200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Austin Hooper,,1300,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Olamide Zaccheaus,,825,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Zachariah Branch,,1400,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_anytime_td,anytime_td,Chris Blair,,3000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_pass_yds,pass_yards,Jordan Love,232.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_pass_yds,pass_yards,Michael Penix Jr.,203.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Drake London,64.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,MarShawn Lloyd,5.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Chris Brooks,7.5,-111,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jahan Dotson,18.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Christian Watson,64.5,-125,-105.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Kyle Pitts,34.5,-150,110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Bijan Robinson,38.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Matthew Golden,52.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Skyy Moore,9.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Olamide Zaccheaus,9.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Tucker Kraft,46.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jonnu Smith,7.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,MarShawn Lloyd,1.5,160,-220.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Drake London,5.5,100,-135.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Tucker Kraft,3.5,-175,130.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Jahan Dotson,1.5,-140,105.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Bijan Robinson,4.5,-120,-111.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Kyle Pitts,3.5,-125,-105.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Christian Watson,4.5,-130,-105.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Matthew Golden,4.5,105,-145.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Skyy Moore,1.5,140,-190.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Olamide Zaccheaus,1.5,140,-190.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_receptions,rec_catches,Jonnu Smith,1.5,145,-200.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,Bijan Robinson,79.5,-105,-125.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,Jordan Love,7.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,Chris Brooks,16.5,-111,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,Kaleb Johnson,35.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,betmgm,player_rush_yds,rush_yards,MarShawn Lloyd,28.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Skyy Moore,,460,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Christian Watson,,160,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Kaleb Johnson,,195,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Tucker Kraft,,185,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Jonnu Smith,,600,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Matthew Golden,,210,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Jordan Love,,525,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Chris Brooks,,235,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,MarShawn Lloyd,,195,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Atlanta Falcons D/ST,,525,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Green Bay Packers D/ST,,500,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Olamide Zaccheaus,,725,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Brian Robinson Jr.,,440,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Bijan Robinson,,-162,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Michael Penix Jr.,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Drake London,,175,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Jahan Dotson,,725,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Kyle Pitts,,370,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Zachariah Branch,,1000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Nick Muse,,4000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Bo Melton,,825,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Mark Redman,,1800,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Austin Hooper,,1400,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Josh Whyle,,2000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Charlie Woerner,,2200,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_anytime_td,anytime_td,Chris Blair,,6000,
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_pass_yds,pass_yards,Jordan Love,227.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_pass_yds,pass_yards,Michael Penix Jr.,201.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Bijan Robinson,39.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Chris Brooks,8.5,-110,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Christian Watson,67.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Drake London,66.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Jahan Dotson,17.5,-110,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Jonnu Smith,8.5,-105,-125.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Kyle Pitts,35.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,MarShawn Lloyd,5.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Matthew Golden,52.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Olamide Zaccheaus,10.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Skyy Moore,9.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_reception_yds,rec_yards,Tucker Kraft,46.5,-110,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Bijan Robinson,4.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Chris Brooks,1.5,105,-135.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Christian Watson,4.5,-130,100.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Drake London,5.5,100,-130.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Jahan Dotson,1.5,-135,105.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Jonnu Smith,1.5,130,-170.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Kyle Pitts,3.5,-130,100.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,MarShawn Lloyd,1.5,150,-200.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Matthew Golden,4.5,105,-135.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Olamide Zaccheaus,1.5,140,-185.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Skyy Moore,1.5,130,-170.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_receptions,rec_catches,Tucker Kraft,4.5,130,-170.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Bijan Robinson,77.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Brian Robinson Jr.,22.5,-110,-120.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Chris Brooks,15.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Jordan Love,7.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Kaleb Johnson,34.5,-115,-115.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,MarShawn Lloyd,27.5,-120,-110.0
+2026-09-23T17-01-12Z,2026,3,2026_03_ATL_GB,GB,ATL,2026-09-25T00:15:00Z,bovada,player_rush_yds,rush_yards,Michael Penix Jr.,3.5,-115,-115.0
