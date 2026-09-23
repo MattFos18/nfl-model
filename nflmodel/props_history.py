@@ -18,7 +18,7 @@ from __future__ import annotations
 import argparse, datetime as dt, json, os, time
 import pandas as pd, requests
 from .lines import LN, OUT, team_from_name
-from .props_lines import MARKETS, SCHEMA, parse_event
+from .props_lines import MARKETS, MARKETS_FULL, SCHEMA, parse_event
 
 API = "https://api.the-odds-api.com/v4/historical/sports/americanfootball_nfl"
 HIST = LN / "props_history.csv"

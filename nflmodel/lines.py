@@ -262,6 +262,17 @@ def attach_game_ids(rows: list[dict]) -> pd.DataFrame:
         return df
     key = games.set_index(["season", "week", "home_team", "away_team"]).game_id
     df["game_id"] = [key.get((s, w, h, a)) for s, w, h, a in zip(df.season, df.week, df.home, df.away)]
+    # a book that posts lines for later weeks (lookahead lines) is matched by teams and kickoff date, and the row takes
+    # that game's week, so the log carries a line's whole life from the first post to the close
+    if "start" in df.columns:
+        miss = df.game_id.isna() & df.start.notna()
+        if miss.any():
+            gd = games[games.gameday.notna()].copy(); gd["day"] = pd.to_datetime(gd.gameday).dt.date
+            for i in df.index[miss]:
+                try: d0 = pd.Timestamp(df.at[i, "start"]).tz_convert("America/New_York").date()
+                except Exception: continue
+                hit = gd[(gd.home_team == df.at[i, "home"]) & (gd.away_team == df.at[i, "away"]) & ((pd.to_datetime(gd.day) - pd.Timestamp(d0)).abs() <= pd.Timedelta(days=1))]
+                if len(hit): df.at[i, "game_id"] = hit.iloc[0].game_id; df.at[i, "week"] = int(hit.iloc[0].week); df.at[i, "season"] = int(hit.iloc[0].season)
     return df
 
 

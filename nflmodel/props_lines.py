@@ -5,7 +5,10 @@ call costs (markets x regions) credits, so a full slate of 16 games at six marke
 spent as: one pull on Thursday 20:00 UTC for the games kicking off within 30 hours (the Thursday game: 6 credits),
 one pull on Sunday 14:00 UTC for the rest of the week (Sunday and Monday games, near their closing lines: ~90),
 about 415 a month, beside the game-line pull once a day (~30; ESPN carries the game lines every half hour anyway). PROPS_EVERY_RUN=1 forces a pull.
-Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown, tackles plus assists. Every row of every book is
+Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown, tackles plus assists on the
+free tier; the full menu (passing touchdowns, completions, attempts, interceptions, rush attempts, rush plus
+reception yards, longest reception, rush and completion, sacks, solo tackles, defensive interceptions, kicking
+points, field goals) once the key holds at least 5,000 credits, which a paid plan does. Every row of every book is
 appended to data/lines/props_log.csv; the raw response is saved under data/lines/raw/. Nothing here is bet: the
 lines are what the projections are graded against (nflmodel/props.py) and what the cards show beside them."""
 from __future__ import annotations
@@ -13,7 +16,10 @@ import datetime as dt, os, re
 import pandas as pd, requests
 from .lines import LN, OUT, _save_raw, team_from_name, current_week
 
-MARKETS = {"player_reception_yds": "rec_yards", "player_receptions": "rec_catches", "player_rush_yds": "rush_yards", "player_pass_yds": "pass_yards", "player_anytime_td": "anytime_td", "player_tackles_assists": "def_tackles"}
+MARKETS = {"player_reception_yds": "rec_yards", "player_receptions": "rec_catches", "player_rush_yds": "rush_yards", "player_pass_yds": "pass_yards", "player_anytime_td": "anytime_td", "player_tackles_assists": "def_tackles"}   # the core six: what the free 500 credits a month afford
+MARKETS_FULL = dict(MARKETS, **{"player_pass_tds": "pass_td", "player_pass_completions": "pass_completions", "player_pass_attempts": "pass_attempts", "player_pass_interceptions": "pass_int", "player_rush_attempts": "rush_attempts", "player_rush_reception_yds": "rush_rec_yards",
+                                 "player_reception_longest": "rec_longest", "player_rush_longest": "rush_longest", "player_sacks": "def_sacks", "player_solo_tackles": "def_solo_tackles", "player_defensive_interceptions": "def_int", "player_kicking_points": "kick_points", "player_field_goals": "field_goals", "player_pass_longest_completion": "pass_longest"})   # every NFL player market The Odds API lists; pulled when the key has the credits (a paid plan)
+FULL_MENU_MIN_CREDITS = 5000                          # pull the full menu only when at least this many credits remain: 20 markets x 16 games x 2 pulls a week needs about 2,800 a month
 SCHEMA = ["ts", "season", "week", "game_id", "home", "away", "start", "book", "market", "stat", "player", "line", "over_price", "under_price"]
 API = "https://api.the-odds-api.com/v4/sports/americanfootball_nfl"
 
@@ -34,7 +40,7 @@ def parse_event(ev: dict, season: int, week: int, ts: str) -> list[dict]:
         return []
     for bk in ev.get("bookmakers", []):
         for m in bk.get("markets", []):
-            stat = MARKETS.get(m.get("key"))
+            stat = MARKETS_FULL.get(m.get("key"))
             if not stat:
                 continue
             for oc in m.get("outcomes", []):
@@ -53,7 +59,9 @@ def pull(season: int, week: int, ts: str, within_hours: float | None = None) -> 
     key = os.environ.get("ODDS_API_KEY", "").strip()
     if not key:
         return []
-    ev = requests.get(f"{API}/events", timeout=30, params={"apiKey": key}).json()   # the events list costs nothing
+    evr = requests.get(f"{API}/events", timeout=30, params={"apiKey": key}); ev = evr.json()   # the events list costs nothing
+    remaining = float(evr.headers.get("x-requests-remaining", "0") or 0); menu = MARKETS_FULL if remaining >= FULL_MENU_MIN_CREDITS else MARKETS
+    print({"credits_remaining": remaining, "markets": len(menu)}, flush=True)
     now = dt.datetime.utcnow()
     rows, raw = [], []
     for e in ev:
@@ -62,7 +70,7 @@ def pull(season: int, week: int, ts: str, within_hours: float | None = None) -> 
             continue
         if within_hours is not None and start > now + pd.Timedelta(hours=within_hours):
             continue
-        r = requests.get(f"{API}/events/{e['id']}/odds", timeout=30, params={"apiKey": key, "regions": "us", "markets": ",".join(MARKETS), "oddsFormat": "american"})
+        r = requests.get(f"{API}/events/{e['id']}/odds", timeout=30, params={"apiKey": key, "regions": "us", "markets": ",".join(menu), "oddsFormat": "american"})
         r.raise_for_status(); j = r.json(); raw.append(j)
         rows += parse_event(j, season, week, ts)
     _save_raw("oddsapi_props", raw, ts)
@@ -115,7 +123,8 @@ def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     g = log[log.game_id == game_id]
     if not len(g):
         return pd.DataFrame(columns=["stat", "player", "key", "line", "books", "over_price", "under_price", "ts"])
-    last = g.ts.max(); g = g[g.ts == last]
-    out = g.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
-    out["key"] = out.player.map(norm_name); out["ts"] = last
+    last = g.ts.max(); first = g.ts.min(); cur = g[g.ts == last]
+    out = cur.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
+    op = g[g.ts == first].groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
+    out = out.merge(op, on=["stat", "player"], how="left"); out["key"] = out.player.map(norm_name); out["ts"] = last; out["open_ts"] = first; out["pulls"] = int(g.ts.nunique())
     return out
