@@ -680,6 +680,17 @@ blitz fit and the opponent's pressure rate each help one window (blitz fit +0.00
 carry what a team's scheme has produced; the scheme tags say how, not how much. Nothing adopted; the profiles stay
 readings, and the next layers (player against scheme, player against player) are built for the props side first.
 
+Two follow-ups (`experiments/scheme_qb_totals.py`, `reports/scheme_qb_totals.csv`). The QB, not the team, is the one
+under pressure, so each starter's own EPA per dropback under pressure and in a clean pocket (league -0.19 and
++0.22), and blitzed and not, was decayed and shrunk like the QB rating and matched to the opponent's pressure and
+blitz rates: the pressure fit is +0.002 / +0.003 on team points, the blitz fit +0.002 / -0.001, the pressure gap
+(how much pressure hurts him) +0.004 / +0.007; nothing helps both. For the total, tempo and tendency sums
+(no-huddle, pass rate over expected, motion, the two defenses' pressure and man rates) were added to the totals
+equation: no-huddle -0.001 / +0.008, pass rate over expected 0 / 0, the rest worse, all five together +0.11 /
++0.08. Nothing adopted. A third idea, adjusting each offense's EPA for the looks it faced before the ratings solve,
+was not run: the joint solve already credits the look to the defense that chose it, so the adjustment would move
+that credit from the defense to the offense and count it twice.
+
 **Kickoff-hour weather for the backtest** (23 Sep 2026, `nflmodel/weather_archive.py`, `experiments/weather_kickoff.py`,
 `reports/weather_kickoff.csv`). The backtest's wind, cold and rain come from the schedule's game-day readings. The
 Open-Meteo archive gives the reading at the kickoff hour at each stadium (2,572 outdoor games 2013 to 2025 in
