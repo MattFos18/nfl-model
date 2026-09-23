@@ -27,10 +27,17 @@ def run(name, p, pct=25):
     f[["skill_out_value", "opp_skill_out_value"]] = f[["skill_out_value", "opp_skill_out_value"]].fillna(0.0)
     r = both(f); rows.append(row(name, r)); print(name, {w: (round(r[w]["team_mae"] - base[w]["team_mae"], 4), r[w]["ats5"]) for w in r}, flush=True)
 D = PL.DEFAULT
-run("k 40", dict(D, k=40.0)); run("k 160", dict(D, k=160.0))
-run("10th percentile", D, pct=10); run("40th percentile", D, pct=40)
-run("decay 0.97", dict(D, decay=0.97)); run("decay 0.995", dict(D, decay=0.995))
+import os
+if os.environ.get("ROUND2"):
+    run("k 240", dict(D, k=240.0)); run("k 320", dict(D, k=320.0))
+    run("k 160, 10th percentile", dict(D, k=160.0), pct=10); run("k 160, 15th percentile", dict(D, k=160.0), pct=15); run("k 240, 10th percentile", dict(D, k=240.0), pct=10)
+else:
+    run("k 40", dict(D, k=40.0)); run("k 160", dict(D, k=160.0))
+    run("10th percentile", D, pct=10); run("40th percentile", D, pct=40)
+    run("decay 0.97", dict(D, decay=0.97)); run("decay 0.995", dict(D, decay=0.995))
 df = pd.DataFrame(rows)
+if os.environ.get("ROUND2") and os.path.exists("reports/player_knobs.csv"):
+    old = pd.read_csv("reports/player_knobs.csv"); df = pd.concat([old[old.variant != df.loc[0, "variant"]].iloc[:0], old, df.iloc[1:]], ignore_index=True).drop_duplicates("variant", keep="last")
 for w in ["2019-22", "2023-25"]: df[f"delta_{w}"] = df[f"team_mae_{w}"] - df.loc[0, f"team_mae_{w}"]
 df["verdict"] = ["base" if i == 0 else ("helps both" if d1 < -0.001 and d2 < -0.001 else ("helps one" if d1 < -0.001 or d2 < -0.001 else "no")) for i, (d1, d2) in enumerate(zip(df["delta_2019-22"], df["delta_2023-25"]))]
 df.to_csv("reports/player_knobs.csv", index=False); print(df[["variant", "delta_2019-22", "delta_2023-25", "verdict"]].to_string()); print("DONE")
