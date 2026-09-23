@@ -251,6 +251,21 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
+**Update, 23 Sep 2026, on the twenty-input model: the flag is 4.** Re-swept after the turnover inputs and the
+rating re-tune (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17):
+
+| Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|---|---|---|---|
+| 4 | 90-67, 57.3% | 47-30, 61.0% | 59.5% | 59.0% | 56.8% | 54.1% | 60.0% | 63.6% | 63.0% |
+| 4.5 | 66-46, 58.9% | 31-22, 58.5% | 65.4% | 60.7% | 56.7% | 53.6% | 63.6% | 63.6% | 55.6% |
+| 5 | 46-32, 59.0% | 22-16, 57.9% | 68.4% | 55.6% | 55.0% | 57.1% | 100% (3-0) | 60.0% | 50.0% |
+
+The 4-point cut is the first that wins every single season, above the 52.4% break-even in all seven, at twice the
+volume of 5 with the same overall rate (58.5% on 234 bets against 58.6% on 116). So the flag moved from 5 to 4.
+Honest caveat: the cut is chosen on all the seasons the model was tested on, so the seven-for-seven is a
+description of the backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has
+converted to (about 53%).
+
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
 sweep, recomputed from the backtest on every run, is on the History tab (Every threshold, tested). On the current model, spread
 cutoffs from 4 to 5.5 make money in both windows and 5 has the best return (68-48 over 2019 to 2025; 6 and up flip negative held

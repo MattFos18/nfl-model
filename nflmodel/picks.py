@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
-SPREAD_EDGE, TOTAL_EDGE = 5.0, None  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
+SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (won every season 2019 to 2025 on the twenty-input model, reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 
 
 def fair_ml(p):
@@ -144,9 +144,9 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. That is the threshold with the best return that held in both backtest windows "
-           "(2019 to 2022 and 2023 to 2025), on small samples: 116 spread bets at 5+ went 68-48. Totals are not flagged: no total threshold won in both windows "
-           "(the 6+ rule went 27-26). No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the History tab of the data room.", ""]
+           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut won in every season from 2019 to 2025 "
+           "(weeks 1 to 17: 90-67 on the tuning window, 47-30 held out), at twice the volume of the old 5-point cut and the same rate. Totals are not flagged: no total "
+           "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 

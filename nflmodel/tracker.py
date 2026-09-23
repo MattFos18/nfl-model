@@ -156,7 +156,8 @@ def main():
     gr.to_csv(TR / "graded.csv", index=False)
     L = ["# Track record", "", "Model picks and Matt's bets, graded against results, at the odds recorded. Closing line value (CLV) is the line "
          "recorded minus the closing line from the bet's side: positive means the number beat the close.", ""]
-    for who, name in [("model", "Model picks (flagged at 5+ spread, 6+ total)"), ("matt", "Matt's bets")]:
+    from .picks import SPREAD_EDGE
+    for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:
         x = gr[gr.who == who] if len(gr) else gr
         L += [f"## {name}", ""]
         if len(x) == 0:
