@@ -162,10 +162,9 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         edge = f"{r.spread_edge:+.1f} / {r.total_edge:+.1f}" if pd.notna(r.spread_line) else ""
         cover = f"{r.home_team} {r.p_cover_home:.0%} / {r.away_team} {1 - r.p_cover_home:.0%}" if pd.notna(r.p_cover_home) else ""
         over = f"Over {r.p_over:.0%} / Under {1 - r.p_over:.0%}" if pd.notna(r.p_over) else ""
-        old = f"{r.old_away:.1f}-{r.old_home:.1f}" if "old_home" in p.columns and pd.notna(r.old_home) else ""
         rows.append({"Game": f"{r.away_team} @ {r.home_team}", "Date": r.gameday,
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
-                     "Old model": old, "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
+                     "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
                      "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
                      "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else "",
                      **{f"Shadow: {lab}": (getattr(r, f"{name}_bet", "") if isinstance(getattr(r, f"{name}_bet", ""), str) else "") for name, (_, _, lab) in SHADOWS.items()}})
