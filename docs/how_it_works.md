@@ -628,3 +628,21 @@ the decision log, definitions and sources).
 
 Neither the division flag nor the value out helps the totals equation (`reports/totals_div.csv`), so that stays as it was. The weekly run builds all of this (`players` step after `trends`); the card shows the value out under "Injuries
 beyond the QB" in the breakdown.
+
+
+## 16. Weekly health check (23 Sep 2026)
+
+`nflmodel/health.py` asks, from the logs the pipeline leaves behind, whether everything that should have run did
+run and passed: the weekly run is under 72 hours old with every step ok (including verify, both tie-out steps,
+the export and the pick recording); at least three runs in the last seven days; the verification suite and the
+tie-out both say PASS; the line watch logged a snapshot in the last 24 hours and is returning rows; the kickoff
+forecasts are under 96 hours old; the coming week has a picks file and the tracker holds the same flags; the page
+quotes the code's flag threshold, inputs and QB replacement level and was built in the last 96 hours. It writes
+`reports/health.md` (HEALTHY or BROKEN, one row per check, WARN for things worth a look) and exits non-zero on any
+FAIL.
+
+`.github/workflows/health.yml` runs it every Monday at 9am ET (and on demand), commits the report to main, and
+when it fails opens a GitHub issue labelled `health` with the report (or comments on the open one); when it passes
+again it closes that issue. The report is the first thing on Model → Data pulls and verification. A Monday Claude
+routine reads the same report and the workflow's conclusion and sends a one-line push and email: healthy, or what
+broke.
