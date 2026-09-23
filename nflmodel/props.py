@@ -431,7 +431,7 @@ def reconcile(rows: list, kind: str, exp_pts: float | None, yds_key: str, td_key
     return out
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None) -> dict:
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None, starter: str | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
     team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
     kickoff (None in a dome or before a usable forecast), exp_pts the game model's expected points for the team."""
@@ -483,7 +483,8 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         att = dbs * (1 - p["sack_rate"]); comp = att * _shrunk(p.get("comp") if p.get("comp") is not None else L["comp_pp"], p["dropbacks"], L["comp_pp"], 100.0)
         qbs.append({"player_id": pid, "name": p["name"], "pos": p.get("pos", ""), "vs_opp": vs_summary((VS or {}).get(("pass", pid, opp))), "status": st, "out": is_out, "proj_pass_attempts": round(att, 1), "proj_pass_completions": round(comp, 1), "td_db": p["td_db"], "int_db": p["int_db"], "sack_rate": p["sack_rate"], "comp": p.get("comp"), "dropbacks_pg": p["dropbacks_pg"], "proj_dropbacks": round(dbs, 1), "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_shrunk": round(ypd_s, 2), "proj_ypd": round(ypd, 2),
                     "proj_pass_yards_mean": round(dbs * ypd * wind_factor("pass", wind), 1), "proj_pass_yards": round(dbs * ypd * MED["pass"] * wind_factor("pass", wind), 1), "td_db_proj": round(td_s, 4), "proj_pass_td": round(dbs * td_s, 3), "proj_int": round(dbs * L["int_db"], 3), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"], "longest_dec": p["longest_dec"], "ypg": p["ypg"], "proj_pass_longest": p["proj_longest"]})
-    qbs.sort(key=lambda r: (r["out"], -r["dropbacks_pg"]))
+    # the starter is the schedule's named QB when it names one (as the game model uses), else the most dropbacks per game
+    qbs.sort(key=lambda r: (r["out"], 0 if (starter and r["player_id"] == starter) else 1, -r["dropbacks_pg"]))
     for u in rus: u["proj_rush_attempts"] = u["proj_carries"]
     recon = {"rec": reconcile(rec, "rec", exp_pts, "proj_rec_yards", "proj_rec_td"), "rush": reconcile(rus, "rush", exp_pts, "proj_rush_yards", "proj_rush_td"), "pass": reconcile(qbs, "pass", exp_pts, "proj_pass_yards", "proj_pass_td", starter_only=True)}
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
@@ -575,20 +576,25 @@ def grade(d: pd.DataFrame, season: int, week: int, run_at: str) -> pd.DataFrame 
             if r.game_id not in played or ((done.game_id == r.game_id) & (done.player_id == r.player_id) & (done.stat == r.stat)).any(): continue
             src, col = SRC[r.stat]; hit = src[(src.game_id == r.game_id) & (src.player_id == r.player_id)]
             actual = float(hit[col].fillna(0).iloc[0]) if len(hit) else 0.0; vol_ = int(hit.n.iloc[0]) if len(hit) else 0
-            rows.append({"season": season, "week": wk, "game_id": r.game_id, "team": r.team, "player_id": r.player_id, "name": r["name"], "stat": r.stat, "proj": r.proj, "proj_volume": r.proj_volume, "actual": actual, "actual_volume": vol_, "error": round(actual - r.proj, 3), "graded_at": run_at})
+            rows.append({"season": season, "week": wk, "game_id": r.game_id, "team": r.team, "player_id": r.player_id, "name": r["name"], "stat": r.stat, "proj": r.proj, "proj_volume": r.proj_volume, "actual": actual, "actual_volume": vol_, "error": round(actual - r.proj, 3), "graded_at": run_at, "made": (r["made"] if "made" in pr.columns and isinstance(r.get("made"), str) else "live")})
     if not rows: return None
     g = pd.concat([done, pd.DataFrame(rows)], ignore_index=True) if len(done) else pd.DataFrame(rows)
     TR.mkdir(parents=True, exist_ok=True); g.to_csv(TR / "props_graded.csv", index=False); return g
 
 
-def main():
+def main(season: int | None = None, week: int | None = None, backfill: bool = False):
+    """The week's projections. backfill=True projects an earlier week of the season with the data as of that week (the
+    same rule, nothing from the week itself), writes only its CSV and markdown with made = "after the fact", and
+    leaves the live panel, profiles and grades alone; the next run grades it like any other week."""
     from .lines import current_week
     from .positions import names_by_id
-    games = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(games)
+    games = pd.read_parquet(OUT / "games.parquet")
+    if season is None or week is None:
+        season, week = current_week(games)
     run_at = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
-    graded = grade(d, season, week, run_at)
-    vm = grade_market(graded, run_at)
+    graded = None if backfill else grade(d, season, week, run_at)
+    vm = None if backfill else grade_market(graded, run_at)
     from .props_lines import load_log, closing
     plog = load_log()
     a = _asof(d, season, week); names = names_by_id(range(season - 2, season + 1))
@@ -607,7 +613,8 @@ def main():
         wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
         mk = closing(plog, g.game_id) if len(plog) else None
         ha = (float(xp.loc[g.game_id, "home_exp"]), float(xp.loc[g.game_id, "away_exp"])) if g.game_id in xp.index else (None, None)
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1], VS), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0], VS)}
+        aq = g.away_qb_id if isinstance(g.away_qb_id, str) else None; hq = g.home_qb_id if isinstance(g.home_qb_id, str) else None   # nflverse names the starters for played games and the coming week
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1], VS, aq), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0], VS, hq)}
         out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, g.total_line, mk, VS)
         out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, g.total_line, mk, VS)
         out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, g.total_line, mk)
@@ -623,7 +630,7 @@ def main():
             for team in (g.away_team, g.home_team): out["games"][g.game_id][team].pop("_matched", None); out["games"][g.game_id][team]["others"] = []
         for team, side in out["games"][g.game_id].items():
             def add(r, stat, proj, volume):
-                rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": stat, "proj": proj, "proj_volume": volume, "run_at": run_at})
+                rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": stat, "proj": proj, "proj_volume": volume, "run_at": run_at, "made": ("after the fact" if backfill else "live")})
             for r in side["receivers"]:
                 if not r["out"]: add(r, "rec_yards", r["proj_rec_yards"], r["proj_targets"]); add(r, "rec_catches", r["proj_catches"], r["proj_targets"]); add(r, "rec_td", r["proj_rec_td"], r["proj_targets"]); add(r, "rec_targets", r["proj_targets"], r["proj_targets"]); add(r, "rec_longest", r["proj_rec_longest"], r["proj_targets"])
             for r in side["rushers"]:
@@ -637,6 +644,8 @@ def main():
     pr = pd.DataFrame(rows)
     if len(pr):
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
+        if backfill:
+            print(f"props backfill: {len(pr)} projections for week {week} of {season}, made after the fact with the data as of that week", flush=True); return
         md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
     out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
@@ -681,4 +690,9 @@ def reattach_markets() -> None:
 
 if __name__ == "__main__":
     import sys
-    reattach_markets() if "--markets" in sys.argv else main()
+    if "--markets" in sys.argv:
+        reattach_markets()
+    elif "--backfill" in sys.argv:   # python -m nflmodel.props --backfill 2026 1
+        i = sys.argv.index("--backfill"); main(int(sys.argv[i + 1]), int(sys.argv[i + 2]), backfill=True)
+    else:
+        main()

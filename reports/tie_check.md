@@ -60,6 +60,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file stakes = tracker stakes | [0.6, 0.6, 0.79, 0.97] | [0.6, 0.6, 0.79, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
+| season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 201, 66, 32, 2026, 3] | [364, 201, 66, 32, 2026, 3] | yes |
 | props record on the page = every projection file, graded rows and market rows | [2854, 0, 0] | [2854, 0, 0] | yes |
 | player game logs on the page = player-games in the charted plays (receiving, rushing, passing) | 74141 | 74141 | yes |
@@ -77,5 +78,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
 | page live table = tracker (pending model rows) | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['CHI +4.5', 'MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
+| season odds are for the week being priced | 2026 3 | 2026 3 | yes |
+| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1216, 0.1144, 0.1141, 0.0887, 0.0765, 0.0685, 0.0675, 0.0528, 0.0471, 0. | [32, [0.1216, 0.1144, 0.1141, 0.0887, 0.0765, 0.0685, 0.0675, 0.0528, 0.0471, 0. | yes |
+| season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes) | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | yes |
+| expected wins across the league = regular-season games (every game gives one win, a tie half each) | 272.0 | 272.0 | yes |
+| season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss) | [['2019-22', 1.3617, 0.085, 2.4581], ['2023-25', 1.5846, 0.138, 2.9492]] | [['2019-22', 1.3617, 0.085, 2.4581], ['2023-25', 1.5846, 0.138, 2.9492]] | yes |
+| player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts) | [329, 224816.4, 13] | [329, 224816.4, 13] | yes |
+| player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 
-Result: PASS (73 of 73 tie)
+Result: PASS (81 of 81 tie)

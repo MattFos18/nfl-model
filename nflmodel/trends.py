@@ -155,15 +155,13 @@ def _roster_names(seasons) -> dict:
 
 
 def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame:
-    inj, snaps = [], []
+    from .players import load_injuries
+    snaps = []
     for s in seasons:
-        f = RAW / "injuries" / f"injuries_{s}.parquet"
         g = RAW / "snap_counts" / f"snap_counts_{s}.parquet"
-        if f.exists():
-            inj.append(pd.read_parquet(f))
         if g.exists():
             snaps.append(pd.read_parquet(g))
-    inj = pd.concat(inj, ignore_index=True)
+    inj = load_injuries(seasons)   # the league's reports plus ESPN's same-day fill for the week being priced (players.load_injuries)
     snaps = pd.concat(snaps, ignore_index=True)
     fix = {"OAK": "LV", "SD": "LAC", "STL": "LA"}
     inj["team"] = inj.team.replace(fix)

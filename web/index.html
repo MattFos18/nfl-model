@@ -212,6 +212,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 </header>
 <nav class="tabs" role="tablist">
   <button role="tab" data-tab="week">This week</button>
+  <button role="tab" data-tab="season">Season</button>
   <button role="tab" data-tab="rank">Rankings</button>
   <button role="tab" data-tab="teamsec">Teams</button>
   <button role="tab" data-tab="playersec">Players</button>
@@ -228,6 +229,38 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <div class="tiles" id="weektiles"></div>
   <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
+</section>
+
+<section class="tab" id="season" hidden>
+  <nav class="sub" id="seasonsub">
+    <button data-sub="odds">Team odds</button>
+    <button data-sub="totals">Player totals</button>
+    <button data-sub="seasonbt">Backtest</button>
+  </nav>
+  <div id="odds">
+    <p class="note" id="seasonnote"></p>
+    <div class="grid2">
+      <div class="card" style="grid-column:1 / -1"><h3>Super Bowl, conference, playoff and division odds</h3><div class="tablewrap" style="max-height:70vh"><table id="sbtable"></table></div></div>
+    </div>
+    <div class="grid2e" id="divgrid" style="margin-top:14px"></div>
+  </div>
+  <div id="totals" hidden>
+    <p class="note" id="totalsnote"></p>
+    <div class="grid2">
+      <div class="card" style="grid-column:1 / -1"><h3>Breakout watch</h3><div class="tablewrap" style="max-height:44vh"><table id="breakouts"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">Season totals <label class="ctl" style="font-weight:400">Kind <select id="pskind"><option value="rec">Receivers</option><option value="rush">Rushers</option><option value="pass">Passers</option></select></label></h3><div class="tablewrap" style="max-height:70vh"><table id="pstable"></table></div></div>
+    </div>
+  </div>
+  <div id="seasonbt" hidden>
+    <p class="note" id="seasonbtnote"></p>
+    <div class="grid2">
+      <div class="card" style="grid-column:1 / -1"><h3>Team odds against what happened, 2019 to 2025</h3><div class="tablewrap"><table id="sbt1"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>By the week the odds were made</h3><div class="tablewrap"><table id="sbt2"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Knobs tested</h3><div class="tablewrap"><table id="sbt3"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Player season totals against what happened, 2019 to 2025</h3><div class="tablewrap"><table id="sbt4"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Breakout flag, how often it came true</h3><div class="tablewrap"><table id="sbt5"></table></div></div>
+    </div>
+  </div>
 </section>
 
 <section class="tab" id="rank" hidden>
@@ -325,7 +358,22 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <nav class="sub" id="resultssub">
     <button data-sub="backtest">Game model, 2015 to now</button>
     <button data-sub="props">Player projections, 2017 to now</button>
+    <button data-sub="proplive">Player projections, live</button>
   </nav>
+  <div id="proplive" hidden>
+  <p class="note" id="plivenote"></p>
+  <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
+    <label class="ctl">Week <select id="plweek"><option value="">All</option></select></label>
+    <label class="ctl">Stat <select id="plstat"><option value="">All</option></select></label>
+    <label class="ctl">Team <select id="plteam2"><option value="">All</option></select></label>
+    <label class="ctl">Search <input id="plq2" type="search" placeholder="Player" style="width:160px"></label>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>By week</h3><div class="tablewrap" style="max-height:44vh"><table id="pliveweek"></table></div></div>
+    <div class="card"><h3>By stat</h3><div class="tablewrap" style="max-height:44vh"><table id="plivestat"></table></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>Every graded projection</h3><div class="tablewrap" style="max-height:70vh"><table id="pliverows"></table></div></div>
+  </div>
+  </div>
   <div id="backtest">
   <p class="note">Every regular-season game the model priced since 2015, walk-forward (2013 and 2014 are training only; 2015 to 2018 were never used to choose an input, a knob or the cut, so they are the one fully untouched stretch): each week priced with only earlier games, the regression refit before every week. The model's lean is the side its line favours against the closing line; "Covered" grades that lean on every game, and the flag marks the edges at or past the live cut (Model → Definitions).</p>
   <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
@@ -447,6 +495,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <dt>Books now</dt><dd>Under "Why these numbers": every book's current spread and total from the last line snapshot, and the best available number for the model's side. A half point at a key number (3, 7) is worth real money over a season, so a flagged bet goes at the best price, not the first one. The full log (every book, every 30 minutes) is folded underneath; it grades closing line value on the Track record tab and, after a season, tests whether lines that move toward the model beat the ones that move away.</dd>
       <dt>Matchup history</dt><dd>Last meetings, coaches, quarterbacks, stadium and form, built automatically on every weekly run from the nflverse schedule (every game since 2013 with its score, closing line, coaches and starting QBs). Nothing here changes the model's numbers: each of these was tested as an input and none improved the backtest (Decision log). It is context for reading a card, not an input.</dd>
       <dt>Scheme matchup and How they play / defend</dt><dd>Readings from nflverse participation data (2016 on: the defense's man or zone call and coverage family, formation, personnel, box, rushers, pressure) and FTN charting (2022 on: motion, play action, RPO, screens, tempo, blitzers), joined to every play. Rates say how a team plays; EPA per play in each look says how it has gone, with the play count beside it and blank under 20 plays. This season is used once a team has 300 charted plays, otherwise last season, and the label says which. The current season's participation file arrives on nflverse during the season, so early-season profiles carry the FTN fields and leave coverage and pressure blank. None of it feeds the model's numbers; it is the first layer of the matchup work (docs section 17).</dd>
+      <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Season → Backtest): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
       <dt>Card tabs</dt><dd>Each game card opens one panel at a time: Takeaways (the handful of readings on the card that bear on the outcome: the model against the market, the largest inputs and absences, the scheme look that matters most each way, the last meetings, the biggest prop leans against the book), Why these numbers (every input and its points), Matchup history, Scheme matchup and Player props. Only the spread flag is a bet; the rest are readings.</dd>
       <dt>Rankings, Positions</dt><dd>Every rostered player valued as of the coming week (his last eight games, across seasons) ranked within his position group (value above replacement, EPA per play terms; Team → Players for each group's basis), with coverage numbers for defensive backs.</dd>
       <dt>Players against this defense (projections)</dt><dd>Under Player props on each card: every rostered QB, receiver and rusher with a profile (last 17 games, any team), his split against the looks this defense plays (man and zone, pressure, light and heavy boxes, 15 plays minimum, shown as readings), and a projection by the rule six rounds of walk-forward backtest chose on both windows (2019 to 2025, every constant fitted on 2016 to 2018; docs section 18). Volume: the team's plays per game over its last 17, moved by the game script (a fitted line on the closing spread and total: favorites run more and pass less, high totals add pass plays), shared among the players who are playing in proportion to usage, where usage is decayed 0.85 per game back so the current role counts most (a listed-out player's share goes to his teammates, and he is shown at what he would have projected). Rate: his yards per touch shrunk toward the league and moved a little toward what the defense allows. Line: volume x rate x a median factor (receivers 0.88, rushers 0.84, QBs 0.90), because yards in a game are right-skewed and the line that is off by least sits below the mean, as a book's over/under does; the mean is in the tooltip. Passing yards also blend the team's dropbacks a quarter of the way toward what the opponent allows per game and drop 0.5% per mph of kickoff wind above 10 once a forecast is usable (round four: both helped passing on both windows; for receiving and rushing every round-four layer, including the QB's rating, home field, pace and wind, was inside the noise). Each team's players are then moved toward what the game model's expected points say the team should produce (its expected receiving, rushing and passing yards and touchdowns, fitted on 2016 to 2018): yards a quarter of the way, passing half; touchdowns half, passing all the way (round six: helps every stat on both windows, passing yards by three; the game model's margin in place of the closing line changed nothing). Receptions: targets x his catch rate shrunk toward the league (25 targets of weight) x 0.88. Touchdowns: volume x his rate shrunk toward the league (200 targets, 200 carries, 400 dropbacks of weight), receiving and passing scores moved 2% per point of expected margin; interceptions at the league rate, his own rate carrying no information (round five, by absolute error for receptions and Poisson fit for scores, both windows). Backtest error on receptions: 1.44 / 1.36 catches per player-game. Projecting from the look-by-look splits, routes, coverage-specific usage, defense by position or the coach's pass rate was worse than not, so they stay readings. Backtest error per player-game: receiving 19.4 / 18.4 yards, rushing 18.2 / 17.4, passing 57.7 / 57.3 (2019-22 / 2023-25). Graded live every run against what happened and, from Week 3 of 2026, against the closing book line (The Odds API, logged Thursday evening for the Thursday game and Sunday morning for the rest; the median across the US books sits beside each projection on the card with the side it leans, and the record by stat and edge is under Results, Player projections). No history of prop lines exists before that week, so the market comparison is live only. Nothing here feeds the game model.</dd>
@@ -469,6 +518,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <script src="data/player_profiles.js"></script>
 <script src="data/props_record.js"></script>
 <script src="data/scheme.js"></script>
+<script src="data/season.js"></script>
 <script src="data/props.js"></script>
 <script>
   if (!window.META) { document.body.innerHTML = '<div class="wrap"><header><h1>NFL Model</h1><p class="sub">The page\'s data files did not load (data/meta.js). Reload; if it persists, the weekly run has not published yet.</p></header></div>'; throw new Error("data/meta.js missing"); }
@@ -501,7 +551,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   $("built").textContent = (() => { const m = String(META.built).match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/); if (!m) return "Last updated " + META.built; const d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])); return "Last updated " + d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"}) + " ET"; })();
 
   // ---------- state ----------
-  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams"}, gameIdx = 0;
+  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", season: "odds"}, gameIdx = 0;
   let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "overview", model: "analysis", results: "backtest"}, o.sub);
       if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (sub.teamsec === "how") { sub.teamsec = "overview"; } if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
@@ -531,7 +581,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   function showTab() {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
     document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== tab);
-    ["teamsec", "model", "results", "rank"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
+    ["teamsec", "model", "results", "rank", "season"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "season" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
       document.querySelectorAll(`#${sec} > div[id]`).forEach(d => d.hidden = d.id !== cur); });
   }
   groups.forEach(g => { const b = document.createElement("button"); b.className = "chip"; b.textContent = g; b.setAttribute("aria-pressed", on.has(g) ? "true" : "false");
@@ -642,22 +692,23 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       return `<div class="mv"><span class="chip mute" title="The inputs that move the model's line the most for this game: each team's contribution from that input, home minus away, in points of margin. The line has no such breakdown, so this says where the model's number comes from, not why the market disagrees.">Line drivers: ${top.map(([f, d]) => `${FEAT_LABEL[f] || f} ${d > 0 ? g.home_team : g.away_team} ${Math.abs(d).toFixed(1)}`).join(" · ")}</span></div>`;
     } catch (e) { return ""; }
   }
+  const CAL_FROM = 2019;   // the first season the cover-odds calibration (picks.calibration) and these band chips both draw on
   function histCover(edge) {
     // what past edges of this size actually covered, from the backtest rows (1-point buckets up to 7, then 7+)
     if (!window.BACKTEST || edge == null) return "";
     const e = Math.abs(edge); const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
-    const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
+    const rows = bkRows().filter(r => r.home_score != null && r.season >= CAL_FROM).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.pickWon).length;
-    return `<span class="chip alt" title="every regular-season game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side and graded against the close: what share covered">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% covered</span>`;
+    return `<span class="chip alt" title="the raw record of this one band: every regular-season game since ${CAL_FROM} where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side and graded against the close (${w}-${rows.length - w}). The cover bar above is the calibrated chance, a fit across every edge size on the same games, so it smooths what one band's small sample says.">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% covered</span>`;
   }
   function histOver(tedge) {
     if (!window.BACKTEST || tedge == null) return "";
     const e = Math.abs(tedge); const lo = Math.min(7, Math.floor(e)), hi = lo >= 7 ? 99 : lo + 1;
-    const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.tedge != null && Math.abs(r.tedge) >= lo && Math.abs(r.tedge) < hi && r.ouWon !== null && r.ouWon !== undefined);
+    const rows = bkRows().filter(r => r.home_score != null && r.season >= CAL_FROM).map(gradeGame).filter(r => r.tedge != null && Math.abs(r.tedge) >= lo && Math.abs(r.tedge) < hi && r.ouWon !== null && r.ouWon !== undefined);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.ouWon).length;
-    return `<span class="chip alt" title="every regular-season game since 2015 where the model's total differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side: what share won">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% won</span>`;
+    return `<span class="chip alt" title="the raw record of this one band: every regular-season game since ${CAL_FROM} where the model's total differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side (${w}-${rows.length - w}). The over bar above is the calibrated chance, a fit across every edge size on the same games; for totals that fit is nearly flat, so the bar reads about the same at any edge and one band's sample sits around it.">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% won</span>`;
   }
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
   function runMove(g, key, lab) {
@@ -1871,11 +1922,94 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 
 
   // ---------- dispatch ----------
+  // Season tab: the simulation's odds, the player season totals and both backtests (data/season.js, export_web.export_season)
+  let psKind = "rec";
+  function renderSeason() {
+    const S = window.SEASON;
+    if (!S) { $("seasonnote").textContent = "Season odds are not built yet."; return; }
+    const cur = sub.season || "odds";
+    const pct = v => v == null ? "" : (v >= 0.995 ? "99+" : v < 0.005 && v > 0 ? "<1" : (100 * v).toFixed(v >= 0.1 ? 0 : 1)) + "%";
+    const rec = t => `${Math.floor(t.wins_now)}-${t.losses_now}${t.ties_now ? "-" + t.ties_now : ""}`;
+    const n1 = v => v == null || isNaN(v) ? "" : (+v).toFixed(1);
+    const n2 = v => v == null || isNaN(v) ? "" : (+v).toFixed(2);
+    const n3 = v => v == null || isNaN(v) ? "" : (+v).toFixed(3);
+    if (cur === "odds") {
+      $("seasonnote").textContent = `${S.season}, going into Week ${S.week}: ${S.games_left} regular-season games left, played out ${S.n_sims.toLocaleString()} times from the game model's numbers. Built ${etTime(S.built)}.`;
+      const rows = S.teams.slice().sort((a, b) => b.p_sb - a.p_sb || b.p_conf - a.p_conf || b.wins - a.wins);
+      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th title="record so far">Now</th><th title="expected wins, with the 10th to 90th percentile of the runs">Wins</th><th>Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
+        rows.map((t, i) => `<tr><td class="mono">${i + 1}</td><td class="l"><b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small>${n1(t.wins_p10)}–${n1(t.wins_p90)}</small></td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td><td class="mono">${pct(t.p_conf)}</td><td class="mono"><b>${pct(t.p_sb)}</b></td></tr>`).join("") + "</tbody>";
+      $("divgrid").innerHTML = Object.entries(S.divisions).map(([d, ts]) => { const rs = ts.map(t => S.teams.find(x => x.team === t)).filter(Boolean).sort((a, b) => b.p_div - a.p_div); return `<div class="card"><h3>${d}</h3><table><thead><tr><th class="l">Team</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Super Bowl</th></tr></thead><tbody>${rs.map(t => `<tr><td class="l">${t.team}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}</td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_sb)}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
+      return;
+    }
+    if (cur === "totals") {
+      const P = S.players || {rows: []}; const rows = P.rows || [];
+      const sel = $("pskind"); if (!sel.dataset.bound) { sel.dataset.bound = "1"; sel.addEventListener("change", () => { psKind = sel.value; renderSeason(); }); } sel.value = psKind;
+      const KL = {rec: "receiving yards", rush: "rushing yards", pass: "passing yards"};
+      const hit = {}; (S.player_backtest || []).filter(r => r.row === "breakout" && String(r.asof_week) === "all").forEach(r => { hit[r.kind] = hit[r.kind] || {}; hit[r.kind][r.window] = r; });
+      $("totalsnote").textContent = `${S.season}, going into Week ${S.week}: what each player has so far plus his per-game mean against an average defense times the games his team has left times a fitted share (receivers ${P.avail.rec}, rushers ${P.avail.rush}, passers ${P.avail.pass}), blended with pace (his own per-game so far over the whole schedule; pace's weight ${P.blend.rec}, ${P.blend.rush}, ${P.blend.pass}). Both constants fitted on 2016 to 2018 on the season-total error; the result beats pace and last season on both backtest windows (Backtest). Breakout: a top-${P.top_n.rec} projection at a per-game rate at least ${P.break_up}x last season's; New: a top projection with no previous season.`;
+      const flagged = rows.filter(r => r.breakout || r.new_top).sort((a, b) => a.kind.localeCompare(b.kind) || a.rank - b.rank);
+      $("breakouts").innerHTML = flagged.length ? `<thead><tr><th class="l">Player</th><th class="l">Pos</th><th class="l">Team</th><th class="l">Kind</th><th>Projected</th><th>Per game</th><th title="last season's yards, games and per game">Last season</th><th class="l">Flag</th><th title="how often this flag came true in the backtest, 2019-22 / 2023-25 (Backtest sub-tab)">Came true</th></tr></thead><tbody>` +
+        flagged.map(r => { const h = hit[r.kind] || {}; const ct = ["2019-22", "2023-25"].map(w => h[w] && h[w].value != null && !isNaN(h[w].value) ? Math.round(100 * h[w].value) + "%" : "").join(" / "); return `<tr><td class="l"><b>${esc(r.name)}</b></td><td class="l">${esc(r.pos)}</td><td class="l">${r.team}</td><td class="l">${KL[r.kind]}</td><td class="mono">${Math.round(r.proj_yards)} <small>#${r.rank}</small></td><td class="mono">${n1(r.proj_pg)}</td><td class="mono">${r.prev_games ? `${Math.round(r.prev_yards)} in ${r.prev_games} (${n1(r.prev_pg)})` : "none"}</td><td class="l">${r.breakout ? "Breakout" : "New to the top"}</td><td class="mono">${ct}</td></tr>`; }).join("") + "</tbody>" : `<tbody><tr><td class="l">No one flagged.</td></tr></tbody>`;
+      const kr = rows.filter(r => r.kind === psKind).sort((a, b) => a.rank - b.rank);
+      const isRec = psKind === "rec";
+      $("pstable").innerHTML = `<thead><tr><th>#</th><th class="l">Player</th><th class="l">Pos</th><th class="l">Team</th><th title="yards so far, in his games">So far</th><th title="per-game mean against an average defense: volume x rate">Per game</th><th title="the team's games left x the fitted share">Games left</th><th title="so far + per game x games left x share, before the blend with pace">Own</th><th title="the blend of own and pace">Projected yards</th><th>Projected TD</th>${isRec ? "<th>Projected catches</th>" : ""}<th>Last season</th><th title="his own per-game so far over the whole schedule">Pace</th><th class="l">Flag</th></tr></thead><tbody>` +
+        kr.map(r => `<tr><td class="mono">${r.rank}</td><td class="l"><b>${esc(r.name)}</b></td><td class="l">${esc(r.pos)}</td><td class="l">${r.team}</td><td class="mono">${Math.round(r.yards_so_far)} <small>${r.games_so_far}g</small></td><td class="mono">${n1(r.yards_pg)}</td><td class="mono">${r.team_games_left} × ${r.avail}</td><td class="mono">${Math.round(r.own_yards)}</td><td class="mono"><b>${Math.round(r.proj_yards)}</b></td><td class="mono">${n1(r.proj_td)}</td>${isRec ? `<td class="mono">${n1(r.proj_catches)}</td>` : ""}<td class="mono">${r.prev_games ? Math.round(r.prev_yards) : ""}</td><td class="mono">${Math.round(r.pace_yards)}</td><td class="l">${r.breakout ? "Breakout" : r.new_top ? "New" : ""}</td></tr>`).join("") + "</tbody>";
+      return;
+    }
+    // backtest
+    const B = S.backtest; const PB = S.player_backtest || [];
+    $("seasonbtnote").textContent = `Odds made as of weeks 1, 5, 9, 13 and 17 of every season 2019 to 2025 (the simulation sees only the games before that week and the model's ratings as of it), scored against what happened, beside naive baselines. Lower is better everywhere except the top-pick and hit rates. 2019-22 is where the game model was tuned, 2023-25 was held out; the simulation itself has no fitted knobs (the ones tested are below).`;
+    if (!B) { $("sbt1").innerHTML = `<tbody><tr><td class="l">No season backtest yet (reports/season_backtest.csv).</td></tr></tbody>`; }
+    else {
+      const W = {}; B.windows.forEach(r => W[r.window] = r);
+      const line = (label, key, base, baseLabel, asPct) => `<tr><td class="l">${label}</td>` + ["2019-22", "2023-25"].map(w => W[w] ? `<td class="mono"><b>${asPct ? Math.round(100 * W[w][key]) + "%" : n3(W[w][key])}</b>${base ? ` <small>${baseLabel} ${n3(W[w][base])}</small>` : ""}</td>` : "<td></td>").join("") + "</tr>";
+      $("sbt1").innerHTML = `<thead><tr><th class="l">Measure</th><th>2019-22</th><th>2023-25</th></tr></thead><tbody>` +
+        line("Expected wins, games off per team", "wins_mae", "pace_mae", "pace") + line("Division odds, Brier", "div_brier", "div_brier_leader", "current leader") + line("Division odds, log loss", "div_ll", "div_ll_flat", "flat") + line("Division: the favorite won it", "div_hit", null, null, true) +
+        line("Playoff odds, Brier", "po_brier", "po_brier_flat", "flat") + line("Super Bowl odds, log loss", "sb_ll", "sb_ll_flat", "flat") + line("Conference odds, log loss", "conf_ll", "conf_ll_flat", "flat") + line("The champion's rank in the Super Bowl odds", "champ_rank") + "</tbody>";
+      const bw = B.by_week.slice().sort((a, b) => a.window.localeCompare(b.window) || (+a.asof_week) - (+b.asof_week));
+      $("sbt2").innerHTML = `<thead><tr><th class="l">Window</th><th>As of week</th><th>Wins off</th><th>Pace</th><th>Division Brier</th><th>Leader</th><th>Playoff Brier</th><th>Flat</th><th>Super Bowl log loss</th><th>Champion's rank</th></tr></thead><tbody>` +
+        bw.map(r => `<tr><td class="l">${r.window}</td><td class="mono">${r.asof_week}</td><td class="mono">${n2(r.wins_mae)}</td><td class="mono">${n2(r.pace_mae)}</td><td class="mono">${n3(r.div_brier)}</td><td class="mono">${n3(r.div_brier_leader)}</td><td class="mono">${n3(r.po_brier)}</td><td class="mono">${n3(r.po_brier_flat)}</td><td class="mono">${n2(r.sb_ll)}</td><td class="mono">${n1(r.champ_rank)}</td></tr>`).join("") + "</tbody>";
+      const vs = {}; B.variants.forEach(r => { vs[r.variant] = vs[r.variant] || {shrink: r.shrink, sigma_mult: r.sigma_mult, verdict: r.verdict}; vs[r.variant][r.window] = r; });
+      $("sbt3").innerHTML = `<thead><tr><th class="l">Variant</th><th title="future-game margins shrunk toward zero by this share">Shrink</th><th title="the model's residual scale times this">Sigma</th><th>Wins off 19-22</th><th>23-25</th><th>Division Brier 19-22</th><th>23-25</th><th>Playoff Brier 19-22</th><th>23-25</th><th class="l">Verdict</th></tr></thead><tbody>` +
+        Object.entries(vs).map(([v, r]) => `<tr><td class="l">${v}</td><td class="mono">${r.shrink}</td><td class="mono">${r.sigma_mult}</td><td class="mono">${n3((r["2019-22"] || {}).wins_mae)}</td><td class="mono">${n3((r["2023-25"] || {}).wins_mae)}</td><td class="mono">${n3((r["2019-22"] || {}).div_brier)}</td><td class="mono">${n3((r["2023-25"] || {}).div_brier)}</td><td class="mono">${n3((r["2019-22"] || {}).po_brier)}</td><td class="mono">${n3((r["2023-25"] || {}).po_brier)}</td><td class="l">${r.verdict || ""}</td></tr>`).join("") + "</tbody>";
+    }
+    const KL2 = {rec: "Receiving", rush: "Rushing", pass: "Passing"};
+    const mae = PB.filter(r => r.row === "mae").sort((a, b) => a.kind.localeCompare(b.kind) || a.window.localeCompare(b.window) || (String(a.asof_week) === "all" ? 99 : +a.asof_week) - (String(b.asof_week) === "all" ? 99 : +b.asof_week));
+    const fitr = PB.filter(r => r.row === "fit"); const ms = PB.filter(r => r.row === "avail_mean_share");
+    $("sbt4").innerHTML = mae.length ? `<thead><tr><th class="l">Kind</th><th class="l">Window</th><th>As of week</th><th>Players</th><th title="mean absolute error of the projected season yards">Ours</th><th title="his per-game so far over the whole schedule (last season's total before Week 1)">Pace</th><th>Last season</th><th title="mean of projected minus actual: above zero the projections ran high">Bias</th></tr></thead><tbody>` +
+      mae.map(r => `<tr><td class="l">${KL2[r.kind] || r.kind}</td><td class="l">${r.window}</td><td class="mono">${r.asof_week}</td><td class="mono">${r.n}</td><td class="mono"><b>${n1(r.mae)}</b></td><td class="mono">${n1(r.pace_mae)}</td><td class="mono">${n1(r.prev_mae)}</td><td class="mono">${r.bias == null || isNaN(r.bias) ? "" : (r.bias > 0 ? "+" : "") + n1(r.bias)}</td></tr>`).join("") +
+      (fitr.length ? `<tr><td class="l" colspan="8">Fitted on 2016 to 2018 (season-total error): ${fitr.map(r => `${KL2[r.kind] || r.kind} share ${r.avail}, pace weight ${r.blend}`).join("; ")}. Share of the remaining games such players actually played: ${ms.map(r => `${KL2[r.kind] || r.kind} ${r.value}`).join(", ")}.</td></tr>` : "") + "</tbody>" : `<tbody><tr><td class="l">No player season backtest yet (reports/player_season_backtest.csv).</td></tr></tbody>`;
+    const br = PB.filter(r => r.row === "breakout").sort((a, b) => a.kind.localeCompare(b.kind) || a.window.localeCompare(b.window) || (String(a.asof_week) === "all" ? 99 : +a.asof_week) - (String(b.asof_week) === "all" ? 99 : +b.asof_week));
+    $("sbt5").innerHTML = br.length ? `<thead><tr><th class="l">Kind</th><th class="l">Window</th><th>As of week</th><th>Flagged</th><th title="finished inside the top N at a per-game rate at least 1.25x last season's">Came true</th><th title="the same test on every top-N projection, flagged or not">Base rate</th></tr></thead><tbody>` +
+      br.map(r => `<tr><td class="l">${KL2[r.kind] || r.kind}</td><td class="l">${r.window}</td><td class="mono">${r.asof_week}</td><td class="mono">${r.n}</td><td class="mono"><b>${r.value == null || isNaN(r.value) ? "" : Math.round(100 * r.value) + "%"}</b></td><td class="mono">${Math.round(100 * r.base_rate)}%</td></tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">No breakout backtest yet.</td></tr></tbody>`;
+  }
+  // Backtest -> Player projections, live: every projection graded against what happened (data/tracker/props_graded.csv via props_record.js)
+  const plF = {week: "", stat: "", team: "", q: ""};
+  function renderPropsLive() {
+    const REC = window.PROPS_REC || {}; const G = REC.graded || []; const MK = REC.market || [];
+    const lab = (window.PROPS && PROPS.market_label) || {};
+    const statLab = st => lab[st] || ({rec_yards: "Rec yds", rec_catches: "Receptions", rec_td: "Rec TD", rec_targets: "Targets", rec_longest: "Longest catch", rush_yards: "Rush yds", rush_td: "Rush TD", rush_attempts: "Rush att", rush_rec_yards: "Rush + rec yds", rush_longest: "Longest rush", pass_yards: "Pass yds", pass_td: "Pass TD", pass_int: "INT thrown", pass_attempts: "Attempts", pass_completions: "Completions", pass_rush_yards: "Pass + rush yds", pass_longest: "Longest completion", def_tackles: "Tackles", def_sacks: "Sacks", def_solo_tackles: "Solo tackles", kick_points: "Kicking points", field_goals: "Field goals"})[st] || st;
+    const mkKey = {}; MK.forEach(m => mkKey[`${m.game_id}|${m.player_id}|${m.stat}`] = m);
+    const after = G.filter(r => r.made === "after the fact").length;
+    $("plivenote").textContent = G.length ? `${G.length.toLocaleString()} projections graded against what the player did (${G.length - after} made live before the game${after ? `, ${after} made after the fact for the weeks before the projections went live, with the data as of each week and the same rule` : ""}). Error is actual minus projection; a book line and the side the projection took appear where a line was logged. The rule itself was chosen on 2017 to 2025 (Player projections, 2017 to now); this is how it is doing this season.` : "Nothing graded yet: the first live projections (Week 3) are graded on the run after the games.";
+    const fill = (id, vals, cur) => { const el = $(id); const have = new Set(Array.from(el.options).map(o => o.value)); vals.forEach(v => { if (!have.has(String(v))) { const o = document.createElement("option"); o.value = v; o.textContent = typeof v === "string" && lab ? (id === "plstat" ? statLab(v) : v) : v; el.appendChild(o); } }); el.value = cur; if (!el.dataset.bound) { el.dataset.bound = "1"; el.addEventListener("change", () => { plF[id === "plweek" ? "week" : id === "plstat" ? "stat" : "team"] = el.value; renderPropsLive(); }); } };
+    fill("plweek", [...new Set(G.map(r => r.week))].sort((a, b) => a - b), plF.week); fill("plstat", [...new Set(G.map(r => r.stat))].sort(), plF.stat); fill("plteam2", [...new Set(G.map(r => r.team))].sort(), plF.team);
+    const q = $("plq2"); if (!q.dataset.bound) { q.dataset.bound = "1"; q.addEventListener("input", () => { plF.q = q.value.trim().toLowerCase(); renderPropsLive(); }); }
+    const rows = G.filter(r => (!plF.week || String(r.week) === String(plF.week)) && (!plF.stat || r.stat === plF.stat) && (!plF.team || r.team === plF.team) && (!plF.q || String(r.name).toLowerCase().includes(plF.q)));
+    const summ = (keyf, label) => { const by = {}; rows.forEach(r => { const k = keyf(r); (by[k] = by[k] || []).push(r); }); return Object.entries(by).map(([k, rs]) => { const n = rs.length, mae = rs.reduce((a, r) => a + Math.abs(r.error), 0) / n, bias = rs.reduce((a, r) => a + r.error, 0) / n; const withLine = rs.map(r => mkKey[`${r.game_id}|${r.player_id}|${r.stat}`]).filter(Boolean); const w = withLine.filter(m => m.result === "win").length, l = withLine.filter(m => m.result === "loss").length; return {k, n, mae, bias, w, l, nl: withLine.length}; }); };
+    const tbl = (id, head, items, sortf) => { $(id).innerHTML = items.length ? `<thead><tr><th class="l">${head}</th><th>Graded</th><th title="mean absolute error">Off by</th><th title="mean of actual minus projection: above zero the projections ran low">Bias</th><th title="the projection's side against the book line, where one was logged">vs book</th></tr></thead><tbody>` + items.sort(sortf).map(x => `<tr><td class="l">${x.lab}</td><td class="mono">${x.n}</td><td class="mono">${x.mae.toFixed(2)}</td><td class="mono ${x.bias > 0 ? "pos" : x.bias < 0 ? "neg" : ""}">${x.bias > 0 ? "+" : ""}${x.bias.toFixed(2)}</td><td class="mono">${x.nl ? `${x.w}-${x.l}` : ""}</td></tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded yet.</td></tr></tbody>`; };
+    tbl("pliveweek", "Week", summ(r => r.week).map(x => Object.assign(x, {lab: "Week " + x.k})), (a, b) => a.k - b.k);
+    tbl("plivestat", "Stat", summ(r => r.stat).map(x => Object.assign(x, {lab: statLab(x.k)})), (a, b) => b.n - a.n);
+    const shown = rows.slice().sort((a, b) => b.week - a.week || a.game_id.localeCompare(b.game_id) || Math.abs(b.error) - Math.abs(a.error)).slice(0, 2000);
+    $("pliverows").innerHTML = shown.length ? `<thead><tr><th>Week</th><th class="l">Game</th><th class="l">Player</th><th class="l">Team</th><th class="l">Stat</th><th>Projected</th><th>Actual</th><th title="actual minus projection">Error</th><th title="the book line where one was logged, the side the projection took and the result">Book</th><th class="l" title="live: made before the game; after the fact: made later with the data as of that week">Made</th></tr></thead><tbody>` +
+      shown.map(r => { const m = mkKey[`${r.game_id}|${r.player_id}|${r.stat}`]; return `<tr><td class="mono">${r.week}</td><td class="l mono">${r.game_id.slice(8).replace("_", " @ ")}</td><td class="l"><b>${esc(r.name)}</b></td><td class="l">${r.team}</td><td class="l">${statLab(r.stat)}</td><td class="mono">${r.proj}</td><td class="mono">${r.actual}</td><td class="mono ${r.error > 0 ? "pos" : r.error < 0 ? "neg" : ""}">${r.error > 0 ? "+" : ""}${Math.round(r.error * 10) / 10}</td><td class="mono">${m ? `${m.line} ${m.side} ${m.result}` : ""}</td><td class="l">${r.made || "live"}</td></tr>`; }).join("") + (rows.length > 2000 ? `<tr><td class="l" colspan="10">${rows.length - 2000} more rows: narrow the filters.</td></tr>` : "") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded yet.</td></tr></tbody>`;
+  }
   function render() {
     if (tab === "week") return renderWeek();
     if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
     if (tab === "bets") return renderTrack();
-    if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else renderBacktest(); return; }
+    if (tab === "season") return renderSeason();
+    if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "inputs") renderInputs(); if (s === "roster") renderRoster(); }

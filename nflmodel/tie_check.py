@@ -149,7 +149,31 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         tie("picks markdown names the live cut", f"edge is {se:g}+" in md, True)
         m = re.search(r"that cut is (\d+-\d+) on the tuning window and (\d+-\d+) held out \(weeks 1 to 17\).*?and (\d+-\d+) on the untouched 2015 to 2018 window", md)
         tie("picks markdown header records (tuning, held out, untouched)", " ".join(m.groups()) if m else "missing", f"{rr.loc['model', '2019-22']} {rr.loc['model', '2023-25']} {rr.loc['model', '2015-18']}")
+    try:
+        check_season_equation(rows)
+    except Exception as e:  # noqa
+        rows.append(("season simulation's equation check", str(e)[:80], "", False))
     return rows
+
+
+def check_season_equation(rows) -> None:
+    """The season simulation's equation (season.expected_points on the as-of team profiles) must give the model's own
+    expected points for the week being priced when the game's situational inputs are set to what the model saw; the
+    ratings and QB come from the profiles, so this ties the profile mapping as well as the coefficients."""
+    from . import season as SE, model as M, lines as LN
+    games = pd.read_parquet(OUT / "games.parquet"); pred = pd.read_parquet(OUT / "pred_v3.parquet")
+    s_, w_ = LN.current_week(games)
+    f = SE._frame(); P = SE.profiles(f, s_, w_); fit = SE.fit_asof(pred, s_, w_)
+    fw = f[(f.season == s_) & (f.week == w_)]; pw = pred[(pred.season == s_) & (pred.week == w_)].set_index("game_id")
+    sit = M.SIT_FEATS + ["qb_out"] + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS
+    worst, n = 0.0, 0
+    for r in fw.itertuples():
+        if r.game_id not in pw.index or r.opp not in P:
+            continue
+        ov = {k: float(getattr(r, k)) for k in sit}
+        e = SE.expected_points(P[r.team], P[r.opp], fit, float(r.home), float(r.neutral), float(r.dome), float(r.div_game), int(w_), overrides=ov)
+        exp = float(pw.loc[r.game_id, "home_exp" if r.home == 1 else "away_exp"]); worst = max(worst, abs(e - exp)); n += 1
+    rows.append((f"season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced ({n} sides, worst gap in points)", round(worst, 4), "0.01 or under", worst <= 0.01))
 
 
 def check_page() -> list[tuple[str, str, str, bool]]:
@@ -235,6 +259,26 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         tie("page live table = tracker (pending model rows)", sorted(x["bet"] for x in tr if x.get("who") == "model" and x.get("season") == season and x.get("week") == week), sorted(cur.bet))
     rk = _js("rankings.js")
     tie("page rankings: QB replacement level", rk.get("params", {}).get("qb_prior"), R.DEFAULT["qb_prior"])
+    # the Season tab: odds and totals on the page = the reports the same export wrote; probabilities add up
+    try:
+        from . import lines as LN
+        sj = _js("season.js"); so = pd.read_csv(REP / "season_odds.csv"); g_ = pd.read_parquet(OUT / "games.parquet"); s_, w_ = LN.current_week(g_)
+        tie("season odds are for the week being priced", f"{sj['season']} {sj['week']}", f"{s_} {w_}")
+        tie("season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds)", [len(sj["teams"]), [round(t["p_sb"], 4) for t in sj["teams"]], [round(t["p_div"], 4) for t in sj["teams"]]], [len(so), so.p_sb.round(4).tolist(), so.p_div.round(4).tolist()])
+        sums = {"champion": round(sum(t["p_sb"] for t in sj["teams"]), 3), "conference": round(sum(t["p_conf"] for t in sj["teams"]), 3), "division": round(sum(t["p_div"] for t in sj["teams"]), 3), "playoffs": round(sum(t["p_playoffs"] for t in sj["teams"]), 3), "byes": round(sum(t["p_bye"] for t in sj["teams"]), 3)}
+        tie("season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes)", sums, {"champion": 1.0, "conference": 2.0, "division": 8.0, "playoffs": float(2 * sj["format"]), "byes": 2.0 if sj["format"] == 7 else 4.0})
+        n_reg = int(((g_.season == s_) & (g_.game_type == "REG")).sum())
+        tie("expected wins across the league = regular-season games (every game gives one win, a tie half each)", round(sum(t["wins"] for t in sj["teams"]), 1), float(n_reg))
+        if (REP / "season_backtest.csv").exists() and "backtest" in sj:
+            b = pd.read_csv(REP / "season_backtest.csv"); m = b[(b.season.astype(str) == "mean") & (b.asof_week.astype(str) == "all") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].sort_values("window")
+            tie("season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss)", [[r["window"], round(r["wins_mae"], 4), round(r["div_brier"], 4), round(r["sb_ll"], 4)] for r in sorted(sj["backtest"]["windows"], key=lambda r: r["window"])], [[r.window, round(r.wins_mae, 4), round(r.div_brier, 4), round(r.sb_ll, 4)] for r in m.itertuples()])
+        pt = pd.read_csv(REP / "player_season_totals.csv"); pr = sj["players"]["rows"]
+        tie("player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts)", [len(pr), round(sum(r["proj_yards"] for r in pr), 1), sum(1 for r in pr if r["breakout"])], [len(pt), round(float(pt.proj_yards.sum()), 1), int(pt.breakout.sum())])
+        if (REP / "player_season_backtest.csv").exists() and "player_backtest" in sj:
+            pb = pd.read_csv(REP / "player_season_backtest.csv")
+            tie("player season backtest on the page = reports/player_season_backtest.csv (rows)", len(sj["player_backtest"]), len(pb))
+    except Exception as e:  # noqa
+        rows.append(("season tab files", str(e)[:80], "", False))
     return rows
 
 

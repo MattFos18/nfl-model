@@ -15,6 +15,7 @@ from . import model as M
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, RAW, WEB = ROOT / "data" / "processed", ROOT / "data" / "raw", ROOT / "web" / "data"
+REP = ROOT / "reports"
 
 # name -> (group, definition, source, used by 3.0?, used by the old sheet?)
 BASE = {
@@ -391,6 +392,43 @@ def main():
 # ---------------------------------------------------------------------------------------------
 # Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
 # ---------------------------------------------------------------------------------------------
+    export_season()
+
+
+def export_season() -> dict:
+    """season.js: the season simulation for the week being priced (win totals, division, playoff and Super Bowl odds),
+    the player season totals with the breakout watch, and both backtests (reports/season_backtest.csv and
+    reports/player_season_backtest.csv). Also writes reports/season_odds.csv and reports/player_season_totals.csv, the
+    same rows, for the tie check and the record."""
+    from . import season as SE, player_season as PS
+    built = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
+    sim = SE.run_now(10000)
+    teams = sorted(sim["teams"], key=lambda t: -t["p_sb"])
+    for t in teams:
+        for k in ("wins", "wins_sd", "wins_p10", "wins_p90", "p_div", "p_playoffs", "p_bye", "p_conf", "p_sb"):
+            t[k] = round(t[k], 4)
+    out = {"season": sim["season"], "week": sim["week"], "built": built, "n_sims": sim["n_sims"], "games_left": sim["games_left"], "sigma": round(sim["sigma"], 4), "fit_week": sim["fit_week"], "format": sim["format"],
+           "shrink": SE.SHRINK, "sigma_mult": SE.SIGMA_MULT, "tie_band": SE.TIE_BAND, "wind_far": SE.WIND_FAR, "divisions": SE.DIV, "teams": teams, "ratings": sim["ratings"]}
+    pd.DataFrame(teams).to_csv(REP / "season_odds.csv", index=False)
+    bt = REP / "season_backtest.csv"
+    if bt.exists():
+        b = pd.read_csv(bt); m = b[b.season.astype(str) == "mean"]
+        base = m[(m.shrink == 0.0) & (m.sigma_mult == 1.0)]
+        out["backtest"] = {"windows": base[base.asof_week.astype(str) == "all"].to_dict("records"), "by_week": base[base.asof_week.astype(str) != "all"].to_dict("records"),
+                           "variants": m[m.asof_week.astype(str) == "all"].to_dict("records"), "seasons": b[(b.season.astype(str) != "mean") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].to_dict("records")}
+    pl = PS.run_now()
+    keep = ["kind", "player_id", "name", "pos", "team", "rank", "games_so_far", "yards_so_far", "td_so_far", "catches_so_far", "volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "team_games_left", "team_games", "avail", "blend", "own_yards", "proj_yards", "proj_td", "proj_catches", "prev_yards", "prev_td", "prev_games", "pace_yards", "proj_pg", "prev_pg", "breakout", "new_top", "profile_games"]
+    pl = pl[keep].copy()
+    for c in ("volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "own_yards", "proj_yards", "proj_td", "proj_catches", "pace_yards", "proj_pg", "prev_pg"):
+        pl[c] = pl[c].astype(float).round(2)
+    pl.to_csv(REP / "player_season_totals.csv", index=False)
+    out["players"] = {"rows": pl.to_dict("records"), "avail": PS.AVAIL, "blend": PS.BLEND, "min_pg": PS.MIN_PG, "top_n": PS.TOP_N, "break_up": PS.BREAK_UP}
+    pbt = REP / "player_season_backtest.csv"
+    if pbt.exists():
+        out["player_backtest"] = pd.read_csv(pbt).to_dict("records")
+    (WEB / "season.js").write_text("window.SEASON=" + json.dumps(out, default=clean, separators=(",", ":")) + ";")
+    print(f"season.js {len(teams)} teams, {len(pl)} player totals, {out['games_left']} games left", flush=True)
+    return out
 
 
 def export_week(feats=None, games=None, pred=None):

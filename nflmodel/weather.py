@@ -29,12 +29,20 @@ INTL = {"London": (51.5560, -0.2795), "Munich": (48.2188, 11.6247), "Frankfurt":
         "Sao Paulo": (-23.5453, -46.4742), "Madrid": (40.4361, -3.5886), "Dublin": (53.3607, -6.2512), "Melbourne": (-37.8200, 144.9834)}
 
 
+WEATHER_BUDGET_S = 240.0   # the whole step's ceiling on fetching (23 Sep 2026): a dropped API once stalled a weekly run for forty minutes
+_deadline = [None]
+
+
 def kickoff_forecast(lat, lon, kickoff: pd.Timestamp, tz="America/New_York"):
     import time
+    if _deadline[0] is None:
+        _deadline[0] = time.time() + WEATHER_BUDGET_S
     last = None
-    for attempt in range(4):        # Open-Meteo drops a few of 15 quick requests from a runner; back off and retry
+    for attempt in range(3):        # Open-Meteo drops a few of 15 quick requests from a runner; back off and retry, inside the budget
+        if time.time() > _deadline[0]:
+            raise RuntimeError(f"weather budget of {WEATHER_BUDGET_S:.0f}s spent; the earlier forecast stands")
         try:
-            r = requests.get("https://api.open-meteo.com/v1/forecast", timeout=30, params={
+            r = requests.get("https://api.open-meteo.com/v1/forecast", timeout=20, params={
                 "latitude": lat, "longitude": lon, "hourly": "temperature_2m,wind_speed_10m,wind_gusts_10m,precipitation_probability,precipitation",
                 "temperature_unit": "fahrenheit", "wind_speed_unit": "mph", "forecast_days": 10, "timezone": tz})
             r.raise_for_status()
