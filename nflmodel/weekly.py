@@ -68,6 +68,7 @@ def main(full=False, skip_network=False):
     step("players", lambda: sh(["nflmodel.players"]), log)
     step("positions", lambda: sh(["nflmodel.positions"]), log)
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
+    step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)   # 2015 to 2018 priced too (untouched by every choice; shown, never tuned on)
     from . import lines
     cur_season, cur_week = lines.current_week(games)

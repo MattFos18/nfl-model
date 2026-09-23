@@ -856,3 +856,36 @@ how often the defense uses it. These are readings. None of it is a model input; 
 material for the next layers (player against scheme, player against player), each to be tested on both windows
 before it can move a line.
 
+## 18. Player against scheme, matchup projections, props track record (23 Sep 2026)
+
+The second layer of the matchup work (`nflmodel/props.py`, `data/processed/props.json`, `web/data/props.js`,
+`reports/props_<season>_wk<week>.csv`, `data/tracker/props_graded.csv`).
+
+**Player profiles.** From the tagged plays, each QB, receiver and rusher over his last 17 games on any team:
+volume (dropbacks, targets or carries per game and his share of his team's), yards and EPA per touch, catch rate,
+depth of target, touchdown rate, and the same split by the looks he faced: receivers against man and zone, blitz
+and pressure; rushers into light (6 or fewer), seven-man and heavy (8+) boxes; QBs under pressure and clean,
+blitzed and not, against man and zone. A split shows only with 15 plays in it.
+
+**Defense profiles.** Each defense over its last 17 games: yards, EPA and catch rate allowed per target, yards and
+EPA allowed per carry and per dropback, and its mix: man rate, pressure rate, blitz rate, heavy- and light-box rates.
+
+**Projection for a game.** Volume: the team's pass plays (or runs) per game over its last 17, shared out among the
+players who are playing in proportion to their usage, so a listed-out player's targets go to his teammates rather
+than vanishing, and the team's targets add up to 97% of its pass plays (the rest are throwaways). Rate: the
+player's yards per touch in the defense's mix (his man split times the defense's man rate plus his zone split times
+the rest; light and heavy box the same way for rushers; pressure and clean for QBs), when both splits have 15 plays,
+otherwise his overall rate; then moved half way toward what that defense allows per touch relative to the league.
+The half weight is hand-set and is written on the page; it is the first thing to tune once the graded record is
+long enough. Yards = volume x rate; touchdowns = volume x his touchdown rate.
+
+**Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
+so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
+own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.
+
+**Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
+week's projections are graded against the players' actual yards from the play-by-play (receiving, rushing, passing),
+with the error kept per player and stat in `data/tracker/props_graded.csv`, and the mean absolute error and bias
+by stat shown on the cards. Nothing is compared with a market line yet: player prop lines are not logged. The
+projections are readings until the record says otherwise.
+

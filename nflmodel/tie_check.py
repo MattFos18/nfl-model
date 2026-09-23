@@ -78,6 +78,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         _s, _w = LN.current_week(g)
         tie("scheme profiles as of the current week", f"{sp['season']} {sp['week']}", f"{_s} {_w}")
         tie("scheme profiles cover 32 teams", len(sp["teams"]), 32)
+    if (OUT / "props.json").exists():
+        pj = json.loads((OUT / "props.json").read_text()); from . import lines as LN2; _s2, _w2 = LN2.current_week(g)
+        tie("props projections are for the current week", f"{pj['season']} {pj['week']}", f"{_s2} {_w2}")
+        pf = REP / f"props_{_s2}_wk{_w2}.csv"
+        tie("props file = props page data (projections)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(len([r for r in side["receivers"] if not r["out"]]) + len([r for r in side["rushers"] if not r["out"]]) + len([r for r in side["qb"][:1] if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
     season, week = LN.current_week(g)
