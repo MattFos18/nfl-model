@@ -71,6 +71,11 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
                 parts.append(f"{b.split()[0]} {r.best_line:+g}")
         return ", ".join(parts)
     p["bet"] = p.apply(at_best, axis=1)
+    # stake on a flagged spread: quarter Kelly from the calibrated cover odds for the model's side, at the best book's
+    # price when it is logged, otherwise -110
+    p["bet_p"] = [(pc if e > 0 else 1 - pc) if (b and pd.notna(pc)) else np.nan for b, e, pc in zip(p.bet, p.spread_edge.fillna(0), p.p_cover_cal_home)]
+    p["bet_odds"] = [(b[3] if b[3] is not None else -110.0) if bet else np.nan for bet, b in zip(p.bet, best)]
+    p["stake_pct"] = [kelly_stake(pw, od) if pd.notna(pw) else np.nan for pw, od in zip(p.bet_p, p.bet_odds)]
     return p.sort_values("gameday")
 
 
@@ -102,16 +107,26 @@ def cal_p(cal, edge):
 def best_number(hist: pd.DataFrame, r):
     """(line for the model's side, book, home_spread used) from the latest snapshot; None when there is no log."""
     if hist is None or len(hist) == 0 or pd.isna(r.spread_line):
-        return (None, None, None)
+        return (None, None, None, None)
     last = hist[hist.ts == hist.ts.max()]; last = last[last.home_spread.notna()]
     if len(last) == 0:
-        return (None, None, None)
+        return (None, None, None, None)
     home_side = r.spread_edge > 0
     pick = last.loc[last.home_spread.idxmin()] if home_side else last.loc[last.home_spread.idxmax()]
     hs = float(pick.home_spread)
     line = -hs if home_side else hs
     book = str(pick.source).replace("oddsapi:", "").replace("espn:", "")
-    return (line, book, hs)
+    odds = pick.get("spread_odds_home" if home_side else "spread_odds_away", np.nan)
+    return (line, book, hs, float(odds) if pd.notna(odds) else None)
+
+
+def kelly_stake(p_win: float, odds: float = -110.0, fraction: float = 0.25) -> float:
+    """Share of bankroll to stake at American odds, as a percentage: the Kelly criterion times a fraction (a quarter
+    by default; full Kelly assumes the cover odds are exact, and calibrated odds are an estimate). 0 when the odds
+    do not pay enough for the edge."""
+    b = 100.0 / abs(odds) if odds < 0 else odds / 100.0
+    k = (p_win * b - (1.0 - p_win)) / b
+    return round(max(0.0, k) * fraction * 100.0, 2)
 
 
 def log_run(p: pd.DataFrame, run_at: str | None = None) -> pd.DataFrame:
@@ -139,14 +154,16 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         rows.append({"Game": f"{r.away_team} @ {r.home_team}", "Date": r.gameday,
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Old model": old, "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
-                     "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet})
+                     "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
+                     "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else ""})
     df = pd.DataFrame(rows)
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut won in every season from 2019 to 2025 "
            "(weeks 1 to 17: 90-67 on the tuning window, 47-30 held out), at twice the volume of the old 5-point cut and the same rate. Totals are not flagged: no total "
-           "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page.", ""]
+           "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
+           "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 

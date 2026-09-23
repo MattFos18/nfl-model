@@ -74,7 +74,7 @@ def main(full=False, skip_network=False):
     if pk is not None:
         (REP / f"picks_{cur_season}_wk{cur_week}.md").write_text(P.markdown(pk, cur_season, cur_week))
         pk.to_csv(REP / f"picks_{cur_season}_wk{cur_week}.csv", index=False)
-        picks.log_run(pk, run_at)
+        step("log run", lambda: P.log_run(pk, run_at), log)
         step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
     step("grade", lambda: tracker.main(), log)
     step("export data room", lambda: export_web.main(), log)
@@ -97,7 +97,7 @@ def _write(log, run_at, season, week, pk, halted=False):
     if pk is not None and len(pk):
         flagged = pk[pk.bet != ""]
         L += [f"## Week {week}, {season}: {len(flagged)} flagged of {len(pk)} games", ""]
-        L += [flagged[["away_team", "home_team", "away_exp", "home_exp", "spread_line", "total_line", "spread_edge", "total_edge", "bet"]].round(1).to_markdown(index=False) if len(flagged) else "No game clears the flag thresholds.", ""]
+        L += [flagged[["away_team", "home_team", "away_exp", "home_exp", "spread_line", "total_line", "spread_edge", "total_edge", "bet"] + (["stake_pct"] if "stake_pct" in flagged.columns else [])].round(2).to_markdown(index=False) if len(flagged) else "No game clears the flag thresholds.", ""]
         L += [f"Full table: reports/picks_{season}_wk{week}.md", ""]
     if (REP / "track_record.md").exists():
         tr = (REP / "track_record.md").read_text().splitlines()
