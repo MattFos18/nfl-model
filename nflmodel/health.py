@@ -99,6 +99,22 @@ def main() -> bool:
             cur = plog[(plog.season == pj.get("season")) & (plog.week == pj.get("week"))]
             mts = max([str(side.get("market_ts")) for gm in pj.get("games", {}).values() for side in gm.values() if side.get("market_ts")] or ["none"])
             if len(cur): add("OK" if mts == cur.ts.max() else "FAIL", "props panel carries the newest prop-line pull", f"page {mts}, log {cur.ts.max()}")
+        # injury reports for the week being priced: the league's (nflverse, a lag of hours to a day) plus ESPN's page for
+        # the teams not in yet; the ESPN file must be this week's (players.ESPN_MAX_AGE_DAYS) or it is not used
+        try:
+            from . import players as PL
+            g = pd.read_parquet(OUT / "games.parquet"); season, week = LN.current_week(g)
+            f = RAW / "injuries" / f"injuries_{season}.parquet"
+            nv = pd.read_parquet(f, columns=["week", "team"]) if f.exists() else pd.DataFrame(columns=["week", "team"])
+            have = set(nv[nv.week == week].team); ef = RAW / "injuries" / "espn_injuries.csv"
+            es = pd.read_csv(ef) if ef.exists() else pd.DataFrame(columns=["team", "fetched_at"])
+            e_age = (now - pd.to_datetime(es.fetched_at, errors="coerce").max()).total_seconds() / 86400 if len(es) else 9e9
+            fill = set(es.team) - have if e_age <= PL.ESPN_MAX_AGE_DAYS else set()
+            days_to_kick = (g[(g.season == season) & (g.week == week)].kickoff_et.min() - pd.Timestamp.now("America/New_York").tz_localize(None)).total_seconds() / 86400
+            covered = len(have | fill); level = "OK" if covered == 32 or days_to_kick > 2 else "WARN"
+            add(level, f"injury reports cover the week being priced (week {week})", f"league reports for {len(have)} teams, ESPN fills {len(fill)} more ({'no ESPN file' if e_age > 1e8 else f'fetched {e_age * 24:.0f} hours ago'}), {covered} of 32; first kickoff in {days_to_kick:.1f} days")
+        except Exception as e:  # noqa
+            add("WARN", "injury reports cover the week being priced", str(e)[:120])
         s = (WEB / "rankings.js").read_text(); rk = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
         add("OK" if rk.get("params", {}).get("qb_prior") == R.DEFAULT["qb_prior"] else "FAIL", "page rankings use the code's QB replacement level", f"page {rk.get('params', {}).get('qb_prior')}, code {R.DEFAULT['qb_prior']}")
     except Exception as e:  # noqa

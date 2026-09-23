@@ -196,6 +196,7 @@ def unavailable_by_week(seasons) -> dict:
     return {k: set(g.gsis_id) for k, g in r.groupby(["season", "week", "team"])}
 
 
+ESPN_MAX_AGE_DAYS = 4
 ESPN_STATUS = {"Out": "Out", "Doubtful": "Doubtful", "Questionable": "Questionable", "Injured Reserve": "Out", "Suspension": "Out", "Physically Unable to Perform": "Out", "Non-Football Injury": "Out", "Day-To-Day": "Questionable"}
 
 
@@ -213,6 +214,9 @@ def load_injuries(seasons) -> pd.DataFrame:
             if season in list(seasons):
                 have = set(inj[(inj.season == season) & (inj.week == week)].team)
                 es = pd.read_csv(ef); es = es[~es.team.isin(have) & es.status.isin(ESPN_STATUS)]
+                # only a page fetched this week fills in: an older file would carry last week's report as this week's
+                age_d = (pd.Timestamp.utcnow().tz_localize(None) - pd.to_datetime(es.fetched_at, errors="coerce")).dt.total_seconds() / 86400 if len(es) else pd.Series(dtype=float)
+                es = es[age_d <= ESPN_MAX_AGE_DAYS]
                 rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
                 if len(es) and rf.exists():
                     ro = pd.read_parquet(rf, columns=["team", "gsis_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
