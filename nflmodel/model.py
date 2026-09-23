@@ -35,7 +35,9 @@ INJ_FEATS = ["skill_out_value", "opp_skill_out_value",   # player model, phase 2
 WARM_OR_DOME = {"MIA", "TB", "JAX", "ARI", "LAC", "LA", "LV", "SF", "HOU", "NO", "ATL", "DAL", "CAR", "TEN", "DET", "MIN", "IND"}
 CONT_FEATS = ["off_turnover_early", "opp_def_turnover_early"]   # offseason turnover, weeks 1 to 8 (23 Sep 2026): share of last season's snaps gone, own offense and the opponent's defense
 EARLY_WEEKS = 8
-FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS + CONT_FEATS
+LATE_FEATS = ["dead_late", "opp_dead_late"]   # out of the race (23 Sep 2026): from Week 12, a team whose win rate through the previous week is 40% or under, own and opponent
+LATE_WEEK, DEAD_PCT = 12, 0.40
+FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS + CONT_FEATS + LATE_FEATS
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
              ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]
@@ -71,12 +73,36 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     f["opp_def_continuity"] = f["opp_def_continuity"].fillna(0.83) if "opp_def_continuity" in f.columns else 0.83
     for c in INJ_FEATS:
         f[c] = f[c].fillna(0.0) if c in f.columns else 0.0
+    # record through the previous week, from the played regular-season games (for the out-of-the-race inputs)
+    rec = record_before(pd.read_parquet(OUT / "games.parquet"))
+    f["pct_before"] = [rec.get((k, t), 0.5) for k, t in zip(f.game_id, f.team)]
+    f["opp_pct_before"] = [rec.get((k, t), 0.5) for k, t in zip(f.game_id, f.opp)]
     return f
+
+
+def record_before(games: pd.DataFrame) -> dict:
+    """(game_id, team) -> the team's win rate in that season's regular season before that game (0.5 before its first)."""
+    r = games[(games.game_type == "REG") & games.home_score.notna()][["game_id", "season", "week", "home_team", "away_team", "home_score", "away_score"]]
+    long = pd.concat([r.assign(team=r.home_team, win=(r.home_score > r.away_score).astype(float)), r.assign(team=r.away_team, win=(r.away_score > r.home_score).astype(float))]).sort_values(["season", "team", "week"])
+    long["wb"] = long.groupby(["season", "team"]).win.cumsum() - long.win; long["gb"] = long.groupby(["season", "team"]).cumcount()
+    long["pct"] = np.where(long.gb > 0, long.wb / long.gb.clip(lower=1), 0.5)
+    played = dict(zip(zip(long.game_id, long.team), long.pct))
+    # unplayed games (this week's): the team's record after its last played game of the season
+    last = long.sort_values(["season", "team", "week"]).groupby(["season", "team"]).agg(wins=("win", "sum"), n=("win", "count"))
+    up = games[games.home_score.isna() & (games.game_type == "REG")]
+    for r2 in up.itertuples():
+        for t in (r2.home_team, r2.away_team):
+            if (r2.season, t) in last.index:
+                w, n = last.loc[(r2.season, t)]; played[(r2.game_id, t)] = float(w / n) if n else 0.5
+    return played
 
 
 def prep(f: pd.DataFrame) -> pd.DataFrame:
     f = f.copy()
     early = (f.week <= EARLY_WEEKS).astype(float)
+    late = (f.week >= LATE_WEEK).astype(float)
+    f["dead_late"] = late * (f["pct_before"] <= DEAD_PCT).astype(float) if "pct_before" in f.columns else 0.0
+    f["opp_dead_late"] = late * (f["opp_pct_before"] <= DEAD_PCT).astype(float) if "opp_pct_before" in f.columns else 0.0
     f["off_turnover_early"] = (1.0 - f["off_continuity"]) * early if "off_continuity" in f.columns else 0.0
     f["opp_def_turnover_early"] = (1.0 - f["opp_def_continuity"]) * early if "opp_def_continuity" in f.columns else 0.0
     f["rest_short"] = (f.rest <= 5).astype(float)          # Thursday game

@@ -5,7 +5,7 @@ files in `nflmodel/`; every number below comes from `reports/`.
 
 ## 1. What is built in today, and what is not
 
-Updated 23 Sep 2026. The model has twenty inputs (section 4); everything below says whether a thing is one of them.
+Updated 23 Sep 2026. The model has twenty-two inputs (section 4); everything below says whether a thing is one of them.
 
 | Thing | Status | Where |
 |---|---|---|
@@ -68,7 +68,7 @@ input (`reports/ablation.csv`).
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 23 Sep 2026 the model has twenty inputs, each with one
+team carried into a game to the points it scored. Since 23 Sep 2026 the model has twenty-two inputs, each with one
 plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
 printed on the page, Model → How it was built, and refit before every week):
 
@@ -609,7 +609,10 @@ to 17 are the only stretch where the flag loses, and the model overrates teams o
 point kinder than the line to a team with a 30% record). Candidates: a dead-team input (win rate through the
 previous week at or under 30% or 40%, from week 12 or 14, own and opponent), the record interacted with the late
 season, a plain late flag. The plain flag and the 30% cuts help held out only. From week 12 at a 40% win rate helps
-both windows (-0.0012 / -0.0026 on team points), narrowly; the 2015 to 2018 check decides whether it goes in.
+both windows (-0.0012 / -0.0026 on team points), narrowly, and the untouched 2015 to 2018 window agrees on every
+measure (team points 7.4108 against 7.4145, spread miss 9.990 against 10.007, flags 67-57 against 62-59, the late
+flags 13-15 against 10-15). Adopted as inputs 21 and 22: `dead_late` and `opp_dead_late`, 1 from Week 12 on when
+the team's (or the opponent's) win rate through the previous week is 40% or under. Twenty-two inputs.
 
 **The market as an input, side by side** (23 Sep 2026, `experiments/market_blend.py`, `reports/market_blend.csv`).
 The line's implied points for each team added as a twenty-first input, walk-forward on both windows:
@@ -625,6 +628,12 @@ Two readings. First, the model carries information the line does not: model plus
 above, now in points. Second, a blended model flags nothing: with the line inside it, it never disagrees with the
 line by 4 points, so the flag would not exist. That is why the blend is not adopted and stays a side-by-side
 number: the pure model is the one that can disagree, and the flag lives in its disagreements.
+
+**The QB with sacks taken out** (23 Sep 2026, `experiments/qb_detail.py`, `reports/qb_detail.csv`). The QB rating
+rebuilt on non-sack dropbacks only (EPA per non-sack dropback), so it measures throwing and scrambling rather
+than protection. Tuning window better on team points (7.346 against 7.360), held out worse (7.294 against 7.289);
+the held-out spread miss better (9.939 against 9.970), the tuning spread flat. Helps one window only; not adopted.
+The QB stays one number, EPA per dropback with sacks included.
 
 ## 15. The player model
 

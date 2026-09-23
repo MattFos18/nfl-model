@@ -420,7 +420,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     off_pf:"Own offense points rating", def_pf:"Opponent defense points rating", off_plays:"Own pace rating", def_plays:"Opponent defense pace rating",
     opp_off_epa_play:"Opponent offense EPA rating", own_def_epa_play:"Own defense EPA rating", opp_off_plays:"Opponent pace rating", home:"Home field", neutral:"Neutral site",
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
-    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost", off_snap_out:"Offensive snaps out (share of last game's)", opp_def_snap_out:"Opponent's defensive snaps out", off_turnover_early:"Offseason turnover, offense (weeks 1 to 8)", opp_def_turnover_early:"Opponent's offseason turnover, defense (weeks 1 to 8)"};
+    dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost", off_snap_out:"Offensive snaps out (share of last game's)", opp_def_snap_out:"Opponent's defensive snaps out", off_turnover_early:"Offseason turnover, offense (weeks 1 to 8)", opp_def_turnover_early:"Opponent's offseason turnover, defense (weeks 1 to 8)", dead_late:"Out of the race (week 12+)", opp_dead_late:"Opponent out of the race (week 12+)"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
   $("built").textContent = "Data built " + META.built + ".";
 
@@ -483,7 +483,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
                   ["Quarterback", ["qb_rating", "qb_out"]],
                   ["Injuries beyond the QB", ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out"]],
                   ["Situation", ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]],
-                  ["Offseason turnover (weeks 1 to 8)", ["off_turnover_early", "opp_def_turnover_early"]]];
+                  ["Offseason turnover (weeks 1 to 8)", ["off_turnover_early", "opp_def_turnover_early"]],
+                  ["Out of the race (week 12 on)", ["dead_late", "opp_dead_late"]]];
   const EXPLAIN = {
     off_epa_play: "EPA per play the offense has produced, opponent-adjusted and decayed (Team → How a rating is built). 0 = league average. Multiplied by the points one unit is worth, fitted on every game since 2013.",
     off_pf: "Points the offense scores against an average defense, opponent-adjusted and decayed. 0 = league average.",
@@ -497,6 +498,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     opp_def_snap_out: "The same for the opponent's defense: how many of last game's defensive snaps belonged to players now out. A thinner defense across from this offense means more points.",
     off_turnover_early: "How much of last season's offense is gone: 1 minus the share of last season's offensive snaps taken by players on this week's active roster, counted for weeks 1 to 8 (0 after), when the ratings still lean on last season. A team that lost 30% of last year's snaps carries 0.30, about -1.4 points early on. Added 23 Sep 2026: lowered the spread miss on both windows and on 2015 to 2018.",
     opp_def_turnover_early: "The same for the opponent's defense: a defense that lost a third of last year's snaps gives up more than last year's rating says, early in the season.",
+    dead_late: "1 from Week 12 on when this team's win rate through the previous week is 40% or under: a team out of the race. Fitted at about -1 point; the model had been overrating such teams late, by about a point against the line. Added 23 Sep 2026: lowered the miss on both windows and on 2015 to 2018.",
+    opp_dead_late: "The same flag for the opponent: from Week 12, 1 when the opponent's win rate through the previous week is 40% or under. Positive for this team's points.",
     div_game: "1 when the two teams share a division. Division games score a little less than the ratings say (familiarity). Added 22 Sep 2026: lowered the points miss on both windows; it moves both teams alike, so the spread barely changes.",
     home: "1 at home, 0 away. Home teams scored 1.90 more points per game than away teams over 2013 to 2025 before any adjustment; the regression's estimate with the ratings held fixed is what is shown. Away teams get 0, not a subtraction: the base is an away game.",
     neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
@@ -811,7 +814,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const price = () => {
       mu.A = $("muA").value; mu.B = $("muB").value;
       const co = coefsFor(rkSeason);
-      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0, div_game: 0, skill_out_value: 0, opp_skill_out_value: 0, off_snap_out: 0, opp_def_snap_out: 0, off_turnover_early: 0, opp_def_turnover_early: 0});
+      const inputsFor = (t, o) => ({off_epa_play: val(t, "off_epa_play"), off_pf: val(t, "off_pf"), def_epa_play: val(o, "def_epa_play"), def_pf: val(o, "def_pf"), qb_rating: val(t, "qb_rating"), qb_out: 0, home: 0, neutral: 1, dome: 0, wind_out: 0, cold: 0, rain: 0, warm_in_cold: 0, div_game: 0, skill_out_value: 0, opp_skill_out_value: 0, off_snap_out: 0, opp_def_snap_out: 0, off_turnover_early: 0, opp_def_turnover_early: 0, dead_late: 0, opp_dead_late: 0});
       const pts = inp => { let x = co.intercept; META.feats.forEach(f => { if (inp[f] == null) return; x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
       const pA = pts(inputsFor(mu.A, mu.B)), pB = pts(inputsFor(mu.B, mu.A));
       $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${pA.toFixed(1)}</span><span class="dash">–</span><span>${pB.toFixed(1)} <b>${mu.B}</b></span></div><div class="mv"><span class="chip mute">Neutral field · Ratings going into Week ${rkWeek}, ${S}</span></div>`;
@@ -1226,6 +1229,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     opp_def_snap_out: ["Opponent's defensive snaps out", "The same sum for the opponent's defense, in this team's own points equation.", ""],
     off_turnover_early: ["Offseason turnover, offense", "From last season's snap counts and this week's active roster (nflverse weekly rosters), matched by name: the share of last season's offensive snaps whose players are still on the roster, subtracted from 1. Applied for weeks 1 to 8 and 0 afterwards, since by midseason this season's games carry the rating. Tested at cutoffs of 4, 6, 8, 12 and all season; 8 was best held out.", ""],
     opp_def_turnover_early: ["Opponent's offseason turnover, defense", "The same share for the opponent's defense, in this team's own points equation.", ""],
+    dead_late: ["Out of the race", "1 from Week 12 on when the team's regular-season win rate through the previous week is 40% or under, from the schedule's scores; 0 otherwise. The weekly refit had been overrating such teams late by about a point against the line; the input takes that back. Own team.", ""],
+    opp_dead_late: ["Opponent out of the race", "The same flag for the opponent, from Week 12: 1 when its win rate through the previous week is 40% or under.", ""],
     home: ["Home field", "1 at home, 0 away. Away is the base, so away teams show 0, not a subtraction.", ""],
     neutral: ["Neutral site", "1 for London, Germany, Mexico, Brazil, Spain and relocated games (the schedule's location field).", ""],
     dome: ["Dome or closed roof", "1 when the schedule's roof field is dome or closed.", ""],
