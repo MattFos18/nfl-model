@@ -874,17 +874,25 @@ blitzed and not, against man and zone. A split shows only with 15 plays in it.
 **Defense profiles.** Each defense over its last 17 games: yards, EPA and catch rate allowed per target, yards and
 EPA allowed per carry and per dropback, and its mix: man rate, pressure rate, blitz rate, heavy- and light-box rates.
 
-**Projection for a game.** Volume: the team's pass plays (or runs, or dropbacks) per game over its last 17, shared
-out among the players who are playing in proportion to their usage, so a listed-out player's targets go to his
-teammates rather than vanishing, and the team's targets add up to 97% of its pass plays (the rest are throwaways).
-Rate: the player's yards per touch shrunk toward the league's with a fixed weight of touches (receivers 100 targets,
-rushers 25 carries, QBs 50 dropbacks), then moved part of the way toward what that defense allows per touch
-relative to the league (receivers and rushers a quarter, QBs half). Yards = volume x rate; touchdowns = volume x his
-touchdown rate. The look-by-look splits are shown beside the projection as readings and do not enter it.
+**Projection for a game.** Volume: the team's pass plays (or runs, or dropbacks) per game over its last 17,
+moved by the game script (a line fitted on 2016 to 2018 to the closing spread and total: a team's pass plays run
+-0.60 -0.046 x its expected margin +0.164 x (total -43.57), its runs +0.34 +0.103 x margin -0.171 x (total -43.57),
+dropbacks the same as pass plays; favourites run more and pass less, high totals add pass plays), then shared out
+among the players who are playing in proportion to their usage share, where usage is his plays over his team's in
+the games he played, both decayed 0.85 per game back from his most recent game (a player traded in keeps the usage
+he had elsewhere; the current role counts most). A listed-out player's targets go to his teammates rather than
+vanishing, and the team's targets add up to 97% of its pass plays (the rest are throwaways). Rate: the player's
+yards per touch shrunk toward the league's with a fixed weight of touches (receivers 100 targets, rushers 25
+carries, QBs 50 dropbacks), then moved part of the way toward what that defense allows per touch relative to the
+league (receivers and rushers a quarter, QBs half). Line: volume x rate x a median factor (receivers 0.88, rushers
+0.84, QBs 0.90), fitted on 2016 to 2018 as the multiplier that minimises absolute error: yards in a game are
+right-skewed (a few long plays, many quiet games), so the line that is off by least sits below the mean, which is
+where a book sets an over/under. The mean sits in the cell's tooltip; touchdowns = volume x his touchdown rate. The
+look-by-look splits are shown beside the projection as readings and do not enter it.
 
-**Why that rule** (`experiments/props_backtest.py`, `reports/props_backtest.csv`; walk-forward 2019 to 2025, every
-player-game with a touch, projected from the previous 17 games of the player, his team and the opponent; mean
-absolute error in yards per player-game, tuning window / held out):
+**Why that rule: round one** (`experiments/props_backtest.py`, `reports/props_backtest.csv`; walk-forward 2019 to
+2025, every player-game with a touch, projected from the previous 17 games of the player, his team and the opponent;
+mean absolute error in yards per player-game, tuning window / held out):
 
 | Receiving yards | 2019-22 | 2023-25 |
 |---|---|---|
@@ -892,26 +900,79 @@ absolute error in yards per player-game, tuning window / held out):
 | His own rate x volume | 20.21 | 19.30 |
 | His man/zone split weighted by the defense's man rate (the first version) | 20.28 | 19.33 |
 | That, moved half way toward the defense (the first version on the page) | 20.28 | 19.28 |
-| His rate shrunk toward the league (100 targets), moved a quarter toward the defense (adopted) | 19.81 | 18.85 |
+| His rate shrunk toward the league (100 targets), moved a quarter toward the defense (round one's pick) | 19.81 | 18.85 |
 
 | Rushing yards | 2019-22 | 2023-25 |
 |---|---|---|
 | His own rate x volume | 19.33 | 18.64 |
 | His light/heavy box split weighted by the defense's heavy-box rate | 19.80 | 18.98 |
-| Shrunk (25 carries), moved a quarter toward the defense (adopted) | 19.24 | 18.51 |
+| Shrunk (25 carries), moved a quarter toward the defense (round one's pick) | 19.24 | 18.51 |
 
 | Passing yards | 2019-22 | 2023-25 |
 |---|---|---|
 | His own rate x volume | 62.96 | 62.65 |
 | His pressure/clean split weighted by the defense's pressure rate | 73.28 | 65.50 |
-| Shrunk (50 dropbacks), moved half way toward the defense (adopted) | 62.31 | 62.45 |
+| Shrunk (50 dropbacks), moved half way toward the defense (round one's pick) | 62.31 | 62.45 |
 
 The splits are too noisy at fifteen to seventeen games to project with: every look-weighted version is worse than
 the player's plain rate, and for receivers the league average per target beats the player's own rate outright,
 which is why the shrinkage weight is heavy. Volume from usage share beats his plain targets per game by a hair
-(1.91 against 1.92 targets of error). The defense adjustment is worth a tenth of a yard or so. A projection that is
-20 yards off on average on a receiving line is a weak instrument; the live record will say whether it is worth
-anything against a market line, once those are logged.
+(1.91 against 1.92 targets of error). The defense adjustment is worth a tenth of a yard or so.
+
+**Round two** (`experiments/props_backtest2.py`, `reports/props_backtest2.csv`): how books and projection shops
+build a prop line, read and tested one layer at a time on receiving yards, each added to round one's rule. The
+baseline here is round one's rule re-implemented in this script (its league rate is per target; round three's is
+per pass play, throwaways included, which is the whole difference between the two scripts' baselines), so read
+each change against its own row.
+
+| Receiving yards, layer added to round one's rule | 2019-22 | 2023-25 |
+|---|---|---|
+| Baseline (round one's rule) | 20.26 | 19.33 |
+| A. Usage and rate decayed 0.90 per game back instead of a flat 17 | 20.16 | 19.24 |
+| A. Decayed 0.95 | 20.30 | 19.46 |
+| A. Usage decayed 0.90, rate flat | 20.12 | 19.21 |
+| B. Game script: the team's pass plays from the closing spread and total | 20.23 | 19.24 |
+| C. Defense by position: yards allowed per target to WR, TE and RB, a quarter of the way | 20.26 | 19.32 |
+| C. Half of the way | 20.28 | 19.32 |
+| D. Coverage-specific usage: his target share against man and zone, weighted by the defense's man rate | 21.19 | 19.58 |
+| D. Half that, half plain usage | 20.66 | 19.44 |
+| E. Route mix x what the defense allows per route, a quarter | 20.28 | 19.33 |
+| E. Half | 20.32 | 19.32 |
+| E. Fully | 20.43 | 19.33 |
+| F. The head coach's pass rate over expected on the team's pass plays | 20.27 | 19.28 |
+| G. Yards per target rebuilt from catch rate, depth of target and yards after catch, each shrunk | 21.67 | 20.76 |
+
+Targets alone: 1.91 / 1.80 from usage share, 1.91 / 1.79 with the game script, 1.91 / 1.81 decayed 0.95.
+Recency (A) and game script (B) help on both windows; everything scheme- or route-specific hurts or does
+nothing, the coach's pass rate is inside the noise, and taking yards per target apart makes it worse. The
+scheme data describe how the yards happened, not how many will come.
+
+**Round three** (`experiments/props_backtest3.py`, `reports/props_backtest3.csv`): the two layers that helped,
+combined, with a median factor, for all three stats. Every constant (the game-script line, the median factor) is
+fitted on 2016 to 2018 only and applied forward.
+
+| Rule | Receiving 2019-22 | 2023-25 | Rushing 2019-22 | 2023-25 | Passing 2019-22 | 2023-25 |
+|---|---|---|---|---|---|---|
+| Round one's rule (flat 17 games) | 19.99 | 19.04 | 19.24 | 18.51 | 64.31 | 64.27 |
+| Usage decayed 0.90 | 19.84 | 18.91 | 19.00 | 18.28 | 64.31 | 64.27 |
+| Usage decayed 0.85 | 19.79 | 18.83 | 18.89 | 18.15 | 64.31 | 64.27 |
+| Game script only | 19.96 | 18.97 | 19.21 | 18.55 | 63.92 | 63.61 |
+| Decayed 0.90 and game script | 19.82 | 18.84 | 18.98 | 18.31 | 63.92 | 63.61 |
+| Decayed 0.85 and game script | 19.77 | 18.76 | 18.86 | 18.18 | 63.92 | 63.61 |
+| Round one's rule x median factor | 19.62 | 18.65 | 18.67 | 17.94 | 61.42 | 61.63 |
+| Decayed 0.90, game script, median factor | 19.50 | 18.53 | 18.48 | 17.74 | 61.24 | 61.56 |
+| Decayed 0.85, game script, median factor (adopted) | 19.44 | 18.46 | 18.36 | 17.60 | 61.24 | 61.56 |
+
+Volume alone (targets, carries): flat 1.91 / 1.80 and 3.14 / 3.03; decayed 0.90 1.88 / 1.77 and 3.06 / 2.95;
+with the game script 1.88 / 1.76 and 3.06 / 2.96. Passing volume is the team's dropbacks either way, so the
+decay does nothing there. Median factors as fitted: receivers 0.88 (0.86 on the flat rule), rushers 0.84, QBs
+0.90. Player-games scored: receiving 16,089 / 12,399, rushing 7,554 / 6,012, passing 2,177 / 1,712. The adopted
+rule is the best row on both windows for every stat; against round one it takes about half a yard off receiving
+and a yard off rushing, and three yards off passing, most of that from the median factor. One convention differs
+between the page and the script: the page's defense rate is yards allowed per pass play, the script's per target
+(about 3% apart, inside a quarter-weight adjustment). A projection that is 19 yards off on average on a receiving
+line is still a weak instrument; the live record will say whether it is worth anything against a market line,
+once those are logged.
 
 **Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
