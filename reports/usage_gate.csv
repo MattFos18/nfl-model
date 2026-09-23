@@ -1,0 +1,5 @@
+variant,team_mae_2019-22,margin_mae_2019-22,total_mae_2019-22,ats5_2019-22,ats5_pct_2019-22,ats4_2019-22,n_2019-22,team_mae_2023-25,margin_mae_2023-25,total_mae_2023-25,ats5_2023-25,ats5_pct_2023-25,ats4_2023-25,n_2023-25
+"player's own last eight games, any team (original)",7.3587,10.0329,10.6197,41-33,0.554,92-63,1055,7.2863,9.949,10.2606,22-17,0.564,49-27,816
+gated: nothing for a player who has never played for the team,7.3548,10.0318,10.6197,40-30,0.571,87-61,1055,7.2886,9.9516,10.2606,20-16,0.556,49-28,816
+gated: nothing under a quarter of the ratings window played,7.3575,10.0407,10.6197,39-32,0.549,86-61,1055,7.2909,9.9485,10.2606,19-17,0.528,43-30,816
+gated: nothing under half of the ratings window played,7.3691,10.0687,10.6197,39-30,0.565,80-62,1055,7.2979,9.9688,10.2606,20-16,0.556,46-30,816

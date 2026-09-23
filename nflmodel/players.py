@@ -99,7 +99,7 @@ def _usage_frames(pg: pd.DataFrame):
 
 TEAM_WINDOW = "gate"   # 23 Sep 2026: "gate" = the player's own last n games on any team, but nothing when he has never played for this team in its ratings' window (a star traded in and hurt); "rating" = usage over the ratings' window; "last" = the team's last n games; False = the original, his own last n games on any team
 RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
-GATE_MIN = 0.25   # "gate": share of the team's ratings window (weighted games) a player must have played in for his absence to count
+GATE_MIN = 1e-6   # "gate": share of the team's ratings window (weighted games) a player must have played in for his absence to count. 1e-6 = only a player who has never played for the team is skipped (reports/usage_gate.csv: a quarter or half of the window skipped too many and lost on both windows)
 
 
 def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | None, season: int, week: int, n_games: int):
