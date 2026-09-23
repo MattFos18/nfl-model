@@ -1222,7 +1222,13 @@ the same reports the same afternoon, so the pull now fetches it beside the nflve
 (`pull.espn_injuries`, `data/raw/injuries/espn_injuries.csv`) and `players.load_injuries` fills the current week
 from it for any team whose nflverse report is not in yet (Out, Doubtful, Questionable, IR, suspension and PUP
 mapped to the report statuses; matched to a gsis id through the weekly roster by team and name). The weekly run
-picks it up on its Tuesday, Thursday, Saturday and Sunday schedule.
+picks it up on its Tuesday, Thursday, Saturday and Sunday schedule. The first run from GitHub's network got a 403
+from ESPN's main host, so the page is now fetched the way the line watch fetches the scoreboard (browser headers,
+`site.api` then `site.web.api` then `cdn`, the first to answer wins); when every host refuses, the previous file is
+kept and the pull says so rather than failing. The fill is used only when the file was fetched within four days
+(`players.ESPN_MAX_AGE_DAYS`), so an old page can never stand in as this week's report, and the health check counts
+the teams with a report for the week being priced (league plus fill) against the time to kickoff. A `probe`
+workflow runs one command on the runner and prints what it wrote, for testing a source from GitHub's network.
 
 **Why the stale line passed every check, and what now fails (23 Sep 2026, evening; Matt).** The tie check and the
 health check compared the page's data to the picks file, and both came from the same weekly-run snapshot, so they
