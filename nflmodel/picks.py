@@ -175,8 +175,8 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is 89-65 on the tuning window and 42-22 held out "
-           "(weeks 1 to 17), above break-even in six of seven seasons, at twice the volume of the old 5-point cut and the same rate. Totals are not flagged: no total "
+           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is 87-59 on the tuning window and 45-21 held out "
+           "(weeks 1 to 17), above break-even in every season 2019 to 2025 and 67-57 on the untouched 2015 to 2018 window, at twice the volume of the old 5-point cut. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
            "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only), to decide the rule on live games.", ""]

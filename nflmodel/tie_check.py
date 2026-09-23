@@ -53,8 +53,8 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     doc = (ROOT / "docs" / "how_it_works.md").read_text()
     tie("docs: live cut named in section 9", f"the flag is {se:g}" in doc, True)
     tie("docs: QB replacement level", f"shrunk toward {R.DEFAULT['qb_prior']:g}" in doc, True)
-    tie("model inputs counted", len(M.FEATS), 20)
-    tie("docs: input count", "twenty inputs" in doc or "Twenty inputs" in doc, True)
+    tie("model inputs counted", len(M.FEATS), 22)
+    tie("docs: input count", "twenty-two inputs" in doc or "Twenty-two inputs" in doc, True)
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
     season, week = LN.current_week(g)
