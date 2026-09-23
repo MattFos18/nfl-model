@@ -491,7 +491,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     def_epa_play: "EPA per play the opponent's defense allows, opponent-adjusted and decayed. Positive = a defense that allows less than average, which lowers this team's points.",
     def_pf: "Points the opponent's defense allows against an average offense, opponent-adjusted. Positive = stingy.",
     qb_rating: "The starter's own EPA per dropback over his career, decayed and shrunk toward replacement level. Enters beside the offense ratings; the regression gives it only the credit the team's ratings do not already carry.",
-    qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement. Fitted on those games: they scored about 4 fewer points than the team's ratings said.",
+    qb_out: "1 when last game's starter is listed out or on IR and no rating exists yet for the replacement, from the official injury report and weekly roster (a mid-week report is priced by the next run: Thursday, Saturday, Sunday). The fitted drop is on top of the change in the QB rating when a backup takes over.",
     skill_out_value: "EPA per team play the offense loses to its RB, WR and TE listed Out or Doubtful on the final report: each player's decayed EPA per touch above replacement level, times their share of the team's touches over the previous eight games, summed. 0 when nobody of note is out. Added 22 Sep 2026 (player model, phase 2): lowered the points and margin miss on both windows.",
     opp_skill_out_value: "The same value lost on the opponent's side. A thinner opposing offense changes this team's game too (field position, possessions, game script), which is why it earned its place beside the team's own loss.",
     off_snap_out: "How much of last game's offense is missing: the sum of the offensive snap shares (0 to 1 each) of the players now listed Out or Doubtful or on IR, including linemen and anyone the skill value cannot see. 1.0 means a full-time starter's worth of snaps is gone. Added 22 Sep 2026 (player model, phase 3): with the opponent's defensive absences it lowered the points and margin miss on both windows.",
@@ -505,7 +505,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     neutral: "1 at a neutral site (London, Mexico, Germany, a relocated game). Rare, so the estimate is rough.",
     dome: "1 indoors or under a closed roof. Indoor teams scored 1.47 more points than outdoor ones raw; most of that is the teams that play indoors, which the ratings already know, so the fitted bump is small.",
     wind_out: "Wind at kickoff in mph, 0 indoors. Each mph costs a fraction of a point: offenses averaged 23.8 points in calm air and 21.4 at 11 to 15 mph. For an unplayed outdoor game without a usable forecast (none within 4 days of kickoff) the league-typical 7 mph is used.",
-    cold: "1 when the kickoff temperature is under 35F outdoors. Cold games score about half a point less.",
+    cold: "1 when the kickoff temperature is under 35F outdoors. Raw, cold games score about half a point less; with the ratings and the warm-climate term held fixed the fitted number is small and can be positive, because the cold penalty lands on the warm-climate or dome team (next input) rather than on everyone.",
     rain: "1 when the play-by-play weather text says rain, showers or a storm (outdoor games); for an unplayed game, 1 when a kickoff forecast within 4 days gives a 50%+ chance of precipitation. Added 22 Sep 2026: it lowered the points miss on both backtest windows.",
     warm_in_cold: "1 when the game is outdoors under 35F and this team's home is warm or indoors (MIA, TB, JAX, ARI, LAC, LA, LV, SF, HOU, NO, ATL, DAL, CAR, TEN, DET, MIN, IND). Raw: those teams score 19.7 in the cold against 22.3 for everyone in the cold. Added 22 Sep 2026: lowered the miss on both windows. The reverse (cold-climate team in heat) was tested and does nothing."
   };
@@ -530,7 +530,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     return null;
   }
   function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - p : p; }
-  function spark(hist, key, modelVal, H) {
+  function spark(hist, key, modelVal, H, edge) {
     // the logged line over time (one point per snapshot, consensus = mean across sources at each timestamp) with the model's number dashed
     const byTs = {}; (hist || []).forEach(r => { if (r[key] == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(r[key]); });
     const ts = Object.keys(byTs).sort(); const vals = ts.map(t => byTs[t].reduce((a, b) => a + b, 0) / byTs[t].length);
@@ -547,8 +547,12 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     else if (key === "home_spread") moved = `Moved ${Math.abs(d).toFixed(1)} toward ${d > 0 ? H.home : H.away}`;
     else moved = `Moved ${Math.abs(d).toFixed(1)} ${d > 0 ? "up" : "down"}`;
     const day = t => t.slice(5, 10).replace("-", "/");
+    // which way the move went for the model's side: with the model (the open was the better number, the market is catching up) or against it (a better number now than at the open)
+    let read = "";
+    if (Math.abs(d) >= 0.5 && edge != null && edge !== 0) { const side = key === "home_spread" ? (edge > 0 ? H.home : H.away) : (edge > 0 ? "Over" : "Under"); const withModel = (d > 0) === (edge > 0);
+      read = `<span class="chip mute" title="${withModel ? "The market moved the model's way since the first snapshot: the open was the better number for this side, and the model was there first (positive closing line value if it was bet early)." : "The market moved against the model since the first snapshot: this side gets a better number now than at the open, and the model's disagreement with the market has grown."}">${withModel ? `With the model: ${side} had the better number at the open` : `Against the model: ${side} gets a better number now than at the open`}</span>`; }
     return `<div class="mv"><span class="chip">Open ${lab(vals[0])}</span><span class="chip">Now ${lab(vals[vals.length - 1])}</span></div>` + svg +
-      `<div class="mv"><span class="chip ${Math.abs(d) < 0.01 ? "mute" : "alt"}">${moved}</span><span class="chip mute">${vals.length} snapshots · ${day(ts[0])} to ${day(ts[ts.length - 1])}</span></div>`;
+      `<div class="mv"><span class="chip ${Math.abs(d) < 0.01 ? "mute" : "alt"}">${moved}</span><span class="chip mute">${vals.length} snapshots · ${day(ts[0])} to ${day(ts[ts.length - 1])}</span>${read}</div>`;
   }
   function flagReason(g) {
     // the three inputs that do most to set the model's line (home minus away contribution), for a flagged card
@@ -588,6 +592,18 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (w.s === "failed") return `${days} · Forecast fetch failed, typical assumed`;
     if (w.s === "range") return `${days} · Beyond forecast range, typical assumed`;
     return obs || `${days ? days + " · " : ""}No forecast yet, typical assumed`;
+  }
+  // "Sunday, Sep 27 · 1:00 PM ET · MetLife Stadium, outdoors", with the slot named when it is one (Thursday, Sunday and Monday night)
+  function whenTxt(g) {
+    const k = g.kickoff || g.gameday || ""; const m = k.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/); if (!m) return k;
+    const d = new Date(+m[1], +m[2] - 1, +m[3]); const day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][d.getDay()];
+    const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][d.getMonth()];
+    let time = "", slot = "";
+    if (m[4]) { const hh = +m[4], mm = m[5]; time = `${((hh + 11) % 12) + 1}:${mm} ${hh >= 12 ? "PM" : "AM"} ET`;
+      if (hh >= 19) slot = day === "Thursday" ? "Thursday Night Football" : (day === "Sunday" ? "Sunday Night Football" : (day === "Monday" ? "Monday Night Football" : `${day} night`));
+      else if (day === "Sunday") slot = hh < 15 ? "early window" : "late window"; }
+    const site = g.stadium ? ` · ${esc(g.stadium)}${g.roof && g.roof !== "outdoors" ? " (" + esc(g.roof) + ")" : ""}` : "";
+    return `${day}, ${mon} ${d.getDate()}${time ? " · " + time : ""}${slot ? " · " + slot : ""}${site}`;
   }
   function lineTxt(team, num) { return `${team} ${num > 0 ? "+" : ""}${Number.isInteger(num) ? num : num.toFixed(1)}`; }
   // ---------- Matchup history (reference only: every one of these was tested and none is in the model) ----------
@@ -668,19 +684,19 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
       const actualMargin = played ? g.home_score - g.away_score : null;
       h += `<article class="gcard ${g.bet ? "flagged" : ""}">
-        <div class="top"><b>${A} @ ${H}</b><span class="when">${(g.kickoff || g.gameday || "").replace("T", " ")} ET · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}</div>
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}</div>
         <div class="blocks">
           <section class="blk"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, actualMargin)}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "h", "Cover") : bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip" title="Calibrated: what edges of this size have actually covered in the backtest before this season, fitted as a curve. The model's own cover odds run about ten points hot because the line carries information the model does not.">${(g.p_cover_cal_home ?? g.p_cover_home) >= 0.5 ? H : A} +${Math.round(100 * Math.abs((g.p_cover_cal_home ?? g.p_cover_home) - 0.5))} vs line · calibrated</span>${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${histCover(g.spread_edge)}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A})}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "h", "Cover") : bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model")}<span class="chip" title="Calibrated: what edges of this size have actually covered in the backtest before this season, fitted as a curve. The model's own cover odds run about ten points hot because the line carries information the model does not.">${(g.p_cover_cal_home ?? g.p_cover_home) >= 0.5 ? H : A} +${Math.round(100 * Math.abs((g.p_cover_cal_home ?? g.p_cover_home) - 0.5))} vs line · calibrated</span>${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${histCover(g.spread_edge)}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
           </section>
           <section class="blk"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip" title="Calibrated on the backtest before this season, like the spread.">${(g.p_over_cal ?? g.p_over) >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs((g.p_over_cal ?? g.p_over) - 0.5))} vs line · calibrated</span>${spark(g.line_history, "total", g.model_total, {home: H, away: A})}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}<span class="chip" title="Calibrated on the backtest before this season, like the spread.">${(g.p_over_cal ?? g.p_over) >= 0.5 ? "Over" : "Under"} +${Math.round(100 * Math.abs((g.p_over_cal ?? g.p_over) - 0.5))} vs line · calibrated</span>${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
