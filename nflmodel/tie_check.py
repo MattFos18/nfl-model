@@ -100,7 +100,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
         if (WEB / "props_backtest.js").exists():
             pb = _js("props_backtest.js")
-            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv"]], [r["n_rows"] for r in pb["rounds"]])
+            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv"]], [r["n_rows"] for r in pb["rounds"]])
             if (REP / "props_vs_market_backtest.csv").exists():
                 tie("props market backtest on the page = report (rows)", len(pd.read_csv(REP / "props_vs_market_backtest.csv")), len(pb["market_backtest"]))
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
@@ -110,7 +110,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
-        tie("props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(3 * len([r for r in side["receivers"] if not r["out"]]) + 2 * len([r for r in side["rushers"] if not r["out"]]) + 3 * len([r for r in side["qb"][:1] if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
+        tie("props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB, 2 per defender)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(3 * len([r for r in side["receivers"] if not r["out"]]) + 2 * len([r for r in side["rushers"] if not r["out"]]) + 3 * len([r for r in side["qb"][:1] if not r["out"]]) + 2 * len([r for r in side.get("defenders", []) if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
+        b7 = REP / "props_backtest7.csv"
+        if b7.exists():
+            r7 = pd.read_csv(b7)
+            tie("props defender backtests on the page = props_backtest7.csv (adopted variants)", {"def_tackles": [float(r7[(r7.stat == "def_tackles") & (r7.variant == "tk_85gs_med")]["mae_2019-22"].iloc[0]), float(r7[(r7.stat == "def_tackles") & (r7.variant == "tk_85gs_med")]["mae_2023-25"].iloc[0])], "def_sacks_ll": [float(r7[(r7.stat == "def_sacks") & (r7.variant == "sk_K300")]["ll_2019-22"].iloc[0]), float(r7[(r7.stat == "def_sacks") & (r7.variant == "sk_K300")]["ll_2023-25"].iloc[0])]}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest_def"].items()})
         b5 = REP / "props_backtest5.csv"
         if b5.exists():
             r5 = pd.read_csv(b5); r6b = pd.read_csv(REP / "props_backtest6.csv"); pick5 = {"rec_catches": (r5, "rec_catch", "catch_K25_med", "mae"), "rec_td_ll": (r6b, "rec_td", "td_recon50", "ll"), "rush_td_ll": (r6b, "rush_td", "td_recon50", "ll"), "pass_td_ll": (r6b, "pass_td", "td_recon100", "ll"), "pass_int_ll": (r5, "pass_int", "int_league", "ll")}
@@ -138,6 +142,19 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
 
 def check_page() -> list[tuple[str, str, str, bool]]:
     rows = []
+    def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
+    pj = json.loads((OUT / "props.json").read_text()) if (OUT / "props.json").exists() else None
+    if pj is not None:
+        if (WEB / "player_profiles.js").exists() and (OUT / "props_profiles.json").exists():
+            ppg = _js("player_profiles.js"); pp0 = json.loads((OUT / "props_profiles.json").read_text())
+            tie("player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week)", [len(pp0["receivers"]), len(pp0["rushers"]), len(pp0["passers"]), len(pp0["defenses"]), pp0["season"], pp0["week"]], [len(ppg["receivers"]), len(ppg["rushers"]), len(ppg["passers"]), len(ppg["defenses"]), ppg["season"], ppg["week"]])
+        if (WEB / "props_record.js").exists():
+            prr = _js("props_record.js"); n_proj = sum(len(pd.read_csv(f)) for f in REP.glob("props_*_wk*.csv")); n_gr = len(pd.read_csv(TR / "props_graded.csv")) if (TR / "props_graded.csv").exists() else 0; n_mk = len(pd.read_csv(TR / "props_vs_market.csv")) if (TR / "props_vs_market.csv").exists() else 0
+            tie("props record on the page = every projection file, graded rows and market rows", [n_proj, n_gr, n_mk], [len(prr["projections"]), len(prr["graded"]), len(prr["market"])])
+        if (WEB / "player_logs.js").exists():
+            lg = _js("player_logs.js"); sp = pd.read_parquet(OUT / "scheme_plays.parquet", columns=["play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "game_id"]); sp = sp[sp.play_type.isin(["pass", "run"])]
+            n_rows = int(sp[sp.pass_play & sp.receiver_player_id.notna()].groupby(["receiver_player_id", "game_id"]).ngroups + sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].groupby(["rusher_player_id", "game_id"]).ngroups + sp[sp.dropback & sp.passer_player_id.notna()].groupby(["passer_player_id", "game_id"]).ngroups)
+            tie("player game logs on the page = player-games in the charted plays (receiving, rushing, passing)", n_rows, sum(len(v) for v in lg["rows"].values()))
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
     p = pd.read_parquet(OUT / "pred_v3.parquet").set_index("game_id")
     bk = _js("backtest.js"); b = pd.DataFrame(bk["rows"], columns=bk["cols"]).set_index("game_id")

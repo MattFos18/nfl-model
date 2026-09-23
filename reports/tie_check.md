@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 18:05 UTC
+# Tie-out (sources and page), 2026-09-23 18:40 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -43,10 +43,11 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
 | props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
-| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38] | [71, 18, 37, 59, 38] | yes |
+| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15] | [71, 18, 37, 59, 38, 42, 15] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
 | props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.4, 18.42], 'rush_yards': [18.23, 17.44], 'pass_yards': [57.68, | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
-| props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB) | 1047 | 1047 | yes |
+| props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB, 2 per defender) | 1559 | 1559 | yes |
+| props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
 | props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
@@ -54,6 +55,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
+| player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 150, 66, 32, 2026, 3] | [364, 150, 66, 32, 2026, 3] | yes |
+| props record on the page = every projection file, graded rows and market rows | [1559, 0, 0] | [1559, 0, 0] | yes |
+| player game logs on the page = player-games in the charted plays (receiving, rushing, passing) | 74141 | 74141 | yes |
 | page backtest file: games | 3060 | 3060 | yes |
 | page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
 | page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
@@ -65,4 +69,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (60 of 60 tie)
+Result: PASS (64 of 64 tie)

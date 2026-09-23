@@ -1073,6 +1073,23 @@ for receiving and rushing, all the way for passing. Adopted (bold): passing yard
 the rest a tenth or so, and the projections now carry the game model's read of the game. On the card each team
 shows its expected points and the two factors applied.
 
+**Round seven: defenders** (`experiments/props_backtest7.py`, `reports/props_backtest7.csv`; `nflmodel/props.py`
+`defender_games`, `defenders`, `project_defense`). The books post tackles plus assists and sacks, so the play-by-play's
+tackle credits since 2016 (every solo, assist and tackle-with-assist credit; sacks with half sacks as 0.5;
+interceptions; passes defended; the plays the defense faced) build one row per defender and game
+(`data/processed/def_games.parquet`, 93,877 rows), and the same walk-forward machinery projects them. Tackles: his
+share of his team's tackles (decayed 0.85 per game back) x the team's tackles per play faced x the opponent's plays
+(its last-17 average moved by the game script from its side of the line) x a median factor of 0.90, fitted on 2016
+to 2018. Tested (absolute error, tuning / held out): his plain average 1.679 / 1.673; flat share 1.693 / 1.694; share
+decayed 0.85 1.676 / 1.672, 0.90 1.674 / 1.672; decayed with the game script 1.673 / 1.668; that shrunk toward his own
+average with 2, 4 and 8 games of weight 1.670 / 1.665, 1.668 / 1.663, 1.667 / 1.662; decayed, game script, median
+factor **1.648 / 1.633** (adopted). Sacks by Poisson log loss: his plain average 0.4190 / 0.4219, the league rate
+0.4429 / 0.4513, his rate per play faced shrunk toward the league with 100 plays of weight 0.3854 / 0.3922, **300
+plays 0.3813 / 0.3887** (adopted), 600 0.3840 / 0.3916, 1,000 0.3892 / 0.3968. The card's Player props panel lists
+each team's top eight defenders by projected tackles with the book's tackles-plus-assists line beside them (the sixth
+market in the twice-weekly pull, which moved the game-line pull to once a day to stay inside the free 500 credits);
+both stats are graded live from the same tackle credits.
+
 **The rule over the years** (`experiments/props_by_season.py`; `reports/props_by_season.csv`, `props_by_position.csv`,
 `props_by_bucket.csv`; on the page under Results, Player projections). The adopted rule for all eight stats, run
 walk-forward over every charted season from 2017 (2016 is the first charted season, so its players have no history)
@@ -1100,10 +1117,10 @@ own absence inputs are unchanged by this (section 15); a matchup-adjusted versio
 **Against the market** (`nflmodel/props_lines.py`, `data/lines/props_log.csv`, `data/tracker/props_vs_market.csv`).
 No historical player prop lines exist in the repo or in any free source: The Odds API keeps them from May 2023 on
 paid plans only, so the market comparison is live from Week 3 of 2026. The line watch pulls the player props from
-The Odds API twice a week inside the free 500-credit month: the Thursday game on Thursday at 20:00 UTC (five
-credits) and the rest of the week on Sunday at 14:00 UTC (about 75), with the game-line pull cut to every eight
-hours to make room. Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown, every
-US book, appended with the raw response saved. The props builder takes the last pull for each game, the median
+The Odds API twice a week inside the free 500-credit month: the Thursday game on Thursday at 20:00 UTC (six
+credits) and the rest of the week on Sunday at 14:00 UTC (about 90), with the game-line pull cut to once a day
+to make room (ESPN carries the game lines every half hour anyway). Markets: receiving yards, receptions, rushing
+yards, passing yards, anytime touchdown, tackles plus assists, every US book, appended with the raw response saved. The props builder takes the last pull for each game, the median
 line across books, and puts it beside each projection on the card with the side the projection leans (over above
 the line, under below; for the anytime touchdown the book's price as an implied probability beside the
 projection's chance of at least one score, 1 - exp(-(receiving + rushing expected touchdowns))). When the game is
@@ -1131,6 +1148,16 @@ model's was chosen: the largest cut clearing 52.4% on both windows with at least
 or none; `props.py` flags a prop on the card only once such a cut exists (`PROP_EDGE`, None until then). The
 tables land under Results, Player projections, once the file exists; the pipeline was exercised end to end on a
 synthetic history built from the actual outcomes plus noise, then deleted, so nothing synthetic is in the repo.
+
+**Where the player data is on the page.** Players tab: every rostered player with a value, and a search that also
+finds anyone with a game log since 2016. A player's page carries his value and its basis; his profile (the last 17
+games the projections start from: usage share, rates, catch rate, depth of target, touchdown rates, and the splits
+against man and zone, blitz and pressure, light and heavy boxes); every projection written for him with the grade
+once the game was played and the book line where one was logged; his game log from the charted plays, one row per
+game with volume, yards, touchdowns, EPA and the same splits (blank where the plays were not charted, 2026 included
+until the participation data is published); and his season history from the play-by-play. The exports
+(`web/data/player_profiles.js`, `player_logs.js`, `props_record.js`) are rebuilt by every weekly run from the same
+tables the projections use, and the tie check holds their counts to the sources.
 
 **Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
 week's projections are graded against the players' actual yards from the play-by-play (receiving, rushing, passing),

@@ -1,11 +1,11 @@
 """Player prop lines from The Odds API, logged for the props record (23 Sep 2026).
 
 Free tier: 500 usage credits a month. Player props come one game at a time from the event-odds endpoint, and each
-call costs (markets x regions) credits, so a full slate of 16 games at five markets is 80 credits. The budget is
-spent as: one pull on Thursday 20:00 UTC for the games kicking off within 30 hours (the Thursday game: 5 credits),
-one pull on Sunday 14:00 UTC for the rest of the week (Sunday and Monday games, near their closing lines: ~75),
-about 345 a month, beside the game-line pull every eight hours (~90). PROPS_EVERY_RUN=1 forces a pull.
-Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown. Every row of every book is
+call costs (markets x regions) credits, so a full slate of 16 games at six markets is 96 credits. The budget is
+spent as: one pull on Thursday 20:00 UTC for the games kicking off within 30 hours (the Thursday game: 6 credits),
+one pull on Sunday 14:00 UTC for the rest of the week (Sunday and Monday games, near their closing lines: ~90),
+about 415 a month, beside the game-line pull once a day (~30; ESPN carries the game lines every half hour anyway). PROPS_EVERY_RUN=1 forces a pull.
+Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown, tackles plus assists. Every row of every book is
 appended to data/lines/props_log.csv; the raw response is saved under data/lines/raw/. Nothing here is bet: the
 lines are what the projections are graded against (nflmodel/props.py) and what the cards show beside them."""
 from __future__ import annotations
@@ -13,7 +13,7 @@ import datetime as dt, os, re
 import pandas as pd, requests
 from .lines import LN, OUT, _save_raw, team_from_name, current_week
 
-MARKETS = {"player_reception_yds": "rec_yards", "player_receptions": "rec_catches", "player_rush_yds": "rush_yards", "player_pass_yds": "pass_yards", "player_anytime_td": "anytime_td"}
+MARKETS = {"player_reception_yds": "rec_yards", "player_receptions": "rec_catches", "player_rush_yds": "rush_yards", "player_pass_yds": "pass_yards", "player_anytime_td": "anytime_td", "player_tackles_assists": "def_tackles"}
 SCHEMA = ["ts", "season", "week", "game_id", "home", "away", "start", "book", "market", "stat", "player", "line", "over_price", "under_price"]
 API = "https://api.the-odds-api.com/v4/sports/americanfootball_nfl"
 
