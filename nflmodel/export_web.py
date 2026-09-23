@@ -345,6 +345,7 @@ def main():
     pj = OUT / "props.json"
     if pj.exists():   # player-against-scheme projections for the week (nflmodel/props.py)
         (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
+    (WEB / "props_backtest.js").write_text("window.PROPS_BT=" + json.dumps(props_backtest_export(csv_rows), default=clean) + ";")   # the five backtest rounds and the by-season run (Results -> Player projections)
     sp = OUT / "scheme_profiles.json"
     if sp.exists():   # scheme and play-calling profiles (nflmodel/scheme.py), as of the current week
         (WEB / "scheme.js").write_text("window.SCHEME=" + sp.read_text() + ";")
@@ -537,3 +538,44 @@ def export_backtest_js(games=None, feats=None):
 
 if __name__ == "__main__":
     main()
+
+
+# Labels for every variant in the player-projection backtests (experiments/props_backtest*.py), so the page can show
+# each round's table in words. "adopted" marks the row the page's rule took from that round.
+def props_backtest_export(csv_rows):
+    r1 = {"p_league": "League average per touch x his volume", "p_avg": "His yards per game, plain", "p_vol_rate": "His own rate x volume", "p_mix": "His man/zone (box, pressure) split weighted by the defense's mix", "p_rate_d50": "His rate, moved half way toward the defense",
+          "p_mix_d25": "The split mix, moved a quarter toward the defense", "p_mix_d50": "The split mix, moved half way toward the defense (the first version on the page)", "p_mix_d100": "The split mix, moved all the way to the defense", "p_tgt_avg": "His targets per game", "p_tgt_share": "His share of the team's pass plays x the team's pass plays"}
+    for k in [25, 50, 100, 200, 400, 800]:
+        r1[f"s{k}"] = f"His rate shrunk toward the league, {k} touches of weight"; r1[f"s{k}_d25"] = f"Shrunk ({k}), moved a quarter toward the defense"; r1[f"s{k}_d50"] = f"Shrunk ({k}), moved half way toward the defense"
+    r2 = {"v1": "Round one's rule (baseline)", "A_90": "Usage and rate decayed 0.90 per game back", "A_95": "Usage and rate decayed 0.95", "A_90_vol": "Usage decayed 0.90, rate flat", "A_95_vol": "Usage decayed 0.95, rate flat", "B": "Game script: the team's pass plays from the closing spread and total",
+          "C25": "Defense by position (WR, TE, RB), a quarter of the way", "C50": "Defense by position, half of the way", "D": "Coverage-specific usage: his target share against man and zone, weighted by the defense's man rate", "D_half": "Half coverage-specific usage, half plain",
+          "E25": "Route mix x what the defense allows per route, a quarter", "E50": "Route mix, half", "E100": "Route mix, fully", "F": "The head coach's pass rate over expected", "G": "Yards per target rebuilt from catch rate, depth of target and yards after catch",
+          "vol_v1": "Targets from usage share (baseline)", "vol_B": "Targets with the game script", "vol_A95": "Targets from usage decayed 0.95"}
+    r3 = {"v1": "Round one's rule, flat 17 games (baseline)", "A90": "Usage decayed 0.90", "A85": "Usage decayed 0.85", "B": "Game script only", "A90B": "Decayed 0.90 and game script", "A85B": "Decayed 0.85 and game script", "v1_med": "Round one's rule x median factor", "A90B_med": "Decayed 0.90, game script, median factor", "A85B_med": "Decayed 0.85, game script, median factor",
+          "vol_flat": "Volume from flat usage", "vol_90": "Volume from usage decayed 0.90", "vol_gs": "Volume decayed 0.90 with the game script"}
+    r4 = {"base": "Round three's rule (baseline)", "wind10": "Wind: the line cut per mph above 10 at kickoff", "windlin": "Wind, linear in every mph", "pace25": "Opponent pace: its allowed plays per game blended in, a quarter", "pace50": "Opponent pace, half", "qb_level": "The QB's as-of rating, as a level", "qb_change": "The QB's rating as the change from the QBs he had over his window",
+          "own_prior": "His own long-run rate (decayed 0.95) as the shrinkage prior", "home": "Home and away", "combo": "Opponent pace a quarter and wind together"}
+    for k in [15, 25, 50, 100, 200, 400]:
+        for w in ["0.0", "0.25", "0.5"]:
+            r4[f"K{k}_W{w}"] = f"Shrinkage {k} touches, defense weight {w}"
+    r5 = {"catch_raw": "His raw catch rate (as the page had it)", "catch_league": "League catch rate", "catch_K25_med": "Shrunk 25 x median factor 0.88", "td_raw": "His raw touchdown rate (as the page had it)", "td_league": "League touchdown rate", "td_K200_gs": "Shrunk 200 x (1 + 0.020 x expected margin)", "td_K400_gs": "Shrunk 400 x (1 + 0.020 x expected margin)",
+          "int_raw": "His raw interception rate (as the page had it)", "int_league": "League interception rate"}
+    for k in [25, 50, 100, 200, 400, 800]:
+        for pre in ["catch", "td", "int"]:
+            r5.setdefault(f"{pre}_K{k}", f"Shrunk toward the league, {k} touches of weight")
+    adopted = {1: {"rec_yards": "s100_d25", "rush_yards": "s25_d25", "pass_yards": "s50_d50", "targets": "p_tgt_share"}, 2: {"rec_yards": "A_90_vol", "targets": "vol_B"}, 3: {"rec_yards": "A85B_med", "rush_yards": "A85B_med", "pass_yards": "A85B_med", "rec_volume": "vol_gs", "rush_volume": "vol_gs"},
+               4: {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}, 5: {"rec_catch": "catch_K25_med", "rec_td": "td_K200_gs", "rush_td": "td_K200", "pass_td": "td_K400_gs", "pass_int": "int_league"}}
+    rounds = [(1, "Round one: rate, splits and shrinkage", "props_backtest.csv", r1, "Each stat's volume from usage share; the rate his own, the league's, or his look-by-look split weighted by the defense's mix, then shrunk toward the league and moved toward the defense."),
+              (2, "Round two: what a book adds, one layer at a time (receiving yards)", "props_backtest2.csv", r2, "Each layer on round one's rule. Recency and game script were carried into round three; the rest tested worse or no better."),
+              (3, "Round three: recency, game script and the median factor", "props_backtest3.csv", r3, "Constants fitted on 2016 to 2018 and applied forward. The bottom row is the rule adopted for every stat."),
+              (4, "Round four: wind, pace, the quarterback, own prior, home, and the weights re-tuned", "props_backtest4.csv", r4, "Each on round three's rule. Only passing moved on both windows (pace and wind); receiving and rushing stayed."),
+              (5, "Round five: receptions, touchdowns and interceptions", "props_backtest5.csv", r5, "Absolute error for receptions; Poisson log loss (lower is better) for scores and picks, where predicting none is trivially best by absolute error.")]
+    out = {"rounds": [], "by_season": csv_rows("props_by_season.csv"), "by_position": csv_rows("props_by_position.csv"), "by_bucket": csv_rows("props_by_bucket.csv")}
+    for n, title, src, labels, note in rounds:
+        rows = csv_rows(src); stats = {}
+        for r in rows:
+            if r["stat"] == "game_script":
+                continue
+            r = dict(r); r["label"] = labels.get(r["variant"], r["variant"]); r["adopted"] = adopted[n].get(r["stat"]) == r["variant"]; stats.setdefault(r["stat"], []).append(r)
+        out["rounds"].append({"round": n, "title": title, "source": "reports/" + src, "note": note, "stats": stats, "n_rows": len(rows)})
+    return out

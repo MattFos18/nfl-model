@@ -1047,6 +1047,26 @@ passing; on the two scoring windows K 200 is a hair better than 400 for passing,
 1.4659, but the fit window decides). Every column on the table is now graded live: receptions, receiving and
 rushing touchdowns, passing touchdowns and interceptions join the yards in `data/tracker/props_graded.csv`.
 
+**The rule over the years** (`experiments/props_by_season.py`; `reports/props_by_season.csv`, `props_by_position.csv`,
+`props_by_bucket.csv`; on the page under Results, Player projections). The adopted rule for all eight stats, run
+walk-forward over every charted season from 2017 (2016 is the first charted season, so its players have no history)
+to the current week, set against the raw rule the page started with (flat 17-game rates, no game script, no
+shrinkage, no median factor). Receiving yards by season: 2017 19.64 against 20.40 raw, 2018 20.05 / 20.78, 2019
+19.99 / 20.82, 2020 19.66 / 20.36, 2021 19.47 / 20.37, 2022 18.71 / 19.37, 2023 18.57 / 19.45, 2024 18.73 / 19.38,
+2025 18.08 / 19.08; the rule beats the raw one in every season for every yards stat, and the two windows read
+exactly what the rounds found (19.44 / 18.46 receiving, 18.36 / 17.60 rushing, 60.71 / 61.08 passing), which the
+tie check holds. The over rate (share of player-games where the actual beat the line) sits at 47% on receiving
+yards, 48 to 49% on rushing and 52% on passing, so the receiving line still sits a little above the median even
+after the median factor, and the bias (line minus actual) is about -4.5 yards on every yards stat: the mean of a
+right-skewed stat sits above its median, which is what a line at the median should show. Receptions: 1.44 / 1.36
+against 1.49 / 1.41 raw, over rate 51 to 52%. Scores and picks: the Poisson fit improves on the raw rate on both
+windows for all four, and the anytime rate (the predicted chance of at least one against how often one came) reads
+17.9% against 17.5% on receiving touchdowns, 20.8% against 21.4% rushing, 79.3% against 78.3% passing, and 55.9%
+against 50.4% on interceptions (2019 to 2022), so the Poisson overstates the chance of a pick: interceptions come
+in fewer games than a Poisson at that rate would give. The tables also split by position (WR, TE, RB for receiving
+stats; RB, QB and others for rushing) and by size of the line, where the over rate by bucket shows whether small
+and large lines are set alike.
+
 **Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
 own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.
