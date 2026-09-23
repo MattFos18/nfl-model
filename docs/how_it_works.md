@@ -800,3 +800,37 @@ open one) and goes red; when everything passes again it closes the issue. The re
 the issue and run links at the bottom and sits first on Model → Data pulls and verification. At 9:45am ET a
 Claude routine reads it and sends a one-line push and email: clean, or exactly what failed and the likely fix.
 The same audit runs locally with `python -m nflmodel.audit_weekly` (about 30 seconds).
+
+## 17. Scheme and play-calling profiles (23 Sep 2026)
+
+The first layer of the matchup work: how each team plays and how it has gone, from what the participation data
+and FTN charting say about every play since 2016 (`nflmodel/scheme.py`, `data/processed/scheme_plays.parquet`,
+`scheme_profiles.json`, `web/data/scheme.js`).
+
+**Sources.** nflverse participation (2016 on): the defense's man or zone call and coverage family (Cover 0 to 9,
+2-man, combo), offensive formation and personnel, defenders in the box, pass rushers, pressure, time to throw, and
+the eleven players on the field for each side. FTN charting (2022 on): motion, play action, RPO, screens, no-huddle,
+QB location, blitzers, rushers, box count, catchable and contested throws, drops. Both join the play-by-play on the
+game and play id; EPA, down, distance and win probability come from the play-by-play. The current season's
+participation file appears on nflverse during the season; until it does, the current-season profile carries the
+FTN fields (motion, play action, blitz, box) and leaves the coverage and pressure fields blank rather than guessing.
+
+**What a profile holds.** Offense: pass rate and pass rate in neutral situations (win probability 20 to 80%, first
+and second down), pass rate over expected, shotgun, motion, play action (of dropbacks), RPO, screens, no-huddle,
+time to throw, personnel mix (11, 12, 21 and so on: running backs then tight ends), and EPA per play overall, on
+passes, on runs, and in each look faced: man, zone, each coverage family, blitz, no blitz, pressure, clean pocket,
+play action, motion, light box (6 or fewer on runs), heavy box (8 or more). Defense: man and zone shares, coverage
+family shares, blitz rate (five or more rushers), pressure rate, average rushers, box on runs and heavy-box rate,
+nickel and dime shares, and EPA allowed in the same looks. Every EPA figure carries its play count and is blank
+under 20 plays. League baselines for the same season sit beside each number.
+
+**As-of rule.** A profile as of Week N uses this season's games before Week N and last season in full; nothing
+from Week N or later. The tie check confirms the built profiles are as of the current week.
+
+**Where it shows.** Team -> Overview: "How they play" and "How they defend", the current season when it has 300
+plays, otherwise last season, labelled. Each game card: "Scheme matchup", the away offense against the home
+defense and the reverse, look by look: what the offense has done in it, what the defense has allowed in it, and
+how often the defense uses it. These are readings. None of it is a model input; the by-look numbers are the raw
+material for the next layers (player against scheme, player against player), each to be tested on both windows
+before it can move a line.
+

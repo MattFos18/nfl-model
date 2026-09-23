@@ -342,6 +342,9 @@ def main():
             names.update({r.player_id: r.name for r in pvals.itertuples()})
         (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.drop(columns=[c for c in ["basis"] if c in pvals.columns]).to_dict("records")], "basis": {g: b for g, b in pvals.groupby("group").basis.first().items()} if "basis" in pvals.columns else {},
                                                                           "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"]}, default=clean, separators=(",", ":")) + ";")
+    sp = OUT / "scheme_profiles.json"
+    if sp.exists():   # scheme and play-calling profiles (nflmodel/scheme.py), as of the current week
+        (WEB / "scheme.js").write_text("window.SCHEME=" + sp.read_text() + ";")
     for t in teams:
         rows = d[d.team == t]
         allc = ["game_id"] + cols

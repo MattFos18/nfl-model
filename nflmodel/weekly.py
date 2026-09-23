@@ -51,7 +51,7 @@ def main(full=False, skip_network=False):
     season = int(games0.season.max())
     if not skip_network:
         seasons = list(range(2012, season + 1)) if full else [season - 1, season]
-        step("pull", lambda: pull.pull(seasons, ["schedules", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats"]), log)
+        step("pull", lambda: pull.pull(seasons, ["schedules", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "participation", "ftn"]), log)
     step("build", lambda: sh(["nflmodel.build"]), log)
     step("features", lambda: sh(["nflmodel.features"]), log)
     v = step("verify", lambda: sh(["nflmodel.verify"]), log)
@@ -67,6 +67,7 @@ def main(full=False, skip_network=False):
     step("trends", lambda: sh(["nflmodel.trends"]), log)
     step("players", lambda: sh(["nflmodel.players"]), log)
     step("positions", lambda: sh(["nflmodel.positions"]), log)
+    step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)   # 2015 to 2018 priced too (untouched by every choice; shown, never tuned on)
     from . import lines
     cur_season, cur_week = lines.current_week(games)

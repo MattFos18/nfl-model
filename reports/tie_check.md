@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 15:27 UTC
+# Tie-out (sources and page), 2026-09-23 15:34 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -33,6 +33,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | docs by-week row: weeks 14 to 17 | 692 +0.24 51 40-38 51 | 692 +0.24 51 40-38 51 | yes |
 | docs by-week row: weeks 18 | 80 +0.47 54 9-10 47 | 80 +0.47 54 9-10 47 | yes |
 | docs by-week row: weeks Playoffs | 133 +0.22 48 10-7 59 | 133 +0.22 48 10-7 59 | yes |
+| scheme profiles as of the current week | 2026 3 | 2026 3 | yes |
+| scheme profiles cover 32 teams | 32 | 32 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
@@ -49,4 +51,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (44 of 44 tie)
+Result: PASS (46 of 46 tie)

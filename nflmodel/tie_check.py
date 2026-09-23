@@ -71,6 +71,13 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     for _, r in bw.iterrows():
         m = re.search(rf"\n\| {r.weeks} \| (\d+) \| ([+-]\d\.\d\d) \| (\d+)% \| (\d+-\d+) \((\d+)%\) \|", doc)
         tie(f"docs by-week row: weeks {r.weeks}", " ".join(m.groups()) if m else "missing", f"{r['games']} {r['gap']:+.2f} {r['ats_pct']} {r['flags']} {r['flag_pct']}")
+    # scheme profiles: built as of the current week, every team present
+    if (OUT / "scheme_profiles.json").exists():
+        sp = json.loads((OUT / "scheme_profiles.json").read_text())
+        from . import lines as LN
+        _s, _w = LN.current_week(g)
+        tie("scheme profiles as of the current week", f"{sp['season']} {sp['week']}", f"{_s} {_w}")
+        tie("scheme profiles cover 32 teams", len(sp["teams"]), 32)
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
     season, week = LN.current_week(g)

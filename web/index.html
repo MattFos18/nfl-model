@@ -240,6 +240,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <div class="card"><h3>Not available this week</h3><div id="ovout" class="mv"></div></div>
       <div class="card"><h3>Most valuable players, by unit</h3><div class="tablewrap"><table id="ovtop"></table></div></div>
     </div>
+    <div class="grid2e" style="margin-top:12px">
+      <div class="card"><h3>How they play</h3><div id="ovoff"></div></div>
+      <div class="card"><h3>How they defend</h3><div id="ovdef"></div></div>
+    </div>
   </div>
   <div id="games" hidden>
     <p class="note">One row per game for the team and season chosen at the top right, straight from the built tables: the box score (checked against Pro-Football-Reference), the EPA stats, the ratings carried into the game, the trend readings, the model's call and the closing line. Turn column groups on and off; hover a header for the definition and source. "Allowed" groups are what the defense gave up.</p>
@@ -380,6 +384,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       <dt>Over %</dt><dd>Calibrated the same way as the cover %, on the total edge.</dd>
       <dt>Books now</dt><dd>Under "Why these numbers": every book's current spread and total from the last line snapshot, and the best available number for the model's side. A half point at a key number (3, 7) is worth real money over a season, so a flagged bet goes at the best price, not the first one. The full log (every book, every 30 minutes) is folded underneath; it grades closing line value on the Track record tab and, after a season, tests whether lines that move toward the model beat the ones that move away.</dd>
       <dt>Matchup history</dt><dd>Last meetings, coaches, quarterbacks, stadium and form, built automatically on every weekly run from the nflverse schedule (every game since 2013 with its score, closing line, coaches and starting QBs). Nothing here changes the model's numbers: each of these was tested as an input and none improved the backtest (Decision log). It is context for reading a card, not an input.</dd>
+      <dt>Scheme matchup and How they play / defend</dt><dd>Readings from nflverse participation data (2016 on: the defense's man or zone call and coverage family, formation, personnel, box, rushers, pressure) and FTN charting (2022 on: motion, play action, RPO, screens, tempo, blitzers), joined to every play. Rates say how a team plays; EPA per play in each look says how it has gone, with the play count beside it and blank under 20 plays. This season is used once a team has 300 charted plays, otherwise last season, and the label says which. The current season's participation file arrives on nflverse during the season, so early-season profiles carry the FTN fields and leave coverage and pressure blank. None of it feeds the model's numbers; it is the first layer of the matchup work (docs section 17).</dd>
       <dt>Break-even</dt><dd>52.4% at −110. A cover or over % below that is a losing bet even if the model is right on average.</dd>
     </dl></div>
   </div>
@@ -395,6 +400,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 <script src="data/backtest.js"></script>
 <script src="data/games.js"></script>
 <script src="data/players.js"></script>
+<script src="data/scheme.js"></script>
 <script>
 (function(){
   const META = window.META, RK = window.RANK || null;
@@ -713,15 +719,17 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
-        <div class="row" style="gap:10px"><button class="why" data-i="${i}" aria-expanded="false">Why these numbers ▾</button><button class="why h2h" data-i="${i}" aria-expanded="false">Matchup history ▾</button></div>
+        <div class="row" style="gap:10px"><button class="why" data-i="${i}" aria-expanded="false">Why these numbers ▾</button><button class="why h2h" data-i="${i}" aria-expanded="false">Matchup history ▾</button>${SCH ? `<button class="why sch" data-i="${i}" aria-expanded="false">Scheme matchup ▾</button>` : ""}</div>
         <div class="whybox" id="why${i}" hidden></div>
         <div class="whybox" id="h2h${i}" hidden></div>
+        <div class="whybox" id="sch${i}" hidden></div>
       </article>`;
     });
     $("cards").innerHTML = h;
-    const closeOther = (i, keep) => { const o = $((keep === "why" ? "h2h" : "why") + i); if (o && !o.hidden) { o.hidden = true; const ob = $("cards").querySelector(`button.why${keep === "why" ? ".h2h" : ":not(.h2h)"}[data-i="${i}"]`); if (ob) { ob.setAttribute("aria-expanded", "false"); ob.textContent = ob.textContent.replace("▴", "▾"); } } };
+    const closeOther = (i, keep) => { ["why", "h2h", "sch"].filter(k => k !== keep).forEach(k => { const o = $(k + i); if (o && !o.hidden) { o.hidden = true; const ob = $("cards").querySelector(`button.why${k === "why" ? ":not(.h2h):not(.sch)" : "." + k}[data-i="${i}"]`); if (ob) { ob.setAttribute("aria-expanded", "false"); ob.textContent = ob.textContent.replace("▴", "▾"); } } }); };
+    $("cards").querySelectorAll("button.why.sch").forEach(b => b.addEventListener("click", () => { const g = W.games[+b.dataset.i]; const box = $("sch" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "sch"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Scheme matchup ▴" : "Scheme matchup ▾"; if (open && !box.innerHTML) { const m = schemeMatchHtml(g.away_team, g.home_team) + schemeMatchHtml(g.home_team, g.away_team); box.innerHTML = m ? m + `<p class="note" style="grid-column:1 / -1;margin:0">Readings from the participation data and FTN charting (Model → Definitions). Each row: what the offense has done in that look, what the defense has allowed in it, and how often the defense uses it. Nothing here feeds the model's numbers yet.</p>` : "<p class='note' style='margin:0'>No charted plays for these teams yet.</p>"; } }));
     $("cards").querySelectorAll("button.why.h2h").forEach(b => b.addEventListener("click", () => { const g = W.games[+b.dataset.i]; const box = $("h2h" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "h2h"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Matchup history ▴" : "Matchup history ▾"; if (open && !box.innerHTML) box.innerHTML = h2hHtml(g.home_team, g.away_team, g); }));
-    $("cards").querySelectorAll("button.why:not(.h2h)").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "why"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
+    $("cards").querySelectorAll("button.why:not(.h2h):not(.sch)").forEach(b => b.addEventListener("click", () => { const box = $("why" + b.dataset.i); const open = box.hidden; if (open) closeOther(b.dataset.i, "why"); box.hidden = !open; b.setAttribute("aria-expanded", open ? "true" : "false"); b.textContent = open ? "Why these numbers ▴" : "Why these numbers ▾"; if (open && !box.innerHTML) box.innerHTML = whyHtml(W.games[+b.dataset.i], W.season, +b.dataset.i); }));
   }
   // pair the rest inputs when both teams share the situation (a Thursday game puts both on a short week), so the reader sees the net effect
   function mergePairs(items) {
@@ -1096,6 +1104,53 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const main = ro || rep; const cls = OUT_RE.test(main) ? "badge flag" : (main ? "badge" : "");
     return (main ? `<span class="${cls}">${esc(main)}</span>` : "") + (pr && pr !== "Full" ? ` <span class="rk">${esc(pr)}</span>` : "") + (r.injury ? ` <span class="rk">${esc(r.injury)}</span>` : "");
   }
+  // ---------- Scheme and play-calling profiles (readings; nflmodel/scheme.py) ----------
+  const SCH = window.SCHEME || null;
+  const LOOK = [["man", "Against man coverage"], ["zone", "Against zone"], ["cov_COVER_1", "Cover 1"], ["cov_COVER_2", "Cover 2"], ["cov_COVER_3", "Cover 3"], ["cov_COVER_4", "Cover 4"], ["blitz", "Blitzed (5+ rushers)"], ["no_blitz", "Not blitzed"], ["pressure", "Under pressure"], ["clean", "Clean pocket"], ["play_action", "Play action"], ["no_play_action", "Straight dropback"], ["light_box", "Runs into a light box (6 or fewer)"], ["heavy_box", "Runs into a heavy box (8+)"]];
+  const pc = v => v == null ? "" : Math.round(100 * v) + "%";
+  const ep = v => v == null ? "" : (v >= 0 ? "+" : "") + v.toFixed(2);
+  // the period a team's profile is read on: this season once it has 300 plays, otherwise last season
+  function schPeriod(t) { if (!SCH || !SCH.teams[t]) return null; const c = SCH.teams[t].current, l = SCH.teams[t].last; const useCur = c && c.offense && c.offense.plays >= 300; return {key: useCur ? "current" : "last", label: useCur ? `${SCH.season} through Week ${SCH.week - 1}` : `${SCH.season - 1} season`, off: (useCur ? c : l).offense, def: (useCur ? c : l).defense, lg: SCH.league[useCur ? "current" : "last"] || {}}; }
+  const lgTxt = (lg, k) => lg && lg[k] != null ? `<span class="rk">league ${pc(lg[k])}</span>` : "";
+  function schemeOffHtml(p) {
+    if (!p || !p.off || !p.off.plays) return "<p class='note' style='margin:0'>No plays charted yet.</p>";
+    const o = p.off, lg = p.lg, v = o.vs || {}, lv = lg.vs || {};
+    const pers = o.personnel && Object.keys(o.personnel).length ? Object.entries(o.personnel).map(([k, s]) => `${k} personnel ${pc(s)}`).join(" · ") : "";
+    let h = `<div class="mv"><span class="chip mute">${p.label} · ${o.plays} plays</span>${pers ? `<span class="chip mute" title="running backs then tight ends on the field">${pers}</span>` : ""}</div>
+      <div class="tablewrap" style="max-height:none;margin-top:6px"><table class="ctab"><thead><tr><th>How they play</th><th class="n">Rate</th><th class="n">League</th></tr></thead><tbody>`;
+    [["pass_rate_neutral", "Pass rate, neutral situations"], ["shotgun", "Shotgun or pistol"], ["motion", "Motion"], ["play_action", "Play action (of dropbacks)"], ["rpo", "RPO"], ["screen", "Screens (of dropbacks)"], ["no_huddle", "No huddle"]].forEach(([k, lab]) => { if (o[k] != null) h += `<tr><td>${lab}</td><td class="n">${pc(o[k])}</td><td class="n rk">${lg[k] != null ? pc(lg[k]) : ""}</td></tr>`; });
+    if (o.pass_oe != null) h += `<tr><td>Pass rate over expected</td><td class="n">${ep(o.pass_oe)}</td><td class="n rk">0</td></tr>`;
+    if (o.time_to_throw != null) h += `<tr><td>Time to throw, seconds</td><td class="n">${o.time_to_throw.toFixed(2)}</td><td class="n rk"></td></tr>`;
+    h += `</tbody></table></div><div class="tablewrap" style="max-height:none;margin-top:8px"><table class="ctab"><thead><tr><th>EPA per play</th><th class="n">Team</th><th class="n">Plays</th><th class="n">League</th></tr></thead><tbody>`;
+    h += `<tr><td>All plays</td><td class="n ${o.epa > 0 ? "pos" : "neg"}">${ep(o.epa)}</td><td class="n rk">${o.plays}</td><td class="n rk"></td></tr><tr><td>Passes</td><td class="n">${ep(o.epa_pass)}</td><td class="n rk"></td><td class="n rk">${ep(lg.epa_pass)}</td></tr><tr><td>Runs</td><td class="n">${ep(o.epa_run)}</td><td class="n rk"></td><td class="n rk">${ep(lg.epa_run)}</td></tr>`;
+    LOOK.forEach(([k, lab]) => { const x = v[k]; if (x && x.epa != null) h += `<tr><td>${lab}</td><td class="n ${x.epa > 0 ? "pos" : "neg"}">${ep(x.epa)}</td><td class="n rk">${x.n}</td><td class="n rk">${lv[k] && lv[k].epa != null ? ep(lv[k].epa) : ""}</td></tr>`; });
+    return h + "</tbody></table></div>";
+  }
+  function schemeDefHtml(p) {
+    if (!p || !p.def || !p.def.plays) return "<p class='note' style='margin:0'>No plays charted yet.</p>";
+    const d = p.def, lg = p.lg, v = d.vs || {}, lv = lg.vs || {};
+    const cov = d.coverage && Object.keys(d.coverage).length ? Object.entries(d.coverage).slice(0, 5).map(([k, s]) => `${k.replace("COVER_", "Cover ").replace("2_MAN", "2-man")} ${pc(s)}`).join(" · ") : "";
+    let h = `<div class="mv"><span class="chip mute">${p.label} · ${d.plays} plays</span>${cov ? `<span class="chip mute" title="share of charted pass plays in each coverage family">${cov}</span>` : ""}</div>
+      <div class="tablewrap" style="max-height:none;margin-top:6px"><table class="ctab"><thead><tr><th>How they defend</th><th class="n">Rate</th><th class="n">League</th></tr></thead><tbody>`;
+    [["man", "Man coverage"], ["zone", "Zone"], ["blitz", "Blitz (5+ rushers)"], ["pressure", "Pressure rate"], ["nickel_plus", "Five or more DBs"], ["dime_plus", "Six or more DBs"], ["heavy_box_rate", "Heavy box on runs (8+)"]].forEach(([k, lab]) => { if (d[k] != null) h += `<tr><td>${lab}</td><td class="n">${pc(d[k])}</td><td class="n rk">${lg[k] != null ? pc(lg[k]) : ""}</td></tr>`; });
+    if (d.rushers != null) h += `<tr><td>Rushers per dropback</td><td class="n">${d.rushers.toFixed(2)}</td><td class="n rk"></td></tr>`;
+    if (d.box_run != null) h += `<tr><td>Box on runs</td><td class="n">${d.box_run.toFixed(2)}</td><td class="n rk"></td></tr>`;
+    h += `</tbody></table></div><div class="tablewrap" style="max-height:none;margin-top:8px"><table class="ctab"><thead><tr><th>EPA per play allowed</th><th class="n">Team</th><th class="n">Plays</th><th class="n">League</th></tr></thead><tbody>`;
+    h += `<tr><td>All plays</td><td class="n ${d.epa < 0 ? "pos" : "neg"}">${ep(d.epa)}</td><td class="n rk">${d.plays}</td><td class="n rk"></td></tr><tr><td>Passes</td><td class="n">${ep(d.epa_pass)}</td><td class="n rk"></td><td class="n rk">${ep(lg.epa_pass)}</td></tr><tr><td>Runs</td><td class="n">${ep(d.epa_run)}</td><td class="n rk"></td><td class="n rk">${ep(lg.epa_run)}</td></tr>`;
+    LOOK.forEach(([k, lab]) => { const x = v[k]; if (x && x.epa != null) h += `<tr><td>${lab.replace("Against ", "In ").replace("Blitzed", "Blitzing").replace("Not blitzed", "Not blitzing").replace("Under pressure", "Getting pressure").replace("Clean pocket", "No pressure").replace("Straight dropback", "Against a straight dropback").replace("Play action", "Against play action").replace("Runs into", "Runs against")}</td><td class="n ${x.epa < 0 ? "pos" : "neg"}">${ep(x.epa)}</td><td class="n rk">${x.n}</td><td class="n rk">${lv[k] && lv[k].epa != null ? ep(lv[k].epa) : ""}</td></tr>`; });
+    return h + "</tbody></table></div>";
+  }
+  // the card's matchup: one offense against one defense, look by look
+  function schemeMatchHtml(A, B) {
+    const pa = schPeriod(A), pb = schPeriod(B); if (!pa || !pb || !pa.off.plays || !pb.def.plays) return "";
+    const o = pa.off.vs || {}, d = pb.def.vs || {}, lv = (pa.lg.vs || {});
+    const useRate = {man: pb.def.man, zone: pb.def.zone, cov_COVER_1: (pb.def.coverage || {}).COVER_1, cov_COVER_2: (pb.def.coverage || {}).COVER_2, cov_COVER_3: (pb.def.coverage || {}).COVER_3, cov_COVER_4: (pb.def.coverage || {}).COVER_4, blitz: pb.def.blitz, no_blitz: pb.def.blitz == null ? null : 1 - pb.def.blitz, pressure: pb.def.pressure, clean: pb.def.pressure == null ? null : 1 - pb.def.pressure, heavy_box: pb.def.heavy_box_rate};
+    let h = `<div><p class="cap">${A} offense against ${B} defense <span class="rk">${pa.label}${pa.label !== pb.label ? " / " + pb.label : ""}</span></p><div class="tablewrap" style="max-height:none"><table class="ctab"><thead><tr><th>Look</th><th class="n">${A} EPA in it</th><th class="n">${B} allows</th><th class="n">${B} uses it</th><th class="n">League</th></tr></thead><tbody>`;
+    let rows = 0;
+    LOOK.forEach(([k, lab]) => { const x = o[k], y = d[k]; if (!(x && x.epa != null) && !(y && y.epa != null)) return; rows++;
+      h += `<tr><td>${lab}</td><td class="n ${x && x.epa != null ? (x.epa > 0 ? "pos" : "neg") : ""}">${x && x.epa != null ? `${ep(x.epa)} <span class="rk">${x.n}</span>` : ""}</td><td class="n ${y && y.epa != null ? (y.epa < 0 ? "pos" : "neg") : ""}">${y && y.epa != null ? `${ep(y.epa)} <span class="rk">${y.n}</span>` : ""}</td><td class="n rk">${useRate[k] != null ? pc(useRate[k]) : ""}</td><td class="n rk">${lv[k] && lv[k].epa != null ? ep(lv[k].epa) : ""}</td></tr>`; });
+    return rows ? h + "</tbody></table></div></div>" : "";
+  }
   const GROUP_LABEL = {QB: "Quarterback", Skill: "RB, WR, TE", OL: "Offensive line", Defense: "Defense", K: "Kicker", P: "Punter"};
   const covTxt = r => r.cov_targets == null ? "" : `<span title="Pro Football Reference coverage stats over his last ${r.cov_games} games: targets when he was the nearest defender, share caught, yards per target, passer rating allowed, and yards saved per game against the league's ${r.cov_league_ypt} yards per target (league rating ${r.cov_league_rating})">${r.cov_targets} tgt · ${Math.round(100 * r.cov_catch_pct)}% caught · ${r.cov_ypt.toFixed(1)} yd/tgt · ${Math.round(r.cov_rating)} rtg · ${sgn(r.cov_yds_saved_pg, 1)} yd/g saved</span>`;
   const GROUP_BASIS = {QB: "EPA per dropback, decayed and shrunk (the QB rating), above replacement", Skill: "EPA per touch above replacement, times share of the team's touches", OL: "On/off: team EPA per play with him minus without, shrunk, times snap share", Defense: "Impact plays: the EPA taken away on plays he is credited on (tackles, stops, sacks, passes defended, takeaways), per defensive snap, above the replacement level of his own position group (DL, LB or DB), times snap share. Coverage that keeps the ball away is not a credited play, so the Coverage column (Pro Football Reference: targets, catch rate, yards per target and passer rating allowed over his last eight games) is the handle for cover players", K: "EPA per kick above replacement", P: "EPA per punt above replacement"};
@@ -1125,6 +1180,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const unitOf = r => r.group === "Defense" ? (DEF_SUB[r.position] || "DB") : r.group; const UNIT_LABEL = Object.assign({DL: "Defensive line", LB: "Linebackers", DB: "Defensive backs (coverage)"}, GROUP_LABEL);
     // defensive backs rank on coverage (yards saved per game against the league's yards per target, PFR), since the impact value cannot see the throws that never come
     const covOK = P.some(r => unitOf(r) === "DB" && r.cov_targets >= 20);
+    const sp = schPeriod(team); $("ovoff").innerHTML = schemeOffHtml(sp); $("ovdef").innerHTML = schemeDefHtml(sp);
     $("ovtop").innerHTML = "<thead><tr><th class='l'>Unit</th><th class='l'>Player</th><th>Above replacement</th><th class='l'>Status</th></tr></thead><tbody>" + groups.map(g => { const top = (g === "DB" && covOK ? P.filter(r => unitOf(r) === "DB" && r.cov_targets >= 20).sort((a, b) => b.cov_yds_saved_pg - a.cov_yds_saved_pg) : P.filter(r => unitOf(r) === g).sort((a, b) => b.value_above_replacement - a.value_above_replacement)).slice(0, g === "OL" || g === "Skill" ? 3 : (g === "DL" || g === "LB" || g === "DB" ? 2 : 1)); return top.map((r, i) => `<tr><td class="l">${i === 0 ? UNIT_LABEL[g] : ""}</td><td class="l"><b>${esc(r.name)}</b> <span class="rk">${esc(r.position)}</span></td><td class="mono">${g === "DB" && covOK ? `${sgn(r.cov_yds_saved_pg, 1)} <span class="rk" title="yards saved per game in coverage against the league's yards per target; ${r.cov_targets} targets, ${Math.round(r.cov_rating)} rating allowed">yd/g · ${Math.round(r.cov_rating)} rtg</span>` : `${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}`}</td><td class="l">${r.status ? (OUT_RE.test(r.status) ? `<span class="badge flag">${esc(r.status)}</span>` : esc(r.status)) : ""}</td></tr>`).join(""); }).join("") + "</tbody>";
   }
   function renderRoster() {
