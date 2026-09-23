@@ -222,7 +222,7 @@ def load_injuries(seasons) -> pd.DataFrame:
                     ro = pd.read_parquet(rf, columns=["team", "gsis_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
                     key = lambda n: "".join(ch for ch in str(n).lower() if ch.isalpha())
                     ro["k"] = ro.full_name.map(key); es["k"] = es.name.map(key)
-                    m = es.merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")
+                    m = es.drop(columns=["position"]).merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")   # the roster's position and name, matched by team and name
                     add = pd.DataFrame({"season": season, "season_type": "REG", "game_type": "REG", "team": m.team, "week": week, "gsis_id": m.gsis_id, "position": m.position, "full_name": m.full_name,
                                         "first_name": m.full_name.str.split(" ").str[0], "last_name": m.full_name.str.split(" ").str[-1], "report_primary_injury": m.detail, "report_secondary_injury": None,
                                         "report_status": m.status.map(ESPN_STATUS), "practice_primary_injury": None, "practice_secondary_injury": None, "practice_status": None, "date_modified": m.fetched_at})

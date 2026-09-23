@@ -111,7 +111,8 @@ def main() -> bool:
             have = set(nv[nv.week == week].team); ef = RAW / "injuries" / "espn_injuries.csv"
             es = pd.read_csv(ef) if ef.exists() else pd.DataFrame(columns=["team", "fetched_at"])
             e_age = (now - pd.to_datetime(es.fetched_at, errors="coerce").max()).total_seconds() / 86400 if len(es) else 9e9
-            fill = set(es.team) - have if e_age <= PL.ESPN_MAX_AGE_DAYS else set()
+            merged = PL.load_injuries([season]); merged = merged[merged.week == week]      # what the model actually sees, fill included
+            fill = set(merged.team) - have
             days_to_kick = (g[(g.season == season) & (g.week == week)].kickoff_et.min() - pd.Timestamp.now("America/New_York").tz_localize(None)).total_seconds() / 86400
             covered = len(have | fill); level = "OK" if covered == 32 or days_to_kick > 2 else "WARN"
             add(level, f"injury reports cover the week being priced (week {week})", f"league reports for {len(have)} teams, ESPN fills {len(fill)} more ({'no ESPN file' if e_age > 1e8 else f'fetched {e_age * 24:.0f} hours ago'}), {covered} of 32; first kickoff in {days_to_kick:.1f} days")
