@@ -536,6 +536,11 @@ helps both windows (-0.0025 / -0.0083; spread miss 10.023 / 9.970 against 10.032
 own EPA per touch is mostly noise, so his value is now largely his usage times a small, well-estimated gap; a
 star still counts, a hot month does not. Decay 0.97 and 0.995 were worse or flat; 0.985 stays.
 
+**Totals with the player inputs** (23 Sep 2026, `experiments/totals_players.py`, `reports/totals_players.csv`).
+With the skill-out values rebuilt, the summed skill value out, the summed offensive snaps out and the summed
+offseason turnover were tried as inputs to the total equation, alone and together. Every one is worse on both
+windows (+0.004 to +0.023 on the total miss). The total equation keeps its ten inputs and totals stay unflagged.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
