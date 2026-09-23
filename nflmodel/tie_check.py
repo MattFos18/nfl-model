@@ -42,7 +42,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     sw = REP / "threshold_sweep.csv"
     if sw.exists():
         t = pd.read_csv(sw); t = t[(t.market == "spread") & (t.cut == se)].set_index("window")
-        for w, sub in [("2019-22", d[(d.season <= 2022) & (d.week < 18)]), ("2023-25", d[d.season.between(2023, 2025) & (d.week < 18)])]:
+        for w, sub in [("2019-22", d[d.season.between(2019, 2022) & (d.week < 18)]), ("2023-25", d[d.season.between(2023, 2025) & (d.week < 18)])]:
             tie(f"threshold sweep, cut {se:g}, {w}", f"{int(t.loc[w, 'wins'])}-{int(t.loc[w, 'losses'])}", _rec(sub, se))
         # docs section 9 row for the live cut
         doc = (ROOT / "docs" / "how_it_works.md").read_text()

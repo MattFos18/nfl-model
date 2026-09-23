@@ -565,7 +565,10 @@ trains on every played game from 2013. Training from 2015 instead is better on b
 7.287 against 7.360 / 7.289, spread 10.005 / 9.962 against 10.023 / 9.970); from 2017 is mixed. So the oldest
 seasons hurt a little rather than help, and pulling 2009 to 2012 (which lack snap counts and the player model
 anyway) is not worth doing. The clean version of the idea, a rolling window of the most recent N seasons, is
-tested separately (`experiments/rolling_window.py`).
+tested separately (`experiments/rolling_window.py`, `reports/rolling_window.csv`): the last 10, 8 or 6 seasons
+instead of everything since 2013. None helps on both windows (10: equal tuning, +0.002 held out on team points;
+8: +0.004 / -0.001; 6: +0.008 / +0.018). So the gain from starting in 2015 is about those two particular seasons,
+not a rule, and everything since 2013 stays.
 
 ## 15. The player model
 
