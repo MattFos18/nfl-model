@@ -10,7 +10,8 @@ import json, re, sys
 import numpy as np, pandas as pd
 from . import backtest as B, model as M, picks as P, ratings as R
 from .features import OUT, ROOT
-REP = ROOT / "reports"; WEB = ROOT / "web" / "data"; TR = ROOT / "data" / "tracker"
+REP = ROOT / "reports"; LNS = ROOT / "data" / "lines"
+WEB = ROOT / "web" / "data"; TR = ROOT / "data" / "tracker"
 
 
 def _rec(x: pd.DataFrame, cut: float) -> str:
@@ -177,10 +178,51 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     tie("page inputs = model inputs", meta.get("feats"), M.FEATS)
     wk = _js("week.js")
     tie("page flag threshold = picks threshold", wk.get("spread_edge"), P.SPREAD_EDGE)
+    # the card and deep-dive breakdowns: intercept + sum of coefficient x (input - training mean) from the page's own files = the model's expected points
+    SIT = set(M.SIT_FEATS) | {"qb_out"} | set(M.INJ_FEATS) | set(M.CONT_FEATS) | set(M.LATE_FEATS)
+    def rebuild(co, inputs):
+        tot = co["intercept"]
+        for f in M.FEATS:
+            v = inputs.get(f); c = co["per_unit"][f]; mu = co["mean"][f]
+            if v is None: return None
+            tot += c * (v - mu)   # the page moves the situational means into its base; the sum is the same
+        return tot
+    if "games" in wk and wk["games"] and wk["games"][0].get("coefs"):
+        worst = 0.0; n = 0
+        for g in wk["games"]:
+            for tm, key in [(g["home_team"], "home_exp"), (g["away_team"], "away_exp")]:
+                if tm in g.get("sides", {}) and g.get(key) is not None:
+                    v = rebuild(g["coefs"], g["sides"][tm]); n += 1
+                    if v is not None: worst = max(worst, abs(v - g[key]))
+        rows.append((f"card breakdowns rebuild the expected points from the page's files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))
+        bk = _js("backtest.js")
+        if "coef" in bk["cols"]:
+            ci = {c: i for i, c in enumerate(bk["cols"])}; worst = 0.0; n = 0; TD = {}
+            def team_js(tm):   # a team file reads window.TEAMDATA["XXX"]=...; keep each one parsed once
+                if tm not in TD: t = (WEB / f"{tm}.js").read_text(); TD[tm] = json.loads(t[t.index('"]=') + 3:].rstrip().rstrip(";"))
+                return TD[tm]
+            for r in bk["rows"][-60:]:   # the newest sixty priced games, from every team's own file
+                co = {"per_unit": dict(zip(M.FEATS, r[ci["coef"]])), "mean": dict(zip(M.FEATS, r[ci["mean"]])), "intercept": r[ci["intercept"]]}
+                for tm, key in [(r[ci["home_team"]], "home_exp"), (r[ci["away_team"]], "away_exp")]:
+                    td = team_js(tm); cols = td["cols"]; row = next((x for x in td["rows"] if x[0] == r[ci["game_id"]]), None)
+                    if row is None: continue
+                    inputs = {f: row[cols.index("mf_" + f)] for f in M.FEATS if ("mf_" + f) in cols}
+                    v = rebuild(co, inputs); n += 1
+                    if v is not None: worst = max(worst, abs(v - r[ci[key]]))
+            rows.append((f"deep-dive breakdowns rebuild the expected points from the team files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))
     g = pd.read_parquet(OUT / "games.parquet")
     from . import lines as LN
     season, week = LN.current_week(g)
     pk_f = REP / f"picks_{season}_wk{week}.csv"
+    llf = LNS / "lines_log.csv"
+    if llf.exists() and wk.get("games"):   # no number on a card older than its source: the cards' newest snapshot is the log's newest
+        ll = pd.read_csv(llf, usecols=["ts"]); page_ts = max([r["ts"] for g in wk["games"] for r in g.get("line_history", [])] or ["none"])
+        tie("cards' newest line snapshot = the line log's newest snapshot", page_ts, str(ll.ts.max()))
+    if "cal" in wk and "games" in wk:   # the card re-prices a moved line with the same calibration the run used
+        import math
+        def cal_p(cal, e): p = 1 / (1 + math.exp(-(cal[0] + cal[1] * min(abs(e), 7.0)))); return p if e > 0 else 1 - p
+        worst = max([abs(cal_p(wk["cal"]["spread"], g["spread_edge"]) - g["p_cover_cal_home"]) for g in wk["games"] if g.get("spread_edge") is not None and g.get("p_cover_cal_home") is not None] or [0.0])
+        rows.append(("card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap)", round(worst, 4), "0.0005 or under", worst <= 0.0005))
     if pk_f.exists() and "games" in wk:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}
@@ -201,7 +243,7 @@ def main(page: bool = False) -> bool:
     ok = all(r[3] for r in rows)
     L = [f"# Tie-out ({'sources and page' if page else 'sources'}), {pd.Timestamp.now('UTC').strftime('%Y-%m-%d %H:%M UTC')}", "",
          "The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.", "",
-         "| Check | Reads | Should read | Ties |", "|---|---|---|---|"] + [f"| {w} | {a[:80]} | {b[:80]} | {'yes' if t else 'NO'} |" for w, a, b, t in rows] + \
+         "| Check | Reads | Should read | Ties |", "|---|---|---|---|"] + [f"| {w} | {str(a)[:80]} | {str(b)[:80]} | {'yes' if t else 'NO'} |" for w, a, b, t in rows] + \
         ["", f"Result: {'PASS' if ok else 'FAIL'} ({sum(1 for r in rows if r[3])} of {len(rows)} tie)"]
     (REP / "tie_check.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
     return ok

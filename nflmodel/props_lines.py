@@ -103,7 +103,7 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
     rows = {}
     for d in sorted(j.get("data", []), key=lambda d: bool((d.get("attributes") or {}).get("is_promo"))):   # a promo copy of a line (discounted "flash sale") sits behind the regular one
         a = d.get("attributes", {}); stat = PP_STATS.get(a.get("stat_type"))
-        if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None or a.get("adjusted_odds"): continue   # adjusted-odds lines (a 0.5-yard "line" at a cut payout) are not even-odds lines
+        if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None: continue   # adjusted-odds lines are real lines at a cut payout; the impossible ones (a 0.5-yard line) are dropped when the log is read
         pl = players.get(((d.get("relationships") or {}).get("new_player") or {}).get("data", {}).get("id"), {}); team = PP_TEAM.get(pl.get("team"), pl.get("team")); tg = team_game.get(team)
         if not tg or (pl.get("name"), stat) in rows: continue
         rows[(pl.get("name"), stat)] = {"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": a.get("start_time"), "book": "prizepicks", "market": a.get("stat_type"), "stat": stat, "player": pl.get("name"), "line": float(a["line_score"]), "over_price": -119, "under_price": -119}
@@ -128,6 +128,15 @@ def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]
         if not new: break
     if not lines:
         raise RuntimeError(" | ".join(errs) or "no lines")
+    if len(set(a.get("match_id") for a in apps.values())) < 3:   # one game came back: probe the other feeds once and say what answered
+        notes = []
+        for u in ["v2/pickem_search/search_results?sport_id=NFL&page=2", "v2/pickem_search/search_results?sport_id=NFL&per_page=500", "v2/pickem_search/search_results?sport_id=NFL&scope=all", "beta/v5/over_under_lines?sport_id=NFL", "v1/over_under_lines?sport_id=NFL", "beta/v6/over_under_lines?sport_id=NFL", "v1/games?sport_id=NFL", "v2/matches?sport_id=NFL"]:
+            try:
+                r = requests.get("https://api.underdogfantasy.com/" + u, timeout=20, headers=hdr); j3 = r.json() if r.ok else {}
+                notes.append(f"{u}: {r.status_code} lines {len(j3.get('over_under_lines', []))} games {len(j3.get('games', []))} keys {list(j3)[:4]}")
+            except Exception as e:  # noqa
+                notes.append(f"{u}: {str(e)[:50]}")
+        print({"source": "underdog", "probe": notes}, flush=True)
     UD = {"passing_yds": "pass_yards", "passing_tds": "pass_td", "passing_comps": "pass_completions", "completions": "pass_completions", "passing_att": "pass_attempts", "pass_attempts": "pass_attempts", "passing_ints": "pass_int", "interceptions": "pass_int",
           "rushing_yds": "rush_yards", "rushing_att": "rush_attempts", "rush_attempts": "rush_attempts", "receiving_yds": "rec_yards", "receiving_rec": "rec_catches", "receptions": "rec_catches", "receiving_tgts": "rec_targets", "rush_rec_yds": "rush_rec_yards",
           "receiving_long": "rec_longest", "longest_reception": "rec_longest", "rushing_long": "rush_longest", "longest_rush": "rush_longest", "passing_long": "pass_longest", "passing_and_rushing_yds": "pass_rush_yards", "tackles_assists": "def_tackles", "sacks": "def_sacks", "kicking_points": "kick_points", "field_goals_made": "field_goals"}
@@ -157,6 +166,7 @@ def dfs_due(now: dt.datetime, force: bool) -> bool:
 
 
 YARD_STATS = {"rec_yards", "rush_yards", "pass_yards", "rush_rec_yards", "pass_rush_yards", "rec_longest", "rush_longest", "pass_longest"}
+COUNT_STATS = {"rec_catches", "rec_targets", "rush_attempts", "pass_completions", "pass_attempts"}
 
 
 def load_log() -> pd.DataFrame:
@@ -165,7 +175,8 @@ def load_log() -> pd.DataFrame:
     f = LN / "props_log.csv"
     if not f.exists(): return pd.DataFrame(columns=SCHEMA)
     g = pd.read_csv(f).reindex(columns=SCHEMA)
-    return g[~(g.book.isin(["prizepicks", "underdog"]) & g.stat.isin(YARD_STATS) & (g.line < 2))].reset_index(drop=True)
+    pk = g.book.isin(["prizepicks", "underdog"])
+    return g[~(pk & ((g.stat.isin(YARD_STATS) & (g.line < 2)) | (g.stat.isin(COUNT_STATS) & (g.line < 1))))].reset_index(drop=True)
 
 
 def due(now: dt.datetime, log: pd.DataFrame) -> float | None:

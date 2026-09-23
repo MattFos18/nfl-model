@@ -9,7 +9,7 @@ code's. Usage: python -m nflmodel.health"""
 from __future__ import annotations
 import json, re, sys
 import pandas as pd
-from .features import OUT, ROOT
+from .features import RAW, OUT, ROOT
 REP = ROOT / "reports"; DATA = ROOT / "data"; WEB = ROOT / "web" / "data"
 IN_SEASON = (9, 10, 11, 12, 1, 2)   # months the checks about lines and picks apply to
 
@@ -87,6 +87,18 @@ def main() -> bool:
         add("OK" if meta.get("feats") == M.FEATS else "FAIL", "page inputs = code", f"{len(meta.get('feats', []))} on the page, {len(M.FEATS)} in code")
         built = pd.to_datetime(str(meta.get("built", "")).replace(" UTC", ""), errors="coerce"); age_h = (now - built).total_seconds() / 3600 if pd.notna(built) else 9e9
         add("FAIL" if age_h > 96 else "OK", "page data is fresh", f"built {age_h:.0f} hours ago (limit 96)")
+        # nothing on a card may be older than its source: the newest line snapshot on the cards is the log's newest, and the
+        # props panel's line pull is the props log's newest (the line watch rewrites week.js after every snapshot)
+        ll = pd.read_csv(RAW.parent / "lines" / "lines_log.csv", usecols=["ts"]) if (RAW.parent / "lines" / "lines_log.csv").exists() else None
+        page_ts = max([r["ts"] for g in wk.get("games", []) for r in g.get("line_history", [])] or ["none"])
+        if ll is not None and len(ll):
+            add("OK" if page_ts == ll.ts.max() else "FAIL", "cards carry the newest line snapshot", f"cards {page_ts}, log {ll.ts.max()}")
+        pl = RAW.parent / "lines" / "props_log.csv"
+        if pl.exists() and (WEB / "props.js").exists():
+            s2 = (WEB / "props.js").read_text(); pj = json.loads(s2[s2.index("=") + 1:].rstrip().rstrip(";")); plog = pd.read_csv(pl, usecols=["ts", "season", "week"])
+            cur = plog[(plog.season == pj.get("season")) & (plog.week == pj.get("week"))]
+            mts = max([str(side.get("market_ts")) for gm in pj.get("games", {}).values() for side in gm.values() if side.get("market_ts")] or ["none"])
+            if len(cur): add("OK" if mts == cur.ts.max() else "FAIL", "props panel carries the newest prop-line pull", f"page {mts}, log {cur.ts.max()}")
         s = (WEB / "rankings.js").read_text(); rk = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
         add("OK" if rk.get("params", {}).get("qb_prior") == R.DEFAULT["qb_prior"] else "FAIL", "page rankings use the code's QB replacement level", f"page {rk.get('params', {}).get('qb_prior')}, code {R.DEFAULT['qb_prior']}")
     except Exception as e:  # noqa
