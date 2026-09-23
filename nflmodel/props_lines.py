@@ -103,7 +103,7 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
     rows = {}
     for d in sorted(j.get("data", []), key=lambda d: bool((d.get("attributes") or {}).get("is_promo"))):   # a promo copy of a line (discounted "flash sale") sits behind the regular one
         a = d.get("attributes", {}); stat = PP_STATS.get(a.get("stat_type"))
-        if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None: continue
+        if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None or a.get("adjusted_odds"): continue   # adjusted-odds lines (a 0.5-yard "line" at a cut payout) are not even-odds lines
         pl = players.get(((d.get("relationships") or {}).get("new_player") or {}).get("data", {}).get("id"), {}); team = PP_TEAM.get(pl.get("team"), pl.get("team")); tg = team_game.get(team)
         if not tg or (pl.get("name"), stat) in rows: continue
         rows[(pl.get("name"), stat)] = {"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": a.get("start_time"), "book": "prizepicks", "market": a.get("stat_type"), "stat": stat, "player": pl.get("name"), "line": float(a["line_score"]), "over_price": -119, "under_price": -119}
@@ -111,43 +111,61 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
 
 
 def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
-    """Underdog pick'em lines: the over/under lines feed with its appearances and players."""
-    hdr = dict(UA, **{"Client-Type": "web", "Client-Version": "20260901", "Client-Request-Id": "nfl-model", "Referer": "https://underdogfantasy.com/", "Origin": "https://underdogfantasy.com"}); j = None; errs = []
-    for url in ["https://api.underdogfantasy.com/v2/pickem_search/search_results?sport_id=NFL", "https://api.underdogfantasy.com/beta/v6/over_under_lines", "https://api.underdogfantasy.com/beta/v5/over_under_lines", "https://api.underdogfantasy.com/v1/over_under_lines"]:
+    """Underdog pick'em lines from the pick'em search (v2): over_under_lines with their appearances, players and teams,
+    paged until a page adds nothing. Standard ("balanced") lines only, with Underdog's own higher/lower prices."""
+    hdr = dict(UA, **{"Client-Type": "web", "Client-Version": "20260901", "Client-Request-Id": "nfl-model", "Referer": "https://underdogfantasy.com/", "Origin": "https://underdogfantasy.com"})
+    lines, apps, players, teams, seen, errs = [], {}, {}, {}, set(), []
+    for page in range(1, 31):
+        url = f"https://api.underdogfantasy.com/v2/pickem_search/search_results?sport_id=NFL&page={page}&per_page=250"
         try:
             r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); j = r.json()
-            if not j.get("over_under_lines"): raise RuntimeError("no over_under_lines in the response")
-            break
         except Exception as e:  # noqa
-            errs.append(f"{url.split('.com/', 1)[1][:32]}: {str(e)[:60]}"); j = None
-    if j is None:
-        raise RuntimeError(" | ".join(errs))
-    _save_raw("underdog", j, ts)
-    players = {p["id"]: p for p in j.get("players", [])}; apps = {a["id"]: a for a in j.get("appearances", [])}
-    UD = {"passing_yds": "pass_yards", "passing_tds": "pass_td", "completions": "pass_completions", "pass_attempts": "pass_attempts", "interceptions": "pass_int", "rushing_yds": "rush_yards", "rush_attempts": "rush_attempts", "receiving_yds": "rec_yards", "receptions": "rec_catches", "rush_rec_yds": "rush_rec_yards", "longest_reception": "rec_longest", "longest_rush": "rush_longest", "tackles_assists": "def_tackles", "sacks": "def_sacks", "solo_tackles": "def_solo_tackles", "kicking_points": "kick_points", "fg_made": "field_goals", "targets": "rec_targets", "pass_rush_yds": "pass_rush_yards"}
+            errs.append(f"page {page}: {str(e)[:60]}"); break
+        new = [ln for ln in j.get("over_under_lines", []) if ln.get("id") not in seen]
+        for ln in new: seen.add(ln.get("id"))
+        lines += new; apps.update({a["id"]: a for a in j.get("appearances", [])}); players.update({p["id"]: p for p in j.get("players", [])}); teams.update({t["id"]: t.get("abbr") for t in j.get("teams", [])})
+        if page == 1: _save_raw("underdog", j, ts)
+        if not new: break
+    if not lines:
+        raise RuntimeError(" | ".join(errs) or "no lines")
+    UD = {"passing_yds": "pass_yards", "passing_tds": "pass_td", "passing_comps": "pass_completions", "completions": "pass_completions", "passing_att": "pass_attempts", "pass_attempts": "pass_attempts", "passing_ints": "pass_int", "interceptions": "pass_int",
+          "rushing_yds": "rush_yards", "rushing_att": "rush_attempts", "rush_attempts": "rush_attempts", "receiving_yds": "rec_yards", "receiving_rec": "rec_catches", "receptions": "rec_catches", "receiving_tgts": "rec_targets", "rush_rec_yds": "rush_rec_yards",
+          "receiving_long": "rec_longest", "longest_reception": "rec_longest", "rushing_long": "rush_longest", "longest_rush": "rush_longest", "passing_long": "pass_longest", "passing_and_rushing_yds": "pass_rush_yards", "tackles_assists": "def_tackles", "sacks": "def_sacks", "kicking_points": "kick_points", "field_goals_made": "field_goals"}
     wk = games[(games.season == season) & (games.week == week)]; team_game = {}
     for g in wk.itertuples(): team_game[g.home_team] = (g.game_id, g.home_team, g.away_team); team_game[g.away_team] = (g.game_id, g.home_team, g.away_team)
-    rows = []
-    for ln in j.get("over_under_lines", []):
-        ou = ln.get("over_under") or {}; st = ((ou.get("appearance_stat") or {}).get("stat") or ""); stat = UD.get(st)
+    rows = {}
+    for ln in lines:
+        if ln.get("line_type", "balanced") != "balanced" or ln.get("status", "active") != "active": continue
+        ou = ln.get("over_under") or {}; ast = ou.get("appearance_stat") or {}; stat = UD.get(ast.get("stat") or "")
         if not stat or ln.get("stat_value") is None: continue
-        ap = apps.get((ou.get("appearance_stat") or {}).get("appearance_id")) or {}; pl = players.get(ap.get("player_id")) or {}
+        ap = apps.get(ast.get("appearance_id")) or {}; pl = players.get(ap.get("player_id")) or {}
         if pl.get("sport_id") not in (None, "NFL"): continue
-        team = PP_TEAM.get(ap.get("team_id") or pl.get("team_id"), ap.get("team_id") or pl.get("team_id")); tg = team_game.get(team)
+        team = teams.get(ap.get("team_id") or pl.get("team_id")); team = PP_TEAM.get(team, team); tg = team_game.get(team)
         if not tg: continue
         name = f"{pl.get('first_name', '')} {pl.get('last_name', '')}".strip()
-        rows.append({"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": None, "book": "underdog", "market": st, "stat": stat, "player": name, "line": float(ln["stat_value"]), "over_price": -119, "under_price": -119})
-    return rows
-
+        if (name, stat) in rows: continue
+        prices = {(o.get("choice") or ""): o.get("american_price") for o in ln.get("options", [])}
+        def _p(v):
+            try: return int(float(v))
+            except Exception: return -119   # noqa
+        rows[(name, stat)] = {"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": None, "book": "underdog", "market": ast.get("display_stat") or ast.get("stat"), "stat": stat, "player": name, "line": float(ln["stat_value"]), "over_price": _p(prices.get("higher")), "under_price": _p(prices.get("lower"))}
+    return list(rows.values())
 
 def dfs_due(now: dt.datetime, force: bool) -> bool:
     """Free lines: every six hours on the half-hour watch, and on a forced run."""
     return force or (now.hour % 6 == 0 and now.minute < 30)
 
 
+YARD_STATS = {"rec_yards", "rush_yards", "pass_yards", "rush_rec_yards", "pass_rush_yards", "rec_longest", "rush_longest", "pass_longest"}
+
+
 def load_log() -> pd.DataFrame:
+    """The log as appended, minus pick'em rows that cannot be even-odds lines (a yardage line under 2: PrizePicks'
+    adjusted-odds board before the parser dropped it)."""
     f = LN / "props_log.csv"
-    return pd.read_csv(f).reindex(columns=SCHEMA) if f.exists() else pd.DataFrame(columns=SCHEMA)
+    if not f.exists(): return pd.DataFrame(columns=SCHEMA)
+    g = pd.read_csv(f).reindex(columns=SCHEMA)
+    return g[~(g.book.isin(["prizepicks", "underdog"]) & g.stat.isin(YARD_STATS) & (g.line < 2))].reset_index(drop=True)
 
 
 def due(now: dt.datetime, log: pd.DataFrame) -> float | None:
