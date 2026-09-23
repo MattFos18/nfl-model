@@ -15,7 +15,7 @@ FULL = M.FEATS.copy(); THIRTEEN = [f for f in FULL if f not in ("div_game",) + t
 rows = []
 for kname, knobs in [("knobs 0.94 / 0.8 (today)", {}), ("knobs 0.90 / 0.5 (original)", {"decay": 0.90, "prior": 0.5})]:
     f = M.with_trends(R.build_features({**R.DEFAULT, **knobs}, tg=tg, games=games, qb=qb))
-    for iname, feats in [("twenty inputs (today)", FULL), ("13 inputs (before the player model)", THIRTEEN)]:
+    for iname, feats in [("twenty-two inputs (today)", FULL), ("13 inputs (before the player model)", THIRTEEN)]:
         M.FEATS = feats
         r = score(M.walk_forward(f, range(2015, 2019)), range(2015, 2019)); M.FEATS = FULL
         rows.append({"variant": f"{iname}, {kname}", **r}); print(rows[-1], flush=True)

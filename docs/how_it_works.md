@@ -245,26 +245,28 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
-**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12 and the player model at 480 touches / 10th percentile: the flag is 4.** Re-swept
+**Update, 23 Sep 2026, on the twenty-two-input model (QB replacement -0.12, player model 480 touches / 10th percentile, out-of-the-race flags): the flag is 4.** Re-swept
 after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17; until the tie-out of 23 Sep the sweep's held-out column also counted the live season's games, so its earlier held-out records ran two bets larger):
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 89-65, 57.8% | 42-22, 65.6% | 56.2% | 68.3% | 56.5% | 48.6% (17-18) | 69.2% | 69.0% | 59.1% |
-| 4.5 | 72-43, 62.6% | 33-17, 66.0% | 64.0% | 67.7% | 64.7% | 52.0% (13-12) | 66.7% | 69.6% | 61.1% |
-| 5 | 50-35, 58.8% | 19-12, 61.3% | 65.0% | 60.0% | 58.3% | 52.4% (11-10) | 75.0% | 64.3% | 53.8% |
+| 4 | 87-59, 59.6% | 45-21, 68.2% | 58.1% | 64.9% | 63.2% | 52.5% (21-19) | 73.3% | 74.1% | 58.3% |
+| 4.5 | 65-44, 59.6% | 32-15, 68.1% | 61.5% | 65.4% | 69.0% | 42.9% (12-16) | 70.0% | 76.2% | 56.2% |
+| 5 | 39-29, 57.4% | 18-12, 60.0% | 63.2% | 57.1% | 66.7% | 45.0% (9-11) | 66.7% | 69.2% | 50.0% (7-7) |
 
-The 4-point cut is still the best overall for its volume (131-87, 60.1%, across 2019 to 2025; 131-89 with the two 2026 games so far) and on both windows, at nearly twice the volume of 5. It does not clear the 52.4% break-even in every season: 2022 is 17-18 on the rebuilt model (54.1% before the day's two knob changes), and no cut does (4.5 has 2022 at 13-12, 5 has 2022 at 11-10, a hair under). 4.5 now shows the best rate (62.6% / 66.0%) on 165 bets; it is not adopted on that alone, since the cut was chosen before today's changes and the rate difference is within noise on this sample. The earlier "wins every season"
+The 4-point cut is the best overall (132-80, 62.3%, across 2019 to 2025; 132-82 with the two 2026 games so far), the best on both windows at every volume, and after the out-of-the-race inputs went in it clears the 52.4% break-even in every season again (2022 is the closest at 21-19). 4.5 and 5 do not (2022 at 12-16 and 9-11). The cut is not chosen on this; it was set on 22 Sep and moves only on live results, and the shadow rules log the alternatives. The earlier "wins every season"
 line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
 53%). The 2026 games played so far replay 0-2 at this cut in the backtest; the live record on the Results tab is
 the one that counts, since it holds what was flagged at the time.
 
-Second caveat (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`): on the untouched 2015 to 2018 window the
-4-point cut goes 58-54 (51.8%), 4.5 goes 40-47 and 5 goes 22-30. Those seasons had no say in any input, knob or
-cut, and the flag does not beat break-even there at any cut. The spread accuracy gains hold on that window; the
-flag rate does not. So the live record (Results tab) is the number that decides whether the flag earns its keep.
+Second caveat, and how it moved (23 Sep 2026): on the untouched 2015 to 2018 window the 4-point cut went 58-54
+(51.8%) in the morning's model, under break-even, which the docs said plainly. After the day's three adoptions
+(QB replacement level, player-model shrinkage, out-of-the-race flags) it reads 67-57 (54.0%) there, above
+break-even, while 4.5 (41-42) and 5 (25-29) still lose. Those seasons had no say in any input, knob or cut, so
+that is the most honest number the backtest can give, and it is modest. The live record (Results tab) is still
+the one that decides whether the flag earns its keep.
 
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
 sweep, recomputed from the backtest on every run, is on the Results tab (Every threshold, tested). On the current model, spread
@@ -462,10 +464,11 @@ at. On those 1,024 games (the closing line's spread miss there: 9.805):
 
 | Model | Spread miss | Points miss | Flags at 5+ |
 |---|---|---|---|
-| Twenty inputs, decay 0.94 / last season 0.8, QB replacement -0.12 (today) | 10.010 | 7.417 | 25-30 |
-| 13 inputs, today's knobs | 10.015 | 7.403 | 32-28 |
-| Twenty inputs, original knobs 0.90 / 0.5 | 10.029 | 7.420 | 19-24 |
-| 13 inputs, original knobs | 10.018 | 7.403 | 18-27 |
+| Twenty-two inputs, today's knobs (today, evening) | 9.990 | 7.411 | 25-29 |
+| Twenty inputs, decay 0.94 / last season 0.8, QB replacement -0.12 (morning of 23 Sep) | 10.010 | 7.417 | 25-30 |
+| 13 inputs, today's knobs | 9.990 | 7.403 | 32-28 |
+| Twenty-two inputs, original knobs 0.90 / 0.5 | 10.011 | 7.415 | 24-29 |
+| 13 inputs, original knobs | 10.003 | 7.403 | 17-31 |
 
 (Re-run 23 Sep 2026 after the QB replacement level moved; the earlier run, on eighteen inputs at -0.05, read 10.031 /
 7.436 / 21-30 for today's model.) The knob change holds on the spread miss (-0.02) and the player and turnover inputs
