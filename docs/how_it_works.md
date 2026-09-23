@@ -173,9 +173,9 @@ side is the weaker half.
 
 ## 6. From points to probabilities
 
-Scores are not Poisson (the old sheet's grid gave 91% favourites that won 66% of the time). 3.0 takes the
+Scores are not Poisson (the old sheet's grid gave 91% favorites that won 66% of the time). 3.0 takes the
 residuals of the training games: margin error has a standard deviation of 13.1 points, total error 13.4.
-The margin distribution is a normal centred on the predicted spread, then reshaped by key-number weights:
+The margin distribution is a normal centered on the predicted spread, then reshaped by key-number weights:
 for each integer margin m, K(m) = how often real games ended at exactly m divided by how often the normal
 would put them there, estimated on the training games. 3 and 7 get about 1.6 to 1.8 times their normal
 share, 1 and 2 less. Win probability is the mass above zero (ties split), cover probability the mass beyond
@@ -300,7 +300,7 @@ seven seasons, about nine a year. The bootstrap (2,000 resamples) puts the chanc
 really above zero at 69% and for 6+ at 87% (totals 6+: 93%); the plan's bar is 95%. So the display rule is now 5 for
 spreads and 6 for totals (the ROI-best thresholds that hold in both windows), with the sample size printed
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
-by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
+by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favorites and dogs the same.
 
 **Shadow rules (23 Sep 2026).** Three rules are logged and graded alongside the 4-point flag from Week 3 of 2026
 (`picks.SHADOWS`, `data/tracker/shadow45_picks.csv`, `shadowdog_picks.csv` and `shadowearly_picks.csv`, who =
@@ -316,7 +316,7 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 49-36 | 78-45 | 34-17 |
 | 4+ edge, weeks 1 to 13 only | 54-42 | 71-41 | 34-16 |
 
-The underdog rule came from looking at where the flag's record lives: when the model's side is the favourite the
+The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
 flag is 18-21 untouched, 9-14 tuning and 11-4 held out. The 4.5 cut has the best rate on the two tuned windows and
 loses on the untouched one. All three were found on the backtest, so none is bet on the backtest: the decision
 between the rules is made on the live record, with a reminder set for January 2027.
@@ -821,7 +821,7 @@ everything a program can check about the site and the model, in one report with 
 6. **Chromium walk** (`tools/page_walk.js`): every tab and sub-view rendered; no console or page errors, no
    "undefined" or "NaN" text, nothing empty.
 
-When any section fails the workflow opens a GitHub issue labelled `health` with the report (or comments on the
+When any section fails the workflow opens a GitHub issue labeled `health` with the report (or comments on the
 open one) and goes red; when everything passes again it closes the issue. The report is committed to main with
 the issue and run links at the bottom and sits first on Model → Data pulls and verification. At 9:45am ET a
 Claude routine reads it and sends a one-line push and email: clean, or exactly what failed and the likely fix.
@@ -854,7 +854,7 @@ under 20 plays. League baselines for the same season sit beside each number.
 from Week N or later. The tie check confirms the built profiles are as of the current week.
 
 **Where it shows.** Team -> Overview: "How they play" and "How they defend", the current season when it has 300
-plays, otherwise last season, labelled. Each game card: "Scheme matchup", the away offense against the home
+plays, otherwise last season, labeled. Each game card: "Scheme matchup", the away offense against the home
 defense and the reverse, look by look: what the offense has done in it, what the defense has allowed in it, and
 how often the defense uses it. These are readings. None of it is a model input; the by-look numbers are the raw
 material for the next layers (player against scheme, player against player), each to be tested on both windows
@@ -877,7 +877,7 @@ EPA allowed per carry and per dropback, and its mix: man rate, pressure rate, bl
 **Projection for a game.** Volume: the team's pass plays (or runs, or dropbacks) per game over its last 17,
 moved by the game script (a line fitted on 2016 to 2018 to the closing spread and total: a team's pass plays run
 -0.60 -0.046 x its expected margin +0.164 x (total -43.57), its runs +0.34 +0.103 x margin -0.171 x (total -43.57),
-dropbacks the same as pass plays; favourites run more and pass less, high totals add pass plays), then shared out
+dropbacks the same as pass plays; favorites run more and pass less, high totals add pass plays), then shared out
 among the players who are playing in proportion to their usage share, where usage is his plays over his team's in
 the games he played, both decayed 0.85 per game back from his most recent game (a player traded in keeps the usage
 he had elsewhere; the current role counts most). A listed-out player's targets go to his teammates rather than
@@ -885,7 +885,7 @@ vanishing, and the team's targets add up to 97% of its pass plays (the rest are 
 yards per touch shrunk toward the league's with a fixed weight of touches (receivers 100 targets, rushers 25
 carries, QBs 50 dropbacks), then moved part of the way toward what that defense allows per touch relative to the
 league (receivers and rushers a quarter, QBs half). Line: volume x rate x a median factor (receivers 0.88, rushers
-0.84, QBs 0.90), fitted on 2016 to 2018 as the multiplier that minimises absolute error: yards in a game are
+0.84, QBs 0.90), fitted on 2016 to 2018 as the multiplier that minimizes absolute error: yards in a game are
 right-skewed (a few long plays, many quiet games), so the line that is off by least sits below the mean, which is
 where a book sets an over/under. The mean sits in the cell's tooltip; touchdowns = volume x his touchdown rate. The
 look-by-look splits are shown beside the projection as readings and do not enter it.
@@ -1005,7 +1005,7 @@ receiving line and 61 on a passing line.
 **Round five** (`experiments/props_backtest5.py`, `reports/props_backtest5.csv`): the other columns on the table,
 receptions, touchdowns and interceptions, which the first four rounds left at the player's raw rate. Volume is the
 adopted rule's; the rate per touch is his over his last 17 games, raw, the league's, or shrunk toward the league's
-with K touches of weight, and for touchdowns also moved by the expected margin (favourites score more), fitted on
+with K touches of weight, and for touchdowns also moved by the expected margin (favorites score more), fitted on
 2016 to 2018. Receptions are scored by absolute error; touchdowns and interceptions by the Poisson log loss as
 well, since a count that is usually 0 makes the absolute-error-best line degenerate (predicting none is "best")
 and an anytime-scorer price needs the whole distribution. Lower is better throughout.
@@ -1040,7 +1040,7 @@ and an anytime-scorer price needs the whole distribution. Lower is better throug
 The raw rates the page carried were the worst row for every count: a player's touchdown or interception rate over
 17 games is nearly all noise, so it is shrunk hard (200 to 400 touches), and for interceptions the league rate
 alone is best on both windows, so his own rate is not used at all. The expected margin adds a little to receiving
-and passing scores on both windows (2% per point: a 7-point favourite's passer projects 14% more touchdowns) and
+and passing scores on both windows (2% per point: a 7-point favorite's passer projects 14% more touchdowns) and
 nothing consistent to rushing scores (better held out, worse on the tuning window), so it applies to the first two
 only. The shrinkage weight was chosen on 2016 to 2018 by the Poisson fit (K 200 receiving, 200 rushing, 400
 passing; on the two scoring windows K 200 is a hair better than 400 for passing, 1.4954 / 1.4657 against 1.4961 /
@@ -1172,6 +1172,17 @@ half 18.121 / 17.285** (adopted); season half and team a quarter 18.137 / 17.305
 expected (receiving 20.166 / 18.709 to 20.120 / 18.598; rushing 18.098 / 17.736 to 17.930 / 17.521). The page's
 receiving and rushing errors are the fade rows; the by-season run carries the fade too.
 
+**Cards, 23 Sep 2026 evening (Matt).** The game rail shows the game on screen as a dark filled row and the flagged games
+in green, so the two no longer look alike. The Player props table lists only the markets the rule projects, with
+"no line" where no book has posted one; the opening line moved into the Book cell's hover, the "Other book lines"
+section (lines on players without a projection) is gone, and clicking any market row opens the player's
+calculation with that step lit; the Model tab holds the why. The win-band chip and the "moved" chip under the
+line graphs are gone (the calibration table is on the Backtest tab; the graph shows the move). PrizePicks'
+adjusted-odds lines (a 0.5-yard "line" at a cut payout) are dropped by the parser and filtered out of the log
+when it is read. Underdog's pick'em search endpoint answers from the runner (100 lines a page, real higher/lower
+prices), so the parser reads that shape and pages through it; whether it returns every game is checked on the
+next pull. American spelling throughout.
+
 **Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
 a 980-pixel desktop page. Below 700 pixels the same page reflows: tighter header and tabs, tiles two across, the
 game rail a scrolling strip pinned to the top, wide tables scrolling inside their own box (grid children may not
@@ -1202,7 +1213,7 @@ projection's chance of at least one score, 1 - exp(-(receiving + rushing expecte
 played, every projection with a line is graded: the side, the result, and the projection's error beside the
 book's own on the same player-games, so the two can be compared directly; the record by stat and by size of the
 edge is shown under Results, Player projections. Names are matched between the book and the roster on a
-normalised form (lower case, letters only, suffixes dropped). A record needs hundreds of graded lines before it
+normalized form (lower case, letters only, suffixes dropped). A record needs hundreds of graded lines before it
 says anything, and the honest prior is that the closing line is better than a 19-yard projection.
 
 **Historical lines, the pull that is ready.** The Odds API keeps player-prop snapshots from 3 May 2023 at five-minute
