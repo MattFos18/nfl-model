@@ -1145,6 +1145,12 @@ team's rate was taken over his own because it scored the same or better on both 
 the offense that feeds him. The card's Player props panel gains a Kicking section with the roster's kicker, his two
 lines beside the book's, the walk-through, and the grading from the same kick plays.
 
+**Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
+a 980-pixel desktop page. Below 700 pixels the same page reflows: tighter header and tabs, tiles two across, the
+game rail a scrolling strip pinned to the top, wide tables scrolling inside their own box (grid children may not
+stretch past the screen), the props table without its Open column and with names wrapped. Nothing changes above
+that width.
+
 **Against the market** (`nflmodel/props_lines.py`, `data/lines/props_log.csv`, `data/tracker/props_vs_market.csv`).
 No historical player prop lines exist in the repo or in any free source: The Odds API keeps them from May 2023 on
 paid plans only, so the market comparison is live from Week 3 of 2026. The line watch pulls the player props from

@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NFL Model</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -181,6 +182,24 @@ table tr.grp td{font-weight:600;background:var(--panel-2)}
 details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 .md table{margin:8px 0} .md h1,.md h2,.md h3{font-family:var(--display)} .md p{max-width:90ch;color:var(--ink-2)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+/* phones: the same page, reflowed. Grid children may not stretch past the screen; wide tables scroll inside their box */
+.wrap,.grid2>*,.grid2e>*,.tiles>*,.cards>*,.whybox{min-width:0}
+details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
+@media(max-width:700px){
+  body{padding-inline:12px;font-size:13.5px}
+  h1{font-size:22px} h2{font-size:17px}
+  header{gap:6px 16px;padding-block:12px 6px}
+  nav.tabs button{font-size:14.5px;padding:8px 9px}
+  nav.sub button,.chip{padding:5px 10px}
+  .tile{flex:1 1 140px;min-width:0;padding:8px 10px} .tile b{font-size:19px}
+  .gcard{padding:10px 12px} .gcard .top b{font-size:17px}
+  .spark{max-width:100%}
+  th,td{padding:4px 6px} table{font-size:12px}
+  .ptab2 th,.ptab2 td{padding:4px 5px} .ptab2 td.l{white-space:normal} .ptab2 td.l[rowspan]{max-width:110px}
+  details.psec > .ptab2 > thead > tr > th:nth-child(5), details.psec > .ptab2 > tbody > tr:not(.calc) > td:nth-child(5){display:none}
+  .note{font-size:12.5px}
+  select{min-width:0}
+}
 </style>
 
 <div class="wrap">
