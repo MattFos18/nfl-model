@@ -11,6 +11,7 @@ The flag is bet; the shadows are logged and graded on the same games but never b
 | 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 |
 | shadow: 4.5+ edge | 1 | 0 | nothing settled |  | +0.00 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 2 | 0 | nothing settled |  | +0.00 |
+| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 |
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 
