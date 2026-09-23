@@ -106,6 +106,10 @@ BASE = {
     "off_snap_out": ("Injuries", "Share of last game's offensive snaps that belonged to players now out (sum of their snap %)", "injuries + rosters + snap counts", False, True),
     "def_snap_out": ("Injuries", "Share of last game's defensive snaps that belonged to players now out (sum of their snap %)", "injuries + rosters + snap counts", False, True),
     "opp_def_snap_out": ("Injuries", "The opponent's defensive snaps out (the same measure, other side)", "injuries + rosters + snap counts", True, True),
+    "off_continuity": ("Situation", "Share of last season's offensive snaps taken by players on this week's active roster", "rosters + snap counts", False, True),
+    "def_continuity": ("Situation", "Share of last season's defensive snaps taken by players on this week's active roster", "rosters + snap counts", False, True),
+    "off_turnover_early": ("Situation", "Offseason turnover on offense (1 minus the continuity share), weeks 1 to 8", "rosters + snap counts", True, True),
+    "opp_def_turnover_early": ("Situation", "The opponent's offseason turnover on defense, weeks 1 to 8", "rosters + snap counts", True, True),
     "skill_out_value": ("Injuries", "Value lost to RB/WR/TE listed Out/Doubtful: EPA per touch above replacement x touch share, summed (player model)", "injuries + play-by-play", True, True),
     "opp_skill_out_value": ("Injuries", "The opponent's value lost to its RB/WR/TE listed out", "injuries + play-by-play", True, True),
     # model
@@ -302,7 +306,7 @@ def main():
     tun = pd.read_csv(REPD / "tuning_ratings.csv") if (REPD / "tuning_ratings.csv").exists() else pd.DataFrame()
     analysis = {"correlations": csv_rows("lab_stat_correlations.csv"), "reliability": csv_rows("lab_stat_reliability.csv"),
                 "ablation": csv_rows("ablation.csv"), "additions": csv_rows("additions.csv"), "additions_both": csv_rows("additions_both.csv"), "combo": csv_rows("combo.csv"),
-                "equation_checks": csv_rows("equation_checks.csv"), "starter_share": csv_rows("starter_share.csv"), "player_injury": csv_rows("player_injury.csv"), "line_defense": csv_rows("line_defense.csv"), "snap_pair": csv_rows("snap_pair.csv"), "positions": csv_rows("positions.csv"), "special_teams": csv_rows("special_teams.csv"), "persistence": csv_rows("trend_persistence.csv"),
+                "equation_checks": csv_rows("equation_checks.csv"), "starter_share": csv_rows("starter_share.csv"), "player_injury": csv_rows("player_injury.csv"), "line_defense": csv_rows("line_defense.csv"), "snap_pair": csv_rows("snap_pair.csv"), "positions": csv_rows("positions.csv"), "special_teams": csv_rows("special_teams.csv"), "third_window": csv_rows("third_window.csv"), "recency": csv_rows("recency.csv"), "persistence": csv_rows("trend_persistence.csv"),
                 "tuning_best": tun.sort_values("team_mae").head(10).round(4).to_dict("records") if len(tun) else [],
                 "tuning_by": {k: tun.groupby(k).team_mae.mean().round(4).to_dict() for k in ["decay", "prior", "alpha", "ridge"]} if len(tun) else {},
                 "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
