@@ -1,4 +1,4 @@
-# Tie-out (sources), 2026-09-23 01:53 UTC
+# Tie-out (sources and page), 2026-09-23 01:53 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -20,5 +20,15 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'PIT +3.5'] | ['MIA +11.5', 'PIT +3.5'] | yes |
 | picks file stakes = tracker stakes | [0.38, 0.75] | [0.38, 0.75] | yes |
 | picks markdown names the live cut | True | True | yes |
+| page backtest file: games | 1903 | 1903 | yes |
+| page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
+| page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
+| page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
+| page flag threshold = picks threshold | 4.0 | 4.0 | yes |
+| page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
+| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'PIT +3.5' | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'PIT +3.5' | yes |
+| page week = picks file (model spread) | 0.0 | 0.0 | yes |
+| page live table = tracker (pending model rows) | ['MIA +11.5', 'PIT +3.5'] | ['MIA +11.5', 'PIT +3.5'] | yes |
+| page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (16 of 16 tie)
+Result: PASS (26 of 26 tie)
