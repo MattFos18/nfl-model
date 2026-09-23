@@ -227,6 +227,7 @@ def load_injuries(seasons) -> pd.DataFrame:
                                         "first_name": m.full_name.str.split(" ").str[0], "last_name": m.full_name.str.split(" ").str[-1], "report_primary_injury": m.detail, "report_secondary_injury": None,
                                         "report_status": m.status.map(ESPN_STATUS), "practice_primary_injury": None, "practice_secondary_injury": None, "practice_status": None, "date_modified": m.fetched_at})
                     inj = pd.concat([inj, add.reindex(columns=inj.columns)], ignore_index=True)
+                    print(f"espn injuries filled week {week}: {len(add)} players on {add.team.nunique()} teams (league reports in for {len(have)} teams)", flush=True)
         except Exception as e:  # noqa
             print(f"espn injuries not merged: {str(e)[:120]}", flush=True)
     return inj
