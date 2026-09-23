@@ -14,6 +14,7 @@ Updated 23 Sep 2026. The model has twenty-two inputs (section 4); everything bel
 | Opponent strength | Built in. Ratings are solved jointly, so an offense that scored on bad defenses is marked down | `ratings.py` |
 | Starting QB | Built in. The schedule names each starter; his own EPA per dropback (decayed, shrunk) is the single biggest input. When last game's starter is out and the replacement has no rating yet, a QB-out flag (about -1.7 points) applies | `ratings.py`, `model.py` |
 | Offseason turnover | Built in since 23 Sep 2026 for weeks 1 to 8: the share of last season's snaps that left the roster, for the team's offense and the defense it faces | `trends.py` |
+| Out of the race | Built in since 23 Sep 2026 for Week 12 on: a flag when the team's (or the opponent's) win rate through the previous week is 40% or under; the model had been overrating such teams late | `model.py` (`record_before`) |
 | Injuries beyond the QB | Built in since 22 Sep 2026: the value lost to RB, WR and TE listed Out or Doubtful or on IR (own and opponent), and the share of last game's snaps now out on offense and on the defense faced. Every other position is valued on the Players tab but none of those values beat the snap shares as inputs | `players.py`, `positions.py`, `trends.py` |
 | Home field | Built in as one fitted league number, about 1.9 points. Team-specific home edges were tested and made the miss worse; they are shown, not used | `model.py` |
 | Dome, wind, cold, rain, warm team in the cold | Built in. Wind about -0.13 points per mph outdoors; cold under 35F; rain; a warm-climate or dome team outdoors under 35F. Forecasts are used only within 4 days of kickoff | `model.py`, `weather.py` |
@@ -94,6 +95,8 @@ printed on the page, Model → How it was built, and refit before every week):
 | Opponent's defensive snaps out | positive | The same sum for the opponent's defense |
 | Offseason turnover, offense (weeks 1 to 8) | -4.7 per unit (a team that lost 20% of last year's snaps: -0.9 points) | 1 minus the share of last season's offensive snaps still on this week's roster. Added 23 Sep 2026 |
 | Opponent's offseason turnover, defense (weeks 1 to 8) | +4.8 per unit | The same share for the defense faced |
+| Out of the race (week 12 on) | about -1 point | 1 when the team's win rate through the previous week is 40% or under, from Week 12 |
+| Opponent out of the race (week 12 on) | about +1 point | The same flag for the opponent |
 
 Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
 ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
@@ -114,7 +117,7 @@ Same accuracy to within the noise (the bootstrap interval on these misses is abo
 had readings that could not be defended one at a time: the two rest flags only ever appeared together (430 of 440
 short-rest games were Thursday games with both teams short), so their separate sizes were arbitrary; primetime came
 out negative after the ratings although primetime teams score more raw, because good teams get those slots; pass
-EPA came out negative because EPA per play already carries it. Twenty inputs a reader can check beats twenty-six that
+EPA came out negative because EPA per play already carries it. Twenty-two inputs a reader can check beats twenty-six that
 score the same.
 
 **Every idea, tested against this model** (`reports/additions.csv`, each added alone, walk-forward 2019 to 2022, change in
@@ -488,7 +491,7 @@ and 0 afterwards: `off_turnover_early` for the team's own offense and `opp_def_t
 faces. Both windows: spread miss 10.019 / 9.993 against 10.052 / 10.040, points 7.365 / 7.300 against 7.403 /
 7.304; the untouched 2015 to 2018 window agrees (10.013 against 10.031). Cutoffs of 4, 6, 8, 12 weeks and all
 season were tried; 8 was best held out. Fitted: about -4.7 points per unit of turnover on offense (a team that
-lost 20% of last year's snaps: -0.9 points early) and +4.8 for the opponent's defensive turnover. Twenty inputs.
+lost 20% of last year's snaps: -0.9 points early) and +4.8 for the opponent's defensive turnover. Twenty inputs then; twenty-two since the out-of-the-race flags.
 
 **Turnover luck** (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`). EPA per play carries every
 interception and lost fumble at full weight, and turnovers are the noisiest part of football (2.1% of plays). Two
