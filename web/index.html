@@ -286,6 +286,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <nav class="sub" id="resultssub">
     <button data-sub="backtest">Backtest, 2015 to now</button>
     <button data-sub="live">Live picks and bets</button>
+    <button data-sub="props">Player projections, 2017 to now</button>
   </nav>
   <div id="backtest">
   <p class="note">Every regular-season game the model priced since 2015, walk-forward (2013 and 2014 are training only; 2015 to 2018 were never used to choose an input, a knob or the cut, so they are the one fully untouched stretch): each week priced with only earlier games, the regression refit before every week. The model's lean is the side its line favours against the closing line; "Covered" grades that lean on every game, and the flag marks the edges at or past the live cut (Model → Definitions).</p>
@@ -298,6 +299,16 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at the live cut, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
   <div class="tablewrap"><table id="bktable"></table></div>
+  </div>
+  <div id="props" hidden>
+  <p class="note">The player projections shown under Scheme matchup on every card, run walk-forward over every charted season (2017 to now: each player-game projected from the games before it, nothing from the game itself) with the rule the page uses today, and set against the raw rule it started with (flat 17-game rates, no game script, no shrinkage, no median factor). Then the five rounds of tests that chose the rule: every variant tried, on the tuning window (2019 to 2022) and the held-out window (2023 to 2025); constants were fitted on 2016 to 2018 only. Lower is better throughout. Over rate is the share of player-games where the actual beat the line: a line set at the median should sit near half. Anytime is the predicted chance of at least one score against how often one came. Docs section 18.</p>
+  <div class="row"><label class="ctl">Stat <select id="pbstat"></select></label></div>
+  <div class="grid2" style="margin-bottom:14px">
+    <div class="card" style="grid-column:1 / -1"><h3>By season, the rule on the page today</h3><div class="tablewrap" style="max-height:60vh"><table id="pbseason"></table></div></div>
+    <div class="card"><h3>By position</h3><div class="tablewrap" style="max-height:40vh"><table id="pbpos"></table></div></div>
+    <div class="card"><h3>By size of the line</h3><div class="tablewrap" style="max-height:40vh"><table id="pbbucket"></table></div></div>
+  </div>
+  <div id="pbrounds"></div>
   </div>
   <div id="live" hidden>
   <p class="note">Model picks (flagged at the thresholds, at the best number) and your bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Rules compared, below, grades three shadow rules on the same games without betting them, next to each rule's backtest record. Your bets go in data/tracker/my_bets.csv: game_id, bet (KC -3, Over 47.5, MIA ML), odds, stake, and a note with your read on the game, so your judgment gets graded next to the model's.</p>
@@ -399,6 +410,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 <script src="data/track.js"></script>
 <script src="data/rankings.js"></script>
 <script src="data/backtest.js"></script>
+<script src="data/props_backtest.js"></script>
 <script src="data/games.js"></script>
 <script src="data/players.js"></script>
 <script src="data/scheme.js"></script>
@@ -1511,6 +1523,26 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (!rows_.length) return "<p class='note'>No bets recorded yet.</p>";
     return `<div class="kv"><b>Record</b><span>${w + l ? `${w}-${l}${p ? "-" + p : ""} (${((w / (w + l)) * 100).toFixed(1)}%)` : "nothing settled yet"}</span><b>Units</b><span>${w + l ? sgn(units, 2) : ""}</span><b>Pending</b><span>${rows_.filter(r => r.result === "pending").length}</span><b>Avg CLV</b><span>${avgclv == null ? "known once games close" : sgn(avgclv, 2)}</span></div>`;
   }
+  const PB_STATS = [["rec_yards", "Receiving yards"], ["rush_yards", "Rushing yards"], ["pass_yards", "Passing yards"], ["rec_catches", "Receptions"], ["rec_td", "Receiving touchdowns"], ["rush_td", "Rushing touchdowns"], ["pass_td", "Passing touchdowns"], ["pass_int", "Interceptions"]];
+  const PB_ALIAS = {rec_catches: ["rec_catch"], rec_yards: ["targets", "rec_volume"], rush_yards: ["rush_volume"]};   // round tables filed under other names for the same stat
+  let pbStat = "rec_yards";
+  function renderPropsBacktest() {
+    const B = window.PROPS_BT; if (!B) { $("pbrounds").innerHTML = "<p class='note'>No player-projection backtest exported.</p>"; return; }
+    const sel = $("pbstat"); if (!sel.options.length) { PB_STATS.forEach(([k, lab]) => { const o = document.createElement("option"); o.value = k; o.textContent = lab; sel.appendChild(o); }); sel.value = pbStat; sel.onchange = () => { pbStat = sel.value; renderPropsBacktest(); }; }
+    const count = /td|int/.test(pbStat); const f2 = v => v == null ? "" : (count ? (+v).toFixed(3) : (+v).toFixed(2)); const pc = v => v == null ? "" : Math.round(100 * v) + "%";
+    const bs = B.by_season.filter(r => r.stat === pbStat); const win = r => isNaN(+r.season);
+    $("pbseason").innerHTML = `<thead><tr><th class="l">Season</th><th>Player-games</th><th title="mean absolute error per player-game, the rule on the page">Off by</th><th title="the same for the raw rule the page started with">Raw rule</th><th title="line minus actual, on average">Bias</th>${count ? `<th title="Poisson log loss, the rule / the raw rule (lower is better)">Poisson fit</th><th title="predicted chance of at least one, and how often one came">Anytime pred / actual</th>` : `<th title="share of player-games where the actual beat the line">Over rate</th><th>Mean line</th><th>Mean actual</th>`}</tr></thead><tbody>` +
+      bs.map(r => `<tr class="${win(r) ? "hl" : ""}"><td class="l">${win(r) ? "<b>" + (r.season === "all" ? "2017 to now" : r.season) + "</b>" : r.season}</td><td class="mono">${r.n}</td><td class="mono">${f2(r.mae)}</td><td class="mono">${f2(r.raw_mae)}</td><td class="mono">${r.bias >= 0 ? "+" : ""}${f2(r.bias)}</td>${count ? `<td class="mono">${(+r.ll).toFixed(4)} / ${(+r.raw_ll).toFixed(4)}</td><td class="mono">${pc(r.anytime_pred)} / ${pc(r.anytime_actual)}</td>` : `<td class="mono ${Math.abs(r.over_rate - 0.5) > 0.05 ? "neg" : ""}">${pc(r.over_rate)}</td><td class="mono">${r.mean_line}</td><td class="mono">${r.mean_actual}</td>`}</tr>`).join("") + "</tbody>";
+    const bp = B.by_position.filter(r => r.stat === pbStat);
+    $("pbpos").innerHTML = bp.length ? `<thead><tr><th class="l">Window</th><th class="l">Position</th><th>Player-games</th><th>Off by</th><th>Bias</th>${count ? "<th>Poisson fit</th>" : "<th>Over rate</th>"}</tr></thead><tbody>` + bp.map(r => `<tr><td class="l">${r.window === "all" ? "2017 to now" : r.window}</td><td class="l">${r.position}</td><td class="mono">${r.n}</td><td class="mono">${f2(r.mae)}</td><td class="mono">${r.bias >= 0 ? "+" : ""}${f2(r.bias)}</td><td class="mono">${count ? (+r.ll).toFixed(4) : pc(r.over_rate)}</td></tr>`).join("") + "</tbody>" : "<tbody><tr><td class='l'>Quarterbacks only, or a count: no position split.</td></tr></tbody>";
+    const bb = B.by_bucket.filter(r => r.stat === pbStat);
+    $("pbbucket").innerHTML = bb.length ? `<thead><tr><th class="l">Window</th><th class="l">Line</th><th>Player-games</th><th>Off by</th><th>Bias</th><th>Over rate</th><th>Mean actual</th></tr></thead><tbody>` + bb.map(r => `<tr><td class="l">${r.window === "all" ? "2017 to now" : r.window}</td><td class="l">${r.line_from}${r.line_to == null ? "+" : " to " + r.line_to}</td><td class="mono">${r.n}</td><td class="mono">${f2(r.mae)}</td><td class="mono">${r.bias >= 0 ? "+" : ""}${f2(r.bias)}</td><td class="mono ${Math.abs(r.over_rate - 0.5) > 0.05 ? "neg" : ""}">${pc(r.over_rate)}</td><td class="mono">${r.mean_actual}</td></tr>`).join("") + "</tbody>" : "<tbody><tr><td class='l'>Counts are not bucketed.</td></tr></tbody>";
+    const keys = [pbStat].concat(PB_ALIAS[pbStat] || []);
+    $("pbrounds").innerHTML = B.rounds.map(R => { const tables = keys.filter(k => R.stats[k]).map(k => { const rows = R.stats[k]; const hasLL = rows.some(r => r.ll_2019_22 != null || r["ll_2019-22"] != null); const ll = (r, w) => r["ll_" + w] != null ? (+r["ll_" + w]).toFixed(4) : ""; const mae = (r, w) => r["mae_" + w] != null ? (+r["mae_" + w]).toFixed(k.includes("volume") || k === "targets" ? 2 : (/td|int|catch/.test(k) ? 3 : 2)) : "";
+        return `<p class="cap">${k === pbStat ? "" : ({targets: "Targets alone", rec_volume: "Targets alone", rush_volume: "Carries alone", rec_catch: ""})[k] || k}</p><div class="tablewrap" style="max-height:50vh"><table class="ctab"><thead><tr><th>What was tried</th><th class="n">2019 to 2022</th><th class="n">2023 to 2025</th>${hasLL ? '<th class="n">Poisson fit 2019-22</th><th class="n">2023-25</th>' : ""}</tr></thead><tbody>` +
+          rows.map(r => `<tr class="${r.adopted ? "pos" : ""}"><td>${esc(r.label)}${r.adopted ? ' <span class="badge">taken</span>' : ""}</td><td class="n mono">${mae(r, "2019-22")}</td><td class="n mono">${mae(r, "2023-25")}</td>${hasLL ? `<td class="n mono">${ll(r, "2019-22")}</td><td class="n mono">${ll(r, "2023-25")}</td>` : ""}</tr>`).join("") + "</tbody></table></div>"; });
+      return `<div class="card" style="margin-bottom:14px"><h3>${esc(R.title)}</h3><p class="note">${esc(R.note)} Source: ${esc(R.source)}.</p>${tables.length ? tables.join("") : "<p class='note' style='margin:0'>Not tested in this round for this stat.</p>"}</div>`; }).join("");
+  }
   function renderTrack() {
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
@@ -1536,7 +1568,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   function render() {
     if (tab === "week") return renderWeek();
     if (tab === "rank") return renderRankings();
-    if (tab === "results") { if (sub.results === "live") renderTrack(); else renderBacktest(); return; }
+    if (tab === "results") { if (sub.results === "live") renderTrack(); else if (sub.results === "props") renderPropsBacktest(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "decisions") renderDecisions(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "inputs") renderInputs(); if (s === "players") renderPlayers(); if (s === "roster") renderRoster(); }

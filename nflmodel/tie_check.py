@@ -94,6 +94,12 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
             fitted = _ast.literal_eval(r4[r4.stat == "pass_yards"].fitted.iloc[0])
             tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
+        if (WEB / "props_backtest.js").exists():
+            pb = _js("props_backtest.js")
+            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv"]], [r["n_rows"] for r in pb["rounds"]])
+            tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
+            bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
+            tie("props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows)", {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
         tie("props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(3 * len([r for r in side["receivers"] if not r["out"]]) + 2 * len([r for r in side["rushers"] if not r["out"]]) + 3 * len([r for r in side["qb"][:1] if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
         b5 = REP / "props_backtest5.csv"
         if b5.exists():
