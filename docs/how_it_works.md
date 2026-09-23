@@ -245,18 +245,16 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
-**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12: the flag is 4.** Re-swept
+**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12 and the player model at 480 touches / 10th percentile: the flag is 4.** Re-swept
 after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17; until the tie-out of 23 Sep the sweep's held-out column also counted the live season's games, so its earlier held-out records ran two bets larger):
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 89-65, 57.8% | 44-26, 62.9% | 57.6% | 61.5% | 60.0% | 51.4% (19-18) | 72.7% | 59.4% | 63.0% |
-| 4.5 | 67-46, 59.3% | 31-19, 62.0% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
-| 5 | 44-31, 58.7% | 21-13, 61.8% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
+| 4 | 89-65, 57.8% | 42-22, 65.6% | 56.2% | 68.3% | 56.5% | 48.6% (17-18) | 69.2% | 69.0% | 59.1% |
+| 4.5 | 72-43, 62.6% | 33-17, 66.0% | 64.0% | 67.7% | 64.7% | 52.0% (13-12) | 66.7% | 69.6% | 61.1% |
+| 5 | 50-35, 58.8% | 19-12, 61.3% | 65.0% | 60.0% | 58.3% | 52.4% (11-10) | 75.0% | 64.3% | 53.8% |
 
-The 4-point cut is still the best overall (133-91, 59.4%, across 2019 to 2025; 133-93 with the two 2026 games so far) and on both windows, at twice the volume of 5 with
-the same rate. It no longer clears the 52.4% break-even in every season: 2022 is 19-18 on the rebuilt model (it was
-54.1% before the QB replacement level moved), and no cut does (5 has 2025 at 8-8). The earlier "wins every season"
+The 4-point cut is still the best overall for its volume (131-87, 60.1%, across 2019 to 2025; 131-89 with the two 2026 games so far) and on both windows, at nearly twice the volume of 5. It does not clear the 52.4% break-even in every season: 2022 is 17-18 on the rebuilt model (54.1% before the day's two knob changes), and no cut does (4.5 has 2022 at 13-12, 5 has 2022 at 11-10, a hair under). 4.5 now shows the best rate (62.6% / 66.0%) on 165 bets; it is not adopted on that alone, since the cut was chosen before today's changes and the rate difference is within noise on this sample. The earlier "wins every season"
 line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
@@ -498,8 +496,8 @@ not show, so it is parked and gets re-checked once 2026 is in the books.
 
 **Stake** (23 Sep 2026, `picks.kelly_stake`). Each flagged spread now carries a stake: a quarter of the Kelly
 fraction, (p x b - (1 - p)) / b with p the calibrated cover odds for the model's side and b the payout at the best
-book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%;
-a 7-point edge at 55% about 1%. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
+book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%,
+at 54% about 0.8%; the calibrated odds are refit every run, so the same edge can carry a different stake week to week. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
 Kelly at an overstated edge loses money. The picks markdown has a Stake column and the card shows it as a chip.
 
 **QB replacement level** (23 Sep 2026, `experiments/qb_replacement.py`, `qb_third.py`; `reports/qb_replacement.csv`,
@@ -522,12 +520,23 @@ bar, and 40 to 80 are indistinguishable. 150 stays.
 under 35F, a hand-set number. 30F, 40F and 45F, and a continuous "degrees under 45F" term, are all worse on both
 windows (+0.004 to +0.012 on team points). 35F stays.
 
+**Player-model knobs** (23 Sep 2026, `experiments/player_knobs.py`, `player_third.py`; `reports/player_knobs.csv`,
+`player_third.csv`). The skill-player values behind the two injury inputs were decayed 0.985 per game, shrunk with
+80 touches of weight toward the 25th percentile, all set by hand. Three rounds on both windows, the skill-out
+inputs rebuilt each time: every step of more shrinkage helped (160, 240, 320, 480, 640 touches: -0.001 to -0.0035
+tuning, -0.002 to -0.005 held out on team points) and so did a lower replacement level (10th percentile: -0.0007 /
+-0.004; 5th too far on the tuning window). The combination of 480 touches at the 10th percentile is the best that
+helps both windows (-0.0025 / -0.0083; spread miss 10.023 / 9.970 against 10.032 / 9.977) and the untouched 2015 to
+2018 window agrees on both measures (7.4145 / 10.007 against 7.4167 / 10.010). Adopted. What it means: a player's
+own EPA per touch is mostly noise, so his value is now largely his usage times a small, well-estimated gap; a
+star still counts, a hot month does not. Decay 0.97 and 0.995 were worse or flat; 0.985 stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
 (passer, rusher, receiver) from the play-by-play since 2013, with plays and EPA; about 95,000 rows, 2,400 players.
-`PlayerValues` gives any player a decayed (0.985 per game), shrunk (k = 80 touches) EPA per play as of a week,
-toward a replacement level set at the 25th percentile of players with 100+ plays in earlier seasons.
+`PlayerValues` gives any player a decayed (0.985 per game), shrunk (k = 480 touches; 80 until 23 Sep 2026) EPA per play as of a week,
+toward a replacement level set at the 10th percentile (25th until 23 Sep 2026) of players with 100+ plays in earlier seasons.
 
 Phase 2 (`injury_value`, `data/processed/player_injury.parquet`): for each game and team, the value lost to RB, WR
 and TE listed Out or Doubtful on the final report: value above replacement times the player's usage share, summed.
@@ -541,7 +550,7 @@ week counts the player as out, in the player model and in the starter and QB fla
 not used: they are known only ninety minutes before kickoff, so using them in the backtest would be cheating.
 
 **How a player's impact is rated.** Each rusher or receiver has an EPA per touch: the average EPA of the plays he
-carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 80 touches of weight
+carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 480 touches of weight (80 until 23 Sep 2026)
 (a rookie with 20 touches is mostly the prior; a veteran with 300 is mostly himself). Replacement level is the 25th
 percentile of players with 100+ touches in earlier seasons, about 0.05 EPA per touch for receivers and -0.1 for
 rushers. The player's value is (EPA per touch minus replacement) times his share of the team's touches, in EPA per
@@ -617,3 +626,21 @@ the decision log, definitions and sources).
 
 Neither the division flag nor the value out helps the totals equation (`reports/totals_div.csv`), so that stays as it was. The weekly run builds all of this (`players` step after `trends`); the card shows the value out under "Injuries
 beyond the QB" in the breakdown.
+
+
+## 16. Weekly health check (23 Sep 2026)
+
+`nflmodel/health.py` asks, from the logs the pipeline leaves behind, whether everything that should have run did
+run and passed: the weekly run is under 72 hours old with every step ok (including verify, both tie-out steps,
+the export and the pick recording); at least three runs in the last seven days; the verification suite and the
+tie-out both say PASS; the line watch logged a snapshot in the last 24 hours and is returning rows; the kickoff
+forecasts are under 96 hours old; the coming week has a picks file and the tracker holds the same flags; the page
+quotes the code's flag threshold, inputs and QB replacement level and was built in the last 96 hours. It writes
+`reports/health.md` (HEALTHY or BROKEN, one row per check, WARN for things worth a look) and exits non-zero on any
+FAIL.
+
+`.github/workflows/health.yml` runs it every Monday at 9am ET (and on demand), commits the report to main, and
+when it fails opens a GitHub issue labelled `health` with the report (or comments on the open one); when it passes
+again it closes that issue. The report is the first thing on Model → Data pulls and verification. A Monday Claude
+routine reads the same report and the workflow's conclusion and sends a one-line push and email: healthy, or what
+broke.

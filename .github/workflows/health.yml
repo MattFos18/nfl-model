@@ -1,0 +1,59 @@
+name: health check
+on:
+  schedule:
+    - cron: "0 13 * * 1"    # Monday 09:00 ET, after the Sunday run and the weekend's line watch
+  workflow_dispatch:
+permissions:
+  contents: write
+  issues: write
+concurrency:
+  group: nfl-model-data
+  cancel-in-progress: false
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install pandas pyarrow
+      - name: health check
+        id: health
+        run: |
+          set +e
+          python -m nflmodel.health
+          echo "result=$?" >> "$GITHUB_OUTPUT"
+      - name: open, update or close the health issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RESULT: ${{ steps.health.outputs.result }}
+        run: |
+          n=$(gh issue list --label health --state open --json number --jq '.[0].number')
+          if [ "$RESULT" != "0" ]; then
+            body="$(cat reports/health.md)"
+            if [ -n "$n" ]; then gh issue comment "$n" --body "$body"; else
+              gh label create health --color d73a4a --description "weekly health check" 2>/dev/null || true
+              gh issue create --title "Health check failing: $(date -u +%Y-%m-%d)" --label health --body "$body"
+              n=$(gh issue list --label health --state open --json number --jq '.[0].number'); fi
+            echo "" >> reports/health.md; echo "Issue: https://github.com/${{ github.repository }}/issues/$n" >> reports/health.md
+          else
+            if [ -n "$n" ]; then gh issue close "$n" --comment "Healthy again on $(date -u +%Y-%m-%d): $(grep -m1 '^\*\*' reports/health.md)"; fi
+            echo "" >> reports/health.md; echo "Issue: none open" >> reports/health.md
+          fi
+          echo "Workflow run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> reports/health.md
+      - name: commit report
+        run: |
+          git config user.name "nfl-model bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add reports/health.md
+          git diff --cached --quiet || git commit -m "Health check $(date -u +%Y-%m-%d)"
+          git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
+          git push
+      - name: fail the run when broken
+        if: steps.health.outputs.result != '0'
+        run: exit 1
