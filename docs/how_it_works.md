@@ -1369,3 +1369,20 @@ same rule (`python -m nflmodel.props --backfill 2026 1`, marked "after the fact"
 record starts at Week 1. Those two weeks already say something: passing-yard projections ran about 40 yards high
 (bias -40 and -48 on 29 and 32 QB-games), receiving and rushing a few yards high; the record is there to watch
 whether that holds.
+
+## 20. Every data store on the site (23 Sep 2026)
+
+Matt asked where the scheme, play-calling and route data live and to see every store on the site. Model → Every
+data store (`nflmodel/catalog.py`, `web/data/catalog.js`) lists each file the model keeps, read from the files
+themselves on every build so it cannot drift: the raw downloads (what each holds, seasons, files, size, rows and
+columns of the latest file, when last pulled), the built tables (rows, columns, the step that writes each, where
+it shows on the site), the line, weather, tracker and run logs, the reports and the page's own files. Team →
+Scheme and play calling shows a team's offense and defense profile this season against the league with its rank
+among the 32 (pass rate and pass rate over expected, shotgun, motion, play action, RPO, screens, tempo, time to
+throw, EPA and success by play type; coverage mix, blitz and pressure rates, rushers, box counts, DB packages)
+and its EPA by the look it faced or played. Routes: no public source charts routes run. FTN (2022 on) charts
+motion, play action, RPO, screens, blitzers and pass rushers, the box, QB location and pocket, catchable and
+contested balls; nflverse participation (2016 on) gives personnel, the players on the field, coverage (man or
+zone and the family), time to throw and pressure; depth of target and air yards come from the play-by-play. Those
+route-adjacent readings are what the site carries (Players tab splits, Team → Scheme). 2026 participation is not
+published yet, so coverage, personnel and time to throw are blank for this season until it is.
