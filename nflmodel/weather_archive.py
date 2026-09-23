@@ -59,10 +59,10 @@ def main(seasons):
             m = m.iloc[0]
             rows.append({"game_id": r.game_id, "season": r.season, "week": r.week, "site": site, "kickoff_local": local, "temp": m.temp, "wind": m.wind, "gust": m.gust, "precip": m.precip})
         print(site, season, len(x), "games", flush=True); time.sleep(0.3)
-    new = pd.DataFrame(rows)
-    out = pd.concat([done, new], ignore_index=True) if len(done) else new
-    WX.mkdir(parents=True, exist_ok=True); out.drop_duplicates("game_id").to_csv(OUTF, index=False)
-    print("wrote", len(out), "rows", flush=True)
+        # write after every stadium-season so a timed-out run keeps its progress (the workflow commits on any outcome)
+        new = pd.DataFrame(rows); out = pd.concat([done, new], ignore_index=True) if len(done) else new
+        WX.mkdir(parents=True, exist_ok=True); out.drop_duplicates("game_id").to_csv(OUTF, index=False)
+    print("wrote", len(pd.read_csv(OUTF)) if OUTF.exists() else 0, "rows", flush=True)
 
 
 _TZ = {"ARI": "America/Phoenix", "DEN": "America/Denver", "KC": "America/Chicago", "DAL": "America/Chicago", "HOU": "America/Chicago", "CHI": "America/Chicago", "GB": "America/Chicago",
