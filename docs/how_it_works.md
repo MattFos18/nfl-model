@@ -560,6 +560,13 @@ Honest reading: the flag record is real in the sense that noise does not produce
 the model's edge over the market is concentrated in a few games a week and not visible on the average game. The
 live record is the test that matters.
 
+**How much history** (23 Sep 2026, `experiments/history_depth.py`, `reports/history_depth.csv`). The regression
+trains on every played game from 2013. Training from 2015 instead is better on both windows (team points 7.350 /
+7.287 against 7.360 / 7.289, spread 10.005 / 9.962 against 10.023 / 9.970); from 2017 is mixed. So the oldest
+seasons hurt a little rather than help, and pulling 2009 to 2012 (which lack snap counts and the player model
+anyway) is not worth doing. The clean version of the idea, a rolling window of the most recent N seasons, is
+tested separately (`experiments/rolling_window.py`).
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role

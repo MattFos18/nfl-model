@@ -67,7 +67,7 @@ def main(full=False, skip_network=False):
     step("trends", lambda: sh(["nflmodel.trends"]), log)
     step("players", lambda: sh(["nflmodel.players"]), log)
     step("positions", lambda: sh(["nflmodel.positions"]), log)
-    step("model", lambda: sh(["nflmodel.model", "--seasons", f"2019-{season}"]), log)
+    step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)   # 2015 to 2018 priced too (untouched by every choice; shown, never tuned on)
     from . import lines
     cur_season, cur_week = lines.current_week(games)
     pk = step("picks", lambda: P.table(cur_season, cur_week), log)

@@ -280,11 +280,11 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
 
 <section class="tab" id="results" hidden>
   <nav class="sub" id="resultssub">
-    <button data-sub="backtest">Backtest, 2019 to now</button>
+    <button data-sub="backtest">Backtest, 2015 to now</button>
     <button data-sub="live">Live picks and bets</button>
   </nav>
   <div id="backtest">
-  <p class="note">Every regular-season game the model priced since 2019, walk-forward: each week priced with only earlier games, the regression refit before every week. The model's lean is the side its line favours against the closing line; "Covered" grades that lean on every game, and the flag marks the edges at or past the live cut (Model → Definitions).</p>
+  <p class="note">Every regular-season game the model priced since 2015, walk-forward (2013 and 2014 are training only; 2015 to 2018 were never used to choose an input, a knob or the cut, so they are the one fully untouched stretch): each week priced with only earlier games, the regression refit before every week. The model's lean is the side its line favours against the closing line; "Covered" grades that lean on every game, and the flag marks the edges at or past the live cut (Model → Definitions).</p>
   <div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div>
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
@@ -553,7 +553,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.pickWon).length;
-    return `<span class="chip alt" title="every backtest game since 2019 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side">Edges of ${lo}${hi === 99 ? "+" : " to " + hi} covered ${(100 * w / rows.length).toFixed(0)}% (${rows.length} bets)</span>`;
+    return `<span class="chip alt" title="every backtest game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side">Edges of ${lo}${hi === 99 ? "+" : " to " + hi} covered ${(100 * w / rows.length).toFixed(0)}% (${rows.length} bets)</span>`;
   }
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
   function runMove(g, key, lab) {
@@ -851,7 +851,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     if (!all.length) { $("bksummary").innerHTML = "<p class='note'>No graded games exported.</p>"; return; }
     const seasons = [...new Set(all.map(r => r.season))].sort((a, b) => b - a);
     const sel = $("bkseason");
-    if (!sel.options.length) { const o0 = document.createElement("option"); o0.value = "all"; o0.textContent = "2019 to now"; sel.appendChild(o0); seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); }); sel.value = "all"; sel.onchange = () => { bkSeason = sel.value; renderBacktest(); }; }
+    if (!sel.options.length) { const o0 = document.createElement("option"); o0.value = "all"; o0.textContent = "2015 to now"; sel.appendChild(o0); seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); }); sel.value = "all"; sel.onchange = () => { bkSeason = sel.value; renderBacktest(); }; }
     const g = bkSeason !== "all" ? all.filter(r => r.season == bkSeason) : all;
     const FLAG = (window.WEEK && WEEK.spread_edge) || 4;
     const su = rec(g, "suWon"), vsu = rec(g, "vegasSuWon"), ats = rec(g, "pickWon"), ats5 = rec(g.filter(x => x.edge != null && Math.abs(x.edge) >= FLAG), "pickWon"), ou = rec(g, "ouWon"), ou6 = rec(g.filter(x => x.tedge != null && Math.abs(x.tedge) >= 6), "ouWon");
@@ -871,13 +871,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
     // threshold sweep: every cutoff on spreads and totals, on the tuning window, the held-out window and both
-    const wins = [["2019 to 2022 (tuning)", r => r.season <= 2022], ["2023 to 2025 (held out)", r => r.season >= 2023 && r.season <= 2025], ["2019 to 2025", r => r.season <= 2025]];
+    const wins = [["2015 to 2018 (untouched)", r => r.season <= 2018], ["2019 to 2022 (tuning)", r => r.season >= 2019 && r.season <= 2022], ["2023 to 2025 (held out)", r => r.season >= 2023 && r.season <= 2025], ["2019 to 2025", r => r.season >= 2019 && r.season <= 2025]];
     const roiOf = (w, l) => w + l ? (w - 1.1 * l) / (1.1 * (w + l)) : null;
     const sweepTable = (key, wonKey, ths, label) => {
       let h = `<table><thead><tr><th class='l'>${label} edge</th>` + wins.map(w => `<th colspan="3">${w[0]}</th>`).join("") + `</tr><tr><th></th>` + wins.map(() => "<th>Record</th><th>Win %</th><th>ROI</th>").join("") + "</tr></thead><tbody>";
       ths.forEach(th => {
         const cells = wins.map(([, f]) => { const x = all.filter(r => f(r) && r[key] != null && Math.abs(r[key]) >= th && r[wonKey] !== null); const w = x.filter(r => r[wonKey] === true).length, l = x.length - w; return {w, l, roi: roiOf(w, l)}; });
-        const both = cells[0].roi != null && cells[1].roi != null && cells[0].roi > 0 && cells[1].roi > 0;
+        const both = cells[1].roi != null && cells[2].roi != null && cells[1].roi > 0 && cells[2].roi > 0;
         h += `<tr class="${both ? "hit" : ""}"><td class="l"><b>${th}+</b>${both ? " <span class='rk'>positive in both windows</span>" : ""}</td>` + cells.map(c => `<td class="mono">${c.w}-${c.l}</td><td class="mono">${c.w + c.l ? (100 * c.w / (c.w + c.l)).toFixed(1) + "%" : ""}</td><td class="mono ${c.roi > 0 ? "pos" : (c.roi < 0 ? "neg" : "")}">${c.roi == null ? "" : (c.roi >= 0 ? "+" : "") + (100 * c.roi).toFixed(1) + "%"}</td>`).join("") + "</tr>";
       });
       return h + "</tbody></table>";
@@ -892,7 +892,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       });
       return h + "</tbody></table>";
     };
-    $("sweep").innerHTML = `<p class="note"><b>How to read this.</b> Every regular-season game since 2019, Week 18 included, where the model disagreed with the closing line by at least the cutoff, bet on the model's side at −110, one unit each (the live flag skips Week 18, and the docs' threshold table leaves it out, so those records run a few bets smaller). ROI is units won per unit risked. <b>Tuning</b> (2019 to 2022) is the stretch of seasons the model's settings were chosen on, so a rule can look good there just because it was picked to. <b>Held out</b> (2023 to 2025) is the stretch the model never saw while it was being built: the honest test. A cutoff is only worth using if it made money on both; rows that do are marked. The spread flag is set at 4 (the widest cut at the best overall rate; it holds in both windows, as does 5 with fewer bets). No total cutoff holds in both, so totals are not flagged. Samples are small: a 5+ row is about seventeen bets a season. Recomputed from the backtest on every run.</p>
+    $("sweep").innerHTML = `<p class="note"><b>How to read this.</b> Every regular-season game since 2015, Week 18 included, where the model disagreed with the closing line by at least the cutoff, bet on the model's side at −110, one unit each (the live flag skips Week 18, and the docs' threshold table leaves it out, so those records run a few bets smaller). ROI is units won per unit risked. <b>Tuning</b> (2019 to 2022) is the stretch of seasons the model's settings were chosen on, so a rule can look good there just because it was picked to. <b>Held out</b> (2023 to 2025) is the stretch the model never saw while it was being built: the honest test. A cutoff is only worth using if it made money on both; rows that do are marked. The spread flag is set at 4 (the widest cut at the best overall rate; it holds in both windows, as does 5 with fewer bets). No total cutoff holds in both, so totals are not flagged. Samples are small: a 5+ row is about seventeen bets a season. Recomputed from the backtest on every run.</p>
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${sweepTable("edge", "pickWon", [1, 2, 3, 4, 4.5, 5, 5.5, 6, 7, 8], "Spread")}</div><div class="tablewrap" style="max-height:48vh;margin-bottom:14px">${sweepTable("tedge", "ouWon", [1, 2, 3, 4, 5, 6, 7, 8], "Total")}</div>
       <h3 style="margin-top:6px">Year by year</h3><p class="note">The same cutoffs, one season at a time: record and ROI. A rule that made money in every single season would be marked. None does; the best spread cutoffs win six of seven seasons and no total cutoff wins more than four, which is what a small real edge plus luck looks like on the spread side and no edge on the total side.</p>
       <div class="tablewrap" style="max-height:48vh;margin-bottom:12px">${bySeasonTable("edge", "pickWon", [3, 4, 4.5, 5, 5.5, 6], "Spread")}</div><div class="tablewrap" style="max-height:48vh">${bySeasonTable("tedge", "ouWon", [3, 4, 5, 6, 7], "Total")}</div>`;
