@@ -1183,6 +1183,59 @@ when it is read. Underdog's pick'em search endpoint answers from the runner (100
 prices), so the parser reads that shape and pages through it; whether it returns every game is checked on the
 next pull. American spelling throughout.
 
+**Every breakdown adds up to the cent (23 Sep 2026, evening).** The game deep dive summed to 19.96 against the model's
+18.2 for ARI at LAC, Week 1: the per-team rows lacked the inputs the regression computes for itself (offseason
+turnover, out of the race, warm-climate team in the cold) and the page used the season-start coefficients where the
+model refits before every week. Two fixes. `model.walk_forward` now writes, on every priced game, the fit that
+priced it: the coefficient and training mean of each of the 22 inputs and the intercept (`coef_*`, `mean_*`,
+`intercept` in `pred_v3.parquet`), and the export carries them on the week file's games and the backtest file's rows;
+the page's card breakdowns and the deep dive use that fit (`coefsForGame`), the season table only as a fallback.
+And every team's game rows carry the inputs exactly as the regression saw them (`mf_<input>`, from `model.prep` on
+the as-of features), shown in the game log under Model inputs and read first by the deep dive. The tie check
+rebuilds the expected points from the page's own files for every side this week and for the newest sixty priced
+games, and requires the gap under 0.01 points. Also this evening (Matt): the Team tab's Players sub-tab is gone
+(the roster's Above replacement column and the Players tab carry it), the roster tables stack full width so nothing
+scrolls sideways, the ratings-by-week chart carries its latest values as a caption instead of labels over the lines,
+the player game logs gain the longest gain and air yards (the round-8 input and the depth of target), and the
+Positions and Players notes say what the value window is: the last eight games across seasons (swept on both
+windows, `players.DEFAULT`), where the props profiles use the last 17 (round 1). PrizePicks' adjusted-odds lines
+are kept (they cover most of its board); only the impossible ones (a yardage line under 2, a count under 1) are
+dropped when the log is read. Underdog's search endpoint returned one game from the runner; the fetcher pages it
+and, when fewer than three games come back, probes the other feeds and prints what answered.
+
+**The card follows the line log (23 Sep 2026, evening; Matt).** A card showed Vegas GB -4.5 while its own graph and best-number
+chip read -5.5: the card's Vegas line came from the weekly run's snapshot (4:52 PM ET) and the graph from the line
+log (5:15 PM). Now the card's Vegas line is the latest logged consensus (`latestLine`), and the edge, the cover odds
+and the best number follow it; the cover odds are re-priced on the page with the same calibration the run used
+(`picks.calibration`'s logistic on the edge, exported with the week as `cal`; the tie check confirms the page's
+curve reproduces the run's calibrated odds at the run's line). The flag and its bet stay as recorded at the run, so
+a flagged card can show a line that has since moved; the week header says "lines as of" the last snapshot. And the
+page itself no longer waits for a weekly run to refresh: `python -m nflmodel.export_web --week` rebuilds only
+`web/data/week.js` from the log (about a minute), and the hourly routine that kicks the line watch now also pulls
+main, runs it and republishes that one file, so the cards are never more than about an hour behind the log.
+
+**Injuries: the source and how fresh it is (23 Sep 2026, evening; Matt).** Statuses come from nflverse's injury
+file, which follows the league's official reports (Wednesday to Friday) with a lag of hours to a day, and from the
+weekly rosters for IR, PUP and suspensions. On Wednesday evening of Week 3 nflverse carried Week 3 reports for ATL
+and GB only (the Thursday game), so a Giant like Jaxson Dart read Active with no report. ESPN's injury page posts
+the same reports the same afternoon, so the pull now fetches it beside the nflverse file
+(`pull.espn_injuries`, `data/raw/injuries/espn_injuries.csv`) and `players.load_injuries` fills the current week
+from it for any team whose nflverse report is not in yet (Out, Doubtful, Questionable, IR, suspension and PUP
+mapped to the report statuses; matched to a gsis id through the weekly roster by team and name). The weekly run
+picks it up on its Tuesday, Thursday, Saturday and Sunday schedule.
+
+**Why the stale line passed every check, and what now fails (23 Sep 2026, evening; Matt).** The tie check and the
+health check compared the page's data to the picks file, and both came from the same weekly-run snapshot, so they
+agreed with each other while both lagged the line log; nothing compared a card to the newest snapshot. Now: the
+line watch rebuilds the cards after every snapshot (`nflmodel.props --markets` puts the newest prop lines beside
+the projections in seconds; `export_web --week` rewrites `week.js` and `props.js`) and commits them with the log;
+the tie check ties the cards' newest line snapshot to the log's newest; the health check (the Monday audit) fails
+when the cards' newest snapshot is not the log's or the props panel's pull is not the props log's newest; and the
+hourly routine republishes the two files. The page also refuses to half-render: with its core data file missing it
+says so in one line instead of failing part way. A break-it walk (every tab, sub-tab, select value, chip, sortable
+header, card panel, market row and calc, at desktop and phone width, then again with each data file blocked one at
+a time) found no other error.
+
 **Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
 a 980-pixel desktop page. Below 700 pixels the same page reflows: tighter header and tabs, tiles two across, the
 game rail a scrolling strip pinned to the top, wide tables scrolling inside their own box (grid children may not

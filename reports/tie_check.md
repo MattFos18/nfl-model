@@ -1,4 +1,4 @@
-# Tie-out (sources), 2026-09-23 21:13 UTC
+# Tie-out (sources and page), 2026-09-23 21:47 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -60,5 +60,22 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
+| player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 201, 66, 32, 2026, 3] | [364, 201, 66, 32, 2026, 3] | yes |
+| props record on the page = every projection file, graded rows and market rows | [2896, 0, 0] | [2896, 0, 0] | yes |
+| player game logs on the page = player-games in the charted plays (receiving, rushing, passing) | 74141 | 74141 | yes |
+| page backtest file: games | 3060 | 3060 | yes |
+| page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
+| page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
+| page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
+| page flag threshold = picks threshold | 4.0 | 4.0 | yes |
+| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.006 | 0.01 or under | yes |
+| deep-dive breakdowns rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-23T21-15-31Z | 2026-09-23T21-15-31Z | yes |
+| card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0004 | 0.0005 or under | yes |
+| page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
+| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | yes |
+| page week = picks file (model spread) | 0.0 | 0.0 | yes |
+| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
+| page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (56 of 56 tie)
+Result: PASS (73 of 73 tie)

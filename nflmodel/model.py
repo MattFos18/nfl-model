@@ -229,8 +229,9 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
             g["sigma_margin"], g["sigma_total"] = sigma_m, sigma_t
             g["n_train"] = len(train)
             coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))
-            for k in SIT_FEATS:
-                g[f"coef_{k}"] = coefs.get(k, np.nan)
+            for i, k in enumerate(FEATS):   # this fit's coefficient, training mean and intercept, so any game's expected points can be rebuilt to the cent (the page's deep dive and card breakdowns)
+                g[f"coef_{k}"] = coefs[k]; g[f"mean_{k}"] = float(m[0].mean_[i])
+            g["intercept"] = float(train.pf.mean())
             out.append(g)
             if verbose and (wk is None or wk == weeks[-1]):
                 print(f"season {s}: last fit on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)

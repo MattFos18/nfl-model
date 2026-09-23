@@ -652,5 +652,33 @@ def main():
     print("props", len(pr), "projections for week", week, "graded rows", 0 if graded is None else len(graded), "market lines on the cards", out["market_lines"], "graded against the market", out.get("market_rows", 0))
 
 
+def reattach_markets() -> None:
+    """Re-read the props log and put the newest lines beside this week's projections without rebuilding them (the line
+    watch runs this after every snapshot, then export_web --week rewrites props.js): every market per listed player, the
+    mkt_ keys the takeaways use, and each side's market timestamp and pull count."""
+    from .props_lines import load_log, closing
+    f = OUT / "props.json"
+    if not f.exists(): return
+    out = json.loads(f.read_text()); plog = load_log()
+    for gid, gm in out["games"].items():
+        mk = closing(plog, gid) if len(plog) else None
+        for team, side in gm.items():
+            for grp in ("qb", "receivers", "rushers", "defenders", "kicker"):
+                for r in side.get(grp, []):
+                    for k in [k for k in r if k.startswith("mkt_")]: r.pop(k)
+                attach_all_markets(side.get(grp, []), mk)
+            attach_market(side.get("receivers", []), mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
+            attach_market(side.get("rushers", []), mk, [("rush_yards", "mkt_rush_yards"), ("anytime_td", "mkt_td")])
+            attach_market(side.get("qb", []), mk, [("pass_yards", "mkt_pass_yards")]); attach_market(side.get("defenders", []), mk, [("def_tackles", "mkt_tackles")])
+            side["market_ts"] = (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None)
+            if mk is not None and len(mk): side["market_open_ts"] = str(mk.open_ts.iloc[0]); side["market_pulls"] = int(mk.pulls.iloc[0])
+            side["others"] = []
+    out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
+    out["market_refreshed"] = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
+    f.write_text(json.dumps(out, default=lambda v: None if isinstance(v, float) and np.isnan(v) else (float(v) if isinstance(v, (np.floating,)) else int(v) if isinstance(v, np.integer) else str(v))))
+    print("props markets refreshed", out["market_lines"], "lines on the cards; newest pull", max([str(side.get("market_ts")) for gm in out["games"].values() for side in gm.values() if side.get("market_ts")] or ["none"]), flush=True)
+
+
 if __name__ == "__main__":
-    main()
+    import sys
+    reattach_markets() if "--markets" in sys.argv else main()

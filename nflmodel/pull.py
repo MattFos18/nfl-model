@@ -3,6 +3,7 @@
 Usage: python -m nflmodel.pull [--seasons 2012-2026] [--only pbp,schedules,...]
 """
 from __future__ import annotations
+import json
 import argparse, datetime as dt, hashlib, os, sys, time
 from pathlib import Path
 import requests
@@ -70,8 +71,36 @@ def pull(seasons, only=None, force_current=True):
             status, nbytes, sha = fetch(url, dest, force=force)
             rows.append((now, name, s or "all", url, status, nbytes, sha))
             print(f"{name:12} {s or 'all':>5} {status:8} {nbytes/1e6:7.1f} MB", flush=True)
+    if not only or "injuries" in only:
+        espn_injuries()
     _log(rows)
     return rows
+
+
+ESPN_INJ = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries"
+ESPN_TEAM = {"WSH": "WAS", "LAR": "LA", "JAC": "JAX"}
+
+
+def espn_injuries() -> pd.DataFrame:
+    """ESPN's injury page for every team, as posted (same day as the team's report), saved beside the nflverse file:
+    data/raw/injuries/espn_injuries.csv with team, name, position, status, date, detail. nflverse's file follows the
+    league's reports with a lag of hours to a day; this fills the current week until it does (players.load_injuries)."""
+    dest = RAW / "injuries" / "espn_injuries.csv"; dest.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        r = requests.get(ESPN_INJ, timeout=60, headers={"User-Agent": "Mozilla/5.0"}); r.raise_for_status(); j = r.json()
+        rows = []
+        for t in j.get("injuries", []):
+            abbr = ((t.get("team") or {}).get("abbreviation")) or (t.get("displayName") or "")
+            for a in t.get("injuries", []):
+                ath = a.get("athlete") or {}; det = a.get("details") or {}
+                rows.append({"team": ESPN_TEAM.get(abbr, abbr), "name": ath.get("displayName"), "position": (ath.get("position") or {}).get("abbreviation"), "status": a.get("status"), "date": a.get("date"), "detail": det.get("type") or "", "return_date": det.get("returnDate") or "", "fetched_at": dt.datetime.utcnow().isoformat(timespec="seconds")})
+        out = pd.DataFrame(rows); out.to_csv(dest, index=False)
+        (RAW / "injuries" / "espn_injuries.json").write_text(json.dumps(j)[:5_000_000])
+        print(f"espn injuries {len(out)} rows, {out.team.nunique() if len(out) else 0} teams", flush=True)
+        return out
+    except Exception as e:  # noqa
+        print(f"espn injuries: {str(e)[:120]}", flush=True)
+        return pd.read_csv(dest) if dest.exists() else pd.DataFrame(columns=["team", "name", "position", "status", "date", "detail", "return_date", "fetched_at"])
 
 
 def parse_seasons(s: str):

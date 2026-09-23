@@ -133,9 +133,15 @@ def used_by_v3(col: str):
 
 
 def describe(col: str):
+    if col.startswith("mf_"): return _describe_mf(col)
     out = _describe(col)
     out["used_v3"] = used_by_v3(col)
     return out
+
+
+def _describe_mf(col: str):
+    f = col[3:]; lab = {"off_epa_play": "offense EPA rating", "def_epa_play": "the opponent's defense EPA rating", "off_pf": "offense points rating", "def_pf": "the opponent's defense points rating", "qb_rating": "the starter's QB rating", "home": "home (1) or away (0)", "neutral": "neutral site", "dome": "dome or closed roof", "wind_out": "wind at kickoff, mph, outdoors", "cold": "under 35F outdoors", "rain": "rain at kickoff", "warm_in_cold": "warm-climate or dome team in the cold", "div_game": "division game", "qb_out": "starting QB out", "skill_out_value": "value of RB/WR/TE listed out", "opp_skill_out_value": "the opponent's", "off_snap_out": "offense snaps listed out", "opp_def_snap_out": "the opponent's defense snaps listed out", "off_turnover_early": "offseason turnover, offense (weeks 1 to 8)", "opp_def_turnover_early": "the opponent's, defense", "dead_late": "out of the race (week 12 on)", "opp_dead_late": "the opponent out of the race"}.get(f, f)
+    return {"definition": f"Model input as the regression saw it: {lab}. The Game deep dive's rows use exactly these values.", "source": "model.prep on the as-of features", "group": "Model inputs", "used_v3": True}
 
 
 def _describe(col: str):
@@ -265,6 +271,10 @@ def main():
     fe = feats[["game_id", "team"] + rcols + ["qb_rating", "opp_qb_rating", "n_games", "opp_rest"] + M.TREND_FEATS].copy()
     fe = fe.rename(columns={c: "r_" + c for c in rcols})
     d = d.merge(fe, on=["game_id", "team"], how="left")
+    # the exact inputs the points regression saw for this team-game (model.prep on the as-of features), as mf_<input>: the game
+    # deep dive reads them first, so its sum is the model's expected points to the cent; the game log shows them under Model inputs
+    pf_ = M.prep(feats); mf = pf_[["game_id", "team"] + [f for f in M.FEATS if f in pf_.columns]].rename(columns={f: "mf_" + f for f in M.FEATS})
+    d = d.merge(mf, on=["game_id", "team"], how="left")
     # model prediction from this team's view
     pv = pred.set_index("game_id")
     d["gameday"] = d.game_id.map(games.gameday)
@@ -274,7 +284,7 @@ def main():
     played_w = games[(games.season == cur_s) & games.home_score.notna()].week.max()
     cutoff = int(played_w) + 1 if pd.notna(played_w) else 1
     future = (d.season == cur_s) & (d.week > cutoff)
-    d.loc[future, ["r_" + c for c in rcols] + ["qb_rating", "opp_qb_rating"]] = np.nan
+    d.loc[future, ["r_" + c for c in rcols] + ["qb_rating", "opp_qb_rating"] + [c for c in d.columns if c.startswith("mf_")]] = np.nan
     pv = pv[~((pv.season == cur_s) & (pv.week > cutoff))]
     d["m_exp_pf"] = [pv.home_exp.get(g, np.nan) if h else pv.away_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_exp_pa"] = [pv.away_exp.get(g, np.nan) if h else pv.home_exp.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
@@ -360,10 +370,39 @@ def main():
     for t in teams:
         rows = d[d.team == t]
         allc = ["game_id"] + cols
-        recs = [[clean(v) for v in r] for r in rows[allc].itertuples(index=False, name=None)]
+        recs = [[(None if (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)) if (c.startswith("mf_") and isinstance(v, (float, np.floating))) else clean(v) for c, v in zip(allc, r)] for r in rows[allc].itertuples(index=False, name=None)]   # model inputs at six decimals so a breakdown rebuilds the expected points
         players = [{k: clean(v) for k, v in r.items()} for r in pvals[pvals.team == t].drop(columns=["team"]).to_dict("records")]
         roster = [{k: clean(v) for k, v in r.items()} for r in rnow[rnow.team == t].drop(columns=["team"]).to_dict("records")] if len(rnow) else []
         (WEB / f"{t}.js").write_text(f'window.TEAMDATA=window.TEAMDATA||{{}};window.TEAMDATA["{t}"]=' + json.dumps({"cols": allc, "rows": recs, "players": players, "roster": roster}, default=clean, separators=(",", ":")) + ";")
+    export_week(feats, games, pred)
+    from . import lines as LN, picks as P, tracker as TK
+    cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
+    write_games_js(games.reset_index())
+    gr = TK.TR / "graded.csv"
+    g = pd.read_csv(gr).to_dict("records") if gr.exists() else []
+    (WEB / "track.js").write_text("window.TRACK=" + json.dumps(g, default=clean, separators=(",", ":")) + ";")
+    sizes = sum(f.stat().st_size for f in WEB.glob("*.js"))
+    print(f"{len(teams)} teams, {len(cols)} columns, {sizes/1e6:.1f} MB")
+    export_rankings_and_methods()   # rankings.js and backtest.js, on every export (about 75 seconds)
+
+
+
+
+# ---------------------------------------------------------------------------------------------
+# Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
+# ---------------------------------------------------------------------------------------------
+
+
+def export_week(feats=None, games=None, pred=None):
+    """week.js: this week's games with the picks, the inputs, the line log and the fit that priced each game. Runs on its
+    own (python -m nflmodel.export_web --week) so the page's cards can follow the line log between weekly runs."""
+    feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")) if feats is None else feats
+    games = pd.read_parquet(OUT / "games.parquet").set_index("game_id") if games is None else games
+    pred = pd.read_parquet(OUT / "pred_v3.parquet") if pred is None else pred
+    rcols = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays", "success"] for s in ["off", "def", "own_def", "opp_off"]]
+    pj = OUT / "props.json"
+    if pj.exists():   # the props panel, with whatever lines the props log holds now (props --markets refreshes them)
+        (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
     # this week's picks and the track record for the dashboard tabs
     from . import lines as LN, picks as P, tracker as TK
     cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
@@ -386,43 +425,33 @@ def main():
         hf = OUT.parent / "runs" / "pred_history.csv"
         hist_runs = pd.read_csv(hf) if hf.exists() else pd.DataFrame(columns=["game_id"])
         hist_runs = hist_runs[(hist_runs.season == cur_season) & (hist_runs.week == cur_week)] if len(hist_runs) else hist_runs
-        wk = []
+        wk = []; pv_coef = pd.read_parquet(OUT / "pred_v3.parquet").set_index("game_id")
         for r in pk.itertuples():
             h = LN.history(r.game_id)
             sides = {}
             for tm in [r.home_team, r.away_team]:
                 if (r.game_id, tm) in fp.index:
                     row = fp.loc[(r.game_id, tm)]
-                    sides[tm] = {c: clean(row[c]) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
+                    sides[tm] = {c: ((None if pd.isna(row[c]) else round(float(row[c]), 6)) if c in M.FEATS and isinstance(row[c], (float, np.floating)) else clean(row[c])) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
                     sides[tm]["skill_out_players"] = out_detail(r.game_id, tm)
                     if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
                         sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
                         sides[tm]["qb_carried"] = True
             gmeta = games.loc[r.game_id] if r.game_id in games.index else None
-            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides,
+            pr_ = pv_coef.loc[r.game_id] if r.game_id in pv_coef.index else None   # the fit that priced this game: coefficient, training mean, intercept
+            coefs_g = None if pr_ is None or f"coef_{M.FEATS[0]}" not in pr_.index else {"per_unit": {f: clean(pr_[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: clean(pr_[f"mean_{f}"]) for f in M.FEATS}, "intercept": clean(pr_["intercept"])}
+            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides, "coefs": coefs_g,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                        "wx": wxs.get(r.game_id), "runs": [{"run_at": x.run_at, "model_spread": clean(x.model_spread), "model_total": clean(x.model_total), "spread_line": clean(x.spread_line), "total_line": clean(x.total_line), "bet": x.bet if isinstance(x.bet, str) else ""} for x in hist_runs[hist_runs.game_id == r.game_id].itertuples()], "home_coach": gmeta.home_coach if gmeta is not None else None, "away_coach": gmeta.away_coach if gmeta is not None else None,
                        "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
-        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE}, default=clean, separators=(",", ":")) + ";")
+        cal_s, cal_t = P.calibration(pred, games.reset_index(), cur_season)   # the calibrated cover and over odds as a function of the edge, so the card can re-price a moved line the same way the run did
+        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
-    write_games_js(games.reset_index())
-    gr = TK.TR / "graded.csv"
-    g = pd.read_csv(gr).to_dict("records") if gr.exists() else []
-    (WEB / "track.js").write_text("window.TRACK=" + json.dumps(g, default=clean, separators=(",", ":")) + ";")
-    sizes = sum(f.stat().st_size for f in WEB.glob("*.js"))
-    print(f"{len(teams)} teams, {len(cols)} columns, {sizes/1e6:.1f} MB")
-    export_rankings_and_methods()   # rankings.js and backtest.js, on every export (about 75 seconds)
 
-
-
-
-# ---------------------------------------------------------------------------------------------
-# Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
-# ---------------------------------------------------------------------------------------------
 
 
 def export_rankings_and_methods():
@@ -523,6 +552,8 @@ def export_backtest_js(games=None, feats=None):
     cols = ["game_id", "season", "week", "game_type", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
             "spread_line", "total_line", "p_home", "p_cover_home", "p_over", "model_spread", "model_total"]
     bk = allv[cols + ["sigma_margin"]].copy()
+    if f"coef_{M.FEATS[0]}" in allv.columns:   # the fit that priced each game, so the deep dive rebuilds its expected points exactly
+        bk["coef"] = allv[[f"coef_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["mean"] = allv[[f"mean_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["intercept"] = allv["intercept"].round(5)
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
@@ -615,22 +646,23 @@ def player_logs_export() -> dict:
     f = OUT / "scheme_plays.parquet"
     if not f.exists():
         return {"cols": [], "rows": {}, "names": {}}
-    d = pd.read_parquet(f, columns=["season", "week", "game_id", "posteam", "defteam", "play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "yards_gained", "epa", "complete_pass", "pass_touchdown", "rush_touchdown", "interception", "man", "zone", "pressure", "box"])
+    d = pd.read_parquet(f, columns=["season", "week", "game_id", "posteam", "defteam", "play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "yards_gained", "epa", "complete_pass", "pass_touchdown", "rush_touchdown", "interception", "man", "zone", "pressure", "box", "air_yards"])
     d = d[d.play_type.isin(["pass", "run"])].copy(); d["yards_gained"] = d.yards_gained.fillna(0.0)
     for c in ["complete_pass", "pass_touchdown", "rush_touchdown", "interception"]: d[c] = d[c].fillna(0).astype(float)
     d["man_f"] = d.man.fillna(False).astype(float); d["zone_f"] = d.zone.fillna(False).astype(float); d["press_f"] = (d.pressure == 1).astype(float); d["light_f"] = (d.box <= 6).astype(float); d["heavy_f"] = (d.box >= 8).astype(float)
-    cols = ["season", "week", "game_id", "team", "opp", "kind", "n", "made", "yds", "td", "int", "epa", "a_n", "a_yds", "b_n", "b_yds", "c_n", "c_yds"]
+    d["lg"] = np.where(d.play_type.eq("run"), d.yards_gained, np.where(d.complete_pass.eq(1), d.yards_gained, 0.0)); d["air"] = d.air_yards.fillna(0.0)
+    cols = ["season", "week", "game_id", "team", "opp", "kind", "n", "made", "yds", "td", "int", "epa", "a_n", "a_yds", "b_n", "b_yds", "c_n", "c_yds", "longest", "air_yds"]
     out = {}
     def add(mask, pcol, kind, made, tdcol, a, b, c):
         t = d[mask].copy()
         for k, flag in [("a", a), ("b", b), ("c", c)]:
             t[f"{k}_n"] = t[flag] if flag else 0.0; t[f"{k}_yds"] = t.yards_gained * t[flag] if flag else 0.0
-        agg = {"n": ("yards_gained", "size"), "yds": ("yards_gained", "sum"), "td": (tdcol, "sum"), "int": ("interception", "sum"), "epa": ("epa", "sum"), "a_n": ("a_n", "sum"), "a_yds": ("a_yds", "sum"), "b_n": ("b_n", "sum"), "b_yds": ("b_yds", "sum"), "c_n": ("c_n", "sum"), "c_yds": ("c_yds", "sum")}
+        agg = {"n": ("yards_gained", "size"), "yds": ("yards_gained", "sum"), "td": (tdcol, "sum"), "int": ("interception", "sum"), "epa": ("epa", "sum"), "a_n": ("a_n", "sum"), "a_yds": ("a_yds", "sum"), "b_n": ("b_n", "sum"), "b_yds": ("b_yds", "sum"), "c_n": ("c_n", "sum"), "c_yds": ("c_yds", "sum"), "longest": ("lg", "max"), "air": ("air", "sum")}
         if made: agg["made"] = (made, "sum")
         g = t.groupby([pcol, "season", "week", "game_id", "posteam", "defteam"]).agg(**agg).reset_index()
         if not made: g["made"] = None
         for r in g.itertuples():
-            out.setdefault(getattr(r, pcol), []).append([int(r.season), int(r.week), r.game_id, r.posteam, r.defteam, kind, int(r.n), (None if r.made is None or pd.isna(r.made) else int(r.made)), int(r.yds), int(r.td), int(r.int), round(float(r.epa), 2), int(r.a_n), int(r.a_yds), int(r.b_n), int(r.b_yds), int(r.c_n), int(r.c_yds)])
+            out.setdefault(getattr(r, pcol), []).append([int(r.season), int(r.week), r.game_id, r.posteam, r.defteam, kind, int(r.n), (None if r.made is None or pd.isna(r.made) else int(r.made)), int(r.yds), int(r.td), int(r.int), round(float(r.epa), 2), int(r.a_n), int(r.a_yds), int(r.b_n), int(r.b_yds), int(r.c_n), int(r.c_yds), int(r.longest), int(r.air)])
     add(d.pass_play & d.receiver_player_id.notna(), "receiver_player_id", "rec", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
     add(d.play_type.eq("run") & d.rusher_player_id.notna(), "rusher_player_id", "rush", None, "rush_touchdown", "light_f", "heavy_f", None)
     add(d.dropback & d.passer_player_id.notna(), "passer_player_id", "pass", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
@@ -641,4 +673,5 @@ def player_logs_export() -> dict:
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    export_week() if "--week" in sys.argv else main()

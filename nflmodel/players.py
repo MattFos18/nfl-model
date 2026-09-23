@@ -196,9 +196,35 @@ def unavailable_by_week(seasons) -> dict:
     return {k: set(g.gsis_id) for k, g in r.groupby(["season", "week", "team"])}
 
 
+ESPN_STATUS = {"Out": "Out", "Doubtful": "Doubtful", "Questionable": "Questionable", "Injured Reserve": "Out", "Suspension": "Out", "Physically Unable to Perform": "Out", "Non-Football Injury": "Out", "Day-To-Day": "Questionable"}
+
+
 def load_injuries(seasons) -> pd.DataFrame:
+    """nflverse's injury reports (the league's, with a lag), and for the current week ESPN's same-day page where a team's
+    nflverse report is not in yet (data/raw/injuries/espn_injuries.csv, pulled with the rest): the same columns, matched to
+    a gsis id through the weekly roster by team and name."""
     inj = pd.concat([pd.read_parquet(RAW / "injuries" / f"injuries_{s}.parquet") for s in seasons if (RAW / "injuries" / f"injuries_{s}.parquet").exists()], ignore_index=True)
     inj["team"] = inj.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
+    ef = RAW / "injuries" / "espn_injuries.csv"
+    if ef.exists() and len(inj):
+        try:
+            from .lines import current_week
+            g = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(g)
+            if season in list(seasons):
+                have = set(inj[(inj.season == season) & (inj.week == week)].team)
+                es = pd.read_csv(ef); es = es[~es.team.isin(have) & es.status.isin(ESPN_STATUS)]
+                rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+                if len(es) and rf.exists():
+                    ro = pd.read_parquet(rf, columns=["team", "gsis_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
+                    key = lambda n: "".join(ch for ch in str(n).lower() if ch.isalpha())
+                    ro["k"] = ro.full_name.map(key); es["k"] = es.name.map(key)
+                    m = es.merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")
+                    add = pd.DataFrame({"season": season, "season_type": "REG", "game_type": "REG", "team": m.team, "week": week, "gsis_id": m.gsis_id, "position": m.position, "full_name": m.full_name,
+                                        "first_name": m.full_name.str.split(" ").str[0], "last_name": m.full_name.str.split(" ").str[-1], "report_primary_injury": m.detail, "report_secondary_injury": None,
+                                        "report_status": m.status.map(ESPN_STATUS), "practice_primary_injury": None, "practice_secondary_injury": None, "practice_status": None, "date_modified": m.fetched_at})
+                    inj = pd.concat([inj, add.reindex(columns=inj.columns)], ignore_index=True)
+        except Exception as e:  # noqa
+            print(f"espn injuries not merged: {str(e)[:120]}", flush=True)
     return inj
 
 
