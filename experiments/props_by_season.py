@@ -30,6 +30,16 @@ def prev_sums(a, keys, cols, decay=None):
             res[i] = run; run = decay * run + vals[i]
         out[cols] = res
     out["games_prev"] = a.groupby(keys).cumcount().clip(upper=N).values; return out
+def fade_sums(a, keys, cols, decay, season_f, team_f):
+    """prev_sums, decayed, with an extra factor on the running sums at a season boundary and at a change of team (round 10)."""
+    a = a.sort_values(keys + ["season", "week"]).reset_index(drop=True); out = a[keys + ["season", "week", "game_id"]].copy()
+    vals = a[cols].values.astype(float); res = np.zeros_like(vals); gk = a[keys].astype(str).agg("|".join, axis=1).values; sn = a.season.values; tm = a.posteam.values; run = np.zeros(vals.shape[1]); last = None; ls = None; lt = None
+    for i in range(len(a)):
+        if gk[i] != last: run = np.zeros(vals.shape[1]); last = gk[i]; ls = sn[i]; lt = tm[i]
+        if sn[i] != ls: run = run * season_f; ls = sn[i]
+        if tm[i] != lt: run = run * team_f; lt = tm[i]
+        res[i] = run; run = decay * run + vals[i]
+    out[cols] = res; out["games_prev"] = a.groupby(keys).cumcount().clip(upper=N).values; return out
 def pll(mu, k): mu = np.clip(mu, 1e-3, None); return float(np.mean(mu - k * np.log(mu) + gammaln(k + 1)))
 tv = d[d.pass_play].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tp").reset_index().merge(d[d.play_type.eq("run")].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tr").reset_index(), how="outer").merge(d[d.dropback].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tdb").reset_index(), how="outer").fillna(0)
 T17 = prev_sums(tv, ["posteam"], ["tp", "tr", "tdb"]); ALW = prev_sums(tv.rename(columns={"tdb": "a_tdb"}), ["defteam"], ["a_tdb"]).rename(columns={"games_prev": "agames"})
@@ -42,7 +52,8 @@ def build(kind):
         t = d[d.dropback & d.passer_player_id.notna()].rename(columns={"passer_player_id": "pid"}); vcol = "tdb"; ev = {"td": "pass_touchdown", "int": "interception"}; lgp = d[d.dropback]
     t = t.copy(); t["n"] = 1
     pg = t.groupby(["pid", "posteam", "season", "week", "game_id"]).agg(n=("n", "sum"), yds=("yards_gained", "sum"), **{k: (v, "sum") for k, v in ev.items()}).reset_index().merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="left")
-    cols = ["n", "yds", "team_n"] + list(ev); R = prev_sums(pg, ["pid"], cols); R85 = prev_sums(pg, ["pid"], ["n", "team_n"], decay=PR.DECAY).rename(columns={"n": "n_85", "team_n": "team_n_85"})
+    cols = ["n", "yds", "team_n"] + list(ev); R = prev_sums(pg, ["pid"], cols); sf, tf = (PR.FADE.get(kind, (1.0, 1.0)) if globals().get("FADE_ON", True) else (1.0, 1.0))
+    R85 = fade_sums(pg, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85", "team_n": "team_n_85"})
     dg = t.groupby(["defteam", "season", "week", "game_id"]).agg(d_n=("n", "sum"), d_yds=("yards_gained", "sum")).reset_index(); D = prev_sums(dg, ["defteam"], ["d_n", "d_yds"])
     f = pg[["pid", "posteam", "season", "week", "game_id", "n", "yds"] + list(ev)].rename(columns={"n": "act_n", "yds": "act_yds", **{k: f"act_{k}" for k in ev}})
     f = f.merge(R[["pid", "game_id", "games_prev"] + cols], on=["pid", "game_id"]).merge(R85[["pid", "game_id", "n_85", "team_n_85"]], on=["pid", "game_id"])

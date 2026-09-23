@@ -86,8 +86,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if b3.exists() and b4.exists():
             import ast as _ast
             bt = pd.read_csv(b3); a85 = bt[bt.variant == "A85B_med"].set_index("stat"); r4 = pd.read_csv(b4)
-            r6 = pd.read_csv(REP / "props_backtest6.csv"); pick = {"rec_yards": "yds_recon25", "rush_yards": "yds_recon25", "pass_yards": "yds_recon50"}
-            tie("props backtest errors on the page = props_backtest6.csv (the reconciliation rows adopted)", {k: [float(r6[(r6.stat == k) & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == k) & (r6.variant == v)]["mae_2023-25"].iloc[0])] for k, v in pick.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+            r6 = pd.read_csv(REP / "props_backtest6.csv"); r10 = pd.read_csv(REP / "props_backtest10.csv"); pick = {"rec_yards": (r10, "rec_fade", "both_0.5"), "rush_yards": (r10, "rush_fade", "season_0.25_team_0.5"), "pass_yards": (r6, "pass_yards", "yds_recon50")}
+            tie("props backtest errors on the page = props_backtest10.csv fade rows (receiving, rushing) and props_backtest6.csv (passing)", {k: [float(r[(r.stat == st) & (r.variant == v)]["mae_2019-22"].iloc[0]), float(r[(r.stat == st) & (r.variant == v)]["mae_2023-25"].iloc[0])] for k, (r, st, v) in pick.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+            tie("props fade factors on the page = props_backtest10.csv (fitted)", {k: [float(x) for x in re.findall(r"season factor ([\d.]+), team-change factor ([\d.]+)", r10[(r10.stat == st) & (r10.variant == v)]["fitted"].iloc[0])[0]] for k, (r, st, v) in pick.items() if k != "pass_yards"}, {k + "_yards": list(v) for k, v in pj["fade"].items()})
             a6 = {k: [float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards", "pass_yards"]}
             a4 = {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}.items()}
             rows.append(("props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006)", str(a6), str(a4), all(abs(a6[k][i] - a4[k][i]) <= 0.006 for k in a6 for i in (0, 1))))
@@ -100,7 +101,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
         if (WEB / "props_backtest.js").exists():
             pb = _js("props_backtest.js")
-            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv", "props_backtest8.csv", "props_backtest9.csv"]], [r["n_rows"] for r in pb["rounds"]])
+            tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv", "props_backtest8.csv", "props_backtest9.csv", "props_backtest10.csv"]], [r["n_rows"] for r in pb["rounds"]])
             if (REP / "props_vs_market_backtest.csv").exists():
                 tie("props market backtest on the page = report (rows)", len(pd.read_csv(REP / "props_vs_market_backtest.csv")), len(pb["market_backtest"]))
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])

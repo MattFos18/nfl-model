@@ -1,0 +1,50 @@
+stat,variant,vol_mae_2019-22,vol_mae_2023-25,mae_2019-22,ll_2019-22,n_2019-22,mae_2023-25,ll_2023-25,n_2023-25,fitted,early_mae_2019-22,early_mae_2023-25
+rec_redistribution,none,1.868,1.748,19.397,,16089,18.421,,12399,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rec_redistribution,pro_rata,2.264,2.076,20.393,,16089,19.238,,12399,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rec_redistribution,pro_rata_half,2.002,1.863,19.733,,16089,18.717,,12399,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rec_redistribution,same_pos,2.132,1.983,20.153,,16089,19.061,,12399,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rec_redistribution,same_pos_half,1.951,1.827,19.633,,16089,18.624,,12399,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rec_td_redzone,league_prior,,,0.309,0.5086,16089,0.297,0.4858,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_only,,,0.31,0.5143,16089,0.295,0.4886,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_prior_K100,,,0.308,0.5131,16089,0.293,0.4881,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_prior_K200,,,0.309,0.5126,16089,0.294,0.4875,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_prior_K400,,,0.31,0.5129,16089,0.295,0.4876,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_prior_K800,,,0.31,0.5133,16089,0.295,0.4879,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_td_redzone,xtd_prior_shrunk,,,0.309,0.5091,16089,0.295,0.4855,12399,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.392, 0.321, 0.140, 0.047, 0.008",,
+rec_fade,none,1.868,1.748,19.397,,16089,18.421,,12399,"season factor 1.0, team-change factor 1.0",20.166,18.709
+rec_fade,season_0.5,1.861,1.739,19.361,,16089,18.358,,12399,"season factor 0.5, team-change factor 1.0",20.129,18.622
+rec_fade,season_0.25,1.864,1.741,19.378,,16089,18.341,,12399,"season factor 0.25, team-change factor 1.0",20.169,18.603
+rec_fade,team_0.5,1.864,1.74,19.373,,16089,18.378,,12399,"season factor 1.0, team-change factor 0.5",20.14,18.668
+rec_fade,team_0.25,1.863,1.735,19.363,,16089,18.353,,12399,"season factor 1.0, team-change factor 0.25",20.128,18.643
+rec_fade,both_0.5,1.86,1.735,19.354,,16089,18.332,,12399,"season factor 0.5, team-change factor 0.5",20.12,18.598
+rec_fade,both_0.25,1.867,1.74,19.387,,16089,18.326,,12399,"season factor 0.25, team-change factor 0.25",20.191,18.602
+rec_fade,season_0.25_team_0.5,1.865,1.74,19.38,,16089,18.329,,12399,"season factor 0.25, team-change factor 0.5",20.176,18.598
+rec_fade,season_0.5_team_0.25,1.861,1.733,19.356,,16089,18.321,,12399,"season factor 0.5, team-change factor 0.25",20.126,18.591
+rush_redistribution,none,3.01,2.909,18.231,,7554,17.435,,6012,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rush_redistribution,pro_rata,3.73,3.559,19.203,,7554,18.249,,6012,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rush_redistribution,pro_rata_half,3.252,3.126,18.512,,7554,17.664,,6012,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rush_redistribution,same_pos,3.432,3.258,18.781,,7554,17.865,,6012,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rush_redistribution,same_pos_half,3.143,3.006,18.356,,7554,17.517,,6012,"hindsight absences: 5%+ usage, seen in the team's last three games, not this one",,
+rush_td_redzone,league_prior,,,0.349,0.5922,7554,0.338,0.5629,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_only,,,0.351,0.6026,7554,0.337,0.5702,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_prior_K100,,,0.349,0.5995,7554,0.334,0.5703,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_prior_K200,,,0.349,0.599,7554,0.335,0.569,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_prior_K400,,,0.35,0.5996,7554,0.335,0.5687,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_prior_K800,,,0.351,0.6006,7554,0.336,0.5691,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_td_redzone,xtd_prior_shrunk,,,0.349,0.5928,7554,0.336,0.5629,6012,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.464, 0.172, 0.044, 0.011, 0.003",,
+rush_fade,none,3.01,2.909,18.231,,7554,17.435,,6012,"season factor 1.0, team-change factor 1.0",18.098,17.736
+rush_fade,season_0.5,2.976,2.871,18.157,,7554,17.336,,6012,"season factor 0.5, team-change factor 1.0",17.993,17.583
+rush_fade,season_0.25,2.965,2.859,18.127,,7554,17.294,,6012,"season factor 0.25, team-change factor 1.0",17.94,17.524
+rush_fade,team_0.5,2.996,2.892,18.205,,7554,17.39,,6012,"season factor 1.0, team-change factor 0.5",18.067,17.675
+rush_fade,team_0.25,2.988,2.883,18.19,,7554,17.368,,6012,"season factor 1.0, team-change factor 0.25",18.048,17.651
+rush_fade,both_0.5,2.968,2.864,18.141,,7554,17.314,,6012,"season factor 0.5, team-change factor 0.5",17.971,17.561
+rush_fade,both_0.25,2.963,2.859,18.124,,7554,17.29,,6012,"season factor 0.25, team-change factor 0.25",17.934,17.534
+rush_fade,season_0.25_team_0.5,2.963,2.858,18.121,,7554,17.285,,6012,"season factor 0.25, team-change factor 0.5",17.93,17.521
+rush_fade,season_0.5_team_0.25,2.966,2.863,18.137,,7554,17.305,,6012,"season factor 0.5, team-change factor 0.25",17.962,17.556
+pass_td_redzone,league_prior,,,0.898,1.4632,2177,0.869,1.4226,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_only,,,0.898,1.463,2177,0.87,1.4239,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_prior_K100,,,0.898,1.463,2177,0.868,1.4223,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_prior_K200,,,0.898,1.463,2177,0.869,1.4228,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_prior_K400,,,0.898,1.4629,2177,0.869,1.423,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_prior_K800,,,0.898,1.4628,2177,0.869,1.4233,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
+pass_td_redzone,xtd_prior_shrunk,,,0.898,1.4629,2177,0.869,1.4231,1712,"scoring rate by yard line (0-3, 4-10, 11-20, 21-40, 41+) on 2016 to 2018: 0.373, 0.292, 0.129, 0.043, 0.008",,
