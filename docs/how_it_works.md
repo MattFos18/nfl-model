@@ -373,7 +373,8 @@ republishes the data room with the new files and writes the recap.
 
 In order of what the data says: (1) bet at the opener or midweek and measure closing line value, which needs
 the line log that starts in the first live week; (2) price injuries and the player model before the line
-moves; (3) splits and reverse line movement after a season of logging. None can be tested on today's data.
+moves; (3) splits and reverse line movement after a season of logging. The first two wait on the live log; kickoff-hour
+weather, the other late-priced input, was tested on 23 Sep 2026 (section 14) and did not help.
 
 ## 14. Every idea, both windows, and what was adopted (22 Sep 2026)
 
@@ -640,6 +641,14 @@ rebuilt on non-sack dropbacks only (EPA per non-sack dropback), so it measures t
 than protection. Tuning window better on team points (7.346 against 7.360), held out worse (7.294 against 7.289);
 the held-out spread miss better (9.939 against 9.970), the tuning spread flat. Helps one window only; not adopted.
 The QB stays one number, EPA per dropback with sacks included.
+
+**Kickoff-hour weather for the backtest** (23 Sep 2026, `nflmodel/weather_archive.py`, `experiments/weather_kickoff.py`,
+`reports/weather_kickoff.csv`). The backtest's wind, cold and rain come from the schedule's game-day readings. The
+Open-Meteo archive gives the reading at the kickoff hour at each stadium (2,572 outdoor games 2013 to 2025 in
+`data/weather/archive_kickoff.csv`; temperature agrees with the schedule at 0.97, wind at 0.68). Rebuilding the
+three weather inputs from the archive is worse on both windows: team points 7.376 against 7.359 tuning and 7.287
+against 7.286 held out; the spread miss flat and 9.957 against 9.949. Not adopted; the schedule readings stay,
+and the live forecast keeps filling unplayed games within four days of kickoff. The archive is kept for re-tests.
 
 ## 15. The player model
 
