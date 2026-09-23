@@ -653,6 +653,22 @@ than protection. Tuning window better on team points (7.346 against 7.360), held
 the held-out spread miss better (9.939 against 9.970), the tuning spread flat. Helps one window only; not adopted.
 The QB stays one number, EPA per dropback with sacks included.
 
+**Which games a player's usage is measured on** (23 Sep 2026, `experiments/usage_window.py`, `usage_gate.py`;
+`reports/usage_window.csv`, `usage_gate.csv`). A skill player listed out is taken off his team at his value times his
+share of the team's touches over his own last eight games, on any team. A.J. Brown, traded to New England and on
+IR in Week 3 of 2026 after one game there, was taken off a team whose ratings had barely seen him. Two principled
+windows were tried: the team's last eight games, and the window the ratings themselves use (this season and last,
+0.94 per week of age, last season at 0.8), counting only his touches for that team. Both are worse on both windows
+(team points 7.366 / 7.291 and 7.360 / 7.289 against 7.359 / 7.286; the flag 85-62 / 46-32 and 88-60 / 44-32 against
+92-63 / 49-27): how a player was used, wherever he was, predicts the cost of his absence better than a pro-rated
+share does. A gate on the same idea was then tried, keeping the original usage but taking nothing off for a player under a share
+of the ratings window: a quarter and a half are worse on both windows; skipping only a player who has never played
+for the team is 7.355 / 7.289 on team points (inside the noise) but costs the flag on every window in a full rebuild
+(82-57 / 45-22 / 66-60 against 87-59 / 45-21 / 67-57). So the original usage stays, Brown's deduction included: the
+cost of a player's absence follows the player, not the team's history with him. The code for the three windows is
+kept (`players.TEAM_WINDOW`) for a re-test when more traded-and-out cases exist, and the other half of the trade
+question, crediting a team for a player its ratings have not seen (`players.roster_delta`), is written and untested.
+
 **Kickoff-hour weather for the backtest** (23 Sep 2026, `nflmodel/weather_archive.py`, `experiments/weather_kickoff.py`,
 `reports/weather_kickoff.csv`). The backtest's wind, cold and rain come from the schedule's game-day readings. The
 Open-Meteo archive gives the reading at the kickoff hour at each stadium (2,572 outdoor games 2013 to 2025 in
@@ -723,9 +739,9 @@ plays, in EPA per team play.
 | Unit | Rate | Plays | Share |
 |---|---|---|---|
 | QB | EPA per dropback (the QB rating, `ratings.QBRatings`) | dropbacks | one starter, so none |
-| RB, WR, TE | EPA per carry or target (phase 1) | touches | share of the team's touches, last eight games on any team |
+| RB, WR, TE | EPA per carry or target (phase 1) | touches | share of the team's touches, last eight games on any team (a player traded in keeps the usage he had; the alternatives lost on every window, section 14) |
 | Offensive line | on/off: team EPA per play in games he played 50%+ of the snaps minus the team's games without him, last 34 games, shrunk by the smaller side's games | games | snap share |
-| Defense | impact plays: the EPA taken away on every play he is credited on (tackle 1, assist 0.5, tackle for loss +0.5, sack 1, QB hit 0.5, pass defended 1, interception 1, forced or recovered fumble 0.5; one credit per play at most), per defensive snap; decayed 0.99, shrunk with 300 snaps | defensive snaps (snap counts, matched by name) | snap share |
+| Defense | impact plays: the EPA taken away on every play he is credited on (tackle 1, assist 0.5, tackle for loss +0.5, sack 1, QB hit 0.5, pass defended 1, interception 1, forced or recovered fumble 0.5; one credit per play at most), per defensive snap; decayed 0.99, shrunk with 300 snaps; replacement level per position group (DL, LB, DB) since 23 Sep 2026, because a corner is credited mostly on tackles after catches and a lineman on stops, so one pooled level ranked every corner below every lineman. Coverage that keeps the ball away is not a credited play, so the page also shows each defender's coverage line from Pro Football Reference's advanced defense table (nflverse `pfr_advstats`, 2018 on; targets, catch rate, yards per target, passer rating allowed and yards saved per game against the league's yards per target, over his last eight games), and the team overview ranks defensive backs on it | defensive snaps (snap counts, matched by name) | snap share |
 | K, P | EPA per kick (field goals and extra points), EPA per punt | kicks, punts | one |
 
 What each handle can and cannot see. The skill value is the cleanest: the play is his. The QB rating has been in
