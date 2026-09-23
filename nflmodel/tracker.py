@@ -108,7 +108,15 @@ def summary(gr: pd.DataFrame, by=None) -> pd.DataFrame:
 
 
 def record_model_picks(picks: pd.DataFrame, run_at: str):
-    """Append this run's flagged picks (from picks.table) to model_picks.csv, replacing earlier rows for the same game."""
+    """Append this run's flagged picks (from picks.table) to model_picks.csv, replacing earlier rows for the same game;
+    the shadow rule's picks (SHADOW_EDGE, never bet) go to shadow_picks.csv the same way."""
+    out = _record(picks, run_at, "bet", "model_picks.csv")
+    if "shadow_bet" in picks.columns:
+        _record(picks.drop(columns=["bet"]).rename(columns={"shadow_bet": "bet"}), run_at, "bet", "shadow_picks.csv")
+    return out
+
+
+def _record(picks: pd.DataFrame, run_at: str, col: str, fname: str):
     TR.mkdir(parents=True, exist_ok=True)
     games = pd.read_parquet(OUT / "games.parquet").set_index("game_id")
     now = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
@@ -125,7 +133,7 @@ def record_model_picks(picks: pd.DataFrame, run_at: str):
                          "total_edge": round(r.total_edge, 2) if pd.notna(r.total_edge) else np.nan,
                          "p_cover": round(r.p_cover_home if r.home_team in b else 1 - r.p_cover_home, 3) if b[:2].isalpha() and pd.notna(r.p_cover_home) and not b.startswith(("Over", "Under")) else np.nan})
     new = pd.DataFrame(rows, columns=["run_at", "season", "week", "game_id", "bet", "odds", "stake", "stake_pct", "book", "spread_edge", "total_edge", "p_cover"])
-    f = TR / "model_picks.csv"
+    f = TR / fname
     if f.exists():
         old = pd.read_csv(f)
         # keep old rows for games already kicked off; an unplayed game's earlier pick is replaced by this run's, or
@@ -145,9 +153,11 @@ def main():
     if not (TR / "my_bets.csv").exists():
         (TR / "my_bets.csv").write_text("game_id,bet,odds,stake,note\n")   # your bets: one row each, with your read on the game in `note`
     mb = pd.read_csv(TR / "my_bets.csv")
+    ms = pd.read_csv(TR / "shadow_picks.csv") if (TR / "shadow_picks.csv").exists() else pd.DataFrame(columns=["game_id", "bet", "odds", "stake"])
     gm = grade_rows(mp, games).assign(who="model") if len(mp) else pd.DataFrame()
     gb = grade_rows(mb, games).assign(who="matt") if len(mb) else pd.DataFrame()
-    gr = pd.concat([gm, gb], ignore_index=True)
+    gs = grade_rows(ms, games).assign(who="shadow") if len(ms) else pd.DataFrame()
+    gr = pd.concat([gm, gb, gs], ignore_index=True)
     for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "result", "units", "kind", "who", "note", "book"]:
         if c not in gr.columns:
             gr[c] = np.nan
@@ -157,8 +167,9 @@ def main():
     gr.to_csv(TR / "graded.csv", index=False)
     L = ["# Track record", "", "Model picks and Matt's bets, graded against results, at the odds recorded. Closing line value (CLV) is the line "
          "recorded minus the closing line from the bet's side: positive means the number beat the close.", ""]
-    from .picks import SPREAD_EDGE
-    for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:
+    from .picks import SPREAD_EDGE, SHADOW_EDGE
+    for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets"),
+                      ("shadow", f"Shadow rule: {SHADOW_EDGE:g}+ spread edge (logged and graded, never bet; decides the cut after eight to ten live weeks)")]:
         x = gr[gr.who == who] if len(gr) else gr
         L += [f"## {name}", ""]
         if len(x) == 0:

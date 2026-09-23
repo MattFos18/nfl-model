@@ -297,6 +297,11 @@ spreads and 6 for totals (the ROI-best thresholds that hold in both windows), wi
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
 
+**Shadow rule (23 Sep 2026).** A 4.5-point cut is logged and graded alongside the 4-point flag from Week 3 of 2026
+(`picks.SHADOW_EDGE`, `data/tracker/shadow_picks.csv`, who = shadow in the graded table and on the live tab) but
+never bet. It showed the best rate on the rebuilt backtest, which is not enough on its own: the decision between
+4 and 4.5 is made on the live record after eight to ten weeks, with a reminder set for January 2027.
+
 ## 10. How much to trust the backtest
 
 **What is still held out, honestly.** The ridge strength and the bet thresholds were chosen on 2019 to 2022 and
@@ -530,6 +535,11 @@ helps both windows (-0.0025 / -0.0083; spread miss 10.023 / 9.970 against 10.032
 2018 window agrees on both measures (7.4145 / 10.007 against 7.4167 / 10.010). Adopted. What it means: a player's
 own EPA per touch is mostly noise, so his value is now largely his usage times a small, well-estimated gap; a
 star still counts, a hot month does not. Decay 0.97 and 0.995 were worse or flat; 0.985 stays.
+
+**Totals with the player inputs** (23 Sep 2026, `experiments/totals_players.py`, `reports/totals_players.csv`).
+With the skill-out values rebuilt, the summed skill value out, the summed offensive snaps out and the summed
+offseason turnover were tried as inputs to the total equation, alone and together. Every one is worse on both
+windows (+0.004 to +0.023 on the total miss). The total equation keeps its ten inputs and totals stay unflagged.
 
 ## 15. The player model
 
