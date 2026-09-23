@@ -97,8 +97,9 @@ def _usage_frames(pg: pd.DataFrame):
     return skill, by_player, by_team
 
 
-TEAM_WINDOW = "rating"   # 23 Sep 2026: "rating" = usage over the window the team's ratings are built on; "last" = the team's last n games; False = the player's own last n games on any team
+TEAM_WINDOW = "gate"   # 23 Sep 2026: "gate" = the player's own last n games on any team, but nothing when he has never played for this team in its ratings' window (a star traded in and hurt); "rating" = usage over the ratings' window; "last" = the team's last n games; False = the original, his own last n games on any team
 RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
+GATE_MIN = 0.25   # "gate": share of the team's ratings window (weighted games) a player must have played in for his absence to count
 
 
 def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | None, season: int, week: int, n_games: int):
@@ -112,7 +113,19 @@ def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | N
     g = by_player.get(pid)
     if g is None:
         return None, 0.0, 0
-    if TEAM_WINDOW and team is not None and by_team is not None and team in by_team:
+    if TEAM_WINDOW == "gate" and team is not None and by_team is not None and team in by_team:
+        # how much of the team's ratings window (this season and last, weighted like the ratings) he has played in; under
+        # GATE_MIN the ratings have barely seen him (a star traded in and hurt), so there is nothing to take out
+        tg = by_team[team]; tg = tg[((tg.season < season) | ((tg.season == season) & (tg.week < week))) & (tg.season >= season - 1)]
+        tw = tg.groupby("game_id").agg(season=("season", "first"), week=("week", "first"))
+        if len(tw):
+            age = np.where(tw.season == season, week - tw.week, (week + 18 - tw.week) + 1)
+            w = RATING_DECAY ** age * np.where(tw.season == season, 1.0, RATING_PRIOR)
+            played = set(g[g.team == team].game_id)
+            seen = float(w[tw.index.isin(played)].sum() / w.sum()) if w.sum() else 0.0
+            if seen < GATE_MIN:
+                return g.iloc[0:0].assign(w=1.0), 0.0, 0
+    if TEAM_WINDOW and TEAM_WINDOW != "gate" and team is not None and by_team is not None and team in by_team:
         tg = by_team[team]; tg = tg[(tg.season < season) | ((tg.season == season) & (tg.week < week))]
         if TEAM_WINDOW == "rating":
             tg = tg[tg.season >= season - 1]

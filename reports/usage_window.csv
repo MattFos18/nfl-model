@@ -1,0 +1,4 @@
+variant,team_mae_2019-22,margin_mae_2019-22,total_mae_2019-22,ats5_2019-22,ats5_pct_2019-22,ats4_2019-22,n_2019-22,team_mae_2023-25,margin_mae_2023-25,total_mae_2023-25,ats5_2023-25,ats5_pct_2023-25,ats4_2023-25,n_2023-25
+"player's own last eight games, any team (original)",7.3587,10.0329,10.6197,41-33,0.554,92-63,1055,7.2863,9.949,10.2606,22-17,0.564,49-27,816
+"team's last eight games, his touches for that team",7.366,10.0606,10.6197,41-36,0.532,85-62,1055,7.2913,9.9697,10.2606,21-17,0.553,46-32,816
+"the ratings' window: this season and last, decayed 0.94 per week, last season at 0.8",7.3599,10.047,10.6197,43-32,0.573,88-60,1055,7.2889,9.956,10.2606,20-15,0.571,44-32,816
