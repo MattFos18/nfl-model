@@ -496,8 +496,8 @@ not show, so it is parked and gets re-checked once 2026 is in the books.
 
 **Stake** (23 Sep 2026, `picks.kelly_stake`). Each flagged spread now carries a stake: a quarter of the Kelly
 fraction, (p x b - (1 - p)) / b with p the calibrated cover odds for the model's side and b the payout at the best
-book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%;
-a 7-point edge at 55% about 1%. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
+book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%,
+at 54% about 0.8%; the calibrated odds are refit every run, so the same edge can carry a different stake week to week. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
 Kelly at an overstated edge loses money. The picks markdown has a Stake column and the card shows it as a chip.
 
 **QB replacement level** (23 Sep 2026, `experiments/qb_replacement.py`, `qb_third.py`; `reports/qb_replacement.csv`,
