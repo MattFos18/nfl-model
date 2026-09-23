@@ -874,14 +874,44 @@ blitzed and not, against man and zone. A split shows only with 15 plays in it.
 **Defense profiles.** Each defense over its last 17 games: yards, EPA and catch rate allowed per target, yards and
 EPA allowed per carry and per dropback, and its mix: man rate, pressure rate, blitz rate, heavy- and light-box rates.
 
-**Projection for a game.** Volume: the team's pass plays (or runs) per game over its last 17, shared out among the
-players who are playing in proportion to their usage, so a listed-out player's targets go to his teammates rather
-than vanishing, and the team's targets add up to 97% of its pass plays (the rest are throwaways). Rate: the
-player's yards per touch in the defense's mix (his man split times the defense's man rate plus his zone split times
-the rest; light and heavy box the same way for rushers; pressure and clean for QBs), when both splits have 15 plays,
-otherwise his overall rate; then moved half way toward what that defense allows per touch relative to the league.
-The half weight is hand-set and is written on the page; it is the first thing to tune once the graded record is
-long enough. Yards = volume x rate; touchdowns = volume x his touchdown rate.
+**Projection for a game.** Volume: the team's pass plays (or runs, or dropbacks) per game over its last 17, shared
+out among the players who are playing in proportion to their usage, so a listed-out player's targets go to his
+teammates rather than vanishing, and the team's targets add up to 97% of its pass plays (the rest are throwaways).
+Rate: the player's yards per touch shrunk toward the league's with a fixed weight of touches (receivers 100 targets,
+rushers 25 carries, QBs 50 dropbacks), then moved part of the way toward what that defense allows per touch
+relative to the league (receivers and rushers a quarter, QBs half). Yards = volume x rate; touchdowns = volume x his
+touchdown rate. The look-by-look splits are shown beside the projection as readings and do not enter it.
+
+**Why that rule** (`experiments/props_backtest.py`, `reports/props_backtest.csv`; walk-forward 2019 to 2025, every
+player-game with a touch, projected from the previous 17 games of the player, his team and the opponent; mean
+absolute error in yards per player-game, tuning window / held out):
+
+| Receiving yards | 2019-22 | 2023-25 |
+|---|---|---|
+| League average per target x his volume | 20.06 | 19.07 |
+| His own rate x volume | 20.21 | 19.30 |
+| His man/zone split weighted by the defense's man rate (the first version) | 20.28 | 19.33 |
+| That, moved half way toward the defense (the first version on the page) | 20.28 | 19.28 |
+| His rate shrunk toward the league (100 targets), moved a quarter toward the defense (adopted) | 19.81 | 18.85 |
+
+| Rushing yards | 2019-22 | 2023-25 |
+|---|---|---|
+| His own rate x volume | 19.33 | 18.64 |
+| His light/heavy box split weighted by the defense's heavy-box rate | 19.80 | 18.98 |
+| Shrunk (25 carries), moved a quarter toward the defense (adopted) | 19.24 | 18.51 |
+
+| Passing yards | 2019-22 | 2023-25 |
+|---|---|---|
+| His own rate x volume | 62.96 | 62.65 |
+| His pressure/clean split weighted by the defense's pressure rate | 73.28 | 65.50 |
+| Shrunk (50 dropbacks), moved half way toward the defense (adopted) | 62.31 | 62.45 |
+
+The splits are too noisy at fifteen to seventeen games to project with: every look-weighted version is worse than
+the player's plain rate, and for receivers the league average per target beats the player's own rate outright,
+which is why the shrinkage weight is heavy. Volume from usage share beats his plain targets per game by a hair
+(1.91 against 1.92 targets of error). The defense adjustment is worth a tenth of a yard or so. A projection that is
+20 yards off on average on a receiving line is a weak instrument; the live record will say whether it is worth
+anything against a market line, once those are logged.
 
 **Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's

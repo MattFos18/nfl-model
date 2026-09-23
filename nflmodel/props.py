@@ -3,14 +3,14 @@
 From data/processed/scheme_plays.parquet (every play since 2016 with the participation and FTN tags): each QB,
 receiver and rusher's numbers over his last WINDOW games, split by the looks he faced (man, zone, pressure, clean,
 blitz, light and heavy boxes), and each defense's allowed numbers and mix over its last WINDOW games. For every
-game of the current week, each player's projected volume and yards against that defense's mix:
-  receivers: targets = his target share x the team's pass plays per game; yards per target in the mix = his yards
-             per target against man x the defense's man rate + against zone x (1 - man rate), when both splits
-             have MIN_SPLIT targets, else his overall; then moved half way toward what the defense allows per
-             target relative to the league (a hand-set half weight, stated on the page, to be tuned on the graded record)
-  rushers:   carries = share x runs per game; yards per carry from his light-box and heavy-box splits weighted by
-             the defense's heavy-box rate, moved half way toward the defense's allowed yards per carry
-  QBs:       dropbacks per game; EPA and yards per dropback under pressure / clean weighted by the defense's pressure rate
+game of the current week, each player's projected volume and yards against that defense, by the rule the backtest
+chose (experiments/props_backtest.py, reports/props_backtest.csv, walk-forward 2019 to 2025 on both windows):
+  volume:   the team's pass plays (or runs, or dropbacks) per game over its last 17, shared among the players who are
+            playing in proportion to their usage share (an absent player's targets go to his teammates)
+  rate:     the player's yards per touch shrunk toward the league's with K touches of weight (receivers 100 targets,
+            rushers 25 carries, QBs 50 dropbacks), then moved W of the way toward what the defense allows per touch
+            relative to the league (receivers 0.25, rushers 0.25, QBs 0.5). The look-by-look splits (man/zone, box,
+            pressure) are shown as readings only: projecting with them was worse than not on both windows.
 Projections are readings and get graded every run against what happened (data/tracker/props_graded.csv), so
 they build a record before anyone bets on them. Nothing here feeds the game model.
 Usage: python -m nflmodel.props   writes data/processed/props.json, reports/props_<season>_wk<week>.csv and .md, grades last week"""
@@ -18,7 +18,10 @@ from __future__ import annotations
 import json
 import numpy as np, pandas as pd
 from .features import RAW, OUT, ROOT
-WINDOW, MIN_SPLIT, MIN_VOL, DEF_WEIGHT = 17, 15, 8, 0.5
+WINDOW, MIN_SPLIT, MIN_VOL = 17, 15, 8
+K = {"rec": 100.0, "rush": 25.0, "pass": 50.0}       # touches of league-average weight the player's rate is shrunk with (backtest, 23 Sep 2026)
+W = {"rec": 0.25, "rush": 0.25, "pass": 0.5}         # weight toward what the defense allows per touch, relative to the league
+DEF_WEIGHT = W["rec"]                                # kept for the page's note
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -126,8 +129,12 @@ def _mix(a: dict | None, b: dict | None, rate: float | None, key: str, fallback:
     return a[key] * rate + b[key] * (1 - rate)
 
 
-def _toward(v: float, allowed: float | None, league: float) -> float:
-    return v if allowed is None else v * (1 + DEF_WEIGHT * (allowed / league - 1)) if league else v
+def _toward(v: float, allowed: float | None, league: float, w: float) -> float:
+    return v if (allowed is None or not league) else v * (1 + w * (allowed / league - 1))
+
+
+def _shrunk(rate: float, n: float, league: float, k: float) -> float:
+    return (rate * n + k * league) / (n + k)
 
 
 def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame) -> dict:
@@ -142,10 +149,11 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     for pid, p in R.items():
         if p["team"] != team or pid not in ro.index: continue
         st = status(pid); is_out = any(st.startswith(w) for w in OUT_WORDS)
-        ypt_mix = _mix(p["vs_man"], p["vs_zone"], dd.get("man"), "yds", p["ypt"]); ypt = _toward(ypt_mix, dd.get("ypt_allowed"), L["ypt"])
+        ypt_s = _shrunk(p["ypt"], p["targets"], L["ypt"], K["rec"]); ypt = _toward(ypt_s, dd.get("ypt_allowed"), L["ypt"], W["rec"])
+        ypt_mix = _mix(p["vs_man"], p["vs_zone"], dd.get("man"), "yds", p["ypt"])   # reading only
         tg = p["share"] * vol.get("pass_plays_pg", 0)
         rec.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "targets_pg": p["targets_pg"], "share": p["share"], "proj_targets": round(tg, 1), "proj_catches": round(tg * p["catch"], 1),
-                    "ypt": p["ypt"], "ypt_mix": round(ypt_mix, 2), "proj_ypt": round(ypt, 2), "proj_rec_yards": round(tg * ypt, 1), "proj_rec_td": round(tg * p["td_pt"], 2),
+                    "ypt": p["ypt"], "ypt_shrunk": round(ypt_s, 2), "ypt_mix": round(ypt_mix, 2), "proj_ypt": round(ypt, 2), "proj_rec_yards": round(tg * ypt, 1), "proj_rec_td": round(tg * p["td_pt"], 2),
                     "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "vs_press": p["vs_press"], "adot": p["adot"], "games": p["games"], "targets": p["targets"]})
     # volume is shared out among the players who are playing: an absent player's targets go to the others in proportion
     # to their usage, and the team's targets add up to its pass plays (97%: the rest are throwaways and spikes)
@@ -158,9 +166,10 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     for pid, p in RU.items():
         if p["team"] != team or pid not in ro.index: continue
         st = status(pid); is_out = any(st.startswith(w) for w in OUT_WORDS)
-        ypc_mix = _mix(p["heavy"], p["light"] if p["light"] else p["mid"], dd.get("heavy_box"), "yds", p["ypc"]); ypc = _toward(ypc_mix, dd.get("ypc_allowed"), L["ypc"])
+        ypc_s = _shrunk(p["ypc"], p["carries"], L["ypc"], K["rush"]); ypc = _toward(ypc_s, dd.get("ypc_allowed"), L["ypc"], W["rush"])
+        ypc_mix = _mix(p["heavy"], p["light"] if p["light"] else p["mid"], dd.get("heavy_box"), "yds", p["ypc"])   # reading only
         ca = p["share"] * vol.get("runs_pg", 0)
-        rus.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "carries_pg": p["carries_pg"], "share": p["share"], "proj_carries": round(ca, 1), "ypc": p["ypc"], "ypc_mix": round(ypc_mix, 2), "proj_ypc": round(ypc, 2),
+        rus.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "carries_pg": p["carries_pg"], "share": p["share"], "proj_carries": round(ca, 1), "ypc": p["ypc"], "ypc_shrunk": round(ypc_s, 2), "ypc_mix": round(ypc_mix, 2), "proj_ypc": round(ypc, 2),
                     "proj_rush_yards": round(ca * ypc, 1), "proj_rush_td": round(ca * p["td_pc"], 2), "light": p["light"], "heavy": p["heavy"], "games": p["games"], "carries": p["carries"]})
     act = [r for r in rus if not r["out"]]; tot = sum(r["share"] for r in act)
     for r in rus:
@@ -171,10 +180,10 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     for pid, p in Q.items():
         if p["team"] != team or pid not in ro.index: continue
         st = status(pid); is_out = any(st.startswith(w) for w in OUT_WORDS)
-        ypd_mix = _mix(p["press"], p["clean"], dd.get("pressure"), "yds", p["ypd"]); ypd = _toward(ypd_mix, dd.get("ypd_allowed"), L["ypd"])
-        epa_mix = _mix(p["press"], p["clean"], dd.get("pressure"), "epa", p["epa_db"])
+        ypd_s = _shrunk(p["ypd"], p["dropbacks"], L["ypd"], K["pass"]); ypd = _toward(ypd_s, dd.get("ypd_allowed"), L["ypd"], W["pass"])
+        epa_mix = _mix(p["press"], p["clean"], dd.get("pressure"), "epa", p["epa_db"])   # reading only
         dbs = vol.get("dropbacks_pg", p["dropbacks_pg"])
-        qbs.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "dropbacks_pg": p["dropbacks_pg"], "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_mix": round(ypd_mix, 2), "proj_ypd": round(ypd, 2),
+        qbs.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "dropbacks_pg": p["dropbacks_pg"], "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_shrunk": round(ypd_s, 2), "proj_ypd": round(ypd, 2),
                     "proj_pass_yards": round(dbs * ypd, 1), "proj_pass_td": round(dbs * p["td_db"], 2), "proj_int": round(dbs * p["int_db"], 2), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"]})
     qbs.sort(key=lambda r: (r["out"], -r["dropbacks_pg"]))
     return {"defense": dd, "volume": vol, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4]}
@@ -216,7 +225,8 @@ def main():
     roster = pd.read_parquet(OUT / "roster_now.parquet") if (OUT / "roster_now.parquet").exists() else pd.DataFrame(columns=["team", "player_id", "roster", "report"])
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
     wk = games[(games.season == season) & (games.week == week)]
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "def_weight": DEF_WEIGHT, "league": L, "games": {}}
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "league": L, "games": {},
+           "backtest": {"rec_yards": [19.8, 18.9], "rush_yards": [19.2, 18.5], "pass_yards": [62.3, 62.5], "note": "mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest.csv)"}}
     rows = []
     for g in wk.itertuples():
         out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster)}
@@ -230,7 +240,7 @@ def main():
     pr = pd.DataFrame(rows)
     if len(pr):
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
-        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Projected volume x yards per touch in the opponent's mix (man/zone, box, pressure), moved {DEF_WEIGHT:.0%} of the way toward what the defense allows. Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
+        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game shared among the players who are playing) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}). The rule the backtest chose: about 20 yards off on receiving and rushing yards and 62 on passing yards per player-game on both windows (reports/props_backtest.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
     if graded is not None and len(graded):
         s = graded.groupby("stat").agg(n=("error", "size"), mae=("error", lambda e: round(float(e.abs().mean()), 1)), bias=("error", lambda e: round(float(e.mean()), 1))).reset_index()
