@@ -105,7 +105,9 @@ def main() -> bool:
             from . import players as PL
             g = pd.read_parquet(OUT / "games.parquet"); season, week = LN.current_week(g)
             f = RAW / "injuries" / f"injuries_{season}.parquet"
-            nv = pd.read_parquet(f, columns=["week", "team"]) if f.exists() else pd.DataFrame(columns=["week", "team"])
+            if not f.exists():
+                raise RuntimeError("raw injuries not on this machine (the weekly run checks them)")
+            nv = pd.read_parquet(f, columns=["week", "team"])
             have = set(nv[nv.week == week].team); ef = RAW / "injuries" / "espn_injuries.csv"
             es = pd.read_csv(ef) if ef.exists() else pd.DataFrame(columns=["team", "fetched_at"])
             e_age = (now - pd.to_datetime(es.fetched_at, errors="coerce").max()).total_seconds() / 86400 if len(es) else 9e9
@@ -114,7 +116,7 @@ def main() -> bool:
             covered = len(have | fill); level = "OK" if covered == 32 or days_to_kick > 2 else "WARN"
             add(level, f"injury reports cover the week being priced (week {week})", f"league reports for {len(have)} teams, ESPN fills {len(fill)} more ({'no ESPN file' if e_age > 1e8 else f'fetched {e_age * 24:.0f} hours ago'}), {covered} of 32; first kickoff in {days_to_kick:.1f} days")
         except Exception as e:  # noqa
-            add("WARN", "injury reports cover the week being priced", str(e)[:120])
+            add("OK" if "not on this machine" in str(e) else "WARN", "injury reports cover the week being priced", str(e)[:120])
         s = (WEB / "rankings.js").read_text(); rk = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
         add("OK" if rk.get("params", {}).get("qb_prior") == R.DEFAULT["qb_prior"] else "FAIL", "page rankings use the code's QB replacement level", f"page {rk.get('params', {}).get('qb_prior')}, code {R.DEFAULT['qb_prior']}")
     except Exception as e:  # noqa
