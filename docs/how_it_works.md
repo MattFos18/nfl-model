@@ -5,29 +5,23 @@ files in `nflmodel/`; every number below comes from `reports/`.
 
 ## 1. What is built in today, and what is not
 
+Updated 23 Sep 2026. The model has twenty inputs (section 4); everything below says whether a thing is one of them.
+
 | Thing | Status | Where |
 |---|---|---|
-| Recent form vs whole season | Built in. Every game is weighted by age: 0.94 per week since 22 Sep 2026 (0.90 before), so a game 8 weeks old counts 61% of last week's. Fit, not picked (section 4) | `ratings.py` |
-| Last season | Built in. Last season's games count at 0.8 weight (0.5 before 22 Sep 2026) and keep decaying, so Week 1 is mostly last year pulled toward average, and this season takes over by about Week 7 | `ratings.py` |
+| Recent form vs whole season | Built in. Every game is weighted by age: 0.94 per week (0.90 until 22 Sep 2026), so a game 8 weeks old counts 61% of last week's | `ratings.py` |
+| Last season | Built in. Last season's games count at 0.8 weight (0.5 until 22 Sep 2026) and keep decaying; this season takes over by about Week 7 | `ratings.py` |
 | Opponent strength | Built in. Ratings are solved jointly, so an offense that scored on bad defenses is marked down | `ratings.py` |
-| Starting QB | Built in. The schedule names each starter; his own EPA per dropback over his career (decayed, shrunk) is the single biggest input. A QB change moves the number the moment nflverse lists the new starter | `ratings.py`, `model.py` |
-| Home field | Built in as one fitted league number, 1.9 points. Team-specific home edges were tested (each team's home-minus-away margin over three seasons, shrunk) and made the points miss worse, so they are shown but not used | `model.py`, `trends.py` |
-| Rest, short week, bye | Built in as fitted adjustments (short week +1.5 for the team on it, -1.1 for its opponent, off a bye +0.3) | `model.py` |
-| Dome, wind, cold | Built in. Wind is -0.13 points per mph for an outdoor game (a 15 mph day takes 2 points off each side); dome +0.3; cold under 35F +0.07. Uses the game-time weather in the schedule file for past games. For upcoming games nflverse has no forecast yet, so the model uses the median wind until the kickoff forecast pull (Open-Meteo) is added in Phase 5 | `model.py` |
-| Division game, primetime | Built in as fitted adjustments (-0.8 and -0.3 points per team). Both small and neutral in the ablation | `model.py` |
-| Injuries | Partly. QB out (previous game's starter listed Out or Doubtful) is in, on top of the QB rating. Starters out on offense and defense (50%+ snaps last game, now Out/Doubtful) were tested and did not move the score, because a player out for weeks is already out of the ratings and the count only catches new absences. Full player model is Phase 6 | `trends.py` |
-| Referees | Computed (over rate, home cover rate, penalty rate, all as-of and shrunk) and shown as noise. Failed both tests: no persistence across periods (top-five over refs 52.6% then 48.4%) and no gain in the regression | `trends.py` |
-| Head-to-head history | Computed (last six meetings' cover margin, shrunk) and shown as weak: it does persist across periods (+0.36) but adds nothing to the score once the ratings are known | `trends.py` |
-| Coach and QB against-the-spread records, off a loss | Computed and shown as noise. Coach cover rates do not persist (top five 56.8% then 47.6%), QB cover rates do not (56.2% then 47.7%), and neither helps the score. 'Off a loss' adds nothing | `trends.py` |
-| Team-specific weather performance | Computed (each team's margin in cold or windy games minus its other games, shrunk, applied when this game is cold or windy) and rejected: it raises the miss. Wind and cold themselves stay in | `trends.py` |
-| Home/away split stats | Tested as the old sheet's HOME/AWAY idea (home-minus-away EPA per play, shrunk): raises the miss, not used. Late-window slot and the West Coast-at-1pm body clock: same result | `trends.py` |
-| Line movement, splits, sharp money | Not built in. Nothing to backtest with: nflverse stores closing lines only. The line log starts in the first live week | |
-| Old sheet stats (passer rating, red zone TDs, Sc%, ANY/A and so on) | Computed in `features.py` and used by the baseline copy of the old model. Not in 3.0, because EPA per play predicts future points better than each of them (section 5) | `baseline.py`, `lab.py` |
-
-So: recent trends, last year, opponent adjustment, QB and QB out, home, rest, weather and the situational adjustments
-are in. Referees, head-to-head, coach/QB angles, per-team home and weather edges and starters-out were all built,
-tested and left out of the score because they made it worse or no better; they are still computed every week so
-the game card can show them, labelled noise or weak. Market signals wait on the line log.
+| Starting QB | Built in. The schedule names each starter; his own EPA per dropback (decayed, shrunk) is the single biggest input. When last game's starter is out and the replacement has no rating yet, a QB-out flag (about -1.7 points) applies | `ratings.py`, `model.py` |
+| Offseason turnover | Built in since 23 Sep 2026 for weeks 1 to 8: the share of last season's snaps that left the roster, for the team's offense and the defense it faces | `trends.py` |
+| Injuries beyond the QB | Built in since 22 Sep 2026: the value lost to RB, WR and TE listed Out or Doubtful or on IR (own and opponent), and the share of last game's snaps now out on offense and on the defense faced. Every other position is valued on the Players tab but none of those values beat the snap shares as inputs | `players.py`, `positions.py`, `trends.py` |
+| Home field | Built in as one fitted league number, about 1.9 points. Team-specific home edges were tested and made the miss worse; they are shown, not used | `model.py` |
+| Dome, wind, cold, rain, warm team in the cold | Built in. Wind about -0.13 points per mph outdoors; cold under 35F; rain; a warm-climate or dome team outdoors under 35F. Forecasts are used only within 4 days of kickoff | `model.py`, `weather.py` |
+| Division game | Built in since 22 Sep 2026 (about -0.7 points for each team) | `model.py` |
+| Rest, short week, bye, primetime | Tested and not in: none lowered the miss on both windows once the ratings were in | `experiments/` |
+| Referees, head-to-head, coach and QB against-the-spread records, off a loss, travel, time zones, snow, special teams, sack rates, pace, new coach | Tested and not in (section 14 and the decision log). Head-to-head, coaches and QBs are shown on each card as reference | `experiments/` |
+| Line movement, splits, sharp money | Not in. Nothing to backtest with until the line log has a season behind it. The best available number across books is used for the flagged bet and shown on the card | `lines.py`, `picks.py` |
+| Bet flag | A spread edge of 4 points or more (5 until 23 Sep 2026), no flags in Week 18, totals not flagged. Cover odds on the cards are calibrated on the backtest | `picks.py` |
 
 ## 2. The data
 
@@ -266,6 +260,11 @@ Honest caveat: the cut is chosen on all the seasons the model was tested on, so 
 description of the backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has
 converted to (about 53%).
 
+Second caveat (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`): on the untouched 2015 to 2018 window the
+4-point cut goes 58-54 (51.8%), 4.5 goes 40-47 and 5 goes 22-30. Those seasons had no say in any input, knob or
+cut, and the flag does not beat break-even there at any cut. The spread accuracy gains hold on that window; the
+flag rate does not. So the live record (Results tab) is the number that decides whether the flag earns its keep.
+
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
 sweep, recomputed from the backtest on every run, is on the History tab (Every threshold, tested). On the current model, spread
 cutoffs from 4 to 5.5 make money in both windows and 5 has the best return (68-48 over 2019 to 2025; 6 and up flip negative held
@@ -476,6 +475,14 @@ faces. Both windows: spread miss 10.019 / 9.993 against 10.052 / 10.040, points 
 7.304; the untouched 2015 to 2018 window agrees (10.013 against 10.031). Cutoffs of 4, 6, 8, 12 weeks and all
 season were tried; 8 was best held out. Fitted: about -4.7 points per unit of turnover on offense (a team that
 lost 20% of last year's snaps: -0.9 points early) and +4.8 for the opponent's defensive turnover. Twenty inputs.
+
+**Turnover luck** (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`). EPA per play carries every
+interception and lost fumble at full weight, and turnovers are the noisiest part of football (2.1% of plays). Two
+rebuilds of the offense and defense EPA ratings: per-play EPA clipped to -4 / +4, and turnover plays replaced by
+the average EPA of a turnover-free play of that type. Clipping: 7.3687 / 7.3010 against 7.3694 / 7.2995 on team
+points (better by 0.001 on one window, worse by 0.002 on the other). Turnover-neutral: worse on both (7.3734 /
+7.3016). Neither adopted; the raw EPA ratings stay. The same run scored the 2015 to 2018 window at the new 4-point
+cut: 58-54, discussed under section 9.
 
 ## 15. The player model
 
