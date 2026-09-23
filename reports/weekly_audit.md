@@ -1,17 +1,17 @@
-# Weekly audit, 2026-09-23 12:50 UTC
+# Weekly audit, 2026-09-23 15:07 UTC
 
-**CLEAN**: 7 of 7 sections pass.
+**FAILING**: 6 of 7 sections pass.
 
 | Section | Result | Detail | Seconds |
 |---|---|---|---|
-| Health: runs, steps, freshness, picks vs tracker, page settings | PASS | HEALTHY: 0 failing, 1 warnings, 21 ok. | 0.9 |
-| Data verification: scores, mirrors, PFR totals, known results | PASS | Result: PASS | 0.8 |
+| Health: runs, steps, freshness, picks vs tracker, page settings | FAIL | BROKEN: 1 failing, 0 warnings, 21 ok. | 1.0 |
+| Data verification: scores, mirrors, PFR totals, known results | PASS | Result: PASS | 0.7 |
 | Tie-out: every headline number across README, docs, sweep, picks, tracker and page | PASS | Result: PASS (44 of 44 tie) | 0.3 |
-| Leak test: corrupt every future game, nothing before the cut may move | PASS | rating change 0.0, prediction change 0.0 after corrupting every future game | 9.3 |
-| Page JavaScript parses | PASS | 1 script blocks, all parse | 0.0 |
-| Every page data file parses | PASS | 39 files, all parse | 0.3 |
-| Chromium walk of every view: no errors, no NaN, nothing empty | PASS | 15 views, 16 cards, errors [], bad [] | 26.3 |
+| Leak test: corrupt every future game, nothing before the cut may move | PASS | rating change 0.0, prediction change 0.0 after corrupting every future game | 9.6 |
+| Page JavaScript parses | PASS | 1 script blocks, all parse | 0.1 |
+| Every page data file parses | PASS | 39 files, all parse | 0.4 |
+| Chromium walk of every view: no errors, no NaN, nothing empty | PASS | 15 views, 16 cards, errors [], bad [] | 26.8 |
 
 The health table is in reports/health.md, the tie-out rows in reports/tie_check.md, the verification detail in reports/verification.md.
 
-Result: PASS
+Result: FAIL
