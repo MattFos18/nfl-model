@@ -1145,6 +1145,33 @@ team's rate was taken over his own because it scored the same or better on both 
 the offense that feeds him. The card's Player props panel gains a Kicking section with the roster's kicker, his two
 lines beside the book's, the walk-through, and the grading from the same kick plays.
 
+**Round ten: redistribution, red-zone role, offseason fade** (`experiments/props_backtest10.py`,
+`reports/props_backtest10.csv`; `_share` and `FADE` in `nflmodel/props.py`). Three player-side claims on the adopted
+rule, walk-forward, tuning / held out. (A) When a teammate is out, the page handed his share of the team's targets
+or carries to the others pro rata among the listed players who were playing. Tested with hindsight absences (a
+player with 5%+ of usage, seen in the team's last three games, not in this one; someone is out in 89% of
+team-games for receivers, 80% for rushers): no redistribution 19.397 / 18.421 receiving yards, 18.231 / 17.435
+rushing; pro rata 20.393 / 19.238 and 19.203 / 18.249; half pro rata 19.733 / 18.717 and 18.512 / 17.664; to the
+same position group 20.153 / 19.061 and 18.781 / 17.865; half of that 19.633 / 18.624 and 18.356 / 17.517. Every form
+lost on both windows, on volume too (targets 1.868 / 1.748 with none against 2.264 / 2.076 pro rata), so the page
+no longer redistributes: an absent player's share is simply not projected, and the freed touches show up as the
+team's expected points do, through the round-6 scaling. (B) Red-zone role: expected touchdowns per touch from the
+yard line of his targets or carries (league scoring rate by bucket, 2016 to 2018) as the prior his own rate is
+shrunk toward instead of the league average, and on its own. Receiving, Poisson log loss: the rule 0.5086 /
+0.4858; expected alone 0.5143 / 0.4886; shrunk toward expected with 100 to 800 touches 0.5126 to 0.5133 /
+0.4875 to 0.4881; expected itself shrunk 0.5091 / 0.4855. Rushing: the rule 0.5922 / 0.5629, the best variant
+0.5928 / 0.5629. Passing: the rule 1.4632 / 1.4226, the best variant 1.4630 / 1.4223, a gain in the fourth
+decimal. Nothing beat the rule on both windows by a size worth carrying, so the league prior stays. (C) Offseason
+fade: an extra factor on the usage share's weights across a season boundary and across a change of team.
+Receiving: none 19.397 / 18.421; season half 19.361 / 18.358; season a quarter 19.378 / 18.341; team half 19.373 /
+18.378; team a quarter 19.363 / 18.353; **both half 19.354 / 18.332** (adopted); both a quarter 19.387 / 18.326;
+season a quarter and team half 19.380 / 18.329; season half and team a quarter 19.356 / 18.321. Rushing: none
+18.231 / 17.435; season half 18.157 / 17.336; season a quarter 18.127 / 17.294; team half 18.205 / 17.390; team a
+quarter 18.190 / 17.368; both half 18.141 / 17.314; both a quarter 18.124 / 17.290; **season a quarter and team
+half 18.121 / 17.285** (adopted); season half and team a quarter 18.137 / 17.305. The gains sit in weeks 1 to 8 as
+expected (receiving 20.166 / 18.709 to 20.120 / 18.598; rushing 18.098 / 17.736 to 17.930 / 17.521). The page's
+receiving and rushing errors are the fade rows; the by-season run carries the fade too.
+
 **Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
 a 980-pixel desktop page. Below 700 pixels the same page reflows: tighter header and tabs, tiles two across, the
 game rail a scrolling strip pinned to the top, wide tables scrolling inside their own box (grid children may not

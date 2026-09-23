@@ -61,11 +61,12 @@ DEF_DECAY, DEF_MED, K_SACK = 0.85, 0.90, 300.0         # round 7 (reports/props_
 BACKTEST_DEF = {"def_tackles": [1.648, 1.633], "def_sacks_ll": [0.3813, 0.3887]}   # tk_85gs_med and sk_K300 in props_backtest7.csv
 LONGEST = {"rec": (6.9084, 0.3362, 0.1291, 0.84), "rush": (6.9330, 0.1545, 0.1153, 0.78), "pass": (16.3327, 0.2340, 0.0547, 0.92)}   # round 8 (reports/props_backtest8.csv, l_blend_med): longest gain of the game = median factor x (a + b x his game-longest decayed 0.85 per game back + c x his yards per game); fitted on 2016 to 2018
 BACKTEST_LONGEST = {"rec_longest": [9.256, 9.274], "rush_longest": [7.575, 7.309], "pass_longest": [11.803, 11.686]}   # l_blend_med in props_backtest8.csv
+FADE = {"rec": (0.5, 0.5), "rush": (0.25, 0.5)}   # round 10 (reports/props_backtest10.csv): the usage share's weights take an extra factor across a season boundary and across a change of team (last year's role counts for less in September); no redistribution of an absent player's share (every form of it lost on both windows)
 KICK = {"pts": (2.4861, 0.1843, 0.1489), "fgm": (1.0165, 0.1757, 0.0155)}   # round 9 (reports/props_backtest9.csv, k_blend_team and g_blend_team): kicking points = a + b x his team's kicking points per game decayed 0.85 + c x the team's implied total ((closing total + expected margin) / 2); field goals made the same; fitted on 2016 to 2018
 BACKTEST_KICK = {"kick_points": [2.832, 2.925], "field_goals": [0.969, 1.001]}   # k_blend_team and g_blend_team in props_backtest9.csv
 PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {"rec_yards": [19.397, 18.421], "rush_yards": [18.231, 17.435], "pass_yards": [57.683, 57.305]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest6.csv rows yds_recon25 (receiving, rushing) and yds_recon50 (passing); before the reconciliation 19.44 / 18.46, 18.36 / 17.60, 60.71 / 61.08 (props_backtest4.csv base and combo)
+BACKTEST = {"rec_yards": [19.354, 18.332], "rush_yards": [18.121, 17.285], "pass_yards": [57.683, 57.305]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest6.csv rows yds_recon25 (receiving, rushing) and yds_recon50 (passing); before the reconciliation 19.44 / 18.46, 18.36 / 17.60, 60.71 / 61.08 (props_backtest4.csv base and combo)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -95,11 +96,14 @@ def _longest(g_all: pd.DataFrame, g: pd.DataFrame, kind: str) -> dict:
     return {"longest_dec": round(dec, 2), "ypg": round(ypg, 2), "proj_longest": round(med * (a + b * dec + c * ypg), 1)}
 
 
-def _share(g: pd.DataFrame, team_by_game: pd.Series) -> float:
+def _share(g: pd.DataFrame, team_by_game: pd.Series, kind: str = "rec") -> float:
     """His plays over his teams' plays in the same games, both decayed by DECAY per game back from his most recent
-    game, over every game in the as-of frame (a player traded in keeps the usage he had elsewhere)."""
+    game, over every game in the as-of frame (a player traded in keeps the usage he had elsewhere), with the round-10
+    fade: an extra factor on every game before a season boundary and before a change of team."""
     pairs = g.groupby(["game_id", "posteam", "season", "week"]).size().reset_index(name="n").sort_values(["season", "week"], ascending=False)
-    wts = DECAY ** np.arange(len(pairs))
+    sf, tf = FADE.get(kind, (1.0, 1.0)); sn = pairs.season.values; tm = pairs.posteam.values
+    sc = np.cumsum(np.r_[0, sn[1:] != sn[:-1]]) if len(pairs) else np.array([]); tc = np.cumsum(np.r_[0, tm[1:] != tm[:-1]]) if len(pairs) else np.array([])
+    wts = DECAY ** np.arange(len(pairs)) * sf ** sc * tf ** tc
     mine = float((pairs.n.values * wts).sum())
     tot = float(sum(w * team_by_game.get((r.game_id, r.posteam), 0) for w, r in zip(wts, pairs.itertuples())))
     return mine / tot if tot else 0.0
@@ -135,7 +139,7 @@ def receivers(d: pd.DataFrame, names: dict) -> dict:
         if tgt < MIN_VOL:
             continue
         team = g.sort_values(["season", "week"]).posteam.iloc[-1]
-        share = _share(g_all, team_pass)
+        share = _share(g_all, team_pass, "rec")
         out[pid] = {"name": names.get(pid, (pid, ""))[0], "pos": names.get(pid, ("", ""))[1], "team": team, "games": int(g.game_id.nunique()), "targets": int(tgt), "targets_pg": round(tgt / g.game_id.nunique(), 2), "share": round(share, 3),
                     "catch": round(float(g.complete_pass.fillna(0).mean()), 3), "ypt": round(float(g.yards_gained.fillna(0).mean()), 2), "epa_pt": round(float(g.epa.mean()), 3), "adot": (round(float(g.air_yards.mean()), 1) if g.air_yards.notna().any() else None),
                     "td_pt": round(float(g.pass_touchdown.fillna(0).mean()), 3), "vs_man": _stat(g[g.man], MIN_SPLIT), "vs_zone": _stat(g[g.zone], MIN_SPLIT), "vs_blitz": _stat(g[g.blitz == 1], MIN_SPLIT), "vs_press": _stat(g[g.pressure == 1], MIN_SPLIT), **_longest(g_all, g, "rec")}
@@ -151,7 +155,7 @@ def rushers(d: pd.DataFrame, names: dict) -> dict:
         if n < MIN_VOL:
             continue
         team = g.sort_values(["season", "week"]).posteam.iloc[-1]
-        out[pid] = {"name": names.get(pid, (pid, ""))[0], "pos": names.get(pid, ("", ""))[1], "team": team, "games": int(g.game_id.nunique()), "carries": int(n), "carries_pg": round(n / g.game_id.nunique(), 2), "share": round(_share(g_all, team_run), 3),
+        out[pid] = {"name": names.get(pid, (pid, ""))[0], "pos": names.get(pid, ("", ""))[1], "team": team, "games": int(g.game_id.nunique()), "carries": int(n), "carries_pg": round(n / g.game_id.nunique(), 2), "share": round(_share(g_all, team_run, "rush"), 3),
                     "ypc": round(float(g.yards_gained.fillna(0).mean()), 2), "epa_pc": round(float(g.epa.mean()), 3), "success": round(float(g.success.mean()), 3), "td_pc": round(float(g.rush_touchdown.fillna(0).mean()), 3),
                     "light": _stat(g[g.box <= 6], MIN_SPLIT), "heavy": _stat(g[g.box >= 8], MIN_SPLIT), "mid": _stat(g[g.box == 7], MIN_SPLIT), **_longest(g_all, g, "rush")}
     return out
@@ -449,11 +453,10 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         rec.append({"player_id": pid, "name": p["name"], "pos": p.get("pos", ""), "vs_opp": vs_summary((VS or {}).get(("rec", pid, opp))), "status": st, "out": is_out, "targets_pg": p["targets_pg"], "share": p["share"], "catch": p["catch"], "catch_shrunk": round(catch_s, 3), "td_pt": p["td_pt"], "td_pt_proj": round(td_s, 4),
                     "ypt": p["ypt"], "ypt_shrunk": round(ypt_s, 2), "ypt_mix": round(ypt_mix, 2), "proj_ypt": round(ypt, 2),
                     "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "vs_press": p["vs_press"], "adot": p["adot"], "games": p["games"], "targets": p["targets"], "longest_dec": p["longest_dec"], "ypg": p["ypg"], "proj_rec_longest": p["proj_longest"]})
-    # volume is shared out among the players who are playing: an absent player's targets go to the others in proportion
-    # to their usage, and the team's targets add up to its game-script pass plays (97%: the rest are throwaways and spikes)
-    act = [r for r in rec if not r["out"]]; tot = sum(r["share"] for r in act)
+    # his share x the team's game-script pass plays (97%: the rest are throwaways and spikes). An absent teammate's share is
+    # not handed to the others: every form of redistribution lost on both windows (round 10)
     for r in rec:
-        tg = (r["share"] / tot * vol["pass_plays"] * 0.97) if (tot and not r["out"]) else r["share"] * vol["pass_plays"] * 0.97
+        tg = r["share"] * vol["pass_plays"] * 0.97
         r.update({"proj_targets": round(tg, 1), "proj_catches_mean": round(tg * r["catch_shrunk"], 1), "proj_catches": round(tg * r["catch_shrunk"] * MED_CATCH, 1), "proj_rec_yards_mean": round(tg * r["proj_ypt"], 1), "proj_rec_yards": round(tg * r["proj_ypt"] * MED["rec"], 1), "proj_rec_td": round(tg * r["td_pt_proj"], 3)})
     rec.sort(key=lambda r: (r["out"], -r["proj_targets"]))
     rus = []
@@ -465,9 +468,8 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         td_s = _shrunk(p["td_pc"], p["carries"], L["td_pc"], K_TD["rush"]) * (1 + TD_MARGIN["rush"] * me)
         rus.append({"player_id": pid, "name": p["name"], "pos": p.get("pos", ""), "vs_opp": vs_summary((VS or {}).get(("rush", pid, opp))), "status": st, "out": is_out, "carries_pg": p["carries_pg"], "share": p["share"], "td_pc": p["td_pc"], "td_pc_proj": round(td_s, 4), "ypc": p["ypc"], "ypc_shrunk": round(ypc_s, 2), "ypc_mix": round(ypc_mix, 2), "proj_ypc": round(ypc, 2),
                     "light": p["light"], "heavy": p["heavy"], "games": p["games"], "carries": p["carries"], "longest_dec": p["longest_dec"], "ypg": p["ypg"], "proj_rush_longest": p["proj_longest"]})
-    act = [r for r in rus if not r["out"]]; tot = sum(r["share"] for r in act)
     for r in rus:
-        ca = (r["share"] / tot * vol["runs"]) if (tot and not r["out"]) else r["share"] * vol["runs"]
+        ca = r["share"] * vol["runs"]
         r.update({"proj_carries": round(ca, 1), "proj_rush_yards_mean": round(ca * r["proj_ypc"], 1), "proj_rush_yards": round(ca * r["proj_ypc"] * MED["rush"], 1), "proj_rush_td": round(ca * r["td_pc_proj"], 3)})
     rus.sort(key=lambda r: (r["out"], -r["proj_carries"]))
     qbs = []
@@ -597,8 +599,8 @@ def main():
     KK = kickers(kicker_games(range(season - 1, season + 1)), names, season, week)
     wk = games[(games.season == season) & (games.week == week)]
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
-           "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest4.csv: base for receiving and rushing, combo for passing)")}
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
+           "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest10.csv fade rows for receiving and rushing; props_backtest6.csv yds_recon50 for passing)")}
     rows = []
     for g in wk.itertuples():
         sp = None if pd.isna(g.spread_line) else float(g.spread_line)   # nflverse: positive when the home team is favoured

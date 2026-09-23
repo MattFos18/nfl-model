@@ -1,4 +1,4 @@
-# Tie-out (sources), 2026-09-23 19:59 UTC
+# Tie-out (sources), 2026-09-23 20:25 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -36,16 +36,17 @@ The same number must read the same everywhere it appears. Each row: what was com
 | scheme profiles as of the current week | 2026 3 | 2026 3 | yes |
 | scheme profiles cover 32 teams | 32 | 32 | yes |
 | props projections are for the current week | 2026 3 | 2026 3 | yes |
-| props backtest errors on the page = props_backtest6.csv (the reconciliation rows adopted) | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
+| props backtest errors on the page = props_backtest10.csv fade rows (receiving, rushing) and props_backtest6.csv (passing) | {'rec_yards': [19.354, 18.332], 'rush_yards': [18.121, 17.285], 'pass_yards': [5 | {'rec_yards': [19.354, 18.332], 'rush_yards': [18.121, 17.285], 'pass_yards': [5 | yes |
+| props fade factors on the page = props_backtest10.csv (fitted) | {'rec_yards': [0.5, 0.5], 'rush_yards': [0.25, 0.5]} | {'rec_yards': [0.5, 0.5], 'rush_yards': [0.25, 0.5]} | yes |
 | props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006) | {'rec_yards': [19.444, 18.46], 'rush_yards': [18.362, 17.602], 'pass_yards': [60 | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | yes |
 | props team fit constants = props_backtest6.csv | {'rec': {'td': [-0.2529, 0.07481], 'yds': [86.16, 6.483]}, 'rush': {'td': [-0.18 | {'rec': {'td': [-0.2529, 0.07481], 'yds': [86.16, 6.483]}, 'rush': {'td': [-0.18 | yes |
 | props round-4 base = round-3 adopted variant (receiving, rushing) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | yes |
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
 | props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
-| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15, 30, 14] | [71, 18, 37, 59, 38, 42, 15, 30, 14] | yes |
+| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15, 30, 14, 49] | [71, 18, 37, 59, 38, 42, 15, 30, 14, 49] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
-| props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.4, 18.42], 'rush_yards': [18.23, 17.44], 'pass_yards': [57.68, | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
+| props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.35, 18.33], 'rush_yards': [18.12, 17.29], 'pass_yards': [57.68 | {'rec_yards': [19.354, 18.332], 'rush_yards': [18.121, 17.285], 'pass_yards': [5 | yes |
 | props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker) | 2896 | 2896 | yes |
 | props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
 | props longest-play backtests on the page = props_backtest8.csv (l_blend_med) | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | yes |
@@ -60,4 +61,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
 
-Result: PASS (55 of 55 tie)
+Result: PASS (56 of 56 tie)
