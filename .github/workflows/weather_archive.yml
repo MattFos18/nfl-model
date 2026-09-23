@@ -1,0 +1,35 @@
+name: weather archive
+on:
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: "season range, e.g. 2013-2025"
+        default: "2013-2025"
+permissions:
+  contents: write
+concurrency:
+  group: nfl-model-data
+  cancel-in-progress: false
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install pandas pyarrow requests
+      - name: kickoff-hour weather from the Open-Meteo archive
+        run: python -m nflmodel.weather_archive --seasons "${{ github.event.inputs.seasons || '2013-2025' }}"
+      - name: commit
+        run: |
+          git config user.name "nfl-model bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/weather/archive_kickoff.csv
+          git diff --cached --quiet || git commit -m "Weather archive: kickoff-hour readings"
+          git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
+          git push

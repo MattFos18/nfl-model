@@ -12,7 +12,8 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to decide the cut on live games (4.5 showed the best rate on the rebuilt backtest)
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction)
-SHADOWS = {"shadow45": (4.5, None, "4.5+ edge"), "shadowdog": (4.0, "dog", "4+ edge, model's side the underdog or pick'em")}
+SHADOWS = {"shadow45": (4.5, None, "4.5+ edge"), "shadowdog": (4.0, "dog", "4+ edge, model's side the underdog or pick'em"),
+           "shadowearly": (4.0, "wk13", "4+ edge, weeks 1 to 13 only")}   # weeks 14 to 17 are the one stretch where the flag has lost (34-39, 2015 to 2025)
 SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (best overall rate at twice the volume, both windows; reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 
 
@@ -44,6 +45,8 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # final week: starters rest and the line knows it before the ratings do (7-11 on flags 2019 to 2025)
         if side_rule == "dog" and pd.notna(r.spread_line) and np.sign(r.spread_edge) == np.sign(r.spread_line) and r.spread_line != 0:
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
+        if side_rule == "wk13" and r.week >= 14:
+            return ""   # the early-weeks rule sits out the late season
         if pd.notna(r.spread_line) and abs(r.spread_edge) >= spread_edge:
             side = r.home_team if r.spread_edge > 0 else r.away_team
             line = -r.spread_line if r.spread_edge > 0 else r.spread_line
