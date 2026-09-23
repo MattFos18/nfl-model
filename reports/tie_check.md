@@ -1,4 +1,4 @@
-# Tie-out (sources), 2026-09-23 19:45 UTC
+# Tie-out (sources), 2026-09-23 19:53 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -43,11 +43,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
 | props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
-| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15] | [71, 18, 37, 59, 38, 42, 15] | yes |
+| props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15, 30] | [71, 18, 37, 59, 38, 42, 15, 30] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
 | props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.4, 18.42], 'rush_yards': [18.23, 17.44], 'pass_yards': [57.68, | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
-| props file = props page data (projections: 4 per receiver, 4 per rusher, 6 per QB, 3 per defender) | 2432 | 2432 | yes |
+| props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender) | 2832 | 2832 | yes |
 | props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
+| props longest-play backtests on the page = props_backtest8.csv (l_blend_med) | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | yes |
+| props longest-play constants on the page = props_backtest8.csv (fitted) | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | yes |
 | props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
@@ -56,4 +58,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
 
-Result: PASS (51 of 51 tie)
+Result: PASS (53 of 53 tie)

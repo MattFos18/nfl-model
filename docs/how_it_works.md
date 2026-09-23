@@ -1114,6 +1114,22 @@ and large lines are set alike.
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
 own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.
 
+**Round eight: the longest-play markets** (`experiments/props_backtest8.py`, `reports/props_backtest8.csv`; `_longest`
+in `nflmodel/props.py`). PrizePicks posts longest reception, longest rush and longest completion, which sat on the
+card with a line and no projection. Per player and game the longest gain of his kind (completed passes for
+receivers and passers, runs for rushers; 0 when he had none) since 2016, projected walk-forward from his previous
+games, scored by absolute error in yards (tuning / held out). Longest reception: his plain average over his last 17
+games 9.802 / 9.777 (baseline); decayed 0.85 per game back 9.781 / 9.794, 0.90 9.730 / 9.731; decayed and shrunk
+toward his position's league average from the previous season with 2, 4, 8 and 16 games of weight 9.700 / 9.704,
+9.660 / 9.658, 9.630 / 9.618, 9.631 / 9.614; a blend fitted on 2016 to 2018 (6.9084 + 0.3362 x decayed longest +
+0.1291 x his yards per game) 9.598 / 9.573; shrunk (8 games) x median factor 0.84 9.296 / 9.326; **the blend x
+median factor 0.84 9.256 / 9.274** (adopted). Longest rush, the same variants: baseline 8.479 / 8.253; **the blend
+(6.9330 + 0.1545 x decayed longest + 0.1153 x yards per game) x 0.78 7.575 / 7.309** (adopted). Longest completion:
+baseline 12.218 / 12.237; **the blend (16.3327 + 0.2340 x decayed longest + 0.0547 x passing yards per game) x 0.92
+11.803 / 11.686** (adopted). Every variant beat the baseline on both windows; the blend with the median factor won
+every stat on both. On the card the three lines sit beside the book's under Player props, in the calculation
+walk-through, in the weekly file and the grading (the longest gain per player-game from the same play-by-play).
+
 **Against the market** (`nflmodel/props_lines.py`, `data/lines/props_log.csv`, `data/tracker/props_vs_market.csv`).
 No historical player prop lines exist in the repo or in any free source: The Odds API keeps them from May 2023 on
 paid plans only, so the market comparison is live from Week 3 of 2026. The line watch pulls the player props from
@@ -1129,8 +1145,9 @@ logged 774 lines across 17 markets, among them longest reception, longest rush, 
 kicking points and field goals, which the free Odds API tier cannot afford. Underdog's over/under feed refuses
 the runner on every version tried (v6, v5, v3: 426 Upgrade Required), so it is not a source. Two projections were
 added so those lines have a comparison: targets (the projected targets already inside the receiving line) and pass
-plus rush yards (the QB's passing line plus his rushing line), graded like the rest. The longest-play and kicking
-markets are logged but have no projection yet (a round of their own, to be backtested first). The props builder takes the last pull for each game, the median
+plus rush yards (the QB's passing line plus his rushing line), graded like the rest. The kicking markets are
+logged but have no projection yet (a round of their own, to be backtested first); the longest-play markets got
+theirs in round eight. The props builder takes the last pull for each game, the median
 line across books, and puts it beside each projection on the card with the side the projection leans (over above
 the line, under below; for the anytime touchdown the book's price as an implied probability beside the
 projection's chance of at least one score, 1 - exp(-(receiving + rushing expected touchdowns))). When the game is
