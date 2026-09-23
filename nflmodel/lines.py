@@ -315,7 +315,7 @@ def run(season=None, week=None) -> pd.DataFrame:
         pd.concat([old, df], ignore_index=True).to_csv(log, index=False)
     try:
         from . import props_lines
-        props_lines.run(season, week, force=bool(os.environ.get("PROPS_EVERY_RUN")))   # player props, on its own budgeted cadence
+        props_lines.run(season, week, force=bool(os.environ.get("PROPS_EVERY_RUN")), dfs_only=bool(os.environ.get("DFS_EVERY_RUN")))   # player props, on its own budgeted cadence; DFS_EVERY_RUN pulls only the free pick'em lines
     except Exception as e:  # noqa
         errors.append(f"props: {str(e)[:120]}")
     status = {"ts": ts, "season": season, "week": week, "rows": len(df), "errors": "; ".join(errors)}
