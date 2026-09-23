@@ -6,8 +6,11 @@ game model has: the record at every edge cut, on a tuning window (2023 to 2024) 
 break-even at -110 (52.4%). Also the book's own error against the projection's on the same player-games, and a
 blended line (projection moved part of the way toward the book) to see whether the book's number improves the
 projection. Anytime touchdown: the projection's chance of a score against the book's implied price, graded on
-whether he scored. Output reports/props_vs_market_backtest.csv (records by cut), props_vs_market_rows.csv (every
-graded player-game), and a summary printed."""
+whether he scored. Line shopping: the same side graded against the best line across the books at the close. If an
+opening snapshot exists too: the record at the opener and the closing line value (how far the close moved toward
+the side taken). Output reports/props_vs_market_backtest.csv (records by cut), props_vs_market_rows.csv (every
+graded player-game), props_vs_market_cuts.csv (the cut to flag at per stat, chosen like the game model's: the
+largest cut clearing 52.4% on both windows with 100 decided bets on each, or none), and a summary printed."""
 import numpy as np, pandas as pd, sys
 from nflmodel.model import OUT
 from nflmodel.props_lines import norm_name
@@ -21,8 +24,10 @@ spec = importlib.util.spec_from_file_location("bys", pathlib.Path(__file__).with
 src = pathlib.Path(__file__).with_name("props_by_season.py").read_text().split("by_season, by_pos, by_bucket = [], [], []")[0]   # everything up to the scoring loops
 ns = {"__name__": "bys"}; exec(compile(src, "bys", "exec"), ns); build = ns["build"]
 names = ns["names"]
-h = pd.read_csv(HIST); h["key"] = h.player.map(norm_name)
-close = h.groupby(["game_id", "stat", "key"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
+h = pd.read_csv(HIST); h["key"] = h.player.map(norm_name); h["snapshot"] = h.get("snapshot", pd.Series(["close"] * len(h))).fillna("close")
+def consensus(x):
+    return x.groupby(["game_id", "stat", "key"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean"), best_over=("line", "min"), best_under=("line", "max")).reset_index()
+close = consensus(h[h.snapshot == "close"]); opener = consensus(h[h.snapshot == "open"]) if (h.snapshot == "open").any() else None
 WIN = {"2023-24": (2023, 2024), "2025+": (2025, 2030)}
 rows, sweep = [], []
 def side_rows(f, stat, line_col, act_col):
@@ -30,6 +35,13 @@ def side_rows(f, stat, line_col, act_col):
     m = f.merge(close[close.stat == stat], on=["game_id", "stat", "key"], how="inner")
     m["side"] = np.where(m[line_col] > m.line, "over", np.where(m[line_col] < m.line, "under", "none")); m = m[m.side != "none"]
     m["edge"] = (m[line_col] - m.line).abs(); m["win"] = np.where(m[act_col] == m.line, np.nan, ((m[act_col] > m.line) == (m.side == "over")).astype(float))
+    # line shopping: the best line for the side taken across the books at the close (lowest for an over, highest for an under)
+    m["best"] = np.where(m.side == "over", m.best_over, m.best_under); m["win_best"] = np.where(m[act_col] == m.best, np.nan, ((m[act_col] > m.best) == (m.side == "over")).astype(float))
+    if opener is not None:
+        o = opener[opener.stat == stat][["game_id", "stat", "key", "line"]].rename(columns={"line": "open_line"}); m = m.merge(o, on=["game_id", "stat", "key"], how="left")
+        m["open_side"] = np.where(m.open_line.isna(), "none", np.where(m[line_col] > m.open_line, "over", np.where(m[line_col] < m.open_line, "under", "none")))
+        m["win_open"] = np.where(m.open_side == "none", np.nan, np.where(m[act_col] == m.open_line, np.nan, ((m[act_col] > m.open_line) == (m.open_side == "over")).astype(float)))
+        m["clv"] = np.where(m.open_side == "over", m.line - m.open_line, np.where(m.open_side == "under", m.open_line - m.line, np.nan))   # how far the close moved toward the side taken at the open
     m["proj_err"] = (m[line_col] - m[act_col]).abs(); m["line_err"] = (m.line - m[act_col]).abs()
     for w_ in [0.25, 0.5, 0.75]: m[f"blend{int(w_*100)}_err"] = ((1 - w_) * m[line_col] + w_ * m.line - m[act_col]).abs()
     return m
@@ -38,7 +50,9 @@ def sweep_rows(m, stat, cuts):
         x = m[m.season.between(a, b)]
         for c in cuts:
             y = x[x.edge >= c]; g = y.win.dropna(); wins, losses = int(g.sum()), int(len(g) - g.sum())
+            gb = y.win_best.dropna() if "win_best" in y else pd.Series(dtype=float); go = y.win_open.dropna() if "win_open" in y else pd.Series(dtype=float)
             sweep.append({"stat": stat, "window": w, "cut": c, "n": int(len(y)), "wins": wins, "losses": losses, "pushes": int(y.win.isna().sum()), "pct": round(wins / (wins + losses), 4) if wins + losses else None,
+                          "pct_best_line": (round(float(gb.mean()), 4) if len(gb) else None), "n_open": int(len(go)), "pct_open": (round(float(go.mean()), 4) if len(go) else None), "clv": (round(float(y.clv.mean()), 3) if "clv" in y and y.clv.notna().any() else None),
                           "proj_mae": round(float(y.proj_err.mean()), 3) if len(y) else None, "line_mae": round(float(y.line_err.mean()), 3) if len(y) else None, **{f"blend{k}_mae": (round(float(y[f"blend{k}_err"].mean()), 3) if len(y) else None) for k in (25, 50, 75)}})
 for kind in ["rec", "rush", "pass"]:
     f, ev = build(kind); f = f[f.season >= 2023]
@@ -58,6 +72,18 @@ if "td_rec" in ns and "td_rush" in ns:
     for w_ in [25, 50, 75]: m[f"blend{w_}_err"] = ((1 - w_ / 100) * m.p_us + w_ / 100 * m.p_book - m.scored).abs()
     m["yes_wins"] = np.where(m.side == "yes", m.win, np.nan)
     rows.append(m); sweep_rows(m, "anytime_td", [0, 0.02, 0.05, 0.08, 0.10, 0.15]); sweep_rows(m[m.side == "yes"], "anytime_td_yes", [0, 0.02, 0.05, 0.08, 0.10, 0.15])   # only the yes side is offered at most books
-allrows = pd.concat(rows, ignore_index=True); keep = [c for c in ["stat", "season", "week", "game_id", "pid", "key", "side", "edge", "line", "books", "win", "proj_err", "line_err"] if c in allrows.columns]
+allrows = pd.concat(rows, ignore_index=True); keep = [c for c in ["stat", "season", "week", "game_id", "pid", "key", "side", "edge", "line", "best", "open_line", "books", "win", "win_best", "win_open", "clv", "proj_err", "line_err"] if c in allrows.columns]
 allrows[keep].to_csv("reports/props_vs_market_rows.csv", index=False); S = pd.DataFrame(sweep); S.to_csv("reports/props_vs_market_backtest.csv", index=False)
-print(S.to_string()); print("DONE")
+# the cut to flag at, chosen the way the game model's was: the largest cut whose record clears break-even (52.4% at -110)
+# on BOTH windows with at least 100 decided bets on each, taking the higher combined win rate among ties; none if no cut does
+chosen = []
+for stat, g in S.groupby("stat"):
+    ok = None
+    for c in sorted(g.cut.unique()):
+        a, b = g[(g.window == "2023-24") & (g.cut == c)], g[(g.window == "2025+") & (g.cut == c)]
+        if len(a) and len(b) and a.pct.iloc[0] is not None and b.pct.iloc[0] is not None and a.pct.iloc[0] >= 0.524 and b.pct.iloc[0] >= 0.524 and (a.wins.iloc[0] + a.losses.iloc[0]) >= 100 and (b.wins.iloc[0] + b.losses.iloc[0]) >= 100:
+            tot = (a.wins.iloc[0] + b.wins.iloc[0]) / (a.wins.iloc[0] + a.losses.iloc[0] + b.wins.iloc[0] + b.losses.iloc[0])
+            if ok is None or tot > ok[1]: ok = (c, tot, int(a.wins.iloc[0] + a.losses.iloc[0] + b.wins.iloc[0] + b.losses.iloc[0]))
+    chosen.append({"stat": stat, "cut": None if ok is None else ok[0], "pct_both": None if ok is None else round(ok[1], 4), "decided": None if ok is None else ok[2]})
+pd.DataFrame(chosen).to_csv("reports/props_vs_market_cuts.csv", index=False)
+print(S.to_string()); print(pd.DataFrame(chosen).to_string()); print("DONE")

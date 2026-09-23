@@ -46,6 +46,7 @@ K_CATCH, MED_CATCH = 25.0, 0.88                     # catch rate shrunk toward t
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
 BACKTEST_COUNTS = {"rec_catches": [1.438, 1.359], "rec_td_ll": [0.5101, 0.4869], "rush_td_ll": [0.5948, 0.5655], "pass_td_ll": [1.4868, 1.4543], "pass_int_ll": [1.1449, 1.1047]}   # reports/props_backtest5.csv: catches MAE (catch_K25_med), touchdown and interception Poisson log loss (td_K200_gs, td_K200, td_K400_gs, int_league)
+PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
 PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
 BACKTEST = {"rec_yards": [19.44, 18.46], "rush_yards": [18.36, 17.60], "pass_yards": [60.71, 61.08]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest4.csv rows base (receiving, rushing; = A85B_med in props_backtest3.csv) and combo (passing: pace and wind added)
@@ -206,6 +207,9 @@ def attach_market(rows: list, mk: pd.DataFrame, pairs: list) -> None:
                 r["mkt_td_price"] = None if pd.isna(p_) else int(p_); r["mkt_td_prob"] = None if pd.isna(p_) else round(implied(p_), 3)
             else:
                 r[key] = None if pd.isna(h.line) else float(h.line); r[key + "_books"] = int(h.books)
+                cut = (PROP_EDGE or {}).get(stat); proj = r.get({"mkt_rec_yards": "proj_rec_yards", "mkt_catches": "proj_catches", "mkt_rush_yards": "proj_rush_yards", "mkt_pass_yards": "proj_pass_yards"}[key])
+                if cut is not None and proj is not None and not pd.isna(h.line) and abs(proj - float(h.line)) >= cut:
+                    r[key + "_flag"] = "over" if proj > h.line else "under"
 
 
 def implied(price: float) -> float:
@@ -367,7 +371,7 @@ def main():
     roster = pd.read_parquet(OUT / "roster_now.parquet") if (OUT / "roster_now.parquet").exists() else pd.DataFrame(columns=["team", "player_id", "roster", "report"])
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
     wk = games[(games.season == season) & (games.week == week)]
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "league": L, "games": {},
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest4.csv: base for receiving and rushing, combo for passing)")}
     rows = []
     for g in wk.itertuples():
