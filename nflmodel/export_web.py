@@ -524,6 +524,7 @@ def export_backtest_js(games=None, feats=None):
             "spread_line", "total_line", "p_home", "p_cover_home", "p_over", "model_spread", "model_total"]
     bk = allv[cols + ["sigma_margin"]].copy()
     bk["gameday"] = bk.game_id.map(gd)
+    ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
     fx = M.prep(feats).set_index(["game_id", "team"])
     def side_val(col, which):

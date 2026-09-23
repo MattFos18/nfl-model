@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 19:12 UTC
+# Tie-out (sources and page), 2026-09-23 19:21 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -46,7 +46,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38, 42, 15] | [71, 18, 37, 59, 38, 42, 15] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
 | props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.4, 18.42], 'rush_yards': [18.23, 17.44], 'pass_yards': [57.68, | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
-| props file = props page data (projections: 3 per receiver, 4 per rusher, 5 per QB, 3 per defender) | 2095 | 2095 | yes |
+| props file = props page data (projections: 3 per receiver, 4 per rusher, 5 per QB, 3 per defender) | 2155 | 2155 | yes |
 | props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
 | props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
@@ -55,8 +55,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
-| player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 150, 66, 32, 2026, 3] | [364, 150, 66, 32, 2026, 3] | yes |
-| props record on the page = every projection file, graded rows and market rows | [2095, 0, 0] | [2095, 0, 0] | yes |
+| player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 201, 66, 32, 2026, 3] | [364, 201, 66, 32, 2026, 3] | yes |
+| props record on the page = every projection file, graded rows and market rows | [2155, 0, 0] | [2155, 0, 0] | yes |
 | player game logs on the page = player-games in the charted plays (receiving, rushing, passing) | 74141 | 74141 | yes |
 | page backtest file: games | 3060 | 3060 | yes |
 | page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |

@@ -93,8 +93,9 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 th.sortable{cursor:pointer} th.sortable.on{color:var(--ink);border-bottom:2px solid var(--accent)}
 tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 /* game cards */
-.cards{display:grid;grid-template-columns:1fr;gap:12px}
-@media(min-width:1000px){.cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.cards{display:grid;grid-template-columns:1fr;gap:14px}
+.jump{position:sticky;top:0;z-index:5;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding:8px 0;margin:0 0 10px;background:var(--ground)} .jump a{flex:0 0 auto;font-size:12px;padding:4px 10px;border:1px solid var(--rule);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--panel);white-space:nowrap} .jump a.flag{border-color:var(--accent);color:var(--accent);font-weight:600} .jump a.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)} .jump a:hover{border-color:var(--accent)}
+@media(min-width:1180px){#week{padding-right:150px} .jump{position:fixed;right:16px;top:96px;width:126px;flex-direction:column;flex-wrap:nowrap;overflow-y:auto;max-height:calc(100vh - 110px);padding:6px;border:1px solid var(--rule-2);border-radius:8px;background:var(--panel)} .jump a{text-align:center}}
 .gcard{min-width:0}
 .gcard{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .gcard.flagged{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
@@ -126,7 +127,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .bar .lead{font-weight:600}
 .why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
 .whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px} .whybox[hidden]{display:none}
-.jump{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px} .jump a{font-size:12px;padding:3px 9px;border:1px solid var(--rule);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--panel)} .jump a.flag{border-color:var(--accent);color:var(--accent);font-weight:600} .jump a:hover{border-color:var(--accent)}
+
 .ptab2{width:100%;border-collapse:collapse;font-size:12.5px} .ptab2 th{font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1px solid var(--rule)} .ptab2 th.l,.ptab2 td.l{text-align:left} .ptab2 td{padding:4px 6px;text-align:right;border-bottom:1px solid var(--rule-2);white-space:nowrap} .ptab2 tr.neg td{color:var(--muted)} .ptab2 b{font-variant-numeric:tabular-nums}
 .lean{font-size:11.5px;font-variant-numeric:tabular-nums} .lean.up{color:var(--good)} .lean.dn{color:var(--bad)}
 tr.calc{display:table-row} tr.calc[hidden]{display:none} .ptab2 tr.calc > td{background:var(--panel-2);padding:2px 6px}
@@ -203,6 +204,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     <div class="legend" style="margin:0"><span><span class="dot" style="background:var(--model)"></span>Model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span><span><span class="badge flag">Flag</span> Edge past the threshold</span></div>
   </div>
   <div class="tiles" id="weektiles"></div>
+  <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
 </section>
 
@@ -314,6 +316,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div class="grid2" style="margin-bottom:14px">
     <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By week of the season</h3><p class="note">Where the model is strong and weak across a season, 2015 to now. Gap is the model's spread miss minus the line's (lower is better; the line is the market, so it is usually ahead). The flag is not played in Week 18 and the playoffs are never flagged; both are shown for the record.</p><div class="tablewrap"><table id="bkweeks"></table></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>Win chances, checked against what happened</h3><p class="note">Every regular-season game since 2015: the model's win chance for its favourite, grouped in bands, against how often that team won. The same for the closing moneyline where one exists (vig removed). A well-set chance sits near its band; above it the model is too shy, below it too bold.</p><div class="tablewrap" style="max-height:44vh"><table id="bkwin"></table></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
     <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at the live cut, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
@@ -767,7 +770,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
             ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
             ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
-            ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
+            ${winChip(g.p_home)}${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
@@ -775,7 +778,10 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
         <div class="whybox" id="box${i}" hidden data-k=""></div>
       </article>`;
     });
-    $("cards").innerHTML = `<div class="jump">${W.games.map((g, i) => `<a href="#card${i}" class="${g.bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}</a>`).join("")}</div>` + h;
+    $("cards").innerHTML = h;
+    $("jump").innerHTML = W.games.map((g, i) => `<a href="#card${i}" data-i="${i}" class="${g.bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}</a>`).join("");
+    $("jump").querySelectorAll("a").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const el = $("card" + a.dataset.i); if (el) el.scrollIntoView({behavior: "smooth", block: "start"}); }));
+    if (window.IntersectionObserver) { const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { $("jump").querySelectorAll("a").forEach(a => a.classList.toggle("on", a.dataset.i === e.target.id.slice(4))); } }); }, {rootMargin: "-40% 0px -55% 0px"}); $("cards").querySelectorAll("article.gcard").forEach(el => io.observe(el)); }
     // one box per card; the tab row decides what it shows. Clicking the open tab closes it.
     const CARD_TAB = {take: g => takeawaysHtml(g, W), why: (g, i) => whyHtml(g, W.season, i), h2h: g => h2hHtml(g.home_team, g.away_team, g),
       sch: g => { const m = schemeMatchHtml(g.away_team, g.home_team) + schemeMatchHtml(g.home_team, g.away_team); return m ? m + `<div class="mv" style="grid-column:1 / -1"><span class="chip mute">Readings · not a model input</span><span class="chip mute">Offense in the look · defense allows · how often the defense uses it</span></div>` : "<p class='note' style='margin:0'>No charted plays for these teams yet.</p>"; },
@@ -999,11 +1005,31 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   }
   const rec = (arr, key) => { const w = arr.filter(x => x[key] === true).length, l = arr.filter(x => x[key] === false).length; return {w, l, pct: w + l ? (w / (w + l) * 100).toFixed(1) + "%" : ""}; };
   const mean = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(2) : ""; };
+  // the model's win chance for its favourite in bands against the actual win rate; the closing moneyline beside it
+  const WIN_BANDS = [[0.5, 0.55], [0.55, 0.6], [0.6, 0.65], [0.65, 0.7], [0.7, 0.75], [0.75, 0.8], [0.8, 0.85], [0.85, 0.9], [0.9, 1.01]];
+  function winBand(p) { const q = Math.max(p, 1 - p); return WIN_BANDS.find(([a, b]) => q >= a && q < b); }
+  function winCalibTable(rows) {
+    const el = $("bkwin"); if (!el) return;
+    const g = rows.filter(r => r.p_home != null && r.home_score != null && r.home_score !== r.away_score);
+    const out = WIN_BANDS.map(([a, b]) => { const x = g.filter(r => { const q = Math.max(r.p_home, 1 - r.p_home); return q >= a && q < b; }); if (!x.length) return null;
+      const won = x.filter(r => (r.p_home >= 0.5) === (r.home_score > r.away_score)).length; const avg = x.reduce((s_, r) => s_ + Math.max(r.p_home, 1 - r.p_home), 0) / x.length;
+      const v = x.map(r => ({vw: vegasWin(r), r})).filter(o => o.vw != null); const vwon = v.filter(o => (o.vw >= 0.5) === (o.r.home_score > o.r.away_score)).length; const vavg = v.length ? v.reduce((s_, o) => s_ + Math.max(o.vw, 1 - o.vw), 0) / v.length : null;
+      return {a, b, n: x.length, avg, won, v: v.length, vavg, vwon}; }).filter(Boolean);
+    el.innerHTML = `<thead><tr><th class="l">Model win chance</th><th>Games</th><th title="the model's average chance in the band">Model says</th><th title="how often the model's favourite won">Actually won</th><th title="actual minus model, in points of probability">Gap</th><th title="the closing moneyline's chance, vig removed, on the same games">Vegas says</th><th title="how often the Vegas favourite won on those games">Actually won</th></tr></thead><tbody>` +
+      out.map(o => `<tr><td class="l">${Math.round(100 * o.a)} to ${Math.round(100 * Math.min(o.b, 1))}%</td><td class="mono">${o.n}</td><td class="mono">${(100 * o.avg).toFixed(1)}%</td><td class="mono"><b>${(100 * o.won / o.n).toFixed(1)}%</b> <span class="rk">${o.won}-${o.n - o.won}</span></td><td class="mono ${Math.abs(o.won / o.n - o.avg) > 0.05 ? "neg" : ""}">${o.won / o.n - o.avg >= 0 ? "+" : ""}${(100 * (o.won / o.n - o.avg)).toFixed(1)}</td><td class="mono">${o.vavg == null ? "" : (100 * o.vavg).toFixed(1) + "%"}</td><td class="mono">${o.v ? `${(100 * o.vwon / o.v).toFixed(1)}% <span class="rk">${o.vwon}-${o.v - o.vwon}</span>` : ""}</td></tr>`).join("") + "</tbody>";
+  }
+  function winChip(p) {
+    if (!window.BACKTEST || p == null) return ""; const band = winBand(p); if (!band) return "";
+    const g = bkRows().filter(r => r.p_home != null && r.home_score != null && r.home_score !== r.away_score && (!r.game_type || r.game_type === "REG")).filter(r => { const q = Math.max(r.p_home, 1 - r.p_home); return q >= band[0] && q < band[1]; }); if (g.length < 20) return "";
+    const won = g.filter(r => (r.p_home >= 0.5) === (r.home_score > r.away_score)).length;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model gave its favourite ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: how often that team won">Favourites at ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: won ${won}-${g.length - won}, ${(100 * won / g.length).toFixed(0)}%</span>`;
+  }
   function renderBacktest() {
     const allAny = bkRows().filter(r => r.home_score != null).map(gradeGame);
     const all = allAny.filter(r => !r.game_type || r.game_type === "REG");   // everything below is regular season; the playoffs appear only in the by-week table
     if (!all.length) { $("bksummary").innerHTML = "<p class='note'>No graded games exported.</p>"; return; }
     const seasons = [...new Set(all.map(r => r.season))].sort((a, b) => b - a);
+    winCalibTable(all);
     const sel = $("bkseason");
     if (!sel.options.length) { const o0 = document.createElement("option"); o0.value = "all"; o0.textContent = "2015 to now"; sel.appendChild(o0); seasons.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); }); sel.value = "all"; sel.onchange = () => { bkSeason = sel.value; renderBacktest(); }; }
     const g = bkSeason !== "all" ? all.filter(r => r.season == bkSeason) : all;
@@ -1322,14 +1348,14 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       def: r => `${Math.round(100 * r.share)}% of the team's tackles (decayed); ${r.tackles_pg} a game (${r.solo_pg} solo) over his last ${r.games}; ${r.sacks_pg} sacks a game, ${r.ints} INT, ${r.pd} passes defended; ${r.opp_plays} opponent plays projected.` + (r.vs_opp ? ` Against ${opp}: ${r.vs_opp.games} games, ${f1(r.vs_opp.n_pg)} tackles a game.` : "")};
     const rowsFor = (r, kind) => { const have = Object.fromEntries((r.markets || []).map(m => [m.stat, m])); const stats = MKT_ORDER[kind].filter(k => (MKT_PROJ[k] && r[MKT_PROJ[k]] != null && !(kind !== "pass" && k === "rush_yards" && r.proj_rush_yards == null)) || have[k]); if (!stats.length) return "";
       return stats.map((k, i) => { const m = have[k]; const ours = MKT_PROJ[k] ? r[MKT_PROJ[k]] : null; const isTd = k === "anytime_td"; const oursTxt = ours == null ? "<span class='rk'>—</span>" : (isTd ? pc(ours) : (k === "pass_td" || k === "pass_int" || k === "def_sacks" ? f2(ours) : f1(ours)));
-        const bookTxt = !m ? "<span class='rk'>—</span>" : (isTd ? `${pc(implied(m.over))} <span class="rk">${price(m.over)}</span>` : `${m.line} <span class="rk">${price(m.over)} / ${price(m.under)}</span>`);
-        const openTxt = m && m.pulls > 1 && m.open != null && !isTd ? (m.open === m.line ? `<span class="rk" title="unchanged since the first pull">= ${m.open}</span>` : `<span class="rk" title="the first pull's line">${m.line > m.open ? "▲" : "▼"} from ${m.open}</span>`) : (m && m.pulls > 1 && isTd && m.open_over != null && m.open_over !== m.over ? `<span class="rk" title="the first pull's price">from ${price(m.open_over)}</span>` : "");
+        const bookTxt = !m ? "<span class='rk' title='not pulled for this game: the free plan pulls six markets; the full menu turns on with the paid plan'>—</span>" : (isTd ? `${pc(implied(m.over))}` : `${m.line}`);
+        const openTxt = !m ? "" : (isTd ? `<span class="rk" title="the first pull's price ${price(m.open_over != null ? m.open_over : m.over)}">${pc(implied(m.open_over != null ? m.open_over : m.over))}</span>` : (m.open == null || m.open === m.line ? `<span class="rk" title="unchanged since the first pull">${m.line}</span>` : `<span class="rk" title="the first pull's line">${m.open} ${m.line > m.open ? "▲" : "▼"}</span>`));
         const cmp = isTd ? (m && ours != null ? implied(m.over) : null) : (m ? m.line : null); const leanTxt = cmp == null || ours == null ? "" : (isTd ? `<span class="lean ${ours > cmp ? "up" : "dn"}">${ours > cmp ? "yes" : "no"} ${Math.round(100 * Math.abs(ours - cmp))}%</span>` : `<span class="lean ${ours > cmp ? "up" : (ours < cmp ? "dn" : "")}">${ours > cmp ? "▲" : (ours < cmp ? "▼" : "=")} ${Math.abs(ours - cmp).toFixed(1)}</span>`);
-        return `<tr class="${r.out ? "neg" : ""}">${i === 0 ? `<td class="l" rowspan="${stats.length}" style="vertical-align:top" title="${esc(tips[kind](r))}"><button class="why calc" data-calc="1" style="font-size:12.5px">${esc(r.name)}</button> <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>` : ""}<td class="l">${LAB[k] || k}</td><td><b>${oursTxt}</b></td><td title="${m ? m.books + " books, median line, mean over / under price" : "no line posted"}">${bookTxt}</td><td>${openTxt}</td><td>${leanTxt}</td></tr>`; }).join("") + calcHtml(r, kind, s); };
+        return `<tr class="${r.out ? "neg" : ""}">${i === 0 ? `<td class="l" rowspan="${stats.length}" style="vertical-align:top" title="${esc(tips[kind](r))}"><button class="why calc" data-calc="1" style="font-size:12.5px">${esc(r.name)}</button> <span class="rk">${esc(r.pos || "")}</span>${r.status ? ` <span class="${r.out ? "badge flag" : "rk"}">${esc(r.status)}</span>` : ""}</td>` : ""}<td class="l">${LAB[k] || k}</td><td><b>${oursTxt}</b></td><td title="${m ? `${m.books} books, median line; price ${isTd ? price(m.over) : price(m.over) + " over, " + price(m.under) + " under"}` : "no line pulled"}">${bookTxt}</td><td>${openTxt}</td><td>${leanTxt}</td></tr>`; }).join("") + calcHtml(r, kind, s); };
     const section = (title, list, kind) => { const body = list.map(r => rowsFor(r, kind)).join(""); if (!body) return ""; const n = list.length, nl = list.reduce((a, r) => a + (r.markets || []).length, 0);
-      return `<details class="psec"><summary><b>${title}</b> <span class="rk">${n} player${n === 1 ? "" : "s"} · ${nl} book line${nl === 1 ? "" : "s"}</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th title="our projection (the median line; touchdown as a chance)">Ours</th><th title="the book: median line across the US books, mean over / under price (anytime touchdown: implied chance and price)">Book</th><th title="movement since the first pull for this game">Open</th><th title="the side our projection takes and by how much">Lean</th></tr></thead><tbody>${body}</tbody></table></details>`; };
+      return `<details class="psec"><summary><b>${title}</b> <span class="rk">${n} player${n === 1 ? "" : "s"} · ${nl} book line${nl === 1 ? "" : "s"}</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th title="our projection (the median line; touchdown as a chance)">Ours</th><th title="the book: median line across the US books (anytime touchdown: the chance the price implies); prices in hover">Book</th><th title="the line at the first pull for this game; an arrow when it has moved">Open</th><th title="the side our projection takes and by how much">Lean</th></tr></thead><tbody>${body}</tbody></table></details>`; };
     const others = (s.others || []); const byName = {}; others.forEach(m => (byName[m.name] = byName[m.name] || []).push(m));
-    const otherRows = Object.entries(byName).map(([name, ms]) => ms.map((m, i) => `<tr>${i === 0 ? `<td class="l" rowspan="${ms.length}" style="vertical-align:top">${esc(name)}</td>` : ""}<td class="l">${LAB[m.stat] || m.stat}</td><td class="rk">—</td><td title="${m.books} books">${m.stat === "anytime_td" ? `${pc(implied(m.over))} <span class="rk">${price(m.over)}</span>` : `${m.line} <span class="rk">${price(m.over)} / ${price(m.under)}</span>`}</td><td>${m.pulls > 1 && m.open != null && m.stat !== "anytime_td" ? (m.open === m.line ? `<span class="rk">= ${m.open}</span>` : `<span class="rk">${m.line > m.open ? "▲" : "▼"} from ${m.open}</span>`) : ""}</td><td></td></tr>`).join("")).join("");
+    const otherRows = Object.entries(byName).map(([name, ms]) => ms.map((m, i) => `<tr>${i === 0 ? `<td class="l" rowspan="${ms.length}" style="vertical-align:top">${esc(name)}</td>` : ""}<td class="l">${LAB[m.stat] || m.stat}</td><td class="rk">—</td><td title="${m.books} books; price ${price(m.over)}${m.under != null ? " over, " + price(m.under) + " under" : ""}">${m.stat === "anytime_td" ? pc(implied(m.over)) : m.line}</td><td>${m.stat === "anytime_td" ? "" : `<span class="rk">${m.open == null || m.open === m.line ? m.line : `${m.open} ${m.line > m.open ? "▲" : "▼"}`}</span>`}</td><td></td></tr>`).join("")).join("");
     const head = `<p class="cap">${team} against ${opp}</p><div class="mv">${rc.rec && rc.rec.exp_pts != null ? `<span class="chip" title="the game model's expected points for ${team}; the players' lines are scaled toward what those points imply">Game model ${rc.rec.exp_pts} pts</span>` : ""}<span class="chip" title="the team's plays per game over its last 17, moved by the closing spread and total">${vol.pass_plays} pass · ${vol.runs} run</span><span class="chip" title="what ${opp} allows per target and per carry over its last 17 (league ${L.ypt} and ${L.ypc}); its mix of looks">${opp} allows ${dd.ypt_allowed} yd/tgt · ${dd.ypc_allowed} yd/carry · man ${pc(dd.man)} · pressure ${pc(dd.pressure)}</span>${s.market_ts ? `<span class="chip mute" title="book lines pulled ${s.market_pulls || 1} time${(s.market_pulls || 1) === 1 ? "" : "s"} for this game, first ${String(s.market_open_ts || s.market_ts).slice(0, 16).replace("T", " ")} UTC">Lines ${String(s.market_ts).slice(0, 16).replace("T", " ")} UTC</span>` : `<span class="chip mute">No book lines pulled yet</span>`}</div>`;
     const body = section("Passing", (s.qb || []).slice(0, 1), "pass") + section("Receiving", s.receivers || [], "rec") + section("Rushing", s.rushers || [], "rush") + section("Defense", s.defenders || [], "def") + (otherRows ? `<details class="psec"><summary><b>Other book lines</b> <span class="rk">${Object.keys(byName).length} players · no projection</span></summary><table class="ptab2"><thead><tr><th class="l">Player</th><th class="l">Market</th><th>Ours</th><th>Book</th><th>Open</th><th></th></tr></thead><tbody>${otherRows}</tbody></table></details>` : "");
     return body ? `<div>${head}${body}</div>` : "";
