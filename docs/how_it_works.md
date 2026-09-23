@@ -245,20 +245,23 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
-**Update, 23 Sep 2026, on the twenty-input model: the flag is 4.** Re-swept after the turnover inputs and the
-rating re-tune (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17):
+**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12: the flag is 4.** Re-swept
+after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17):
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 90-67, 57.3% | 47-30, 61.0% | 59.5% | 59.0% | 56.8% | 54.1% | 60.0% | 63.6% | 63.0% |
-| 4.5 | 66-46, 58.9% | 31-22, 58.5% | 65.4% | 60.7% | 56.7% | 53.6% | 63.6% | 63.6% | 55.6% |
-| 5 | 46-32, 59.0% | 22-16, 57.9% | 68.4% | 55.6% | 55.0% | 57.1% | 100% (3-0) | 60.0% | 50.0% |
+| 4 | 89-65, 57.8% | 44-28, 61.1% | 57.6% | 61.5% | 60.0% | 51.4% (19-18) | 72.7% | 59.4% | 63.0% |
+| 4.5 | 67-46, 59.3% | 31-21, 59.6% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
+| 5 | 44-31, 58.7% | 21-15, 58.3% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
 
-The 4-point cut is the first that wins every single season, above the 52.4% break-even in all seven, at twice the
-volume of 5 with the same overall rate (58.5% on 234 bets against 58.6% on 116). So the flag moved from 5 to 4.
-Honest caveat: the cut is chosen on all the seasons the model was tested on, so the seven-for-seven is a
-description of the backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has
-converted to (about 53%).
+The 4-point cut is still the best overall (58.8% on 226 bets) and on both windows, at twice the volume of 5 with
+the same rate. It no longer clears the 52.4% break-even in every season: 2022 is 19-18 on the rebuilt model (it was
+54.1% before the QB replacement level moved), and no cut does (5 has 2025 at 8-8). The earlier "wins every season"
+line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
+Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
+backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
+53%). The 2026 games played so far replay 0-2 at this cut in the backtest; the live record on the Results tab is
+the one that counts, since it holds what was flagged at the time.
 
 Second caveat (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`): on the untouched 2015 to 2018 window the
 4-point cut goes 58-54 (51.8%), 4.5 goes 40-47 and 5 goes 22-30. Those seasons had no say in any input, knob or
@@ -452,16 +455,17 @@ at. On those 1,024 games (the closing line's spread miss there: 9.805):
 
 | Model | Spread miss | Points miss | Flags at 5+ |
 |---|---|---|---|
-| 18 inputs, decay 0.94 / last season 0.8 (today) | 10.031 | 7.436 | 21-30 |
-| 13 inputs, today's knobs | 10.041 | 7.426 | 30-30 |
-| 18 inputs, original knobs 0.90 / 0.5 | 10.062 | 7.441 | 22-28 |
-| 13 inputs, original knobs | 10.065 | 7.435 | 27-31 |
+| Twenty inputs, decay 0.94 / last season 0.8, QB replacement -0.12 (today) | 10.010 | 7.417 | 25-30 |
+| 13 inputs, today's knobs | 10.015 | 7.403 | 32-28 |
+| Twenty inputs, original knobs 0.90 / 0.5 | 10.029 | 7.420 | 19-24 |
+| 13 inputs, original knobs | 10.018 | 7.403 | 18-27 |
 
-The knob change holds (-0.03 on the spread miss) and the player inputs hold (-0.01), on seasons that had no say
-in either. The team points miss is a shade worse with the player inputs there (+0.009), and the flag records on
-50 to 60 bets are noise in both directions: a 5+ edge was 41% there with today's model and 50% without, and
-57% and 60% on the two later windows. The honest reading is that the spread accuracy gains are real and the flag
-rate is a small-sample number that will only settle live.
+(Re-run 23 Sep 2026 after the QB replacement level moved; the earlier run, on eighteen inputs at -0.05, read 10.031 /
+7.436 / 21-30 for today's model.) The knob change holds on the spread miss (-0.02) and the player and turnover inputs
+hold there too (-0.005 against 13 inputs at today's knobs). The team points miss is worse with those inputs on this
+window (+0.013), the one place the two measures disagree, and the flag records on 45 to 60 bets are noise in both
+directions. The honest reading is that the spread accuracy gains carry to seasons that had no say, the points miss
+does not on this window, and the flag rate is a small-sample number that will only settle live.
 
 **Recency-weighted refit** (`experiments/recency.py`, `reports/recency.csv`): weighting older training seasons
 down (0.95 to 0.7 per season) helps the tuning window and hurts held out at every setting. Equal weight stays.
