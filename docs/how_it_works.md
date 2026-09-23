@@ -974,6 +974,34 @@ between the page and the script: the page's defense rate is yards allowed per pa
 line is still a weak instrument; the live record will say whether it is worth anything against a market line,
 once those are logged.
 
+**Round four** (`experiments/props_backtest4.py`, `reports/props_backtest4.csv`): the layers a book adds that rounds
+two and three did not test, each on top of the adopted rule (constants fitted on 2016 to 2018; base = the round-three
+rule, and the same rows for receiving and rushing).
+
+| Layer added to the round-three rule | Receiving 2019-22 | 2023-25 | Rushing 2019-22 | 2023-25 | Passing 2019-22 | 2023-25 |
+|---|---|---|---|---|---|---|
+| Base (round three's rule) | 19.44 | 18.46 | 18.36 | 17.60 | 61.24 | 61.56 |
+| Wind: the line cut 0.5% per mph above 10 at kickoff | 19.43 | 18.46 | | | 61.06 | 61.47 |
+| Wind, linear in every mph (0.4% / 0.2%) | 19.42 | 18.44 | | | 61.12 | 61.51 |
+| Opponent pace: its allowed plays per game blended in, a quarter | 19.43 | 18.44 | 18.32 | 17.58 | 60.90 | 61.15 |
+| Opponent pace, half | 19.44 | 18.44 | 18.32 | 17.59 | 60.98 | 61.06 |
+| The QB's as-of rating, as a level (fitted 0.5 per EPA point) | 19.43 | 18.44 | | | | |
+| The QB's rating as the change from the QBs he had over his window (fitted 1.0) | 19.46 | 18.46 | | | | |
+| His own long-run rate (decayed 0.95) as the shrinkage prior instead of the league | 19.41 | 18.44 | 18.35 | 17.60 | 61.25 | 61.55 |
+| Home and away (fitted +4% / +6% / +6% at home) | 19.44 | 18.44 | 18.37 | 17.62 | 61.37 | 61.43 |
+| Pace a quarter and wind together (adopted for passing) | 19.42 | 18.44 | | | **60.71** | **61.08** |
+
+Re-tuning the shrinkage weight K and the defense weight W on the new rule moved receiving by at most 0.05 (K 50
+with no defense adjustment 19.39 / 18.42; K 400 19.68 / 18.70), rushing by 0.03 or less, and passing by up to 0.6
+(no defense adjustment is worse: 61.84 / 61.59 at K 25), so they stay as they were. Passing yards gain half a
+yard on both windows from the opponent's pace and the wind, and both are adopted: the team's dropbacks are blended
+a quarter of the way toward what the opponent has allowed per game, and the line drops 0.5% per mph of kickoff
+wind above 10, once a usable forecast exists (the game model's own kickoff-forecast rule, section 14; until then,
+and in a dome, the factor is 1, as in the backtest). For receiving and rushing every layer is inside 0.05 yards,
+which is noise at this sample, so nothing changes there: the QB's identity, home field, pace and wind are already
+mostly inside the player's own recent rate and the game script. The projection remains about 19 yards off on a
+receiving line and 61 on a passing line.
+
 **Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
 own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.

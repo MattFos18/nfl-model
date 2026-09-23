@@ -1,6 +1,6 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.88, rushers 0.84, QBs 0.9). The rule three rounds of backtest chose: 19.44 / 18.46 yards off on receiving, 18.36 / 17.6 on rushing and 61.24 / 61.56 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest3.csv). Not a market comparison. Built 2026-09-23 16:28 UTC.
+Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.88, rushers 0.84, QBs 0.9). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.44 / 18.46 yards off on receiving, 18.36 / 17.6 on rushing and 60.71 / 61.08 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Not a market comparison. Built 2026-09-23 16:39 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                   | stat       |   proj |   proj_volume |
 |---------:|-------:|:----------------|:-------|:------------|:-----------------------|:-----------|-------:|--------------:|
@@ -14,7 +14,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson         | rec_yards  |    6.4 |           1.3 |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson         | rush_yards |   81.2 |          19.7 |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson         | rush_yards |   26.1 |           7.3 |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.      | pass_yards |  193.2 |          33.7 |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.      | pass_yards |  196.1 |          34.2 |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson       | rec_yards  |   56.7 |           8.1 |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft           | rec_yards  |   39.1 |           5.8 |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden         | rec_yards  |   37.2 |           5.8 |
@@ -27,7 +27,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks           | rush_yards |   19.5 |           5.4 |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson          | rush_yards |   15.6 |           5.3 |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden         | rush_yards |    7.2 |           1.8 |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love            | pass_yards |  203.5 |          33.9 |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love            | pass_yards |  208.3 |          34.7 |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038544  | Quentin Johnston       | rec_yards  |   44.6 |           7.4 |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0039915  | Ladd McConkey          | rec_yards  |   40.2 |           6.6 |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0040666  | Omarion Hampton        | rec_yards  |   24.1 |           4.6 |
@@ -39,7 +39,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0040666  | Omarion Hampton        | rush_yards |   43.9 |          11.9 |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0039391  | Kimani Vidal           | rush_yards |   33.1 |           9.4 |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038454  | Keaton Mitchell        | rush_yards |   17.3 |           3.9 |
-|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert         | pass_yards |  200.2 |          40   |
+|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert         | pass_yards |  193.7 |          38.7 |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0037261  | Khalil Shakir          | rec_yards  |   39.2 |           6.6 |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034827  | DJ Moore               | rec_yards  |   31.3 |           5   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0038933  | Dalton Kincaid         | rec_yards  |   37.6 |           4.9 |
@@ -52,7 +52,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0039875  | Ray Davis              | rush_yards |   23.4 |           6.1 |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0035537  | Ty Johnson             | rush_yards |   15   |           4.4 |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034827  | DJ Moore               | rush_yards |    4.3 |           1.2 |
-|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen             | pass_yards |  218.1 |          35.7 |
+|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen             | pass_yards |  215   |          35.2 |
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0040124  | Tetairoa McMillan      | rec_yards  |   47.1 |           7.2 |
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0039491  | Jalen Coker            | rec_yards  |   44.6 |           6.7 |
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0031610  | Darren Waller          | rec_yards  |   23.4 |           4   |
@@ -64,7 +64,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0036555  | Chuba Hubbard          | rush_yards |   48.4 |          14.3 |
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0039344  | Jonathon Brooks        | rush_yards |   26.7 |           7.6 |
 |     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0036265  | AJ Dillon              | rush_yards |   16.8 |           4.5 |
-|     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0039150  | Bryce Young            | pass_yards |  174.9 |          33.5 |
+|     2026 |      3 | 2026_03_CAR_CLE | CAR    | 00-0039150  | Bryce Young            | pass_yards |  173.8 |          33.3 |
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0040663  | Harold Fannin Jr.      | rec_yards  |   35.5 |           6.1 |
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0041037  | Denzel Boston          | rec_yards  |   36.5 |           5.9 |
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0041547  | KC Concepcion          | rec_yards  |   31.9 |           5.7 |
@@ -77,7 +77,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0040466  | Raheim Sanders         | rush_yards |   14.6 |           4.6 |
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0038794  | Jaleel McLaughlin      | rush_yards |   16   |           4   |
 |     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0039920  | Malachi Corley         | rush_yards |    9.1 |           1.7 |
-|     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0033537  | Deshaun Watson         | pass_yards |  214.5 |          35   |
+|     2026 |      3 | 2026_03_CAR_CLE | CLE    | 00-0033537  | Deshaun Watson         | pass_yards |  212   |          34.6 |
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0037740  | Garrett Wilson         | rec_yards  |   48.5 |           8.4 |
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0039890  | Adonai Mitchell        | rec_yards  |   34   |           6.2 |
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0040736  | Mason Taylor           | rec_yards  |   27.4 |           5.3 |
@@ -90,7 +90,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0036842  | Kene Nwangwu           | rush_yards |   20.2 |           5.6 |
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0039794  | Braelon Allen          | rush_yards |   14.8 |           4.4 |
 |     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0039798  | Isaiah Davis           | rush_yards |   13.1 |           3   |
-|     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0030565  | Geno Smith             | pass_yards |  181.6 |          37.4 |
+|     2026 |      3 | 2026_03_NYJ_DET | NYJ    | 00-0030565  | Geno Smith             | pass_yards |  185   |          38.1 |
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0036963  | Amon-Ra St. Brown      | rec_yards  |   75.9 |          11.5 |
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0037240  | Jameson Williams       | rec_yards  |   47   |           6.5 |
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0039065  | Sam LaPorta            | rec_yards  |   42.8 |           6.5 |
@@ -98,7 +98,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0036754  | Brock Wright           | rec_yards  |   15.6 |           2.9 |
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0040669  | Isaac TeSlaa           | rec_yards  |   15.2 |           2.6 |
 |     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0039139  | Jahmyr Gibbs           | rush_yards |  107.1 |          25.8 |
-|     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0033106  | Jared Goff             | pass_yards |  233.9 |          37.2 |
+|     2026 |      3 | 2026_03_NYJ_DET | DET    | 00-0033106  | Jared Goff             | pass_yards |  229.5 |          36.5 |
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0036554  | Nico Collins           | rec_yards  |   58.9 |           8.5 |
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0034383  | Dalton Schultz         | rec_yards  |   41.8 |           6.6 |
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0038618  | Xavier Hutchinson      | rec_yards  |   32.8 |           6   |
@@ -111,7 +111,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0035685  | David Montgomery       | rush_yards |   28   |           7.8 |
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0039405  | Jawhar Jordan          | rush_yards |   24.9 |           6.7 |
 |     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0039603  | British Brooks         | rush_yards |   15.4 |           4.1 |
-|     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0039163  | C.J. Stroud            | pass_yards |  234.4 |          40.2 |
+|     2026 |      3 | 2026_03_HOU_IND | HOU    | 00-0039163  | C.J. Stroud            | pass_yards |  235   |          40.3 |
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0030279  | Keenan Allen           | rec_yards  |   35.2 |           6.9 |
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0040128  | Tyler Warren           | rec_yards  |   36.5 |           6.8 |
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0038997  | Josh Downs             | rec_yards  |   33.1 |           6   |
@@ -122,7 +122,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0037292  | Andrew Ogletree        | rec_yards  |    7.1 |           1.4 |
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0036223  | Jonathan Taylor        | rush_yards |   73.6 |          19.1 |
 |     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0040179  | DJ Giddens             | rush_yards |   17.7 |           5.3 |
-|     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0035710  | Daniel Jones           | pass_yards |  207   |          34.8 |
+|     2026 |      3 | 2026_03_HOU_IND | IND    | 00-0035710  | Daniel Jones           | pass_yards |  207.6 |          34.9 |
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0037816  | Romeo Doubs            | rec_yards  |   45.6 |           6.9 |
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0033555  | Mack Hollins           | rec_yards  |   43.8 |           6.6 |
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0033090  | Hunter Henry           | rec_yards  |   38.7 |           6.2 |
@@ -133,7 +133,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0036875  | Rhamondre Stevenson    | rush_yards |   43.3 |          12.1 |
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0040734  | TreVeyon Henderson     | rush_yards |   45.1 |          11.5 |
 |     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0040556  | Corey Kiner            | rush_yards |   14.2 |           4.3 |
-|     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0039851  | Drake Maye             | pass_yards |  221.5 |          36.4 |
+|     2026 |      3 | 2026_03_NE_JAX  | NE     | 00-0039851  | Drake Maye             | pass_yards |  226.4 |          37.2 |
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0038606  | Parker Washington      | rec_yards  |   50.1 |           8   |
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0034960  | Jakobi Meyers          | rec_yards  |   29.1 |           5   |
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0039893  | Brian Thomas Jr.       | rec_yards  |   29.3 |           5   |
@@ -146,7 +146,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0040719  | Bhayshul Tuten         | rush_yards |   33.3 |           9.3 |
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0032104  | Ameer Abdullah         | rush_yards |   11.7 |           3   |
 |     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0040238  | LeQuint Allen Jr.      | rush_yards |    9.5 |           2.7 |
-|     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0036971  | Trevor Lawrence        | pass_yards |  186.1 |          35.8 |
+|     2026 |      3 | 2026_03_NE_JAX  | JAX    | 00-0036971  | Trevor Lawrence        | pass_yards |  187.1 |          36   |
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0039067  | Rashee Rice            | rec_yards  |   55.4 |           8.9 |
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0030506  | Travis Kelce           | rec_yards  |   53.6 |           8.3 |
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0039894  | Xavier Worthy          | rec_yards  |   36.6 |           6.3 |
@@ -158,7 +158,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0040078  | Brashard Smith         | rush_yards |   15   |           4.6 |
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0041013  | Emmett Johnson         | rush_yards |   15.2 |           4.1 |
 |     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0039894  | Xavier Worthy          | rush_yards |    7   |           1.5 |
-|     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0033873  | Patrick Mahomes        | pass_yards |  239.8 |          39.9 |
+|     2026 |      3 | 2026_03_KC_MIA  | KC     | 00-0033873  | Patrick Mahomes        | pass_yards |  230.8 |          38.4 |
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0041523  | Caleb Douglas          | rec_yards  |   43.1 |           7.4 |
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0039040  | De'Von Achane          | rec_yards  |   36.2 |           7   |
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0039880  | Malik Washington       | rec_yards  |   33   |           6.4 |
@@ -169,7 +169,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0039874  | Jaylen Wright          | rush_yards |   18.6 |           5.4 |
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0040198  | Ollie Gordon II        | rush_yards |   10.2 |           3.8 |
 |     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0039880  | Malik Washington       | rush_yards |    6   |           1.4 |
-|     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0038128  | Malik Willis           | pass_yards |  204.2 |          31.2 |
+|     2026 |      3 | 2026_03_KC_MIA  | MIA    | 00-0038128  | Malik Willis           | pass_yards |  210.1 |          32.1 |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0038117  | Wan'Dale Robinson      | rec_yards  |   44.7 |           7.4 |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0041438  | Carnell Tate           | rec_yards  |   34   |           6.2 |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040170  | Elic Ayomanor          | rec_yards  |   24.7 |           4.4 |
@@ -182,7 +182,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0039032  | Tyjae Spears           | rush_yards |   20.8 |           5.6 |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0037594  | Julius Chestnut        | rush_yards |    5.3 |           1.4 |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040705  | Chimere Dike           | rush_yards |    4.1 |           1.3 |
-|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward               | pass_yards |  167.2 |          36.2 |
+|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward               | pass_yards |  164.5 |          35.6 |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0039337  | Malik Nabers           | rec_yards  |   36.3 |           6.1 |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0037838  | Isaiah Likely          | rec_yards  |   31.3 |           5.1 |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0041042  | Malachi Fields         | rec_yards  |   23.4 |           4.2 |
@@ -195,7 +195,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.       | rush_yards |   33.1 |           9.4 |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0035250  | Devin Singletary       | rush_yards |   18.7 |           6   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0036893  | Najee Harris           | rush_yards |   16.4 |           4.9 |
-|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0040691  | Jaxson Dart            | pass_yards |  193.3 |          34.1 |
+|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0040691  | Jaxson Dart            | pass_yards |  192.2 |          33.9 |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036900  | Ja'Marr Chase          | rec_yards  |   66.9 |          10.7 |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036410  | Tee Higgins            | rec_yards  |   52.5 |           7.8 |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0038597  | Chase Brown            | rec_yards  |   26.7 |           5.7 |
@@ -207,7 +207,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0038597  | Chase Brown            | rush_yards |   57.4 |          14.9 |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0033526  | Samaje Perine          | rush_yards |   21.7 |           5.8 |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0040208  | Tahj Brooks            | rush_yards |    8.4 |           2.6 |
-|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0026158  | Joe Flacco             | pass_yards |  196.9 |          39.6 |
+|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0026158  | Joe Flacco             | pass_yards |  195.4 |          39.3 |
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0035640  | DK Metcalf             | rec_yards  |   44.7 |           7.1 |
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0041489  | Germie Bernard         | rec_yards  |   36.5 |           6.6 |
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0036252  | Michael Pittman        | rec_yards  |   31.2 |           5.1 |
@@ -218,7 +218,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0038558  | Darnell Washington     | rec_yards  |   16.2 |           2.6 |
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0037228  | Jaylen Warren          | rush_yards |   50.6 |          12.4 |
 |     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0036139  | Rico Dowdle            | rush_yards |   43.2 |          10.8 |
-|     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0023459  | Aaron Rodgers          | pass_yards |  193.2 |          36   |
+|     2026 |      3 | 2026_03_CIN_PIT | PIT    | 00-0023459  | Aaron Rodgers          | pass_yards |  192.6 |          35.9 |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0038543  | Jaxon Smith-Njigba     | rec_yards  |   73   |           9   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0033908  | Cooper Kupp            | rec_yards  |   28.5 |           4.4 |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0037545  | Rashid Shaheed         | rec_yards  |   20.3 |           3.5 |
@@ -231,7 +231,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0038797  | Emanuel Wilson         | rush_yards |   32.2 |           9.2 |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0037745  | Velus Jones Jr.        | rush_yards |   18.7 |           4.9 |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0039299  | George Holani          | rush_yards |   13.6 |           4.2 |
-|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0034869  | Sam Darnold            | pass_yards |  210.5 |          29.7 |
+|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0034869  | Sam Darnold            | pass_yards |  219   |          30.9 |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0035659  | Terry McLaurin         | rec_yards  |   35.5 |           5.8 |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0031588  | Stefon Diggs           | rec_yards  |   30.6 |           5   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0037809  | Chig Okonkwo           | rec_yards  |   21.5 |           3.9 |
@@ -243,7 +243,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt | rush_yards |   53   |          15.1 |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0037256  | Rachaad White          | rush_yards |   29.2 |           8.5 |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0041096  | Kaytron Allen          | rush_yards |   19.9 |           5.4 |
-|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0039910  | Jayden Daniels         | pass_yards |  149.5 |          32.1 |
+|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0039910  | Jayden Daniels         | pass_yards |  157.8 |          33.9 |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride           | rec_yards  |   77   |          12.8 |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0038559  | Michael Wilson         | rec_yards  |   65   |          10.1 |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.    | rec_yards  |   36.8 |           5.8 |
@@ -254,7 +254,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0041027  | Jeremiyah Love         | rush_yards |   26.4 |           7.8 |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037263  | Tyler Allgeier         | rush_yards |   19.4 |           6.3 |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037157  | Bam Knight             | rush_yards |   18.8 |           6.1 |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett        | pass_yards |  241.2 |          44.6 |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett        | pass_yards |  230.3 |          42.6 |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0035719  | Deebo Samuel Sr.       | rec_yards  |   40.5 |           6.7 |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey    | rec_yards  |   39   |           6.5 |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans             | rec_yards  |   34.7 |           6   |
@@ -267,7 +267,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0041052  | Kaelon Black           | rush_yards |   33.7 |           9   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0040177  | Jordan James           | rush_yards |   17.2 |           4.6 |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0035719  | Deebo Samuel Sr.       | rush_yards |    4.8 |           1.2 |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0036972  | Mac Jones              | pass_yards |  221.3 |          35.1 |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0036972  | Mac Jones              | pass_yards |  218.8 |          34.7 |
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0036322  | Justin Jefferson       | rec_yards  |   62.6 |          10.1 |
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0038994  | Jordan Addison         | rec_yards  |   32   |           5.3 |
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0036259  | Jauan Jennings         | rec_yards  |   30.5 |           5.1 |
@@ -275,7 +275,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0033293  | Aaron Jones            | rec_yards  |   20.4 |           3.9 |
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0035249  | Josh Oliver            | rec_yards  |   15.1 |           2.5 |
 |     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0033293  | Aaron Jones            | rush_yards |   86.7 |          24.8 |
-|     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0032950  | Carson Wentz           | pass_yards |  179.4 |          33   |
+|     2026 |      3 | 2026_03_MIN_TB  | MIN    | 00-0032950  | Carson Wentz           | pass_yards |  184.3 |          33.9 |
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0040129  | Emeka Egbuka           | rec_yards  |   33.6 |           5.7 |
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0038129  | Cade Otton             | rec_yards  |   28.8 |           5.1 |
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0041048  | Ted Hurst III          | rec_yards  |   26.2 |           4.9 |
@@ -288,7 +288,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0036919  | Kenny Gainwell         | rush_yards |   24.3 |           6.4 |
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0038951  | Sean Tucker            | rush_yards |   15.2 |           4.8 |
 |     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0040237  | Tez Johnson            | rush_yards |    4   |           1.2 |
-|     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0034855  | Baker Mayfield         | pass_yards |  192.2 |          36.8 |
+|     2026 |      3 | 2026_03_MIN_TB  | TB     | 00-0034855  | Baker Mayfield         | pass_yards |  184.9 |          35.4 |
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0039064  | Zay Flowers            | rec_yards  |   60.3 |           7.8 |
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0034753  | Mark Andrews           | rec_yards  |   30.9 |           5.4 |
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0036550  | Rashod Bateman         | rec_yards  |   20   |           3.5 |
@@ -301,7 +301,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0034975  | Justice Hill           | rush_yards |   12.3 |           3.2 |
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0034753  | Mark Andrews           | rush_yards |    7.1 |           1.8 |
 |     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0039064  | Zay Flowers            | rush_yards |    5.6 |           1.3 |
-|     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0034796  | Lamar Jackson          | pass_yards |  208.9 |          30.9 |
+|     2026 |      3 | 2026_03_BAL_DAL | BAL    | 00-0034796  | Lamar Jackson          | pass_yards |  221.1 |          32.7 |
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0036358  | CeeDee Lamb            | rec_yards  |   65.8 |           9.2 |
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0037247  | George Pickens         | rec_yards  |   62.8 |           8.4 |
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0039410  | Ryan Flournoy          | rec_yards  |   33.6 |           5.5 |
@@ -326,7 +326,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040878  | Mike Washington Jr.    | rush_yards |   13.3 |           3.5 |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037304  | Connor Heyward         | rush_yards |    4.3 |           1.4 |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker             | rush_yards |    4.3 |           1.2 |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0029604  | Kirk Cousins           | pass_yards |  176.3 |          33.4 |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0029604  | Kirk Cousins           | pass_yards |  175.7 |          33.3 |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave            | rec_yards  |   64.8 |           9.9 |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele          | rec_yards  |   33.4 |           5.7 |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson          | rec_yards  |   36.1 |           5.3 |
@@ -339,7 +339,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé          | rush_yards |   24.7 |           6.9 |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara           | rush_yards |   20   |           6.7 |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038551  | Kendre Miller          | rush_yards |   15.2 |           4.5 |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040743  | Tyler Shough           | pass_yards |  216.9 |          39.7 |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040743  | Tyler Shough           | pass_yards |  207.6 |          38   |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039075  | Puka Nacua             | rec_yards  |   62.9 |           8.8 |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0031381  | Davante Adams          | rec_yards  |   38.1 |           6.4 |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0036244  | Colby Parkinson        | rec_yards  |   18.6 |           3.2 |
@@ -352,7 +352,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039738  | Blake Corum            | rush_yards |   37.3 |           9   |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0037557  | Ronnie Rivers          | rush_yards |   15.3 |           4.1 |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039075  | Puka Nacua             | rush_yards |    7.4 |           1.5 |
-|     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0026498  | Matthew Stafford       | pass_yards |  216   |          36.1 |
+|     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0026498  | Matthew Stafford       | pass_yards |  221.4 |          37   |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0036613  | Jaylen Waddle          | rec_yards  |   43.9 |           6.4 |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0034348  | Courtland Sutton       | rec_yards  |   32.3 |           5.5 |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0040730  | RJ Harvey              | rec_yards  |   20   |           3.7 |
@@ -365,7 +365,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0040730  | RJ Harvey              | rush_yards |   19.6 |           6.5 |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0041496  | Jonah Coleman          | rush_yards |   22.8 |           6.3 |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0037085  | Tyler Badie            | rush_yards |    3.2 |           1   |
-|     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0039732  | Bo Nix                 | pass_yards |  216.3 |          39.5 |
+|     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0039732  | Bo Nix                 | pass_yards |  215.7 |          39.4 |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith          | rec_yards  |   70.1 |          10.1 |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034351  | Dallas Goedert         | rec_yards  |   40.5 |           6.6 |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks       | rec_yards  |   31.9 |           5   |
@@ -376,7 +376,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley         | rush_yards |   62.1 |          17.4 |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby            | rush_yards |   29.7 |           7.1 |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley           | rush_yards |   12.6 |           3.8 |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts            | pass_yards |  199   |          33.7 |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts            | pass_yards |  202.5 |          34.3 |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland       | rec_yards  |   48.3 |           7.8 |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039919  | Rome Odunze            | rec_yards  |   40.1 |           6.6 |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III      | rec_yards  |   44.5 |           6.6 |
@@ -388,4 +388,4 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift          | rush_yards |   72.7 |          17.7 |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040236  | Kyle Monangai          | rush_yards |   49.2 |          12.5 |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III      | rush_yards |    4   |           1.1 |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams         | pass_yards |  214.9 |          38.6 |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams         | pass_yards |  211   |          37.9 |

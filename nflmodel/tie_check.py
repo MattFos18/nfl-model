@@ -82,13 +82,18 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         pj = json.loads((OUT / "props.json").read_text()); from . import lines as LN2; _s2, _w2 = LN2.current_week(g)
         tie("props projections are for the current week", f"{pj['season']} {pj['week']}", f"{_s2} {_w2}")
         pf = REP / f"props_{_s2}_wk{_w2}.csv"
-        b3 = REP / "props_backtest3.csv"
-        if b3.exists():
-            bt = pd.read_csv(b3); a85 = bt[bt.variant == "A85B_med"].set_index("stat")
-            tie("props backtest errors on the page = props_backtest3.csv (adopted variant)", {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+        b3, b4 = REP / "props_backtest3.csv", REP / "props_backtest4.csv"
+        if b3.exists() and b4.exists():
+            import ast as _ast
+            bt = pd.read_csv(b3); a85 = bt[bt.variant == "A85B_med"].set_index("stat"); r4 = pd.read_csv(b4)
+            pick = {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}
+            tie("props backtest errors on the page = props_backtest4.csv (base for receiving and rushing, combo for passing)", {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in pick.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+            tie("props round-4 base = round-3 adopted variant (receiving, rushing)", {k: [float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards"]}, {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards"]})
             tie("props median factors = props_backtest3.csv", {k: float(a85.loc[f"{k}_yards", "median_factor_A85B"]) for k in ["rec", "rush", "pass"]}, {k: float(v) for k, v in pj["med"].items()})
             gs = bt[bt.stat == "game_script"].set_index("variant")
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
+            fitted = _ast.literal_eval(r4[r4.stat == "pass_yards"].fitted.iloc[0])
+            tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
         tie("props file = props page data (projections)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(len([r for r in side["receivers"] if not r["out"]]) + len([r for r in side["rushers"] if not r["out"]]) + len([r for r in side["qb"][:1] if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
