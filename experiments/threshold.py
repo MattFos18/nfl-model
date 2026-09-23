@@ -13,7 +13,7 @@ def rec(x, e, r):
     return w, l, (w - l * 1.1) / (w + l) if w + l else np.nan
 for cut in [3, 3.5, 4, 4.5, 5, 5.5, 6, 7]:
     for market, e, r in [("spread", "edge", "res"), ("total", "tedge", "tres")]:
-        for win, sub in [("2019-22", d[d.season <= 2022]), ("2023-25", d[d.season.between(2023, 2025)]), ("all", d[d.season.between(2019, 2025)]), ("2015-18", d[d.season.between(2015, 2018)])] + [(str(s), d[d.season == s]) for s in sorted(d.season.unique())]:
+        for win, sub in [("2019-22", d[d.season.between(2019, 2022)]), ("2023-25", d[d.season.between(2023, 2025)]), ("all", d[d.season.between(2019, 2025)]), ("2015-18", d[d.season.between(2015, 2018)])] + [(str(s), d[d.season == s]) for s in sorted(d.season.unique())]:
             w, l, roi = rec(sub, e, r); rows.append({"market": market, "cut": cut, "window": win, "wins": w, "losses": l, "pct": round(w / (w + l), 3) if w + l else np.nan, "roi": round(roi, 3) if w + l else np.nan})
 t = pd.DataFrame(rows); t.to_csv("reports/threshold_sweep.csv", index=False)
 pv = t[t.market == "spread"].pivot(index="cut", columns="window", values="pct"); pn = t[t.market == "spread"].pivot(index="cut", columns="window", values="wins").astype(str) + "-" + t[t.market == "spread"].pivot(index="cut", columns="window", values="losses").astype(str)
