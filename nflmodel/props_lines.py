@@ -94,7 +94,7 @@ def run(season=None, week=None, force: bool = False) -> pd.DataFrame:
         season, week = current_week(games)
     now = dt.datetime.utcnow(); ts = now.strftime("%Y-%m-%dT%H-%M-%SZ")
     log = load_log()
-    window = 48.0 if force else due(now, log)
+    window = 168.0 if force else due(now, log)   # a forced pull takes the whole week ahead
     if window is None:
         return pd.DataFrame(columns=SCHEMA)
     rows = pull(season, week, ts, within_hours=window)
