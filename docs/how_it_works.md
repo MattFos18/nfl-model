@@ -297,6 +297,11 @@ spreads and 6 for totals (the ROI-best thresholds that hold in both windows), wi
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
 
+**Shadow rule (23 Sep 2026).** A 4.5-point cut is logged and graded alongside the 4-point flag from Week 3 of 2026
+(`picks.SHADOW_EDGE`, `data/tracker/shadow_picks.csv`, who = shadow in the graded table and on the live tab) but
+never bet. It showed the best rate on the rebuilt backtest, which is not enough on its own: the decision between
+4 and 4.5 is made on the live record after eight to ten weeks, with a reminder set for January 2027.
+
 ## 10. How much to trust the backtest
 
 **What is still held out, honestly.** The ridge strength and the bet thresholds were chosen on 2019 to 2022 and

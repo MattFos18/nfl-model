@@ -10,6 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
+SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to decide the cut on live games (4.5 showed the best rate on the rebuilt backtest)
 SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (best overall rate at twice the volume, both windows; reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 
 
@@ -35,7 +36,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
         p["old_home"] = p.game_id.map(b.home_exp)
         p["old_away"] = p.game_id.map(b.away_exp)
 
-    def bet(r):
+    def bet(r, spread_edge=spread_edge, total_edge=total_edge):
         out = []
         if r.week >= 18:
             return ""   # final week: starters rest and the line knows it before the ratings do (7-11 on flags 2019 to 2025)
@@ -47,6 +48,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             out.append(("Over " if r.total_edge > 0 else "Under ") + f"{r.total_line:g}")
         return ", ".join(out) if out else ""
     p["bet"] = p.apply(bet, axis=1)
+    p["shadow_bet"] = p.apply(lambda r: bet(r, SHADOW_EDGE, None), axis=1)   # the shadow rule: recorded, graded, never bet
     # calibrated cover and over odds: what edges of this size have actually converted to, fitted on every graded
     # backtest game before this season (the model's own cover odds run about 10 points hot: the line carries
     # information the model does not)
@@ -60,17 +62,19 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     p["best_line"] = [b[0] for b in best]; p["best_book"] = [b[1] for b in best]
     p["spread_edge_best"] = [(r.model_spread - b[2]) if b[2] is not None else np.nan for r, b in zip(p.itertuples(), best)]
     # a flagged spread is bet at the best available number (the flag itself is decided on the consensus line)
-    def at_best(r):
-        if not r.bet or r.best_line is None or pd.isna(r.best_line):
-            return r.bet
+    def at_best(r, col="bet"):
+        b0 = getattr(r, col)
+        if not b0 or r.best_line is None or pd.isna(r.best_line):
+            return b0
         parts = []
-        for b in r.bet.split(", "):
+        for b in b0.split(", "):
             if b.startswith(("Over", "Under")):
                 parts.append(b)
             else:
                 parts.append(f"{b.split()[0]} {r.best_line:+g}")
         return ", ".join(parts)
     p["bet"] = p.apply(at_best, axis=1)
+    p["shadow_bet"] = p.apply(lambda r: at_best(r, "shadow_bet"), axis=1)
     # stake on a flagged spread: quarter Kelly from the calibrated cover odds for the model's side, at the best book's
     # price when it is logged, otherwise -110
     p["bet_p"] = [(pc if e > 0 else 1 - pc) if (b and pd.notna(pc)) else np.nan for b, e, pc in zip(p.bet, p.spread_edge.fillna(0), p.p_cover_cal_home)]
@@ -155,7 +159,8 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Old model": old, "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
                      "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
-                     "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else ""})
+                     "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else "",
+                     f"Shadow {SHADOW_EDGE:g}+": getattr(r, "shadow_bet", "") if isinstance(getattr(r, "shadow_bet", ""), str) else ""})
     df = pd.DataFrame(rows)
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
@@ -163,7 +168,8 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is 89-65 on the tuning window and 42-22 held out "
            "(weeks 1 to 17), above break-even in six of seven seasons, at twice the volume of the old 5-point cut and the same rate. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
-           "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll.", ""]
+           "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
+           f"Shadow {SHADOW_EDGE:g}+ is a second cut logged and graded but never bet, to decide the threshold on live games.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 
