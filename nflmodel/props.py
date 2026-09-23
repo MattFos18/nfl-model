@@ -25,8 +25,10 @@ reports; 2019 to 2025 on both windows, every constant fitted on 2016 to 2018 onl
             passing yards on both windows; for receiving and rushing every round-4 layer was inside the noise)
 The look-by-look splits (man/zone, box, pressure), routes, coverage-specific usage, defense by position and the
 coach's pass rate are shown as readings only: projecting with them was worse than not on both windows.
-Projections are readings and get graded every run against what happened (data/tracker/props_graded.csv), so
-they build a record before anyone bets on them. Nothing here feeds the game model.
+Projections are readings and get graded every run against what happened (data/tracker/props_graded.csv), and
+against the closing book line where one was logged (nflmodel/props_lines.py; data/tracker/props_vs_market.csv: the
+side the projection took, the result, and the book's own error beside ours), so they build a record before anyone
+bets on them. Nothing here feeds the game model.
 Usage: python -m nflmodel.props   writes data/processed/props.json, reports/props_<season>_wk<week>.csv and .md, grades last week"""
 from __future__ import annotations
 import json
@@ -186,7 +188,33 @@ def _shrunk(rate: float, n: float, league: float, k: float) -> float:
     return (rate * n + k * league) / (n + k)
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None) -> dict:
+def attach_market(rows: list, mk: pd.DataFrame, pairs: list) -> None:
+    """Put the closing book line beside each projection: pairs = [(stat in the log, key on the row)], matched on the
+    player's normalised name. line, books and the prices; the anytime-touchdown price as an implied probability."""
+    if mk is None or not len(mk):
+        return
+    from .props_lines import norm_name
+    for r in rows:
+        k = norm_name(r["name"])
+        for stat, key in pairs:
+            hit = mk[(mk.stat == stat) & (mk.key == k)]
+            if not len(hit):
+                continue
+            h = hit.iloc[0]
+            if stat == "anytime_td":
+                p_ = h.over_price
+                r["mkt_td_price"] = None if pd.isna(p_) else int(p_); r["mkt_td_prob"] = None if pd.isna(p_) else round(implied(p_), 3)
+            else:
+                r[key] = None if pd.isna(h.line) else float(h.line); r[key + "_books"] = int(h.books)
+
+
+def implied(price: float) -> float:
+    """American price -> implied probability, vig included."""
+    price = float(price)
+    return 100 / (price + 100) if price > 0 else -price / (-price + 100)
+
+
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
     team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
     kickoff (None in a dome or before a usable forecast)."""
@@ -240,7 +268,63 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         qbs.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "dropbacks_pg": p["dropbacks_pg"], "proj_dropbacks": round(dbs, 1), "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_shrunk": round(ypd_s, 2), "proj_ypd": round(ypd, 2),
                     "proj_pass_yards_mean": round(dbs * ypd * wind_factor("pass", wind), 1), "proj_pass_yards": round(dbs * ypd * MED["pass"] * wind_factor("pass", wind), 1), "td_db_proj": round(td_s, 4), "proj_pass_td": round(dbs * td_s, 3), "proj_int": round(dbs * L["int_db"], 3), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"]})
     qbs.sort(key=lambda r: (r["out"], -r["dropbacks_pg"]))
-    return {"defense": dd, "volume": vol, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4]}
+    for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
+    for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
+    attach_market(rec, mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
+    attach_market(rus, mk, [("rush_yards", "mkt_rush_yards"), ("anytime_td", "mkt_td")])
+    attach_market(qbs, mk, [("pass_yards", "mkt_pass_yards")])
+    return {"defense": dd, "volume": vol, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4], "market_ts": (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None)}
+
+
+MARKET_STATS = {"rec_yards": "rec_yards", "rush_yards": "rush_yards", "pass_yards": "pass_yards", "rec_catches": "rec_catches"}
+
+
+def grade_market(graded: pd.DataFrame, run_at: str) -> pd.DataFrame | None:
+    """Every graded projection with a closing book line: the line, the side the projection took (over when above the
+    line, under when below), and the result against what happened. Also the book's own error, so the two can be
+    compared. Anytime touchdown: the projection's chance of a score against the book's implied price, graded on
+    whether he scored. Kept in data/tracker/props_vs_market.csv."""
+    from .props_lines import load_log, closing, norm_name
+    log = load_log()
+    if not len(log) or graded is None or not len(graded):
+        return None
+    done = pd.read_csv(TR / "props_vs_market.csv") if (TR / "props_vs_market.csv").exists() else pd.DataFrame(columns=["game_id", "player_id", "stat"])
+    rows = []
+    for gid, g in graded.groupby("game_id"):
+        mk = closing(log, gid)
+        if not len(mk): continue
+        td = g[g.stat.isin(["rec_td", "rush_td"])].groupby(["player_id", "name", "team", "season", "week"]).agg(proj=("proj", "sum"), actual=("actual", "sum")).reset_index()
+        for r in g[g.stat.isin(MARKET_STATS)].itertuples():
+            if ((done.game_id == gid) & (done.player_id == r.player_id) & (done.stat == r.stat)).any(): continue
+            hit = mk[(mk.stat == r.stat) & (mk.key == norm_name(r.name))]
+            if not len(hit) or pd.isna(hit.iloc[0].line): continue
+            h = hit.iloc[0]; side = "over" if r.proj > h.line else ("under" if r.proj < h.line else "none")
+            res = "push" if r.actual == h.line else ("win" if (r.actual > h.line) == (side == "over") else "loss") if side != "none" else "none"
+            rows.append({"season": r.season, "week": r.week, "game_id": gid, "team": r.team, "player_id": r.player_id, "name": r.name, "stat": r.stat, "proj": r.proj, "line": float(h.line), "books": int(h.books), "over_price": h.over_price, "under_price": h.under_price, "side": side, "edge": round(float(r.proj - h.line), 2), "actual": r.actual, "result": res, "proj_error": round(float(r.proj - r.actual), 2), "line_error": round(float(h.line - r.actual), 2), "graded_at": run_at})
+        for r in td.itertuples():
+            if ((done.game_id == gid) & (done.player_id == r.player_id) & (done.stat == "anytime_td")).any(): continue
+            hit = mk[(mk.stat == "anytime_td") & (mk.key == norm_name(r.name))]
+            if not len(hit) or pd.isna(hit.iloc[0].over_price): continue
+            h = hit.iloc[0]; p_us = 1 - np.exp(-r.proj); p_bk = implied(h.over_price); side = "yes" if p_us > p_bk else "no"
+            res = "win" if (r.actual >= 1) == (side == "yes") else "loss"
+            rows.append({"season": r.season, "week": r.week, "game_id": gid, "team": r.team, "player_id": r.player_id, "name": r.name, "stat": "anytime_td", "proj": round(p_us, 3), "line": round(p_bk, 3), "books": int(h.books), "over_price": h.over_price, "under_price": None, "side": side, "edge": round(p_us - p_bk, 3), "actual": r.actual, "result": res, "proj_error": None, "line_error": None, "graded_at": run_at})
+    if not rows: return None
+    out = pd.concat([done, pd.DataFrame(rows)], ignore_index=True) if len(done) else pd.DataFrame(rows)
+    TR.mkdir(parents=True, exist_ok=True); out.to_csv(TR / "props_vs_market.csv", index=False); return out
+
+
+def market_summary(vm: pd.DataFrame) -> list[dict]:
+    """Record against the closing line by stat, and by size of the edge: wins, losses, pushes, and the two errors."""
+    out = []
+    for stat, g in vm.groupby("stat"):
+        g = g[g.side != "none"]
+        buckets = [("all", g)] + ([(">= 5", g[g.edge.abs() >= 5]), (">= 10", g[g.edge.abs() >= 10])] if stat.endswith("yards") else [(">= 0.5", g[g.edge.abs() >= 0.5])] if stat == "rec_catches" else [(">= 0.05", g[g.edge.abs() >= 0.05])])
+        for lab, x in buckets:
+            if not len(x): continue
+            w, l, p_ = int((x.result == "win").sum()), int((x.result == "loss").sum()), int((x.result == "push").sum())
+            out.append({"stat": stat, "edge": lab, "n": int(len(x)), "wins": w, "losses": l, "pushes": p_, "pct": round(w / (w + l), 3) if w + l else None,
+                        "proj_mae": (round(float(x.proj_error.abs().mean()), 2) if x.proj_error.notna().any() else None), "line_mae": (round(float(x.line_error.abs().mean()), 2) if x.line_error.notna().any() else None)})
+    return out
 
 
 def grade(d: pd.DataFrame, season: int, week: int, run_at: str) -> pd.DataFrame | None:
@@ -276,6 +360,9 @@ def main():
     run_at = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
     graded = grade(d, season, week, run_at)
+    vm = grade_market(graded, run_at)
+    from .props_lines import load_log, closing
+    plog = load_log()
     a = _asof(d, season, week); names = names_by_id(range(season - 2, season + 1))
     roster = pd.read_parquet(OUT / "roster_now.parquet") if (OUT / "roster_now.parquet").exists() else pd.DataFrame(columns=["team", "player_id", "roster", "report"])
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
@@ -286,7 +373,8 @@ def main():
     for g in wk.itertuples():
         sp = None if pd.isna(g.spread_line) else float(g.spread_line)   # nflverse: positive when the home team is favoured
         wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd)}
+        mk = closing(plog, g.game_id) if len(plog) else None
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk)}
         for team, side in out["games"][g.game_id].items():
             def add(r, stat, proj, volume):
                 rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": stat, "proj": proj, "proj_volume": volume, "run_at": run_at})
@@ -301,11 +389,14 @@ def main():
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
         md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
+    out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
+    if (TR / "props_vs_market.csv").exists():
+        vm_all = pd.read_csv(TR / "props_vs_market.csv"); out["market"] = market_summary(vm_all); out["market_rows"] = int(len(vm_all))
     if graded is not None and len(graded):
         s = graded.groupby("stat").agg(n=("error", "size"), mae=("error", lambda e: round(float(e.abs().mean()), 2)), bias=("error", lambda e: round(float(e.mean()), 2))).reset_index()
         out["graded"] = s.to_dict("records")
     (OUT / "props.json").write_text(json.dumps(out, default=lambda v: None if (isinstance(v, float) and np.isnan(v)) else (v.item() if hasattr(v, "item") else str(v))))
-    print("props", len(pr), "projections for week", week, "graded rows", 0 if graded is None else len(graded))
+    print("props", len(pr), "projections for week", week, "graded rows", 0 if graded is None else len(graded), "market lines on the cards", out["market_lines"], "graded against the market", out.get("market_rows", 0))
 
 
 if __name__ == "__main__":
