@@ -69,6 +69,13 @@ def main() -> bool:
                 cur = cur[(cur.season == season) & (cur.week == week)]
                 same = sorted(flagged.bet) == sorted(cur.bet)
                 add("OK" if same else "FAIL", "tracker holds the week's flags", f"picks: {sorted(flagged.bet)}; tracker: {sorted(cur.bet)}")
+                from .picks import SHADOWS
+                for name in SHADOWS:
+                    col, f2 = f"{name}_bet", DATA / "tracker" / f"{name}_picks.csv"
+                    if col in p.columns:
+                        want = sorted(p[p[col].fillna("") != ""][col]); have = pd.read_csv(f2) if f2.exists() else pd.DataFrame(columns=["season", "week", "bet"])
+                        have = sorted(have[(have.season == season) & (have.week == week)].bet) if len(have) else []
+                        add("OK" if want == have else "FAIL", f"shadow rule recorded for the week: {name}", f"picks: {want}; tracker: {have}")
         except Exception as e:  # noqa
             add("FAIL", "picks and tracker check", str(e)[:120])
     # 6. page quotes the code's settings

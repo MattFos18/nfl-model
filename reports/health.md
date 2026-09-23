@@ -1,6 +1,6 @@
-# Health check, 2026-09-23 03:43 UTC
+# Health check, 2026-09-23 03:48 UTC
 
-**HEALTHY**: 0 failing, 0 warnings, 19 ok.
+**HEALTHY**: 0 failing, 0 warnings, 21 ok.
 
 | Level | Check | Detail |
 |---|---|---|
@@ -19,6 +19,8 @@
 | OK | kickoff forecasts are fresh | fetched 6 hours ago (limit 96) |
 | OK | picks file for Week 3, 2026 | picks_2026_wk3.csv |
 | OK | tracker holds the week's flags | picks: ['MIA +11.5', 'NYG -2.5', 'PIT +3.5']; tracker: ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] |
+| OK | shadow rule recorded for the week: shadow45 | picks: ['MIA +11.5']; tracker: ['MIA +11.5'] |
+| OK | shadow rule recorded for the week: shadowdog | picks: ['MIA +11.5', 'PIT +3.5']; tracker: ['MIA +11.5', 'PIT +3.5'] |
 | OK | page flag threshold = code | page 4.0, code 4.0 |
 | OK | page inputs = code | 20 on the page, 20 in code |
 | OK | page data is fresh | built 0 hours ago (limit 96) |
