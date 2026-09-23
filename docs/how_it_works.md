@@ -513,6 +513,11 @@ of the range where both windows improve on team points, with the third window ag
 rookie now starts about 0.07 EPA per dropback (roughly 2 points a game) lower than before until his own history
 takes over. The threshold sweep and the third-window table below were re-run on the rebuilt model.
 
+**QB shrinkage weight re-checked at the new level** (23 Sep 2026, `experiments/qb_k.py`, `reports/qb_k.csv`). The
+150-dropback weight was tuned at -0.05. At -0.12, weights of 40 to 400: 80 is the best on team points (7.3615 /
+7.2962 against 7.3624 / 7.2972) and on the spread miss, but the gain is 0.001 on each window, under the adoption
+bar, and 40 to 80 are indistinguishable. 150 stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
