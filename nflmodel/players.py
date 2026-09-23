@@ -97,26 +97,37 @@ def _usage_frames(pg: pd.DataFrame):
     return skill, by_player, by_team
 
 
-TEAM_WINDOW = True   # 23 Sep 2026: usage counted over the team's last n games, not the player's (see player_usage)
+TEAM_WINDOW = "rating"   # 23 Sep 2026: "rating" = usage over the window the team's ratings are built on; "last" = the team's last n games; False = the player's own last n games on any team
+RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
 
 
 def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | None, season: int, week: int, n_games: int):
-    """The rows and the touch denominator a player's usage is measured on. With a team and TEAM_WINDOW: the team's
-    last n games before (season, week), and only his touches for that team, so a player traded in counts for as
-    much of the window as he has actually played in (the team's ratings are built on the same games; a star who has
-    never played for the team is not in them, so his absence cannot be taken out of them). Otherwise: his own last
-    n games on any team. Returns (his rows, team touches over the window, games in the window he played in)."""
+    """The rows and the touch denominator a player's usage is measured on, so that what is taken out when he is out
+    is what the team's ratings actually contain. With a team and TEAM_WINDOW == "rating": the team's games this
+    season and last, weighted like the ratings weight them (0.94 per week of age, last season at 0.8), and only his
+    touches for that team; a star traded in has no touches in that window and nothing is taken out for him, and a
+    long-tenured starter who missed a few recent games is still mostly there. "last": the team's last n games, equal
+    weight. Otherwise: his own last n games on any team. Returns (his rows with a 'w' weight column, weighted team
+    touches over the window, games in the window he played in)."""
     g = by_player.get(pid)
     if g is None:
         return None, 0.0, 0
     if TEAM_WINDOW and team is not None and by_team is not None and team in by_team:
         tg = by_team[team]; tg = tg[(tg.season < season) | ((tg.season == season) & (tg.week < week))]
+        if TEAM_WINDOW == "rating":
+            tg = tg[tg.season >= season - 1]
+            tw = tg.groupby("game_id").agg(season=("season", "first"), week=("week", "first"), team_plays=("team_plays", "first"))
+            age = np.where(tw.season == season, week - tw.week, (week + 18 - tw.week) + 1)   # weeks of age, last season's games counted from this season's start
+            w = RATING_DECAY ** age * np.where(tw.season == season, 1.0, RATING_PRIOR)
+            wmap = dict(zip(tw.index, w)); tot = float((tw.team_plays * w).sum())
+            h = g[(g.team == team) & g.game_id.isin(tw.index)].copy(); h["w"] = h.game_id.map(wmap)
+            return h, tot, int(h.game_id.nunique())
         ids = tg.game_id.drop_duplicates().tail(n_games)
-        h = g[(g.team == team) & g.game_id.isin(ids)]
+        h = g[(g.team == team) & g.game_id.isin(ids)].copy(); h["w"] = 1.0
         tot = float(tg[tg.game_id.isin(ids)].groupby("game_id").team_plays.first().sum())
         return h, tot, int(h.game_id.nunique())
     h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
-    ids = h.game_id.drop_duplicates().tail(n_games); h = h[h.game_id.isin(ids)]
+    ids = h.game_id.drop_duplicates().tail(n_games); h = h[h.game_id.isin(ids)].copy(); h["w"] = 1.0
     return h, float(h.groupby("game_id").team_plays.first().sum()), int(len(ids))
 
 
@@ -126,8 +137,7 @@ def player_usage(by_player: dict, pid: str, season: int, week: int, n_games: int
     h, tot, n = _usage_window(by_player, by_team, pid, team, season, week, n_games)
     if h is None or len(h) == 0 or n == 0:
         return 0.0, 0.0, 0
-    games_in_window = n_games if (TEAM_WINDOW and team is not None and by_team is not None and team in by_team) else n
-    return (float(h.plays.sum()) / tot if tot else 0.0), float(h.plays.sum()) / max(games_in_window, 1), n
+    return (float((h.plays * h.w).sum()) / tot if tot else 0.0), float(h.plays.sum()) / max(n, 1), n
 
 
 def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, week: int, n_games: int, team: str | None = None, by_team: dict | None = None) -> dict:
@@ -144,7 +154,7 @@ def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, w
         if len(hr) == 0:
             continue
         vv, _ = pv.value(pid, role, season, week)
-        rs = float(hr.plays.sum()) / tot
+        rs = float((hr.plays * hr.w).sum()) / tot
         val += (vv - pv.prior(role, season)) * rs
         epa += vv * rs
     return {"value": val, "share": share, "per_game": per_game, "games": n, "epa_play": epa / share if share else 0.0, "name": str(h.name.iloc[-1])}
@@ -324,3 +334,55 @@ if __name__ == "__main__":
     player_history(pg).to_parquet(OUT / "player_history.parquet", index=False)   # roster_now is written by positions.py, after every value exists
     print("player_injury", iv.shape, "rows with a skill player out:", int((iv.n_skill_out > 0).sum()))
     print(iv[iv.n_skill_out > 0].describe().to_string())
+
+def roster_delta(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027), p=DEFAULT) -> pd.DataFrame:
+    """Per team-game, what the team's ratings have not seen (candidate inputs, 23 Sep 2026):
+    skill_new_value: skill players on the active roster and not out whom the team's usage window has not seen (a trade
+      or signing), at the value and touch share they had on their previous team, faded by the share of the team's window
+      they have already played in (a player who has played 2 of the team's last 8 games counts 75%);
+    skill_gone_value: skill players who played in the team's usage window but are no longer on its roster (traded away,
+      cut, retired), at their share of the window, so the rating's credit for them can be taken out.
+    Same units as skill_out_value (EPA per team play)."""
+    ros = load_rosters(seasons)
+    active = {k: set(g[g.status == "ACT"].gsis_id.dropna()) for k, g in ros.groupby(["season", "week", "team"])}
+    onroster = {k: set(g.gsis_id.dropna()) for k, g in ros.groupby(["season", "week", "team"])}
+    pos = {}
+    for s_ in seasons:
+        rf = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
+        if rf.exists():
+            rr = pd.read_parquet(rf, columns=["gsis_id", "position"]).dropna().drop_duplicates("gsis_id", keep="last")
+            pos.update(dict(zip(rr.gsis_id, rr.position)))
+    inj = load_injuries(seasons); inj = inj[inj.report_status.isin(["Out", "Doubtful"])]
+    out_by = {k: set(g.gsis_id.dropna()) for k, g in inj.groupby(["season", "week", "team"])}
+    for k, ids in unavailable_by_week(seasons).items():
+        out_by[k] = out_by.get(k, set()) | ids
+    pv = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25))
+    _, by_player, by_team = _usage_frames(pg)
+    n = p["usage_games"]; rows = []
+    long = pd.concat([games[["game_id", "season", "week", "home_team"]].rename(columns={"home_team": "team"}), games[["game_id", "season", "week", "away_team"]].rename(columns={"away_team": "team"})])
+    long = long[long.season.isin(seasons)]
+    for r in long.itertuples():
+        k = (r.season, r.week, r.team); outs = out_by.get(k, set())
+        new_val, gone_val = 0.0, 0.0
+        for pid in active.get(k, set()):
+            if pid in outs or pid not in by_player or pos.get(pid) == "QB":
+                continue
+            _, _, n_team = _usage_window(by_player, by_team, pid, r.team, r.season, r.week, n)
+            if n_team >= n:
+                continue
+            d = player_value_out(pv, by_player, pid, r.season, r.week, n)          # his own history, any team
+            if d["games"] == 0:
+                continue
+            new_val += d["value"] * (1.0 - n_team / n)
+        tg = by_team.get(r.team)
+        if tg is not None:
+            tg = tg[(tg.season < r.season) | ((tg.season == r.season) & (tg.week < r.week))]
+            ids = tg.game_id.drop_duplicates().tail(n)
+            for pid in tg[tg.game_id.isin(ids)].player_id.unique():
+                if pid in onroster.get(k, set()) or pos.get(pid) == "QB":
+                    continue
+                d = player_value_out(pv, by_player, pid, r.season, r.week, n, r.team, by_team)   # his share of the team's window
+                gone_val += d["value"]
+        rows.append({"game_id": r.game_id, "team": r.team, "skill_new_value": new_val, "skill_gone_value": gone_val})
+    return pd.DataFrame(rows)
+

@@ -19,6 +19,7 @@ DATASETS = {
     "depth_charts":  ("depth_charts/depth_charts_{s}.parquet", 2001, False),
     "rosters":       ("weekly_rosters/roster_weekly_{s}.parquet", 2002, False),
     "ftn":           ("ftn_charting/ftn_charting_{s}.parquet", 2022, False),
+    "pfr_advstats":  ("pfr_advstats/advstats_week_def_{s}.parquet", 2018, False),   # coverage: targets, completions, yards and TDs allowed per defender (Pro Football Reference via nflverse)
 }
 
 PBP_COLS = None  # keep everything; we subset when building features
