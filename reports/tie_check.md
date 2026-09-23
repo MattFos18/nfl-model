@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 03:28 UTC
+# Tie-out (sources and page), 2026-09-23 03:42 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -17,7 +17,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | model inputs counted | 20 | 20 | yes |
 | docs: input count | True | True | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
-| picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | yes |
+| picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | picks file stakes = tracker stakes | [0.82, 1.11, 1.37] | [0.82, 1.11, 1.37] | yes |
 | picks markdown names the live cut | True | True | yes |
 | page backtest file: games | 2927 | 2927 | yes |
@@ -26,9 +26,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
-| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -3', 'PIT | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -3', 'PIT | yes |
+| page week = picks file (bets) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA +11.5', 'NYG -2.5', 'P | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
-| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | yes |
+| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
 Result: PASS (26 of 26 tie)
