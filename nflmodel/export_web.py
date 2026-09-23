@@ -545,8 +545,6 @@ def export_backtest_js(games=None, feats=None):
 
 
 
-if __name__ == "__main__":
-    main()
 
 
 # Labels for every variant in the player-projection backtests (experiments/props_backtest*.py), so the page can show
@@ -626,3 +624,7 @@ def player_logs_export() -> dict:
     nm = names_by_id(range(2016, 2027)); names = {pid: [nm[pid][0], nm[pid][1]] for pid in out if pid in nm}
     for pid in out: out[pid].sort(key=lambda r: (r[0], r[1]))
     return {"cols": cols, "rows": out, "names": names, "splits": {"rec": ["man", "zone", "pressured"], "pass": ["man", "zone", "pressured"], "rush": ["light box", "heavy box", ""]}}
+
+
+if __name__ == "__main__":
+    main()

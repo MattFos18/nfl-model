@@ -1120,7 +1120,17 @@ paid plans only, so the market comparison is live from Week 3 of 2026. The line 
 The Odds API twice a week inside the free 500-credit month: the Thursday game on Thursday at 20:00 UTC (six
 credits) and the rest of the week on Sunday at 14:00 UTC (about 90), with the game-line pull cut to once a day
 to make room (ESPN carries the game lines every half hour anyway). Markets: receiving yards, receptions, rushing
-yards, passing yards, anytime touchdown, tackles plus assists, every US book, appended with the raw response saved. The props builder takes the last pull for each game, the median
+yards, passing yards, anytime touchdown, tackles plus assists, every US book, appended with the raw response saved.
+PrizePicks' pick'em board is logged too, every six hours with no key and no credits (`prizepicks()` in the same
+module, the `force_dfs` input on the line watch runs it alone): every market at even odds by construction,
+standard lines only (no demon or goblin alternates, promo "flash sale" copies of a line dropped), touchdown
+markets left out because a pick'em 0.5 line carries no price. The first run from the GitHub runner (23 Sep 2026)
+logged 774 lines across 17 markets, among them longest reception, longest rush, targets, pass plus rush yards,
+kicking points and field goals, which the free Odds API tier cannot afford. Underdog's over/under feed refuses
+the runner on every version tried (v6, v5, v3: 426 Upgrade Required), so it is not a source. Two projections were
+added so those lines have a comparison: targets (the projected targets already inside the receiving line) and pass
+plus rush yards (the QB's passing line plus his rushing line), graded like the rest. The longest-play and kicking
+markets are logged but have no projection yet (a round of their own, to be backtested first). The props builder takes the last pull for each game, the median
 line across books, and puts it beside each projection on the card with the side the projection leans (over above
 the line, under below; for the anytime touchdown the book's price as an implied probability beside the
 projection's chance of at least one score, 1 - exp(-(receiving + rushing expected touchdowns))). When the game is

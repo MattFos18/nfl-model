@@ -80,13 +80,14 @@ def pull(season: int, week: int, ts: str, within_hours: float | None = None) -> 
 # DFS pick'em lines (no key, no credits): every market at even odds by construction. Their lines sit close to the
 # books' and cover markets the free Odds API tier cannot afford, so they are logged as books of their own.
 PP_STATS = {"Pass Yards": "pass_yards", "Pass TDs": "pass_td", "Pass Completions": "pass_completions", "Pass Attempts": "pass_attempts", "INT": "pass_int", "Rush Yards": "rush_yards", "Rush Attempts": "rush_attempts", "Receiving Yards": "rec_yards", "Receptions": "rec_catches", "Rush+Rec Yds": "rush_rec_yards",
-            "Longest Reception": "rec_longest", "Longest Rush": "rush_longest", "Longest Pass Completion": "pass_longest", "Tackles+Ast": "def_tackles", "Sacks": "def_sacks", "Solo Tackles": "def_solo_tackles", "Kicking Points": "kick_points", "FG Made": "field_goals", "Pass+Rush Yds": "pass_rush_yards", "Rec Targets": "rec_targets"}
+            "Longest Reception": "rec_longest", "Longest Rush": "rush_longest", "Longest Pass Completion": "pass_longest", "Longest Completion": "pass_longest", "Tackles+Ast": "def_tackles", "Sacks": "def_sacks", "Solo Tackles": "def_solo_tackles", "Kicking Points": "kick_points", "FG Made": "field_goals", "Pass+Rush Yds": "pass_rush_yards", "Rec Targets": "rec_targets"}
 PP_TEAM = {"LAR": "LA", "JAC": "JAX", "WSH": "WAS", "ARZ": "ARI", "BLT": "BAL", "CLV": "CLE", "HST": "HOU"}
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", "Accept": "application/json"}
 
 
 def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
-    """PrizePicks projections for the NFL (league 9): standard lines only (no demon or goblin), one row per player and market."""
+    """PrizePicks projections for the NFL (league 9): standard lines only (no demon or goblin, no promo copies), one row per player and market.
+    Touchdown markets are left out: a pick'em 0.5 line carries no price, so it says nothing about the chance."""
     j = None; errs = []
     for url, hdr in [("https://partner-api.prizepicks.com/projections", UA), ("https://api.prizepicks.com/projections", dict(UA, **{"Referer": "https://app.prizepicks.com/", "Origin": "https://app.prizepicks.com", "Accept-Language": "en-US,en;q=0.9"}))]:
         try:
@@ -99,14 +100,14 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
     players = {p["id"]: p["attributes"] for p in j.get("included", []) if p.get("type") == "new_player"}
     wk = games[(games.season == season) & (games.week == week)]; team_game = {}
     for g in wk.itertuples(): team_game[g.home_team] = (g.game_id, g.home_team, g.away_team); team_game[g.away_team] = (g.game_id, g.home_team, g.away_team)
-    rows = []
-    for d in j.get("data", []):
+    rows = {}
+    for d in sorted(j.get("data", []), key=lambda d: bool((d.get("attributes") or {}).get("is_promo"))):   # a promo copy of a line (discounted "flash sale") sits behind the regular one
         a = d.get("attributes", {}); stat = PP_STATS.get(a.get("stat_type"))
         if not stat or a.get("odds_type", "standard") != "standard" or a.get("line_score") is None: continue
         pl = players.get(((d.get("relationships") or {}).get("new_player") or {}).get("data", {}).get("id"), {}); team = PP_TEAM.get(pl.get("team"), pl.get("team")); tg = team_game.get(team)
-        if not tg: continue
-        rows.append({"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": a.get("start_time"), "book": "prizepicks", "market": a.get("stat_type"), "stat": stat, "player": pl.get("name"), "line": float(a["line_score"]), "over_price": -119, "under_price": -119})
-    return rows
+        if not tg or (pl.get("name"), stat) in rows: continue
+        rows[(pl.get("name"), stat)] = {"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": a.get("start_time"), "book": "prizepicks", "market": a.get("stat_type"), "stat": stat, "player": pl.get("name"), "line": float(a["line_score"]), "over_price": -119, "under_price": -119}
+    return list(rows.values())
 
 
 def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
