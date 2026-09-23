@@ -246,13 +246,13 @@ and the live tracker is what settles it.
 ## 9. Betting thresholds: what the sweep says
 
 **Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12: the flag is 4.** Re-swept
-after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17):
+after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17; until the tie-out of 23 Sep the sweep's held-out column also counted the live season's games, so its earlier held-out records ran two bets larger):
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 89-65, 57.8% | 44-28, 61.1% | 57.6% | 61.5% | 60.0% | 51.4% (19-18) | 72.7% | 59.4% | 63.0% |
-| 4.5 | 67-46, 59.3% | 31-21, 59.6% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
-| 5 | 44-31, 58.7% | 21-15, 58.3% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
+| 4 | 89-65, 57.8% | 44-26, 62.9% | 57.6% | 61.5% | 60.0% | 51.4% (19-18) | 72.7% | 59.4% | 63.0% |
+| 4.5 | 67-46, 59.3% | 31-19, 62.0% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
+| 5 | 44-31, 58.7% | 21-13, 61.8% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
 
 The 4-point cut is still the best overall (133-91, 59.4%, across 2019 to 2025; 133-93 with the two 2026 games so far) and on both windows, at twice the volume of 5 with
 the same rate. It no longer clears the 52.4% break-even in every season: 2022 is 19-18 on the rebuilt model (it was

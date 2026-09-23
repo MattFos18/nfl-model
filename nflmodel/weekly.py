@@ -44,7 +44,7 @@ def sh(cmd):
 
 
 def main(full=False, skip_network=False):
-    from . import pull, picks as P, tracker, weather, export_web
+    from . import pull, picks as P, tracker, weather, export_web, tie_check
     log = []
     run_at = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     games0 = pd.read_parquet(OUT / "games.parquet")
@@ -77,7 +77,9 @@ def main(full=False, skip_network=False):
         step("log run", lambda: P.log_run(pk, run_at), log)
         step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
     step("grade", lambda: tracker.main(), log)
+    step("tie check (sources)", lambda: tie_check.main(False) or (_ for _ in ()).throw(RuntimeError("numbers disagree: see reports/tie_check.md")), log)
     step("export data room", lambda: export_web.main(), log)
+    step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
     step("audit reports", lambda: sh(["nflmodel.report"]), log)
     _write(log, run_at, cur_season, cur_week, pk)
     return log

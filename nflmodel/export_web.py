@@ -295,6 +295,8 @@ def main():
                          "mean": dict(zip(M.FEATS, m[0].mean_.round(5).tolist())), "intercept": float(np.mean(train.pf))}
     pull = pd.read_csv(RAW / "pull_log.csv").tail(120)
     ver = (ROOT / "reports" / "verification.md").read_text() if (ROOT / "reports" / "verification.md").exists() else ""
+    if (ROOT / "reports" / "tie_check.md").exists():
+        ver += "\n\n" + (ROOT / "reports" / "tie_check.md").read_text()   # the tie-out written before this export (sources); the page part is checked after it
     teams = sorted(d[d.season == 2026].team.unique())
     REPD = ROOT / "reports"
     def csv_rows(name):
