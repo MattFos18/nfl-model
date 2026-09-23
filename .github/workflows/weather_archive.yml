@@ -8,7 +8,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nfl-model-data
+  group: nfl-model-archive   # its own group: a fetch can run for hours and must not block the line watch or the weekly run
   cancel-in-progress: false
 jobs:
   archive:
