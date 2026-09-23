@@ -1,5 +1,5 @@
 variant,team_mae,margin_mae,vegas_margin,ats5,n
-"18 inputs (today), knobs 0.94 / 0.8 (today)",7.4356,10.0306,9.8047,21-30,1024
-"13 inputs (before the player model), knobs 0.94 / 0.8 (today)",7.4264,10.0414,9.8047,30-30,1024
-"18 inputs (today), knobs 0.90 / 0.5 (original)",7.4413,10.0621,9.8047,22-28,1024
-"13 inputs (before the player model), knobs 0.90 / 0.5 (original)",7.4346,10.0647,9.8047,27-31,1024
+"twenty inputs (today), knobs 0.94 / 0.8 (today)",7.4167,10.0095,9.8047,25-30,1024
+"13 inputs (before the player model), knobs 0.94 / 0.8 (today)",7.4033,10.015,9.8047,32-28,1024
+"twenty inputs (today), knobs 0.90 / 0.5 (original)",7.4196,10.0288,9.8047,19-24,1024
+"13 inputs (before the player model), knobs 0.90 / 0.5 (original)",7.4029,10.0184,9.8047,18-27,1024
