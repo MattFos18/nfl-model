@@ -254,7 +254,7 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 | 4.5 | 67-46, 59.3% | 31-21, 59.6% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
 | 5 | 44-31, 58.7% | 21-15, 58.3% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
 
-The 4-point cut is still the best overall (58.8% on 226 bets) and on both windows, at twice the volume of 5 with
+The 4-point cut is still the best overall (133-91, 59.4%, across 2019 to 2025; 133-93 with the two 2026 games so far) and on both windows, at twice the volume of 5 with
 the same rate. It no longer clears the 52.4% break-even in every season: 2022 is 19-18 on the rebuilt model (it was
 54.1% before the QB replacement level moved), and no cut does (5 has 2025 at 8-8). The earlier "wins every season"
 line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
