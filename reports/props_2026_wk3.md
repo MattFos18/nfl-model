@@ -1,42 +1,42 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.88, rushers 0.84, QBs 0.9). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.354 / 18.332 yards off on receiving, 18.121 / 17.285 on rushing and 57.683 / 57.305 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.88; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-23 21:13 UTC.
+Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.88, rushers 0.84, QBs 0.9). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.354 / 18.332 yards off on receiving, 18.121 / 17.285 on rushing and 57.683 / 57.305 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.88; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-23 21:56 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_yards        |  50.1   |          7.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_catches      |   4.2   |          7.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_td           |   0.333 |          7.8  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_catches      |   4.3   |          7.8  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_td           |   0.33  |          7.8  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_targets      |   7.8   |          7.8  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037238  | Drake London            | rec_longest      |  20.3   |          7.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_yards        |  45.6   |          7.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_catches      |   5     |          7.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_td           |   0.28  |          7.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_targets      |   7.5   |          7.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_longest      |  16.1   |          7.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_yards        |  36.1   |          5.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_yards        |  45.8   |          7.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_catches      |   5     |          7.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_td           |   0.277 |          7.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_targets      |   7.6   |          7.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rec_longest      |  16.1   |          7.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_yards        |  36.2   |          5.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_catches      |   3.6   |          5.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_td           |   0.23  |          5.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_td           |   0.228 |          5.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_targets      |   5.9   |          5.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036970  | Kyle Pitts              | rec_longest      |  15.7   |          5.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_yards        |  21.5   |          3.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_catches      |   1.9   |          3.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_td           |   0.141 |          3.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_td           |   0.139 |          3.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_targets      |   3.9   |          3.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037741  | Jahan Dotson            | rec_longest      |  10.7   |          3.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_yards        |  18.9   |          3.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_yards        |  19     |          3.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_catches      |   1.9   |          3.2  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_td           |   0.13  |          3.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_td           |   0.128 |          3.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_targets      |   3.2   |          3.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0032392  | Austin Hooper           | rec_longest      |  10.9   |          3.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_yards        |  14.3   |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_catches      |   1.6   |          3    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_td           |   0.117 |          3    |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_td           |   0.116 |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_targets      |   3     |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0035208  | Olamide Zaccheaus       | rec_longest      |  10     |          3    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_yards        |  15.3   |          3    |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_yards        |  15.4   |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_catches      |   1.7   |          3    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_td           |   0.112 |          3    |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_td           |   0.111 |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_targets      |   3     |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038953  | Dylan Drummond          | rec_longest      |   8.8   |          3    |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rec_yards        |   8.5   |          1.7  |
@@ -44,77 +44,77 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rec_td           |   0.063 |          1.7  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rec_targets      |   1.7   |          1.7  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rec_longest      |   7.6   |          1.7  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_yards       |  67.1   |         16.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_td          |   0.435 |         16.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_attempts    |  16.4   |         16.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_rec_yards   | 112.7   |         16.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_longest     |  16.2   |         16.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_yards       |  28.2   |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_td          |   0.218 |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_attempts    |   8     |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_rec_yards   |  36.7   |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_longest     |   8.9   |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_yards       |   7.7   |          1.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_yards       |  66.9   |         16.3  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_td          |   0.434 |         16.3  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_attempts    |  16.3   |         16.3  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_rec_yards   | 112.7   |         16.3  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0038542  | Bijan Robinson          | rush_longest     |  16.2   |         16.3  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_yards       |  28.1   |          7.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_td          |   0.218 |          7.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_attempts    |   7.9   |          7.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_rec_yards   |  36.6   |          7.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0037746  | Brian Robinson          | rush_longest     |   8.9   |          7.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_yards       |   7.6   |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_td          |   0.067 |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_attempts    |   1.9   |          1.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_rec_yards   |   7.7   |          1.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_rec_yards   |   7.6   |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | rush_longest     |   7.4   |          1.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_yards       | 206     |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_td          |   1.38  |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_int         |   0.656 |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_attempts    |  32.5   |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_completions |  18.5   |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_rush_yards  | 213.7   |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_longest     |  33.9   |         34    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_tackles      |   5.4   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_sacks        |   0.09  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_solo_tackles |   2.6   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_tackles      |   5     |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_sacks        |   0.03  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_solo_tackles |   3     |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_tackles      |   4.9   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_sacks        |   0.03  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_solo_tackles |   3     |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_tackles      |   4.5   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_sacks        |   0.04  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_solo_tackles |   3.2   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_tackles      |   3.9   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_sacks        |   0.06  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_solo_tackles |   2.1   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_tackles      |   3.8   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_sacks        |   0.2   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_solo_tackles |   2.2   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_tackles      |   3.4   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_sacks        |   0.07  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_solo_tackles |   2.4   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_tackles      |   3     |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_sacks        |   0.33  |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_solo_tackles |   1.6   |         61.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0025565  | Nick Folk               | kick_points      |   6.7   |         19    |
-|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0025565  | Nick Folk               | field_goals      |   1.65  |         19    |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_yards       | 206.3   |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_td          |   1.38  |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_int         |   0.658 |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_attempts    |  32.6   |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_completions |  18.6   |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_rush_yards  | 213.9   |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039917  | Michael Penix Jr.       | pass_longest     |  33.9   |         34.1  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_tackles      |   5.4   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_sacks        |   0.09  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036990  | Divine Deablo           | def_solo_tackles |   2.6   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_tackles      |   5     |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_sacks        |   0.03  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034675  | Jessie Bates            | def_solo_tackles |   3     |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_tackles      |   4.9   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_sacks        |   0.03  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040148  | Xavier Watts            | def_solo_tackles |   3     |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_tackles      |   4.5   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_sacks        |   0.04  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0034843  | Mike Hughes             | def_solo_tackles |   3.2   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_tackles      |   3.9   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_sacks        |   0.06  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0039002  | Sydney Brown            | def_solo_tackles |   2.1   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_tackles      |   3.8   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_sacks        |   0.2   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0040156  | Billy Bowman Jr.        | def_solo_tackles |   2.2   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_tackles      |   3.4   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_sacks        |   0.07  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036281  | C.J. Henderson          | def_solo_tackles |   2.4   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_tackles      |   3     |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_sacks        |   0.33  |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0036204  | LaCale London           | def_solo_tackles |   1.6   |         61.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0025565  | Nick Folk               | kick_points      |   6.6   |         18.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | ATL    | 00-0025565  | Nick Folk               | field_goals      |   1.64  |         18.5  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_yards        |  60.6   |          8    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_catches      |   4.3   |          8    |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_td           |   0.596 |          8    |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_td           |   0.601 |          8    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_targets      |   8     |          8    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038124  | Christian Watson        | rec_longest      |  22.4   |          8    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_yards        |  43     |          6.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_catches      |   3.6   |          6.2  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_td           |   0.268 |          6.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_td           |   0.271 |          6.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_targets      |   6.2   |          6.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040667  | Matthew Golden          | rec_longest      |  15.4   |          6.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_yards        |  37.2   |          5    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_catches      |   3.1   |          5    |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_td           |   0.335 |          5    |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_td           |   0.338 |          5    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_targets      |   5     |          5    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038996  | Tucker Kraft            | rec_longest      |  18.9   |          5    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_yards        |  27.3   |          4.4  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_catches      |   2.7   |          4.4  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_td           |   0.234 |          4.4  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_td           |   0.237 |          4.4  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_targets      |   4.4   |          4.4  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039146  | Jayden Reed             | rec_longest      |  14.6   |          4.4  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_yards        |  13.8   |          2.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_catches      |   1.5   |          2.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_td           |   0.119 |          2.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_td           |   0.12  |          2.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_targets      |   2.6   |          2.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0033858  | Jonnu Smith             | rec_longest      |  10.2   |          2.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038090  | Skyy Moore              | rec_yards        |  10.3   |          1.7  |
@@ -124,7 +124,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038090  | Skyy Moore              | rec_longest      |   9.3   |          1.7  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_yards        |   9.5   |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_catches      |   0.8   |          1.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_td           |   0.084 |          1.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_td           |   0.085 |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_targets      |   1.6   |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0037091  | Bo Melton               | rec_longest      |  10.6   |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rec_yards        |   9.2   |          1.6  |
@@ -132,59 +132,59 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rec_td           |   0.076 |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rec_targets      |   1.6   |          1.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rec_longest      |   9     |          1.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_yards       |  43.3   |         13.2  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_td          |   0.412 |         13.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_yards       |  43.4   |         13.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_td          |   0.413 |         13.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_attempts    |  13.2   |         13.2  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_rec_yards   |  43.3   |         13.2  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_rec_yards   |  43.4   |         13.2  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039811  | MarShawn Lloyd          | rush_longest     |   9.1   |         13.2  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_yards       |  25.4   |          8.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_td          |   0.246 |          8.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_attempts    |   8.5   |          8.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_rec_yards   |  25.4   |          8.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_longest     |   6.9   |          8.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_yards       |  25.5   |          8.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_td          |   0.247 |          8.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_attempts    |   8.6   |          8.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_rec_yards   |  25.5   |          8.6  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040142  | Kaleb Johnson           | rush_longest     |   6.9   |          8.6  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_yards       |  21.9   |          6    |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_td          |   0.171 |          6    |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_td          |   0.172 |          6    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_attempts    |   6     |          6    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_rec_yards   |  31.1   |          6    |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0038685  | Chris Brooks            | rush_longest     |   7.9   |          6    |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_yards       |   8.8   |          1.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_yards       |   8.9   |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_td          |   0.054 |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_attempts    |   1.9   |          1.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_rec_yards   |   8.8   |          1.9  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_rec_yards   |   8.9   |          1.9  |
 |     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | rush_longest     |   7.8   |          1.9  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_yards       | 233.1   |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_td          |   1.854 |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_int         |   0.668 |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_attempts    |  32.8   |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_completions |  19.4   |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_rush_yards  | 241.9   |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_longest     |  34.7   |         34.6  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_tackles      |   6.5   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_sacks        |   0.12  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_solo_tackles |   3     |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_tackles      |   6.4   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_sacks        |   0.12  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_solo_tackles |   3.4   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_tackles      |   5.3   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_sacks        |   0.03  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_solo_tackles |   3.1   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_tackles      |   5.1   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_sacks        |   0.07  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_solo_tackles |   2.5   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_tackles      |   4.4   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_sacks        |   0.07  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_solo_tackles |   2.3   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_tackles      |   4.1   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_sacks        |   0.05  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_solo_tackles |   3     |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_tackles      |   3.9   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_sacks        |   0.39  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_solo_tackles |   2.3   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_tackles      |   3.5   |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_sacks        |   0.03  |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_solo_tackles |   2     |         60.8  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040899  | Trey Smack              | kick_points      |   7.3   |         23.5  |
-|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040899  | Trey Smack              | field_goals      |   1.68  |         23.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_yards       | 232.8   |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_td          |   1.854 |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_int         |   0.666 |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_attempts    |  32.7   |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_completions |  19.4   |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_rush_yards  | 241.7   |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036264  | Jordan Love             | pass_longest     |  34.7   |         34.5  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_tackles      |   6.5   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_sacks        |   0.12  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0034431  | Zaire Franklin          | def_solo_tackles |   3     |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_tackles      |   6.4   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_sacks        |   0.12  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039850  | Edgerrin Cooper         | def_solo_tackles |   3.4   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_tackles      |   5.3   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_sacks        |   0.03  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039813  | Evan Williams           | def_solo_tackles |   3.1   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_tackles      |   5.1   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_sacks        |   0.07  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036388  | Xavier McKinney         | def_solo_tackles |   2.5   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_tackles      |   4.4   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_sacks        |   0.07  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0036658  | Isaiah McDuffie         | def_solo_tackles |   2.3   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_tackles      |   4.1   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_sacks        |   0.05  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0035133  | Keisean Nixon           | def_solo_tackles |   3     |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_tackles      |   3.9   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_sacks        |   0.39  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039112  | Lukas Van Ness          | def_solo_tackles |   2.3   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_tackles      |   3.5   |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_sacks        |   0.03  |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0039867  | Javon Bullard           | def_solo_tackles |   2     |         60.7  |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040899  | Trey Smack              | kick_points      |   7.4   |         24    |
+|     2026 |      3 | 2026_03_ATL_GB  | GB     | 00-0040899  | Trey Smack              | field_goals      |   1.68  |         24    |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038544  | Quentin Johnston        | rec_yards        |  46.2   |          7.8  |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038544  | Quentin Johnston        | rec_catches      |   4     |          7.8  |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038544  | Quentin Johnston        | rec_td           |   0.339 |          7.8  |

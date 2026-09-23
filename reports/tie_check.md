@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 21:47 UTC
+# Tie-out (sources and page), 2026-09-23 21:56 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -57,7 +57,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
-| picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
+| picks file stakes = tracker stakes | [0.54, 0.79, 0.97] | [0.54, 0.79, 0.97] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 87-59 45-21 67-57 | 87-59 45-21 67-57 | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 201, 66, 32, 2026, 3] | [364, 201, 66, 32, 2026, 3] | yes |
