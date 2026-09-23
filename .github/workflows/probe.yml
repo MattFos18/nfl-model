@@ -1,0 +1,29 @@
+name: probe
+# Runs one command on the runner and prints its output, nothing committed: for testing a data source from GitHub's
+# network (some sites answer the runner differently from a laptop). Dispatch it from the Actions tab or the API.
+on:
+  workflow_dispatch:
+    inputs:
+      cmd:
+        description: command to run from the repo root
+        default: python -m nflmodel.pull --seasons 2026 --only injuries
+        required: true
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: probe
+        run: ${{ inputs.cmd }}
+      - name: what it wrote
+        run: |
+          git status --short | head -40
+          for f in data/raw/injuries/espn_injuries.csv; do if [ -f "$f" ]; then echo "== $f"; head -c 1500 "$f"; echo; wc -l "$f"; fi; done

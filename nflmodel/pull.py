@@ -6,7 +6,7 @@ from __future__ import annotations
 import json
 import argparse, datetime as dt, hashlib, os, sys, time
 from pathlib import Path
-import requests
+import pandas as pd, requests
 
 BASE = "https://github.com/nflverse/nflverse-data/releases/download"
 RAW = Path(__file__).resolve().parent.parent / "data" / "raw"
@@ -77,30 +77,41 @@ def pull(seasons, only=None, force_current=True):
     return rows
 
 
-ESPN_INJ = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries"
+ESPN_INJ = ["https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries",
+            "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/injuries",
+            "https://cdn.espn.com/core/nfl/injuries?xhr=1"]
 ESPN_TEAM = {"WSH": "WAS", "LAR": "LA", "JAC": "JAX"}
+ESPN_COLS = ["team", "name", "position", "status", "date", "detail", "return_date", "fetched_at"]
 
 
 def espn_injuries() -> pd.DataFrame:
     """ESPN's injury page for every team, as posted (same day as the team's report), saved beside the nflverse file:
     data/raw/injuries/espn_injuries.csv with team, name, position, status, date, detail. nflverse's file follows the
-    league's reports with a lag of hours to a day; this fills the current week until it does (players.load_injuries)."""
+    league's reports with a lag of hours to a day; this fills the current week until it does (players.load_injuries).
+    Fetched the way the line watch fetches ESPN's scoreboard (browser headers, three hosts in turn). When every host
+    refuses, the previous file is kept and its age printed; the pull never fails on it."""
+    from .lines import H, _get_json
     dest = RAW / "injuries" / "espn_injuries.csv"; dest.parent.mkdir(parents=True, exist_ok=True)
     try:
-        r = requests.get(ESPN_INJ, timeout=60, headers={"User-Agent": "Mozilla/5.0"}); r.raise_for_status(); j = r.json()
+        j, used = _get_json(ESPN_INJ, H)
+        teams = j.get("injuries") if isinstance(j.get("injuries"), list) else ((j.get("content") or {}).get("injuries") or [])
         rows = []
-        for t in j.get("injuries", []):
+        for t in teams:
             abbr = ((t.get("team") or {}).get("abbreviation")) or (t.get("displayName") or "")
             for a in t.get("injuries", []):
                 ath = a.get("athlete") or {}; det = a.get("details") or {}
                 rows.append({"team": ESPN_TEAM.get(abbr, abbr), "name": ath.get("displayName"), "position": (ath.get("position") or {}).get("abbreviation"), "status": a.get("status"), "date": a.get("date"), "detail": det.get("type") or "", "return_date": det.get("returnDate") or "", "fetched_at": dt.datetime.utcnow().isoformat(timespec="seconds")})
-        out = pd.DataFrame(rows); out.to_csv(dest, index=False)
+        if not rows:
+            raise RuntimeError(f"no injuries in the answer from {used.split('/')[2]}")
+        out = pd.DataFrame(rows, columns=ESPN_COLS); out.to_csv(dest, index=False)
         (RAW / "injuries" / "espn_injuries.json").write_text(json.dumps(j)[:5_000_000])
-        print(f"espn injuries {len(out)} rows, {out.team.nunique() if len(out) else 0} teams", flush=True)
+        print(f"espn injuries {len(out)} rows, {out.team.nunique()} teams, from {used.split('/')[2]}", flush=True)
         return out
     except Exception as e:  # noqa
-        print(f"espn injuries: {str(e)[:120]}", flush=True)
-        return pd.read_csv(dest) if dest.exists() else pd.DataFrame(columns=["team", "name", "position", "status", "date", "detail", "return_date", "fetched_at"])
+        prev = pd.read_csv(dest) if dest.exists() else pd.DataFrame(columns=ESPN_COLS)
+        kept = f"kept the file from {prev.fetched_at.max()}" if len(prev) else "no file to keep; the nflverse report alone"
+        print(f"espn injuries: {str(e)[:160]}; {kept}", flush=True)
+        return prev
 
 
 def parse_seasons(s: str):
