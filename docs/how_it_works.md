@@ -1002,6 +1002,51 @@ which is noise at this sample, so nothing changes there: the QB's identity, home
 mostly inside the player's own recent rate and the game script. The projection remains about 19 yards off on a
 receiving line and 61 on a passing line.
 
+**Round five** (`experiments/props_backtest5.py`, `reports/props_backtest5.csv`): the other columns on the table,
+receptions, touchdowns and interceptions, which the first four rounds left at the player's raw rate. Volume is the
+adopted rule's; the rate per touch is his over his last 17 games, raw, the league's, or shrunk toward the league's
+with K touches of weight, and for touchdowns also moved by the expected margin (favourites score more), fitted on
+2016 to 2018. Receptions are scored by absolute error; touchdowns and interceptions by the Poisson log loss as
+well, since a count that is usually 0 makes the absolute-error-best line degenerate (predicting none is "best")
+and an anytime-scorer price needs the whole distribution. Lower is better throughout.
+
+| Receptions | 2019-22 | 2023-25 |
+|---|---|---|
+| His raw catch rate (as the page had it) | 1.466 | 1.384 |
+| League catch rate | 1.467 | 1.391 |
+| Shrunk, K 25 | 1.459 | 1.377 |
+| Shrunk, K 50 / 100 / 200 | 1.458 / 1.458 / 1.460 | 1.377 / 1.379 / 1.381 |
+| Shrunk K 25 x median factor 0.88 (adopted) | 1.438 | 1.359 |
+
+| Touchdowns and interceptions, Poisson log loss (absolute error in brackets) | 2019-22 | 2023-25 |
+|---|---|---|
+| Receiving TD, raw rate | 0.5737 (0.307) | 0.5448 (0.288) |
+| Receiving TD, league rate | 0.5157 (0.313) | 0.4918 (0.298) |
+| Receiving TD, shrunk K 50 / 100 / 200 / 400 / 800 | 0.5139 / 0.5121 / 0.5121 / 0.5129 / 0.5139 | 0.4899 / 0.4885 / 0.4885 / 0.4893 / 0.4902 |
+| Receiving TD, K 200 x (1 + 0.020 x expected margin) (adopted) | 0.5101 (0.310) | 0.4869 (0.295) |
+| Rushing TD, raw rate | 0.6612 (0.356) | 0.6370 (0.342) |
+| Rushing TD, league rate | 0.6018 | 0.5739 |
+| Rushing TD, shrunk K 50 / 100 / 200 / 400 / 800 | 0.5972 / 0.5949 / 0.5948 / 0.5961 / 0.5979 | 0.5695 / 0.5662 / 0.5655 / 0.5668 / 0.5689 |
+| Rushing TD, K 200 (adopted) | 0.5948 (0.356) | 0.5655 (0.346) |
+| Rushing TD, K 200 x (1 + 0.025 x margin) | 0.5953 | 0.5641 |
+| Passing TD, raw rate | 1.5364 (0.950) | 1.4979 (0.928) |
+| Passing TD, league rate | 1.5211 | 1.4853 |
+| Passing TD, shrunk K 50 / 100 / 200 / 400 / 800 | 1.4990 / 1.4966 / 1.4954 / 1.4961 / 1.4996 | 1.4704 / 1.4676 / 1.4657 / 1.4659 / 1.4686 |
+| Passing TD, K 400 x (1 + 0.020 x margin) (adopted) | 1.4868 (0.933) | 1.4543 (0.904) |
+| Interceptions, raw rate | 1.2089 (0.761) | 1.1625 (0.716) |
+| Interceptions, shrunk K 50 / 200 / 800 | 1.1785 / 1.1596 / 1.1454 | 1.1284 / 1.1129 / 1.1034 |
+| Interceptions, league rate (adopted) | 1.1449 (0.720) | 1.1047 (0.704) |
+
+The raw rates the page carried were the worst row for every count: a player's touchdown or interception rate over
+17 games is nearly all noise, so it is shrunk hard (200 to 400 touches), and for interceptions the league rate
+alone is best on both windows, so his own rate is not used at all. The expected margin adds a little to receiving
+and passing scores on both windows (2% per point: a 7-point favourite's passer projects 14% more touchdowns) and
+nothing consistent to rushing scores (better held out, worse on the tuning window), so it applies to the first two
+only. The shrinkage weight was chosen on 2016 to 2018 by the Poisson fit (K 200 receiving, 200 rushing, 400
+passing; on the two scoring windows K 200 is a hair better than 400 for passing, 1.4954 / 1.4657 against 1.4961 /
+1.4659, but the fit window decides). Every column on the table is now graded live: receptions, receiving and
+rushing touchdowns, passing touchdowns and interceptions join the yards in `data/tracker/props_graded.csv`.
+
 **Absences.** A listed-out player still shows on the card with what he would have projected against this defense,
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
 own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.

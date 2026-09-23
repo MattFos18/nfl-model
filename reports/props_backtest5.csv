@@ -1,0 +1,39 @@
+stat,variant,mae_2019-22,mae_2023-25,ll_2019-22,ll_2023-25,n_2019-22,n_2023-25,fitted,league_rate
+rec_catch,catch_raw,1.466,1.384,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_league,1.467,1.391,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_K25,1.459,1.377,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_K50,1.458,1.377,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_K100,1.458,1.379,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_K200,1.46,1.381,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_catch,catch_K25_med,1.438,1.359,,,16089,12399,"K 25, median factor 0.88",0.6622
+rec_td,td_raw,0.307,0.288,0.5737,0.5448,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_league,0.313,0.298,0.5157,0.4918,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K50,0.31,0.294,0.5139,0.4899,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K100,0.311,0.295,0.5121,0.4885,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K200,0.312,0.296,0.5121,0.4885,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K400,0.312,0.297,0.5129,0.4893,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K800,0.313,0.298,0.5139,0.4902,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rec_td,td_K200_gs,0.31,0.295,0.5101,0.4869,16089,12399,"K 200, margin coefficient 0.020 per point",0.0461
+rush_td,td_raw,0.356,0.342,0.6612,0.637,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_league,0.359,0.353,0.6018,0.5739,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K50,0.354,0.343,0.5972,0.5695,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K100,0.355,0.345,0.5949,0.5662,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K200,0.356,0.346,0.5948,0.5655,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K400,0.357,0.348,0.5961,0.5668,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K800,0.358,0.35,0.5979,0.5689,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+rush_td,td_K200_gs,0.355,0.344,0.5953,0.5641,7554,6012,"K 200, margin coefficient 0.025 per point",0.0347
+pass_td,td_raw,0.95,0.928,1.5364,1.4979,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_league,0.979,0.952,1.5211,1.4853,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K50,0.943,0.922,1.499,1.4704,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K100,0.941,0.919,1.4966,1.4676,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K200,0.94,0.918,1.4954,1.4657,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K400,0.943,0.921,1.4961,1.4659,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K800,0.95,0.928,1.4996,1.4686,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_td,td_K400_gs,0.933,0.904,1.4868,1.4543,2177,1712,"K 400, margin coefficient 0.020 per point",0.0417
+pass_int,int_raw,0.761,0.716,1.2089,1.1625,2177,1712,,0.0213
+pass_int,int_league,0.72,0.704,1.1449,1.1047,2177,1712,,0.0213
+pass_int,int_K50,0.748,0.709,1.1785,1.1284,2177,1712,,0.0213
+pass_int,int_K100,0.741,0.705,1.1695,1.1207,2177,1712,,0.0213
+pass_int,int_K200,0.733,0.702,1.1596,1.1129,2177,1712,,0.0213
+pass_int,int_K400,0.725,0.701,1.1509,1.1067,2177,1712,,0.0213
+pass_int,int_K800,0.72,0.7,1.1454,1.1034,2177,1712,,0.0213

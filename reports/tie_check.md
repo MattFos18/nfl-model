@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 16:40 UTC
+# Tie-out (sources and page), 2026-09-23 16:46 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -41,7 +41,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
 | props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
-| props file = props page data (projections) | 385 | 385 | yes |
+| props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB) | 1047 | 1047 | yes |
+| props count backtests on the page = props_backtest5.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5101, 0.4869], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5101, 0.4869], 'rush_td_ll': [0. | yes |
+| props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | picks file stakes = tracker stakes | [0.54, 0.63, 0.97] | [0.54, 0.63, 0.97] | yes |
@@ -58,4 +60,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (53 of 53 tie)
+Result: PASS (55 of 55 tie)
