@@ -297,10 +297,14 @@ spreads and 6 for totals (the ROI-best thresholds that hold in both windows), wi
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
 
-**Shadow rule (23 Sep 2026).** A 4.5-point cut is logged and graded alongside the 4-point flag from Week 3 of 2026
-(`picks.SHADOW_EDGE`, `data/tracker/shadow_picks.csv`, who = shadow in the graded table and on the live tab) but
-never bet. It showed the best rate on the rebuilt backtest, which is not enough on its own: the decision between
-4 and 4.5 is made on the live record after eight to ten weeks, with a reminder set for January 2027.
+**Shadow rules (23 Sep 2026).** Two rules are logged and graded alongside the 4-point flag from Week 3 of 2026
+(`picks.SHADOWS`, `data/tracker/shadow45_picks.csv` and `shadowdog_picks.csv`, who = shadow45 / shadowdog in the
+graded table) but never bet, and appear only as one summary line each under "Rules compared" on the live tab:
+a 4.5-point cut (the best rate on the rebuilt backtest), and the 4-point cut on underdogs only. The second came
+from looking at where the flag's record lives: when the model's side is the underdog the flag is 49-40 on 2015
+to 2018, 81-53 on 2019 to 2022 and 35-18 held out; when its side is the favourite it is 13-19, 8-12 and 7-4. Found
+on the backtest, so not bet on the backtest: the decision between the three rules is made on the live record,
+with a reminder set for January 2027.
 
 ## 10. How much to trust the backtest
 
