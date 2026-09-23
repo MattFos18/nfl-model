@@ -1071,6 +1071,22 @@ and large lines are set alike.
 so the size of the loss in this matchup is visible, and his volume is redistributed as above. The game model's
 own absence inputs are unchanged by this (section 15); a matchup-adjusted version is tested in section 14.
 
+**Against the market** (`nflmodel/props_lines.py`, `data/lines/props_log.csv`, `data/tracker/props_vs_market.csv`).
+No historical player prop lines exist in the repo or in any free source: The Odds API keeps them from May 2023 on
+paid plans only, so the market comparison is live from Week 3 of 2026. The line watch pulls the player props from
+The Odds API twice a week inside the free 500-credit month: the Thursday game on Thursday at 20:00 UTC (five
+credits) and the rest of the week on Sunday at 14:00 UTC (about 75), with the game-line pull cut to every eight
+hours to make room. Markets: receiving yards, receptions, rushing yards, passing yards, anytime touchdown, every
+US book, appended with the raw response saved. The props builder takes the last pull for each game, the median
+line across books, and puts it beside each projection on the card with the side the projection leans (over above
+the line, under below; for the anytime touchdown the book's price as an implied probability beside the
+projection's chance of at least one score, 1 - exp(-(receiving + rushing expected touchdowns))). When the game is
+played, every projection with a line is graded: the side, the result, and the projection's error beside the
+book's own on the same player-games, so the two can be compared directly; the record by stat and by size of the
+edge is shown under Results, Player projections. Names are matched between the book and the roster on a
+normalised form (lower case, letters only, suffixes dropped). A record needs hundreds of graded lines before it
+says anything, and the honest prior is that the closing line is better than a 19-yard projection.
+
 **Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
 week's projections are graded against the players' actual yards from the play-by-play (receiving, rushing, passing),
 with the error kept per player and stat in `data/tracker/props_graded.csv`, and the mean absolute error and bias

@@ -100,6 +100,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             tie("props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows)", {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+        if (TR / "props_vs_market.csv").exists():
+            vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
+            tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
         tie("props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(3 * len([r for r in side["receivers"] if not r["out"]]) + 2 * len([r for r in side["rushers"] if not r["out"]]) + 3 * len([r for r in side["qb"][:1] if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
         b5 = REP / "props_backtest5.csv"
         if b5.exists():

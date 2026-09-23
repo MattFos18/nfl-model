@@ -2,7 +2,8 @@
 
 Sources
   ESPN public scoreboard (site.api.espn.com, with fallbacks): one consensus line per game with the provider named.
-  The Odds API (free tier, key in ODDS_API_KEY): every US book's spread, total and moneyline, every two hours.
+  The Odds API (free tier, key in ODDS_API_KEY): every US book's spread, total and moneyline, every eight hours; player prop
+  lines twice a week (nflmodel/props_lines.py) inside the same 500-credit month.
   DraftKings sportsbook public event-group feed (event group 88808 = NFL): spread, total, moneyline per game.
   DraftKings betting splits: no stable public endpoint found yet; the hook is here and returns nothing until
   one is confirmed. The report says so rather than pretending.
@@ -154,8 +155,8 @@ def draftkings(season: int, week: int, ts: str) -> list[dict]:
 
 def odds_api(season: int, week: int, ts: str) -> list[dict]:
     """The Odds API (the-odds-api.com), free tier: 500 requests a month, one request returns every NFL game across the US books.
-    Needs ODDS_API_KEY in the environment (a GitHub Actions secret); silently skipped without it. Called at most every two hours
-    by the workflow so a month stays inside the free allowance."""
+    Needs ODDS_API_KEY in the environment (a GitHub Actions secret); silently skipped without it. Called every eight hours by the
+    workflow (about 90 credits a month) so the player-prop pulls fit in the same free allowance."""
     import os
     key = os.environ.get("ODDS_API_KEY", "").strip()
     if not key:
@@ -287,8 +288,8 @@ def run(season=None, week=None) -> pd.DataFrame:
     rows, errors = [], []
     import os
     sources = [("espn", espn), ("draftkings", draftkings), ("dk_splits", draftkings_splits)]
-    if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or dt.datetime.utcnow().hour % 2 == 0 and dt.datetime.utcnow().minute < 10):
-        sources.append(("oddsapi", odds_api))     # once every two hours on the 10-minute watch: ~360 requests a month, under the free 500
+    if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or dt.datetime.utcnow().hour % 8 == 0 and dt.datetime.utcnow().minute < 30):
+        sources.append(("oddsapi", odds_api))     # every eight hours on the 30-minute watch: ~90 credits a month, leaving the rest of the free 500 for the player props (props_lines.py)
     for name, fn in sources:
         try:
             rows += fn(season, week, ts)
@@ -301,6 +302,11 @@ def run(season=None, week=None) -> pd.DataFrame:
         df = df.reindex(columns=SCHEMA)
         old = load_log()          # also normalises any older rows to the fixed schema
         pd.concat([old, df], ignore_index=True).to_csv(log, index=False)
+    try:
+        from . import props_lines
+        props_lines.run(season, week, force=bool(os.environ.get("PROPS_EVERY_RUN")))   # player props, on its own budgeted cadence
+    except Exception as e:  # noqa
+        errors.append(f"props: {str(e)[:120]}")
     status = {"ts": ts, "season": season, "week": week, "rows": len(df), "errors": "; ".join(errors)}
     pd.DataFrame([status]).to_csv(LN / "watch_log.csv", mode="a", header=not (LN / "watch_log.csv").exists(), index=False)
     print(status)
