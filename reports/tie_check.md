@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 16:31 UTC
+# Tie-out (sources and page), 2026-09-23 16:40 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -36,9 +36,11 @@ The same number must read the same everywhere it appears. Each row: what was com
 | scheme profiles as of the current week | 2026 3 | 2026 3 | yes |
 | scheme profiles cover 32 teams | 32 | 32 | yes |
 | props projections are for the current week | 2026 3 | 2026 3 | yes |
-| props backtest errors on the page = props_backtest3.csv (adopted variant) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [61.24, | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [61.24, | yes |
+| props backtest errors on the page = props_backtest4.csv (base for receiving and rushing, combo for passing) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | yes |
+| props round-4 base = round-3 adopted variant (receiving, rushing) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | yes |
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
+| props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
 | props file = props page data (projections) | 385 | 385 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
@@ -56,4 +58,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (51 of 51 tie)
+Result: PASS (53 of 53 tie)

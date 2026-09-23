@@ -16,6 +16,9 @@ reports; 2019 to 2025 on both windows, every constant fitted on 2016 to 2018 onl
             relative to the league (receivers 0.25, rushers 0.25, QBs 0.5)
   line:     volume x rate x MED, the median factor: yards in a game are right-skewed, so the line that is off by
             least sits below the mean, as a book's over/under does. The mean is kept beside it.
+  passing:  the team's dropbacks are blended PACE (a quarter) toward what the opponent has allowed per game, and the
+            line is cut WIND_C per mph of wind above 10 at kickoff once a forecast is usable (round 4: both helped
+            passing yards on both windows; for receiving and rushing every round-4 layer was inside the noise)
 The look-by-look splits (man/zone, box, pressure), routes, coverage-specific usage, defense by position and the
 coach's pass rate are shown as readings only: projecting with them was worse than not on both windows.
 Projections are readings and get graded every run against what happened (data/tracker/props_graded.csv), so
@@ -33,7 +36,9 @@ DECAY = 0.85                                         # usage share: weight per g
 GS_TOTAL = 43.5674                                   # league mean closing total the game-script line is centred on (all games in games.parquet)
 GS = {"rec": (-0.5969, -0.046, 0.1636), "rush": (0.3413, 0.103, -0.1713), "pass": (-0.5967, -0.0461, 0.1638)}   # plays per game beyond the team's last-17 average: intercept, per point of expected margin, per point of total above GS_TOTAL; least squares on 2016 to 2018 (pass plays, runs, dropbacks)
 MED = {"rec": 0.88, "rush": 0.84, "pass": 0.90}      # median factor on the yards line, fitted on 2016 to 2018 (0.02 grid)
-BACKTEST = {"rec_yards": [19.44, 18.46], "rush_yards": [18.36, 17.60], "pass_yards": [61.24, 61.56]}   # mean absolute error, 2019-22 / 2023-25, variant A85B_med in reports/props_backtest3.csv
+PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
+WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
+BACKTEST = {"rec_yards": [19.44, 18.46], "rush_yards": [18.36, 17.60], "pass_yards": [60.71, 61.08]}   # mean absolute error, 2019-22 / 2023-25: reports/props_backtest4.csv rows base (receiving, rushing; = A85B_med in props_backtest3.csv) and combo (passing: pace and wind added)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -62,14 +67,23 @@ def _share(g: pd.DataFrame, team_by_game: pd.Series) -> float:
     return mine / tot if tot else 0.0
 
 
-def game_script(kind: str, per_game: float, margin: float | None, total: float | None) -> float:
-    """The team's plays of this kind expected in this game: its last-17 average plus the fitted game-script line
-    (expected margin from the closing spread, from the team's side; total above the league mean). Missing lines
-    count as zero, as in the backtest."""
+def game_script(kind: str, per_game: float, margin: float | None, total: float | None, opp_allowed: float | None = None) -> float:
+    """The team's plays of this kind expected in this game: its last-17 average (blended PACE of the way toward what
+    the opponent has allowed per game) plus the fitted game-script line (expected margin from the closing spread,
+    from the team's side; total above the league mean). Missing lines count as zero, as in the backtest."""
     b = GS[kind]
     me = 0.0 if margin is None or pd.isna(margin) else float(margin)
     tc = 0.0 if total is None or pd.isna(total) else float(total) - GS_TOTAL
+    if PACE[kind] and opp_allowed is not None and not pd.isna(opp_allowed):
+        per_game = (1 - PACE[kind]) * per_game + PACE[kind] * float(opp_allowed)
     return max(per_game + b[0] + b[1] * me + b[2] * tc, 0.0)
+
+
+def wind_factor(kind: str, wind: float | None) -> float:
+    """1 + WIND_C x mph above 10 at kickoff; 1 when the wind is unknown (domes, no forecast yet), as in the backtest."""
+    if wind is None or pd.isna(wind) or not WIND_C[kind]:
+        return 1.0
+    return 1 + WIND_C[kind] * max(float(wind) - 10.0, 0.0)
 
 
 def receivers(d: pd.DataFrame, names: dict) -> dict:
@@ -129,7 +143,7 @@ def defenses(d: pd.DataFrame) -> dict:
                      "ypc_allowed": round(float(run.yards_gained.fillna(0).mean()), 2), "epa_pc_allowed": round(float(run.epa.mean()), 3), "ypd_allowed": round(float(db.yards_gained.fillna(0).mean()), 2),
                      "man": (round(float(cv.man.mean()), 3) if len(cv) >= 50 else None), "pressure": (round(float(db.pressure.mean()), 3) if db.pressure.notna().sum() >= 50 else None), "blitz": (round(float(db.blitz.mean()), 3) if db.blitz.notna().sum() >= 50 else None),
                      "heavy_box": (round(float((run.box >= 8).mean()), 3) if run.box.notna().sum() >= 30 else None), "light_box": (round(float((run.box <= 6).mean()), 3) if run.box.notna().sum() >= 30 else None),
-                     "pass_plays_pg": round(len(ps) / max(g.game_id.nunique(), 1), 1), "runs_pg": round(len(run) / max(g.game_id.nunique(), 1), 1)}
+                     "pass_plays_pg": round(len(ps) / max(g.game_id.nunique(), 1), 1), "runs_pg": round(len(run) / max(g.game_id.nunique(), 1), 1), "dropbacks_pg": round(len(db) / max(g.game_id.nunique(), 1), 1)}
     return out
 
 
@@ -162,11 +176,12 @@ def _shrunk(rate: float, n: float, league: float, k: float) -> float:
     return (rate * n + k * league) / (n + k)
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None) -> dict:
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
-    team's expected margin from the closing spread (positive when favoured), total the closing total."""
+    team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
+    kickoff (None in a dome or before a usable forecast)."""
     dd = D.get(opp, {}); base = V.get(team, {}); ro = roster[roster.team == team].set_index("player_id") if len(roster) else pd.DataFrame()
-    vol = dict(base); vol.update({"pass_plays": round(game_script("rec", base.get("pass_plays_pg", 0), margin, total), 1), "runs": round(game_script("rush", base.get("runs_pg", 0), margin, total), 1), "dropbacks": round(game_script("pass", base.get("dropbacks_pg", 0), margin, total), 1), "margin": (None if margin is None or pd.isna(margin) else float(margin)), "total": (None if total is None or pd.isna(total) else float(total))})
+    vol = dict(base); vol.update({"pass_plays": round(game_script("rec", base.get("pass_plays_pg", 0), margin, total, dd.get("pass_plays_pg")), 1), "runs": round(game_script("rush", base.get("runs_pg", 0), margin, total, dd.get("runs_pg")), 1), "dropbacks": round(game_script("pass", base.get("dropbacks_pg", 0), margin, total, dd.get("dropbacks_pg")), 1), "margin": (None if margin is None or pd.isna(margin) else float(margin)), "total": (None if total is None or pd.isna(total) else float(total)), "wind": (None if wind is None or pd.isna(wind) else float(wind)), "wind_factor_pass": round(wind_factor("pass", wind), 3)})
     def status(pid):
         if pid not in ro.index: return "not on roster"
         r = ro.loc[pid]; lab = r.roster if isinstance(r.roster, str) and r.roster != "Active" else (r.report if isinstance(r.report, str) else "")
@@ -209,7 +224,7 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
         epa_mix = _mix(p["press"], p["clean"], dd.get("pressure"), "epa", p["epa_db"])   # reading only
         dbs = vol["dropbacks"] if base else p["dropbacks_pg"]
         qbs.append({"player_id": pid, "name": p["name"], "status": st, "out": is_out, "dropbacks_pg": p["dropbacks_pg"], "proj_dropbacks": round(dbs, 1), "epa_db": p["epa_db"], "epa_mix": round(epa_mix, 3), "ypd": p["ypd"], "ypd_shrunk": round(ypd_s, 2), "proj_ypd": round(ypd, 2),
-                    "proj_pass_yards_mean": round(dbs * ypd, 1), "proj_pass_yards": round(dbs * ypd * MED["pass"], 1), "proj_pass_td": round(dbs * p["td_db"], 2), "proj_int": round(dbs * p["int_db"], 2), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"]})
+                    "proj_pass_yards_mean": round(dbs * ypd * wind_factor("pass", wind), 1), "proj_pass_yards": round(dbs * ypd * MED["pass"] * wind_factor("pass", wind), 1), "proj_pass_td": round(dbs * p["td_db"], 2), "proj_int": round(dbs * p["int_db"], 2), "press": p["press"], "clean": p["clean"], "blitz": p["blitz"], "noblitz": p["noblitz"], "vs_man": p["vs_man"], "vs_zone": p["vs_zone"], "games": p["games"], "dropbacks": p["dropbacks"]})
     qbs.sort(key=lambda r: (r["out"], -r["dropbacks_pg"]))
     return {"defense": dd, "volume": vol, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4]}
 
@@ -250,12 +265,13 @@ def main():
     roster = pd.read_parquet(OUT / "roster_now.parquet") if (OUT / "roster_now.parquet").exists() else pd.DataFrame(columns=["team", "player_id", "roster", "report"])
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
     wk = games[(games.season == season) & (games.week == week)]
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "league": L, "games": {},
-           "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (variant A85B_med, reports/props_backtest3.csv)")}
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "league": L, "games": {},
+           "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025 (reports/props_backtest4.csv: base for receiving and rushing, combo for passing)")}
     rows = []
     for g in wk.itertuples():
         sp = None if pd.isna(g.spread_line) else float(g.spread_line)   # nflverse: positive when the home team is favoured
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line)}
+        wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd)}
         for team, side in out["games"][g.game_id].items():
             for r in side["receivers"]:
                 if not r["out"]: rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": "rec_yards", "proj": r["proj_rec_yards"], "proj_volume": r["proj_targets"], "run_at": run_at})
@@ -266,7 +282,7 @@ def main():
     pr = pd.DataFrame(rows)
     if len(pr):
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
-        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). The rule three rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest3.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
+        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
     if graded is not None and len(graded):
         s = graded.groupby("stat").agg(n=("error", "size"), mae=("error", lambda e: round(float(e.abs().mean()), 1)), bias=("error", lambda e: round(float(e.mean()), 1))).reset_index()
