@@ -296,7 +296,7 @@ def _shrunk(rate: float, n: float, league: float, k: float) -> float:
     return (rate * n + k * league) / (n + k)
 
 
-MARKET_LABEL = {"pass_yards": "Pass yds", "pass_td": "Pass TD", "pass_completions": "Completions", "pass_attempts": "Attempts", "pass_int": "INT thrown", "pass_longest": "Longest completion", "rush_yards": "Rush yds", "rush_attempts": "Rush att", "rush_rec_yards": "Rush + rec yds", "rush_longest": "Longest rush",
+MARKET_LABEL = {"pass_yards": "Pass yds", "pass_td": "Pass TD", "pass_completions": "Completions", "pass_attempts": "Attempts", "pass_int": "INT thrown", "pass_longest": "Longest completion", "rush_yards": "Rush yds", "rush_attempts": "Rush att", "rush_rec_yards": "Rush + rec yds", "rush_longest": "Longest rush", "pass_rush_yards": "Pass + rush yds", "rec_targets": "Targets",
                 "rec_catches": "Receptions", "rec_yards": "Rec yds", "rec_longest": "Longest rec", "anytime_td": "Anytime TD", "def_tackles": "Tackles + ast", "def_solo_tackles": "Solo tackles", "def_sacks": "Sacks", "def_int": "INT", "kick_points": "Kicking pts", "field_goals": "Field goals"}
 
 
@@ -423,7 +423,7 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
     for q in qbs:
-        u = next((u for u in rus if u["player_id"] == q["player_id"]), None); q["proj_rush_yards"] = u["proj_rush_yards"] if u else None; q["proj_rush_td"] = u["proj_rush_td"] if u else 0.0; q["proj_td_any"] = round(1 - np.exp(-q["proj_rush_td"]), 3)
+        u = next((u for u in rus if u["player_id"] == q["player_id"]), None); q["proj_rush_yards"] = u["proj_rush_yards"] if u else None; q["proj_rush_td"] = u["proj_rush_td"] if u else 0.0; q["proj_td_any"] = round(1 - np.exp(-q["proj_rush_td"]), 3); q["proj_pass_rush_yards"] = round(q["proj_pass_yards"] + (q["proj_rush_yards"] or 0.0), 1)
     for r in rec: r["proj_rush_rec_yards"] = round(r["proj_rec_yards"] + next((u["proj_rush_yards"] for u in rus if u["player_id"] == r["player_id"]), 0.0), 1)
     for u in rus: u["proj_rush_rec_yards"] = round(u["proj_rush_yards"] + next((r["proj_rec_yards"] for r in rec if r["player_id"] == u["player_id"]), 0.0), 1)
     attach_market(rec, mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
@@ -433,7 +433,7 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     return {"defense": dd, "volume": vol, "recon": recon, "qb": qbs[:2], "receivers": rec[:8], "rushers": rus[:4], "market_ts": (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None), "_matched": sorted(matched)}
 
 
-MARKET_STATS = {k: k for k in ["rec_yards", "rush_yards", "pass_yards", "rec_catches", "def_tackles", "pass_td", "pass_int", "pass_attempts", "pass_completions", "rush_attempts", "rush_rec_yards", "def_sacks", "def_solo_tackles"]}
+MARKET_STATS = {k: k for k in ["rec_yards", "rush_yards", "pass_yards", "rec_catches", "def_tackles", "pass_td", "pass_int", "pass_attempts", "pass_completions", "rush_attempts", "rush_rec_yards", "def_sacks", "def_solo_tackles", "rec_targets", "pass_rush_yards"]}
 
 
 def grade_market(graded: pd.DataFrame, run_at: str) -> pd.DataFrame | None:
@@ -499,8 +499,9 @@ def grade(d: pd.DataFrame, season: int, week: int, run_at: str) -> pd.DataFrame 
             return plays[mask].groupby(["game_id", col]).agg(yards=("yards_gained", "sum"), catches=("complete_pass", "sum"), pass_td=("pass_touchdown", "sum"), rush_td=("rush_touchdown", "sum"), ints=("interception", "sum"), n=("play_id", "count")).reset_index().rename(columns={col: "player_id"})
         ry = agg(plays.pass_play, "receiver_player_id", None); rr = agg(plays.play_type.eq("run"), "rusher_player_id", None); py = agg(plays.dropback, "passer_player_id", None); pa = agg(plays.pass_play, "passer_player_id", None)
         rrr = rr.merge(ry[["game_id", "player_id", "yards"]].rename(columns={"yards": "rec_yds"}), on=["game_id", "player_id"], how="outer").fillna({"yards": 0, "rec_yds": 0, "n": 0}); rrr["both"] = rrr.yards + rrr.rec_yds
+        prr = py.merge(rr[["game_id", "player_id", "yards"]].rename(columns={"yards": "rush_yds"}), on=["game_id", "player_id"], how="outer").fillna({"yards": 0, "rush_yds": 0, "n": 0}); prr["both"] = prr.yards + prr.rush_yds
         dgw = defender_games(); dgw = dgw[(dgw.season == season) & (dgw.week == wk)].rename(columns={"pid": "player_id"}); dgw["n"] = dgw.plays_faced
-        SRC = {"rec_yards": (ry, "yards"), "rec_catches": (ry, "catches"), "rec_td": (ry, "pass_td"), "rush_yards": (rr, "yards"), "rush_td": (rr, "rush_td"), "pass_yards": (py, "yards"), "pass_td": (py, "pass_td"), "pass_int": (py, "ints"), "def_tackles": (dgw, "tackles"), "def_sacks": (dgw, "sacks"), "def_solo_tackles": (dgw, "solo"), "pass_attempts": (pa, "n"), "pass_completions": (pa, "catches"), "rush_attempts": (rr, "n"), "rush_rec_yards": (rrr, "both")}
+        SRC = {"rec_yards": (ry, "yards"), "rec_catches": (ry, "catches"), "rec_td": (ry, "pass_td"), "rush_yards": (rr, "yards"), "rush_td": (rr, "rush_td"), "pass_yards": (py, "yards"), "pass_td": (py, "pass_td"), "pass_int": (py, "ints"), "def_tackles": (dgw, "tackles"), "def_sacks": (dgw, "sacks"), "def_solo_tackles": (dgw, "solo"), "pass_attempts": (pa, "n"), "pass_completions": (pa, "catches"), "rush_attempts": (rr, "n"), "rush_rec_yards": (rrr, "both"), "rec_targets": (ry, "n"), "pass_rush_yards": (prr, "both")}
         played = set(plays.game_id)
         for _, r in pr.iterrows():
             if r.game_id not in played or ((done.game_id == r.game_id) & (done.player_id == r.player_id) & (done.stat == r.stat)).any(): continue
@@ -553,11 +554,11 @@ def main():
             def add(r, stat, proj, volume):
                 rows.append({"season": season, "week": week, "game_id": g.game_id, "team": team, "player_id": r["player_id"], "name": r["name"], "stat": stat, "proj": proj, "proj_volume": volume, "run_at": run_at})
             for r in side["receivers"]:
-                if not r["out"]: add(r, "rec_yards", r["proj_rec_yards"], r["proj_targets"]); add(r, "rec_catches", r["proj_catches"], r["proj_targets"]); add(r, "rec_td", r["proj_rec_td"], r["proj_targets"])
+                if not r["out"]: add(r, "rec_yards", r["proj_rec_yards"], r["proj_targets"]); add(r, "rec_catches", r["proj_catches"], r["proj_targets"]); add(r, "rec_td", r["proj_rec_td"], r["proj_targets"]); add(r, "rec_targets", r["proj_targets"], r["proj_targets"])
             for r in side["rushers"]:
                 if not r["out"]: add(r, "rush_yards", r["proj_rush_yards"], r["proj_carries"]); add(r, "rush_td", r["proj_rush_td"], r["proj_carries"]); add(r, "rush_attempts", r["proj_rush_attempts"], r["proj_carries"]); add(r, "rush_rec_yards", r["proj_rush_rec_yards"], r["proj_carries"])
             for r in side["qb"][:1]:
-                if not r["out"]: add(r, "pass_yards", r["proj_pass_yards"], r["proj_dropbacks"]); add(r, "pass_td", r["proj_pass_td"], r["proj_dropbacks"]); add(r, "pass_int", r["proj_int"], r["proj_dropbacks"]); add(r, "pass_attempts", r["proj_pass_attempts"], r["proj_dropbacks"]); add(r, "pass_completions", r["proj_pass_completions"], r["proj_dropbacks"])
+                if not r["out"]: add(r, "pass_yards", r["proj_pass_yards"], r["proj_dropbacks"]); add(r, "pass_td", r["proj_pass_td"], r["proj_dropbacks"]); add(r, "pass_int", r["proj_int"], r["proj_dropbacks"]); add(r, "pass_attempts", r["proj_pass_attempts"], r["proj_dropbacks"]); add(r, "pass_completions", r["proj_pass_completions"], r["proj_dropbacks"]); add(r, "pass_rush_yards", r["proj_pass_rush_yards"], r["proj_dropbacks"])
             for r in side.get("defenders", []):
                 if not r["out"]: add(r, "def_tackles", r["proj_tackles"], r["opp_plays"]); add(r, "def_sacks", r["proj_sacks"], r["opp_plays"]); add(r, "def_solo_tackles", r["proj_solo_tackles"], r["opp_plays"])
     pr = pd.DataFrame(rows)

@@ -110,7 +110,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
-        tie("props file = props page data (projections: 3 per receiver, 4 per rusher, 5 per QB, 3 per defender)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(3 * len([r for r in side["receivers"] if not r["out"]]) + 4 * len([r for r in side["rushers"] if not r["out"]]) + 5 * len([r for r in side["qb"][:1] if not r["out"]]) + 3 * len([r for r in side.get("defenders", []) if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
+        tie("props file = props page data (projections: 4 per receiver, 4 per rusher, 6 per QB, 3 per defender)", (len(pd.read_csv(pf)) if pf.exists() else "missing"), sum(4 * len([r for r in side["receivers"] if not r["out"]]) + 4 * len([r for r in side["rushers"] if not r["out"]]) + 6 * len([r for r in side["qb"][:1] if not r["out"]]) + 3 * len([r for r in side.get("defenders", []) if not r["out"]]) for gm in pj["games"].values() for side in gm.values()))
         b7 = REP / "props_backtest7.csv"
         if b7.exists():
             r7 = pd.read_csv(b7)
