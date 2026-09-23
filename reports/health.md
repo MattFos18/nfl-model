@@ -1,6 +1,6 @@
-# Health check, 2026-09-23 02:34 UTC
+# Health check, 2026-09-23 02:36 UTC
 
-**HEALTHY**: 0 failing, 0 warnings, 19 ok.
+**BROKEN**: 2 failing, 0 warnings, 13 ok.
 
 | Level | Check | Detail |
 |---|---|---|
@@ -14,14 +14,13 @@
 | OK | runs in the last seven days | 9 (four scheduled: Tue, Thu, Sat, Sun) |
 | OK | verification suite passed | Result: PASS |
 | OK | tie-out passed | Result: PASS (26 of 26 tie) |
-| OK | line watch is logging | last snapshot 1.2 hours ago, 8 in the last seven days (every 30 minutes when GitHub's cron fires) |
-| OK | line watch returns rows | 1 of 8 snapshots in the last two days logged no lines |
+| OK | line watch is logging | last snapshot 0.4 hours ago, 9 in the last seven days (every 30 minutes when GitHub's cron fires) |
+| OK | line watch returns rows | 1 of 9 snapshots in the last two days logged no lines |
 | OK | kickoff forecasts are fresh | fetched 5 hours ago (limit 96) |
-| OK | picks file for Week 3, 2026 | picks_2026_wk3.csv |
-| OK | tracker holds the week's flags | picks: ['MIA +11.5', 'NYG -3', 'PIT +3.5']; tracker: ['MIA +11.5', 'NYG -3', 'PIT +3.5'] |
-| OK | page flag threshold = code | page 4.0, code 4.0 |
-| OK | page inputs = code | 20 on the page, 20 in code |
-| OK | page data is fresh | built 0 hours ago (limit 96) |
-| OK | page rankings use the code's QB replacement level | page -0.12, code -0.12 |
+| FAIL | picks and tracker check | No module named 'requests' |
+| FAIL | page settings check | No module named 'scipy' |
 
-Result: PASS
+Result: FAIL
+
+Issue: https://github.com/MattFos18/nfl-model/issues/
+Workflow run: https://github.com/MattFos18/nfl-model/actions/runs/35810994683
