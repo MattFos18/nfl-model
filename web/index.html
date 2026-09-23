@@ -289,6 +289,7 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   <div id="bksummary"></div>
   <div class="grid2" style="margin-bottom:14px">
     <div class="card" style="grid-column:1 / -1"><h3>Every threshold, tested</h3><div id="sweep"></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>By week of the season</h3><p class="note">Where the model is strong and weak across a season, 2015 to now. Gap is the model's spread miss minus the line's (lower is better; the line is the market, so it is usually ahead). The flag is not played in Week 18 and the playoffs are never flagged; both are shown for the record.</p><div class="tablewrap"><table id="bkweeks"></table></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>By season</h3><div class="tablewrap" style="max-height:44vh"><table id="bkseasons"></table></div></div>
     <div class="card viz-root" style="grid-column:1 / -1;max-width:760px"><h3>Units, cumulative: spread flags at the live cut, and the retired 6+ total rule for the record</h3><div id="unitschart"></div></div>
   </div>
@@ -863,7 +864,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
   const rec = (arr, key) => { const w = arr.filter(x => x[key] === true).length, l = arr.filter(x => x[key] === false).length; return {w, l, pct: w + l ? (w / (w + l) * 100).toFixed(1) + "%" : ""}; };
   const mean = (arr, k) => { const v = arr.map(x => x[k]).filter(x => x != null); return v.length ? (v.reduce((a, b) => a + b, 0) / v.length).toFixed(2) : ""; };
   function renderBacktest() {
-    const all = bkRows().filter(r => r.home_score != null).map(gradeGame);
+    const allAny = bkRows().filter(r => r.home_score != null).map(gradeGame);
+    const all = allAny.filter(r => !r.game_type || r.game_type === "REG");   // everything below is regular season; the playoffs appear only in the by-week table
     if (!all.length) { $("bksummary").innerHTML = "<p class='note'>No graded games exported.</p>"; return; }
     const seasons = [...new Set(all.map(r => r.season))].sort((a, b) => b - a);
     const sel = $("bkseason");
@@ -886,6 +888,13 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
       const pc = v => v.pct === "" ? "" : v.pct; const rc = v => v.w + v.l ? `${v.w}-${v.l}` : "";
       bs += `<tr><td>${s}</td><td>${x.length}</td><td class="mono">${pc(a)}</td><td class="mono">${pc(b)}</td><td class="mono">${pc(c)}</td><td class="mono rk">${rc(c)}</td><td class="mono ${d.w + d.l && d.w / (d.w + d.l) >= 0.524 ? "pos" : ""}">${pc(d)}</td><td class="mono rk">${rc(d)}</td><td class="mono">${pc(e)}</td><td class="mono">${pc(f)}</td><td class="mono rk">${rc(f)}</td><td class="mono">${mean(x, "mErr")}</td><td class="mono">${mean(x, "vErr")}</td></tr>`; });
     $("bkseasons").innerHTML = bs + "</tbody>";
+    // by week of the season
+    const buckets = [["1", r => r.week === 1], ["2", r => r.week === 2], ["3", r => r.week === 3], ["4", r => r.week === 4], ["5 to 8", r => r.week >= 5 && r.week <= 8], ["9 to 13", r => r.week >= 9 && r.week <= 13], ["14 to 17", r => r.week >= 14 && r.week <= 17], ["18", r => r.week === 18]];
+    const wkRows = buckets.map(([lab, f]) => [lab, all.filter(f)]).concat([["playoffs", allAny.filter(r => r.game_type && r.game_type !== "REG")]]);
+    let bw = "<thead><tr><th class='l'>Weeks</th><th>Games</th><th>Spread miss, model</th><th>Spread miss, line</th><th>Gap</th><th>Every game ATS</th><th>Flags (" + FLAG + "+)</th></tr></thead><tbody>";
+    wkRows.forEach(([lab, x]) => { if (!x.length) return; const mm = mean(x, "mMargErr"), lm = mean(x, "vMargErr"); const gap = (mm - lm); const c = rec(x, "pickWon"), d4 = rec(x.filter(q => q.edge != null && Math.abs(q.edge) >= FLAG), "pickWon");
+      bw += `<tr><td class="l"><b>${lab}</b></td><td class="mono">${x.length}</td><td class="mono">${mm}</td><td class="mono">${lm}</td><td class="mono ${gap > 0.15 ? "neg" : (gap < 0 ? "pos" : "")}">${gap >= 0 ? "+" : ""}${gap.toFixed(2)}</td><td class="mono">${c.w}-${c.l} ${c.pct}</td><td class="mono ${d4.w + d4.l && d4.w / (d4.w + d4.l) >= 0.524 ? "pos" : (d4.w + d4.l ? "neg" : "")}">${d4.w + d4.l ? `${d4.w}-${d4.l} ${d4.pct}` : ""}</td></tr>`; });
+    $("bkweeks").innerHTML = bw + "</tbody>";
     // threshold sweep: every cutoff on spreads and totals, on the tuning window, the held-out window and both
     const wins = [["2015 to 2018 (untouched)", r => r.season <= 2018], ["2019 to 2022 (tuning)", r => r.season >= 2019 && r.season <= 2022], ["2023 to 2025 (held out)", r => r.season >= 2023 && r.season <= 2025], ["2019 to 2025", r => r.season >= 2019 && r.season <= 2025]];
     const roiOf = (w, l) => w + l ? (w - 1.1 * l) / (1.1 * (w + l)) : null;
