@@ -81,6 +81,7 @@ ESPN_INJ = ["https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries
             "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/injuries",
             "https://cdn.espn.com/core/nfl/injuries?xhr=1"]
 ESPN_TEAM = {"WSH": "WAS", "LAR": "LA", "JAC": "JAX"}
+TEAMS = ["ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LA", "LAC", "LV", "MIA", "MIN", "NE", "NO", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"]
 ESPN_COLS = ["team", "name", "position", "status", "date", "detail", "return_date", "fetched_at"]
 
 
@@ -90,20 +91,26 @@ def espn_injuries() -> pd.DataFrame:
     league's reports with a lag of hours to a day; this fills the current week until it does (players.load_injuries).
     Fetched the way the line watch fetches ESPN's scoreboard (browser headers, three hosts in turn). When every host
     refuses, the previous file is kept and its age printed; the pull never fails on it."""
-    from .lines import H, _get_json
+    from .lines import H, _get_json, team_from_name
     dest = RAW / "injuries" / "espn_injuries.csv"; dest.parent.mkdir(parents=True, exist_ok=True)
     try:
         j, used = _get_json(ESPN_INJ, H)
         teams = j.get("injuries") if isinstance(j.get("injuries"), list) else ((j.get("content") or {}).get("injuries") or [])
         rows = []
         for t in teams:
-            abbr = ((t.get("team") or {}).get("abbreviation")) or (t.get("displayName") or "")
+            abbr = ((t.get("team") or {}).get("abbreviation")) or ""
+            if not (2 <= len(abbr) <= 3):     # some hosts give the team's full name only ("Arizona Cardinals")
+                abbr = team_from_name(t.get("displayName") or ((t.get("team") or {}).get("displayName")) or "") or (t.get("displayName") or "")
             for a in t.get("injuries", []):
                 ath = a.get("athlete") or {}; det = a.get("details") or {}
                 rows.append({"team": ESPN_TEAM.get(abbr, abbr), "name": ath.get("displayName"), "position": (ath.get("position") or {}).get("abbreviation"), "status": a.get("status"), "date": a.get("date"), "detail": det.get("type") or "", "return_date": det.get("returnDate") or "", "fetched_at": dt.datetime.utcnow().isoformat(timespec="seconds")})
         if not rows:
             raise RuntimeError(f"no injuries in the answer from {used.split('/')[2]}")
-        out = pd.DataFrame(rows, columns=ESPN_COLS); out.to_csv(dest, index=False)
+        out = pd.DataFrame(rows, columns=ESPN_COLS)
+        odd = sorted(set(out.team) - set(TEAMS))
+        if odd:
+            raise RuntimeError(f"teams not recognised: {odd[:5]}")
+        out.to_csv(dest, index=False)
         (RAW / "injuries" / "espn_injuries.json").write_text(json.dumps(j)[:5_000_000])
         print(f"espn injuries {len(out)} rows, {out.team.nunique()} teams, from {used.split('/')[2]}", flush=True)
         return out
