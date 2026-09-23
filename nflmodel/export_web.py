@@ -503,9 +503,9 @@ def export_backtest_js(games=None, feats=None):
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")) if feats is None else feats
     gd = games.set_index("game_id").gameday
     allv = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
-    allv = allv[allv.game_type == "REG"].sort_values(["season", "week", "game_id"])
+    allv = allv[allv.game_type.isin(["REG", "WC", "DIV", "CON", "SB"])].sort_values(["season", "week", "game_id"])   # playoffs kept for the by-week table; the page filters REG elsewhere
     gd = games.set_index("game_id").gameday
-    cols = ["game_id", "season", "week", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
+    cols = ["game_id", "season", "week", "game_type", "away_team", "home_team", "away_exp", "home_exp", "away_implied", "home_implied", "away_score", "home_score",
             "spread_line", "total_line", "p_home", "p_cover_home", "p_over", "model_spread", "model_total"]
     bk = allv[cols + ["sigma_margin"]].copy()
     bk["gameday"] = bk.game_id.map(gd)

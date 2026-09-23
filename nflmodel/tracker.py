@@ -42,8 +42,22 @@ def payout(odds: float, win: bool, push: bool, stake: float = 1.0):
     return -stake
 
 
+def _latest_consensus():
+    """Latest logged consensus (median across books) home spread and total per game, for CLV before a game settles."""
+    try:
+        from . import lines as LN
+        log = LN.load_log(); log = log[log.home_spread.notna() | log.total.notna()]
+        if not len(log):
+            return {}
+        last = log.groupby("game_id").ts.transform("max"); cur = log[log.ts == last]
+        return {gid: (float(x.home_spread.median()) if x.home_spread.notna().any() else np.nan, float(x.total.median()) if x.total.notna().any() else np.nan) for gid, x in cur.groupby("game_id")}
+    except Exception:  # noqa
+        return {}
+
+
 def grade_rows(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
     g = games.set_index("game_id")
+    latest = _latest_consensus()
     out = []
     for r in df.itertuples():
         if r.game_id not in g.index:
@@ -63,6 +77,14 @@ def grade_rows(df: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
         # Only once the game is played: before that nflverse's line is the current line, not the close.
         if pd.isna(x.home_score):
             row["close"], row["clv"] = np.nan, np.nan
+            # provisional: against the latest logged line (it becomes the close once the game kicks off and the log stops)
+            hs, tl = latest.get(r.game_id, (np.nan, np.nan))
+            if kind == "spread" and pd.notna(hs):
+                row["clv_now"] = line - (-hs if side == x.home_team else hs)
+            elif kind == "total" and pd.notna(tl):
+                row["clv_now"] = (tl - line) if side == "over" else (line - tl)
+            else:
+                row["clv_now"] = np.nan
         elif kind == "spread":
             # closing handicap from this side's view: nflverse spread_line is positive when the home team is favoured,
             # so the home side's closing number is -spread_line and the away side's is +spread_line
@@ -167,7 +189,7 @@ def main():
             if len(ms):
                 parts.append(grade_rows(ms, games).assign(who=name))
     gr = pd.concat(parts, ignore_index=True)
-    for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "result", "units", "kind", "who", "note", "book"]:
+    for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "clv_now", "result", "units", "kind", "who", "note", "book"]:
         if c not in gr.columns:
             gr[c] = np.nan
     if len(gr) and "season" in gr.columns:
@@ -183,7 +205,7 @@ def main():
         x = gr[gr.who == who] if len(gr) else gr
         st = x[x.result.isin(["win", "loss", "push"])] if len(x) else x
         w, l, pu = int((st.result == "win").sum()), int((st.result == "loss").sum()), int((st.result == "push").sum())
-        clv = x.clv.dropna() if len(x) else pd.Series(dtype=float)
+        clv = x.clv.fillna(x.clv_now).dropna() if len(x) and "clv_now" in x.columns else (x.clv.dropna() if len(x) else pd.Series(dtype=float))
         L.append(f"| {lab} | {len(x)} | {len(st)} | {f'{w}-{l}' + (f'-{pu}' if pu else '') + (f' ({w / (w + l):.0%})' if w + l else '') if len(st) else 'nothing settled'} | {(f'{st.units.sum():+.2f}' if len(st) else '')} | {(f'{clv.mean():+.2f}' if len(clv) else '')} |" if len(x) else f"| {lab} | 0 | 0 | | | |")
     L.append("")
     for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:

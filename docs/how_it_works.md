@@ -574,6 +574,30 @@ instead of everything since 2013. None helps on both windows (10: equal tuning, 
 8: +0.004 / -0.001; 6: +0.008 / +0.018). So the gain from starting in 2015 is about those two particular seasons,
 not a rule, and everything since 2013 stays.
 
+**By week of the season** (23 Sep 2026; the table lives on the Results tab and is recomputed on every run). On
+2015 to 2025, the model's spread miss minus the line's, and the 4-point flag:
+
+| Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
+|---|---|---|---|---|
+| 1 | 175 | +0.03 | 53% | 16-9 (64%) |
+| 2 | 176 | -0.08 | 55% | 18-5 (78%) |
+| 3 | 176 | +0.12 | 51% | 15-11 (58%) |
+| 4 | 171 | +0.24 | 50% | 10-6 (62%) |
+| 5 to 8 | 632 | +0.19 | 51% | 47-33 (59%) |
+| 9 to 13 | 793 | +0.20 | 48% | 53-43 (55%) |
+| 14 to 17 | 692 | +0.25 | 50% | 34-39 (47%) |
+| 18 | 80 | +0.31 | 53% | 8-10 (44%) |
+| Playoffs | 133 | +0.22 | 48% | 10-5 |
+
+The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
+line (in Week 2 it is ahead of it) and where the flag has done best (49-25). The market seems to underweight last
+season's ratings early, and the model leans on them. The weak stretch is late: Weeks 14 to 17 are the only span
+where the flag loses (34-39), and Week 18 is worse still (8-10, the largest gap, and the model's disagreements
+with the line are widest there, 3.6 points against 2.6). Week 18 is already skipped. The late-season slide is
+the reason the dead-team flag (teams out of the race after Week 13) is worth the January re-test with 2026 in the
+held-out window. The playoffs are 133 games; the model sits 0.22 behind the line and the flag is 10-5 on fifteen
+bets, too few to mean anything, and playoff games are not flagged.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
