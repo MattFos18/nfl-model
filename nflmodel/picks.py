@@ -114,6 +114,19 @@ def best_number(hist: pd.DataFrame, r):
     return (line, book, hs)
 
 
+def log_run(p: pd.DataFrame, run_at: str | None = None) -> pd.DataFrame:
+    """Append this run's numbers for every game of the week to data/runs/pred_history.csv, so the page can show how
+    the model's line moved from run to run (Tuesday to Saturday) beside how the market moved."""
+    run_at = run_at or pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
+    RUNS = OUT.parent / "runs"; RUNS.mkdir(parents=True, exist_ok=True)
+    cols = ["season", "week", "game_id", "model_spread", "model_total", "spread_line", "total_line", "bet"]
+    rows = p[cols].copy(); rows.insert(0, "run_at", run_at)
+    rows = rows[p.home_score.isna().values] if "home_score" in p.columns else rows   # only games not yet played
+    f = RUNS / "pred_history.csv"
+    rows.round(3).to_csv(f, mode="a", header=not f.exists(), index=False)
+    return rows
+
+
 def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     rows = []
     for r in p.itertuples():
@@ -145,6 +158,7 @@ if __name__ == "__main__":
     p = table(a.season, a.week)
     REP.mkdir(exist_ok=True)
     p.to_csv(REP / f"picks_{a.season}_wk{a.week}.csv", index=False)
+    log_run(p)
     md = markdown(p, a.season, a.week)
     (REP / f"picks_{a.season}_wk{a.week}.md").write_text(md)
     print(md)

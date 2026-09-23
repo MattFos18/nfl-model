@@ -74,6 +74,7 @@ def main(full=False, skip_network=False):
     if pk is not None:
         (REP / f"picks_{cur_season}_wk{cur_week}.md").write_text(P.markdown(pk, cur_season, cur_week))
         pk.to_csv(REP / f"picks_{cur_season}_wk{cur_week}.csv", index=False)
+        picks.log_run(pk, run_at)
         step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
     step("grade", lambda: tracker.main(), log)
     step("export data room", lambda: export_web.main(), log)
