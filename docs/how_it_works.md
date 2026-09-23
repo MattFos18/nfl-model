@@ -1088,19 +1088,23 @@ normalised form (lower case, letters only, suffixes dropped). A record needs hun
 says anything, and the honest prior is that the closing line is better than a 19-yard projection.
 
 **Historical lines, the pull that is ready.** The Odds API keeps player-prop snapshots from 3 May 2023 at five-minute
-intervals on its paid plans ($30 a month for 20,000 credits; the key already in the repo just needs the plan changed
-for one month). `nflmodel/props_history.py` and the `historical prop lines` workflow pull the closing snapshot one
-hour before every kickoff from the 2023 season on (2023 to 2025 and the 2026 games so far: 887 games in 425 kickoff
-slots; five markets from every US book), resume where they stop, and write `data/lines/props_history.csv` with the
-raw responses kept. Cost: 4,860 credits if the historical event endpoint charges the standard rate the
-oddsapiR package documents, 44,775 if it charges the ten-times rate the featured historical endpoint does, so the
-20K plan covers the first case and the 100K plan ($59) the second; the run stops at a credit budget and reports
-what it spent. `experiments/props_vs_market_backtest.py` then grades the walk-forward projection against those
-closing lines: the side it takes at every edge cut on a tuning window (2023 to 2024) and held out (2025 on), the
-book's own error beside the projection's and beside a blend of the two (which says whether the book's number
-should move the projection), and the anytime touchdown on both sides and on the yes side alone. The tables land
-under Results, Player projections, once the file exists; the pipeline was exercised end to end on a synthetic
-history built from the actual outcomes plus noise, then deleted, so nothing synthetic is in the repo.
+intervals on its paid plans; the key already in the repo just needs the plan changed for one month. The history
+endpoint charges 10 x markets x regions per game (the docs' own rule), so five markets from the US books cost 50
+credits a game: 887 games from 2023 to Week 2 of 2026 in 425 kickoff slots come to about 44,800 credits per
+snapshot, which is the 100K plan ($59). `nflmodel/props_history.py` and the `historical prop lines` workflow pull
+one of two snapshots: the close (one hour before kickoff) or the open (the Tuesday of the game's week at 16:00
+UTC), resume where they stop, cap at a credit budget, and a probe mode pulls one game first and prints what it
+cost and what remains, so the plan is proven before the run. Both snapshots fit in one month of the 100K plan
+(about 89,300 credits together). Rows go to `data/lines/props_history.csv` with the raw responses kept.
+`experiments/props_vs_market_backtest.py` then grades the walk-forward projection against the closing lines: the
+side it takes at every edge cut on a tuning window (2023 to 2024) and held out (2025 on), the same side against
+the best line across the books (line shopping), the book's own error beside the projection's and beside a blend
+of the two, the anytime touchdown on both sides and on the yes side alone, and, with the opening snapshot, the
+record at the opener and the closing line value. It also chooses the cut to flag at per stat the way the game
+model's was chosen: the largest cut clearing 52.4% on both windows with at least a hundred decided bets on each,
+or none; `props.py` flags a prop on the card only once such a cut exists (`PROP_EDGE`, None until then). The
+tables land under Results, Player projections, once the file exists; the pipeline was exercised end to end on a
+synthetic history built from the actual outcomes plus noise, then deleted, so nothing synthetic is in the repo.
 
 **Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
 week's projections are graded against the players' actual yards from the play-by-play (receiving, rushing, passing),

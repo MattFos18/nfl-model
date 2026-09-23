@@ -4,10 +4,16 @@ on:
     inputs:
       seasons:
         description: "Seasons to pull (space separated), 2023 on"
-        default: "2023 2024 2025"
+        default: "2023 2024 2025 2026"
+      snapshot:
+        description: "close (one hour before kickoff) or open (Tuesday 16:00 UTC of the game's week)"
+        default: "close"
+      probe:
+        description: "true pulls one game only and prints the credit cost and what remains"
+        default: "false"
       max_credits:
         description: "Stop after this many credits (the run resumes where it stopped)"
-        default: "18000"
+        default: "90000"
 permissions:
   contents: write
 concurrency:
@@ -29,7 +35,7 @@ jobs:
       - name: pull closing prop lines
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: python -m nflmodel.props_history --seasons ${{ github.event.inputs.seasons }} --max-credits ${{ github.event.inputs.max_credits }}
+        run: python -m nflmodel.props_history --seasons ${{ github.event.inputs.seasons }} --snapshot ${{ github.event.inputs.snapshot }} --max-credits ${{ github.event.inputs.max_credits }} ${{ github.event.inputs.probe == 'true' && '--probe' || '' }}
       - name: commit
         run: |
           git config user.name "nfl-model bot"
