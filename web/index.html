@@ -1384,7 +1384,8 @@ details{margin:8px 0} summary{cursor:pointer;color:var(--ink-2)}
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
-    const RULES = [["model", `${FLAG}+ edge (the flag, bet)`], ["shadow45", "shadow: 4.5+ edge"], ["shadowdog", `shadow: ${FLAG}+ edge, underdogs only`]];
+    const FL = (window.WEEK && WEEK.spread_edge) || 4;
+    const RULES = [["model", `${FL}+ edge (the flag, bet)`], ["shadow45", "shadow: 4.5+ edge"], ["shadowdog", `shadow: ${FL}+ edge, underdogs only`]];
     const ruleRow = ([who, lab]) => { const x = T.filter(r => r.who === who); const st = x.filter(r => ["win", "loss", "push"].includes(r.result)); const w = st.filter(r => r.result === "win").length, l = st.filter(r => r.result === "loss").length, p = st.filter(r => r.result === "push").length;
       const u = st.reduce((a, r) => a + (r.units || 0), 0); const c = x.filter(r => r.clv != null && !isNaN(r.clv)); const avg = c.length ? c.reduce((a, r) => a + r.clv, 0) / c.length : null;
       return `<tr><td class="l">${lab}</td><td class="mono">${x.length}</td><td class="mono">${st.length ? `${w}-${l}${p ? "-" + p : ""}${w + l ? ` (${(100 * w / (w + l)).toFixed(0)}%)` : ""}` : "nothing settled"}</td><td class="mono ${u > 0 ? "pos" : (u < 0 ? "neg" : "")}">${st.length ? sgn(u, 2) : ""}</td><td class="mono">${avg == null ? "" : (avg > 0 ? "+" : "") + avg.toFixed(2)}</td></tr>`; };
