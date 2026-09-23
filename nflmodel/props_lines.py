@@ -87,8 +87,15 @@ UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit
 
 def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
     """PrizePicks projections for the NFL (league 9): standard lines only (no demon or goblin), one row per player and market."""
-    r = requests.get("https://api.prizepicks.com/projections", timeout=30, headers=UA, params={"league_id": 9, "per_page": 1000, "single_stat": "true"})
-    r.raise_for_status(); j = r.json(); _save_raw("prizepicks", j, ts)
+    j = None; errs = []
+    for url, hdr in [("https://partner-api.prizepicks.com/projections", UA), ("https://api.prizepicks.com/projections", dict(UA, **{"Referer": "https://app.prizepicks.com/", "Origin": "https://app.prizepicks.com", "Accept-Language": "en-US,en;q=0.9"}))]:
+        try:
+            r = requests.get(url, timeout=30, headers=hdr, params={"league_id": 9, "per_page": 1000, "single_stat": "true"}); r.raise_for_status(); j = r.json(); break
+        except Exception as e:  # noqa
+            errs.append(f"{url.split('/')[2]}: {str(e)[:80]}")
+    if j is None:
+        raise RuntimeError(" | ".join(errs))
+    _save_raw("prizepicks", j, ts)
     players = {p["id"]: p["attributes"] for p in j.get("included", []) if p.get("type") == "new_player"}
     wk = games[(games.season == season) & (games.week == week)]; team_game = {}
     for g in wk.itertuples(): team_game[g.home_team] = (g.game_id, g.home_team, g.away_team); team_game[g.away_team] = (g.game_id, g.home_team, g.away_team)
@@ -104,7 +111,15 @@ def prizepicks(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dic
 
 def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]:
     """Underdog pick'em lines: the over/under lines feed with its appearances and players."""
-    r = requests.get("https://api.underdogfantasy.com/beta/v5/over_under_lines", timeout=30, headers=UA); r.raise_for_status(); j = r.json(); _save_raw("underdog", j, ts)
+    hdr = dict(UA, **{"Client-Type": "web", "Client-Version": "20260901", "Client-Request-Id": "nfl-model", "Referer": "https://underdogfantasy.com/", "Origin": "https://underdogfantasy.com"}); j = None; errs = []
+    for url in ["https://api.underdogfantasy.com/beta/v6/over_under_lines", "https://api.underdogfantasy.com/beta/v5/over_under_lines", "https://api.underdogfantasy.com/beta/v3/over_under_lines"]:
+        try:
+            r = requests.get(url, timeout=30, headers=hdr); r.raise_for_status(); j = r.json(); break
+        except Exception as e:  # noqa
+            errs.append(f"{url.rsplit('/', 2)[1]}: {str(e)[:60]}")
+    if j is None:
+        raise RuntimeError(" | ".join(errs))
+    _save_raw("underdog", j, ts)
     players = {p["id"]: p for p in j.get("players", [])}; apps = {a["id"]: a for a in j.get("appearances", [])}
     UD = {"passing_yds": "pass_yards", "passing_tds": "pass_td", "completions": "pass_completions", "pass_attempts": "pass_attempts", "interceptions": "pass_int", "rushing_yds": "rush_yards", "rush_attempts": "rush_attempts", "receiving_yds": "rec_yards", "receptions": "rec_catches", "rush_rec_yds": "rush_rec_yards", "longest_reception": "rec_longest", "longest_rush": "rush_longest", "tackles_assists": "def_tackles", "sacks": "def_sacks", "solo_tackles": "def_solo_tackles", "kicking_points": "kick_points", "fg_made": "field_goals", "targets": "rec_targets", "pass_rush_yds": "pass_rush_yards"}
     wk = games[(games.season == season) & (games.week == week)]; team_game = {}
@@ -146,15 +161,15 @@ def due(now: dt.datetime, log: pd.DataFrame) -> float | None:
     return None
 
 
-def run(season=None, week=None, force: bool = False) -> pd.DataFrame:
+def run(season=None, week=None, force: bool = False, dfs_only: bool = False) -> pd.DataFrame:
     games = pd.read_parquet(OUT / "games.parquet")
     if season is None:
         season, week = current_week(games)
     now = dt.datetime.utcnow(); ts = now.strftime("%Y-%m-%dT%H-%M-%SZ")
     log = load_log()
-    window = 168.0 if force else due(now, log)   # a forced pull takes the whole week ahead
+    window = None if dfs_only else (168.0 if force else due(now, log))   # a forced pull takes the whole week ahead
     rows = pull(season, week, ts, within_hours=window) if window is not None else []
-    if dfs_due(now, force):
+    if dfs_due(now, force or dfs_only):
         for name, fn in [("prizepicks", prizepicks), ("underdog", underdog)]:
             try:
                 got = fn(season, week, ts, games); rows += got; print({"source": name, "rows": len(got)}, flush=True)
