@@ -626,11 +626,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (Math.abs(d) < 0.01) moved = "No move";
     else if (key === "home_spread") moved = `Moved ${Math.abs(d).toFixed(1)} toward ${d > 0 ? H.home : H.away}`;
     else moved = `Moved ${Math.abs(d).toFixed(1)} ${d > 0 ? "up" : "down"}`;
-    // which way the move went for the model's side: with the model (the open was the better number, the market is catching up) or against it (a better number now than at the open)
-    let read = "";
-    if (Math.abs(d) >= 0.5 && edge != null && edge !== 0) { const side = key === "home_spread" ? (edge > 0 ? H.home : H.away) : (edge > 0 ? "Over" : "Under"); const withModel = (d > 0) === (edge > 0);
-      read = `<span class="chip mute" title="${withModel ? "The market moved the model's way since the first snapshot: the open was the better number for this side, and the model was there first (positive closing line value if it was bet early)." : "The market moved against the model since the first snapshot: this side gets a better number now than at the open, and the model's disagreement with the market has grown."}">${withModel ? `With the model: ${side} had the better number at the open` : `Against the model: ${side} gets a better number now than at the open`}</span>`; }
-    return svg + (Math.abs(d) < 0.01 && !read ? "" : `<div class="mv">${Math.abs(d) < 0.01 ? "" : `<span class="chip alt" title="${vals.length} snapshots, ${day(ts[0])} to ${day(ts[ts.length - 1])}">${moved}</span>`}${read}</div>`);
+    return svg + (Math.abs(d) < 0.01 ? "" : `<div class="mv"><span class="chip alt" title="${vals.length} snapshots, ${day(ts[0])} to ${day(ts[ts.length - 1])}">${moved}</span></div>`);
   }
   function flagReason(g) {
     // the three inputs that do most to set the model's line (home minus away contribution), for a flagged card
@@ -650,7 +646,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.edge != null && Math.abs(r.edge) >= lo && Math.abs(r.edge) < hi && r.pickWon !== null);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.pickWon).length;
-    return `<span class="chip alt" title="every regular-season game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side and graded against the close: what share covered">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${w}-${rows.length - w}, ${(100 * w / rows.length).toFixed(0)}% covered</span>`;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model's spread differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side and graded against the close: what share covered">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% covered</span>`;
   }
   function histOver(tedge) {
     if (!window.BACKTEST || tedge == null) return "";
@@ -658,7 +654,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const rows = bkRows().filter(r => r.home_score != null).map(gradeGame).filter(r => r.tedge != null && Math.abs(r.tedge) >= lo && Math.abs(r.tedge) < hi && r.ouWon !== null && r.ouWon !== undefined);
     if (rows.length < 10) return "";
     const w = rows.filter(r => r.ouWon).length;
-    return `<span class="chip alt" title="every regular-season game since 2015 where the model's total differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side: what share won">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${w}-${rows.length - w}, ${(100 * w / rows.length).toFixed(0)}% won</span>`;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model's total differed from the line by ${lo}${hi === 99 ? "+" : " to " + hi} points, bet on the model's side: what share won">Edges of ${lo}${hi === 99 ? "+" : " to " + hi}: ${(100 * w / rows.length).toFixed(0)}% won</span>`;
   }
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
   function runMove(g, key, lab) {
@@ -1045,7 +1041,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (!window.BACKTEST || p == null) return ""; const band = winBand(p); if (!band) return "";
     const g = bkRows().filter(r => r.p_home != null && r.home_score != null && r.home_score !== r.away_score && (!r.game_type || r.game_type === "REG")).filter(r => { const q = Math.max(r.p_home, 1 - r.p_home); return q >= band[0] && q < band[1]; }); if (g.length < 20) return "";
     const won = g.filter(r => (r.p_home >= 0.5) === (r.home_score > r.away_score)).length;
-    return `<span class="chip alt" title="every regular-season game since 2015 where the model gave its favourite ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: how often that team won">Favourites at ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: won ${won}-${g.length - won}, ${(100 * won / g.length).toFixed(0)}%</span>`;
+    return `<span class="chip alt" title="every regular-season game since 2015 where the model gave its favourite ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: how often that team won">Favourites at ${Math.round(100 * band[0])} to ${Math.round(100 * Math.min(band[1], 1))}%: ${(100 * won / g.length).toFixed(0)}% won</span>`;
   }
   function renderBacktest() {
     const allAny = bkRows().filter(r => r.home_score != null).map(gradeGame);
