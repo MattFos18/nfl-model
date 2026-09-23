@@ -689,7 +689,11 @@ blitz rates: the pressure fit is +0.002 / +0.003 on team points, the blitz fit +
 equation: no-huddle -0.001 / +0.008, pass rate over expected 0 / 0, the rest worse, all five together +0.11 /
 +0.08. Nothing adopted. A third idea, adjusting each offense's EPA for the looks it faced before the ratings solve,
 was not run: the joint solve already credits the look to the defense that chose it, so the adjustment would move
-that credit from the defense to the offense and count it twice.
+that credit from the defense to the offense and count it twice. Last, the absence input read against the matchup
+(`experiments/skill_out_matchup.py`, `reports/skill_out_matchup.csv`): each listed-out receiver's value scaled by
+his yards per target in the opponent's man/zone mix against his own average (capped at a quarter to double).
+0.000 / 0.000 on team points: few absent players have 15 targets against both looks in their window, and the
+scaling moves little. Not adopted; the card's projection view (section 18) is where the matchup shows.
 
 **Kickoff-hour weather for the backtest** (23 Sep 2026, `nflmodel/weather_archive.py`, `experiments/weather_kickoff.py`,
 `reports/weather_kickoff.csv`). The backtest's wind, cold and rain come from the schedule's game-day readings. The
