@@ -393,6 +393,8 @@ def main():
 # Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
 # ---------------------------------------------------------------------------------------------
     export_season()
+    from . import catalog as CAT
+    (WEB / "catalog.js").write_text("window.CATALOG=" + json.dumps(CAT.build(), default=clean, separators=(",", ":")) + ";")   # every data store, from the files themselves (Model -> Every data store)
 
 
 def export_season() -> dict:
