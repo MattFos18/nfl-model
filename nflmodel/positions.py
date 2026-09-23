@@ -152,7 +152,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     pv_skill = PlayerValues(pg, p["decay"], p["k"]); _, by_player, _ = _usage_frames(pg)
     pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
-    qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"])
+    qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12))
     tg = pd.read_parquet(OUT / "team_games.parquet"); snaps = snaps_by_game(range(season - 2, season + 1))
     ol = ol_onoff(snaps, tg, names, season, week).set_index(["team", "key"]) if len(snaps) else pd.DataFrame()
     def_by = {pid: g for pid, g in dg.groupby("player_id")}; kick_by = {pid: g for pid, g in kg.groupby("player_id")}

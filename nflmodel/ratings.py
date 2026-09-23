@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "processed"
 
 STATS = ["epa_play", "pass_epa", "rush_epa", "success", "pf", "plays"]
-DEFAULT = {"decay": 0.94, "prior": 0.8, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985}  # 0.90 / 0.5 tuned on 2019-2022 (reports/tuning_ratings.csv); 0.94 / 0.8 re-checked 22 Sep 2026 under the weekly refit on both windows (reports/retune.csv, retune2.csv)
+DEFAULT = {"decay": 0.94, "prior": 0.8, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985, "qb_prior": -0.12}  # qb_prior -0.12 (was -0.05) swept 23 Sep 2026 on both windows (reports/qb_replacement.csv); 0.90 / 0.5 tuned on 2019-2022 (reports/tuning_ratings.csv); 0.94 / 0.8 re-checked 22 Sep 2026 under the weekly refit on both windows (reports/retune.csv, retune2.csv)
 
 
 def solve(rows: pd.DataFrame, y: np.ndarray, w: np.ndarray, teams: list, alpha: float):
@@ -101,7 +101,7 @@ def team_ratings(tg: pd.DataFrame, season: int, week: int, p: dict, kind: str = 
 class QBRatings:
     """Starting QB EPA per dropback, decayed by games and shrunk to a replacement-level prior."""
 
-    def __init__(self, qb: pd.DataFrame, k: float, decay: float, prior_epa: float = -0.05):
+    def __init__(self, qb: pd.DataFrame, k: float, decay: float, prior_epa: float = -0.12):
         self.qb = qb.sort_values(["season", "week"])
         self.k, self.decay, self.prior = k, decay, prior_epa
         self._cache = {}
@@ -132,7 +132,7 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     qb = pd.read_parquet(OUT / "qb_games.parquet") if qb is None else qb
     played = tg[tg.pf.notna()].copy()
     played["plays"] = played.plays.fillna(played.plays.mean())
-    qbr = QBRatings(qb, p["qb_k"], p["qb_decay"])
+    qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12))
     # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
     named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
     last_qb = {}

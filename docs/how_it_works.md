@@ -61,7 +61,7 @@ decay did not move. With the regression refit every week on the season's games, 
 move slower: the equation carries the adaptation.
 
 **QB rating.** For the named starter, EPA per dropback over every game he has played (any team), decayed
-0.985 per game, shrunk toward -0.05 (replacement level) with a 150-dropback prior. A rookie with no
+0.985 per game, shrunk toward -0.12 (replacement level; -0.05 until 23 Sep 2026) with a 150-dropback prior. A rookie with no
 history starts at replacement level. Ablation: dropping it costs 0.08 points of miss, the most of any
 input (`reports/ablation.csv`).
 
@@ -497,6 +497,17 @@ fraction, (p x b - (1 - p)) / b with p the calibrated cover odds for the model's
 book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%;
 a 7-point edge at 55% about 1%. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
 Kelly at an overstated edge loses money. The picks markdown has a Stake column and the card shows it as a chip.
+
+**QB replacement level** (23 Sep 2026, `experiments/qb_replacement.py`, `qb_third.py`; `reports/qb_replacement.csv`,
+`qb_third.csv`). The level a thin QB history is shrunk toward had been set by hand at -0.05 EPA per dropback.
+Swept from 0.00 to -0.30 with the features rebuilt each time. Team points miss falls the lower the level goes on
+the tuning window (7.377 at 0.00, 7.369 at -0.05, 7.362 at -0.12, 7.357 at -0.30) and bottoms out at -0.12 to
+-0.16 held out (7.2995 at -0.05, 7.2972 at -0.12, 7.2970 at -0.16, rising again below). Totals miss falls on both
+windows at every step down. The spread miss splits: better held out (9.9965 to 9.977 at -0.12) and on 2015 to 2018
+(10.014 to 10.010), a shade worse on the tuning window (10.024 to 10.032). Adopted at -0.12: the conservative half
+of the range where both windows improve on team points, with the third window agreeing on the spread. A backup or
+rookie now starts about 0.07 EPA per dropback (roughly 2 points a game) lower than before until his own history
+takes over. The threshold sweep and the third-window table below were re-run on the rebuilt model.
 
 ## 15. The player model
 

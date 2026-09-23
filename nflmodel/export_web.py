@@ -455,7 +455,7 @@ def export_rankings_and_methods():
                 q = qb_by.get((s, w, t), np.nan)
                 if pd.isna(q):
                     prev = feats[(feats.team == t) & ((feats.season < s) | ((feats.season == s) & (feats.week < w)))]
-                    q = prev.qb_rating.iloc[-1] if len(prev) else -0.05
+                    q = prev.qb_rating.iloc[-1] if len(prev) else R.DEFAULT.get("qb_prior", -0.12)
                 row["qb_rating"] = round(float(q), 4)
                 # power: points for vs an average opponent at a neutral site, and points allowed to that opponent
                 # power: points for vs an average opponent at a neutral site, and points allowed to that opponent
