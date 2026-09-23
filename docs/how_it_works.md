@@ -541,6 +541,25 @@ With the skill-out values rebuilt, the summed skill value out, the summed offens
 offseason turnover were tried as inputs to the total equation, alone and together. Every one is worse on both
 windows (+0.004 to +0.023 on the total miss). The total equation keeps its ten inputs and totals stay unflagged.
 
+**Legitimacy tests** (23 Sep 2026, `experiments/legitimacy.py`, `reports/legitimacy.md`, re-run on every weekly
+run). Four questions about the 131-87 flag record on 2019 to 2025, on the walk-forward predictions with no refit:
+
+- *Placebo.* Shuffle the model's lines across the games of each week 2,000 times and re-grade the 4+ flags: the
+  shuffled records average 51.3% with a 95th percentile of 53.2%; none of 2,000 reaches the real 60.1%. The record
+  is not something the selection rule produces from noise.
+- *Bootstrap.* Resampling the 218 real flags: the 90% interval for the win rate is 54.6% to 65.1%, and 1.1% of
+  resamples fall under the 52.4% break-even.
+- *Leave one season out.* Dropping each season in turn leaves 103-74 to 122-83; no single season carries it.
+- *Encompassing.* Regress the margin on the closing line and the model's line together: the model keeps a weight
+  of 0.24 with t = 1.9 over all seasons, 0.28 (t = 1.7) on the tuning window and 0.14 (t = 0.7) held out. So on
+  the average game the line already holds nearly everything the model knows, and the model's extra information is
+  small and not statistically firm. That squares with the rest: the line beats the model on the spread miss in
+  every season, and the value sits in the tail, the games where the two disagree by 4 or more.
+
+Honest reading: the flag record is real in the sense that noise does not produce it, and thin in the sense that
+the model's edge over the market is concentrated in a few games a week and not visible on the average game. The
+live record is the test that matters.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role

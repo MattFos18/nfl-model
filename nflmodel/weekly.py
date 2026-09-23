@@ -81,6 +81,7 @@ def main(full=False, skip_network=False):
     step("export data room", lambda: export_web.main(), log)
     step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
     step("audit reports", lambda: sh(["nflmodel.report"]), log)
+    step("legitimacy tests", lambda: sh(["experiments.legitimacy"]), log)
     _write(log, run_at, cur_season, cur_week, pk)
     return log
 
