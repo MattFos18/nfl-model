@@ -225,7 +225,7 @@ against a "learn from your misses" input (each team's mean out-of-sample miss ov
 | Refit every week (now) | 10.161 | 36-27 | 29-27 | 65-54 (54.6%) |
 | Weekly + mean-miss input | 10.169 | 37-27 | 31-28 | 68-55 (55.3%), 3+ edges worse (48.5%) |
 
-The production build with weekly refit (`reports/backtest_v3.md`, the History tab) grades the same rule at 64-56 (53.3%) over
+The production build with weekly refit (`reports/backtest_v3.md`, the Results tab) grades the same rule at 64-56 (53.3%) over
 2019 to 2025, 30-28 held out, and 57-46 (55.3%) with Week 18 excluded; totals at 6+ are 35-23 (60.3%), 16-7 held out. The
 harness and the production grader differ by a few bets in how pushes and the season's first week are handled.
 
@@ -269,7 +269,7 @@ cut, and the flag does not beat break-even there at any cut. The spread accuracy
 flag rate does not. So the live record (Results tab) is the number that decides whether the flag earns its keep.
 
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
-sweep, recomputed from the backtest on every run, is on the History tab (Every threshold, tested). On the current model, spread
+sweep, recomputed from the backtest on every run, is on the Results tab (Every threshold, tested). On the current model, spread
 cutoffs from 4 to 5.5 make money in both windows and 5 has the best return (68-48 over 2019 to 2025; 6 and up flip negative held
 out). No total cutoff makes money in both windows (6+ went 27-26), so totals are no longer flagged; the edge is still shown.
 
@@ -518,6 +518,10 @@ takes over. The threshold sweep and the third-window table below were re-run on 
 7.2962 against 7.3624 / 7.2972) and on the spread miss, but the gain is 0.001 on each window, under the adoption
 bar, and 40 to 80 are indistinguishable. 150 stays.
 
+**Cold cutoff** (23 Sep 2026, `experiments/weather_knobs.py`, `reports/weather_knobs.csv`). The cold flag fires
+under 35F, a hand-set number. 30F, 40F and 45F, and a continuous "degrees under 45F" term, are all worse on both
+windows (+0.004 to +0.012 on team points). 35F stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
@@ -563,7 +567,7 @@ roster). Tested on both windows against the sixteen-input model:
 | Own offensive snaps out + opponent defensive snaps out | -0.008 | -0.010 | -0.015 | -0.009 | adopted |
 | The pair + the line count | -0.009 | -0.011 | -0.014 | -0.007 | the count adds nothing |
 
-So the model has eighteen inputs: the pair went in (flags 48-40 and 29-18 against 42-35 and 28-19 without).
+So the model had eighteen inputs at that point (twenty since the offseason turnover pair): the pair went in (flags 48-40 and 29-18 against 42-35 and 28-19 without).
 The offensive line is inside "offensive snaps out" (a lineman at 100% of snaps counts a full share); a separate
 line count added nothing once the snap share was there. The defense is covered the same way from the other side.
 
