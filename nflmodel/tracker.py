@@ -111,8 +111,11 @@ def record_model_picks(picks: pd.DataFrame, run_at: str):
     """Append this run's flagged picks (from picks.table) to model_picks.csv, replacing earlier rows for the same game;
     the shadow rule's picks (SHADOW_EDGE, never bet) go to shadow_picks.csv the same way."""
     out = _record(picks, run_at, "bet", "model_picks.csv")
-    if "shadow_bet" in picks.columns:
-        _record(picks.drop(columns=["bet"]).rename(columns={"shadow_bet": "bet"}), run_at, "bet", "shadow_picks.csv")
+    from .picks import SHADOWS
+    for name in SHADOWS:
+        col = f"{name}_bet"
+        if col in picks.columns:
+            _record(picks.drop(columns=["bet"]).rename(columns={col: "bet"}), run_at, "bet", f"{name}_picks.csv")
     return out
 
 
@@ -153,11 +156,17 @@ def main():
     if not (TR / "my_bets.csv").exists():
         (TR / "my_bets.csv").write_text("game_id,bet,odds,stake,note\n")   # your bets: one row each, with your read on the game in `note`
     mb = pd.read_csv(TR / "my_bets.csv")
-    ms = pd.read_csv(TR / "shadow_picks.csv") if (TR / "shadow_picks.csv").exists() else pd.DataFrame(columns=["game_id", "bet", "odds", "stake"])
+    from .picks import SHADOWS, SPREAD_EDGE, SHADOW_EDGE
     gm = grade_rows(mp, games).assign(who="model") if len(mp) else pd.DataFrame()
     gb = grade_rows(mb, games).assign(who="matt") if len(mb) else pd.DataFrame()
-    gs = grade_rows(ms, games).assign(who="shadow") if len(ms) else pd.DataFrame()
-    gr = pd.concat([gm, gb, gs], ignore_index=True)
+    parts = [gm, gb]
+    for name in SHADOWS:
+        f = TR / f"{name}_picks.csv"
+        if f.exists():
+            ms = pd.read_csv(f)
+            if len(ms):
+                parts.append(grade_rows(ms, games).assign(who=name))
+    gr = pd.concat(parts, ignore_index=True)
     for c in ["season", "week", "game_id", "bet", "odds", "stake", "close", "clv", "result", "units", "kind", "who", "note", "book"]:
         if c not in gr.columns:
             gr[c] = np.nan
@@ -167,9 +176,17 @@ def main():
     gr.to_csv(TR / "graded.csv", index=False)
     L = ["# Track record", "", "Model picks and Matt's bets, graded against results, at the odds recorded. Closing line value (CLV) is the line "
          "recorded minus the closing line from the bet's side: positive means the number beat the close.", ""]
-    from .picks import SPREAD_EDGE, SHADOW_EDGE
-    for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets"),
-                      ("shadow", f"Shadow rule: {SHADOW_EDGE:g}+ spread edge (logged and graded, never bet; decides the cut after eight to ten live weeks)")]:
+    # rules compared: one line each, the bet rule and every shadow
+    L += ["## Rules compared", "", "The flag is bet; the shadows are logged and graded on the same games but never bet, so the rule can be chosen on live results.", "",
+          "| Rule | Bets | Settled | Record | Units | Avg CLV |", "|---|---|---|---|---|---|"]
+    for who, lab in [("model", f"{SPREAD_EDGE:g}+ edge (the flag, bet)")] + [(n, f"shadow: {lab}") for n, (_, _, lab) in SHADOWS.items()]:
+        x = gr[gr.who == who] if len(gr) else gr
+        st = x[x.result.isin(["win", "loss", "push"])] if len(x) else x
+        w, l, pu = int((st.result == "win").sum()), int((st.result == "loss").sum()), int((st.result == "push").sum())
+        clv = x.clv.dropna() if len(x) else pd.Series(dtype=float)
+        L.append(f"| {lab} | {len(x)} | {len(st)} | {f'{w}-{l}' + (f'-{pu}' if pu else '') + (f' ({w / (w + l):.0%})' if w + l else '') if len(st) else 'nothing settled'} | {(f'{st.units.sum():+.2f}' if len(st) else '')} | {(f'{clv.mean():+.2f}' if len(clv) else '')} |" if len(x) else f"| {lab} | 0 | 0 | | | |")
+    L.append("")
+    for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:
         x = gr[gr.who == who] if len(gr) else gr
         L += [f"## {name}", ""]
         if len(x) == 0:
