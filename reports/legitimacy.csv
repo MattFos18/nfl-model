@@ -1,0 +1,13 @@
+test,window,line_weight,model_weight,model_t,real_pct,placebo_mean,placebo_95th,share_of_placebos_at_or_above_real,n,pct_5th,pct_50th,pct_95th,share_below_breakeven,games,flags,model_miss,line_miss
+encompassing,2019-22,0.77,0.279,1.68,,,,,,,,,,,,,
+encompassing,2023-25,1.039,0.14,0.7,,,,,,,,,,,,,
+encompassing,all,0.861,0.236,1.86,,,,,,,,,,,,,
+placebo,all,,,,0.601,0.513,0.532,0.0,,,,,,,,,
+bootstrap,all,,,,,,,,218.0,0.546,0.601,0.651,0.011,,,,
+season,2019,,,,,,,,,,,,,256.0,18-14,10.312,10.211
+season,2020,,,,,,,,,,,,,256.0,28-13,9.862,9.83
+season,2021,,,,,,,,,,,,,256.0,26-20,11.005,10.826
+season,2022,,,,,,,,,,,,,255.0,17-18,9.07,8.824
+season,2023,,,,,,,,,,,,,256.0,9-4,10.178,9.932
+season,2024,,,,,,,,,,,,,256.0,20-9,9.799,9.617
+season,2025,,,,,,,,,,,,,256.0,13-9,10.024,9.834

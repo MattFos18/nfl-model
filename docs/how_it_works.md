@@ -541,6 +541,35 @@ With the skill-out values rebuilt, the summed skill value out, the summed offens
 offseason turnover were tried as inputs to the total equation, alone and together. Every one is worse on both
 windows (+0.004 to +0.023 on the total miss). The total equation keeps its ten inputs and totals stay unflagged.
 
+**Legitimacy tests** (23 Sep 2026, `experiments/legitimacy.py`, `reports/legitimacy.md`, re-run on every weekly
+run). Four questions about the 131-87 flag record on 2019 to 2025, on the walk-forward predictions with no refit:
+
+- *Placebo.* Shuffle the model's lines across the games of each week 2,000 times and re-grade the 4+ flags: the
+  shuffled records average 51.3% with a 95th percentile of 53.2%; none of 2,000 reaches the real 60.1%. The record
+  is not something the selection rule produces from noise.
+- *Bootstrap.* Resampling the 218 real flags: the 90% interval for the win rate is 54.6% to 65.1%, and 1.1% of
+  resamples fall under the 52.4% break-even.
+- *Leave one season out.* Dropping each season in turn leaves 103-74 to 122-83; no single season carries it.
+- *Encompassing.* Regress the margin on the closing line and the model's line together: the model keeps a weight
+  of 0.24 with t = 1.9 over all seasons, 0.28 (t = 1.7) on the tuning window and 0.14 (t = 0.7) held out. So on
+  the average game the line already holds nearly everything the model knows, and the model's extra information is
+  small and not statistically firm. That squares with the rest: the line beats the model on the spread miss in
+  every season, and the value sits in the tail, the games where the two disagree by 4 or more.
+
+Honest reading: the flag record is real in the sense that noise does not produce it, and thin in the sense that
+the model's edge over the market is concentrated in a few games a week and not visible on the average game. The
+live record is the test that matters.
+
+**How much history** (23 Sep 2026, `experiments/history_depth.py`, `reports/history_depth.csv`). The regression
+trains on every played game from 2013. Training from 2015 instead is better on both windows (team points 7.350 /
+7.287 against 7.360 / 7.289, spread 10.005 / 9.962 against 10.023 / 9.970); from 2017 is mixed. So the oldest
+seasons hurt a little rather than help, and pulling 2009 to 2012 (which lack snap counts and the player model
+anyway) is not worth doing. The clean version of the idea, a rolling window of the most recent N seasons, is
+tested separately (`experiments/rolling_window.py`, `reports/rolling_window.csv`): the last 10, 8 or 6 seasons
+instead of everything since 2013. None helps on both windows (10: equal tuning, +0.002 held out on team points;
+8: +0.004 / -0.001; 6: +0.008 / +0.018). So the gain from starting in 2015 is about those two particular seasons,
+not a rule, and everything since 2013 stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
