@@ -346,6 +346,14 @@ def main():
     if pj.exists():   # player-against-scheme projections for the week (nflmodel/props.py)
         (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
     (WEB / "props_backtest.js").write_text("window.PROPS_BT=" + json.dumps(props_backtest_export(csv_rows), default=clean) + ";")   # the five backtest rounds and the by-season run (Results -> Player projections)
+    pp = OUT / "props_profiles.json"
+    if pp.exists():   # every player's last-17 profile with splits, every defense, the league (Players tab)
+        (WEB / "player_profiles.js").write_text("window.PROFILES=" + pp.read_text() + ";")
+    (WEB / "player_logs.js").write_text("window.PLOGS=" + json.dumps(player_logs_export(), default=clean, separators=(",", ":")) + ";")   # every player's game log since 2016 with the look splits (Players tab)
+    rec_rows = {"graded": csv_rows("../data/tracker/props_graded.csv"), "market": csv_rows("../data/tracker/props_vs_market.csv"), "projections": []}
+    for f in sorted((ROOT / "reports").glob("props_*_wk*.csv")):
+        rec_rows["projections"] += [{k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in r.items()} for r in pd.read_csv(f).to_dict("records")]
+    (WEB / "props_record.js").write_text("window.PROPS_REC=" + json.dumps(rec_rows, default=clean, separators=(",", ":")) + ";")   # every projection written, every grade, every line graded (Players tab, Results)
     sp = OUT / "scheme_profiles.json"
     if sp.exists():   # scheme and play-calling profiles (nflmodel/scheme.py), as of the current week
         (WEB / "scheme.js").write_text("window.SCHEME=" + sp.read_text() + ";")
@@ -565,17 +573,55 @@ def props_backtest_export(csv_rows):
             r5.setdefault(f"{pre}_K{k}", f"Shrunk toward the league, {k} touches of weight")
     adopted = {1: {"rec_yards": "s100_d25", "rush_yards": "s25_d25", "pass_yards": "s50_d50", "targets": "p_tgt_share"}, 2: {"rec_yards": "A_90_vol", "targets": "vol_B"}, 3: {"rec_yards": "A85B_med", "rush_yards": "A85B_med", "pass_yards": "A85B_med", "rec_volume": "vol_gs", "rush_volume": "vol_gs"},
                4: {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}, 5: {"rec_catch": "catch_K25_med", "rec_td": "td_K200_gs", "rush_td": "td_K200", "pass_td": "td_K400_gs", "pass_int": "int_league"}}
+    r7 = {"tk_avg": "His tackles a game, plain", "tk_flat": "His flat share of the team's tackles x tackles per play x opponent plays", "tk_85": "Share decayed 0.85", "tk_90": "Share decayed 0.90", "tk_85gs": "Share decayed 0.85, opponent plays with the game script", "tk_85gs_K2": "That, shrunk toward his own average (2 games of weight)", "tk_85gs_K4": "Shrunk toward his own average (4 games)", "tk_85gs_K8": "Shrunk toward his own average (8 games)", "tk_85gs_med": "Share decayed 0.85, game script, x median factor 0.90",
+          "sk_avg": "His sacks a game, plain", "sk_league": "League sack rate per play x opponent plays", "sk_K100": "His rate per play faced shrunk to the league, 100 plays of weight", "sk_K300": "Shrunk, 300 plays", "sk_K600": "Shrunk, 600 plays", "sk_K1000": "Shrunk, 1,000 plays"}
+    adopted[7] = {"def_tackles": "tk_85gs_med", "def_sacks": "sk_K300"}
     rounds = [(1, "Round one: rate, splits and shrinkage", "props_backtest.csv", r1, "Each stat's volume from usage share; the rate his own, the league's, or his look-by-look split weighted by the defense's mix, then shrunk toward the league and moved toward the defense."),
               (2, "Round two: what a book adds, one layer at a time (receiving yards)", "props_backtest2.csv", r2, "Each layer on round one's rule. Recency and game script were carried into round three; the rest tested worse or no better."),
               (3, "Round three: recency, game script and the median factor", "props_backtest3.csv", r3, "Constants fitted on 2016 to 2018 and applied forward. The bottom row is the rule adopted for every stat."),
               (4, "Round four: wind, pace, the quarterback, own prior, home, and the weights re-tuned", "props_backtest4.csv", r4, "Each on round three's rule. Only passing moved on both windows (pace and wind); receiving and rushing stayed."),
-              (5, "Round five: receptions, touchdowns and interceptions", "props_backtest5.csv", r5, "Absolute error for receptions; Poisson log loss (lower is better) for scores and picks, where predicting none is trivially best by absolute error.")]
+              (5, "Round five: receptions, touchdowns and interceptions", "props_backtest5.csv", r5, "Absolute error for receptions; Poisson log loss (lower is better) for scores and picks, where predicting none is trivially best by absolute error."),
+              (6, "Round six: tied to the game model's expected points", "props_backtest6.csv", {"yds_vegas": "As adopted (closing spread and total)", "yds_model": "Game script from the model's margin and total", "yds_blend": "Half and half with the closing line", "yds_recon25": "Reconciled to the team's expected points, a quarter of the way", "yds_recon50": "Reconciled, half", "yds_recon100": "Reconciled, all the way", "td_vegas": "As adopted", "td_model": "Game script from the model's margin", "td_blend": "Half and half", "td_recon25": "Reconciled, a quarter", "td_recon50": "Reconciled, half", "td_recon100": "Reconciled, all the way"}, "Each team's players scaled toward the yards and touchdowns its expected points imply (fitted 2016 to 2018). The model's margin in place of the line changed nothing; the reconciliation helped every stat."),
+              (7, "Round seven: defenders (tackles plus assists, sacks)", "props_backtest7.csv", r7, "From every tackle and assist credit in the play-by-play since 2016. Tackles by absolute error; sacks by Poisson log loss as well.")]
+    adopted[6] = {"rec_yards": "yds_recon25", "rush_yards": "yds_recon25", "pass_yards": "yds_recon50", "rec_td": "td_recon50", "rush_td": "td_recon50", "pass_td": "td_recon100"}
     out = {"rounds": [], "by_season": csv_rows("props_by_season.csv"), "by_position": csv_rows("props_by_position.csv"), "by_bucket": csv_rows("props_by_bucket.csv"), "market_backtest": csv_rows("props_vs_market_backtest.csv")}
     for n, title, src, labels, note in rounds:
         rows = csv_rows(src); stats = {}
         for r in rows:
-            if r["stat"] == "game_script":
+            if r["stat"] == "game_script" or str(r["stat"]).endswith("_team_fit"):
                 continue
             r = dict(r); r["label"] = labels.get(r["variant"], r["variant"]); r["adopted"] = adopted[n].get(r["stat"]) == r["variant"]; stats.setdefault(r["stat"], []).append(r)
         out["rounds"].append({"round": n, "title": title, "source": "reports/" + src, "note": note, "stats": stats, "n_rows": len(rows)})
     return out
+
+
+def player_logs_export() -> dict:
+    """Every player's game log since 2016 from the charted plays: one row per player, game and kind (receiving, rushing,
+    passing) with volume, yards, touchdowns, EPA and the look splits (receiving and passing: man, zone, pressured;
+    rushing: light box, heavy box). Compact arrays; the page keys them by player."""
+    f = OUT / "scheme_plays.parquet"
+    if not f.exists():
+        return {"cols": [], "rows": {}, "names": {}}
+    d = pd.read_parquet(f, columns=["season", "week", "game_id", "posteam", "defteam", "play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "yards_gained", "epa", "complete_pass", "pass_touchdown", "rush_touchdown", "interception", "man", "zone", "pressure", "box"])
+    d = d[d.play_type.isin(["pass", "run"])].copy(); d["yards_gained"] = d.yards_gained.fillna(0.0)
+    for c in ["complete_pass", "pass_touchdown", "rush_touchdown", "interception"]: d[c] = d[c].fillna(0).astype(float)
+    d["man_f"] = d.man.fillna(False).astype(float); d["zone_f"] = d.zone.fillna(False).astype(float); d["press_f"] = (d.pressure == 1).astype(float); d["light_f"] = (d.box <= 6).astype(float); d["heavy_f"] = (d.box >= 8).astype(float)
+    cols = ["season", "week", "game_id", "team", "opp", "kind", "n", "made", "yds", "td", "int", "epa", "a_n", "a_yds", "b_n", "b_yds", "c_n", "c_yds"]
+    out = {}
+    def add(mask, pcol, kind, made, tdcol, a, b, c):
+        t = d[mask].copy()
+        for k, flag in [("a", a), ("b", b), ("c", c)]:
+            t[f"{k}_n"] = t[flag] if flag else 0.0; t[f"{k}_yds"] = t.yards_gained * t[flag] if flag else 0.0
+        agg = {"n": ("yards_gained", "size"), "yds": ("yards_gained", "sum"), "td": (tdcol, "sum"), "int": ("interception", "sum"), "epa": ("epa", "sum"), "a_n": ("a_n", "sum"), "a_yds": ("a_yds", "sum"), "b_n": ("b_n", "sum"), "b_yds": ("b_yds", "sum"), "c_n": ("c_n", "sum"), "c_yds": ("c_yds", "sum")}
+        if made: agg["made"] = (made, "sum")
+        g = t.groupby([pcol, "season", "week", "game_id", "posteam", "defteam"]).agg(**agg).reset_index()
+        if not made: g["made"] = None
+        for r in g.itertuples():
+            out.setdefault(getattr(r, pcol), []).append([int(r.season), int(r.week), r.game_id, r.posteam, r.defteam, kind, int(r.n), (None if r.made is None or pd.isna(r.made) else int(r.made)), int(r.yds), int(r.td), int(r.int), round(float(r.epa), 2), int(r.a_n), int(r.a_yds), int(r.b_n), int(r.b_yds), int(r.c_n), int(r.c_yds)])
+    add(d.pass_play & d.receiver_player_id.notna(), "receiver_player_id", "rec", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
+    add(d.play_type.eq("run") & d.rusher_player_id.notna(), "rusher_player_id", "rush", None, "rush_touchdown", "light_f", "heavy_f", None)
+    add(d.dropback & d.passer_player_id.notna(), "passer_player_id", "pass", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
+    from .positions import names_by_id
+    nm = names_by_id(range(2016, 2027)); names = {pid: [nm[pid][0], nm[pid][1]] for pid in out if pid in nm}
+    for pid in out: out[pid].sort(key=lambda r: (r[0], r[1]))
+    return {"cols": cols, "rows": out, "names": names, "splits": {"rec": ["man", "zone", "pressured"], "pass": ["man", "zone", "pressured"], "rush": ["light box", "heavy box", ""]}}

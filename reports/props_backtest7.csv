@@ -1,0 +1,16 @@
+stat,variant,mae_2019-22,ll_2019-22,n_2019-22,mae_2023-25,ll_2023-25,n_2023-25,fitted,league_rate
+def_tackles,tk_avg,1.679,,34034,1.673,,26834,median factor 0.90,
+def_tackles,tk_flat,1.693,,34034,1.694,,26834,median factor 0.90,
+def_tackles,tk_85,1.676,,34034,1.672,,26834,median factor 0.90,
+def_tackles,tk_90,1.674,,34034,1.672,,26834,median factor 0.90,
+def_tackles,tk_85gs,1.673,,34034,1.668,,26834,median factor 0.90,
+def_tackles,tk_85gs_K2,1.67,,34034,1.665,,26834,median factor 0.90,
+def_tackles,tk_85gs_K4,1.668,,34034,1.663,,26834,median factor 0.90,
+def_tackles,tk_85gs_K8,1.667,,34034,1.662,,26834,median factor 0.90,
+def_tackles,tk_85gs_med,1.648,,34034,1.633,,26834,median factor 0.90,
+def_sacks,sk_avg,0.208,0.419,34034,0.213,0.4219,26834,,0.00224
+def_sacks,sk_league,0.252,0.4429,34034,0.254,0.4513,26834,,0.00224
+def_sacks,sk_K100,0.214,0.3854,34034,0.22,0.3922,26834,,0.00224
+def_sacks,sk_K300,0.221,0.3813,34034,0.225,0.3887,26834,,0.00224
+def_sacks,sk_K600,0.227,0.384,34034,0.231,0.3916,26834,,0.00224
+def_sacks,sk_K1000,0.232,0.3892,34034,0.236,0.3968,26834,,0.00224

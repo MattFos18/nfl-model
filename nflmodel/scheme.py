@@ -101,7 +101,7 @@ def profile(d: pd.DataFrame, team: str, side: str) -> dict:
     db = x.dropback; ps = x.pass_play; run = x.play_type.eq("run"); nb = x.neutral
     out = {"plays": int(len(x)), "games": int(x.game_id.nunique()), "epa": round(float(x.epa.mean()), 3), "success": round(float(x.success.mean()), 3),
            "pass_rate": _rate(ps, x.play_type.notna()), "pass_rate_neutral": _rate(ps, nb), "pass_oe": (round(float((ps.astype(float) - x.xpass)[nb & x.xpass.notna()].mean()), 3) if (nb & x.xpass.notna()).any() else None),
-           "epa_pass": _epa(x, ps)["epa"], "epa_run": _epa(x, run)["epa"], "success_pass": _epa(x, ps)["success"], "success_run": _epa(x, run)["success"]}
+           "epa_pass": _epa(x, ps)["epa"], "epa_run": _epa(x, run)["epa"], "success_pass": _epa(x, ps)["success"], "success_run": _epa(x, run)["success"], "plays_pass": int(ps.sum()), "plays_run": int(run.sum())}
     if side == "offense":
         out.update({"shotgun": _rate(x.shotgun_f, x.play_type.notna()), "motion": _rate(x.is_motion == 1, x.is_motion.notna()), "play_action": _rate(x.is_play_action == 1, db & x.is_play_action.notna()),
                     "rpo": _rate(x.is_rpo == 1, x.is_rpo.notna()), "screen": _rate(x.is_screen_pass == 1, db & x.is_screen_pass.notna()), "no_huddle": _rate(x.is_no_huddle == 1, x.is_no_huddle.notna()),
@@ -129,8 +129,13 @@ def profile(d: pd.DataFrame, team: str, side: str) -> dict:
 def league(d: pd.DataFrame) -> dict:
     """League baselines for the same rates and the EPA in each look, so a team's number can be read against them."""
     ps = d.pass_play; db = d.dropback; run = d.play_type.eq("run"); cv = d[ps & d.cov_known]
-    return {"pass_rate_neutral": _rate(ps, d.neutral), "man": (round(float(cv.man.mean()), 3) if len(cv) else None), "blitz": _rate(d.blitz == 1, db & d.blitz.notna()), "pressure": _rate(d.pressure == 1, db & d.pressure.notna()),
+    return {"plays": int(len(d)), "plays_pass": int(ps.sum()), "plays_run": int(run.sum()), "epa": round(float(d.epa.mean()), 3),
+            "pass_rate_neutral": _rate(ps, d.neutral), "man": (round(float(cv.man.mean()), 3) if len(cv) else None), "zone": (round(float(cv.zone.mean()), 3) if len(cv) else None), "blitz": _rate(d.blitz == 1, db & d.blitz.notna()), "pressure": _rate(d.pressure == 1, db & d.pressure.notna()),
             "motion": _rate(d.is_motion == 1, d.is_motion.notna()), "play_action": _rate(d.is_play_action == 1, db & d.is_play_action.notna()), "shotgun": _rate(d.shotgun_f, d.play_type.notna()),
+            "rpo": _rate(d.is_rpo == 1, d.is_rpo.notna()), "screen": _rate(d.is_screen_pass == 1, db & d.is_screen_pass.notna()), "no_huddle": _rate(d.is_no_huddle == 1, d.is_no_huddle.notna()),
+            "time_to_throw": (round(float(d.time_to_throw[db].mean()), 2) if d.time_to_throw[db].notna().any() else None),
+            "rushers": (round(float(d.rushers[db].mean()), 2) if d.rushers[db].notna().any() else None), "box_run": (round(float(d.box[run].mean()), 2) if d.box[run].notna().any() else None), "heavy_box_rate": _rate(d.box >= 8, run & d.box.notna()),
+            "nickel_plus": _rate(d.dbs >= 5, d.dbs.notna()), "dime_plus": _rate(d.dbs >= 6, d.dbs.notna()),
             "epa_pass": _epa(d, ps)["epa"], "epa_run": _epa(d, run)["epa"],
             "vs": {"man": _epa(d, ps & d.man), "zone": _epa(d, ps & d.zone), "blitz": _epa(d, db & (d.blitz == 1)), "no_blitz": _epa(d, db & (d.blitz == 0)), "pressure": _epa(d, db & (d.pressure == 1)), "clean": _epa(d, db & (d.pressure == 0)),
                    "play_action": _epa(d, db & (d.is_play_action == 1)), "no_play_action": _epa(d, db & (d.is_play_action == 0)), "light_box": _epa(d, run & (d.box <= 6)), "heavy_box": _epa(d, run & (d.box >= 8)),
