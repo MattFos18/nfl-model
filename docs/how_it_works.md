@@ -484,6 +484,20 @@ points (better by 0.001 on one window, worse by 0.002 on the other). Turnover-ne
 7.3016). Neither adopted; the raw EPA ratings stay. The same run scored the 2015 to 2018 window at the new 4-point
 cut: 58-54, discussed under section 9.
 
+**Rest, surface, dead teams, ridge penalty** (23 Sep 2026, `experiments/rest_more.py`, `reports/rest_more.csv`).
+Rest had been dropped before the both-windows rule existed, so it was re-run: short week / off a bye for both
+teams (+0.011 / +0.002 on team points), the rest difference in days (+0.001 / -0.001), artificial turf (+0.004 /
+-0.001), teams out of the race after Week 13 at a 30% win rate or under, own and opponent (+0.0005 / -0.017), the
+record so far (+0.008 / -0.006), and the ridge penalty at 3, 30 and 100 against 10 (all within 0.001). Nothing
+helps on both windows. The dead-team flag is the one honest maybe: a clear held-out gain the tuning window does
+not show, so it is parked and gets re-checked once 2026 is in the books.
+
+**Stake** (23 Sep 2026, `picks.kelly_stake`). Each flagged spread now carries a stake: a quarter of the Kelly
+fraction, (p x b - (1 - p)) / b with p the calibrated cover odds for the model's side and b the payout at the best
+book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%;
+a 7-point edge at 55% about 1%. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
+Kelly at an overstated edge loses money. The picks markdown has a Stake column and the card shows it as a chip.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
