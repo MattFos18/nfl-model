@@ -55,6 +55,22 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     tie("docs: QB replacement level", f"shrunk toward {R.DEFAULT['qb_prior']:g}" in doc, True)
     tie("model inputs counted", len(M.FEATS), 22)
     tie("docs: input count", "twenty-two inputs" in doc or "Twenty-two inputs" in doc, True)
+    # the rule table (flag and shadows on the three windows) in docs section 9 and in the track record
+    rr = P.rule_records(d).set_index("rule")
+    tr = (REP / "track_record.md").read_text() if (REP / "track_record.md").exists() else ""
+    for who, r in rr.iterrows():
+        want = f"{r['2015-18']} | {r['2019-22']} | {r['2023-25']}"
+        m = re.search(rf"\n\| {re.escape(r['label'])} \| (\d+-\d+) \| (\d+-\d+) \| (\d+-\d+) \|", doc)
+        tie(f"docs section 9 rule table: {r['label']}", " | ".join(m.groups()) if m else "missing", want)
+        if tr:
+            lab = f"{se:g}+ edge (the flag, bet)" if who == "model" else f"shadow: {r['label']}"   # the track record's row labels
+            m = re.search(rf"\| {re.escape(lab)} \|.*\| (\d+-\d+) \| (\d+-\d+) \| (\d+-\d+) \|", tr)
+            tie(f"track record backtest columns: {r['label']}", " | ".join(m.groups()) if m else "missing", want)
+    # docs section 14 by-week table against the prediction table (2015 to 2025)
+    bw = B.by_week(B.join(p, g)[lambda x: x.spread_line.notna()], se)
+    for _, r in bw.iterrows():
+        m = re.search(rf"\n\| {r.weeks} \| (\d+) \| ([+-]\d\.\d\d) \| (\d+)% \| (\d+-\d+) \((\d+)%\) \|", doc)
+        tie(f"docs by-week row: weeks {r.weeks}", " ".join(m.groups()) if m else "missing", f"{r['games']} {r['gap']:+.2f} {r['ats_pct']} {r['flags']} {r['flag_pct']}")
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
     season, week = LN.current_week(g)
@@ -69,6 +85,8 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("picks file stakes = tracker stakes", sorted(flagged.stake_pct.round(2)), sorted(cur.stake_pct.round(2)))
         md = (REP / f"picks_{season}_wk{week}.md").read_text() if (REP / f"picks_{season}_wk{week}.md").exists() else ""
         tie("picks markdown names the live cut", f"edge is {se:g}+" in md, True)
+        m = re.search(r"that cut is (\d+-\d+) on the tuning window and (\d+-\d+) held out \(weeks 1 to 17\).*?and (\d+-\d+) on the untouched 2015 to 2018 window", md)
+        tie("picks markdown header records (tuning, held out, untouched)", " ".join(m.groups()) if m else "missing", f"{rr.loc['model', '2019-22']} {rr.loc['model', '2023-25']} {rr.loc['model', '2015-18']}")
     return rows
 
 

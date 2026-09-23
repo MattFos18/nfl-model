@@ -257,7 +257,7 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 | 4.5 | 65-44, 59.6% | 32-15, 68.1% | 61.5% | 65.4% | 69.0% | 42.9% (12-16) | 70.0% | 76.2% | 56.2% |
 | 5 | 39-29, 57.4% | 18-12, 60.0% | 63.2% | 57.1% | 66.7% | 45.0% (9-11) | 66.7% | 69.2% | 50.0% (7-7) |
 
-The 4-point cut is the best overall (132-80, 62.3%, across 2019 to 2025; 132-82 with the two 2026 games so far), the best on both windows at every volume, and after the out-of-the-race inputs went in it clears the 52.4% break-even in every season again (2022 is the closest at 21-19). 4.5 and 5 do not (2022 at 12-16 and 9-11). The cut is not chosen on this; it was set on 22 Sep and moves only on live results, and the shadow rules log the alternatives. The earlier "wins every season"
+The 4-point cut is the best overall (132-80, 62.3%, across 2019 to 2025; the live record is on the Results tab), the best on both windows at every volume, and after the out-of-the-race inputs went in it clears the 52.4% break-even in every season again (2022 is the closest at 21-19). 4.5 and 5 do not (2022 at 12-16 and 9-11). The cut is not chosen on this; it was set on 22 Sep and moves only on live results, and the shadow rules log the alternatives. The earlier "wins every season"
 line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
@@ -302,14 +302,24 @@ spreads and 6 for totals (the ROI-best thresholds that hold in both windows), wi
 next to every pick, and the 3 point rule is retired. It is a lead, not a proven edge. The 5+ bets split
 by side: home 52.8% on 303 bets at 3+, away 46.6% on 161; favourites and dogs the same.
 
-**Shadow rules (23 Sep 2026).** Two rules are logged and graded alongside the 4-point flag from Week 3 of 2026
-(`picks.SHADOWS`, `data/tracker/shadow45_picks.csv` and `shadowdog_picks.csv`, who = shadow45 / shadowdog in the
-graded table) but never bet, and appear only as one summary line each under "Rules compared" on the live tab:
-a 4.5-point cut (the best rate on the rebuilt backtest), and the 4-point cut on underdogs only. The second came
-from looking at where the flag's record lives: when the model's side is the underdog the flag is 49-40 on 2015
-to 2018, 81-53 on 2019 to 2022 and 35-18 held out; when its side is the favourite it is 13-19, 8-12 and 7-4. Found
-on the backtest, so not bet on the backtest: the decision between the three rules is made on the live record,
-with a reminder set for January 2027.
+**Shadow rules (23 Sep 2026).** Three rules are logged and graded alongside the 4-point flag from Week 3 of 2026
+(`picks.SHADOWS`, `data/tracker/shadow45_picks.csv`, `shadowdog_picks.csv` and `shadowearly_picks.csv`, who =
+shadow45 / shadowdog / shadowearly in the graded table) but never bet, and appear only as one summary line each
+under "Rules compared" on the live tab: a 4.5-point cut, the 4-point cut on underdogs only, and the 4-point cut in
+weeks 1 to 13 only. Their backtest records, regular season weeks 1 to 17 (`picks.rule_records`, recomputed by the
+tie check on every run; the live table carries the same columns):
+
+| Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
+|---|---|---|---|
+| 4+ edge (the flag) | 67-57 | 87-59 | 45-21 |
+| 4.5+ edge | 41-42 | 65-44 | 32-15 |
+| 4+ edge, model's side the underdog or pick'em | 49-36 | 78-45 | 34-17 |
+| 4+ edge, weeks 1 to 13 only | 54-42 | 71-41 | 34-16 |
+
+The underdog rule came from looking at where the flag's record lives: when the model's side is the favourite the
+flag is 18-21 untouched, 9-14 tuning and 11-4 held out. The 4.5 cut has the best rate on the two tuned windows and
+loses on the untouched one. All three were found on the backtest, so none is bet on the backtest: the decision
+between the rules is made on the live record, with a reminder set for January 2027.
 
 ## 10. How much to trust the backtest
 
@@ -581,29 +591,30 @@ instead of everything since 2013. None helps on both windows (10: equal tuning, 
 8: +0.004 / -0.001; 6: +0.008 / +0.018). So the gain from starting in 2015 is about those two particular seasons,
 not a rule, and everything since 2013 stays.
 
-**By week of the season** (23 Sep 2026; the table lives on the Results tab and is recomputed on every run). On
-2015 to 2025, the model's spread miss minus the line's, and the 4-point flag:
+**By week of the season** (23 Sep 2026; the table lives on the Results tab and is recomputed on every run, and the
+tie check compares this copy with the prediction table). On 2015 to 2025, the model's spread miss minus the line's,
+the every-game cover rate on the model's side, and the 4-point flag:
 
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | +0.03 | 53% | 16-9 (64%) |
-| 2 | 176 | -0.08 | 55% | 18-5 (78%) |
-| 3 | 176 | +0.12 | 51% | 15-11 (58%) |
-| 4 | 171 | +0.24 | 50% | 10-6 (62%) |
-| 5 to 8 | 632 | +0.19 | 51% | 47-33 (59%) |
-| 9 to 13 | 793 | +0.20 | 48% | 53-43 (55%) |
-| 14 to 17 | 692 | +0.25 | 50% | 34-39 (47%) |
-| 18 | 80 | +0.31 | 53% | 8-10 (44%) |
-| Playoffs | 133 | +0.22 | 48% | 10-5 |
+| 1 | 175 | +0.02 | 53% | 18-9 (67%) |
+| 2 | 176 | -0.08 | 54% | 20-5 (80%) |
+| 3 | 176 | +0.13 | 53% | 15-13 (54%) |
+| 4 | 171 | +0.24 | 48% | 10-6 (62%) |
+| 5 to 8 | 632 | +0.19 | 51% | 48-30 (62%) |
+| 9 to 13 | 793 | +0.17 | 50% | 48-36 (57%) |
+| 14 to 17 | 692 | +0.24 | 51% | 40-38 (51%) |
+| 18 | 80 | +0.47 | 54% | 9-10 (47%) |
+| Playoffs | 133 | +0.22 | 48% | 10-7 (59%) |
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
-line (in Week 2 it is ahead of it) and where the flag has done best (49-25). The market seems to underweight last
+line (in Week 2 it is ahead of it) and where the flag has done best (53-27). The market seems to underweight last
 season's ratings early, and the model leans on them. The weak stretch is late: Weeks 14 to 17 are the only span
-where the flag loses (34-39), and Week 18 is worse still (8-10, the largest gap, and the model's disagreements
-with the line are widest there, 3.6 points against 2.6). Week 18 is already skipped. The late-season slide is
-the reason the dead-team flag (teams out of the race after Week 13) is worth the January re-test with 2026 in the
-held-out window. The playoffs are 133 games; the model sits 0.22 behind the line and the flag is 10-5 on fifteen
-bets, too few to mean anything, and playoff games are not flagged.
+where the flag sits under break-even (40-38, 51%; it was 34-39 before the out-of-the-race inputs went in on 23 Sep
+2026), and Week 18 is worse still (9-10, the largest gap, and the model's disagreements with the line are widest
+there, 3.1 points against 2.1). Week 18 is already skipped. The late-season slide is why the out-of-the-race inputs
+get the January re-test with 2026 in the held-out window. The playoffs are 133 games; the model sits 0.22 behind
+the line and the flag is 10-7 on seventeen bets, too few to mean anything, and playoff games are not flagged.
 
 **A second model family** (23 Sep 2026, `experiments/gbm.py`, `reports/gbm.csv`). Gradient-boosted trees on the same
 twenty inputs, refit before each season, against ridge refit the same way. Trees lose clearly on both windows at
