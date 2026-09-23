@@ -245,18 +245,16 @@ and the live tracker is what settles it.
 
 ## 9. Betting thresholds: what the sweep says
 
-**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12: the flag is 4.** Re-swept
+**Update, 23 Sep 2026, on the twenty-input model with the QB replacement level at -0.12 and the player model at 480 touches / 10th percentile: the flag is 4.** Re-swept
 after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17; until the tie-out of 23 Sep the sweep's held-out column also counted the live season's games, so its earlier held-out records ran two bets larger):
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 89-65, 57.8% | 44-26, 62.9% | 57.6% | 61.5% | 60.0% | 51.4% (19-18) | 72.7% | 59.4% | 63.0% |
-| 4.5 | 67-46, 59.3% | 31-19, 62.0% | 63.0% | 60.0% | 61.8% | 51.9% (14-13) | 66.7% | 63.6% | 57.9% |
-| 5 | 44-31, 58.7% | 21-13, 61.8% | 64.7% | 52.9% | 63.2% | 54.5% | 100% (4-0) | 64.3% | 50.0% (8-8) |
+| 4 | 89-65, 57.8% | 42-22, 65.6% | 56.2% | 68.3% | 56.5% | 48.6% (17-18) | 69.2% | 69.0% | 59.1% |
+| 4.5 | 72-43, 62.6% | 33-17, 66.0% | 64.0% | 67.7% | 64.7% | 52.0% (13-12) | 66.7% | 69.6% | 61.1% |
+| 5 | 50-35, 58.8% | 19-12, 61.3% | 65.0% | 60.0% | 58.3% | 52.4% (11-10) | 75.0% | 64.3% | 53.8% |
 
-The 4-point cut is still the best overall (133-91, 59.4%, across 2019 to 2025; 133-93 with the two 2026 games so far) and on both windows, at twice the volume of 5 with
-the same rate. It no longer clears the 52.4% break-even in every season: 2022 is 19-18 on the rebuilt model (it was
-54.1% before the QB replacement level moved), and no cut does (5 has 2025 at 8-8). The earlier "wins every season"
+The 4-point cut is still the best overall for its volume (131-87, 60.1%, across 2019 to 2025; 131-89 with the two 2026 games so far) and on both windows, at nearly twice the volume of 5. It does not clear the 52.4% break-even in every season: 2022 is 17-18 on the rebuilt model (54.1% before the day's two knob changes), and no cut does (4.5 has 2022 at 13-12, 5 has 2022 at 11-10, a hair under). 4.5 now shows the best rate (62.6% / 66.0%) on 165 bets; it is not adopted on that alone, since the cut was chosen before today's changes and the rate difference is within noise on this sample. The earlier "wins every season"
 line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
