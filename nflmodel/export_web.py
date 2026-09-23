@@ -301,7 +301,10 @@ def main():
     REPD = ROOT / "reports"
     def csv_rows(name):
         f = REPD / name
-        return pd.read_csv(f).round(4).to_dict("records") if f.exists() else []
+        if not f.exists():
+            return []
+        d = pd.read_csv(f).round(4)
+        return [{k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in r.items()} for r in d.to_dict("records")]   # NaN would reach the page as NaN
     def txt(name):
         f = REPD / name
         return f.read_text() if f.exists() else ""
