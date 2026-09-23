@@ -149,7 +149,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     for r in rr[rr.status.isin(NOT_AVAILABLE)].itertuples():
         status[(r.team, r.gsis_id)] = ROSTER_LABEL.get(r.status, r.status)
     # skill (players.py logic) and QB, defenders, kickers through PlayerValues on each table
-    pv_skill = PlayerValues(pg, p["decay"], p["k"]); _, by_player, _ = _usage_frames(pg)
+    pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, _ = _usage_frames(pg)
     pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
     qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12))

@@ -522,12 +522,23 @@ bar, and 40 to 80 are indistinguishable. 150 stays.
 under 35F, a hand-set number. 30F, 40F and 45F, and a continuous "degrees under 45F" term, are all worse on both
 windows (+0.004 to +0.012 on team points). 35F stays.
 
+**Player-model knobs** (23 Sep 2026, `experiments/player_knobs.py`, `player_third.py`; `reports/player_knobs.csv`,
+`player_third.csv`). The skill-player values behind the two injury inputs were decayed 0.985 per game, shrunk with
+80 touches of weight toward the 25th percentile, all set by hand. Three rounds on both windows, the skill-out
+inputs rebuilt each time: every step of more shrinkage helped (160, 240, 320, 480, 640 touches: -0.001 to -0.0035
+tuning, -0.002 to -0.005 held out on team points) and so did a lower replacement level (10th percentile: -0.0007 /
+-0.004; 5th too far on the tuning window). The combination of 480 touches at the 10th percentile is the best that
+helps both windows (-0.0025 / -0.0083; spread miss 10.023 / 9.970 against 10.032 / 9.977) and the untouched 2015 to
+2018 window agrees on both measures (7.4145 / 10.007 against 7.4167 / 10.010). Adopted. What it means: a player's
+own EPA per touch is mostly noise, so his value is now largely his usage times a small, well-estimated gap; a
+star still counts, a hot month does not. Decay 0.97 and 0.995 were worse or flat; 0.985 stays.
+
 ## 15. The player model
 
 Phase 1 (`nflmodel/players.py`, `data/processed/player_games.parquet`): one row per game, team, player and role
 (passer, rusher, receiver) from the play-by-play since 2013, with plays and EPA; about 95,000 rows, 2,400 players.
-`PlayerValues` gives any player a decayed (0.985 per game), shrunk (k = 80 touches) EPA per play as of a week,
-toward a replacement level set at the 25th percentile of players with 100+ plays in earlier seasons.
+`PlayerValues` gives any player a decayed (0.985 per game), shrunk (k = 480 touches; 80 until 23 Sep 2026) EPA per play as of a week,
+toward a replacement level set at the 10th percentile (25th until 23 Sep 2026) of players with 100+ plays in earlier seasons.
 
 Phase 2 (`injury_value`, `data/processed/player_injury.parquet`): for each game and team, the value lost to RB, WR
 and TE listed Out or Doubtful on the final report: value above replacement times the player's usage share, summed.
@@ -541,7 +552,7 @@ week counts the player as out, in the player model and in the starter and QB fla
 not used: they are known only ninety minutes before kickoff, so using them in the backtest would be cheating.
 
 **How a player's impact is rated.** Each rusher or receiver has an EPA per touch: the average EPA of the plays he
-carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 80 touches of weight
+carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 480 touches of weight (80 until 23 Sep 2026)
 (a rookie with 20 touches is mostly the prior; a veteran with 300 is mostly himself). Replacement level is the 25th
 percentile of players with 100+ touches in earlier seasons, about 0.05 EPA per touch for receivers and -0.1 for
 rushers. The player's value is (EPA per touch minus replacement) times his share of the team's touches, in EPA per

@@ -4,7 +4,7 @@ player_games.parquet   one row per (game, team, player, role) from the play-by-p
                        receiver (targets), with the player's name. 2013 on.
 PlayerValues           a decayed, shrunk EPA per play for any player and role as of a week: nothing from that week or
                        later. Same shape as the QB rating (ratings.QBRatings): value = (sum w*epa + k*prior) / (sum w*plays + k).
-                       The prior is replacement level for the role: the 25th percentile of per-play EPA among players
+                       The prior is replacement level for the role: the 10th percentile (25th until 23 Sep 2026) of per-play EPA among players
                        with 100+ plays in the seasons before the one asked for.
 injury_value()         per (game, team): the value the offense loses to skill players listed Out or Doubtful on the
                        final report, in EPA per team play: sum over those players of (value - replacement) x their usage
@@ -23,7 +23,7 @@ from .features import RAW, OUT, TEAM_FIX
 ROLES = {"passer": ("passer_player_id", "passer_player_name", "qb_dropback"), "rusher": ("rusher_player_id", "rusher_player_name", "rush_attempt"),
          "receiver": ("receiver_player_id", "receiver_player_name", "pass_attempt")}
 SKILL = {"rusher", "receiver"}
-DEFAULT = {"decay": 0.985, "k": 80.0, "usage_games": 8}
+DEFAULT = {"decay": 0.985, "k": 480.0, "usage_games": 8, "pct": 10}   # k 80 / 25th percentile until 23 Sep 2026: swept on both windows and 2015 to 2018 (reports/player_knobs.csv, player_third.csv)
 PCOLS = ["game_id", "season", "week", "season_type", "posteam", "epa", "qb_epa", "qb_dropback", "rush_attempt", "pass_attempt", "play_type"] + [c for r in ROLES.values() for c in r[:2]]
 
 
@@ -52,8 +52,8 @@ def player_box(p: pd.DataFrame) -> pd.DataFrame:
 
 
 class PlayerValues:
-    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"]):
-        self.pg = pg.sort_values(["season", "week"]); self.decay, self.k = decay, k
+    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"], pct: float = 25):
+        self.pg = pg.sort_values(["season", "week"]); self.decay, self.k, self.pct = decay, k, pct
         self._cache, self._prior = {}, {}
         self.by = {key: g for key, g in self.pg.groupby(["player_id", "role"])}
 
@@ -63,7 +63,7 @@ class PlayerValues:
             h = self.pg[(self.pg.role == role) & (self.pg.season < season)]
             tot = h.groupby("player_id").agg(plays=("plays", "sum"), epa=("epa", "sum"))
             tot = tot[tot.plays >= 100]
-            self._prior[key] = float(np.percentile(tot.epa / tot.plays, 25)) if len(tot) else 0.0
+            self._prior[key] = float(np.percentile(tot.epa / tot.plays, self.pct)) if len(tot) else 0.0
         return self._prior[key]
 
     def value(self, pid: str, role: str, season: int, week: int) -> tuple[float, float]:
@@ -169,7 +169,7 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
     out_by = {k: set(g.gsis_id.dropna()) for k, g in inj.groupby(["season", "week", "team"])}
     for k, ids in unavailable_by_week(seasons).items():      # IR and the like: not on the injury report, still out
         out_by[k] = out_by.get(k, set()) | ids
-    pv = PlayerValues(pg, p["decay"], p["k"])
+    pv = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25))
     _, by_player, _ = _usage_frames(pg)
     names = {r.gsis_id: r.full_name for r in load_injuries(seasons).drop_duplicates("gsis_id").itertuples() if isinstance(r.full_name, str)}
     for s_ in seasons:
@@ -196,7 +196,7 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
 def team_players(games: pd.DataFrame, pg: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.DataFrame:
     """Every skill player with a touch in his last eight games, valued as of (season, week), with this week's injury
     status: what the page shows under Team -> Players and what the card lists when someone is out."""
-    pv = PlayerValues(pg, p["decay"], p["k"])
+    pv = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25))
     skill, by_player, by_team = _usage_frames(pg)
     inj = load_injuries([season]); inj = inj[(inj.season == season) & (inj.week == week)]
     status = {(r.team, r.gsis_id): (r.report_status if isinstance(r.report_status, str) else (r.practice_status if isinstance(r.practice_status, str) else "")) for r in inj.itertuples()}
