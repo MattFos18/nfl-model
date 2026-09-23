@@ -4,7 +4,8 @@ with the game model's own as-of expected points (data/processed/pred_v3.parquet,
   B. reconciliation: the team's expected touchdowns (and yards) from its expected points, fitted on 2016 to 2018
      (actual team touchdowns against model expected points), and every player's projection scaled so the team's
      players add up to it, with the scale shrunk toward 1 by a weight w
-Scored on both windows by absolute error (yards) and Poisson log loss (touchdowns). Output reports/props_backtest6.csv."""
+Scored on both windows by absolute error (yards) and Poisson log loss (touchdowns). Output reports/props_backtest6.csv; the
+<kind>_team_fit rows carry the fitted intercept and slope (first two numeric columns) of team touchdowns and yards on expected points."""
 import numpy as np, pandas as pd, pathlib
 from scipy.special import gammaln
 from nflmodel.model import OUT
@@ -42,7 +43,8 @@ for kind in ["rec", "rush", "pass"]:
     f = f.merge(tg[["game_id", "posteam", "scale_td", "scale_yds"]], on=["game_id", "posteam"], how="left")
     for w in [0.25, 0.5, 1.0]:
         f[f"td_recon{int(w*100)}"] = f.td_vegas * (1 + w * (f.scale_td.fillna(1) - 1)); f[f"yds_recon{int(w*100)}"] = f.yds_vegas * (1 + w * (f.scale_yds.fillna(1) - 1))
-    print(kind, "team fit: td = %.3f + %.4f x pts; yds = %.1f + %.2f x pts" % (ct[0], ct[1], cy[0], cy[1]), flush=True)
+    print(kind, "team fit: td = %.4f + %.5f x pts; yds = %.2f + %.3f x pts" % (ct[0], ct[1], cy[0], cy[1]), flush=True)
+    rows.append({"stat": f"{kind}_team_fit", "variant": "td", "mae_2019-22": round(float(ct[0]), 4), "mae_2023-25": round(float(ct[1]), 5)}); rows.append({"stat": f"{kind}_team_fit", "variant": "yds", "mae_2019-22": round(float(cy[0]), 2), "mae_2023-25": round(float(cy[1]), 3)})
     for col in ["yds_vegas", "yds_model", "yds_blend", "yds_recon25", "yds_recon50", "yds_recon100"]: rows.append({"stat": f"{kind}_yards", "variant": col, **ev(f, col, "act_yds", False)})
     for col in ["td_vegas", "td_model", "td_blend", "td_recon25", "td_recon50", "td_recon100"]: rows.append({"stat": f"{kind}_td", "variant": col, **ev(f, col, "act_td", True)})
     print(pd.DataFrame(rows)[pd.DataFrame(rows).stat.str.startswith(kind)].to_string(), flush=True)

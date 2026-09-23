@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 17:15 UTC
+# Tie-out (sources and page), 2026-09-23 17:59 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -36,16 +36,18 @@ The same number must read the same everywhere it appears. Each row: what was com
 | scheme profiles as of the current week | 2026 3 | 2026 3 | yes |
 | scheme profiles cover 32 teams | 32 | 32 | yes |
 | props projections are for the current week | 2026 3 | 2026 3 | yes |
-| props backtest errors on the page = props_backtest4.csv (base for receiving and rushing, combo for passing) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | yes |
+| props backtest errors on the page = props_backtest6.csv (the reconciliation rows adopted) | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
+| props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006) | {'rec_yards': [19.444, 18.46], 'rush_yards': [18.362, 17.602], 'pass_yards': [60 | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | yes |
+| props team fit constants = props_backtest6.csv | {'rec': {'td': [-0.2529, 0.07481], 'yds': [86.16, 6.483]}, 'rush': {'td': [-0.18 | {'rec': {'td': [-0.2529, 0.07481], 'yds': [86.16, 6.483]}, 'rush': {'td': [-0.18 | yes |
 | props round-4 base = round-3 adopted variant (receiving, rushing) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6]} | yes |
 | props median factors = props_backtest3.csv | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | {'rec': 0.88, 'rush': 0.84, 'pass': 0.9} | yes |
 | props game-script line = props_backtest3.csv | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | {'total': 43.5674, 'rec': [-0.5969, -0.046, 0.1636], 'rush': [0.3413, 0.103, -0. | yes |
 | props passing wind factor = props_backtest4.csv | -0.005 | -0.005 | yes |
 | props backtest rounds on the page = the five CSVs (rows) | [71, 18, 37, 59, 38] | [71, 18, 37, 59, 38] | yes |
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
-| props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows) | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | {'rec_yards': [19.44, 18.46], 'rush_yards': [18.36, 17.6], 'pass_yards': [60.71, | yes |
+| props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006) | {'rec_yards': [19.4, 18.42], 'rush_yards': [18.23, 17.44], 'pass_yards': [57.68, | {'rec_yards': [19.397, 18.421], 'rush_yards': [18.231, 17.435], 'pass_yards': [5 | yes |
 | props file = props page data (projections: 3 per receiver, 2 per rusher, 3 per QB) | 1047 | 1047 | yes |
-| props count backtests on the page = props_backtest5.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5101, 0.4869], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5101, 0.4869], 'rush_td_ll': [0. | yes |
+| props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants) | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | {'rec_catches': [1.438, 1.359], 'rec_td_ll': [0.5086, 0.4858], 'rush_td_ll': [0. | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | {'rec_catch': 'K 25, median factor 0.88', 'rec_td': 'K 200, margin coefficient 0 | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
@@ -63,4 +65,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 
-Result: PASS (58 of 58 tie)
+Result: PASS (60 of 60 tie)
