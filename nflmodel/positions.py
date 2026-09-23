@@ -149,7 +149,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     for r in rr[rr.status.isin(NOT_AVAILABLE)].itertuples():
         status[(r.team, r.gsis_id)] = ROSTER_LABEL.get(r.status, r.status)
     # skill (players.py logic) and QB, defenders, kickers through PlayerValues on each table
-    pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, _ = _usage_frames(pg)
+    pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, by_team = _usage_frames(pg)
     pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
     qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12))
@@ -171,7 +171,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                 row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.dropbacks.mean()), 1), "share": None, "epa_per_play": round(rating, 3), "value_above_replacement": round(rating - qbr.prior, 4), "basis": "EPA per dropback (QB rating)"})
         elif grp == "Skill":
             from .players import player_value_out
-            d = player_value_out(pv_skill, by_player, r.gsis_id, season, week, p["usage_games"])
+            d = player_value_out(pv_skill, by_player, r.gsis_id, season, week, p["usage_games"], r.team, by_team)
             if d["games"]:
                 row.update({"games": d["games"], "plays_per_game": round(d["per_game"], 1), "share": round(d["share"], 3), "epa_per_play": round(d["epa_play"], 3), "value_above_replacement": round(d["value"], 4), "basis": "EPA per touch x touch share"})
         elif grp == "Defense":

@@ -97,31 +97,47 @@ def _usage_frames(pg: pd.DataFrame):
     return skill, by_player, by_team
 
 
-def player_usage(by_player: dict, pid: str, season: int, week: int, n_games: int) -> tuple[float, float, int]:
-    """The player's share of his team's touches over his own last n games before (season, week), on any team: a
-    star traded in the offseason keeps the usage he had, instead of counting as nobody because his new team has
-    not seen him yet. Returns (share, touches per game, games)."""
+TEAM_WINDOW = True   # 23 Sep 2026: usage counted over the team's last n games, not the player's (see player_usage)
+
+
+def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | None, season: int, week: int, n_games: int):
+    """The rows and the touch denominator a player's usage is measured on. With a team and TEAM_WINDOW: the team's
+    last n games before (season, week), and only his touches for that team, so a player traded in counts for as
+    much of the window as he has actually played in (the team's ratings are built on the same games; a star who has
+    never played for the team is not in them, so his absence cannot be taken out of them). Otherwise: his own last
+    n games on any team. Returns (his rows, team touches over the window, games in the window he played in)."""
     g = by_player.get(pid)
     if g is None:
-        return 0.0, 0.0, 0
-    h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
-    ids = h.game_id.drop_duplicates().tail(n_games)
-    h = h[h.game_id.isin(ids)]
-    if len(h) == 0:
-        return 0.0, 0.0, 0
-    tot = float(h.groupby("game_id").team_plays.first().sum())
-    return (float(h.plays.sum()) / tot if tot else 0.0), float(h.plays.sum()) / len(ids), int(len(ids))
-
-
-def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, week: int, n_games: int) -> dict:
-    """Value lost if this player is out: EPA per team play = sum over roles of (value - replacement) x role share."""
-    g = by_player.get(pid)
-    share, per_game, n = player_usage(by_player, pid, season, week, n_games)
-    if g is None or n == 0:
-        return {"value": 0.0, "share": 0.0, "per_game": 0.0, "games": 0, "epa_play": 0.0, "name": None}
+        return None, 0.0, 0
+    if TEAM_WINDOW and team is not None and by_team is not None and team in by_team:
+        tg = by_team[team]; tg = tg[(tg.season < season) | ((tg.season == season) & (tg.week < week))]
+        ids = tg.game_id.drop_duplicates().tail(n_games)
+        h = g[(g.team == team) & g.game_id.isin(ids)]
+        tot = float(tg[tg.game_id.isin(ids)].groupby("game_id").team_plays.first().sum())
+        return h, tot, int(h.game_id.nunique())
     h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
     ids = h.game_id.drop_duplicates().tail(n_games); h = h[h.game_id.isin(ids)]
-    tot = float(h.groupby("game_id").team_plays.first().sum()) or 1.0
+    return h, float(h.groupby("game_id").team_plays.first().sum()), int(len(ids))
+
+
+def player_usage(by_player: dict, pid: str, season: int, week: int, n_games: int, team: str | None = None, by_team: dict | None = None) -> tuple[float, float, int]:
+    """The player's share of his team's touches over the usage window (see _usage_window). Returns (share, touches
+    per game over the window, games in the window he played in)."""
+    h, tot, n = _usage_window(by_player, by_team, pid, team, season, week, n_games)
+    if h is None or len(h) == 0 or n == 0:
+        return 0.0, 0.0, 0
+    games_in_window = n_games if (TEAM_WINDOW and team is not None and by_team is not None and team in by_team) else n
+    return (float(h.plays.sum()) / tot if tot else 0.0), float(h.plays.sum()) / max(games_in_window, 1), n
+
+
+def player_value_out(pv: PlayerValues, by_player: dict, pid: str, season: int, week: int, n_games: int, team: str | None = None, by_team: dict | None = None) -> dict:
+    """Value lost if this player is out: EPA per team play = sum over roles of (value - replacement) x role share."""
+    g = by_player.get(pid)
+    share, per_game, n = player_usage(by_player, pid, season, week, n_games, team, by_team)
+    if g is None or n == 0:
+        return {"value": 0.0, "share": 0.0, "per_game": 0.0, "games": 0, "epa_play": 0.0, "name": None}
+    h, tot, _ = _usage_window(by_player, by_team, pid, team, season, week, n_games)
+    tot = tot or 1.0
     val, epa = 0.0, 0.0
     for role in SKILL:
         hr = h[h.role == role]
@@ -170,7 +186,7 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
     for k, ids in unavailable_by_week(seasons).items():      # IR and the like: not on the injury report, still out
         out_by[k] = out_by.get(k, set()) | ids
     pv = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25))
-    _, by_player, _ = _usage_frames(pg)
+    _, by_player, by_team = _usage_frames(pg)
     names = {r.gsis_id: r.full_name for r in load_injuries(seasons).drop_duplicates("gsis_id").itertuples() if isinstance(r.full_name, str)}
     for s_ in seasons:
         rf = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
@@ -184,7 +200,7 @@ def injury_value(games: pd.DataFrame, pg: pd.DataFrame, seasons=range(2013, 2027
         outs = out_by.get((r.season, r.week, r.team), set())
         val, share, n, detail = 0.0, 0.0, 0, []
         for pid in outs:
-            d = player_value_out(pv, by_player, pid, r.season, r.week, p["usage_games"])
+            d = player_value_out(pv, by_player, pid, r.season, r.week, p["usage_games"], r.team, by_team)
             if d["games"] == 0:
                 continue
             val += d["value"]; share += d["share"]; n += 1
@@ -218,7 +234,7 @@ def team_players(games: pd.DataFrame, pg: pd.DataFrame, season: int, week: int, 
         h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
         ids = h.game_id.drop_duplicates().tail(p["usage_games"])
         for pid in h[h.game_id.isin(ids)].player_id.unique():
-            d = player_value_out(pv, by_player, pid, season, week, p["usage_games"])
+            d = player_value_out(pv, by_player, pid, season, week, p["usage_games"], t, by_team)
             last_team = by_player[pid].iloc[-1].team
             if last_team != t or pos.get(pid) == "QB" or (pid in passers and pos.get(pid, "") == ""):
                 continue    # he has moved on, or he is the quarterback (qb_out covers him)
