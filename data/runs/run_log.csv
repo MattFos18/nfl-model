@@ -232,3 +232,30 @@ export data room,ok,,15.6,2026-09-23 12:47 UTC
 tie check (page),ok,True,0.1,2026-09-23 12:47 UTC
 audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.6,2026-09-23 12:47 UTC
 legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",13.8,2026-09-23 12:47 UTC
+pull,ok,"[('2026-09-23T13:12:04', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180017, 'b0a49f6e0107'), ('2026-09-23T13:12:04', 'pbp', 2025, 'ht",2.0,2026-09-23 13:12 UTC
+build,ok,"team_games (8202, 142)",253.3,2026-09-23 13:12 UTC
+features,ok,[40 rows x 8 columns],19.5,2026-09-23 13:12 UTC
+verify,ok,Result: PASS,0.5,2026-09-23 13:12 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-23 09:16
+1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09",2.0,2026-09-23 13:12 UTC
+ratings,ok,"(7668, 49)",32.1,2026-09-23 13:12 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,82.2,2026-09-23 13:12 UTC
+players,ok,max           0.104502         1.357485    14.000000,146.1,2026-09-23 13:12 UTC
+positions,ok,Skill    525.0  0.004309  0.0008  0.0531,14.2,2026-09-23 13:12 UTC
+model,ok,               neutral            0.074       0.133          0.010,29.0,2026-09-23 13:12 UTC
+picks,ok,"              game_id  season  week  ...     bet_p bet_odds stake_pct
+3060   2026_03_ATL_GB    2026     3  ...       NaN      NaN       NaN
+3061  2026_03_LAC_BUF    2026     3  ...       NaN      NaN ",0.3,2026-09-23 13:12 UTC
+log run,ok,"                    run_at  season  week  ... spread_line  total_line        bet
+3060  2026-09-23 13:12 UTC    2026     3  ...         5.5        43.5           
+3061  2026-09-23 13:12 UTC    2026    ",0.0,2026-09-23 13:12 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-09-23 13:12 UTC    2026     3  ...        4.88      -0.06    0.659
+1  2026-09-23 13:12 UTC    2026     3  ...        ",0.1,2026-09-23 13:12 UTC
+grade,ok,,0.2,2026-09-23 13:12 UTC
+tie check (sources),ok,True,0.1,2026-09-23 13:12 UTC
+export data room,ok,,23.0,2026-09-23 13:12 UTC
+tie check (page),ok,True,0.2,2026-09-23 13:12 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.8,2026-09-23 13:12 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",20.8,2026-09-23 13:12 UTC

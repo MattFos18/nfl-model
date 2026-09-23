@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-23 12:57 UTC
+# Tie-out (sources and page), 2026-09-23 13:22 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
