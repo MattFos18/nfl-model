@@ -1787,3 +1787,23 @@ agreement to 0.55 and improves the All-Pro linemen's median rank on both windows
 `experiments/ol_allpro.py`), but their average percentile, the measure used for every other group, is 0.712 to
 0.710 on 2019-22 and 0.645 to 0.668 on 2023-25: not better on both windows, so not adopted. The unit rating stays a
 unit rating: every lineman on a line shares it per snap.
+
+## 33. Who a player faced: opponent-adjusted values (24 Sep 2026)
+
+EPA per play is nflfastR's expected points added: each play scored by down, distance, yard line and time before and
+after it. It does not know the defense. `experiments/opp_adjust.py` re-scores every past game against an average
+defense (the game's EPA less the opponent defense's EPA allowed per pass play, or per run for a rusher, coming into
+that game, against that season's league) and asks which rate predicts the player's next game. Error lower than the
+raw rate (percent, 2015-18 / 2019-22 / 2023-25):
+
+| Role | Past games adjusted | Next opponent added too |
+|---|---|---|
+| Passers | 0.23 / 0.17 / 0.13 | 1.35 / 1.48 / 1.15 |
+| Receivers | 0.19 / 0.25 / 0.17 | -0.85 / 0.11 / -0.78 |
+| Rushers | 0.93 / 0.18 / 0.35 | -1.58 / -0.36 / -1.36 |
+
+Adjusting a player's past games is better for every role on every window, so player pages show it ("Against an
+average defense"). Adding the next opponent helps passers and hurts receivers and rushers; the game model already has
+the opponent defense as an input, so no matchup term is added to player values. In the game model (skill players
+listed out, `experiments/opp_adjust_model.py`) the adjusted values made no difference that passes both windows (margin
+miss 10.0324 both ways on 2019-22, 9.9141 against 9.9143 on 2023-25), so the model keeps the raw values.

@@ -344,6 +344,9 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
         status[(r.team, r.gsis_id)] = ROSTER_LABEL.get(r.status, r.status)
     # skill (players.py logic) and QB, defenders, kickers through PlayerValues on each table
     pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, by_team = _usage_frames(pg)
+    # the same, each game's EPA against an average defense (24 Sep 2026, experiments/opp_adjust.py: predicts a player's
+    # next game better for every role on every window; the game model keeps the raw value, where it made no difference)
+    pv_adj = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25), opp_adjust=True)
     roles = defender_roles(dg)
     grp_rate, grp_repl = role_rates(dg, roles, season, week)
     dg = dg.assign(role=dg.player_id.map(roles))   # the role is the position group, so the replacement level is per group
@@ -373,11 +376,15 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                 st = h.merge(team_db, on=["game_id", "team"], how="left"); st = st[st.dropbacks >= 0.5 * st.team_db]
                 rec = st.tail(8) if len(st) else h.tail(8)
                 row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.dropbacks.mean()), 1), "share": None, "epa_per_play": round(rating, 3), "value_above_replacement": round(rating - qbr.prior, 4), "basis": "EPA per dropback (QB rating)"})
+                adj = pv_adj.value(r.gsis_id, "passer", season, week)[0] - pv_skill.value(r.gsis_id, "passer", season, week)[0]
+                row["epa_play_vs_avg_def"] = round(rating + adj, 3)   # the QB rating moved by how much his past defenses flattered or hurt his passing
         elif grp == "Skill":
             from .players import player_value_out
             d = player_value_out(pv_skill, by_player, r.gsis_id, season, week, p["usage_games"], r.team, by_team)
             if d["games"]:
                 row.update({"games": d["games"], "plays_per_game": round(d["per_game"], 1), "share": round(d["share"], 3), "epa_per_play": round(d["epa_play"], 3), "value_above_replacement": round(d["value"], 4), "basis": "EPA per touch x touch share"})
+                da = player_value_out(pv_adj, by_player, r.gsis_id, season, week, p["usage_games"], r.team, by_team)
+                row["epa_play_vs_avg_def"] = round(da["epa_play"], 3)
         elif grp == "Defense":
             g = def_by.get(r.gsis_id)
             if g is not None:
