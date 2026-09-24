@@ -76,6 +76,7 @@ def evaluate(R: pd.DataFrame, avail: dict, blend: dict) -> pd.DataFrame:
     R["breakout"] = (R["rank"] <= R.kind.map(PS.TOP_N)) & (R.proj_pg >= PS.BREAK_UP * R.prev_pg) & (R.prev_games > 0)
     R["err"] = (R.proj_yards - R.actual_yards).abs(); R["pace_err"] = (R.pace_yards - R.actual_yards).abs(); R["prev_err"] = (R.prev_yards - R.actual_yards).abs()
     R["bias"] = R.proj_yards - R.actual_yards
+    R["rel"] = R.err / R.actual_yards.clip(lower=1)   # the miss as a share of what he finished with (24 Sep 2026: the page's accuracy %)
     return R
 
 
@@ -101,9 +102,9 @@ def main():
     # 2. the test seasons under the fitted constants
     T = evaluate(test, avail, blend)
     for (k, w, wk), g in T.groupby(["kind", "window", "week"]):
-        out.append({"row": "mae", "kind": k, "window": w, "asof_week": wk, "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean()})
+        out.append({"row": "mae", "kind": k, "window": w, "asof_week": wk, "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean())})
     for (k, w), g in T.groupby(["kind", "window"]):
-        out.append({"row": "mae", "kind": k, "window": w, "asof_week": "all", "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean()})
+        out.append({"row": "mae", "kind": k, "window": w, "asof_week": "all", "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean())})
     # 3. breakouts: flagged as of the week; true when he finished at least BREAK_UP x last season per game and inside the top N
     T["hit"] = (T.actual_pg >= PS.BREAK_UP * T.prev_pg) & (T.actual_rank <= T.kind.map(PS.TOP_N)) & (T.prev_games > 0)
     top = T[T["rank"] <= T.kind.map(PS.TOP_N)]

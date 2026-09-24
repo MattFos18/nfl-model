@@ -116,6 +116,55 @@ def parse() -> pd.DataFrame:
     return x
 
 
+CONF = {"(A)": "AFC", "(N)": "NFC"}
+LEAD = {"passing": "pass", "rushing": "rush", "receiving": "rec"}
+
+
+def market_key(name: str) -> str | None:
+    """ESPN's market names to the page's keys: sb, conf, div, lead_<kind>; None for the rest (awards, most wins)."""
+    n = " ".join(str(name).split())
+    if re.search(r"super bowl winner", n, re.I):
+        return "sb"
+    m = re.search(r"\((A|N)\) Conference", n)
+    if m:
+        return "conf"
+    m = re.search(r"\((A|N)\) (East|West|North|South) Division", n)
+    if m:
+        return "div"
+    m = re.search(r"Most Regular Season (Passing|Rushing|Receiving) Yards", n, re.I)
+    if m:
+        return "lead_" + LEAD[m.group(1).lower()]
+    return None
+
+
+def latest(season: int | None = None) -> dict | None:
+    """The newest day's markets as chances with the book's margin taken out: {ts, sources, sb, conf, div: {team: p},
+    lead: {kind: {player_id: p}}, books: {market: {team: {book: p}}}}. Team markets average the books that price them
+    (DraftKings through ESPN; the Odds API's books for the Super Bowl); each book's chances are its implied chances
+    over their sum in that market."""
+    x = parse()
+    if not len(x):
+        return None
+    x = x[x.ts == x.ts.max()].copy()
+    x["key"] = [("sb" if str(s).startswith("oddsapi") and "Super Bowl" in str(m) else market_key(m)) for s, m in zip(x.source, x.market)]
+    x = x[x.key.notna() & x.implied.notna()]
+    if (x.source == "oddsapi:draftkings").any():   # DraftKings comes through both sources: count it once
+        x = x[~((x.source == "espn:DraftKings") & (x.key == "sb"))]
+    x["book"] = x.source.str.split(":").str[1]
+    x["p"] = x.implied / x.groupby(["source", "market"]).implied.transform("sum")
+    pl = pd.read_parquet(ROOT / "data" / "raw" / "players" / "players.parquet", columns=["gsis_id", "espn_id"]).dropna()
+    gs = dict(zip(pd.to_numeric(pl.espn_id, errors="coerce"), pl.gsis_id))
+    out = {"ts": str(x.ts.iloc[0]), "sources": sorted(set(x.source)), "lead": {}, "books": {}}
+    for k in ("sb", "conf", "div"):
+        t = x[(x.key == k) & x.team.notna()]
+        out[k] = {tm: round(float(g.p.mean()), 4) for tm, g in t.groupby("team")}
+        out["books"][k] = {tm: {b: round(float(v), 4) for b, v in zip(g.book, g.p)} for tm, g in t.groupby("team")}
+    for k in ("pass", "rush", "rec"):
+        t = x[x.key == "lead_" + k].copy(); t["pid"] = t.espn_athlete_id.map(lambda a: gs.get(a) if pd.notna(a) else None)
+        out["lead"][k] = {pid: round(float(g.p.mean()), 4) for pid, g in t[t.pid.notna()].groupby("pid")}
+    return out
+
+
 if __name__ == "__main__":
     if "--fetch" in sys.argv:
         fetch(force="--force" in sys.argv)
