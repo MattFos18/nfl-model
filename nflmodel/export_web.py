@@ -426,7 +426,7 @@ def export_season() -> dict:
         out["backtest"] = {"windows": base[base.asof_week.astype(str) == "all"].to_dict("records"), "by_week": base[base.asof_week.astype(str) != "all"].to_dict("records"),
                            "variants": m[m.asof_week.astype(str) == "all"].to_dict("records"), "seasons": b[(b.season.astype(str) != "mean") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].to_dict("records")}
     pl = PS.run_now()
-    keep = ["kind", "player_id", "name", "pos", "team", "rank", "games_so_far", "yards_so_far", "td_so_far", "catches_so_far", "volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "team_games_left", "team_games", "avail", "blend", "own_yards", "proj_yards", "proj_td", "proj_catches", "prev_yards", "prev_td", "prev_games", "pace_yards", "proj_pg", "prev_pg", "breakout", "new_top", "profile_games"]
+    keep = ["kind", "player_id", "name", "pos", "team", "rank", "games_so_far", "yards_so_far", "td_so_far", "catches_so_far", "volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "team_games_left", "team_games_played", "team_games", "avail", "blend", "own_yards", "proj_yards", "proj_td", "proj_catches", "prev_yards", "prev_td", "prev_games", "pace_yards", "proj_pg", "prev_pg", "breakout", "new_top", "profile_games"]
     pl = pl[keep].copy()
     for c in ("volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "own_yards", "proj_yards", "proj_td", "proj_catches", "pace_yards", "proj_pg", "prev_pg"):
         pl[c] = pl[c].astype(float).round(2)
