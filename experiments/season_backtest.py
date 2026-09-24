@@ -10,7 +10,9 @@ of the playoff odds (beside the flat share of the field), log loss of the Super 
 (SHRINK), and the residual scale widened (SIGMA_MULT). A knob is adopted only when it lowers the wins error, the
 division Brier and the playoff Brier on both windows (2019-22, 2023-25), averaged over the as-of weeks.
 
-Output: reports/season_backtest.csv, one row per variant x season x as-of week, plus window means (season = "mean").
+Output: reports/season_backtest.csv, one row per variant x season x as-of week, plus window means (season = "mean");
+reports/season_team_odds.csv, every team's odds at every as-of week (the adopted variant) with what happened; and
+reports/season_calibration.csv, the reliability table: in bands of the stated odds, how often it happened, per window.
 """
 from __future__ import annotations
 import sys, time, itertools
@@ -31,7 +33,7 @@ METRICS = ["wins_mae", "pace_mae", "div_brier", "div_brier_leader", "div_brier_f
 def main():
     games = pd.read_parquet(OUT / "games.parquet"); pred = pd.read_parquet(OUT / "pred_v3.parquet")
     f = SE._frame()
-    rows = []; t0 = time.time()
+    rows = []; team_rows = []; t0 = time.time()
     for s in SEASONS:
         act = SE.actuals(games, s)
         if act is None:
@@ -41,6 +43,11 @@ def main():
             for sh, sm in VARIANTS:
                 sim = SE.simulate(s, w, games, P, fit, pred, n_sims=N_SIMS, shrink=sh, sigma_mult=sm, seed=s * 100 + w)
                 sc = SE.score(sim, act)
+                if sh == 0.0 and sm == 1.0:   # the adopted variant: keep every team's odds for the reliability table
+                    for t in sim["teams"]:
+                        team_rows.append({"season": s, "window": WINDOW[s], "asof_week": w, "team": t["team"], "wins": t["wins"], "actual_wins": act["wins"][t["team"]],
+                                          "p_div": t["p_div"], "won_div": int(t["team"] in act["div"]), "p_playoffs": t["p_playoffs"], "made_playoffs": int(t["team"] in act["playoffs"]),
+                                          "p_conf": t["p_conf"], "won_conf": int(t["team"] in act["conf"]), "p_sb": t["p_sb"], "won_sb": int(t["team"] == act["champ"])})
                 rows.append({"variant": f"shrink{sh:g}_sig{sm:g}", "shrink": sh, "sigma_mult": sm, "season": s, "window": WINDOW[s], "asof_week": w, "games_left": sim["games_left"], **sc})
             print(f"{s} week {w} done ({time.time() - t0:.0f}s)", flush=True)
     d = pd.DataFrame(rows)
@@ -58,6 +65,18 @@ def main():
         verdict[v] = "better on both windows" if ok else ("base" if v == "shrink0_sig1" else "not adopted")
     out["verdict"] = out.variant.map(verdict)
     REP.mkdir(exist_ok=True); out.round(4).to_csv(REP / "season_backtest.csv", index=False)
+    # reliability: when the odds said x%, how often it happened, in bands, per window (every team x as-of week)
+    T = pd.DataFrame(team_rows); T.round(4).to_csv(REP / "season_team_odds.csv", index=False)
+    BANDS = [0, 0.05, 0.15, 0.3, 0.5, 0.7, 0.85, 0.95, 1.0001]
+    cal = []
+    for what, p_col, y_col in (("division", "p_div", "won_div"), ("playoffs", "p_playoffs", "made_playoffs"), ("conference", "p_conf", "won_conf"), ("super bowl", "p_sb", "won_sb")):
+        for win in ("2019-22", "2023-25"):
+            x = T[T.window == win]
+            for lo, hi in zip(BANDS[:-1], BANDS[1:]):
+                b = x[(x[p_col] >= lo) & (x[p_col] < hi)]
+                if len(b):
+                    cal.append({"odds": what, "window": win, "band_from": lo, "band_to": min(hi, 1.0), "n": int(len(b)), "said": round(float(b[p_col].mean()), 4), "happened": round(float(b[y_col].mean()), 4)})
+    pd.DataFrame(cal).to_csv(REP / "season_calibration.csv", index=False)
     print(means.round(4).sort_values(["window", "wins_mae"]).to_string(index=False))
     print(verdict)
 

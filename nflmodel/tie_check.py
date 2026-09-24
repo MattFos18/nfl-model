@@ -88,14 +88,17 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             import ast as _ast
             bt = pd.read_csv(b3); a85 = bt[bt.variant == "A85B_med"].set_index("stat"); r4 = pd.read_csv(b4)
             r6 = pd.read_csv(REP / "props_backtest6.csv"); r10 = pd.read_csv(REP / "props_backtest10.csv"); pick = {"rec_yards": (r10, "rec_fade", "both_0.5"), "rush_yards": (r10, "rush_fade", "season_0.25_team_0.5"), "pass_yards": (r6, "pass_yards", "yds_recon50")}
-            tie("props backtest errors on the page = props_backtest10.csv fade rows (receiving, rushing) and props_backtest6.csv (passing)", {k: [float(r[(r.stat == st) & (r.variant == v)]["mae_2019-22"].iloc[0]), float(r[(r.stat == st) & (r.variant == v)]["mae_2023-25"].iloc[0])] for k, (r, st, v) in pick.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
+            _bs = pd.read_csv(REP / "props_by_season.csv").set_index(["stat", "season"])
+            tie("props backtest errors on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game)", {k: [float(_bs.loc[(k, "2019-22"), "mae"]), float(_bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"})
             tie("props fade factors on the page = props_backtest10.csv (fitted)", {k: [float(x) for x in re.findall(r"season factor ([\d.]+), team-change factor ([\d.]+)", r10[(r10.stat == st) & (r10.variant == v)]["fitted"].iloc[0])[0]] for k, (r, st, v) in pick.items() if k != "pass_yards"}, {k + "_yards": list(v) for k, v in pj["fade"].items()})
             a6 = {k: [float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards", "pass_yards"]}
             a4 = {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}.items()}
             rows.append(("props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006)", str(a6), str(a4), all(abs(a6[k][i] - a4[k][i]) <= 0.006 for k in a6 for i in (0, 1))))
             tie("props team fit constants = props_backtest6.csv", {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
             tie("props round-4 base = round-3 adopted variant (receiving, rushing)", {k: [float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards"]}, {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards"]})
-            tie("props median factors = props_backtest3.csv", {k: float(a85.loc[f"{k}_yards", "median_factor_A85B"]) for k in ["rec", "rush", "pass"]}, {k: float(v) for k, v in pj["med"].items()})
+            r11 = pd.read_csv(REP / "props_backtest11.csv"); _rf = lambda st: float(r11[(r11.stat == st) & (r11.variant == "refit_2017_18")].factors.iloc[0])
+            tie("props median factors = props_backtest3.csv (rushing) and props_backtest11.csv refit rows (receiving, passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _rf("pass_yards")}, {k: float(v) for k, v in pj["med"].items()})
+            tie("props receptions factor = props_backtest11.csv refit row", _rf("rec_catches"), float(pj["med_catch"]))
             gs = bt[bt.stat == "game_script"].set_index("variant")
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
             fitted = _ast.literal_eval(r4[r4.stat == "pass_yards"].fitted.iloc[0])
@@ -108,7 +111,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            rows.append(("props by-season run of the adopted rule = the rounds' adopted errors (yards, both windows; the by-season table keeps two decimals, within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
+            r11 = pd.read_csv(REP / "props_backtest11.csv"); _v = {"rec_yards": "refit_2017_18", "rush_yards": "fixed", "pass_yards": "refit_2017_18"}
+            b2 = {k: [float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2019-22"].iloc[0]), float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
+            rows.append(("props by-season run = round 11's rows for the adopted rule (yards, both windows; the by-season table keeps two decimals, within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
@@ -130,9 +135,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         b5 = REP / "props_backtest5.csv"
         if b5.exists():
             r5 = pd.read_csv(b5); r6b = pd.read_csv(REP / "props_backtest6.csv"); pick5 = {"rec_catches": (r5, "rec_catch", "catch_K25_med", "mae"), "rec_td_ll": (r6b, "rec_td", "td_recon50", "ll"), "rush_td_ll": (r6b, "rush_td", "td_recon50", "ll"), "pass_td_ll": (r6b, "pass_td", "td_recon100", "ll"), "pass_int_ll": (r5, "pass_int", "int_league", "ll")}
-            tie("props count backtests on the page = props_backtest5.csv and props_backtest6.csv (adopted variants)", {k: [float(src[(src.stat == st) & (src.variant == v)][f"{m}_2019-22"].iloc[0]), float(src[(src.stat == st) & (src.variant == v)][f"{m}_2023-25"].iloc[0])] for k, (src, st, v, m) in pick5.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest_counts"].items()})
+            _bs2 = pd.read_csv(REP / "props_by_season.csv").set_index(["stat", "season"]); _cm = {"rec_catches": ("rec_catches", "mae"), "rec_td_ll": ("rec_td", "ll"), "rush_td_ll": ("rush_td", "ll"), "pass_td_ll": ("pass_td", "ll"), "pass_int_ll": ("pass_int", "ll")}
+            tie("props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game)", {k: [float(_bs2.loc[(st, "2019-22"), c]), float(_bs2.loc[(st, "2023-25"), c])] for k, (st, c) in _cm.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest_counts"].items()})
             fitted5 = {st: r5[r5.stat == st].fitted.dropna().iloc[0] for st in ["rec_catch", "rec_td", "pass_td"]}
-            tie("props count constants = props_backtest5.csv", fitted5, {"rec_catch": f"K {pj['k_catch']:.0f}, median factor {pj['med_catch']:.2f}", "rec_td": f"K {pj['k_td']['rec']:.0f}, margin coefficient {pj['td_margin']['rec']:.3f} per point", "pass_td": f"K {pj['k_td']['pass']:.0f}, margin coefficient {pj['td_margin']['pass']:.3f} per point"})
+            fitted5["rec_catch"] = fitted5["rec_catch"].split(", median factor")[0]   # the catch K is round five's; its factor was refit in round eleven (tied above)
+            tie("props count constants = props_backtest5.csv", fitted5, {"rec_catch": f"K {pj['k_catch']:.0f}", "rec_td": f"K {pj['k_td']['rec']:.0f}, margin coefficient {pj['td_margin']['rec']:.3f} per point", "pass_td": f"K {pj['k_td']['pass']:.0f}, margin coefficient {pj['td_margin']['pass']:.3f} per point"})
     # the week's picks file against the tracker's unplayed model picks
     from . import lines as LN
     season, week = LN.current_week(g)
@@ -272,6 +279,17 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         if (REP / "season_backtest.csv").exists() and "backtest" in sj:
             b = pd.read_csv(REP / "season_backtest.csv"); m = b[(b.season.astype(str) == "mean") & (b.asof_week.astype(str) == "all") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].sort_values("window")
             tie("season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss)", [[r["window"], round(r["wins_mae"], 4), round(r["div_brier"], 4), round(r["sb_ll"], 4)] for r in sorted(sj["backtest"]["windows"], key=lambda r: r["window"])], [[r.window, round(r.wins_mae, 4), round(r.div_brier, 4), round(r.sb_ll, 4)] for r in m.itertuples()])
+        if (REP / "season_calibration.csv").exists():
+            tie("season reliability table on the page = reports/season_calibration.csv (rows, teams counted)", [len(sj.get("calibration", [])), sum(r["n"] for r in sj.get("calibration", []))], [len(pd.read_csv(REP / "season_calibration.csv")), int(pd.read_csv(REP / "season_calibration.csv").n.sum())])
+        lj = _js("legit.js")
+        for key, fn in (("sizing", "sizing_backtest.csv"), ("seasons", "sizing_seasons.csv"), ("cover_cal", "cover_calibration.csv"), ("cal_start", "calibration_start.csv")):
+            if (REP / fn).exists():
+                tie(f"Bets tab: {key} on the page = reports/{fn} (rows)", len(lj.get(key, [])), len(pd.read_csv(REP / fn)))
+        if (REP / "sizing_backtest.csv").exists() and (REP / "track_record.md").exists():
+            _sz = pd.read_csv(REP / "sizing_backtest.csv"); _f = _sz[(_sz.staking == "flat")].set_index("window")
+            from . import backtest as _B, picks as _P
+            _d = _B.join(pd.read_parquet(OUT / "pred_v3.parquet"), pd.read_parquet(OUT / "games.parquet")); _rr = _P.rule_records(_d[(_d.game_type == "REG") & _d.spread_line.notna()]).set_index("rule")
+            tie("sizing backtest flag records = the rule records on the Bets tab (2019-22, 2023-25)", [_f.loc["2019-22", "record"], _f.loc["2023-25", "record"]], [_rr.loc["model", "2019-22"], _rr.loc["model", "2023-25"]])
         pt = pd.read_csv(REP / "player_season_totals.csv"); pr = sj["players"]["rows"]
         tie("player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts)", [len(pr), round(sum(r["proj_yards"] for r in pr), 1), sum(1 for r in pr if r["breakout"])], [len(pt), round(float(pt.proj_yards.sum()), 1), int(pt.breakout.sum())])
         if (REP / "player_season_backtest.csv").exists() and "player_backtest" in sj:

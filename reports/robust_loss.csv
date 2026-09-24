@@ -1,0 +1,5 @@
+model,team_mae_2019-22,margin_mae_2019-22,ats4_2019-22,team_mae_2023-25,margin_mae_2023-25,ats4_2023-25,verdict
+ridge alpha 10 (today),7.3587,10.0329,92-63,7.2863,9.949,49-27,kept
+huber epsilon 1.35,7.3523,10.0345,90-67,7.2837,9.94,51-34,"not adopted: points better on both windows, the spread miss worse on 2019-22 and better on 2023-25 (the spread is what is bet)"
+huber epsilon 2.0,7.3582,10.0343,92-64,7.2842,9.9453,51-29,"not adopted: same pattern, smaller"
+least absolute deviations (median regression),,,,,,,not scored: the solver takes minutes per weekly refit (hours for both windows); Huber is the tractable robust loss and did not pass

@@ -393,6 +393,13 @@ def main():
 # Rankings, rating walkthrough tables, and methods comparison (added for the sheet-style views)
 # ---------------------------------------------------------------------------------------------
     export_season()
+    # is the edge real: staking, luck, calibration and the tests that did not pass (Bets tab), straight from the reports
+    lg = {}
+    for key, fn in (("sizing", "sizing_backtest.csv"), ("seasons", "sizing_seasons.csv"), ("cover_cal", "cover_calibration.csv"), ("cal_start", "calibration_start.csv"), ("robust", "robust_loss.csv")):
+        f_ = REP / fn
+        if f_.exists():
+            lg[key] = [{k: clean(v) for k, v in r.items()} for r in pd.read_csv(f_).to_dict("records")]
+    (WEB / "legit.js").write_text("window.LEGIT=" + json.dumps(lg, default=clean, separators=(",", ":")) + ";")
     from . import catalog as CAT
     (WEB / "catalog.js").write_text("window.CATALOG=" + json.dumps(CAT.build(), default=clean, separators=(",", ":")) + ";")   # every data store, from the files themselves (Model -> Every data store)
 
@@ -425,6 +432,9 @@ def export_season() -> dict:
         pl[c] = pl[c].astype(float).round(2)
     pl.to_csv(REP / "player_season_totals.csv", index=False)
     out["players"] = {"rows": pl.to_dict("records"), "avail": PS.AVAIL, "blend": PS.BLEND, "min_pg": PS.MIN_PG, "top_n": PS.TOP_N, "break_up": PS.BREAK_UP}
+    sc = REP / "season_calibration.csv"
+    if sc.exists():
+        out["calibration"] = pd.read_csv(sc).to_dict("records")
     pbt = REP / "player_season_backtest.csv"
     if pbt.exists():
         out["player_backtest"] = pd.read_csv(pbt).to_dict("records")

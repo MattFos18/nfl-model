@@ -1386,3 +1386,69 @@ contested balls; nflverse participation (2016 on) gives personnel, the players o
 zone and the family), time to throw and pressure; depth of target and air yards come from the play-by-play. Those
 route-adjacent readings are what the site carries (Players tab splits, Team → Scheme). 2026 participation is not
 published yet, so coverage, personnel and time to throw are blank for this season until it is.
+
+## 21. Accuracy and legitimacy round (23 to 24 Sep 2026)
+
+Every claim on both windows, as before. What changed, what did not, and what it says about the edge.
+
+**A look-ahead removed from the props backtests.** Every props round, and the by-season run behind the page's
+numbers, shrank each player's rate toward a league average taken over every season in the data, future seasons
+included. The live rule uses last season and this season to date (`props._asof`). The by-season run now uses the
+same as-of average (`experiments/props_by_season.py`, `LEAGUE_ASOF`). The look-ahead was small: at most 0.05 yards
+on passing, under 0.01 elsewhere, so no constant changes because of it; the page's props backtest numbers now come
+from the as-of run, and a tie holds them to it.
+
+**Round eleven: three stale constants** (`experiments/props_backtest11.py`, `reports/props_backtest11.csv`). The
+median factors that turn a mean into the line that misses by least were fitted in rounds 3 and 5, before rounds 4
+to 10 changed the rule under them. Refit on the fitting seasons (2017-18) with today's rule, and tested beside
+walk-forward versions (expanding, last three, last two seasons):
+
+| Line | Factor | 2019-22 | 2023-25 | Verdict |
+|---|---|---|---|---|
+| Receiving yards | 0.88 to 0.81 | 19.36 to 19.30 | 18.32 to 18.27 | adopted |
+| Receptions | 0.88 to 0.90 | 1.435 to 1.435 | 1.356 to 1.355 | adopted |
+| Passing yards | 0.90 to 0.89 | 57.70 to 57.68 | 57.36 to 57.24 | adopted |
+| Rushing yards | 0.84 | no variant better on both | | kept |
+| Passing, rolling factor | 0.79 to 0.93 by season | 57.77 | 56.94 | not adopted: fixes the 2023-25 drift (bias +6.4 to +0.8), costs 2019-22 |
+
+**Robust loss for the points equation** (`experiments/robust_loss.py`, `reports/robust_loss.csv`). Scores have
+blowouts and the model is judged on absolute error, so a Huber loss was tried: team points miss better on both
+windows, spread miss worse on 2019-22 and better on 2023-25. Not adopted (the spread is what is bet; the same
+test rejected the pass and rush split). Median regression was too slow to score.
+
+**Which seasons the cover odds learn from** (`experiments/calibration_start.py`, `reports/calibration_start.csv`).
+The cards' cover odds are a logistic fit on |edge| over 2019 to the season before. Starting in 2015, 2016 or 2017,
+or a rolling window, was scored walk-forward on the season after: earlier starts score slightly better on all
+games and worse on the flagged games, on both windows; every difference is under 0.001. No change. The finding
+that matters: the odds are conservative on the flags. Flagged games were stated at 55 to 58% and won 60% (2020-22)
+and 68% (2023-25). The fit is dominated by the many small-edge games, so it is nearly flat.
+
+**Staking and luck** (`experiments/sizing_backtest.py`, `reports/sizing_backtest.csv`). The flag's bets at the
+closing line and -110:
+
+| Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
+|---|---|---|---|---|---|
+| 2016-18 (never used to choose) | 38-37 | -2.5 | 10.4 | -8.6% | 66% |
+| 2019-22 (the threshold was chosen here) | 87-59 | +20.1 | 5.6 | +8.8% | 4.8% |
+| 2023-25 (held out) | 45-21 | +19.9 | 3.5 | +13.1% | 0.7% |
+
+The held-out record is hard to get by luck. The earliest seasons broke even. They were thin (49 flags in 2016-18
+against 146 in 2019-22; the model trained on two to five seasons) and the model's gap to the line was no worse
+than later, so the honest statement is: the edge shows from 2018 on, strongly held out, and not before. Quarter
+Kelly's worst fall was 8% of the peak; full Kelly's 30% (never bet it). The track record now states each week
+whether the live record sits inside the range the backtest rate implies for that many bets.
+
+**Season odds reliability** (`reports/season_calibration.csv`, Season -> Backtest). When the odds said x%, how
+often it happened: 2019-22 is close in every band. In 2023-25 the confident end was too confident (a 70-85%
+division favorite won 55% of the time, a 85-95% playoff chance came in 76%) and the long shots came in too often.
+The two knobs tested (shrinking future margins, widening the scale) both help 2023-25 and hurt 2019-22, so the odds
+are shown as they are, with this table beside them.
+
+**What is left for the game model.** Every public input and form has now been through both windows: the matchup
+histories, referees, travel, rest, pace, primetime, the pass and rush split, interactions and trees, recency
+weights, rolling training windows, turnover-luck ratings, the direct margin fit, robust loss, the rating knobs.
+The equation is saturated on what nflverse publishes. The next real gains need information it does not have yet,
+which the site now logs every day: line movement from open to close (for closing line value on every flag), the
+2026 participation charting when nflverse publishes it (coverage and pressure for this season), and a live record
+long enough to judge. The props rule has more room (the passing drift is real and a both-window fix has not been
+found yet); it gets the next rounds.

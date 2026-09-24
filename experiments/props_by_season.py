@@ -40,6 +40,21 @@ def fade_sums(a, keys, cols, decay, season_f, team_f):
         if tm[i] != lt: run = run * team_f; lt = tm[i]
         res[i] = run; run = decay * run + vals[i]
     out[cols] = res; out["games_prev"] = a.groupby(keys).cumcount().clip(upper=N).values; return out
+LEAGUE_ASOF = True   # 23 Sep 2026: the league averages a player is shrunk toward are as of the game (last season + this season before the week, as the live rule's props._asof frame); they had been the mean over every season, future ones included
+def asof_mean(frame, col):
+    """(season, week) -> the mean of col over last season and this season's weeks before `week`, as props._asof sees it."""
+    g = frame.groupby(["season", "week"])[col].agg(["sum", "count"]).reset_index().sort_values(["season", "week"])
+    tot = g.groupby("season")[["sum", "count"]].sum(); out = {}
+    for s_, gs in g.groupby("season"):
+        ps, pn = (tot.loc[s_ - 1, "sum"], tot.loc[s_ - 1, "count"]) if (s_ - 1) in tot.index else (0.0, 0)
+        cs, cn = gs["sum"].cumsum().shift(1, fill_value=0.0).values, gs["count"].cumsum().shift(1, fill_value=0).values
+        for w_, a_, b_ in zip(gs.week.values, cs, cn):
+            out[(int(s_), int(w_))] = (ps + a_) / (pn + b_) if (pn + b_) else np.nan
+    return out
+def lg_series(f, frame, col, fallback):
+    if not LEAGUE_ASOF:
+        return pd.Series(fallback, index=f.index)
+    m = asof_mean(frame, col); return pd.Series([m.get((int(a), int(b)), fallback) for a, b in zip(f.season, f.week)], index=f.index).fillna(fallback)
 def pll(mu, k): mu = np.clip(mu, 1e-3, None); return float(np.mean(mu - k * np.log(mu) + gammaln(k + 1)))
 tv = d[d.pass_play].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tp").reset_index().merge(d[d.play_type.eq("run")].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tr").reset_index(), how="outer").merge(d[d.dropback].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tdb").reset_index(), how="outer").fillna(0)
 T17 = prev_sums(tv, ["posteam"], ["tp", "tr", "tdb"]); ALW = prev_sums(tv.rename(columns={"tdb": "a_tdb"}), ["defteam"], ["a_tdb"]).rename(columns={"games_prev": "agames"})
@@ -62,7 +77,7 @@ def build(kind):
     minv = MIN_VOL * (3 if kind == "pass" else 1); f = f[(f.n >= minv) & (f.games_prev >= 3) & (f.tgames >= 3) & (f.agames >= 3) & (f.season >= 2017)].copy()
     if kind == "pass": f = f[f.act_n >= 10]
     f["me"] = pd.Series(np.where(f.posteam == f.home_team, f.spread_line, -f.spread_line), index=f.index).astype(float).fillna(0.0); f["tc"] = (f.total_line - PR.GS_TOTAL).fillna(0.0)
-    lg = float(lgp.yards_gained.mean()); K, W = PR.K[kind], PR.W[kind]; b = PR.GS[kind]
+    lg = lg_series(f, lgp.assign(yards_gained=lgp.yards_gained.fillna(0.0)), "yards_gained", float(lgp.yards_gained.mean())); K, W = PR.K[kind], PR.W[kind]; b = PR.GS[kind]
     f["d_rate"] = np.where(f.d_n >= 100, f.d_yds / f.d_n.replace(0, np.nan), np.nan); adj = lambda base, w=W: base * np.where(f.d_rate.notna(), 1 + w * (f.d_rate / lg - 1), 1.0)
     team_pg = f.tv / f.tgames
     if kind == "pass": team_pg = (1 - PR.PACE["pass"]) * team_pg + PR.PACE["pass"] * f.a_tdb / f.agames
@@ -70,7 +85,7 @@ def build(kind):
     f["vol"] = share * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); vol_raw = share_flat * f.tv / f.tgames
     wind = 1 + PR.WIND_C[kind] * np.maximum(f.wind - 10, 0)
     f["yds_line"] = PR.MED[kind] * adj(f.vol * (f.yds + K * lg) / (f.n + K)) * wind; f["yds_raw"] = vol_raw * f.yds / f.n
-    lgc = {k: float(t[v].mean()) for k, v in ev.items()}
+    lgc = {k: lg_series(f, t, v, float(t[v].mean())) for k, v in ev.items()}
     for k in ev:
         if k == "catch": f["catch_line"] = PR.MED_CATCH * f.vol * (f[k] + PR.K_CATCH * lgc[k]) / (f.n + PR.K_CATCH)
         elif k == "td": f["td_line"] = f.vol * (f[k] + PR.K_TD[kind] * lgc[k]) / (f.n + PR.K_TD[kind]) * (1 + PR.TD_MARGIN[kind] * f.me)

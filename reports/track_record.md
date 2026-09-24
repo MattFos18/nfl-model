@@ -15,6 +15,8 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the underdog or pick'em | 2 | 0 | nothing settled |  | +0.00 | 49-36 | 78-45 | 34-17 |
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 54-42 | 71-41 | 34-16 |
 
+Live against the backtest: nothing settled yet; the flag's backtest rate is 62.3% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
+
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 
 3 recorded, 0 settled, 3 pending.
