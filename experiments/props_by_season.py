@@ -13,7 +13,7 @@ from nflmodel.model import OUT
 from nflmodel.positions import names_by_id
 from nflmodel import props as PR
 N, MIN_VOL = 17, 8
-d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"]) & (d.season >= 2016)].copy(); d["yards_gained"] = d.yards_gained.fillna(0.0)
+d = PR.official(pd.read_parquet(OUT / "scheme_plays.parquet")); d = d[d.season >= 2016].copy(); d["yards_gained"] = d.yards_gained.fillna(0.0)   # official box-score terms (props.official), 24 Sep 2026
 for c in ["complete_pass", "pass_touchdown", "rush_touchdown", "interception"]: d[c] = d[c].fillna(0).astype(float)
 games = pd.read_parquet(OUT / "games.parquet")[["game_id", "home_team", "away_team", "spread_line", "total_line"]]
 feat = pd.read_parquet(OUT / "features_asof.parquet", columns=["game_id", "team", "wind", "dome"]); feat["wind"] = np.where(feat.dome > 0, 0.0, feat.wind.fillna(0.0))
@@ -64,7 +64,8 @@ def build(kind):
     elif kind == "rush":
         t = d[d.play_type.eq("run") & d.rusher_player_id.notna()].rename(columns={"rusher_player_id": "pid"}); vcol = "tr"; ev = {"td": "rush_touchdown"}; lgp = t
     else:
-        t = d[d.dropback & d.passer_player_id.notna()].rename(columns={"passer_player_id": "pid"}); vcol = "tdb"; ev = {"td": "pass_touchdown", "int": "interception"}; lgp = d[d.dropback]
+        pdb = d[d.dropback & d.passer_player_id.notna()].assign(yards_gained=lambda x: x.pass_yds)   # passing yards: the yards on completions, not net of sacks (24 Sep 2026)
+        t = pdb.rename(columns={"passer_player_id": "pid"}); vcol = "tdb"; ev = {"td": "pass_touchdown", "int": "interception"}; lgp = pdb
     t = t.copy(); t["n"] = 1
     pg = t.groupby(["pid", "posteam", "season", "week", "game_id"]).agg(n=("n", "sum"), yds=("yards_gained", "sum"), **{k: (v, "sum") for k, v in ev.items()}).reset_index().merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="left")
     cols = ["n", "yds", "team_n"] + list(ev); R = prev_sums(pg, ["pid"], cols); sf, tf = (PR.FADE.get(kind, (1.0, 1.0)) if globals().get("FADE_ON", True) else (1.0, 1.0))

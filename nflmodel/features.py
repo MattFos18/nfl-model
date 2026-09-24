@@ -25,7 +25,7 @@ COLS = ["game_id", "season", "week", "season_type", "home_team", "away_team", "p
         "penalty", "penalty_team", "penalty_yards", "yards_gained", "fixed_drive", "fixed_drive_result",
         "drive_inside20", "drive_start_yard_line", "kickoff_attempt", "kick_distance", "punt_attempt",
         "field_goal_attempt", "field_goal_result", "extra_point_result", "two_point_conv_result", "safety",
-        "epa", "success", "wp", "qb_epa", "passer_player_id", "passer_id", "two_point_attempt", "fumbled_1_team",
+        "epa", "success", "wp", "qb_epa", "passer_player_id", "passer_id", "rusher_id", "two_point_attempt", "fumbled_1_team",
         "first_down_rush", "first_down_pass", "first_down_penalty", "drive_play_count", "down", "yardline_100", "game_seconds_remaining", "return_team", "return_yards"]
 
 
@@ -120,13 +120,22 @@ def offense_box(p: pd.DataFrame) -> pd.DataFrame:
 
 
 def qb_box(p: pd.DataFrame) -> pd.DataFrame:
-    """One row per (game_id, team, passer): dropbacks and total qb_epa, for the QB rating. Every dropback counts: passes,
-    sacks and scrambles. The QB is nflverse's passer_id, which names the scrambler too; passer_player_id is empty on
-    every scramble, and using it dropped them until 24 Sep 2026 (experiments/qb_fix.py, reports/qb_fix.csv)."""
+    """One row per (game_id, team, QB): his plays and their total EPA, for the QB rating (24 Sep 2026,
+    experiments/qb_fix.py, reports/qb_fix.csv: better on both windows and on 2015 to 2018):
+      every dropback: passes, sacks and scrambles, qb_epa, credited to nflverse's passer_id (passer_player_id is empty
+        on every scramble, so until 24 Sep 2026 the rating left them out)
+      every designed run by a quarterback (a run that was not a dropback, by a player who has dropped back), its EPA
+    The "dropbacks" column is the count of those plays."""
     col = "passer_id" if "passer_id" in p.columns else "passer_player_id"
     d = p[p.posteam.notna() & (_num(p.qb_dropback) == 1) & p[col].notna()].copy()
     d["qb_id"] = d[col]; d["qb_epa"] = _num(d.qb_epa)
     q = d.groupby(["game_id", "season", "week", "posteam", "qb_id"]).agg(dropbacks=("qb_epa", "size"), qb_epa=("qb_epa", "sum")).reset_index()
+    if "rusher_id" in p.columns:
+        r = p[p.posteam.notna() & (p.play_type == "run") & (_num(p.qb_dropback) != 1) & p.rusher_id.notna()]
+        r = r[r.rusher_id.isin(set(q.qb_id))].assign(e=lambda x: _num(x.epa))
+        rq = r.groupby(["game_id", "season", "week", "posteam", "rusher_id"]).agg(n=("e", "size"), e=("e", "sum")).reset_index().rename(columns={"rusher_id": "qb_id"})
+        q = q.merge(rq, on=["game_id", "season", "week", "posteam", "qb_id"], how="left").fillna({"n": 0, "e": 0.0})
+        q = q.assign(dropbacks=(q.dropbacks + q.n).astype(int), qb_epa=q.qb_epa + q.e).drop(columns=["n", "e"])
     return q.rename(columns={"posteam": "team"})
 
 

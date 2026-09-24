@@ -23,7 +23,11 @@ RAW_WHAT = {
     "rosters": ("nflverse weekly rosters: status (active, IR, practice squad), position, ids", "pull", "who is available; player season totals"),
     "ftn": ("FTN charting 2022 on: motion, play action, RPO, screens, blitzers and pass rushers, box count, QB location, out of pocket, catchable and contested balls, interception-worthy throws, trick plays", "pull", "scheme profiles, player splits (no route data: no public source charts routes)"),
     "participation": ("nflverse participation 2016 on: offense and defense personnel, players on the field, defenders in box, pass rushers, coverage type (man or zone, coverage family), time to throw, pressure", "pull", "scheme profiles, player splits (2026 not published yet)"),
-    "pfr_advstats": ("Pro-Football-Reference advanced stats by week (pressures, hurries, drops, air yards)", "pull", "readings"),
+    "pfr_advstats": ("Pro-Football-Reference advanced defense by week: targets and yards allowed in coverage, passer rating allowed, pressures, missed tackles", "pull", "Players -> game log (defense); defender coverage readings"),
+    "pfr_pass": ("Pro-Football-Reference advanced passing by week 2018 on: bad throws, times pressured, blitzed and hit, receivers' drops", "pull", "Players -> game log (passing)"),
+    "pfr_rush": ("Pro-Football-Reference advanced rushing by week 2018 on: yards before and after contact, broken tackles", "pull", "Players -> game log (rushing)"),
+    "pfr_rec": ("Pro-Football-Reference advanced receiving by week 2018 on: drops, broken tackles, passer rating when targeted", "pull", "Players -> game log (receiving)"),
+    "player_stats": ("nflverse's official box score per player and game, 2016 on (the league's numbers, what the books settle on)", "pull", "game-log tackles and defensive lines; the tie check holds every game log and the props grading to it"),
 }
 PROCESSED_WHAT = {
     "games.parquet": ("one row per game: schedule, kickoff in ET, scores, closing lines, roof, weather, QBs; the spine every table joins to", "build", "everywhere"),
@@ -140,6 +144,8 @@ def build() -> dict:
     for f in sorted(WEB.iterdir()):
         if f.is_file():
             out["page"].append({"name": f.name, "mb": _mb(f.stat().st_size), "built": _mtime(f)})
+    for f in sorted((WEB / "plogs").glob("*.js")) if (WEB / "plogs").exists() else []:   # every player's game logs, one file a season, loaded when opened
+        out["page"].append({"name": f"plogs/{f.name}", "mb": _mb(f.stat().st_size), "built": _mtime(f)})
     out["totals"] = {"raw_mb": round(sum(r["mb"] for r in out["raw"]), 1), "processed_mb": round(sum(r["mb"] for r in out["processed"]), 1), "logs_mb": round(sum(r["mb"] for r in out["logs"]), 1), "page_mb": round(sum(r["mb"] for r in out["page"]), 1)}
     out["routes"] = "No public source charts routes run. FTN (2022 on) charts motion, play action, RPO, screens, blitzers and pass rushers, the box, QB location and pocket, catchable and contested balls; nflverse participation (2016 on) gives personnel, the players on the field, coverage (man or zone and the coverage family), time to throw and pressure. Depth of target and air yards come from the play-by-play. Those are the route-adjacent readings the site carries (Players tab splits, Team -> Scheme)."
     return out

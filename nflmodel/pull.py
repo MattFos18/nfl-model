@@ -24,6 +24,7 @@ DATASETS = {
     "pfr_pass":      ("pfr_advstats/advstats_week_pass_{s}.parquet", 2018, False),   # 24 Sep 2026: the passing, rushing and receiving weekly files too (bad throws,
     "pfr_rush":      ("pfr_advstats/advstats_week_rush_{s}.parquet", 2018, False),   # pressures, drops, broken tackles, yards before and after contact) for the
     "pfr_rec":       ("pfr_advstats/advstats_week_rec_{s}.parquet", 2018, False),    # player game logs
+    "player_stats":  ("stats_player/stats_player_week_{s}.parquet", 2016, False),     # nflverse's official box score per player and game: the tie check holds the props grading and the game logs to it
     "participation": ("pbp_participation/pbp_participation_{s}.parquet", 2016, False),   # every play: formation, personnel, box, rushers, pressure, man/zone and coverage family, players on the field   # coverage: targets, completions, yards and TDs allowed per defender (Pro Football Reference via nflverse)
 }
 

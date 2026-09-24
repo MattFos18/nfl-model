@@ -16,7 +16,8 @@ import pyarrow.parquet as pq
 from .features import RAW, OUT, TEAM_FIX
 
 PBP = ["game_id", "play_id", "season", "week", "posteam", "defteam", "play_type", "pass", "rush", "qb_dropback", "epa", "success", "down", "ydstogo", "passer_player_id", "receiver_player_id", "rusher_player_id", "yards_gained", "pass_touchdown", "rush_touchdown", "interception", "fumble_lost",
-       "yardline_100", "wp", "shotgun", "no_huddle", "sack", "qb_hit", "complete_pass", "air_yards", "xpass", "half_seconds_remaining", "game_seconds_remaining", "score_differential"]
+       "yardline_100", "wp", "shotgun", "no_huddle", "sack", "qb_hit", "complete_pass", "air_yards", "xpass", "half_seconds_remaining", "game_seconds_remaining", "score_differential",
+       "two_point_attempt", "qb_scramble", "season_type"]
 PART = ["nflverse_game_id", "play_id", "offense_formation", "offense_personnel", "defenders_in_box", "defense_personnel", "number_of_pass_rushers", "was_pressure",
         "defense_man_zone_type", "defense_coverage_type", "time_to_throw"]
 FTN = ["nflverse_game_id", "nflverse_play_id", "is_motion", "is_play_action", "is_rpo", "is_screen_pass", "is_no_huddle", "n_blitzers", "n_pass_rushers", "qb_location",
@@ -39,7 +40,11 @@ def load_plays(seasons) -> pd.DataFrame:
             continue
         have = set(pq.ParquetFile(f).schema.names)
         p = pd.read_parquet(f, columns=[c for c in PBP if c in have])
-        p = p[p.play_type.isin(["pass", "run"]) & p.posteam.notna()].copy()
+        # passes, runs, kneel-downs and spikes (the official box score counts a kneel as a carry and a spike as a pass attempt; the scheme profiles below use
+        # passes and runs only). Two-point tries are not plays in any official stat, so they are dropped here (24 Sep 2026).
+        p = p[p.play_type.isin(["pass", "run", "qb_kneel", "qb_spike"]) & p.posteam.notna()].copy()
+        if "two_point_attempt" in p.columns:
+            p = p[p.two_point_attempt.fillna(0) != 1]
         pf = RAW / "participation" / f"pbp_participation_{s}.parquet"
         if pf.exists():
             q = pd.read_parquet(pf, columns=[c for c in PART if c in set(pq.ParquetFile(pf).schema.names)]).rename(columns={"nflverse_game_id": "game_id"})
@@ -57,6 +62,12 @@ def load_plays(seasons) -> pd.DataFrame:
     for c in PART[2:] + FTN[2:]:
         if c not in d.columns:
             d[c] = np.nan
+    # official box-score definitions (checked against nflverse's player stats by tie_check): a pass attempt is a
+    # pass or spike by the named passer that was not a sack; passing yards are the yards on completions (a sack's
+    # yards are not passing yards); a carry is a run or a kneel-down by the named rusher (scrambles are runs)
+    d["pass_att"] = d.passer_player_id.notna() & d.play_type.isin(["pass", "qb_spike"]) & (d.sack.fillna(0) != 1)
+    d["pass_yds"] = np.where(d.pass_att & (d.complete_pass.fillna(0) == 1), d.yards_gained.fillna(0.0), 0.0)
+    d["carry"] = d.rusher_player_id.notna() & d.play_type.isin(["run", "qb_kneel"])
     # derived looks
     d["dropback"] = d.qb_dropback.fillna(0).astype(float) == 1
     d["pass_play"] = d["pass"].fillna(0).astype(float) == 1
@@ -95,7 +106,7 @@ def _epa(d: pd.DataFrame, mask: pd.Series, min_n: int = 20) -> dict:
 def profile(d: pd.DataFrame, team: str, side: str) -> dict:
     """One team's profile from the plays in d (already limited to the games wanted): rates of each look and EPA per
     play in it. side = "offense" (d.posteam == team) or "defense" (d.defteam == team; EPA is what it allowed)."""
-    x = d[(d.posteam if side == "offense" else d.defteam) == team]
+    x = d[((d.posteam if side == "offense" else d.defteam) == team) & d.play_type.isin(["pass", "run"])]
     if not len(x):
         return {"plays": 0}
     db = x.dropback; ps = x.pass_play; run = x.play_type.eq("run"); nb = x.neutral
@@ -128,6 +139,7 @@ def profile(d: pd.DataFrame, team: str, side: str) -> dict:
 
 def league(d: pd.DataFrame) -> dict:
     """League baselines for the same rates and the EPA in each look, so a team's number can be read against them."""
+    d = d[d.play_type.isin(["pass", "run"])]
     ps = d.pass_play; db = d.dropback; run = d.play_type.eq("run"); cv = d[ps & d.cov_known]
     return {"plays": int(len(d)), "plays_pass": int(ps.sum()), "plays_run": int(run.sum()), "epa": round(float(d.epa.mean()), 3),
             "pass_rate_neutral": _rate(ps, d.neutral), "man": (round(float(cv.man.mean()), 3) if len(cv) else None), "zone": (round(float(cv.zone.mean()), 3) if len(cv) else None), "blitz": _rate(d.blitz == 1, db & d.blitz.notna()), "pressure": _rate(d.pressure == 1, db & d.pressure.notna()),

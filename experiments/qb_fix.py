@@ -49,6 +49,34 @@ class WeekAged(R.QBRatings):
         return r
 
 
+class HybridAged(WeekAged):
+    """Age = the QB's own games since + LAM x the other league weeks since (weeks he sat, the offseason): LAM 0 is the
+    current rule, LAM 1 is pure league weeks. The middle ground the published QB models use (nfelo, 538: per start in
+    season, plus regression across the offseason; PFF: calendar time)."""
+    LAM = 0.5
+
+    def rating(self, qb_id, season, week):
+        key = (qb_id, season, week)
+        if key in self._cache:
+            return self._cache[key]
+        now = WK[(season, week)]; h = self.qb[(self.qb.qb_id == qb_id) & (self.qb.ix < now)]
+        if len(h) == 0:
+            r = self.prior
+        else:
+            own = np.arange(len(h))[::-1]; wks = now - h.ix.values - 1
+            age = own + self.LAM * np.maximum(wks - own, 0)
+            w = self.decay ** age
+            r = ((h.qb_epa.values * w).sum() + self.k * self.prior) / ((h.dropbacks.values * w).sum() + self.k)
+        self._cache[key] = r
+        return r
+
+
+class Hybrid25(HybridAged): LAM = 0.25
+
+
+class Hybrid10(HybridAged): LAM = 0.10
+
+
 VARIANTS = [
     ("current (scrambles dropped, aged by own games)", qb0, R.QBRatings, {}),
     ("scrambles counted", qb1, R.QBRatings, {}),
@@ -57,11 +85,16 @@ VARIANTS = [
     ("scrambles counted, aged by weeks (0.99)", qb1, WeekAged, {"qb_decay": 0.99}),
     ("scrambles counted, aged by weeks (0.975)", qb1, WeekAged, {"qb_decay": 0.975}),
     ("scrambles and designed runs, aged by weeks (0.985)", qb2, WeekAged, {}),
+    ("scrambles and designed runs", qb2, R.QBRatings, {}),
+    ("scrambles and designed runs, idle weeks at 0.5", qb2, HybridAged, {}),
+    ("scrambles and designed runs, idle weeks at 0.25", qb2, Hybrid25, {}),
+    ("scrambles and designed runs, idle weeks at 0.10", qb2, Hybrid10, {}),
+    ("scrambles and designed runs, aged by weeks (0.98)", qb2, WeekAged, {"qb_decay": 0.98}),
     ("scrambles counted, aged by weeks (0.985), k 100", qb1, WeekAged, {"qb_k": 100.0}),
     ("scrambles counted, aged by weeks (0.985), k 200", qb1, WeekAged, {"qb_k": 200.0}),
 ]
 if os.environ.get("ONLY"):
-    VARIANTS = [v for v in VARIANTS if any(o in v[0] for o in os.environ["ONLY"].split("|"))]
+    VARIANTS = [v for v in VARIANTS if any(v[0] == o[1:] if o.startswith("=") else o in v[0] for o in os.environ["ONLY"].split("|"))]
 rows = []; orig = R.QBRatings
 if os.environ.get("THIRD"):   # the window nobody tuned on: 2015 to 2018, same scoring as experiments/qb_third.py
     from nflmodel import backtest as B
@@ -75,7 +108,7 @@ if os.environ.get("THIRD"):   # the window nobody tuned on: 2015 to 2018, same s
         for cut in [4, 5]:
             m = (np.abs(e) >= cut) & (res != 0); w = int((np.sign(e[m]) == res[m]).sum()); row[f"ats{cut}"] = f"{w}-{int(m.sum() - w)}"
         rows.append(row); print(row, flush=True)
-    out = "reports/qb_fix_third.csv"; old = pd.read_csv(out) if os.path.exists(out) else pd.DataFrame()
+    out = os.environ.get("OUT", "reports/qb_fix_third.csv"); old = pd.read_csv(out) if os.path.exists(out) and os.path.getsize(out) > 5 else pd.DataFrame()
     pd.concat([old, pd.DataFrame(rows)], ignore_index=True).drop_duplicates("variant", keep="last").to_csv(out, index=False); print("DONE"); raise SystemExit
 for name, q, cls, over in VARIANTS:
     R.QBRatings = cls
@@ -83,6 +116,6 @@ for name, q, cls, over in VARIANTS:
     rows.append({"variant": name, **{f"{k}_{w}": v for w, d in r.items() for k, v in d.items()}})
     print(name, {w: (r[w]["team_mae"], r[w]["margin_mae"], r[w]["ats5"], r[w]["ats4"]) for w in r}, flush=True)
     R.QBRatings = orig
-out = "reports/qb_fix.csv"
-old = pd.read_csv(out) if os.path.exists(out) else pd.DataFrame()
+out = os.environ.get("OUT", "reports/qb_fix.csv")
+old = pd.read_csv(out) if os.path.exists(out) and os.path.getsize(out) > 5 else pd.DataFrame()
 pd.concat([old, pd.DataFrame(rows)], ignore_index=True).drop_duplicates("variant", keep="last").to_csv(out, index=False); print("DONE")

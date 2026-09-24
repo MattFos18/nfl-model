@@ -1502,3 +1502,36 @@ sum to the logs.
 EPA: nflverse's expected points model gives every down, distance, yard line, time and score an expected number of
 points for the offense. A play's EPA is expected points after minus before. A player's EPA is the sum over his plays:
 targets for receivers, carries for backs, dropbacks (passes, sacks, scrambles) for quarterbacks.
+
+## 24. Player numbers on the official box score (24 Sep 2026)
+
+Every player number was checked against nflverse's official player stats (`stats_player_week`, now pulled every
+run as `player_stats`). The play-by-play had been read on its own terms in four places, and each is fixed:
+
+| What | Was | Now |
+|---|---|---|
+| Passing yards (props, season totals, game logs) | yards on every dropback, so a sack's lost yards came off (13 yards a QB-game low in 2025) | the yards on completions, as the league and the books count them |
+| Pass attempts (props grading, game logs) | sacks counted as attempts | passes and spikes, not sacks |
+| Carries and rushing yards | kneel-downs left out | a kneel is a carry, as in the box score |
+| Targets, receiving yards, carries | two-point tries counted | two-point tries are not plays (dropped at the source, `scheme.load_plays`) |
+| Tackles in the game logs | defensive plays only | the official total, special-teams tackles included |
+
+After the fix the 2025 game logs tie to the official stats exactly on targets, catches, carries, rushing yards,
+touchdowns, completions, interceptions, sacks and every defensive column, and within 17 yards on a season of passing
+and receiving yards (laterals). The tie check holds the logs and the props grading to the official file every run.
+
+Passing yards changed what the props project, so the two constants fitted on passing yards were refit the way they
+were first fitted (`experiments/props_official.py`, `reports/props_official.csv`): the team's passing yards from the
+game model's expected points (2016 to 2018: 100.83 + 6.379 x expected points, was 73.77 + 6.894 on net yards) and the
+median factor (2017-18: 0.88, was 0.89). Error per QB-game against the official yards: 56.60 and 56.38 on 2019-22
+and 2023-25 (the old constants on the same target: 56.94 and 56.42). Receiving and rushing refits did not lower the
+error on both windows, so their constants stay.
+
+Tackle projections stay on defensive plays only, labelled as such. Books differ: bet365 counts defensive plays only,
+FanDuel adds special-teams tackles (about a tenth of a tackle a game for a regular defender in 2025).
+
+The card's Vegas win chance now comes from the newest line-watch snapshot's moneylines (ESPN moved its moneyline to a
+new place in its feed, so the log had missed it and the card fell back to the schedule's). The chip under the bars is
+the difference of the two rounded bars.
+
+Teams -> Player box scores shows every player's line in any game since 2016 for both teams, from the same game logs.

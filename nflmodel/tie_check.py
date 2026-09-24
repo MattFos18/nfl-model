@@ -201,12 +201,34 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             pc = _js("player_careers.js"); yr = max(y for y in pc["seasons"] if y < max(pc["seasons"]))   # the last complete season
             s_ = (WEB / "plogs" / f"{yr}.js").read_text(); lg = json.loads(s_[s_.index("]=") + 2:].rstrip().rstrip(";"))
             ix = {k: {c: i for i, c in enumerate(v)} for k, v in pc["cols"].items()}
-            pb = pd.read_parquet(RAW / "pbp" / f"play_by_play_{yr}.parquet", columns=["play_type", "pass_attempt", "sack", "receiver_player_id", "rusher_player_id", "yards_gained", "two_point_attempt", "season_type"]) if (RAW / "pbp" / f"play_by_play_{yr}.parquet").exists() else None
-            if pb is not None:
-                pb = pb[pb.play_type.isin(["pass", "run"]) & (pb.two_point_attempt.fillna(0) == 0) & pb.season_type.isin(["REG", "POST"])]
-                tg = pb[(pb.pass_attempt == 1) & pb.receiver_player_id.notna() & (pb.sack == 0)]; ca = pb[pb.play_type.eq("run") & pb.rusher_player_id.notna()]
-                tie(f"player game logs on the page = the play-by-play, {yr} (targets, receiving yards, carries, rushing yards)", [len(tg), int(tg.yards_gained.fillna(0).sum()), len(ca), int(ca.yards_gained.fillna(0).sum())],
-                    [sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rec"]["yards"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rush"]["carries"]] for v in lg.values() for r in v.get("rush", [])), sum(r[ix["rush"]["yards"]] for v in lg.values() for r in v.get("rush", []))])
+            sf = RAW / "player_stats" / f"stats_player_week_{yr}.parquet"
+            if sf.exists():   # the game logs against nflverse's official box score (the league's numbers, what the books settle on)
+                st = pd.read_parquet(sf).fillna(0); S_ = lambda k, c: round(float(sum((r[ix[k][c]] or 0) for v in lg.values() for r in v.get(k, []))), 1)
+                exact = [("rec", "targets", "targets"), ("rec", "catches", "receptions"), ("rec", "td", "receiving_tds"), ("rush", "carries", "carries"), ("rush", "yards", "rushing_yards"), ("rush", "td", "rushing_tds"),
+                         ("pass", "completions", "completions"), ("pass", "td", "passing_tds"), ("pass", "int", "passing_interceptions"), ("pass", "sacks", "sacks_suffered")]
+                tie(f"player game logs on the page = nflverse's official player stats, {yr} (targets, catches, rec TD, carries, rush yards, rush TD, completions, pass TD, INT, sacks taken)",
+                    [S_(k, c) for k, c, _ in exact], [round(float(st[o].sum()), 1) for _, _, o in exact])
+                # defense, game by game: every defensive player's official line is in the logs with the same numbers
+                dl = pd.DataFrame([{"player_id": pid, "game_id": r[ix["def"]["game_id"]], "tk": r[ix["def"]["tackles"]], "solo": r[ix["def"]["solo"]], "sk": r[ix["def"]["sacks"]], "it": r[ix["def"]["ints"]], "pdf": r[ix["def"]["passes_defended"]]} for pid, v in lg.items() for r in v.get("def", [])])
+                so = st.assign(tk=st.def_tackles_solo + st.def_tackle_assists + st.def_tackles_with_assist)
+                jn = dl.merge(so[["player_id", "game_id", "tk", "def_tackles_solo", "def_sacks", "def_interceptions", "def_pass_defended"]], on=["player_id", "game_id"], how="inner")
+                bad = int(((jn.tk_x - jn.tk_y).abs() > 0.01).sum() + ((jn.solo - jn.def_tackles_solo).abs() > 0.01).sum() + ((jn.sk - jn.def_sacks).abs() > 0.01).sum() + ((jn.it - jn.def_interceptions).abs() > 0.01).sum() + ((jn.pdf - jn.def_pass_defended).abs() > 0.01).sum())
+                need = so[so.position_group.isin(["DL", "LB", "DB"]) & ((so.tk + so.def_sacks + so.def_interceptions + so.def_pass_defended) > 0)]
+                miss = len(set(zip(need.player_id, need.game_id)) - set(zip(dl.player_id, dl.game_id)))
+                tie(f"player game logs: defenders' tackles, solo, sacks, INT, passes defended = official game by game, {yr} (numbers off; official defensive games missing)", [bad, miss], [0, 0])
+                gap = max(abs(S_("pass", "yards") - st.passing_yards.sum()), abs(S_("rec", "yards") - st.receiving_yards.sum()), abs(S_("pass", "attempts") - st.attempts.sum()))
+                rows.append((f"player game logs: passing yards, receiving yards and attempts against official, {yr} (worst gap; laterals and a rare passer the play-by-play leaves unnamed)", str(round(gap)), "0.05% of the season or under", gap <= 0.0005 * st.passing_yards.sum()))
+            # the props are graded on the same terms: rebuild the grading's actuals for the season from the charted plays
+            from . import props as PRP
+            sp = PRP.official(pd.read_parquet(OUT / "scheme_plays.parquet")); sp = sp[(sp.season == yr) & (sp.season_type == "REG")]
+            stR = st[st.season_type == "REG"] if sf.exists() else None
+            if stR is not None and len(sp):
+                ours = [int(sp[sp.pass_play & sp.receiver_player_id.notna()].shape[0]), int(sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].shape[0]), int(sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].yards_gained.sum()),
+                        int(sp.pass_att.sum()), int(sp[sp.pass_att].complete_pass.sum())]
+                offi = [int(stR.targets.sum()), int(stR.carries.sum()), int(stR.rushing_yards.sum()), int(stR.attempts.sum()), int(stR.completions.sum())]
+                gap = max(abs(a_ - b_) for a_, b_ in zip(ours, offi)); pgap = abs(float(sp.pass_yds.sum()) - float(stR.passing_yards.sum()))
+                rows.append((f"props graded on the official box score, {yr} regular season (targets, carries, rush yards, attempts, completions: worst gap; passing yards gap)", f"{gap}; {round(pgap)}", "0.05% of each or under",
+                             gap <= 0.0005 * min(offi) + 2 and pgap <= 0.0005 * float(stR.passing_yards.sum())))
             car_t = sum(r[4] for v in pc["careers"]["rows"].values() for r in v if r[0] == yr and r[1] == "rec"); log_t = sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", []))
             tie(f"career totals on the page = the season's game logs, {yr} (targets)", car_t, log_t)
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))

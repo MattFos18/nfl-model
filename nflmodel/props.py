@@ -49,13 +49,13 @@ DEF_WEIGHT = W["rec"]                                # kept for the page's note
 DECAY = 0.85                                         # usage share: weight per game back (0.85 beat 0.90 and flat on both windows, round 3)
 GS_TOTAL = 43.5674                                   # league mean closing total the game-script line is centred on (all games in games.parquet)
 GS = {"rec": (-0.5969, -0.046, 0.1636), "rush": (0.3413, 0.103, -0.1713), "pass": (-0.5967, -0.0461, 0.1638)}   # plays per game beyond the team's last-17 average: intercept, per point of expected margin, per point of total above GS_TOTAL; least squares on 2016 to 2018 (pass plays, runs, dropbacks)
-MED = {"rec": 0.81, "rush": 0.84, "pass": 0.89}      # median factor on the yards line. Rushing 0.84 fitted on 2016 to 2018 in round 3; receiving and passing refit on 2017-18 with today's rule in round 11 (the round-3 values 0.88 and 0.90 had gone stale as rounds 4 to 10 changed the rule under them; reports/props_backtest11.csv, better on both windows)
+MED = {"rec": 0.81, "rush": 0.84, "pass": 0.88}      # median factor on the yards line. Rushing 0.84 fitted on 2016 to 2018 in round 3; receiving and passing refit on 2017-18 with today's rule in round 11 (the round-3 values 0.88 and 0.90 had gone stale as rounds 4 to 10 changed the rule under them; reports/props_backtest11.csv, better on both windows)   # 24 Sep 2026: passing refit to 0.88 (and TEAM_FIT pass yds to 100.83 + 6.379 x exp pts) once passing yards became gross, the yards the books settle on (experiments/props_official.py)
 K_CATCH, MED_CATCH = 25.0, 0.9                     # catch rate shrunk toward the league with 25 targets of weight (round 5); receptions line x 0.9, refit on 2017-18 in round 11 (was 0.88; reports/props_backtest11.csv, better on both windows)
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
-BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.509, 0.4852], 'rush_td_ll': [0.5924, 0.5625], 'pass_td_ll': [1.4633, 1.4225], 'pass_int_ll': [1.1452, 1.1029]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
+BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5094, 0.4857], 'rush_td_ll': [0.5771, 0.5483], 'pass_td_ll': [1.464, 1.4225], 'pass_int_ll': [1.1454, 1.103]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
 RECON_W = {"rec": {"yds": 0.25, "td": 0.5}, "rush": {"yds": 0.25, "td": 0.5}, "pass": {"yds": 0.5, "td": 1.0}}   # round 6: weight of the move toward the team's expected yards and touchdowns from the game model's expected points (best row on both windows per stat)
-TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (73.77, 6.894)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
+TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (100.83, 6.379)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
 PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
 DEF_DECAY, DEF_MED, K_SACK = 0.85, 0.90, 300.0         # round 7 (reports/props_backtest7.csv): tackles = his decayed share of the team's tackles x the team's tackles per play faced x the opponent's plays with the game script, x 0.90; sacks = his rate per play faced shrunk toward the league with 300 plays of weight (best Poisson fit both windows)
 BACKTEST_DEF = {"def_tackles": [1.648, 1.633], "def_sacks_ll": [0.3813, 0.3887]}   # tk_85gs_med and sk_K300 in props_backtest7.csv
@@ -66,7 +66,7 @@ KICK = {"pts": (2.4861, 0.1843, 0.1489), "fgm": (1.0165, 0.1757, 0.0155)}   # ro
 BACKTEST_KICK = {"kick_points": [2.832, 2.925], "field_goals": [0.969, 1.001]}   # k_blend_team and g_blend_team in props_backtest9.csv
 PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {'rec_yards': [19.3, 18.27], 'rush_yards': [18.12, 17.28], 'pass_yards': [57.68, 57.24]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
+BACKTEST = {'rec_yards': [19.31, 18.28], 'rush_yards': [17.86, 17.04], 'pass_yards': [56.6, 56.38]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -128,6 +128,17 @@ def wind_factor(kind: str, wind: float | None) -> float:
     return 1 + WIND_C[kind] * max(float(wind) - 10.0, 0.0)
 
 
+def official(d: pd.DataFrame) -> pd.DataFrame:
+    """The charted plays on the official box score's terms (24 Sep 2026, checked against nflverse's player stats):
+    a kneel-down is a run (a carry by the QB), a spike is a pass attempt and nothing else, two-point tries are not
+    plays (dropped in scheme.load_plays). Passing yards per dropback use pass_yds, the yards on completions: a
+    sack's lost yards are not passing yards, and the books settle passing yards gross."""
+    d = d[d.play_type.isin(["pass", "run", "qb_kneel", "qb_spike"])].copy()
+    d.loc[d.play_type.eq("qb_kneel"), "play_type"] = "run"
+    spk = d.play_type.eq("qb_spike"); d.loc[spk, "pass_play"] = False; d.loc[spk, "dropback"] = False
+    return d
+
+
 def receivers(d: pd.DataFrame, names: dict) -> dict:
     out = {}
     t = d[d.pass_play & d.receiver_player_id.notna()]
@@ -170,8 +181,8 @@ def passers(d: pd.DataFrame, names: dict) -> dict:
             continue
         team = g.sort_values(["season", "week"]).posteam.iloc[-1]
         out[pid] = {"name": names.get(pid, (pid, ""))[0], "pos": names.get(pid, ("", ""))[1], "team": team, "games": int(g.game_id.nunique()), "dropbacks": int(n), "dropbacks_pg": round(n / g.game_id.nunique(), 1),
-                    "epa_db": round(float(g.epa.mean()), 3), "ypd": round(float(g.yards_gained.fillna(0).mean()), 2), "sack_rate": round(float(g.sack.fillna(0).mean()), 3), "td_db": round(float(g.pass_touchdown.fillna(0).mean()), 3), "int_db": round(float(g.interception.fillna(0).mean()), 3),
-                    "att_rate": round(float(g.pass_play.mean()), 3), "comp": round(float(g[g.pass_play].complete_pass.fillna(0).mean()), 3) if g.pass_play.any() else None,
+                    "epa_db": round(float(g.epa.mean()), 3), "ypd": round(float(g.pass_yds.mean()), 2), "sack_rate": round(float(g.sack.fillna(0).mean()), 3), "td_db": round(float(g.pass_touchdown.fillna(0).mean()), 3), "int_db": round(float(g.interception.fillna(0).mean()), 3),
+                    "att_rate": round(float(g.pass_play.mean()), 3), "comp": round(float(g[g.pass_att].complete_pass.fillna(0).mean()), 3) if g.pass_att.any() else None,
                     "press": _stat(g[g.pressure == 1], MIN_SPLIT), "clean": _stat(g[g.pressure == 0], MIN_SPLIT), "blitz": _stat(g[g.blitz == 1], MIN_SPLIT), "noblitz": _stat(g[g.blitz == 0], MIN_SPLIT), "vs_man": _stat(g[g.man], MIN_SPLIT), "vs_zone": _stat(g[g.zone], MIN_SPLIT), **_longest(g_all, g[g.pass_play], "pass")}
     return out
 
@@ -181,7 +192,7 @@ def defenses(d: pd.DataFrame) -> dict:
     for team, g in d.groupby("defteam"):
         g = _last(g); ps = g[g.pass_play]; db = g[g.dropback]; run = g[g.play_type.eq("run")]; cv = ps[ps.cov_known]
         out[team] = {"games": int(g.game_id.nunique()), "ypt_allowed": round(float(ps.yards_gained.fillna(0).mean()), 2), "epa_pt_allowed": round(float(ps.epa.mean()), 3), "catch_allowed": round(float(ps.complete_pass.fillna(0).mean()), 3),
-                     "ypc_allowed": round(float(run.yards_gained.fillna(0).mean()), 2), "epa_pc_allowed": round(float(run.epa.mean()), 3), "ypd_allowed": round(float(db.yards_gained.fillna(0).mean()), 2),
+                     "ypc_allowed": round(float(run.yards_gained.fillna(0).mean()), 2), "epa_pc_allowed": round(float(run.epa.mean()), 3), "ypd_allowed": round(float(db[db.passer_player_id.notna()].pass_yds.mean()), 2),
                      "man": (round(float(cv.man.mean()), 3) if len(cv) >= 50 else None), "pressure": (round(float(db.pressure.mean()), 3) if db.pressure.notna().sum() >= 50 else None), "blitz": (round(float(db.blitz.mean()), 3) if db.blitz.notna().sum() >= 50 else None),
                      "heavy_box": (round(float((run.box >= 8).mean()), 3) if run.box.notna().sum() >= 30 else None), "light_box": (round(float((run.box <= 6).mean()), 3) if run.box.notna().sum() >= 30 else None),
                      "pass_plays_pg": round(len(ps) / max(g.game_id.nunique(), 1), 1), "runs_pg": round(len(run) / max(g.game_id.nunique(), 1), 1), "dropbacks_pg": round(len(db) / max(g.game_id.nunique(), 1), 1)}
@@ -197,11 +208,11 @@ def teams_volume(d: pd.DataFrame) -> dict:
 
 
 def league_baselines(d: pd.DataFrame) -> dict:
-    ps = d[d.pass_play]; run = d[d.play_type.eq("run")]; db = d[d.dropback]
+    ps = d[d.pass_play]; run = d[d.play_type.eq("run")]; db = d[d.dropback]; pdb = db[db.passer_player_id.notna()]; att = d[d.pass_att]   # pdb: the dropbacks a passer's own rates are counted on (scrambles are his runs)
     tg = ps[ps.receiver_player_id.notna()]
-    return {"ypt": round(float(ps.yards_gained.fillna(0).mean()), 2), "epa_pt": round(float(ps.epa.mean()), 3), "catch": round(float(tg.complete_pass.fillna(0).mean()), 4), "ypc": round(float(run.yards_gained.fillna(0).mean()), 2), "ypd": round(float(db.yards_gained.fillna(0).mean()), 2),
-            "td_pt": round(float(tg.pass_touchdown.fillna(0).mean()), 4), "td_pc": round(float(run.rush_touchdown.fillna(0).mean()), 4), "td_db": round(float(db.pass_touchdown.fillna(0).mean()), 4), "int_db": round(float(db.interception.fillna(0).mean()), 4),
-            "comp_pp": round(float(ps.complete_pass.fillna(0).mean()), 4), "att_rate": round(float(db.pass_play.mean()), 4),
+    return {"ypt": round(float(ps.yards_gained.fillna(0).mean()), 2), "epa_pt": round(float(ps.epa.mean()), 3), "catch": round(float(tg.complete_pass.fillna(0).mean()), 4), "ypc": round(float(run.yards_gained.fillna(0).mean()), 2), "ypd": round(float(pdb.pass_yds.mean()), 2),
+            "td_pt": round(float(tg.pass_touchdown.fillna(0).mean()), 4), "td_pc": round(float(run.rush_touchdown.fillna(0).mean()), 4), "td_db": round(float(pdb.pass_touchdown.fillna(0).mean()), 4), "int_db": round(float(pdb.interception.fillna(0).mean()), 4),
+            "comp_pp": round(float(att.complete_pass.fillna(0).mean()), 4), "att_rate": round(float(db.pass_play.mean()), 4),
             "man": round(float(ps[ps.cov_known].man.mean()), 3) if ps.cov_known.any() else None, "pressure": (round(float(db.pressure.mean()), 3) if db.pressure.notna().any() else None), "heavy_box": (round(float((run.box >= 8).mean()), 3) if run.box.notna().any() else None)}
 
 
@@ -365,7 +376,7 @@ def _shrunk(rate: float, n: float, league: float, k: float) -> float:
 
 
 MARKET_LABEL = {"pass_yards": "Pass yds", "pass_td": "Pass TD", "pass_completions": "Completions", "pass_attempts": "Attempts", "pass_int": "INT thrown", "pass_longest": "Longest completion", "rush_yards": "Rush yds", "rush_attempts": "Rush att", "rush_rec_yards": "Rush + rec yds", "rush_longest": "Longest rush", "pass_rush_yards": "Pass + rush yds", "rec_targets": "Targets",
-                "rec_catches": "Receptions", "rec_yards": "Rec yds", "rec_longest": "Longest rec", "anytime_td": "Anytime TD", "def_tackles": "Tackles + ast", "def_solo_tackles": "Solo tackles", "def_sacks": "Sacks", "def_int": "INT", "kick_points": "Kicking pts", "field_goals": "Field goals"}
+                "rec_catches": "Receptions", "rec_yards": "Rec yds", "rec_longest": "Longest rec", "anytime_td": "Anytime TD", "def_tackles": "Tackles + ast (defense)", "def_solo_tackles": "Solo tackles", "def_sacks": "Sacks", "def_int": "INT", "kick_points": "Kicking pts", "field_goals": "Field goals"}
 
 
 def attach_all_markets(rows: list, mk: pd.DataFrame) -> set:
@@ -563,9 +574,9 @@ def grade(d: pd.DataFrame, season: int, week: int, run_at: str) -> pd.DataFrame 
         plays = d[(d.season == season) & (d.week == wk)]
         if not len(plays): continue
         plays = plays.assign(lg=np.where(plays.play_type.eq("run"), plays.yards_gained.fillna(0.0), np.where(plays.complete_pass.fillna(0).eq(1), plays.yards_gained.fillna(0.0), 0.0)))   # the longest gain of the game: runs, or completed passes
-        def agg(mask, col, val):
-            return plays[mask].groupby(["game_id", col]).agg(yards=("yards_gained", "sum"), catches=("complete_pass", "sum"), pass_td=("pass_touchdown", "sum"), rush_td=("rush_touchdown", "sum"), ints=("interception", "sum"), n=("play_id", "count"), longest=("lg", "max")).reset_index().rename(columns={col: "player_id"})
-        ry = agg(plays.pass_play, "receiver_player_id", None); rr = agg(plays.play_type.eq("run"), "rusher_player_id", None); py = agg(plays.dropback, "passer_player_id", None); pa = agg(plays.pass_play, "passer_player_id", None)
+        def agg(mask, col, val):   # val: the yards column (pass_yds for passers: the yards on completions, not net of sacks)
+            return plays[mask].groupby(["game_id", col]).agg(yards=(val or "yards_gained", "sum"), catches=("complete_pass", "sum"), pass_td=("pass_touchdown", "sum"), rush_td=("rush_touchdown", "sum"), ints=("interception", "sum"), n=("play_id", "count"), longest=("lg", "max")).reset_index().rename(columns={col: "player_id"})
+        ry = agg(plays.pass_play, "receiver_player_id", None); rr = agg(plays.play_type.eq("run"), "rusher_player_id", None); py = agg(plays.dropback, "passer_player_id", "pass_yds"); pa = agg(plays.pass_att, "passer_player_id", None)   # attempts: passes and spikes, not sacks
         rrr = rr.merge(ry[["game_id", "player_id", "yards"]].rename(columns={"yards": "rec_yds"}), on=["game_id", "player_id"], how="outer").fillna({"yards": 0, "rec_yds": 0, "n": 0}); rrr["both"] = rrr.yards + rrr.rec_yds
         prr = py.merge(rr[["game_id", "player_id", "yards"]].rename(columns={"yards": "rush_yds"}), on=["game_id", "player_id"], how="outer").fillna({"yards": 0, "rush_yds": 0, "n": 0}); prr["both"] = prr.yards + prr.rush_yds
         dgw = defender_games(); dgw = dgw[(dgw.season == season) & (dgw.week == wk)].rename(columns={"pid": "player_id"}); dgw["n"] = dgw.plays_faced
@@ -592,7 +603,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
     if season is None or week is None:
         season, week = current_week(games)
     run_at = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
-    d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
+    d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
     graded = None if backfill else grade(d, season, week, run_at)
     vm = None if backfill else grade_market(graded, run_at)
     from .props_lines import load_log, closing

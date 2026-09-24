@@ -47,7 +47,8 @@ def season_actuals(d: pd.DataFrame, season: int, through_week: int | None = None
     ps = x[x.dropback & x.passer_player_id.notna()]
     for pid, g in ps.groupby("passer_player_id"):
         pp = g[g.pass_play]
-        rows.append({"kind": "pass", "player_id": pid, "yards": float(pp.yards_gained.fillna(0).sum()), "td": float(pp.pass_touchdown.fillna(0).sum()), "games": int(g.game_id.nunique()), "touches": int(len(g)), "catches": np.nan})
+        # passing yards: the yards on completions; a sack's yards are not passing yards (24 Sep 2026)
+        rows.append({"kind": "pass", "player_id": pid, "yards": float(g.pass_yds.sum()), "td": float(pp.pass_touchdown.fillna(0).sum()), "games": int(g.game_id.nunique()), "touches": int(len(g)), "catches": np.nan})
     return pd.DataFrame(rows, columns=["kind", "player_id", "yards", "td", "games", "touches", "catches"])
 
 
@@ -133,7 +134,8 @@ def run_now() -> pd.DataFrame:
     from .lines import current_week
     from .positions import names_by_id
     games = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(games)
-    d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
+    from .props import official
+    d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
     names = names_by_id(range(season - 2, season + 1))
     return project(d, names, games, season, week, mode="now")
 
