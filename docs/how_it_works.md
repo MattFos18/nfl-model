@@ -1834,3 +1834,9 @@ Preseason offseason information was tested (`experiments/preseason_totals.py`, `
 a team change, the team's vacated volume, the player's share of it, years in the league and a season before last,
 fitted on 2017-18. None beat the plain Week 1 projection on both windows, so the preseason number stays last season
 carried forward, and no breakout is flagged before Week 5.
+
+**Against the books' win totals** (`nflmodel/wintotals.py`, `reports/win_totals_vs_vegas.csv`): before Week 1 the
+books missed a team's final wins by 2.06 / 2.32 (2019-22 / 2023-25), the model by 2.17 / 2.54. They agree closely
+(correlation 0.87 / 0.85), their average does not beat the books, and the model's side at a win or more off the line
+went 30-28-3. The market is the better preseason number. Only the preseason line is archived, so the model's weekly
+re-pricing cannot be scored against the market.

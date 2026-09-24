@@ -439,6 +439,16 @@ def export_season() -> dict:
         base = m[(m.shrink == 0.0) & (m.sigma_mult == 1.0)]
         out["backtest"] = {"windows": base[base.asof_week.astype(str) == "all"].to_dict("records"), "by_week": base[base.asof_week.astype(str) != "all"].to_dict("records"),
                            "variants": m[m.asof_week.astype(str) == "all"].to_dict("records"), "seasons": b[(b.season.astype(str) != "mean") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].to_dict("records")}
+    try:   # the books' preseason win totals: this season's beside the model's, and every backtest season scored (nflmodel/wintotals.py)
+        from . import wintotals as WT
+        wt = WT.parse(); x_, s_ = WT.compare(wt); x_.to_csv(REP / "win_totals_vs_vegas.csv", index=False)
+        cur = wt[wt.season == out["season"]][["team", "line", "vegas_wins"]]
+        out["vegas"] = {"source": "Sports Odds History's archive of the books' preseason win totals", "windows": s_.to_dict("records"),
+                        "current": {r.team: [float(r.line), float(r.vegas_wins)] for r in cur.itertuples()},
+                        "summary": (lambda a, b: f"before Week 1, the books' number missed a team's final wins by {a.vegas_miss:.2f} / {b.vegas_miss:.2f} games (2019-22 / 2023-25), the model's by {a.model_miss:.2f} / {b.model_miss:.2f}; the two agree closely (correlation {a.corr_model_vegas:.2f} / {b.corr_model_vegas:.2f}), averaging them does not beat the books alone, and taking the model's side where it differs from the line by a win or more went {a.model_side_1win} and {b.model_side_1win}. The market is the better preseason number; in season the model re-prices every week, which the archive cannot be compared against (it keeps only the preseason line).")(
+                            s_[s_.window == "2019-22"].iloc[0], s_[s_.window == "2023-25"].iloc[0])}
+    except Exception as e:  # noqa
+        print("win totals not compared:", str(e)[:200], flush=True)
     pl = PS.run_now()
     try:   # the same totals as projected at points in time, with what happened (Season -> Player totals, "As projected")
         from .lines import current_week as _cw
