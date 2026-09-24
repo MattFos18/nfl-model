@@ -31,6 +31,7 @@ WINDOW = {s: "2019-22" if s <= 2022 else "2023-25" for s in TEST_SEASONS}
 AVAIL_GRID = np.round(np.arange(0.3, 1.0001, 0.025), 3)
 BLEND_GRID = [0.0, 0.25, 0.5, 0.75, 1.0]
 CACHE = REP / "player_season_rows.csv"
+TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projection, for the accuracy the page leads with (24 Sep 2026)
 
 
 def rows_for(d, games, names, season, week):
@@ -102,9 +103,9 @@ def main():
     # 2. the test seasons under the fitted constants
     T = evaluate(test, avail, blend)
     for (k, w, wk), g in T.groupby(["kind", "window", "week"]):
-        out.append({"row": "mae", "kind": k, "window": w, "asof_week": wk, "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean())})
+        out.append({"row": "mae", "kind": k, "window": w, "asof_week": wk, "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean()), "within20_top": float((g[g["rank"] <= TOPW[k]].rel <= 0.20).mean()), "n_top": int((g["rank"] <= TOPW[k]).sum())})
     for (k, w), g in T.groupby(["kind", "window"]):
-        out.append({"row": "mae", "kind": k, "window": w, "asof_week": "all", "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean())})
+        out.append({"row": "mae", "kind": k, "window": w, "asof_week": "all", "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean()), "within20_top": float((g[g["rank"] <= TOPW[k]].rel <= 0.20).mean()), "n_top": int((g["rank"] <= TOPW[k]).sum())})
     # 3. breakouts: flagged as of the week; true when he finished at least BREAK_UP x last season per game and inside the top N
     T["hit"] = (T.actual_pg >= PS.BREAK_UP * T.prev_pg) & (T.actual_rank <= T.kind.map(PS.TOP_N)) & (T.prev_games > 0)
     top = T[T["rank"] <= T.kind.map(PS.TOP_N)]

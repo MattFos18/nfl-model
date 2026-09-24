@@ -165,6 +165,7 @@ h2.sech{font-size:17px;margin:22px 0 10px}
 .bo .bv{font-family:var(--display);font-size:20px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
 .bo .bw{font-size:12.5px;color:var(--ink-2);margin-top:2px}
 .bo .bc{font-size:12px;color:var(--ink-2);margin-top:6px;border-top:1px solid var(--rule-2);padding-top:6px}
+.kv{display:grid;grid-template-columns:auto auto auto;gap:3px 8px;align-items:baseline;justify-content:end} .kv .k{font-family:var(--sans,inherit);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left} .kv .v{font-weight:600;color:var(--ink);text-align:right} .kv .f{color:var(--muted);font-size:10.5px;text-align:left} .gl{display:grid;grid-template-columns:repeat(3,auto);gap:2px 10px;justify-content:end;margin-top:6px;font-size:10.5px;color:var(--muted)} .gl i{font-style:normal;color:var(--ink-2)} .bkv{font-size:10.5px;color:var(--muted);font-weight:400}
 td.calc{font-family:var(--mono);font-size:11.5px;line-height:1.55;white-space:nowrap;vertical-align:top;color:var(--ink-2);background:var(--rule-2)} tr.tcalc td,tr.pscalc td{background:var(--rule-2);vertical-align:top} tr.mrow.open td{background:var(--rule-2)}
 table.eqt{width:auto!important;min-width:0!important;font-size:12.5px;margin:2px 0} .bo.open{grid-column:1 / -1} table.eqt td{padding:3px 10px 3px 0;border:0;white-space:normal;vertical-align:top} table.eqt td:first-child{color:var(--muted);white-space:nowrap} .bo table.eqt td:first-child{white-space:normal}
 @media(max-width:600px){.sc{grid-template-columns:1fr 1fr;gap:8px}.sc .k{padding:10px}.sc .k .v{font-size:20px}.sc .k .s{font-size:11.5px}.seg button{padding:7px 12px}}
@@ -1220,6 +1221,9 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 
   // ---------- History ----------
   // a scorecard: the few numbers that answer the question, first. Each item [label, value, the line under it, "good" | "bad"]
+  // a calc cell: rows of [label, result, formula]; kvGrid is the same without the cell
+  const kvGrid = rows => `<div class="kv">${rows.filter(Boolean).map(([l, v, f]) => `<span class="k">${l}</span><span class="v">${v}</span><span class="f">${f || ""}</span>`).join("")}</div>`;
+  const kv = rows => `<td class="calc">${kvGrid(rows)}</td>`;
   const scoreCard = items => `<div class="sc">${items.filter(Boolean).map(([l, v, s, c]) => `<div class="k ${c || ""}"><div class="l">${l}</div><div class="v">${v}</div>${s ? `<div class="s">${s}</div>` : ""}</div>`).join("")}</div>`;
   // a row of buttons that picks one option; aria-pressed marks the current one
   // click a row to show its detail; only one open at a time. find(tr) returns the detail element for that row
@@ -2286,21 +2290,20 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const n2 = v => v == null || isNaN(v) ? "" : (+v).toFixed(2);
     const n3 = v => v == null || isNaN(v) ? "" : (+v).toFixed(3);
     if (cur === "odds") {
-      const BK = S.books || {}, bk = (m, t) => BK[m] && BK[m][t] != null ? `<small class="rk" title="the books' chance, margin removed">${pct(BK[m][t])}</small>` : "";
-      const bookList = (m, t) => Object.entries(((BK.books || {})[m] || {})[t] || {}).map(([b, p]) => `<span class="rk">${b}</span> ${pct(p)}`);
-      $("seasonnote").innerHTML = `${S.season}, going into Week ${S.week} · ${S.n_sims.toLocaleString()} simulated seasons · grey = the books' chance${BK.ts ? `, ${BK.ts}` : ""} · click a team for the math`;
-      const rows = S.teams.slice().sort((a, b) => b.p_sb - a.p_sb || b.p_conf - a.p_conf || b.wins - a.wins); const VG = (S.vegas || {}).current || {}, LEFT = S.left || {};
-      const runs = p => `${Math.round(p * S.n_sims).toLocaleString()} / ${S.n_sims.toLocaleString()} runs`;
-      // the math under each number, in the number's own column: wins from the games left, each share from the runs
-      const calc = t => { const L = LEFT[t.team] || [], sum = L.reduce((a, g) => a + g[3], 0), v = VG[t.team];
-        const z = v && v[2] != null ? (v[1] - v[0]) / ((S.vegas || {}).win_sd || 2) : null;
-        const cell = (lines) => `<td class="calc">${lines.join("<br>")}</td>`;
-        return `<tr class="tcalc" data-for="${t.team}"><td></td><td></td><td></td>` + cell([`${rec(t)} so far`]) +
-          cell([`${n1(t.wins_now)} + ${n2(sum)} = <b>${n1(t.wins_now + sum)}</b>`, `<span class="rk">${L.length} games left, chance each:</span>`].concat(L.map(g => `<span class="rk">Wk ${g[0]} ${g[2] ? "vs" : "@"} ${g[1]}</span> ${Math.round(100 * g[3])}%`))) +
-          cell(v ? [`line ${v[0]}`, v[2] != null ? `over ${Math.round(100 * v[2])}% (no vig)` : "", v[2] != null ? `${v[0]} ${z >= 0 ? "+" : "−"} ${(S.vegas || {}).win_sd || 2} × ${n2(Math.abs(z))} = <b>${n1(v[1])}</b>` : ""] : [""]) +
-          cell([runs(t.p_div)].concat(bookList("div", t.team))) + cell([runs(t.p_playoffs)]) + cell([runs(t.p_bye)]) + cell([runs(t.p_conf)].concat(bookList("conf", t.team))) + cell([runs(t.p_sb)].concat(bookList("sb", t.team))) + "</tr>"; };
-      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th title="record so far">Now</th><th title="expected wins, with the 10th to 90th percentile of the runs">Wins</th><th title="the books' win total before Week 1 (the line; in brackets, the wins the over and under prices imply), Sports Odds History">Books, preseason</th><th>Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
-        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small>${n1(t.wins_p10)}–${n1(t.wins_p90)}</small></td><td class="mono">${VG[t.team] ? `${VG[t.team][0]} <small>(${n1(VG[t.team][1])})</small>` : ""}</td><td class="mono">${pct(t.p_div)} ${bk("div", t.team)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td><td class="mono">${pct(t.p_conf)} ${bk("conf", t.team)}</td><td class="mono"><b>${pct(t.p_sb)}</b> ${bk("sb", t.team)}</td></tr>${calc(t)}`).join("") + "</tbody>";
+      const BK = S.books || {};
+      $("seasonnote").innerHTML = ""; $("seasonnote").hidden = true;
+      const rows = S.teams.slice().sort((a, b) => b.p_sb - a.p_sb || b.p_conf - a.p_conf || b.wins - a.wins); const LEFT = S.left || {};
+      // a cell with the model's number and, under it, the books' where they price it
+      const odd = (p, m, t, bold) => `<td class="mono">${bold ? `<b>${pct(p)}</b>` : pct(p)}${BK[m] && BK[m][t] != null ? `<div class="bkv">books ${pct(BK[m][t])}</div>` : ""}</td>`;
+      const sims = p => [["sims", `${Math.round(p * S.n_sims).toLocaleString()}`, `of ${S.n_sims.toLocaleString()}`]];
+      const booksKv = (m, t) => { const b = Object.values(((BK.books || {})[m] || {})[t] || {}); if (!b.length) return []; const lo = Math.min(...b), hi = Math.max(...b);
+        return [["books", pct(BK[m][t]), b.length > 1 ? `${b.length} books, ${pct(lo)}–${pct(hi)}` : "DraftKings"]]; };
+      const calc = t => { const L = LEFT[t.team] || [], sum = L.reduce((a, g) => a + g[3], 0);
+        return `<tr class="tcalc" data-for="${t.team}" hidden><td></td><td></td><td></td>` + kv([["won", n1(t.wins_now)]]) +
+          `<td class="calc">${kvGrid([["won", n1(t.wins_now), ""], ["games left", n2(sum), `${L.length} games`], ["expected", n1(t.wins_now + sum), ""]])}<div class="gl">${L.map(g => `<span><i>${g[2] ? "" : "@"}${g[1]}</i> ${Math.round(100 * g[3])}</span>`).join("")}</div></td>` +
+          kv(sims(t.p_div).concat(booksKv("div", t.team))) + kv(sims(t.p_playoffs)) + kv(sims(t.p_bye)) + kv(sims(t.p_conf).concat(booksKv("conf", t.team))) + kv(sims(t.p_sb).concat(booksKv("sb", t.team))) + "</tr>"; };
+      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th title="expected wins; small: the 10th to 90th percentile">Wins</th><th title="share of ${S.n_sims.toLocaleString()} simulated seasons in which it wins the division; books: the sportsbooks' chance, margin removed">Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
+        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small class="rk">${n1(t.wins_p10)}–${n1(t.wins_p90)}</small></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
       oneOpen("sbtable", "tr.mrow[data-t]", tr => $("sbtable").querySelector(`tr.tcalc[data-for="${tr.dataset.t}"]`));
       $("divgrid").innerHTML = Object.entries(S.divisions).map(([d, ts]) => { const rs = ts.map(t => S.teams.find(x => x.team === t)).filter(Boolean).sort((a, b) => b.p_div - a.p_div); return `<div class="card"><h3>${d}</h3><table><thead><tr><th class="l">Team</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Super Bowl</th></tr></thead><tbody>${rs.map(t => `<tr><td class="l">${LOGO(t.team)}${t.team}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}</td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_sb)}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
       return;
@@ -2325,30 +2328,26 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       const bo = kr.filter(r => r.breakout), nt = kr.filter(r => r.new_top), lead = kr[0];
       $("psscore").innerHTML = scoreCard([
         lead ? ["Leader", `${num(lead.proj_yards)}<small>yds</small>`, `${esc(lead.name)} · ${lead.team}`] : null,
-        cp != null ? ["Within 20% of final", p0(pooled(cp, "within20")), `within 10%: ${p0(pooled(cp, "within10"))} · backtest, ${cp === 1 ? "before Week 1" : "Week " + cp}`] : null,
+        cp != null ? ["Lands within 20%", p0(pooled(cp, "within20_top")), `top ${({rec: 48, rush: 32, pass: 24})[psKind]} players, ${cp === 1 ? "before Week 1" : "at Week " + cp} · by Week 9: ${p0(pooled(9, "within20_top"))}`] : null,
         ["Breakouts", `${bo.length}${nt.length ? `<small>+ ${nt.length} new</small>` : ""}`, ""],
         hit("2019-22").value != null ? ["Breakouts that hit", `${p0(hit("2019-22").value)} / ${p0(hit("2023-25").value)}`, "2019-22 / 2023-25", "good"] : null]);
       const flagged = bo.concat(nt);
       $("bohead").textContent = "Breakouts"; $("bonote").hidden = true; $("totalsnote").hidden = true;
       $("bocards").innerHTML = flagged.length ? flagged.map(r => `<div class="bo" data-ps="${r.player_id}"><div class="bn">${LOGO(r.team)}${esc(r.name)} <span class="bt">${esc(r.pos)} · ${r.team}</span></div><div class="bv">${num(r.proj_yards)} <span class="bt">yds · #${r.rank}</span></div>` +
         `<div class="bw">${r.breakout ? `${f1(r.proj_pg)} vs ${f1(r.prev_pg)} a game <b class="pos">+${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}%</b>` : `${f1(r.proj_pg)} a game · <b>new</b>`}</div></div>`).join("") : `<p class="note">None this week.</p>`;
-      // the math under each number, in that number's column
-      const cell = lines => `<td class="calc">${lines.filter(Boolean).join("<br>")}</td>`, ok = b => b ? `<span class="pos">✓</span>` : `<span class="neg">✗</span>`;
-      const calc = r => { const left = r.team_games_left, av = r.avail, gp = r.team_games_played;
-        return `<tr class="pscalc" data-for="${r.player_id}" hidden><td></td>` + cell([r.kind === "rec" && r.proj_catches != null && !isNaN(r.proj_catches) ? `catches ${num(r.catches_so_far)} + ${f2(r.catches_pg)} × ${left} × ${av} = ${num(r.proj_catches)}` : ""]) + `<td></td>` +
-          cell([gp > 0 ? `${num(r.yards_so_far)} ÷ ${gp}` : "no games yet", gp > 0 ? `= ${f1(r.yards_so_far / gp)} a game` : ""]) +
-          cell([`rate ${f2(r.volume_pg)} ${VOL[r.kind]} × ${f2(r.rate)} = ${f1(r.yards_pg)} a game`,
-                `own ${num(r.yards_so_far)} + ${f1(r.yards_pg)} × ${left} × ${av} = ${num(r.own_yards)}`,
-                `pace ${gp > 0 ? `${f1(r.yards_so_far / gp)} × ${r.team_games}` : "last season"} = ${num(r.pace_yards)}`,
-                `${f2(1 - r.blend)} × ${num(r.own_yards)} + ${f2(r.blend)} × ${num(r.pace_yards)} = <b>${num(r.proj_yards)}</b>`]) +
-          cell([`${num(r.proj_yards)} ÷ ${r.team_games}`, `= <b>${f1(r.proj_pg)}</b>`]) +
-          cell([`${num(r.td_so_far)} + ${f2(r.td_pg)} × ${left} × ${av}`, `= <b>${f1(r.proj_td)}</b>`]) +
-          cell([r.prev_games ? `${num(r.prev_yards)} ÷ ${r.prev_games}` : "no games", r.prev_games ? `= ${f1(r.prev_pg)} a game` : ""]) + "<td></td>" +
-          cell([r.prev_games ? `${r.proj_pg >= r.prev_pg ? "+" : ""}${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}% ${ok(r.proj_pg >= BU * r.prev_pg)} ≥${UP}%` : "new", `#${r.rank} ${ok(r.rank <= TOP)} ≤${TOP}`]) + "</tr>"; };
+      // the math under each number, in that number's column: label, result, the formula in grey
+      const ok = b => b ? `<span class="pos">✓</span>` : `<span class="neg">✗</span>`;
+      const calc = r => { const left = r.team_games_left, av = r.avail, gp = r.games_so_far, so = gp > 0 ? r.yards_so_far / gp : null;
+        return `<tr class="pscalc" data-for="${r.player_id}" hidden><td></td><td></td><td></td>` +
+          kv([["a game", so != null ? f1(so) : "–", gp > 0 ? `${num(r.yards_so_far)} ÷ ${gp}` : "no games"]]) +
+          kv([["rate", f1(r.yards_pg), `${f2(r.volume_pg)} ${VOL[r.kind]} × ${f2(r.rate)}`], ["own", num(r.own_yards), `${num(r.yards_so_far)} + ${f1(r.yards_pg)} × ${left} × ${av}`], ["pace", num(r.pace_yards), r.team_games_played > 0 ? `${f1(r.yards_so_far / r.team_games_played)} × ${r.team_games}` : "last season"], ["projected", num(r.proj_yards), `${f2(1 - r.blend)} own + ${f2(r.blend)} pace`]]) +
+                    kv([["TD", f1(r.proj_td), `${num(r.td_so_far)} + ${f2(r.td_pg)} × ${left} × ${av}`]].concat(r.kind === "rec" && r.proj_catches != null && !isNaN(r.proj_catches) ? [["catches", num(r.proj_catches), `${num(r.catches_so_far)} + ${f2(r.catches_pg)} × ${left} × ${av}`]] : [])) +
+          kv([["a game", r.prev_games ? f1(r.prev_pg) : "–", r.prev_games ? `${num(r.prev_yards)} ÷ ${r.prev_games}` : "no games"]]) + "<td></td>" +
+          kv(r.prev_games ? [["change", `${r.proj_pg >= r.prev_pg ? "+" : ""}${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}% ${ok(r.proj_pg >= BU * r.prev_pg)}`, `needs +${UP}%`], ["rank", `#${r.rank} ${ok(r.rank <= TOP)}`, `needs top ${TOP}`]] : [["rank", `#${r.rank} ${ok(r.rank <= TOP)}`, `needs top ${TOP}`]]) + "</tr>"; };
       const LD = ((S.books || {}).lead || {})[psKind] || {};
       const q = ($("psq").value || "").trim().toLowerCase(), shown = kr.filter(r => !q || r.name.toLowerCase().includes(q));
-      $("pstable").innerHTML = `<thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th>So far</th><th>Projected</th><th>A game</th><th>TD</th><th>Last season</th><th title="the books' chance he leads the league in ${KN[psKind].toLowerCase()} yards (DraftKings through ESPN, margin removed)">Books: leads NFL</th><th class="l"></th></tr></thead><tbody>` +
-        (shown.length ? shown.map(r => `<tr class="mrow" data-ps="${r.player_id}" style="cursor:pointer"><td class="mono">${posRank[r.player_id]}${psPos === "all" ? "" : ` <small class="rk">(${r.rank})</small>`}</td><td class="l"><b>${esc(r.name)}</b> <small class="rk">${esc(r.pos)}</small></td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono">${num(r.yards_so_far)} <small class="rk">in ${r.games_so_far}</small></td><td class="mono"><b>${num(r.proj_yards)}</b></td><td class="mono">${f1(r.proj_pg)}</td><td class="mono">${f1(r.proj_td)}</td><td class="mono">${r.prev_games ? num(r.prev_yards) : "<small class='rk'>none</small>"}</td><td class="mono">${LD[r.player_id] != null ? p0(LD[r.player_id]) : ""}</td><td class="l">${r.breakout ? `<span class="badge flag">Breakout</span>` : r.new_top ? `<span class="badge">New</span>` : ""}</td></tr>${calc(r)}`).join("")
+      $("pstable").innerHTML = `<thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th>So far</th><th title="expected season total, allowing for games missed (about 1 in 3 players plays every game left)">Projected</th><th>TD</th><th>Last season</th><th title="the books' chance he leads the league in ${KN[psKind].toLowerCase()} yards (DraftKings through ESPN, margin removed)">Books: leads NFL</th><th class="l"></th></tr></thead><tbody>` +
+        (shown.length ? shown.map(r => `<tr class="mrow" data-ps="${r.player_id}" style="cursor:pointer"><td class="mono">${posRank[r.player_id]}${psPos === "all" ? "" : ` <small class="rk">(${r.rank})</small>`}</td><td class="l"><b>${esc(r.name)}</b> <small class="rk">${esc(r.pos)}</small></td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono">${num(r.yards_so_far)} <small class="rk">in ${r.games_so_far}</small></td><td class="mono"><b>${num(r.proj_yards)}</b></td><td class="mono">${f1(r.proj_td)}</td><td class="mono">${r.prev_games ? num(r.prev_yards) : "<small class='rk'>none</small>"}</td><td class="mono">${LD[r.player_id] != null ? p0(LD[r.player_id]) : ""}</td><td class="l">${r.breakout ? `<span class="badge flag">Breakout</span>` : r.new_top ? `<span class="badge">New</span>` : ""}</td></tr>${calc(r)}`).join("")
           : `<tr><td class="l" colspan="10">No match for “${esc(q)}”.</td></tr>`) + "</tbody>";
       oneOpen("pstable", "tr.mrow[data-ps]", tr => $("pstable").querySelector(`tr.pscalc[data-for="${tr.dataset.ps}"]`));
       // a card opens that player's row in the table
@@ -2430,13 +2429,13 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const yd = v => v == null || isNaN(v) ? "" : Math.round(+v).toLocaleString();
     const hb = w => pr("breakout", w, "all") || {}, TOPN = ((S.players || {}).top_n || {})[sbKind] || 24;
     $("sbpscore").innerHTML = scoreCard([
-      ["Within 20%, before Week 1", p0(pooled(1, "within20")), `last season's total: ${p0(pooled(1, "within20_prev"))}`],
-      ["Within 20%, Week 5", p0(pooled(5, "within20")), `last season's total: ${p0(pooled(5, "within20_prev"))}`, "good"],
-      ["Within 20%, Week 9", p0(pooled(9, "within20")), `within 10%: ${p0(pooled(9, "within10"))}`, "good"],
+      ["Within 20%, before Week 1", p0(pooled(1, "within20_top")), `top players · all players: ${p0(pooled(1, "within20"))}`],
+      ["Within 20%, Week 5", p0(pooled(5, "within20_top")), `top players · all players: ${p0(pooled(5, "within20"))}`, "good"],
+      ["Within 20%, Week 9", p0(pooled(9, "within20_top")), `top players · all players: ${p0(pooled(9, "within20"))}`, "good"],
       ["Breakouts that hit", `${p0(hb("2019-22").value)} / ${p0(hb("2023-25").value)}`, `${hb("2019-22").n || 0} and ${hb("2023-25").n || 0} flags; any top ${TOPN}: ${p0(hb("2019-22").base_rate)} / ${p0(hb("2023-25").base_rate)}`, "good"]]);
     const wk = a => a === 1 ? "Before Week 1" : "Week " + a;
-    $("sbtmiss").innerHTML = `<thead><tr><th class="l" rowspan="2">Made</th>${WS.map(w => `<th colspan="4">${w}</th>`).join("")}</tr><tr>${WS.map(() => `<th title="the season total within 20% of what he finished with">Within 20%</th><th>Within 10%</th><th title="last season's total, carried over, within 20%">Last season ±20%</th><th title="average miss, yards">Off by</th>`).join("")}</tr></thead><tbody>` +
-      ASOF.map(a => `<tr><td class="l">${wk(a)}</td>${WS.map(w => { const r = pr("mae", w, a); return r ? `<td class="mono"><b>${p0(r.within20)}</b></td><td class="mono">${p0(r.within10)}</td><td class="mono">${p0(r.within20_prev)}</td><td class="mono">${yd(r.mae)}</td>` : "<td></td><td></td><td></td><td></td>"; }).join("")}</tr>`).join("") + "</tbody>";
+    $("sbtmiss").innerHTML = `<thead><tr><th class="l" rowspan="2">Made</th>${WS.map(w => `<th colspan="4">${w}</th>`).join("")}</tr><tr>${WS.map(() => `<th title="the top of the list by projection (48 receivers, 32 rushers, 24 passers): within 20% of the final">Top, ±20%</th><th title="every projected player">All, ±20%</th><th title="last season's total, carried over, within 20%">Last season ±20%</th><th title="average miss, yards">Off by</th>`).join("")}</tr></thead><tbody>` +
+      ASOF.map(a => `<tr><td class="l">${wk(a)}</td>${WS.map(w => { const r = pr("mae", w, a); return r ? `<td class="mono"><b>${p0(r.within20_top)}</b></td><td class="mono">${p0(r.within20)}</td><td class="mono">${p0(r.within20_prev)}</td><td class="mono">${yd(r.mae)}</td>` : "<td></td><td></td><td></td><td></td>"; }).join("")}</tr>`).join("") + "</tbody>";
     $("sbtbo").innerHTML = `<thead><tr><th class="l" rowspan="2">Made</th>${WS.map(w => `<th colspan="3">${w}</th>`).join("")}</tr><tr>${WS.map(() => `<th>Flagged</th><th title="finished inside the top ${TOPN} at a per-game rate at least 1.25x last season's">Came true</th><th title="the same test on every top-${TOPN} projection, flagged or not">Any top ${TOPN}</th>`).join("")}</tr></thead><tbody>` +
       ASOF.concat(["all"]).map(a => `<tr${a === "all" ? ' class="hl"' : ""}><td class="l">${a === "all" ? "<b>All</b>" : wk(a)}</td>${WS.map(w => { const r = pr("breakout", w, a); return r ? `<td class="mono">${r.n}</td><td class="mono"><b>${r.n ? p0(r.value) : ""}</b></td><td class="mono">${p0(r.base_rate)}</td>` : "<td></td><td></td><td></td>"; }).join("")}</tr>`).join("") + "</tbody>";
     renderSnapshots(S, sbKind);
