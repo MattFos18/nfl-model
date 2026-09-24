@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-24 02:55 UTC
+# Tie-out (sources and page), 2026-09-24 02:56 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -75,7 +75,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
-| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.017 | 0.01 or under | NO |
+| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
 | cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T02-48-17Z | 2026-09-24T02-48-17Z | yes |
 | cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T02-48-17Z | 2026-09-24T02-48-17Z | yes |
@@ -99,4 +99,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts) | [332, 227405.8, 14] | [332, 227405.8, 14] | yes |
 | player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 
-Result: FAIL (93 of 94 tie)
+Result: PASS (94 of 94 tie)

@@ -490,7 +490,8 @@ def export_week(feats=None, games=None, pred=None):
                         sides[tm]["qb_carried"] = True
             gmeta = games.loc[r.game_id] if r.game_id in games.index else None
             pr_ = pv_coef.loc[r.game_id] if r.game_id in pv_coef.index else None   # the fit that priced this game: coefficient, training mean, intercept
-            coefs_g = None if pr_ is None or f"coef_{M.FEATS[0]}" not in pr_.index else {"per_unit": {f: clean(pr_[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: clean(pr_[f"mean_{f}"]) for f in M.FEATS}, "intercept": clean(pr_["intercept"])}
+            _p6 = lambda v: None if v is None or (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)   # full precision: three decimals on the means and coefficients moved a card's rebuilt points by up to 0.02 once the QB coefficient passed 17
+            coefs_g = None if pr_ is None or f"coef_{M.FEATS[0]}" not in pr_.index else {"per_unit": {f: _p6(pr_[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: _p6(pr_[f"mean_{f}"]) for f in M.FEATS}, "intercept": _p6(pr_["intercept"])}
             wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides, "coefs": coefs_g,
                        "kickoff": str(gmeta.kickoff_et)[:16] if gmeta is not None else None, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
