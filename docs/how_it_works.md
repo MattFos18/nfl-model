@@ -251,11 +251,13 @@ and the live tracker is what settles it.
 **Update, 23 Sep 2026, on the twenty-two-input model (QB replacement -0.12, player model 480 touches / 10th percentile, out-of-the-race flags): the flag is 4.** Re-swept
 after every change of the day (`experiments/threshold.py`, `reports/threshold_sweep.csv`, weeks 1 to 17; until the tie-out of 23 Sep the sweep's held-out column also counted the live season's games, so its earlier held-out records ran two bets larger):
 
-| Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
-|---|---|---|---|---|---|---|---|---|---|
-| 4 | 82-57, 59.0% | 41-21, 66.1% | 61.1% | 67.6% | 62.5% | 44.1% (15-19) | 66.7% | 73.1% | 58.3% |
-| 4.5 | 54-35, 60.7% | 27-14, 65.9% | 63.6% | 68.2% | 68.2% | 43.5% (10-13) | 62.5% | 70.6% | 62.5% |
-| 5 | 33-30, 52.4% | 15-9, 62.5% | 56.2% | 58.8% | 64.3% | 31.2% (5-11) | 50.0% (1-1) | 77.8% | 53.8% |
+<!-- auto:threshold -->
+| Cut | 2019-22 | 2023-25 | 2015-18 (untouched) | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 4 | 81-55, 59.6% | 40-23, 63.5% | 61-58, 51.3% | 62.9% | 67.6% | 62.5% | 43.8% (14-18) | 66.7% | 70.4% | 54.2% |
+| 4.5 | 53-35, 60.2% | 27-14, 65.9% | 41-40, 50.6% | 61.9% | 68.2% | 68.2% | 43.5% (10-13) | 62.5% | 70.6% | 62.5% |
+| 5 | 33-30, 52.4% | 15-9, 62.5% | 30-26, 53.6% | 56.2% | 58.8% | 64.3% | 31.2% (5-11) | 50.0% (1-1) | 77.8% | 53.8% |
+<!-- /auto:threshold -->
 
 **24 Sep 2026, after the QB rating began counting scrambles and designed runs and fading 0.8 per season:** the flag stays at 4. Across 2019 to 2025 it is 123-78 (61.2%). 4.5 is 83-50 (62.4%): a little better on both windows (60.4% and 66.7% against 59.1% and 66.1%) at two thirds of the volume, and worse on the untouched 2015 to 2018 (39-40 against 61-59). The cut was set on 22 Sep and moves only on live results, not on a backtest this close; the 4.5 shadow rule logs it live. Counting scrambles and designed runs alone made every window's flag record a little worse (docs section 25); the season fade then made it better on both windows.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
@@ -270,9 +272,9 @@ break-even, while 4.5 (41-42) and 5 (25-29) still lose. Those seasons had no say
 that is the most honest number the backtest can give, and it is modest. The live record (Results tab) is still
 the one that decides whether the flag earns its keep.
 
-Third caveat (24 Sep 2026): on the current model the untouched window reads 62-61 (50.4%) at the 4-point cut,
-under the 52.4% break-even, with 4.5 at 39-40 and 5 at 29-25. The model is more accurate there than before
-(docs section 25); its flag record there is not, and that is reported rather than tuned away.
+Third caveat (24 Sep 2026): on the current model the untouched window sits near the 52.4% break-even at the
+4-point cut (the table above, rewritten from the backtest on every run). The model is more accurate there than
+before (docs section 25); its flag record there is not, and that is reported rather than tuned away.
 
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
 sweep, recomputed from the backtest on every run, is on the Results tab (Every threshold, tested). On the current model, spread
@@ -312,12 +314,14 @@ under "Rules compared" on the live tab: a 4.5-point cut, the 4-point cut on unde
 weeks 1 to 13 only. Their backtest records, regular season weeks 1 to 17 (`picks.rule_records`, recomputed by the
 tie check on every run; the live table carries the same columns):
 
+<!-- auto:rules -->
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
-| 4+ edge (the flag) | 62-61 | 82-57 | 41-21 |
-| 4.5+ edge | 41-42 | 54-35 | 27-14 |
-| 4+ edge, model's side the underdog or pick'em | 46-37 | 74-44 | 33-16 |
-| 4+ edge, weeks 1 to 13 only | 47-45 | 68-41 | 34-17 |
+| 4+ edge (the flag) | 61-58 | 81-55 | 40-23 |
+| 4.5+ edge | 41-40 | 53-35 | 27-14 |
+| 4+ edge, model's side the underdog or pick'em | 45-36 | 73-43 | 32-18 |
+| 4+ edge, weeks 1 to 13 only | 46-42 | 67-40 | 34-19 |
+<!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
 flag is 18-21 untouched, 9-14 tuning and 11-4 held out. The 4.5 cut has the best rate on the two tuned windows and
@@ -598,17 +602,19 @@ not a rule, and everything since 2013 stays.
 tie check compares this copy with the prediction table). On 2015 to 2025, the model's spread miss minus the line's,
 the every-game cover rate on the model's side, and the 4-point flag:
 
+<!-- auto:byweek -->
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | +0.02 | 51% | 16-11 (59%) |
-| 2 | 176 | -0.07 | 55% | 18-7 (72%) |
+| 1 | 175 | +0.01 | 51% | 17-11 (61%) |
+| 2 | 176 | -0.08 | 55% | 18-7 (72%) |
 | 3 | 176 | +0.10 | 51% | 15-9 (62%) |
-| 4 | 171 | +0.23 | 47% | 12-5 (71%) |
-| 5 to 8 | 632 | +0.17 | 50% | 43-35 (55%) |
-| 9 to 13 | 793 | +0.15 | 49% | 45-36 (56%) |
-| 14 to 17 | 692 | +0.20 | 52% | 36-36 (50%) |
+| 4 | 171 | +0.22 | 47% | 12-5 (71%) |
+| 5 to 8 | 632 | +0.17 | 50% | 40-32 (56%) |
+| 9 to 13 | 793 | +0.16 | 50% | 45-37 (55%) |
+| 14 to 17 | 692 | +0.20 | 51% | 35-35 (50%) |
 | 18 | 80 | +0.46 | 56% | 7-10 (41%) |
-| Playoffs | 133 | +0.27 | 50% | 9-7 (56%) |
+| Playoffs | 133 | +0.27 | 49% | 9-7 (56%) |
+<!-- /auto:byweek -->
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
 line (in Week 2 it is ahead of it) and where the flag has done best (53-27). The market seems to underweight last
@@ -1429,14 +1435,18 @@ and 68% (2023-25). The fit is dominated by the many small-edge games, so it is n
 **Staking and luck** (`experiments/sizing_backtest.py`, `reports/sizing_backtest.csv`). The flag's bets at the
 closing line and -110:
 
+<!-- auto:sizing -->
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 37-41 | -7.4 | 13.5 | -17.8% | 84% |
-| 2019-22 (the threshold was chosen here) | 82-57 | +17.6 | 10.5 | +18.1% | 7.0% |
-| 2023-25 (held out) | 41-21 | +16.3 | 4.0 | +24.7% | 2.0% |
+| 2016-18 (never used to choose) | 36-40 | -7.3 | 14.4 | -9.3% | 84% |
+| 2019-22 (the threshold was chosen here) | 81-55 | +18.6 | 10.4 | +14.6% | 5.5% |
+| 2023-25 (held out) | 40-23 | +13.4 | 4.0 | +21.1% | 5.0% |
+<!-- /auto:sizing -->
 
-The held-out record would come by luck about 2.0 times in 100 (0.7% before the QB rating changes of 24 Sep 2026), the tuning window's about 7 in 100, and the earliest seasons lost (37-41; injuries keyed by player id from 24 Sep 2026). They were thin (fewer flags than 2019-22; the model trained on two to five seasons), so the honest statement is: the edge shows from 2019 on, held out, and not before. Quarter
-Kelly's worst fall was 19% of the peak; full Kelly's 59% (never bet it). The track record now states each week
+The table is rewritten from `reports/sizing_backtest.csv` on every run. The held-out and tuning records are
+unlikely to be luck (a few in 100 each); the earliest seasons lost. They were thin (fewer flags than 2019-22; the
+model trained on two to five seasons), so the honest statement is: the edge shows from 2019 on, held out, and not
+before. Full Kelly's worst fall is several times quarter Kelly's (never bet it). The track record now states each week
 whether the live record sits inside the range the backtest rate implies for that many bets.
 
 **Season odds reliability** (`reports/season_calibration.csv`, Backtest -> Season odds and player totals). When the odds said x%, how
@@ -1755,7 +1765,15 @@ stats, the exposure table, the game logs, the roster view, the injury inputs): t
 players table (pulled every run) for the ids the rosters lack; where the two disagree (six ids) the one whose name
 matches the snap counts wins. A PFR id no table knows falls back to the name only where it is unique on that team's
 roster that season, never league-wide. 99.9% of snap rows now match by id; a health check fails when any position
-group falls under 99%. 27 more linemen now have a value.
+group falls under 99%. 27 more linemen now have a value. The game model's snaps-out inputs use the same map, so a few games a season changed
+(linemen out now counted by id): margin miss 10.0324 to 10.0300 on 2019-22 and 9.9141 to 9.9137 on 2023-25 (2015-18
+9.9604 to 9.9620); the flag at 4 is now 81-55 / 40-23 / 61-58 against 82-57 / 41-21 / 62-61. A data fix, better on
+both windows on the measure the model is fitted to, so kept.
+
+**Docs tables written by the run.** The threshold table (section 9), the rule table, the by-week table (section 14)
+and the staking table are now rewritten by `nflmodel/report.py` on every run, between `auto` markers, like the
+README's results block, which the run now writes before the tie check reads it (it was written after, so the check
+compared a run-old README). The staking table had been a run behind unnoticed.
 
 **Build order.** The Players tab's history was built before the run's defender, kicker and lineman tables, so any fix
 to them reached the history a run late. It is now built after them (and includes linemen), and a health check fails

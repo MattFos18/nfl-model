@@ -97,6 +97,61 @@ def update_readme(new: pd.DataFrame):
         p.write_text(txt)
 
 
+def _rec_pct(w: int, l: int, show_record: bool) -> str:
+    n = w + l
+    return (f"{100 * w / n:.1f}%" + (f" ({w}-{l})" if show_record else "")) if n else "no bets"
+
+
+def docs_tables(new: pd.DataFrame) -> dict:
+    """The docs tables that quote backtest records, built from the same files the tie check reads (24 Sep 2026: they
+    were typed by hand and went stale after every model change; the staking table was a run behind unnoticed)."""
+    from . import picks as P
+    out = {}
+    sw = REP / "threshold_sweep.csv"
+    if sw.exists():
+        t = pd.read_csv(sw); t = t[t.market == "spread"]
+        L = ["| Cut | 2019-22 | 2023-25 | 2015-18 (untouched) | " + " | ".join(str(y) for y in range(2019, 2026)) + " |", "|" + "---|" * 11]
+        for cut in (4.0, 4.5, 5.0):
+            x = t[t.cut == cut].set_index("window")
+            cell = lambda k, pct_only=False: (_rec_pct(int(x.loc[k, "wins"]), int(x.loc[k, "losses"]), (x.loc[k, "wins"] < x.loc[k, "losses"]) or (x.loc[k, "wins"] + x.loc[k, "losses"] < 5))
+                                              if pct_only else f"{int(x.loc[k, 'wins'])}-{int(x.loc[k, 'losses'])}, {100 * x.loc[k, 'pct']:.1f}%") if k in x.index else ""
+            L.append(f"| {cut:g} | {cell('2019-22')} | {cell('2023-25')} | {cell('2015-18')} | " + " | ".join(cell(str(y), True) for y in range(2019, 2026)) + " |")
+        out["threshold"] = "\n".join(L)
+    d = new[(new.game_type == "REG") & new.home_score.notna() & new.spread_line.notna()]
+    rr = P.rule_records(d)
+    out["rules"] = "\n".join(["| Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |", "|---|---|---|---|"] +
+                             [f"| {r['label']} | {r['2015-18']} | {r['2019-22']} | {r['2023-25']} |" for _, r in rr.iterrows()])
+    bw = bt.by_week(new[new.spread_line.notna()], P.SPREAD_EDGE)
+    out["byweek"] = "\n".join([f"| Weeks | Games | Gap to the line | Every game ATS | Flags at {P.SPREAD_EDGE:g} |", "|---|---|---|---|---|"] +
+                              [f"| {r.weeks} | {r['games']} | {r['gap']:+.2f} | {r['ats_pct']}% | {r['flags']} ({r['flag_pct']}%) |" for _, r in bw.iterrows()])
+    sz = REP / "sizing_backtest.csv"
+    if sz.exists():
+        z = pd.read_csv(sz); lab = {"2016-18": "2016-18 (never used to choose)", "2019-22": "2019-22 (the threshold was chosen here)", "2023-25": "2023-25 (held out)"}
+        L = ["| Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |", "|---|---|---|---|---|---|"]
+        for w, name in lab.items():
+            f, q = z[(z.window == w) & (z.staking == "flat")], z[(z.window == w) & (z.staking == "kelly_q")]
+            if len(f) and len(q):
+                f, q = f.iloc[0], q.iloc[0]; pv = 100 * float(f.p_value_vs_break_even)
+                L.append(f"| {name} | {f.record} | {f.units_flat:+.1f} | {f.max_drawdown:.1f} | {q.growth_pct:+.1f}% | {pv:.1f}% |" if pv < 10 else
+                         f"| {name} | {f.record} | {f.units_flat:+.1f} | {f.max_drawdown:.1f} | {q.growth_pct:+.1f}% | {pv:.0f}% |")
+        out["sizing"] = "\n".join(L)
+    return out
+
+
+def update_docs(new: pd.DataFrame):
+    """Rewrite each <!-- auto:NAME --> ... <!-- /auto:NAME --> block in docs/how_it_works.md."""
+    p = ROOT / "docs" / "how_it_works.md"
+    if not p.exists():
+        return
+    txt = p.read_text()
+    for name, body in docs_tables(new).items():
+        a, b = f"<!-- auto:{name} -->", f"<!-- /auto:{name} -->"
+        if a in txt and b in txt:
+            i, j = txt.index(a) + len(a), txt.index(b)
+            txt = txt[:i] + "\n" + body + "\n" + txt[j:]
+    p.write_text(txt)
+
+
 def main():
     new = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     L = ["# NFL Model 3.0 backtest", "",
@@ -140,6 +195,7 @@ def main():
     txt = "\n".join(L)
     (REP / "backtest_v3.md").write_text(txt)
     update_readme(new)
+    update_docs(new)
     print(txt)
 
 
