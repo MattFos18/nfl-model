@@ -1301,7 +1301,7 @@ against man and zone, blitz and pressure, light and heavy boxes); every projecti
 once the game was played and the book line where one was logged; his game log from the charted plays, one row per
 game with volume, yards, touchdowns, EPA and the same splits (blank where the plays were not charted, 2026 included
 until the participation data is published); and his season history from the play-by-play. The exports
-(`web/data/player_profiles.js`, `player_logs.js`, `props_record.js`) are rebuilt by every weekly run from the same
+(`web/data/player_profiles.js`, `plogs/<season>.js`, `player_careers.js`, `props_record.js`) are rebuilt by every weekly run from the same
 tables the projections use, and the tie check holds their counts to the sources.
 
 **Track record.** Every projection is written to the week's props file at each run; on the next run every earlier
@@ -1476,3 +1476,29 @@ Times on the page read 8:15 PM style everywhere, including the game rail.
 A duplicate element id (the new Season tab and the Teams tab's season picker shared "season") had emptied the
 picker; the tab was renamed, a browser that had saved the old tab name is sent to the right one, and the page tie
 check now fails on any duplicate id.
+
+## 23. Player pages and game logs (24 Sep 2026)
+
+The Players tab is a ranked list with a search box and team, position and status filters. Clicking a player opens his page:
+value over a backup, this season's totals, the season projection, projections against results, a game log for any season
+since 2016, career by season, and his results against the looks defenses showed him. The Game deep dive under Teams was
+removed because the game card already shows the same model inputs.
+
+`nflmodel/player_logs.py` builds one row per player and game (regular season and playoffs) from:
+
+| Source | Columns |
+|---|---|
+| nflverse play-by-play | targets, catches, carries, attempts, yards, touchdowns, longest, air yards, yards after catch, first downs, red-zone looks, fumbles, sacks, interceptions, EPA, tackles, sacks and interceptions on defense, kicks |
+| nflverse snap counts | snaps, snap share |
+| Pro-Football-Reference charting via nflverse (2018 on) | drops, broken tackles, yards before and after contact, bad throws, pressured, blitzed, hit, coverage allowed, missed tackles, pressures |
+| nflverse participation charting | against man, zone, pressure, light and heavy boxes |
+
+Participation is published some time after a season ends, so the current season's split columns are empty until it
+appears. The page says which seasons are charted. The weekly run pulls it every time and the columns fill in on the
+first run after it is published. Output: `web/data/plogs/<season>.js` (loaded when a season is opened) and
+`web/data/player_careers.js`. Tie check: the last complete season's logs sum to the play-by-play totals, and careers
+sum to the logs.
+
+EPA: nflverse's expected points model gives every down, distance, yard line, time and score an expected number of
+points for the offense. A play's EPA is expected points after minus before. A player's EPA is the sum over his plays:
+targets for receivers, carries for backs, dropbacks (passes, sacks, scrambles) for quarterbacks.

@@ -360,7 +360,8 @@ def main():
     pp = OUT / "props_profiles.json"
     if pp.exists():   # every player's last-17 profile with splits, every defense, the league (Players tab)
         (WEB / "player_profiles.js").write_text("window.PROFILES=" + pp.read_text() + ";")
-    (WEB / "player_logs.js").write_text("window.PLOGS=" + json.dumps(player_logs_export(), default=clean, separators=(",", ":")) + ";")   # every player's game log since 2016 with the look splits (Players tab)
+    from . import player_logs as PLG
+    PLG.export()   # every player's game log since 2016, one file a season (web/data/plogs), and the career totals (web/data/player_careers.js)
     rec_rows = {"graded": csv_rows("../data/tracker/props_graded.csv"), "market": csv_rows("../data/tracker/props_vs_market.csv"), "projections": []}
     for f in sorted((ROOT / "reports").glob("props_*_wk*.csv")):
         rec_rows["projections"] += [{k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in r.items()} for r in pd.read_csv(f).to_dict("records")]
@@ -687,39 +688,6 @@ def props_backtest_export(csv_rows):
             r = dict(r); r["label"] = labels.get(r["variant"], r["variant"]); r["adopted"] = adopted[n].get(r["stat"]) == r["variant"]; stats.setdefault(r["stat"], []).append(r)
         out["rounds"].append({"round": n, "title": title, "source": "reports/" + src, "note": note, "stats": stats, "n_rows": len(rows)})
     return out
-
-
-def player_logs_export() -> dict:
-    """Every player's game log since 2016 from the charted plays: one row per player, game and kind (receiving, rushing,
-    passing) with volume, yards, touchdowns, EPA and the look splits (receiving and passing: man, zone, pressured;
-    rushing: light box, heavy box). Compact arrays; the page keys them by player."""
-    f = OUT / "scheme_plays.parquet"
-    if not f.exists():
-        return {"cols": [], "rows": {}, "names": {}}
-    d = pd.read_parquet(f, columns=["season", "week", "game_id", "posteam", "defteam", "play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "yards_gained", "epa", "complete_pass", "pass_touchdown", "rush_touchdown", "interception", "man", "zone", "pressure", "box", "air_yards"])
-    d = d[d.play_type.isin(["pass", "run"])].copy(); d["yards_gained"] = d.yards_gained.fillna(0.0)
-    for c in ["complete_pass", "pass_touchdown", "rush_touchdown", "interception"]: d[c] = d[c].fillna(0).astype(float)
-    d["man_f"] = d.man.fillna(False).astype(float); d["zone_f"] = d.zone.fillna(False).astype(float); d["press_f"] = (d.pressure == 1).astype(float); d["light_f"] = (d.box <= 6).astype(float); d["heavy_f"] = (d.box >= 8).astype(float)
-    d["lg"] = np.where(d.play_type.eq("run"), d.yards_gained, np.where(d.complete_pass.eq(1), d.yards_gained, 0.0)); d["air"] = d.air_yards.fillna(0.0)
-    cols = ["season", "week", "game_id", "team", "opp", "kind", "n", "made", "yds", "td", "int", "epa", "a_n", "a_yds", "b_n", "b_yds", "c_n", "c_yds", "longest", "air_yds"]
-    out = {}
-    def add(mask, pcol, kind, made, tdcol, a, b, c):
-        t = d[mask].copy()
-        for k, flag in [("a", a), ("b", b), ("c", c)]:
-            t[f"{k}_n"] = t[flag] if flag else 0.0; t[f"{k}_yds"] = t.yards_gained * t[flag] if flag else 0.0
-        agg = {"n": ("yards_gained", "size"), "yds": ("yards_gained", "sum"), "td": (tdcol, "sum"), "int": ("interception", "sum"), "epa": ("epa", "sum"), "a_n": ("a_n", "sum"), "a_yds": ("a_yds", "sum"), "b_n": ("b_n", "sum"), "b_yds": ("b_yds", "sum"), "c_n": ("c_n", "sum"), "c_yds": ("c_yds", "sum"), "longest": ("lg", "max"), "air": ("air", "sum")}
-        if made: agg["made"] = (made, "sum")
-        g = t.groupby([pcol, "season", "week", "game_id", "posteam", "defteam"]).agg(**agg).reset_index()
-        if not made: g["made"] = None
-        for r in g.itertuples():
-            out.setdefault(getattr(r, pcol), []).append([int(r.season), int(r.week), r.game_id, r.posteam, r.defteam, kind, int(r.n), (None if r.made is None or pd.isna(r.made) else int(r.made)), int(r.yds), int(r.td), int(r.int), round(float(r.epa), 2), int(r.a_n), int(r.a_yds), int(r.b_n), int(r.b_yds), int(r.c_n), int(r.c_yds), int(r.longest), int(r.air)])
-    add(d.pass_play & d.receiver_player_id.notna(), "receiver_player_id", "rec", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
-    add(d.play_type.eq("run") & d.rusher_player_id.notna(), "rusher_player_id", "rush", None, "rush_touchdown", "light_f", "heavy_f", None)
-    add(d.dropback & d.passer_player_id.notna(), "passer_player_id", "pass", "complete_pass", "pass_touchdown", "man_f", "zone_f", "press_f")
-    from .positions import names_by_id
-    nm = names_by_id(range(2016, 2027)); names = {pid: [nm[pid][0], nm[pid][1]] for pid in out if pid in nm}
-    for pid in out: out[pid].sort(key=lambda r: (r[0], r[1]))
-    return {"cols": cols, "rows": out, "names": names, "splits": {"rec": ["man", "zone", "pressured"], "pass": ["man", "zone", "pressured"], "rush": ["light box", "heavy box", ""]}}
 
 
 if __name__ == "__main__":
