@@ -48,7 +48,7 @@ jobs:
           if [ -e data/raw/injuries/espn_injuries.csv ]; then git add -f data/raw/injuries/espn_injuries.csv; fi
           git diff --cached --quiet || git commit -m "Weekly run $(date -u +%Y-%m-%d)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
-          git push
+          for i in 1 2 3 4 5; do git push && break; [ "$i" = 5 ] && exit 1; echo "push failed (try $i), retrying"; sleep $((i * 15)); git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main); done   # GitHub answered a push with a 500 once and lost a run (24 Sep 2026)
       - name: health alert      # one GitHub issue labelled site-health, opened when a check fails, closed when all pass
         if: always()
         env:
