@@ -95,11 +95,16 @@ def _usage_frames(pg: pd.DataFrame):
     skill = pg[pg.role.isin(SKILL)]
     team_touch = skill.groupby(["game_id", "season", "week", "team"]).plays.sum().rename("team_plays").reset_index()
     skill = skill.merge(team_touch, on=["game_id", "season", "week", "team"]).sort_values(["season", "week"])
+    if USAGE_MODE:   # his snap share in each game (nflmodel.exposure), for the partial-game handling below
+        from .exposure import load as _exp
+        e = _exp()[["player_id", "game_id", "off_pct"]]
+        skill = skill.merge(e, on=["player_id", "game_id"], how="left")
     by_player = {pid: g for pid, g in skill.groupby("player_id")}
     by_team = {t: g for t, g in skill.groupby("team")}
     return skill, by_player, by_team
 
 
+USAGE_MODE = None   # partial games (24 Sep 2026, experiments/partial_games.py): None counts every game he appeared in as a full game; "exclude" drops games he played under half his usual snap share; "weight" counts each game by his snap share over his usual (capped at 1), so a first-drive exit is about a tenth of a game
 TEAM_WINDOW = False   # 23 Sep 2026: the player's own last n games on any team (the original). Tested and worse on the flag record in all three windows: "gate" (nothing for a player who has never played for this team), "rating" (usage over the ratings' window), "last" (the team's last n games); reports/usage_window.csv, usage_gate.csv
 RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
 GATE_MIN = 1e-6   # "gate": share of the team's ratings window (weighted games) a player must have played in for his absence to count. 1e-6 = only a player who has never played for the team is skipped (reports/usage_gate.csv: a quarter or half of the window skipped too many and lost on both windows)
@@ -144,6 +149,16 @@ def _usage_window(by_player: dict, by_team: dict | None, pid: str, team: str | N
         return h, tot, int(h.game_id.nunique())
     h = g[(g.season < season) | ((g.season == season) & (g.week < week))]
     ids = h.game_id.drop_duplicates().tail(n_games); h = h[h.game_id.isin(ids)].copy(); h["w"] = 1.0
+    if USAGE_MODE and "off_pct" in h.columns:
+        pct = h.groupby("game_id").off_pct.first(); med = float(pct.median()) if pct.notna().any() else float("nan")
+        if med == med and med > 0:
+            e = (pct / med).clip(upper=1.0).fillna(1.0)          # exposure of each game; no snap row = a full game
+            if USAGE_MODE == "exclude":
+                keep = e[e >= 0.5].index; h = h[h.game_id.isin(keep)].copy(); h["w"] = 1.0
+                return h, float(h.groupby("game_id").team_plays.first().sum()), int(len(keep))
+            if USAGE_MODE == "weight":
+                tp = h.groupby("game_id").team_plays.first()
+                return h, float((tp * e.reindex(tp.index).fillna(1.0)).sum()), float(e.reindex(tp.index).fillna(1.0).sum())
     return h, float(h.groupby("game_id").team_plays.first().sum()), int(len(ids))
 
 

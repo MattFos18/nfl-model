@@ -201,6 +201,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
     qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12))
+    team_db = qb.groupby(["game_id", "team"]).dropbacks.sum().rename("team_db").reset_index()
     tg = pd.read_parquet(OUT / "team_games.parquet"); snaps = snaps_by_game(range(season - 2, season + 1))
     ol = ol_onoff(snaps, tg, names, season, week).set_index(["team", "key"]) if len(snaps) else pd.DataFrame()
     def_by = {pid: g for pid, g in dg.groupby("player_id")}; kick_by = {pid: g for pid, g in kg.groupby("player_id")}
@@ -216,7 +217,11 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
         if grp == "QB":
             h = qb[(qb.qb_id == r.gsis_id) & ((qb.season < season) | ((qb.season == season) & (qb.week < week)))]
             if len(h):
-                rating = qbr.rating(r.gsis_id, season, week); rec = h.tail(8)
+                rating = qbr.rating(r.gsis_id, season, week)
+                # dropbacks a game over his last eight starts: games where he had at least half his team's dropbacks,
+                # so a first-drive exit or a one-play relief appearance is not averaged in as a game (24 Sep 2026)
+                st = h.merge(team_db, on=["game_id", "team"], how="left"); st = st[st.dropbacks >= 0.5 * st.team_db]
+                rec = st.tail(8) if len(st) else h.tail(8)
                 row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.dropbacks.mean()), 1), "share": None, "epa_per_play": round(rating, 3), "value_above_replacement": round(rating - qbr.prior, 4), "basis": "EPA per dropback (QB rating)"})
         elif grp == "Skill":
             from .players import player_value_out

@@ -69,7 +69,20 @@ def build(kind):
     t = t.copy(); t["n"] = 1
     pg = t.groupby(["pid", "posteam", "season", "week", "game_id"]).agg(n=("n", "sum"), yds=("yards_gained", "sum"), **{k: (v, "sum") for k, v in ev.items()}).reset_index().merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="left")
     cols = ["n", "yds", "team_n"] + list(ev); R = prev_sums(pg, ["pid"], cols); sf, tf = (PR.FADE.get(kind, (1.0, 1.0)) if globals().get("FADE_ON", True) else (1.0, 1.0))
-    R85 = fade_sums(pg, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85", "team_n": "team_n_85"})
+    PARTIAL = globals().get("PARTIAL_MODE") or __import__("os").environ.get("PARTIAL")   # 24 Sep 2026, experiments/partial_games.py
+    if PARTIAL in ("exclude", "weight") and kind in ("rec", "rush"):
+        from nflmodel.exposure import load as _exp
+        ex = _exp()[["player_id", "game_id", "off_pct"]].rename(columns={"player_id": "pid"})
+        pgx = pg.merge(ex, on=["pid", "game_id"], how="left").sort_values(["pid", "season", "week"])
+        med = pgx.groupby("pid").off_pct.transform(lambda v: v.shift(1).rolling(8, min_periods=3).median())
+        e = (pgx.off_pct / med).clip(upper=1.0).fillna(1.0)
+        if PARTIAL == "exclude":
+            keep = (e >= 0.5).astype(float); pgx["n"] = pgx.n * keep; pgx["team_n"] = pgx.team_n * keep
+        else:
+            pgx["team_n"] = pgx.team_n * e
+        R85 = fade_sums(pgx, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85", "team_n": "team_n_85"})
+    else:
+        R85 = fade_sums(pg, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85", "team_n": "team_n_85"})
     dg = t.groupby(["defteam", "season", "week", "game_id"]).agg(d_n=("n", "sum"), d_yds=("yards_gained", "sum")).reset_index(); D = prev_sums(dg, ["defteam"], ["d_n", "d_yds"])
     f = pg[["pid", "posteam", "season", "week", "game_id", "n", "yds"] + list(ev)].rename(columns={"n": "act_n", "yds": "act_yds", **{k: f"act_{k}" for k in ev}})
     f = f.merge(R[["pid", "game_id", "games_prev"] + cols], on=["pid", "game_id"]).merge(R85[["pid", "game_id", "n_85", "team_n_85"]], on=["pid", "game_id"])
