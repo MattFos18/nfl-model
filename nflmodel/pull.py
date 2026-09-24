@@ -107,7 +107,7 @@ def espn_injuries() -> pd.DataFrame:
                 abbr = team_from_name(t.get("displayName") or ((t.get("team") or {}).get("displayName")) or "") or (t.get("displayName") or "")
             for a in t.get("injuries", []):
                 ath = a.get("athlete") or {}; det = a.get("details") or {}
-                rows.append({"team": ESPN_TEAM.get(abbr, abbr), "name": ath.get("displayName"), "position": (ath.get("position") or {}).get("abbreviation"), "status": a.get("status"), "date": a.get("date"), "detail": det.get("type") or "", "return_date": det.get("returnDate") or "", "fetched_at": dt.datetime.utcnow().isoformat(timespec="seconds")})
+                rows.append({"team": ESPN_TEAM.get(abbr, abbr), "espn_id": str(ath.get("id") or ""), "name": ath.get("displayName"), "position": (ath.get("position") or {}).get("abbreviation"), "status": a.get("status"), "date": a.get("date"), "detail": det.get("type") or "", "return_date": det.get("returnDate") or "", "fetched_at": dt.datetime.utcnow().isoformat(timespec="seconds")})
         if not rows:
             raise RuntimeError(f"no injuries in the answer from {used.split('/')[2]}")
         out = pd.DataFrame(rows, columns=ESPN_COLS)

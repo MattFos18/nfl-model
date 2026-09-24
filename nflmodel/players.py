@@ -239,10 +239,15 @@ def load_injuries(seasons) -> pd.DataFrame:
                 es = es[age_d <= ESPN_MAX_AGE_DAYS]
                 rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
                 if len(es) and rf.exists():
-                    ro = pd.read_parquet(rf, columns=["team", "gsis_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
+                    ro = pd.read_parquet(rf, columns=["team", "gsis_id", "espn_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
                     key = lambda n: "".join(ch for ch in str(n).lower() if ch.isalpha())
                     ro["k"] = ro.full_name.map(key); es["k"] = es.name.map(key)
-                    m = es.drop(columns=["position"]).merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")   # the roster's position and name, matched by team and name
+                    ro["espn_id"] = ro.espn_id.astype(str).str.replace(r"\.0$", "", regex=True)
+                    # ESPN's athlete id against the roster's espn_id (24 Sep 2026); the name inside the team only when the page had no id
+                    es["espn_id"] = es.espn_id.astype(str).str.replace(r"\.0$", "", regex=True) if "espn_id" in es.columns else ""
+                    by_id = es[es.espn_id.str.len() > 0].drop(columns=["position"]).merge(ro[["espn_id", "gsis_id", "full_name", "position"]], on="espn_id", how="inner")
+                    by_nm = es[~es.index.isin(es[es.espn_id.str.len() > 0].index) | ~es.espn_id.isin(by_id.espn_id)].drop(columns=["position", "espn_id"]).merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")
+                    m = pd.concat([by_id, by_nm], ignore_index=True).drop_duplicates(["team", "gsis_id"])
                     add = pd.DataFrame({"season": season, "season_type": "REG", "game_type": "REG", "team": m.team, "week": week, "gsis_id": m.gsis_id, "position": m.position, "full_name": m.full_name,
                                         "first_name": m.full_name.str.split(" ").str[0], "last_name": m.full_name.str.split(" ").str[-1], "report_primary_injury": m.detail, "report_secondary_injury": None,
                                         "report_status": m.status.map(ESPN_STATUS), "practice_primary_injury": None, "practice_secondary_injury": None, "practice_status": None, "date_modified": m.fetched_at})
@@ -329,7 +334,7 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
     if not rf.exists():
         return pd.DataFrame()
-    ros = pd.read_parquet(rf, columns=["season", "week", "team", "gsis_id", "full_name", "position", "status", "jersey_number", "years_exp"])
+    ros = pd.read_parquet(rf, columns=["season", "week", "team", "gsis_id", "pfr_id", "full_name", "position", "status", "jersey_number", "years_exp"])
     ros["team"] = ros.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
     wk = ros[ros.week == week] if (ros.week == week).any() else ros[ros.week == ros.week.max()]
     wk = wk.dropna(subset=["gsis_id"]).drop_duplicates(["team", "gsis_id"]).copy()
@@ -345,14 +350,14 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     inj = load_injuries([season]); inj = inj[(inj.season == season) & (inj.week == week)]
     injd = {(r.team, r.gsis_id): (r.report_status if isinstance(r.report_status, str) else "", r.practice_status if isinstance(r.practice_status, str) else "",
                                   r.report_primary_injury if isinstance(r.report_primary_injury, str) else (r.practice_primary_injury if isinstance(r.practice_primary_injury, str) else "")) for r in inj.itertuples()}
-    # last game's snap share, by name (snap counts carry no gsis id)
+    # last game's snap share, by player id (the snap counts' PFR id through the roster's pfr_id; 24 Sep 2026, was the name)
     sf = RAW / "snap_counts" / f"snap_counts_{season}.parquet"
     snap = {}
     if sf.exists():
         sn = pd.read_parquet(sf); sn["team"] = sn.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
         sn = sn[sn.week == sn.groupby("team").week.transform("max")]
-        norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
-        snap = {(r.team, norm(r.player)): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples()}
+        pmap = dict(zip(ros.pfr_id.dropna(), ros.dropna(subset=["pfr_id"]).gsis_id)) if "pfr_id" in ros.columns else {}
+        snap = {(r.team, pmap.get(r.pfr_player_id)): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples() if pmap.get(r.pfr_player_id)}
     vf = OUT / "player_values_all.parquet" if (OUT / "player_values_all.parquet").exists() else OUT / "player_values.parquet"
     vals = pd.read_parquet(vf).set_index(["team", "player_id"]) if vf.exists() else None
     if vals is not None and "epa_per_play" in vals.columns:
@@ -360,7 +365,7 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
     rows = []
     for r in wk.itertuples():
-        dp = depth.get((r.team, r.gsis_id), (None, None, None)); ij = injd.get((r.team, r.gsis_id), ("", "", "")); sp = snap.get((r.team, norm(r.full_name)))
+        dp = depth.get((r.team, r.gsis_id), (None, None, None)); ij = injd.get((r.team, r.gsis_id), ("", "", "")); sp = snap.get((r.team, r.gsis_id))
         v = vals.loc[(r.team, r.gsis_id)] if vals is not None and (r.team, r.gsis_id) in vals.index else None
         rows.append({"team": r.team, "player_id": r.gsis_id, "name": r.full_name, "position": r.position, "number": r.jersey_number, "exp": r.years_exp,
                      "roster": ROSTER_LABEL.get(r.status, {"ACT": "Active", "DEV": "Practice squad", "INA": "Inactive", "CUT": "Cut"}.get(r.status, r.status)),

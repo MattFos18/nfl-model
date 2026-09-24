@@ -301,6 +301,49 @@ def run(season=None, week=None, force: bool = False, dfs_only: bool = False) -> 
     return df
 
 
+_ROSTER_CACHE: dict = {}
+
+
+def roster_keys(season: int, teams) -> dict:
+    """The two teams' players for matching a book's name (24 Sep 2026): exact name -> the roster's name key, the
+    roster nickname ("Josh" for Joshua, "Bam" for Zonovan) -> the same, and last names that are unique across the
+    two teams. Books spell names their own way (Joshua Palmer, Hollywood Brown, Drew Ogletree), and a missed match
+    dropped the line from the projection beside it."""
+    key = (season, tuple(sorted(teams)))
+    if key in _ROSTER_CACHE:
+        return _ROSTER_CACHE[key]
+    from .features import RAW
+    f = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    exact, last = {}, {}
+    if f.exists():
+        r = pd.read_parquet(f, columns=["team", "week", "full_name", "football_name", "last_name"]); r = r[r.week == r.week.max()]
+        r = r[r.team.isin(teams)]
+        for x in r.itertuples():
+            k = norm_name(x.full_name)
+            for nm in (x.full_name, f"{x.football_name} {x.last_name}"):
+                exact.setdefault(norm_name(nm), k)
+            last.setdefault(norm_name(x.last_name), set()).add(k)
+    out = {"exact": exact, "last": {ln: next(iter(v)) for ln, v in last.items() if len(v) == 1}}
+    _ROSTER_CACHE[key] = out
+    return out
+
+
+ALIAS = {"hollywood brown": "marquise brown"}   # nicknames the rosters do not carry
+
+
+def resolve_name(book_name: str, canon: dict) -> str:
+    """A book's player name as the roster's name key; team props (D/ST) and unknown names keep their own key."""
+    k = ALIAS.get(norm_name(book_name), norm_name(book_name))
+    if k in canon["exact"]:
+        return canon["exact"][k]
+    parts = k.split()
+    if len(parts) == 2 and f"{parts[1]} {parts[0]}" in canon["exact"]:   # a book that wrote the names in reverse order
+        return canon["exact"][f"{parts[1]} {parts[0]}"]
+    if len(parts) >= 2 and parts[-1] in canon["last"]:
+        return canon["last"][parts[-1]]
+    return k
+
+
 def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     """The last logged line per (player, stat) for a game: the median line across books at the latest pull, with the
     number of books and the mean over/under prices. Used by the props builder for the card and the grading."""
@@ -311,5 +354,7 @@ def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     cur = g.drop_duplicates(["book", "stat", "player"], keep="last")     # each book's latest line (the sources pull on different clocks)
     out = cur.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
     op = g.drop_duplicates(["book", "stat", "player"], keep="first").groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
-    out = out.merge(op, on=["stat", "player"], how="left"); out["key"] = out.player.map(norm_name); out["ts"] = last; out["open_ts"] = first; out["pulls"] = int(g.ts.nunique())
+    out = out.merge(op, on=["stat", "player"], how="left"); out["ts"] = last; out["open_ts"] = first; 
+    teams = set(g.home.dropna()) | set(g.away.dropna()); canon = roster_keys(int(g.season.iloc[0]), teams)
+    out["key"] = [resolve_name(p, canon) for p in out.player]   # the roster's own name for the player the book means; out["pulls"] = int(g.ts.nunique())
     return out

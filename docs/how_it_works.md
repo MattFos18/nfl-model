@@ -253,11 +253,11 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 81-56, 59.1% | 41-21, 66.1% | 60.0% | 67.6% | 62.5% | 45.5% (15-18) | 72.7% | 73.1% | 56.0% |
-| 4.5 | 55-36, 60.4% | 28-14, 66.7% | 63.6% | 69.6% | 68.2% | 41.7% (10-14) | 62.5% | 72.2% | 62.5% |
-| 5 | 35-30, 53.8% | 16-9, 64.0% | 58.8% | 58.8% | 66.7% | 31.2% (5-11) | 50.0% (1-1) | 80.0% | 53.8% |
+| 4 | 82-57, 59.0% | 41-21, 66.1% | 61.1% | 67.6% | 62.5% | 44.1% (15-19) | 66.7% | 73.1% | 58.3% |
+| 4.5 | 54-35, 60.7% | 27-14, 65.9% | 63.6% | 68.2% | 68.2% | 43.5% (10-13) | 62.5% | 70.6% | 62.5% |
+| 5 | 33-30, 52.4% | 15-9, 62.5% | 56.2% | 58.8% | 64.3% | 31.2% (5-11) | 50.0% (1-1) | 77.8% | 53.8% |
 
-**24 Sep 2026, after the QB rating began counting scrambles and designed runs and fading 0.8 per season:** the flag stays at 4. Across 2019 to 2025 it is 122-77 (61.3%). 4.5 is 83-50 (62.4%): a little better on both windows (60.4% and 66.7% against 59.1% and 66.1%) at two thirds of the volume, and worse on the untouched 2015 to 2018 (39-40 against 61-59). The cut was set on 22 Sep and moves only on live results, not on a backtest this close; the 4.5 shadow rule logs it live. Counting scrambles and designed runs alone made every window's flag record a little worse (docs section 25); the season fade then made it better on both windows.
+**24 Sep 2026, after the QB rating began counting scrambles and designed runs and fading 0.8 per season:** the flag stays at 4. Across 2019 to 2025 it is 123-78 (61.2%). 4.5 is 83-50 (62.4%): a little better on both windows (60.4% and 66.7% against 59.1% and 66.1%) at two thirds of the volume, and worse on the untouched 2015 to 2018 (39-40 against 61-59). The cut was set on 22 Sep and moves only on live results, not on a backtest this close; the 4.5 shadow rule logs it live. Counting scrambles and designed runs alone made every window's flag record a little worse (docs section 25); the season fade then made it better on both windows.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
 53%). The 2026 games played so far replay 0-2 at this cut in the backtest; the live record on the Results tab is
@@ -270,7 +270,7 @@ break-even, while 4.5 (41-42) and 5 (25-29) still lose. Those seasons had no say
 that is the most honest number the backtest can give, and it is modest. The live record (Results tab) is still
 the one that decides whether the flag earns its keep.
 
-Third caveat (24 Sep 2026): on the current model the untouched window reads 61-59 (50.8%) at the 4-point cut,
+Third caveat (24 Sep 2026): on the current model the untouched window reads 62-61 (50.4%) at the 4-point cut,
 under the 52.4% break-even, with 4.5 at 39-40 and 5 at 29-25. The model is more accurate there than before
 (docs section 25); its flag record there is not, and that is reported rather than tuned away.
 
@@ -314,10 +314,10 @@ tie check on every run; the live table carries the same columns):
 
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
-| 4+ edge (the flag) | 61-59 | 81-56 | 41-21 |
-| 4.5+ edge | 39-40 | 55-36 | 28-14 |
-| 4+ edge, model's side the underdog or pick'em | 45-37 | 73-44 | 33-16 |
-| 4+ edge, weeks 1 to 13 only | 46-43 | 67-41 | 34-17 |
+| 4+ edge (the flag) | 62-61 | 82-57 | 41-21 |
+| 4.5+ edge | 41-42 | 54-35 | 27-14 |
+| 4+ edge, model's side the underdog or pick'em | 46-37 | 74-44 | 33-16 |
+| 4+ edge, weeks 1 to 13 only | 47-45 | 68-41 | 34-17 |
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
 flag is 18-21 untouched, 9-14 tuning and 11-4 held out. The 4.5 cut has the best rate on the two tuned windows and
@@ -601,14 +601,14 @@ the every-game cover rate on the model's side, and the 4-point flag:
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
 | 1 | 175 | +0.02 | 51% | 16-11 (59%) |
-| 2 | 176 | -0.07 | 54% | 18-8 (69%) |
+| 2 | 176 | -0.07 | 55% | 18-7 (72%) |
 | 3 | 176 | +0.10 | 51% | 15-9 (62%) |
-| 4 | 171 | +0.22 | 47% | 12-5 (71%) |
-| 5 to 8 | 632 | +0.17 | 50% | 41-33 (55%) |
-| 9 to 13 | 793 | +0.14 | 49% | 45-35 (56%) |
-| 14 to 17 | 692 | +0.20 | 52% | 36-35 (51%) |
-| 18 | 80 | +0.47 | 56% | 7-9 (44%) |
-| Playoffs | 133 | +0.27 | 49% | 9-7 (56%) |
+| 4 | 171 | +0.23 | 47% | 12-5 (71%) |
+| 5 to 8 | 632 | +0.17 | 50% | 43-35 (55%) |
+| 9 to 13 | 793 | +0.15 | 49% | 45-36 (56%) |
+| 14 to 17 | 692 | +0.20 | 52% | 36-36 (50%) |
+| 18 | 80 | +0.46 | 56% | 7-10 (41%) |
+| Playoffs | 133 | +0.27 | 50% | 9-7 (56%) |
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
 line (in Week 2 it is ahead of it) and where the flag has done best (53-27). The market seems to underweight last
@@ -1431,12 +1431,12 @@ closing line and -110:
 
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 36-41 | -8.3 | 14.4 | -13.3% | 86% |
-| 2019-22 (the threshold was chosen here) | 81-56 | +17.6 | 9.4 | +13.1% | 6.7% |
-| 2023-25 (held out) | 41-21 | +16.3 | 4.0 | +24.8% | 2.0% |
+| 2016-18 (never used to choose) | 37-41 | -7.4 | 13.5 | -17.8% | 84% |
+| 2019-22 (the threshold was chosen here) | 82-57 | +17.6 | 10.5 | +18.1% | 7.0% |
+| 2023-25 (held out) | 41-21 | +16.3 | 4.0 | +24.7% | 2.0% |
 
-The held-out record would come by luck about 2.0 times in 100 (0.7% before the QB rating changes of 24 Sep 2026), the tuning window's about 6.7 in 100, and the earliest seasons lost (36-41). They were thin (fewer flags than 2019-22; the model trained on two to five seasons), so the honest statement is: the edge shows from 2019 on, held out, and not before. Quarter
-Kelly's worst fall was 18% of the peak; full Kelly's 56% (never bet it). The track record now states each week
+The held-out record would come by luck about 2.0 times in 100 (0.7% before the QB rating changes of 24 Sep 2026), the tuning window's about 7 in 100, and the earliest seasons lost (37-41; injuries keyed by player id from 24 Sep 2026). They were thin (fewer flags than 2019-22; the model trained on two to five seasons), so the honest statement is: the edge shows from 2019 on, held out, and not before. Quarter
+Kelly's worst fall was 19% of the peak; full Kelly's 59% (never bet it). The track record now states each week
 whether the live record sits inside the range the backtest rate implies for that many bets.
 
 **Season odds reliability** (`reports/season_calibration.csv`, Backtest -> Season odds and player totals). When the odds said x%, how
@@ -1713,3 +1713,34 @@ prior matches the consensus lists more closely and is the best held out, but not
 (a season's rating predicts next season's coverage at about 0.19 correlation), which is also why published lists
 disagree: PFN's stats-only ranking has James Pierre second. Corners valued more for run defense and blitzing than
 coverage (Witherspoon, DeJean) sit lower here than in film-based lists.
+
+## 31. Every defensive group against the All-Pro teams; player ids instead of names (24 Sep 2026)
+
+**Yardstick.** The AP All-Pro first and second teams since 2016 (`data/reference/allpro.csv`, parsed from the
+Wikipedia pages the `reference pages` workflow saves monthly; all 437 selections matched to gsis ids) and the
+published 2026 rankings (PFF, FOX, SI; `data/reference/consensus_2026.csv`). `experiments/allpro_check.py` values
+every regular in each group at each season's end and asks where that season's All-Pros land, on 2019-22 and 2023-25.
+Per group, the variant best on 2019-22 among those better than the old one on both windows was adopted
+(average percentile of the All-Pros in our list, 2019-22 / 2023-25):
+
+| Group | Before | Adopted | After |
+|---|---|---|---|
+| CB | 0.791 / 0.768 | coverage per target, 0.99 a game (section 30) | 0.892 / 0.835 |
+| S | 0.816 / 0.777 | coverage per target plus half the run stops and pass rush per snap | 0.865 / 0.850 |
+| LB | 0.812 / 0.779 | every part per snap plus 0.75 EPA per credited play, 0.98 / 0.9 (weight swept 0.1 to 1.5) | 0.878 / 0.816 |
+| EDGE | 0.913 / 0.951 | every part per snap, 0.98 / 0.9 | 0.927 / 0.956 |
+| IDL | 0.932 / 0.890 | run stops and pass rush per snap (half) plus coverage per target, 0.99 | 0.957 / 0.907 |
+
+Receivers, backs and tight ends were checked the same way (`experiments/allpro_skill.py`) and already agree: the
+All-Pros' median rank is 3 to 6 on both windows. A lighter shrinkage (120 or 60 touches against 480) agrees a little
+better but would split the displayed value from the one the game model uses and was left alone; first-year players
+(Nacua in 2023, Bowers in 2024) rank low in their first season because 480 touches of shrinkage outweigh one season.
+
+**Ids, not names.** Names had failed three times (Pat Surtain II missing from the defender table; Garrett-style
+misses). Every join now uses an id where one exists: the snap counts' PFR id through the rosters' pfr_id; injury
+reports and roster statuses by gsis id (the game model's snaps-out inputs had joined them by name: 162 of 7,668
+team-games changed on offense, 225 on defense; flag at 4 now 82-57 / 41-21 / 62-61 against 81-56 / 41-21 / 61-59,
+team points better on both windows); ESPN's injury page by its athlete id against the roster's espn_id; the roster
+view's last-game snap share by PFR id. Sportsbooks send names only, so each book name is resolved against the two
+teams' rosters (exact, the roster nickname, a last name unique on the two teams, reversed order, a short alias list):
+99.6% of this week's book players resolve, and a health check fails under 99% and names the misses.
