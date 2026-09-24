@@ -166,13 +166,26 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
     fix = {"OAK": "LV", "SD": "LAC", "STL": "LA"}
     inj["team"] = inj.team.replace(fix)
     snaps["team"] = snaps.team.replace(fix)
-    inj["key"] = _norm(inj.full_name)
-    snaps["key"] = _norm(snaps.player)
+    # keyed by player id (24 Sep 2026; it was the name, so "Patrick Surtain II" in the snap counts never met "Pat Surtain
+    # II" on the injury report): the reports and rosters carry the gsis id, the snap counts the PFR id, mapped through
+    # the rosters; a snap row with no id link falls back to the name inside its team and season
+    pmap, nmap = {}, {}
+    for s_ in seasons:
+        f_ = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
+        if f_.exists():
+            r_ = pd.read_parquet(f_, columns=["season", "team", "gsis_id", "pfr_id", "full_name"]).dropna(subset=["gsis_id"])
+            pmap.update(dict(zip(r_.pfr_id.dropna(), r_.dropna(subset=["pfr_id"]).gsis_id)))
+            r_["team"] = r_.team.replace(fix)
+            nmap.update({(t_, int(se_), k_): g_ for t_, se_, k_, g_ in zip(r_.team, r_.season, _norm(r_.full_name), r_.gsis_id)})
+    inj["key"] = inj.gsis_id
+    snaps["key"] = snaps.pfr_player_id.map(pmap)
+    miss = snaps.key.isna()
+    snaps.loc[miss, "key"] = [nmap.get((t_, int(se_), k_)) for t_, se_, k_ in zip(snaps.team[miss], snaps.season[miss], _norm(snaps.player[miss]))]
     inj = inj[inj.report_status.isin(["Out", "Doubtful"])]
     # players on IR, PUP, suspended or otherwise off the active roster are not on the injury report but are out all the same
     from .players import load_rosters, NOT_AVAILABLE
     ros = load_rosters(seasons); ros = ros[ros.status.isin(NOT_AVAILABLE)].copy()
-    ros["key"] = _norm(ros.gsis_id.map(_roster_names(seasons)))
+    ros["key"] = ros.gsis_id
     ros_out = {k: set(g.key) for k, g in ros.groupby(["season", "week", "team"])}
     # the team's previous game with snap data
     snaps = snaps.sort_values(["season", "week"])

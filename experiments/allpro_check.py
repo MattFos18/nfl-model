@@ -27,7 +27,7 @@ def rate(g, S, v):
     """v: dict(kind, decay, fade, k, parts, a)."""
     w = v["decay"] ** np.arange(len(g))[::-1] * v["fade"] ** (S - g.season.values)
     if v["kind"] == "snap":
-        num = sum(v["parts"].get(c, 0) * g[c].values for c in ["cov", "rush", "run_stop", "ff_epa"])
+        num = sum(v["parts"].get(c, 0) * g[c].values for c in ["cov", "rush", "run_stop", "ff_epa", "credit_epa", "credited"])
         return float((w * num).sum() / ((w * g.plays.values).sum() + v["k"]))
     cov = (w * g["cov"].values).sum() / ((w * g.targets.values).sum() + v["k"]) * T_CB
     other = sum(v["parts"].get(c, 0) * g[c].values for c in ["rush", "run_stop", "ff_epa"])
@@ -42,6 +42,16 @@ VARIANTS = {
     "per target coverage, 0.99 (CB page now)": dict(kind="t", decay=0.99, fade=1.0, k=150, parts={}, a=0),
     "per target coverage + run/rush share 0.5, 0.99": dict(kind="t", decay=0.99, fade=1.0, k=150, parts={"rush": 1, "run_stop": 1}, a=0.5),
     "per target coverage + run/rush share 1.0, 0.99": dict(kind="t", decay=0.99, fade=1.0, k=150, parts={"rush": 1, "run_stop": 1}, a=1.0),
+    # linebackers (24 Sep 2026): run stops and tackle credit carry the position
+    "per snap, every part, 0.99 / 1.0": dict(kind="snap", decay=0.99, fade=1.0, k=300, parts=ALL),
+    "per snap, run stops x2, 0.92 / 0.8": dict(kind="snap", decay=0.92, fade=0.8, k=300, parts={"cov": 1, "rush": 1, "run_stop": 2, "ff_epa": 1}),
+    "per snap, run stops x2, 0.98 / 0.9": dict(kind="snap", decay=0.98, fade=0.9, k=300, parts={"cov": 1, "rush": 1, "run_stop": 2, "ff_epa": 1}),
+    "per snap, every part + credited plays, 0.92 / 0.8": dict(kind="snap", decay=0.92, fade=0.8, k=300, parts={**ALL, "credit_epa": 1}),
+    "per snap, every part + credited plays, 0.98 / 0.9": dict(kind="snap", decay=0.98, fade=0.9, k=300, parts={**ALL, "credit_epa": 1}),
+    "per snap, every part + tackles x0.3, 0.98 / 0.9": dict(kind="snap", decay=0.98, fade=0.9, k=300, parts={**ALL, "credited": 0.3}),
+    **{f"per snap, every part + tackles x{t}, {d} / {f}": dict(kind="snap", decay=d, fade=f, k=300, parts={**ALL, "credited": t})
+       for t in (0.1, 0.2, 0.5, 0.75, 1.0, 1.5) for d, f in ((0.92, 0.8), (0.98, 0.9))},
+    "per snap, every part + tackles x0.3, 0.92 / 0.8": dict(kind="snap", decay=0.92, fade=0.8, k=300, parts={**ALL, "credited": 0.3}),
 }
 
 def run(groups):

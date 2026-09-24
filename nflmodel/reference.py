@@ -138,7 +138,7 @@ def consensus() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    if "--fetch" in sys.argv:
-        fetch()
+    if "--fetch" in sys.argv:   # the workflow only fetches (it has no roster files); parsing runs where the rosters are
+        fetch(); sys.exit(0)
     c = consensus(); c.to_csv(REF / "consensus_2026.csv", index=False); print("consensus rows", len(c), "unmatched", int(c.gsis_id.isna().sum()) if len(c) else 0)
     a = allpro(); a.to_csv(REF / "allpro.csv", index=False); print("all-pro rows", len(a), "unmatched", int(a.gsis_id.isna().sum()))

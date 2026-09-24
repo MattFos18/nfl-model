@@ -168,6 +168,19 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         last = pd.read_csv(wl).tail(1)
         errs = [e.strip() for e in str(last.errors.iloc[0] if len(last) and pd.notna(last.errors.iloc[0]) else "").split(";") if e.strip()]
         rows.append(("line watch: every source ran without an error on the newest snapshot", "; ".join(errs)[:160] or "no error", "no error", not errs))
+    try:   # sportsbooks send player names only: every name in this week's book lines must resolve to a rostered player
+        from . import props_lines as PLN
+        from .lines import current_week as _cw
+        lg = PLN.load_log(); s_, w_ = _cw(g); cur = lg[(lg.season == s_) & (lg.week == w_)]
+        tot = hit = 0; miss = []
+        for gid in cur.game_id.dropna().unique():
+            mk = PLN.closing(lg, gid); gg = cur[cur.game_id == gid].iloc[0]; canon = PLN.roster_keys(s_, {gg.home, gg.away}); vals = set(canon["exact"].values())
+            x = mk[~mk.player.str.contains(r"D/ST|Defense$", regex=True)].drop_duplicates("player")
+            tot += len(x); m = x.key.isin(vals); hit += int(m.sum()); miss += list(x[~m].player)
+        if tot:
+            rows.append(("prop lines: book names resolve to rostered players (99%+)", f"{hit / tot:.1%}" + (f"; missed {', '.join(miss[:6])}" if miss else ""), "99% or more", hit / tot >= 0.99))
+    except Exception as e:  # noqa
+        rows.append(("prop lines: book names resolve to rostered players", str(e)[:80], "", False))
     fjs = ROOT / "web" / "data" / "fresh.js"
     if fjs.exists():   # the live check (injuries, starters, forecasts) logs its errors the same way
         s_ = fjs.read_text(); fr_ = json.loads(s_[s_.index("=") + 1:].rstrip().rstrip(";"))
