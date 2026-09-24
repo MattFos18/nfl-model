@@ -54,8 +54,38 @@ def player_box(p: pd.DataFrame) -> pd.DataFrame:
     return pd.concat(out, ignore_index=True).sort_values(["season", "week", "game_id", "team", "role"]).reset_index(drop=True)
 
 
+OPP_ADJUST = False   # 24 Sep 2026 (experiments/opp_adjust.py): each game's EPA less the opponent defense's strength coming in
+
+
+def opponent_strength() -> pd.DataFrame:
+    """Per (game_id, team): the opponent defense's EPA allowed per pass play and per run before this game (0.94 a game,
+    last season at 0.8, shrunk by 3 games), minus that season's league average. Plus is a soft defense."""
+    tg = pd.read_parquet(OUT / "team_games.parquet", columns=["game_id", "season", "week", "team", "opp", "def_pass_epa", "def_rush_epa"])
+    tg = tg.sort_values(["season", "week"]).reset_index(drop=True)
+    for col in ["def_pass_epa", "def_rush_epa"]:
+        pri = np.full(len(tg), np.nan)
+        for _, g in tg.groupby("team"):
+            num = den = 0.0; last = None
+            for i, s_, v in zip(g.index, g.season, g[col]):
+                if last is not None and s_ != last:
+                    num *= 0.8; den *= 0.8
+                pri[i] = num / (den + 3.0)
+                if pd.notna(v):
+                    num = num * 0.94 + v; den = den * 0.94 + 1.0
+                last = s_
+        tg[f"pri_{col}"] = pri - tg.groupby("season")[col].transform("mean")
+    o = tg[["game_id", "team", "pri_def_pass_epa", "pri_def_rush_epa"]].rename(columns={"team": "opp", "pri_def_pass_epa": "opp_pass", "pri_def_rush_epa": "opp_rush"})
+    return tg[["game_id", "team", "opp"]].merge(o, on=["game_id", "opp"], how="left")[["game_id", "team", "opp_pass", "opp_rush"]]
+
+
 class PlayerValues:
-    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"], pct: float = 25, season_fade: float | None = None):
+    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"], pct: float = 25, season_fade: float | None = None, opp_adjust: bool | None = None):
+        pg = pg.copy()
+        if (OPP_ADJUST if opp_adjust is None else opp_adjust) and len(pg):
+            o = opponent_strength(); pg = pg.merge(o, on=["game_id", "team"], how="left")
+            op = np.where(pg.role == "rusher", pg.opp_rush, pg.opp_pass)
+            pg["epa"] = pg.epa - np.nan_to_num(op) * pg.plays   # the game's EPA against an average defense
+            pg = pg.drop(columns=["opp_pass", "opp_rush"])
         self.pg = pg.sort_values(["season", "week"]); self.decay, self.k, self.pct = decay, k, pct
         self.fade = SEASON_FADE if season_fade is None else season_fade   # per season back, on top of the per-game decay
         self._cache, self._prior = {}, {}
