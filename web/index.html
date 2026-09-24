@@ -253,6 +253,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <div id="totals" hidden>
     <p class="note" id="totalsnote"></p>
     <div class="grid2">
+      <div class="card" style="grid-column:1 / -1"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">As projected at the time <label class="ctl" style="font-weight:400">As of <select id="pssnap"></select></label></h3><p class="note" id="pssnapnote" style="margin:4px 0 8px"></p><div class="tablewrap" style="max-height:52vh"><table id="pssnaptable"></table></div>
+        <h3 style="margin-top:14px">How the projections have held up</h3><p class="note" id="psaccnote" style="margin:4px 0 8px"></p><div class="tablewrap"><table id="psacc"></table></div></div>
       <div class="card" style="grid-column:1 / -1"><h3>Breakout watch</h3><div id="bochips"></div><div class="tablewrap" style="max-height:44vh"><table id="breakouts"></table></div></div>
       <div class="card" style="grid-column:1 / -1"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">Season totals <label class="ctl" style="font-weight:400"><select id="pskind"><option value="rec">Receivers</option><option value="rush">Rushers</option><option value="pass">Passers</option></select></label></h3><div class="tablewrap" style="max-height:70vh"><table id="pstable"></table></div></div>
     </div>
@@ -295,8 +297,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <label class="ctl">Team <select id="team"></select></label>
     <label class="ctl">Season <select id="season"></select></label>
   </div>
+  <div><div class="tiles" id="teamstrip" style="margin:0 0 10px"></div></div>
   <nav class="sub" id="teamsub">
-    <button data-sub="overview">Overview</button>
     <button data-sub="roster">Roster and depth chart</button>
     <button data-sub="ratings">Ratings by week</button>
     <button data-sub="games">Game log</button>
@@ -310,21 +312,6 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <div class="card"><h3>Defense: what it plays</h3><div class="tablewrap" style="max-height:60vh"><table id="schdef"></table></div></div>
       <div class="card"><h3>Offense by the look it faced</h3><div class="tablewrap" style="max-height:50vh"><table id="schoffvs"></table></div></div>
       <div class="card"><h3>Defense by the look it played</h3><div class="tablewrap" style="max-height:50vh"><table id="schdefvs"></table></div></div>
-    </div>
-  </div>
-  <div id="overview">
-    <div class="tiles" id="ovtiles"></div>
-    <div class="grid2" style="margin-top:12px">
-      <div class="card"><h3>Ratings going into this week</h3><div class="tablewrap"><table id="ovratings"></table></div><p class="note" id="ovnote" style="margin:8px 0 0"></p></div>
-      <div class="card"><h3>Next game</h3><div id="ovnext"></div><h3 style="margin-top:14px">Last five</h3><div class="tablewrap"><table id="ovlast"></table></div></div>
-    </div>
-    <div class="grid2" style="margin-top:12px">
-      <div class="card"><h3>Not available this week</h3><div id="ovout" class="mv"></div></div>
-      <div class="card"><h3>Most valuable players, by unit</h3><div class="tablewrap"><table id="ovtop"></table></div></div>
-    </div>
-    <div class="grid2e" style="margin-top:12px">
-      <div class="card"><h3>How they play</h3><div id="ovoff"></div></div>
-      <div class="card"><h3>How they defend</h3><div id="ovdef"></div></div>
     </div>
   </div>
   <div id="games" hidden>
@@ -347,7 +334,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   </div>
   <div id="roster" hidden>
     <p class="note">This week's roster (nflverse weekly rosters), the latest depth chart, this week's injury report and practice status, last game's snap share, and the player model's value (Vs an average starter at his position, in EPA per team play; Points if out for the offense, which is against his replacement). Out means Out or Doubtful on the report, or IR, PUP, suspended or exempt on the roster; those are the players the model prices as unavailable.</p>
-    <div id="rosterout" class="mv" style="margin-bottom:8px"></div>
+    <div class="card" style="margin-bottom:12px"><h3>Not available this week</h3><p class="note" style="margin:4px 0 8px" id="rosteroutnote"></p><div class="tablewrap" style="max-height:50vh"><table id="rosterout"></table></div></div>
     <div style="display:grid;gap:12px">
       <div class="card"><h3>Offense</h3><div class="tablewrap" style="max-height:70vh"><table id="rosteroff"></table></div></div>
       <div class="card"><h3>Defense</h3><div class="tablewrap" style="max-height:70vh"><table id="rosterdef"></table></div></div>
@@ -418,7 +405,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
     <label class="ctl">Search <input id="plq" type="search" placeholder="Any player since 2016" style="width:190px"></label>
     <label class="ctl">Team <select id="plteam"><option value="">All</option></select></label>
-    <label class="ctl">Unit <select id="plpos"><option value="Skill">RB, WR, TE</option><option value="QB">Quarterbacks</option><option value="OL">Offensive line</option><option value="Defense">Defense</option><option value="K">Kickers</option><option value="P">Punters</option></select></label>
+    <label class="ctl">Unit <select id="plpos"><option value="WR">Wide receivers</option><option value="RB">Running backs</option><option value="TE">Tight ends</option><option value="QB">Quarterbacks</option><option value="OL">Offensive line</option><option value="Defense">Defense</option><option value="K">Kickers</option><option value="P">Punters</option></select></label>
     <label class="ctl">Status <select id="plstatus"><option value="">All</option><option value="out">Out, Doubtful or IR</option><option value="q">Questionable</option></select></label>
   </div>
   <div class="card" style="margin-top:10px"><h3 id="pllisth">Players</h3><div class="tablewrap" style="max-height:40vh"><table id="pltable"></table></div></div>
@@ -654,10 +641,10 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   }
 
   // ---------- state ----------
-  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
+  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "roster", model: "analysis", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
   let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
-  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "overview", model: "analysis", results: "backtest"}, o.sub);
-      if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (sub.teamsec === "how") { sub.teamsec = "overview"; } if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
+  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "roster", model: "analysis", results: "backtest"}, o.sub);
+      if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (["how", "overview"].includes(sub.teamsec)) { sub.teamsec = "roster"; } if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
   const GROUP_ORDER = ["Model inputs", "Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
     "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
   const DEFAULT_ON = new Set(["Result","Line","Situation","Model","EPA stats","Box score","Ratings into the game"]);
@@ -666,7 +653,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.on) { on = new Set(o.on); } } } catch (e) {}
   if (tab === "season") tab = "seasonsec";
   if (sub.seasonsec === "seasonbt") sub.seasonsec = "odds";
-  if (sub.teamsec === "inputs") sub.teamsec = "overview";
+  if (["inputs", "overview"].includes(sub.teamsec)) sub.teamsec = "roster";   // Overview removed 24 Sep 2026: every part of it was on another tab
   { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
@@ -1444,7 +1431,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (f === "qb_out") return r.qb_out ? 1 : 0;
     return r[f] != null ? r[f] : null;
   }
-  const OUT_RE = /^(Out|Doubtful|IR|PUP|Suspended|Exempt|NFI|Retired)/;
+  const OUT_RE = /^(Out|Doubtful|IR|PUP|Suspended|Exempt|NFI|Retired|Reserve)/;
   function statusChip(r) {
     const ro = r.roster && r.roster !== "Active" ? r.roster : ""; const rep = r.report || ""; const pr = (r.practice || "").replace("Did Not Participate In Practice", "DNP").replace("Limited Participation in Practice", "Limited").replace("Full Participation in Practice", "Full");
     const main = ro || rep; const cls = OUT_RE.test(main) ? "badge flag" : (main ? "badge" : "");
@@ -1607,36 +1594,28 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       h += `<tr><td>${lab}</td><td class="n ${x && x.epa != null ? (x.epa > 0 ? "pos" : "neg") : ""}">${x && x.epa != null ? `${ep(x.epa)} <span class="rk">${x.n}</span>` : ""}</td><td class="n ${y && y.epa != null ? (y.epa < 0 ? "pos" : "neg") : ""}">${y && y.epa != null ? `${ep(y.epa)} <span class="rk">${y.n}</span>` : ""}</td><td class="n rk">${useRate[k] != null ? pc(useRate[k]) : ""}</td><td class="n rk">${lv[k] && lv[k].epa != null ? ep(lv[k].epa) : ""}</td></tr>`; });
     return rows ? h + "</tbody></table></div></div>" : "";
   }
-  const GROUP_LABEL = {QB: "Quarterback", Skill: "RB, WR, TE", OL: "Offensive line", Defense: "Defense", K: "Kicker", P: "Punter"};
+  const SKILL_POS = {RB: ["RB", "FB", "HB"], WR: ["WR"], TE: ["TE"]};   // the Players list splits the skill group by position
+  const inGroup = (r, g) => SKILL_POS[g] ? r.group === "Skill" && SKILL_POS[g].includes(r.position) : r.group === g;
+  const GROUP_LABEL = {QB: "Quarterback", Skill: "RB, WR, TE", RB: "Running backs", WR: "Wide receivers", TE: "Tight ends", OL: "Offensive line", Defense: "Defense", K: "Kicker", P: "Punter"};
   const covTxt = r => r.cov_targets == null ? "" : `<span title="Pro Football Reference coverage stats over his last ${r.cov_games} games: targets when he was the nearest defender, share caught, yards per target, passer rating allowed, and yards saved per game against the league's ${r.cov_league_ypt} yards per target (league rating ${r.cov_league_rating})">${r.cov_targets} tgt · ${Math.round(100 * r.cov_catch_pct)}% caught · ${r.cov_ypt.toFixed(1)} yd/tgt · ${Math.round(r.cov_rating)} rtg · ${sgn(r.cov_yds_saved_pg, 1)} yd/g saved</span>`;
   const GROUP_BASIS = {QB: "EPA per play, decayed and shrunk (the QB rating), shown against the median starter", Skill: "EPA per touch, times share of the team's touches, shown against the median starter", OL: "Line unit in the snaps he played: pressures allowed per dropback and rushing yards before contact per carry against the league (Pro Football Reference), in EPA, per snap, times snap share. No public data says which lineman allowed a pressure, so linemen are rated with their unit", Defense: "Corners: coverage per target (yards saved against the league and interceptions, in EPA, per ball thrown their way, at a typical corner's target volume). Everyone else: what his plays were worth to the defense, in EPA per defensive snap: coverage yards saved against the league's yards per target, interceptions, pressures (sacks included) from Pro Football Reference, plus run stops and forced fumbles from the play-by-play; above the replacement level of his group (edge, interior line, linebacker, corner, safety), times snap share", K: "EPA per kick above replacement", P: "EPA per punt above replacement"};
-  function renderOverview() {
+  // the team at a glance above every Team sub-tab (24 Sep 2026: replaces the Overview sub-tab, whose ratings, games,
+  // absences, top players and scheme summary each repeated another tab)
+  function renderTeamStrip() {
     if (!data) return;
-    const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
+    const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
     const played = (G || []).filter(x => x.hs != null && (x.home === team || x.away === team) && x.season === season);
     const rec = form(team, played);
     const R = window.RANK; let tabl = null, wk = null; if (R && R.seasons[String(season)]) { const wks = Object.keys(R.seasons[String(season)]).map(Number).sort((a, b) => a - b); const lastPlayed = played.length ? Math.max(...played.map(x => x.week)) : 0; wk = wks.filter(x => x <= lastPlayed + 1).pop(); tabl = wk ? R.seasons[String(season)][String(wk)] : null; }
     const teams = tabl ? Object.keys(tabl.teams) : []; const rankOf = (k, dir = 1) => { if (!tabl) return null; const v = tabl.teams[team][k]; return teams.filter(t => (tabl.teams[t][k] - v) * dir > 0).length + 1; };
     const pw = tabl ? tabl.teams[team].power : null;
-    $("ovtiles").innerHTML = `<div class="tile"><b>${played.length ? rec.su : "0-0"}</b><span>Record, ${season}${played.length ? " · " + rec.ats + " ATS" : ""}</span></div>
+    $("teamstrip").innerHTML = `<div class="tile"><b>${played.length ? rec.su : "0-0"}</b><span>Record, ${season}${played.length ? " · " + rec.ats + " ATS" : ""}</span></div>
       <div class="tile"><b>${pw == null ? "" : sgn(pw, 1)}</b><span>Power: points vs an average team, neutral field${pw == null ? "" : " · #" + rankOf("power")}</span></div>
       <div class="tile"><b>${played.length ? rec.pf + " / " + rec.pa : ""}</b><span>Points for / allowed per game</span></div>
       <div class="tile"><b>${(data.roster || []).filter(r => OUT_RE.test(r.roster && r.roster !== "Active" ? r.roster : (r.report || ""))).length}</b><span>Players out this week (IR, Out, Doubtful)</span></div>`;
-    if (tabl) { const rowsR = [["power", "Power (points vs average)", 1, 1], ["off_epa_play", "Offense EPA rating", 1, 3], ["def_epa_play", "Defense EPA rating", 1, 3], ["off_pf", "Points rating, offense", 1, 2], ["def_pf", "Points rating, defense", 1, 2], ["qb_rating", "QB rating", 1, 3]];
-      $("ovratings").innerHTML = "<thead><tr><th class='l'>Rating</th><th>Value</th><th>Rank of 32</th></tr></thead><tbody>" + rowsR.map(([k, lab, dir, d]) => `<tr><td class="l">${lab}</td><td class="mono">${tabl.teams[team][k] == null ? "" : sgn(tabl.teams[team][k], d)}</td><td class="mono">#${rankOf(k, dir)}</td></tr>`).join("") + "</tbody>";
-      $("ovnote").textContent = `Going into Week ${wk}, ${season}. 0 is league average on every rating; home field is one league-wide number (${co.per_unit.home.toFixed(2)} points), not a team one. Rankings tab has every team.`; } else { $("ovratings").innerHTML = ""; $("ovnote").textContent = "No ratings for this season."; }
     const W = window.WEEK; const nx = W && W.games ? W.games.find(g => (g.home_team === team || g.away_team === team) && g.home_score == null) : null;
     if (nx && season === W.season) { const home = nx.home_team === team, opp = home ? nx.away_team : nx.home_team; const ms = home ? nx.model_spread : -nx.model_spread; const vs = nx.spread_line == null ? null : (home ? nx.spread_line : -nx.spread_line);
-      $("ovnext").innerHTML = `<div class="mv"><span class="chip">${home ? "vs " + opp : "at " + opp}</span><span class="chip">${(nx.kickoff || "").replace("T", " ")} ET</span><span class="chip">Model ${lineTxt(team, -ms)}</span><span class="chip">${vs == null ? "No line yet" : "Vegas " + lineTxt(team, -vs)}</span><span class="chip">Model ${(home ? nx.home_exp : nx.away_exp).toFixed(1)} - ${(home ? nx.away_exp : nx.home_exp).toFixed(1)}</span>${nx.bet ? `<span class="badge flag">${nx.bet}</span>` : ""}</div>`; } else $("ovnext").innerHTML = "<p class='note' style='margin:0'>No unplayed game this week.</p>";
-    const last = played.slice(-5).reverse();
-    $("ovlast").innerHTML = "<thead><tr><th>Wk</th><th class='l'>Game</th><th>Score</th><th class='l'>Result</th><th>Line</th><th class='l'>ATS</th></tr></thead><tbody>" + last.map(x => { const sd = side(x, team); return `<tr><td>${x.week}</td><td class="l">${sd.home ? "vs " : "at "}${sd.opp}</td><td class="mono">${sd.pf}-${sd.pa}</td><td class="l">${sd.mg > 0 ? "<span class='pos'>W</span>" : (sd.mg < 0 ? "<span class='neg'>L</span>" : "T")}</td><td class="mono">${sd.sp == null ? "" : lineTxt(team, sd.sp)}</td><td class="l">${sd.cov == null ? "" : (sd.cov > 0 ? "Covered" : (sd.cov < 0 ? "No" : "Push"))}</td></tr>`; }).join("") + "</tbody>";
-    const outs = (data.roster || []).filter(r => OUT_RE.test(r.roster && r.roster !== "Active" ? r.roster : (r.report || ""))).sort((a, b) => (b.value || 0) - (a.value || 0));
-    $("ovout").innerHTML = outs.length ? outs.map(r => `<span class="chip">${esc(r.name)} · ${esc(r.position)}${r.group === "Skill" && r.value > 0 ? " · -" + (w * r.value).toFixed(1) + " pts" : ""}</span>`).join("") : "<span class='chip mute'>Nobody listed out yet this week</span>";
-    const P = (data.players || []).filter(r => r.value_above_replacement != null); const groups = ["QB", "Skill", "OL", "EDGE", "IDL", "LB", "CB", "S", "K", "P"];
-    const unitOf = r => r.group === "Defense" ? (r.def_role || "CB") : r.group; const UNIT_LABEL = Object.assign({EDGE: "Edge rushers", IDL: "Interior line", LB: "Linebackers", CB: "Cornerbacks", S: "Safeties"}, GROUP_LABEL);
-    const covOK = false;   // the defender value includes coverage since 24 Sep 2026, so corners rank on it like everyone else
-    const sp = schPeriod(team); $("ovoff").innerHTML = schemeOffHtml(sp); $("ovdef").innerHTML = schemeDefHtml(sp);
-    $("ovtop").innerHTML = "<thead><tr><th class='l'>Unit</th><th class='l'>Player</th><th>Vs an average starter</th><th class='l'>Status</th></tr></thead><tbody>" + groups.map(g => { const top = (g === "DB" && covOK ? P.filter(r => unitOf(r) === "DB" && r.cov_targets >= 20).sort((a, b) => b.cov_yds_saved_pg - a.cov_yds_saved_pg) : P.filter(r => unitOf(r) === g).sort((a, b) => VA(b) - VA(a))).slice(0, g === "OL" || g === "Skill" ? 3 : (g === "QB" ? 2 : DEF_ROLES.has(g) ? 2 : 1)); return top.map((r, i) => `<tr><td class="l">${i === 0 ? UNIT_LABEL[g] : ""}</td><td class="l"><b>${esc(r.name)}</b> <span class="rk">${esc(r.position)}</span></td><td class="mono">${g === "DB" && covOK ? `${sgn(r.cov_yds_saved_pg, 1)} <span class="rk" title="yards saved per game in coverage against the league's yards per target; ${r.cov_targets} targets, ${Math.round(r.cov_rating)} rating allowed">yd/g · ${Math.round(r.cov_rating)} rtg</span>` : `${VA(r) >= 0 ? "+" : ""}${VA(r).toFixed(3)}`}</td><td class="l">${r.status ? (OUT_RE.test(r.status) ? `<span class="badge flag">${esc(r.status)}</span>` : esc(r.status)) : `<span class="rk" title="no entry on this week's injury report as of the last run; teams file practice reports Wednesday to Friday and the Thursday, Saturday and Sunday runs pick them up">Active</span>`}</td></tr>`).join(""); }).join("") + "</tbody>";
+      $("teamstrip").innerHTML += `<div class="tile"><b>${home ? "vs " + opp : "at " + opp}</b><span>Next: model ${lineTxt(team, -ms)} · ${vs == null ? "no line yet" : "Vegas " + lineTxt(team, -vs)}</span></div>`; }
   }
   function renderRoster() {
     const R = (data && data.roster) || []; const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
@@ -1644,7 +1623,13 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const rankOf = sl => { const t = String(sl || ""); const O = [/^QB/, /^(RB|HB)/, /^FB/, /WR$/, /^TE/, /^LT/, /^LG/, /^C$/, /^RG/, /^RT/, /^(T|G|OL)/, /(DE|EDGE)/, /(DT|NT|DL)/, /LB$/, /CB$|^NB/, /S$|^S/]; const i = O.findIndex(re => re.test(t)); return i < 0 ? 99 : i; };
     const isOut = r => OUT_RE.test(r.roster && r.roster !== "Active" ? r.roster : (r.report || ""));
     const outs = R.filter(isOut).sort((a, b) => (b.value || 0) - (a.value || 0));
-    $("rosterout").innerHTML = outs.length ? `<span class="chip mute">Not available this week</span>` + outs.map(r => `<span class="chip">${esc(r.name)} · ${esc(r.position)}${r.value > 0 ? " · -" + (w * r.value).toFixed(1) + " pts" : ""}</span>`).join("") : `<span class="chip mute">Nobody listed out yet this week</span>`;
+    // why each one is out, from every source pulled (players.unavailable_reasons): the league's report this week, ESPN's
+    // injury page, the last report that listed him, and the roster's reserve list with the week the stint began
+    const snapPct = r => { const v = r.unit === "Defense" ? r.def_pct : r.off_pct; return v == null ? "" : Math.round(100 * v) + "%"; };
+    $("rosteroutnote").textContent = "Everyone the model prices as unavailable: Out or Doubtful on this week's report, or on a reserve list (IR, PUP, suspended, exempt). Injury: this week's league report first, then ESPN's injury page, then the last report that listed him (dated, so an old listing reads as one). Points if out: what the game model takes off the team's expected points (skill players; the QB is priced by the QB rating).";
+    $("rosterout").innerHTML = outs.length ? `<thead><tr><th class="l">Player</th><th>Pos</th><th class="l">Status</th><th class="l">Injury</th><th class="l">From</th><th>Since</th><th>Expected back</th><th title="share of his unit's snaps in the last game he played">Snaps, last game</th><th>Points if out</th></tr></thead><tbody>` +
+      outs.map(r => `<tr><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position)}</td><td class="l">${esc(r.list || r.report || r.roster || "")}</td><td class="l">${esc(r.why || "not published")}</td><td class="l note">${esc(r.why_src || "")}</td><td class="mono">${r.since == null ? "" : r.since <= 1 ? "before the season" : "week " + r.since}</td><td class="mono">${esc(r.back || "")}</td><td class="mono">${snapPct(r)}</td><td class="mono">${r.group === "Skill" && r.value > 0 ? "-" + (w * r.value).toFixed(1) : ""}</td></tr>`).join("") + "</tbody>"
+      : `<tbody><tr><td class="l">Nobody listed out yet this week.</td></tr></tbody>`;
     const table = (rows, unit) => { rows = rows.slice().sort((a, b) => rankOf(a.slot) - rankOf(b.slot) || (a.depth || 9) - (b.depth || 9) || String(a.name).localeCompare(b.name));
       let h = `<thead><tr><th>Slot</th><th>#</th><th class='l'>Player</th><th>Pos</th><th class='l'>Status</th><th>Snaps last game</th><th>Vs an average starter</th>${unit === "Offense" ? "<th>Points if out</th>" : ""}</tr></thead><tbody>`;
       rows.forEach(r => { const sn = unit === "Offense" ? r.off_pct : r.def_pct; h += `<tr class="${isOut(r) ? "neg" : ""}"><td>${esc(r.slot || "")}${r.depth ? " <span class='rk'>" + r.depth + "</span>" : ""}</td><td class="mono">${r.number ?? ""}</td><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position)}</td><td class="l">${statusChip(r)}</td><td class="mono">${sn == null ? "" : Math.round(100 * sn) + "%"}</td><td class="mono">${r.value == null ? "" : (() => { const v = VA({group: r.group, value_above_replacement: r.value}); return v == null ? "" : (v >= 0 ? "+" : "") + v.toFixed(3); })()}</td>${unit === "Offense" ? `<td class="mono">${r.group === "Skill" && r.value > 0 ? "-" + (w * r.value).toFixed(1) : ""}</td>` : ""}</tr>`; });
@@ -1659,24 +1644,26 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   let plSel = null;
   let plLogsLoading = false;
   // ---------- Players tab: the list, then one player's page (game logs: data/plogs/<season>.js, careers: data/player_careers.js) ----------
-  const plLoaded = {}; let plLoading = {}; let plSeason = null;
+  const plLoaded = {}; let plLoading = {}; let plSeason = null; let plSub = "summary";   // the player page section shown
   function loadScript(src, key, cb) { if (plLoaded[key]) return cb(); if (plLoading[key]) { plLoading[key].push(cb); return; } plLoading[key] = [cb]; const sc = document.createElement("script"); sc.src = src; sc.onload = () => { plLoaded[key] = true; const q = plLoading[key]; plLoading[key] = null; q.forEach(f => f()); }; sc.onerror = () => { plLoaded[key] = true; const q = plLoading[key]; plLoading[key] = null; q.forEach(f => f()); }; document.head.appendChild(sc); }
   const needCareers = cb => loadScript("data/player_careers.js", "careers", cb);
+  // each season's log file lists its games once and gives each row the game's place in that list; this puts the ids back
+  window.PLOGS_X = (G, L) => { for (const p in L) for (const k in L[p]) if (k !== "box") L[p][k].forEach(r => { if (typeof r[1] === "number") r[1] = G[r[1]]; }); return L; };
   const needSeason = (yr, cb) => loadScript(`data/plogs/${yr}.js`, "s" + yr, cb);
-  const VOL_LABEL = {QB: "Dropbacks a game", Skill: "Touches a game", OL: "Snap share", Defense: "Snaps a game", K: "Kicks a game", P: "Punts a game"};
+  const VOL_LABEL = {QB: "Dropbacks a game", Skill: "Touches a game", RB: "Touches a game", WR: "Touches a game", TE: "Touches a game", OL: "Snap share", Defense: "Snaps a game", K: "Kicks a game", P: "Punts a game"};
   function renderPlayersTab() {
     const P = window.PLAYERS; if (!P) { $("pltable").innerHTML = "<tbody><tr><td>No player data exported.</td></tr></tbody>"; return; }
     needCareers(() => {});
     const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     const ts = $("plteam"); if (ts.options.length <= 1) [...new Set(P.values.map(r => r.team))].sort().forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; ts.appendChild(o); });
     const q = ($("plq").value || "").trim().toLowerCase(), tm = ts.value, grp = $("plpos").value, st = $("plstatus").value;
-    let rows = P.values.filter(r => r.value_above_replacement != null && (!q || String(r.name).toLowerCase().includes(q)) && (!tm || r.team === tm) && (q ? true : r.group === grp));
+    let rows = P.values.filter(r => r.value_above_replacement != null && (!q || String(r.name).toLowerCase().includes(q)) && (!tm || r.team === tm) && (q ? true : inGroup(r, grp)));
     if (st === "out") rows = rows.filter(r => OUT_RE.test(r.status || "")); if (st === "q") rows = rows.filter(r => /^Questionable/.test(r.status || ""));
     rows.sort((a, b) => (a.group === b.group ? 0 : String(a.group).localeCompare(b.group)) || VA(b) - VA(a));
     const C = window.PCAREER;
     const extra = (q && q.length >= 2 && C) ? Object.entries(C.names).filter(([pid, nm]) => nm[0].toLowerCase().includes(q) && !P.values.some(r => r.player_id === pid)).slice(0, 25).map(([pid, nm]) => { const last = (C.careers.rows[pid] || []).map(r => r[0]).sort().pop(); return {player_id: pid, name: nm[0], position: nm[1], last}; }) : [];
     const badge = r => { const x = String(r.status || ""); return OUT_RE.test(x) ? `<span class="badge out" style="margin-left:6px">${esc(x.split(/[ (]/)[0].toUpperCase())}</span>` : (/^Questionable/.test(x) ? `<span class="badge" style="margin-left:6px">Q</span>` : ""); };
-    const isSkill = !q && grp === "Skill", isQB = !q && grp === "QB";
+    const isSkill = !q && !!SKILL_POS[grp], isQB = !q && grp === "QB";
     $("pllisth").textContent = q ? `Players matching "${$("plq").value.trim()}"` : `${GROUP_LABEL[grp] || grp}, ranked against an average starter`;
     let h = `<thead><tr><th>#</th><th class="l">Player</th><th class="l">Team</th><th>Pos</th><th title="expected points against an average starter at his position (Model → Definitions); 0 is an average starter">Vs an average starter</th>${isQB ? `<th title="points a game against an average starting QB, as the model counts them: value per play times the model's fitted points per unit of QB rating">Points a game</th>` : ""}${isSkill ? `<th title="what the model takes off his team's expected points when he is out: his value over the replacement who takes his touches, times his share">Points if out</th>` : ""}<th>Games</th><th>${q ? "Plays a game" : VOL_LABEL[grp] || "Plays a game"}</th></tr></thead><tbody>`;
     let lastG = null, n = 0;
@@ -1730,41 +1717,81 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       if (k === "kick") tiles.push(tile(`${seasons[0]} kicking`, `${n0(v.points)} points`, `${v.fgm} of ${v.fga} field goals · ${v.xpm} of ${v.xpa} extra points`)); });
     const SP = window.SEASON && SEASON.players ? SEASON.players.rows.filter(r => r.player_id === pid).sort((a, b) => kRank(a.kind) - kRank(b.kind)) : [];
     SP.forEach(r => tiles.push(tile(`Season projection, ${({rec: "receiving", rush: "rushing", pass: "passing"})[r.kind]}`, `${n0(r.proj_yards)} yds`, `${n1(r.proj_td)} TD · ${ordN(r.rank)} in the league${r.breakout ? " · breakout watch" : ""}`)));
-    if (tiles.length) h += `<div class="tiles" style="margin:10px 0 4px">${tiles.join("")}</div>`;
-    // projections and results (this week first)
-    const lab = {rec_yards: "Receiving yards", rec_catches: "Receptions", rec_td: "Receiving TD", rec_targets: "Targets", rec_longest: "Longest catch", rush_yards: "Rushing yards", rush_td: "Rushing TD", rush_attempts: "Carries", rush_rec_yards: "Rush + rec yards", rush_longest: "Longest rush", pass_yards: "Passing yards", pass_td: "Passing TD", pass_int: "Interceptions", pass_attempts: "Attempts", pass_completions: "Completions", pass_rush_yards: "Pass + rush yards", pass_longest: "Longest completion", def_tackles: "Tackles", def_sacks: "Sacks", def_solo_tackles: "Solo tackles", kick_points: "Kicking points", field_goals: "Field goals"};
-    const projs = (REC.projections || []).filter(r => r.player_id === pid).sort((a, b) => b.season - a.season || b.week - a.week || String(a.stat).localeCompare(b.stat));
-    const graded = Object.fromEntries((REC.graded || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r])); const mk = Object.fromEntries((REC.market || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r]));
-    if (projs.length) h += `<h3 style="margin-top:14px">Projections and results</h3><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th>Week</th><th class="l">Game</th><th class="l">Stat</th><th>Projected</th><th>Actual</th><th title="actual minus projected">Off by</th><th title="the book line where one was logged, and the projection's side">Book</th></tr></thead><tbody>` +
-      projs.map(r => { const g = graded[r.game_id + "|" + r.stat], m = mk[r.game_id + "|" + r.stat]; return `<tr><td class="mono">${r.season} wk ${r.week}</td><td class="l">${esc(r.game_id.slice(8).replace("_", " @ "))}</td><td class="l">${lab[r.stat] || r.stat}</td><td class="mono">${r.proj}</td><td class="mono">${g ? g.actual : ""}</td><td class="mono ${g ? (g.error > 0 ? "pos" : g.error < 0 ? "neg" : "") : ""}">${g ? (g.error > 0 ? "+" : "") + (+g.error).toFixed(1) : ""}</td><td class="mono">${m ? `${m.line} ${m.side} ${m.result || ""}` : ""}</td></tr>`; }).join("") + "</tbody></table></div>";
-    // game log
-    if (seasons.length) {
-      h += `<h3 style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">Game log <select id="plseason">${seasons.map(x => `<option value="${x}" ${x === plSeason ? "selected" : ""}>${x}</option>`).join("")}</select></h3><div id="pllog"><p class="note">Loading ${plSeason}…</p></div>`;
-      h += `<h3 style="margin-top:14px">Career by season</h3>` + careerHtml(car, C);
-      h += `<details style="margin-top:12px" id="plinj"><summary style="cursor:pointer;font-weight:600">Injury report history</summary><div id="plinjbody"><p class="note">Loading…</p></div></details>`;
-    } else h += `<p class="note" style="margin-top:10px">No game on record since 2016.</p>`;
+    // the page in sections (24 Sep 2026): a row of buttons, one section at a time, so each part is easy to find
+    const sameGroup = (r, c) => SKILL_POS.RB.includes(c.position) || SKILL_POS.WR.includes(c.position) || SKILL_POS.TE.includes(c.position) ? r.group === "Skill" && Object.values(SKILL_POS).find(v => v.includes(c.position)).includes(r.position)
+      : c.group === "Defense" ? r.group === "Defense" && r.def_role === c.def_role : r.group === c.group;
+    let sm = tiles.length ? `<div class="tiles" style="margin:10px 0 4px">${tiles.join("")}</div>` : "";
+    if (cur && cur.value_above_replacement != null) { const gr = P.values.filter(r => r.value_above_replacement != null && sameGroup(r, cur)).sort((a, b) => VA(b) - VA(a)); const rk = gr.findIndex(r => r.player_id === pid) + 1;
+      const glab = cur.group === "Defense" ? ({EDGE: "edge rushers", IDL: "interior linemen", LB: "linebackers", CB: "cornerbacks", S: "safeties"})[cur.def_role] || "defenders" : cur.group === "Skill" ? ({RB: "running backs", FB: "running backs", HB: "running backs", WR: "wide receivers", TE: "tight ends"})[cur.position] || "skill players" : (GROUP_LABEL[cur.group] || cur.group).toLowerCase() + "s";
+      if (rk) sm += `<p class="note" style="margin:6px 0 0">${ordN(rk)} of ${gr.length} ${glab} with a value, against an average starter (${esc(cur.basis || GROUP_BASIS[cur.group] || "")}).</p>`; }
     // value by season: every season, team and role the values are built from (players.js history)
     const PH = ((P.history || {})[pid] || []).slice().sort((a, b) => b[0] - a[0]);
     if (PH.length) {
       const RL = {passer: "Passing", rusher: "Rushing", receiver: "Receiving", defender: "Defense", OL: "Line (unit)", kicker: "Kicking", punter: "Punting"};
-      h += `<details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">Value by season</summary><p class="note" style="margin:6px 0">Expected points added per play in each role, every season and team (the line's is its unit's, per snap he played).</p><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th class="l">Season</th><th class="l">Team</th><th class="l">Role</th><th>Games</th><th>Plays</th><th>EPA / play</th></tr></thead><tbody>` +
-        PH.map(r => `<tr><td class="l mono">${r[0]}</td><td class="l">${LOGO(r[1])}${esc(r[1])}</td><td class="l">${RL[r[2]] || esc(r[2])}</td><td class="mono">${r[3]}</td><td class="mono">${r[4]}</td><td class="mono ${r[5] > 0 ? "pos" : r[5] < 0 ? "neg" : ""}">${r[5] == null ? "" : (r[5] > 0 ? "+" : "") + (+r[5]).toFixed(3)}</td></tr>`).join("") + `</tbody></table></div></details>`;
+      sm += `<h3 style="margin-top:14px">Value by season</h3><p class="note" style="margin:6px 0">Expected points added per play in each role, every season and team (the line's is its unit's, per snap he played).</p><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th class="l">Season</th><th class="l">Team</th><th class="l">Role</th><th>Games</th><th>Plays</th><th>EPA / play</th></tr></thead><tbody>` +
+        PH.map(r => `<tr><td class="l mono">${r[0]}</td><td class="l">${LOGO(r[1])}${esc(r[1])}</td><td class="l">${RL[r[2]] || esc(r[2])}</td><td class="mono">${r[3]}</td><td class="mono">${r[4]}</td><td class="mono ${r[5] > 0 ? "pos" : r[5] < 0 ? "neg" : ""}">${r[5] == null ? "" : (r[5] > 0 ? "+" : "") + (+r[5]).toFixed(3)}</td></tr>`).join("") + `</tbody></table></div>`;
     }
-    // the profile the projections start from
-    const pr = PF.receivers && PF.receivers[pid], pu = PF.rushers && PF.rushers[pid], pq = PF.passers && PF.passers[pid];
-    const splitRows = (x, list) => list.map(([k, l]) => x && x[k] ? `<tr><td class="l">${l}</td><td class="mono">${x[k].n}</td><td class="mono">${n1(x[k].yds)}</td><td class="mono">${x[k].epa >= 0 ? "+" : ""}${(+x[k].epa).toFixed(2)}</td><td class="mono">${Math.round(100 * x[k].success)}%</td></tr>` : "").join("");
-    let prof = "";
-    if (pq) prof += splitRows(pq, [["vs_man", "Passing, against man"], ["vs_zone", "Passing, against zone"], ["press", "Passing, under pressure"], ["clean", "Passing, clean pocket"], ["blitz", "Passing, blitzed"], ["noblitz", "Passing, not blitzed"]]);
-    if (pr) prof += splitRows(pr, [["vs_man", "Targets against man"], ["vs_zone", "Targets against zone"], ["vs_blitz", "Targets when the QB is blitzed"], ["vs_press", "Targets when the QB is pressured"]]);
-    if (pu) prof += splitRows(pu, [["light", "Runs into a light box (6 or fewer)"], ["mid", "Runs into 7 in the box"], ["heavy", "Runs into a heavy box (8+)"]]);
-    if (prof) h += `<h3 style="margin-top:14px">Against the looks, last ${PF.window_games || 17} games</h3><div class="tablewrap"><table><thead><tr><th class="l">Look</th><th>Plays</th><th>Yards a play</th><th>EPA a play</th><th>Success</th></tr></thead><tbody>${prof}</tbody></table></div>`;
+    let pj = "";
+    // projections and results (this week first)
+    const lab = {rec_yards: "Receiving yards", rec_catches: "Receptions", rec_td: "Receiving TD", rec_targets: "Targets", rec_longest: "Longest catch", rush_yards: "Rushing yards", rush_td: "Rushing TD", rush_attempts: "Carries", rush_rec_yards: "Rush + rec yards", rush_longest: "Longest rush", pass_yards: "Passing yards", pass_td: "Passing TD", pass_int: "Interceptions", pass_attempts: "Attempts", pass_completions: "Completions", pass_rush_yards: "Pass + rush yards", pass_longest: "Longest completion", def_tackles: "Tackles", def_sacks: "Sacks", def_solo_tackles: "Solo tackles", kick_points: "Kicking points", field_goals: "Field goals"};
+    const projs = (REC.projections || []).filter(r => r.player_id === pid).sort((a, b) => b.season - a.season || b.week - a.week || String(a.stat).localeCompare(b.stat));
+    const graded = Object.fromEntries((REC.graded || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r])); const mk = Object.fromEntries((REC.market || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r]));
+    if (projs.length) pj += `<h3 style="margin-top:14px">Projections and results</h3><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th>Week</th><th class="l">Game</th><th class="l">Stat</th><th>Projected</th><th>Actual</th><th title="actual minus projected">Off by</th><th title="the book line where one was logged, and the projection's side">Book</th></tr></thead><tbody>` +
+      projs.map(r => { const g = graded[r.game_id + "|" + r.stat], m = mk[r.game_id + "|" + r.stat]; return `<tr><td class="mono">${r.season} wk ${r.week}</td><td class="l">${esc(r.game_id.slice(8).replace("_", " @ "))}</td><td class="l">${lab[r.stat] || r.stat}</td><td class="mono">${r.proj}</td><td class="mono">${g ? g.actual : ""}</td><td class="mono ${g ? (g.error > 0 ? "pos" : g.error < 0 ? "neg" : "") : ""}">${g ? (g.error > 0 ? "+" : "") + (+g.error).toFixed(1) : ""}</td><td class="mono">${m ? `${m.line} ${m.side} ${m.result || ""}` : ""}</td></tr>`; }).join("") + "</tbody></table></div>";
+    if (!pj) pj = `<p class="note">No weekly projection on record for him (the props projections cover quarterbacks, receivers, rushers, defenders with tackle lines and kickers since 2017).</p>`;
+    let gl = seasons.length ? `<h3 style="margin-top:6px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">Game log <select id="plseason">${seasons.map(x => `<option value="${x}" ${x === plSeason ? "selected" : ""}>${x}</option>`).join("")}</select></h3><div id="pllog"><p class="note">Loading ${plSeason}…</p></div>` +
+      `<h3 style="margin-top:14px">Career by season</h3>` + careerHtml(car, C) : `<p class="note">No game on record since 2016.</p>`;
+    const SECS = [["summary", "Summary", sm], ["log", "Game log", gl], ["match", "Matchups and schemes", `<div id="plmatch"><p class="note">Loading…</p></div>`], ["track", "Tracking (Next Gen Stats)", `<div id="pltrack"><p class="note">Loading…</p></div>`], ["proj", "Projections", pj], ["inj", "Injuries", `<div id="plinjbody"><p class="note">Loading…</p></div>`]];
+    if (!SECS.some(x => x[0] === plSub)) plSub = "summary";
+    h += `<nav class="sub" id="plsub" style="margin:10px 0 8px">${SECS.map(([k, l]) => `<button data-ps="${k}" aria-selected="${k === plSub}">${l}</button>`).join("")}</nav>` + SECS.map(([k, , body]) => `<div class="plsec" data-ps="${k}" ${k === plSub ? "" : "hidden"}>${body}</div>`).join("");
     $("plpage").innerHTML = h;
     const ss = $("plseason"); if (ss) ss.onchange = () => { plSeason = +ss.value; renderPlayerLog(pid); };
     if (seasons.length) renderPlayerLog(pid);
-    const pi = $("plinj"); if (pi) pi.addEventListener("toggle", () => { if (!pi.open) return; loadScript("data/player_injuries.js", "pinj", () => {
+    const fill = k => {
+      if (k === "match" || k === "track") loadScript("data/player_splits.js", "psplits", () => { renderPlayerSplits(pid, pos); renderPlayerTracking(pid); });
+      if (k === "inj") loadScript("data/player_injuries.js", "pinj", () => {
       const J = window.PINJ || {codes: [], rows: {}}, rows = (J.rows[pid] || []).slice().sort((a, b) => b[0] - a[0] || b[1] - a[1]), cd = i => J.codes[i] || "";
       $("plinjbody").innerHTML = rows.length ? `<div class="tablewrap" style="max-height:40vh;margin-top:6px"><table><thead><tr><th>Season</th><th>Week</th><th class="l">Game status</th><th class="l">Practice</th><th class="l">Injury</th></tr></thead><tbody>` +
-        rows.map(r => `<tr><td class="mono">${2000 + r[0]}</td><td class="mono">${r[1]}</td><td class="l">${OUT_RE.test(cd(r[2])) ? `<span class="badge out">${esc(cd(r[2]))}</span>` : esc(cd(r[2]))}</td><td class="l">${esc(cd(r[3]))}</td><td class="l">${esc(cd(r[4]))}</td></tr>`).join("") + `</tbody></table></div><p class="note" style="margin-top:6px">Every weekly injury report line since 2016 (the league's reports, through nflverse).</p>` : `<p class="note">Not on an injury report since 2016.</p>`; }); });
+        rows.map(r => `<tr><td class="mono">${2000 + r[0]}</td><td class="mono">${r[1]}</td><td class="l">${OUT_RE.test(cd(r[2])) ? `<span class="badge out">${esc(cd(r[2]))}</span>` : esc(cd(r[2]))}</td><td class="l">${esc(cd(r[3]))}</td><td class="l">${esc(cd(r[4]))}</td></tr>`).join("") + `</tbody></table></div><p class="note" style="margin-top:6px">Every weekly injury report line since 2016 (the league's reports, through nflverse).</p>` : `<p class="note">Not on an injury report since 2016.</p>`; });
+    };
+    document.querySelectorAll("#plsub button").forEach(bt => bt.addEventListener("click", () => { plSub = bt.dataset.ps; document.querySelectorAll("#plsub button").forEach(x => x.setAttribute("aria-selected", x.dataset.ps === plSub)); document.querySelectorAll(".plsec").forEach(d => d.hidden = d.dataset.ps !== plSub); fill(plSub); }));
+    fill(plSub);
+  }
+  // Players -> a player -> Matchups and schemes: his plays by look, situation and opponent (data/player_splits.js, nflmodel/player_splits.py)
+  let plSplitWin = "all", plSplitRole = null;
+  const LOOK_GROUP = k => /^(man|zone|cov)/.test(k) ? "Coverage" : /^(blitz|noblitz|press|clean)$/.test(k) ? "Pass rush" : /^(light|mid|heavy)$/.test(k) ? "Box count" : /^(pa|nopa|motion|nomotion|gun|center|p11|p12|p21)$/.test(k) ? "The offense's call" : k === "all" ? "" : "Situation";
+  function renderPlayerSplits(pid, pos) {
+    const X = window.PSPLITS, el = $("plmatch"); if (!el) return;
+    const mine = X && X.rows[pid]; const opp = X && X.opp[pid];
+    if (!mine && !opp) { el.innerHTML = `<p class="note">No charted plays for him since 2016 as a passer, rusher or receiver (defenders, linemen and kickers are not split by look).</p>`; return; }
+    const RN = {rec: "As a receiver", rush: "As a rusher", pass: "As a passer"}; const order = pos === "QB" ? ["pass", "rush", "rec"] : pos === "RB" || pos === "FB" ? ["rush", "rec", "pass"] : ["rec", "rush", "pass"];
+    const roles = order.filter(r => (mine && mine[r]) || (opp && opp[r])); if (!roles.includes(plSplitRole)) plSplitRole = roles[0];
+    const WN = {cur: `${X.season} so far`, last: `${X.season - 1}`, all: "Since 2016"}; const wins = ["all", "cur", "last"].filter(w => mine && mine[plSplitRole] && mine[plSplitRole][w]); if (!wins.includes(plSplitWin)) plSplitWin = wins[0] || "all";
+    const rows = (mine && mine[plSplitRole] && mine[plSplitRole][plSplitWin]) || []; const base = rows.find(r => r[0] === 0); const XY = X.xy[plSplitRole]; const unit = {rec: "target", rush: "carry", pass: "dropback"}[plSplitRole];
+    const f2 = v => v == null ? "" : (+v).toFixed(2), f3 = v => v == null ? "" : (v >= 0 ? "+" : "") + (+v).toFixed(3), pc = v => v == null ? "" : Math.round(100 * v) + "%";
+    let h = `<div class="controls" style="margin:4px 0 8px;justify-content:flex-start">${roles.length > 1 ? `<label class="ctl">Role <select id="plsrole">${roles.map(r => `<option value="${r}" ${r === plSplitRole ? "selected" : ""}>${RN[r]}</option>`).join("")}</select></label>` : `<b style="align-self:center">${RN[plSplitRole]}</b>`}
+      <label class="ctl">Games <select id="plswin">${wins.map(w => `<option value="${w}" ${w === plSplitWin ? "selected" : ""}>${WN[w]}</option>`).join("")}</select></label></div>`;
+    h += `<p class="note" style="margin:0 0 6px">Every ${unit} of his, split by the look the defense showed and the situation. EPA per ${unit} is the play-by-play's expected points added; "vs his average" is that minus his EPA on every ${unit} in the same games, so plus means he does better against that look. Coverage, pressure, box and personnel come from nflverse participation data (through ${X.season - 1}; published after each season), play action and motion from FTN charting (2022 on). Grey: fewer than 20 plays, too few to read much into.</p>`;
+    let last = null;
+    h += `<div class="tablewrap" style="max-height:60vh"><table><thead><tr><th class="l">Look</th><th>${unit[0].toUpperCase() + unit.slice(1)}s</th><th title="share of his ${unit}s in these games that came against this look">Share</th><th>Yards a ${unit}</th><th>EPA a ${unit}</th><th>vs his average</th><th>Success</th><th>TD</th><th>${XY[0][0].toUpperCase() + XY[0].slice(1)}</th><th>${XY[1][0].toUpperCase() + XY[1].slice(1)}</th></tr></thead><tbody>`;
+    rows.forEach(r => { const [i, n, yp, e, sc, td, x, y] = r; const key = X.looks[i][0], g = LOOK_GROUP(key); if (g !== last && g) { h += `<tr class="grp"><td class="l" colspan="10"><b>${g}</b></td></tr>`; last = g; }
+      const sm = n < 20 ? ` style="color:var(--muted)" title="${n} plays: too few to read much into"` : ""; const d = base && e != null && base[3] != null && i !== 0 ? e - base[3] : null;
+      h += `<tr${sm}><td class="l">${i === 0 ? "<b>Every " + unit + "</b>" : esc(X.looks[i][1])}</td><td class="mono">${n}</td><td class="mono">${base && i !== 0 ? pc(n / base[1]) : ""}</td><td class="mono">${f2(yp)}</td><td class="mono">${f3(e)}</td><td class="mono ${d == null ? "" : d > 0.02 ? "pos" : d < -0.02 ? "neg" : ""}">${d == null ? "" : f3(d)}</td><td class="mono">${pc(sc)}</td><td class="mono">${td}</td><td class="mono">${plSplitRole === "rec" && XY[1].includes("depth") ? pc(x) : pc(x)}</td><td class="mono">${plSplitRole === "rec" ? f2(y) : pc(y)}</td></tr>`; });
+    h += `</tbody></table></div>`;
+    const O = (opp && opp[plSplitRole]) || [];
+    if (O.length) { const oc = X.opp_cols; h += `<h3 style="margin-top:14px">Against each team, since 2016</h3><div class="tablewrap" style="max-height:44vh"><table><thead><tr><th class="l">Opponent</th><th>Games</th><th>${unit[0].toUpperCase() + unit.slice(1)}s</th><th>Yards</th><th>Yards a game</th><th>EPA a ${unit}</th><th>TD</th></tr></thead><tbody>` +
+      O.slice().sort((a, b) => b[1] - a[1] || b[4] - a[4]).map(r => `<tr${r[2] < 20 ? ` style="color:var(--muted)"` : ""}><td class="l">${LOGO(r[0])}${esc(r[0])}</td><td class="mono">${r[1]}</td><td class="mono">${r[2]}</td><td class="mono">${r[3]}</td><td class="mono">${(r[3] / r[1]).toFixed(1)}</td><td class="mono">${f3(r[4])}</td><td class="mono">${r[5]}</td></tr>`).join("") + `</tbody></table></div><p class="note">Regular-season games since 2016, any team he played for. A defense changes from year to year, so an old result against a team says less than a recent one.</p>`; }
+    el.innerHTML = h;
+    const a = $("plsrole"); if (a) a.onchange = () => { plSplitRole = a.value; renderPlayerSplits(pid, pos); };
+    const w = $("plswin"); if (w) w.onchange = () => { plSplitWin = w.value; renderPlayerSplits(pid, pos); };
+  }
+  // Players -> a player -> Tracking: NFL Next Gen Stats by season (data/player_splits.js, ngs)
+  function renderPlayerTracking(pid) {
+    const X = window.PSPLITS, el = $("pltrack"); if (!el) return;
+    const N = X && X.ngs && X.ngs[pid]; if (!N) { el.innerHTML = `<p class="note">No Next Gen Stats line for him (NGS publishes quarterbacks, receivers and rushers who reach its weekly minimums, 2016 on).</p>`; return; }
+    const RN = {pass: "Passing", rec: "Receiving", rush: "Rushing"};
+    el.innerHTML = `<p class="note" style="margin:0 0 6px">NFL Next Gen Stats (player tracking), regular season, each week weighted by his volume that week. Weeks: the weeks he met NGS's minimum to be listed.</p>` + ["pass", "rec", "rush"].filter(k => N[k]).map(k => `<h3 style="margin-top:10px">${RN[k]}</h3><div class="tablewrap"><table><thead><tr><th class="l">Season</th><th>Weeks</th><th>${X.ngs_vol[k][0].toUpperCase() + X.ngs_vol[k].slice(1)}</th>${X.ngs_cols[k].map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>` +
+      N[k].slice().sort((a, b) => b[0] - a[0]).map(r => `<tr><td class="l mono">${r[0]}</td>${r.slice(1).map(v => `<td class="mono">${v == null ? "" : v}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`).join("");
   }
   // the full box score's column names: the official stat line's own names, spelled out
   const BOX_LABEL = {sack_yards_lost: "Sack yards lost", sack_fumbles: "Sack fumbles", sack_fumbles_lost: "Sack fumbles lost", passing_yards_after_catch: "Pass yards after catch", passing_cpoe: "CPOE",
@@ -2243,9 +2270,33 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       const isRec = psKind === "rec";
       $("pstable").innerHTML = `<thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Pos</th><th class="l">Team</th><th title="yards so far this season">Yards so far</th><th title="games he has played this season">Games so far</th><th title="projected season total (click a row for the math)">Projected yards</th><th>Projected TD</th>${isRec ? "<th>Projected catches</th>" : ""}<th title="projected yards a game over the whole season">Per game</th><th>Last season yards</th><th class="l">Flag</th></tr></thead><tbody>` +
         kr.map((r, ix) => `<tr class="mrow" data-ps="t${ix}" style="cursor:pointer"><td class="mono">${r.rank}</td><td class="l"><b>${esc(r.name)}</b></td><td class="l">${esc(r.pos)}</td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono">${num(r.yards_so_far)}</td><td class="mono">${r.games_so_far}</td><td class="mono"><b>${num(r.proj_yards)}</b></td><td class="mono">${(+r.proj_td).toFixed(1)}</td>${isRec ? `<td class="mono">${num(r.proj_catches)}</td>` : ""}<td class="mono">${(+r.proj_pg).toFixed(1)}</td><td class="mono">${r.prev_games ? num(r.prev_yards) : ""}</td><td class="l">${r.breakout ? "Breakout" : r.new_top ? "New" : ""}</td></tr><tr class="pscalc" data-for="t${ix}" hidden><td class="l" colspan="${isRec ? 12 : 11}" style="white-space:normal;font-size:12.5px;line-height:1.55">${calc(r)}</td></tr>`).join("") + "</tbody>";
+      renderSnapshots(S, psKind);
       ["breakouts", "pstable"].forEach(id => { const t = $(id); if (!t.dataset.bound) { t.dataset.bound = "1"; t.addEventListener("click", ev => { const tr = ev.target.closest("tr[data-ps]"); if (!tr) return; const c = t.querySelector(`tr.pscalc[data-for="${tr.dataset.ps}"]`); if (c) c.hidden = !c.hidden; }); } });
       return;
     }
+  }
+  // Season -> Player totals: the totals and breakout flags as they stood at a point in time, against what happened
+  let psSnap = null;
+  function renderSnapshots(S, kind) {
+    const X = S.snapshots; if (!X || !X.snaps) { $("pssnapnote").textContent = "No snapshots built yet."; return; }
+    const keys = Object.keys(X.snaps).sort((a, b) => { const [s1, w1] = a.split("-").map(Number), [s2, w2] = b.split("-").map(Number); return s2 - s1 || w2 - w1; });
+    if (!psSnap || !keys.includes(psSnap)) psSnap = keys.find(k => k === `${X.live_season}-1`) || keys[0];
+    const sel = $("pssnap"); sel.innerHTML = keys.map(k => { const [yr, wk] = k.split("-"); return `<option value="${k}" ${k === psSnap ? "selected" : ""}>${wk === "1" ? "before Week 1" : "going into Week " + wk}, ${yr}${+yr === X.live_season ? " (this season)" : ""}</option>`; }).join("");
+    if (!sel.dataset.bound) { sel.dataset.bound = "1"; sel.addEventListener("change", () => { psSnap = sel.value; renderSnapshots(window.SEASON, psKind); }); }
+    const [yr, wk] = psSnap.split("-").map(Number), live = yr === X.live_season, snap = X.snaps[psSnap] || {}, rows = snap[kind] || [], acc = (X.acc[psSnap] || {})[kind], meta = snap._meta || {};
+    const KL = {rec: "receiving yards", rush: "rushing yards", pass: "passing yards"}, num = v => v == null ? "" : Math.round(+v).toLocaleString();
+    $("pssnapnote").innerHTML = (live ? `This season's projections as they stood ${wk === 1 ? "before the first game" : "going into Week " + wk}${meta.reconstructed ? " (rebuilt from the data before that week: the record began on 24 Sep 2026; every week from now on is kept as made)" : ", kept as made"}; the actual column is his total so far.` :
+      `The backtest's projections ${wk === 1 ? "before Week 1" : "going into Week " + wk} of ${yr}, made only from games before that week, beside what each player finished with.`) +
+      (acc ? ` Across all ${acc.n} players projected: ${KL[kind]} off by <b>${num(acc.mae)}</b> on average, against ${num(acc.pace)} for his pace${wk === 1 ? " (before a game, pace is last season)" : ""} and ${num(acc.prev)} for last season's total. Breakout flags: ${acc.flags}${acc.flags ? `, ${acc.hits} came true` : ""}.` : "") +
+      ` Flag: B = breakout watch, N = new to the top (no previous season).`;
+    $("pssnaptable").innerHTML = rows.length ? `<thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th>Projected</th><th>Projected TD</th><th>Flag</th><th>Last season</th><th>${live ? "So far" : "Finished with"}</th><th>${live ? "Rank so far" : "Finished"}</th>${live ? "" : "<th>Off by</th>"}</tr></thead><tbody>` +
+      rows.map(r => `<tr><td class="mono">${r[3]}</td><td class="l"><b>${esc(r[1])}</b></td><td class="l">${LOGO(r[2])}${esc(r[2])}</td><td class="mono"><b>${num(r[4])}</b></td><td class="mono">${(+r[5]).toFixed(1)}</td><td>${r[6] === 1 ? `<span class="badge flag">B</span>` : r[6] === 2 ? `<span class="badge">N</span>` : ""}</td><td class="mono">${num(r[7])}</td><td class="mono">${num(r[8])}</td><td class="mono">${r[9]}</td>${live ? "" : `<td class="mono ${Math.abs(r[8] - r[4]) > 300 ? "neg" : ""}">${r[8] - r[4] >= 0 ? "+" : ""}${num(r[8] - r[4])}</td>`}</tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">No projections of this kind in this snapshot.</td></tr></tbody>`;
+    // accuracy at a glance: every backtest snapshot of this kind pooled by window and as-of week
+    const W = {"2016-18": [2016, 2018], "2019-22": [2019, 2022], "2023-25": [2023, 2025]}; const weeks = [1, 5, 9, 13];
+    const pool = (a, b, w) => { let n = 0, m = 0, p = 0, q = 0, f = 0, h = 0; Object.entries(X.acc).forEach(([k, v]) => { const [y, ww] = k.split("-").map(Number); const x = v[kind]; if (!x || ww !== w || y < a || y > b) return; n += x.n; m += x.mae * x.n; p += x.pace * x.n; q += x.prev * x.n; f += x.flags; h += x.hits; }); return n ? {m: m / n, p: p / n, q: q / n, f, h} : null; };
+    $("psaccnote").textContent = `Mean miss of the season total in ${KL[kind]}, every player projected in each backtest season (2016-18 is where the two constants were fitted; 2019-22 and 2023-25 were not used to set anything), against his pace and last season's total. Breakouts: flagged / came true (finished at least 1.25 times last season's yards a game and inside the top ${kind === "pass" ? 12 : 24}). Before Week 1 the projection has only last season's games: no offseason moves, rookies or depth-chart changes, so it barely beats last season's total and flags no breakouts.`;
+    $("psacc").innerHTML = `<thead><tr><th class="l">As of</th>${Object.keys(W).map(w => `<th colspan="4">${w}</th>`).join("")}</tr><tr><th></th>${Object.keys(W).map(() => "<th>Ours</th><th>Pace</th><th>Last season</th><th>Breakouts</th>").join("")}</tr></thead><tbody>` +
+      weeks.map(w => `<tr><td class="l">${w === 1 ? "before Week 1" : "Week " + w}</td>${Object.values(W).map(([a, b]) => { const r = pool(a, b, w); return r ? `<td class="mono"><b>${num(r.m)}</b></td><td class="mono">${num(r.p)}</td><td class="mono">${num(r.q)}</td><td class="mono">${r.f ? r.h + " of " + r.f : "none"}</td>` : "<td></td><td></td><td></td><td></td>"; }).join("")}</tr>`).join("") + "</tbody>";
   }
   function renderSeasonBacktest() {
     const S = window.SEASON; if (!S) { $("seasonbtnote").textContent = "Not built yet."; return; }
@@ -2320,8 +2371,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   // Team -> Scheme and play calling (data/scheme.js: each team's profile over its last 17 games, the league beside it, rank among 32)
   function renderScheme() {
     const S = window.SCHEME; if (!S || !S.teams || !S.teams[team]) { $("schnote").textContent = "No scheme profile for " + team + "."; return; }
-    const T = S.teams[team].current, L = S.league.current; const teams = Object.keys(S.teams);
-    $("schnote").textContent = `${team}, its ${T.offense.games} games this season going into Week ${S.week}, ${S.season}: every pass and run tagged with the look (nflverse participation 2016 on: personnel, coverage, pressure; FTN charting 2022 on: motion, play action, RPO, screens, blitzers, box). Rank is among the 32 teams, 1 = highest rate. Blank splits mean the plays were not charted (2026 participation is not published yet: coverage, personnel and time to throw wait on it).`;
+    const T = S.teams[team].current, T0 = S.teams[team].last || {offense: {}, defense: {}}, L = S.league.current, L0 = S.league.last || {}; const teams = Object.keys(S.teams);
+    $("schnote").textContent = `${team}, its ${T.offense.games} games this season going into Week ${S.week}, ${S.season}, beside last season in full: every pass and run tagged with the look. Sources: nflverse participation (2016 on: personnel, man or zone, coverage family, pressure, time to throw; published after each season, so this season's column is empty for those until then and last season's stands in), FTN charting (2022 on, weekly: motion, play action, RPO, screens, blitzers, box) and NFL Next Gen Stats (weekly: this season's time to throw). Rank is among the 32 teams this season, 1 = highest. A split under 20 plays is shown in grey: too few plays to read much into.`;
     const pct = v => v == null ? "" : (100 * v).toFixed(v < 0.1 ? 1 : 0) + "%";
     const num = (v, d) => v == null ? "" : Number(v).toFixed(d);
     const rank = (side, key, dir) => { const vals = teams.map(t => (((S.teams[t] || {}).current || {})[side] || {})[key]).filter(v => v != null); const v = T[side][key]; if (v == null || !vals.length) return ""; const r = 1 + vals.filter(x => dir > 0 ? x > v : x < v).length; return `${r} of ${vals.length}`; };
@@ -2329,12 +2380,15 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
                  ["epa", "EPA per play", v => num(v, 3), 1], ["epa_pass", "EPA per dropback", v => num(v, 3), 1], ["epa_run", "EPA per run", v => num(v, 3), 1], ["success", "Success rate", pct, 1], ["success_pass", "Success rate, passes", pct, 1], ["success_run", "Success rate, runs", pct, 1], ["plays", "Plays", v => num(v, 0), 1], ["faced_man", "Man coverage faced", pct, 1]];
     const DEF = [["man", "Man coverage", pct, 1], ["zone", "Zone coverage", pct, 1], ["blitz", "Blitz rate (5+ rushers)", pct, 1], ["pressure", "Pressure rate", pct, 1], ["rushers", "Pass rushers per dropback", v => num(v, 2), 1], ["box_run", "Box count against the run", v => num(v, 2), 1], ["heavy_box_rate", "Heavy box (8+) against the run", pct, 1], ["nickel_plus", "Five or more DBs", pct, 1], ["dime_plus", "Six or more DBs", pct, 1],
                  ["epa", "EPA per play allowed", v => num(v, 3), -1], ["epa_pass", "EPA per dropback allowed", v => num(v, 3), -1], ["epa_run", "EPA per run allowed", v => num(v, 3), -1], ["success", "Success rate allowed", pct, -1], ["pass_rate", "Pass rate faced", pct, 1], ["plays", "Plays", v => num(v, 0), 1]];
-    const tbl = (id, side, rows, leagueKey) => { $(id).innerHTML = `<thead><tr><th class="l">Measure</th><th>${team}</th><th>League</th><th title="among the 32 teams; 1 = highest">Rank</th></tr></thead><tbody>` + rows.map(([k, lab, f, dir]) => `<tr><td class="l">${lab}</td><td class="mono"><b>${f(T[side][k])}</b></td><td class="mono">${f(leagueKey(k))}</td><td class="mono">${rank(side, k, dir)}</td></tr>`).join("") + "</tbody>"; };
+    const tbl = (id, side, rows, leagueKey) => { $(id).innerHTML = `<thead><tr><th class="l">Measure</th><th>${team} ${S.season}</th><th>League</th><th title="among the 32 teams this season; 1 = highest">Rank</th><th>${team} ${S.season - 1}</th><th>League ${S.season - 1}</th></tr></thead><tbody>` + rows.map(([k, lab, f, dir]) => `<tr><td class="l">${lab}</td><td class="mono"><b>${f(T[side][k])}</b></td><td class="mono">${f(leagueKey(k))}</td><td class="mono">${rank(side, k, dir)}</td><td class="mono">${f((T0[side] || {})[k])}</td><td class="mono">${k === "plays" ? "" : f(L0[k])}</td></tr>`).join("") + "</tbody>"; };
     tbl("schoff", "offense", OFF, k => k === "plays" ? null : L[k]); tbl("schdef", "defense", DEF, k => k === "plays" ? null : L[k]);
     const cov = T.defense.coverage || {}; const covRows = Object.entries(cov).filter(([k, v]) => v != null).sort((a, b) => b[1] - a[1]);
-    if (covRows.length) $("schdef").innerHTML += `<tbody>${covRows.map(([k, v]) => `<tr><td class="l">Coverage: ${esc(k.replace(/_/g, " "))}</td><td class="mono"><b>${pct(v)}</b></td><td></td><td></td></tr>`).join("")}</tbody>`;
+    const cov0 = (T0.defense || {}).coverage || {}; const covKeys = [...new Set([...Object.keys(cov), ...Object.keys(cov0)])].sort((a, b) => (cov[b] ?? cov0[b] ?? 0) - (cov[a] ?? cov0[a] ?? 0));
+    if (covKeys.length) $("schdef").innerHTML += `<tbody>${covKeys.map(k => `<tr><td class="l">Coverage: ${esc(k.replace(/_/g, " ").toLowerCase())}</td><td class="mono"><b>${pct(cov[k])}</b></td><td></td><td></td><td class="mono">${pct(cov0[k])}</td><td></td></tr>`).join("")}</tbody>`;
     const VSL = {man: "vs man", zone: "vs zone", blitz: "blitzed", no_blitz: "not blitzed", pressure: "under pressure", clean: "clean pocket", play_action: "with play action", no_play_action: "without play action", motion: "with motion", no_motion: "without motion", light_box: "light box (6 or fewer)", heavy_box: "heavy box (8+)"};
-    const vs = (id, side, note) => { const V = T[side].vs || {}; const rows = Object.entries(V).filter(([k, v]) => v && v.n).map(([k, v]) => [VSL[k] || k.replace("cov_", "coverage ").replace(/_/g, " "), v]); $(id).innerHTML = rows.length ? `<thead><tr><th class="l">${note}</th><th>Plays</th><th>EPA per play</th><th>Success</th></tr></thead><tbody>` + rows.map(([lab, v]) => `<tr><td class="l">${esc(lab)}</td><td class="mono">${v.n}</td><td class="mono">${v.epa == null ? "" : num(v.epa, 3)}</td><td class="mono">${pct(v.success)}</td></tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Not charted for these games.</td></tr></tbody>`; };
+    const cell = v => !v || !v.n ? `<td class="mono"></td><td class="mono"></td><td class="mono"></td>` : (sm => `<td class="mono">${v.n}</td><td class="mono"${sm}>${v.epa_all == null ? "" : num(v.epa_all, 3)}</td><td class="mono"${sm}>${pct(v.success_all)}</td>`)(v.n < 20 ? ` style="color:var(--muted)" title="${v.n} plays: too few to read much into"` : "");
+    const vs = (id, side, note) => { const V = T[side].vs || {}, V0 = (T0[side] || {}).vs || {}; const keys = [...new Set([...Object.keys(V), ...Object.keys(V0)])].filter(k => (V[k] && V[k].n) || (V0[k] && V0[k].n));
+      $(id).innerHTML = keys.length ? `<thead><tr><th class="l" rowspan="2">${note}</th><th colspan="3">${S.season}</th><th colspan="3">${S.season - 1}</th></tr><tr><th>Plays</th><th>EPA per play</th><th>Success</th><th>Plays</th><th>EPA per play</th><th>Success</th></tr></thead><tbody>` + keys.map(k => `<tr><td class="l">${esc(VSL[k] || k.replace("cov_", "coverage ").replace(/_/g, " ").toLowerCase())}</td>${cell(V[k])}${cell(V0[k])}</tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Not charted for these games.</td></tr></tbody>`; };
     vs("schoffvs", "offense", "The offense when it faced"); vs("schdefvs", "defense", "The defense when it played");
   }
   // Model -> Season odds and player totals: how each number on the Season tab is made and tested, with today's constants from season.js
@@ -2366,7 +2420,11 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <p><b>How it is tested.</b> Made as of Weeks 1, 5, 9 and 13 of 2019 to 2025 and scored by how far the projection landed from what he finished with, against pace and last season. Receiving: ${f(mae("rec", "2019-22").mae, 0)} / ${f(mae("rec", "2023-25").mae, 0)} yards off, against ${f(mae("rec", "2019-22").pace_mae, 0)} / ${f(mae("rec", "2023-25").pace_mae, 0)} for pace. Rushing: ${f(mae("rush", "2019-22").mae, 0)} / ${f(mae("rush", "2023-25").mae, 0)}, against ${f(mae("rush", "2019-22").pace_mae, 0)} / ${f(mae("rush", "2023-25").pace_mae, 0)}. Passing: ${f(mae("pass", "2019-22").mae, 0)} / ${f(mae("pass", "2023-25").mae, 0)}, against ${f(mae("pass", "2019-22").pace_mae, 0)} / ${f(mae("pass", "2023-25").pace_mae, 0)}. Early in the season the misses are largest and they shrink every week (by week on the Backtest tab).</p>
 <h3>Breakout watch</h3>
 <p><b>Breakout</b>: a projection inside the top ${tn.rec} receivers, top ${tn.rush} rushers or top ${tn.pass} passers, at a per-game rate at least ${P.break_up} times his per-game rate last season. Using the per-game rate means a player coming back from a short injury season is not called a breakout. <b>New to the top</b>: a top projection with no previous season, such as a rookie.</p>
-<p><b>How it is tested.</b> The same test is run on what he actually finished with: did he end inside the top group at 1.25 times last season's rate? Flagged receivers did ${pc(brk("rec", "2019-22").value)} / ${pc(brk("rec", "2023-25").value)} of the time, against ${pc(brk("rec", "2019-22").base_rate)} / ${pc(brk("rec", "2023-25").base_rate)} for any top-${tn.rec} projection. Rushers: ${pc(brk("rush", "2019-22").value)} / ${pc(brk("rush", "2023-25").value)}, against ${pc(brk("rush", "2019-22").base_rate)} / ${pc(brk("rush", "2023-25").base_rate)}. Passers: ${pc(brk("pass", "2019-22").value)} / ${pc(brk("pass", "2023-25").value)}, against ${pc(brk("pass", "2019-22").base_rate)} / ${pc(brk("pass", "2023-25").base_rate)}, on only ${brk("pass", "2019-22").n} and ${brk("pass", "2023-25").n} flags.</p>`;
+<p><b>How it is tested.</b> The same test is run on what he actually finished with: did he end inside the top group at 1.25 times last season's rate? Flagged receivers did ${pc(brk("rec", "2019-22").value)} / ${pc(brk("rec", "2023-25").value)} of the time, against ${pc(brk("rec", "2019-22").base_rate)} / ${pc(brk("rec", "2023-25").base_rate)} for any top-${tn.rec} projection. Rushers: ${pc(brk("rush", "2019-22").value)} / ${pc(brk("rush", "2023-25").value)}, against ${pc(brk("rush", "2019-22").base_rate)} / ${pc(brk("rush", "2023-25").base_rate)}. Passers: ${pc(brk("pass", "2019-22").value)} / ${pc(brk("pass", "2023-25").value)}, against ${pc(brk("pass", "2019-22").base_rate)} / ${pc(brk("pass", "2023-25").base_rate)}, on only ${brk("pass", "2019-22").n} and ${brk("pass", "2023-25").n} flags.</p>
+<h3>Is this the standard way, and what about Vegas?</h3>
+<p><b>Team odds.</b> Pricing every game and playing the season out thousands of times is how the public forecasts do it (FiveThirtyEight's NFL model, ESPN's Football Power Index, the DVOA playoff odds). Sportsbooks' win totals are different in kind: a number set before the season and moved by bettors' money, not a published model. ${S.vegas ? `Against the books' preseason win totals (${S.vegas.source}): ${S.vegas.summary}` : "The books' preseason win totals are being added for the comparison (a free archive exists for team win totals)."}</p>
+<p><b>Player totals.</b> The standard projection systems (the fantasy sites, the books' own models) build a season total the same way: expected volume (his share of the team's plays times the team's plays) times his efficiency, over the games he is expected to play. What they add, by hand, is offseason information: depth-chart moves, rookies, coaching and scheme changes, contracts. This model has none of that, so before Week 1 its projection is last season carried forward, only a little better than last season's total (Season → Player totals, "How the projections have held up"), and it flags no breakouts before a snap. From Week 5 on it beats both baselines by a clear margin. The books do post season-long player lines before each season, but there is no free archive of past lines, so these totals cannot be scored against them; the weekly player projections are scored against the books' weekly lines instead (Backtest → Player projections).</p>
+<p><b>At a point in time.</b> Season → Player totals → "As projected at the time" shows the totals and breakout flags as they stood before Week 1 and going into Weeks 5, 9 and 13 of every season since 2016 (made only from the games before that week), next to what each player finished with, and this season's as they stood each week (kept as made from 24 Sep 2026; the weeks before were rebuilt from the data of the time).</p>`;
   }
   function render() {
     if (tab === "week") return renderWeek();
@@ -2376,7 +2434,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else if (sub.results === "seasonbt") renderSeasonBacktest(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "healthv") renderHealth(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
   }
   // numbers written into the definitions come from the data files, so no sentence can go stale
   document.querySelectorAll("[data-pk]").forEach(el => { const v = el.dataset.pk.split(".").reduce((o, k) => (o == null ? null : o[k]), window.PROPS || null); el.textContent = v == null ? "" : String(v); });

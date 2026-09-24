@@ -67,6 +67,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run weekly.yml --ref main
       - name: health alert      # one GitHub issue labelled site-health, opened when a check fails, closed when all pass
+        if: always()          # 24 Sep 2026: without it a crashed line watch never raised the alert
         env:
           GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
         run: python -m nflmodel.health_alert

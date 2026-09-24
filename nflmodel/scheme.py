@@ -99,8 +99,12 @@ def _rate(mask: pd.Series, base: pd.Series) -> float | None:
 
 
 def _epa(d: pd.DataFrame, mask: pd.Series, min_n: int = 20) -> dict:
-    x = d[mask]
-    return {"n": int(len(x)), "epa": (round(float(x.epa.mean()), 3) if len(x) >= min_n else None), "success": (round(float(x.success.mean()), 3) if len(x) >= min_n else None)}
+    """Plays in a look and the EPA and success rate in them. epa / success stay empty under min_n plays (the cards read
+    them); epa_all / success_all are there for any count, for the Scheme tab to show greyed as a small sample (24 Sep
+    2026: a blank cell next to 17 plays read as missing data)."""
+    x = d[mask]; n = len(x)
+    e = round(float(x.epa.mean()), 3) if n else None; sc = round(float(x.success.mean()), 3) if n else None
+    return {"n": int(n), "epa": e if n >= min_n else None, "success": sc if n >= min_n else None, "epa_all": e, "success_all": sc}
 
 
 def profile(d: pd.DataFrame, team: str, side: str) -> dict:
@@ -141,7 +145,9 @@ def league(d: pd.DataFrame) -> dict:
     """League baselines for the same rates and the EPA in each look, so a team's number can be read against them."""
     d = d[d.play_type.isin(["pass", "run"])]
     ps = d.pass_play; db = d.dropback; run = d.play_type.eq("run"); cv = d[ps & d.cov_known]
-    return {"plays": int(len(d)), "plays_pass": int(ps.sum()), "plays_run": int(run.sum()), "epa": round(float(d.epa.mean()), 3),
+    return {"plays": int(len(d)), "plays_pass": int(ps.sum()), "plays_run": int(run.sum()), "epa": round(float(d.epa.mean()), 3), "success": round(float(d.success.mean()), 3),
+            "pass_rate": _rate(ps, d.play_type.notna()), "pass_oe": (round(float((ps.astype(float) - d.xpass)[d.neutral & d.xpass.notna()].mean()), 3) if (d.neutral & d.xpass.notna()).any() else None),
+            "success_pass": _epa(d, ps)["success"], "success_run": _epa(d, run)["success"], "faced_man": (round(float(cv.man.mean()), 3) if len(cv) else None),
             "pass_rate_neutral": _rate(ps, d.neutral), "man": (round(float(cv.man.mean()), 3) if len(cv) else None), "zone": (round(float(cv.zone.mean()), 3) if len(cv) else None), "blitz": _rate(d.blitz == 1, db & d.blitz.notna()), "pressure": _rate(d.pressure == 1, db & d.pressure.notna()),
             "motion": _rate(d.is_motion == 1, d.is_motion.notna()), "play_action": _rate(d.is_play_action == 1, db & d.is_play_action.notna()), "shotgun": _rate(d.shotgun_f, d.play_type.notna()),
             "rpo": _rate(d.is_rpo == 1, d.is_rpo.notna()), "screen": _rate(d.is_screen_pass == 1, db & d.is_screen_pass.notna()), "no_huddle": _rate(d.is_no_huddle == 1, d.is_no_huddle.notna()),
@@ -154,6 +160,22 @@ def league(d: pd.DataFrame) -> dict:
                    **{f"cov_{c}": _epa(d, ps & (d.coverage == c)) for c in ["COVER_1", "COVER_2", "COVER_3", "COVER_4", "2_MAN", "COMBO"]}}}
 
 
+def ngs_time_to_throw(season: int, week: int) -> tuple[dict, float | None]:
+    """Each team's average time to throw on its passes this season before `week`, from NFL Next Gen Stats (weekly, per
+    passer, weighted by attempts), and the league's. The participation file carries time to throw per play but is not
+    published until after the season; NGS is weekly (24 Sep 2026)."""
+    f = RAW / "ngs" / "ngs_passing.parquet"
+    if not f.exists():
+        return {}, None
+    n = pd.read_parquet(f, columns=["season", "season_type", "week", "team_abbr", "avg_time_to_throw", "attempts"])
+    n = n[(n.season == season) & (n.week > 0) & (n.week < week) & (n.season_type == "REG") & n.avg_time_to_throw.notna()]
+    if not len(n):
+        return {}, None
+    n = n.assign(team=n.team_abbr.replace(TEAM_FIX), w=n.avg_time_to_throw * n.attempts)
+    g = n.groupby("team")[["w", "attempts"]].sum()
+    return {t: round(float(r.w / r.attempts), 2) for t, r in g.iterrows() if r.attempts > 0}, round(float(n.w.sum() / n.attempts.sum()), 2)
+
+
 def profiles_asof(d: pd.DataFrame, season: int, week: int) -> dict:
     """Every team's offense and defense profile on this season's games before `week`, and on last season in full,
     plus the league baselines for each. Nothing from `week` or later is used."""
@@ -163,6 +185,13 @@ def profiles_asof(d: pd.DataFrame, season: int, week: int) -> dict:
     for t in teams:
         out["teams"][t] = {"current": {"offense": profile(cur, t, "offense"), "defense": profile(cur, t, "defense")},
                            "last": {"offense": profile(last, t, "offense"), "defense": profile(last, t, "defense")}}
+    ttt, ttt_lg = ngs_time_to_throw(season, week)
+    for t, v in ttt.items():
+        o = out["teams"].get(t, {}).get("current", {}).get("offense")
+        if o is not None and o.get("plays") and o.get("time_to_throw") is None:
+            o["time_to_throw"] = v; o["time_to_throw_src"] = "NFL Next Gen Stats"
+    if ttt_lg is not None and out["league"]["current"] and out["league"]["current"].get("time_to_throw") is None:
+        out["league"]["current"]["time_to_throw"] = ttt_lg
     return out
 
 

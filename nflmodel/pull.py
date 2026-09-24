@@ -14,7 +14,10 @@ RAW = Path(__file__).resolve().parent.parent / "data" / "raw"
 # dataset -> (url template, first season available, one file for all seasons?)
 DATASETS = {
     "schedules":     ("schedules/games.csv", 1999, True),
-    "players":       ("players/players.parquet", 1999, True),       # 24 Sep 2026: every player's ids (gsis, PFR, ESPN, PFF...): the rosters carry no PFR id for linemen
+    "players":       ("players/players.parquet", 1999, True),
+    "ngs":           ("nextgen_stats/ngs_passing.parquet", 2016, True),     # 24 Sep 2026: NFL Next Gen Stats, weekly per player (time to throw, air yards, CPOE)
+    "ngs_rec":       ("nextgen_stats/ngs_receiving.parquet", 2016, True),   # separation, cushion, YAC over expected
+    "ngs_rush":      ("nextgen_stats/ngs_rushing.parquet", 2016, True),     # rush yards over expected, 8+ box rate, time to the line       # 24 Sep 2026: every player's ids (gsis, PFR, ESPN, PFF...): the rosters carry no PFR id for linemen
     "pbp":           ("pbp/play_by_play_{s}.parquet", 1999, False),
     "injuries":      ("injuries/injuries_{s}.parquet", 2009, False),
     "snap_counts":   ("snap_counts/snap_counts_{s}.parquet", 2012, False),

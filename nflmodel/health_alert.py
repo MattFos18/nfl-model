@@ -30,6 +30,9 @@ def status() -> tuple[bool, list[str], dict]:
         problems.append("web/data/health.js is missing: the checks did not run")
     else:
         problems += [f"{f['what']}: reads {f['reads']}, should read {f['should']}" for f in h.get("fails", [])]
+    if os.environ.get("JOB_STATUS") and os.environ["JOB_STATUS"] != "success":   # the run itself failed before or after the checks
+        run = f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/{os.environ.get('GITHUB_REPOSITORY', '')}/actions/runs/{os.environ.get('GITHUB_RUN_ID', '')}"
+        problems.append(f"{os.environ.get('GITHUB_WORKFLOW', 'a workflow')} run failed ({os.environ['JOB_STATUS']}): {run}")
     wl = ROOT / "data" / "lines" / "watch_log.csv"
     if wl.exists():
         last = pd.read_csv(wl, usecols=["ts"]).ts.iloc[-1]

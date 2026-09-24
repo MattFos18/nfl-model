@@ -51,7 +51,7 @@ def main(full=False, skip_network=False):
     season = int(games0.season.max())
     if not skip_network:
         seasons = list(range(2012, season + 1)) if full else [season - 1, season]
-        step("pull", lambda: pull.pull(seasons, ["schedules", "players", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats", "participation", "ftn"]), log)
+        step("pull", lambda: pull.pull(seasons, ["schedules", "players", "ngs", "ngs_rec", "ngs_rush", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats", "participation", "ftn"]), log)
         # the player-history sources for every season the game logs cover (only missing files are fetched): the cached
         # raw folder holds the recent seasons, and without these the logs' official tackles and Pro-Football-Reference
         # columns would go blank for older seasons
@@ -74,6 +74,7 @@ def main(full=False, skip_network=False):
     step("players", lambda: sh(["nflmodel.players"]), log)
     step("positions", lambda: sh(["nflmodel.positions"]), log)
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
+    step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
     step("sizing backtest", lambda: sh(["experiments.sizing_backtest"]), log)   # the Bets tab's staking numbers follow every re-price (24 Sep 2026: it had gone stale after a model change)

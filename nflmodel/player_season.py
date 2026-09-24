@@ -144,3 +144,69 @@ if __name__ == "__main__":
     p = run_now()
     for k in KINDS:
         print(k); print(p[p.kind == k].head(12)[["name", "pos", "team", "yards_so_far", "yards_pg", "team_games_left", "proj_yards", "proj_td", "prev_yards", "pace_yards", "breakout"]].round(1).to_string(index=False))
+
+
+SNAP_TOP = 40        # rows kept per kind in each snapshot for the page (the accuracy uses every projected player)
+SNAP_LOG = ROOT / "data" / "tracker" / "player_season_snapshots.csv"
+
+
+def _finish(R: pd.DataFrame) -> pd.DataFrame:
+    """Rows built with availability 1 and no blend (the backtest cache) under the adopted constants: the projection as
+    the page showed or would have shown it."""
+    R = R.copy(); a = R.kind.map(AVAIL).astype(float); b = R.kind.map(BLEND).astype(float)
+    R["proj_yards"] = (1 - b) * (R.yards_so_far + R.yards_pg * R.team_games_left * a) + b * R.pace_yards
+    R["proj_td"] = R.td_so_far + R.td_pg * R.team_games_left * a
+    R["rank"] = R.groupby(["season", "week", "kind"]).proj_yards.rank(ascending=False, method="first").astype(int)
+    R["proj_pg"] = R.proj_yards / R.team_games.clip(lower=1); R["prev_pg"] = R.prev_yards / R.prev_games.clip(lower=1)
+    R["breakout"] = (R["rank"] <= R.kind.map(TOP_N)) & (R.proj_pg >= BREAK_UP * R.prev_pg) & (R.prev_games > 0)
+    R["new_top"] = (R["rank"] <= R.kind.map(TOP_N)) & (R.prev_games == 0)
+    return R
+
+
+def live_snapshots(d: pd.DataFrame, names: dict, games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
+    """This season's projections as of every week so far, kept as made: a week already in the log is read back, a
+    missing one is built from the data before that week (as of, so a reconstruction matches what the page would
+    have said) and appended. The log is the record of what was projected when."""
+    log = pd.read_csv(SNAP_LOG) if SNAP_LOG.exists() else pd.DataFrame()
+    have = set(zip(log.season, log.week)) if len(log) else set()
+    new = []
+    for w in range(1, week + 1):
+        if (season, w) in have:
+            continue
+        p = project(d, names, games, season, w, mode="asof")
+        p["made_at"] = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"); p["reconstructed"] = w < week
+        new.append(p[["season", "week", "kind", "player_id", "name", "pos", "team", "rank", "proj_yards", "proj_td", "prev_yards", "prev_games", "pace_yards", "breakout", "new_top", "made_at", "reconstructed"]])
+    if new:
+        log = pd.concat([log] + new, ignore_index=True); SNAP_LOG.parent.mkdir(parents=True, exist_ok=True); log.to_csv(SNAP_LOG, index=False)
+    return log[log.season == season]
+
+
+def snapshots(d: pd.DataFrame, names: dict, games: pd.DataFrame, season: int, week: int) -> dict:
+    """Season totals and the breakout watch as projected at points in time: weeks 1 (before a snap), 5, 9 and 13 of
+    every backtest season, and every week of this one, each with what the player finished with (or has so far) and
+    the snapshot's accuracy against that beside the two baselines (pace; last season). For Season -> Player totals."""
+    out = {"cols": ["player_id", "name", "team", "rank", "proj_yards", "proj_td", "flag", "prev_yards", "actual_yards", "actual_rank"], "snaps": {}, "acc": {}}
+    rf = REP / "player_season_rows.csv"
+    if rf.exists():
+        R = _finish(pd.read_csv(rf))
+        R["actual_rank"] = R.groupby(["season", "week", "kind"]).actual_yards.rank(ascending=False, method="min").astype(int)
+        for (s, w), g in R.groupby(["season", "week"]):
+            key = f"{int(s)}-{int(w)}"; out["snaps"][key] = {}; out["acc"][key] = {}
+            for k, x in g.groupby("kind"):
+                top = x.sort_values("rank").head(SNAP_TOP)
+                out["snaps"][key][k] = [[r.player_id, r.name, r.team, int(r.rank), round(float(r.proj_yards)), round(float(r.proj_td), 1), 1 if r.breakout else (2 if r.new_top else 0), round(float(r.prev_yards)), round(float(r.actual_yards)), int(r.actual_rank)] for r in top.itertuples()]
+                bo = x[x.breakout]; hit = (bo.actual_yards / bo.actual_games.clip(lower=1) >= BREAK_UP * bo.prev_pg) & (bo.actual_rank <= TOP_N[k])
+                out["acc"][key][k] = {"n": int(len(x)), "mae": round(float((x.proj_yards - x.actual_yards).abs().mean()), 1), "pace": round(float((x.pace_yards - x.actual_yards).abs().mean()), 1),
+                                      "prev": round(float((x.prev_yards - x.actual_yards).abs().mean()), 1), "flags": int(len(bo)), "hits": int(hit.sum())}
+    live = live_snapshots(d, names, games, season, week)
+    act = season_actuals(d, season, 99).set_index(["kind", "player_id"])
+    for w, g in live.groupby("week"):
+        key = f"{season}-{int(w)}"; out["snaps"][key] = {}
+        for k, x in g.groupby("kind"):
+            x = x.assign(actual_yards=[float(act.yards.get((k, p), 0.0)) if (k, p) in act.index else 0.0 for p in x.player_id])
+            x = x.assign(actual_rank=x.actual_yards.rank(ascending=False, method="min").astype(int))
+            top = x.sort_values("rank").head(SNAP_TOP)
+            out["snaps"][key][k] = [[r.player_id, r.name, r.team, int(r.rank), round(float(r.proj_yards)), round(float(r.proj_td), 1), 1 if r.breakout in (True, "True") else (2 if r.new_top in (True, "True") else 0), round(float(r.prev_yards)), round(float(r.actual_yards)), int(r.actual_rank)] for r in top.itertuples()]
+        out["snaps"][key]["_meta"] = {"made_at": str(g.made_at.iloc[0]), "reconstructed": bool(str(g.reconstructed.iloc[0]) == "True"), "live": True}
+    out["live_season"], out["live_week"] = season, week
+    return out

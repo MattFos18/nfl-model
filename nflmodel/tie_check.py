@@ -294,7 +294,8 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             tie("props record on the page = every projection file, graded rows and market rows", [n_proj, n_gr, n_mk], [len(prr["projections"]), len(prr["graded"]), len(prr["market"])])
         if (WEB / "player_careers.js").exists():
             pc = _js("player_careers.js"); yr = max(y for y in pc["seasons"] if y < max(pc["seasons"]))   # the last complete season
-            s_ = (WEB / "plogs" / f"{yr}.js").read_text(); lg = json.loads(s_[s_.index("]=") + 2:].rstrip().rstrip(";"))
+            from .player_logs import unpack
+            lg = unpack((WEB / "plogs" / f"{yr}.js").read_text())
             ix = {k: {c: i for i, c in enumerate(v)} for k, v in pc["cols"].items()}
             sf = RAW / "player_stats" / f"stats_player_week_{yr}.parquet"
             if sf.exists():   # the game logs against nflverse's official box score (the league's numbers, what the books settle on)

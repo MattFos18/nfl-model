@@ -277,6 +277,23 @@ def careers(all_logs: dict) -> dict:
     return {"sum_cols": SUM, "rows": out}
 
 
+def pack(lg: dict) -> str:
+    """The season's logs with each row's game id replaced by its place in one list of the season's games (24 Sep 2026:
+    the repeated ids were 3 MB of the page's 60 MB budget). The page's PLOGS_X puts the ids back as the file loads;
+    unpack() does the same here."""
+    games = sorted({r[1] for v in lg.values() for k, rows in v.items() if k != "box" for r in rows})
+    ix = {g: i for i, g in enumerate(games)}
+    small = {pid: {k: (rows if k == "box" else [[r[0], ix[r[1]]] + r[2:] for r in rows]) for k, rows in v.items()} for pid, v in lg.items()}
+    return json.dumps(games, separators=(",", ":")) + "," + json.dumps(small, separators=(",", ":"))
+
+
+def unpack(text: str) -> dict:
+    """A data/plogs/<season>.js file back to {player: {kind: rows}} with the game ids in place."""
+    body = text[text.index("PLOGS_X(") + len("PLOGS_X("):]
+    dec = json.JSONDecoder(); games, i = dec.raw_decode(body); lg, _ = dec.raw_decode(body[i + 1:])
+    return {pid: {k: (rows if k == "box" else [[r[0], games[r[1]]] + r[2:] for r in rows]) for k, rows in v.items()} for pid, v in lg.items()}
+
+
 def export(seasons=range(2016, 2027)) -> dict:
     from .positions import names_by_id
     seasons = [s for s in seasons if (RAW / "pbp" / f"play_by_play_{s}.parquet").exists()]
@@ -285,7 +302,7 @@ def export(seasons=range(2016, 2027)) -> dict:
     all_logs, sizes = {}, {}
     for s in seasons:
         lg = season_logs(s, pmap); all_logs[s] = lg
-        txt = f"window.PLOGS_S=window.PLOGS_S||{{}};window.PLOGS_S[{s}]=" + json.dumps(lg, separators=(",", ":")) + ";"
+        txt = f"window.PLOGS_S=window.PLOGS_S||{{}};window.PLOGS_S[{s}]=window.PLOGS_X(" + pack(lg) + ");"
         (WEB / "plogs" / f"{s}.js").write_text(txt); sizes[s] = len(txt)
     nm = names_by_id(range(2014, 2027))
     ids = {pid for lg in all_logs.values() for pid in lg}
