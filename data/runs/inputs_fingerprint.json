@@ -96,6 +96,31 @@
 ],
 [
 "ATL",
+"Cooper Rush",
+"Out"
+],
+[
+"ATL",
+"Ethan Onianwa",
+"Out"
+],
+[
+"ATL",
+"Jack Strand",
+"Out"
+],
+[
+"ATL",
+"Malcolm DeWalt IV",
+"Out"
+],
+[
+"ATL",
+"Robert Longerbeam",
+"Out"
+],
+[
+"ATL",
 "Samson Ebukam",
 "Out"
 ],
@@ -177,6 +202,11 @@
 [
 "GB",
 "Aaron Banks",
+"Out"
+],
+[
+"GB",
+"Anthony Campbell",
 "Out"
 ],
 [
@@ -420,12 +450,7 @@
 "wind": 2.7,
 "cold": false,
 "rain": false
-},
-"2026_03_LA_DEN": {
-"wind": 10.8,
-"cold": false,
-"rain": false
 }
 },
-"written_at": "2026-09-24 22:48 UTC"
+"written_at": "2026-09-24 23:17 UTC"
 }
