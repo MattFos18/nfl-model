@@ -75,6 +75,32 @@ def espn(season: int, week: int, ts: str) -> list[dict]:
     if "events" not in j and "content" in j:      # the cdn shape wraps the same scoreboard
         j = (j.get("content") or {}).get("sbData") or {}
     _save_raw("espn", j, ts)
+    return _parse_espn(j, season, week, ts)
+
+
+def _am(x):
+    """American odds from ESPN's strings ("-250", "+205", "EVEN") or numbers; None when absent."""
+    if x is None or x == "":
+        return None
+    if isinstance(x, (int, float)):
+        return float(x)
+    t = str(x).strip().upper()
+    if t in ("EVEN", "EV", "PK"):
+        return 100.0
+    try:
+        return float(t.replace("+", ""))
+    except ValueError:
+        return None
+
+
+def _close(o, *path):
+    """ESPN's newer odds shape (since Sep 2026): o["moneyline"]["home"]["close"]["odds"] and the like; the current price."""
+    for k in path:
+        o = (o or {}).get(k) if isinstance(o, dict) else None
+    return o
+
+
+def _parse_espn(j: dict, season: int, week: int, ts: str) -> list[dict]:
     rows = []
     for ev in j.get("events", []):
         comp = (ev.get("competitions") or [{}])[0]
@@ -97,11 +123,15 @@ def espn(season: int, week: int, ts: str) -> list[dict]:
                 if m:
                     fav = ESPN_ABBR.get(m.group(1), m.group(1))
                     home_spread = -float(m.group(2)) if fav == home else float(m.group(2))
-            hml = (o.get("homeTeamOdds") or {}).get("moneyLine")
-            aml = (o.get("awayTeamOdds") or {}).get("moneyLine")
+            # the moneyline and the prices moved to o["moneyline"], o["pointSpread"], o["total"] (current price under "close");
+            # the older keys are read first so either shape works
+            hml = _am((o.get("homeTeamOdds") or {}).get("moneyLine")) or _am(_close(o, "moneyline", "home", "close", "odds"))
+            aml = _am((o.get("awayTeamOdds") or {}).get("moneyLine")) or _am(_close(o, "moneyline", "away", "close", "odds"))
             rows.append({"ts": ts, "source": "espn:" + provider, "season": season, "week": week, "home": home, "away": away,
                          "home_spread": home_spread, "total": o.get("overUnder"), "home_ml": hml, "away_ml": aml,
-                         "spread_odds_home": (o.get("homeTeamOdds") or {}).get("spreadOdds"), "spread_odds_away": (o.get("awayTeamOdds") or {}).get("spreadOdds")})
+                         "spread_odds_home": _am((o.get("homeTeamOdds") or {}).get("spreadOdds")) or _am(_close(o, "pointSpread", "home", "close", "odds")),
+                         "spread_odds_away": _am((o.get("awayTeamOdds") or {}).get("spreadOdds")) or _am(_close(o, "pointSpread", "away", "close", "odds")),
+                         "over_odds": _am(_close(o, "total", "over", "close", "odds")), "under_odds": _am(_close(o, "total", "under", "close", "odds"))})
     return rows
 
 
@@ -276,6 +306,39 @@ def attach_game_ids(rows: list[dict]) -> pd.DataFrame:
     return df
 
 
+def backfill_espn_prices() -> int:
+    """Re-read every saved ESPN snapshot (data/lines/raw/*_espn.json) and fill the moneylines and prices the log is
+    missing on its ESPN rows (the parser missed ESPN's newer odds shape until 24 Sep 2026). Returns rows filled."""
+    f = LN / "lines_log.csv"
+    if not f.exists():
+        return 0
+    d = load_log(); fill = ["home_ml", "away_ml", "spread_odds_home", "spread_odds_away", "over_odds", "under_odds"]
+    need = d.source.astype(str).str.startswith("espn") & d.home_ml.isna()
+    if not need.any():
+        return 0
+    n = 0
+    for ts in sorted(d.loc[need, "ts"].unique()):
+        rf = LN / "raw" / f"{ts}_espn.json"
+        if not rf.exists():
+            continue
+        try:
+            j = json.loads(rf.read_text())
+        except Exception:  # noqa
+            continue
+        if "events" not in j and "content" in j:
+            j = (j.get("content") or {}).get("sbData") or {}
+        for r in _parse_espn(j, None, None, ts):
+            m = need & (d.ts == ts) & (d.home == r["home"]) & (d.away == r["away"]) & (d.source == r["source"])
+            if m.any() and r["home_ml"] is not None:
+                for c in fill:
+                    if r.get(c) is not None:
+                        d.loc[m & d[c].isna(), c] = r[c]
+                n += int(m.sum())
+    if n:
+        d.to_csv(f, index=False)
+    return n
+
+
 def current_week(games: pd.DataFrame):
     """The week to price: the one holding the next unplayed kickoff, unless fewer than four of its games are still
     to come (Monday night, say), in which case the following week."""
@@ -313,6 +376,10 @@ def run(season=None, week=None) -> pd.DataFrame:
         df = df.reindex(columns=SCHEMA)
         old = load_log()          # also normalises any older rows to the fixed schema
         pd.concat([old, df], ignore_index=True).to_csv(log, index=False)
+    try:
+        backfill_espn_prices()    # no-op once every saved ESPN snapshot's prices are in the log
+    except Exception as e:  # noqa
+        errors.append(f"espn backfill: {str(e)[:120]}")
     try:
         from . import props_lines
         props_lines.run(season, week, force=bool(os.environ.get("PROPS_EVERY_RUN")), dfs_only=bool(os.environ.get("DFS_EVERY_RUN")))   # player props, on its own budgeted cadence; DFS_EVERY_RUN pulls only the free pick'em lines

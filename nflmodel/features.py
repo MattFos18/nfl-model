@@ -25,7 +25,7 @@ COLS = ["game_id", "season", "week", "season_type", "home_team", "away_team", "p
         "penalty", "penalty_team", "penalty_yards", "yards_gained", "fixed_drive", "fixed_drive_result",
         "drive_inside20", "drive_start_yard_line", "kickoff_attempt", "kick_distance", "punt_attempt",
         "field_goal_attempt", "field_goal_result", "extra_point_result", "two_point_conv_result", "safety",
-        "epa", "success", "wp", "qb_epa", "passer_player_id", "two_point_attempt", "fumbled_1_team",
+        "epa", "success", "wp", "qb_epa", "passer_player_id", "passer_id", "two_point_attempt", "fumbled_1_team",
         "first_down_rush", "first_down_pass", "first_down_penalty", "drive_play_count", "down", "yardline_100", "game_seconds_remaining", "return_team", "return_yards"]
 
 
@@ -120,11 +120,14 @@ def offense_box(p: pd.DataFrame) -> pd.DataFrame:
 
 
 def qb_box(p: pd.DataFrame) -> pd.DataFrame:
-    """One row per (game_id, team, passer): dropbacks and total qb_epa, for the QB rating."""
-    d = p[p.posteam.notna() & (_num(p.qb_dropback) == 1) & p.passer_player_id.notna()].copy()
-    d["qb_epa"] = _num(d.qb_epa)
-    q = d.groupby(["game_id", "season", "week", "posteam", "passer_player_id"]).agg(dropbacks=("qb_epa", "size"), qb_epa=("qb_epa", "sum")).reset_index()
-    return q.rename(columns={"posteam": "team", "passer_player_id": "qb_id"})
+    """One row per (game_id, team, passer): dropbacks and total qb_epa, for the QB rating. Every dropback counts: passes,
+    sacks and scrambles. The QB is nflverse's passer_id, which names the scrambler too; passer_player_id is empty on
+    every scramble, and using it dropped them until 24 Sep 2026 (experiments/qb_fix.py, reports/qb_fix.csv)."""
+    col = "passer_id" if "passer_id" in p.columns else "passer_player_id"
+    d = p[p.posteam.notna() & (_num(p.qb_dropback) == 1) & p[col].notna()].copy()
+    d["qb_id"] = d[col]; d["qb_epa"] = _num(d.qb_epa)
+    q = d.groupby(["game_id", "season", "week", "posteam", "qb_id"]).agg(dropbacks=("qb_epa", "size"), qb_epa=("qb_epa", "sum")).reset_index()
+    return q.rename(columns={"posteam": "team"})
 
 
 def build(seasons, games: pd.DataFrame) -> pd.DataFrame:

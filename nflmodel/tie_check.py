@@ -260,6 +260,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     if llf.exists() and wk.get("games"):   # no number on a card older than its source: the cards' newest snapshot is the log's newest
         ll = pd.read_csv(llf, usecols=["ts"]); page_ts = max([r["ts"] for g in wk["games"] for r in g.get("line_history", [])] or ["none"])
         tie("cards' newest line snapshot = the line log's newest snapshot", page_ts, str(ll.ts.max()))
+        # the Vegas win chance on a card comes from the newest snapshot with moneylines; it must be the log's newest one
+        lm = LN.load_log(); lm = lm[lm.home_ml.notna() & lm.away_ml.notna() & lm.game_id.isin([g_["game_id"] for g_ in wk["games"]])]
+        if len(lm):
+            page_ml = max([r["ts"] for g_ in wk["games"] for r in g_.get("line_history", []) if r.get("home_ml") is not None and r.get("away_ml") is not None] or ["none"])
+            tie("cards' Vegas win chance uses the line log's newest moneyline snapshot", page_ml, str(lm.ts.max()))
     if "cal" in wk and "games" in wk:   # the card re-prices a moved line with the same calibration the run used
         import math
         def cal_p(cal, e): p = 1 / (1 + math.exp(-(cal[0] + cal[1] * min(abs(e), 7.0)))); return p if e > 0 else 1 - p

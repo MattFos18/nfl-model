@@ -493,7 +493,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <div class="howbox" style="margin-bottom:14px"><dl>
       <dt>Plays, scores, schedules</dt><dd>nflverse play-by-play, schedules, injuries and depth charts (Model → Data pulls and verification lists every download with its hash).</dd>
       <dt>Lines</dt><dd>ESPN's scoreboard feed and The Odds API (nine books), logged every 30 minutes by the line watch; the closing line for graded games is nflverse's.</dd>
-      <dt>Vegas on a card</dt><dd>The latest logged line (the consensus across sources at the last snapshot, every 30 minutes); the edge, the cover odds and the best number follow it. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
+      <dt>Vegas on a card</dt><dd>The latest logged line (the consensus across sources at the last snapshot, every 30 minutes); the edge, the cover odds and the best number follow it. The Vegas win chance is the newest snapshot's moneylines with the vig removed (each book's pair, averaged), and the chip under it is the model's rounded win chance minus Vegas's. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
       <dt>Player prop lines</dt><dd>The Odds API's six core markets from every US book (Thursday evening and Sunday morning) and PrizePicks' full pick'em board every six hours (every market at even odds by construction, no touchdown markets, promo copies of a line dropped). A player's line is the median across the books' latest numbers; the opening line (the first one logged for the game) sits in the Book cell's hover. "No line" means no book has posted that market yet. Underdog refuses requests from the runner (426), so it is not a source yet.</dd>
       <dt>Weather</dt><dd>Played games: the schedule's kickoff temperature and wind. Unplayed games: the Open-Meteo hourly forecast at the stadium, fetched on every weekly run (Tuesday, Thursday, Saturday, Sunday) and used only within <span id="wxdays">4</span> days of kickoff; further out the game is priced as typical weather (7 mph, not cold, dry).</dd>
       <dt>Injuries</dt><dd>nflverse injury reports and weekly rosters (IR and the like): the starting QB listed out, the value of skill players out (player model), snap-weighted absences on offense and the opponent's defense.</dd>
@@ -701,7 +701,11 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     return rowLabel ? `<div class="brow"><span class="bl ${cls === "v" ? "v" : "m"}">${rowLabel}</span>${b}</div>` : b;
   }
   function mlProb(ml) { if (ml == null || isNaN(ml)) return null; return ml < 0 ? (-ml) / (-ml + 100) : 100 / (ml + 100); }
+  // Vegas win chance: the newest logged snapshot with both moneylines (each book's pair with the vig removed, averaged
+  // across the books in that snapshot); past games without a log use the schedule's closing moneyline
   function vegasWin(g) {
+    const byTs = {}; (g.line_history || []).forEach(r => { const a = mlProb(r.home_ml), b = mlProb(r.away_ml); if (a == null || b == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(a / (a + b)); });
+    const tss = Object.keys(byTs).sort(); if (tss.length) { const v = byTs[tss[tss.length - 1]]; return v.reduce((x, y) => x + y, 0) / v.length; }
     const ph = mlProb(g.home_ml), pa = mlProb(g.away_ml);
     if (ph != null && pa != null) return ph / (ph + pa);
     if (g.spread_line != null && g.sigma_margin) return normCdf(g.spread_line / g.sigma_margin);
@@ -897,7 +901,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
             ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
             ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
-            ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
+            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * g.p_home))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's win chance minus Vegas's, from the two bars above">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
