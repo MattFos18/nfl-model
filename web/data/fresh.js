@@ -1,1 +1,1 @@
-window.FRESH={"checked": "2026-09-24 02:26 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "note": "the model run pulled and priced with these"};
+window.FRESH={"checked": "2026-09-24 02:54 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "note": "the model run pulled and priced with these"};
