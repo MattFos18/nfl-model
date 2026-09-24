@@ -1740,6 +1740,13 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       h += `<h3 style="margin-top:14px">Career by season</h3>` + careerHtml(car, C);
       h += `<details style="margin-top:12px" id="plinj"><summary style="cursor:pointer;font-weight:600">Injury report history</summary><div id="plinjbody"><p class="note">Loading…</p></div></details>`;
     } else h += `<p class="note" style="margin-top:10px">No game on record since 2016.</p>`;
+    // value by season: every season, team and role the values are built from (players.js history)
+    const PH = ((P.history || {})[pid] || []).slice().sort((a, b) => b[0] - a[0]);
+    if (PH.length) {
+      const RL = {passer: "Passing", rusher: "Rushing", receiver: "Receiving", defender: "Defense", OL: "Line (unit)", kicker: "Kicking", punter: "Punting"};
+      h += `<details style="margin-top:12px"><summary style="cursor:pointer;font-weight:600">Value by season</summary><p class="note" style="margin:6px 0">Expected points added per play in each role, every season and team (the line's is its unit's, per snap he played).</p><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th class="l">Season</th><th class="l">Team</th><th class="l">Role</th><th>Games</th><th>Plays</th><th>EPA / play</th></tr></thead><tbody>` +
+        PH.map(r => `<tr><td class="l mono">${r[0]}</td><td class="l">${LOGO(r[1])}${esc(r[1])}</td><td class="l">${RL[r[2]] || esc(r[2])}</td><td class="mono">${r[3]}</td><td class="mono">${r[4]}</td><td class="mono ${r[5] > 0 ? "pos" : r[5] < 0 ? "neg" : ""}">${r[5] == null ? "" : (r[5] > 0 ? "+" : "") + (+r[5]).toFixed(3)}</td></tr>`).join("") + `</tbody></table></div></details>`;
+    }
     // the profile the projections start from
     const pr = PF.receivers && PF.receivers[pid], pu = PF.rushers && PF.rushers[pid], pq = PF.passers && PF.passers[pid];
     const splitRows = (x, list) => list.map(([k, l]) => x && x[k] ? `<tr><td class="l">${l}</td><td class="mono">${x[k].n}</td><td class="mono">${n1(x[k].yds)}</td><td class="mono">${x[k].epa >= 0 ? "+" : ""}${(+x[k].epa).toFixed(2)}</td><td class="mono">${Math.round(100 * x[k].success)}%</td></tr>` : "").join("");

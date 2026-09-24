@@ -21,7 +21,7 @@ Trends (from the schedule file, 1999 to now, and team_games):
 
 Injuries (nflverse injuries + snap counts, 2012 on):
   off_starters_out, def_starters_out   players on the final injury report as Out or Doubtful who played 50%+
-                   of the team's offense (defense) snaps in its previous game. Matched by name within team.
+                   of the team's offense (defense) snaps in its previous game. Matched by player id (nflmodel/ids.py).
   qb_out           1 if the previous game's 50%+ QB is Out or Doubtful
 """
 from __future__ import annotations
