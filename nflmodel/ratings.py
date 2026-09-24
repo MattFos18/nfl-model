@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "processed"
 
 STATS = ["epa_play", "pass_epa", "rush_epa", "success", "pf", "plays"]
-DEFAULT = {"decay": 0.94, "prior": 0.8, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985, "qb_prior": -0.12}  # qb_prior -0.12 (was -0.05) swept 23 Sep 2026 on both windows (reports/qb_replacement.csv); 0.90 / 0.5 tuned on 2019-2022 (reports/tuning_ratings.csv); 0.94 / 0.8 re-checked 22 Sep 2026 under the weekly refit on both windows (reports/retune.csv, retune2.csv)
+DEFAULT = {"decay": 0.94, "prior": 0.8, "alpha": 16.0, "qb_k": 150.0, "qb_decay": 0.985, "qb_prior": -0.12, "qb_season_fade": 0.8}  # qb_season_fade 0.8 (24 Sep 2026, experiments/qb_fix.py): each season back weighs 0.8 on top of the per-game decay, so a backup's prime years fade; team points better on all three windows, spread miss better held out and on 2015-18  # qb_prior -0.12 (was -0.05) swept 23 Sep 2026 on both windows (reports/qb_replacement.csv); 0.90 / 0.5 tuned on 2019-2022 (reports/tuning_ratings.csv); 0.94 / 0.8 re-checked 22 Sep 2026 under the weekly refit on both windows (reports/retune.csv, retune2.csv)
 
 
 def solve(rows: pd.DataFrame, y: np.ndarray, w: np.ndarray, teams: list, alpha: float):
@@ -101,9 +101,9 @@ def team_ratings(tg: pd.DataFrame, season: int, week: int, p: dict, kind: str = 
 class QBRatings:
     """Starting QB EPA per dropback, decayed by games and shrunk to a replacement-level prior."""
 
-    def __init__(self, qb: pd.DataFrame, k: float, decay: float, prior_epa: float = -0.12):
+    def __init__(self, qb: pd.DataFrame, k: float, decay: float, prior_epa: float = -0.12, season_fade: float = 1.0):
         self.qb = qb.sort_values(["season", "week"])
-        self.k, self.decay, self.prior = k, decay, prior_epa
+        self.k, self.decay, self.prior, self.season_fade = k, decay, prior_epa, season_fade
         self._cache = {}
 
     def rating(self, qb_id: str, season: int, week: int) -> float:
@@ -115,7 +115,7 @@ class QBRatings:
             r = self.prior
         else:
             age = np.arange(len(h))[::-1]
-            w = self.decay ** age
+            w = self.decay ** age * self.season_fade ** (season - h.season.values)   # per game played, and per season back
             db = (h.dropbacks.values * w).sum()
             ep = (h.qb_epa.values * w).sum()
             r = (ep + self.k * self.prior) / (db + self.k)
@@ -132,7 +132,7 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     qb = pd.read_parquet(OUT / "qb_games.parquet") if qb is None else qb
     played = tg[tg.pf.notna()].copy()
     played["plays"] = played.plays.fillna(played.plays.mean())
-    qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12))
+    qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12), p.get("qb_season_fade", 1.0))
     # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
     named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
     last_qb = {}
