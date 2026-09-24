@@ -1586,3 +1586,29 @@ pass, red with the count when anything fails or a source is late (lines or the l
 the model older than four days). Model -> Health checks lists what is failing, how fresh each source is, and every
 check. `nflmodel/health_alert.py` keeps one GitHub issue labelled `site-health` in step: opened when a check
 fails (GitHub emails the owner), updated while it stays broken, closed when everything passes.
+
+## 27. Games a player left early (24 Sep 2026)
+
+Matt asked whether a 5-play injury exit or a 1-play cameo should count as a game. `nflmodel/exposure.py` builds each
+player's snap share in every game since 2013 from nflverse snap counts. A regular skill player plays under half his
+usual snaps in about 8% of games (2.6 touches in them against 7.6 usually), so an eight-game window holds about one.
+
+Tested (`experiments/partial_games.py`, `experiments/partial_props.py`, `reports/partial_games.csv`): counting every
+game (the rule), dropping games under half his usual snaps, dropping only games under a quarter, and weighting each
+game by its snap share; for the props each version had its median factors refit on 2017-18.
+
+| Version | Game model team points 2019-22 / 2023-25 | Receiving yards 2019-22 / 2023-25 | Rushing yards 2019-22 / 2023-25 |
+|---|---|---|---|
+| Every game counts (kept) | 7.3486 / 7.2833 | 19.31 / 18.28 | 17.87 / 17.04 |
+| Drop under half his usual snaps | 7.3485 / 7.2838 | 19.48 / 18.44 | 18.16 / 17.33 |
+| Drop under a quarter | not run | 19.36 / 18.31 | 17.97 / 17.15 |
+| Weight by snap share | 7.3479 / 7.2840 | 19.68 / 18.65 | 18.35 / 17.65 |
+
+Every version is worse for the props on both windows, and the game model does not move by 0.001. The reason is in
+the data: in the game after a short one, a player gets 67% of his usual touches and 65% of his usual snaps, and 37%
+of the time he leaves early again (5% after a normal game). A short game usually means a lingering injury or a
+smaller role, and it carries into the next week. So the short games stay in the model's inputs.
+
+What changed is the display. A QB's dropbacks a game now averages only his starts (at least half his team's
+dropbacks), and "points a game over a backup" is his value per play times the model's fitted points per unit of QB
+rating, the same for every team, so neither a short game nor a blowout moves it.
