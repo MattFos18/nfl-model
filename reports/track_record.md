@@ -10,10 +10,10 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 1 | 0 | nothing settled |  | +0.00 | 61-59 | 81-56 | 41-21 |
+| 4+ edge (the flag, bet) | 1 | 0 | nothing settled |  | +0.50 | 61-59 | 81-56 | 41-21 |
 | shadow: 4.5+ edge | 0 | 0 | | | | 39-40 | 55-36 | 28-14 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.00 | 45-37 | 73-44 | 33-16 |
-| shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.00 | 46-43 | 67-41 | 34-17 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.50 | 45-37 | 73-44 | 33-16 |
+| shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.50 | 46-43 | 67-41 | 34-17 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 61.3% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
@@ -25,7 +25,7 @@ Every bet:
 
 |   season |   week | game_id        | bet       |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:---------------|:----------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      3 | 2026_03_KC_MIA | MIA +10.5 |   -105 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_KC_MIA | MIA +11.5 |   -110 |     nan |   nan | pending  |     nan |
 
 ## Matt's bets
 
