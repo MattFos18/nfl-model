@@ -96,7 +96,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 /* game cards */
 .cards{display:grid;grid-template-columns:1fr;gap:14px}
 .jump{position:sticky;top:0;z-index:5;display:flex;flex-wrap:nowrap;overflow-x:auto;gap:4px;padding:8px 0;margin:0 0 10px;background:var(--ground)} .jump a{flex:0 0 auto;font-size:12px;padding:4px 10px;border:1px solid var(--rule);border-radius:6px;color:var(--ink);text-decoration:none;background:var(--panel);white-space:nowrap} .jump a.flag{border-color:var(--accent);color:var(--accent);font-weight:600} .jump a.on,.jump a.on.flag{background:var(--ink);color:var(--ground);border-color:var(--ink)} .jump .day{display:none} .jump a small{display:none}
-@media(min-width:1180px){#week{padding-left:164px} .jump{position:fixed;left:16px;top:158px;width:138px;flex-direction:column;flex-wrap:nowrap;overflow-y:auto;max-height:calc(100vh - 172px);gap:0;padding:6px 0;border:1px solid var(--rule-2);border-radius:8px;background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.04)} .jump .day{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px 2px} .jump a{display:flex;justify-content:space-between;align-items:baseline;gap:6px;border:0;border-left:3px solid transparent;border-radius:0;padding:4px 8px 4px 9px;font-size:12.5px;background:transparent} .jump a small{display:inline;font-size:10px;color:var(--muted)} .jump a.flag{color:var(--accent);border-left-color:var(--accent)} .jump a.on,.jump a.on.flag{background:var(--ink);color:var(--ground);border-left-color:var(--ink)} .jump a.on small{color:var(--ground);opacity:.7} .jump a:hover:not(.on){background:var(--panel-2)}}
+@media(min-width:1180px){#week{padding-left:176px} .jump{position:fixed;left:16px;top:158px;width:150px;flex-direction:column;flex-wrap:nowrap;overflow-y:auto;max-height:calc(100vh - 172px);gap:0;padding:6px 0;border:1px solid var(--rule-2);border-radius:8px;background:var(--panel);box-shadow:0 1px 2px rgba(0,0,0,.04)} .jump .day{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px 2px} .jump a{display:flex;justify-content:space-between;align-items:baseline;gap:6px;border:0;border-left:3px solid transparent;border-radius:0;padding:4px 8px 4px 9px;font-size:12.5px;background:transparent} .jump a small{display:inline;font-size:10px;color:var(--muted)} .jump a.flag{color:var(--accent);border-left-color:var(--accent)} .jump a.on,.jump a.on.flag{background:var(--ink);color:var(--ground);border-left-color:var(--ink)} .jump a.on small{color:var(--ground);opacity:.7} .jump a:hover:not(.on){background:var(--panel-2)}}
 @media(min-width:1180px){article.gcard .blocks{grid-template-columns:repeat(3, minmax(0,1fr));grid-template-rows:auto auto} article.gcard .blk.spread{grid-column:1;grid-row:1 / span 2} article.gcard .blk.total{grid-column:2;grid-row:1 / span 2} article.gcard .blk.points{grid-column:3;grid-row:1} article.gcard .blk.win{grid-column:3;grid-row:2}}
 .spark{max-width:360px}
 .gcard{min-width:0}
@@ -212,7 +212,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 </header>
 <nav class="tabs" role="tablist">
   <button role="tab" data-tab="week">This week</button>
-  <button role="tab" data-tab="season">Season</button>
+  <button role="tab" data-tab="seasonsec">Season</button>
   <button role="tab" data-tab="rank">Rankings</button>
   <button role="tab" data-tab="teamsec">Teams</button>
   <button role="tab" data-tab="playersec">Players</button>
@@ -231,7 +231,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <div class="cards" id="cards"></div>
 </section>
 
-<section class="tab" id="season" hidden>
+<section class="tab" id="seasonsec" hidden>
   <nav class="sub" id="seasonsub">
     <button data-sub="odds">Team odds</button>
     <button data-sub="totals">Player totals</button>
@@ -550,6 +550,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <script src="data/season.js"></script>
 <script src="data/catalog.js"></script>
 <script src="data/legit.js"></script>
+<script src="data/fresh.js"></script>
 <script src="data/props.js"></script>
 <script>
   if (!window.META) { document.body.innerHTML = '<div class="wrap"><header><h1>NFL Model</h1><p class="sub">The page\'s data files did not load (data/meta.js). Reload; if it persists, the weekly run has not published yet.</p></header></div>'; throw new Error("data/meta.js missing"); }
@@ -579,10 +580,21 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     rest_short:"Short week (rest 5 days or less)", rest_long:"Long rest (10+ days: a bye, or Thursday to the next Sunday)", opp_rest_short:"Opponent on a short week", opp_rest_long:"Opponent on long rest (10+ days)",
     dome:"Dome or closed roof", wind_out:"Wind at kickoff, mph", cold:"Under 35F outdoors", rain:"Rain at kickoff", warm_in_cold:"Warm-climate or dome team in the cold", div_game:"Division game", primetime:"Primetime", qb_out:"Last game's QB listed out", skill_out_value:"Skill players out: value lost", opp_skill_out_value:"Opponent's skill players out: value lost", off_snap_out:"Offensive snaps out (share of last game's)", opp_def_snap_out:"Opponent's defensive snaps out", off_turnover_early:"Offseason turnover, offense (weeks 1 to 8)", opp_def_turnover_early:"Opponent's offseason turnover, defense (weeks 1 to 8)", dead_late:"Out of the race (week 12+)", opp_dead_late:"Opponent out of the race (week 12+)"};
   const STAT_LABEL = {epa_play: "EPA per play", pass_epa: "pass EPA per dropback", rush_epa: "rush EPA per run", pf: "points scored", plays: "plays per game", success: "success rate"};
-  $("built").textContent = (() => { const m = String(META.built).match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/); if (!m) return "Last updated " + META.built; const d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])); return "Last updated " + d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"}) + " ET"; })();
+  // Last updated: the newest time any data on the page was pulled (the model run, the newest line snapshot, the newest
+  // prop-line pull, the latest live check of starters, injuries and weather); each source's own time on hover
+  (() => {
+    const toD = t => { const m = String(t || "").match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2})[:-](\d{2})/); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+    const fmt = d => d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"}) + " ET";
+    const lineTs = window.WEEK ? (WEEK.games || []).flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop() : null;
+    const propTs = window.PROPS ? Object.values(PROPS.games || {}).flatMap(gm => Object.values(gm).map(sd => sd.market_ts)).filter(Boolean).sort().pop() : null;
+    const src = [["Model re-priced", META.built], ["Game lines", lineTs], ["Prop lines", propTs], ["Starters, injuries and weather checked", window.FRESH && FRESH.checked]].map(([k, t]) => [k, toD(t)]).filter(([, d]) => d);
+    const newest = src.reduce((a, b) => (!a || b[1] > a[1]) ? b : a, null);
+    $("built").textContent = newest ? "Last updated " + fmt(newest[1]) : "Last updated " + META.built;
+    $("built").title = src.map(([k, d]) => `${k}: ${fmt(d)}`).join("\n") + (window.FRESH && FRESH.changes && FRESH.changes.length ? `\nLast check found: ${FRESH.changes.slice(0, 6).join("; ")}` : "");
+  })();
 
   // ---------- state ----------
-  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", season: "odds"}, gameIdx = 0;
+  let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
   let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all";
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "overview", model: "analysis", results: "backtest"}, o.sub);
       if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (sub.teamsec === "how") { sub.teamsec = "overview"; } if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
@@ -592,6 +604,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   const HIDE = new Set(["season","week","game_type","team","opp","home","gameday","qb_id","game_id"]);
   var on = new Set(DEFAULT_ON);
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.on) { on = new Set(o.on); } } } catch (e) {}
+  if (tab === "season") tab = "seasonsec";
+  { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
   META.columns.forEach(c => { if (HIDE.has(c)) return; const g = (META.dictionary[c]||{}).group || "Other"; (groupsOf[g] = groupsOf[g] || []).push(c); });
@@ -612,7 +626,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   function showTab() {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
     document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== tab);
-    ["teamsec", "model", "results", "rank", "season"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "season" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
+    ["teamsec", "model", "results", "rank", "seasonsec"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "seasonsec" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
       document.querySelectorAll(`#${sec} > div[id]`).forEach(d => d.hidden = d.id !== cur); });
   }
   groups.forEach(g => { const b = document.createElement("button"); b.className = "chip"; b.textContent = g; b.setAttribute("aria-pressed", on.has(g) ? "true" : "false");
@@ -894,7 +908,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       </article>`;
     });
     $("cards").innerHTML = h;
-    let lastDay = ""; $("jump").innerHTML = W.games.map((g, i) => { const k = g.kickoff || g.gameday || ""; const m = k.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/); const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; const dayLab = d ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()] + " " + (d.getMonth() + 1) + "/" + d.getDate() : ""; const tm = m && m[4] ? `${((+m[4] + 11) % 12) + 1}${m[5] !== "00" ? ":" + m[5] : ""}${+m[4] >= 12 ? "p" : "a"}` : ""; const head = dayLab && dayLab !== lastDay ? `<span class="day">${dayLab}</span>` : ""; lastDay = dayLab;
+    let lastDay = ""; $("jump").innerHTML = W.games.map((g, i) => { const k = g.kickoff || g.gameday || ""; const m = k.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/); const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; const dayLab = d ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()] + " " + (d.getMonth() + 1) + "/" + d.getDate() : ""; const tm = m && m[4] ? `${((+m[4] + 11) % 12) + 1}:${m[5]} ${+m[4] >= 12 ? "PM" : "AM"}` : ""; const head = dayLab && dayLab !== lastDay ? `<span class="day">${dayLab}</span>` : ""; lastDay = dayLab;
       return `${head}<a href="#card${i}" data-i="${i}" class="${g.bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}<small>${tm}</small></a>`; }).join("");
     $("jump").querySelectorAll("a").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const el = $("card" + a.dataset.i); if (el) el.scrollIntoView({behavior: "smooth", block: "start"}); }));
     if (window.IntersectionObserver) { const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { $("jump").querySelectorAll("a").forEach(a => a.classList.toggle("on", a.dataset.i === e.target.id.slice(4))); } }); }, {rootMargin: "-40% 0px -55% 0px"}); $("cards").querySelectorAll("article.gcard").forEach(el => io.observe(el)); }
@@ -1678,7 +1692,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     return h;
     function inline(t) { return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`(.+?)`/g, "<code>$1</code>"); }
   }
-  const TESTED_LABEL = {rain: "Rain at kickoff (outdoor)", snow: "Snow at kickoff (outdoor)", primetime: "Primetime (TNF, SNF, MNF)", div_game: "Division game", rest_short: "Short week (Thursday)", rest_long: "Long rest (10+ days)", body_clock_early: "West Coast team at 1pm ET on the road"};
+  const TESTED_LABEL = {rain: "Rain at kickoff (outdoor)", snow: "Snow at kickoff (outdoor)", primetime: "Primetime (TNF, SNF, MNF)", div_game: "Division game", rest_short: "Short week (Thursday)", rest_long: "Long rest (10+ days)", body_clock_early: "West Coast team at 1:00 PM ET on the road"};
   function testedTable() {
     const SF = (META.analysis || {}).situation_facts || {}; const T = SF.tested || {};
     let h = "<div class='tablewrap' style='max-height:40vh'><table><thead><tr><th class='l'>Situation</th><th>Team-games with it</th><th>Points with it</th><th>Points without</th><th>Raw gap</th></tr></thead><tbody>";
@@ -1731,7 +1745,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     ["snow", "Snow", "Snow, flurries or sleet in the play-by-play weather text, outdoor games. Only 68 team-games since 2013 have it, so no test on it can say much."],
     ["travel distance (miles)", "Travel distance", "Great-circle miles from the team's home stadium to the venue (0 at home; international venues by stadium name)."],
     ["time-zone shift (hours)", "Time zones crossed", "Hours of time-zone change from the team's home stadium to the venue, positive travelling east."],
-    ["West Coast team at 1pm ET", "West Coast team at 1pm ET", "1 for a Pacific-time team playing a 1pm ET road game."],
+    ["West Coast team at 1:00 PM ET", "West Coast team at 1:00 PM ET", "1 for a Pacific-time team playing a 1:00 PM ET road game."],
     ["late slot / body clock", "Late slot", "Sunday late-window game, and the West Coast flag above."],
     ["cold and wind team edges", "Team cold and wind edges", "The team's own margin edge in cold or windy games over prior seasons, applied when the game is cold or windy."],
     ["home/away EPA split", "Home/away split", "The team's EPA rating computed on home games only and away games only, instead of all games."],
@@ -1755,7 +1769,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>How it is measured</th><th class='l'>Raw data</th><th>Change, 2019-22</th><th>Change, 2023-25</th><th class='l'>Verdict</th></tr></thead><tbody>`;
     const add = Object.fromEntries((META.analysis.additions_both || META.analysis.additions || []).map(r => [r.added, r]));
     const T = SF.tested || {};
-    const rawFor = key => { const map = {"primetime": "primetime", "division game": "div_game", "snow": "snow", "rest: short week and bye (both teams)": "rest_short", "West Coast team at 1pm ET": "body_clock_early"}; const x = T[map[key]]; if (x) return `with it ${x.pf_on} points (${x.n_on.toLocaleString()} team-games), without ${x.pf_off}`; if (key === "travel distance (miles)" && SF.travel_miles) return "points by distance: " + SF.travel_miles.map(b => `${b.bucket} ${b.pf}`).join(" · "); if (key === "time-zone shift (hours)" && SF.tz_shift) return "points by shift: " + SF.tz_shift.map(b => `${b.bucket} ${b.pf}`).join(" · "); return ""; };
+    const rawFor = key => { const map = {"primetime": "primetime", "division game": "div_game", "snow": "snow", "rest: short week and bye (both teams)": "rest_short", "West Coast team at 1:00 PM ET": "body_clock_early"}; const x = T[map[key]]; if (x) return `with it ${x.pf_on} points (${x.n_on.toLocaleString()} team-games), without ${x.pf_off}`; if (key === "travel distance (miles)" && SF.travel_miles) return "points by distance: " + SF.travel_miles.map(b => `${b.bucket} ${b.pf}`).join(" · "); if (key === "time-zone shift (hours)" && SF.tz_shift) return "points by shift: " + SF.tz_shift.map(b => `${b.bucket} ${b.pf}`).join(" · "); return ""; };
     const dd = v => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(3);
     TESTED.forEach(([key, lab, how]) => { const r = add[key]; const inModel = TESTED_IN.some(f => META.feats.includes(f) && TESTED_IN_KEY[f] === key);
       const v = inModel ? "in the model" : (key === "injuries: QB out" ? "in the model" : (!r ? "not in the latest run" : (r.verdict === "helps both" ? "helps both windows" : (r.verdict === "helps one" ? "helps one window only: not used" : "no measurable effect"))));
@@ -1844,7 +1858,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <p class="note">Each group of inputs removed from the locked model, one at a time, on 2019 to 2022. A rise in the miss means the input earns its place. Changes under about 0.01 are inside the noise (reports/audit.md has the bootstrap intervals).</p>
       ${dTable(abl, "dropped", "Removed")}
       <h2>Every idea, tested: injuries, referees, primetime, head-to-head, division, travel, time zones, snow, rest</h2>
-      <p class="note">Each one is computed as-of every game (nothing from the game itself), then added to the eleven-input model one at a time and run walk-forward on 2019 to 2022. "Change vs full model" is the change in the team points miss: below zero means the idea made the model more accurate; the bootstrap noise on this number is about ±0.01, so anything inside that is no detectable effect. Where an idea lives now: <b>injuries</b>: the starting QB is in the model (his rating, and a flag when last game's starter is out); counts of other starters out were tested and did not help. <b>Referees</b> (over rate, home-cover rate, penalties), <b>head-to-head</b>, <b>coach and QB ATS records</b>, <b>primetime</b>, <b>division games</b>, <b>rest</b>, <b>snow</b>, <b>travel distance</b>, <b>time-zone shift</b> and <b>West Coast teams at 1pm ET</b> are tested below and shown on every game as readings. Temperature, wind and rain are in the model (rain was added from this test on 22 Sep 2026: it lowered the points miss on both windows, the one idea in the list that did). The table is regenerated from reports/additions.csv on every run.</p>
+      <p class="note">Each one is computed as-of every game (nothing from the game itself), then added to the eleven-input model one at a time and run walk-forward on 2019 to 2022. "Change vs full model" is the change in the team points miss: below zero means the idea made the model more accurate; the bootstrap noise on this number is about ±0.01, so anything inside that is no detectable effect. Where an idea lives now: <b>injuries</b>: the starting QB is in the model (his rating, and a flag when last game's starter is out); counts of other starters out were tested and did not help. <b>Referees</b> (over rate, home-cover rate, penalties), <b>head-to-head</b>, <b>coach and QB ATS records</b>, <b>primetime</b>, <b>division games</b>, <b>rest</b>, <b>snow</b>, <b>travel distance</b>, <b>time-zone shift</b> and <b>West Coast teams at 1:00 PM ET</b> are tested below and shown on every game as readings. Temperature, wind and rain are in the model (rain was added from this test on 22 Sep 2026: it lowered the points miss on both windows, the one idea in the list that did). The table is regenerated from reports/additions.csv on every run.</p>
       ${dTable(add, "added", "Added")}
       <h3 style="margin-top:14px">The raw data behind the tested situations</h3>
       <p class="note">Points scored per team with the situation present vs absent, 2013 to the last full season, before any adjustment. A raw gap can vanish once the ratings are in (good teams get primetime slots), which is why the test above is the one that counts.</p>
@@ -1971,7 +1985,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   function renderSeason() {
     const S = window.SEASON;
     if (!S) { $("seasonnote").textContent = "Season odds are not built yet."; return; }
-    const cur = sub.season || "odds";
+    const cur = sub.seasonsec || "odds";
     const pct = v => v == null ? "" : (v >= 0.995 ? "99+" : v < 0.005 && v > 0 ? "<1" : (100 * v).toFixed(v >= 0.1 ? 0 : 1)) + "%";
     const rec = t => `${Math.floor(t.wins_now)}-${t.losses_now}${t.ties_now ? "-" + t.ties_now : ""}`;
     const n1 = v => v == null || isNaN(v) ? "" : (+v).toFixed(1);
@@ -2090,7 +2104,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tab === "week") return renderWeek();
     if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
     if (tab === "bets") return renderTrack();
-    if (tab === "season") return renderSeason();
+    if (tab === "seasonsec") return renderSeason();
     if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); return; }

@@ -35,6 +35,8 @@ jobs:
           path: data/raw
           key: nflverse-raw-v2
       - name: weekly pipeline
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           if [ "${{ github.event.inputs.full }}" = "true" ] || [ "${{ steps.raw.outputs.cache-hit }}" != "true" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
       - name: commit results

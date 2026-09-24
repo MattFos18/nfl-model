@@ -1,0 +1,411 @@
+{
+"season": 2026,
+"week": 3,
+"starters": {
+"2026_03_ATL_GB": [
+"00-0036264",
+"00-0039917",
+"2026-09-24 20:15"
+],
+"2026_03_LAC_BUF": [
+"00-0034857",
+"00-0036355",
+"2026-09-27 13:00"
+],
+"2026_03_CAR_CLE": [
+"00-0033537",
+"00-0039150",
+"2026-09-27 13:00"
+],
+"2026_03_NYJ_DET": [
+"00-0033106",
+"00-0030565",
+"2026-09-27 13:00"
+],
+"2026_03_HOU_IND": [
+"00-0035710",
+"00-0039163",
+"2026-09-27 13:00"
+],
+"2026_03_NE_JAX": [
+"00-0036971",
+"00-0039851",
+"2026-09-27 13:00"
+],
+"2026_03_KC_MIA": [
+"00-0038128",
+"00-0033873",
+"2026-09-27 13:00"
+],
+"2026_03_TEN_NYG": [
+"00-0040691",
+"00-0040676",
+"2026-09-27 13:00"
+],
+"2026_03_CIN_PIT": [
+"00-0023459",
+"00-0036442",
+"2026-09-27 13:00"
+],
+"2026_03_SEA_WAS": [
+"00-0039910",
+"00-0035704",
+"2026-09-27 13:00"
+],
+"2026_03_ARI_SF": [
+"00-0037834",
+"00-0033119",
+"2026-09-27 16:05"
+],
+"2026_03_MIN_TB": [
+"00-0034855",
+"00-0035228",
+"2026-09-27 16:05"
+],
+"2026_03_BAL_DAL": [
+"00-0033077",
+"00-0034796",
+"2026-09-27 16:25"
+],
+"2026_03_LV_NO": [
+"00-0040743",
+"00-0029604",
+"2026-09-27 16:25"
+],
+"2026_03_LA_DEN": [
+"00-0039732",
+"00-0026498",
+"2026-09-27 20:20"
+],
+"2026_03_PHI_CHI": [
+"00-0038416",
+"00-0036389",
+"2026-09-28 20:15"
+]
+},
+"injuries": [
+[
+"ARI",
+"Kitan Crawford",
+"Out"
+],
+[
+"ARI",
+"Will Johnson",
+"Out"
+],
+[
+"ATL",
+"A.J. Terrell Jr.",
+"Out"
+],
+[
+"ATL",
+"Samson Ebukam",
+"Out"
+],
+[
+"BAL",
+"T.J. Tampa",
+"Out"
+],
+[
+"CAR",
+"Jonathon Brooks",
+"Out"
+],
+[
+"CHI",
+"Anthony Johnson Jr.",
+"Out"
+],
+[
+"CHI",
+"Caleb Williams",
+"Doubtful"
+],
+[
+"CHI",
+"Noah Sewell",
+"Out"
+],
+[
+"CIN",
+"Andrei Iosivas",
+"Out"
+],
+[
+"DAL",
+"Cobie Durant",
+"Out"
+],
+[
+"DAL",
+"Malik Hooker",
+"Doubtful"
+],
+[
+"DAL",
+"P.J. Locke",
+"Out"
+],
+[
+"DEN",
+"Frank Crum",
+"Out"
+],
+[
+"DEN",
+"Jonathon Cooper",
+"Out"
+],
+[
+"DEN",
+"Nick Gargiulo",
+"Out"
+],
+[
+"DET",
+"Avonte Maddox",
+"Out"
+],
+[
+"GB",
+"Aaron Banks",
+"Out"
+],
+[
+"GB",
+"Jayden Reed",
+"Out"
+],
+[
+"GB",
+"Warren Brinson",
+"Out"
+],
+[
+"GB",
+"Zach Bako-Bewele",
+"Out"
+],
+[
+"HOU",
+"Henry To'oTo'o",
+"Out"
+],
+[
+"IND",
+"Alec Pierce",
+"Out"
+],
+[
+"IND",
+"Micheal Clemons",
+"Out"
+],
+[
+"JAX",
+"B.J. Green II",
+"Out"
+],
+[
+"KC",
+"Cooper McDonald",
+"Out"
+],
+[
+"LA",
+"Ronnie Rivers",
+"Out"
+],
+[
+"LAC",
+"Charlie Kolar",
+"Out"
+],
+[
+"LAC",
+"Dalvin Tomlinson",
+"Doubtful"
+],
+[
+"LAC",
+"David Njoku",
+"Out"
+],
+[
+"LAC",
+"Kayode Awosika",
+"Doubtful"
+],
+[
+"MIA",
+"Ronnie Harrison Jr.",
+"Out"
+],
+[
+"NE",
+"Dell Pettus",
+"Out"
+],
+[
+"NE",
+"Mike Onwenu",
+"Out"
+],
+[
+"NO",
+"Kelvin Banks Jr.",
+"Out"
+],
+[
+"NO",
+"Zach Wood",
+"Out"
+],
+[
+"NYG",
+"Jaxson Dart",
+"Out"
+],
+[
+"NYJ",
+"Arian Smith",
+"Out"
+],
+[
+"NYJ",
+"David Onyemata",
+"Out"
+],
+[
+"NYJ",
+"Marcelino McCrary-Ball",
+"Out"
+],
+[
+"NYJ",
+"Mason Taylor",
+"Doubtful"
+],
+[
+"PHI",
+"Dallas Goedert",
+"Doubtful"
+],
+[
+"PHI",
+"Landon Dickerson",
+"Out"
+],
+[
+"SEA",
+"Anthony Bradford",
+"Out"
+],
+[
+"SEA",
+"Zach Charbonnet",
+"Out"
+],
+[
+"SF",
+"Brandon Aiyuk",
+"Out"
+],
+[
+"SF",
+"C.J. West",
+"Out"
+],
+[
+"SF",
+"De'Zhaun Stribling",
+"Out"
+],
+[
+"SF",
+"Demarcus Robinson",
+"Out"
+],
+[
+"SF",
+"James Thompson Jr.",
+"Doubtful"
+],
+[
+"TB",
+"Josh Hayes",
+"Out"
+],
+[
+"WAS",
+"Jayden Daniels",
+"Out"
+],
+[
+"WAS",
+"Nick Cross",
+"Out"
+]
+],
+"weather": {
+"2026_03_ATL_GB": {
+"wind": 4.9,
+"cold": false,
+"rain": false
+},
+"2026_03_LAC_BUF": {
+"wind": 11.5,
+"cold": false,
+"rain": false
+},
+"2026_03_CAR_CLE": {
+"wind": 10.1,
+"cold": false,
+"rain": false
+},
+"2026_03_HOU_IND": {
+"wind": 4.3,
+"cold": false,
+"rain": false
+},
+"2026_03_NE_JAX": {
+"wind": 2.8,
+"cold": false,
+"rain": false
+},
+"2026_03_KC_MIA": {
+"wind": 8.8,
+"cold": false,
+"rain": false
+},
+"2026_03_TEN_NYG": {
+"wind": 13.4,
+"cold": false,
+"rain": true
+},
+"2026_03_CIN_PIT": {
+"wind": 7.2,
+"cold": false,
+"rain": false
+},
+"2026_03_SEA_WAS": {
+"wind": 12.8,
+"cold": false,
+"rain": false
+},
+"2026_03_ARI_SF": {
+"wind": 4.0,
+"cold": false,
+"rain": false
+},
+"2026_03_MIN_TB": {
+"wind": 5.0,
+"cold": false,
+"rain": false
+}
+},
+"written_at": "2026-09-24 00:22 UTC"
+}

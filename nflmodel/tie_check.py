@@ -186,6 +186,9 @@ def check_season_equation(rows) -> None:
 def check_page() -> list[tuple[str, str, str, bool]]:
     rows = []
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
+    import collections as _c
+    _ids = re.findall(r'\sid="([^"]+)"', (ROOT / "web" / "index.html").read_text()); _dup = sorted(k for k, v in _c.Counter(_ids).items() if v > 1)
+    tie("the page has no duplicate element ids (a duplicate points a control at the wrong element)", _dup, [])
     pj = json.loads((OUT / "props.json").read_text()) if (OUT / "props.json").exists() else None
     if pj is not None:
         if (WEB / "player_profiles.js").exists() and (OUT / "props_profiles.json").exists():
@@ -258,7 +261,8 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}
         tie("page week = picks file (games)", sorted(pg), sorted(pk.index))
-        tie("page week = picks file (bets)", sorted((x.get("bet") or "") for x in pg.values()), sorted(pk.bet.fillna("")))
+        _side = lambda b: " ".join(w.split()[0] for w in str(b or "").split(", ") if w)   # the team or Over/Under; the number follows the line log (the freshness tie holds it to the newest snapshot)
+        tie("page week = picks file (bets: the side flagged)", sorted(_side(x.get("bet")) for x in pg.values()), sorted(_side(b) for b in pk.bet.fillna("")))
         tie("page week = picks file (model spread)", round(float(max(abs((pg[k]["model_spread"] or 0) - pk.loc[k, "model_spread"]) for k in pg if k in pk.index)), 3), 0.0)
     tr = _js("track.js"); mp = pd.read_csv(TR / "model_picks.csv") if (TR / "model_picks.csv").exists() else pd.DataFrame()
     if len(mp):

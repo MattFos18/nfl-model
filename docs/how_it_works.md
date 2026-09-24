@@ -1452,3 +1452,27 @@ which the site now logs every day: line movement from open to close (for closing
 2026 participation charting when nflverse publishes it (coverage and pressure for this season), and a live record
 long enough to judge. The props rule has more room (the passing drift is real and a both-window fix has not been
 found yet); it gets the next rounds.
+
+## 22. Everything live, pulled together (24 Sep 2026)
+
+Matt asked when "Last updated" moves and for every number that can be live to be pulled at the same time. Before
+today it was the time of the last full model run (four scheduled runs a week plus any started by hand), while the
+line watch refreshed the cards' lines every 30 minutes without touching it, and starters, injuries and forecasts
+were pulled only by the model run.
+
+Now every line-watch run (every 30 minutes) also pulls the schedule's named starting QBs and kickoff times, the
+league's injury reports and ESPN's same-day page, and the kickoff forecasts (`nflmodel/refresh.py`). It compares
+what the model would see for the week being priced with what the last model run priced with
+(`data/runs/inputs_fingerprint.json`): a named QB or kickoff changed, a player moved into or out of Out or Doubtful,
+or, inside the forecast window the model uses, the wind moved 2 mph or the cold or rain call flipped. When any of
+those changed, the line watch starts the model run, which pulls the lines first and re-prices every game, prop,
+season odd and player total from the same moment's data. Weather-only changes re-price at most once every two
+hours. Every check is logged (`data/runs/refresh_log.csv`) and the page shows it: "Last updated" is the newest
+time any data on the page was pulled, with each source's own time on hover (model re-priced, game lines, prop
+lines, the last live check and what it found).
+
+Times on the page read 8:15 PM style everywhere, including the game rail.
+
+A duplicate element id (the new Season tab and the Teams tab's season picker shared "season") had emptied the
+picker; the tab was renamed, a browser that had saved the old tab name is sent to the right one, and the page tie
+check now fails on any duplicate id.
