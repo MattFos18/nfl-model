@@ -1157,7 +1157,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     // labels: nudge any two that would overlap apart vertically, so every team stays readable
     const lab = teams.map((t, i) => ({t, px: x(xs[i]), py: y(ys[i]), lx: x(xs[i]) + 6, ly: y(ys[i]) + 4})).sort((a, b) => a.py - b.py);
     for (let pass = 0; pass < 3; pass++) lab.forEach((a, i) => lab.slice(i + 1).forEach(b => { if (Math.abs(a.lx - b.lx) < 34 && Math.abs(a.ly - b.ly) < 11) b.ly = a.ly + 11; }));
-    lab.forEach(a => { sv += `<circle class="pt" data-t="${a.t}" cx="${a.px.toFixed(1)}" cy="${a.py.toFixed(1)}" r="4.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="1.5"/><image class="pt" data-t="${a.t}" href="logos/${a.t}.png" x="${(a.px - 12).toFixed(1)}" y="${(a.py - 12).toFixed(1)}" width="24" height="24" onerror="this.remove()"/>`; });
+    lab.forEach(a => { sv += `<circle class="pt" data-t="${a.t}" cx="${a.px.toFixed(1)}" cy="${a.py.toFixed(1)}" r="4.5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="1.5" visibility="hidden"/><image class="pt" data-t="${a.t}" href="logos/${a.t}.png" x="${(a.px - 12).toFixed(1)}" y="${(a.py - 12).toFixed(1)}" width="24" height="24" onerror="this.previousElementSibling.setAttribute('visibility','visible');this.remove()"/>`; });
     sv += "</svg>";
     $("scatsub").textContent = `Going into Week ${rkWeek}, ${S} · ${rkWin === "model" ? "the model's ratings" : winNote.split(":")[0]} · up and right is better; each logo is a team, hover for the numbers`;
     $("powersub").textContent = `Expected margin against an average team on a neutral field, going into Week ${rkWeek} · the model's full opinion: offense, defense and quarterback`;
