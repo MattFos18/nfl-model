@@ -1,0 +1,6 @@
+variant,next_season_corr_2019-22,next_season_corr_2023-25,consensus_in_top15,consensus_median_rank,consensus_rank_corr,top10
+"today: per snap, every part, 0.92 / 0.8",0.142,0.178,4,54.0,0.37,"Mike Hilton, Christian Gonzalez, Hezekiah Masses, Carlton Davis III, Nahshon Wright, James Pierre, Kamari Lassiter, Trent McDuffie, Jarvis Brownlee Jr., Byron Murphy"
+"per snap, every part, 0.98 / 0.9",0.166,0.21,4,42.0,0.33,"Mike Hilton, Christian Gonzalez, Hezekiah Masses, Ja'Quan McMillian, Nahshon Wright, Kamari Lassiter, Marlon Humphrey, Jourdan Lewis, Trent McDuffie, Kenny Moore"
+"per target, 0.98 / 0.9, K150",0.187,0.171,6,24.0,0.5,"Derek Stingley Jr., Christian Gonzalez, Pat Surtain II, Trent McDuffie, Jourdan Lewis, Deommodore Lenoir, Cobie Durant, Quinyon Mitchell, Tre'Davious White, Byron Murphy"
+"per target, 0.99 / 1.0, K150 (adopted)",0.191,0.184,7,36.0,0.37,"Derek Stingley Jr., Pat Surtain II, Tre'Davious White, Riq Woolen, Christian Gonzalez, Denzel Ward, Trent McDuffie, Jourdan Lewis, Cobie Durant, Quinyon Mitchell"
+"per target + draft prior K250 + run 0.25, 0.98 / 0.9",0.148,0.194,9,13.0,0.66,"Derek Stingley Jr., Christian Gonzalez, Trent McDuffie, Tre'Davious White, Marlon Humphrey, Pat Surtain II, Quinyon Mitchell, Mike Hilton, Jaycee Horn, Jourdan Lewis"

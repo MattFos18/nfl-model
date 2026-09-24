@@ -1691,3 +1691,25 @@ measure made from the team's numbers should do, so the page labels it a unit rat
 
 Health checks added: every rostered defender with 300+ snaps last season has a value; the defender table holds 97%+ of
 last season's defensive snaps; no regular defender has a snap share of 0.
+
+## 30. Cornerbacks against the consensus (24 Sep 2026)
+
+Matt: the corner list was nothing like a consensus view (Nahshon Wright 2nd, Surtain 27th, Sauce Gardner 109th). Per
+snap, a corner's value swung with how often he was thrown at, and the fast fade (0.92 a game) rode a few games.
+
+Two yardsticks (`experiments/cb_value.py`, `reports/cb_value.csv`), so no single list is fitted: the confirmed 2026
+consensus ranks (FOX Sports' top 10; PFF's top 32 where confirmed), and each corner's rating before a season against
+his coverage per target that season, on both windows.
+
+| Variant | Next season 2019-22 | 2023-25 | Consensus 17 in our top 15 | Median rank |
+|---|---|---|---|---|
+| Per snap, every part, 0.92 / 0.8 (was) | 0.142 | 0.178 | 4 | 54 |
+| Per target, 0.99 / 1.0, K150 (adopted) | 0.191 | 0.184 | 7 | 36 |
+| Per target + draft-round prior + run share | 0.148 | 0.194 | 9 | 13 |
+
+Adopted: coverage per target (coverage yards saved and interceptions, in EPA, over targets plus 150), times the
+league's corner targets per snap, 0.99 a game with no season fade; best on 2019-22 and better held out. The draft-round
+prior matches the consensus lists more closely and is the best held out, but not on 2019-22. Corner coverage is noisy
+(a season's rating predicts next season's coverage at about 0.19 correlation), which is also why published lists
+disagree: PFN's stats-only ranking has James Pierre second. Corners valued more for run defense and blitzing than
+coverage (Witherspoon, DeJean) sit lower here than in film-based lists.
