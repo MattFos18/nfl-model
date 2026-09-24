@@ -401,8 +401,8 @@
 "cold": false,
 "rain": false
 },
-"2026_03_BAL_DAL": {
-"wind": 6.1,
+"2026_03_MIN_TB": {
+"wind": 5.0,
 "cold": false,
 "rain": false
 },
@@ -412,5 +412,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-24 00:52 UTC"
+"written_at": "2026-09-24 01:07 UTC"
 }
