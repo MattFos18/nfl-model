@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-24 18:44 UTC
+# Tie-out (sources and page), 2026-09-24 19:43 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -57,8 +57,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game) | {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.57 | {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.57 | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | yes |
 | picks file flags = tracker rows (games) | ['2026_03_KC_MIA'] | ['2026_03_KC_MIA'] | yes |
-| picks file flags = tracker rows (bets) | ['MIA +11.5'] | ['MIA +11.5'] | yes |
-| picks file stakes = tracker stakes | [0.85] | [0.85] | yes |
+| picks file flags = tracker rows (bets) | ['MIA +10.5'] | ['MIA +10.5'] | yes |
+| picks file stakes = tracker stakes | [1.0] | [1.0] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 81-55 40-23 61-58 | 81-55 40-23 61-58 | yes |
 | line watch: every source ran without an error on the newest snapshot | no error | no error | yes |
@@ -71,7 +71,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.2% (2025 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-24T18:36Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | {'espn': '2026-09-24T18:36Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-24T19:32Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | {'espn': '2026-09-24T19:32Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | yes |
 | season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | the page has no duplicate element ids (a duplicate points a control at the wrong element) | [] | [] | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 210, 66, 32, 2026, 3] | [364, 210, 66, 32, 2026, 3] | yes |
@@ -88,13 +88,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T18-36-22Z | 2026-09-24T18-36-22Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T18-36-22Z | 2026-09-24T18-36-22Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T19-32-47Z | 2026-09-24T19-32-47Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T19-32-47Z | 2026-09-24T19-32-47Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
 | page week = picks file (bets: the side flagged) | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
-| page live table = tracker (pending model rows) | ['MIA +11.5'] | ['MIA +11.5'] | yes |
+| page live table = tracker (pending model rows) | ['MIA +10.5'] | ['MIA +10.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 | season odds are for the week being priced | 2026 3 | 2026 3 | yes |
 | season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.129, 0.1136, 0.1086, 0.0983, 0.0706, 0.0682, 0.0597, 0.0596, 0.0548, 0.0 | [32, [0.129, 0.1136, 0.1086, 0.0983, 0.0706, 0.0682, 0.0597, 0.0596, 0.0548, 0.0 | yes |
