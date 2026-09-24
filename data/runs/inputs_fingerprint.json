@@ -362,60 +362,60 @@
 "rain": false
 },
 "2026_03_LAC_BUF": {
-"wind": 11.5,
+"wind": 11.8,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 10.1,
+"wind": 11.2,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 4.3,
+"wind": 5.8,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 2.8,
+"wind": 3.5,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 8.8,
+"wind": 8.4,
 "cold": false,
-"rain": false
+"rain": true
 },
 "2026_03_TEN_NYG": {
-"wind": 13.4,
+"wind": 17.3,
 "cold": false,
 "rain": true
 },
 "2026_03_CIN_PIT": {
-"wind": 7.2,
+"wind": 9.8,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 12.8,
+"wind": 12.0,
 "cold": false,
 "rain": false
 },
 "2026_03_ARI_SF": {
-"wind": 4.0,
+"wind": 4.2,
 "cold": false,
 "rain": false
 },
-"2026_03_BAL_DAL": {
-"wind": 6.1,
+"2026_03_MIN_TB": {
+"wind": 3.9,
 "cold": false,
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 10.8,
+"wind": 13.0,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-24 05:24 UTC"
+"written_at": "2026-09-24 07:25 UTC"
 }
