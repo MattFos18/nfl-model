@@ -4,15 +4,15 @@ Sources
   ESPN public scoreboard (site.api.espn.com, with fallbacks): one consensus line per game with the provider named.
   The Odds API (free tier, key in ODDS_API_KEY): every US book's spread, total and moneyline, once a day; player prop
   lines twice a week (nflmodel/props_lines.py) inside the same 500-credit month.
-  DraftKings sportsbook public event-group feed (event group 88808 = NFL): spread, total, moneyline per game.
-  DraftKings betting splits: no stable public endpoint found yet; the hook is here and returns nothing until
-  one is confirmed. The report says so rather than pretending.
+  Retired 24 Sep 2026: DraftKings' own event-group feed (403 on 61 of 62 runs; DraftKings' lines arrive through ESPN
+  and The Odds API) and the Covers betting-splits page (no percentages recognised on 59 of 62 runs). The functions
+  stay for the record; the run no longer calls them, so every error left in the watch log is a real one.
 
 Every run appends one row per (game, book, market) to data/lines/lines_log.csv and saves the raw responses
 under data/lines/raw/<timestamp>_<source>.json so a parsing mistake never loses data. Games are keyed to
 nflverse game_ids by season, week and team abbreviations.
 
-This sandbox cannot reach either host (egress policy); the GitHub Actions workflow runs it every 10 minutes.
+This sandbox cannot reach the hosts (egress policy); the GitHub Actions workflow runs it every 30 minutes.
 Usage: python -m nflmodel.lines [--season 2026 --week 3]
 """
 from __future__ import annotations
@@ -362,7 +362,9 @@ def odds_api_due(now: dt.datetime) -> bool:
     g = load_log(); g = g[g.source.astype(str).str.startswith("oddsapi:")]
     last = log_times(g).max() if len(g) else pd.NaT
     t = tried("oddsapi")
-    return not ((pd.notna(last) and last.to_pydatetime() >= anchor) or (t is not None and t >= anchor))
+    recent = max([x for x in [last.to_pydatetime() if pd.notna(last) else None, t] if x is not None], default=None)
+    # a catch-up pull shortly before the next scheduled time covers it too: no second pull inside 12 hours (24 Sep 2026)
+    return recent is None or (recent < anchor and now - recent >= dt.timedelta(hours=12))
 
 
 def run(season=None, week=None) -> pd.DataFrame:
@@ -372,7 +374,7 @@ def run(season=None, week=None) -> pd.DataFrame:
     ts = dt.datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%SZ")
     rows, errors = [], []
     import os
-    sources = [("espn", espn), ("draftkings", draftkings), ("dk_splits", draftkings_splits)]
+    sources = [("espn", espn)]   # DraftKings direct and the Covers splits retired 24 Sep 2026 (failed every run)
     if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or odds_api_due(dt.datetime.utcnow())):
         sources.append(("oddsapi", odds_api))     # once a day from 12:00 UTC: ~30 credits a month, leaving the free 500 for the player props (props_lines.py); ESPN carries the game lines every run
         from .props_lines import mark
