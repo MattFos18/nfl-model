@@ -167,6 +167,12 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         last = pd.read_csv(wl).tail(1)
         err = next((e.strip() for e in str(last.errors.iloc[0] if len(last) else "").split(";") if e.strip().startswith("props:")), "")
         rows.append(("line watch's props pull ran without an error on the newest snapshot", err or "no error", "no error", not err))
+    pvf, dgf = OUT / "player_values_all.parquet", OUT / "defender_games.parquet"
+    if pvf.exists() and dgf.exists():   # a regular defender who played in the last two seasons always has a snap share (the team-change bug zeroed 99)
+        pv = pd.read_parquet(pvf); dgl = pd.read_parquet(dgf, columns=["player_id", "season"]).groupby("player_id").season.max()
+        x = pv[(pv.group == "Defense") & (pv.games > 0) & (pv.plays_per_game.fillna(0) > 15) & (pv.player_id.map(dgl).fillna(0) >= int(g.season.max()) - 1)]
+        z = x[x.share.fillna(0) < 0.05]
+        rows.append(("defenders with 15+ snaps a game in the last two seasons all have a snap share", ", ".join(z.name.head(5)) or "none zero", "none zero", len(z) == 0))
     fj = ROOT / "web" / "data" / "fresh.js"
     if fj.exists() and (LNS / "lines_log.csv").exists() and (LNS / "props_log.csv").exists():   # the This week pull strip against the raw logs
         s = fj.read_text(); fr = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
