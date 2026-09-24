@@ -186,3 +186,4 @@ overlap. The paths that could still produce an edge, in order:
 3. Market signals: splits and reverse line movement, testable after a season of logging.
 
 None of these can be backtested on the data we have today. That is the honest position for the go / no-go.
+| 24 Sep 2026 | The Players tab is hard to follow; remove the redundant Game deep dive; show all player data (Matt) | Players tab rebuilt: ranked list with filters, a player page with tiles, projections against results, a full game log per season (play-by-play, snap counts, Pro-Football-Reference charting, participation splits where charted), career by season. Game deep dive removed (the game card carries the same inputs). New ties: logs against play-by-play, careers against logs. Docs section 23. |

@@ -10,7 +10,7 @@ import json, re, sys
 import numpy as np, pandas as pd
 from . import backtest as B, model as M, picks as P, ratings as R
 from .features import OUT, ROOT
-REP = ROOT / "reports"; LNS = ROOT / "data" / "lines"
+REP = ROOT / "reports"; LNS = ROOT / "data" / "lines"; RAW = ROOT / "data" / "raw"
 WEB = ROOT / "web" / "data"; TR = ROOT / "data" / "tracker"
 
 
@@ -197,10 +197,18 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         if (WEB / "props_record.js").exists():
             prr = _js("props_record.js"); n_proj = sum(len(pd.read_csv(f)) for f in REP.glob("props_*_wk*.csv")); n_gr = len(pd.read_csv(TR / "props_graded.csv")) if (TR / "props_graded.csv").exists() else 0; n_mk = len(pd.read_csv(TR / "props_vs_market.csv")) if (TR / "props_vs_market.csv").exists() else 0
             tie("props record on the page = every projection file, graded rows and market rows", [n_proj, n_gr, n_mk], [len(prr["projections"]), len(prr["graded"]), len(prr["market"])])
-        if (WEB / "player_logs.js").exists():
-            lg = _js("player_logs.js"); sp = pd.read_parquet(OUT / "scheme_plays.parquet", columns=["play_type", "pass_play", "dropback", "receiver_player_id", "rusher_player_id", "passer_player_id", "game_id"]); sp = sp[sp.play_type.isin(["pass", "run"])]
-            n_rows = int(sp[sp.pass_play & sp.receiver_player_id.notna()].groupby(["receiver_player_id", "game_id"]).ngroups + sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].groupby(["rusher_player_id", "game_id"]).ngroups + sp[sp.dropback & sp.passer_player_id.notna()].groupby(["passer_player_id", "game_id"]).ngroups)
-            tie("player game logs on the page = player-games in the charted plays (receiving, rushing, passing)", n_rows, sum(len(v) for v in lg["rows"].values()))
+        if (WEB / "player_careers.js").exists():
+            pc = _js("player_careers.js"); yr = max(y for y in pc["seasons"] if y < max(pc["seasons"]))   # the last complete season
+            s_ = (WEB / "plogs" / f"{yr}.js").read_text(); lg = json.loads(s_[s_.index("]=") + 2:].rstrip().rstrip(";"))
+            ix = {k: {c: i for i, c in enumerate(v)} for k, v in pc["cols"].items()}
+            pb = pd.read_parquet(RAW / "pbp" / f"play_by_play_{yr}.parquet", columns=["play_type", "pass_attempt", "sack", "receiver_player_id", "rusher_player_id", "yards_gained", "two_point_attempt", "season_type"]) if (RAW / "pbp" / f"play_by_play_{yr}.parquet").exists() else None
+            if pb is not None:
+                pb = pb[pb.play_type.isin(["pass", "run"]) & (pb.two_point_attempt.fillna(0) == 0) & pb.season_type.isin(["REG", "POST"])]
+                tg = pb[(pb.pass_attempt == 1) & pb.receiver_player_id.notna() & (pb.sack == 0)]; ca = pb[pb.play_type.eq("run") & pb.rusher_player_id.notna()]
+                tie(f"player game logs on the page = the play-by-play, {yr} (targets, receiving yards, carries, rushing yards)", [len(tg), int(tg.yards_gained.fillna(0).sum()), len(ca), int(ca.yards_gained.fillna(0).sum())],
+                    [sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rec"]["yards"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rush"]["carries"]] for v in lg.values() for r in v.get("rush", [])), sum(r[ix["rush"]["yards"]] for v in lg.values() for r in v.get("rush", []))])
+            car_t = sum(r[4] for v in pc["careers"]["rows"].values() for r in v if r[0] == yr and r[1] == "rec"); log_t = sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", []))
+            tie(f"career totals on the page = the season's game logs, {yr} (targets)", car_t, log_t)
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
     p = pd.read_parquet(OUT / "pred_v3.parquet").set_index("game_id")
     bk = _js("backtest.js"); b = pd.DataFrame(bk["rows"], columns=bk["cols"]).set_index("game_id")
@@ -243,7 +251,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
                     inputs = {f: row[cols.index("mf_" + f)] for f in M.FEATS if ("mf_" + f) in cols}
                     v = rebuild(co, inputs); n += 1
                     if v is not None: worst = max(worst, abs(v - r[ci[key]]))
-            rows.append((f"deep-dive breakdowns rebuild the expected points from the team files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))
+            rows.append((f"game-log model inputs rebuild the expected points from the team files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))
     g = pd.read_parquet(OUT / "games.parquet")
     from . import lines as LN
     season, week = LN.current_week(g)

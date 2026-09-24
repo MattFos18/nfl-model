@@ -66,7 +66,7 @@ th .u{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:4p
 tbody tr:hover td{background:var(--rule-2)}
 tr.clickable{cursor:pointer}
 td.win{color:var(--good)} td.loss{color:var(--bad)}
-.mono{font-family:var(--mono)} img.tlogo{vertical-align:-3px;margin-right:5px;object-fit:contain}
+.mono{font-family:var(--mono)} #plpage .tile{border:1px solid var(--rule);border-radius:6px;padding:8px 12px;min-width:150px;background:var(--panel)} #plpage .tile .tl{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)} #plpage .tile .tv{font-size:20px;font-weight:600;font-family:var(--mono);margin-top:2px} #plpage .tile .ts{font-size:12px;color:var(--ink-2);margin-top:2px} img.tlogo{vertical-align:-3px;margin-right:5px;object-fit:contain}
 .grid2{display:grid;grid-template-columns:1fr;gap:16px}
 @media(min-width:960px){.grid2{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}}
 .grid2e{display:grid;grid-template-columns:1fr;gap:16px}
@@ -293,7 +293,6 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <button data-sub="roster">Roster and depth chart</button>
     <button data-sub="ratings">Ratings by week</button>
     <button data-sub="games">Game log</button>
-    <button data-sub="inputs">Game deep dive</button>
     <button data-sub="scheme">Scheme and play calling</button>
   </nav>
   <div id="scheme" hidden>
@@ -342,14 +341,6 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <div class="card"><h3>Defense</h3><div class="tablewrap" style="max-height:70vh"><table id="rosterdef"></table></div></div>
     </div>
     <details style="margin-top:10px"><summary style="font-size:13px;font-weight:600">Everyone else on the roster</summary><div class="tablewrap" style="max-height:50vh;margin-top:6px"><table id="rosterrest"></table></div></details>
-  </div>
-  <div id="inputs" hidden>
-    <p class="note">Pick a game. Every input the regression used, its value, what one unit is worth in points that season, and its contribution: coefficient times the input's distance from its baseline (the league average for a rating, zero for a situation flag). The base plus every contribution adds up exactly to the model's expected points.</p>
-    <div class="row"><label class="ctl">Game <select id="game"></select></label></div>
-    <div class="grid2">
-      <div class="card"><div class="tablewrap" style="max-height:60vh"><table id="inputstable"></table></div></div>
-      <div class="card"><h3>This game</h3><div class="kv" id="gamekv"></div></div>
-    </div>
   </div>
 </section>
 
@@ -412,16 +403,14 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 </section>
 
 <section class="tab" id="playersec" hidden>
-  <p class="note">Every rostered player, valued as of the coming week and ranked within his unit. The value follows the player, not the team. Each unit has the handle the data allows, always in EPA per team play above replacement: <b>QB</b> EPA per dropback; <b>RB, WR, TE</b> EPA per touch times touch share; <b>offensive line</b> on/off (the offense with him minus without, shrunk); <b>defense</b> impact plays (the EPA taken away on plays he is credited on, per snap); <b>K and P</b> EPA per kick or punt. Values compare within a unit, not across. Click a player for his history.</p>
   <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
-    <label class="ctl">Search <input id="plq" type="search" placeholder="Player" style="width:160px"></label>
+    <label class="ctl">Search <input id="plq" type="search" placeholder="Any player since 2016" style="width:190px"></label>
     <label class="ctl">Team <select id="plteam"><option value="">All</option></select></label>
     <label class="ctl">Unit <select id="plpos"><option value="Skill">RB, WR, TE</option><option value="QB">Quarterbacks</option><option value="OL">Offensive line</option><option value="Defense">Defense</option><option value="K">Kickers</option><option value="P">Punters</option></select></label>
-    <label class="ctl">Status <select id="plstatus"><option value="">All</option><option value="out">Out, Doubtful or IR</option><option value="q">Questionable or limited</option></select></label>
+    <label class="ctl">Status <select id="plstatus"><option value="">All</option><option value="out">Out, Doubtful or IR</option><option value="q">Questionable</option></select></label>
   </div>
-  <div class="card" style="margin-top:10px"><div class="tablewrap" style="max-height:38vh"><table id="pltable"></table></div></div>
-  <div class="card" style="margin-top:14px"><h3 id="plname">Pick a player</h3><div id="plpage"><p class="note" style="margin:0">Click a row. Every rostered player valued as of the coming week (last eight games, across seasons) is in the table; the search also finds anyone with a game log since 2016 (the charted plays), values or not.</p></div></div>
-  <p class="note">Where the data comes from: values and season history from the play-by-play (nflverse, 2013 on); the profile and game log from the charted plays (nflverse participation 2016 on, FTN charting 2022 on: man and zone coverage, pressure, box counts), the same tables the projections are built from; projections and grades from each weekly run (reports/props_&lt;season&gt;_wk&lt;week&gt;.csv, data/tracker/props_graded.csv); book lines from The Odds API (data/lines/props_log.csv, graded in data/tracker/props_vs_market.csv). Blank splits mean the plays were not charted (2026 participation is not published yet).</p>
+  <div class="card" style="margin-top:10px"><h3 id="pllisth">Players</h3><div class="tablewrap" style="max-height:40vh"><table id="pltable"></table></div></div>
+  <div class="card" style="margin-top:14px" id="plcard"><div id="plhead"><h3 style="margin:0">Pick a player</h3><p class="note" style="margin:6px 0 0">Click a row above, or search for anyone who has played since 2016.</p></div><div id="plpage"></div></div>
 </section>
 
 <section class="tab" id="bets" hidden>
@@ -527,6 +516,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <dt>Scheme matchup and How they play / defend</dt><dd>Readings from nflverse participation data (2016 on: the defense's man or zone call and coverage family, formation, personnel, box, rushers, pressure) and FTN charting (2022 on: motion, play action, RPO, screens, tempo, blitzers), joined to every play. Rates say how a team plays; EPA per play in each look says how it has gone, with the play count beside it and blank under 20 plays. This season is used once a team has 300 charted plays, otherwise last season, and the label says which. The current season's participation file arrives on nflverse during the season, so early-season profiles carry the FTN fields and leave coverage and pressure blank. None of it feeds the model's numbers; it is the first layer of the matchup work (docs section 17).</dd>
       <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Backtest → Season odds and player totals): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
       <dt>Every data store</dt><dd>Model → Every data store lists each file the model keeps, read from the files themselves on each build: raw downloads (what each holds, seasons, size, rows and columns, when last pulled), built tables (rows, columns, the step that writes them, where they show), the line, weather, tracker and run logs, the reports and the page's own files. Team → Scheme and play calling shows a team's offense and defense profile over its last 17 games against the league with its rank, and its EPA by the look it faced or played. No public source charts routes; the route-adjacent readings (coverage faced, motion, play action, depth of target, air yards) are there.</dd>
+      <dt>EPA (expected points added)</dt><dd>Every down, distance, yard line, time left and score has an expected number of points for the team with the ball: what teams in that spot went on to score, on average, before the other side next scored (nflverse's model, fitted on every play since 1999). A play's EPA is expected points after it minus before it. Near midfield (2016 to 2025 plays), a 6-yard gain on 3rd and 5 moves the chains and adds about +1.4. The same 6 yards on 3rd and 8 falls short and costs about -0.7. An interception averages about -4.4. A player's EPA is the sum over his plays: a receiver's targets (catch or not), a back's carries, a quarterback's dropbacks (passes, sacks and scrambles). Per play is that sum over the plays. Team ratings, the QB rating and value over a backup are all built from it.</dd>
+      <dt>Player game logs (Players → a player)</dt><dd>Every regular-season and playoff game since 2016, one row per game. Box score, targets, air yards, yards after the catch, red-zone looks, first downs and EPA come from nflverse play-by-play; snaps from nflverse snap counts; drops, broken tackles, yards before and after contact, bad throws, pressures, blitzes, hits and the coverage he allowed from Pro-Football-Reference's charting (2018 on). Against man, zone, pressure and light or heavy boxes come from nflverse's participation charting, which is published some time after a season ends. Until then those columns show a chip saying which seasons are charted, and they fill in on the run after it appears. Career by season sums the same logs.</dd>
       <dt>Value over a backup (Rankings → Positions, Players, Team overview)</dt><dd>How many expected points a player adds over the kind of player who would replace him, a replacement-level backup. Quarterbacks: the model's QB rating (expected points per dropback, weighted toward recent games and pulled toward a backup's level until he has enough dropbacks) minus a backup's level; times his dropbacks a game, it reads as points a game. Brock Purdy at +0.30 a dropback and 31 dropbacks a game is about 9 points a game better than a backup. Backs, receivers and tight ends: expected points per touch above a backup's, times his share of the team's touches, so it is per team play. Linemen, defenders and kickers use the handle the data allows for each (on/off for linemen, credited plays for defenders, points per kick). A player whose rate is close to a backup's, like a quarterback with few dropbacks, sits near zero; that is why a young starter and a veteran backup can rate close together when their per-dropback results so far are close.</dd>
       <dt>Card tabs</dt><dd>Each game card opens one panel at a time: Takeaways (the handful of readings on the card that bear on the outcome: the model against the market, the largest inputs and absences, the scheme look that matters most each way, the last meetings, the biggest prop leans against the book), Why these numbers (every input and its points), Matchup history, Scheme matchup and Player props. Only the spread flag is a bet; the rest are readings.</dd>
       <dt>Rankings, Positions</dt><dd>Every rostered player valued as of the coming week (his last eight games, across seasons) ranked within his position group (value above replacement, EPA per play terms; Team → Players for each group's basis), with coverage numbers for defensive backs.</dd>
@@ -611,6 +602,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.on) { on = new Set(o.on); } } } catch (e) {}
   if (tab === "season") tab = "seasonsec";
   if (sub.seasonsec === "seasonbt") sub.seasonsec = "odds";
+  if (sub.teamsec === "inputs") sub.teamsec = "overview";
   { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
@@ -1342,7 +1334,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     h += `<tr class="sum"><td colspan="9" class="l"><b>Sums over ${trs.length} games (${last.length} from last season at ${P.prior} weight, ${cur.length} this season)</b></td><td></td><td class="mono"><b>${sw.toFixed(3)}</b></td><td class="mono"><b>${swa.toFixed(4)}</b></td></tr></tbody>`;
     $("howtable").innerHTML = h;
     $("howsum").innerHTML = `<div class="tiles"><div class="tile"><b>${swa.toFixed(4)} ÷ (${sw.toFixed(3)} + ${P.alpha}) = ${rating.toFixed(5)}</b><span>rating from this table</span></div><div class="tile"><b>${solved == null ? "n/a" : solved.toFixed(5)}</b><span>rating the model used (joint solve of all 64 offenses and defenses)</span></div><div class="tile"><b>${solved == null ? "" : Math.abs(rating - solved) < 5e-5 ? "match" : "differs by " + (rating - solved).toFixed(5)}</b><span>the joint solve satisfies exactly this equation for every team, so the two agree to rounding</span></div></div>
-      <p class="note">Where it goes next: this number is the input "${offense ? "Own offense" : "Own defense"} ${STAT_LABEL[howStat]} rating" in the points equation (Game deep dive), multiplied by that season's fitted coefficient. The opponents' ratings in the table come from the same week's joint solve, so the Rankings tab and this table agree.</p>`;
+      <p class="note">Where it goes next: this number is the input "${offense ? "Own offense" : "Own defense"} ${STAT_LABEL[howStat]} rating" in the points equation (each card's Why these numbers; every past game's inputs are in Teams → Game log), multiplied by that season's fitted coefficient. The opponents' ratings in the table come from the same week's joint solve, so the Rankings tab and this table agree.</p>`;
   }
 
   // ---------- Team: game deep dive ----------
@@ -1573,71 +1565,128 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   // ---------- Players tab (league-wide) ----------
   let plSel = null;
   let plLogsLoading = false;
-  function loadPlayerLogs(cb) { if (window.PLOGS) return cb(); if (plLogsLoading) return; plLogsLoading = true; const sc = document.createElement("script"); sc.src = "data/player_logs.js"; sc.onload = () => { plLogsLoading = false; cb(); }; sc.onerror = () => { plLogsLoading = false; window.PLOGS = {cols: [], rows: {}, names: {}}; cb(); }; document.head.appendChild(sc); }
+  // ---------- Players tab: the list, then one player's page (game logs: data/plogs/<season>.js, careers: data/player_careers.js) ----------
+  const plLoaded = {}; let plLoading = {}; let plSeason = null;
+  function loadScript(src, key, cb) { if (plLoaded[key]) return cb(); if (plLoading[key]) { plLoading[key].push(cb); return; } plLoading[key] = [cb]; const sc = document.createElement("script"); sc.src = src; sc.onload = () => { plLoaded[key] = true; const q = plLoading[key]; plLoading[key] = null; q.forEach(f => f()); }; sc.onerror = () => { plLoaded[key] = true; const q = plLoading[key]; plLoading[key] = null; q.forEach(f => f()); }; document.head.appendChild(sc); }
+  const needCareers = cb => loadScript("data/player_careers.js", "careers", cb);
+  const needSeason = (yr, cb) => loadScript(`data/plogs/${yr}.js`, "s" + yr, cb);
+  const VOL_LABEL = {QB: "Dropbacks a game", Skill: "Touches a game", OL: "Snap share", Defense: "Snaps a game", K: "Kicks a game", P: "Punts a game"};
   function renderPlayersTab() {
     const P = window.PLAYERS; if (!P) { $("pltable").innerHTML = "<tbody><tr><td>No player data exported.</td></tr></tbody>"; return; }
-    if (!window.PLOGS) { loadPlayerLogs(renderPlayersTab); }
+    needCareers(() => {});
     const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     const ts = $("plteam"); if (ts.options.length <= 1) [...new Set(P.values.map(r => r.team))].sort().forEach(t => { const o = document.createElement("option"); o.value = t; o.textContent = t; ts.appendChild(o); });
-    const q = ($("plq").value || "").toLowerCase(), tm = ts.value, grp = $("plpos").value, st = $("plstatus").value;
+    const q = ($("plq").value || "").trim().toLowerCase(), tm = ts.value, grp = $("plpos").value, st = $("plstatus").value;
     let rows = P.values.filter(r => r.value_above_replacement != null && (!q || String(r.name).toLowerCase().includes(q)) && (!tm || r.team === tm) && (q ? true : r.group === grp));
-    if (st === "out") rows = rows.filter(r => OUT_RE.test(r.status || "")); if (st === "q") rows = rows.filter(r => /^Questionable|Limited/.test(r.status || ""));
+    if (st === "out") rows = rows.filter(r => OUT_RE.test(r.status || "")); if (st === "q") rows = rows.filter(r => /^Questionable/.test(r.status || ""));
     rows.sort((a, b) => (a.group === b.group ? 0 : String(a.group).localeCompare(b.group)) || b.value_above_replacement - a.value_above_replacement);
-    // anyone with a game log who is not in this season's values (past players, or a search for someone not rostered)
-    const extra = (q && q.length >= 2 && window.PLOGS) ? Object.entries(PLOGS.names).filter(([pid, nm]) => nm[0].toLowerCase().includes(q) && !P.values.some(r => r.player_id === pid)).slice(0, 25).map(([pid, nm]) => { const last = PLOGS.rows[pid][PLOGS.rows[pid].length - 1]; return {player_id: pid, name: nm[0], position: nm[1], team: last[3], group: "Game log only", last: last[0]}; }) : [];
-    let h = `<thead><tr><th>#</th><th class='l'>Player</th><th>Team</th><th>Pos</th><th class='l'>Status</th><th>Games</th><th>Plays per game</th><th>Share</th><th>Rate</th><th>Above replacement</th><th class='l'>Coverage (PFR, last 8)</th><th>Points if out</th></tr></thead><tbody>`;
+    const C = window.PCAREER;
+    const extra = (q && q.length >= 2 && C) ? Object.entries(C.names).filter(([pid, nm]) => nm[0].toLowerCase().includes(q) && !P.values.some(r => r.player_id === pid)).slice(0, 25).map(([pid, nm]) => { const last = (C.careers.rows[pid] || []).map(r => r[0]).sort().pop(); return {player_id: pid, name: nm[0], position: nm[1], last}; }) : [];
+    const badge = r => { const x = String(r.status || ""); return OUT_RE.test(x) ? `<span class="badge out" style="margin-left:6px">${esc(x.split(/[ (]/)[0].toUpperCase())}</span>` : (/^Questionable/.test(x) ? `<span class="badge" style="margin-left:6px">Q</span>` : ""); };
+    const isSkill = !q && grp === "Skill", isQB = !q && grp === "QB";
+    $("pllisth").textContent = q ? `Players matching "${$("plq").value.trim()}"` : `${GROUP_LABEL[grp] || grp}, ranked by value over a backup`;
+    let h = `<thead><tr><th>#</th><th class="l">Player</th><th class="l">Team</th><th>Pos</th><th title="expected points he adds over a replacement-level backup (Model → Definitions)">Value over a backup</th>${isQB ? `<th title="value per dropback x dropbacks a game">Points a game</th>` : ""}${isSkill ? `<th title="what the model takes off his team's expected points when he is out">Points if out</th>` : ""}<th>Games</th><th>${q ? "Plays a game" : VOL_LABEL[grp] || "Plays a game"}</th></tr></thead><tbody>`;
     let lastG = null, n = 0;
-    rows.forEach(r => { if (q && r.group !== lastG) { h += `<tr class="grp"><td class="l" colspan="12"><b>${GROUP_LABEL[r.group] || r.group}</b></td></tr>`; lastG = r.group; n = 0; } n++; const stt = r.status ? (OUT_RE.test(r.status) ? `<span class="badge flag">${esc(r.status)}</span>` : esc(r.status)) : "";
-      h += `<tr class="pl ${plSel === r.player_id ? "on" : ""}" data-pid="${r.player_id}" style="cursor:pointer"><td>${n}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.team}</td><td>${esc(r.position || "")}</td><td class="l">${stt}</td><td class="mono">${r.games ?? ""}</td><td class="mono">${r.plays_per_game ?? ""}</td><td class="mono">${r.share == null ? "" : (100 * r.share).toFixed(0) + "%"}</td><td class="mono">${r.epa_per_play == null ? "" : r.epa_per_play.toFixed(3)}</td><td class="mono">${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}</td><td class="l" style="font-size:11.5px">${covTxt(r)}</td><td class="mono">${r.group === "Skill" && r.value_above_replacement > 0 ? "-" + (w * r.value_above_replacement).toFixed(1) : ""}</td></tr>`; });
-    if (extra.length) { h += `<tr class="grp"><td class="l" colspan="12"><b>Game log only (no value this season)</b></td></tr>`; extra.forEach((r, i) => { h += `<tr class="pl ${plSel === r.player_id ? "on" : ""}" data-pid="${r.player_id}" style="cursor:pointer"><td>${i + 1}</td><td class="l"><b>${esc(r.name)}</b></td><td>${r.team}</td><td>${esc(r.position || "")}</td><td class="l rk">last seen ${r.last}</td><td colspan="7"></td></tr>`; }); }
+    rows.forEach(r => { if (q && r.group !== lastG) { h += `<tr class="grp"><td class="l" colspan="9"><b>${GROUP_LABEL[r.group] || r.group}</b></td></tr>`; lastG = r.group; n = 0; } n++;
+      const v = r.value_above_replacement;
+      h += `<tr class="pl ${plSel === r.player_id ? "on" : ""}" data-pid="${r.player_id}" style="cursor:pointer"><td class="mono">${n}</td><td class="l"><b>${esc(r.name)}</b>${badge(r)}</td><td class="l">${LOGO(r.team)}${r.team}</td><td>${esc(r.position || "")}</td><td class="mono ${v > 0 ? "pos" : "neg"}">${v >= 0 ? "+" : ""}${v.toFixed(3)}</td>${isQB ? `<td class="mono">${r.plays_per_game == null ? "" : (v >= 0 ? "+" : "") + (v * r.plays_per_game).toFixed(1)}</td>` : ""}${isSkill ? `<td class="mono">${v > 0 ? "-" + (w * v).toFixed(1) : ""}</td>` : ""}<td class="mono">${r.games ?? ""}</td><td class="mono">${r.plays_per_game == null ? "" : (grp === "OL" && !q ? Math.round(100 * r.plays_per_game) + "%" : (+r.plays_per_game).toFixed(1))}</td></tr>`; });
+    if (extra.length) { h += `<tr class="grp"><td class="l" colspan="9"><b>Not on a roster now</b></td></tr>`; extra.forEach((r, i) => { h += `<tr class="pl ${plSel === r.player_id ? "on" : ""}" data-pid="${r.player_id}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l"><b>${esc(r.name)}</b></td><td class="l"></td><td>${esc(r.position || "")}</td><td class="mono" colspan="5">last played ${r.last || ""}</td></tr>`; }); }
+    if (!rows.length && !extra.length) h += `<tr><td class="l" colspan="9">${q && !C ? "Loading…" : "No one matches."}</td></tr>`;
     $("pltable").innerHTML = h + "</tbody>";
-    $("pltable").querySelectorAll("tr.pl").forEach(tr => tr.addEventListener("click", () => { plSel = tr.dataset.pid; plSeason = null; renderPlayersTab(); }));
+    $("pltable").querySelectorAll("tr.pl").forEach(tr => tr.addEventListener("click", () => { plSel = tr.dataset.pid; plSeason = null; renderPlayersTab(); $("plcard").scrollIntoView({behavior: "smooth", block: "start"}); }));
+    if (q && !C) needCareers(renderPlayersTab);
     if (plSel) renderPlayerPage(plSel);
   }
-  let plSeason = null;
-  // the player page: header, profile (the projection's inputs), game log with splits, projections and grades, value history
+  // one player's page: header and headline numbers, this week and the season ahead, the game log for any season with every stat, career by season, projections against results
   function renderPlayerPage(pid) {
-    const P = window.PLAYERS, PF = window.PROFILES || {}, LG = window.PLOGS, REC = window.PROPS_REC || {};
-    const cur = P.values.find(r => r.player_id === pid); const lognm = LG && LG.names[pid];
-    const name = P.names[pid] || (cur && cur.name) || (lognm && lognm[0]) || pid; const pos = (cur && cur.position) || (lognm && lognm[1]) || "";
-    $("plname").innerHTML = `${esc(name)} <span class="rk">${esc(pos)}${cur ? " · " + cur.team : ""}</span>${cur && cur.status ? " " + (OUT_RE.test(cur.status) ? `<span class="badge flag">${esc(cur.status)}</span>` : `<span class="rk">${esc(cur.status)}</span>`) : ""}`;
-    const f1 = v => v == null ? "" : (+v).toFixed(1), f2 = v => v == null ? "" : (+v).toFixed(2), f3 = v => v == null ? "" : (+v).toFixed(3);
-    const st = (x, key, lab) => x && x[key] != null ? `<span class="chip" title="${x.n} plays">${lab} ${key === "epa" ? ep(x.epa) : f1(x[key])}</span>` : "";
+    const P = window.PLAYERS, PF = window.PROFILES || {}, REC = window.PROPS_REC || {}, C = window.PCAREER;
+    if (!C) { $("plpage").innerHTML = `<p class="note">Loading…</p>`; needCareers(() => renderPlayerPage(pid)); return; }
+    const cur = P.values.find(r => r.player_id === pid); const nm = C.names[pid];
+    const name = P.names[pid] || (cur && cur.name) || (nm && nm[0]) || pid; const pos = (cur && cur.position) || (nm && nm[1]) || "";
+    const car = (C.careers.rows[pid] || []); const seasons = [...new Set(car.map(r => r[0]))].sort((a, b) => b - a);
+    if (plSeason == null || !seasons.includes(plSeason)) plSeason = seasons[0];
+    const team = cur ? cur.team : ((car.find(r => r[0] === seasons[0]) || [])[3] || "").split("/").pop();
+    const sx = String(cur && cur.status || ""); const stB = OUT_RE.test(sx) ? `<span class="badge out">${esc(sx)}</span>` : (sx && sx !== "Active" ? `<span class="badge">${esc(sx)}</span>` : "");
+    $("plhead").innerHTML = `<h3 style="margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${LOGO(team, 26)}${esc(name)} <span class="rk">${esc(pos)}${team ? " · " + team : ""}</span> ${stB}</h3>`;
+    const n1 = v => v == null || isNaN(v) ? "" : (+v).toFixed(1), n0 = v => v == null || isNaN(v) ? "" : Math.round(+v).toLocaleString();
+    const tile = (lab, val, sub) => `<div class="tile"><div class="tl">${lab}</div><div class="tv">${val}</div>${sub ? `<div class="ts">${sub}</div>` : ""}</div>`;
     let h = "";
-    // value this season
-    if (cur) h += `<div class="mv"><span class="chip"><b>${cur.value_above_replacement >= 0 ? "+" : ""}${f3(cur.value_above_replacement)}</b> above replacement</span><span class="chip">${cur.games ?? "?"} games · ${cur.plays_per_game ?? "?"} plays/g${cur.share != null ? " · " + Math.round(100 * cur.share) + "% share" : ""}</span><span class="chip mute">${GROUP_BASIS[cur.group] || ""}</span>${cur.cov_targets != null ? `<span class="chip">${covTxt(cur)}</span>` : ""}</div>`;
-    // profile: what the projection uses
+    // headline tiles
+    const tiles = [];
+    if (cur) tiles.push(tile("Value over a backup", `${cur.value_above_replacement >= 0 ? "+" : ""}${cur.value_above_replacement.toFixed(3)}`, cur.group === "QB" && cur.plays_per_game ? `${(cur.value_above_replacement * cur.plays_per_game >= 0 ? "+" : "") + (cur.value_above_replacement * cur.plays_per_game).toFixed(1)} points a game` : (GROUP_LABEL[cur.group] || "")));
+    const KO = pos === "QB" ? ["pass", "rush", "rec"] : pos === "RB" || pos === "FB" ? ["rush", "rec", "pass"] : ["rec", "rush", "pass"], kRank = k => { const i = KO.indexOf(k); return i < 0 ? 9 : i; };
+    const gms = g => `${g} game${g === 1 ? "" : "s"}`, ordN = n => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({1: "st", 2: "nd", 3: "rd"})[n % 10] || "th");
+    const thisYr = car.filter(r => r[0] === seasons[0]).sort((a, b) => kRank(a[1]) - kRank(b[1])); const S = C.careers.sum_cols;
+    thisYr.forEach(r => { const k = r[1], g = r[2], v = Object.fromEntries(S[k].map((c, i) => [c, r[4 + i]]));
+      if (k === "rec") tiles.push(tile(`${seasons[0]} receiving`, `${n0(v.yards)} yds`, `${v.catches} of ${v.targets} targets · ${v.td} TD · ${gms(g)}`));
+      if (k === "rush") tiles.push(tile(`${seasons[0]} rushing`, `${n0(v.yards)} yds`, `${v.carries} carries · ${v.td} TD · ${gms(g)}`));
+      if (k === "pass") tiles.push(tile(`${seasons[0]} passing`, `${n0(v.yards)} yds`, `${v.completions} of ${v.attempts} · ${v.td} TD · ${v.int} INT · ${gms(g)}`));
+      if (k === "def") tiles.push(tile(`${seasons[0]} defense`, `${n1(v.tackles)} tackles`, `${n1(v.sacks)} sacks · ${v.ints} INT · ${v.passes_defended} passes defended · ${gms(g)}`));
+      if (k === "kick") tiles.push(tile(`${seasons[0]} kicking`, `${n0(v.points)} points`, `${v.fgm} of ${v.fga} field goals · ${v.xpm} of ${v.xpa} extra points`)); });
+    const SP = window.SEASON && SEASON.players ? SEASON.players.rows.filter(r => r.player_id === pid).sort((a, b) => kRank(a.kind) - kRank(b.kind)) : [];
+    SP.forEach(r => tiles.push(tile(`Season projection, ${({rec: "receiving", rush: "rushing", pass: "passing"})[r.kind]}`, `${n0(r.proj_yards)} yds`, `${n1(r.proj_td)} TD · ${ordN(r.rank)} in the league${r.breakout ? " · breakout watch" : ""}`)));
+    if (tiles.length) h += `<div class="tiles" style="margin:10px 0 4px">${tiles.join("")}</div>`;
+    // projections and results (this week first)
+    const lab = {rec_yards: "Receiving yards", rec_catches: "Receptions", rec_td: "Receiving TD", rec_targets: "Targets", rec_longest: "Longest catch", rush_yards: "Rushing yards", rush_td: "Rushing TD", rush_attempts: "Carries", rush_rec_yards: "Rush + rec yards", rush_longest: "Longest rush", pass_yards: "Passing yards", pass_td: "Passing TD", pass_int: "Interceptions", pass_attempts: "Attempts", pass_completions: "Completions", pass_rush_yards: "Pass + rush yards", pass_longest: "Longest completion", def_tackles: "Tackles", def_sacks: "Sacks", def_solo_tackles: "Solo tackles", kick_points: "Kicking points", field_goals: "Field goals"};
+    const projs = (REC.projections || []).filter(r => r.player_id === pid).sort((a, b) => b.season - a.season || b.week - a.week || String(a.stat).localeCompare(b.stat));
+    const graded = Object.fromEntries((REC.graded || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r])); const mk = Object.fromEntries((REC.market || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r]));
+    if (projs.length) h += `<h3 style="margin-top:14px">Projections and results</h3><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th>Week</th><th class="l">Game</th><th class="l">Stat</th><th>Projected</th><th>Actual</th><th title="actual minus projected">Off by</th><th title="the book line where one was logged, and the projection's side">Book</th></tr></thead><tbody>` +
+      projs.map(r => { const g = graded[r.game_id + "|" + r.stat], m = mk[r.game_id + "|" + r.stat]; return `<tr><td class="mono">${r.season} wk ${r.week}</td><td class="l">${esc(r.game_id.slice(8).replace("_", " @ "))}</td><td class="l">${lab[r.stat] || r.stat}</td><td class="mono">${r.proj}</td><td class="mono">${g ? g.actual : ""}</td><td class="mono ${g ? (g.error > 0 ? "pos" : g.error < 0 ? "neg" : "") : ""}">${g ? (g.error > 0 ? "+" : "") + (+g.error).toFixed(1) : ""}</td><td class="mono">${m ? `${m.line} ${m.side} ${m.result || ""}` : ""}</td></tr>`; }).join("") + "</tbody></table></div>";
+    // game log
+    if (seasons.length) {
+      h += `<h3 style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">Game log <select id="plseason">${seasons.map(x => `<option value="${x}" ${x === plSeason ? "selected" : ""}>${x}</option>`).join("")}</select></h3><div id="pllog"><p class="note">Loading ${plSeason}…</p></div>`;
+      h += `<h3 style="margin-top:14px">Career by season</h3>` + careerHtml(car, C);
+    } else h += `<p class="note" style="margin-top:10px">No game on record since 2016.</p>`;
+    // the profile the projections start from
     const pr = PF.receivers && PF.receivers[pid], pu = PF.rushers && PF.rushers[pid], pq = PF.passers && PF.passers[pid];
-    if (pr || pu || pq) {
-      h += `<p class="cap" style="margin-top:10px">Profile, last ${PF.window_games || 17} games <span class="rk">what the projections start from; splits need ${PF.min_split || 15} plays</span></p>`;
-      if (pq) h += `<div class="mv"><span class="chip">Passing: ${pq.dropbacks_pg} dropbacks/g · ${pq.games} games</span><span class="chip">${f2(pq.ypd)} yd/dropback · EPA ${ep(pq.epa_db)}</span><span class="chip">TD ${(100 * pq.td_db).toFixed(1)}% · INT ${(100 * pq.int_db).toFixed(1)}% · sack ${(100 * pq.sack_rate).toFixed(1)}%</span>${st(pq.press, "epa", "pressured EPA")}${st(pq.clean, "epa", "clean EPA")}${st(pq.blitz, "epa", "blitzed EPA")}${st(pq.vs_man, "epa", "vs man EPA")}${st(pq.vs_zone, "epa", "vs zone EPA")}</div>`;
-      if (pr) h += `<div class="mv"><span class="chip">Receiving: ${pr.targets_pg} targets/g · ${Math.round(100 * pr.share)}% of the team's targets (decayed) · ${pr.games} games</span><span class="chip">${f2(pr.ypt)} yd/target · catch ${Math.round(100 * pr.catch)}% · EPA ${ep(pr.epa_pt)}${pr.adot != null ? " · depth " + pr.adot : ""}</span><span class="chip">TD ${(100 * pr.td_pt).toFixed(1)}% of targets</span>${st(pr.vs_man, "yds", "vs man yd/t")}${st(pr.vs_zone, "yds", "vs zone yd/t")}${st(pr.vs_blitz, "yds", "vs blitz yd/t")}${st(pr.vs_press, "yds", "QB pressured yd/t")}</div>`;
-      if (pu) h += `<div class="mv"><span class="chip">Rushing: ${pu.carries_pg} carries/g · ${Math.round(100 * pu.share)}% of the team's runs (decayed) · ${pu.games} games</span><span class="chip">${f2(pu.ypc)} yd/carry · EPA ${ep(pu.epa_pc)} · success ${Math.round(100 * pu.success)}%</span><span class="chip">TD ${(100 * pu.td_pc).toFixed(1)}% of carries</span>${st(pu.light, "yds", "light box yd/c")}${st(pu.mid, "yds", "7-man box yd/c")}${st(pu.heavy, "yds", "heavy box yd/c")}</div>`;
-    }
-    // projections and grades
-    const projs = (REC.projections || []).filter(r => r.player_id === pid).sort((a, b) => b.season - a.season || b.week - a.week); const graded = Object.fromEntries((REC.graded || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r])); const mk = Object.fromEntries((REC.market || []).filter(r => r.player_id === pid).map(r => [r.game_id + "|" + r.stat, r]));
-    if (projs.length) { const lab = {rec_yards: "Rec yds", rec_catches: "Receptions", rec_td: "Rec TD", rush_yards: "Rush yds", rush_td: "Rush TD", pass_yards: "Pass yds", pass_td: "Pass TD", pass_int: "INT"};
-      h += `<p class="cap" style="margin-top:10px">Projections and grades <span class="rk">every weekly run; graded once the game is played; book line where one was logged</span></p><div class="tablewrap" style="max-height:34vh"><table><thead><tr><th>Week</th><th class="l">Game</th><th class="l">Stat</th><th>Projection</th><th>Actual</th><th>Error</th><th>Book</th><th>Side</th><th>Result</th></tr></thead><tbody>` +
-        projs.map(r => { const g = graded[r.game_id + "|" + r.stat], m = mk[r.game_id + "|" + r.stat]; return `<tr><td class="mono">${r.season} wk${r.week}</td><td class="l">${r.game_id.slice(8)}</td><td class="l">${lab[r.stat] || r.stat}</td><td class="mono">${r.proj}</td><td class="mono">${g ? g.actual : ""}</td><td class="mono ${g ? (Math.abs(g.error) < 5 ? "pos" : "") : ""}">${g ? (g.error >= 0 ? "+" : "") + g.error : ""}</td><td class="mono">${m ? m.line : ""}</td><td>${m ? m.side : ""}</td><td class="${m ? (m.result === "win" ? "pos" : (m.result === "loss" ? "neg" : "")) : ""}">${m ? m.result : ""}</td></tr>`; }).join("") + "</tbody></table></div>"; }
-    // game log with splits
-    if (LG && LG.rows[pid]) { const rowsAll = LG.rows[pid]; const seasons = [...new Set(rowsAll.map(r => r[0]))].sort((a, b) => b - a); if (plSeason == null || !seasons.includes(plSeason)) plSeason = seasons[0];
-      const rows = rowsAll.filter(r => r[0] === plSeason).slice().sort((a, b) => b[1] - a[1]); const kinds = [...new Set(rows.map(r => r[5]))];
-      h += `<p class="cap" style="margin-top:10px">Game log <span class="rk">from the charted plays, 2016 on</span> <select id="plseason" style="margin-left:8px">${seasons.map(x => `<option value="${x}" ${x === plSeason ? "selected" : ""}>${x}</option>`).join("")}</select></p>`;
-      const KL = {rec: ["Receiving", "Targets", "Catches", ["vs man", "vs zone", "QB pressured"]], rush: ["Rushing", "Carries", null, ["light box", "heavy box", null]], pass: ["Passing", "Dropbacks", "Completions", ["vs man", "vs zone", "pressured"]]};
-      kinds.forEach(k => { const K = KL[k]; const kr = rows.filter(r => r[5] === k); const tot = kr.reduce((a, r) => { a.n += r[6]; a.made += r[7] || 0; a.yds += r[8]; a.td += r[9]; a.int += r[10]; a.epa += r[11]; a.an += r[12]; a.ay += r[13]; a.bn += r[14]; a.by += r[15]; a.cn += r[16]; a.cy += r[17]; return a; }, {n: 0, made: 0, yds: 0, td: 0, int: 0, epa: 0, an: 0, ay: 0, bn: 0, by: 0, cn: 0, cy: 0});
-        const sp = (n, y) => n ? `${n} · ${(y / n).toFixed(1)}` : "";
-        h += `<div class="tablewrap" style="max-height:40vh;margin-top:4px"><table><thead><tr><th class="l">${K[0]}</th><th class="l">Opp</th><th>${K[1]}</th>${K[2] ? `<th>${K[2]}</th>` : ""}<th>Yards</th><th>TD</th>${k === "pass" ? "<th>INT</th>" : ""}<th>EPA</th><th title="plays in the look · yards per play">${K[3][0]}</th><th title="plays in the look · yards per play">${K[3][1]}</th>${K[3][2] ? `<th title="plays in the look · yards per play">${K[3][2]}</th>` : ""}<th title="the longest gain of the game (round 8 input)">Longest</th>${k !== "rush" ? `<th title="air yards on his targets or throws (depth of target)">Air yds</th>` : ""}</tr></thead><tbody>` +
-          kr.map(r => `<tr><td class="l mono">wk ${r[1]}</td><td class="l">${r[3]} ${r[3] === r[2].split("_")[3] ? "vs" : "@"} ${r[4]}</td><td class="mono">${r[6]}</td>${K[2] ? `<td class="mono">${r[7] ?? ""}</td>` : ""}<td class="mono">${r[8]}</td><td class="mono">${r[9]}</td>${k === "pass" ? `<td class="mono">${r[10]}</td>` : ""}<td class="mono ${r[11] > 0 ? "pos" : (r[11] < 0 ? "neg" : "")}">${ep(r[11])}</td><td class="mono">${sp(r[12], r[13])}</td><td class="mono">${sp(r[14], r[15])}</td>${K[3][2] ? `<td class="mono">${sp(r[16], r[17])}</td>` : ""}<td class="mono">${r[18] ?? ""}</td>${k !== "rush" ? `<td class="mono">${r[19] ?? ""}</td>` : ""}</tr>`).join("") +
-          `<tr class="hl"><td class="l"><b>${plSeason}</b></td><td class="l">${kr.length} games</td><td class="mono"><b>${tot.n}</b></td>${K[2] ? `<td class="mono">${tot.made}</td>` : ""}<td class="mono"><b>${tot.yds}</b></td><td class="mono">${tot.td}</td>${k === "pass" ? `<td class="mono">${tot.int}</td>` : ""}<td class="mono">${ep(tot.epa)}</td><td class="mono">${sp(tot.an, tot.ay)}</td><td class="mono">${sp(tot.bn, tot.by)}</td>${K[3][2] ? `<td class="mono">${sp(tot.cn, tot.cy)}</td>` : ""}<td class="mono">${Math.max(0, ...kr.map(r => r[18] || 0))}</td>${k !== "rush" ? `<td class="mono">${kr.reduce((a, r) => a + (r[19] || 0), 0)}</td>` : ""}</tr></tbody></table></div>`; });
-    } else if (!LG) h += `<p class="note" style="margin-top:8px">Loading the game logs…</p>`;
-    // value history
-    const hist = (P.history[pid] || []).slice().sort((a, b) => b[0] - a[0] || String(a[2]).localeCompare(b[2]));
-    if (hist.length) h += `<p class="cap" style="margin-top:10px">Seasons <span class="rk">raw play-by-play, no decay or shrinkage, 2013 on</span></p><div class="tablewrap" style="max-height:30vh"><table><thead><tr><th>Season</th><th>Team</th><th class='l'>Role</th><th>Games</th><th>Plays</th><th>EPA per play</th></tr></thead><tbody>${hist.map(x => `<tr><td>${x[0]}</td><td>${x[1]}</td><td class="l">${x[2] === "receiver" ? "Targets" : (x[2] === "rusher" ? "Carries" : (x[2] === "passer" ? "Dropbacks" : x[2]))}</td><td class="mono">${x[3]}</td><td class="mono">${x[4]}</td><td class="mono">${x[5] == null ? "" : x[5].toFixed(3)}</td></tr>`).join("")}</tbody></table></div>`;
-    if (!h) h = "<p class='note' style='margin:0'>Nothing on record for this player.</p>";
+    const splitRows = (x, list) => list.map(([k, l]) => x && x[k] ? `<tr><td class="l">${l}</td><td class="mono">${x[k].n}</td><td class="mono">${n1(x[k].yds)}</td><td class="mono">${x[k].epa >= 0 ? "+" : ""}${(+x[k].epa).toFixed(2)}</td><td class="mono">${Math.round(100 * x[k].success)}%</td></tr>` : "").join("");
+    let prof = "";
+    if (pq) prof += splitRows(pq, [["vs_man", "Passing, against man"], ["vs_zone", "Passing, against zone"], ["press", "Passing, under pressure"], ["clean", "Passing, clean pocket"], ["blitz", "Passing, blitzed"], ["noblitz", "Passing, not blitzed"]]);
+    if (pr) prof += splitRows(pr, [["vs_man", "Targets against man"], ["vs_zone", "Targets against zone"], ["vs_blitz", "Targets when the QB is blitzed"], ["vs_press", "Targets when the QB is pressured"]]);
+    if (pu) prof += splitRows(pu, [["light", "Runs into a light box (6 or fewer)"], ["mid", "Runs into 7 in the box"], ["heavy", "Runs into a heavy box (8+)"]]);
+    if (prof) h += `<h3 style="margin-top:14px">Against the looks, last ${PF.window_games || 17} games</h3><div class="tablewrap"><table><thead><tr><th class="l">Look</th><th>Plays</th><th>Yards a play</th><th>EPA a play</th><th>Success</th></tr></thead><tbody>${prof}</tbody></table></div>`;
     $("plpage").innerHTML = h;
-    const ss = $("plseason"); if (ss) ss.onchange = () => { plSeason = +ss.value; renderPlayerPage(pid); };
+    const ss = $("plseason"); if (ss) ss.onchange = () => { plSeason = +ss.value; renderPlayerLog(pid); };
+    if (seasons.length) renderPlayerLog(pid);
   }
-  ["plq", "plteam", "plpos", "plstatus"].forEach(id => { const el = $(id); if (el) { el.addEventListener("input", renderPlayersTab); el.addEventListener("change", renderPlayersTab); } });
+  function careerHtml(car, C) {
+    const S = C.careers.sum_cols; const KL = {rec: "Receiving", rush: "Rushing", pass: "Passing", def: "Defense", kick: "Kicking"};
+    const HD = {rec: ["Targets", "Catches", "Yards", "TD", "EPA"], rush: ["Carries", "Yards", "TD", "EPA"], pass: ["Attempts", "Completions", "Yards", "TD", "INT", "Sacks", "EPA"], def: ["Tackles", "Sacks", "INT", "Passes defended"], kick: ["FG made", "FG tried", "XP made", "XP tried", "Points"]};
+    return [...new Set(car.map(r => r[1]))].map(k => { const rs = car.filter(r => r[1] === k).sort((a, b) => b[0] - a[0]);
+      return `<div class="tablewrap" style="margin-top:6px"><table><thead><tr><th class="l">${KL[k]}</th><th class="l">Team</th><th>Games</th>${HD[k].map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>` + rs.map(r => `<tr><td class="l mono">${r[0]}</td><td class="l">${esc(r[3])}</td><td class="mono">${r[2]}</td>${S[k].map((c, i) => `<td class="mono">${c === "epa" ? ((r[4 + i] >= 0 ? "+" : "") + (+r[4 + i]).toFixed(1)) : (Number.isInteger(r[4 + i]) ? r[4 + i].toLocaleString() : (+r[4 + i]).toFixed(1))}</td>`).join("")}</tr>`).join("") + "</tbody></table></div>"; }).join("");
+  }
+  // one season of a player's games: every stat, a totals row; the look splits only where the plays were charted
+  function renderPlayerLog(pid) {
+    const yr = plSeason; const C = window.PCAREER;
+    needSeason(yr, () => {
+      const L = (window.PLOGS_S || {})[yr] || {}; const mine = L[pid]; const el = $("pllog"); if (!el) return;
+      if (!mine) { el.innerHTML = `<p class="note">No games in ${yr}.</p>`; return; }
+      const charted = yr <= C.last_charted;
+      const T = {
+        rec: {title: "Receiving", cols: [["snaps", "Snaps", "s"], ["targets", "Targets", "n"], ["catches", "Catches", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["yac", "Yards after catch", "n"], ["first_downs", "First downs", "n"], ["rz_targets", "Red-zone targets", "n"], ["drops", "Drops", "n"], ["broken_tackles", "Broken tackles", "n"], ["rating_when_targeted", "Passer rating when targeted", "r"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "QB pressured"]]},
+        rush: {title: "Rushing", cols: [["snaps", "Snaps", "s"], ["carries", "Carries", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["first_downs", "First downs", "n"], ["rz_carries", "Red-zone carries", "n"], ["yds_before_contact", "Yards before contact", "n"], ["yds_after_contact", "Yards after contact", "n"], ["broken_tackles", "Broken tackles", "n"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["light", "Light box (6 or fewer)"], ["heavy", "Heavy box (8+)"]], always: true},
+        pass: {title: "Passing", cols: [["snaps", "Snaps", "s"], ["dropbacks", "Dropbacks", "n"], ["completions", "Completions", "n"], ["attempts", "Attempts", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["int", "INT", "n"], ["sacks", "Sacks", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["first_downs", "First downs", "n"], ["bad_throws", "Bad throws", "n"], ["pressured", "Pressured", "n"], ["blitzed", "Blitzed", "n"], ["hit", "Hit", "n"], ["drops_by_receivers", "Receivers' drops", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "Under pressure"]]},
+        def: {title: "Defense", cols: [["snaps", "Snaps", "s"], ["tackles", "Tackles", "t"], ["solo", "Solo", "n"], ["sacks", "Sacks", "t"], ["ints", "INT", "n"], ["passes_defended", "Passes defended", "n"], ["plays_faced", "Plays faced", "n"], ["targets_allowed", "Targets allowed", "n"], ["completions_allowed", "Catches allowed", "n"], ["yards_allowed", "Yards allowed", "n"], ["td_allowed", "TD allowed", "n"], ["rating_allowed", "Passer rating allowed", "r"], ["pressures", "Pressures", "n"], ["missed_tackles", "Missed tackles", "n"]], splits: []},
+        kick: {title: "Kicking", cols: [["fgm", "FG made", "n"], ["fga", "FG tried", "n"], ["xpm", "XP made", "n"], ["xpa", "XP tried", "n"], ["points", "Points", "n"]], splits: []}};
+      let h = "";
+      Object.keys(T).forEach(k => { const rows = mine[k]; if (!rows || !rows.length) return; const cols = C.cols[k], ix = Object.fromEntries(cols.map((c, i) => [c, i])), t = T[k];
+        const has = c => rows.some(r => r[ix[c]] != null && r[ix[c]] !== 0);
+        const shown = t.cols.filter(([c]) => c === "epa" || c === "snaps" || has(c) || ["targets", "catches", "yards", "td", "carries", "dropbacks", "completions", "attempts", "int", "tackles", "fgm", "fga", "points"].includes(c));
+        const spl = t.splits.filter(([sp]) => (t.always || charted) && rows.some(r => r[ix[sp + "_n"]] > 0));
+        const cell = (r, c, kind) => { const v = r[ix[c]]; if (v == null) return ""; if (kind === "s") return `${v}${r[ix.snap_pct] != null ? ` <small>${Math.round(100 * r[ix.snap_pct])}%</small>` : ""}`; if (kind === "e") return `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${(+v).toFixed(1)}</span>`; if (kind === "r" || kind === "t") return (+v).toFixed(1); return (+v).toLocaleString(); };
+        const tot = c => rows.reduce((a, r) => a + (+r[ix[c]] || 0), 0);
+        const totCell = (c, kind) => { if (kind === "s") return tot("snaps") ? tot("snaps").toLocaleString() : ""; if (kind === "m") return Math.max(...rows.map(r => r[ix[c]] || 0)); if (kind === "r") { const vs = rows.map(r => r[ix[c]]).filter(v => v != null); return vs.length ? (vs.reduce((a, b) => a + b, 0) / vs.length).toFixed(1) : ""; } if (kind === "e") { const v = tot(c); return `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${v.toFixed(1)}</span>`; } if (kind === "t") return tot(c).toFixed(1); return tot(c).toLocaleString(); };
+        const sp = (r, s_) => r[ix[s_ + "_n"]] ? `${r[ix[s_ + "_n"]]} · ${(r[ix[s_ + "_yds"]] / r[ix[s_ + "_n"]]).toFixed(1)}` : "";
+        const spT = s_ => { const n = tot(s_ + "_n"), y = tot(s_ + "_yds"); return n ? `${n} · ${(y / n).toFixed(1)}` : ""; };
+        h += `<div class="tablewrap" style="margin-top:6px"><table><thead><tr><th class="l">${t.title}</th><th class="l">Opponent</th>${shown.map(([, l]) => `<th>${l}</th>`).join("")}${spl.map(([, l]) => `<th title="plays · yards a play">${l}</th>`).join("")}</tr></thead><tbody>` +
+          rows.slice().sort((a, b) => b[0] - a[0]).map(r => `<tr><td class="l mono">Wk ${r[0]}</td><td class="l">${r[2] && r[1].split("_")[3] === r[2] ? "vs" : "@"} ${LOGO(r[3])}${r[3] || ""}</td>${shown.map(([c, , kd]) => `<td class="mono">${cell(r, c, kd)}</td>`).join("")}${spl.map(([s_]) => `<td class="mono">${sp(r, s_)}</td>`).join("")}</tr>`).join("") +
+          `<tr class="hl"><td class="l"><b>${yr}</b></td><td class="l">${rows.length} games</td>${shown.map(([c, , kd]) => `<td class="mono"><b>${totCell(c, kd)}</b></td>`).join("")}${spl.map(([s_]) => `<td class="mono"><b>${spT(s_)}</b></td>`).join("")}</tr></tbody></table></div>`; });
+      if (!charted && (mine.rec || mine.pass)) h += `<div class="chips" style="margin-top:6px"><span class="chip mute" title="nflverse publishes the participation charting (coverage, pressure, personnel) for a season some time after it is played; the pull tries every run and the columns fill in the day it appears">Coverage and pressure splits: charted through ${C.last_charted}, ${yr} not published yet</span></div>`;
+      el.innerHTML = h || `<p class="note">No games in ${yr}.</p>`;
+    });
+  }
+  // the search box re-renders as you type; the pickers on change (a change event on leaving the search box would re-render the list under a click)
+  $("plq").addEventListener("input", renderPlayersTab); ["plteam", "plpos", "plstatus"].forEach(id => $(id).addEventListener("change", renderPlayersTab));
   function renderPlayers() {
     const P = ((data && data.players) || []).filter(r => r.value_above_replacement != null); const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     if (!P.length) { $("playerstable").innerHTML = "<tbody><tr><td>No player values exported for this team.</td></tr></tbody>"; return; }
@@ -1649,38 +1698,6 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       rows.forEach(r => { h += `<tr><td class="l"></td><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position || "")}</td><td class="l">${st(r.status)}</td><td class="mono">${r.games ?? ""}</td><td class="mono">${r.plays_per_game ?? ""}</td><td class="mono">${r.share == null ? "" : (100 * r.share).toFixed(0) + "%"}</td><td class="mono">${r.epa_per_play == null ? "" : r.epa_per_play.toFixed(3)}</td><td class="mono">${r.value_above_replacement >= 0 ? "+" : ""}${r.value_above_replacement.toFixed(3)}</td><td class="l" style="font-size:11.5px">${covTxt(r)}</td><td class="mono">${g === "Skill" && r.value_above_replacement > 0 ? "-" + (w * r.value_above_replacement).toFixed(1) : (g === "QB" ? "QB flag" : "")}</td></tr>`; }); });
     $("playerstable").innerHTML = h + "</tbody>";
   }
-  function renderInputs() {
-    const rs = rows();
-    const sel = $("game"); sel.innerHTML = "";
-    rs.forEach((r, i) => { const o = document.createElement("option"); o.value = i; o.textContent = `Wk ${r.week} ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " " + r.pf + "-" + r.pa : ""}`; sel.appendChild(o); });
-    if (gameIdx >= rs.length) gameIdx = 0;
-    sel.value = gameIdx; sel.onchange = e => { gameIdx = +e.target.value; renderInputs(); };
-    const r = rs[gameIdx]; if (!r) { $("inputstable").innerHTML = ""; $("gamekv").innerHTML = ""; return; }
-    const co = coefsForGame(r.game_id, season);
-    let h = "<thead><tr><th class='l'>Input</th><th>Value</th><th title='from the fit that priced this game (refit before every week)'>Points per unit</th><th title='the training mean for a rating, 0 for a situation flag'>Baseline</th><th>Contribution (pts)</th></tr></thead><tbody>";
-    const base = neutralBase(co);
-    let total = base, known = true;
-    h += `<tr><td class="l" title="the intercept ${co.intercept.toFixed(2)} moved to away, outdoors, no wind, normal rest, not a division game, not primetime"><b>Base: league-average team, neutral game</b></td><td></td><td></td><td></td><td class="mono">${base.toFixed(2)}</td></tr>`;
-    GROUPS.forEach(([gname, fs]) => {
-      h += `<tr class="grp"><td class="l" colspan="5"><b>${gname}</b></td></tr>`;
-      fs.filter(f => META.feats.includes(f)).forEach(f => { const v = featValue(r, f); const c = co.per_unit[f], mu = SIT.has(f) ? 0 : co.mean[f]; const contrib = v == null ? null : c * (v - mu); if (contrib == null) known = false; else total += contrib;
-        h += `<tr><td class="l" title="${f}">${FEAT_LABEL[f] || f}</td><td class="mono">${v == null ? "n/a" : fmt(v, f)}</td><td class="mono">${c.toFixed(3)}</td><td class="mono">${SIT.has(f) ? "0" : mu.toFixed(3)}</td><td class="mono ${contrib > 0 ? "pos" : (contrib < 0 ? "neg" : "")}">${contrib == null ? "" : sgn(contrib, 2)}</td></tr>`; });
-    });
-    h += `<tr class="sum"><td class="l"><b>Sum = expected points</b></td><td></td><td></td><td></td><td class="mono"><b>${total.toFixed(2)}</b>${known ? "" : " (an input is missing)"}</td></tr></tbody>`;
-    $("inputstable").innerHTML = h;
-    const kv = [["Model expected points", r.m_exp_pf != null ? r.m_exp_pf.toFixed(1) + " for, " + r.m_exp_pa.toFixed(1) + " against" : "not priced"],
-      ["Vegas implied", r.implied_pf != null ? r.implied_pf.toFixed(1) + " for, " + r.implied_pa.toFixed(1) + " against" : "no line"],
-      ["Closing line, this team", r.team_spread != null ? (r.team_spread > 0 ? "-" : "+") + Math.abs(r.team_spread) + " / " + r.total_line : ""],
-      ["Model win / cover / over", r.m_win != null ? pct(r.m_win) + " / " + pct(r.m_cover) + " / " + pct(r.m_over) : ""],
-      ["Result", r.pf != null ? r.pf + "-" + r.pa : "not played"],
-      ["Starting QB", esc(r.qb_name || "") + (r.qb_rating != null ? " (rating " + r.qb_rating.toFixed(3) + ")" : "")],
-      ["Coach / referee", esc(r.coach || "") + " / " + esc(r.referee || "")],
-      ["Weather", r.dome ? "dome" : ((r.temp != null ? r.temp + "F" : "") + (r.wind != null ? ", wind " + r.wind + " mph" : ""))],
-      ["Trend readings (shown, not used)", `home edge ${fmt(r.team_home_edge)} · h2h ${fmt(r.h2h_cover)} · coach ATS ${fmt(r.coach_ats)} · QB ATS ${fmt(r.qb_ats)} · ref over ${fmt(r.ref_over, "ref_over")} · ref home cover ${fmt(r.ref_home_cover, "ref_home_cover")}`],
-      ["Injuries", `offense starters out ${fmt(r.off_starters_out)} · defense ${fmt(r.def_starters_out)} · QB out ${r.qb_out ? "yes" : "no"}`]];
-    $("gamekv").innerHTML = kv.map(([k, v]) => `<b>${k}</b><span>${v}</span>`).join("");
-  }
-
   // ---------- Model: how it was built ----------
   function mdToHtml(md) {
     const lines = md.split("\n"); let h = "", i = 0;
@@ -1842,7 +1859,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const pers = (A.persistence || []);
     $("analysis").innerHTML = `
       <h2>What kind of model this is</h2>
-      <p class="note">Not a language model and not a black box. Three plain steps. (1) <b>Ratings</b>: for each stat, one equation per game, what the offense did = league average + offense rating − opponent's defense rating + home bump, solved for all 64 ratings at once by weighted least squares with a pull toward average (Team → How a rating is built shows every row). (2) <b>Points</b>: a linear equation, fit by ridge regression on every team-game since 2013 and refit before every week on every game played before it. Points = intercept + Σ coefficient × (input − training average). The whole equation for ${season} is below; Team → Game deep dive shows it filled in for any game. (3) <b>Odds</b>: the margin error has a 13.1-point spread; a normal centered on the predicted margin, reshaped by key-number weights so 3 and 7 get their real share, gives win, cover and over odds.</p>
+      <p class="note">Not a language model and not a black box. Three plain steps. (1) <b>Ratings</b>: for each stat, one equation per game, what the offense did = league average + offense rating − opponent's defense rating + home bump, solved for all 64 ratings at once by weighted least squares with a pull toward average (Team → How a rating is built shows every row). (2) <b>Points</b>: a linear equation, fit by ridge regression on every team-game since 2013 and refit before every week on every game played before it. Points = intercept + Σ coefficient × (input − training average). The whole equation for ${season} is below; Team → Each card's Why these numbers shows it filled in for this week's games, and Teams → Game log carries every input for every past game. (3) <b>Odds</b>: the margin error has a 13.1-point spread; a normal centered on the predicted margin, reshaped by key-number weights so 3 and 7 get their real share, gives win, cover and over odds.</p>
       <div class="eq">${eq}</div>
       <p class="note">Coefficients are in points per unit of the input. Sign and size are what the data fitted, not hand-set: for example home field is worth ${co.per_unit.home.toFixed(2)} points and each mph of wind costs ${Math.abs(co.per_unit.wind_out).toFixed(3)}.</p>
       <h2>Why every game starts at the league average</h2>
@@ -1854,7 +1871,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <h2>Do the QB rating and the offense ratings double count?</h2>
       <p class="note">No, but they overlap, and the regression is what sorts that out. The starter's QB rating and the team's offense EPA rating move together (correlation 0.68 across 2013 to 2025). Because every input is fitted at once, each coefficient is the effect of that input with the others held fixed: the QB coefficient (+1.4 points per standard deviation) is what the starter adds beyond what the offense ratings already say, and the offense EPA coefficient (+0.6 per SD) is what the offense adds beyond its QB. Drop the QB rating and refit, and the offense EPA coefficient rises to +1.4 per SD: the shared credit goes back to the offense, it is not counted twice. The QB rating earns its place because a team's stats do not know when the QB changes, and because the QB's own history (across teams and seasons) is a longer record than one team's last few weeks; the ablation puts its value at 0.08 points of accuracy, the largest of any input.</p>
       <h2>Why the breakdown starts from a neutral game</h2>
-      <p class="note">The regression's intercept is the average score in the training games, which were played half at home, in wind of about 6 mph, and so on. Read against that average, a dome game would show "wind +0.84" for having none, which is true but confusing. The cards and the deep dive therefore move the intercept to a neutral game (away, outdoors, no wind, normal rest, no long rest, not a division game, not primetime) and list only the situation inputs that apply; the ratings are still measured from the league average, since a rating is a distance from average by construction. The sum is identical either way.</p>
+      <p class="note">The regression's intercept is the average score in the training games, which were played half at home, in wind of about 6 mph, and so on. Read against that average, a dome game would show "wind +0.84" for having none, which is true but confusing. The cards therefore move the intercept to a neutral game (away, outdoors, no wind, normal rest, no long rest, not a division game, not primetime) and list only the situation inputs that apply; the ratings are still measured from the league average, since a rating is a distance from average by construction. The sum is identical either way.</p>
       <h2>How the stats were chosen</h2>
       <p class="note">Correlating a stat with points, wins or the spread over the same games rewards outcomes (points scored, red zone TD%, Sc%) that describe the past but repeat badly. The test here asks a stat through Week 8 to predict points in Weeks 9 to 17, every season 2012 to 2025. EPA per play is the best predictor; red zone TD% looks like 0.47 same-season and predicts at 0.19.</p>
       <div class="grid2"><div class="card viz-root">${bars}</div><div>${cTable(corr)}</div></div>
@@ -2161,7 +2178,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else if (sub.results === "seasonbt") renderSeasonBacktest(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "inputs") renderInputs(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); }
   }
   // numbers written into the definitions come from the data files, so no sentence can go stale
   document.querySelectorAll("[data-pk]").forEach(el => { const v = el.dataset.pk.split(".").reduce((o, k) => (o == null ? null : o[k]), window.PROPS || null); el.textContent = v == null ? "" : String(v); });
