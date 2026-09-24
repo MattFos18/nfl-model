@@ -1,0 +1,22 @@
+stat,variant,mae_2019-22,mae_2023-25,n
+rec_yards,base,19.305,18.278,36406
+rec_yards,C_k20,19.446,18.484,36406
+rec_yards,C_k50,19.347,18.352,36406
+rec_yards,C_k100,19.317,18.306,36406
+rec_yards,C_k200,19.307,18.287,36406
+rec_yards,A_pos_rate_w0.25,19.319,18.311,36406
+rec_yards,A_pos_rate_w0.5,19.325,18.323,36406
+rec_yards,B_pos_share_w0.25,19.304,18.271,36406
+rec_yards,B_pos_share_w0.5,19.314,18.275,36406
+rec_yards,B_pos_share_w1.0,19.37,18.321,36406
+rec_yards,"D_all (A_pos_rate_w0.25, B_pos_share_w0.25, C_k200)",19.319,18.308,36406
+rush_yards,base,17.858,17.037,17685
+rush_yards,C_k20,18.044,17.3,17685
+rush_yards,C_k50,17.91,17.14,17685
+rush_yards,C_k100,17.867,17.08,17685
+rush_yards,C_k200,17.852,17.054,17685
+pass_yards,base,56.637,56.398,4999
+pass_yards,C_k20,61.482,59.728,4999
+pass_yards,C_k50,59.337,57.921,4999
+pass_yards,C_k100,58.074,56.993,4999
+pass_yards,C_k200,57.317,56.514,4999
