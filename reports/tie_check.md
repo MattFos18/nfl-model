@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-24 00:50 UTC
+# Tie-out (sources and page), 2026-09-24 00:53 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -73,8 +73,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.006 | 0.01 or under | yes |
-| game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T00-30-19Z | 2026-09-24T00-30-19Z | yes |
+| deep-dive breakdowns rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T00-46-24Z | 2026-09-24T00-46-24Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0004 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
 | page week = picks file (bets: the side flagged) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA', 'NYG', 'PIT'] | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA', 'NYG', 'PIT'] | yes |
