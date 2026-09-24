@@ -39,6 +39,29 @@ COLS = {
 }
 
 
+# the full box score's columns: the official stat line (nflverse player_stats) less what the tables above carry, the
+# PFR advanced columns they do not show, special-teams snaps
+_IN_TABLES = {"completions", "attempts", "passing_yards", "passing_tds", "passing_interceptions", "sacks_suffered", "passing_air_yards", "passing_first_downs", "passing_epa",
+              "carries", "rushing_yards", "rushing_tds", "rushing_first_downs", "rushing_epa", "receptions", "targets", "receiving_yards", "receiving_tds", "receiving_air_yards",
+              "receiving_yards_after_catch", "receiving_first_downs", "receiving_epa", "def_tackles_solo", "def_sacks", "def_interceptions", "def_pass_defended", "fg_made", "fg_att", "pat_made", "pat_att"}
+BOX_OFFICIAL = [c for c in [
+    "sack_yards_lost", "sack_fumbles", "sack_fumbles_lost", "passing_yards_after_catch", "passing_cpoe", "passing_2pt_conversions", "pacr", "passing_10", "passing_16", "passing_20", "passing_40",
+    "rushing_fumbles", "rushing_fumbles_lost", "rushing_2pt_conversions", "rushing_10", "rushing_12", "rushing_20", "rushing_40",
+    "receiving_fumbles", "receiving_fumbles_lost", "receiving_2pt_conversions", "receiving_10", "receiving_16", "receiving_20", "receiving_40", "racr", "target_share", "air_yards_share", "wopr",
+    "special_teams_tds", "def_tackles_with_assist", "def_tackle_assists", "def_tackles_for_loss", "def_tackles_for_loss_yards", "def_fumbles_forced", "def_sack_yards", "def_qb_hits",
+    "def_interception_yards", "def_tds", "def_fumbles", "def_safeties", "def_punt_blocks", "def_pat_blocks", "def_fg_blocks", "def_2pt_atts", "def_2pt_made", "misc_yards",
+    "fumble_recovery_own", "fumble_recovery_yards_own", "fumble_recovery_opp", "fumble_recovery_yards_opp", "fumble_recovery_tds", "penalties", "penalty_yards",
+    "fumbles_forced_by_opp", "fumbles_not_forced", "fumbles_out_of_bounds", "fumbles_total", "fumbles_lost_total", "punt_returns", "punt_return_yards", "kickoff_returns", "kickoff_return_yards",
+    "fg_missed", "fg_blocked", "fg_long", "fg_pct", "fg_made_0_19", "fg_made_20_29", "fg_made_30_39", "fg_made_40_49", "fg_made_50_59", "fg_made_60_",
+    "fg_missed_0_19", "fg_missed_20_29", "fg_missed_30_39", "fg_missed_40_49", "fg_missed_50_59", "fg_missed_60_", "pat_missed", "pat_blocked", "pat_pct",
+    "gwfg_made", "gwfg_att", "gwfg_missed", "gwfg_blocked", "pt_att", "pt_blocked", "pt_long", "pt_yards", "pt_inside_20", "pt_out_of_bounds", "pt_downed", "pt_touchback",
+    "pt_fair_caught", "pt_returned", "pt_return_yards", "pt_return_tds", "pt_net_yards", "fantasy_points", "fantasy_points_ppr"] if c not in _IN_TABLES]
+BOX_PFR = {"def": ["def_adot", "def_air_yards_completed", "def_yards_after_catch", "def_times_blitzed", "def_times_hurried", "def_times_hitqb", "def_completion_pct", "def_yards_allowed_per_tgt", "def_missed_tackle_pct"],
+           "rec": ["receiving_int", "receiving_drop_pct"], "rush": ["rushing_yards_before_contact_avg", "rushing_yards_after_contact_avg"],
+           "pass": ["passing_drop_pct", "passing_bad_throw_pct", "times_hurried", "times_pressured_pct", "times_sacked"]}
+BOX_COLS = BOX_OFFICIAL + [f"pfr_{c}" for v in BOX_PFR.values() for c in v] + ["st_snaps"]
+
+
 def _pbp(season: int) -> pd.DataFrame:
     f = RAW / "pbp" / f"play_by_play_{season}.parquet"
     cols = ["game_id", "play_id", "season", "week", "season_type", "posteam", "defteam", "play_type", "pass_attempt", "qb_dropback", "sack", "complete_pass", "interception",
@@ -85,8 +108,8 @@ def _pfr(kind: str, season: int, pmap: dict) -> pd.DataFrame:
 def _snaps(season: int, pmap: dict) -> pd.DataFrame:
     f = RAW / "snap_counts" / f"snap_counts_{season}.parquet"
     if not f.exists():
-        return pd.DataFrame(columns=["game_id", "player_id", "off_snaps", "off_pct", "def_snaps", "def_pct"])
-    d = pd.read_parquet(f, columns=["game_id", "pfr_player_id", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct"])
+        return pd.DataFrame(columns=["game_id", "player_id", "off_snaps", "off_pct", "def_snaps", "def_pct", "st_snaps"])
+    d = pd.read_parquet(f, columns=["game_id", "pfr_player_id", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct", "st_snaps"])
     d["player_id"] = d.pfr_player_id.map(pmap)
     return d[d.player_id.notna()].rename(columns={"offense_snaps": "off_snaps", "offense_pct": "off_pct", "defense_snaps": "def_snaps", "defense_pct": "def_pct"}).drop(columns="pfr_player_id").drop_duplicates(["game_id", "player_id"])
 
@@ -197,10 +220,47 @@ def season_logs(season: int, pmap: dict) -> dict:
     om_off = {(a, b): c for a, b, c in zip(opp.game_id, opp.o, opp.t)}   # the kicking team's opponent
     for r in kg.itertuples():
         put(r.player_id, "kick", [int(r.week), r.game_id, r.team, om_off.get((r.game_id, r.team)), int(r.fgm), int(r.fga), int(r.xpm), int(r.xpa), int(r.pts)])
+    # the full box score (24 Sep 2026, Matt: every piece of player data on the site): every official stat for the game
+    # that the tables above do not already carry, the PFR advanced columns they do not show, and special-teams snaps;
+    # nonzero values only, as [column index, value] pairs keyed by week (the column list is BOX_COLS in player_careers.js)
+    sf = RAW / "player_stats" / f"stats_player_week_{season}.parquet"
+    if sf.exists():
+        st = pd.read_parquet(sf)
+        st = st[[c for c in ["player_id", "week", "game_id"] + BOX_OFFICIAL if c in st.columns]]
+        num = st[[c for c in BOX_OFFICIAL if c in st.columns]].apply(pd.to_numeric, errors="coerce")
+        adv = {}
+        for kind, cols in BOX_PFR.items():
+            a = _pfr(kind, season, pmap)
+            if len(a):
+                for r in a.itertuples():
+                    d = adv.setdefault((r.player_id, r.game_id), {})
+                    for c in cols:
+                        v = getattr(r, c, None)
+                        if v is not None and pd.notna(v) and v != 0:
+                            d[f"pfr_{c}"] = float(v)
+        bidx = {c: i for i, c in enumerate(BOX_COLS)}
+        seen = set()
+        for i, r in enumerate(st.itertuples()):
+            row = num.iloc[i]; pairs = []
+            for c, v in row.items():
+                if pd.notna(v) and v != 0:
+                    pairs.append([bidx[c], _clean(v)])
+            for c, v in adv.get((r.player_id, r.game_id), {}).items():
+                pairs.append([bidx[c], _clean(v)])
+            s_ = snapd.get((r.player_id, r.game_id))
+            if s_ is not None and "st_snaps" in s_._fields and pd.notna(s_.st_snaps) and s_.st_snaps:
+                pairs.append([bidx["st_snaps"], int(s_.st_snaps)])
+            if pairs:
+                out.setdefault(r.player_id, {}).setdefault("box", []).append([int(r.week), pairs]); seen.add((r.player_id, r.game_id))
     for pid in out:
         for k in out[pid]:
             out[pid][k].sort(key=lambda r: r[0])
     return out
+
+
+def _clean(v):
+    v = float(v)
+    return int(v) if abs(v - round(v)) < 1e-9 else round(v, 2)
 
 
 def careers(all_logs: dict) -> dict:
@@ -212,6 +272,8 @@ def careers(all_logs: dict) -> dict:
     for season, logs in all_logs.items():
         for pid, kinds in logs.items():
             for k, rows in kinds.items():
+                if k not in SUM:   # the full box score has its own columns
+                    continue
                 tot = [round(sum((r[idx[k][c]] or 0) for r in rows), 2) for c in SUM[k]]
                 teams = sorted({r[2] for r in rows if r[2]})
                 out.setdefault(pid, []).append([season, k, len(rows), "/".join(teams)] + tot)
@@ -238,7 +300,45 @@ def export(seasons=range(2016, 2027)) -> dict:
             r = pd.read_parquet(f, columns=["gsis_id", "full_name", "position"]).dropna(subset=["gsis_id", "full_name"]).drop_duplicates("gsis_id", keep="last")
             full.update({g: [n, pos] for g, n, pos in zip(r.gsis_id, r.full_name, r.position)})
     names = {pid: (full.get(pid) or [nm[pid][0], nm[pid][1]]) for pid in ids if pid in full or pid in nm}
-    meta = {"cols": COLS, "seasons": seasons, "names": names, "careers": car,
+    # bio (24 Sep 2026): the newest roster row per player (size, birth date, college, experience, jersey, draft) and the
+    # draft table's round, pick and club; injury history: every weekly report line (status, practice, injury)
+    bio = {}
+    for s_ in seasons:
+        f = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
+        if f.exists():
+            r = pd.read_parquet(f).sort_values("week").drop_duplicates("gsis_id", keep="last")
+            for x in r.itertuples():
+                if isinstance(x.gsis_id, str) and x.gsis_id in ids:
+                    bio[x.gsis_id] = [getattr(x, "height", None), getattr(x, "weight", None), str(getattr(x, "birth_date", "") or "")[:10], getattr(x, "college", None),
+                                      getattr(x, "entry_year", None), getattr(x, "rookie_year", None), getattr(x, "draft_club", None), getattr(x, "draft_number", None),
+                                      getattr(x, "years_exp", None), getattr(x, "jersey_number", None), getattr(x, "team", None), getattr(x, "status", None)]
+    df_ = RAW / "draft" / "draft_picks.parquet"
+    if df_.exists():
+        dr = pd.read_parquet(df_, columns=["gsis_id", "season", "round", "pick", "team"]).dropna(subset=["gsis_id"]).drop_duplicates("gsis_id")
+        for x in dr.itertuples():
+            if x.gsis_id in bio:
+                bio[x.gsis_id][4], bio[x.gsis_id][6], bio[x.gsis_id][7] = int(x.season), x.team, int(x.pick)
+                bio[x.gsis_id].append(int(x.round))
+    clean = lambda v: None if v is None or (isinstance(v, float) and v != v) else (int(v) if isinstance(v, float) and v == int(v) else v)
+    bio = {k: [clean(v) for v in vs] for k, vs in bio.items()}
+    inj = []
+    for s_ in seasons:
+        f = RAW / "injuries" / f"injuries_{s_}.parquet"
+        if f.exists():
+            r = pd.read_parquet(f, columns=["season", "week", "gsis_id", "report_status", "practice_status", "report_primary_injury", "practice_primary_injury"])
+            inj.append(r[r.gsis_id.isin(ids)])
+    injh, codes = {}, {"": 0}
+    code = lambda v: codes.setdefault(v, len(codes))   # statuses, practice notes and injuries repeat: one table, small numbers
+    if inj:
+        r = pd.concat(inj, ignore_index=True)
+        for x in r.itertuples():
+            st_ = x.report_status if isinstance(x.report_status, str) else ""; pr_ = x.practice_status if isinstance(x.practice_status, str) else ""
+            what = x.report_primary_injury if isinstance(x.report_primary_injury, str) else (x.practice_primary_injury if isinstance(x.practice_primary_injury, str) else "")
+            if st_ or pr_ or what:
+                injh.setdefault(x.gsis_id, []).append([int(x.season) - 2000, int(x.week), code(st_), code(pr_), code(what)])
+    (WEB / "player_injuries.js").write_text("window.PINJ=" + json.dumps({"codes": sorted(codes, key=codes.get), "rows": injh}, separators=(",", ":")) + ";")
+    meta = {"cols": COLS, "box_cols": BOX_COLS, "bio": bio, "bio_cols": ["height", "weight", "birth_date", "college", "draft_year", "rookie_year", "draft_team", "draft_pick", "years_exp", "jersey", "team", "roster_status", "draft_round"],
+            "seasons": seasons, "names": names, "careers": car,
             "last_charted": int(pd.read_parquet(OUT / "scheme_plays.parquet", columns=["season", "man"]).dropna().season.max())}
     (WEB / "player_careers.js").write_text("window.PCAREER=" + json.dumps(meta, separators=(",", ":")) + ";")
     print(f"player logs: {len(ids)} players, seasons {seasons[0]} to {seasons[-1]}, files " + ", ".join(f"{s} {v / 1e6:.1f} MB" for s, v in sizes.items()) + f"; careers {(WEB / 'player_careers.js').stat().st_size / 1e6:.1f} MB", flush=True)

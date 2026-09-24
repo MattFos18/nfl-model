@@ -181,6 +181,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             rows.append(("prop lines: book names resolve to rostered players (99%+)", f"{hit / tot:.1%}" + (f"; missed {', '.join(miss[:6])}" if miss else ""), "99% or more", hit / tot >= 0.99))
     except Exception as e:  # noqa
         rows.append(("prop lines: book names resolve to rostered players", str(e)[:80], "", False))
+    wd = ROOT / "web" / "data"   # the published page may not pass 64 MB a version: fail with room to spare so a growing season never breaks a publish
+    tot_mb = sum(f.stat().st_size for f in wd.rglob("*") if f.is_file()) / 1e6 + (ROOT / "web" / "index.html").stat().st_size / 1e6
+    rows.append(("published page size under 60 MB (the cap is 64 MB a version)", f"{tot_mb:.1f} MB", "under 60 MB", tot_mb < 60))
     fjs = ROOT / "web" / "data" / "fresh.js"
     if fjs.exists():   # the live check (injuries, starters, forecasts) logs its errors the same way
         s_ = fjs.read_text(); fr_ = json.loads(s_[s_.index("=") + 1:].rstrip().rstrip(";"))

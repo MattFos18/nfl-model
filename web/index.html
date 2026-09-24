@@ -1699,13 +1699,23 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (plSeason == null || !seasons.includes(plSeason)) plSeason = seasons[0];
     const team = cur ? cur.team : ((car.find(r => r[0] === seasons[0]) || [])[3] || "").split("/").pop();
     const sx = String(cur && cur.status || ""); const stB = OUT_RE.test(sx) ? `<span class="badge out">${esc(sx)}</span>` : (sx && sx !== "Active" ? `<span class="badge">${esc(sx)}</span>` : "");
-    $("plhead").innerHTML = `<h3 style="margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${LOGO(team, 26)}${esc(name)} <span class="rk">${esc(pos)}${team ? " · " + team : ""}</span> ${stB}</h3>`;
+    const B_ = (C.bio || {})[pid], bc = C.bio_cols || [], bv = k => B_ ? B_[bc.indexOf(k)] : null;
+    const ht = h_ => { const n = +h_; return n > 0 ? `${Math.floor(n / 12)}-${n % 12}` : (h_ || ""); };
+    const age = bv("birth_date") ? Math.floor((Date.now() - Date.parse(bv("birth_date"))) / 3.15576e10) : null;
+    const bioBits = B_ ? [bv("height") ? ht(bv("height")) : "", bv("weight") ? `${bv("weight")} lb` : "", age ? `age ${age}` : "", bv("college") || "",
+      bv("draft_pick") ? `drafted ${bv("draft_year")}${bv("draft_round") ? ", round " + bv("draft_round") : ""}, pick ${bv("draft_pick")}${bv("draft_team") ? " (" + bv("draft_team") + ")" : ""}` : (bv("draft_year") || bv("rookie_year") ? `undrafted, entered ${bv("draft_year") || bv("rookie_year")}` : ""),
+      bv("years_exp") != null ? `${bv("years_exp")} years in the league` : "", bv("jersey") != null ? `#${bv("jersey")}` : ""].filter(Boolean) : [];
+    $("plhead").innerHTML = `<h3 style="margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap">${LOGO(team, 26)}${esc(name)} <span class="rk">${esc(pos)}${team ? " · " + team : ""}</span> ${stB}</h3>` +
+      (bioBits.length ? `<p class="note" style="margin:4px 0 0">${bioBits.map(esc).join(" · ")}</p>` : "");
     const n1 = v => v == null || isNaN(v) ? "" : (+v).toFixed(1), n0 = v => v == null || isNaN(v) ? "" : Math.round(+v).toLocaleString();
     const tile = (lab, val, sub) => `<div class="tile"><div class="tl">${lab}</div><div class="tv">${val}</div>${sub ? `<div class="ts">${sub}</div>` : ""}</div>`;
     let h = "";
     // headline tiles
     const tiles = [];
     if (cur) tiles.push(tile("Vs an average starter", `${VA(cur) >= 0 ? "+" : ""}${VA(cur).toFixed(3)}`, cur.group === "QB" && cur.plays_per_game ? `${(VA(cur) * QBF() >= 0 ? "+" : "") + (VA(cur) * QBF()).toFixed(1)} points a game` : (GROUP_LABEL[cur.group] || "")));
+    if (cur && cur.part_coverage != null) { const f2 = v => `${v >= 0 ? "+" : ""}${(+v).toFixed(2)}`;
+      tiles.push(tile(`What the value is made of (${({EDGE: "edge", IDL: "interior line", LB: "linebacker", CB: "corner", S: "safety"})[cur.def_role] || "defender"})`, `${f2(cur.part_coverage)} coverage`,
+        `EPA per 100 snaps: ${f2(cur.part_rush)} pass rush · ${f2(cur.part_run_stops)} run stops · ${f2(cur.part_forced_fumbles)} forced fumbles · ${(+cur.part_credited_plays).toFixed(1)} credited plays · ${(+cur.targets_per_100).toFixed(1)} targets · ${(+cur.pressures_per_100).toFixed(1)} pressures (recent games weigh most)`)); }
     const KO = pos === "QB" ? ["pass", "rush", "rec"] : pos === "RB" || pos === "FB" ? ["rush", "rec", "pass"] : ["rec", "rush", "pass"], kRank = k => { const i = KO.indexOf(k); return i < 0 ? 9 : i; };
     const gms = g => `${g} game${g === 1 ? "" : "s"}`, ordN = n => n + ((n % 100 >= 11 && n % 100 <= 13) ? "th" : ({1: "st", 2: "nd", 3: "rd"})[n % 10] || "th");
     const thisYr = car.filter(r => r[0] === seasons[0]).sort((a, b) => kRank(a[1]) - kRank(b[1])); const S = C.careers.sum_cols;
@@ -1728,6 +1738,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (seasons.length) {
       h += `<h3 style="margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">Game log <select id="plseason">${seasons.map(x => `<option value="${x}" ${x === plSeason ? "selected" : ""}>${x}</option>`).join("")}</select></h3><div id="pllog"><p class="note">Loading ${plSeason}…</p></div>`;
       h += `<h3 style="margin-top:14px">Career by season</h3>` + careerHtml(car, C);
+      h += `<details style="margin-top:12px" id="plinj"><summary style="cursor:pointer;font-weight:600">Injury report history</summary><div id="plinjbody"><p class="note">Loading…</p></div></details>`;
     } else h += `<p class="note" style="margin-top:10px">No game on record since 2016.</p>`;
     // the profile the projections start from
     const pr = PF.receivers && PF.receivers[pid], pu = PF.rushers && PF.rushers[pid], pq = PF.passers && PF.passers[pid];
@@ -1740,6 +1751,51 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     $("plpage").innerHTML = h;
     const ss = $("plseason"); if (ss) ss.onchange = () => { plSeason = +ss.value; renderPlayerLog(pid); };
     if (seasons.length) renderPlayerLog(pid);
+    const pi = $("plinj"); if (pi) pi.addEventListener("toggle", () => { if (!pi.open) return; loadScript("data/player_injuries.js", "pinj", () => {
+      const J = window.PINJ || {codes: [], rows: {}}, rows = (J.rows[pid] || []).slice().sort((a, b) => b[0] - a[0] || b[1] - a[1]), cd = i => J.codes[i] || "";
+      $("plinjbody").innerHTML = rows.length ? `<div class="tablewrap" style="max-height:40vh;margin-top:6px"><table><thead><tr><th>Season</th><th>Week</th><th class="l">Game status</th><th class="l">Practice</th><th class="l">Injury</th></tr></thead><tbody>` +
+        rows.map(r => `<tr><td class="mono">${2000 + r[0]}</td><td class="mono">${r[1]}</td><td class="l">${OUT_RE.test(cd(r[2])) ? `<span class="badge out">${esc(cd(r[2]))}</span>` : esc(cd(r[2]))}</td><td class="l">${esc(cd(r[3]))}</td><td class="l">${esc(cd(r[4]))}</td></tr>`).join("") + `</tbody></table></div><p class="note" style="margin-top:6px">Every weekly injury report line since 2016 (the league's reports, through nflverse).</p>` : `<p class="note">Not on an injury report since 2016.</p>`; }); });
+  }
+  // the full box score's column names: the official stat line's own names, spelled out
+  const BOX_LABEL = {sack_yards_lost: "Sack yards lost", sack_fumbles: "Sack fumbles", sack_fumbles_lost: "Sack fumbles lost", passing_yards_after_catch: "Pass yards after catch", passing_cpoe: "CPOE",
+    passing_2pt_conversions: "Pass 2-pt", pacr: "PACR", passing_10: "Completions 10+ yds", passing_16: "Completions 16+", passing_20: "Completions 20+", passing_40: "Completions 40+",
+    rushing_fumbles: "Rush fumbles", rushing_fumbles_lost: "Rush fumbles lost", rushing_2pt_conversions: "Rush 2-pt", rushing_10: "Runs 10+ yds", rushing_12: "Runs 12+", rushing_20: "Runs 20+", rushing_40: "Runs 40+",
+    receiving_fumbles: "Rec fumbles", receiving_fumbles_lost: "Rec fumbles lost", receiving_2pt_conversions: "Rec 2-pt", receiving_10: "Catches 10+ yds", receiving_16: "Catches 16+", receiving_20: "Catches 20+", receiving_40: "Catches 40+",
+    racr: "RACR", target_share: "Target share", air_yards_share: "Air-yards share", wopr: "WOPR", special_teams_tds: "Special-teams TD", def_tackles_with_assist: "Tackles with assist", def_tackle_assists: "Assists",
+    def_tackles_for_loss: "Tackles for loss", def_tackles_for_loss_yards: "TFL yards", def_fumbles_forced: "Forced fumbles", def_sack_yards: "Sack yards", def_qb_hits: "QB hits", def_interception_yards: "INT return yards",
+    def_tds: "Defensive TD", def_fumbles: "Fumbles (on defense)", def_safeties: "Safeties", def_punt_blocks: "Punt blocks", def_pat_blocks: "XP blocks", def_fg_blocks: "FG blocks", def_2pt_atts: "2-pt returns tried", def_2pt_made: "2-pt returns",
+    misc_yards: "Misc yards", fumble_recovery_own: "Own fumbles recovered", fumble_recovery_yards_own: "Own recovery yards", fumble_recovery_opp: "Fumbles recovered", fumble_recovery_yards_opp: "Recovery yards", fumble_recovery_tds: "Recovery TD",
+    penalties: "Penalties", penalty_yards: "Penalty yards", fumbles_forced_by_opp: "Fumbles forced by opp", fumbles_not_forced: "Unforced fumbles", fumbles_out_of_bounds: "Fumbles out of bounds", fumbles_total: "Fumbles", fumbles_lost_total: "Fumbles lost",
+    punt_returns: "Punt returns", punt_return_yards: "Punt return yards", kickoff_returns: "Kick returns", kickoff_return_yards: "Kick return yards", fg_missed: "FG missed", fg_blocked: "FG blocked", fg_long: "FG long", fg_pct: "FG %",
+    fg_made_0_19: "FG made 0-19", fg_made_20_29: "FG made 20-29", fg_made_30_39: "FG made 30-39", fg_made_40_49: "FG made 40-49", fg_made_50_59: "FG made 50-59", fg_made_60_: "FG made 60+",
+    fg_missed_0_19: "FG missed 0-19", fg_missed_20_29: "FG missed 20-29", fg_missed_30_39: "FG missed 30-39", fg_missed_40_49: "FG missed 40-49", fg_missed_50_59: "FG missed 50-59", fg_missed_60_: "FG missed 60+",
+    pat_missed: "XP missed", pat_blocked: "XP blocked", pat_pct: "XP %", gwfg_made: "Game-winning FG made", gwfg_att: "Game-winning FG tried", gwfg_missed: "Game-winning FG missed", gwfg_blocked: "Game-winning FG blocked",
+    pt_att: "Punts", pt_blocked: "Punts blocked", pt_long: "Punt long", pt_yards: "Punt yards", pt_inside_20: "Inside the 20", pt_out_of_bounds: "Out of bounds", pt_downed: "Downed", pt_touchback: "Touchbacks", pt_fair_caught: "Fair caught",
+    pt_returned: "Returned", pt_return_yards: "Return yards allowed", pt_return_tds: "Return TD allowed", pt_net_yards: "Net punt yards", fantasy_points: "Fantasy points", fantasy_points_ppr: "Fantasy points (PPR)",
+    pfr_def_adot: "Depth of target allowed", pfr_def_air_yards_completed: "Air yards allowed", pfr_def_yards_after_catch: "YAC allowed", pfr_def_times_blitzed: "Blitzes", pfr_def_times_hurried: "Hurries", pfr_def_times_hitqb: "QB hits (PFR)",
+    pfr_def_completion_pct: "Catch % allowed", pfr_def_yards_allowed_per_tgt: "Yards a target allowed", pfr_def_missed_tackle_pct: "Missed tackle %", pfr_receiving_int: "INT when targeted", pfr_receiving_drop_pct: "Drop %",
+    pfr_rushing_yards_before_contact_avg: "Before contact a carry", pfr_rushing_yards_after_contact_avg: "After contact a carry", pfr_passing_drop_pct: "Receivers' drop %", pfr_passing_bad_throw_pct: "Bad throw %",
+    pfr_times_hurried: "Hurried", pfr_times_pressured_pct: "Pressured %", pfr_times_sacked: "Sacked (PFR)", st_snaps: "Special-teams snaps"};
+  const BOX_GROUP = c => c.startsWith("pfr_") ? "Advanced (PFR)" : c.startsWith("pt_") ? "Punting" : (c.startsWith("fg_") || c.startsWith("pat_") || c.startsWith("gwfg_")) ? "Kicking" : (c.includes("return") && !c.startsWith("pt_")) ? "Returns" :
+    c.startsWith("def_") ? "Defense" : c.startsWith("passing_") || c.startsWith("sack_") || c === "pacr" ? "Passing" : c.startsWith("rushing_") ? "Rushing" : (c.startsWith("receiving_") || ["racr", "target_share", "air_yards_share", "wopr"].includes(c)) ? "Receiving" :
+    c.startsWith("fumble") ? "Fumbles" : c.startsWith("fantasy") ? "Fantasy" : c === "st_snaps" ? "Snaps" : "Other";
+  const BOX_AVG = c => /pct|share|racr|pacr|wopr|cpoe|_avg|adot|per_tgt/.test(c), BOX_MAX = c => /_long$/.test(c);
+  function boxHtml(rows, cols, yr) {
+    const used = [...new Set(rows.flatMap(r => r[1].map(p => p[0])))].sort((a, b) => a - b);
+    if (!used.length) return "";
+    const order = ["Passing", "Rushing", "Receiving", "Defense", "Kicking", "Punting", "Returns", "Fumbles", "Advanced (PFR)", "Snaps", "Fantasy", "Other"];
+    const cs = used.map(i => cols[i]).sort((a, b) => order.indexOf(BOX_GROUP(a)) - order.indexOf(BOX_GROUP(b)));
+    const ix = Object.fromEntries(cols.map((c, i) => [c, i]));
+    const val = (r, c) => { const p = r[1].find(q => q[0] === ix[c]); return p ? p[1] : null; };
+    const fmt = v => v == null ? "" : (Math.abs(v) < 1 && v !== 0 ? (+v).toFixed(2) : (Number.isInteger(+v) ? (+v).toLocaleString() : (+v).toFixed(1)));
+    const tot = c => { const vs = rows.map(r => val(r, c)).filter(v => v != null); if (!vs.length) return ""; if (BOX_MAX(c)) return fmt(Math.max(...vs)); if (BOX_AVG(c)) return fmt(vs.reduce((a, b) => a + b, 0) / vs.length); return fmt(vs.reduce((a, b) => a + b, 0)); };
+    let gh = "", last = null, span = 0; const groups = [];
+    cs.forEach(c => { const g = BOX_GROUP(c); if (g !== last) { groups.push([g, 1]); last = g; } else groups[groups.length - 1][1]++; });
+    gh = groups.map(([g, n]) => `<th colspan="${n}" class="l" style="border-bottom:1px solid var(--rule)">${g}</th>`).join("");
+    return `<h4 style="margin:14px 0 4px">Full box score</h4><p class="note" style="margin:0 0 4px">Every other stat on the official game line (nflverse player stats), Pro Football Reference's advanced columns and special-teams snaps; blanks are zero. Rates average over the season, longs take the best.</p>` +
+      `<div class="tablewrap" style="margin-top:4px"><table><thead><tr><th></th>${gh}</tr><tr><th class="l">Week</th>${cs.map(c => `<th title="${c}">${esc(BOX_LABEL[c] || c.replace(/_/g, " "))}</th>`).join("")}</tr></thead><tbody>` +
+      rows.slice().sort((a, b) => b[0] - a[0]).map(r => `<tr><td class="l mono">Wk ${r[0]}</td>${cs.map(c => `<td class="mono">${fmt(val(r, c))}</td>`).join("")}</tr>`).join("") +
+      `<tr class="hl"><td class="l"><b>${yr}</b></td>${cs.map(c => `<td class="mono"><b>${tot(c)}</b></td>`).join("")}</tr></tbody></table></div>`;
   }
   function careerHtml(car, C) {
     const S = C.careers.sum_cols; const KL = {rec: "Receiving", rush: "Rushing", pass: "Passing", def: "Defense", kick: "Kicking"};
@@ -1775,6 +1831,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
         h += `<div class="tablewrap" style="margin-top:6px"><table><thead><tr><th class="l">${t.title}</th><th class="l">Opponent</th>${shown.map(([, l]) => `<th>${l}</th>`).join("")}${spl.map(([, l]) => `<th title="plays · yards a play">${l}</th>`).join("")}</tr></thead><tbody>` +
           rows.slice().sort((a, b) => b[0] - a[0]).map(r => `<tr><td class="l mono">Wk ${r[0]}</td><td class="l">${r[2] && r[1].split("_")[3] === r[2] ? "vs" : "@"} ${LOGO(r[3])}${r[3] || ""}</td>${shown.map(([c, , kd]) => `<td class="mono">${cell(r, c, kd)}</td>`).join("")}${spl.map(([s_]) => `<td class="mono">${sp(r, s_)}</td>`).join("")}</tr>`).join("") +
           `<tr class="hl"><td class="l"><b>${yr}</b></td><td class="l">${rows.length} games</td>${shown.map(([c, , kd]) => `<td class="mono"><b>${totCell(c, kd)}</b></td>`).join("")}${spl.map(([s_]) => `<td class="mono"><b>${spT(s_)}</b></td>`).join("")}</tr></tbody></table></div>`; });
+      if (mine.box && C.box_cols) h += boxHtml(mine.box, C.box_cols, yr);
       if (!charted && (mine.rec || mine.pass)) h += `<div class="chips" style="margin-top:6px"><span class="chip mute" title="nflverse publishes the participation charting (coverage, pressure, personnel) for a season some time after it is played; the pull tries every run and the columns fill in the day it appears">Coverage and pressure splits: charted through ${C.last_charted}, ${yr} not published yet</span></div>`;
       el.innerHTML = h || `<p class="note">No games in ${yr}.</p>`;
     });
