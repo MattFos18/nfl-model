@@ -1,0 +1,32 @@
+name: reference pages
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 1 * *"   # monthly: the All-Pro teams and the published position rankings for the player-value checks
+permissions:
+  contents: write
+concurrency:
+  group: nfl-model-data
+  cancel-in-progress: false
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m nflmodel.reference --fetch
+      - name: commit
+        run: |
+          git config user.name "nfl-model bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/reference
+          git diff --cached --quiet || git commit -m "Reference pages $(date -u +%Y-%m-%d)"
+          git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
+          git push
