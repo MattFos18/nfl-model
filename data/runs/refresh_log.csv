@@ -8,3 +8,4 @@ checked,reprice,changes,errors
 2026-09-24 05:44 UTC,False,2026_03_KC_MIA: cold or rain call changed | 2026_03_TEN_NYG: wind 13 to 17 mph | 2026_03_CIN_PIT: wind 7 to 10 mph | 2026_03_MIN_TB: forecast now inside the window the model uses | 2026_03_LA_DEN: wind 11 to 13 mph,
 2026-09-24 07:11 UTC,True,2026_03_KC_MIA: cold or rain call changed | 2026_03_TEN_NYG: wind 13 to 17 mph | 2026_03_CIN_PIT: wind 7 to 10 mph | 2026_03_MIN_TB: forecast now inside the window the model uses | 2026_03_LA_DEN: wind 11 to 13 mph,
 2026-09-24 08:13 UTC,False,,
+2026-09-24 09:10 UTC,False,2026_03_BAL_DAL: forecast now inside the window the model uses,
