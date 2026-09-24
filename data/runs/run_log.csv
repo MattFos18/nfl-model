@@ -558,3 +558,34 @@ export data room,ok,,16.9,2026-09-24 00:04 UTC
 tie check (page),ok,True,1.1,2026-09-24 00:04 UTC
 audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.4,2026-09-24 00:04 UTC
 legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",9.0,2026-09-24 00:04 UTC
+pull,ok,"[('2026-09-24T00:27:05', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180727, 'a04722e4027f'), ('2026-09-24T00:27:05', 'pbp', 2025, 'ht",3.0,2026-09-24 00:27 UTC
+build,ok,"team_games (8202, 142)",177.0,2026-09-24 00:27 UTC
+features,ok,[40 rows x 8 columns],11.5,2026-09-24 00:27 UTC
+verify,ok,Result: PASS,0.4,2026-09-24 00:27 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-23 20:30
+1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09",2.2,2026-09-24 00:27 UTC
+lines,ok,"{'ts': '2026-09-24T00-30-19Z', 'season': 2026, 'week': 3, 'rows': 16, 'errors': ""draftkings: sportsbook.draftkings.com: 403 Client Error: Forbidden for url: https://sportsbook.draf | sportsbook-nash.d",1.5,2026-09-24 00:27 UTC
+ratings,ok,"(7668, 49)",19.1,2026-09-24 00:27 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,47.7,2026-09-24 00:27 UTC
+players,ok,max           0.104502         1.357485    14.000000,112.5,2026-09-24 00:27 UTC
+positions,ok,Skill    525.0  0.004309  0.0008  0.0531,10.5,2026-09-24 00:27 UTC
+scheme,ok,"scheme_plays (348655, 77) profiles for 32 teams as of 2026 3",4.8,2026-09-24 00:27 UTC
+props,ok,props 2854 projections for week 3 graded rows 0 market lines on the cards 369 graded against the market 0,14.7,2026-09-24 00:27 UTC
+model,ok,               neutral            0.074       0.133          0.010,16.6,2026-09-24 00:27 UTC
+picks,ok,"              game_id  season  week  ...     bet_p bet_odds stake_pct
+3060   2026_03_ATL_GB    2026     3  ...       NaN      NaN       NaN
+3061  2026_03_LAC_BUF    2026     3  ...       NaN      NaN ",0.2,2026-09-24 00:27 UTC
+log run,ok,"                    run_at  season  week  ... spread_line  total_line        bet
+3060  2026-09-24 00:27 UTC    2026     3  ...         5.5        42.5           
+3061  2026-09-24 00:27 UTC    2026    ",0.0,2026-09-24 00:27 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-09-24 00:27 UTC    2026     3  ...        4.88      -0.55    0.659
+1  2026-09-24 00:27 UTC    2026     3  ...        ",0.1,2026-09-24 00:27 UTC
+inputs fingerprint,ok,"{'season': 2026, 'week': 3, 'starters': {'2026_03_ATL_GB': ['00-0036264', '00-0039917', '2026-09-24 20:15'], '2026_03_LAC_BUF': ['00-0034857', '00-0036355', '2026-09-27 13:00'], '2026_03_CAR_CLE': ['0",0.0,2026-09-24 00:27 UTC
+grade,ok,,0.2,2026-09-24 00:27 UTC
+tie check (sources),ok,True,0.3,2026-09-24 00:27 UTC
+export data room,ok,,24.0,2026-09-24 00:27 UTC
+tie check (page),ok,True,1.0,2026-09-24 00:27 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",0.6,2026-09-24 00:27 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",12.7,2026-09-24 00:27 UTC
