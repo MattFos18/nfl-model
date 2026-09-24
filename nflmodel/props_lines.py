@@ -349,12 +349,13 @@ def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     number of books and the mean over/under prices. Used by the props builder for the card and the grading."""
     g = log[log.game_id == game_id]
     if not len(g):
-        return pd.DataFrame(columns=["stat", "player", "key", "line", "books", "over_price", "under_price", "ts"])
+        return pd.DataFrame(columns=["stat", "player", "key", "line", "books", "over_price", "under_price", "open_line", "open_over", "ts", "open_ts", "pulls"])
     g = g.sort_values("ts"); last = g.ts.max(); first = g.ts.min()
     cur = g.drop_duplicates(["book", "stat", "player"], keep="last")     # each book's latest line (the sources pull on different clocks)
     out = cur.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
     op = g.drop_duplicates(["book", "stat", "player"], keep="first").groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
-    out = out.merge(op, on=["stat", "player"], how="left"); out["ts"] = last; out["open_ts"] = first; 
+    out = out.merge(op, on=["stat", "player"], how="left"); out["ts"] = last; out["open_ts"] = first
     teams = set(g.home.dropna()) | set(g.away.dropna()); canon = roster_keys(int(g.season.iloc[0]), teams)
-    out["key"] = [resolve_name(p, canon) for p in out.player]   # the roster's own name for the player the book means; out["pulls"] = int(g.ts.nunique())
+    out["key"] = [resolve_name(p, canon) for p in out.player]   # the roster's own name for the player the book means
+    out["pulls"] = int(g.ts.nunique())
     return out

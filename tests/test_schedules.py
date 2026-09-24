@@ -83,3 +83,16 @@ def test_book_names_resolve():
     assert P.resolve_name("Hollywood Brown", canon) == "marquise brown"
     assert P.resolve_name("Palmer Joshua", canon) == "joshua palmer"
     assert P.resolve_name("Unknown Player", canon) == P.norm_name("Unknown Player")
+
+
+def test_closing_has_every_column_the_cards_read(monkeypatch):
+    """props.attach_all_markets and reattach_markets read these columns (24 Sep 2026: pulls went missing and the
+    line watch failed for hours)."""
+    monkeypatch.setattr(P, "roster_keys", lambda season, teams: {"exact": {}, "last": {}})
+    lg = pd.DataFrame([{"game_id": "g1", "season": 2026, "home": "BUF", "away": "MIA", "ts": ts(THU.replace(hour=h)), "book": b, "stat": "rec_yards", "player": "Tyreek Hill", "line": ln, "over_price": -110, "under_price": -110}
+                       for h, b, ln in [(10, "fanduel", 70.5), (12, "fanduel", 72.5), (12, "draftkings", 71.5)]])
+    out = P.closing(lg, "g1")
+    need = {"stat", "player", "key", "line", "books", "over_price", "under_price", "open_line", "open_over", "ts", "open_ts", "pulls"}
+    assert need <= set(out.columns) and need <= set(P.closing(lg, "none").columns)
+    r = out.iloc[0]
+    assert (r.line, r.books, r.open_line, r.pulls) == (72.0, 2, 71.0, 2)   # open: the median of each book's first line

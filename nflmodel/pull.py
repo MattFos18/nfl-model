@@ -87,7 +87,7 @@ ESPN_INJ = ["https://site.api.espn.com/apis/site/v2/sports/football/nfl/injuries
             "https://cdn.espn.com/core/nfl/injuries?xhr=1"]
 ESPN_TEAM = {"WSH": "WAS", "LAR": "LA", "JAC": "JAX"}
 TEAMS = ["ARI", "ATL", "BAL", "BUF", "CAR", "CHI", "CIN", "CLE", "DAL", "DEN", "DET", "GB", "HOU", "IND", "JAX", "KC", "LA", "LAC", "LV", "MIA", "MIN", "NE", "NO", "NYG", "NYJ", "PHI", "PIT", "SEA", "SF", "TB", "TEN", "WAS"]
-ESPN_COLS = ["team", "name", "position", "status", "date", "detail", "return_date", "fetched_at"]
+ESPN_COLS = ["team", "espn_id", "name", "position", "status", "date", "detail", "return_date", "fetched_at"]
 
 
 def espn_injuries() -> pd.DataFrame:
