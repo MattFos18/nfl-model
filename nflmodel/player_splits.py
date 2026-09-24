@@ -109,8 +109,39 @@ def build(season: int) -> dict:
             "opp_cols": ["opp", "games", "n", "yds", "epa", "td"], "rows": rows, "opp": opp}
 
 
+NGS = {   # NFL Next Gen Stats, weekly per player (data/raw/ngs*): the season's figures, each week weighted by his volume that week
+    "pass": ("ngs/ngs_passing.parquet", "attempts", [("avg_time_to_throw", "Time to throw, s"), ("avg_intended_air_yards", "Intended air yards"), ("avg_completed_air_yards", "Completed air yards"),
+                                                    ("aggressiveness", "Aggressiveness, % into tight windows"), ("completion_percentage_above_expectation", "Completion % over expected"), ("avg_air_yards_to_sticks", "Air yards past the sticks")]),
+    "rec": ("ngs_rec/ngs_receiving.parquet", "targets", [("avg_separation", "Separation at the catch, yd"), ("avg_cushion", "Cushion at the snap, yd"), ("avg_intended_air_yards", "Intended air yards"),
+                                                        ("percent_share_of_intended_air_yards", "Share of team air yards, %"), ("avg_yac_above_expectation", "YAC over expected")]),
+    "rush": ("ngs_rush/ngs_rushing.parquet", "rush_attempts", [("rush_yards_over_expected_per_att", "Rush yards over expected a carry"), ("rush_pct_over_expected", "Carries beating expected, %"),
+                                                             ("efficiency", "Efficiency (distance run per yard gained)"), ("percent_attempts_gte_eight_defenders", "Carries into 8+ box, %"), ("avg_time_to_los", "Time to the line, s")]),
+}
+
+
+def ngs(pids: set) -> dict:
+    """{pid: {kind: [[season, weeks, volume, value, ...]]}} for the regular season, from the weekly NGS files."""
+    from .features import RAW
+    out = {}
+    for kind, (f, vol, cols) in NGS.items():
+        fp = RAW / f
+        if not fp.exists():
+            continue
+        d = pd.read_parquet(fp)
+        d = d[(d.week > 0) & (d.season_type == "REG") & d.player_gsis_id.isin(pids)]
+        for (pid, yr), g in d.groupby(["player_gsis_id", "season"]):
+            w = g[vol].fillna(0).astype(float)
+            if w.sum() <= 0:
+                continue
+            vals = [round(float((g[c] * w).sum() / w[g[c].notna()].sum()), 2) if g[c].notna().any() and w[g[c].notna()].sum() > 0 else None for c, _ in cols]
+            out.setdefault(pid, {}).setdefault(kind, []).append([int(yr), int(len(g)), int(w.sum())] + vals)
+    return out
+
+
 def export(season: int) -> int:
     out = build(season)
+    ids = set(out["rows"]) | set(out["opp"])
+    out["ngs"] = ngs(ids); out["ngs_cols"] = {k: [lab for _, lab in v[2]] for k, v in NGS.items()}; out["ngs_vol"] = {"pass": "attempts", "rec": "targets", "rush": "carries"}
     txt = "window.PSPLITS=" + json.dumps(out, separators=(",", ":")) + ";"
     WEB.mkdir(parents=True, exist_ok=True); (WEB / "player_splits.js").write_text(txt)
     return len(txt)
