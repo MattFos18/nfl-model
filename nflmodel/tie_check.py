@@ -163,10 +163,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         m = re.search(r"that cut is (\d+-\d+) on the tuning window and (\d+-\d+) held out \(weeks 1 to 17\).*?and (\d+-\d+) on the untouched 2015 to 2018 window", md)
         tie("picks markdown header records (tuning, held out, untouched)", " ".join(m.groups()) if m else "missing", f"{rr.loc['model', '2019-22']} {rr.loc['model', '2023-25']} {rr.loc['model', '2015-18']}")
     wl = LNS / "watch_log.csv"
-    if wl.exists():   # the props pull runs inside the line watch and logs its own error; a crash there leaves every prop line stale
+    if wl.exists():   # every source in the line watch logs its own error and the run carries on, so an error must fail here (24 Sep 2026:
+        # the props pull crashed for 11 hours unseen; the two sources that failed every run were retired, so any error is real)
         last = pd.read_csv(wl).tail(1)
-        err = next((e.strip() for e in str(last.errors.iloc[0] if len(last) else "").split(";") if e.strip().startswith("props:")), "")
-        rows.append(("line watch's props pull ran without an error on the newest snapshot", err or "no error", "no error", not err))
+        errs = [e.strip() for e in str(last.errors.iloc[0] if len(last) and pd.notna(last.errors.iloc[0]) else "").split(";") if e.strip()]
+        rows.append(("line watch: every source ran without an error on the newest snapshot", "; ".join(errs)[:160] or "no error", "no error", not errs))
+    fjs = ROOT / "web" / "data" / "fresh.js"
+    if fjs.exists():   # the live check (injuries, starters, forecasts) logs its errors the same way
+        s_ = fjs.read_text(); fr_ = json.loads(s_[s_.index("=") + 1:].rstrip().rstrip(";"))
+        rows.append(("live check: injuries, starters and forecasts pulled without an error", "; ".join(fr_.get("errors") or [])[:160] or "no error", "no error", not fr_.get("errors")))
     pvf, dgf = OUT / "player_values_all.parquet", OUT / "defender_games.parquet"
     if pvf.exists() and dgf.exists():   # a regular defender who played in the last two seasons always has a snap share (the team-change bug zeroed 99)
         pv = pd.read_parquet(pvf); dgl = pd.read_parquet(dgf, columns=["player_id", "season"]).groupby("player_id").season.max()
