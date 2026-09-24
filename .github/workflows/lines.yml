@@ -20,22 +20,33 @@ permissions:
   actions: write        # to start the weekly run when the live check finds a model input changed
   issues: write         # the site-health alert (nflmodel/health_alert.py)
 concurrency:
-  group: nfl-model-data
+  group: nfl-model-lines   # its own queue (24 Sep 2026): GitHub keeps one pending run per group, so a shared group let a line watch cancel a queued weekly run; pushes retry and rebase instead
   cancel-in-progress: false
 jobs:
   watch:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: skip while a weekly run is going   # the weekly run pulls the lines itself and commits last
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          n=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow weekly.yml --status in_progress --json databaseId --jq length || echo 0)
+          echo "weekly in progress: $n"; if [ "$n" != "0" ]; then echo "skip=1" >> "$GITHUB_OUTPUT"; else echo "skip=0" >> "$GITHUB_OUTPUT"; fi
       - uses: actions/checkout@v4
+        if: steps.gate.outputs.skip != '1'
         with:
           ref: main            # always run main's code and log to main, whichever event started the run
       - uses: actions/setup-python@v5
+        if: steps.gate.outputs.skip != '1'
         with:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt
+        if: steps.gate.outputs.skip != '1'
       - name: log lines
+        if: steps.gate.outputs.skip != '1'
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           ODDS_API_EVERY_RUN: ${{ github.event.inputs.force_odds == 'true' && '1' || '' }}
@@ -43,16 +54,20 @@ jobs:
           DFS_EVERY_RUN: ${{ github.event.inputs.force_dfs == 'true' && '1' || '' }}
         run: python -m nflmodel.lines
       - name: live check        # starters, injuries (league and ESPN) and kickoff forecasts: re-price when a model input changed (nflmodel/refresh.py)
+        if: steps.gate.outputs.skip != '1'
         id: fresh
         run: python -m nflmodel.refresh --check
       - name: cards from the log   # the cards read the newest line snapshot and the newest prop lines; the hourly routine republishes these files
+        if: steps.gate.outputs.skip != '1'
         run: |
           python -m nflmodel.props --markets
           python -m nflmodel.export_web --week
       - name: health checks     # every tie check against the files just written; the page's health chip reads web/data/health.js
+        if: steps.gate.outputs.skip != '1'
         continue-on-error: true
         run: python -m nflmodel.tie_check --page --source "line watch" > /dev/null
       - name: commit log
+        if: steps.gate.outputs.skip != '1'
         run: |
           git config user.name "nfl-model bot"
           git config user.email "actions@users.noreply.github.com"
@@ -62,12 +77,12 @@ jobs:
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
           for i in 1 2 3 4 5; do git push && break; [ "$i" = 5 ] && exit 1; echo "push failed (try $i), retrying"; sleep $((i * 15)); git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main); done   # GitHub answered a push with a 500 once and lost a run (24 Sep 2026)
       - name: re-price when an input changed
-        if: steps.fresh.outputs.reprice == '1'
+        if: steps.gate.outputs.skip != '1' && (steps.fresh.outputs.reprice == '1')
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run weekly.yml --ref main
       - name: health alert      # one GitHub issue labelled site-health, opened when a check fails, closed when all pass
-        if: always()          # 24 Sep 2026: without it a crashed line watch never raised the alert
+        if: always() && steps.gate.outputs.skip != '1'   # always: a crashed line watch raises the alert (24 Sep 2026); not on a skipped turn
         env:
           GH_TOKEN: ${{ github.token }}
           JOB_STATUS: ${{ job.status }}

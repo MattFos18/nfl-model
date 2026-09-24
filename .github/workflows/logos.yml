@@ -6,7 +6,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: nfl-model-data
+  group: nfl-model-logos   # its own queue (24 Sep 2026): GitHub keeps one pending run per group, so a shared group let a line watch cancel a queued weekly run; pushes retry and rebase instead
   cancel-in-progress: false
 jobs:
   logos:
