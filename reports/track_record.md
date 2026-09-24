@@ -25,9 +25,9 @@ Every bet:
 
 |   season |   week | game_id         | bet       |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:----------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      3 | 2026_03_KC_MIA  | MIA +11.5 |   -110 |     nan |   nan | pending  |     nan |
-|     2026 |      3 | 2026_03_TEN_NYG | NYG -3    |   -110 |     nan |   nan | pending  |     nan |
-|     2026 |      3 | 2026_03_CIN_PIT | PIT +3.5  |   -110 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_KC_MIA  | MIA +11.5 |   -112 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_TEN_NYG | NYG -3    |    102 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_CIN_PIT | PIT +3.5  |   -105 |     nan |   nan | pending  |     nan |
 
 ## Matt's bets
 

@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-24 01:33 UTC
+# Tie-out (sources and page), 2026-09-24 01:48 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -58,7 +58,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | yes |
 | picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | yes |
-| picks file stakes = tracker stakes | [0.76, 0.91, 1.12] | [0.47, 0.66, 0.97] | NO |
+| picks file stakes = tracker stakes | [0.89, 1.48, 2.14] | [0.89, 1.48, 2.14] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 86-60 42-24 62-57 | 86-60 42-24 62-57 | yes |
 | season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
@@ -77,8 +77,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.005 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T01-26-36Z | 2026-09-24T01-26-36Z | yes |
-| card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0004 | 0.0005 or under | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T01-40-41Z | 2026-09-24T01-40-41Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T01-40-41Z | 2026-09-24T01-40-41Z | yes |
+| card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
 | page week = picks file (bets: the side flagged) | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA', 'NYG', 'PIT'] | ['', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA', 'NYG', 'PIT'] | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
@@ -98,4 +99,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts) | [332, 227405.8, 14] | [332, 227405.8, 14] | yes |
 | player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 
-Result: FAIL (93 of 94 tie)
+Result: PASS (94 of 94 tie)
