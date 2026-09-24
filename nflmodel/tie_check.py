@@ -167,6 +167,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         last = pd.read_csv(wl).tail(1)
         err = next((e.strip() for e in str(last.errors.iloc[0] if len(last) else "").split(";") if e.strip().startswith("props:")), "")
         rows.append(("line watch's props pull ran without an error on the newest snapshot", err or "no error", "no error", not err))
+    fj = ROOT / "web" / "data" / "fresh.js"
+    if fj.exists() and (LNS / "lines_log.csv").exists() and (LNS / "props_log.csv").exists():   # the This week pull strip against the raw logs
+        s = fj.read_text(); fr = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
+        if "pulls" in fr:
+            ll = pd.read_csv(LNS / "lines_log.csv", usecols=["ts", "source"]); pl = pd.read_csv(LNS / "props_log.csv", usecols=["ts", "book"])
+            z = lambda x: None if pd.isna(x) else f"{x[:10]}T{x[11:13]}:{x[14:16]}Z"
+            want = {"espn": z(ll[ll.source.str.startswith("espn:")].ts.max()), "oddsapi": z(ll[ll.source.str.startswith("oddsapi:")].ts.max()),
+                    "props": z(pl[~pl.book.isin(["prizepicks", "underdog"])].ts.max()), "prizepicks": z(pl[pl.book == "prizepicks"].ts.max()), "underdog": z(pl[pl.book == "underdog"].ts.max())}
+            tie("This week's pull times = the newest rows in the line and prop logs", {r["key"]: r["last"] for r in fr["pulls"] if r["key"] in want}, want)
     try:
         check_season_equation(rows)
     except Exception as e:  # noqa

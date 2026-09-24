@@ -96,11 +96,20 @@ def diff(old: dict, new: dict) -> list[tuple[str, str]]:
     return out
 
 
+def _pulls(checked: str, errors: list[str]) -> list[dict]:
+    """Every line source's last pull time for the page's This week strip (nflmodel/pulls.py); never fails the check."""
+    try:
+        from . import pulls
+        return pulls.status(checked, errors)
+    except Exception as e:  # noqa
+        return [{"key": "error", "label": "Pull times", "last": None, "every": "", "late_after": None, "error": str(e)[:120]}]
+
+
 def write() -> dict:
     fp = fingerprint(); fp["written_at"] = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     RUNS.mkdir(parents=True, exist_ok=True); FP.write_text(json.dumps(fp, indent=0))
     WEB.mkdir(parents=True, exist_ok=True)
-    (WEB / "fresh.js").write_text("window.FRESH=" + json.dumps({"checked": fp["written_at"], "season": fp["season"], "week": fp["week"], "reprice": False, "changes": [], "errors": [], "note": "the model run pulled and priced with these"}) + ";")
+    (WEB / "fresh.js").write_text("window.FRESH=" + json.dumps({"checked": fp["written_at"], "season": fp["season"], "week": fp["week"], "reprice": False, "changes": [], "errors": [], "note": "the model run pulled and priced with these", "pulls": _pulls(fp["written_at"], [])}) + ";")
     return fp
 
 
@@ -135,7 +144,8 @@ def check() -> bool:
     reprice = bool(kinds - {"weather"}) or (("weather" in kinds) and (last_run is None or last_run >= WEATHER_GAP_H))
     now = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     status = {"checked": now, "season": new["season"], "week": new["week"], "reprice": reprice, "changes": [w for _, w in changes][:40], "errors": errors,
-              "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"]}
+              "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"],
+              "pulls": _pulls(now, errors)}
     WEB.mkdir(parents=True, exist_ok=True); (WEB / "fresh.js").write_text("window.FRESH=" + json.dumps(status) + ";")
     (RUNS / "refresh_log.csv").parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame([{"checked": now, "reprice": reprice, "changes": " | ".join(w for _, w in changes)[:1000], "errors": " | ".join(errors)}]).to_csv(RUNS / "refresh_log.csv", mode="a", header=not (RUNS / "refresh_log.csv").exists(), index=False)

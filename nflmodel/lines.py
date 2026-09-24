@@ -354,6 +354,17 @@ def current_week(games: pd.DataFrame):
     return s, w
 
 
+def odds_api_due(now: dt.datetime) -> bool:
+    """The daily sportsbook pull is due at the first line-watch run after 12:00 UTC (GitHub's cron is irregular, so
+    it cannot wait for a run inside 12:00 to 12:30), once: not when a pull or an attempt has happened since."""
+    from .props_lines import last_anchor, log_times, tried
+    anchor, _ = last_anchor(now, [(None, 12, 0.0)])
+    g = load_log(); g = g[g.source.astype(str).str.startswith("oddsapi:")]
+    last = log_times(g).max() if len(g) else pd.NaT
+    t = tried("oddsapi")
+    return not ((pd.notna(last) and last.to_pydatetime() >= anchor) or (t is not None and t >= anchor))
+
+
 def run(season=None, week=None) -> pd.DataFrame:
     games = pd.read_parquet(OUT / "games.parquet")
     if season is None:
@@ -362,8 +373,10 @@ def run(season=None, week=None) -> pd.DataFrame:
     rows, errors = [], []
     import os
     sources = [("espn", espn), ("draftkings", draftkings), ("dk_splits", draftkings_splits)]
-    if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or dt.datetime.utcnow().hour == 12 and dt.datetime.utcnow().minute < 30):
-        sources.append(("oddsapi", odds_api))     # once a day at 12:00 UTC: ~30 credits a month, leaving the free 500 for the player props (props_lines.py); ESPN carries the game lines every half hour
+    if os.environ.get("ODDS_API_KEY") and (os.environ.get("ODDS_API_EVERY_RUN") or odds_api_due(dt.datetime.utcnow())):
+        sources.append(("oddsapi", odds_api))     # once a day from 12:00 UTC: ~30 credits a month, leaving the free 500 for the player props (props_lines.py); ESPN carries the game lines every run
+        from .props_lines import mark
+        mark("oddsapi", dt.datetime.utcnow())
     for name, fn in sources:
         try:
             rows += fn(season, week, ts)

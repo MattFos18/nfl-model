@@ -120,6 +120,12 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
 .chip.alt{background:var(--accent-soft);color:var(--accent)}
+.pulls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-size:12.5px}
+.pulls .ph{color:var(--muted);font-weight:600;margin-right:2px}
+.pulls .pc{border:1px solid var(--rule);border-radius:999px;padding:3px 9px;background:var(--panel);color:var(--ink-2);white-space:nowrap}
+.pulls .pc b{font-weight:600;color:var(--ink)} .pulls .pc .ag{color:var(--muted)}
+.pulls .pc.late{border-color:var(--bad);background:var(--bad-soft)} .pulls .pc.late .ag{color:var(--bad);font-weight:600}
+@media (max-width:600px){.pulls .pc{white-space:normal;max-width:100%}}
 .chip{display:inline-block;margin-top:5px;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--ink-2);background:var(--rule-2);border-radius:3px;padding:1px 7px;align-self:flex-start} .blk .edge small{color:var(--muted);font-size:11.5px;margin-left:6px}
 .blk .ptab{display:grid;grid-template-columns:52px 1fr 1fr;gap:2px 8px;align-items:baseline}
 .blk .ptab .hd{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
@@ -222,6 +228,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 </nav>
 
 <section class="tab" id="week" hidden>
+  <div class="pulls" id="pulls" aria-label="When each line source was last pulled"></div>
   <div class="row" style="justify-content:space-between">
     <p class="note" id="weeknote" style="margin:0"></p>
     <div class="legend" style="margin:0"><span><span class="dot" style="background:var(--model)"></span>Model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span><span><span class="badge flag">Flag</span> Edge past the threshold</span></div>
@@ -613,7 +620,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const lineTs = window.WEEK ? (WEEK.games || []).flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop() : null;
     // limits in hours: the line watch runs every 30 minutes, the weekly run at least four times a week
     const fresh = [["Game lines (line watch, every 30 minutes)", toD(lineTs), 2], ["Starters, injuries and weather (every line-watch run)", toD(window.FRESH && FRESH.checked), 2],
-                   ["Tie checks (every line-watch run and model run)", toD(H && H.checked), 2], ["Model run (re-prices on every input change)", toD(META.built), 96]];
+                   ["Tie checks (every line-watch run and model run)", toD(H && H.checked), 2], ["Model run (re-prices on every input change)", toD(META.built), 96],
+                   ...((window.FRESH && FRESH.pulls) || []).filter(r => r.key !== "espn" && r.key !== "weather" && r.key !== "injuries").map(r => [r.label + ` (${r.every})`, toD(r.last), r.last && r.late_after ? Math.round((toD(r.late_after) - toD(r.last)) / 36e5 * 10) / 10 : 0])];
     const stale = fresh.filter(([, d, lim]) => !d || ago(d) > lim);
     const fails = H ? H.fails : [];
     const ok = H && H.ok && !stale.length;
@@ -907,6 +915,23 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tl != null && g0.model_total != null) { g.total_line = tl; g.total_edge = +(g0.model_total - tl).toFixed(3); if (CAL.total) g.p_over_cal = calP(CAL.total, g.total_edge); }
     return g;
   }
+  // Lines pulled: every line source's last pull (web/data/fresh.js pulls, from the logs), in ET with a live age; a source
+  // past its cadence turns red. The ages tick while the page is open, so an old page shows its age.
+  function renderPulls() {
+    const el = $("pulls"); if (!el) return;
+    const P = (window.FRESH && FRESH.pulls) || [];
+    const toD = t => { const m = String(t || "").match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2})[:-](\d{2})/); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+    const now = new Date(), day = d => d.toLocaleDateString("en-US", {timeZone: "America/New_York"});
+    const when = d => (day(d) === day(now) ? "" : d.toLocaleDateString("en-US", {timeZone: "America/New_York", weekday: "short"}) + " ") + d.toLocaleTimeString("en-US", {timeZone: "America/New_York", hour: "numeric", minute: "2-digit"});
+    const age = d => { const m = Math.max(0, Math.round((now - d) / 6e4)); return m < 1 ? "just now" : m < 60 ? `${m} min ago` : m < 48 * 60 ? `${Math.floor(m / 60)} hr ${m % 60 ? (m % 60) + " min " : ""}ago` : `${Math.floor(m / 1440)} days ago`; };
+    const chip = (label, d, late, tip) => `<span class="pc${late ? " late" : ""}" title="${esc(tip).replace(/"/g, "&quot;")}"><b>${esc(label)}</b> ${d ? when(d) + ` <span class="ag">· ${age(d)}${late ? " · late" : ""}</span>` : `<span class="ag">never${late ? " · late" : ""}</span>`}</span>`;
+    const built = toD(META.built);
+    el.innerHTML = `<span class="ph">Pulled (ET)</span>` + P.map(r => { const d = toD(r.last), la = toD(r.late_after), late = !d || (la && now > la) || !!r.error;
+        return chip(r.short || r.label, d, late, `${r.label}: pulled ${r.every}.${la ? " Late after " + when(la) + " ET." : ""}${r.error ? " Last try failed: " + r.error : ""}`); }).join("") +
+      (built ? chip("Model priced", built, false, "The model's projections, edges and flags are from this run. Cards show the newest lines; the edges follow them.") : "");
+  }
+  renderPulls(); setInterval(renderPulls, 30000);
+
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
