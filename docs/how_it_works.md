@@ -1640,3 +1640,54 @@ needed one on the hour every six hours). They now run at the first line-watch ru
 `data/lines/pull_state.json` records each paid attempt, so a failing pull is tried once per scheduled time, not on
 every run, and the credit use is unchanged. The Thursday props pull also no longer counts pick'em rows as a recent
 pull (a pick'em pull two hours earlier used to block it).
+
+## 29. Player values audited, defenders and linemen rebuilt (24 Sep 2026)
+
+Matt: Christian Gonzalez and Myles Garrett ranked far too low; the player values could not be trusted. Every list was
+checked against its own stats and the consensus stars at each position. Quarterbacks, skill players, kickers and
+punters read sensibly. Defenders and linemen did not, for these reasons:
+
+1. **Credits summed per game, not per play.** `defender_credits` grouped a defender's credits by game, capped them at
+   one, and multiplied by his first credited play's EPA: every game counted about one play (0.95 credited plays a
+   game against 3.1 real ones).
+2. **Snaps matched by name.** "Patrick Surtain II" in the snap counts is "Pat Surtain II" on the roster, so Surtain
+   had no games at all; and a defender's game existed only if he was credited on a play, so a corner who was not
+   thrown at or tackled near lost those games. The table is now every defensive snap, matched by PFR id (100% of
+   2025's defensive snaps).
+3. **Team changes.** A defender who changed teams was divided by his new team's snaps: 99 regulars had a share of 0
+   (Garrett among them).
+4. **What was measured.** Credited plays count tackles, so a tackle after a long catch or run counted against the
+   tackler and a corner nobody throws at had nothing. Even with the per-play fix they add nothing to predicting a
+   defense (below).
+5. **Groups.** The roster's DL / LB / DB put edge rushers with nose tackles and with off-ball linebackers. Groups are
+   now edge, interior line, linebacker, corner and safety (depth chart; a linebacker who pressures on 1.5%+ of his
+   snaps is an edge), each with its own replacement level and its own average starter (2, 2, 2, 3, 2 per team).
+6. **Old games.** The value decayed 0.99 a game with no season fade, so a game two seasons back kept about 70% weight.
+
+**The defender value now** is what his plays were worth to the defense's EPA, per snap, weights measured on 2016-18
+plays so both test windows stay untouched: coverage yards saved against the league's yards per target (0.095 EPA a
+yard, the EPA of a completion yard), interceptions (3.6 EPA over an incompletion), sacks (2.05) and other pressures
+(0.39) from Pro Football Reference, run stops (the -EPA of runs he is credited on that lost the offense EPA) and
+forced fumbles. Recency 0.92 a game and 0.8 a season back.
+
+**Tested** (`experiments/def_value.py`, `def_value_decay.py`): each team-game's defensive EPA per play from the team's
+own prior plus the snap-weighted values of the defenders who played it, leave-one-season-out in each window.
+
+| Error, defensive EPA per play | 2019-22 | 2023-25 |
+|---|---|---|
+| Team prior only | 0.20199 | 0.21174 |
+| + credited plays (old value, per-play fix) | 0.20197 | 0.21187 |
+| + new value | 0.20144 | 0.21104 |
+| + new value, recency 0.92 / 0.8 | 0.20052 | 0.21076 |
+
+Pass plays alone: 0.30286 / 0.31438 against 0.30490 / 0.31576. As a game-model input (defenders out, own or opponent,
+`experiments/def_value_out.py`) it is worse on both windows, so it stays a Players-tab value.
+
+**Offensive linemen** are rated with their unit in the snaps they played: pressures allowed per dropback (0.84 EPA a
+pressure) and rushing yards before contact per carry (0.135 EPA a yard) against the league, from PFR. No public data
+splits a line's blocking by player; the on/off split it replaced put every lineman who never missed a game at exactly
+zero. It does not predict an offense beyond the team's own history (`experiments/ol_value.py`), which is what a unit
+measure made from the team's numbers should do, so the page labels it a unit rating.
+
+Health checks added: every rostered defender with 300+ snaps last season has a value; the defender table holds 97%+ of
+last season's defensive snaps; no regular defender has a snap share of 0.

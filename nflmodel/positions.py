@@ -29,7 +29,7 @@ CREDIT = {"solo_tackle_1_player_id": 1.0, "solo_tackle_2_player_id": 1.0, "assis
           "tackle_with_assist_1_player_id": 0.7, "tackle_with_assist_2_player_id": 0.7, "tackle_for_loss_1_player_id": 0.5, "tackle_for_loss_2_player_id": 0.5, "sack_player_id": 1.0,
           "qb_hit_1_player_id": 0.5, "qb_hit_2_player_id": 0.5, "pass_defense_1_player_id": 1.0, "pass_defense_2_player_id": 1.0, "interception_player_id": 1.0,
           "forced_fumble_player_1_player_id": 0.5, "forced_fumble_player_2_player_id": 0.5, "fumble_recovery_1_player_id": 0.5, "fumble_recovery_2_player_id": 0.5, "safety_player_id": 1.0}
-DCOLS = ["game_id", "season", "week", "posteam", "defteam", "epa", "play_type", "field_goal_result", "kicker_player_id", "kicker_player_name", "punter_player_id", "punter_player_name", "punt_attempt", "field_goal_attempt", "extra_point_attempt"] + list(CREDIT)
+DCOLS = ["game_id", "play_id", "season", "week", "posteam", "defteam", "epa", "play_type", "field_goal_result", "kicker_player_id", "kicker_player_name", "punter_player_id", "punter_player_name", "punt_attempt", "field_goal_attempt", "extra_point_attempt"] + list(CREDIT)
 OL_POS = {"T", "G", "C", "OL", "OT", "OG"}
 DEF_POS = {"DE", "DT", "NT", "DL", "EDGE", "OLB", "ILB", "MLB", "LB", "CB", "NB", "S", "FS", "SS", "DB"}
 GROUP = {"QB": "QB", "RB": "Skill", "FB": "Skill", "HB": "Skill", "WR": "Skill", "TE": "Skill", "K": "K", "P": "P", "LS": "Special teams"}
@@ -55,21 +55,26 @@ def load(seasons) -> pd.DataFrame:
 
 
 def defender_credits(p: pd.DataFrame) -> pd.DataFrame:
-    """Per (game, defense team, player): credited plays and the -EPA credited (capped at one credit per play)."""
+    """Per (game, defense team, player): credited plays, the -EPA credited (at most one credit per play), and two
+    parts of it the defender value uses: run stops (-EPA of runs he is credited on that lost the offense EPA) and
+    forced fumbles (-EPA of plays where he forced one). Until 24 Sep 2026 the credits were summed per game, not per
+    play, so a defender's game counted once, at his first credited play's EPA."""
     d = p[p.play_type.isin(["pass", "run"]) & p.defteam.notna()].copy()
     d["neg_epa"] = -pd.to_numeric(d.epa, errors="coerce").fillna(0.0)
     parts = []
     for col, w in CREDIT.items():
         if col not in d.columns:
             continue
-        x = d[d[col].notna()][["game_id", "season", "week", "defteam", col, "neg_epa"]].rename(columns={col: "player_id"})
-        x["credit"] = w
+        x = d[d[col].notna()][["game_id", "play_id", "season", "week", "defteam", "play_type", col, "neg_epa"]].rename(columns={col: "player_id"})
+        x["credit"] = w; x["ff"] = 1.0 if col.startswith("forced_fumble") else 0.0
         parts.append(x)
     c = pd.concat(parts, ignore_index=True)
-    c = c.groupby(["game_id", "season", "week", "defteam", "player_id"], as_index=False).agg(credit=("credit", "sum"), neg_epa=("neg_epa", "first"))
+    c = c.groupby(["game_id", "play_id", "season", "week", "defteam", "player_id"], as_index=False).agg(credit=("credit", "sum"), neg_epa=("neg_epa", "first"), play_type=("play_type", "first"), ff=("ff", "max"))
     c["credit"] = c.credit.clip(upper=1.0)
     c["epa"] = c.credit * c.neg_epa
-    g = c.groupby(["game_id", "season", "week", "defteam", "player_id"], as_index=False).agg(credited=("credit", "sum"), epa=("epa", "sum"))
+    c["run_stop"] = np.where((c.play_type == "run") & (c.neg_epa > 0), c.epa, 0.0)
+    c["ff_epa"] = np.where(c.ff > 0, c.neg_epa.clip(lower=0), 0.0)
+    g = c.groupby(["game_id", "season", "week", "defteam", "player_id"], as_index=False).agg(credited=("credit", "sum"), epa=("epa", "sum"), run_stop=("run_stop", "sum"), ff_epa=("ff_epa", "sum"))
     return g.rename(columns={"defteam": "team"})
 
 
@@ -77,7 +82,7 @@ def snaps_by_game(seasons) -> pd.DataFrame:
     fs = [RAW / "snap_counts" / f"snap_counts_{s}.parquet" for s in seasons]
     s = pd.concat([pd.read_parquet(f) for f in fs if f.exists()], ignore_index=True)
     s["team"] = s.team.replace(TEAM_FIX); s["key"] = s.player.map(norm)
-    return s[["game_id", "season", "week", "team", "key", "position", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct"]]
+    return s[["game_id", "season", "week", "team", "key", "player", "pfr_player_id", "position", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct"]]
 
 
 def passer_rating(att, cmp, yds, td, ints) -> float:
@@ -132,16 +137,124 @@ def names_by_id(seasons) -> dict:
     return out
 
 
-def defender_games(p: pd.DataFrame, snaps: pd.DataFrame, names: dict) -> pd.DataFrame:
-    """One row per (game, team, defender): defensive snaps (the plays) and the credited -EPA, for PlayerValues."""
-    c = defender_credits(p)
-    c["key"] = c.player_id.map(lambda i: norm(names.get(i, ("", ""))[0]))
-    sn = snaps[snaps.defense_snaps > 0][["game_id", "team", "key", "defense_snaps"]].drop_duplicates(["game_id", "team", "key"])
-    g = c.merge(sn, on=["game_id", "team", "key"], how="left")
-    g = g[g.defense_snaps.notna()]
-    g["plays"] = g.defense_snaps.astype(float); g["role"] = "defender"
-    g["name"] = g.player_id.map(lambda i: names.get(i, ("", ""))[0])
+# Defender value (24 Sep 2026): what each defender's plays were worth to the team's defensive EPA, per snap. Weights
+# measured on 2016-18 plays (both test windows untouched; experiments/def_value.py):
+#   coverage   0.095 EPA per yard saved against the league's yards per target (EPA per yard on completions)
+#   picks      3.6 EPA per interception on top of the yards (an interception against an incompletion)
+#   sacks      2.05 EPA per sack (a sack's EPA against a clean dropback's)
+#   pressures  0.39 EPA per pressure that was not a sack (pressured dropbacks without a sack against a clean one, per
+#              PFR non-sack pressure; a single 0.84 for every pressure had counted a sack the same as a hurry)
+#   run stops  the -EPA of runs he is credited on that lost the offense EPA; forced fumbles the play's -EPA
+# Coverage and pressures come from PFR's weekly advanced defense table (2018 on). A tackle after a catch or a long
+# run no longer counts against him: allowing the catch is in the coverage numbers of the man who allowed it.
+DEF_W = {"cov_yds": 0.095, "cov_int": 3.6, "sacks": 2.05, "press_ns": 0.39}
+# how fast old games fade (experiments/def_value_decay.py): 0.92 a game and 0.8 a season back, K 300 snaps, best on
+# 2019-22 and better held out than the old 0.99 a game with no fade (a game two seasons back had kept ~70% weight)
+DEF_DECAY, DEF_FADE, DEF_K = 0.92, 0.8, 300.0
+
+
+DEF_ROLE = {"DE": "EDGE", "EDGE": "EDGE", "DT": "IDL", "NT": "IDL", "DL": "IDL", "ILB": "LB", "MLB": "LB", "LB": "LB", "OLB": "LB",
+            "CB": "CB", "NB": "CB", "DB": "CB", "FS": "S", "SS": "S", "S": "S"}
+EDGE_PRESS = 0.015  # a linebacker who pressures on 1.5%+ of his snaps (2018 on) is an edge rusher (off-ball ILBs: 90th percentile 1.2%; OLB edges 1.7% and up)
+
+
+def defender_roles(dg: pd.DataFrame) -> dict:
+    """Each defender's group for his replacement level: his latest roster depth-chart position (DE, DT, NT, OLB, ILB,
+    MLB, CB, FS, SS; the roster's generic DL / LB / DB mixes edge rushers with nose tackles and off-ball linebackers),
+    else his usual snap-count position; any linebacker who pressures on 1.5%+ of his snaps (2018 on) is an edge rusher."""
+    dc = {}
+    for f in sorted((RAW / "rosters").glob("roster_weekly_*.parquet")):
+        rr = pd.read_parquet(f, columns=["gsis_id", "depth_chart_position", "week"]).dropna().sort_values("week")
+        dc.update(dict(zip(rr.gsis_id, rr.depth_chart_position)))
+    h = dg.sort_values(["season", "week"]).groupby("player_id").tail(17)
+    snap_pos = h.groupby("player_id").position.agg(lambda x: x.mode().iloc[0] if len(x.mode()) else "")
+    r = dg[dg.season >= 2018].groupby("player_id").agg(press=("press", "sum"), plays=("plays", "sum"))
+    rate = (r.press / r.plays.where(r.plays > 0)).reindex(snap_pos.index).fillna(0.0)
+    out = {}
+    for pid, sp in snap_pos.items():
+        role = DEF_ROLE.get(dc.get(pid, ""), DEF_ROLE.get(sp, "CB"))
+        out[pid] = "EDGE" if role == "LB" and rate[pid] >= EDGE_PRESS else role
+    return out
+
+
+def pfr_ids() -> dict:
+    ids = {}
+    for f in sorted((RAW / "rosters").glob("roster_weekly_*.parquet")):
+        rr = pd.read_parquet(f, columns=["gsis_id", "pfr_id"]).dropna().drop_duplicates("pfr_id"); ids.update(dict(zip(rr.pfr_id, rr.gsis_id)))
+    return ids
+
+
+def pfr_def_games() -> pd.DataFrame:
+    """Per (game_id, pfr id): coverage yards saved, interceptions, pressures, targets, missed tackles (PFR, 2018 on)."""
+    fs = sorted((RAW / "pfr_advstats").glob("advstats_week_def_*.parquet"))
+    if not fs:
+        return pd.DataFrame(columns=["game_id", "pfr_player_id", "cov_yds", "cov_int", "press", "sacks", "press_ns", "targets"])
+    a = pd.concat([pd.read_parquet(f) for f in fs], ignore_index=True)
+    tg = a[a.def_targets.fillna(0) > 0]
+    lg = (tg.groupby("season").def_yards_allowed.sum() / tg.groupby("season").def_targets.sum()).rename("lg_ypt")
+    a = a.merge(lg, on="season", how="left")
+    a["cov_yds"] = a.lg_ypt * a.def_targets.fillna(0) - a.def_yards_allowed.fillna(0)
+    a["cov_int"] = a.def_ints.fillna(0); a["press"] = a.def_pressures.fillna(0); a["targets"] = a.def_targets.fillna(0)
+    a["sacks"] = a.def_sacks.fillna(0); a["press_ns"] = (a.press - a.sacks).clip(lower=0)
+    return a.groupby(["game_id", "pfr_player_id"], as_index=False)[["cov_yds", "cov_int", "press", "sacks", "press_ns", "targets"]].sum()
+
+
+def with_ids(sn: pd.DataFrame, names: dict) -> pd.DataFrame:
+    """Snap-count rows with the gsis id: by PFR id through the rosters, else the name (one row per game and player)."""
+    sn = sn.copy(); sn["player_id"] = sn.pfr_player_id.map(pfr_ids())
+    miss = sn.player_id.isna()
+    if miss.any():
+        by_name = {}
+        for pid, (nm, _) in names.items():
+            by_name.setdefault(norm(nm), pid)
+        sn.loc[miss, "player_id"] = sn.loc[miss, "key"].map(by_name)
+    return sn.dropna(subset=["player_id"]).drop_duplicates(["game_id", "player_id"])
+
+
+# Offensive line (24 Sep 2026): no public data says which lineman allowed a pressure, so a lineman is rated by his
+# unit in the snaps he played: pressures allowed per dropback against the league (PFR, 0.84 EPA a pressure, as for
+# the pass rushers) and rushing yards before contact per carry against the league (PFR, 0.135 EPA a yard, the EPA of
+# a rushing yard on 2016-18 runs). It replaced the on/off split (team EPA with him minus without), which put every
+# lineman who never missed a game at exactly zero and swung on a handful of games.
+OL_W = {"press": 0.84, "ybc": 0.135}
+
+
+def ol_unit_games(snaps: pd.DataFrame, names: dict) -> pd.DataFrame:
+    """One row per (game, team, lineman): his offensive snaps (plays) and the unit's EPA saved per snap times them."""
+    fp = sorted((RAW / "pfr_pass").glob("advstats_week_pass_*.parquet")); fr = sorted((RAW / "pfr_rush").glob("advstats_week_rush_*.parquet"))
+    if not fp or not fr:
+        return pd.DataFrame(columns=["game_id", "season", "week", "team", "player_id", "role", "plays", "epa", "name"])
+    a = pd.concat([pd.read_parquet(f, columns=["game_id", "season", "team", "times_pressured"]) for f in fp]); a["team"] = a.team.replace(TEAM_FIX)
+    u = pd.concat([pd.read_parquet(f, columns=["game_id", "season", "team", "carries", "rushing_yards_before_contact"]) for f in fr]); u["team"] = u.team.replace(TEAM_FIX)
+    a = a.groupby(["game_id", "season", "team"], as_index=False).times_pressured.sum()
+    u = u.groupby(["game_id", "season", "team"], as_index=False)[["carries", "rushing_yards_before_contact"]].sum()
+    tg = pd.read_parquet(OUT / "team_games.parquet", columns=["game_id", "team", "pass_plays"])
+    t = a.merge(u, on=["game_id", "season", "team"], how="outer").merge(tg, on=["game_id", "team"], how="left").fillna(0.0)
+    lg = t.groupby("season").agg(pr=("times_pressured", "sum"), db=("pass_plays", "sum"), ybc=("rushing_yards_before_contact", "sum"), car=("carries", "sum"))
+    t = t.merge((lg.pr / lg.db).rename("lg_press"), on="season").merge((lg.ybc / lg.car).rename("lg_ybc"), on="season")
+    t["saved"] = OL_W["press"] * (t.lg_press * t.pass_plays - t.times_pressured) + OL_W["ybc"] * (t.rushing_yards_before_contact - t.lg_ybc * t.carries)
+    sn = with_ids(snaps[snaps.position.isin(OL_POS) & (snaps.offense_snaps > 0)], names)
+    team_off = snaps.groupby(["game_id", "team"]).offense_snaps.max().rename("team_off").reset_index()
+    g = sn.merge(t[["game_id", "team", "saved"]], on=["game_id", "team"], how="inner").merge(team_off, on=["game_id", "team"])
+    g["plays"] = g.offense_snaps.astype(float); g["epa"] = g.saved / g.team_off * g.plays; g["role"] = "OL"
+    g["name"] = [names.get(i, (n, ""))[0] or n for i, n in zip(g.player_id, g.player)]
     return g[["game_id", "season", "week", "team", "player_id", "role", "plays", "epa", "name"]]
+
+
+def defender_games(p: pd.DataFrame, snaps: pd.DataFrame, names: dict) -> pd.DataFrame:
+    """One row per (game, team, defender) who played a defensive snap, from the snap counts matched by PFR id (names
+    differ: Patrick Surtain II in the snap counts is Pat Surtain II on the roster): snaps (the plays), the value
+    components and their sum (epa, the team defensive EPA his game saved), for PlayerValues."""
+    sn = with_ids(snaps[snaps.defense_snaps > 0], names)
+    c = defender_credits(p)
+    g = sn.merge(c.drop(columns=["season", "week", "team"]).rename(columns={"epa": "credit_epa"}), on=["game_id", "player_id"], how="left")
+    g = g.merge(pfr_def_games(), on=["game_id", "pfr_player_id"], how="left")
+    for col in ["credited", "credit_epa", "run_stop", "ff_epa", "cov_yds", "cov_int", "press", "sacks", "press_ns", "targets"]:
+        g[col] = g[col].fillna(0.0)
+    g["epa"] = g.run_stop + g.ff_epa + sum(w * g[k] for k, w in DEF_W.items())
+    g["plays"] = g.defense_snaps.astype(float); g["role"] = "defender"
+    g["name"] = [names.get(i, (n, ""))[0] or n for i, n in zip(g.player_id, g.player)]
+    return g[["game_id", "season", "week", "team", "player_id", "role", "plays", "epa", "name", "position", "credited", "credit_epa", "run_stop", "ff_epa", "cov_yds", "cov_int", "press", "sacks", "press_ns", "targets"]]
 
 
 def kicking_games(p: pd.DataFrame, names: dict) -> pd.DataFrame:
@@ -196,14 +309,15 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
         status[(r.team, r.gsis_id)] = ROSTER_LABEL.get(r.status, r.status)
     # skill (players.py logic) and QB, defenders, kickers through PlayerValues on each table
     pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, by_team = _usage_frames(pg)
-    sub = {pid: DEF_SUB.get(names.get(pid, ("", ""))[1], "DB") for pid in dg.player_id.unique()}
-    dg = dg.assign(role=dg.player_id.map(sub))   # the role is the position group, so the replacement level is per group
-    pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
+    roles = defender_roles(dg)
+    dg = dg.assign(role=dg.player_id.map(roles))   # the role is the position group, so the replacement level is per group
+    pv_def = PlayerValues(dg, DEF_DECAY, DEF_K, season_fade=DEF_FADE); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
     qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12), RD.get("qb_season_fade", 1.0))
     team_db = qb.groupby(["game_id", "team"]).dropbacks.sum().rename("team_db").reset_index()
     tg = pd.read_parquet(OUT / "team_games.parquet"); snaps = snaps_by_game(range(season - 2, season + 1))
-    ol = ol_onoff(snaps, tg, names, season, week).set_index(["team", "key"]) if len(snaps) else pd.DataFrame()
+    og = pd.read_parquet(OUT / "ol_games.parquet") if (OUT / "ol_games.parquet").exists() else pd.DataFrame(columns=["player_id"])
+    pv_ol = PlayerValues(og, DEF_DECAY, 300.0, season_fade=DEF_FADE); ol_by = {pid: g for pid, g in og.groupby("player_id")}   # current form, as for defenders
     def_by = {pid: g for pid, g in dg.groupby("player_id")}; kick_by = {pid: g for pid, g in kg.groupby("player_id")}
     cov, cov_league = coverage_stats(season, week)
     def last8(g):
@@ -233,21 +347,26 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
             if g is not None:
                 rec = last8(g)
                 if len(rec):
-                    role = DEF_SUB.get(pos, "DB"); v, n = pv_def.value(r.gsis_id, role, season, week); pr = pv_def.prior(role, season)
+                    role = roles.get(r.gsis_id, DEF_ROLE.get(pos, "CB")); v, n = pv_def.value(r.gsis_id, role, season, week); pr = pv_def.prior(role, season)
                     snap_share = float(rec.plays.mean())
                     # the unit's snaps in each game he played, for the team he played it for: a player who changed teams
                     # was divided by his new team's snaps in games it did not play (share 0; 24 Sep 2026)
                     tsn = snaps.merge(rec[["game_id", "team"]].drop_duplicates(), on=["game_id", "team"]).groupby("game_id").defense_snaps.max().mean()
                     share = float(snap_share / tsn) if tsn and not np.isnan(tsn) else 0.0
-                    row.update({"games": int(len(rec)), "plays_per_game": round(snap_share, 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4), "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": f"Impact -EPA per defensive snap x snap share, against {role} replacement"})
+                    row.update({"games": int(len(rec)), "plays_per_game": round(snap_share, 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4), "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": f"Defensive EPA saved per snap (coverage, pressures, interceptions, run stops) x snap share, against {role} replacement", "def_role": role})
             if len(cov) and r.gsis_id in cov.index:
                 row.update({k: (int(v) if k in ("cov_games", "cov_targets") else float(v)) for k, v in cov.loc[r.gsis_id].items()})
                 row["cov_league_ypt"] = round(cov_league["ypt"], 2); row["cov_league_rating"] = round(cov_league["rating"], 1)
         elif grp == "OL":
-            key = (r.team, norm(r.full_name))
-            if len(ol) and key in ol.index:
-                o = ol.loc[key]
-                row.update({"games": int(o.games_on), "plays_per_game": None, "share": float(o.snap_pct), "epa_per_play": float(o.onoff_raw), "value_above_replacement": round(float(o.onoff) * float(o.snap_pct), 4), "basis": f"On/off: team EPA per play with him minus without ({int(o.games_off)} games without)"})
+            g = ol_by.get(r.gsis_id)
+            if g is not None:
+                rec = last8(g)
+                if len(rec):
+                    v, n = pv_ol.value(r.gsis_id, "OL", season, week); pr = pv_ol.prior("OL", season)
+                    tsn = snaps.merge(rec[["game_id", "team"]].drop_duplicates(), on=["game_id", "team"]).groupby("game_id").offense_snaps.max().mean()
+                    share = float(rec.plays.mean() / tsn) if tsn and not np.isnan(tsn) else 0.0
+                    row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.plays.mean()), 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4),
+                                "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": "Line unit in his snaps: pressures allowed and yards before contact against the league, per snap x snap share"})
         elif grp in ("K", "P"):
             g = kick_by.get(r.gsis_id)
             if g is not None:
@@ -276,7 +395,16 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
         key_ = x_.share.fillna(x_.plays_per_game).fillna(0) if grp_ in ("Skill", "OL", "Defense") else x_.plays_per_game.fillna(0)
         x_ = x_.assign(_k=key_).sort_values("_k", ascending=False).groupby("team").head(k_)
         ref[grp_] = float(x_.value_above_replacement.median())
-    out["avg_starter_ref"] = out.group.map(ref)
+    # defenders against the average starter of their own group (24 Sep 2026): an edge rusher's value runs on a larger
+    # scale than a safety's, so one median across all eleven set every edge above average; per team 2 EDGE, 2 IDL,
+    # 2 LB, 3 CB, 2 S by snap share
+    DTOP = {"EDGE": 2, "IDL": 2, "LB": 2, "CB": 3, "S": 2}; dref = {}
+    if "def_role" in out.columns:
+        for role_, k_ in DTOP.items():
+            x_ = out[(out.group == "Defense") & (out.def_role == role_) & out.value_above_replacement.notna()]
+            if len(x_):
+                dref[role_] = float(x_.assign(_k=x_.share.fillna(0)).sort_values("_k", ascending=False).groupby("team").head(k_).value_above_replacement.median())
+    out["avg_starter_ref"] = [dref.get(r_, ref.get(g_)) if g_ == "Defense" else ref.get(g_) for g_, r_ in zip(out.group, out.get("def_role", pd.Series([None] * len(out), index=out.index)))]
     out["value_vs_avg"] = (out.value_above_replacement - out.avg_starter_ref).round(4)
     return out.sort_values(["team", "group", "value_above_replacement"], ascending=[True, True, False], na_position="last")
 
@@ -285,6 +413,7 @@ def build(seasons=range(2013, 2027)):
     p = load(seasons); names = names_by_id(range(2012, max(seasons) + 1)); snaps = snaps_by_game(seasons)
     dg = defender_games(p, snaps, names); dg.to_parquet(OUT / "defender_games.parquet", index=False)
     kg = kicking_games(p, names); kg.to_parquet(OUT / "kicking_games.parquet", index=False)
+    og = ol_unit_games(snaps, names); og.to_parquet(OUT / "ol_games.parquet", index=False)
     print("defender_games", dg.shape, "kicking_games", kg.shape, flush=True)
 
 

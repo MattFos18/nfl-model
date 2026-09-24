@@ -55,8 +55,9 @@ def player_box(p: pd.DataFrame) -> pd.DataFrame:
 
 
 class PlayerValues:
-    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"], pct: float = 25):
+    def __init__(self, pg: pd.DataFrame, decay=DEFAULT["decay"], k=DEFAULT["k"], pct: float = 25, season_fade: float | None = None):
         self.pg = pg.sort_values(["season", "week"]); self.decay, self.k, self.pct = decay, k, pct
+        self.fade = SEASON_FADE if season_fade is None else season_fade   # per season back, on top of the per-game decay
         self._cache, self._prior = {}, {}
         self.by = {key: g for key, g in self.pg.groupby(["player_id", "role"])}
 
@@ -83,7 +84,7 @@ class PlayerValues:
             if len(h) == 0:
                 r = (pr, 0.0)
             else:
-                w = self.decay ** np.arange(len(h))[::-1] * (SEASON_FADE ** (season - h.season.values) if SEASON_FADE != 1.0 else 1.0)
+                w = self.decay ** np.arange(len(h))[::-1] * (self.fade ** (season - h.season.values) if self.fade != 1.0 else 1.0)
                 n = float((h.plays.values * w).sum()); e = float((h.epa.values * w).sum())
                 r = ((e + self.k * pr) / (n + self.k), n)
         self._cache[key] = r
