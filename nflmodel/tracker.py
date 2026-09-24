@@ -215,6 +215,23 @@ def main():
         clv = x.clv.fillna(x.clv_now).dropna() if len(x) and "clv_now" in x.columns else (x.clv.dropna() if len(x) else pd.Series(dtype=float))
         L.append(f"| {lab} | {len(x)} | {len(st)} | {f'{w}-{l}' + (f'-{pu}' if pu else '') + (f' ({w / (w + l):.0%})' if w + l else '') if len(st) else 'nothing settled'} | {(f'{st.units.sum():+.2f}' if len(st) else '')} | {(f'{clv.mean():+.2f}' if len(clv) else '')} | {bt(who)} |" if len(x) else f"| {lab} | 0 | 0 | | | | {bt(who)} |")
     L.append("")
+    # is the live record what the backtest says to expect? The flag's backtest win rate over 2019 to 2025 against the live
+    # settled record, with the range a record of that length falls in nine times in ten when the rate is right
+    try:
+        from scipy.stats import binom
+        x = gr[gr.who == "model"] if len(gr) else gr; st = x[x.result.isin(["win", "loss"])] if len(x) else x
+        w, n = int((st.result == "win").sum()), int(len(st))
+        rec = [rr.loc["model", wdw] for wdw in ["2019-22", "2023-25"]] if rr is not None and "model" in rr.index else []
+        wl = [tuple(int(v) for v in str(r).split("-")[:2]) for r in rec]
+        p0 = sum(a for a, b in wl) / max(sum(a + b for a, b in wl), 1) if wl else None
+        if p0 and n:
+            lo, hi = binom.ppf(0.05, n, p0), binom.ppf(0.95, n, p0)
+            verdict = "inside the range" if lo <= w <= hi else ("below the range" if w < lo else "above the range")
+            L += [f"Live against the backtest: the flag has won {w} of {n} settled; at the backtest rate of {p0:.1%} (2019 to 2025), {n} bets land between {int(lo)} and {int(hi)} wins nine times in ten. The live record is {verdict}." + (" With fewer than 30 settled this says little either way." if n < 30 else ""), ""]
+        elif p0:
+            L += [f"Live against the backtest: nothing settled yet; the flag's backtest rate is {p0:.1%} (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.", ""]
+    except Exception as e:  # noqa
+        L += [f"Live against the backtest: not computed ({str(e)[:60]})", ""]
     for who, name in [("model", f"Model picks (flagged at a {SPREAD_EDGE:g}+ spread edge, at the best number)"), ("matt", "Matt's bets")]:
         x = gr[gr.who == who] if len(gr) else gr
         L += [f"## {name}", ""]
