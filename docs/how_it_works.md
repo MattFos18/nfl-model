@@ -1807,3 +1807,25 @@ average defense"). Adding the next opponent helps passers and hurts receivers an
 the opponent defense as an input, so no matchup term is added to player values. In the game model (skill players
 listed out, `experiments/opp_adjust_model.py`) the adjusted values made no difference that passes both windows (margin
 miss 10.0324 both ways on 2019-22, 9.9141 against 9.9143 on 2023-25), so the model keeps the raw values.
+
+## 34. Players, teams and season totals, reorganized (24 Sep 2026)
+
+**Player pages** are in sections: Summary (value, rank at his position, this season, season projection, value by
+season), Game log (every stat, the full box score, career), Matchups and schemes (`nflmodel/player_splits.py`: every
+target, carry or dropback split by coverage, each coverage family, blitz, pressure, box count, play action, motion,
+formation, personnel, down, red zone and score; this season, last season and since 2016; plus every opponent),
+Tracking (NFL Next Gen Stats by season: time to throw, air yards, CPOE, separation, cushion, YAC and rush yards over
+expected), Projections, Injuries. The Players list splits receivers, backs and tight ends.
+
+**Teams**: the Overview sub-tab is gone (each part repeated another tab); its record, power, points and next game sit
+above every Team sub-tab. The Roster opens first, with a table of everyone the model prices as unavailable and why
+(`players.unavailable_reasons`: this week's league report, ESPN's injury page matched by its athlete id, the last report
+that listed him, the reserve list and the week the stint began; roster codes R01 IR, R48 IR designated to return, R04
+PUP). The Scheme tab shows last season beside this one: coverage, pressure, time to throw and personnel come from the
+participation file, which nflverse publishes after each season; this season's time to throw now comes from Next Gen
+Stats. Splits under 20 plays show greyed rather than blank.
+
+**Season totals at a point in time**: Season -> Player totals -> "As projected at the time" shows every backtest
+snapshot (before Week 1, going into Weeks 5, 9, 13, 2016 to 2025) with what each player finished with, and this
+season's every week (`data/tracker/player_season_snapshots.csv`, kept as made). Before Week 1 the projection has only
+last season's games and flags no breakout; the books' season-long player lines have no free archive to score against.
