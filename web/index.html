@@ -291,7 +291,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <button data-sub="positions">Positions</button>
   </nav>
   <div id="teams">
-  <p class="note">Every team on every rating as of a chosen week, then plotted. <b>Power</b> is the model's full opinion of a team: run the fitted equation with this team's offense ratings and QB against a league-average defense, then an average offense against this team's defense, on a neutral field with no weather; power = points for − points allowed. It uses every input the model has except the game situation. The <b>scatter</b> is narrower: just the two EPA-per-play ratings, offense across and defense up, so you can see which side of the ball a team's strength comes from. Click a column to sort; the small number is the rank on that column.</p>
+  
   <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model">Model (decayed, last season at 0.8 weight)</option><option value="season">This season only, equal weight</option><option value="last3">Last three weeks</option><option value="last1">Last week only</option><option value="lastseason">Last season only</option></select></label></div>
   <div class="grid2e" style="margin-bottom:14px">
     <div class="card viz-root" id="scatcard"><h3>Offense and defense</h3><p class="note" id="scatsub" style="margin:0 0 6px"></p><div id="scatter"></div><div class="tip" id="tip2"></div></div>
@@ -308,7 +308,6 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   <div class="status" id="rkstatus"></div>
   </div>
   <div id="positions" hidden>
-  <p class="note">Every rostered player valued as of the coming week (his last eight games, across seasons; the window was swept on both backtest windows), ranked within his position group against an average starter at it (0 = the median starter). Values are in EPA per play terms (Team → Players for the basis of each group); defensive backs also carry their coverage numbers from Pro Football Reference. As of the latest weekly run.</p>
   <div class="row"><label class="ctl">Position <select id="posgroup"></select></label><label class="ctl">Show <select id="posn"><option value="32">Top 32</option><option value="64">Top 64</option><option value="1000">All</option></select></label></div>
   <div class="tablewrap" style="max-height:70vh"><table id="postable"></table></div>
   </div>
@@ -1146,7 +1145,9 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const extraH = isQB ? `<th title="points a game against an average starting QB, as the model counts them: his value per play times the model's fitted points per unit of QB rating">Points a game</th>` : cov ? `<th title="Pro Football Reference coverage: targets as nearest defender, yards per target, passer rating allowed, yards saved a game">Coverage</th>` : "<th></th>";
     const extra = r => isQB ? `<td class="mono">${r.plays_per_game == null ? "" : (VA(r) >= 0 ? "+" : "") + (VA(r) * QBF()).toFixed(1)}</td>` : cov ? `<td class="mono">${r.cov_targets >= 20 ? `${r.cov_targets} tgt · ${r.cov_ypt} yd/t · ${Math.round(r.cov_rating)} rtg · ${r.cov_yds_saved_pg > 0 ? "+" : ""}${r.cov_yds_saved_pg} yd/g` : ""}</td>` : "<td></td>";
     $("postable").innerHTML = `<colgroup><col style="width:44px"><col style="width:26%"><col style="width:12%"><col style="width:14%"><col style="width:9%"><col style="width:11%"><col></colgroup><thead><tr><th>#</th><th class="l">Player</th><th class="l">Team</th><th title="${isQB ? "expected points per play against an average starting QB (the model's QB rating minus the median starter's); 0 is an average starter" : "expected points per team play against an average starter at his position (the median starter's value); 0 is an average starter"}">Vs an average starter</th><th title="games with plays, last 17">Games</th><th title="${isQB ? "dropbacks a game" : "plays a game in his role"}">${isQB ? "Dropbacks / g" : "Plays / g"}</th>${extraH}</tr></thead><tbody>` +
-      rows.slice(0, posN).map((r, i) => `<tr><td class="mono">${i + 1}</td><td class="l" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><b>${esc(r.name)}</b>${hurt(r)}</td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono ${VA(r) > 0 ? "pos" : "neg"}">${VA(r) >= 0 ? "+" : ""}${VA(r).toFixed(3)}</td><td class="mono">${r.games ?? ""}</td><td class="mono">${r.plays_per_game == null ? "" : r.plays_per_game.toFixed(1)}</td>${extra(r)}</tr>`).join("") + "</tbody>";
+      rows.slice(0, posN).map((r, i) => `<tr class="mrow" data-pid="${r.player_id}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><b>${esc(r.name)}</b>${hurt(r)}</td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono ${VA(r) > 0 ? "pos" : "neg"}">${VA(r) >= 0 ? "+" : ""}${VA(r).toFixed(3)}</td><td class="mono">${r.games ?? ""}</td><td class="mono">${r.plays_per_game == null ? "" : r.plays_per_game.toFixed(1)}</td>${extra(r)}</tr><tr class="pscalc" data-for="${r.player_id}" hidden><td></td><td colspan="6" class="calc" style="white-space:normal">${valueCalc(r)}<div style="margin-top:6px"><a href="#" data-open="${r.player_id}">Player page →</a></div></td></tr>`).join("") + "</tbody>";
+    oneOpen("postable", "tr.mrow[data-pid]", tr => $("postable").querySelector(`tr.pscalc[data-for="${tr.dataset.pid}"]`));
+    if (!$("postable").dataset.link) { $("postable").dataset.link = "1"; $("postable").addEventListener("click", ev => { const a = ev.target.closest("a[data-open]"); if (a) { ev.preventDefault(); ev.stopPropagation(); openPlayer(a.dataset.open); } }, true); }
   }
   // ---------- Rankings ----------
   function renderRankings() {
@@ -1227,6 +1228,22 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 
   // ---------- History ----------
   // a scorecard: the few numbers that answer the question, first. Each item [label, value, the line under it, "good" | "bad"]
+  // how a player's "vs an average starter" is built, from his row in players.js: his rate, replacement, share, the median starter
+  function valueCalc(r) {
+    if (!r || r.value_above_replacement == null) return "";
+    const s3 = v => v == null || isNaN(v) ? "–" : `${v >= 0 ? "+" : ""}${(+v).toFixed(3)}`, var_ = r.value_above_replacement, v = r.epa_per_play, ref = r.avg_starter_ref, va = VA(r);
+    const who = r.group === "QB" ? "starting QB" : r.group === "Defense" ? ({EDGE: "starting edge", IDL: "starting interior lineman", LB: "starting linebacker", CB: "starting corner", S: "starting safety"})[r.def_role] || "starting defender" : r.group === "OL" ? "starting lineman" : r.group === "K" ? "kicker" : r.group === "P" ? "punter" : "starting skill player";
+    const share = r.group === "QB" ? null : (r.share == null ? 1 : r.share), repl = share ? v - var_ / share : v - var_;
+    const rows = [[r.group === "QB" ? "rating" : "EPA / play", s3(v), r.group === "QB" ? "EPA per dropback, his last games weighted by age" : "his last 8 games, weighted by age, pulled toward replacement"],
+      ["replacement", s3(repl), "a 10th-percentile regular at the role"]];
+    if (share != null && share !== 1) rows.push(["share", `${Math.round(100 * share)}%`, "of his unit's plays"]);
+    rows.push(["above repl.", s3(var_), share != null && share !== 1 ? `(${s3(v)} − ${s3(repl)}) × ${Math.round(100 * share)}%` : `${s3(v)} − ${s3(repl)}`]);
+    rows.push(["avg starter", s3(ref), `the median ${who}, this week`]);
+    rows.push(["value", `<b>${s3(va)}</b>`, `${s3(var_)} − ${s3(ref)}`]);
+    if (r.group === "QB" && r.plays_per_game) rows.push(["points a game", `${va * QBF() >= 0 ? "+" : ""}${(va * QBF()).toFixed(1)}`, `${s3(va)} × ${QBF().toFixed(1)} points per unit of rating`]);
+    if (r.part_coverage != null) rows.push(["made of", "", `EPA per 100 snaps: ${(+r.part_coverage).toFixed(2)} coverage · ${(+r.part_rush).toFixed(2)} rush · ${(+r.part_run_stops).toFixed(2)} run stops · ${(+r.part_forced_fumbles).toFixed(2)} forced fumbles · ${(+r.part_credited_plays).toFixed(1)} credited`]);
+    return `<div class="kv" style="justify-content:start">${rows.map(([l, x, f]) => `<span class="k">${l}</span><span class="v">${x}</span><span class="f">${f || ""}</span>`).join("")}</div>`;
+  }
   // a calc cell: rows of [label, result, formula]; kvGrid is the same without the cell
   const kvGrid = rows => `<div class="kv">${rows.filter(Boolean).map(([l, v, f]) => `<span class="k">${l}</span><span class="v">${v}</span><span class="f">${f || ""}</span>`).join("")}</div>`;
   const kv = rows => `<td class="calc">${kvGrid(rows)}</td>`;
@@ -1773,6 +1790,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const sameGroup = (r, c) => SKILL_POS.RB.includes(c.position) || SKILL_POS.WR.includes(c.position) || SKILL_POS.TE.includes(c.position) ? r.group === "Skill" && Object.values(SKILL_POS).find(v => v.includes(c.position)).includes(r.position)
       : c.group === "Defense" ? r.group === "Defense" && r.def_role === c.def_role : r.group === c.group;
     let sm = tiles.length ? `<div class="tiles" style="margin:10px 0 4px">${tiles.join("")}</div>` : "";
+    if (cur && cur.value_above_replacement != null) sm += `<details class="psec" open><summary>How "vs an average starter" is built</summary><div class="calc" style="font-family:var(--mono);font-size:12px;padding:6px 0">${valueCalc(cur)}</div></details>`;
     if (cur && cur.value_above_replacement != null) { const gr = P.values.filter(r => r.value_above_replacement != null && sameGroup(r, cur)).sort((a, b) => VA(b) - VA(a)); const rk = gr.findIndex(r => r.player_id === pid) + 1;
       const glab = cur.group === "Defense" ? ({EDGE: "edge rushers", IDL: "interior linemen", LB: "linebackers", CB: "cornerbacks", S: "safeties"})[cur.def_role] || "defenders" : cur.group === "Skill" ? ({RB: "running backs", FB: "running backs", HB: "running backs", WR: "wide receivers", TE: "tight ends"})[cur.position] || "skill players" : (GROUP_LABEL[cur.group] || cur.group).toLowerCase() + "s";
       if (rk) sm += `<p class="note" style="margin:6px 0 0">${ordN(rk)} of ${gr.length} ${glab} with a value, against an average starter (${esc(cur.basis || GROUP_BASIS[cur.group] || "")}).</p>`; }
