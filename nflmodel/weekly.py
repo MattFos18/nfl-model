@@ -63,6 +63,8 @@ def main(full=False, skip_network=False):
     games = pd.read_parquet(OUT / "games.parquet")
     games = weather.apply_to_games(games)
     games.to_parquet(OUT / "games.parquet", index=False)
+    if not skip_network:
+        step("lines", lambda: sh(["nflmodel.lines"]), log)   # every live number from the same moment: the lines are pulled with the starters, injuries and forecast above
     step("ratings", lambda: sh(["nflmodel.ratings"]), log)
     step("trends", lambda: sh(["nflmodel.trends"]), log)
     step("players", lambda: sh(["nflmodel.players"]), log)
@@ -78,6 +80,8 @@ def main(full=False, skip_network=False):
         pk.to_csv(REP / f"picks_{cur_season}_wk{cur_week}.csv", index=False)
         step("log run", lambda: P.log_run(pk, run_at), log)
         step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
+        from . import refresh
+        step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
     step("grade", lambda: tracker.main(), log)
     step("tie check (sources)", lambda: tie_check.main(False) or (_ for _ in ()).throw(RuntimeError("numbers disagree: see reports/tie_check.md")), log)
     step("export data room", lambda: export_web.main(), log)

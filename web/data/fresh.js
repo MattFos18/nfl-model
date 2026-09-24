@@ -1,0 +1,1 @@
+window.FRESH={"checked": "2026-09-24 00:22 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "note": "the model run pulled and priced with these"};
