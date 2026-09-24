@@ -1438,7 +1438,7 @@ than later, so the honest statement is: the edge shows from 2018 on, strongly he
 Kelly's worst fall was 8% of the peak; full Kelly's 30% (never bet it). The track record now states each week
 whether the live record sits inside the range the backtest rate implies for that many bets.
 
-**Season odds reliability** (`reports/season_calibration.csv`, Season -> Backtest). When the odds said x%, how
+**Season odds reliability** (`reports/season_calibration.csv`, Backtest -> Season odds and player totals). When the odds said x%, how
 often it happened: 2019-22 is close in every band. In 2023-25 the confident end was too confident (a 70-85%
 division favorite won 55% of the time, a 85-95% playoff chance came in 76%) and the long shots came in too often.
 The two knobs tested (shrinking future margins, widening the scale) both help 2023-25 and hurt 2019-22, so the odds
