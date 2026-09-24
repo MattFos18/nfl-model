@@ -314,6 +314,12 @@ def roster_keys(season: int, teams) -> dict:
         return _ROSTER_CACHE[key]
     from .features import RAW
     f = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    if not f.exists():   # the line watch's runner has no raw data (24 Sep 2026: every name went unresolved there); fetch the season's roster
+        try:
+            from . import pull
+            pull.fetch(f"{pull.BASE}/weekly_rosters/roster_weekly_{season}.parquet", f)
+        except Exception as e:  # noqa
+            print("roster for name matching not fetched:", str(e)[:120], flush=True)
     exact, last = {}, {}
     if f.exists():
         r = pd.read_parquet(f, columns=["team", "week", "full_name", "football_name", "last_name"]); r = r[r.week == r.week.max()]
