@@ -173,6 +173,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         x = pv[(pv.group == "Defense") & (pv.games > 0) & (pv.plays_per_game.fillna(0) > 15) & (pv.player_id.map(dgl).fillna(0) >= int(g.season.max()) - 1)]
         z = x[x.share.fillna(0) < 0.05]
         rows.append(("defenders with 15+ snaps a game in the last two seasons all have a snap share", ", ".join(z.name.head(5)) or "none zero", "none zero", len(z) == 0))
+        # every rostered defender with 300+ snaps last season has a value (Pat Surtain II had none: the snap counts were matched by name)
+        dgs = pd.read_parquet(dgf, columns=["player_id", "season", "plays"]); last = int(g.season.max()) - 1
+        big = set(dgs[dgs.season == last].groupby("player_id").plays.sum().loc[lambda x: x >= 300].index)
+        nov = pv[(pv.group == "Defense") & pv.player_id.isin(big) & pv.value_above_replacement.isna()]
+        rows.append((f"rostered defenders with 300+ snaps in {last} all have a value", ", ".join(nov.name.head(5)) or "all valued", "all valued", len(nov) == 0))
+        sc = RAW / "snap_counts" / f"snap_counts_{last}.parquet"
+        if sc.exists():   # the defender table carries nearly every defensive snap of last season (matched by PFR id)
+            tot = float(pd.read_parquet(sc, columns=["defense_snaps"]).defense_snaps.sum()); got = float(dgs[dgs.season == last].plays.sum())
+            rows.append((f"defender table holds 97%+ of {last}'s defensive snaps", f"{got / tot:.1%}", "97% or more", got / tot >= 0.97))
     fj = ROOT / "web" / "data" / "fresh.js"
     if fj.exists() and (LNS / "lines_log.csv").exists() and (LNS / "props_log.csv").exists():   # the This week pull strip against the raw logs
         s = fj.read_text(); fr = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
