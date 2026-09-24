@@ -1,1 +1,1 @@
-window.FRESH={"checked": "2026-09-24 02:13 UTC", "season": 2026, "week": 3, "reprice": true, "changes": ["HOU M.J. Stewart now Out"], "errors": [], "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"]};
+window.FRESH={"checked": "2026-09-24 02:26 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "note": "the model run pulled and priced with these"};

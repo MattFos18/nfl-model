@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-24 02:39 UTC
+# Tie-out (sources and page), 2026-09-24 02:27 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -56,9 +56,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props kicker constants on the page = props_backtest9.csv (fitted team blends) | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | yes |
 | props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game) | {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.57 | {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.57 | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | yes |
-| picks file flags = tracker rows (games) | ['2026_03_KC_MIA'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | NO |
-| picks file flags = tracker rows (bets) | ['MIA +11.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | NO |
-| picks file stakes = tracker stakes | [1.39] | [0.89, 1.48, 2.14] | NO |
+| picks file flags = tracker rows (games) | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | ['2026_03_CIN_PIT', '2026_03_KC_MIA', '2026_03_TEN_NYG'] | yes |
+| picks file flags = tracker rows (bets) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
+| picks file stakes = tracker stakes | [0.0, 0.89, 1.48] | [0.0, 0.89, 1.48] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 81-56 41-21 61-59 | 81-56 41-21 61-59 | yes |
 | season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
@@ -77,13 +77,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.017 | 0.01 or under | NO |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T02-11-07Z | 2026-09-24T02-11-07Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T02-11-07Z | 2026-09-24T02-11-07Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T02-20-25Z | 2026-09-24T02-20-25Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T02-20-25Z | 2026-09-24T02-20-25Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
 | page week = picks file (bets: the side flagged) | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
-| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | ['MIA +11.5', 'NYG -3', 'PIT +3.5'] | yes |
+| page live table = tracker (pending model rows) | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | ['MIA +11.5', 'NYG -2.5', 'PIT +3.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 | season odds are for the week being priced | 2026 3 | 2026 3 | yes |
 | season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1295, 0.1126, 0.1096, 0.0979, 0.0702, 0.0683, 0.0602, 0.0598, 0.0551, 0. | [32, [0.1295, 0.1126, 0.1096, 0.0979, 0.0702, 0.0683, 0.0602, 0.0598, 0.0551, 0. | yes |

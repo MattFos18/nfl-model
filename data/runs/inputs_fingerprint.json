@@ -195,6 +195,11 @@
 "Out"
 ],
 [
+"HOU",
+"M.J. Stewart",
+"Out"
+],
+[
 "IND",
 "Alec Pierce",
 "Out"
@@ -326,11 +331,6 @@
 ],
 [
 "SF",
-"De'Zhaun Stribling",
-"Out"
-],
-[
-"SF",
 "Demarcus Robinson",
 "Out"
 ],
@@ -357,7 +357,7 @@
 ],
 "weather": {
 "2026_03_ATL_GB": {
-"wind": 4.9,
+"wind": 4.4,
 "cold": false,
 "rain": false
 },
@@ -422,5 +422,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-24 01:46 UTC"
+"written_at": "2026-09-24 02:26 UTC"
 }
