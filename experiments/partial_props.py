@@ -11,8 +11,8 @@ ns = {"__name__": "bys"}; exec(compile(src, "bys", "exec"), ns); build = ns["bui
 WIN = {"2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 rows = []
 for kind in ("rec", "rush"):
-    for mode in ("none", "exclude", "weight"):
-        ns["PARTIAL_MODE"] = None if mode == "none" else mode
+    for mode in (__import__("os").environ.get("MODES") or "none,exclude,weight").split(","):
+        ns["PARTIAL_MODE"] = None if mode == "none" else ("exclude" if mode.startswith("exclude") else mode); ns["PARTIAL_T"] = 0.25 if mode == "exclude25" else 0.5
         f, ev = build(kind)
         # each variant gets its own median factors refit on 2017-18 (the constants absorb how high the shares run)
         GRID = np.round(np.arange(0.60, 1.2001, 0.01), 2); fy, wy = PR.TEAM_FIT[kind]["yds"], PR.RECON_W[kind]["yds"]

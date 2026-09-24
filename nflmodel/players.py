@@ -104,7 +104,7 @@ def _usage_frames(pg: pd.DataFrame):
     return skill, by_player, by_team
 
 
-USAGE_MODE = None   # partial games (24 Sep 2026, experiments/partial_games.py): None counts every game he appeared in as a full game; "exclude" drops games he played under half his usual snap share; "weight" counts each game by his snap share over his usual (capped at 1), so a first-drive exit is about a tenth of a game
+USAGE_MODE = None   # partial games (24 Sep 2026, experiments/partial_games.py): None (kept: the alternatives were no better for the game model and worse for the props on both windows; a short game predicts a lighter next one) counts every game he appeared in as a full game; "exclude" drops games he played under half his usual snap share; "weight" counts each game by his snap share over his usual (capped at 1), so a first-drive exit is about a tenth of a game
 TEAM_WINDOW = False   # 23 Sep 2026: the player's own last n games on any team (the original). Tested and worse on the flag record in all three windows: "gate" (nothing for a player who has never played for this team), "rating" (usage over the ratings' window), "last" (the team's last n games); reports/usage_window.csv, usage_gate.csv
 RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
 GATE_MIN = 1e-6   # "gate": share of the team's ratings window (weighted games) a player must have played in for his absence to count. 1e-6 = only a player who has never played for the team is skipped (reports/usage_gate.csv: a quarter or half of the window skipped too many and lost on both windows)

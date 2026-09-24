@@ -77,7 +77,8 @@ def build(kind):
         med = pgx.groupby("pid").off_pct.transform(lambda v: v.shift(1).rolling(8, min_periods=3).median())
         e = (pgx.off_pct / med).clip(upper=1.0).fillna(1.0)
         if PARTIAL == "exclude":
-            keep = (e >= 0.5).astype(float); pgx["n"] = pgx.n * keep; pgx["team_n"] = pgx.team_n * keep
+            thr = float(globals().get("PARTIAL_T") or __import__("os").environ.get("PARTIAL_T") or 0.5)
+            keep = (e >= thr).astype(float); pgx["n"] = pgx.n * keep; pgx["team_n"] = pgx.team_n * keep
         else:
             pgx["team_n"] = pgx.team_n * e
         R85 = fade_sums(pgx, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85", "team_n": "team_n_85"})
