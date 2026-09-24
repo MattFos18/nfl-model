@@ -1,1 +1,1 @@
-window.FRESH={"checked": "2026-09-24 09:24 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "note": "the model run pulled and priced with these"};
+window.FRESH={"checked": "2026-09-24 10:13 UTC", "season": 2026, "week": 3, "reprice": false, "changes": [], "errors": [], "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"]};
