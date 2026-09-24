@@ -1,38 +1,38 @@
-# Tie-out (sources and page), 2026-09-24 14:26 UTC
+# Tie-out (sources and page), 2026-09-24 14:44 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
 | Check | Reads | Should read | Ties |
 |---|---|---|---|
-| README flag record, held out | 45-27 | 45-27 | yes |
-| README flag record, 2019 to 2025 | 130-88 | 130-88 | yes |
-| README flag record, outside Week 18 | 123-78 | 123-78 | yes |
+| README flag record, held out | 44-29 | 44-29 | yes |
+| README flag record, 2019 to 2025 | 128-88 | 128-88 | yes |
+| README flag record, outside Week 18 | 121-78 | 121-78 | yes |
 | README held-out margin miss | 9.91 | 9.91 | yes |
-| threshold sweep, cut 4, 2019-22 | 82-57 | 82-57 | yes |
-| threshold sweep, cut 4, 2023-25 | 41-21 | 41-21 | yes |
-| docs section 9 row, cut 4, 2019-22 | 82-57 | 82-57 | yes |
-| docs section 9 row, cut 4, 2023-25 | 41-21 | 41-21 | yes |
+| threshold sweep, cut 4, 2019-22 | 81-55 | 81-55 | yes |
+| threshold sweep, cut 4, 2023-25 | 40-23 | 40-23 | yes |
+| docs section 9 row, cut 4, 2019-22 | 81-55 | 81-55 | yes |
+| docs section 9 row, cut 4, 2023-25 | 40-23 | 40-23 | yes |
 | docs: live cut named in section 9 | True | True | yes |
 | docs: QB replacement level | True | True | yes |
 | model inputs counted | 22 | 22 | yes |
 | docs: input count | True | True | yes |
-| docs section 9 rule table: 4+ edge (the flag) | 62-61 | 82-57 | 41-21 | 62-61 | 82-57 | 41-21 | yes |
-| track record backtest columns: 4+ edge (the flag) | 62-61 | 82-57 | 41-21 | 62-61 | 82-57 | 41-21 | yes |
-| docs section 9 rule table: 4.5+ edge | 41-42 | 54-35 | 27-14 | 41-42 | 54-35 | 27-14 | yes |
-| track record backtest columns: 4.5+ edge | 41-42 | 54-35 | 27-14 | 41-42 | 54-35 | 27-14 | yes |
-| docs section 9 rule table: 4+ edge, model's side the underdog or pick'em | 46-37 | 74-44 | 33-16 | 46-37 | 74-44 | 33-16 | yes |
-| track record backtest columns: 4+ edge, model's side the underdog or pick'em | 46-37 | 74-44 | 33-16 | 46-37 | 74-44 | 33-16 | yes |
-| docs section 9 rule table: 4+ edge, weeks 1 to 13 only | 47-45 | 68-41 | 34-17 | 47-45 | 68-41 | 34-17 | yes |
-| track record backtest columns: 4+ edge, weeks 1 to 13 only | 47-45 | 68-41 | 34-17 | 47-45 | 68-41 | 34-17 | yes |
-| docs by-week row: weeks 1 | 175 +0.02 51 16-11 59 | 175 +0.02 51 16-11 59 | yes |
-| docs by-week row: weeks 2 | 176 -0.07 55 18-7 72 | 176 -0.07 55 18-7 72 | yes |
+| docs section 9 rule table: 4+ edge (the flag) | 61-58 | 81-55 | 40-23 | 61-58 | 81-55 | 40-23 | yes |
+| track record backtest columns: 4+ edge (the flag) | 61-58 | 81-55 | 40-23 | 61-58 | 81-55 | 40-23 | yes |
+| docs section 9 rule table: 4.5+ edge | 41-40 | 53-35 | 27-14 | 41-40 | 53-35 | 27-14 | yes |
+| track record backtest columns: 4.5+ edge | 41-40 | 53-35 | 27-14 | 41-40 | 53-35 | 27-14 | yes |
+| docs section 9 rule table: 4+ edge, model's side the underdog or pick'em | 45-36 | 73-43 | 32-18 | 45-36 | 73-43 | 32-18 | yes |
+| track record backtest columns: 4+ edge, model's side the underdog or pick'em | 45-36 | 73-43 | 32-18 | 45-36 | 73-43 | 32-18 | yes |
+| docs section 9 rule table: 4+ edge, weeks 1 to 13 only | 46-42 | 67-40 | 34-19 | 46-42 | 67-40 | 34-19 | yes |
+| track record backtest columns: 4+ edge, weeks 1 to 13 only | 46-42 | 67-40 | 34-19 | 46-42 | 67-40 | 34-19 | yes |
+| docs by-week row: weeks 1 | 175 +0.01 51 17-11 61 | 175 +0.01 51 17-11 61 | yes |
+| docs by-week row: weeks 2 | 176 -0.08 55 18-7 72 | 176 -0.08 55 18-7 72 | yes |
 | docs by-week row: weeks 3 | 176 +0.10 51 15-9 62 | 176 +0.10 51 15-9 62 | yes |
-| docs by-week row: weeks 4 | 171 +0.23 47 12-5 71 | 171 +0.23 47 12-5 71 | yes |
-| docs by-week row: weeks 5 to 8 | 632 +0.17 50 43-35 55 | 632 +0.17 50 43-35 55 | yes |
-| docs by-week row: weeks 9 to 13 | 793 +0.15 49 45-36 56 | 793 +0.15 49 45-36 56 | yes |
-| docs by-week row: weeks 14 to 17 | 692 +0.20 52 36-36 50 | 692 +0.20 52 36-36 50 | yes |
+| docs by-week row: weeks 4 | 171 +0.22 47 12-5 71 | 171 +0.22 47 12-5 71 | yes |
+| docs by-week row: weeks 5 to 8 | 632 +0.17 50 40-32 56 | 632 +0.17 50 40-32 56 | yes |
+| docs by-week row: weeks 9 to 13 | 793 +0.16 50 45-37 55 | 793 +0.16 50 45-37 55 | yes |
+| docs by-week row: weeks 14 to 17 | 692 +0.20 51 35-35 50 | 692 +0.20 51 35-35 50 | yes |
 | docs by-week row: weeks 18 | 80 +0.46 56 7-10 41 | 80 +0.46 56 7-10 41 | yes |
-| docs by-week row: weeks Playoffs | 133 +0.27 50 9-7 56 | 133 +0.27 50 9-7 56 | yes |
+| docs by-week row: weeks Playoffs | 133 +0.27 49 9-7 56 | 133 +0.27 49 9-7 56 | yes |
 | scheme profiles as of the current week | 2026 3 | 2026 3 | yes |
 | scheme profiles cover 32 teams | 32 | 32 | yes |
 | props projections are for the current week | 2026 3 | 2026 3 | yes |
@@ -58,17 +58,19 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | yes |
 | picks file flags = tracker rows (games) | ['2026_03_KC_MIA'] | ['2026_03_KC_MIA'] | yes |
 | picks file flags = tracker rows (bets) | ['MIA +10.5'] | ['MIA +10.5'] | yes |
-| picks file stakes = tracker stakes | [1.33] | [1.33] | yes |
+| picks file stakes = tracker stakes | [1.34] | [1.34] | yes |
 | picks markdown names the live cut | True | True | yes |
-| picks markdown header records (tuning, held out, untouched) | 82-57 41-21 62-61 | 82-57 41-21 62-61 | yes |
+| picks markdown header records (tuning, held out, untouched) | 81-55 40-23 61-58 | 81-55 40-23 61-58 | yes |
 | line watch: every source ran without an error on the newest snapshot | no error | no error | yes |
 | prop lines: book names resolve to rostered players (99%+) | 100.0% | 99% or more | yes |
-| published page size under 60 MB (the cap is 64 MB a version) | 56.6 MB | under 60 MB | yes |
+| published page size under 60 MB (the cap is 64 MB a version) | 57.0 MB | under 60 MB | yes |
 | live check: injuries, starters and forecasts pulled without an error | no error | no error | yes |
 | defenders with 15+ snaps a game in the last two seasons all have a snap share | none zero | none zero | yes |
 | rostered defenders with 300+ snaps in 2025 all have a value | all valued | all valued | yes |
 | defender table holds 97%+ of 2025's defensive snaps | 100.0% | 97% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-24T14:18Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | {'espn': '2026-09-24T14:18Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | yes |
+| player tables built after the tables they read (none stale) | in order | in order | yes |
+| snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.2% (2025 DL) | 99% or more | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-24T14:37Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | {'espn': '2026-09-24T14:37Z', 'oddsapi': '2026-09-24T12:08Z', 'props': '2026-09- | yes |
 | season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | the page has no duplicate element ids (a duplicate points a control at the wrong element) | [] | [] | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [364, 210, 66, 32, 2026, 3] | [364, 210, 66, 32, 2026, 3] | yes |
@@ -83,10 +85,10 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
-| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
+| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T14-18-28Z | 2026-09-24T14-18-28Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T14-18-28Z | 2026-09-24T14-18-28Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-24T14-37-32Z | 2026-09-24T14-37-32Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-24T14-37-32Z | 2026-09-24T14-37-32Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0005 or under | yes |
 | page week = picks file (games) | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | ['2026_03_ARI_SF', '2026_03_ATL_GB', '2026_03_BAL_DAL', '2026_03_CAR_CLE', '2026 | yes |
 | page week = picks file (bets: the side flagged) | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'MIA'] | yes |
@@ -94,7 +96,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page live table = tracker (pending model rows) | ['MIA +10.5'] | ['MIA +10.5'] | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 | season odds are for the week being priced | 2026 3 | 2026 3 | yes |
-| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1296, 0.1136, 0.1077, 0.0978, 0.0704, 0.0684, 0.0595, 0.0595, 0.0551, 0. | [32, [0.1296, 0.1136, 0.1077, 0.0978, 0.0704, 0.0684, 0.0595, 0.0595, 0.0551, 0. | yes |
+| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.129, 0.1136, 0.1086, 0.0983, 0.0706, 0.0682, 0.0597, 0.0596, 0.0548, 0.0 | [32, [0.129, 0.1136, 0.1086, 0.0983, 0.0706, 0.0682, 0.0597, 0.0596, 0.0548, 0.0 | yes |
 | season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes) | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | yes |
 | expected wins across the league = regular-season games (every game gives one win, a tie half each) | 272.0 | 272.0 | yes |
 | season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss) | [['2019-22', 1.3565, 0.0842, 2.4761], ['2023-25', 1.579, 0.1378, 2.8598]] | [['2019-22', 1.3565, 0.0842, 2.4761], ['2023-25', 1.579, 0.1378, 2.8598]] | yes |
@@ -103,8 +105,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | Bets tab: seasons on the page = reports/sizing_seasons.csv (rows) | 10 | 10 | yes |
 | Bets tab: cover_cal on the page = reports/cover_calibration.csv (rows) | 12 | 12 | yes |
 | Bets tab: cal_start on the page = reports/calibration_start.csv (rows) | 7 | 7 | yes |
-| sizing backtest flag records = the rule records on the Bets tab (2019-22, 2023-25) | ['82-57', '41-21'] | ['82-57', '41-21'] | yes |
+| sizing backtest flag records = the rule records on the Bets tab (2019-22, 2023-25) | ['81-55', '40-23'] | ['81-55', '40-23'] | yes |
 | player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts) | [329, 226501.3, 14] | [329, 226501.3, 14] | yes |
 | player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 
-Result: PASS (102 of 102 tie)
+Result: PASS (104 of 104 tie)

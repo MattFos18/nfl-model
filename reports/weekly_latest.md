@@ -1,44 +1,44 @@
-# Weekly run, 2026-09-24 14:11 UTC
+# Weekly run, 2026-09-24 14:31 UTC
 
 ## Steps
 
 | step                | status   | detail                                                                                                                                                                                                   |   seconds |
 |:--------------------|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
-| pull                | ok       | [('2026-09-24T14:11:27', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180806, 'f058124594f7'), ('2026-09-24T14:11:27', 'pbp', 2025, 'ht |       6.9 |
-| pull player history | ok       | [('2026-09-24T14:11:34', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'ok', 149299, '8606f428d500'), ('2026-09-24T14 |      12.5 |
-| build               | ok       | team_games (8202, 142)                                                                                                                                                                                   |     251.3 |
-| features            | ok       | [40 rows x 8 columns]                                                                                                                                                                                    |      20.2 |
+| pull                | ok       | [('2026-09-24T14:31:09', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180806, 'f058124594f7'), ('2026-09-24T14:31:09', 'players', 'all' |       5.7 |
+| pull player history | ok       | [('2026-09-24T14:31:15', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'ok', 149299, '8606f428d500'), ('2026-09-24T14 |       8.2 |
+| build               | ok       | team_games (8202, 142)                                                                                                                                                                                   |     227.6 |
+| features            | ok       | [40 rows x 8 columns]                                                                                                                                                                                    |      15   |
 | verify              | ok       | Result: PASS                                                                                                                                                                                             |       0.5 |
-| weather             | ok       | game_id          kickoff_et  ... precip        fetched_at                                                                                                                                                |     128.8 |
-|                     |          | 0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-24 10:16                                                                                                                                    |           |
+| weather             | ok       | game_id          kickoff_et  ... precip        fetched_at                                                                                                                                                |     125.8 |
+|                     |          | 0    2026_03_ATL_GB 2026-09-24 20:15:00  ...    0.0  2026-09-24 10:35                                                                                                                                    |           |
 |                     |          | 1   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09                                                                                                                                             |           |
-| lines               | ok       | {'ts': '2026-09-24T14-18-28Z', 'season': 2026, 'week': 3, 'rows': 16, 'errors': ''}                                                                                                                      |       1   |
-| ratings             | ok       | (7668, 49)                                                                                                                                                                                               |      32.1 |
-| trends              | ok       | head-to-head cover margin      96                 0.355         7.079            2.793                                                                                                                   |      81.8 |
-| players             | ok       | max           0.104589         1.360481    14.000000                                                                                                                                                     |     161.9 |
-| positions           | ok       | Skill     527.0  0.004299  0.0008  0.0531                                                                                                                                                                |      25   |
-| scheme              | ok       | scheme_plays (352459, 83) profiles for 32 teams as of 2026 3                                                                                                                                             |       7.8 |
-| props               | error    | RuntimeError:                                                                                                                                                                                            |      20.2 |
-| model               | ok       | neutral            0.082       0.133          0.011                                                                                                                                                      |      31.2 |
-| sizing backtest     | ok       | 2025  14-10    0.583        2.73                                                                                                                                                                         |       5.4 |
+| lines               | ok       | {'ts': '2026-09-24T14-37-32Z', 'season': 2026, 'week': 3, 'rows': 16, 'errors': ''}                                                                                                                      |       1.1 |
+| ratings             | ok       | (7668, 49)                                                                                                                                                                                               |      25.2 |
+| trends              | ok       | head-to-head cover margin      96                 0.355         7.079            2.793                                                                                                                   |      63.9 |
+| players             | ok       | max           0.104589         1.360481    14.000000                                                                                                                                                     |     136.3 |
+| positions           | ok       | Skill     527.0  0.004299  0.0008  0.0531                                                                                                                                                                |      23.3 |
+| scheme              | ok       | scheme_plays (352459, 83) profiles for 32 teams as of 2026 3                                                                                                                                             |       6.4 |
+| props               | error    | RuntimeError:                                                                                                                                                                                            |      16.8 |
+| model               | ok       | neutral            0.082       0.133          0.011                                                                                                                                                      |      26.8 |
+| sizing backtest     | ok       | 2025  13-11    0.542        0.82                                                                                                                                                                         |       4.6 |
 | threshold sweep     | ok       | DONE                                                                                                                                                                                                     |       1.7 |
-| picks               | ok       | game_id  season  week  ...     bet_p bet_odds stake_pct                                                                                                                                                  |       0.5 |
+| audit reports       | ok       | Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).                                       |       0.8 |
+| picks               | ok       | game_id  season  week  ...     bet_p bet_odds stake_pct                                                                                                                                                  |       0.4 |
 |                     |          | 3060   2026_03_ATL_GB    2026     3  ...       NaN      NaN       NaN                                                                                                                                    |           |
 |                     |          | 3061  2026_03_LAC_BUF    2026     3  ...       NaN      NaN                                                                                                                                              |           |
 | log run             | ok       | run_at  season  week  ... spread_line  total_line        bet                                                                                                                                             |       0   |
-|                     |          | 3060  2026-09-24 14:11 UTC    2026     3  ...         4.5        42.5                                                                                                                                    |           |
-|                     |          | 3061  2026-09-24 14:11 UTC    2026                                                                                                                                                                       |           |
+|                     |          | 3060  2026-09-24 14:31 UTC    2026     3  ...         4.5        42.5                                                                                                                                    |           |
+|                     |          | 3061  2026-09-24 14:31 UTC    2026                                                                                                                                                                       |           |
 | record picks        | ok       | run_at  season  week  ... spread_edge total_edge  p_cover                                                                                                                                                |       0.1 |
-|                     |          | 0  2026-09-24 14:11 UTC    2026     3  ...        4.24      -0.02    0.655                                                                                                                               |           |
+|                     |          | 0  2026-09-24 14:31 UTC    2026     3  ...        4.23      -0.02    0.654                                                                                                                               |           |
 |                     |          |                                                                                                                                                                                                          |           |
 |                     |          | [1 rows x 12 columns]                                                                                                                                                                                    |           |
 | inputs fingerprint  | ok       | {'season': 2026, 'week': 3, 'starters': {'2026_03_ATL_GB': ['00-0036264', '00-0039917', '2026-09-24 20:15'], '2026_03_LAC_BUF': ['00-0034857', '00-0036355', '2026-09-27 13:00'], '2026_03_CAR_CLE': ['0 |       0.1 |
 | grade               | ok       |                                                                                                                                                                                                          |       0.2 |
-| tie check (sources) | ok       | True                                                                                                                                                                                                     |       1.1 |
-| export data room    | ok       |                                                                                                                                                                                                          |     119.8 |
-| tie check (page)    | ok       | True                                                                                                                                                                                                     |       2.2 |
-| audit reports       | ok       | Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).                                       |       0.8 |
-| legitimacy tests    | ok       | Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the |      20.8 |
+| tie check (sources) | ok       | True                                                                                                                                                                                                     |       1.7 |
+| export data room    | ok       |                                                                                                                                                                                                          |     103.6 |
+| tie check (page)    | ok       | True                                                                                                                                                                                                     |       2.1 |
+| legitimacy tests    | ok       | Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the |      16.6 |
 
 **Failed steps above were skipped, not filled with stale data.**
 
@@ -46,7 +46,7 @@
 
 | away_team   | home_team   |   away_exp |   home_exp |   spread_line |   total_line |   spread_edge |   total_edge | bet       |   stake_pct |
 |:------------|:------------|-----------:|-----------:|--------------:|-------------:|--------------:|-------------:|:----------|------------:|
-| KC          | MIA         |      27.31 |      21.05 |         -10.5 |         46.5 |          4.24 |        -0.02 | MIA +10.5 |        1.33 |
+| KC          | MIA         |      27.33 |      21.07 |         -10.5 |         46.5 |          4.23 |        -0.02 | MIA +10.5 |        1.34 |
 
 Full table: reports/picks_2026_wk3.md
 
@@ -60,9 +60,9 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 1 | 0 | nothing settled |  | +0.00 | 62-61 | 82-57 | 41-21 |
-| shadow: 4.5+ edge | 0 | 0 | | | | 41-42 | 54-35 | 27-14 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.00 | 46-37 | 74-44 | 33-16 |
-| shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.00 | 47-45 | 68-41 | 34-17 |
+| 4+ edge (the flag, bet) | 1 | 0 | nothing settled |  | +0.00 | 61-58 | 81-55 | 40-23 |
+| shadow: 4.5+ edge | 0 | 0 | | | | 41-40 | 53-35 | 27-14 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.00 | 45-36 | 73-43 | 32-18 |
+| shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.00 | 46-42 | 67-40 | 34-19 |
 
 Full record: reports/track_record.md
