@@ -141,8 +141,13 @@
 ],
 [
 "DAL",
+"DeMarvion Overshown",
+"Out"
+],
+[
+"DAL",
 "Malik Hooker",
-"Doubtful"
+"Out"
 ],
 [
 "DAL",
@@ -357,7 +362,7 @@
 ],
 "weather": {
 "2026_03_ATL_GB": {
-"wind": 4.2,
+"wind": 4.5,
 "cold": false,
 "rain": false
 },
@@ -406,11 +411,11 @@
 "cold": false,
 "rain": false
 },
-"2026_03_LA_DEN": {
-"wind": 10.8,
+"2026_03_MIN_TB": {
+"wind": 2.7,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-24 21:34 UTC"
+"written_at": "2026-09-24 21:56 UTC"
 }
