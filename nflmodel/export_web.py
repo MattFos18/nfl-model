@@ -363,8 +363,11 @@ def main():
         names = {r.player_id: r.name for r in ph.drop_duplicates("player_id", keep="last").itertuples()}
         if len(pvals):
             names.update({r.player_id: r.name for r in pvals.itertuples()})
+        def _team_plays_pg():   # scrimmage plays a team runs a game, last season and this one (24 Sep 2026): the page's "points a game" for values in EPA per team play
+            sp = pd.read_parquet(OUT / "scheme_plays.parquet", columns=["season", "game_id", "posteam", "play_type"]); sp = sp[sp.play_type.isin(["pass", "run"]) & (sp.season >= sp.season.max() - 1)]
+            return round(len(sp) / max(sp.groupby(["game_id", "posteam"]).ngroups, 1), 1)
         (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.drop(columns=[c for c in ["basis"] if c in pvals.columns]).to_dict("records")], "basis": {g: b for g, b in pvals.groupby("group").basis.first().items()} if "basis" in pvals.columns else {},
-                                                                          "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"]}, default=clean, separators=(",", ":")) + ";")
+                                                                          "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"], "team_plays_pg": _team_plays_pg()}, default=clean, separators=(",", ":")) + ";")
     pj = OUT / "props.json"
     if pj.exists():   # player-against-scheme projections for the week (nflmodel/props.py)
         (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
