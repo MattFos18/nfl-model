@@ -357,70 +357,70 @@
 ],
 "weather": {
 "2026_03_ATL_GB": {
-"wind": 4.4,
+"wind": 4.2,
 "cold": false,
 "rain": false
 },
 "2026_03_LAC_BUF": {
-"wind": 13.1,
+"wind": 10.6,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 10.3,
+"wind": 11.2,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 5.0,
-"cold": false,
-"rain": false
-},
-"2026_03_NE_JAX": {
-"wind": 3.6,
-"cold": false,
-"rain": false
-},
-"2026_03_KC_MIA": {
-"wind": 9.4,
-"cold": false,
-"rain": false
-},
-"2026_03_TEN_NYG": {
-"wind": 14.8,
-"cold": false,
-"rain": false
-},
-"2026_03_CIN_PIT": {
-"wind": 9.4,
-"cold": false,
-"rain": false
-},
-"2026_03_SEA_WAS": {
-"wind": 11.5,
-"cold": false,
-"rain": false
-},
-"2026_03_ARI_SF": {
-"wind": 4.5,
-"cold": false,
-"rain": false
-},
-"2026_03_MIN_TB": {
-"wind": 3.5,
-"cold": false,
-"rain": false
-},
-"2026_03_BAL_DAL": {
 "wind": 5.8,
 "cold": false,
 "rain": false
 },
+"2026_03_NE_JAX": {
+"wind": 5.4,
+"cold": false,
+"rain": false
+},
+"2026_03_KC_MIA": {
+"wind": 8.8,
+"cold": false,
+"rain": true
+},
+"2026_03_TEN_NYG": {
+"wind": 18.4,
+"cold": false,
+"rain": true
+},
+"2026_03_CIN_PIT": {
+"wind": 10.1,
+"cold": false,
+"rain": false
+},
+"2026_03_SEA_WAS": {
+"wind": 12.2,
+"cold": false,
+"rain": false
+},
+"2026_03_ARI_SF": {
+"wind": 6.9,
+"cold": false,
+"rain": false
+},
+"2026_03_MIN_TB": {
+"wind": 2.7,
+"cold": false,
+"rain": false
+},
+"2026_03_BAL_DAL": {
+"wind": 2.7,
+"cold": false,
+"rain": false
+},
 "2026_03_LA_DEN": {
-"wind": 18.3,
+"wind": 10.8,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-24 17:37 UTC"
+"written_at": "2026-09-24 18:43 UTC"
 }

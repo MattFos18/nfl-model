@@ -11,7 +11,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
 | 4+ edge (the flag, bet) | 1 | 0 | nothing settled |  | +0.00 | 61-58 | 81-55 | 40-23 |
-| shadow: 4.5+ edge | 0 | 0 | | | | 41-40 | 53-35 | 27-14 |
+| shadow: 4.5+ edge | 1 | 0 | nothing settled |  | +0.00 | 41-40 | 53-35 | 27-14 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.00 | 45-36 | 73-43 | 32-18 |
 | shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.00 | 46-42 | 67-40 | 34-19 |
 
@@ -25,7 +25,7 @@ Every bet:
 
 |   season |   week | game_id        | bet       |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:---------------|:----------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      3 | 2026_03_KC_MIA | MIA +10.5 |   -105 |     nan |   nan | pending  |     nan |
+|     2026 |      3 | 2026_03_KC_MIA | MIA +11.5 |   -115 |     nan |   nan | pending  |     nan |
 
 ## Matt's bets
 
