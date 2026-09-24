@@ -37,6 +37,19 @@ def fetch(seasons=range(2016, 2026)) -> None:
         except Exception as e:  # noqa
             print(s, "all-pro failed", str(e)[:120], flush=True)
         time.sleep(1)
+    # preseason win totals (24 Sep 2026): the market's season number for each team, to set the model's season odds
+    # against. Pro-Football-Reference's preseason odds page (a table per season) and Sports Odds History's win totals
+    (REF / "wintotals").mkdir(parents=True, exist_ok=True)
+    for y in range(2016, 2027):
+        for src, u in (("pfr", f"https://www.pro-football-reference.com/years/{y}/preseason_odds.htm"), ("soh", f"https://www.sportsoddshistory.com/nfl-win/?y={y}&sa=nfl&t=win&o=t")):
+            try:
+                r = requests.get(u, headers={**UA, "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"}, timeout=30)
+                print(y, "win totals", src, r.status_code, len(r.text), flush=True)
+                if r.ok:
+                    (REF / "wintotals" / f"{src}_{y}.html").write_text(r.text)
+            except Exception as e:  # noqa
+                print(y, "win totals", src, "failed", str(e)[:120], flush=True)
+            time.sleep(3)
     for k, u in CONSENSUS.items():
         try:
             r = requests.get(u, headers={**UA, "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"}, timeout=30)

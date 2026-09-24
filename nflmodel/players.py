@@ -17,6 +17,7 @@ Usage: python -m nflmodel.players            builds player_games.parquet and pla
 """
 from __future__ import annotations
 import numpy as np, pandas as pd
+import pyarrow.parquet as pq
 from pathlib import Path
 from .features import RAW, OUT, TEAM_FIX
 
@@ -364,7 +365,8 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
     if not rf.exists():
         return pd.DataFrame()
-    ros = pd.read_parquet(rf, columns=["season", "week", "team", "gsis_id", "pfr_id", "full_name", "position", "status", "jersey_number", "years_exp"])
+    have = set(pq.ParquetFile(rf).schema.names)
+    ros = pd.read_parquet(rf, columns=[c for c in ["season", "week", "team", "gsis_id", "pfr_id", "espn_id", "full_name", "position", "status", "status_description_abbr", "jersey_number", "years_exp"] if c in have])
     ros["team"] = ros.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
     wk = ros[ros.week == week] if (ros.week == week).any() else ros[ros.week == ros.week.max()]
     wk = wk.dropna(subset=["gsis_id"]).drop_duplicates(["team", "gsis_id"]).copy()
@@ -394,19 +396,83 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     if vals is not None and "epa_per_play" in vals.columns:
         vals = vals.rename(columns={"epa_per_play": "epa_per_touch"})
     norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
+    why = unavailable_reasons(ros, season, week)
     rows = []
     for r in wk.itertuples():
         dp = depth.get((r.team, r.gsis_id), (None, None, None)); ij = injd.get((r.team, r.gsis_id), ("", "", "")); sp = snap.get((r.team, r.gsis_id))
         v = vals.loc[(r.team, r.gsis_id)] if vals is not None and (r.team, r.gsis_id) in vals.index else None
         rows.append({"team": r.team, "player_id": r.gsis_id, "name": r.full_name, "position": r.position, "number": r.jersey_number, "exp": r.years_exp,
-                     "roster": ROSTER_LABEL.get(r.status, {"ACT": "Active", "DEV": "Practice squad", "INA": "Inactive", "CUT": "Cut"}.get(r.status, r.status)),
+                     "roster": RESERVE_SHORT.get(getattr(r, "status_description_abbr", ""), ROSTER_LABEL.get(r.status, {"ACT": "Active", "DEV": "Practice squad", "INA": "Inactive", "CUT": "Cut"}.get(r.status, r.status)) if r.status != "RES" else "Reserve list"),
                      "unit": dp[2], "slot": dp[0], "depth": dp[1], "report": ij[0], "practice": ij[1], "injury": ij[2],
                      "off_pct": sp[0] if sp else None, "def_pct": sp[1] if sp else None, "st_pct": sp[2] if sp else None,
                      "value": float(v.value_above_replacement) if v is not None and pd.notna(v.value_above_replacement) else None, "epa_per_touch": float(v.epa_per_touch) if v is not None and pd.notna(v.epa_per_touch) else None, "share": float(v.share) if v is not None and pd.notna(v.share) else None,
-                     "group": str(v.group) if v is not None and "group" in v.index else None, "basis": str(v.basis) if v is not None and "basis" in v.index else ""})
+                     "group": str(v.group) if v is not None and "group" in v.index else None, "basis": str(v.basis) if v is not None and "basis" in v.index else "",
+                     **why.get((r.team, r.gsis_id), {})})
     out = pd.DataFrame(rows)
     out["order"] = out.slot.map({p: i for i, p in enumerate(DEPTH_ORDER)}).fillna(99)
     return out.sort_values(["team", "unit", "order", "depth", "name"], na_position="last").drop(columns=["order"])
+
+
+RESERVE_SHORT = {"R01": "IR", "R48": "IR, can return", "R04": "PUP"}
+RESERVE_CODE = {"R01": "Injured reserve", "R48": "Injured reserve, designated to return", "R04": "Physically unable to perform (PUP)"}   # roster status codes checked against ESPN's list and known cases (24 Sep 2026); other reserve codes show as the code
+
+
+def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
+    """Why each player the model prices as unavailable is out, from every source we pull (24 Sep 2026): (team, gsis id)
+    -> list (the roster's reserve list, by its status code), why (the injury), why_src (where the injury came from:
+    this week's league report, ESPN's injury page, or the last league report that listed him this season), since (the
+    first week of this stint on a reserve list), back (ESPN's expected return date)."""
+    cur = ros[ros.week == week] if (ros.week == week).any() else ros[ros.week == ros.week.max()]
+    out = {}
+    # this week's league report and the last injury he was listed with this season
+    try:
+        inj = load_injuries([season - 1, season]); inj = inj[inj.season.isin([season - 1, season])]
+    except Exception:  # noqa
+        inj = pd.DataFrame(columns=["team", "gsis_id", "week", "report_status", "report_primary_injury", "practice_primary_injury"])
+    inj = inj.assign(inj_txt=inj.report_primary_injury.where(inj.report_primary_injury.notna() & (inj.report_primary_injury.astype(str) != ""), inj.practice_primary_injury))
+    inj = inj[inj.inj_txt.notna() & (inj.inj_txt.astype(str) != "")].sort_values(["season", "week"])
+    # the last listing per player, on any team (a player hurt last season may have moved); keyed by his current team below
+    last_any = {r.gsis_id: (int(r.season), int(r.week), str(r.inj_txt), str(r.report_status) if isinstance(r.report_status, str) else "") for r in inj.itertuples()}
+    last_inj = {(t, g): last_any[g] for t, g in zip(cur.team, cur.gsis_id) if g in last_any}
+    # ESPN's page: by its athlete id against the roster's espn_id, else the name inside the team
+    esp = {}
+    ef = RAW / "injuries" / "espn_injuries.csv"
+    if ef.exists():
+        e = pd.read_csv(ef, dtype={"espn_id": str}) if True else None
+        e = e[e.status.astype(str) != "Active"]
+        nm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
+        ids = dict(zip(cur.espn_id.astype(str).str.replace(r"\.0$", "", regex=True), cur.gsis_id)) if "espn_id" in cur.columns else {}
+        by_name = {(t, nm(n)): g for t, n, g in zip(cur.team, cur.full_name, cur.gsis_id)}
+        for r in e.itertuples():
+            g = ids.get(str(getattr(r, "espn_id", "") or "").replace(".0", "")) or by_name.get((r.team, nm(r.name)))
+            if g:
+                esp[(r.team, g)] = (str(r.status), str(r.detail) if isinstance(r.detail, str) else "", str(r.return_date)[:10] if isinstance(r.return_date, str) else "")
+    # the first week of the current stint on a reserve list
+    res = ros[ros.status.isin(NOT_AVAILABLE)].sort_values("week")
+    for (t, g), x in cur[cur.status.isin(NOT_AVAILABLE)].groupby(["team", "gsis_id"]):
+        wks = sorted(res[(res.team == t) & (res.gsis_id == g)].week.unique()); since = wks[-1]
+        for w_ in reversed(wks):
+            if w_ == since - 1 or w_ == since:
+                since = w_
+            else:
+                break
+        code = str(x.status_description_abbr.iloc[0]) if "status_description_abbr" in x.columns else ""
+        out[(t, g)] = {"list": RESERVE_CODE.get(code) or (ROSTER_LABEL.get(x.status.iloc[0], x.status.iloc[0]) + (f" (roster code {code})" if code and code != "nan" else "")), "since": int(since)}
+    no_injury = {(t, g) for t, g, st in zip(cur.team, cur.gsis_id, cur.status) if st in ("EXE", "SUS", "RET")}   # exempt, suspended, retired: not an injury
+    for key in set(out) | set(esp) | {k for k, v in last_inj.items() if v[:2] == (season, week)}:
+        o = out.setdefault(key, {})
+        if key in no_injury:
+            continue
+        if key in last_inj and last_inj[key][:2] == (season, week):
+            o.update({"why": last_inj[key][2], "why_src": f"league report, week {week}"})
+        elif key in esp and esp[key][1]:
+            o.update({"why": esp[key][1], "why_src": "ESPN injury page"})
+        elif key in last_inj:
+            ls_, lw_, li_, lst_ = last_inj[key]
+            o.update({"why": li_, "why_src": f"last league report that listed him ({'' if ls_ == season else str(ls_) + ' '}week {lw_}{', ' + lst_ if lst_ else ''})"})
+        if key in esp and esp[key][2]:
+            o["back"] = esp[key][2]
+    return out
 
 
 def player_history(pg: pd.DataFrame) -> pd.DataFrame:
