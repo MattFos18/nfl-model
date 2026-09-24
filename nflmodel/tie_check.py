@@ -203,6 +203,30 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if sc.exists():   # the defender table carries nearly every defensive snap of last season (matched by PFR id)
             tot = float(pd.read_parquet(sc, columns=["defense_snaps"]).defense_snaps.sum()); got = float(dgs[dgs.season == last].plays.sum())
             rows.append((f"defender table holds 97%+ of {last}'s defensive snaps", f"{got / tot:.1%}", "97% or more", got / tot >= 0.97))
+        # build order: every table is built after the tables it reads (24 Sep 2026: the Players tab's history was built
+        # before this run's defender, kicker and lineman tables, so fixes reached it a run late). Two minutes' slack for
+        # a fresh checkout, where every file has the checkout's time.
+        order = {"player_history.parquet": ["player_games.parquet", "defender_games.parquet", "kicking_games.parquet", "ol_games.parquet"],
+                 "player_values_all.parquet": ["player_games.parquet", "defender_games.parquet", "kicking_games.parquet", "ol_games.parquet"],
+                 "roster_now.parquet": ["player_values_all.parquet"]}
+        late = [f"{o} before {i}" for o, ins in order.items() for i in ins
+                if (OUT / o).exists() and (OUT / i).exists() and (OUT / o).stat().st_mtime < (OUT / i).stat().st_mtime - 120]
+        rows.append(("player tables built after the tables they read (none stale)", "; ".join(late) or "in order", "in order", not late))
+        # every snap-count row carries a gsis id by PFR id, in every position group (24 Sep 2026: the rosters have no PFR
+        # id for linemen, so 579 lineman games went to a namesake and 1,411 were dropped until the players table filled it)
+        from .ids import map_pfr
+        worst = []
+        for s_ in (last, last + 1):
+            f_ = RAW / "snap_counts" / f"snap_counts_{s_}.parquet"
+            if f_.exists():
+                sn_ = pd.read_parquet(f_, columns=["season", "team", "player", "pfr_player_id", "position", "offense_snaps", "defense_snaps"]); sn_ = sn_[(sn_.offense_snaps + sn_.defense_snaps) > 0]
+                sn_["gid"] = map_pfr(sn_)
+                for pos_, x_ in sn_.groupby("position"):
+                    if len(x_) >= 50:
+                        worst.append((float(x_.gid.notna().mean()), f"{s_} {pos_}"))
+        if worst:
+            w_ = min(worst)
+            rows.append(("snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group", f"{w_[0]:.1%} ({w_[1]})", "99% or more", w_[0] >= 0.99))
     fj = ROOT / "web" / "data" / "fresh.js"
     if fj.exists() and (LNS / "lines_log.csv").exists() and (LNS / "props_log.csv").exists():   # the This week pull strip against the raw logs
         s = fj.read_text(); fr = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))

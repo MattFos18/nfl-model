@@ -14,19 +14,14 @@ from .features import RAW, OUT, TEAM_FIX
 
 
 def build(seasons=range(2012, 2027)) -> pd.DataFrame:
-    pmap = {}
-    for s in seasons:
-        f = RAW / "rosters" / f"roster_weekly_{s}.parquet"
-        if f.exists():
-            r = pd.read_parquet(f, columns=["gsis_id", "pfr_id"]).dropna().drop_duplicates()
-            pmap.update(dict(zip(r.pfr_id, r.gsis_id)))
+    from .ids import map_pfr
     fr = []
     for s in seasons:
         f = RAW / "snap_counts" / f"snap_counts_{s}.parquet"
         if f.exists():
-            fr.append(pd.read_parquet(f, columns=["game_id", "season", "week", "pfr_player_id", "team", "position", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct"]))
+            fr.append(pd.read_parquet(f, columns=["game_id", "season", "week", "pfr_player_id", "player", "team", "position", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct"]))
     d = pd.concat(fr, ignore_index=True)
-    d["player_id"] = d.pfr_player_id.map(pmap); d["team"] = d.team.replace(TEAM_FIX)
+    d["team"] = d.team.replace(TEAM_FIX); d["player_id"] = map_pfr(d)
     d = d[d.player_id.notna()].rename(columns={"offense_pct": "off_pct", "defense_pct": "def_pct"})
     d = d.drop_duplicates(["player_id", "game_id"])[["player_id", "game_id", "season", "week", "team", "position", "offense_snaps", "off_pct", "defense_snaps", "def_pct"]]
     d.to_parquet(OUT / "snap_exposure.parquet", index=False)

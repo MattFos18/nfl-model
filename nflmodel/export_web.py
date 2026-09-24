@@ -256,6 +256,17 @@ def write_games_js(games: pd.DataFrame, since: int = 2013):
     print("games.js", len(rows), "games", (WEB / "games.js").stat().st_size / 1e6, "MB")
 
 
+def _code_sha() -> str:
+    """The commit this code is at: GITHUB_SHA on the runner, else git's HEAD."""
+    import os, subprocess
+    if os.environ.get("GITHUB_SHA"):
+        return os.environ["GITHUB_SHA"]
+    try:
+        return subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, timeout=10).stdout.strip()
+    except Exception:  # noqa
+        return ""
+
+
 def main():
     WEB.mkdir(parents=True, exist_ok=True)
     tg = pd.read_parquet(OUT / "team_games.parquet")
@@ -333,7 +344,8 @@ def main():
                 "situation_facts": situation_facts(feats)}
     analysis["home_edges"] = team_home_edges(tg)
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
-            "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
+            "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
+            "code_sha": _code_sha()}   # the commit whose code built these files (nflmodel/publish_check.py)
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
     pvf = OUT / "player_values_all.parquet"
     pvals = pd.read_parquet(pvf) if pvf.exists() else pd.DataFrame(columns=["team"])
