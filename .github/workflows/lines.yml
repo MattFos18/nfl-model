@@ -15,6 +15,9 @@ on:
       force_dfs:
         description: "Pull only the free pick'em lines (PrizePicks, Underdog) on this run"
         default: "false"
+      force_futures:
+        description: "Fetch the season-long markets (ESPN futures, Odds API outrights) on this run even if today's are in"
+        default: "false"
 permissions:
   contents: write
   actions: write        # to start the weekly run when the live check finds a model input changed
@@ -53,6 +56,13 @@ jobs:
           PROPS_EVERY_RUN: ${{ github.event.inputs.force_props == 'true' && '1' || '' }}
           DFS_EVERY_RUN: ${{ github.event.inputs.force_dfs == 'true' && '1' || '' }}
         run: python -m nflmodel.lines
+      - name: season-long markets, once a day   # Super Bowl, conference, division, win totals, player season totals (nflmodel/futures.py)
+        if: steps.gate.outputs.skip != '1'
+        continue-on-error: true
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          FUTURES_EVERY_RUN: ${{ github.event.inputs.force_futures == 'true' && '1' || '' }}
+        run: python -m nflmodel.futures --fetch
       - name: live check        # starters, injuries (league and ESPN) and kickoff forecasts: re-price when a model input changed (nflmodel/refresh.py)
         if: steps.gate.outputs.skip != '1'
         id: fresh
