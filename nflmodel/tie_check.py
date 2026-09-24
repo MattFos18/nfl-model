@@ -411,6 +411,9 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         tie("season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes)", sums, {"champion": 1.0, "conference": 2.0, "division": 8.0, "playoffs": float(2 * sj["format"]), "byes": 2.0 if sj["format"] == 7 else 4.0})
         n_reg = int(((g_.season == s_) & (g_.game_type == "REG")).sum())
         tie("expected wins across the league = regular-season games (every game gives one win, a tie half each)", round(sum(t["wins"] for t in sj["teams"]), 1), float(n_reg))
+        if sj.get("left"):   # the page's math under Wins: record + the chance in each game left = the simulated wins (the draws' noise and the tie band, under 0.1)
+            gap = max(abs(t["wins_now"] + sum(g[3] for g in sj["left"].get(t["team"], [])) - t["wins"]) for t in sj["teams"])
+            rows.append(("season wins on the page = record + the chance in each game left (worst team, wins)", round(gap, 3), "0.1 or under", gap <= 0.1))
         if (REP / "season_backtest.csv").exists() and "backtest" in sj:
             b = pd.read_csv(REP / "season_backtest.csv"); m = b[(b.season.astype(str) == "mean") & (b.asof_week.astype(str) == "all") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].sort_values("window")
             tie("season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss)", [[r["window"], round(r["wins_mae"], 4), round(r["div_brier"], 4), round(r["sb_ll"], 4)] for r in sorted(sj["backtest"]["windows"], key=lambda r: r["window"])], [[r.window, round(r.wins_mae, 4), round(r.div_brier, 4), round(r.sb_ll, 4)] for r in m.itertuples()])

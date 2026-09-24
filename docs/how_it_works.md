@@ -1840,3 +1840,15 @@ books missed a team's final wins by 2.06 / 2.32 (2019-22 / 2023-25), the model b
 (correlation 0.87 / 0.85), their average does not beat the books, and the model's side at a win or more off the line
 went 30-28-3. The market is the better preseason number. Only the preseason line is archived, so the model's weekly
 re-pricing cannot be scored against the market.
+
+## 35. Season totals game by game, accuracy in percentages, the books' season markets (24 Sep 2026)
+
+Projecting each remaining game on its own (the defense's allowed yards per touch, the opponent's pace, the game
+model's expected margin and total; `experiments/season_by_game.py`) moved the season-total miss by under a yard on
+every kind and window, so the season total stays one per-game number over the games left. Accuracy is now shown as
+shares: a season total within 10% and 20% of the final, and for teams wins within 1 and 2, the playoff call (50%) and
+the division favorite. `nflmodel/futures.py` fetches ESPN's futures feed (DraftKings) and The Odds API's outright
+markets once a day; the Season tab shows the books' Super Bowl, conference and division chances (margin removed)
+beside the model's, and each player's chance to lead the league in yards. Every number on Season → Team odds and
+Player totals shows its math under its column on a click (wins = record + the chance in each game left; each share =
+the runs out of 10,000; a player's total = his rate, his own projection, pace and the blend).

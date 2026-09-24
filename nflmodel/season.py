@@ -149,6 +149,7 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
         pw = pred[(pred.season == season) & (pred.week == week)]
         pmap = dict(zip(pw.game_id, pw.model_spread))
     mus, sig, hs, as_ = [], [], [], []
+    left_games = []   # each game drawn: its expected margin and the home side's chance (the page shows each team's, 24 Sep 2026)
     mh_cache = {}
     for r in todo.itertuples():
         h, a = IDX[r.home_team], IDX[r.away_team]
@@ -161,6 +162,7 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
             mh, mn = mh_cache[wk]
             mu = float(mn[h, a] if (pd.notna(r.neutral) and r.neutral == 1) else mh[h, a]) * (1.0 - shrink)
         mus.append(mu); sig.append(fit["sigma"] * sigma_mult); hs.append(h); as_.append(a)
+        left_games.append({"week": int(r.week), "home": r.home_team, "away": r.away_team, "mu": round(mu, 3), "p_home": round(float(norm.cdf(mu / (fit["sigma"] * sigma_mult))), 4)})
     G = len(mus); mus = np.array(mus); sig = np.array(sig); hs = np.array(hs, dtype=int); as_ = np.array(as_, dtype=int)
     Z = rng.standard_normal((S, G)) if G else np.zeros((S, 0))
     Mg = mus[None, :] + sig[None, :] * Z
@@ -244,7 +246,7 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
                       "p_div": float(div_win[:, i].mean()), "p_playoffs": float(playoffs[:, i].mean()), "p_bye": float(bye[:, i].mean()),
                       "p_conf": float(conf_champ[:, i].mean()), "p_sb": float(sb_win[:, i].mean())})
     return {"season": season, "week": week, "n_sims": S, "games_left": G, "sigma": float(fit["sigma"] * sigma_mult), "shrink": shrink, "sigma_mult": sigma_mult,
-            "fit_week": fit["week"], "teams": teams, "format": fmt}
+            "fit_week": fit["week"], "teams": teams, "format": fmt, "left_games": left_games}
 
 
 def actuals(games: pd.DataFrame, season: int) -> dict | None:

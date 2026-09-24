@@ -433,22 +433,48 @@ def export_season() -> dict:
     out = {"season": sim["season"], "week": sim["week"], "built": built, "n_sims": sim["n_sims"], "games_left": sim["games_left"], "sigma": round(sim["sigma"], 4), "fit_week": sim["fit_week"], "format": sim["format"],
            "shrink": SE.SHRINK, "sigma_mult": SE.SIGMA_MULT, "tie_band": SE.TIE_BAND, "wind_far": SE.WIND_FAR, "divisions": SE.DIV, "teams": teams, "ratings": sim["ratings"]}
     pd.DataFrame(teams).to_csv(REP / "season_odds.csv", index=False)
+    # each team's games left with its chance in each (the draws' mean: the page's wins = record + the sum of these, near enough)
+    left = {t["team"]: [] for t in teams}
+    for g in sim.get("left_games", []):
+        left[g["home"]].append([g["week"], g["away"], 1, round(g["p_home"], 3)]); left[g["away"]].append([g["week"], g["home"], 0, round(1 - g["p_home"], 3)])
+    out["left"] = left
     bt = REP / "season_backtest.csv"
     if bt.exists():
         b = pd.read_csv(bt); m = b[b.season.astype(str) == "mean"]
         base = m[(m.shrink == 0.0) & (m.sigma_mult == 1.0)]
         out["backtest"] = {"windows": base[base.asof_week.astype(str) == "all"].to_dict("records"), "by_week": base[base.asof_week.astype(str) != "all"].to_dict("records"),
                            "variants": m[m.asof_week.astype(str) == "all"].to_dict("records"), "seasons": b[(b.season.astype(str) != "mean") & (b.shrink == 0.0) & (b.sigma_mult == 1.0)].to_dict("records")}
+    sto = REP / "season_team_odds.csv"
+    if sto.exists():   # accuracy in plain shares (24 Sep 2026): wins within 1 and 2, the playoff call right, the division favorite, by window and as-of week
+        to = pd.read_csv(sto); to["div"] = to.team.map(SE.DIV_OF); acc = []
+        def _acc(g):
+            fav = g.sort_values("p_div", ascending=False).groupby(["season", "asof_week", "div"]).head(1)
+            sure = g[g.p_playoffs >= 0.75]
+            return {"n": int(len(g)), "wins_within1": round(float(((g.wins - g.actual_wins).abs() <= 1).mean()), 3), "wins_within2": round(float(((g.wins - g.actual_wins).abs() <= 2).mean()), 3),
+                    "playoff_call": round(float(((g.p_playoffs >= 0.5) == (g.made_playoffs == 1)).mean()), 3), "playoff_75_made": round(float(sure.made_playoffs.mean()), 3) if len(sure) else None, "playoff_75_n": int(len(sure)),
+                    "div_fav_won": round(float(fav.won_div.mean()), 3)}
+        for (w, wk), g in to.groupby(["window", "asof_week"]):
+            acc.append({"window": w, "asof_week": int(wk), **_acc(g)})
+        for w, g in to.groupby("window"):
+            acc.append({"window": w, "asof_week": "all", **_acc(g)})
+        out["accuracy"] = acc
     try:   # the books' preseason win totals: this season's beside the model's, and every backtest season scored (nflmodel/wintotals.py)
         from . import wintotals as WT
         wt = WT.parse(); x_, s_ = WT.compare(wt); x_.to_csv(REP / "win_totals_vs_vegas.csv", index=False)
-        cur = wt[wt.season == out["season"]][["team", "line", "vegas_wins"]]
+        cur = wt[wt.season == out["season"]][["team", "line", "vegas_wins", "p_over"]]
         out["vegas"] = {"source": "Sports Odds History's archive of the books' preseason win totals", "windows": s_.to_dict("records"),
-                        "current": {r.team: [float(r.line), float(r.vegas_wins)] for r in cur.itertuples()},
+                        "current": {r.team: [float(r.line), float(r.vegas_wins), float(r.p_over)] for r in cur.itertuples()}, "win_sd": WT.WIN_SD,
+                        "within2": {w: {"model": round(float(((g.model_wins - g.actual).abs() <= 2).mean()), 3), "books": round(float(((g.vegas_wins - g.actual).abs() <= 2).mean()), 3), "n": int(len(g))}
+                                    for w, g in list(x_.groupby("window")) + [("2019-25", x_)]},
                         "summary": (lambda a, b: f"before Week 1, the books' number missed a team's final wins by {a.vegas_miss:.2f} / {b.vegas_miss:.2f} games (2019-22 / 2023-25), the model's by {a.model_miss:.2f} / {b.model_miss:.2f}; the two agree closely (correlation {a.corr_model_vegas:.2f} / {b.corr_model_vegas:.2f}), averaging them does not beat the books alone, and taking the model's side where it differs from the line by a win or more went {a.model_side_1win} and {b.model_side_1win}. The market is the better preseason number; in season the model re-prices every week, which the archive cannot be compared against (it keeps only the preseason line).")(
                             s_[s_.window == "2019-22"].iloc[0], s_[s_.window == "2023-25"].iloc[0])}
     except Exception as e:  # noqa
         print("win totals not compared:", str(e)[:200], flush=True)
+    try:   # the books' season-long markets as chances (nflmodel/futures.py), beside the model's
+        from . import futures as FU
+        out["books"] = FU.latest()
+    except Exception as e:  # noqa
+        print("futures not read:", str(e)[:200], flush=True)
     pl = PS.run_now()
     try:   # the same totals as projected at points in time, with what happened (Season -> Player totals, "As projected")
         from .lines import current_week as _cw
