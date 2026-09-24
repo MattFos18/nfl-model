@@ -12,6 +12,7 @@ on:
         default: "false"
 permissions:
   contents: write
+  issues: write         # the site-health alert (nflmodel/health_alert.py)
 concurrency:
   group: nfl-model-data
   cancel-in-progress: false
@@ -48,3 +49,8 @@ jobs:
           git diff --cached --quiet || git commit -m "Weekly run $(date -u +%Y-%m-%d)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
           git push
+      - name: health alert      # one GitHub issue labelled site-health, opened when a check fails, closed when all pass
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m nflmodel.health_alert

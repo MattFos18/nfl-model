@@ -207,7 +207,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <header>
   <div>
     <h1>NFL Model</h1>
-    <p class="sub"><span id="built"></span></p>
+    <p class="sub"><span id="built"></span> <a href="#" id="hchip" class="chip mute" style="text-decoration:none">Checks</a></p>
   </div>
 </header>
 <nav class="tabs" role="tablist">
@@ -444,6 +444,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <button data-sub="playermodel">Player projections: rule and tests</button>
     <button data-sub="seasonhow">Season odds and player totals</button>
     <button data-sub="dict">Every column</button>
+    <button data-sub="healthv">Health checks</button>
     <button data-sub="log">Data pulls and verification</button>
     <button data-sub="catalog">Every data store</button>
     <button data-sub="decisions">Decision log and audit</button>
@@ -480,6 +481,12 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <div class="card"><h3>Reports</h3><div class="tablewrap" style="max-height:44vh"><table id="catrep"></table></div></div>
       <div class="card"><h3>The page's own files (web/data)</h3><div class="tablewrap" style="max-height:44vh"><table id="catpage"></table></div></div>
     </div>
+  </div>
+  <div id="healthv" hidden>
+    <div class="tiles" id="hvtiles"></div>
+    <div class="card" style="margin-top:12px"><h3>Failing now</h3><div class="tablewrap"><table id="hvfails"></table></div></div>
+    <div class="card" style="margin-top:12px"><h3>How fresh each source is</h3><div class="tablewrap"><table id="hvfresh"></table></div></div>
+    <div class="card" style="margin-top:12px"><h3 id="hvallh">Every check</h3><div class="tablewrap" style="max-height:60vh"><table id="hvall"></table></div></div>
   </div>
   <div id="log" hidden>
     <p class="note">Every nflverse download with its size and hash, and the verification that runs after each rebuild (2024 totals against Pro-Football-Reference, scores against the schedule, offense/defense mirrors).</p>
@@ -519,7 +526,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <dt>Books now</dt><dd>Under "Why these numbers": every book's current spread and total from the last line snapshot, and the best available number for the model's side. A half point at a key number (3, 7) is worth real money over a season, so a flagged bet goes at the best price, not the first one. The full log (every book, every 30 minutes) is folded underneath; it grades closing line value on the Track record tab and, after a season, tests whether lines that move toward the model beat the ones that move away.</dd>
       <dt>Matchup history</dt><dd>Last meetings, coaches, quarterbacks, stadium and form, built automatically on every weekly run from the nflverse schedule (every game since 2013 with its score, closing line, coaches and starting QBs). Nothing here changes the model's numbers: each of these was tested as an input and none improved the backtest (Decision log). It is context for reading a card, not an input.</dd>
       <dt>Scheme matchup and How they play / defend</dt><dd>Readings from nflverse participation data (2016 on: the defense's man or zone call and coverage family, formation, personnel, box, rushers, pressure) and FTN charting (2022 on: motion, play action, RPO, screens, tempo, blitzers), joined to every play. Rates say how a team plays; EPA per play in each look says how it has gone, with the play count beside it and blank under 20 plays. This season is used once a team has 300 charted plays, otherwise last season, and the label says which. The current season's participation file arrives on nflverse during the season, so early-season profiles carry the FTN fields and leave coverage and pressure blank. None of it feeds the model's numbers; it is the first layer of the matchup work (docs section 17).</dd>
-      <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Backtest → Season odds and player totals): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
+      <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Backtest → Season odds and player totals): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.625 and 0.5, passers 0.525 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
       <dt>Every data store</dt><dd>Model → Every data store lists each file the model keeps, read from the files themselves on each build: raw downloads (what each holds, seasons, size, rows and columns, when last pulled), built tables (rows, columns, the step that writes them, where they show), the line, weather, tracker and run logs, the reports and the page's own files. Team → Scheme and play calling shows a team's offense and defense profile over its last 17 games against the league with its rank, and its EPA by the look it faced or played. No public source charts routes; the route-adjacent readings (coverage faced, motion, play action, depth of target, air yards) are there.</dd>
       <dt>Tackle projections (props)</dt><dd>Tackles plus assists on defensive plays only, the rule some books settle on (bet365 among them). Others, FanDuel among them, also count special-teams tackles, which in 2025 added about a tenth of a tackle a game for a defender with four or more defensive tackles, and more for a core special-teams player. The game logs show the official total, special teams included.</dd>
       <dt>EPA (expected points added)</dt><dd>Every down, distance, yard line, time left and score has an expected number of points for the team with the ball: what teams in that spot went on to score, on average, before the other side next scored (nflverse's model, fitted on every play since 1999). A play's EPA is expected points after it minus before it. Near midfield (2016 to 2025 plays), a 6-yard gain on 3rd and 5 moves the chains and adds about +1.4. The same 6 yards on 3rd and 8 falls short and costs about -0.7. An interception averages about -4.4. A player's EPA is the sum over his plays: a receiver's targets (catch or not), a back's carries, a quarterback's dropbacks (passes, sacks and scrambles). Per play is that sum over the plays. Team ratings, the QB rating and value over a backup are all built from it.</dd>
@@ -551,6 +558,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <script src="data/catalog.js"></script>
 <script src="data/legit.js"></script>
 <script src="data/fresh.js"></script>
+<script src="data/health.js"></script>
 <script src="data/props.js"></script>
 <script>
   if (!window.META) { document.body.innerHTML = '<div class="wrap"><header><h1>NFL Model</h1><p class="sub">The page\'s data files did not load (data/meta.js). Reload; if it persists, the weekly run has not published yet.</p></header></div>'; throw new Error("data/meta.js missing"); }
@@ -594,6 +602,47 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     $("built").textContent = newest ? "Last updated " + fmt(newest[1]) : "Last updated " + META.built;
     $("built").title = src.map(([k, d]) => `${k}: ${fmt(d)}`).join("\n") + (window.FRESH && FRESH.changes && FRESH.changes.length ? `\nLast check found: ${FRESH.changes.slice(0, 6).join("; ")}` : "");
   })();
+
+  // ---------- health: every tie check (web/data/health.js, run by the weekly run and every line-watch run) plus the page's
+  // own freshness checks; the chip by "Last updated" turns red when anything is off, Model -> Health checks has the detail
+  const HEALTHV = (() => {
+    const toD = t => { const m = String(t || "").match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2})[:-](\d{2})/); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+    const now = new Date(), ago = d => d ? (now - d) / 36e5 : null;
+    const fmt = d => d ? d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"}) + " ET" : "never";
+    const H = window.HEALTH || null;
+    const lineTs = window.WEEK ? (WEEK.games || []).flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop() : null;
+    // limits in hours: the line watch runs every 30 minutes, the weekly run at least four times a week
+    const fresh = [["Game lines (line watch, every 30 minutes)", toD(lineTs), 2], ["Starters, injuries and weather (every line-watch run)", toD(window.FRESH && FRESH.checked), 2],
+                   ["Tie checks (every line-watch run and model run)", toD(H && H.checked), 2], ["Model run (re-prices on every input change)", toD(META.built), 96]];
+    const stale = fresh.filter(([, d, lim]) => !d || ago(d) > lim);
+    const fails = H ? H.fails : [];
+    const ok = H && H.ok && !stale.length;
+    return {H, fresh, stale, fails, ok, fmt, ago};
+  })();
+  (() => {
+    const {H, stale, fails, ok, fmt} = HEALTHV, c = $("hchip");
+    if (!H) { c.textContent = "Checks not run yet"; c.className = "chip mute"; }
+    else if (ok) { c.textContent = `✓ All ${H.total} checks pass`; c.className = "chip"; c.style.color = "var(--pos, #1a7f37)"; }
+    else { const n = fails.length + stale.length; c.textContent = `⚠ ${n} check${n === 1 ? "" : "s"} failing`; c.className = "chip flag"; c.style.color = "var(--neg, #cf222e)"; c.style.fontWeight = "600"; }
+    c.title = H ? `Last checked ${fmt(new Date(Date.parse(H.checked.replace(" UTC", "Z").replace(" ", "T"))))} by the ${H.source}` : "";
+    c.addEventListener("click", e => { e.preventDefault(); tab = "model"; sub.model = "healthv"; save(); showTab(); render(); });
+  })();
+  function renderHealth() {
+    const {H, fresh, stale, fails, ok, fmt, ago} = HEALTHV;
+    const tile = (l, v, s_) => `<div class="tile"><div class="tl">${l}</div><div class="tv">${v}</div>${s_ ? `<div class="ts">${s_}</div>` : ""}</div>`;
+    $("hvtiles").innerHTML = tile("Status", ok ? "All clear" : "Needs a look", ok ? "" : `${fails.length} failing, ${stale.length} late`) + (H ? tile("Checks passing", `${H.passed} of ${H.total}`, `${H.scope}, ${H.source}`) : "") +
+      tile("Last checked", H ? fmt(new Date(Date.parse(H.checked.replace(" UTC", "Z").replace(" ", "T")))) : "never", "");
+    $("hvfails").innerHTML = `<thead><tr><th class="l">Check</th><th class="l">Reads</th><th class="l">Should read</th></tr></thead><tbody>` +
+      (fails.length || stale.length ? fails.map(f => `<tr><td class="l">${esc(f.what)}</td><td class="l mono">${esc(f.reads)}</td><td class="l mono">${esc(f.should)}</td></tr>`).join("") +
+        stale.map(([k, d, lim]) => `<tr><td class="l">${esc(k)} is late</td><td class="l mono">${d ? fmt(d) : "never"}</td><td class="l mono">within ${lim} hours</td></tr>`).join("")
+      : `<tr><td class="l" colspan="3">Nothing failing.</td></tr>`) + `</tbody>`;
+    $("hvfresh").innerHTML = `<thead><tr><th class="l">Source</th><th class="l">Last</th><th>Hours ago</th><th>Limit</th><th class="l">OK</th></tr></thead><tbody>` +
+      fresh.map(([k, d, lim]) => { const a = ago(d); return `<tr><td class="l">${esc(k)}</td><td class="l">${fmt(d)}</td><td class="mono">${a == null ? "" : a.toFixed(1)}</td><td class="mono">${lim}</td><td class="l">${a != null && a <= lim ? "✓" : "⚠ late"}</td></tr>`; }).join("") + `</tbody>`;
+    const all = H ? H.checks.slice().sort((a, b) => (a[1] === b[1] ? 0 : a[1] ? 1 : -1)) : [];
+    $("hvallh").textContent = `Every check (${all.length})`;
+    $("hvall").innerHTML = `<thead><tr><th class="l">Check: the same number must read the same everywhere it appears</th><th class="l">Ties</th></tr></thead><tbody>` +
+      all.map(([w, t]) => `<tr><td class="l">${esc(w)}</td><td class="l">${t ? "✓" : "⚠ no"}</td></tr>`).join("") + `</tbody>`;
+  }
 
   // ---------- state ----------
   let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
@@ -2226,7 +2275,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tab === "seasonsec") return renderSeason();
     if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else if (sub.results === "seasonbt") renderSeasonBacktest(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
-    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
+    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "healthv") renderHealth(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
   }
   // numbers written into the definitions come from the data files, so no sentence can go stale

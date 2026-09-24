@@ -52,6 +52,10 @@ def main(full=False, skip_network=False):
     if not skip_network:
         seasons = list(range(2012, season + 1)) if full else [season - 1, season]
         step("pull", lambda: pull.pull(seasons, ["schedules", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats", "participation", "ftn"]), log)
+        # the player-history sources for every season the game logs cover (only missing files are fetched): the cached
+        # raw folder holds the recent seasons, and without these the logs' official tackles and Pro-Football-Reference
+        # columns would go blank for older seasons
+        step("pull player history", lambda: pull.pull(list(range(2016, season + 1)), ["pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats"], force_current=False), log)
     step("build", lambda: sh(["nflmodel.build"]), log)
     step("features", lambda: sh(["nflmodel.features"]), log)
     v = step("verify", lambda: sh(["nflmodel.verify"]), log)

@@ -204,11 +204,20 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
                      "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else "",
                      **{f"Shadow: {lab}": (getattr(r, f"{name}_bet", "") if isinstance(getattr(r, f"{name}_bet", ""), str) else "") for name, (_, _, lab) in SHADOWS.items()}})
     df = pd.DataFrame(rows)
+    # the flag's backtest records, computed from the prediction table every time (never typed in, so never stale)
+    try:
+        from . import backtest as B
+        from .model import OUT as _O
+        _d = B.join(pd.read_parquet(_O / "pred_v3.parquet"), pd.read_parquet(_O / "games.parquet"))
+        _d = _d[(_d.game_type == "REG") & _d.home_score.notna() & _d.spread_line.notna()]
+        _r = rule_records(_d).set_index("rule").loc["model"]
+        rec_txt = f"{_r['2019-22']} on the tuning window and {_r['2023-25']} held out (weeks 1 to 17), and {_r['2015-18']} on the untouched 2015 to 2018 window"
+    except Exception:  # noqa
+        rec_txt = "on the Backtest tab"
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is 87-59 on the tuning window and 45-21 held out "
-           "(weeks 1 to 17), above break-even in every season 2019 to 2025 and 67-57 on the untouched 2015 to 2018 window, at twice the volume of the old 5-point cut. Totals are not flagged: no total "
+           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
            "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only), to decide the rule on live games.", ""]

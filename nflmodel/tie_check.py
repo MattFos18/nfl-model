@@ -94,10 +94,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             a6 = {k: [float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards", "pass_yards"]}
             a4 = {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}.items()}
             rows.append(("props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006)", str(a6), str(a4), all(abs(a6[k][i] - a4[k][i]) <= 0.006 for k in a6 for i in (0, 1))))
-            tie("props team fit constants = props_backtest6.csv", {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
+            _tf = {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}
+            _ro = pd.read_csv(REP / "props_official.csv") if (REP / "props_official.csv").exists() else None   # passing yards refit on the official numbers, 24 Sep 2026
+            if _ro is not None:
+                _x = _ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].iloc[0]; _tf["pass"]["yds"] = [float(v) for v in _x.team_fit.split(" x ")[0].split(" + ")]
+            tie("props team fit constants = props_backtest6.csv (passing yards: props_official.csv)", _tf, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
             tie("props round-4 base = round-3 adopted variant (receiving, rushing)", {k: [float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards"]}, {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards"]})
             r11 = pd.read_csv(REP / "props_backtest11.csv"); _rf = lambda st: float(r11[(r11.stat == st) & (r11.variant == "refit_2017_18")].factors.iloc[0])
-            tie("props median factors = props_backtest3.csv (rushing) and props_backtest11.csv refit rows (receiving, passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _rf("pass_yards")}, {k: float(v) for k, v in pj["med"].items()})
+            _mp = float(_ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].med.iloc[0]) if _ro is not None else _rf("pass_yards")
+            tie("props median factors = props_backtest3.csv (rushing), props_backtest11.csv (receiving) and props_official.csv (passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _mp}, {k: float(v) for k, v in pj["med"].items()})
             tie("props receptions factor = props_backtest11.csv refit row", _rf("rec_catches"), float(pj["med_catch"]))
             gs = bt[bt.stat == "game_script"].set_index("variant")
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
@@ -111,9 +116,10 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            r11 = pd.read_csv(REP / "props_backtest11.csv"); _v = {"rec_yards": "refit_2017_18", "rush_yards": "fixed", "pass_yards": "refit_2017_18"}
-            b2 = {k: [float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2019-22"].iloc[0]), float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
-            rows.append(("props by-season run = round 11's rows for the adopted rule (yards, both windows; the by-season table keeps two decimals, within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
+            # the constants in use were last set by experiments/props_official.py (24 Sep 2026): passing refit, receiving and rushing kept
+            ro = pd.read_csv(REP / "props_official.csv"); _v = {"rec_yards": "old constants", "rush_yards": "old constants", "pass_yards": "refit on the official numbers"}
+            b2 = {k: [float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2019-22"].iloc[0]), float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
+            rows.append(("props by-season run = the official-numbers refit's rows for the adopted rule (yards, both windows; within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
@@ -339,7 +345,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     return rows
 
 
-def main(page: bool = False) -> bool:
+def main(page: bool = False, source: str = "weekly run") -> bool:
     rows = check_sources() + (check_page() if page else [])
     ok = all(r[3] for r in rows)
     L = [f"# Tie-out ({'sources and page' if page else 'sources'}), {pd.Timestamp.now('UTC').strftime('%Y-%m-%d %H:%M UTC')}", "",
@@ -347,8 +353,21 @@ def main(page: bool = False) -> bool:
          "| Check | Reads | Should read | Ties |", "|---|---|---|---|"] + [f"| {w} | {str(a)[:80]} | {str(b)[:80]} | {'yes' if t else 'NO'} |" for w, a, b, t in rows] + \
         ["", f"Result: {'PASS' if ok else 'FAIL'} ({sum(1 for r in rows if r[3])} of {len(rows)} tie)"]
     (REP / "tie_check.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
+    write_health(rows, page, source)
     return ok
 
 
+def write_health(rows, page: bool, source: str) -> None:
+    """web/data/health.js: the result of every check, for the page's health chip and Model -> Health checks. Written by
+    the weekly run (sources and page) and by every line-watch run (every 30 minutes)."""
+    import json
+    now = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
+    fails = [{"what": w, "reads": str(a)[:120], "should": str(b)[:120]} for w, a, b, t in rows if not t]
+    h = {"checked": now, "source": source, "scope": "sources and page" if page else "sources", "total": len(rows), "passed": len(rows) - len(fails),
+         "ok": not fails, "fails": fails[:40], "checks": [[w, bool(t)] for w, a, b, t in rows]}
+    WEB.mkdir(parents=True, exist_ok=True); (WEB / "health.js").write_text("window.HEALTH=" + json.dumps(h, separators=(",", ":")) + ";")
+
+
 if __name__ == "__main__":
-    sys.exit(0 if main("--page" in sys.argv) else 1)
+    src = sys.argv[sys.argv.index("--source") + 1] if "--source" in sys.argv else "weekly run"
+    sys.exit(0 if main("--page" in sys.argv, src) else 1)

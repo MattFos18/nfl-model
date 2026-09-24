@@ -26,7 +26,7 @@ BREAK_UP = 1.25
 # blend, by kind: both fitted on 2016 to 2018 as of the same weeks on the season-total error (reports/player_season_backtest.csv,
 # fit rows). The share sits below the share of games such players actually play (0.77, 0.75, 0.74: avail_mean_share rows)
 # because the misses are one-sided and the pace half carries part of the load
-AVAIL = {"rec": 0.65, "rush": 0.6, "pass": 0.5}
+AVAIL = {"rec": 0.65, "rush": 0.625, "pass": 0.525}   # refit on 2016-18 on 24 Sep 2026 after the official box-score definitions (kneels, two-point tries, gross passing yards); was 0.6 and 0.5
 BLEND = {"rec": 0.5, "rush": 0.5, "pass": 0.75}
 BACKTEST = {}   # filled from reports/player_season_backtest.csv by export_web (mean absolute error of the season total by kind and window)
 
