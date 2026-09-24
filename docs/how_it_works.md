@@ -1371,7 +1371,7 @@ short injury season is not one); scored by whether he finished inside the top N 
 69% came true against a base rate of 16% / 19% among every top-24 projection, rushers 78% / 89% against 20% / 27%,
 passers 46% / 92% against 5% / 9% (13 and 12 flagged). "New to the top": a top projection with no previous season.
 
-**Props record, live** (Backtest tab, "Player projections, live"). Every projection graded against what the player
+**Props record, live** (Backtest tab, "Player props"). Every projection graded against what the player
 did, by week and by stat, with the book line and the side where one was logged, and every row. The projections
 went live in Week 3 of 2026; Weeks 1 and 2 were projected after the fact with the data as of each week and the
 same rule (`python -m nflmodel.props --backfill 2026 1`, marked "after the fact" in the record) so the season's
