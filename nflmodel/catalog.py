@@ -61,6 +61,7 @@ LOG_WHAT = {
     "lines/props_log.csv": ("every player prop line pulled (The Odds API books, PrizePicks, Underdog): stat, line, prices, timestamp", "line watch", "card Player props; props record"),
     "lines/watch_log.csv": ("one row per line-watch run: rows logged, errors", "line watch", "health"),
     "lines/raw": ("the raw JSON and HTML of every source pull, by timestamp", "line watch", "the record"),
+    "lines/futures": ("the books' season-long markets as fetched, one folder a day: ESPN's futures feed and The Odds API outrights (nflmodel/futures.py)", "line watch", "Season"),
     "weather/forecast_latest.csv": ("the latest Open-Meteo kickoff forecast per unplayed outdoor game", "weekly run", "cards; game model wind, cold, rain"),
     "weather/forecast_log.csv": ("every forecast pulled, by run", "weekly run", "the record"),
     "weather/archive_kickoff.csv": ("weather at kickoff for played games (Open-Meteo archive)", "weather archive workflow", "backtest inputs"),
