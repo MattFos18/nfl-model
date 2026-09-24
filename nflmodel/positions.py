@@ -235,7 +235,9 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                 if len(rec):
                     role = DEF_SUB.get(pos, "DB"); v, n = pv_def.value(r.gsis_id, role, season, week); pr = pv_def.prior(role, season)
                     snap_share = float(rec.plays.mean())
-                    tsn = snaps[(snaps.team == r.team) & snaps.game_id.isin(rec.game_id)].groupby("game_id").defense_snaps.max().mean()
+                    # the unit's snaps in each game he played, for the team he played it for: a player who changed teams
+                    # was divided by his new team's snaps in games it did not play (share 0; 24 Sep 2026)
+                    tsn = snaps.merge(rec[["game_id", "team"]].drop_duplicates(), on=["game_id", "team"]).groupby("game_id").defense_snaps.max().mean()
                     share = float(snap_share / tsn) if tsn and not np.isnan(tsn) else 0.0
                     row.update({"games": int(len(rec)), "plays_per_game": round(snap_share, 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4), "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": f"Impact -EPA per defensive snap x snap share, against {role} replacement"})
             if len(cov) and r.gsis_id in cov.index:
