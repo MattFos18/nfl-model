@@ -23,10 +23,11 @@ def third(f):
     pm = B.points_miss(d).set_index("target"); return round(float(pm.loc["team points", "model_mae"]), 4), round(float(pm.loc["margin", "model_mae"]), 4)
 rows = []
 for mode in (os.environ.get("MODES") or "none,exclude,weight").split(","):
-    PL.USAGE_MODE = None if mode == "none" else mode
+    PL.USAGE_MODE = None if mode in ("none",) or mode.startswith("fade") else mode
+    PL.SEASON_FADE = float(mode[4:]) if mode.startswith("fade") else 1.0
     iv = PL.injury_value(games, pg)[["game_id", "team", "skill_out_value"]]
     f = with_iv(iv); r = both(f); t = third(f)
-    rows.append({"part": "A game model skill-out", "variant": mode, "mean_value": round(float(iv.skill_out_value.mean()), 5), **{f"{k}_{w}": v for w, d in r.items() for k, v in d.items()}, "team_mae_2015-18": t[0], "margin_mae_2015-18": t[1]})
+    rows.append({"part": "C skill values, season fade" if mode.startswith("fade") else "A game model skill-out", "variant": mode, "mean_value": round(float(iv.skill_out_value.mean()), 5), **{f"{k}_{w}": v for w, d in r.items() for k, v in d.items()}, "team_mae_2015-18": t[0], "margin_mae_2015-18": t[1]})
     print(mode, {w: (r[w]["team_mae"], r[w]["margin_mae"], r[w]["ats4"]) for w in r}, "2015-18", t, flush=True)
 out = "reports/partial_games.csv"; old = pd.read_csv(out) if os.path.exists(out) else pd.DataFrame()
 pd.concat([old, pd.DataFrame(rows)], ignore_index=True).drop_duplicates(["part", "variant"], keep="last").to_csv(out, index=False); print("DONE")

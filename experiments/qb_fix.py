@@ -77,6 +77,31 @@ class Hybrid25(HybridAged): LAM = 0.25
 class Hybrid10(HybridAged): LAM = 0.10
 
 
+class SeasonFade(R.QBRatings):
+    """The per-game decay as now, times SF per season between the game and now (PFF's published QB model fades by
+    calendar time, about 0.7 a year), so a backup's prime years fade even though he has barely played since."""
+    SF = 0.8
+
+    def rating(self, qb_id, season, week):
+        key = (qb_id, season, week)
+        if key in self._cache:
+            return self._cache[key]
+        h = self.qb[(self.qb.qb_id == qb_id) & ((self.qb.season < season) | ((self.qb.season == season) & (self.qb.week < week)))]
+        if len(h) == 0:
+            r = self.prior
+        else:
+            w = self.decay ** np.arange(len(h))[::-1] * self.SF ** (season - h.season.values)
+            r = ((h.qb_epa.values * w).sum() + self.k * self.prior) / ((h.dropbacks.values * w).sum() + self.k)
+        self._cache[key] = r
+        return r
+
+
+class SeasonFade6(SeasonFade): SF = 0.6
+
+
+class SeasonFade9(SeasonFade): SF = 0.9
+
+
 VARIANTS = [
     ("current (scrambles dropped, aged by own games)", qb0, R.QBRatings, {}),
     ("scrambles counted", qb1, R.QBRatings, {}),
@@ -86,6 +111,9 @@ VARIANTS = [
     ("scrambles counted, aged by weeks (0.975)", qb1, WeekAged, {"qb_decay": 0.975}),
     ("scrambles and designed runs, aged by weeks (0.985)", qb2, WeekAged, {}),
     ("scrambles and designed runs", qb2, R.QBRatings, {}),
+    ("scrambles and designed runs, season fade 0.8", qb2, SeasonFade, {}),
+    ("scrambles and designed runs, season fade 0.6", qb2, SeasonFade6, {}),
+    ("scrambles and designed runs, season fade 0.9", qb2, SeasonFade9, {}),
     ("scrambles and designed runs, idle weeks at 0.5", qb2, HybridAged, {}),
     ("scrambles and designed runs, idle weeks at 0.25", qb2, Hybrid25, {}),
     ("scrambles and designed runs, idle weeks at 0.10", qb2, Hybrid10, {}),

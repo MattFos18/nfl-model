@@ -200,7 +200,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     dg = dg.assign(role=dg.player_id.map(sub))   # the role is the position group, so the replacement level is per group
     pv_def = PlayerValues(dg, 0.99, 300.0); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
-    qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12))
+    qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12), RD.get("qb_season_fade", 1.0))
     team_db = qb.groupby(["game_id", "team"]).dropbacks.sum().rename("team_db").reset_index()
     tg = pd.read_parquet(OUT / "team_games.parquet"); snaps = snaps_by_game(range(season - 2, season + 1))
     ol = ol_onoff(snaps, tg, names, season, week).set_index(["team", "key"]) if len(snaps) else pd.DataFrame()
@@ -255,6 +255,27 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                     row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.plays.mean()), 1), "share": 1.0, "epa_per_play": round(v, 4), "value_above_replacement": round(v - pr, 4), "basis": "EPA per kick" if grp == "K" else "EPA per punt"})
         rows.append(row)
     out = pd.DataFrame(rows)
+    # value against an average starter (24 Sep 2026, Matt): the zero point of every value on the page is the median
+    # starter at his position group, the same for every team. Starters: each team's QB with the most dropbacks over its
+    # last 17 games; its top 5 skill players by share of the team's touches, top 5 linemen and top 11 defenders by snap
+    # share, and its kicker and punter. value_vs_avg = value_above_replacement - that median (same units); the order
+    # within a group is unchanged. "Points if out" keeps the replacement level: it is what a team loses to his backup.
+    TOP = {"Skill": 5, "OL": 5, "Defense": 11, "K": 1, "P": 1}
+    h17 = qb[(qb.season < season) | ((qb.season == season) & (qb.week < week))]
+    last17 = h17.merge(h17.groupby("team").game_id.apply(lambda s_: set(s_.drop_duplicates().tail(17))).rename("keep"), left_on="team", right_index=True)
+    last17 = last17[[g_ in k_ for g_, k_ in zip(last17.game_id, last17.keep)]]
+    starters_qb = set(last17.groupby(["team", "qb_id"]).dropbacks.sum().reset_index().sort_values("dropbacks", ascending=False).drop_duplicates("team").qb_id)
+    ref = {}
+    q_ = out[(out.group == "QB") & out.player_id.isin(starters_qb) & out.value_above_replacement.notna()]
+    if len(q_): ref["QB"] = float(q_.value_above_replacement.median())
+    for grp_, k_ in TOP.items():
+        x_ = out[(out.group == grp_) & out.value_above_replacement.notna()].copy()
+        if not len(x_): continue
+        key_ = x_.share.fillna(x_.plays_per_game).fillna(0) if grp_ in ("Skill", "OL", "Defense") else x_.plays_per_game.fillna(0)
+        x_ = x_.assign(_k=key_).sort_values("_k", ascending=False).groupby("team").head(k_)
+        ref[grp_] = float(x_.value_above_replacement.median())
+    out["avg_starter_ref"] = out.group.map(ref)
+    out["value_vs_avg"] = (out.value_above_replacement - out.avg_starter_ref).round(4)
     return out.sort_values(["team", "group", "value_above_replacement"], ascending=[True, True, False], na_position="last")
 
 

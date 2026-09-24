@@ -83,7 +83,7 @@ class PlayerValues:
             if len(h) == 0:
                 r = (pr, 0.0)
             else:
-                w = self.decay ** np.arange(len(h))[::-1]
+                w = self.decay ** np.arange(len(h))[::-1] * (SEASON_FADE ** (season - h.season.values) if SEASON_FADE != 1.0 else 1.0)
                 n = float((h.plays.values * w).sum()); e = float((h.epa.values * w).sum())
                 r = ((e + self.k * pr) / (n + self.k), n)
         self._cache[key] = r
@@ -104,6 +104,7 @@ def _usage_frames(pg: pd.DataFrame):
     return skill, by_player, by_team
 
 
+SEASON_FADE = 1.0   # extra weight per season between a game and now, on top of the per-game decay (24 Sep 2026: tested with the QB rating's, experiments/partial_games.py part C)
 USAGE_MODE = None   # partial games (24 Sep 2026, experiments/partial_games.py): None (kept: the alternatives were no better for the game model and worse for the props on both windows; a short game predicts a lighter next one) counts every game he appeared in as a full game; "exclude" drops games he played under half his usual snap share; "weight" counts each game by his snap share over his usual (capped at 1), so a first-drive exit is about a tenth of a game
 TEAM_WINDOW = False   # 23 Sep 2026: the player's own last n games on any team (the original). Tested and worse on the flag record in all three windows: "gate" (nothing for a player who has never played for this team), "rating" (usage over the ratings' window), "last" (the team's last n games); reports/usage_window.csv, usage_gate.csv
 RATING_DECAY, RATING_PRIOR = 0.94, 0.8   # the ratings' weights (ratings.DEFAULT): per week of age, and last season's games
