@@ -253,12 +253,11 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 
 | Cut | 2019-22 | 2023-25 | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|
-| 4 | 87-59, 59.6% | 45-21, 68.2% | 58.1% | 64.9% | 63.2% | 52.5% (21-19) | 73.3% | 74.1% | 58.3% |
-| 4.5 | 65-44, 59.6% | 32-15, 68.1% | 61.5% | 65.4% | 69.0% | 42.9% (12-16) | 70.0% | 76.2% | 56.2% |
-| 5 | 39-29, 57.4% | 18-12, 60.0% | 63.2% | 57.1% | 66.7% | 45.0% (9-11) | 66.7% | 69.2% | 50.0% (7-7) |
+| 4 | 86-60, 58.9% | 42-24, 63.6% | 60.6% | 66.7% | 61.5% | 45.7% (16-19) | 69.2% | 71.4% | 52.0% (13-12) |
+| 4.5 | 62-37, 62.6% | 25-15, 62.5% | 66.7% | 68.2% | 71.4% | 44.0% (11-14) | 60.0% | 70.6% | 55.6% |
+| 5 | 36-30, 54.5% | 17-11, 60.7% | 61.1% | 60.0% | 64.3% | 36.8% (7-12) | 50.0% (2-2) | 75.0% | 50.0% (6-6) |
 
-The 4-point cut is the best overall (132-80, 62.3%, across 2019 to 2025; the live record is on the Results tab), the best on both windows at every volume, and after the out-of-the-race inputs went in it clears the 52.4% break-even in every season again (2022 is the closest at 21-19). 4.5 and 5 do not (2022 at 12-16 and 9-11). The cut is not chosen on this; it was set on 22 Sep and moves only on live results, and the shadow rules log the alternatives. The earlier "wins every season"
-line is withdrawn; the flag stays at 4 because it is the widest cut at the best rate, not because of a streak.
+**24 Sep 2026, after the QB rating began counting scrambles and designed runs:** the flag stays at 4. Across 2019 to 2025 it is 128-84 (60.4%). 4.5 is 87-52 (62.6%), better on 2019-22 only; 4 is better on the held-out 2023-25 and on the untouched 2015 to 2018 (62-57 against 41-44), with half again as many bets. The fix made every window's flag record a little worse (the rating now misses by less on all three windows; see docs section 25): the old rating's undervaluing of running quarterbacks happened to line up with some winning bets, and keeping a bug for that would be fitting to noise. The cut is not chosen on streaks; it moves only on live results, and the shadow rules log the alternatives.
 Honest caveat: the cut is chosen on all the seasons the model was tested on, so the records above describe the
 backtest, not a promise; the calibrated cover odds on the cards say what a 4-point edge has converted to (about
 53%). The 2026 games played so far replay 0-2 at this cut in the backtest; the live record on the Results tab is
@@ -270,6 +269,10 @@ Second caveat, and how it moved (23 Sep 2026): on the untouched 2015 to 2018 win
 break-even, while 4.5 (41-42) and 5 (25-29) still lose. Those seasons had no say in any input, knob or cut, so
 that is the most honest number the backtest can give, and it is modest. The live record (Results tab) is still
 the one that decides whether the flag earns its keep.
+
+Third caveat (24 Sep 2026): once the QB rating counted scrambles and designed runs, the untouched window reads
+62-57 (52.1%) at the 4-point cut, just under the 52.4% break-even, with 4.5 at 41-44 and 5 at 28-31. The model is
+more accurate there than before (docs section 25); its flag record is not, and that is reported rather than tuned away.
 
 **Update, 22 Sep 2026, on the twelve-input model.** The sweep below is from the first build and is kept for the record; the live
 sweep, recomputed from the backtest on every run, is on the Results tab (Every threshold, tested). On the current model, spread
@@ -311,10 +314,10 @@ tie check on every run; the live table carries the same columns):
 
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
-| 4+ edge (the flag) | 67-57 | 87-59 | 45-21 |
-| 4.5+ edge | 41-42 | 65-44 | 32-15 |
-| 4+ edge, model's side the underdog or pick'em | 49-36 | 78-45 | 34-17 |
-| 4+ edge, weeks 1 to 13 only | 54-42 | 71-41 | 34-16 |
+| 4+ edge (the flag) | 62-57 | 86-60 | 42-24 |
+| 4.5+ edge | 41-44 | 62-37 | 25-15 |
+| 4+ edge, model's side the underdog or pick'em | 45-35 | 76-46 | 32-19 |
+| 4+ edge, weeks 1 to 13 only | 47-42 | 71-44 | 31-19 |
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
 flag is 18-21 untouched, 9-14 tuning and 11-4 held out. The 4.5 cut has the best rate on the two tuned windows and
@@ -597,15 +600,15 @@ the every-game cover rate on the model's side, and the 4-point flag:
 
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | +0.02 | 53% | 18-9 (67%) |
-| 2 | 176 | -0.08 | 54% | 20-5 (80%) |
-| 3 | 176 | +0.13 | 53% | 15-13 (54%) |
-| 4 | 171 | +0.24 | 48% | 10-6 (62%) |
-| 5 to 8 | 632 | +0.19 | 51% | 48-30 (62%) |
-| 9 to 13 | 793 | +0.17 | 50% | 48-36 (57%) |
-| 14 to 17 | 692 | +0.24 | 51% | 40-38 (51%) |
-| 18 | 80 | +0.47 | 54% | 9-10 (47%) |
-| Playoffs | 133 | +0.22 | 48% | 10-7 (59%) |
+| 1 | 175 | +0.01 | 53% | 14-10 (58%) |
+| 2 | 176 | -0.06 | 53% | 17-7 (71%) |
+| 3 | 176 | +0.09 | 52% | 15-11 (58%) |
+| 4 | 171 | +0.23 | 49% | 11-6 (65%) |
+| 5 to 8 | 632 | +0.17 | 50% | 44-35 (56%) |
+| 9 to 13 | 793 | +0.15 | 50% | 48-36 (57%) |
+| 14 to 17 | 692 | +0.20 | 51% | 41-36 (53%) |
+| 18 | 80 | +0.46 | 57% | 7-10 (41%) |
+| Playoffs | 133 | +0.24 | 52% | 10-8 (56%) |
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
 line (in Week 2 it is ahead of it) and where the flag has done best (53-27). The market seems to underweight last
@@ -1334,8 +1337,8 @@ expected points for the week's games to a hundredth (it does, to zero).
 ratings and fit as of it), scored against what happened. Averaged over the as-of weeks, 2019-22 / 2023-25: expected
 wins off by 1.36 / 1.58 games per team against 1.61 / 1.73 for pace (current wins plus half the games left);
 division odds Brier 0.085 / 0.138 against 0.114 / 0.174 for "the current leader takes it" and 0.1875 flat; the
-division favorite won it 73% / 58% of the time; playoff odds Brier 0.123 / 0.148 against 0.243 / 0.246 flat; Super
-Bowl log loss 2.46 / 2.95 against 3.47 flat, the eventual champion ranked 4.8 / 7.8 on average in the Super Bowl
+division favorite won it 74% / 56% of the time; playoff odds Brier 0.122 / 0.147 against 0.243 / 0.246 flat; Super
+Bowl log loss 2.46 / 2.92 against 3.47 flat, the eventual champion ranked 4.6 / 7.8 on average in the Super Bowl
 odds (the 2023-25 window holds a champion the odds had far down the list). Two knobs were tested: shrinking the
 future-game margins toward zero (0.1, 0.2, 0.3) and widening the residual scale (1.15x). Every combination helped
 the held-out window and hurt the tuning window, so none is used; the simulation has no fitted knob of its own.
@@ -1347,7 +1350,7 @@ anything is played). The per-game mean is the props rule's own volume and rate (
 decayed 0.85 per game back with the season and team fades, x his team's plays per game over its last 17, x his
 yards per touch shrunk toward the league), without the game script, the opponent and the median factor, since a
 season total is a sum of means. The share and the pace weight are fitted on 2016 to 2018 as of the same weeks on
-the season-total error: receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75. The share sits below
+the season-total error: receivers 0.65 and 0.5, rushers 0.625 and 0.5, passers 0.525 and 0.75 (rushers 0.6 and passers 0.5 until 24 Sep 2026, before kneels, two-point tries and gross passing yards were put on the official terms). The share sits below
 the share of remaining games such players actually play (0.77, 0.75, 0.74) because the misses are one-sided (a
 player who is hurt loses everything, one who stays healthy gains nothing) and the pace half carries part of the
 load. A player is projected when he is active on his team's roster, has a profile and reaches 2.5 targets, 4
@@ -1428,19 +1431,17 @@ closing line and -110:
 
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 38-37 | -2.5 | 10.4 | -8.6% | 66% |
-| 2019-22 (the threshold was chosen here) | 87-59 | +20.1 | 5.6 | +8.8% | 4.8% |
-| 2023-25 (held out) | 45-21 | +19.9 | 3.5 | +13.1% | 0.7% |
+| 2016-18 (never used to choose) | 36-39 | -6.3 | 12.4 | -13.0% | 81% |
+| 2019-22 (the threshold was chosen here) | 86-60 | +18.2 | 7.8 | +18.3% | 6.7% |
+| 2023-25 (held out) | 42-24 | +14.2 | 4.0 | +18.7% | 4.3% |
 
-The held-out record is hard to get by luck. The earliest seasons broke even. They were thin (49 flags in 2016-18
-against 146 in 2019-22; the model trained on two to five seasons) and the model's gap to the line was no worse
-than later, so the honest statement is: the edge shows from 2018 on, strongly held out, and not before. Quarter
-Kelly's worst fall was 8% of the peak; full Kelly's 30% (never bet it). The track record now states each week
+The held-out record would come by luck about 4 times in 100 (0.7% before the QB rating counted scrambles and designed runs, 24 Sep 2026), the tuning window's about 7 in 100, and the earliest seasons lost (36-39). They were thin (75 flags in 2016-18 against 146 in 2019-22; the model trained on two to five seasons), so the honest statement is: the edge shows from 2019 on, suggestive held out, and not before. Quarter
+Kelly's worst fall was 16% of the peak; full Kelly's 52% (never bet it). The track record now states each week
 whether the live record sits inside the range the backtest rate implies for that many bets.
 
 **Season odds reliability** (`reports/season_calibration.csv`, Backtest -> Season odds and player totals). When the odds said x%, how
 often it happened: 2019-22 is close in every band. In 2023-25 the confident end was too confident (a 70-85%
-division favorite won 55% of the time, a 85-95% playoff chance came in 76%) and the long shots came in too often.
+division favorite won 62% of the time, a 85-95% playoff chance came in 78%) and the long shots came in too often.
 The two knobs tested (shrinking future margins, widening the scale) both help 2023-25 and hurt 2019-22, so the odds
 are shown as they are, with this table beside them.
 
@@ -1502,3 +1503,86 @@ sum to the logs.
 EPA: nflverse's expected points model gives every down, distance, yard line, time and score an expected number of
 points for the offense. A play's EPA is expected points after minus before. A player's EPA is the sum over his plays:
 targets for receivers, carries for backs, dropbacks (passes, sacks, scrambles) for quarterbacks.
+
+## 24. Player numbers on the official box score (24 Sep 2026)
+
+Every player number was checked against nflverse's official player stats (`stats_player_week`, now pulled every
+run as `player_stats`). The play-by-play had been read on its own terms in four places, and each is fixed:
+
+| What | Was | Now |
+|---|---|---|
+| Passing yards (props, season totals, game logs) | yards on every dropback, so a sack's lost yards came off (13 yards a QB-game low in 2025) | the yards on completions, as the league and the books count them |
+| Pass attempts (props grading, game logs) | sacks counted as attempts | passes and spikes, not sacks |
+| Carries and rushing yards | kneel-downs left out | a kneel is a carry, as in the box score |
+| Targets, receiving yards, carries | two-point tries counted | two-point tries are not plays (dropped at the source, `scheme.load_plays`) |
+| Tackles in the game logs | defensive plays only | the official total, special-teams tackles included |
+
+After the fix the 2025 game logs tie to the official stats exactly on targets, catches, carries, rushing yards,
+touchdowns, completions, interceptions, sacks and every defensive column, and within 17 yards on a season of passing
+and receiving yards (laterals). The tie check holds the logs and the props grading to the official file every run.
+
+Passing yards changed what the props project, so the two constants fitted on passing yards were refit the way they
+were first fitted (`experiments/props_official.py`, `reports/props_official.csv`): the team's passing yards from the
+game model's expected points (2016 to 2018: 100.83 + 6.379 x expected points, was 73.77 + 6.894 on net yards) and the
+median factor (2017-18: 0.88, was 0.89). Error per QB-game against the official yards: 56.60 and 56.38 on 2019-22
+and 2023-25 (the old constants on the same target: 56.94 and 56.42). Receiving and rushing refits did not lower the
+error on both windows, so their constants stay.
+
+Tackle projections stay on defensive plays only, labelled as such. Books differ: bet365 counts defensive plays only,
+FanDuel adds special-teams tackles (about a tenth of a tackle a game for a regular defender in 2025).
+
+The card's Vegas win chance now comes from the newest line-watch snapshot's moneylines (ESPN moved its moneyline to a
+new place in its feed, so the log had missed it and the card fell back to the schedule's). The chip under the bars is
+the difference of the two rounded bars.
+
+Teams -> Player box scores shows every player's line in any game since 2016 for both teams, from the same game logs.
+
+## 25. The QB rating: scrambles, designed runs, and how old games fade (24 Sep 2026)
+
+Matt asked how Jaxson Dart could rate below Jameis Winston. Two faults, one a plain bug:
+
+1. **Scrambles were dropped.** The rating counted dropbacks with nflverse's `passer_player_id`, which is empty on every
+   scramble (the league scores a scramble as a run; nflverse names the scrambler in `passer_id`). Scrambles average
+   about +0.5 EPA, so every mobile quarterback was rated low: Dart's 40 scrambles at +0.71 each, none counted.
+2. **Designed runs were left out.** QBR, rbsdm's composite and the 538 / nfelo QB value all count a quarterback's
+   designed runs. Dart's 47 averaged +0.41 EPA; Winston's 75 averaged -0.17.
+
+`experiments/qb_fix.py` (`reports/qb_fix.csv`), features rebuilt each time, weekly refit:
+
+| QB rating counts | Team points 2019-22 | 2023-25 | Spread miss 2019-22 | 2023-25 | Team points 2015-18 | Spread miss 2015-18 |
+|---|---|---|---|---|---|---|
+| passes and sacks only (before) | 7.3587 | 7.2863 | 10.0329 | 9.9490 | 7.4108 | 9.9895 |
+| + scrambles | 7.3498 | 7.2845 | 10.0240 | 9.9303 | 7.4044 | 9.9763 |
+| + scrambles and designed runs (adopted) | 7.3486 | 7.2830 | 10.0174 | 9.9262 | 7.4004 | 9.9705 |
+
+Better on every measure on all three windows. As of Week 3, 2026: Dart +0.085 per play, Winston +0.054 (before:
++0.013 and +0.032); Allen +0.204, Jackson +0.157, Hurts +0.121.
+
+**How old games fade** was tested too, because the published models age a quarterback's games by time (PFF about
+0.7 a year; nfelo and 538 regress across the offseason) while this one ages them by his own games played, so a
+backup's starts from years ago keep much of their weight (Winston's 2015 to 2019 seasons). Aging by league weeks,
+or counting the weeks he sat at 0.5, 0.25 or 0.10 of a game, all helped the held-out window and hurt the tuning
+window's spread miss (or moved it by less than 0.001), so the rating keeps aging by games played. Shrinkage of 100
+and 200 dropbacks (tested with aging by weeks) did not pass either. A draft-capital prior for young quarterbacks (538,
+nfelo) is the next thing worth testing.
+
+**The flag record got worse.** At the 4-point cut: 2019-22 87-59 to 86-60, 2023-25 45-21 to 42-24, 2015-18 67-57
+to 62-57. The model misses by less everywhere; the old rating's undervaluing of running quarterbacks happened to
+line up with winning bets. Keeping a bug because it picked winners would be fitting to noise, so the fix stands and
+the new records are the ones shown. The chance of the held-out record by luck went from 0.7% to about 4%.
+
+The market moved the TEN at NYG line about 3 points for Dart to Winston. This model moves it much less: the rating
+gap is 0.031 per play, and the ridge fit now turns a point of EPA per play into about 15 points (13.65 before), so about
+0.5 points before the other inputs. The published models agree the gap is small (nfelo about 0.4 points); the books price the
+starter more heavily.
+
+## 26. Health checks on the site (24 Sep 2026)
+
+Every tie check (the same number must read the same everywhere it appears: the page files against the reports,
+the reports against the prediction table, the game logs and the props grading against nflverse's official player
+stats, the cards against the line log, the season odds adding up) runs on every weekly run and every line-watch
+run, every 30 minutes, and writes `web/data/health.js`. The chip beside "Last updated" reads it: green when all
+pass, red with the count when anything fails or a source is late (lines or the live check older than two hours,
+the model older than four days). Model -> Health checks lists what is failing, how fresh each source is, and every
+check. `nflmodel/health_alert.py` keeps one GitHub issue labelled `site-health` in step: opened when a check
+fails (GitHub emails the owner), updated while it stays broken, closed when everything passes.

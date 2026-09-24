@@ -24,7 +24,7 @@ ROLES = {"passer": ("passer_player_id", "passer_player_name", "qb_dropback"), "r
          "receiver": ("receiver_player_id", "receiver_player_name", "pass_attempt")}
 SKILL = {"rusher", "receiver"}
 DEFAULT = {"decay": 0.985, "k": 480.0, "usage_games": 8, "pct": 10}   # k 80 / 25th percentile until 23 Sep 2026: swept on both windows and 2015 to 2018 (reports/player_knobs.csv, player_third.csv)
-PCOLS = ["game_id", "season", "week", "season_type", "posteam", "epa", "qb_epa", "qb_dropback", "rush_attempt", "pass_attempt", "play_type"] + [c for r in ROLES.values() for c in r[:2]]
+PCOLS = ["game_id", "season", "week", "season_type", "posteam", "epa", "qb_epa", "qb_dropback", "rush_attempt", "pass_attempt", "play_type", "two_point_attempt"] + [c for r in ROLES.values() for c in r[:2]]
 
 
 def load(seasons) -> pd.DataFrame:
@@ -37,7 +37,10 @@ def load(seasons) -> pd.DataFrame:
             frames.append(pd.read_parquet(f, columns=[c for c in PCOLS if c in have]))
     p = pd.concat(frames, ignore_index=True)
     p["posteam"] = p.posteam.replace(TEAM_FIX)
-    return p[p.posteam.notna() & p.play_type.isin(["pass", "run"])]
+    keep = p.posteam.notna() & p.play_type.isin(["pass", "run"])
+    if "two_point_attempt" in p.columns:   # two-point tries are not plays in any official stat (24 Sep 2026)
+        keep &= p.two_point_attempt.fillna(0) != 1
+    return p[keep]
 
 
 def player_box(p: pd.DataFrame) -> pd.DataFrame:

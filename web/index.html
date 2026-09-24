@@ -207,7 +207,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <header>
   <div>
     <h1>NFL Model</h1>
-    <p class="sub"><span id="built"></span></p>
+    <p class="sub"><span id="built"></span> <a href="#" id="hchip" class="chip mute" style="text-decoration:none">Checks</a></p>
   </div>
 </header>
 <nav class="tabs" role="tablist">
@@ -293,6 +293,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <button data-sub="roster">Roster and depth chart</button>
     <button data-sub="ratings">Ratings by week</button>
     <button data-sub="games">Game log</button>
+    <button data-sub="box">Player box scores</button>
     <button data-sub="scheme">Scheme and play calling</button>
   </nav>
   <div id="scheme" hidden>
@@ -325,6 +326,10 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <div class="legend"><span><span class="dot v3"></span>used by 3.0</span><span>points colored by win/loss</span></div>
     <div class="tablewrap"><table id="gamestable"></table></div>
     <div class="status" id="gamesstatus"></div>
+  </div>
+  <div id="box" hidden>
+    <div class="controls" style="margin:0 0 10px;justify-content:flex-start"><label class="ctl">Game <select id="boxgame"></select></label></div>
+    <div id="boxout"></div>
   </div>
   <div id="ratings" hidden>
     <p class="note">What the team carried into each week: the offense EPA rating (better than an average offense per play, after opponents, decay and shrinkage) and its own defense EPA rating (positive = good). Week 1 is last season shrunk toward zero; each game moves it.</p>
@@ -439,6 +444,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <button data-sub="playermodel">Player projections: rule and tests</button>
     <button data-sub="seasonhow">Season odds and player totals</button>
     <button data-sub="dict">Every column</button>
+    <button data-sub="healthv">Health checks</button>
     <button data-sub="log">Data pulls and verification</button>
     <button data-sub="catalog">Every data store</button>
     <button data-sub="decisions">Decision log and audit</button>
@@ -476,6 +482,12 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <div class="card"><h3>The page's own files (web/data)</h3><div class="tablewrap" style="max-height:44vh"><table id="catpage"></table></div></div>
     </div>
   </div>
+  <div id="healthv" hidden>
+    <div class="tiles" id="hvtiles"></div>
+    <div class="card" style="margin-top:12px"><h3>Failing now</h3><div class="tablewrap"><table id="hvfails"></table></div></div>
+    <div class="card" style="margin-top:12px"><h3>How fresh each source is</h3><div class="tablewrap"><table id="hvfresh"></table></div></div>
+    <div class="card" style="margin-top:12px"><h3 id="hvallh">Every check</h3><div class="tablewrap" style="max-height:60vh"><table id="hvall"></table></div></div>
+  </div>
   <div id="log" hidden>
     <p class="note">Every nflverse download with its size and hash, and the verification that runs after each rebuild (2024 totals against Pro-Football-Reference, scores against the schedule, offense/defense mirrors).</p>
     <div class="tablewrap" style="max-height:36vh"><table id="logtable"></table></div>
@@ -493,7 +505,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     <div class="howbox" style="margin-bottom:14px"><dl>
       <dt>Plays, scores, schedules</dt><dd>nflverse play-by-play, schedules, injuries and depth charts (Model → Data pulls and verification lists every download with its hash).</dd>
       <dt>Lines</dt><dd>ESPN's scoreboard feed and The Odds API (nine books), logged every 30 minutes by the line watch; the closing line for graded games is nflverse's.</dd>
-      <dt>Vegas on a card</dt><dd>The latest logged line (the consensus across sources at the last snapshot, every 30 minutes); the edge, the cover odds and the best number follow it. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
+      <dt>Vegas on a card</dt><dd>The latest logged line (the consensus across sources at the last snapshot, every 30 minutes); the edge, the cover odds and the best number follow it. The Vegas win chance is the newest snapshot's moneylines with the vig removed (each book's pair, averaged), and the chip under it is the model's rounded win chance minus Vegas's. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
       <dt>Player prop lines</dt><dd>The Odds API's six core markets from every US book (Thursday evening and Sunday morning) and PrizePicks' full pick'em board every six hours (every market at even odds by construction, no touchdown markets, promo copies of a line dropped). A player's line is the median across the books' latest numbers; the opening line (the first one logged for the game) sits in the Book cell's hover. "No line" means no book has posted that market yet. Underdog refuses requests from the runner (426), so it is not a source yet.</dd>
       <dt>Weather</dt><dd>Played games: the schedule's kickoff temperature and wind. Unplayed games: the Open-Meteo hourly forecast at the stadium, fetched on every weekly run (Tuesday, Thursday, Saturday, Sunday) and used only within <span id="wxdays">4</span> days of kickoff; further out the game is priced as typical weather (7 mph, not cold, dry).</dd>
       <dt>Injuries</dt><dd>nflverse injury reports and weekly rosters (IR and the like): the starting QB listed out, the value of skill players out (player model), snap-weighted absences on offense and the opponent's defense.</dd>
@@ -514,10 +526,11 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       <dt>Books now</dt><dd>Under "Why these numbers": every book's current spread and total from the last line snapshot, and the best available number for the model's side. A half point at a key number (3, 7) is worth real money over a season, so a flagged bet goes at the best price, not the first one. The full log (every book, every 30 minutes) is folded underneath; it grades closing line value on the Track record tab and, after a season, tests whether lines that move toward the model beat the ones that move away.</dd>
       <dt>Matchup history</dt><dd>Last meetings, coaches, quarterbacks, stadium and form, built automatically on every weekly run from the nflverse schedule (every game since 2013 with its score, closing line, coaches and starting QBs). Nothing here changes the model's numbers: each of these was tested as an input and none improved the backtest (Decision log). It is context for reading a card, not an input.</dd>
       <dt>Scheme matchup and How they play / defend</dt><dd>Readings from nflverse participation data (2016 on: the defense's man or zone call and coverage family, formation, personnel, box, rushers, pressure) and FTN charting (2022 on: motion, play action, RPO, screens, tempo, blitzers), joined to every play. Rates say how a team plays; EPA per play in each look says how it has gone, with the play count beside it and blank under 20 plays. This season is used once a team has 300 charted plays, otherwise last season, and the label says which. The current season's participation file arrives on nflverse during the season, so early-season profiles carry the FTN fields and leave coverage and pressure blank. None of it feeds the model's numbers; it is the first layer of the matchup work (docs section 17).</dd>
-      <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Backtest → Season odds and player totals): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.6 and 0.5, passers 0.5 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
+      <dt>Season</dt><dd>Win totals, division, playoff and Super Bowl odds from playing the rest of the regular season out 10,000 times. Every remaining game gets an expected margin from the game model's own equation on each team's ratings as of this week (the coming week's games use the model's actual predictions, forecast and absences included; later games carry no forecast or absences, so wind sits at the league-typical 7 mph outdoors and no one is out). Margins are drawn with the model's residual scale; a margin within 0.07 of zero is a tie. Standings follow the league's order of tiebreakers as far as records go (head-to-head among the tied, division record, conference record, then a coin flip; the strength-of-victory rules beyond those are not applied). Seeds play the bracket with the higher seed at home and the Super Bowl on a neutral field. Backtest (Backtest → Season odds and player totals): the same odds made as of weeks 1, 5, 9, 13 and 17 of 2019 to 2025 against what happened, beside naive baselines; the two knobs tested (shrinking future margins, widening the scale) helped the held-out window and hurt the tuning window, so neither is used. Player season totals: what he has so far plus his per-game mean against an average defense (the props rule's volume and rate, no game script, no median factor) times the games his team has left times a fitted share, blended with pace (his own per-game so far over the whole schedule); the share and the pace weight are fitted on 2016 to 2018 on the season-total error (receivers 0.65 and 0.5, rushers 0.625 and 0.5, passers 0.525 and 0.75), and the result beats pace and last season on both windows. The breakout flag is scored by how often it came true.</dd>
       <dt>Every data store</dt><dd>Model → Every data store lists each file the model keeps, read from the files themselves on each build: raw downloads (what each holds, seasons, size, rows and columns, when last pulled), built tables (rows, columns, the step that writes them, where they show), the line, weather, tracker and run logs, the reports and the page's own files. Team → Scheme and play calling shows a team's offense and defense profile over its last 17 games against the league with its rank, and its EPA by the look it faced or played. No public source charts routes; the route-adjacent readings (coverage faced, motion, play action, depth of target, air yards) are there.</dd>
+      <dt>Tackle projections (props)</dt><dd>Tackles plus assists on defensive plays only, the rule some books settle on (bet365 among them). Others, FanDuel among them, also count special-teams tackles, which in 2025 added about a tenth of a tackle a game for a defender with four or more defensive tackles, and more for a core special-teams player. The game logs show the official total, special teams included.</dd>
       <dt>EPA (expected points added)</dt><dd>Every down, distance, yard line, time left and score has an expected number of points for the team with the ball: what teams in that spot went on to score, on average, before the other side next scored (nflverse's model, fitted on every play since 1999). A play's EPA is expected points after it minus before it. Near midfield (2016 to 2025 plays), a 6-yard gain on 3rd and 5 moves the chains and adds about +1.4. The same 6 yards on 3rd and 8 falls short and costs about -0.7. An interception averages about -4.4. A player's EPA is the sum over his plays: a receiver's targets (catch or not), a back's carries, a quarterback's dropbacks (passes, sacks and scrambles). Per play is that sum over the plays. Team ratings, the QB rating and value over a backup are all built from it.</dd>
-      <dt>Player game logs (Players → a player)</dt><dd>Every regular-season and playoff game since 2016, one row per game. Box score, targets, air yards, yards after the catch, red-zone looks, first downs and EPA come from nflverse play-by-play; snaps from nflverse snap counts; drops, broken tackles, yards before and after contact, bad throws, pressures, blitzes, hits and the coverage he allowed from Pro-Football-Reference's charting (2018 on). Against man, zone, pressure and light or heavy boxes come from nflverse's participation charting, which is published some time after a season ends. Until then those columns show a chip saying which seasons are charted, and they fill in on the run after it appears. Career by season sums the same logs.</dd>
+      <dt>Player game logs (Players → a player)</dt><dd>Every regular-season and playoff game since 2016, one row per game. The box score follows the official one: passing yards are the yards on completions (a sack's lost yards are not passing yards), a kneel-down is a carry, a spike is a pass attempt, and two-point tries are not plays. Every run checks the logs against nflverse's official player stats, and they tie. Tackles, sacks, interceptions and passes defended are the official numbers, special-teams tackles included. Targets, air yards, yards after the catch, red-zone looks, first downs and EPA come from nflverse play-by-play; snaps from nflverse snap counts; drops, broken tackles, yards before and after contact, bad throws, pressures, blitzes, hits and the coverage he allowed from Pro-Football-Reference's charting (2018 on). Against man, zone, pressure and light or heavy boxes come from nflverse's participation charting, which is published some time after a season ends. Until then those columns show a chip saying which seasons are charted, and they fill in on the run after it appears. Career by season sums the same logs.</dd>
       <dt>Value over a backup (Rankings → Positions, Players, Team overview)</dt><dd>How many expected points a player adds over the kind of player who would replace him, a replacement-level backup. Quarterbacks: the model's QB rating (expected points per dropback, weighted toward recent games and pulled toward a backup's level until he has enough dropbacks) minus a backup's level; times his dropbacks a game, it reads as points a game. Brock Purdy at +0.30 a dropback and 31 dropbacks a game is about 9 points a game better than a backup. Backs, receivers and tight ends: expected points per touch above a backup's, times his share of the team's touches, so it is per team play. Linemen, defenders and kickers use the handle the data allows for each (on/off for linemen, credited plays for defenders, points per kick). A player whose rate is close to a backup's, like a quarterback with few dropbacks, sits near zero; that is why a young starter and a veteran backup can rate close together when their per-dropback results so far are close.</dd>
       <dt>Card tabs</dt><dd>Each game card opens one panel at a time: Takeaways (the handful of readings on the card that bear on the outcome: the model against the market, the largest inputs and absences, the scheme look that matters most each way, the last meetings, the biggest prop leans against the book), Why these numbers (every input and its points), Matchup history, Scheme matchup and Player props. Only the spread flag is a bet; the rest are readings.</dd>
       <dt>Rankings, Positions</dt><dd>Every rostered player valued as of the coming week (his last eight games, across seasons) ranked within his position group (value above replacement, EPA per play terms; Team → Players for each group's basis), with coverage numbers for defensive backs.</dd>
@@ -545,6 +558,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 <script src="data/catalog.js"></script>
 <script src="data/legit.js"></script>
 <script src="data/fresh.js"></script>
+<script src="data/health.js"></script>
 <script src="data/props.js"></script>
 <script>
   if (!window.META) { document.body.innerHTML = '<div class="wrap"><header><h1>NFL Model</h1><p class="sub">The page\'s data files did not load (data/meta.js). Reload; if it persists, the weekly run has not published yet.</p></header></div>'; throw new Error("data/meta.js missing"); }
@@ -588,6 +602,47 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     $("built").textContent = newest ? "Last updated " + fmt(newest[1]) : "Last updated " + META.built;
     $("built").title = src.map(([k, d]) => `${k}: ${fmt(d)}`).join("\n") + (window.FRESH && FRESH.changes && FRESH.changes.length ? `\nLast check found: ${FRESH.changes.slice(0, 6).join("; ")}` : "");
   })();
+
+  // ---------- health: every tie check (web/data/health.js, run by the weekly run and every line-watch run) plus the page's
+  // own freshness checks; the chip by "Last updated" turns red when anything is off, Model -> Health checks has the detail
+  const HEALTHV = (() => {
+    const toD = t => { const m = String(t || "").match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2})[:-](\d{2})/); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
+    const now = new Date(), ago = d => d ? (now - d) / 36e5 : null;
+    const fmt = d => d ? d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"}) + " ET" : "never";
+    const H = window.HEALTH || null;
+    const lineTs = window.WEEK ? (WEEK.games || []).flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop() : null;
+    // limits in hours: the line watch runs every 30 minutes, the weekly run at least four times a week
+    const fresh = [["Game lines (line watch, every 30 minutes)", toD(lineTs), 2], ["Starters, injuries and weather (every line-watch run)", toD(window.FRESH && FRESH.checked), 2],
+                   ["Tie checks (every line-watch run and model run)", toD(H && H.checked), 2], ["Model run (re-prices on every input change)", toD(META.built), 96]];
+    const stale = fresh.filter(([, d, lim]) => !d || ago(d) > lim);
+    const fails = H ? H.fails : [];
+    const ok = H && H.ok && !stale.length;
+    return {H, fresh, stale, fails, ok, fmt, ago};
+  })();
+  (() => {
+    const {H, stale, fails, ok, fmt} = HEALTHV, c = $("hchip");
+    if (!H) { c.textContent = "Checks not run yet"; c.className = "chip mute"; }
+    else if (ok) { c.textContent = `✓ All ${H.total} checks pass`; c.className = "chip"; c.style.color = "var(--pos, #1a7f37)"; }
+    else { const n = fails.length + stale.length; c.textContent = `⚠ ${n} check${n === 1 ? "" : "s"} failing`; c.className = "chip flag"; c.style.color = "var(--neg, #cf222e)"; c.style.fontWeight = "600"; }
+    c.title = H ? `Last checked ${fmt(new Date(Date.parse(H.checked.replace(" UTC", "Z").replace(" ", "T"))))} by the ${H.source}` : "";
+    c.addEventListener("click", e => { e.preventDefault(); tab = "model"; sub.model = "healthv"; save(); showTab(); render(); });
+  })();
+  function renderHealth() {
+    const {H, fresh, stale, fails, ok, fmt, ago} = HEALTHV;
+    const tile = (l, v, s_) => `<div class="tile"><div class="tl">${l}</div><div class="tv">${v}</div>${s_ ? `<div class="ts">${s_}</div>` : ""}</div>`;
+    $("hvtiles").innerHTML = tile("Status", ok ? "All clear" : "Needs a look", ok ? "" : `${fails.length} failing, ${stale.length} late`) + (H ? tile("Checks passing", `${H.passed} of ${H.total}`, `${H.scope}, ${H.source}`) : "") +
+      tile("Last checked", H ? fmt(new Date(Date.parse(H.checked.replace(" UTC", "Z").replace(" ", "T")))) : "never", "");
+    $("hvfails").innerHTML = `<thead><tr><th class="l">Check</th><th class="l">Reads</th><th class="l">Should read</th></tr></thead><tbody>` +
+      (fails.length || stale.length ? fails.map(f => `<tr><td class="l">${esc(f.what)}</td><td class="l mono">${esc(f.reads)}</td><td class="l mono">${esc(f.should)}</td></tr>`).join("") +
+        stale.map(([k, d, lim]) => `<tr><td class="l">${esc(k)} is late</td><td class="l mono">${d ? fmt(d) : "never"}</td><td class="l mono">within ${lim} hours</td></tr>`).join("")
+      : `<tr><td class="l" colspan="3">Nothing failing.</td></tr>`) + `</tbody>`;
+    $("hvfresh").innerHTML = `<thead><tr><th class="l">Source</th><th class="l">Last</th><th>Hours ago</th><th>Limit</th><th class="l">OK</th></tr></thead><tbody>` +
+      fresh.map(([k, d, lim]) => { const a = ago(d); return `<tr><td class="l">${esc(k)}</td><td class="l">${fmt(d)}</td><td class="mono">${a == null ? "" : a.toFixed(1)}</td><td class="mono">${lim}</td><td class="l">${a != null && a <= lim ? "✓" : "⚠ late"}</td></tr>`; }).join("") + `</tbody>`;
+    const all = H ? H.checks.slice().sort((a, b) => (a[1] === b[1] ? 0 : a[1] ? 1 : -1)) : [];
+    $("hvallh").textContent = `Every check (${all.length})`;
+    $("hvall").innerHTML = `<thead><tr><th class="l">Check: the same number must read the same everywhere it appears</th><th class="l">Ties</th></tr></thead><tbody>` +
+      all.map(([w, t]) => `<tr><td class="l">${esc(w)}</td><td class="l">${t ? "✓" : "⚠ no"}</td></tr>`).join("") + `</tbody>`;
+  }
 
   // ---------- state ----------
   let team = "KC", season = 2026, data = null, tab = "week", sub = {teamsec: "overview", model: "analysis", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
@@ -701,7 +756,11 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     return rowLabel ? `<div class="brow"><span class="bl ${cls === "v" ? "v" : "m"}">${rowLabel}</span>${b}</div>` : b;
   }
   function mlProb(ml) { if (ml == null || isNaN(ml)) return null; return ml < 0 ? (-ml) / (-ml + 100) : 100 / (ml + 100); }
+  // Vegas win chance: the newest logged snapshot with both moneylines (each book's pair with the vig removed, averaged
+  // across the books in that snapshot); past games without a log use the schedule's closing moneyline
   function vegasWin(g) {
+    const byTs = {}; (g.line_history || []).forEach(r => { const a = mlProb(r.home_ml), b = mlProb(r.away_ml); if (a == null || b == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(a / (a + b)); });
+    const tss = Object.keys(byTs).sort(); if (tss.length) { const v = byTs[tss[tss.length - 1]]; return v.reduce((x, y) => x + y, 0) / v.length; }
     const ph = mlProb(g.home_ml), pa = mlProb(g.away_ml);
     if (ph != null && pa != null) return ph / (ph + pa);
     if (g.spread_line != null && g.sigma_margin) return normCdf(g.spread_line / g.sigma_margin);
@@ -897,7 +956,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
             ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
             ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
-            ${vw == null ? "" : `<span class="chip">${g.p_home >= vw ? H : A} +${Math.round(100 * Math.abs(g.p_home - vw))} vs Vegas</span>`}
+            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * g.p_home))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's win chance minus Vegas's, from the two bars above">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
@@ -1656,18 +1715,20 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       return `<div class="tablewrap" style="margin-top:6px"><table><thead><tr><th class="l">${KL[k]}</th><th class="l">Team</th><th>Games</th>${HD[k].map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>` + rs.map(r => `<tr><td class="l mono">${r[0]}</td><td class="l">${esc(r[3])}</td><td class="mono">${r[2]}</td>${S[k].map((c, i) => `<td class="mono">${c === "epa" ? ((r[4 + i] >= 0 ? "+" : "") + (+r[4 + i]).toFixed(1)) : (Number.isInteger(r[4 + i]) ? r[4 + i].toLocaleString() : (+r[4 + i]).toFixed(1))}</td>`).join("")}</tr>`).join("") + "</tbody></table></div>"; }).join("");
   }
   // one season of a player's games: every stat, a totals row; the look splits only where the plays were charted
+  // the game-log columns, shared by a player's page and the team box scores
+  const LOGT = {
+        rec: {title: "Receiving", cols: [["snaps", "Snaps", "s"], ["targets", "Targets", "n"], ["catches", "Catches", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["yac", "Yards after catch", "n"], ["first_downs", "First downs", "n"], ["rz_targets", "Red-zone targets", "n"], ["drops", "Drops", "n"], ["broken_tackles", "Broken tackles", "n"], ["rating_when_targeted", "Passer rating when targeted", "r"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "QB pressured"]]},
+        rush: {title: "Rushing", cols: [["snaps", "Snaps", "s"], ["carries", "Carries", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["first_downs", "First downs", "n"], ["rz_carries", "Red-zone carries", "n"], ["yds_before_contact", "Yards before contact", "n"], ["yds_after_contact", "Yards after contact", "n"], ["broken_tackles", "Broken tackles", "n"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["light", "Light box (6 or fewer)"], ["heavy", "Heavy box (8+)"]], always: true},
+        pass: {title: "Passing", cols: [["snaps", "Snaps", "s"], ["dropbacks", "Dropbacks", "n"], ["completions", "Completions", "n"], ["attempts", "Attempts", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["int", "INT", "n"], ["sacks", "Sacks", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["first_downs", "First downs", "n"], ["bad_throws", "Bad throws", "n"], ["pressured", "Pressured", "n"], ["blitzed", "Blitzed", "n"], ["hit", "Hit", "n"], ["drops_by_receivers", "Receivers' drops", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "Under pressure"]]},
+        def: {title: "Defense", cols: [["snaps", "Snaps", "s"], ["tackles", "Tackles", "t"], ["solo", "Solo", "n"], ["sacks", "Sacks", "t"], ["ints", "INT", "n"], ["passes_defended", "Passes defended", "n"], ["plays_faced", "Plays faced", "n"], ["targets_allowed", "Targets allowed", "n"], ["completions_allowed", "Catches allowed", "n"], ["yards_allowed", "Yards allowed", "n"], ["td_allowed", "TD allowed", "n"], ["rating_allowed", "Passer rating allowed", "r"], ["pressures", "Pressures", "n"], ["missed_tackles", "Missed tackles", "n"]], splits: []},
+        kick: {title: "Kicking", cols: [["fgm", "FG made", "n"], ["fga", "FG tried", "n"], ["xpm", "XP made", "n"], ["xpa", "XP tried", "n"], ["points", "Points", "n"]], splits: []}};
   function renderPlayerLog(pid) {
     const yr = plSeason; const C = window.PCAREER;
     needSeason(yr, () => {
       const L = (window.PLOGS_S || {})[yr] || {}; const mine = L[pid]; const el = $("pllog"); if (!el) return;
       if (!mine) { el.innerHTML = `<p class="note">No games in ${yr}.</p>`; return; }
       const charted = yr <= C.last_charted;
-      const T = {
-        rec: {title: "Receiving", cols: [["snaps", "Snaps", "s"], ["targets", "Targets", "n"], ["catches", "Catches", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["yac", "Yards after catch", "n"], ["first_downs", "First downs", "n"], ["rz_targets", "Red-zone targets", "n"], ["drops", "Drops", "n"], ["broken_tackles", "Broken tackles", "n"], ["rating_when_targeted", "Passer rating when targeted", "r"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "QB pressured"]]},
-        rush: {title: "Rushing", cols: [["snaps", "Snaps", "s"], ["carries", "Carries", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["longest", "Longest", "m"], ["first_downs", "First downs", "n"], ["rz_carries", "Red-zone carries", "n"], ["yds_before_contact", "Yards before contact", "n"], ["yds_after_contact", "Yards after contact", "n"], ["broken_tackles", "Broken tackles", "n"], ["fumbles_lost", "Fumbles lost", "n"], ["epa", "EPA", "e"]], splits: [["light", "Light box (6 or fewer)"], ["heavy", "Heavy box (8+)"]], always: true},
-        pass: {title: "Passing", cols: [["snaps", "Snaps", "s"], ["dropbacks", "Dropbacks", "n"], ["completions", "Completions", "n"], ["attempts", "Attempts", "n"], ["yards", "Yards", "n"], ["td", "TD", "n"], ["int", "INT", "n"], ["sacks", "Sacks", "n"], ["longest", "Longest", "m"], ["air_yds", "Air yards", "n"], ["first_downs", "First downs", "n"], ["bad_throws", "Bad throws", "n"], ["pressured", "Pressured", "n"], ["blitzed", "Blitzed", "n"], ["hit", "Hit", "n"], ["drops_by_receivers", "Receivers' drops", "n"], ["epa", "EPA", "e"]], splits: [["man", "Against man"], ["zone", "Against zone"], ["press", "Under pressure"]]},
-        def: {title: "Defense", cols: [["snaps", "Snaps", "s"], ["tackles", "Tackles", "t"], ["solo", "Solo", "n"], ["sacks", "Sacks", "t"], ["ints", "INT", "n"], ["passes_defended", "Passes defended", "n"], ["plays_faced", "Plays faced", "n"], ["targets_allowed", "Targets allowed", "n"], ["completions_allowed", "Catches allowed", "n"], ["yards_allowed", "Yards allowed", "n"], ["td_allowed", "TD allowed", "n"], ["rating_allowed", "Passer rating allowed", "r"], ["pressures", "Pressures", "n"], ["missed_tackles", "Missed tackles", "n"]], splits: []},
-        kick: {title: "Kicking", cols: [["fgm", "FG made", "n"], ["fga", "FG tried", "n"], ["xpm", "XP made", "n"], ["xpa", "XP tried", "n"], ["points", "Points", "n"]], splits: []}};
+      const T = LOGT;
       let h = "";
       Object.keys(T).forEach(k => { const rows = mine[k]; if (!rows || !rows.length) return; const cols = C.cols[k], ix = Object.fromEntries(cols.map((c, i) => [c, i])), t = T[k];
         const has = c => rows.some(r => r[ix[c]] != null && r[ix[c]] !== 0);
@@ -1687,6 +1748,43 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   }
   // the search box re-renders as you type; the pickers on change (a change event on leaving the search box would re-render the list under a click)
   $("plq").addEventListener("input", renderPlayersTab); ["plteam", "plpos", "plstatus"].forEach(id => $(id).addEventListener("change", renderPlayersTab));
+  // ---------- Teams -> Player box scores: every player's line in one game, both teams (data/plogs/<season>.js) ----------
+  let boxGame = null;
+  function renderBox() {
+    const yr = season, tm = team;
+    needCareers(() => needSeason(yr, () => {
+      const L = (window.PLOGS_S || {})[yr] || {}, C = window.PCAREER || {}, NM = C.names || {};
+      const gm = {};
+      Object.values(L).forEach(kinds => Object.values(kinds).forEach(rows => rows.forEach(r => { if (r[2] === tm || r[3] === tm) gm[r[1]] = {week: r[0], opp: r[2] === tm ? r[3] : r[2], home: r[1].split("_")[3] === tm}; })));
+      const ids = Object.keys(gm).sort((a, b) => gm[b].week - gm[a].week);
+      const sel = $("boxgame");
+      if (!ids.length) { sel.innerHTML = ""; $("boxout").innerHTML = `<p class="note">No games for ${tm} in ${yr}.</p>`; return; }
+      if (!ids.includes(boxGame)) boxGame = ids[0];
+      sel.innerHTML = ids.map(g => `<option value="${g}"${g === boxGame ? " selected" : ""}>Week ${gm[g].week} · ${gm[g].home ? "vs" : "@"} ${gm[g].opp}</option>`).join("");
+      const sides = [tm, gm[boxGame].opp]; let h = "";
+      const main = {rec: "yards", rush: "yards", pass: "attempts", def: "tackles", kick: "points"};
+      sides.forEach(t => {
+        h += `<div class="card" style="margin-top:12px"><h3 style="display:flex;align-items:center;gap:8px">${LOGO(t, 22)}${t}</h3>`;
+        Object.keys(LOGT).forEach(k => {
+          const cols = C.cols[k], ix = Object.fromEntries(cols.map((c, i) => [c, i])), T = LOGT[k];
+          const rows = []; Object.entries(L).forEach(([pid, kinds]) => (kinds[k] || []).forEach(r => { if (r[1] === boxGame && r[2] === t) rows.push([pid, r]); }));
+          if (!rows.length) return;
+          rows.sort((a, b) => (+b[1][ix[main[k]]] || 0) - (+a[1][ix[main[k]]] || 0));
+          const has = c => rows.some(([, r]) => r[ix[c]] != null && r[ix[c]] !== 0);
+          const shown = T.cols.filter(([c]) => c === "snaps" || has(c));
+          const cell = (r, c, kind) => { const v = r[ix[c]]; if (v == null) return ""; if (kind === "s") return `${v}${r[ix.snap_pct] != null ? ` <small>${Math.round(100 * r[ix.snap_pct])}%</small>` : ""}`; if (kind === "e") return `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${(+v).toFixed(1)}</span>`; if (kind === "r" || kind === "t") return (+v).toFixed(1); return (+v).toLocaleString(); };
+          h += `<div class="tablewrap" style="margin-top:8px"><table><thead><tr><th class="l">${T.title}</th>${shown.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead><tbody>` +
+            rows.map(([pid, r]) => `<tr class="mrow" data-pl="${pid}"><td class="l"><a href="#" data-pl="${pid}">${esc((NM[pid] || [pid])[0])}</a> <span class="rk">${esc((NM[pid] || [, ""])[1] || "")}</span></td>${shown.map(([c, , kd]) => `<td class="mono">${cell(r, c, kd)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+        });
+        h += `</div>`;
+      });
+      $("boxout").innerHTML = h;
+    }));
+  }
+  // open a player's page from anywhere (box scores, tables): the Players tab with him selected
+  function openPlayer(pid) { plSel = pid; plSeason = null; tab = "playersec"; save(); showTab(); render(); setTimeout(() => { const c = $("plcard"); if (c) c.scrollIntoView({behavior: "smooth", block: "start"}); }, 50); }
+  $("boxgame").addEventListener("change", e => { boxGame = e.target.value; renderBox(); });
+  $("boxout").addEventListener("click", e => { const a = e.target.closest("[data-pl]"); if (!a) return; e.preventDefault(); openPlayer(a.dataset.pl); });
   function renderPlayers() {
     const P = ((data && data.players) || []).filter(r => r.value_above_replacement != null); const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number))); const w = Math.abs(co.per_unit.skill_out_value || 0);
     if (!P.length) { $("playerstable").innerHTML = "<tbody><tr><td>No player values exported for this team.</td></tr></tbody>"; return; }
@@ -2177,8 +2275,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     if (tab === "seasonsec") return renderSeason();
     if (tab === "results") { if (sub.results === "props") renderPropsBacktest(); else if (sub.results === "proplive") renderPropsLive(); else if (sub.results === "seasonbt") renderSeasonBacktest(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
-    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); }
+    if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "healthv") renderHealth(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
+    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; if (s === "overview") renderOverview(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
   }
   // numbers written into the definitions come from the data files, so no sentence can go stale
   document.querySelectorAll("[data-pk]").forEach(el => { const v = el.dataset.pk.split(".").reduce((o, k) => (o == null ? null : o[k]), window.PROPS || null); el.textContent = v == null ? "" : String(v); });

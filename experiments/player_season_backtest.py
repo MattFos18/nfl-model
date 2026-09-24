@@ -49,7 +49,8 @@ def rows_for(d, games, names, season, week):
 def build_rows() -> pd.DataFrame:
     t0 = time.time()
     games = pd.read_parquet(OUT / "games.parquet")
-    d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
+    from nflmodel.props import official
+    d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
     names = names_by_id(range(2014, 2027))
     rows = []
     for s in FIT_SEASONS + TEST_SEASONS:

@@ -43,14 +43,15 @@ def _pbp(season: int) -> pd.DataFrame:
     f = RAW / "pbp" / f"play_by_play_{season}.parquet"
     cols = ["game_id", "play_id", "season", "week", "season_type", "posteam", "defteam", "play_type", "pass_attempt", "qb_dropback", "sack", "complete_pass", "interception",
             "receiver_player_id", "rusher_player_id", "passer_player_id", "yards_gained", "air_yards", "yards_after_catch", "first_down_pass", "first_down_rush", "yardline_100",
-            "pass_touchdown", "rush_touchdown", "fumble_lost", "fumbled_1_player_id", "epa", "two_point_attempt"]
+            "pass_touchdown", "rush_touchdown", "fumble_lost", "fumbled_1_player_id", "epa", "qb_epa", "two_point_attempt"]
     import pyarrow.parquet as pq
     have = set(pq.ParquetFile(f).schema.names)
     p = pd.read_parquet(f, columns=[c for c in cols if c in have])
     from .features import TEAM_FIX
     p["posteam"] = p.posteam.replace(TEAM_FIX); p["defteam"] = p.defteam.replace(TEAM_FIX)
     p = p[p.season_type.eq("REG") | p.season_type.eq("POST")] if "season_type" in p.columns else p
-    return p[p.play_type.isin(["pass", "run"]) & (p.two_point_attempt.fillna(0) == 0)].copy()
+    # passes, runs, kneel-downs (a carry in the official box score) and spikes (a pass attempt); two-point tries are not plays
+    return p[p.play_type.isin(["pass", "run", "qb_kneel", "qb_spike"]) & (p.two_point_attempt.fillna(0) == 0)].copy()
 
 
 def _looks(season: int) -> pd.DataFrame:
@@ -125,7 +126,7 @@ def season_logs(season: int, pmap: dict) -> dict:
             (int(x.receiving_drop) if x is not None and pd.notna(x.receiving_drop) else None), (int(x.receiving_broken_tackles) if x is not None and pd.notna(x.receiving_broken_tackles) else None), (rnd(x.receiving_rat, 1) if x is not None and pd.notna(x.receiving_rat) else None),
             int(r.man_n), int(r.man_yds), int(r.zone_n), int(r.zone_yds), int(r.press_n), int(r.press_yds)])
     # rushing
-    u = p[(p.play_type == "run") & p.rusher_player_id.notna()].copy()
+    u = p[p.play_type.isin(["run", "qb_kneel"]) & p.rusher_player_id.notna()].copy()
     u["fl_mine"] = ((u.fumble_lost == 1) & (u.fumbled_1_player_id == u.rusher_player_id)).astype(float)
     for c, f in (("light", "light_f"), ("heavy", "heavy_f")):
         u[f"{c}_n"] = u[f]; u[f"{c}_yds"] = u.yards_gained * u[f]
@@ -140,12 +141,15 @@ def season_logs(season: int, pmap: dict) -> dict:
             (int(x.rushing_yards_before_contact) if x is not None and pd.notna(x.rushing_yards_before_contact) else None), (int(x.rushing_yards_after_contact) if x is not None and pd.notna(x.rushing_yards_after_contact) else None), (int(x.rushing_broken_tackles) if x is not None and pd.notna(x.rushing_broken_tackles) else None),
             int(r.light_n), int(r.light_yds), int(r.heavy_n), int(r.heavy_yds)])
     # passing: every dropback is the passer's (sacks included)
-    q = p[(p.qb_dropback == 1) & p.passer_player_id.notna()].copy()
+    # passing yards are the yards on completions (a sack's yards are not passing yards); passing EPA is nflverse's qb_epa,
+    # as its official passing_epa is (24 Sep 2026: held to nflverse's player stats by the tie check)
+    q = p[((p.qb_dropback == 1) | (p.play_type == "qb_spike")) & p.passer_player_id.notna()].copy()
     q["att"] = ((q.pass_attempt == 1) & (q.sack == 0)).astype(float); q["lg"] = np.where(q.complete_pass == 1, q.yards_gained, 0.0); q["ay"] = q.air_yards.fillna(0.0) * q.att
+    q["pyds"] = np.where((q.complete_pass == 1) & (q.sack == 0), q.yards_gained, 0.0); q["qepa"] = q.qb_epa.fillna(0.0); q["db1"] = (q.qb_dropback == 1).astype(float)
     for c, f in (("man", "man_f"), ("zone", "zone_f"), ("press", "press_f")):
         q[f"{c}_n"] = q[f]; q[f"{c}_yds"] = q.yards_gained * q[f]
-    g = q.groupby(["passer_player_id", "week", "game_id", "posteam", "defteam"]).agg(dropbacks=("play_id", "size"), attempts=("att", "sum"), completions=("complete_pass", "sum"),
-        yards=("yards_gained", "sum"), td=("pass_touchdown", "sum"), int_=("interception", "sum"), sacks=("sack", "sum"), longest=("lg", "max"), air_yds=("ay", "sum"), first_downs=("first_down_pass", "sum"), epa=("epa", "sum"),
+    g = q.groupby(["passer_player_id", "week", "game_id", "posteam", "defteam"]).agg(dropbacks=("db1", "sum"), attempts=("att", "sum"), completions=("complete_pass", "sum"),
+        yards=("pyds", "sum"), td=("pass_touchdown", "sum"), int_=("interception", "sum"), sacks=("sack", "sum"), longest=("lg", "max"), air_yds=("ay", "sum"), first_downs=("first_down_pass", "sum"), epa=("qepa", "sum"),
         man_n=("man_n", "sum"), man_yds=("man_yds", "sum"), zone_n=("zone_n", "sum"), zone_yds=("zone_yds", "sum"), press_n=("press_n", "sum"), press_yds=("press_yds", "sum")).reset_index()
     pr = _pfr("pass", season, pmap).set_index(["game_id", "player_id"])
     for r in g.itertuples():
@@ -161,7 +165,26 @@ def season_logs(season: int, pmap: dict) -> dict:
     opp = pd.concat([p[["game_id", "posteam", "defteam"]].drop_duplicates().rename(columns={"defteam": "t", "posteam": "o"})])
     om = {(a, b): c for a, b, c in zip(opp.game_id, opp.t, opp.o)}
     pr = _pfr("def", season, pmap).set_index(["game_id", "player_id"])
+    # tackles, solo tackles, sacks, interceptions and passes defended as the official box score has them (nflverse's
+    # player stats: special-teams tackles included, as ESPN and the league show them). The props' tackle projections
+    # count defensive plays only; that is labelled where they are shown.
+    off = {}
+    sf = RAW / "player_stats" / f"stats_player_week_{season}.parquet"
+    if sf.exists():
+        st = pd.read_parquet(sf, columns=["player_id", "game_id", "week", "team", "opponent_team", "position_group", "def_tackles_solo", "def_tackle_assists", "def_tackles_with_assist", "def_sacks", "def_interceptions", "def_pass_defended"])
+        st = st.fillna({c: 0 for c in ["def_tackles_solo", "def_tackle_assists", "def_tackles_with_assist", "def_sacks", "def_interceptions", "def_pass_defended"]})
+        off = {(r.player_id, r.game_id): r for r in st.itertuples()}
+        have = set(zip(dg.pid, dg.game_id))
+        # defenders whose only tackles in a game came on special teams: a row with no defensive plays faced
+        extra = st[st.position_group.isin(["DL", "LB", "DB"]) & ((st.def_tackles_solo + st.def_tackle_assists + st.def_tackles_with_assist) > 0)]
+        extra = extra[[(a_, b_) not in have for a_, b_ in zip(extra.player_id, extra.game_id)]]
+        if len(extra):
+            dg = pd.concat([dg, pd.DataFrame({"pid": extra.player_id.values, "game_id": extra.game_id.values, "week": extra.week.values, "defteam": extra.team.values,
+                                               "tackles": 0.0, "solo": 0, "sacks": 0.0, "ints": 0, "pd": 0, "plays_faced": 0})], ignore_index=True)
     for r in dg.itertuples():
+        o = off.get((r.pid, r.game_id))
+        if o is not None:
+            r = r._replace(tackles=float(o.def_tackles_solo + o.def_tackle_assists + o.def_tackles_with_assist), solo=int(o.def_tackles_solo), sacks=float(o.def_sacks), ints=int(o.def_interceptions), pd=int(o.def_pass_defended))
         s_ = snapd.get((r.pid, r.game_id)); x = pr.loc[(r.game_id, r.pid)] if (r.game_id, r.pid) in pr.index else None
         if x is not None and isinstance(x, pd.DataFrame): x = x.iloc[0]
         gv = lambda col, d=0: (rnd(x[col], d) if d else int(x[col])) if x is not None and col in x and pd.notna(x[col]) else None

@@ -26,7 +26,7 @@ BREAK_UP = 1.25
 # blend, by kind: both fitted on 2016 to 2018 as of the same weeks on the season-total error (reports/player_season_backtest.csv,
 # fit rows). The share sits below the share of games such players actually play (0.77, 0.75, 0.74: avail_mean_share rows)
 # because the misses are one-sided and the pace half carries part of the load
-AVAIL = {"rec": 0.65, "rush": 0.6, "pass": 0.5}
+AVAIL = {"rec": 0.65, "rush": 0.625, "pass": 0.525}   # refit on 2016-18 on 24 Sep 2026 after the official box-score definitions (kneels, two-point tries, gross passing yards); was 0.6 and 0.5
 BLEND = {"rec": 0.5, "rush": 0.5, "pass": 0.75}
 BACKTEST = {}   # filled from reports/player_season_backtest.csv by export_web (mean absolute error of the season total by kind and window)
 
@@ -47,7 +47,8 @@ def season_actuals(d: pd.DataFrame, season: int, through_week: int | None = None
     ps = x[x.dropback & x.passer_player_id.notna()]
     for pid, g in ps.groupby("passer_player_id"):
         pp = g[g.pass_play]
-        rows.append({"kind": "pass", "player_id": pid, "yards": float(pp.yards_gained.fillna(0).sum()), "td": float(pp.pass_touchdown.fillna(0).sum()), "games": int(g.game_id.nunique()), "touches": int(len(g)), "catches": np.nan})
+        # passing yards: the yards on completions; a sack's yards are not passing yards (24 Sep 2026)
+        rows.append({"kind": "pass", "player_id": pid, "yards": float(g.pass_yds.sum()), "td": float(pp.pass_touchdown.fillna(0).sum()), "games": int(g.game_id.nunique()), "touches": int(len(g)), "catches": np.nan})
     return pd.DataFrame(rows, columns=["kind", "player_id", "yards", "td", "games", "touches", "catches"])
 
 
@@ -133,7 +134,8 @@ def run_now() -> pd.DataFrame:
     from .lines import current_week
     from .positions import names_by_id
     games = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(games)
-    d = pd.read_parquet(OUT / "scheme_plays.parquet"); d = d[d.play_type.isin(["pass", "run"])]
+    from .props import official
+    d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
     names = names_by_id(range(season - 2, season + 1))
     return project(d, names, games, season, week, mode="now")
 

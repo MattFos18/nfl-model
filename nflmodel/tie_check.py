@@ -94,10 +94,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             a6 = {k: [float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == k) & (r6.variant == "yds_vegas")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards", "pass_yards"]}
             a4 = {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}.items()}
             rows.append(("props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006)", str(a6), str(a4), all(abs(a6[k][i] - a4[k][i]) <= 0.006 for k in a6 for i in (0, 1))))
-            tie("props team fit constants = props_backtest6.csv", {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
+            _tf = {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}
+            _ro = pd.read_csv(REP / "props_official.csv") if (REP / "props_official.csv").exists() else None   # passing yards refit on the official numbers, 24 Sep 2026
+            if _ro is not None:
+                _x = _ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].iloc[0]; _tf["pass"]["yds"] = [float(v) for v in _x.team_fit.split(" x ")[0].split(" + ")]
+            tie("props team fit constants = props_backtest6.csv (passing yards: props_official.csv)", _tf, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
             tie("props round-4 base = round-3 adopted variant (receiving, rushing)", {k: [float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards"]}, {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards"]})
             r11 = pd.read_csv(REP / "props_backtest11.csv"); _rf = lambda st: float(r11[(r11.stat == st) & (r11.variant == "refit_2017_18")].factors.iloc[0])
-            tie("props median factors = props_backtest3.csv (rushing) and props_backtest11.csv refit rows (receiving, passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _rf("pass_yards")}, {k: float(v) for k, v in pj["med"].items()})
+            _mp = float(_ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].med.iloc[0]) if _ro is not None else _rf("pass_yards")
+            tie("props median factors = props_backtest3.csv (rushing), props_backtest11.csv (receiving) and props_official.csv (passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _mp}, {k: float(v) for k, v in pj["med"].items()})
             tie("props receptions factor = props_backtest11.csv refit row", _rf("rec_catches"), float(pj["med_catch"]))
             gs = bt[bt.stat == "game_script"].set_index("variant")
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
@@ -111,9 +116,10 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            r11 = pd.read_csv(REP / "props_backtest11.csv"); _v = {"rec_yards": "refit_2017_18", "rush_yards": "fixed", "pass_yards": "refit_2017_18"}
-            b2 = {k: [float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2019-22"].iloc[0]), float(r11[(r11.stat == k) & (r11.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
-            rows.append(("props by-season run = round 11's rows for the adopted rule (yards, both windows; the by-season table keeps two decimals, within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
+            # the constants in use were last set by experiments/props_official.py (24 Sep 2026): passing refit, receiving and rushing kept
+            ro = pd.read_csv(REP / "props_official.csv"); _v = {"rec_yards": "old constants", "rush_yards": "old constants", "pass_yards": "refit on the official numbers"}
+            b2 = {k: [float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2019-22"].iloc[0]), float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
+            rows.append(("props by-season run = the official-numbers refit's rows for the adopted rule (yards, both windows; within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
@@ -201,12 +207,34 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             pc = _js("player_careers.js"); yr = max(y for y in pc["seasons"] if y < max(pc["seasons"]))   # the last complete season
             s_ = (WEB / "plogs" / f"{yr}.js").read_text(); lg = json.loads(s_[s_.index("]=") + 2:].rstrip().rstrip(";"))
             ix = {k: {c: i for i, c in enumerate(v)} for k, v in pc["cols"].items()}
-            pb = pd.read_parquet(RAW / "pbp" / f"play_by_play_{yr}.parquet", columns=["play_type", "pass_attempt", "sack", "receiver_player_id", "rusher_player_id", "yards_gained", "two_point_attempt", "season_type"]) if (RAW / "pbp" / f"play_by_play_{yr}.parquet").exists() else None
-            if pb is not None:
-                pb = pb[pb.play_type.isin(["pass", "run"]) & (pb.two_point_attempt.fillna(0) == 0) & pb.season_type.isin(["REG", "POST"])]
-                tg = pb[(pb.pass_attempt == 1) & pb.receiver_player_id.notna() & (pb.sack == 0)]; ca = pb[pb.play_type.eq("run") & pb.rusher_player_id.notna()]
-                tie(f"player game logs on the page = the play-by-play, {yr} (targets, receiving yards, carries, rushing yards)", [len(tg), int(tg.yards_gained.fillna(0).sum()), len(ca), int(ca.yards_gained.fillna(0).sum())],
-                    [sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rec"]["yards"]] for v in lg.values() for r in v.get("rec", [])), sum(r[ix["rush"]["carries"]] for v in lg.values() for r in v.get("rush", [])), sum(r[ix["rush"]["yards"]] for v in lg.values() for r in v.get("rush", []))])
+            sf = RAW / "player_stats" / f"stats_player_week_{yr}.parquet"
+            if sf.exists():   # the game logs against nflverse's official box score (the league's numbers, what the books settle on)
+                st = pd.read_parquet(sf).fillna(0); S_ = lambda k, c: round(float(sum((r[ix[k][c]] or 0) for v in lg.values() for r in v.get(k, []))), 1)
+                exact = [("rec", "targets", "targets"), ("rec", "catches", "receptions"), ("rec", "td", "receiving_tds"), ("rush", "carries", "carries"), ("rush", "yards", "rushing_yards"), ("rush", "td", "rushing_tds"),
+                         ("pass", "completions", "completions"), ("pass", "td", "passing_tds"), ("pass", "int", "passing_interceptions"), ("pass", "sacks", "sacks_suffered")]
+                tie(f"player game logs on the page = nflverse's official player stats, {yr} (targets, catches, rec TD, carries, rush yards, rush TD, completions, pass TD, INT, sacks taken)",
+                    [S_(k, c) for k, c, _ in exact], [round(float(st[o].sum()), 1) for _, _, o in exact])
+                # defense, game by game: every defensive player's official line is in the logs with the same numbers
+                dl = pd.DataFrame([{"player_id": pid, "game_id": r[ix["def"]["game_id"]], "tk": r[ix["def"]["tackles"]], "solo": r[ix["def"]["solo"]], "sk": r[ix["def"]["sacks"]], "it": r[ix["def"]["ints"]], "pdf": r[ix["def"]["passes_defended"]]} for pid, v in lg.items() for r in v.get("def", [])])
+                so = st.assign(tk=st.def_tackles_solo + st.def_tackle_assists + st.def_tackles_with_assist)
+                jn = dl.merge(so[["player_id", "game_id", "tk", "def_tackles_solo", "def_sacks", "def_interceptions", "def_pass_defended"]], on=["player_id", "game_id"], how="inner")
+                bad = int(((jn.tk_x - jn.tk_y).abs() > 0.01).sum() + ((jn.solo - jn.def_tackles_solo).abs() > 0.01).sum() + ((jn.sk - jn.def_sacks).abs() > 0.01).sum() + ((jn.it - jn.def_interceptions).abs() > 0.01).sum() + ((jn.pdf - jn.def_pass_defended).abs() > 0.01).sum())
+                need = so[so.position_group.isin(["DL", "LB", "DB"]) & ((so.tk + so.def_sacks + so.def_interceptions + so.def_pass_defended) > 0)]
+                miss = len(set(zip(need.player_id, need.game_id)) - set(zip(dl.player_id, dl.game_id)))
+                tie(f"player game logs: defenders' tackles, solo, sacks, INT, passes defended = official game by game, {yr} (numbers off; official defensive games missing)", [bad, miss], [0, 0])
+                gap = max(abs(S_("pass", "yards") - st.passing_yards.sum()), abs(S_("rec", "yards") - st.receiving_yards.sum()), abs(S_("pass", "attempts") - st.attempts.sum()))
+                rows.append((f"player game logs: passing yards, receiving yards and attempts against official, {yr} (worst gap; laterals and a rare passer the play-by-play leaves unnamed)", str(round(gap)), "0.05% of the season or under", gap <= 0.0005 * st.passing_yards.sum()))
+            # the props are graded on the same terms: rebuild the grading's actuals for the season from the charted plays
+            from . import props as PRP
+            sp = PRP.official(pd.read_parquet(OUT / "scheme_plays.parquet")); sp = sp[(sp.season == yr) & (sp.season_type == "REG")]
+            stR = st[st.season_type == "REG"] if sf.exists() else None
+            if stR is not None and len(sp):
+                ours = [int(sp[sp.pass_play & sp.receiver_player_id.notna()].shape[0]), int(sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].shape[0]), int(sp[sp.play_type.eq("run") & sp.rusher_player_id.notna()].yards_gained.sum()),
+                        int(sp.pass_att.sum()), int(sp[sp.pass_att].complete_pass.sum())]
+                offi = [int(stR.targets.sum()), int(stR.carries.sum()), int(stR.rushing_yards.sum()), int(stR.attempts.sum()), int(stR.completions.sum())]
+                gap = max(abs(a_ - b_) for a_, b_ in zip(ours, offi)); pgap = abs(float(sp.pass_yds.sum()) - float(stR.passing_yards.sum()))
+                rows.append((f"props graded on the official box score, {yr} regular season (targets, carries, rush yards, attempts, completions: worst gap; passing yards gap)", f"{gap}; {round(pgap)}", "0.05% of each or under",
+                             gap <= 0.0005 * min(offi) + 2 and pgap <= 0.0005 * float(stR.passing_yards.sum())))
             car_t = sum(r[4] for v in pc["careers"]["rows"].values() for r in v if r[0] == yr and r[1] == "rec"); log_t = sum(r[ix["rec"]["targets"]] for v in lg.values() for r in v.get("rec", []))
             tie(f"career totals on the page = the season's game logs, {yr} (targets)", car_t, log_t)
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
@@ -260,6 +288,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     if llf.exists() and wk.get("games"):   # no number on a card older than its source: the cards' newest snapshot is the log's newest
         ll = pd.read_csv(llf, usecols=["ts"]); page_ts = max([r["ts"] for g in wk["games"] for r in g.get("line_history", [])] or ["none"])
         tie("cards' newest line snapshot = the line log's newest snapshot", page_ts, str(ll.ts.max()))
+        # the Vegas win chance on a card comes from the newest snapshot with moneylines; it must be the log's newest one
+        lm = LN.load_log(); lm = lm[lm.home_ml.notna() & lm.away_ml.notna() & lm.game_id.isin([g_["game_id"] for g_ in wk["games"]])]
+        if len(lm):
+            page_ml = max([r["ts"] for g_ in wk["games"] for r in g_.get("line_history", []) if r.get("home_ml") is not None and r.get("away_ml") is not None] or ["none"])
+            tie("cards' Vegas win chance uses the line log's newest moneyline snapshot", page_ml, str(lm.ts.max()))
     if "cal" in wk and "games" in wk:   # the card re-prices a moved line with the same calibration the run used
         import math
         def cal_p(cal, e): p = 1 / (1 + math.exp(-(cal[0] + cal[1] * min(abs(e), 7.0)))); return p if e > 0 else 1 - p
@@ -312,7 +345,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     return rows
 
 
-def main(page: bool = False) -> bool:
+def main(page: bool = False, source: str = "weekly run") -> bool:
     rows = check_sources() + (check_page() if page else [])
     ok = all(r[3] for r in rows)
     L = [f"# Tie-out ({'sources and page' if page else 'sources'}), {pd.Timestamp.now('UTC').strftime('%Y-%m-%d %H:%M UTC')}", "",
@@ -320,8 +353,21 @@ def main(page: bool = False) -> bool:
          "| Check | Reads | Should read | Ties |", "|---|---|---|---|"] + [f"| {w} | {str(a)[:80]} | {str(b)[:80]} | {'yes' if t else 'NO'} |" for w, a, b, t in rows] + \
         ["", f"Result: {'PASS' if ok else 'FAIL'} ({sum(1 for r in rows if r[3])} of {len(rows)} tie)"]
     (REP / "tie_check.md").write_text("\n".join(L) + "\n"); print("\n".join(L))
+    write_health(rows, page, source)
     return ok
 
 
+def write_health(rows, page: bool, source: str) -> None:
+    """web/data/health.js: the result of every check, for the page's health chip and Model -> Health checks. Written by
+    the weekly run (sources and page) and by every line-watch run (every 30 minutes)."""
+    import json
+    now = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
+    fails = [{"what": w, "reads": str(a)[:120], "should": str(b)[:120]} for w, a, b, t in rows if not t]
+    h = {"checked": now, "source": source, "scope": "sources and page" if page else "sources", "total": len(rows), "passed": len(rows) - len(fails),
+         "ok": not fails, "fails": fails[:40], "checks": [[w, bool(t)] for w, a, b, t in rows]}
+    WEB.mkdir(parents=True, exist_ok=True); (WEB / "health.js").write_text("window.HEALTH=" + json.dumps(h, separators=(",", ":")) + ";")
+
+
 if __name__ == "__main__":
-    sys.exit(0 if main("--page" in sys.argv) else 1)
+    src = sys.argv[sys.argv.index("--source") + 1] if "--source" in sys.argv else "weekly run"
+    sys.exit(0 if main("--page" in sys.argv, src) else 1)
