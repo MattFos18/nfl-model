@@ -1,5 +1,4 @@
 run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,p_cover,kind,side,line,played,close,clv,clv_now,result,units,who,note
-2026-09-24 02:41 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-112,1.0,1.39,Draft Kings,5.24,0.14,0.67,spread,MIA,11.5,False,,,0.0,pending,,model,
-2026-09-24 02:41 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-112,1.0,1.39,Draft Kings,5.24,0.14,0.67,spread,MIA,11.5,False,,,0.0,pending,,shadow45,
-2026-09-24 02:41 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-112,1.0,1.39,Draft Kings,5.24,0.14,0.67,spread,MIA,11.5,False,,,0.0,pending,,shadowdog,
-2026-09-24 02:41 UTC,2026,3,2026_03_KC_MIA,MIA +11.5,-112,1.0,1.39,Draft Kings,5.24,0.14,0.67,spread,MIA,11.5,False,,,0.0,pending,,shadowearly,
+2026-09-24 05:11 UTC,2026,3,2026_03_KC_MIA,MIA +10.5,-105,1.0,1.46,Draft Kings,4.24,0.14,0.655,spread,MIA,10.5,False,,,0.0,pending,,model,
+2026-09-24 05:11 UTC,2026,3,2026_03_KC_MIA,MIA +10.5,-105,1.0,1.46,Draft Kings,4.24,0.14,0.655,spread,MIA,10.5,False,,,0.0,pending,,shadowdog,
+2026-09-24 05:11 UTC,2026,3,2026_03_KC_MIA,MIA +10.5,-105,1.0,1.46,Draft Kings,4.24,0.14,0.655,spread,MIA,10.5,False,,,0.0,pending,,shadowearly,
