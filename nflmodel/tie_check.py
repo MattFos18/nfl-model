@@ -203,6 +203,21 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if sc.exists():   # the defender table carries nearly every defensive snap of last season (matched by PFR id)
             tot = float(pd.read_parquet(sc, columns=["defense_snaps"]).defense_snaps.sum()); got = float(dgs[dgs.season == last].plays.sum())
             rows.append((f"defender table holds 97%+ of {last}'s defensive snaps", f"{got / tot:.1%}", "97% or more", got / tot >= 0.97))
+        # consensus floor (24 Sep 2026: Myles Garrett and Christian Gonzalez once sat near the bottom of their lists): last
+        # season's AP All-Pros who have a value rank in the top half of their group. Linemen are left out: they share
+        # their line's unit rating, so a good lineman on a bad line ranks low by design.
+        apf = ROOT / "data" / "reference" / "allpro.csv"
+        if apf.exists():
+            ap_ = pd.read_csv(apf); ap_ = ap_[(ap_.season == ap_.season.max()) & (ap_.group != "OL")]
+            vv = pv[pv.value_above_replacement.notna()].copy(); vv["grp"] = vv.def_role.where(vv.group == "Defense", vv.position)
+            low = []
+            for gid, nm in zip(ap_.gsis_id, ap_.name):
+                me = vv[vv.player_id == gid]
+                if len(me):
+                    g_ = vv[vv.grp == me.grp.iloc[0]]; pct_ = 1 - (g_.value_above_replacement > me.value_above_replacement.iloc[0]).sum() / len(g_)
+                    if pct_ < 0.5:
+                        low.append(f"{nm} ({me.grp.iloc[0]}, top {100 * (1 - pct_):.0f}%)")
+            rows.append((f"{int(ap_.season.max())} All-Pros (not linemen) rank in the top half of their group", "; ".join(low) or "all in the top half", "all in the top half", not low))
         # build order: every table is built after the tables it reads (24 Sep 2026: the Players tab's history was built
         # before this run's defender, kicker and lineman tables, so fixes reached it a run late). Two minutes' slack for
         # a fresh checkout, where every file has the checkout's time.
