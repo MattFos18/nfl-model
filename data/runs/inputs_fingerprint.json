@@ -419,7 +419,7 @@
 "2026_03_KC_MIA": {
 "wind": 8.8,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_TEN_NYG": {
 "wind": 18.4,
@@ -431,31 +431,21 @@
 "cold": false,
 "rain": false
 },
-"2026_03_SEA_WAS": {
-"wind": 12.2,
-"cold": false,
-"rain": false
-},
-"2026_03_ARI_SF": {
-"wind": 6.9,
-"cold": false,
-"rain": false
-},
 "2026_03_MIN_TB": {
-"wind": 2.7,
+"wind": 3.8,
 "cold": false,
 "rain": false
 },
 "2026_03_BAL_DAL": {
-"wind": 2.7,
+"wind": 2.6,
 "cold": false,
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 10.8,
+"wind": 14.3,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-24 23:31 UTC"
+"written_at": "2026-09-24 23:44 UTC"
 }
