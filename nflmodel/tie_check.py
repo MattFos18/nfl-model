@@ -162,6 +162,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         tie("picks markdown names the live cut", f"edge is {se:g}+" in md, True)
         m = re.search(r"that cut is (\d+-\d+) on the tuning window and (\d+-\d+) held out \(weeks 1 to 17\).*?and (\d+-\d+) on the untouched 2015 to 2018 window", md)
         tie("picks markdown header records (tuning, held out, untouched)", " ".join(m.groups()) if m else "missing", f"{rr.loc['model', '2019-22']} {rr.loc['model', '2023-25']} {rr.loc['model', '2015-18']}")
+    wl = LNS / "watch_log.csv"
+    if wl.exists():   # the props pull runs inside the line watch and logs its own error; a crash there leaves every prop line stale
+        last = pd.read_csv(wl).tail(1)
+        err = next((e.strip() for e in str(last.errors.iloc[0] if len(last) else "").split(";") if e.strip().startswith("props:")), "")
+        rows.append(("line watch's props pull ran without an error on the newest snapshot", err or "no error", "no error", not err))
     try:
         check_season_equation(rows)
     except Exception as e:  # noqa

@@ -196,8 +196,8 @@ def due(now: dt.datetime, log: pd.DataFrame) -> float | None:
     """The window to pull for at this run, or None: Thursday 20:00 UTC for kickoffs within 30 hours, Sunday 14:00 UTC for
     everything left in the week; never twice inside six hours."""
     if len(log):
-        last = pd.to_datetime(log.ts.str.replace(r"T(\d\d)-(\d\d)-(\d\d)Z", r"T\1:\2:\3Z", regex=True), errors="coerce").max()
-        if pd.notna(last) and (now - last.to_pydatetime()) < dt.timedelta(hours=6):
+        last = pd.to_datetime(log.ts.str.replace(r"T(\d\d)-(\d\d)-(\d\d)Z", r"T\1:\2:\3Z", regex=True), utc=True, errors="coerce").max()
+        if pd.notna(last) and (now - last.tz_convert(None).to_pydatetime()) < dt.timedelta(hours=6):   # the log is UTC with a Z; now is naive UTC
             return None
     if now.weekday() == 3 and now.hour == 20:
         return 30.0
