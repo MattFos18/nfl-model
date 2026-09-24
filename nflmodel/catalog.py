@@ -70,7 +70,7 @@ LOG_WHAT = {
     "tracker/shadow45_picks.csv": ("the 4.5+ edge shadow rule, logged never bet", "weekly run", "Bets tab"),
     "tracker/shadowdog_picks.csv": ("the 4+ edge, underdog side shadow rule", "weekly run", "Bets tab"),
     "tracker/shadowearly_picks.csv": ("the 4+ edge, weeks 1 to 13 shadow rule", "weekly run", "Bets tab"),
-    "tracker/props_graded.csv": ("every player projection graded against what happened, live or after the fact", "weekly run", "Backtest -> Player projections, live"),
+    "tracker/props_graded.csv": ("every player projection graded against what happened, live or after the fact", "weekly run", "Backtest -> Player props"),
     "tracker/props_vs_market.csv": ("every graded projection with a closing book line: side, result, both errors", "weekly run", "Backtest -> Player projections"),
     "runs/run_log.csv": ("every weekly run: each step's status and seconds", "weekly run", "health"),
     "runs/pred_history.csv": ("every run's prediction for every game of the week (the model's own line history)", "weekly run", "cards: how the model's number moved"),
