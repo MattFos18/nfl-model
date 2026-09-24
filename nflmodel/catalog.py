@@ -21,6 +21,7 @@ RAW_WHAT = {
     "snap_counts": ("nflverse snap counts per player-game (offense, defense, special teams, share)", "pull", "snaps-out inputs (trends), roster snap shares"),
     "depth_charts": ("nflverse depth charts by week", "pull", "Team -> Roster and depth chart"),
     "rosters": ("nflverse weekly rosters: status (active, IR, practice squad), position, ids", "pull", "who is available; player season totals"),
+    "players": ("nflverse players table: every player's ids (gsis, PFR, ESPN, PFF), bio, draft", "pull", "nflmodel/ids.py: the PFR id of every lineman (the rosters have none)"),
     "ftn": ("FTN charting 2022 on: motion, play action, RPO, screens, blitzers and pass rushers, box count, QB location, out of pocket, catchable and contested balls, interception-worthy throws, trick plays", "pull", "scheme profiles, player splits (no route data: no public source charts routes)"),
     "participation": ("nflverse participation 2016 on: offense and defense personnel, players on the field, defenders in box, pass rushers, coverage type (man or zone, coverage family), time to throw, pressure", "pull", "scheme profiles, player splits (2026 not published yet)"),
     "pfr_advstats": ("Pro-Football-Reference advanced defense by week: targets and yards allowed in coverage, passer rating allowed, pressures, missed tackles", "pull", "Players -> game log (defense); defender coverage readings"),

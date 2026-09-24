@@ -356,8 +356,9 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     if sf.exists():
         sn = pd.read_parquet(sf); sn["team"] = sn.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
         sn = sn[sn.week == sn.groupby("team").week.transform("max")]
-        pmap = dict(zip(ros.pfr_id.dropna(), ros.dropna(subset=["pfr_id"]).gsis_id)) if "pfr_id" in ros.columns else {}
-        snap = {(r.team, pmap.get(r.pfr_player_id)): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples() if pmap.get(r.pfr_player_id)}
+        from .ids import map_pfr
+        sn = sn.assign(gid=map_pfr(sn))
+        snap = {(r.team, r.gid): (float(r.offense_pct), float(r.defense_pct), float(r.st_pct), int(r.week)) for r in sn.itertuples() if isinstance(r.gid, str)}
     vf = OUT / "player_values_all.parquet" if (OUT / "player_values_all.parquet").exists() else OUT / "player_values.parquet"
     vals = pd.read_parquet(vf).set_index(["team", "player_id"]) if vf.exists() else None
     if vals is not None and "epa_per_play" in vals.columns:
@@ -381,7 +382,7 @@ def team_roster(games: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
 def player_history(pg: pd.DataFrame) -> pd.DataFrame:
     """One row per player, season, team and role: games, plays, EPA per play. The Players tab's history, which follows
     a player across teams."""
-    extra = [pd.read_parquet(OUT / f) for f in ["defender_games.parquet", "kicking_games.parquet"] if (OUT / f).exists()]
+    extra = [pd.read_parquet(OUT / f) for f in ["defender_games.parquet", "kicking_games.parquet", "ol_games.parquet"] if (OUT / f).exists()]
     allg = pd.concat([pg] + extra, ignore_index=True) if extra else pg
     h = allg.groupby(["player_id", "season", "team", "role"]).agg(games=("game_id", "nunique"), plays=("plays", "sum"), epa=("epa", "sum"), name=("name", "last")).reset_index()
     h["epa_play"] = (h.epa / h.plays).round(3)
@@ -400,7 +401,8 @@ if __name__ == "__main__":
     tp = team_players(games, pg, cs, cw)
     tp.to_parquet(OUT / "player_values.parquet", index=False)
     print("player_values", tp.shape, "as of", cs, cw)
-    player_history(pg).to_parquet(OUT / "player_history.parquet", index=False)   # roster_now is written by positions.py, after every value exists
+    # player_history.parquet is written by positions.py (24 Sep 2026: here it read the previous run's defender, kicker
+    # and lineman tables, so a fix to them reached the Players tab's history one run late), as is roster_now
     print("player_injury", iv.shape, "rows with a skill player out:", int((iv.n_skill_out > 0).sum()))
     print(iv[iv.n_skill_out > 0].describe().to_string())
 

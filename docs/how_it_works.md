@@ -1744,3 +1744,28 @@ team points better on both windows); ESPN's injury page by its athlete id agains
 view's last-game snap share by PFR id. Sportsbooks send names only, so each book name is resolved against the two
 teams' rosters (exact, the roster nickname, a last name unique on the two teams, reversed order, a short alias list):
 99.6% of this week's book players resolve, and a health check fails under 99% and names the misses.
+
+## 32. Linemen by id; the offensive line against PFF (24 Sep 2026)
+
+**Linemen were still matched by name.** The weekly rosters carry no PFR id for any offensive lineman, so section 31's
+id join fell back to the name for every lineman, league-wide: 579 lineman games went to a namesake (two Connor
+McGoverns, the 2020 center Aaron Brewer and a 2012 long snapper, two Spencer Browns, two Josh Joneses) and 1,411
+were dropped. `nflmodel/ids.py` is now the one PFR-to-gsis map every PFR join uses (snap counts, PFR advanced
+stats, the exposure table, the game logs, the roster view, the injury inputs): the rosters first, then nflverse's
+players table (pulled every run) for the ids the rosters lack; where the two disagree (six ids) the one whose name
+matches the snap counts wins. A PFR id no table knows falls back to the name only where it is unique on that team's
+roster that season, never league-wide. 99.9% of snap rows now match by id; a health check fails when any position
+group falls under 99%. 27 more linemen now have a value.
+
+**Build order.** The Players tab's history was built before the run's defender, kicker and lineman tables, so any fix
+to them reached the history a run late. It is now built after them (and includes linemen), and a health check fails
+when a player table is older than a table it reads.
+
+**Against PFF's 2026 line rankings** (`experiments/ol_vs_pff.py`, `reports/ol_vs_pff.csv`): rank agreement 0.46 for
+the unit rating, 0.62 for the roster view (the sum of the current top five linemen's values). The biggest gaps are
+lines PFF projects healthy that played hurt (Chargers, Vikings, Raiders) and lines helped by running quarterbacks:
+yards before contact counts quarterback runs (Ravens, Commanders). Counting only non-quarterback carries raises the
+agreement to 0.55 and improves the All-Pro linemen's median rank on both windows (36.6 to 32.5, 57.7 to 51.7;
+`experiments/ol_allpro.py`), but their average percentile, the measure used for every other group, is 0.712 to
+0.710 on 2019-22 and 0.645 to 0.668 on 2023-25: not better on both windows, so not adopted. The unit rating stays a
+unit rating: every lineman on a line shares it per snap.

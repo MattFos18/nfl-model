@@ -23,6 +23,7 @@ from __future__ import annotations
 import numpy as np, pandas as pd
 import pyarrow.parquet as pq
 from .features import RAW, OUT, TEAM_FIX
+from .ids import pfr_ids, map_pfr   # PFR id -> gsis id, shared by every PFR join (24 Sep 2026)
 from .players import PlayerValues, load_rosters, load_injuries, NOT_AVAILABLE, ROSTER_LABEL, DEFAULT, player_usage, _usage_frames
 
 CREDIT = {"solo_tackle_1_player_id": 1.0, "solo_tackle_2_player_id": 1.0, "assist_tackle_1_player_id": 0.5, "assist_tackle_2_player_id": 0.5, "assist_tackle_3_player_id": 0.5, "assist_tackle_4_player_id": 0.5,
@@ -106,13 +107,7 @@ def coverage_stats(season: int, week: int, n_games: int = 8) -> tuple[pd.DataFra
     d = pd.concat([pd.read_parquet(f) for f in fs], ignore_index=True)
     d = d[(d.season < season) | ((d.season == season) & (d.week < week))]
     d = d[d.def_targets.fillna(0) > 0]
-    ids = {}
-    for s in (season - 1, season):
-        rf = RAW / "rosters" / f"roster_weekly_{s}.parquet"
-        if rf.exists():
-            rr = pd.read_parquet(rf, columns=["gsis_id", "pfr_id"]).dropna().drop_duplicates("pfr_id")
-            ids.update(dict(zip(rr.pfr_id, rr.gsis_id)))
-    d["gsis_id"] = d.pfr_player_id.map(ids); d = d.dropna(subset=["gsis_id"]).sort_values(["season", "week"])
+    d["gsis_id"] = map_pfr(d, name="pfr_player_name"); d = d.dropna(subset=["gsis_id"]).sort_values(["season", "week"])
     cur = d[d.season == season] if (d.season == season).any() else d
     league = {"ypt": float(cur.def_yards_allowed.sum() / cur.def_targets.sum()), "catch": float(cur.def_completions_allowed.sum() / cur.def_targets.sum()),
               "rating": passer_rating(float(cur.def_targets.sum()), float(cur.def_completions_allowed.sum()), float(cur.def_yards_allowed.sum()), float(cur.def_receiving_td_allowed.sum()), float(cur.def_ints.sum()))}
@@ -176,12 +171,6 @@ def defender_roles(dg: pd.DataFrame) -> dict:
         out[pid] = "EDGE" if role == "LB" and rate[pid] >= EDGE_PRESS else role
     return out
 
-
-def pfr_ids() -> dict:
-    ids = {}
-    for f in sorted((RAW / "rosters").glob("roster_weekly_*.parquet")):
-        rr = pd.read_parquet(f, columns=["gsis_id", "pfr_id"]).dropna().drop_duplicates("pfr_id"); ids.update(dict(zip(rr.pfr_id, rr.gsis_id)))
-    return ids
 
 
 def pfr_def_games() -> pd.DataFrame:
@@ -250,14 +239,10 @@ def role_rates(dg: pd.DataFrame, roles: dict, season: int, week: int) -> tuple[d
 
 
 def with_ids(sn: pd.DataFrame, names: dict) -> pd.DataFrame:
-    """Snap-count rows with the gsis id: by PFR id through the rosters, else the name (one row per game and player)."""
-    sn = sn.copy(); sn["player_id"] = sn.pfr_player_id.map(pfr_ids())
-    miss = sn.player_id.isna()
-    if miss.any():
-        by_name = {}
-        for pid, (nm, _) in names.items():
-            by_name.setdefault(norm(nm), pid)
-        sn.loc[miss, "player_id"] = sn.loc[miss, "key"].map(by_name)
+    """Snap-count rows with the gsis id (nflmodel/ids.py: by PFR id, else the name only where it is unique on that
+    team's roster that season; one row per game and player). `names` is unused since 24 Sep 2026 (the league-wide
+    name fallback gave one Connor McGovern's games to the other)."""
+    sn = sn.copy(); sn["player_id"] = map_pfr(sn)
     return sn.dropna(subset=["player_id"]).drop_duplicates(["game_id", "player_id"])
 
 
@@ -478,6 +463,8 @@ if __name__ == "__main__":
     games = pd.read_parquet(OUT / "games.parquet")
     if "--values-only" not in sys.argv:
         build()
+    from .players import player_history   # the Players tab's history, from this run's defender, kicker and lineman tables
+    player_history(pd.read_parquet(OUT / "player_games.parquet")).to_parquet(OUT / "player_history.parquet", index=False)
     from .lines import current_week
     cs, cw = current_week(games)
     av = all_values(games, cs, cw)

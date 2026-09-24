@@ -86,13 +86,8 @@ def _looks(season: int) -> pd.DataFrame:
 
 
 def _pfr_map(seasons) -> dict:
-    out = {}
-    for s in seasons:
-        f = RAW / "rosters" / f"roster_weekly_{s}.parquet"
-        if f.exists():
-            r = pd.read_parquet(f, columns=["gsis_id", "pfr_id"]).dropna().drop_duplicates()
-            out.update(dict(zip(r.pfr_id, r.gsis_id)))
-    return out
+    from .ids import pfr_ids
+    return pfr_ids()
 
 
 def _pfr(kind: str, season: int, pmap: dict) -> pd.DataFrame:
@@ -101,7 +96,8 @@ def _pfr(kind: str, season: int, pmap: dict) -> pd.DataFrame:
         f = RAW / "pfr_advstats" / f"advstats_week_def_{season}.parquet"
     if not f.exists():
         return pd.DataFrame(columns=["game_id", "player_id"])
-    d = pd.read_parquet(f); d["player_id"] = d.pfr_player_id.map(pmap)
+    from .ids import map_pfr
+    d = pd.read_parquet(f); d["player_id"] = map_pfr(d, name="pfr_player_name")
     return d[d.player_id.notna()]
 
 
@@ -109,9 +105,10 @@ def _snaps(season: int, pmap: dict) -> pd.DataFrame:
     f = RAW / "snap_counts" / f"snap_counts_{season}.parquet"
     if not f.exists():
         return pd.DataFrame(columns=["game_id", "player_id", "off_snaps", "off_pct", "def_snaps", "def_pct", "st_snaps"])
-    d = pd.read_parquet(f, columns=["game_id", "pfr_player_id", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct", "st_snaps"])
-    d["player_id"] = d.pfr_player_id.map(pmap)
-    return d[d.player_id.notna()].rename(columns={"offense_snaps": "off_snaps", "offense_pct": "off_pct", "defense_snaps": "def_snaps", "defense_pct": "def_pct"}).drop(columns="pfr_player_id").drop_duplicates(["game_id", "player_id"])
+    from .ids import map_pfr
+    d = pd.read_parquet(f, columns=["game_id", "season", "team", "player", "pfr_player_id", "offense_snaps", "offense_pct", "defense_snaps", "defense_pct", "st_snaps"])
+    d["player_id"] = map_pfr(d)
+    return d[d.player_id.notna()].rename(columns={"offense_snaps": "off_snaps", "offense_pct": "off_pct", "defense_snaps": "def_snaps", "defense_pct": "def_pct"}).drop(columns=["pfr_player_id", "season", "team", "player"]).drop_duplicates(["game_id", "player_id"])
 
 
 def season_logs(season: int, pmap: dict) -> dict:

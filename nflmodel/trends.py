@@ -174,9 +174,10 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
         f_ = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
         if f_.exists():
             r_ = pd.read_parquet(f_, columns=["season", "team", "gsis_id", "pfr_id", "full_name"]).dropna(subset=["gsis_id"])
-            pmap.update(dict(zip(r_.pfr_id.dropna(), r_.dropna(subset=["pfr_id"]).gsis_id)))
             r_["team"] = r_.team.replace(fix)
             nmap.update({(t_, int(se_), k_): g_ for t_, se_, k_, g_ in zip(r_.team, r_.season, _norm(r_.full_name), r_.gsis_id)})
+    from .ids import pfr_ids
+    pmap = pfr_ids()
     inj["key"] = inj.gsis_id
     snaps["key"] = snaps.pfr_player_id.map(pmap)
     miss = snaps.key.isna()
