@@ -12,7 +12,7 @@ points, field goals) once the key holds at least 5,000 credits, which a paid pla
 appended to data/lines/props_log.csv; the raw response is saved under data/lines/raw/. Nothing here is bet: the
 lines are what the projections are graded against (nflmodel/props.py) and what the cards show beside them."""
 from __future__ import annotations
-import datetime as dt, os, re
+import datetime as dt, json, os, re
 import pandas as pd, requests
 from .lines import LN, OUT, _save_raw, team_from_name, current_week
 
@@ -173,9 +173,69 @@ def underdog(season: int, week: int, ts: str, games: pd.DataFrame) -> list[dict]
         rows[(name, stat)] = {"ts": ts, "season": season, "week": week, "game_id": tg[0], "home": tg[1], "away": tg[2], "start": None, "book": "underdog", "market": ast.get("display_stat") or ast.get("stat"), "stat": stat, "player": name, "line": float(ln["stat_value"]), "over_price": _p(prices.get("higher")), "under_price": _p(prices.get("lower"))}
     return list(rows.values())
 
-def dfs_due(now: dt.datetime, force: bool) -> bool:
-    """Free lines: every six hours on the half-hour watch, and on a forced run."""
-    return force or (now.hour % 6 == 0 and now.minute < 30)
+PICKEM = ["prizepicks", "underdog"]
+PROP_ANCHORS = [(3, 20, 30.0), (6, 14, 48.0)]   # (weekday, hour UTC, window hours): Thursday 20:00 for kickoffs within 30 hours, Sunday 14:00 for the rest of the week
+STATE = LN / "pull_state.json"                  # the last attempt per paid source, so a failing pull is tried once per scheduled time, not every run
+
+
+def last_anchor(now: dt.datetime, anchors) -> tuple[dt.datetime, float]:
+    """The latest scheduled time at or before now, with its window. anchors: (weekday, hour UTC, window) tuples;
+    a daily anchor is written with weekday None."""
+    best = None
+    for wd, hr, win in anchors:
+        d = now.replace(hour=hr, minute=0, second=0, microsecond=0)
+        if wd is not None:
+            d -= dt.timedelta(days=(now.weekday() - wd) % 7)
+        while d > now:
+            d -= dt.timedelta(days=1 if wd is None else 7)
+        if best is None or d > best[0]:
+            best = (d, win)
+    return best
+
+
+def next_anchor(after: dt.datetime, anchors) -> dt.datetime:
+    """The first scheduled time after `after` (the page's late flag starts from it)."""
+    return min(_next_one(after, wd, hr) for wd, hr, _ in anchors)
+
+
+def _next_one(after: dt.datetime, wd, hr) -> dt.datetime:
+    d = after.replace(hour=hr, minute=0, second=0, microsecond=0)
+    if wd is not None:
+        d += dt.timedelta(days=(wd - after.weekday()) % 7)
+    while d <= after:
+        d += dt.timedelta(days=1 if wd is None else 7)
+    return d
+
+
+def tried(name: str) -> dt.datetime | None:
+    try:
+        return dt.datetime.fromisoformat(json.loads(STATE.read_text())[name])
+    except Exception:  # noqa
+        return None
+
+
+def mark(name: str, now: dt.datetime) -> None:
+    try:
+        st = json.loads(STATE.read_text()) if STATE.exists() else {}
+    except Exception:  # noqa
+        st = {}
+    st[name] = now.replace(microsecond=0).isoformat(); LN.mkdir(parents=True, exist_ok=True); STATE.write_text(json.dumps(st, indent=0))
+
+
+def log_times(log: pd.DataFrame) -> pd.Series:
+    """The log's pull times as naive UTC (the log writes them as 2026-09-24T09-13-31Z)."""
+    return pd.to_datetime(log.ts.str.replace(r"T(\d\d)-(\d\d)-(\d\d)Z", r"T\1:\2:\3Z", regex=True), utc=True, errors="coerce").dt.tz_convert(None)
+
+
+def dfs_due(now: dt.datetime, force: bool, log: pd.DataFrame | None = None) -> bool:
+    """Free pick'em lines: when the newest pick'em pull is six hours old or more (whenever a line-watch run lands, since
+    GitHub's cron is irregular), and on a forced run."""
+    if force:
+        return True
+    if log is None or not len(log):
+        return True
+    t = log_times(log[log.book.isin(PICKEM)]).max()
+    return pd.isna(t) or (now - t.to_pydatetime()) >= dt.timedelta(hours=6)
 
 
 YARD_STATS = {"rec_yards", "rush_yards", "pass_yards", "rush_rec_yards", "pass_rush_yards", "rec_longest", "rush_longest", "pass_longest"}
@@ -193,17 +253,23 @@ def load_log() -> pd.DataFrame:
 
 
 def due(now: dt.datetime, log: pd.DataFrame) -> float | None:
-    """The window to pull for at this run, or None: Thursday 20:00 UTC for kickoffs within 30 hours, Sunday 14:00 UTC for
-    everything left in the week; never twice inside six hours."""
-    if len(log):
-        last = pd.to_datetime(log.ts.str.replace(r"T(\d\d)-(\d\d)-(\d\d)Z", r"T\1:\2:\3Z", regex=True), utc=True, errors="coerce").max()
-        if pd.notna(last) and (now - last.tz_convert(None).to_pydatetime()) < dt.timedelta(hours=6):   # the log is UTC with a Z; now is naive UTC
+    """The window to pull for at this run, or None. Scheduled times: Thursday 20:00 UTC (kickoffs within 30 hours) and
+    Sunday 14:00 UTC (everything left in the week). A scheduled pull is due at the first run after its time, up to 24
+    hours late, when no sportsbook pull and no attempt has happened since; never twice inside six hours. The pick'em
+    rows do not count (they pull on their own clock)."""
+    anchor, window = last_anchor(now, PROP_ANCHORS)
+    if now - anchor > dt.timedelta(hours=24):
+        return None
+    books = log[~log.book.isin(PICKEM)] if len(log) else log
+    last = log_times(books).max() if len(books) else pd.NaT
+    if pd.notna(last):
+        last = last.to_pydatetime()
+        if last >= anchor or (now - last) < dt.timedelta(hours=6):
             return None
-    if now.weekday() == 3 and now.hour == 20:
-        return 30.0
-    if now.weekday() == 6 and now.hour == 14:
-        return 48.0
-    return None
+    t = tried("props")
+    if t is not None and t >= anchor:
+        return None
+    return window
 
 
 def run(season=None, week=None, force: bool = False, dfs_only: bool = False) -> pd.DataFrame:
@@ -213,8 +279,10 @@ def run(season=None, week=None, force: bool = False, dfs_only: bool = False) -> 
     now = dt.datetime.utcnow(); ts = now.strftime("%Y-%m-%dT%H-%M-%SZ")
     log = load_log()
     window = None if dfs_only else (168.0 if force else due(now, log))   # a forced pull takes the whole week ahead
+    if window is not None:
+        mark("props", now)
     rows = pull(season, week, ts, within_hours=window) if window is not None else []
-    if dfs_due(now, force or dfs_only):
+    if dfs_due(now, force or dfs_only, log):
         for name, fn in [("prizepicks", prizepicks), ("underdog", underdog)]:
             try:
                 got = fn(season, week, ts, games); rows += got; print({"source": name, "rows": len(got)}, flush=True)

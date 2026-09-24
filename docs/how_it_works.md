@@ -1617,3 +1617,26 @@ smaller role, and it carries into the next week. So the short games stay in the 
 What changed is the display. A QB's dropbacks a game now averages only his starts (at least half his team's
 dropbacks), and "points a game over a backup" is his value per play times the model's fitted points per unit of QB
 rating, the same for every team, so neither a short game nor a blowout moves it.
+
+## 28. When every line was pulled (24 Sep 2026)
+
+The top of This week shows each line source's last pull in ET with its age, and the age keeps counting while the
+page is open, so an old page shows how old it is. The times come from the logs (`nflmodel/pulls.py`, written into
+`web/data/fresh.js` on every line-watch run and at the end of every model run), and a tie check holds them to the
+newest rows in `data/lines/lines_log.csv` and `props_log.csv`. A source turns red once it is past its cadence plus
+slack, and a late paid source also turns the health chip red:
+
+| Source | Cadence | Late after |
+|---|---|---|
+| ESPN game lines (DraftKings) | every line-watch run | 2 hours |
+| Sportsbook game lines (The Odds API) | once a day, from 8:00 AM ET | 3 hours past the next scheduled time |
+| Sportsbook props (The Odds API) | Thursday 4:00 PM and Sunday 10:00 AM ET | 3 hours past the next scheduled time |
+| PrizePicks, Underdog | every 6 hours | 8 hours |
+| Kickoff forecasts, injuries and starters | every line-watch run | 2 hours |
+
+GitHub's cron is irregular on this repo, so the scheduled pulls used to be missed whenever no run landed inside their
+exact window (the daily sportsbook pull needed a run between 8:00 and 8:30 AM ET and missed 23 Sep; the pick'em pull
+needed one on the hour every six hours). They now run at the first line-watch run after their scheduled time, once:
+`data/lines/pull_state.json` records each paid attempt, so a failing pull is tried once per scheduled time, not on
+every run, and the credit use is unchanged. The Thursday props pull also no longer counts pick'em rows as a recent
+pull (a pick'em pull two hours earlier used to block it).
