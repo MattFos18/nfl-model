@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="application/ld+json">
+     {
+       "@context": "https://schema.org",
+       "@type": "WebSite",
+       "url": "https://www.pff.com",
+       "name": "PFF",
+       "alternateName": "Pro Football Focus",
+       "potentialAction": {
+         "@type": "SearchAction",
+         "target": "https://www.pff.com/search?q={search_term_string}",
+         "query-input": "required name=search_term_string"
+       }
+     }
+    </script>
+
+
+    <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://www.pff.com","name":"Home","position":1},{"@type":"ListItem","item":"https://www.pff.com/news","name":"News & Analysis","position":2},{"@type":"ListItem","item":"https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season","name":"PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season","position":3}]}
+    </script>
+
+    <script>
+      window.KYBER_ICON_EXTERNAL_PATHS = {
+        ICON: 'https://www.pff.com/images/icon-symbols-274378916883635cf796c725c4daa9c6.svg?vsn=d',
+        NCAA: 'https://www.pff.com/images/ncaa-symbols-5e558888ff1e7a5c027324c00dd98485.svg?vsn=d',
+        NFL: 'https://www.pff.com/images/nfl-symbols-78ea48dedb1c0ff77e2f2b7ed33bb54a.svg?vsn=d'
+      }
+      window.MERLIN_MEDIA_DOMAIN = 'https://media.pff.com'
+      window.SUBSCRIBE_DOMAIN = 'https://subscribe.pff.com'
+    </script>
+
+
+      <script>
+        window.__clerkSignInUrl = "/login";
+        window.__clerkSignUpUrl = "/create-account";
+        window.__clerkSignOutUrl = "/login";
+        window.__merlinLoggedIn = false;
+      </script>
+
+
+
+      <script async crossorigin="anonymous"
+        data-clerk-js-script
+        data-clerk-publishable-key="pk_live_Y2xlcmsucGZmLmNvbSQ"
+        src="https://clerk.pff.com/npm/@clerk/clerk-js@6.31.0/dist/clerk.browser.js"></script>
+      <script>
+        window.addEventListener('load', async function () {
+          const loadOpts = {};
+          if (window.__clerkSignInUrl) loadOpts.signInUrl = window.__clerkSignInUrl;
+          if (window.__clerkSignUpUrl) loadOpts.signUpUrl = window.__clerkSignUpUrl;
+          await Clerk.load(loadOpts);
+
+          // Cross-tab / cross-subdomain sign-out sync. clerk-js flips
+          // Clerk.session to null when the user signs out elsewhere
+          // (BroadcastChannel for same-origin tabs; focus/poll session-touch ->
+          // 401 for other subdomains), but our nav is server-rendered and not
+          // bound to Clerk's React state, so nothing repaints. Reload so the
+          // server re-renders the signed-out nav.
+          //
+          // Loop guards: (1) only reload pages the server rendered as signed in
+          // (window.__merlinLoggedIn) -- a signed-out page would otherwise reload
+          // straight back into a signed-out page forever; (2) skipInitialEmit so
+          // the post-reload null-at-load state is not treated as a transition;
+          // (3) a one-shot sessionStorage marker (re-armed when a live session
+          // reappears) as belt-and-suspenders if the session cookie lags the reload.
+          var SIGNED_OUT_RELOAD_KEY = 'merlinClerkSignedOutReload';
+          Clerk.addListener(function (resources) {
+            if (resources && resources.session) {
+              try { window.sessionStorage.removeItem(SIGNED_OUT_RELOAD_KEY); } catch (e) {}
+              return;
+            }
+            // This tab initiated the sign-out: signOut()'s own redirect handles
+            // navigation. Reloading here races (and aborts) its cookie-clearing.
+            if (window.__merlinSigningOut === true) return;
+            if (window.__merlinLoggedIn !== true) return;
+            try {
+              if (window.sessionStorage.getItem(SIGNED_OUT_RELOAD_KEY)) return;
+              window.sessionStorage.setItem(SIGNED_OUT_RELOAD_KEY, '1');
+            } catch (e) {}
+            window.location.reload();
+          }, { skipInitialEmit: true });
+        });
+      </script>
+
+
+
+
+
+<title>PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season</title>
+
+  <meta property="og:title" content="PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season">
+
+
+  <meta name="description" content="Dalton Wasserman compiles the NFL&#39;s 32 best cornerbacks going into the 2026 campaign, starting with Seahawks star Devon Witherspoon.">
+  <meta property="og:description" content="Dalton Wasserman compiles the NFL&#39;s 32 best cornerbacks going into the 2026 campaign, starting with Seahawks star Devon Witherspoon.">
+
+
+  <link rel="canonical" href="https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season">
+  <meta property="og:url" content="https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season">
+
+
+<meta name="robots" content="max-image-preview:large">
+<link rel="alternate" type="application/rss+xml" href="https://www.pff.com/feed" />
+
+
+<meta property="og:site_name" content="PFF">
+
+
+<meta name="twitter:site" content="@pff">
+
+
+<meta name="twitter:card" content="summary_large_image">
+
+
+<meta property="og:type" content="article">
+
+
+
+<meta property="og:image" content="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&h=675">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="article:published_time" content="2026-08-07T09:45:00Z">
+<meta name="author" content="Dalton Wasserman">
+
+  <meta name="twitter:card" content="summary_large_image">
+
+<meta name="twitter:title" content="PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season">
+<meta name="twitter:description" content="Dalton Wasserman compiles the NFL&#39;s 32 best cornerbacks going into the 2026 campaign, starting with Seahawks star Devon Witherspoon.">
+<meta name="twitter:image" content="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&h=675">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"NewsArticle","articleSection":"NFL","author":[{"@type":"Person","description":"Dalton joined PFF in July 2022, working with the Data Collection team. Overtime, he found his place as a College Football / Draft Analyst, and co-host of Preferred Walk-On.","image":"https://media.pff.com/2025/11/Dalton-Wasserman-min-150x150.png","jobTitle":"College Football and NFL Contributor","name":"Dalton Wasserman","url":"https://www.pff.com/analyst/dalton-wasserman"}],"datePublished":"2026-08-07T05:45:00-04:00","description":"Dalton Wasserman compiles the NFL's 32 best cornerbacks going into the 2026 campaign, starting with Seahawks star Devon Witherspoon.","headline":"PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season","image":[{"@type":"ImageObject","height":675,"url":"https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&h=675","width":1200},{"@type":"ImageObject","height":900,"url":"https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&h=900","width":1200},{"@type":"ImageObject","height":1200,"url":"https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&h=1200","width":1200}],"isAccessibleForFree":"true","mainEntityOfPage":{"@id":"https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season","@type":"WebPage"},"publisher":{"@type":"Organization","alternateName":"Pro Football Focus","logo":{"@type":"ImageObject","height":"60","url":"https://media.pff.com/2018/06/PFF_Hori.png","width":"600"},"name":"PFF"}}
+</script>
+
+<meta name="csrf-token" content="YHgKHiksAhZCDSQAGnYMaho-JH8UWiAUQHBvGTvuqohCCE4-LxRKAjPd">
+<meta name="google-site-verification" content="m2N80aEy8ONIhYvVOHT-XogcBBskiZd84_MBObKLOqo" />
+
+
+<meta name="next-head-count" content="1"/>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="preconnect" href="https://media.pff.com">
+<link rel="preconnect" href="https://js.recurly.com">
+<link rel="preconnect" href="https://cdn.heapanalytics.com">
+<link rel="shortcut icon" href="/favicon-179f79a208da353df13eb2e221fdb8fb.ico?vsn=d">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-16x16-9d30f011a99436ffb232d75c5d744d2f.png?vsn=d" sizes="16x16">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-32x32-d75fc7b2095d785488b3f97e2492b025.png?vsn=d" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicons/favicon-96x96-c4e7d1c69506c5b3c0376beee179daa9.png?vsn=d" sizes="96x96">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="apple-touch-icon-precomposed" href="/images/favicons/apple-icon-precomposed-e5a7e94513d2552f8223106e8d388ce6.png?vsn=d">
+<link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-icon-57x57-f5b14d83e8ec7db5f94dd30197ae9594.png?vsn=d">
+<link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-icon-114x114-981a0103fb7b778682008a9faad8328b.png?vsn=d">
+<link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-icon-72x72-90d7b8a5d670555d23338c2bfec43e09.png?vsn=d">
+<link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-icon-144x144-b45bd95c8ddf89b117625bf39a66fed6.png?vsn=d">
+<link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-icon-60x60-edddd4ee591a35613745af7695ec8841.png?vsn=d">
+<link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-icon-120x120-5483d31cd97c5bf3c9ce86618e44722c.png?vsn=d">
+<link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-icon-76x76-157cc501f82125a69b3398c91f278eff.png?vsn=d">
+<link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-icon-152x152-81ed006897fbe335cff9b51ed50f5eab.png?vsn=d">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-icon-180x180-baf469ce293c42e9892c1ec3ab91e334.png?vsn=d">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="/images/favicons/ms-icon-144x144-4085f264f443377b0e2cd666ee7cb68d.png?vsn=d">
+
+<meta name="merlin-version" content="3.20.227">
+
+  <meta name="apple-itunes-app" content="app-id=1582525285">
+
+
+
+<script data-cookieconsent="ignore">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'functionality_storage': 'denied',
+    'personalization_storage': 'denied',
+    'security_storage': 'granted',
+    'wait_for_update': 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', false);
+</script>
+<script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="21fde5b3-da22-4139-8c72-22527f8c80ae" data-blockingmode="manual" data-culture="EN" type="text/javascript" data-georegions="{&quot;region&quot;:&quot;AT,BE,BG,CY,CZ,DE,DK,EE,ES,FI,FR,GR,HR,HU,IE,IT,LT,LU,LV,MT,NL,PL,PT,RO,SE,SI,SK,IS,LI,NOR,GB&quot;,&quot;cbid&quot;:&quot;fff6d358-bd79-4a41-ae88-c5e35a6700eb&quot;}" async></script>
+
+
+
+
+<script>
+ window.dataLayer = window.dataLayer || [];
+ window.dataLayer.unshift({
+   'userId': '',
+   'loggedInStatus': 'false',
+   'subscriptionType': '',
+   'internalTraffic': 'No',
+   'pageType': 'Article',
+   'category': 'NFL',
+   'section': 'news',
+   'datePublished': '20260807',
+   'author': 'Dalton Wasserman',
+   'contentType': 'Article',
+   'newsVertical': '',
+   'isPremiumArticle':'false'
+ });
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+ (function(w,d,s,l,i){
+   w[l]=w[l]||[];
+   w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+   var f=d.getElementsByTagName(s)[0],
+       j=d.createElement(s),
+       dl=l!='dataLayer'?'&l='+l:'';
+   j.async=true;
+   j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;
+   f.parentNode.insertBefore(j,f);
+ })(window,document,'script','dataLayer','GTM-MWLLR6');
+</script>
+<!-- End Google Tag Manager -->
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel='stylesheet' crossorigin='anonymous' href='https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400..900;1,400..900&display=swap' />
+    <link rel='stylesheet' crossorigin='anonymous' href='https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400..700&display=swap' />
+
+      <link rel="stylesheet" href="/css/styles-0dad7918c548b1e88ff1226417f8240a.css?vsn=d">
+
+
+      <link rel="stylesheet" href="/css/tablepress_styles-7c4bfba7a2381594071274c467966528.css?vsn=d">
+
+      <link rel="stylesheet" href="/css/lite_yt_embed_styles-e3d4001b5d67d644a7b205e2d9a46c6b.css?vsn=d">
+
+    <link rel="stylesheet" href="/css/shared_nav-1e5901e8d5cfd9c2739c8644deda7f33.css?vsn=d">
+    <link rel="stylesheet" href="/css/site_nav_next_styles-b50f554cf16ea188ba32ab247f379cee.css?vsn=d">
+
+
+<script type="text/javascript">
+  const heapConfig = {
+    heapAppId: '2100373990',
+    userId: '',
+    isLoggedIn: false,
+    subscriptionType: '',
+    isInternal: 'No',
+  };
+
+  function hasAnalyticsConsent() {
+    return typeof window !== 'undefined' && window.Cookiebot?.consent?.statistics === true;
+  }
+
+  window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var r=document.createElement("script");r.type="text/javascript",r.async=!0,r.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(r,a);for(var n=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["addEventProperties","addUserProperties","clearEventProperties","identify","resetIdentity","removeEventProperty","setEventProperties","track","unsetEventProperty"],o=0;o<p.length;o++)heap[p[o]]=n(p[o])};
+
+  heap.load(heapConfig.heapAppId, {
+    secureCookie: true
+  });
+
+  // Only identify user with PFF User ID if they have consented to analytics tracking
+  if (heapConfig.userId.length > 0 && hasAnalyticsConsent()) {
+    heap.identify(heapConfig.userId);
+  }
+
+  if (heap.identity && !heapConfig.isLoggedIn) {
+    heap.resetIdentity();
+  }
+
+  heap.addUserProperties({
+    subscription_type: heapConfig.subscriptionType,
+    is_internal: heapConfig.isInternal,
+  });
+</script>
+
+
+  </head>
+  <body class="ds-next">
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+  <iframe src="//www.googletagmanager.com/ns.html?id=GTM-MWLLR6"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+
+
+    <a class="fp-player-link"></a>
+
+
+<div
+  id="posthog-context"
+  data-posthog-api-key="phc_vRjHiCFEmLy4uLmkxRnisjHq3BWSdkDsHPmD753QSVBH"
+  data-posthog-api-host="https://us.i.posthog.com"
+  data-posthog-distinct-id="11ebb7a0-f071-481b-86f3-0516871d5b92"
+  data-posthog-feature-flags="{&quot;mds-daily-draft-limit-reached-modal&quot;:&quot;Variant-A&quot;,&quot;create-account-subtitle&quot;:&quot;Create-an-account-for-FREE-today&quot;,&quot;yahoo-nfl-game-key&quot;:&quot;470&quot;,&quot;player-grades-paywall-experience&quot;:true,&quot;survey-targeting-b655a661bb&quot;:false,&quot;subscribe-2026-plans-enabled&quot;:true,&quot;fmds-show-draft-state-banner&quot;:true,&quot;draft-bracket-private-leagues&quot;:true,&quot;mds-subscribe-app-hero-image&quot;:&quot;OptionB&quot;,&quot;native-upgrade-link&quot;:&quot;PFF-in-Apple-App-Store&quot;,&quot;draft-bracket-team-leaderboard&quot;:true,&quot;fantasy-default-rankings-tab&quot;:&quot;Variant-2&quot;,&quot;merlin-consumer-api-injuries&quot;:true,&quot;enable-espn-draft-flow&quot;:true,&quot;show-manual-league-settings&quot;:true,&quot;fmds-show-player-comparison-button&quot;:true,&quot;premium-stats-changelog&quot;:true,&quot;player-profiles-waiver-wire&quot;:true,&quot;fantasy-show-paywall-for-matchups&quot;:true,&quot;enable-yahoo-draft-flow&quot;:true,&quot;draft-bracket-similarity-stats&quot;:true,&quot;consumer-expo-clerk-auth-enabled&quot;:true,&quot;fantasy-show-paywall-for-waiver-targets&quot;:true,&quot;merlin-custom-big-board-auth-wall&quot;:true,&quot;merlin-mds-leaderboard-all-rounds&quot;:true,&quot;enable-feed-categories&quot;:true,&quot;merlin-nfl-mds-set-default-favorite-teams&quot;:false,&quot;mds-undo-pick&quot;:true,&quot;ps-team-profile-schedule-show-sos-summary&quot;:true,&quot;account-subscription-discount-copy&quot;:&quot;Variant-B&quot;,&quot;merlin-custom-big-board-filter-position&quot;:true,&quot;draft-bracket-board-actions&quot;:true,&quot;fantasy-lda-enable-live-espn&quot;:true,&quot;merlin-account-api-keys-enabled&quot;:true,&quot;betting-enable-first-touchdown&quot;:true,&quot;merlin-custom-big-board-staff-picks&quot;:&quot;Disabled&quot;,&quot;merlin-custom-big-board-college-team-filter&quot;:true,&quot;survey-targeting-cd51c53ff0-custom&quot;:true,&quot;merlin-premium-cta-in-nav&quot;:true,&quot;mds-prominent-new-draft-cta&quot;:&quot;Option-A&quot;,&quot;enable-bottom-tab-feeds&quot;:true,&quot;mds-new-share-button-design-experiment&quot;:&quot;Option-A&quot;,&quot;premium-tier-gating&quot;:true,&quot;merlin-custom-big-board-edit&quot;:true,&quot;player-props-show-table-glossary&quot;:true,&quot;merlin-show-mds-multiplayer&quot;:true,&quot;fantasy-show-start-sit&quot;:true,&quot;subscribe-left-panel-variant&quot;:&quot;control&quot;,&quot;mds-upsell-modal-variation&quot;:&quot;Option-B---SrcSet&quot;,&quot;cancel-flow-retention-variant&quot;:&quot;variant-1&quot;,&quot;merlin-custom-big-board-draft-with-board&quot;:true,&quot;fmds-show-opponents-draft-strategy&quot;:true,&quot;draft-bracket-score-finalization-banner&quot;:&quot;FF-off&quot;,&quot;fmds-paywall-next-round-availability&quot;:true,&quot;betting-player-prop-dev-mode&quot;:false,&quot;fantasy-lda-show-clock&quot;:true,&quot;premium-guru-beta&quot;:false,&quot;fmds-show-draft-strategy&quot;:true,&quot;content-paywall-type&quot;:&quot;light&quot;,&quot;fantasy-show-new-draft-rankings-paywall&quot;:&quot;control&quot;,&quot;fmds-show-undo-pick-button&quot;:true,&quot;enable-bottom-tab-draft&quot;:true,&quot;premium-stats-show&quot;:false,&quot;native-suggested-upgrade-prompt&quot;:false,&quot;merlin-custom-big-board-trending&quot;:true,&quot;merlin-show-rank-on-match-center&quot;:true,&quot;betting-enable-new-player-props-experience&quot;:true,&quot;merlin-article-paywall-ab-test&quot;:&quot;paywall_with_short_copy&quot;,&quot;enable-manual-league-sync&quot;:true,&quot;fantasy-show-lda-platform-keeper-info-modal&quot;:&quot;HIDE&quot;,&quot;player-profiles-hide-grades-for-current-season&quot;:true,&quot;use-google-login&quot;:true,&quot;player-profiles-early-bird-banner-text&quot;:&quot;Off&quot;,&quot;merlin-custom-big-board-clear-board&quot;:true,&quot;mds-enable-disable-draft-tabs&quot;:true,&quot;enable-bookmarks-reading-list&quot;:true,&quot;merlin-two-page-checkout&quot;:true,&quot;premium-stats-team-reports&quot;:true,&quot;merlin-clerk-auth-enabled&quot;:true,&quot;survey-targeting-6f4b901e4e-custom&quot;:true,&quot;fmds-contextual-sync-banner&quot;:&quot;dont-show-banner-string&quot;,&quot;show-proj-in-fantasy-draft-rank-card&quot;:true,&quot;big-board-show-waa&quot;:true,&quot;native-article-hyperlinks&quot;:true,&quot;merlin-show-rank-on-ticker&quot;:true,&quot;draft-bracket-force-lock&quot;:true,&quot;fantasy-show-my-team&quot;:true,&quot;merlin-position-grades-week-filter&quot;:true,&quot;merlin-mds-custom-board&quot;:true,&quot;fantasy-show-paywall-for-rankings&quot;:true,&quot;lda-show-draft-state-banner&quot;:true,&quot;fantasy-show-paywall-for-start-sit&quot;:true,&quot;nfl-power-rankings-paywall-experience&quot;:true,&quot;player-profiles-show-sticky-hero&quot;:true,&quot;mds-page-ads-enabled&quot;:true,&quot;survey-targeting-0091f49209-custom&quot;:true,&quot;fantasy-analyst-ranking-banner&quot;:true,&quot;mds-draft-grade-rank&quot;:true,&quot;merlin-custom-big-board-my-boards&quot;:true,&quot;mds-show-grade-explainer&quot;:true,&quot;common-link-to-new-player-profiles&quot;:true,&quot;smart-bets-key-insights-tab&quot;:true,&quot;use-facebook-login&quot;:true,&quot;fantasy-lda-enable-live-manual&quot;:true,&quot;fantasy-matchup-row-expansion&quot;:false,&quot;fmds-homepage-widget-image&quot;:&quot;Control&quot;,&quot;enable-bottom-tab-smart-bets&quot;:false,&quot;show-betting-paywall&quot;:false,&quot;merlin-enable-mds-paywalls&quot;:true,&quot;mds-grade-upsell-modal-delay&quot;:&quot;Control&quot;,&quot;enable-mock-draft-card-draft-widget&quot;:true,&quot;ppt_weekly_free_game_enabled&quot;:false,&quot;premium-guru-override&quot;:false,&quot;fmds-show-league-type-settings&quot;:true,&quot;mds-awards-enabled&quot;:true,&quot;merlin-custom-big-board-team-needs&quot;:true,&quot;draft-bracket-show-projected-points&quot;:true,&quot;show-id-me-verify-button&quot;:true,&quot;merlin-enable-mds-limited-drafts&quot;:true,&quot;league-sync-enable-espn-sync&quot;:true,&quot;common-link-to-new-ncaa-player-profiles&quot;:true,&quot;mds-trade-screen-non-paid-user&quot;:&quot;Variant&quot;,&quot;ppt_weekly_free_game_ids&quot;:&quot;variant-1&quot;,&quot;fmds-homepage-widget-copy&quot;:&quot;Variant&quot;,&quot;merlin-show-mds-multiplayer-nav&quot;:true,&quot;player-props-show-subscribe-paywall-modal&quot;:false,&quot;merlin-show-new-nav-dropdown&quot;:true,&quot;draft-bracket-enabled&quot;:true,&quot;account-delete-account-enabled&quot;:true,&quot;fmds-show-next-round-suggestions&quot;:true,&quot;fantasy-lda-manual-drafting&quot;:true,&quot;draft-bracket-draft-card&quot;:true,&quot;merlin-mds-save-cpu-picks&quot;:true,&quot;mds-ab-test-previous-picks&quot;:&quot;FULL_DRAFT&quot;,&quot;draft-bracket-expert-brackets&quot;:true,&quot;account-subscription-copy-update&quot;:true,&quot;mds-homepage-widget-image&quot;:&quot;Control&quot;,&quot;fmds-lda-end-screen-cta-experiment&quot;:&quot;Option-B&quot;,&quot;mds-enable-mock-draft-assistant&quot;:true,&quot;mds-awards-streak-launch-date&quot;:&quot;explicit&quot;,&quot;enable-bottom-tab-fantasy&quot;:true,&quot;account-favorites-enabled&quot;:true,&quot;mds-trade-screen-paid-user&quot;:&quot;Variant&quot;,&quot;player-profiles-natural-language-summary&quot;:true,&quot;fantasy-lda-use-espn-chrome-store-extension&quot;:true,&quot;onboarding-variations&quot;:&quot;A&quot;,&quot;premium-stats-guru-help-hub&quot;:true,&quot;subscribe-insights-image&quot;:&quot;Control&quot;,&quot;merlin-show-author-headshots&quot;:true,&quot;fantasy-show-mds-platform-keeper-info-modal&quot;:&quot;HIDE&quot;,&quot;mds-grade-suggestions-experiment&quot;:&quot;Variant-A&quot;,&quot;fantasy-lda-enable-new-flda-be&quot;:true,&quot;merlin-custom-big-board-add-players&quot;:true,&quot;merlin-enable-gtag&quot;:true,&quot;merlin-mds-show-history&quot;:true,&quot;subscribe-monthly-variant&quot;:&quot;premium-monthly-access&quot;,&quot;common-active-cta-promo-code&quot;:&quot;empty&quot;,&quot;subscribe-enable-apple-pay&quot;:true,&quot;show-adp-in-fantasy-draft-rank-card&quot;:true,&quot;native-forced-upgrade-prompt&quot;:false,&quot;merlin-show-big-board-customizer&quot;:true,&quot;draft-bracket-force-state-rounds&quot;:&quot;All-rounds-post&quot;,&quot;store-subscription-data-in-session-storage-for-gtm&quot;:true,&quot;fmds-enable-hide-suggestions&quot;:false,&quot;draft-bracket-multiple-entries&quot;:true,&quot;mds-prominent-start-draft-cta&quot;:&quot;Option-A&quot;,&quot;premium-stats-onboarding&quot;:true,&quot;mds-homepage-widget-copy&quot;:&quot;Control&quot;,&quot;merlin-game-view-best-bets-navigation-experiment&quot;:&quot;Control&quot;,&quot;betting-enable-new-key-insights&quot;:true}"
+  data-posthog-feature-flag-payloads="{&quot;mds-daily-draft-limit-reached-modal&quot;:{&quot;copy&quot;:&quot;Get unlimited mock drafts and access the complete draft system&quot;,&quot;newModal&quot;:true,&quot;variant&quot;:&quot;Variant A&quot;},&quot;create-account-subtitle&quot;:&quot;Create an account for FREE today.&quot;,&quot;yahoo-nfl-game-key&quot;:&quot;470&quot;,&quot;mds-subscribe-app-hero-image&quot;:&quot;/assets/images/subscribe-image-july-2025.webp&quot;,&quot;native-upgrade-link&quot;:&quot;https://apps.apple.com/us/app/pff-fantasy-betting-news/id1582525285&quot;,&quot;fantasy-default-rankings-tab&quot;:&quot;Weekly Rankings&quot;,&quot;account-subscription-discount-copy&quot;:&quot;EXCLUSIVE APP OFFER&quot;,&quot;merlin-custom-big-board-staff-picks&quot;:{},&quot;mds-prominent-new-draft-cta&quot;:{&quot;prominentCta&quot;:true,&quot;variant&quot;:&quot;Option A&quot;},&quot;mds-new-share-button-design-experiment&quot;:&quot;Option A&quot;,&quot;subscribe-left-panel-variant&quot;:&quot;control&quot;,&quot;mds-upsell-modal-variation&quot;:{&quot;images&quot;:[{&quot;lg&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-1-lg.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-1-lg-2x.webp 2x&quot;,&quot;sm&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-1-sm.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-1-sm-2x.webp 2x&quot;},{&quot;lg&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-2-lg.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-2-lg-2x.webp 2x&quot;,&quot;sm&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-2-sm.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-2-sm-2x.webp 2x&quot;},{&quot;lg&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-3-lg.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-3-lg-2x.webp 2x&quot;,&quot;sm&quot;:&quot;https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-3-sm.webp, https://beta.pff-qa.com/assets/subscribe/mds-upsell-modal/experiment-1b-3-sm-2x.webp 2x&quot;}],&quot;variant&quot;:&quot;Option B&quot;},&quot;cancel-flow-retention-variant&quot;:&quot;variant-1&quot;,&quot;draft-bracket-score-finalization-banner&quot;:&quot;&quot;,&quot;content-paywall-type&quot;:&quot;light&quot;,&quot;fantasy-show-new-draft-rankings-paywall&quot;:&quot;control&quot;,&quot;merlin-article-paywall-ab-test&quot;:&quot;paywall_with_short_copy&quot;,&quot;fantasy-show-lda-platform-keeper-info-modal&quot;:[],&quot;player-profiles-early-bird-banner-text&quot;:&quot;&quot;,&quot;fmds-contextual-sync-banner&quot;:{&quot;bannerText&quot;:&quot;ESPN league sync is now supported! Click here to get started.&quot;,&quot;showBanner&quot;:false},&quot;fmds-homepage-widget-image&quot;:&quot;/images/fmds-kickoff-widget-1.webp&quot;,&quot;mds-grade-upsell-modal-delay&quot;:5,&quot;mds-trade-screen-non-paid-user&quot;:{&quot;variant&quot;:&quot;Variant&quot;},&quot;ppt_weekly_free_game_ids&quot;:&quot;&quot;,&quot;fmds-homepage-widget-copy&quot;:&quot;Prep like a pro with PFF’s Fantasy Mock Draft Simulator&quot;,&quot;mds-ab-test-previous-picks&quot;:&quot;FULL_DRAFT&quot;,&quot;mds-homepage-widget-image&quot;:&quot;/images/mds-kickoff-widget-3.webp&quot;,&quot;fmds-lda-end-screen-cta-experiment&quot;:&quot;Option B&quot;,&quot;mds-awards-streak-launch-date&quot;:&quot;2024-04-14 00:00:00&quot;,&quot;mds-trade-screen-paid-user&quot;:{&quot;variant&quot;:&quot;Variant&quot;},&quot;onboarding-variations&quot;:{&quot;order&quot;:[&quot;profile&quot;,&quot;nflTeam&quot;,&quot;topic&quot;],&quot;variant&quot;:&quot;A&quot;},&quot;subscribe-insights-image&quot;:&quot;&quot;,&quot;fantasy-show-mds-platform-keeper-info-modal&quot;:[],&quot;mds-grade-suggestions-experiment&quot;:{&quot;variant&quot;:&quot;Variant A&quot;},&quot;subscribe-monthly-variant&quot;:&quot;premium-monthly-access&quot;,&quot;common-active-cta-promo-code&quot;:&quot;&quot;,&quot;draft-bracket-force-state-rounds&quot;:{&quot;1&quot;:&quot;post&quot;,&quot;2&quot;:&quot;post&quot;,&quot;3&quot;:&quot;post&quot;},&quot;mds-prominent-start-draft-cta&quot;:{&quot;prominentCta&quot;:true,&quot;variant&quot;:&quot;Option A&quot;},&quot;mds-homepage-widget-copy&quot;:&quot;The #1 Mock Draft Sim in the Game&quot;,&quot;merlin-game-view-best-bets-navigation-experiment&quot;:&quot;Best Bets&quot;}"
+  style="display: none;visibility: hidden"
+></div>
+
+<div data-react-component="pff.PrivacyModal" data-react-props="{&quot;showPrivacyModal&quot;:false}"></div>
+    <div id="app">
+
+<div class="ticker-container-next" data-react-component="pff.ScoreboardTickerNext" data-react-props="{&quot;league&quot;:&quot;nfl&quot;,&quot;season&quot;:2026}"></div>
+
+
+
+  <div class="m-breaking-news">
+    <div class="m-breaking-news__text"><a class="g-ml-1" href="https://www.pff.com/checkout?plan=pro">Introducing PFF Pro: PFF’s new premium subscription tier featuring an upgraded Premium Stats Pro experience
+</a></div>
+  </div>
+
+
+  <div class="site-nav-container" data-gtm-id="main_nav">
+
+    <div id="site-nav-next" data-signed-in="false" data-show-cta="true" data-active-href="/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season" data-account-links="[{&quot;label&quot;:&quot;My Account&quot;,&quot;href&quot;:&quot;/account&quot;}]" data-subscribe-url="https://www.pff.com/join?product=plus&amp;referrer=nav_bar" data-premium-url="https://premium.pff.com" data-ask-guru="false"><a href="#main" tabindex="0" class="site-nav-module__skipLink___Ixffb">Skip to main content</a><div class="site-nav-module__host___s8QN3"><nav aria-label="Primary" class="site-nav-module__root___OZmp8"><div class="site-nav-module__bar___1WIYo"><div class="site-nav-module__barInner___MAzm-"><button type="button" class="nav-icon-button-module__root___Wmzvr nav-icon-button-module__swappable___WVpPx site-nav-module__hamburger___o3NNI" aria-label="Menu" aria-expanded="false"><span class="nav-icon-button-module__glyph___39nDE"><span class="nav-icon-module__root___4BU1q" aria-hidden="true"><svg width="20" height="20" fill="currentColor" focusable="false" data-testid="nav-icon-hamburger"><use href="/images/svg/icons-symbols.svg#hamburger"></use></svg></span></span><span class="nav-icon-button-module__glyph___39nDE nav-icon-button-module__glyphToggled___4D4lD"><span class="nav-icon-module__root___4BU1q" aria-hidden="true"><svg width="20" height="20" fill="currentColor" focusable="false" data-testid="nav-icon-close"><use href="/images/svg/icons-symbols.svg#close"></use></svg></span></span></button><a href="/" tabindex="0" class="site-nav-module__logo___92KKu" aria-label="PFF home"><span class="nav-icon-module__root___4BU1q" aria-hidden="true"><svg width="20" height="20" fill="currentColor" focusable="false" data-testid="nav-icon-pff-logo"><use href="/images/svg/icons-symbols.svg#pff-logo"></use></svg></span></a><div class="site-nav-module__sections___hZORl"><div class="site-nav-module__section___IzMNy" data-nav-section="news"><button type="button" aria-expanded="false" class="nav-button-module__root___bPAu1"><span class="text-module__variant-text-small-regular___Jq3HP text-module__color-text-inverse___GoVUl">News</span><span class="nav-icon-module__root___4BU1q nav-button-module__caret___fJLb0" aria-hidden="true"><svg width="8" height="8" fill="currentColor" focusable="false" data-testid="nav-icon-chevron-left"><use href="/images/svg/icons-symbols.svg#chevron-left"></use></svg></span></button></div><div class="site-nav-module__section___IzMNy" data-nav-section="draft"><button type="button" aria-expanded="false" class="nav-button-module__root___bPAu1"><span class="text-module__variant-text-small-regular___Jq3HP text-module__color-text-inverse___GoVUl">Draft</span><span class="nav-icon-module__root___4BU1q nav-button-module__caret___fJLb0" aria-hidden="true"><svg width="8" height="8" fill="currentColor" focusable="false" data-testid="nav-icon-chevron-left"><use href="/images/svg/icons-symbols.svg#chevron-left"></use></svg></span></button></div><div class="site-nav-module__section___IzMNy" data-nav-section="fantasy"><button type="button" aria-expanded="false" class="nav-button-module__root___bPAu1"><span class="text-module__variant-text-small-regular___Jq3HP text-module__color-text-inverse___GoVUl">Fantasy</span><span class="nav-icon-module__root___4BU1q nav-button-module__caret___fJLb0" aria-hidden="true"><svg width="8" height="8" fill="currentColor" focusable="false" data-testid="nav-icon-chevron-left"><use href="/images/svg/icons-symbols.svg#chevron-left"></use></svg></span></button></div><div class="site-nav-module__section___IzMNy" data-nav-section="betting"><button type="button" aria-expanded="false" class="nav-button-module__root___bPAu1"><span class="text-module__variant-text-small-regular___Jq3HP text-module__color-text-inverse___GoVUl">Betting</span><span class="nav-icon-module__root___4BU1q nav-button-module__caret___fJLb0" aria-hidden="true"><svg width="8" height="8" fill="currentColor" focusable="false" data-testid="nav-icon-chevron-left"><use href="/images/svg/icons-symbols.svg#chevron-left"></use></svg></span></button></div><div class="site-nav-module__section___IzMNy" data-nav-section="data"><button type="button" aria-expanded="false" class="nav-button-module__root___bPAu1"><span class="text-module__variant-text-small-regular___Jq3HP text-module__color-text-inverse___GoVUl">Data</span><span class="nav-icon-module__root___4BU1q nav-button-module__caret___fJLb0" aria-hidden="true"><svg width="8" height="8" fill="currentColor" focusable="false" data-testid="nav-icon-chevron-left"><use href="/images/svg/icons-symbols.svg#chevron-left"></use></svg></span></button></div></div><div class="site-nav-module__clusterSlot___zLYNM"><div class="site-nav-module__cluster___rp5W6"><button type="button" class="nav-icon-button-module__root___Wmzvr site-nav-module__search___tS-ia" aria-label="Search" aria-expanded="false"><span class="nav-icon-button-module__glyph___39nDE"><span class="nav-icon-module__root___4BU1q" aria-hidden="true"><svg width="20" height="20" fill="currentColor" focusable="false" data-testid="nav-icon-search"><use href="/images/svg/icons-symbols.svg#search"></use></svg></span></span></button><a href="/subscribe" role="button" class="button-module__root___n01ZU button-module__variant-primary___jIBYt button-module__emphasis-high___dmcBg site-nav-module__cta___kTqPO" tabindex="0"><span class="button-module__content___gO1Lt"><span class="text-module__variant-text-base-semibold___6g2C0">Go Premium</span></span></a><div role="separator" aria-orientation="vertical" data-testid="border-separator" class="border-separator-module__root___U2KXD border-separator-module__vertical___diKHp border-separator-module__no-margin___C5HD8 site-nav-module__divider___a63e9"></div><div class="site-nav-module__account___de0qz"><button type="button" aria-expanded="false" class="site-nav-module__accountTrigger___IP2-E" aria-label="Account"><span class="nav-icon-module__root___4BU1q" aria-hidden="true"><svg width="24" height="24" fill="currentColor" focusable="false" data-testid="nav-icon-account"><use href="/images/svg/icons-symbols.svg#account"></use></svg></span></button></div></div></div></div></div></nav><div aria-hidden="true" data-testid="nav-scrim" class="site-nav-module__scrim___JjG2s"></div></div></div>
+
+<noscript><nav class="site-nav-seo-links" aria-label="PFF sections"><section><h2>News</h2><ul><li><a href="/news">All News</a></li><li><a href="/draft">Draft News</a></li><li><a href="/fantasy/articles">Fantasy News</a></li><li><a href="/betting">Betting News</a></li><li><a href="/nfl">NFL News</a></li><li><a href="/college">NCAA News</a></li></ul></section><section><h2>Draft</h2><ul><li><a href="/draft/nfl-mock-draft-simulator">Mock Draft Simulator</a></li><li><a href="/draft/big-board">Big Board</a></li><li><a href="/draft/tracker">Draft Tracker</a></li><li><a href="/nfl/free-agency">Free Agent Rankings</a></li></ul></section><section><h2>Fantasy</h2><ul><li><a href="/fantasy/draft/mock-draft-simulator">Mock Draft Simulator</a></li><li><a href="/fantasy/draft/live-draft-assistant">Live Draft Assistant</a></li><li><a href="/fantasy/leagues">My Leagues</a></li><li><a href="/fantasy/my-team">My Team Dashboard</a></li><li><a href="/fantasy/rankings">Rankings</a></li><li><a href="/fantasy/draft/cheat-sheet">Cheat Sheet</a></li><li><a href="/fantasy/stats/finishes">Weekly Finishes</a></li><li><a href="/fantasy/waiver-wire/rankings">Waiver Wire</a></li></ul></section><section><h2>Betting</h2><ul><li><a href="/betting/player-props">Prop Bets</a></li><li><a href="/betting/best-game-bets">Best Game Bets</a></li><li><a href="/betting/first-touchdown">First TD Finder</a></li><li><a href="/betting/futures">Futures</a></li><li><a href="/betting/key-insights">Key Insights</a></li><li><a href="/nfl/scores">Scores &amp; Schedules</a></li></ul></section><section><h2>Data</h2><ul><li><a href="/premium">Premium Stats Pro</a></li><li><a href="/premium-stats">Premium Stats</a></li><li><a href="/nfl/grades/position/qb">Player Grades</a></li><li><a href="/fantasy/strength-of-schedule">SOS Metrics</a></li><li><a href="/betting/nfl-power-rankings">Power Rankings</a></li><li><a href="/fantasy/projections">Projections</a></li><li><a href="/tools/matchups">Matchups</a></li></ul></section></nav></noscript>
+  </div>
+
+      <main id="main" class="m-main">
+
+
+
+
+
+<div class="g-tab-nav g-mb-0 g-hidden-xl-max" data-gtm-id="tab_navigation">
+  <div class="g-tab-nav__inner">
+    <div class="g-tab-nav__tabs-track">
+      <div class="g-tab-nav__tabs">
+        <div class="g-tab-nav__tabs-inner">
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/news">
+All
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link g-tab-nav__link--active" href="/nfl">
+NFL
+
+                  <span class="sr-only"> - current</span>
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/fantasy/articles">
+Fantasy
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/college">
+College
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/draft">
+NFL Draft
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/dfs">
+DFS
+
+</a>
+            </div>
+
+            <div class="g-tab-nav__item">
+
+<a class="g-tab-nav__link" href="/betting">
+Betting
+
+</a>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="m-content">
+  <div class="g-container g-container--padded">
+    <div class="g-grid">
+      <div class="g-span-12 g-span-9-lg">
+        <div class="g-card">
+          <div class="m-article" data-gtm-id="article_page">
+            <div class="m-article__header">
+
+              <h1 class="g-h1">PFF Cornerback Rankings: The top 32 players entering the 2026 NFL season</h1>
+            </div>
+
+            <div class="m-article__hero">
+
+
+
+              <figure>
+                <picture class="m-article__hero-image">
+                  <source media="(max-width: 375px)" srcset="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=359&amp;h=202, https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=718&amp;h=404 2x">
+                  <source media="(max-width: 575px)" srcset="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=576&amp;h=324, https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1152&amp;h=648 2x">
+                  <img src="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&amp;h=675" alt="" srcset="https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1200&amp;h=675, https://media.pff.com/2025/12/Devon-Witherspoon-scaled.jpg?w=1912&amp;h=1076 2x">
+                </picture>
+
+              </figure>
+
+
+            </div>
+
+            <div class="m-article__byline">
+              <span class="m-micro-copy m-micro-copy--dark author-meta-post">
+<!-- headshot variant sizing -->
+
+<!-- To have a fixed space container to handling CLS while rendering author headshots-->
+<!-- if more than 3 author images are there display PFF logo-->
+
+<!-- only render when any one of the authors have avatar to show and show_author_headshots FF is enabled -->
+
+    <span style="min-width: 2.5rem;">
+<div data-react-component="pff.AuthorHeadshots" data-react-props="{&quot;authorsList&quot;:[{&quot;id&quot;:84448,&quot;description&quot;:&quot;Dalton joined PFF in July 2022, working with the Data Collection team. Overtime, he found his place as a College Football / Draft Analyst, and co-host of Preferred Walk-On.&quot;,&quot;title&quot;:&quot;College Football and NFL Contributor&quot;,&quot;category&quot;:&quot;1&quot;,&quot;url&quot;:null,&quot;slug&quot;:&quot;dalton-wasserman&quot;,&quot;twitter&quot;:&quot;&quot;,&quot;display_name&quot;:&quot;Dalton Wasserman&quot;,&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Dalton-Wasserman-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Dalton-Wasserman-min-150x150.png&quot;},&quot;author_alumni&quot;:null,&quot;author_knows_about&quot;:[]}],&quot;variant&quot;:&quot;md&quot;}"></div>
+    </span>
+
+                <div>
+
+By
+
+
+
+<a class="" data-gtm-id="article_author" href="/analyst/dalton-wasserman">Dalton Wasserman</a>
+
+
+
+                <br />
+                  <time datetime="2026-08-07T09:45:00Z">Posted Aug 7, 2026 5:45 am EDT</time>
+                  <span class="u-hide-first">
+
+
+                  </span>
+                </div>
+              </span>
+            </div>
+
+            <div class="m-article__main">
+
+                <article class="m-article__content" data-gtm-id="article_content">
+                  <div class="m-longform-copy">
+
+<ul class="wp-block-list">
+<li><strong><a href="https://www.pff.com/nfl/players/devon-witherspoon/101388" target="_blank" rel="noopener noreferrer">Devon Witherspoon</a> leads the way:</strong> The reigning champion was the league's highest-graded corner, in part due to his versatile talent.</li>
+</ul>
+
+
+
+<ul class="wp-block-list">
+<li><strong>The <a href="https://www.pff.com/nfl/teams/new-england-patriots/19" target="_blank" rel="noopener noreferrer">Patriots</a> have a terrific trio:</strong> <a href="https://www.pff.com/nfl/players/christian-gonzalez/131679" target="_blank" rel="noopener noreferrer">Christian Gonzalez</a>, <a href="https://www.pff.com/nfl/players/carlton-davis-iii/49335" target="_blank" rel="noopener noreferrer">Carlton Davis III</a> and <a href="https://www.pff.com/nfl/players/marcus-jones/55717" target="_blank" rel="noopener noreferrer">Marcus Jones</a> all sit in the top 20 of the rankings.</li>
+</ul>
+
+
+
+<ul class="wp-block-list">
+<li><strong><a href="https://www.pff.com/subscribe?promoCode=earlybird26" target="_blank" rel="noreferrer noopener">Save on PFF+ for 5 Days Only</a>:</strong> Get a full year of PFF+ for just $89.99 before the limited-time offer ends Aug. 25.</li>
+</ul>
+
+
+
+<figure class="wp-block-image size-large"><a href="https://www.pff.com/subscribe?promoCode=earlybird26" target="_blank" rel=" noreferrer noopener"><img loading="lazy" decoding="async" width="1024" height="188" src="https://media.pff.com/2026/08/Lastchancesale-1024x188.jpg" alt="" class="wp-image-632597" srcset="https://media.pff.com/2026/08/Lastchancesale-1024x188.jpg 1024w, https://media.pff.com/2026/08/Lastchancesale-300x55.jpg 300w, https://media.pff.com/2026/08/Lastchancesale-768x141.jpg 768w, https://media.pff.com/2026/08/Lastchancesale.jpg 1500w" sizes="auto, (max-width: 706px) 89vw, (max-width: 767px) 82vw, 740px" /></a></figure>
+
+
+
+<p>PFF's offseason NFL positional rankings continue with cornerbacks. Between lockdown players on the outside and disruptive options on the interior, the position is ripe with tons of young talent.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+
+
+
+<h3 class="wp-block-heading">1. <a href="https://www.pff.com/nfl/players/devon-witherspoon/101388"><strong>Devon Witherspoon</strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Seattle</strong></a><a href="https://www.pff.com/nfl/teams/seattle-seahawks/29"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/seattle-seahawks/29" target="_blank" rel="noopener noreferrer">Seahawks</a></strong></h3>
+
+
+
+<p>Witherspoon finished 2025 as the NFL’s highest-graded cornerback. He played a career-high 461 snaps on the outside, but remains a versatile piece who can man the slot when needed. He recorded one interception, eight pass breakups and 13 pressures, including a sack in the Super Bowl last season. All of that production, combined with the fact that he’s an elite run defender, makes Witherspoon one of the most valuable players in the NFL.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/sauce-gardner/100903"></a>2. <strong><a href="https://www.pff.com/nfl/players/sauce-gardner/100903" target="_blank" rel="noopener noreferrer">Sauce Gardner</a>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://www.pff.com/nfl/teams/indianapolis-colts/14">Indianapolis </a><a href="https://www.pff.com/nfl/teams/indianapolis-colts/14" target="_blank" rel="noopener noreferrer">Colts</a></strong></h3>
+
+
+
+<p>Gardner traversed through a wild 2025 season in which he dealt with injuries and was traded from New York to Indianapolis. His play when on the field was still quite admirable. Gardner’s 75.6 PFF coverage grade tied for 15th among qualified cornerbacks. He also earned a career-high 84.5 PFF run-defense grade that ranked fourth among that same group. A fully healthy Gardner could change the complexion of the entire Colts defense.</p>
+
+
+
+<h3 class="wp-block-heading">3. <strong><a href="https://www.pff.com/nfl/players/pat-surtain-ii/83119" target="_blank" rel="noopener noreferrer">Pat Surtain II</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Denver</strong></a><a href="https://www.pff.com/nfl/teams/denver-broncos/10"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/denver-broncos/10" target="_blank" rel="noopener noreferrer">Broncos</a></strong></h3>
+
+
+
+<p>Surtain didn’t quite reach the heights of his Defensive Player of the Year-winning 2024 campaign last season, but he still played very well while accruing at least 1,000 snaps for the fourth straight year. His 73.3 PFF grade ranked 22nd among all qualified cornerbacks. He also tallied 10 pass breakups and hauled in one interception. Surtain will continue to be the headliner for one of the league’s elite secondaries.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/trent-mcduffie/72191"></a>4. <strong><a href="https://www.pff.com/nfl/players/trent-mcduffie/72191" target="_blank" rel="noopener noreferrer">Trent McDuffie</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/los-angeles-rams/26"></a><strong><a href="https://www.pff.com/nfl/teams/los-angeles-rams/26" target="_blank" rel="noopener noreferrer">Los Angeles Rams</a></strong></h3>
+
+
+
+<p>The Rams paid a hefty price to acquire McDuffie, and a dive into the metrics makes it easy to see why. Since he was drafted in 2022, McDuffie’s 90.2 PFF coverage grade ranks second in the NFL behind fellow 2022 draftee <a href="https://www.pff.com/nfl/players/sauce-gardner/100903">Sauce Gardner</a>. Last season, he earned a 74.7 coverage grade that ranked 18th among qualified cornerbacks while tallying one interception and four pass breakups.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/cooper-dejean/144867"></a>5. <strong><a href="https://www.pff.com/nfl/players/cooper-dejean/144867" target="_blank" rel="noopener noreferrer">Cooper DeJean</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/philadelphia-eagles/24"></a><strong><a href="https://www.pff.com/nfl/teams/philadelphia-eagles/24" target="_blank" rel="noopener noreferrer">Philadelphia Eagles</a></strong></h3>
+
+
+
+<p>DeJean became an extremely valuable piece of Philadelphia’s defense the moment he stepped on the field for them in 2024. Since he was drafted, DeJean’s 87.1 PFF grade trails only <a href="https://www.pff.com/nfl/players/devon-witherspoon/101388">Devon Witherspoon</a> for the best in the NFL. In 2025, he reeled in two interceptions while tying for second in the NFL with 14 pass breakups, postseason included. DeJean should continue to lock down the slot this season for the Eagles.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/quinyon-mitchell/130628"></a>6. <strong><a href="https://www.pff.com/nfl/players/quinyon-mitchell/130628" target="_blank" rel="noopener noreferrer">Quinyon Mitchell</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/philadelphia-eagles/24"><strong>Philadelphia Eagles</strong></a></h3>
+
+
+
+<p>Mitchell has quickly become one of the NFL’s best corners during his first two seasons. His 84.5 PFF grade since the start of 2024 ranks third in the NFL behind Witherspoon and teammate DeJean. While racking up two interceptions and eight pass breakups last season, Mitchell allowed a 54.4 passer rating as the primary coverage defender, which was the second-lowest mark among qualified cornerbacks.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/derek-stingley/98253"></a>7. <strong><a href="https://www.pff.com/nfl/players/derek-stingley-jr./98253" target="_blank" rel="noopener noreferrer">Derek Stingley Jr.</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Houston</a></strong><a href="https://www.pff.com/nfl/teams/houston-texans/13"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/houston-texans/13" target="_blank" rel="noopener noreferrer">Texans</a></strong></h3>
+
+
+
+<p>Stingley experienced a bit of a volatile 2025 campaign in coverage last season, but his elite ball skills still allowed him to tally four interceptions and nine pass breakups. His 73.5 PFF coverage grade ranked 23rd among all qualified cornerbacks. Over the past three years, Stingley slots second among qualified cornerbacks with a 90.3 coverage grade. He and <a href="https://www.pff.com/nfl/players/kamari-lassiter/146727">Kamari Lassiter</a> make a good case to be labeled the NFL’s best cornerback duo.</p>
+
+
+
+<h3 class="wp-block-heading">8. <a href="https://www.pff.com/nfl/players/christian-gonzalez/131679"><strong>Christian Gonzalez</strong></a><strong>, </strong><a href="https://www.pff.com/nfl/teams/new-england-patriots/19"></a><strong><a href="https://www.pff.com/nfl/teams/new-england-patriots/19" target="_blank" rel="noopener noreferrer">New England Patriots</a></strong></h3>
+
+
+
+<p>Gonzalez has become one of the best cornerbacks in the NFL. Among qualified corners last year, including the postseason, Gonzalez ranked 12th in coverage grade, fourth in pass breakups and fourth in passer rating allowed as the primary coverage defender. He also missed just one tackle in 18 games last season. Still just 24 years old, Gonzalez should be the headliner in New England’s secondary for years to come.</p>
+
+
+
+<h3 class="wp-block-heading">9. <a href="https://www.pff.com/nfl/players/kamari-lassiter/146727"><strong><a href="https://www.pff.com/nfl/players/kamari-lassiter/146727" target="_blank" rel="noopener noreferrer">Kamari Lassiter</a></strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Houston</strong></a><a href="https://www.pff.com/nfl/teams/houston-texans/13"><strong> Texans</strong></a></h3>
+
+
+
+<p>Lassiter was immediately made a starter after being selected in the second round of the 2024 draft, and he’s done nothing but play at a high level since. Over the past two seasons, he’s earned an 82.1 PFF grade that ranks seventh among all qualified cornerbacks. He recorded four interceptions and 14 pass breakups last season while making major positive strides in run defense. Lassiter is quietly becoming one of the best cornerbacks in the NFL.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/michael-jackson/50437"></a>10. <strong><a href="https://www.pff.com/nfl/players/michael-jackson/50437" target="_blank" rel="noopener noreferrer">Mike Jackson</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/carolina-panthers/5"></a><strong><a href="https://www.pff.com/nfl/teams/carolina-panthers/5" target="_blank" rel="noopener noreferrer">Carolina Panthers</a></strong></h3>
+
+
+
+<p>In a matter of just two seasons, Jackson has gone from an afterthought in Seattle to being arguably the Panthers’ best defensive player. Last season, he earned an 85.8 PFF coverage grade that led all cornerback who played at least 300 coverage snaps. Postseason included, he paced Carolina with five interceptions and 11 pass breakups last season.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/jamel-dean/34918"></a>11. <strong><a href="https://www.pff.com/nfl/players/jamel-dean/34918" target="_blank" rel="noopener noreferrer">Jamel Dean</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Pittsburgh</a></strong><a href="https://www.pff.com/nfl/teams/pittsburgh-steelers/25"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/pittsburgh-steelers/25" target="_blank" rel="noopener noreferrer">Steelers</a></strong></h3>
+
+
+
+<p>After seven successful seasons in Tampa Bay, Dean will take his talents to Pittsburgh on the heels of an excellent 2025 campaign. He produced a career-high 80.6 PFF grade while tallying three interceptions, one pass breakup and two forced fumbles. Dean also allowed a passer rating of 47.7 into his coverage, which was the lowest mark among qualified cornerbacks in the NFL.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/christian-benford/79181"></a>12. <strong><a href="https://www.pff.com/nfl/players/christian-benford/79181" target="_blank" rel="noopener noreferrer">Christian Benford</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Buffalo</a></strong><a href="https://www.pff.com/nfl/teams/buffalo-bills/4"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/buffalo-bills/4" target="_blank" rel="noopener noreferrer">Bills</a></strong></h3>
+
+
+
+<p>Benford endured a turbulent 2025 in which he played to a career-low 53.9 PFF coverage grade. Across the two prior seasons, he recorded an 87.1 coverage grade that was the fourth-best mark among qualified cornerbacks, so there is reason to think he can bounce back. On the bright side, Benford tied for the NFL lead among cornerbacks with a 90.1 PFF run-defense grade last season.</p>
+
+
+
+<h3 class="wp-block-heading">13. <a href="https://www.pff.com/nfl/players/jaquan-mcmillian/100931"><strong>Ja’Quan McMillian</strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Denver</strong></a><a href="https://www.pff.com/nfl/teams/denver-broncos/10"><strong> Broncos</strong></a></h3>
+
+
+
+<p>McMillian was the highest-graded primary slot cornerback in the NFL last season. His 80.8 PFF grade ranked fourth among all qualified cornerbacks. Including the postseason, he accrued three interceptions, three pass breakups, two forced fumbles and four sacks. His versatility allows Denver to execute a variety of schemes at a very high level.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/jaylon-johnson/56259"></a>14. <strong><a href="https://www.pff.com/nfl/players/jaylon-johnson/56259" target="_blank" rel="noopener noreferrer">Jaylon Johnson</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Chicago</strong></a><a href="https://www.pff.com/nfl/teams/chicago-bears/6"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/chicago-bears/6" target="_blank" rel="noopener noreferrer">Bears</a></strong></h3>
+
+
+
+<p>Johnson was limited to just nine games, including the postseason, in 2025 due to injury. He wasn’t quite right all season as he earned a mediocre 60.3 PFF coverage grade, his lowest since 2021. However, Johnson was the highest-graded cornerback in the NFL in 2023 and turned in a fine season in 2024. He’s a prime bounce-back candidate in Chicago’s secondary this season.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/jaylen-watson/131960"></a>15. <strong><a href="https://www.pff.com/nfl/players/jaylen-watson/131960" target="_blank" rel="noopener noreferrer">Jaylen Watson</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/los-angeles-rams/26"><strong>Los Angeles Rams</strong></a></h3>
+
+
+
+<p>Watson joins ex-Chiefs teammate <a href="https://www.pff.com/nfl/players/trent-mcduffie/72191">Trent McDuffie</a> in Los Angeles this season on the heels of his highest-graded campaign to date. His 74.1 PFF grade ranked 18th among qualified cornerbacks in 2025. While he did pick off two passes and break up three others, it was Watson’s work in the run game that really stood out. Watson’s 83.5 PFF run-defense grade ranked sixth among all qualified cornerbacks.</p>
+
+
+
+<h3 class="wp-block-heading">16. <a href="https://www.pff.com/nfl/players/carlton-davis/49335"><strong>Carlton Davis III</strong></a><strong>, </strong><a href="https://www.pff.com/nfl/teams/new-england-patriots/19"><strong>New England Patriots</strong></a></h3>
+
+
+
+<p>Davis ranked 19th among qualifiers with a 74.0 PFF grade last season, and he was a major reason for New England’s success down the stretch in the playoffs. From Week 11 through the Super Bowl, his 87.3 PFF grade placed third in the NFL as he collected two interceptions and a league-leading 10 pass breakups. Davis, Gonzalez and <a href="https://www.pff.com/nfl/players/marcus-jones/55717">Marcus Jones</a> enter 2026 as one of the NFL’s premier cornerback trios.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="https://www.pff.com/subscribe?promoCode=earlybird26" target="_blank" rel=" noreferrer noopener"><img loading="lazy" decoding="async" width="1024" height="188" src="https://media.pff.com/2026/08/Lastchancesale-1024x188.jpg" alt="" class="wp-image-632597" srcset="https://media.pff.com/2026/08/Lastchancesale-1024x188.jpg 1024w, https://media.pff.com/2026/08/Lastchancesale-300x55.jpg 300w, https://media.pff.com/2026/08/Lastchancesale-768x141.jpg 768w, https://media.pff.com/2026/08/Lastchancesale.jpg 1500w" sizes="auto, (max-width: 706px) 89vw, (max-width: 767px) 82vw, 740px" /></a></figure>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/dj-turner/47663"></a>17. <strong><a href="https://www.pff.com/nfl/players/dj-turner/47663" target="_blank" rel="noopener noreferrer">DJ Turner</a></strong><a href="https://www.pff.com/nfl/players/dj-turner/101376"><strong> II</strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Cincinnati</a></strong><a href="https://www.pff.com/nfl/teams/cincinnati-bengals/7"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/cincinnati-bengals/7" target="_blank" rel="noopener noreferrer">Bengals</a></strong></h3>
+
+
+
+<p>Turner produced a breakout season in 2025 that saw him rank seventh among qualified cornerbacks with a 78.1 PFF coverage grade. His ball skills were on display, as he racked up 13 pass breakups, tied for second-most in the NFL during the regular season. While his run defense lags a bit behind, Turner’s coverage prowess is now a core component of Cincinnati’s defensive success.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/joey-porter-jr./101364"></a>18. <strong><a href="https://www.pff.com/nfl/players/joey-porter-jr./101364" target="_blank" rel="noopener noreferrer">Joey Porter</a></strong><a href="https://www.pff.com/nfl/players/joey-porter/101364"><strong> Jr.</strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Pittsburgh</strong></a><a href="https://www.pff.com/nfl/teams/pittsburgh-steelers/25"><strong> Steelers</strong></a></h3>
+
+
+
+<p>Porter earned a career-high 76.6 PFF coverage grade last season that ranked 13th among all qualified cornerbacks. Including the playoffs, he tallied 13 pass breakups, which tied for the fourth-highest total in the NFL. Porter also allowed just a 55.9 passer rating as the primary coverage defender, third-lowest among qualified cornerbacks behind new teammate Dean and Mitchell.</p>
+
+
+
+<h3 class="wp-block-heading">19. <a href="https://www.pff.com/nfl/players/marcus-jones/55717"><strong>Marcus Jones</strong></a><strong>, </strong><a href="https://www.pff.com/nfl/teams/new-england-patriots/19"><strong>New England Patriots</strong></a></h3>
+
+
+
+<p>Jones continues to get better with each passing season. In 2025, he compiled a career-high 74.2 PFF coverage grade that ranked 20th among qualified cornerbacks. Jones also stuffed the stat sheet with four interceptions, seven pass breakups, three sacks and a forced fumble. He’ll continue to be a mainstay as New England’s slot cornerback and primary punt returner this season.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/denzel-ward/49558"></a>20. <strong><a href="https://www.pff.com/nfl/players/denzel-ward/49558" target="_blank" rel="noopener noreferrer">Denzel Ward</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/cleveland-browns/8"><strong>Cleveland </strong></a><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Brown</strong></a><a href="https://www.pff.com/nfl/teams/cleveland-browns/8"><strong>s</strong></a></h3>
+
+
+
+<p>Ward’s production saw a bit of a dropoff in 2025 after he led the NFL with 17 pass breakups in 2024. He collected just one interception and four pass breakups last season, but Ward has an excellent track record that could foreshadow a bounceback. He has long been up to the task of covering the NFL’s top wide receivers.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/jourdan-lewis/11846"></a>21. <strong><a href="https://www.pff.com/nfl/players/jourdan-lewis/11846" target="_blank" rel="noopener noreferrer">Jourdan Lewis</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Jacksonville</a></strong><a href="https://www.pff.com/nfl/teams/jacksonville-jaguars/15"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/jacksonville-jaguars/15" target="_blank" rel="noopener noreferrer">Jaguars</a></strong></h3>
+
+
+
+<p>Lewis has been one of the NFL’s more productive slot cornerbacks over the past two seasons in particular. Since the start of 2024, his 78.7 PFF coverage grade ranks 12th among cornerbacks who have played at least 400 coverage snaps. During that time, he’s amassed three interceptions, nine pass breakups and 44 total stops. A return to full health and an even more defined role in the slot should allow Lewis to have another productive season.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/isaiah-rodgers/27069"></a>22. <strong><a href="https://www.pff.com/nfl/players/isaiah-rodgers/27069" target="_blank" rel="noopener noreferrer">Isaiah Rodgers</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Minnesota</a></strong><a href="https://www.pff.com/nfl/teams/minnesota-vikings/18"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/minnesota-vikings/18" target="_blank" rel="noopener noreferrer">Vikings</a></strong></h3>
+
+
+
+<p>Rodgers finally got a starting opportunity in 2025 and took full advantage of it. His 74.1 PFF coverage grade ranked 21st among qualified cornerbacks. He’s now earned at least a 70.0 coverage grade in all five seasons that he’s played in his career. The highlight of Rodgers’ 2025 season came in Week 3 against the <a href="https://premium.pff.com/ncaa/teams/2024/REGPO/">Cincinnati</a><a href="https://www.pff.com/nfl/teams/cincinnati-bengals/7"> Bengals</a>, when he scored two defensive touchdowns and earned the first 99.9 game grade in PFF history.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/dj-reed/26940"></a>23. <strong><a href="https://www.pff.com/nfl/players/d.j.-reed/26940" target="_blank" rel="noopener noreferrer">D.J. Reed</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/detroit-lions/11"></a><strong><a href="https://www.pff.com/nfl/teams/detroit-lions/11" target="_blank" rel="noopener noreferrer">Detroit Lions</a></strong></h3>
+
+
+
+<p>Reed recorded a career-low 61.3 PFF coverage grade in his first season in Detroit, but that’s tilted downward a bit due to two tough games against the Packers and Rams. Prior to 2025, Reed had secured at least a 70.0 coverage grade in six straight campaigns. Considering the Lions’ lack of cornerback depth, a bounceback from Reed could be vital to their postseason aspirations.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/charvarius-ward/43034"></a>24. <strong><a href="https://www.pff.com/nfl/players/charvarius-ward/43034" target="_blank" rel="noopener noreferrer">Charvarius Ward</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Indianapolis</strong></a><a href="https://www.pff.com/nfl/teams/indianapolis-colts/14"><strong> Colts</strong></a></h3>
+
+
+
+<p>Ward was limited to just seven appearances in 2025 due to concussion issues, but he was quite productive when he was on the field. His 77.4 PFF coverage grade ranked ninth among qualified cornerbacks last season, and he broke up seven passes in those seven games. Assuming he is fully healthy this season, Ward and Gardner could form one of the NFL’s best cornerback duos.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/aj-terrell/55586"></a>25. <strong><a href="https://www.pff.com/nfl/players/a.j.-terrell/55586" target="_blank" rel="noopener noreferrer">A.J. Terrell</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/atlanta-falcons/2"></a><strong><a href="https://www.pff.com/nfl/teams/atlanta-falcons/2" target="_blank" rel="noopener noreferrer">Atlanta Falcons</a></strong></h3>
+
+
+
+<p>Terrell struggled a bit more than usual in coverage in 2025, but still showed flashes of playmaking ability. During the regular season, he led Atlanta and tied for eighth in the NFL with 10 pass breakups. He was also one of just 12 cornerbacks who forced multiple fumbles. Yet Terrell tied for the regular-season lead with 12 penalties, so he could be in line for a rebound if he can cut that total down.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/eric-stokes/55912"></a>26. <strong><a href="https://www.pff.com/nfl/players/eric-stokes/55912" target="_blank" rel="noopener noreferrer">Eric Stokes</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/las-vegas-raiders/23"></a><strong><a href="https://www.pff.com/nfl/teams/las-vegas-raiders/23" target="_blank" rel="noopener noreferrer">Las Vegas Raiders</a></strong></h3>
+
+
+
+<p>Stokes turned in a career-high 75.0 PFF grade last season that ranked second among qualified Raiders defenders behind <a href="https://www.pff.com/nfl/players/maxx-crosby/26316">Maxx Crosby</a>. His 75.2 PFF coverage grade slotted 17th among qualified cornerbacks. While he didn’t reel in any interceptions, Stokes did not allow more than 50 yards in any individual game last season, which says a lot considering the lack of production from the rest of Las Vegas’ defense.</p>
+
+
+
+<h3 class="wp-block-heading">27. <a href="https://www.pff.com/nfl/players/garrett-williams/99723"><strong>Garrett </strong></a><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"><strong>Williams</strong></a><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Arizona</a></strong><a href="https://www.pff.com/nfl/teams/arizona-cardinals/1"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/arizona-cardinals/1" target="_blank" rel="noopener noreferrer">Cardinals</a></strong></h3>
+
+
+
+<p>Williams endured a tough 2025 that was marred by injuries and ultimately curtailed due to a torn Achilles. Assuming he can return to full strength, Williams showed in 2024 that he can be one of the best slot cornerbacks in the NFL. That year, he ranked fourth among qualified cornerbacks with an 83.7 PFF coverage grade while picking off two passes and breaking up six others. That level of production would be a huge boon for a Cardinals secondary that carries major cornerback uncertainty.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/jaycee-horn/83375"></a>28. <strong><a href="https://www.pff.com/nfl/players/jaycee-horn/83375" target="_blank" rel="noopener noreferrer">Jaycee Horn</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/carolina-panthers/5"><strong>Carolina Panthers</strong></a></h3>
+
+
+
+<p>Horn comprises one half of perhaps the NFL’s most underrated cornerback duo in Carolina. While the past two seasons haven’t been consistently great from a grading perspective, Horn still shows off his playmaking ability in spurts, as evidenced by his five interceptions last season. He’s also played over 1,000 snaps in two consecutive years, which is encouraging given the durability issues earlier in his career.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/rasul-douglas/11854"></a>29. <strong><a href="https://www.pff.com/nfl/players/rasul-douglas/11854" target="_blank" rel="noopener noreferrer">Rasul Douglas</a></strong><strong>, </strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO/"></a><strong><a href="https://premium.pff.com/ncaa/teams/2024/REGPO" target="_blank" rel="noopener noreferrer">Washington</a></strong><a href="https://www.pff.com/nfl/teams/washington-commanders/32"><strong> </strong></a><strong><a href="https://www.pff.com/nfl/teams/washington-commanders/32" target="_blank" rel="noopener noreferrer">Commanders</a></strong></h3>
+
+
+
+<p>After enduring some struggles in Buffalo in 2024, the veteran Douglas returned to proper form in Miami in 2025, ranking 26th among qualified cornerbacks with a 72.6 PFF coverage grade. He hauled in two interceptions while tying a career-high with nine pass breakups. The soon-to-be 31-year-old is a nice reinforcement to a very young Washington cornerback unit.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/tarheeb-still/129537"></a>30. <strong><a href="https://www.pff.com/nfl/players/tarheeb-still/129537" target="_blank" rel="noopener noreferrer">Tarheeb Still</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/los-angeles-chargers/27"></a><strong><a href="https://www.pff.com/nfl/teams/los-angeles-chargers/27" target="_blank" rel="noopener noreferrer">Los Angeles Chargers</a></strong></h3>
+
+
+
+<p>Still’s consistency and versatility have been valuable additions to the Chargers’ defense during his first two seasons in the NFL. Since the start of 2024, his 75.3 PFF coverage grade ranks 17th among cornerbacks who have played at least 400 coverage snaps. During that time, Still has lined up outside on 985 snaps and in the slot on 532 snaps. If he can improve his tackling a bit in 2026, Still could find himself even higher on this list at season’s end.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/kool-aid-mckinstry/146602"></a>31. <strong><a href="https://www.pff.com/nfl/players/kool-aid-mckinstry/146602" target="_blank" rel="noopener noreferrer">Kool-Aid McKinstry</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/new-orleans-saints/20"></a><strong><a href="https://www.pff.com/nfl/teams/new-orleans-saints/20" target="_blank" rel="noopener noreferrer">New Orleans Saints</a></strong></h3>
+
+
+
+<p>McKinstry has begun to establish himself as a reliable player in New Orleans’ secondary. His 71.4 PFF coverage grade ranked 29th among qualified cornerbacks last season. Likewise, McKinstry’s 12 pass breakups were the sixth-most in the NFL during the regular season, and he led the Saints with three interceptions. Another positive step in McKinstry’s development could turn the Saints’ secondary into one of the league’s better units.</p>
+
+
+
+<h3 class="wp-block-heading"><a href="https://www.pff.com/nfl/players/keisean-nixon/56167"></a>32. <strong><a href="https://www.pff.com/nfl/players/keisean-nixon/56167" target="_blank" rel="noopener noreferrer">Keisean Nixon</a></strong><strong>, </strong><a href="https://www.pff.com/nfl/teams/green-bay-packers/12"></a><strong><a href="https://www.pff.com/nfl/teams/green-bay-packers/12" target="_blank" rel="noopener noreferrer">Green Bay Packers</a></strong></h3>
+
+
+
+<p>Nixon finished 2025 ranked 15th in PFF WAR among cornerbacks. A key component in that is that he tied for second among all cornerbacks with 13 pass breakups during the regular season. The biggest drawback in Nixon’s game right now is that he commits too many penalties. Including the postseason, he tied for the NFL lead with 13 of them. On a down-to-down basis, though, Nixon has become the <a href="https://www.pff.com/nfl/teams/green-bay-packers/12" target="_blank" rel="noopener noreferrer">Packers</a>’ best cornerback.</p>
+
+                  </div>
+                </article>
+
+
+              <footer class="m-article__footer" data-gtm-id="article_footer">
+                <div class="m-article__footer-section u-text-center">
+                  <div class="g-ui-row g-ui-row--space-around">
+                    <div class="g-ui-row__item">
+                      <a href="https://www.pff.com/nfl">
+                        <strong>Read More PFF NFL News & Analysis</strong>
+                      </a>
+                    </div>
+
+                    <div class="g-ui-row__item">
+                      <span class="g-label g-mx-1">Share</span>
+                      <a class="g-mx-1" href="http://www.twitter.com/share?url=https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season" target="_blank" class="">
+                        <svg width="24" height="24" class="g-icon g-icon--link" aria-hidden="false" focusable="true" aria-label="Share on Twitter">
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-twitter"></use>
+                        </svg>
+                      </a>
+                      <a class="g-mx-1" href="https://www.facebook.com/sharer/sharer.php?u=https://www.pff.com/news/pff-cornerback-rankings-the-top-32-players-entering-the-2026-nfl-season" class="">
+                        <svg width="24" height="24" class="g-icon g-icon--link" aria-hidden="false" focusable="true" aria-label="Share on Facebook">
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-facebook"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </footer>
+
+            </div>
+<div class="m-article__latest-headlines" data-react-component="pff.LatestArticles" data-react-props="{&quot;currentPostId&quot;:631705,&quot;fireSubscribeModal&quot;:false,&quot;posts&quot;:[{&quot;id&quot;:635514,&quot;name&quot;:&quot;nfl-rookie-rankings&quot;,&quot;date&quot;:&quot;2026-09-24 13:00:00&quot;,&quot;title&quot;:&quot;NFL rookie rankings: Highest-graded players after Week 2&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;Compare the best NFL rookie performances using PFF Grades and key metrics across multiple positions. Check the rankings.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-rookie-rankings/&quot;,&quot;multiple_authors&quot;:[&quot;Gordon McGuinness&quot;],&quot;excerpt&quot;:&quot;Dallas Cowboys linebacker Jaishawn Barham leads PFF&#39;s highest-graded NFL rookies after Week 2 with an 84.8 PFF grade. Josiah Trotter and Antonio Williams follow, while Caleb Downs and Blake Miller round out the top five.&quot;,&quot;thumbnail&quot;:&quot;2026/09/Rookies_feature-scaled.webp&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Gordon McGuinness&quot;}],&quot;meta_title&quot;:&quot;2026 NFL Rookies: Highest-Graded Players | PFF&quot;},{&quot;id&quot;:636368,&quot;name&quot;:&quot;nfl-highest-graded-player-cb-trent-mcduffie-los-angeles-rams-week-2&quot;,&quot;date&quot;:&quot;2026-09-24 12:48:52&quot;,&quot;title&quot;:&quot;Highest-graded player of the Week: CB Trent McDuffie, Los Angeles Rams&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[&quot;72191&quot;],&quot;teams&quot;:[&quot;26&quot;],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;Trent McDuffie earned a 94.0 PFF coverage grade against the Giants, allowing no catches on five targets. See the grades.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-highest-graded-player-cb-trent-mcduffie-los-angeles-rams-week-2/&quot;,&quot;multiple_authors&quot;:[&quot;Gordon McGuinness&quot;],&quot;excerpt&quot;:&quot;Trent McDuffie delivered the best performance of any NFL defender in Week 2, earning a 94.0 PFF coverage grade against the New York Giants. The Rams cornerback allowed zero receptions on five targets while recording three pass breakups and an interception.&quot;,&quot;thumbnail&quot;:&quot;2026/09/Trent-McDuffie.jpg&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Gordon McGuinness&quot;}],&quot;meta_title&quot;:&quot;Trent McDuffie dominates in Rams&#39; Week 2 win | PFF&quot;},{&quot;id&quot;:636343,&quot;name&quot;:&quot;fantasy-football-week-3-running-game-matchups-to-target&quot;,&quot;date&quot;:&quot;2026-09-24 11:00:00&quot;,&quot;title&quot;:&quot;Fantasy Football Week 3: Running game matchups to target&quot;,&quot;author&quot;:&quot;Nic Bodiford&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[],&quot;league_week&quot;:&quot;nfl:3&quot;,&quot;categories&quot;:[{&quot;id&quot;:4,&quot;name&quot;:&quot;Fantasy&quot;,&quot;slug&quot;:&quot;fantasy&quot;},{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/fantasy-football-week-3-running-game-matchups-to-target/&quot;,&quot;multiple_authors&quot;:[&quot;Nic Bodiford&quot;],&quot;excerpt&quot;:&quot;The Kansas City Chiefs and Seattle Seahawks are among running attacks that could dominate in Week 3.&quot;,&quot;thumbnail&quot;:&quot;2026/09/Jadarian-Price-scaled.jpg&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:true,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:null,&quot;thumbnail&quot;:null},&quot;display_name&quot;:&quot;Nic Bodiford&quot;}],&quot;meta_title&quot;:&quot;&quot;},{&quot;id&quot;:636267,&quot;name&quot;:&quot;nfl-garett-bolles-pass-blocking&quot;,&quot;date&quot;:&quot;2026-09-23 16:35:47&quot;,&quot;title&quot;:&quot;Broncos LT Garett Bolles is building one of the best pass-blocking résumés of the PFF era&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[&quot;11775&quot;],&quot;teams&quot;:[&quot;10&quot;],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;See how Garett Bolles has built an elite pass-blocking résumé, including two historic sack-free streaks and a 90.2 PFF grade. See the grades.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-garett-bolles-pass-blocking/&quot;,&quot;multiple_authors&quot;:[&quot;Mark Chichester&quot;],&quot;excerpt&quot;:&quot;Garett Bolles has opened the 2026 season without allowing a pressure across 69 pass-blocking snaps, earning a position-best 90.2 PFF pass-blocking grade. His active streak of 958 consecutive pass-blocking snaps without allowing a sack is the sixth-longest by a tackle in the PFF era.&quot;,&quot;thumbnail&quot;:&quot;2026/09/Bolles_feature-scaled.webp&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Mark-Chichester-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Mark-Chichester-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Mark Chichester&quot;}],&quot;meta_title&quot;:&quot;Garett Bolles&#39; historic pass-blocking run | PFF&quot;},{&quot;id&quot;:635492,&quot;name&quot;:&quot;nfl-wide-receiver-rankings&quot;,&quot;date&quot;:&quot;2026-09-23 13:15:00&quot;,&quot;title&quot;:&quot;NFL wide receiver rankings: Jaxon Smith-Njigba leads top 32&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[&quot;1&quot;,&quot;32&quot;,&quot;31&quot;,&quot;30&quot;,&quot;29&quot;,&quot;28&quot;,&quot;24&quot;,&quot;21&quot;,&quot;20&quot;,&quot;19&quot;,&quot;18&quot;,&quot;17&quot;,&quot;26&quot;,&quot;27&quot;,&quot;23&quot;,&quot;16&quot;,&quot;15&quot;,&quot;14&quot;,&quot;13&quot;,&quot;12&quot;,&quot;9&quot;,&quot;8&quot;,&quot;7&quot;,&quot;6&quot;,&quot;5&quot;,&quot;4&quot;,&quot;3&quot;,&quot;2&quot;,&quot;25&quot;,&quot;22&quot;,&quot;11&quot;,&quot;10&quot;],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;Find where Puka Nacua, Jaxon Smith-Njigba and the NFL top wide receivers rank entering Week 3 with PFF Grades. Check the rankings.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-wide-receiver-rankings/&quot;,&quot;multiple_authors&quot;:[&quot;Gordon McGuinness&quot;],&quot;excerpt&quot;:&quot;Jaxon Smith-Njigba leads PFF&#39;s NFL wide receiver rankings after averaging 5.54 yards per route run through the first two weeks of the season. Justin Jefferson, Puka Nacua and Ja&#39;Marr Chase round out the top four, while several early-season performances create movement throughout the top 32.&quot;,&quot;thumbnail&quot;:&quot;2026/01/Smith-Njigba-Jaxon-Feature-scaled.jpg&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Gordon McGuinness&quot;}],&quot;meta_title&quot;:&quot;NFL Wide Receiver Rankings: Top 32 WRs | PFF&quot;},{&quot;id&quot;:635505,&quot;name&quot;:&quot;nfl-quarterback-rankings&quot;,&quot;date&quot;:&quot;2026-09-23 13:00:00&quot;,&quot;title&quot;:&quot;NFL quarterback rankings: Josh Allen leads the top 32&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;See all 32 NFL quarterbacks ranked entering Week 3, with Josh Allen leading the list and PFF Grades adding context. Check the rankings.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-quarterback-rankings/&quot;,&quot;multiple_authors&quot;:[&quot;Gordon McGuinness&quot;],&quot;excerpt&quot;:&quot;Josh Allen leads PFF&#39;s NFL quarterback rankings through Week 2, followed by Joe Burrow, Lamar Jackson and Patrick Mahomes. Brock Purdy is trending up after earning a league-best 94.2 PFF grade in Week 2, while Dak Prescott and Jalen Hurts also move in a positive direction.&quot;,&quot;thumbnail&quot;:&quot;2026/09/QB_feature-2-scaled.webp&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Gordon McGuinness&quot;}],&quot;meta_title&quot;:&quot;2026 NFL Quarterback Rankings: Week 3 | PFF&quot;},{&quot;id&quot;:635485,&quot;name&quot;:&quot;nfl-qb-accuracy-report&quot;,&quot;date&quot;:&quot;2026-09-23 12:20:00&quot;,&quot;title&quot;:&quot;QB Accuracy Report: NFL Week 2&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;Rank NFL quarterbacks by CPOE, ACCOE and other PFF Advanced Stats, then explore detailed ball placement data. Unlock the data.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-qb-accuracy-report/&quot;,&quot;multiple_authors&quot;:[&quot;Mark Chichester&quot;],&quot;excerpt&quot;:&quot;The PFF QB Accuracy Index ranks NFL quarterbacks using advanced accuracy metrics, including CPOE, ACCOE and adjusted completion percentage. Explore how quarterbacks compare across PFF Grades, EPA per play and other passing metrics.&quot;,&quot;thumbnail&quot;:&quot;2026/09/Accuracy_feature-scaled.webp&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Mark-Chichester-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Mark-Chichester-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Mark Chichester&quot;}],&quot;meta_title&quot;:&quot;NFL QB Accuracy Rankings and Advanced Stats | PFF&quot;},{&quot;id&quot;:631917,&quot;name&quot;:&quot;nfl-offensive-line-rankings-2026&quot;,&quot;date&quot;:&quot;2026-09-23 09:30:00&quot;,&quot;title&quot;:&quot;2026 NFL offensive line rankings: Falcons rise, Patriots tumble following injury&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[&quot;1&quot;,&quot;32&quot;,&quot;31&quot;,&quot;30&quot;,&quot;29&quot;,&quot;28&quot;,&quot;24&quot;,&quot;21&quot;,&quot;20&quot;,&quot;19&quot;,&quot;18&quot;,&quot;17&quot;,&quot;26&quot;,&quot;27&quot;,&quot;23&quot;,&quot;16&quot;,&quot;15&quot;,&quot;14&quot;,&quot;13&quot;,&quot;12&quot;,&quot;9&quot;,&quot;8&quot;,&quot;7&quot;,&quot;6&quot;,&quot;5&quot;,&quot;4&quot;,&quot;3&quot;,&quot;2&quot;,&quot;25&quot;,&quot;22&quot;,&quot;11&quot;,&quot;10&quot;],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;See PFFs 2026 NFL offensive line rankings for all 32 teams. Check the rankings.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-offensive-line-rankings-2026/&quot;,&quot;multiple_authors&quot;:[&quot;Gordon McGuinness&quot;],&quot;excerpt&quot;:&quot;The 2026 NFL offensive line rankings have been updated after Week 1, with the Denver Broncos holding the No. 1 spot. The Philadelphia Eagles and Tampa Bay Buccaneers round out the top three, while injuries and lineup changes affect units throughout the league.&quot;,&quot;thumbnail&quot;:&quot;2026/09/OL_feature-scaled.webp&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Gordon-McGuinness-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Gordon McGuinness&quot;}],&quot;meta_title&quot;:&quot;2026 NFL Offensive Line Rankings: All 32 Teams | PFF&quot;},{&quot;id&quot;:636279,&quot;name&quot;:&quot;nfl-week-3-power-rankings-seahawks-rise-bears-plummet-amid-injury&quot;,&quot;date&quot;:&quot;2026-09-23 09:30:00&quot;,&quot;title&quot;:&quot;NFL Week 3 Power Rankings: Seahawks rise, Bears plummet amid injury&quot;,&quot;author&quot;:&quot;Mark Chichester&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[&quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,&quot;5&quot;,&quot;6&quot;,&quot;7&quot;,&quot;8&quot;,&quot;9&quot;,&quot;10&quot;,&quot;11&quot;,&quot;12&quot;,&quot;13&quot;,&quot;14&quot;,&quot;15&quot;,&quot;16&quot;,&quot;23&quot;,&quot;27&quot;,&quot;26&quot;,&quot;17&quot;,&quot;18&quot;,&quot;19&quot;,&quot;20&quot;,&quot;21&quot;,&quot;22&quot;,&quot;24&quot;,&quot;25&quot;,&quot;28&quot;,&quot;29&quot;,&quot;30&quot;,&quot;31&quot;,&quot;32&quot;],&quot;league_week&quot;:&quot;nfl:3&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-week-3-power-rankings-seahawks-rise-bears-plummet-amid-injury/&quot;,&quot;multiple_authors&quot;:[&quot;Bradley Locker&quot;],&quot;excerpt&quot;:&quot;The Buffalo Bills remain on top of PFF&#39;s NFL Power Rankings through two weeks of the 2026 season.&quot;,&quot;thumbnail&quot;:&quot;2025/12/SMith-Njigba-Jaxon-Feature-scaled.jpg&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:&quot;https://media.pff.com/2025/11/Bradley-min.png&quot;,&quot;thumbnail&quot;:&quot;https://media.pff.com/2025/11/Bradley-min-150x150.png&quot;},&quot;display_name&quot;:&quot;Bradley Locker&quot;}],&quot;meta_title&quot;:&quot;&quot;},{&quot;id&quot;:636226,&quot;name&quot;:&quot;nfl-edge-defender-rankings-highest-graded-players-through-week-2&quot;,&quot;date&quot;:&quot;2026-09-22 18:24:29&quot;,&quot;title&quot;:&quot;NFL Edge Defender Rankings: Highest-graded players through Week 2&quot;,&quot;author&quot;:&quot;PFF.com&quot;,&quot;content&quot;:&quot;&quot;,&quot;media&quot;:null,&quot;players&quot;:[],&quot;teams&quot;:[],&quot;league_week&quot;:&quot;&quot;,&quot;categories&quot;:[{&quot;id&quot;:1,&quot;name&quot;:&quot;NFL&quot;,&quot;slug&quot;:&quot;nfl&quot;}],&quot;meta_description&quot;:&quot;See the top 32 NFL edge defenders through Week 2, led by T.J. Watt and Nick Herbig. Explore PFF Grades and pass-rush data. Check the rankings.&quot;,&quot;permalink&quot;:&quot;https://www.pff.com/news/nfl-edge-defender-rankings-highest-graded-players-through-week-2/&quot;,&quot;multiple_authors&quot;:[&quot;PFF.com&quot;],&quot;excerpt&quot;:&quot;T.J. Watt leads PFF&#39;s NFL edge defender rankings through Week 2 with a 91.3 overall grade. Nick Herbig ranks second, while Aidan Hutchinson owns a position-leading 91.1 pass-rush grade.&quot;,&quot;thumbnail&quot;:&quot;2025/07/Steelers-Feature-scaled.jpg&quot;,&quot;caption&quot;:&quot;&quot;,&quot;premium_content&quot;:false,&quot;related_post_ids&quot;:[],&quot;named_article_type&quot;:&quot;standard&quot;,&quot;authors_meta&quot;:[{&quot;avatar&quot;:{&quot;full&quot;:null,&quot;thumbnail&quot;:null},&quot;display_name&quot;:&quot;PFF.com&quot;}],&quot;meta_title&quot;:&quot;NFL edge defender rankings: T.J. Watt leads through Week 2 | PFF&quot;}],&quot;vertical&quot;:&quot;NFL&quot;}"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g-span-12 g-span-3-lg g-start-10-lg">
+<div id="news-vertical-tools" class="g-grid">
+
+
+  <div class="g-span-12">
+    <div class="g-card g-card--secondary g-card--border-gray m-featured-tools" data-gtm-id="featured_tools">
+      <header class="g-card__header">
+        <div class="g-h3 g-ma-0">NFL Featured Tools</div>
+      </header>
+      <div class="g-card__content">
+        <ul class="m-tool-list">
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://www.pff.com/qb-annual">
+      <div class="g-h5 g-ma-0">2026 NFL QB Annual</div>
+</a>
+  </div>
+
+
+</li>
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://newsletters.pff.com/">
+      <div class="g-h5 g-ma-0">PFF Newsletters (FREE!)</div>
+</a>
+  </div>
+
+
+</li>
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://www.pff.com/draft/nfl-mock-draft-simulator">
+      <div class="g-h5 g-ma-0">2027 Mock Draft Simulator</div>
+</a>
+  </div>
+
+
+</li>
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://www.pff.com/nfl/grades/position/qb">
+      <div class="g-h5 g-ma-0">NFL Player Grades</div>
+</a>
+  </div>
+
+
+</li>
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://apps.apple.com/us/app/pff-fantasy-betting-news/id1582525285">
+      <div class="g-h5 g-ma-0">The PFF App</div>
+</a>
+  </div>
+
+
+</li>
+
+
+<li class="m-tool-list__item">
+  <div class="m-tool-list__header">
+
+<a class="g-link--gray-darker m-tool-list__link" href="https://premium.pff.com/nfl/teams/">
+      <div class="g-h5 g-ma-0">Premium Stats</div>
+</a>
+  </div>
+
+    <p class="m-excerpt m-excerpt--small">Our exclusive database, featuring the most in-depth collection of NFL player performance data.</p>
+
+
+    <p class="m-micro-copy g-mb-1">Available with</p>
+
+<button class=" pff-plus-badge" onclick="document.dispatchEvent(new Event('pffBadgeLockClick'))">
+  <img src="/images/webui/pff_plus_logo.svg" alt="PFF+" class=" m-cta__sub-logo" />
+</button>
+
+
+
+</li>
+
+        </ul>
+      </div>
+      <footer class="g-card__footer">
+        <a href="/tools" class="g-btn g-btn--block">More Tools</a>
+      </footer>
+    </div>
+  </div>
+
+</div>
+
+<div id="news-vertical-non-tools" class="g-grid">
+
+
+      <div class="g-span-12 g-span-6-sm g-span-12-lg">
+<div class="m-cta m-cta--sidebar" data-gtm-id="cta_premium_sidebar">
+  <header class="m-cta__header">
+    <div class="g-h5 m-cta__title">Subscriptions</div>
+  </header>
+
+  <div class="m-cta__sub m-cta__sub--sidebar g-mb-4">
+    <div class="m-cta__sub-summary">
+<button class=" pff-plus-badge" onclick="document.dispatchEvent(new Event('pffBadgeLockClick'))">
+  <img src="/images/webui/pff_plus_logo.svg" alt="PFF+" class="g-mb-2 m-cta__sub-logo" />
+</button>
+
+      <p class="m-micro-copy m-micro-copy--light m-micro-copy--small g-mb-0">
+        Unlock the Fantasy Draft Kit, with Live Draft Assistant, Fantasy Mock Draft Sim, Waiver Wire, Rankings & PFF Grades
+      </p>
+    </div>
+    <div class="m-cta__sub-pricing">
+        <div class="m-cta-price">$9.99/mo</div>
+        <span class="m-sub-or">OR</span>
+        <div class="m-cta-price">$99.99/yr</div>
+    </div>
+  </div>
+
+  <footer class="m-cta__footer">
+    <a href="https://www.pff.com/join?product=plus&amp;referrer=premium-news-1" class="g-btn g-btn--block g-btn--green g-mb-2">Sign Up</a>
+  </footer>
+</div>
+
+      </div>
+
+
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+      </main>
+<div class="m-footer d-print-none" data-gtm-id="footer">
+
+    <div class="m-footer__toc">
+      <div class="g-container g-container--padded">
+        <div class="m-footer__toc-inner">
+          <div class="m-footer__section">
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">About Us</div>
+              <ul class="m-footer__link-list">
+                <li><a href="/jobs">Jobs</a></li>
+                <li>
+                  <a href="https://b2b.pff.com/news" target="_blank" rel="noopener"
+                    >Newsroom</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">News & Analysis</div>
+              <ul class="m-footer__link-list">
+                <li><a href="/nfl">NFL</a></li>
+                <li><a href="/betting">Betting</a></li>
+                <li><a href="/fantasy">Fantasy</a></li>
+                <li><a href="/dfs">DFS</a></li>
+                <li><a href="/college">College</a></li>
+                <li><a href="/draft">NFL Draft</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="m-footer__section">
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">Tools</div>
+              <ul class="m-footer__link-list">
+                <li><a href="/betting/player-props">Player Props</a></li>
+                <li><a href="/betting/first-touchdown">First TD Finder</a></li>
+                <li><a href="/nfl/scores">NFL Score And Schedules</a></li>
+                <li><a href="/nfl/grades/position/qb">Player Grades</a></li>
+                <li><a href="https://premium.pff.com/nfl/teams">Premium Stats</a>
+                </li>
+                <li><a href="/nfl-power-rankings">Power Rankings</a></li>
+                <li><a href="/tools/matchups">Matchups</a></li>
+                <li>
+                  <a href="/news/fantasy-football-draft-kit-2026"
+                    >Fantasy Draft Kit</a
+                  >
+                </li>
+                <li><a href="/fantasy/rankings">Fantasy Rankings</a></li>
+                <li>
+                  <a href="/draft/big-board">
+                    Big Board 2027
+                  </a>
+                </li>
+                <li>
+                  <a href="/draft/nfl-mock-draft-simulator">Mock Draft Simulator</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="m-footer__group">
+              <div class="g-label g-label--light g-mb-2">Partnerships</div>
+              <ul class="m-footer__link-list">
+                <li>
+                  <a href="https://sportsdata.io" target="_blank">
+                    <img
+                      src="https://sportsdata.io/assets/images/badges/sportsdataio_light_100.png?v=1"
+                      alt="Sports Data Provider"
+                      width="100"
+                      height="19"
+                    />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="m-footer__section">
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">Join PFF</div>
+              <ul class="m-footer__link-list">
+
+                  <li><a href="https://www.pff.com/join?product=plus&amp;referrer=footer">Subscribe</a></li>
+
+                <li><a href="/pff-offers">Special Offers</a></li>
+                <li><a href="https://shop.pff.com">PFF Merchandise</a></li>
+              </ul>
+            </div>
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">Customer Service</div>
+              <ul class="m-footer__link-list">
+                <li>
+                  <a
+                    href="https://profootballfocussupport.zendesk.com/hc/en-us/requests/new"
+                    >Contact Support</a
+                  >
+                </li>
+                <li>
+                  <a href="https://profootballfocussupport.zendesk.com/hc/en-us"
+                    >Frequently Asked Questions</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="m-footer__section">
+            <div class="m-footer__group">
+              <div class="g-h4 u-text-white g-mb-4">Follow Us</div>
+              <ul class="m-footer__link-list">
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-twitter"></use>
+                  </svg>
+                  <a
+                    href="https://twitter.com/pff"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Twitter</a
+                  >
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-instagram"></use>
+                  </svg>
+                  <a
+                    href="https://www.instagram.com/profootballfocus/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Instagram</a
+                  >
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-youtube"></use>
+                  </svg>
+                  <a
+                    href="https://www.youtube.com/profootballfocus"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >YouTube</a
+                  >
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-facebook"></use>
+                  </svg>
+                  <a
+                    href="https://www.facebook.com/ProFootballFocus/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Facebook</a
+                  >
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-discord"></use>
+                  </svg>
+                  <a
+                    href="https://discord.gg/2WEqu8e7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Discord</a
+                  >
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-podcast"></use>
+                  </svg>
+                  <a href="/podcasts">Podcasts</a>
+                </li>
+                <li>
+                  <svg
+                    class="g-icon g-mr-1"
+                    width="24"
+                    height="24"
+                    aria-hidden="true"
+                    focusable="false"
+                    role="presentation"
+                  >
+<use href="https://www.pff.com/images/icon-symbols.svg#g-icon-rss"></use>
+                  </svg>
+                  <a href="/pff-rss">RSS</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="m-footer__base">
+      <div class="g-container g-container--padded">
+        <div class="m-footer__base-inner">
+          <div class="m-footer__secondary-links">
+            <a href="/sitemap">Site Map</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Use</a>
+            <a href="/accessibility-statement">Accessibility Statement</a>
+            <a
+              href="#"
+              onclick="event.preventDefault(); document.dispatchEvent(new Event('cookieSettingsClick'))"
+            >
+              Cookie Settings
+            </a>
+
+          </div>
+          <div class="m-footer__copyright">
+            <img src="/images/pff-logo.svg" alt="PFF logo" class="kyber-svg kyber-svg-pff-logo g-svg g-svg-pff-logo site-nav__logo g-inline">
+            &copy; 2026 PFF - all rights reserved.
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+    </div>
+
+    <script defer src="/js/shared_nav-465b68e474f0d5003ca0dff50a5f7085.js?vsn=d"></script>
+    <script defer src="/js/site_nav_next-8ca5d554de01d1ab5cca393ece68f192.js?vsn=d"></script>
+
+      <script defer src="/js/default_entry-29ace54c6195de26dc50e042989857b5.js?vsn=d"></script>
+
+      <script defer src="/js/lite_yt_embed_entry-654393aae9a055c826328ec1eb7f400f.js?vsn=d"></script>
+
+      <script defer src="/js/news_article_paywall_entry-dc384b7a3a25442ab5469aec0c7b34a0.js?vsn=d"></script>
+
+      <script defer src="/js/news_article-c16436592ac95687454e1b14a11a6b3a.js?vsn=d"></script>
+
+    <!--
+      Klaviyo Site Tracking Setup:
+      1. Initialize _klOnsite queue unconditionally (no cookies, just an array) - enables event queueing
+      2. Track page views and identify users unconditionally (queues in _klOnsite)
+      3. Load actual Klaviyo library only after marketing consent (sets cookies, requires consent)
+    -->
+    <script type="text/javascript">
+      !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+      (!'') ||
+        klaviyo.push(['identify', {
+          'email' : ''
+        }]
+      );
+      klaviyo.track("Viewed Page", {
+        url: window.location.href
+      })
+    </script>
+    <script type="text/plain" data-cookieconsent="marketing" src="https://static.klaviyo.com/onsite/js/U7MhhG/klaviyo.js"></script>
+  </body>
+</html>
