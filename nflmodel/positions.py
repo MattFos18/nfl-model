@@ -199,6 +199,34 @@ def pfr_def_games() -> pd.DataFrame:
     return a.groupby(["game_id", "pfr_player_id"], as_index=False)[["cov_yds", "cov_int", "press", "sacks", "press_ns", "targets"]].sum()
 
 
+# Cornerbacks (24 Sep 2026, experiments/cb_value.py, reports/cb_value.csv): coverage per TARGET, not per snap, scaled to
+# a typical corner's target volume: (coverage yards saved + interceptions, in EPA) / (targets + 150), times the
+# league's corner targets per snap; 0.99 a game, no season fade. Per snap, a corner's value swung with how often he
+# was thrown at, and a fast fade rode a few games: the list had Nahshon Wright second and Surtain 27th. Per target with a
+# long memory predicts a corner's next-season coverage best on 2019-22 and better held out, and its top ten holds six
+# of FOX's 2026 top ten (two before). Run stops and pressures are left out for corners: adding them moved slot
+# blitzers up and predicted worse.
+CB_DECAY, CB_FADE, CB_K = 0.99, 1.0, 150.0
+
+
+def cb_rates(dg: pd.DataFrame, roles: dict, season: int, week: int) -> tuple[dict, float]:
+    """Each corner's coverage rate in EPA per snap as of (season, week), and the replacement level (25th percentile of
+    corners with 40+ weighted targets)."""
+    ids = {p for p, r in roles.items() if r == "CB"}
+    d = dg[dg.player_id.isin(ids) & (dg.season >= 2018) & ((dg.season < season) | ((dg.season == season) & (dg.week < week)))].sort_values(["season", "week"])
+    if not len(d):
+        return {}, 0.0
+    t_snap = float(d.targets.sum() / d.plays.sum())
+    val = DEF_W["cov_yds"] * d.cov_yds.values + DEF_W["cov_int"] * d.cov_int.values
+    d = d.assign(v=val); out, wt = {}, {}
+    for pid, g in d.groupby("player_id"):
+        w = CB_DECAY ** np.arange(len(g))[::-1] * (CB_FADE ** (season - g.season.values) if CB_FADE != 1.0 else 1.0)
+        tw = float((w * g.targets.values).sum())
+        out[pid] = float((w * g.v.values).sum()) / (tw + CB_K) * t_snap; wt[pid] = tw
+    reg = [out[p] for p in out if wt[p] >= 40]
+    return out, float(np.percentile(reg, 25)) if reg else 0.0
+
+
 def with_ids(sn: pd.DataFrame, names: dict) -> pd.DataFrame:
     """Snap-count rows with the gsis id: by PFR id through the rosters, else the name (one row per game and player)."""
     sn = sn.copy(); sn["player_id"] = sn.pfr_player_id.map(pfr_ids())
@@ -310,6 +338,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     # skill (players.py logic) and QB, defenders, kickers through PlayerValues on each table
     pv_skill = PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, by_team = _usage_frames(pg)
     roles = defender_roles(dg)
+    cb_rate, cb_repl = cb_rates(dg, roles, season, week)
     dg = dg.assign(role=dg.player_id.map(roles))   # the role is the position group, so the replacement level is per group
     pv_def = PlayerValues(dg, DEF_DECAY, DEF_K, season_fade=DEF_FADE); pv_kick = PlayerValues(kg, 0.99, 40.0)
     from .ratings import QBRatings, DEFAULT as RD
@@ -348,12 +377,14 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                 rec = last8(g)
                 if len(rec):
                     role = roles.get(r.gsis_id, DEF_ROLE.get(pos, "CB")); v, n = pv_def.value(r.gsis_id, role, season, week); pr = pv_def.prior(role, season)
+                    if role == "CB" and r.gsis_id in cb_rate:   # corners: coverage per target (cb_rates)
+                        v, pr = cb_rate[r.gsis_id], cb_repl
                     snap_share = float(rec.plays.mean())
                     # the unit's snaps in each game he played, for the team he played it for: a player who changed teams
                     # was divided by his new team's snaps in games it did not play (share 0; 24 Sep 2026)
                     tsn = snaps.merge(rec[["game_id", "team"]].drop_duplicates(), on=["game_id", "team"]).groupby("game_id").defense_snaps.max().mean()
                     share = float(snap_share / tsn) if tsn and not np.isnan(tsn) else 0.0
-                    row.update({"games": int(len(rec)), "plays_per_game": round(snap_share, 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4), "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": f"Defensive EPA saved per snap (coverage, pressures, interceptions, run stops) x snap share, against {role} replacement", "def_role": role})
+                    row.update({"games": int(len(rec)), "plays_per_game": round(snap_share, 1), "share": round(min(share, 1.0), 3), "epa_per_play": round(v, 4), "value_above_replacement": round((v - pr) * min(share, 1.0), 4), "basis": (f"Coverage per target (yards saved and interceptions, in EPA) at a typical corner's target volume, x snap share, against CB replacement" if role == "CB" else f"Defensive EPA saved per snap (coverage, pressures, interceptions, run stops) x snap share, against {role} replacement"), "def_role": role})
             if len(cov) and r.gsis_id in cov.index:
                 row.update({k: (int(v) if k in ("cov_games", "cov_targets") else float(v)) for k, v in cov.loc[r.gsis_id].items()})
                 row["cov_league_ypt"] = round(cov_league["ypt"], 2); row["cov_league_rating"] = round(cov_league["rating"], 1)
