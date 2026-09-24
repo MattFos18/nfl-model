@@ -372,7 +372,8 @@ def main():
     for t in teams:
         rows = d[d.team == t]
         allc = ["game_id"] + cols
-        recs = [[(None if (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)) if (c.startswith("mf_") and isinstance(v, (float, np.floating))) else clean(v) for c, v in zip(allc, r)] for r in rows[allc].itertuples(index=False, name=None)]   # model inputs at six decimals so a breakdown rebuilds the expected points
+        recs = [[(None if (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)) if (c.startswith("mf_") and isinstance(v, (float, np.floating))) else clean(v) for c, v in zip(allc, r)] for r in rows[allc].itertuples(index=False, name=None)]
+        recs = [[int(v) if isinstance(v, float) and v == v and v == int(v) and abs(v) < 1e15 else v for v in r] for r in recs]   # 41.0 -> 41: whole numbers without the ".0" (the page files are near the 64 MB cap)   # model inputs at six decimals so a breakdown rebuilds the expected points
         players = [{k: clean(v) for k, v in r.items()} for r in pvals[pvals.team == t].drop(columns=["team"]).to_dict("records")]
         roster = [{k: clean(v) for k, v in r.items()} for r in rnow[rnow.team == t].drop(columns=["team"]).to_dict("records")] if len(rnow) else []
         (WEB / f"{t}.js").write_text(f'window.TEAMDATA=window.TEAMDATA||{{}};window.TEAMDATA["{t}"]=' + json.dumps({"cols": allc, "rows": recs, "players": players, "roster": roster}, default=clean, separators=(",", ":")) + ";")

@@ -211,6 +211,7 @@ def pfr_def_games() -> pd.DataFrame:
 #   LB    every part per snap plus 0.75 EPA per credited play (tackle, sack, pass defended...), 0.98 / 0.9: the only
 #         shape better on both windows; weights 0.1 to 1.5 swept, 0.75 best on 2019-22 (All-Pro linebackers are the
 #         ones who make the plays; the pure EPA value ranked Nakobe Dean first and Jack Campbell eleventh)
+PARTS: dict = {}   # role_rates fills it: each defender's parts per 100 snaps
 ROLE_SPEC = {"CB": dict(kind="t", decay=0.99, fade=1.0, k=150.0, a=0.0), "S": dict(kind="t", decay=0.99, fade=1.0, k=150.0, a=0.5),
              "IDL": dict(kind="t", decay=0.99, fade=1.0, k=150.0, a=0.5), "EDGE": dict(kind="snap", decay=0.98, fade=0.9, k=300.0),
              "LB": dict(kind="snap", decay=0.98, fade=0.9, k=300.0, tackle=0.75)}
@@ -228,10 +229,16 @@ def role_rates(dg: pd.DataFrame, roles: dict, season: int, week: int) -> tuple[d
     rush = DEF_W["sacks"] * d.sacks.values + DEF_W["press_ns"] * d.press_ns.values
     d = d.assign(cov_v=cov, other_v=rush + d.run_stop.values, all_v=cov + rush + d.run_stop.values + d.ff_epa.values)
     out, wsn, repl = {}, {}, {}
+    PARTS.clear()
     for pid, g in d[d.player_id.map(roles).isin(ROLE_SPEC)].groupby("player_id"):
         sp = ROLE_SPEC[roles[pid]]
         w = sp["decay"] ** np.arange(len(g))[::-1] * (sp["fade"] ** (season - g.season.values) if sp["fade"] != 1.0 else 1.0)
         n = float((w * g.plays.values).sum()); wsn[pid] = n
+        # what the value is made of, EPA per 100 snaps on the same weights (the Players tab shows it)
+        per100 = lambda v: round(100 * float((w * v).sum()) / (n + 1e-9), 2)
+        PARTS[pid] = {"part_coverage": per100(g.cov_v.values), "part_rush": per100(DEF_W["sacks"] * g.sacks.values + DEF_W["press_ns"] * g.press_ns.values),
+                      "part_run_stops": per100(g.run_stop.values), "part_forced_fumbles": per100(g.ff_epa.values), "part_credited_plays": per100(g.credited.values),
+                      "targets_per_100": per100(g.targets.values), "pressures_per_100": per100(g.press.values)}
         if sp["kind"] == "snap":
             out[pid] = float((w * (g.all_v.values + sp.get("tackle", 0.0) * g.credited.values)).sum()) / (n + sp["k"])
         else:
@@ -394,6 +401,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                     role = roles.get(r.gsis_id, DEF_ROLE.get(pos, "CB")); v, n = pv_def.value(r.gsis_id, role, season, week); pr = pv_def.prior(role, season)
                     if role in ROLE_SPEC and r.gsis_id in grp_rate:   # CB, S, IDL, EDGE: their group's recipe (role_rates)
                         v, pr = grp_rate[r.gsis_id], grp_repl[role]
+                    row.update(PARTS.get(r.gsis_id, {}))
                     snap_share = float(rec.plays.mean())
                     # the unit's snaps in each game he played, for the team he played it for: a player who changed teams
                     # was divided by his new team's snaps in games it did not play (share 0; 24 Sep 2026)
