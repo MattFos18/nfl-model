@@ -1,6 +1,6 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.89). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.3 / 18.27 yards off on receiving, 18.12 / 17.28 on rushing and 57.68 / 57.24 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-23 23:59 UTC.
+Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.89). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.3 / 18.27 yards off on receiving, 18.12 / 17.28 on rushing and 57.68 / 57.24 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-24 00:11 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2327,34 +2327,34 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0037561  | Markquese Bell          | def_solo_tackles |   1.7   |         59.5  | live   |
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0037692  | Brandon Aubrey          | kick_points      |   7.7   |         24.5  | live   |
 |     2026 |      3 | 2026_03_BAL_DAL | DAL    | 00-0037692  | Brandon Aubrey          | field_goals      |   1.75  |         24.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_yards        |  44.8   |          7.7  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_yards        |  44.7   |          7.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_catches      |   5     |          7.7  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_td           |   0.36  |          7.7  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_td           |   0.361 |          7.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_targets      |   7.7   |          7.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039338  | Brock Bowers            | rec_longest      |  17     |          7.7  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_yards        |  38.1   |          6.3  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_yards        |  38     |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_catches      |   3.7   |          6.3  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_td           |   0.254 |          6.3  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_td           |   0.255 |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_targets      |   6.3   |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rec_longest      |  16.9   |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_yards        |  28.9   |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_catches      |   4.1   |          6.3  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_td           |   0.295 |          6.3  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_td           |   0.296 |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_targets      |   6.3   |          6.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040122  | Ashton Jeanty           | rec_longest      |  12.3   |          6.3  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_yards        |  28.6   |          5.5  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_yards        |  28.5   |          5.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_catches      |   3.5   |          5.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_td           |   0.182 |          5.5  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_td           |   0.183 |          5.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_targets      |   5.5   |          5.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0039066  | Michael Mayer           | rec_longest      |  12.6   |          5.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_yards        |  22.8   |          4.1  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_catches      |   2.1   |          4.1  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_td           |   0.176 |          4.1  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_targets      |   4.1   |          4.1  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_longest      |  12.1   |          4.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_yards        |  22.8   |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_catches      |   2.1   |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_td           |   0.177 |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_targets      |   4     |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0037291  | Jalen Nailor            | rec_longest      |  12.1   |          4    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_yards        |  18     |          3.3  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_catches      |   2.1   |          3.3  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_td           |   0.12  |          3.3  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_catches      |   2     |          3.3  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_td           |   0.121 |          3.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_targets      |   3.3   |          3.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040729  | Jack Bech               | rec_longest      |  12.1   |          3.3  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0034365  | Ian Thomas              | rec_yards        |   9     |          1.7  | live   |
@@ -2375,7 +2375,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_yards       |   4.9   |          1.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_td          |   0.039 |          1.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_attempts    |   1.2   |          1.2  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_rec_yards   |  43     |          1.2  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_rec_yards   |  42.9   |          1.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0038563  | Tre Tucker              | rush_longest     |   6.8   |          1.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0029604  | Kirk Cousins            | rush_yards       |   3.6   |          1.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0029604  | Kirk Cousins            | rush_td          |   0.041 |          1.1  | live   |
@@ -2413,44 +2413,44 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040641  | Darien Porter           | def_tackles      |   2.9   |         65.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040641  | Darien Porter           | def_sacks        |   0.04  |         65.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0040641  | Darien Porter           | def_solo_tackles |   1.9   |         65.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0035269  | Matt Gay                | kick_points      |   6.6   |         20    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0035269  | Matt Gay                | field_goals      |   1.59  |         20    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_yards        |  66     |         11    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_catches      |   6.6   |         11    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_td           |   0.514 |         11    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_targets      |  11     |         11    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_longest      |  23.8   |         11    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0035269  | Matt Gay                | kick_points      |   6.7   |         20.25 | live   |
+|     2026 |      3 | 2026_03_LV_NO   | LV     | 00-0035269  | Matt Gay                | field_goals      |   1.59  |         20.25 | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_yards        |  66.1   |         11.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_catches      |   6.7   |         11.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_td           |   0.511 |         11.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_targets      |  11.1   |         11.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037239  | Chris Olave             | rec_longest      |  23.8   |         11.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele           | rec_yards        |  36     |          6.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele           | rec_catches      |   4     |          6.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele           | rec_td           |   0.29  |          6.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele           | rec_targets      |   6.7   |          6.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039424  | Devaughn Vele           | rec_longest      |  15.4   |          6.7  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_yards        |  35.8   |          5.8  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_yards        |  35.9   |          5.8  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_catches      |   3.9   |          5.8  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_td           |   0.217 |          5.8  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_td           |   0.216 |          5.8  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_targets      |   5.8   |          5.8  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036040  | Juwan Johnson           | rec_longest      |  18.4   |          5.8  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_yards        |  21     |          4.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_catches      |   3.3   |          4.7  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_td           |   0.162 |          4.7  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_td           |   0.161 |          4.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_targets      |   4.7   |          4.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0033906  | Alvin Kamara            | rec_longest      |  10.3   |          4.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_yards        |  21.9   |          4.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_catches      |   3     |          4.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_td           |   0.238 |          4.5  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_td           |   0.237 |          4.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_targets      |   4.5   |          4.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rec_longest      |  11.6   |          4.5  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_yards        |  21.3   |          4.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_catches      |   2.8   |          4.2  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_td           |   0.202 |          4.2  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_td           |   0.201 |          4.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_targets      |   4.2   |          4.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035644  | Noah Fant               | rec_longest      |  11.2   |          4.2  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_yards        |  19.5   |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_yards        |  19.6   |          4    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_catches      |   2.2   |          4    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_td           |   0.165 |          4    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_td           |   0.164 |          4    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_targets      |   4     |          4    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0037231  | Kevin Austin Jr.        | rec_longest      |  12.8   |          4    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rec_yards        |  18.8   |          3.7  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rec_yards        |  18.9   |          3.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rec_catches      |   2.5   |          3.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rec_td           |   0.146 |          3.7  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rec_targets      |   3.7   |          3.7  | live   |
@@ -2458,7 +2458,7 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_yards       |  36     |         11.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_td          |   0.272 |         11.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_attempts    |  11.1   |         11.1  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_rec_yards   |  54.8   |         11.1  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_rec_yards   |  54.9   |         11.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039373  | Audric Estimé           | rush_longest     |  10.5   |         11.1  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rush_yards       |  30.9   |         10.2  | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036973  | Travis Etienne          | rush_td          |   0.226 |         10.2  | live   |
@@ -2482,32 +2482,32 @@ Volume (the team's plays per game moved by the game script from the closing spre
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040743  | Tyler Shough            | pass_completions |  21.3   |         38    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040743  | Tyler Shough            | pass_rush_yards  | 237.1   |         38    | live   |
 |     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040743  | Tyler Shough            | pass_longest     |  32.8   |         38    | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_tackles      |   5.3   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_sacks        |   0.17  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_solo_tackles |   2.8   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_tackles      |   4.3   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_sacks        |   0.11  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_solo_tackles |   2.4   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_tackles      |   3.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_sacks        |   0.05  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_solo_tackles |   2.1   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_tackles      |   3.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_sacks        |   0.08  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_solo_tackles |   2.1   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_tackles      |   3.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_sacks        |   0.03  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_solo_tackles |   2.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_tackles      |   3.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_sacks        |   0.03  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_solo_tackles |   2.3   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_tackles      |   3.1   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_sacks        |   0.26  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_solo_tackles |   1.7   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_tackles      |   3.1   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_sacks        |   0.05  |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_solo_tackles |   1.9   |         55.9  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034161  | Daniel Carlson          | kick_points      |   7.4   |         23.5  | live   |
-|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034161  | Daniel Carlson          | field_goals      |   1.72  |         23.5  | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_tackles      |   5.3   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_sacks        |   0.17  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035316  | Kaden Elliss            | def_solo_tackles |   2.8   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_tackles      |   4.3   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_sacks        |   0.11  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036927  | Pete Werner             | def_solo_tackles |   2.4   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_tackles      |   3.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_sacks        |   0.05  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034361  | Justin Reid             | def_solo_tackles |   2.1   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_tackles      |   3.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_sacks        |   0.08  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0036253  | Julian Blackmon         | def_solo_tackles |   2.1   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_tackles      |   3.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_sacks        |   0.03  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0039860  | Kool-Aid McKinstry      | def_solo_tackles |   2.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_tackles      |   3.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_sacks        |   0.03  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0040643  | Jonas Sanker            | def_solo_tackles |   2.3   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_tackles      |   3.1   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_sacks        |   0.26  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0035402  | Carl Granderson         | def_solo_tackles |   1.7   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_tackles      |   3.1   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_sacks        |   0.05  |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0038588  | Jordan Howden           | def_solo_tackles |   1.9   |         56    | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034161  | Daniel Carlson          | kick_points      |   7.4   |         23.25 | live   |
+|     2026 |      3 | 2026_03_LV_NO   | NO     | 00-0034161  | Daniel Carlson          | field_goals      |   1.71  |         23.25 | live   |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039075  | Puka Nacua              | rec_yards        |  74.9   |         11.4  | live   |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039075  | Puka Nacua              | rec_catches      |   7.2   |         11.4  | live   |
 |     2026 |      3 | 2026_03_LA_DEN  | LA     | 00-0039075  | Puka Nacua              | rec_td           |   0.533 |         11.4  | live   |
