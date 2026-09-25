@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # 25 Sep 2026: the newest main when the run starts, not main as it was when a queued run was dispatched (building on that and rebasing at the end spliced two runs' generated docs together)
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
