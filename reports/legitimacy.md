@@ -2,8 +2,8 @@
 
 1791 regular-season games 2019 to 2025, weeks 1 to 17, walk-forward predictions.
 
-- Encompassing, 2019-22: margin = -0.88 + 0.723 x line + 0.323 x model (model t = 1.92). A model weight above zero with t past 2 means the line does not already contain what the model knows.
-- Encompassing, 2023-25: margin = 0.16 + 0.933 x line + 0.253 x model (model t = 1.20). A model weight above zero with t past 2 means the line does not already contain what the model knows.
+- Encompassing, 2019-22: margin = -0.88 + 0.723 x line + 0.324 x model (model t = 1.92). A model weight above zero with t past 2 means the line does not already contain what the model knows.
+- Encompassing, 2023-25: margin = 0.16 + 0.933 x line + 0.252 x model (model t = 1.20). A model weight above zero with t past 2 means the line does not already contain what the model knows.
 - Encompassing, all: margin = -0.43 + 0.788 x line + 0.311 x model (model t = 2.37). A model weight above zero with t past 2 means the line does not already contain what the model knows.
 
 - Placebo: the real 4+ record is 120-72 (62.5%). Shuffling the model's lines within each week 2,000 times gives a mean of 51.2% and a 95th percentile of 53.1%; 0.00% of shuffles reach the real record.

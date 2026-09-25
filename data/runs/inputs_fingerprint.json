@@ -341,6 +341,11 @@
 ],
 [
 "LA",
+"Kamren Kinchens",
+"Doubtful"
+],
+[
+"LA",
 "Puka Nacua",
 "Doubtful"
 ],
@@ -531,6 +536,16 @@
 ],
 [
 "SEA",
+"Julian Love",
+"Out"
+],
+[
+"SEA",
+"Ty Okada",
+"Out"
+],
+[
+"SEA",
 "Zach Charbonnet",
 "Out"
 ],
@@ -552,12 +567,17 @@
 [
 "SF",
 "James Thompson Jr.",
-"Doubtful"
+"Out"
 ],
 [
 "SF",
 "Nick Bosa",
-"Doubtful"
+"Out"
+],
+[
+"SF",
+"Romello Height",
+"Out"
 ],
 [
 "TB",
@@ -577,7 +597,12 @@
 [
 "WAS",
 "Chig Okonkwo",
-"Doubtful"
+"Out"
+],
+[
+"WAS",
+"Frankie Luvu",
+"Out"
 ],
 [
 "WAS",
@@ -587,6 +612,11 @@
 [
 "WAS",
 "Nick Cross",
+"Out"
+],
+[
+"WAS",
+"Sam Cosmi",
 "Out"
 ]
 ],
@@ -652,5 +682,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 21:32 UTC"
+"written_at": "2026-09-25 22:24 UTC"
 }
