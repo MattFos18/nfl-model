@@ -567,7 +567,7 @@ def export_week(feats=None, games=None, pred=None):
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         cal_s, cal_t = P.calibration(pred, games.reset_index(), cur_season)   # the calibrated cover and over odds as a function of the edge, so the card can re-price a moved line the same way the run did
-        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
+        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW, "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
 
@@ -675,6 +675,7 @@ def export_backtest_js(games=None, feats=None):
         bk["coef"] = allv[[f"coef_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["mean"] = allv[[f"mean_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["intercept"] = allv["intercept"].round(5)
     if "home_blend_adj" in allv.columns:
         bk["home_adj"] = allv["home_blend_adj"].round(6); bk["away_adj"] = allv["away_blend_adj"].round(6)
+        bk["tree_spread"] = (allv["home_m_trees"] - allv["away_m_trees"]).round(4)   # the trees shadow rule's number (Bets -> Rules compared)
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot

@@ -14,7 +14,9 @@ SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to deci
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction)
 SHADOWS = {"shadow45": (4.5, None, "4.5+ edge"), "shadowdog": (4.0, "dog", "4+ edge, model's side the underdog or pick'em"),
            "shadowearly": (4.0, "wk13", "4+ edge, weeks 1 to 13 only"),
-           "shadowtrees": (5.0, "trees", "boosted trees alone, 5+ edge")}   # 25 Sep 2026: the blend's tree model on its own went 95-66, 84-60, 34-17 at 5+ (reports/bet_wins.csv)   # weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
+           "shadowtrees": (5.0, "trees", "boosted trees alone, 5+ edge"),
+           "shadowunder": (3.0, "under_total", "Under 3+ on the total (the totals flag)")}   # 25 Sep 2026: unders at a 3+ edge went 57-47, 112-68, 10-13 (overs lose at every cut); graded live, not bet
+TOTAL_SHADOW = {"edge": 3.0, "side": "under"}   # 25 Sep 2026: the blend's tree model on its own went 95-66, 84-60, 34-17 at 5+ (reports/bet_wins.csv)   # weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}   # untouched, tuning, held out
 
 
@@ -27,6 +29,8 @@ def _spread(d, side_rule=None):
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to 17."""
+    if side_rule == "under_total":
+        return (d.model_total - d.total_line <= -edge) & (d.week < 18) & d.total_line.notna()
     e = _spread(d, side_rule) - d.spread_line
     m = (e.abs() >= edge) & (d.week < 18) & d.spread_line.notna()
     if side_rule == "dog":
@@ -38,6 +42,9 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
 
 def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     """Wins and losses on the rule's side over the rows m (pushes dropped)."""
+    if side_rule == "under_total":
+        cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
+        return w, int(f.sum()) - w
     e = _spread(d, side_rule) - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
     f = m & (cm != 0); w = int((((e > 0) & (cm > 0)) | ((e < 0) & (cm < 0)))[f].sum())
     return w, int(f.sum()) - w
@@ -88,6 +95,8 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
         if side_rule == "wk13" and r.week >= 14:
             return ""   # the early-weeks rule sits out the late season
+        if side_rule == "under_total":
+            return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(r.total_edge) and r.total_edge <= -spread_edge else ""
         se = r.tree_edge if side_rule == "trees" else r.spread_edge
         if pd.notna(r.spread_line) and pd.notna(se) and abs(se) >= spread_edge:
             side = r.home_team if se > 0 else r.away_team
@@ -230,7 +239,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
-           "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only; the boosted trees alone at 5), to decide the rule on live games.", ""]
+           "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only; the boosted trees alone at 5; Under 3+ on the total), to decide the rule on live games.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 
