@@ -1918,3 +1918,11 @@ trees, a fitted chance, pace, roof, wind, passing strength) won on two windows (
 Every setting was also re-swept (`experiments/sweep_all.py`, `sweep_confirm.py`): fade speed, last season's weight,
 the pull toward average, the QB rating's settings, the training window and weights, the penalties, and the blend's
 weights. None beat today's settings on both the miss and the bets.
+
+## 39. Team scores add up to the game total (25 Sep 2026)
+
+The spread (seven models averaged) and the total (the total equation) were priced apart, so the two team scores
+added up to about 1.9 points off the game total on average. Each team's score is now split from the two numbers
+that are priced and bet: home = (total + spread) / 2, away = (total - spread) / 2. The spread and total do not move;
+the team-points miss goes 7.381 / 7.340 / 7.268 to 7.398 / 7.353 / 7.259 on 2015-18 / 2019-22 / 2023-25. The card's
+breakdown shows the step as one line, "Matched to the game total".
