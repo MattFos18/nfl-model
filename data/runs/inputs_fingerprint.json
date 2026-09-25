@@ -130,6 +130,16 @@
 "Out"
 ],
 [
+"BUF",
+"Jordan Hancock",
+"Out"
+],
+[
+"BUF",
+"T.J. Sanders",
+"Out"
+],
+[
 "CAR",
 "Claudin Cherelus",
 "Out"
@@ -296,13 +306,18 @@
 ],
 [
 "LAC",
+"Brenen Thompson",
+"Out"
+],
+[
+"LAC",
 "Charlie Kolar",
 "Out"
 ],
 [
 "LAC",
 "Dalvin Tomlinson",
-"Doubtful"
+"Out"
 ],
 [
 "LAC",
@@ -311,8 +326,23 @@
 ],
 [
 "LAC",
+"Elijah Molden",
+"Out"
+],
+[
+"LAC",
 "Kayode Awosika",
-"Doubtful"
+"Out"
+],
+[
+"LAC",
+"Trey Pipkins III",
+"Out"
+],
+[
+"LV",
+"Treydan Stukes",
+"Out"
 ],
 [
 "MIA",
@@ -532,5 +562,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 18:26 UTC"
+"written_at": "2026-09-25 19:21 UTC"
 }
