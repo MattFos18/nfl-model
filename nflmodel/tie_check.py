@@ -392,7 +392,8 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         import math
         def cal_p(cal, e): p = 1 / (1 + math.exp(-(cal[0] + cal[1] * min(abs(e), 7.0)))); return p if e > 0 else 1 - p
         worst = max([abs(cal_p(wk["cal"]["spread"], g["spread_edge"]) - g["p_cover_cal_home"]) for g in wk["games"] if g.get("spread_edge") is not None and g.get("p_cover_cal_home") is not None] or [0.0])
-        rows.append(("card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap)", round(worst, 4), "0.0005 or under", worst <= 0.0005))
+        # 0.0006: the page carries the cover odds and the edge to 3 decimals, so the odds' own rounding alone reaches 0.0005 and the edge's adds a little (25 Sep 2026: a 0.00050x gap failed the run)
+        rows.append(("card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap)", round(worst, 5), "0.0006 or under", worst <= 0.0006))
     if pk_f.exists() and "games" in wk:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}
