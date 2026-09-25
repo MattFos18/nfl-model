@@ -988,8 +988,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       const vw = vegasWin(g);
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
       const actualMargin = played ? g.home_score - g.away_score : null;
-      h += `<article class="gcard ${g.bet ? "flagged" : ""}" id="card${i}">
-        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}</div>
+      h += `<article class="gcard ${g.bet || g.shadowunder_bet ? "flagged" : ""}" id="card${i}">
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an under at a 55%+ chance. Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked</span>` : ""}</div>
         <div class="blocks">
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
@@ -1001,7 +1001,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag && W.total_shadow ? ` <span class="chip mute" title="Under at a 55%+ chance (read off the real, lopsided spread of game totals): 159-130, 202-150 and 68-61 on 2015-18, 2019-22 and 2023-25; overs lose every way tried. Graded live on Bets, not bet until it holds">${g.p_over_emp != null ? Math.round(100 * (1 - g.p_over_emp)) + "% under · " : ""}tracked, not bet</span>` : ""}</div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag && W.total_shadow ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="Under at a 55%+ chance (read off the real, lopsided spread of game totals): 159-130, 202-150 and 68-61 on 2015-18, 2019-22 and 2023-25; overs lose every way tried. Graded live on Bets, not bet until it holds">${g.p_over_emp != null ? Math.round(100 * (1 - g.p_over_emp)) + "% under · " : ""}tracked, not bet</span>` : ""}</div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
