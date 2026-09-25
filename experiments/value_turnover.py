@@ -31,8 +31,11 @@ def values():
     if CACHE.exists():
         return pd.read_parquet(CACHE)
     g = pd.read_parquet(OUT / "games.parquet"); fr = []
-    for s in range(2014, 2027):
-        v = PS.all_values(g, s, 1)[["player_id", "group", "value_above_replacement"]].assign(season=s); fr.append(v); print("values", s, len(v), flush=True)
+    part = OUT / "value_turnover_values_part.parquet"
+    done = pd.read_parquet(part) if part.exists() else pd.DataFrame(columns=["season"])
+    fr = [done] if len(done) else []
+    for s in [x for x in range(2014, 2027) if x not in set(done.season)]:
+        v = PS.all_values(g, s, 1)[["player_id", "group", "value_above_replacement"]].assign(season=s); fr.append(v); print("values", s, len(v), flush=True); pd.concat(fr, ignore_index=True).to_parquet(part)
     v = pd.concat(fr, ignore_index=True); v.to_parquet(CACHE); return v
 
 
