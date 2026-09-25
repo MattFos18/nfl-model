@@ -53,7 +53,7 @@ MED = {"rec": 0.81, "rush": 0.84, "pass": 0.88}      # median factor on the yard
 K_CATCH, MED_CATCH = 25.0, 0.9                     # catch rate shrunk toward the league with 25 targets of weight (round 5); receptions line x 0.9, refit on 2017-18 in round 11 (was 0.88; reports/props_backtest11.csv, better on both windows)
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
-BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.577, 0.5481], 'pass_td_ll': [1.4633, 1.4232], 'pass_int_ll': [1.1454, 1.103]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
+BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.577, 0.5481], 'pass_td_ll': [1.4632, 1.4233], 'pass_int_ll': [1.1454, 1.103]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
 RECON_W = {"rec": {"yds": 0.25, "td": 0.5}, "rush": {"yds": 0.25, "td": 0.5}, "pass": {"yds": 0.5, "td": 1.0}}   # round 6: weight of the move toward the team's expected yards and touchdowns from the game model's expected points (best row on both windows per stat)
 TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (103.23, 6.268)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
 PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
@@ -65,8 +65,47 @@ FADE = {"rec": (0.5, 0.5), "rush": (0.25, 0.5)}   # round 10 (reports/props_back
 KICK = {"pts": (2.4861, 0.1843, 0.1489), "fgm": (1.0165, 0.1757, 0.0155)}   # round 9 (reports/props_backtest9.csv, k_blend_team and g_blend_team): kicking points = a + b x his team's kicking points per game decayed 0.85 + c x the team's implied total ((closing total + expected margin) / 2); field goals made the same; fitted on 2016 to 2018
 BACKTEST_KICK = {"kick_points": [2.832, 2.925], "field_goals": [0.969, 1.001]}   # k_blend_team and g_blend_team in props_backtest9.csv
 PACE = {"rec": 0.0, "rush": 0.0, "pass": 0.25}       # weight on the opponent's allowed plays per game in the team's volume (round 4: helps passing on both windows, nothing on the others)
+# round 13 (25 Sep 2026, reports/props_backtest13.csv): a player who plays while listed Questionable, or after a limited
+# practice on the final report, gets less (the group's actual over line against the unlisted players', fitted on 2017-18);
+# and his snap share over his last 3 games against his last 10 moves the yards line a quarter of the way. Together
+# better on both windows for receiving (19.277 / 18.257 against 19.305 / 18.278) and rushing (17.806 / 17.027
+# against 17.858 / 17.037); passing unchanged (the snap trend made it worse)
+INJ_F = {"rec": {"Q": 0.907, "LIM": 0.913}, "rush": {"Q": 0.928}}
+SNAP_W = {"rec": 0.25, "rush": 0.25}
+
+
+def inj_group(report, practice) -> str:
+    """This week's report for a player who plays: Q (Questionable), DNP or LIM (the practice status), else none."""
+    rep = report if isinstance(report, str) else ""; pr = practice if isinstance(practice, str) else ""
+    return "Q" if rep.startswith("Questionable") else ("DNP" if pr.startswith("Did Not") else ("LIM" if pr.startswith("Limited") else "none"))
+
+
+def snap_ratio(s3, s10) -> float:
+    """His snap share over his last 3 games over his last 10, clipped to [0.4, 2]; 1 when either is missing."""
+    try:
+        r = float(s3) / float(s10)
+    except (TypeError, ValueError, ZeroDivisionError):
+        return 1.0
+    return 1.0 if not np.isfinite(r) else min(max(r, 0.4), 2.0)
+
+
+def snap_trends(season: int, week: int) -> dict:
+    """player id -> (snap share over his last 3 games, over his last 10), games before (season, week) (snap counts)."""
+    f = OUT / "snap_exposure.parquet"
+    if not f.exists():
+        return {}
+    e = pd.read_parquet(f, columns=["player_id", "season", "week", "off_pct"]).dropna(subset=["off_pct"])
+    e = e[(e.off_pct > 0) & ((e.season < season) | ((e.season == season) & (e.week < week)))].sort_values(["player_id", "season", "week"])
+    out = {}
+    for pid, g in e.groupby("player_id"):
+        v = g.off_pct.values
+        if len(v) >= 4:
+            out[pid] = (float(v[-3:].mean()), float(v[-10:].mean()))
+    return out
+
+
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {'rec_yards': [19.31, 18.28], 'rush_yards': [17.86, 17.04], 'pass_yards': [56.64, 56.4]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
+BACKTEST = {'rec_yards': [19.28, 18.26], 'rush_yards': [17.81, 17.03], 'pass_yards': [56.64, 56.4]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -442,7 +481,7 @@ def reconcile(rows: list, kind: str, exp_pts: float | None, yds_key: str, td_key
     return out
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None, starter: str | None = None) -> dict:
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None, starter: str | None = None, SN: dict | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
     team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
     kickoff (None in a dome or before a usable forecast), exp_pts the game model's expected points for the team."""
@@ -498,6 +537,15 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     qbs.sort(key=lambda r: (r["out"], 0 if (starter and r["player_id"] == starter) else 1, -r["dropbacks_pg"]))
     for u in rus: u["proj_rush_attempts"] = u["proj_carries"]
     recon = {"rec": reconcile(rec, "rec", exp_pts, "proj_rec_yards", "proj_rec_td"), "rush": reconcile(rus, "rush", exp_pts, "proj_rush_yards", "proj_rush_td"), "pass": reconcile(qbs, "pass", exp_pts, "proj_pass_yards", "proj_pass_td", starter_only=True)}
+    # round 13: this week's injury report and his snap trend, on the yards lines (after the team scaling, as in the backtest)
+    for kind, rows_, key in (("rec", rec, "proj_rec_yards"), ("rush", rus, "proj_rush_yards")):
+        for r in rows_:
+            rr = ro.loc[r["player_id"]] if r["player_id"] in ro.index else None
+            grp = inj_group(getattr(rr, "report", None), getattr(rr, "practice", None)) if rr is not None else "none"
+            s3, s10 = (SN or {}).get(r["player_id"], (None, None)); sr = snap_ratio(s3, s10)
+            fac = INJ_F[kind].get(grp, 1.0) * (1 + SNAP_W[kind] * (sr - 1))
+            r.update({"inj_group": grp, "inj_factor": INJ_F[kind].get(grp, 1.0), "snap_ratio": round(sr, 3), "r13_factor": round(fac, 3)})
+            r[key] = round(r[key] * fac, 1); r[key + "_mean"] = round(r[key + "_mean"] * fac, 1)
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
     for q in qbs:
@@ -613,7 +661,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
     R, RU, Q, D, V, L = receivers(a, names), rushers(a, names), passers(a, names), defenses(a), teams_volume(a), league_baselines(a)
     VS = vs_defense(d[(d.season < season) | ((d.season == season) & (d.week < week))])   # every charted season, for the card's "against this defense" column
     dg = defender_games(); DF = defenders(dg, names, season, week); VS.update(vs_offense(dg[(dg.season < season) | ((dg.season == season) & (dg.week < week))], games))
-    KK = kickers(kicker_games(range(season - 1, season + 1)), names, season, week)
+    KK = kickers(kicker_games(range(season - 1, season + 1)), names, season, week); SN = snap_trends(season, week)
     wk = games[(games.season == season) & (games.week == week)]
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
     out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
@@ -625,7 +673,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         mk = closing(plog, g.game_id) if len(plog) else None
         ha = (float(xp.loc[g.game_id, "home_exp"]), float(xp.loc[g.game_id, "away_exp"])) if g.game_id in xp.index else (None, None)
         aq = g.away_qb_id if isinstance(g.away_qb_id, str) else None; hq = g.home_qb_id if isinstance(g.home_qb_id, str) else None   # nflverse names the starters for played games and the coming week
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1], VS, aq), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0], VS, hq)}
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1], VS, aq, SN), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0], VS, hq, SN)}
         out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, g.total_line, mk, VS)
         out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, g.total_line, mk, VS)
         out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, g.total_line, mk)

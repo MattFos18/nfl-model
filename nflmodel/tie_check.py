@@ -116,10 +116,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            # the constants in use were last set by experiments/props_official.py (24 Sep 2026): passing refit, receiving and rushing kept
-            ro = pd.read_csv(REP / "props_official.csv"); _v = {"rec_yards": "old constants", "rush_yards": "old constants", "pass_yards": "refit on the official numbers"}
-            b2 = {k: [float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2019-22"].iloc[0]), float(ro[(ro.stat == k) & (ro.variant == v)]["mae_2023-25"].iloc[0])] for k, v in _v.items()}
-            rows.append(("props by-season run = the official-numbers refit's rows for the adopted rule (yards, both windows; within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
+            # passing: the constants last set by experiments/props_official.py (24 Sep 2026); receiving and rushing: round 13 (injury report and snap trend, 25 Sep 2026)
+            ro = pd.read_csv(REP / "props_official.csv"); r13 = pd.read_csv(REP / "props_backtest13.csv")
+            _src = {"rec_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "rush_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "pass_yards": (ro, "refit on the official numbers")}
+            b2 = {k: [float(t[(t.stat == k) & (t.variant == v)]["mae_2019-22"].iloc[0]), float(t[(t.stat == k) & (t.variant == v)]["mae_2023-25"].iloc[0])] for k, (t, v) in _src.items()}
+            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})

@@ -1852,3 +1852,26 @@ markets once a day; the Season tab shows the books' Super Bowl, conference and d
 beside the model's, and each player's chance to lead the league in yards. Every number on Season → Team odds and
 Player totals shows its math under its column on a click (wins = record + the chance in each game left; each share =
 the runs out of 10,000; a player's total = his rate, his own projection, pace and the blend).
+
+## 36. Who plays, how his role moves, and the offseason (25 Sep 2026)
+
+Four accuracy projects, our own data only (the books stay the benchmark, never an input), each adopted only if better
+on 2019-22 and 2023-25.
+
+**Adopted: player lines move with this week's injury report and his snap trend** (`experiments/props_backtest13.py`).
+A receiver listed Questionable gets 0.907 of his line, one with a limited practice 0.913; a Questionable rusher 0.928
+(each group's actual over line against unlisted players', fitted on 2017-18). Then the line moves a quarter of the way
+by his offensive snap share over his last 3 games against his last 10 (clipped 0.4 to 2). Receiving yards 19.31 /
+18.28 → 19.28 / 18.26 per player-game; rushing 17.86 / 17.04 → 17.81 / 17.03. Passing: the snap trend was worse at
+every weight, so it is left alone. His target or carry share over the last 3 games (role momentum) was worse on both.
+
+**Not adopted:**
+- Games played for season totals (`experiments/availability.py`): the report, practice, share of games played this
+  season and last, two seasons of injury history and age predict games played better (receivers 2.72 → 2.37 games
+  off), but the season total comes out mixed (within 20% worse on 2023-25).
+- Offseason signals in Weeks 1 to 8 (`experiments/team_signals.py`, `reports/team_signals_a3.csv`): a new starting
+  QB, a new head coach, the share of last season's line snaps returning. Each, and all three, made the margin worse
+  on both windows.
+- Finer team ratings (`reports/team_signals_a4.csv`): pass and rush EPA split, success rate. Success rate helps the
+  margin on both windows (10.030 → 10.025, 9.914 → 9.907) but worsens team points on 2019-22 and 2015-18; the split
+  worsens team points on 2019-22.
