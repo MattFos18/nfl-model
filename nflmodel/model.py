@@ -16,6 +16,7 @@ import numpy as np, pandas as pd
 from pathlib import Path
 from scipy.stats import norm
 from sklearn.linear_model import Ridge
+from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
@@ -121,6 +122,41 @@ def fit_points(train: pd.DataFrame, alpha: float = 10.0):
     return m
 
 
+# The blend (25 Sep 2026, experiments/bet_wins.py): team points are the average of seven models refit every week on the same
+# games. The live ridge equation (the one every breakdown shows), three ridges with one more set of ratings each, the live
+# inputs with less and with more shrinkage, and gradient-boosted trees on the live inputs, which catch interactions a line
+# cannot. Averaging models that err differently cut the margin miss on 2015-18, 2019-22 and 2023-25 and won more spread
+# bets at the 4-point flag in all three windows (68-55, 80-50, 40-21 against 61-58, 81-55, 40-23), whichever tree
+# settings were used (reports/bet_wins.csv, reports/bet_wins_gbm.csv). The breakdowns show the ridge equation plus one
+# line: the other six models' average pull.
+BLEND = {"success": (["off_success", "def_success"], 10.0), "split": (["off_pass_epa", "def_pass_epa", "off_rush_epa", "def_rush_epa"], 10.0),
+         "plays": (["off_plays", "def_plays"], 10.0), "alpha3": ([], 3.0), "alpha30": ([], 30.0)}
+BLEND_LABEL = {"ridge": "The equation shown", "success": "+ success rate", "split": "+ pass and rush ratings", "plays": "+ plays per game",
+               "alpha3": "Less shrinkage", "alpha30": "More shrinkage", "trees": "Boosted trees"}
+
+
+def fit_blend(train: pd.DataFrame, ridge_model=None, alpha: float = 10.0) -> dict:
+    """The seven fitted models; ridge_model is the live equation if already fitted."""
+    ms = {"ridge": (ridge_model or fit_points(train, alpha), list(FEATS))}
+    for k, (extra, al) in BLEND.items():
+        cols = list(FEATS) + extra
+        m = make_pipeline(StandardScaler(), Ridge(alpha=al)); m.fit(train[cols].fillna(train[cols].mean()).values, train.pf.values); ms[k] = (m, cols)
+    t = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.03, max_leaf_nodes=8, min_samples_leaf=60, l2_regularization=1.0, random_state=0)
+    t.fit(train[FEATS].values, train.pf.values); ms["trees"] = (t, list(FEATS))
+    ms["_means"] = train[sorted({c for m, cols in ms.values() for c in cols})].mean()
+    return ms
+
+
+def predict_blend(ms: dict, x: pd.DataFrame) -> pd.DataFrame:
+    """Each model's expected points for the rows of x, and their average ("blend")."""
+    mu = ms["_means"]; out = pd.DataFrame(index=x.index)
+    for k in BLEND_LABEL:
+        m, cols = ms[k]
+        out[k] = m.predict(x[cols].fillna(mu[cols]).values)
+    out["blend"] = out[list(BLEND_LABEL)].mean(axis=1)
+    return out
+
+
 def key_weights(margins: np.ndarray, mu: np.ndarray, sigma: float) -> pd.Series:
     """K[m] = observed count of margin m / expected count under N(mu_g, sigma), over training games."""
     obs = pd.Series(margins).round().astype(int).value_counts()
@@ -145,7 +181,7 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome"]
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_over"]   # ref_over (the referee's over rate, prior games, shrunk) added 25 Sep 2026: lower total miss on 2015-18, 2019-22 and 2023-25 (reports/bet_wins.csv)
 
 
 def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
@@ -156,7 +192,7 @@ def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
                          "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
                          "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
                          "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
-                         "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
+                         "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
                          "div_game": h.loc[ids, "div_game"].values, "skill_out_sum": (h.loc[ids, "skill_out_value"] + a.loc[ids, "skill_out_value"]).values,
                          "snap_out_sum": (h.loc[ids, "off_snap_out"] + a.loc[ids, "off_snap_out"]).values,
                          "turnover_early_sum": (h.loc[ids, "off_turnover_early"] + a.loc[ids, "off_turnover_early"]).values}, index=ids)
@@ -193,7 +229,11 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
                 test = test_all[test_all.week == wk].copy()
             m = fit_points(train, ridge_alpha)
             tr_pred = m.predict(train[FEATS].values)
-            test["exp"] = m.predict(test[FEATS].values)
+            bl = predict_blend(fit_blend(train, m, ridge_alpha), test)
+            test["exp_ridge"] = bl["ridge"].values
+            test["exp"] = bl["blend"].values
+            for k in BLEND_LABEL:
+                test[f"m_{k}"] = bl[k].values
             h = test[test.home == 1].set_index("game_id")
             a = test[test.home == 0].set_index("game_id")
             ids = h.index.intersection(a.index)
@@ -204,7 +244,11 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
                               "home_exp": h.loc[ids, "exp"].values, "away_exp": a.loc[ids, "exp"].values,
                               "spread_line": h.loc[ids, "spread_line"].values, "total_line": h.loc[ids, "total_line"].values,
                               "home_qb_rating": h.loc[ids, "qb_rating"].values, "away_qb_rating": a.loc[ids, "qb_rating"].values,
-                              "home_n_games": h.loc[ids, "n_games"].values})
+                              "home_n_games": h.loc[ids, "n_games"].values,
+                              "home_exp_ridge": h.loc[ids, "exp_ridge"].values, "away_exp_ridge": a.loc[ids, "exp_ridge"].values})
+            g["home_blend_adj"], g["away_blend_adj"] = g.home_exp - g.home_exp_ridge, g.away_exp - g.away_exp_ridge
+            for k in BLEND_LABEL:
+                g[f"home_m_{k}"], g[f"away_m_{k}"] = h.loc[ids, f"m_{k}"].values, a.loc[ids, f"m_{k}"].values
             g["model_spread"] = g.home_exp - g.away_exp
             # the total from its own equation (22 Sep 2026): both teams' ratings summed, plus the game's weather and roof, fit
             # to the game total. Marginally more accurate than adding the two team scores on both backtest windows

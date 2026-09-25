@@ -275,8 +275,9 @@ def check_season_equation(rows) -> None:
             continue
         ov = {k: float(getattr(r, k)) for k in sit}
         e = SE.expected_points(P[r.team], P[r.opp], fit, float(r.home), float(r.neutral), float(r.dome), float(r.div_game), int(w_), overrides=ov)
-        exp = float(pw.loc[r.game_id, "home_exp" if r.home == 1 else "away_exp"]); worst = max(worst, abs(e - exp)); n += 1
-    rows.append((f"season simulation's equation on the as-of profiles rebuilds the model's expected points for the week being priced ({n} sides, worst gap in points)", round(worst, 4), "0.01 or under", worst <= 0.01))
+        side_ = "home" if r.home == 1 else "away"; exp = float(pw.loc[r.game_id, f"{side_}_exp"]) - float(pw.loc[r.game_id, f"{side_}_blend_adj"] if f"{side_}_blend_adj" in pw.columns else 0.0)   # the equation's share; the blend's pull sits on top
+        worst = max(worst, abs(e - exp)); n += 1
+    rows.append((f"season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) ({n} sides, worst gap in points)", round(worst, 4), "0.01 or under", worst <= 0.01))
 
 
 def check_page() -> list[tuple[str, str, str, bool]]:
@@ -347,7 +348,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             v = inputs.get(f); c = co["per_unit"][f]; mu = co["mean"][f]
             if v is None: return None
             tot += c * (v - mu)   # the page moves the situational means into its base; the sum is the same
-        return tot
+        return tot + (inputs.get("blend_adj") or 0.0)   # the other six models' average pull (the blend, 25 Sep 2026)
     if "games" in wk and wk["games"] and wk["games"][0].get("coefs"):
         worst = 0.0; n = 0
         for g in wk["games"]:
@@ -368,6 +369,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
                     td = team_js(tm); cols = td["cols"]; row = next((x for x in td["rows"] if x[0] == r[ci["game_id"]]), None)
                     if row is None: continue
                     inputs = {f: row[cols.index("mf_" + f)] for f in M.FEATS if ("mf_" + f) in cols}
+                    if "m_blend_adj" in cols: inputs["blend_adj"] = row[cols.index("m_blend_adj")]
                     v = rebuild(co, inputs); n += 1
                     if v is not None: worst = max(worst, abs(v - r[ci[key]]))
             rows.append((f"game-log model inputs rebuild the expected points from the team files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))
