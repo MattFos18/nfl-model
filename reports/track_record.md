@@ -14,8 +14,8 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4.5+ edge | 0 | 0 | | | | 43-36 | 52-37 | 25-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 1 | 0 | nothing settled |  | +0.00 | 50-38 | 73-42 | 32-18 |
 | shadow: 4+ edge, weeks 1 to 13 only | 1 | 0 | nothing settled |  | +0.00 | 54-41 | 68-37 | 33-16 |
-| shadow: boosted trees alone, 5+ edge | 0 | 0 | | | | 95-69 | 83-58 | 34-18 |
-| shadow: Under, 55%+ chance (the totals flag) | 3 | 0 | nothing settled |  | +0.00 | 159-130 | 202-150 | 68-61 |
+| shadow: boosted trees alone, 5+ edge | 0 | 0 | | | | 95-66 | 84-59 | 34-17 |
+| shadow: Under, 55%+ chance (the totals flag) | 4 | 0 | nothing settled |  | +0.00 | 145-124 | 190-146 | 76-62 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.5% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
