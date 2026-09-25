@@ -785,7 +785,8 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     const co = coefsForGame(gid, s); const out = []; const base = neutralBase(co); let total = base;
     META.feats.forEach(f => { const v = inputs[f]; if (v == null) return; const c = SIT.has(f) ? co.per_unit[f] * v : co.per_unit[f] * (v - co.mean[f]); total += c; out.push({f, v, c, sit: SIT.has(f)}); });
     const eq = total; if (inputs.blend_adj != null) total += inputs.blend_adj;   // the blend: the other six models' average pull
-    return {items: out, total, eq, blend: inputs.blend_adj, base, intercept: co.intercept};
+    if (inputs.total_adj != null) total += inputs.total_adj;   // the share-out: the two team scores add up to the game total
+    return {items: out, total, eq, blend: inputs.blend_adj, tadj: inputs.total_adj, base, intercept: co.intercept};
   }
 
   // ---------- This week: cards ----------
@@ -1119,6 +1120,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
         h += `<tr class="grp"><td><button class="open" data-open="${bid}" aria-expanded="false">▸ Six more models, averaged in</button></td><td class="n">${sgn(c.blend, 2)}</td></tr>`;
         h += `<tr class="sub" id="${bid}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Model</th><th class="n">Points</th></tr></thead><tbody>${ks.map(k => `<tr><td class="ind lbl">${L[k] || k}</td><td class="n">${inp.models[k].toFixed(2)}</td></tr>`).join("")}<tr class="tot"><td>Average of ${ks.length}</td><td class="n">${avg.toFixed(2)}</td></tr><tr><td class="ind lbl">Average − the equation shown (${c.eq.toFixed(2)})</td><td class="n">${sgn(c.blend, 2)}</td></tr></tbody></table></td></tr>`;
       }
+      if (c.tadj != null) h += `<tr class="grp"><td title="The spread comes from the points equations above and the total from its own equation (weather, referee, both QBs' form this season); each team's score is the total shared out by the spread, so the two add up to the total. This is that share-out.">Matched to the game total</td><td class="n">${sgn(c.tadj, 2)}</td></tr>`;
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
       h += `<div class="mv"><span class="chip" title="the quarterback the model prices; carried from last game until the schedule names the starter">QB ${esc(inp.qb_name || "not yet listed")}${inp.qb_out ? " · listed out" : (inp.qb_carried ? " · not yet confirmed" : "")}</span><span class="chip" title="days since the team's last game">${inp.rest} days rest</span><span class="chip" title="starters on the injury report as out, from the depth chart">${(inp.off_starters_out ?? 0) + (inp.def_starters_out ?? 0) ? `Starters out: ${inp.off_starters_out ?? 0} offense, ${inp.def_starters_out ?? 0} defense` : "No starters out"}</span></div></div>`;
       return h;

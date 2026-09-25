@@ -1,7 +1,7 @@
 stat,variant,team_fit,med,mae_2019-22,bias_2019-22,n_2019-22,mae_2023-25,bias_2023-25,n_2023-25,verdict
-rec_yards,old constants,86.16 + 6.483 x exp pts,0.81,19.31,-4.99,16076,18.28,-4.76,12383,kept
-rec_yards,refit on the official numbers,89.15 + 6.342 x exp pts,0.81,19.31,-5.0,16076,18.28,-4.76,12383,not adopted
-rush_yards,old constants,71.47 + 1.388 x exp pts,0.84,17.86,-4.34,7778,17.04,-3.71,6196,kept
-rush_yards,refit on the official numbers,69.37 + 1.454 x exp pts,0.79,17.87,-5.56,7778,17.04,-4.94,6196,not adopted
-pass_yards,old constants,100.83 + 6.379 x exp pts,0.88,56.63,-2.98,2176,56.4,4.55,1712,replaced
-pass_yards,refit on the official numbers,103.23 + 6.268 x exp pts,0.88,56.64,-3.06,2176,56.4,4.48,1712,adopted (the target changed to gross yards)
+rec_yards,old constants,86.16 + 6.483 x exp pts,0.81,19.31,-5.02,16076,18.28,-4.8,12383,kept
+rec_yards,refit on the official numbers,86.86 + 6.385 x exp pts,0.81,19.31,-5.07,16076,18.28,-4.85,12383,not adopted
+rush_yards,old constants,71.47 + 1.388 x exp pts,0.84,17.85,-4.35,7778,17.04,-3.73,6196,kept
+rush_yards,refit on the official numbers,58.72 + 1.908 x exp pts,0.79,17.87,-5.59,7778,17.04,-4.98,6196,not adopted
+pass_yards,old constants,103.23 + 6.268 x exp pts,0.88,56.74,-3.43,2176,56.21,3.86,1712,kept
+pass_yards,refit on the official numbers,109.5 + 5.944 x exp pts,0.89,56.76,-2.72,2176,56.29,4.56,1712,not adopted

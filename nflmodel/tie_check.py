@@ -95,13 +95,13 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             a4 = {k: [float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == v)]["mae_2023-25"].iloc[0])] for k, v in {"rec_yards": "base", "rush_yards": "base", "pass_yards": "combo"}.items()}
             rows.append(("props round-6 baseline = round-4 adopted errors (round 6 keeps three decimals; within 0.006)", str(a6), str(a4), all(abs(a6[k][i] - a4[k][i]) <= 0.006 for k in a6 for i in (0, 1))))
             _tf = {k: {v: [float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2019-22"].iloc[0]), float(r6[(r6.stat == f"{k}_team_fit") & (r6.variant == v)]["mae_2023-25"].iloc[0])] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]}
-            _ro = pd.read_csv(REP / "props_official.csv") if (REP / "props_official.csv").exists() else None   # passing yards refit on the official numbers, 24 Sep 2026
+            _ro = pd.read_csv(REP / "props_official.csv") if (REP / "props_official.csv").exists() else None   # passing yards: the live constants' row (refit on the official numbers 24 Sep 2026, kept 25 Sep)
             if _ro is not None:
-                _x = _ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].iloc[0]; _tf["pass"]["yds"] = [float(v) for v in _x.team_fit.split(" x ")[0].split(" + ")]
+                _x = _ro[(_ro.stat == "pass_yards") & _ro.verdict.str.startswith(("kept", "adopted"))].iloc[0]; _tf["pass"]["yds"] = [float(v) for v in _x.team_fit.split(" x ")[0].split(" + ")]
             tie("props team fit constants = props_backtest6.csv (passing yards: props_official.csv)", _tf, {k: {v: [float(x) for x in pj["team_fit"][k][v]] for v in ["td", "yds"]} for k in ["rec", "rush", "pass"]})
             tie("props round-4 base = round-3 adopted variant (receiving, rushing)", {k: [float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2019-22"].iloc[0]), float(r4[(r4.stat == k) & (r4.variant == "base")]["mae_2023-25"].iloc[0])] for k in ["rec_yards", "rush_yards"]}, {k: [float(a85.loc[k, "mae_2019-22"]), float(a85.loc[k, "mae_2023-25"])] for k in ["rec_yards", "rush_yards"]})
             r11 = pd.read_csv(REP / "props_backtest11.csv"); _rf = lambda st: float(r11[(r11.stat == st) & (r11.variant == "refit_2017_18")].factors.iloc[0])
-            _mp = float(_ro[(_ro.stat == "pass_yards") & (_ro.variant == "refit on the official numbers")].med.iloc[0]) if _ro is not None else _rf("pass_yards")
+            _mp = float(_ro[(_ro.stat == "pass_yards") & _ro.verdict.str.startswith(("kept", "adopted"))].med.iloc[0]) if _ro is not None else _rf("pass_yards")
             tie("props median factors = props_backtest3.csv (rushing), props_backtest11.csv (receiving) and props_official.csv (passing)", {"rec": _rf("rec_yards"), "rush": float(a85.loc["rush_yards", "median_factor_A85B"]), "pass": _mp}, {k: float(v) for k, v in pj["med"].items()})
             tie("props receptions factor = props_backtest11.csv refit row", _rf("rec_catches"), float(pj["med_catch"]))
             gs = bt[bt.stat == "game_script"].set_index("variant")
@@ -116,11 +116,12 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            # passing: the constants last set by experiments/props_official.py (24 Sep 2026); receiving and rushing: round 13 (injury report and snap trend, 25 Sep 2026)
+            # passing: the live constants' row in experiments/props_official.py (kept, or the refit when adopted); receiving and rushing: round 13 (injury report and snap trend, 25 Sep 2026)
             ro = pd.read_csv(REP / "props_official.csv"); r13 = pd.read_csv(REP / "props_backtest13.csv")
-            _src = {"rec_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "rush_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "pass_yards": (ro, "refit on the official numbers")}
+            _src = {"rec_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "rush_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "pass_yards": (ro, ro[(ro.stat == "pass_yards") & ro.verdict.str.startswith(("kept", "adopted"))].variant.iloc[0])}
             b2 = {k: [float(t[(t.stat == k) & (t.variant == v)]["mae_2019-22"].iloc[0]), float(t[(t.stat == k) & (t.variant == v)]["mae_2023-25"].iloc[0])] for k, (t, v) in _src.items()}
-            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.006)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.006 for k in b1 for i in (0, 1))))
+            # within 0.01: two decimals on the by-season run, and round 13 was scored on the team scores before they were matched to the game total (25 Sep 2026), which moved receiving and rushing by at most 0.007
+            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.01)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.01 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
@@ -275,7 +276,7 @@ def check_season_equation(rows) -> None:
             continue
         ov = {k: float(getattr(r, k)) for k in sit}
         e = SE.expected_points(P[r.team], P[r.opp], fit, float(r.home), float(r.neutral), float(r.dome), float(r.div_game), int(w_), overrides=ov)
-        side_ = "home" if r.home == 1 else "away"; exp = float(pw.loc[r.game_id, f"{side_}_exp"]) - float(pw.loc[r.game_id, f"{side_}_blend_adj"] if f"{side_}_blend_adj" in pw.columns else 0.0)   # the equation's share; the blend's pull sits on top
+        side_ = "home" if r.home == 1 else "away"; exp = float(pw.loc[r.game_id, f"{side_}_exp"]) - float(pw.loc[r.game_id, f"{side_}_blend_adj"] if f"{side_}_blend_adj" in pw.columns else 0.0) - float(pw.loc[r.game_id, f"{side_}_total_adj"] if f"{side_}_total_adj" in pw.columns else 0.0)   # the equation's share; the blend's pull sits on top
         worst = max(worst, abs(e - exp)); n += 1
     rows.append((f"season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) ({n} sides, worst gap in points)", round(worst, 4), "0.01 or under", worst <= 0.01))
 
@@ -348,7 +349,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             v = inputs.get(f); c = co["per_unit"][f]; mu = co["mean"][f]
             if v is None: return None
             tot += c * (v - mu)   # the page moves the situational means into its base; the sum is the same
-        return tot + (inputs.get("blend_adj") or 0.0)   # the other six models' average pull (the blend, 25 Sep 2026)
+        return tot + (inputs.get("blend_adj") or 0.0) + (inputs.get("total_adj") or 0.0)   # the other six models' average pull (the blend) and the share-out to the game total (25 Sep 2026)
     if "games" in wk and wk["games"] and wk["games"][0].get("coefs"):
         worst = 0.0; n = 0
         for g in wk["games"]:
@@ -370,6 +371,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
                     if row is None: continue
                     inputs = {f: row[cols.index("mf_" + f)] for f in M.FEATS if ("mf_" + f) in cols}
                     if "m_blend_adj" in cols: inputs["blend_adj"] = row[cols.index("m_blend_adj")]
+                    if "m_total_adj" in cols: inputs["total_adj"] = row[cols.index("m_total_adj")]
                     v = rebuild(co, inputs); n += 1
                     if v is not None: worst = max(worst, abs(v - r[ci[key]]))
             rows.append((f"game-log model inputs rebuild the expected points from the team files ({n} sides, worst gap in points)", round(worst, 3), "0.01 or under", worst <= 0.01))

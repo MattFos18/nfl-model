@@ -116,6 +116,7 @@ BASE = {
     # model
     "m_exp_pf": ("Model", "3.0 expected points for this team", "model.py", False, False), "m_exp_pa": ("Model", "3.0 expected points against", "model.py", False, False),
     "m_win": ("Model", "3.0 win probability", "model.py", False, False), "m_cover": ("Model", "3.0 probability of covering the closing spread", "model.py", False, False),
+    "m_total_adj": ("Model", "the share-out that makes the two team scores add up to the game total's own equation: expected points = the equation + the blend's pull + this", "model.py", False, False),
     "m_blend_adj": ("Model", "the other six models' average pull on this team's expected points (the blend, 25 Sep 2026): expected points = the equation's number + this", "model.py", False, False),
     "m_over": ("Model", "3.0 probability the game goes over the closing total", "model.py", False, False),
 }
@@ -306,6 +307,8 @@ def main():
     d["m_over"] = d.game_id.map(pv.p_over)
     if "home_blend_adj" in pv.columns:
         d["m_blend_adj"] = [pv.home_blend_adj.get(g, np.nan) if h else pv.away_blend_adj.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
+    if "home_total_adj" in pv.columns:
+        d["m_total_adj"] = [pv.home_total_adj.get(g, np.nan) if h else pv.away_total_adj.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["team_spread"] = np.where(d.home, d.spread_line, -d.spread_line)
     d = d.sort_values(["season", "week"])
     cols = [c for c in d.columns if c not in ("game_id",)]
@@ -555,6 +558,7 @@ def export_week(feats=None, games=None, pred=None):
                     if r.game_id in pv_coef.index and "home_blend_adj" in pv_coef.columns:   # the blend: the other six models' pull and each model's number
                         sd_ = "home" if tm == r.home_team else "away"; prw = pv_coef.loc[r.game_id]
                         sides[tm]["blend_adj"] = round(float(prw[f"{sd_}_blend_adj"]), 6)
+                        if f"{sd_}_total_adj" in prw.index: sides[tm]["total_adj"] = round(float(prw[f"{sd_}_total_adj"]), 6)   # the share-out to the game total
                         sides[tm]["models"] = {k: round(float(prw[f"{sd_}_m_{k}"]), 3) for k in M.BLEND_LABEL}
                     if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
                         sides[tm]["qb_name"] = qb_names.get(row["qb_id"])

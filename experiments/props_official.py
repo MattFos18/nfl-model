@@ -39,8 +39,10 @@ for kind in ("rec", "rush", "pass"):
             r[f"mae_{w}"] = round(float(np.abs(ln[mk] - f.act_yds.values[mk]).mean()), 2); r[f"bias_{w}"] = round(float((ln[mk] - f.act_yds.values[mk]).mean()), 2); r[f"n_{w}"] = int(mk.sum())
         here.append(r)
     better = all(here[1][f"mae_{w}"] < here[0][f"mae_{w}"] for w in WIN)
-    here[1]["verdict"] = "adopted (the target changed to gross yards)" if kind == "pass" else ("adopted: better on both windows" if better else "not adopted")
-    here[0]["verdict"] = "replaced" if (kind == "pass" or better) else "kept"
-    if kind == "pass" or better: new[kind] = {"team_fit_yds": fy_new, "med": m_new}
+    # passing's refit was adopted outright once (24 Sep 2026: the target changed to gross yards); the live constants are
+    # now that refit, so from 25 Sep 2026 (team scores matched to the game total) passing is judged like the others
+    here[1]["verdict"] = "adopted: better on both windows" if better else "not adopted"
+    here[0]["verdict"] = "replaced" if better else "kept"
+    if better: new[kind] = {"team_fit_yds": fy_new, "med": m_new}
     rows += here; print(pd.DataFrame(here).to_string(index=False), flush=True)
 pd.DataFrame(rows).to_csv("reports/props_official.csv", index=False); print("NEW", json.dumps(new)); print("DONE")

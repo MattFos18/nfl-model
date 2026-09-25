@@ -273,6 +273,15 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
             # to the game total. Marginally more accurate than adding the two team scores on both backtest windows
             # (reports/totals_experiments.csv); the team scores above still drive the spread and the points shown.
             g["model_total"] = total_model(train, test)
+            # the two team scores add up to the game total (25 Sep 2026, Matt): the spread from the points equations (the
+            # blend) and the total from its own equation are the two numbers bet and graded; each team's expected points
+            # are the total shared out by the spread, home = (total + spread) / 2. The points equation's own number for
+            # each team stays as home_pts_eq, and the share-out is one more line on the breakdown (home_total_adj). Team
+            # points miss 7.398 / 7.353 / 7.259 against 7.381 / 7.340 / 7.268 before; the spread and total are unchanged
+            g["home_pts_eq"], g["away_pts_eq"] = g.home_exp.values, g.away_exp.values
+            g["home_exp"] = (g.model_total + g.model_spread) / 2
+            g["away_exp"] = (g.model_total - g.model_spread) / 2
+            g["home_total_adj"], g["away_total_adj"] = g.home_exp - g.home_pts_eq, g.away_exp - g.away_pts_eq
             # residual scale and key numbers from the training games (game level)
             trg = train.assign(pred=tr_pred)
             th = trg[trg.home == 1].set_index("game_id")
