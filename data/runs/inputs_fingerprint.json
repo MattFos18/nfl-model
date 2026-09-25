@@ -126,6 +126,11 @@
 ],
 [
 "BAL",
+"Ronnie Stanley",
+"Out"
+],
+[
+"BAL",
 "T.J. Tampa",
 "Out"
 ],
@@ -190,6 +195,11 @@
 "Doubtful"
 ],
 [
+"CLE",
+"Teven Jenkins",
+"Out"
+],
+[
 "DAL",
 "Cobie Durant",
 "Out"
@@ -216,6 +226,11 @@
 ],
 [
 "DEN",
+"Jonah Coleman",
+"Out"
+],
+[
+"DEN",
 "Jonathon Cooper",
 "Out"
 ],
@@ -227,6 +242,16 @@
 [
 "DET",
 "Avonte Maddox",
+"Out"
+],
+[
+"DET",
+"Ben Bartch",
+"Out"
+],
+[
+"DET",
+"Thomas Harper",
 "Out"
 ],
 [
@@ -256,7 +281,22 @@
 ],
 [
 "HOU",
+"Ed Ingram",
+"Out"
+],
+[
+"HOU",
 "Henry To'oTo'o",
+"Out"
+],
+[
+"HOU",
+"Jadeveon Clowney",
+"Out"
+],
+[
+"HOU",
+"Jake Hummel",
 "Out"
 ],
 [
@@ -283,6 +323,11 @@
 "IND",
 "Micheal Clemons",
 "Out"
+],
+[
+"JAX",
+"Albert Regis",
+"Doubtful"
 ],
 [
 "JAX",
@@ -356,6 +401,11 @@
 ],
 [
 "MIA",
+"Robert Beal Jr.",
+"Out"
+],
+[
+"MIA",
 "Ronnie Harrison Jr.",
 "Out"
 ],
@@ -381,7 +431,17 @@
 ],
 [
 "NE",
+"Dre'Mont Jones",
+"Out"
+],
+[
+"NE",
 "Mike Onwenu",
+"Out"
+],
+[
+"NE",
+"Quintayvious Hutchins",
 "Out"
 ],
 [
@@ -421,6 +481,11 @@
 ],
 [
 "NYJ",
+"Kene Nwangwu",
+"Doubtful"
+],
+[
+"NYJ",
 "Kiko Mauigoa",
 "Out"
 ],
@@ -447,6 +512,11 @@
 [
 "PHI",
 "Landon Dickerson",
+"Out"
+],
+[
+"PIT",
+"Gennings Dunker",
 "Out"
 ],
 [
@@ -571,11 +641,6 @@
 "cold": false,
 "rain": false
 },
-"2026_03_BAL_DAL": {
-"wind": 6.2,
-"cold": false,
-"rain": false
-},
 "2026_03_LA_DEN": {
 "wind": 22.2,
 "cold": false,
@@ -587,5 +652,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 20:42 UTC"
+"written_at": "2026-09-25 21:32 UTC"
 }
