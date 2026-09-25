@@ -39,8 +39,8 @@ Brier score (lower is better): 3.0 0.2186, market moneyline 0.2111.
 | [0.0, 0.3)  |  66 |       0.244 |    0.273 |
 | [0.3, 0.4)  | 125 |       0.36  |    0.28  |
 | [0.4, 0.5)  | 198 |       0.456 |    0.379 |
-| [0.5, 0.6)  | 225 |       0.552 |    0.502 |
-| [0.6, 0.7)  | 216 |       0.651 |    0.62  |
+| [0.5, 0.6)  | 224 |       0.552 |    0.5   |
+| [0.6, 0.7)  | 217 |       0.65  |    0.622 |
 | [0.7, 1.01) | 225 |       0.774 |    0.778 |
 
 ## 2. Win probability, 2023 to 2025 (held out)
@@ -62,11 +62,11 @@ Brier score (lower is better): 3.0 0.2161, market moneyline 0.2102.
 
 |   edge |   bets |   wins |   losses |   pushes |   win_pct |   units |    roi |
 |-------:|-------:|-------:|---------:|---------:|----------:|--------:|-------:|
-|      1 |    694 |    357 |      337 |       14 |     0.514 |   -13.7 | -0.018 |
-|      2 |    441 |    233 |      208 |        6 |     0.528 |     4.2 |  0.009 |
-|      3 |    258 |    139 |      119 |        2 |     0.539 |     8.1 |  0.029 |
-|      4 |    137 |     83 |       54 |        0 |     0.606 |    23.6 |  0.157 |
-|      5 |     67 |     37 |       30 |        0 |     0.552 |     4   |  0.054 |
+|      1 |    696 |    358 |      338 |       14 |     0.514 |   -13.8 | -0.018 |
+|      2 |    439 |    232 |      207 |        6 |     0.528 |     4.3 |  0.009 |
+|      3 |    259 |    139 |      120 |        2 |     0.537 |     7   |  0.025 |
+|      4 |    136 |     82 |       54 |        0 |     0.603 |    22.6 |  0.151 |
+|      5 |     68 |     38 |       30 |        0 |     0.559 |     5   |  0.067 |
 |      6 |     30 |     16 |       14 |        0 |     0.533 |     0.6 |  0.018 |
 |      7 |     13 |      6 |        7 |        0 |     0.462 |    -1.7 | -0.119 |
 |      8 |      9 |      5 |        4 |        0 |     0.556 |     0.6 |  0.061 |
@@ -84,7 +84,7 @@ Brier score (lower is better): 3.0 0.2161, market moneyline 0.2102.
 |      7 |     20 |     11 |        9 |        0 |     0.55  |     1.1 | 0.05  |
 |      8 |      7 |      4 |        3 |        0 |     0.571 |     0.7 | 0.091 |
 
-Best spread threshold with 100+ bets on the tuning window: 4 (ROI +0.157). Best total threshold: 4 (ROI +0.176). The held-out results below use the live flags (5 / 6) and, separately, these.
+Best spread threshold with 100+ bets on the tuning window: 4 (ROI +0.151). Best total threshold: 4 (ROI +0.176). The held-out results below use the live flags (5 / 6) and, separately, these.
 
 ## 5. Held-out 2023 to 2025, live flags (5 / 6)
 
@@ -167,12 +167,12 @@ Blend the model line with the closing line, pred = a x model + (1 - a) x line. B
 |               0.2 |                9.872 |                9.739 |              10.111 |
 |               0.3 |                9.869 |                9.743 |              10.112 |
 |               0.4 |                9.874 |                9.749 |              10.116 |
-|               0.5 |                9.885 |                9.762 |              10.125 |
+|               0.5 |                9.885 |                9.761 |              10.125 |
 |               0.6 |                9.9   |                9.78  |              10.139 |
 |               0.7 |                9.921 |                9.804 |              10.158 |
 |               0.8 |                9.948 |                9.833 |              10.181 |
-|               0.9 |                9.98  |                9.867 |              10.211 |
-|               1   |               10.02  |                9.904 |              10.245 |
+|               0.9 |                9.981 |                9.867 |              10.211 |
+|               1   |               10.021 |                9.905 |              10.245 |
 
 Bet selection is unchanged by blending (the edge is scaled, not re-ordered), so this only improves the score and the probabilities.
 
