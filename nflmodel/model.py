@@ -270,6 +270,11 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
             g["p_home"] = [w for w, c in wc]
             g["p_cover_home"] = [c for w, c in wc]
             g["p_over"] = 1 - norm.cdf((g.total_line - g.model_total) / sigma_t)
+            # 25 Sep 2026 (experiments/totals_fix.py): totals are right-skewed, so the chance of the over is read off the
+            # training games' own misses (actual minus predicted) shifted to this game's total, not a normal curve;
+            # pushes left out. Unders at a 55%+ chance won on 2015-18, 2019-22 and 2023-25 (the totals flag)
+            tres = tr_total - tr_tmu
+            g["p_over_emp"] = [float(np.mean(mt + tres > L) / max(1e-9, np.mean(mt + tres != L))) if pd.notna(L) else np.nan for mt, L in zip(g.model_total, g.total_line)]
             g["sigma_margin"], g["sigma_total"] = sigma_m, sigma_t
             g["n_train"] = len(train)
             coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))

@@ -1900,3 +1900,21 @@ The gain held with every tree setting tried (`experiments/bet_wins_gbm.py`). The
 
 **Totals:** the referee's over rate (prior games, shrunk) joins the total equation: the miss fell on all three windows.
 The totals flag stays retired: across every model and cut, 2023-25 lost.
+
+## 38. The totals flag, and why overs lose (25 Sep 2026)
+
+Game totals are lopsided: a few shootouts pull the average up, so the typical game lands about half a point under the
+book's number while the average lands 0.4 over, and unders win 51.3% of games at the close. The total equation
+predicts the average, so its over calls were right on average (+0.7 points over the line) and still lost more than
+they won (49.5%). It also learns the league's scoring level from past seasons, so it kept calling overs through the
+scoring drops of 2017, 2022 and 2023.
+
+The flag now reads the chance of the under off the real spread of totals (the training games' own misses, shifted to
+this game's predicted total) and flags an under at 55% or more: 159-130, 202-150 and 68-61 on 2015-18, 2019-22 and
+2023-25, positive at every cut from 54% to 56%. It is graded live beside the spread rules and not bet until it holds
+on live games; 2024 and 2025 were losing seasons for it. No over rule tried (median totals, a league-scoring input,
+trees, a fitted chance, pace, roof, wind, passing strength) won on two windows (`experiments/totals_fix.py`).
+
+Every setting was also re-swept (`experiments/sweep_all.py`, `sweep_confirm.py`): fade speed, last season's weight,
+the pull toward average, the QB rating's settings, the training window and weights, the penalties, and the blend's
+weights. None beat today's settings on both the miss and the bets.

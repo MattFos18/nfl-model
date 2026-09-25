@@ -676,6 +676,8 @@ def export_backtest_js(games=None, feats=None):
     if "home_blend_adj" in allv.columns:
         bk["home_adj"] = allv["home_blend_adj"].round(6); bk["away_adj"] = allv["away_blend_adj"].round(6)
         bk["tree_spread"] = (allv["home_m_trees"] - allv["away_m_trees"]).round(4)   # the trees shadow rule's number (Bets -> Rules compared)
+    if "p_over_emp" in allv.columns:
+        bk["p_over_emp"] = allv["p_over_emp"].round(4)   # the totals flag's chance (Backtest -> Totals, Bets -> Rules compared)
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot

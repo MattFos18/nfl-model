@@ -6,7 +6,7 @@ equation learns the league's scoring level from past seasons, so it lags a leagu
 Walk-forward over 2015-2025, weekly refit, every game priced with earlier games only:
   mean         the live total equation (ridge, the average total)
   median       the same inputs fitted to the median total (absolute-error loss): the typical game, not the average
-  drift        + the league's scoring over the previous 17 weeks of games (the equation can follow a league-wide shift)
+  mean_drift   + the league's scoring over the previous 17 weeks of games (the equation can follow a league-wide shift)
   median+drift both
   trees_med    gradient-boosted trees on the same inputs plus pace and both offenses' pass and success ratings, median loss
   dist         the live mean with a skewed spread: P(over) from the training residuals of games like this one (an
@@ -63,7 +63,7 @@ def main():
             o = pd.DataFrame(index=te.index)
             rm = make_pipeline(StandardScaler(), Ridge(alpha=10.0)).fit(tr[base].values, tr.total.values)
             o["mean"] = rm.predict(te[base].values); resid = tr.total.values - rm.predict(tr[base].values)
-            o["drift"] = make_pipeline(StandardScaler(), Ridge(alpha=10.0)).fit(tr[dr].values, tr.total.values).predict(te[dr].values)
+            o["mean_drift"] = make_pipeline(StandardScaler(), Ridge(alpha=10.0)).fit(tr[dr].values, tr.total.values).predict(te[dr].values)
             o["median"] = make_pipeline(StandardScaler(), QuantileRegressor(quantile=0.5, alpha=0.002, solver="highs")).fit(tr[base].values, tr.total.values).predict(te[base].values)
             o["median_drift"] = make_pipeline(StandardScaler(), QuantileRegressor(quantile=0.5, alpha=0.002, solver="highs")).fit(tr[dr].values, tr.total.values).predict(te[dr].values)
             o["trees_med"] = HistGradientBoostingRegressor(loss="absolute_error", max_iter=300, learning_rate=0.03, max_leaf_nodes=8, min_samples_leaf=60, random_state=0).fit(tr[big].values, tr.total.values).predict(te[big].values)
@@ -72,6 +72,7 @@ def main():
             o["season"], o["week"] = s, w
             rows.append(o)
         print("priced", s, flush=True)
+    pd.concat(rows).to_parquet(REP / "totals_fix_raw.parquet")
     P = pd.concat(rows).join(G[["total", "total_line", "game_type", "drift"] + base + list(EXTRA)])
     P = P[(P.game_type == "REG") & P.total.notna()]
     # logistic P(over) from earlier seasons' walk-forward rows: edge, pace, dome, wind, drift
@@ -82,7 +83,7 @@ def main():
         P.loc[te.index, "p_logit"] = lg.predict_proba(te[LX].values)[:, 1]
     P.to_parquet(REP / "totals_fix_preds.parquet")
     out = []
-    for col in ["mean", "drift", "median", "median_drift", "trees_med"]:
+    for col in ["mean", "mean_drift", "median", "median_drift", "trees_med"]:
         for cut in (3, 4):
             r = {"model": col, "rule": f"{cut}+"}
             for wn, (a, b) in W.items():
