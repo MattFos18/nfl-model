@@ -131,12 +131,22 @@
 ],
 [
 "CAR",
+"Claudin Cherelus",
+"Out"
+],
+[
+"CAR",
 "Devin Lloyd",
 "Out"
 ],
 [
 "CAR",
 "Jonathon Brooks",
+"Out"
+],
+[
+"CAR",
+"Nick Scott",
 "Out"
 ],
 [
@@ -273,6 +283,11 @@
 "KC",
 "Cooper McDonald",
 "Out"
+],
+[
+"LA",
+"Puka Nacua",
+"Doubtful"
 ],
 [
 "LA",
@@ -430,6 +445,11 @@
 "Out"
 ],
 [
+"TB",
+"Rueben Bain Jr.",
+"Out"
+],
+[
 "WAS",
 "Chig Okonkwo",
 "Doubtful"
@@ -447,65 +467,70 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 15.8,
+"wind": 15.3,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 12.1,
+"wind": 12.8,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 5.1,
+"wind": 5.3,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 6.5,
+"wind": 7.8,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 3.0,
+"wind": 2.5,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 18.1,
+"wind": 14.5,
 "cold": false,
 "rain": true
 },
 "2026_03_CIN_PIT": {
-"wind": 10.1,
+"wind": 10.7,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 15.1,
+"wind": 10.8,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_ARI_SF": {
-"wind": 6.3,
+"wind": 5.4,
 "cold": false,
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 7.6,
+"wind": 7.5,
 "cold": false,
 "rain": false
 },
 "2026_03_BAL_DAL": {
-"wind": 6.5,
+"wind": 6.2,
+"cold": false,
+"rain": false
+},
+"2026_03_LA_DEN": {
+"wind": 22.2,
 "cold": false,
 "rain": false
 },
 "2026_03_PHI_CHI": {
-"wind": 4.5,
+"wind": 4.6,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-25 17:32 UTC"
+"written_at": "2026-09-25 18:26 UTC"
 }
