@@ -267,7 +267,7 @@
 [
 "HOU",
 "Nico Collins",
-"Doubtful"
+"Out"
 ],
 [
 "IND",
@@ -376,6 +376,16 @@
 ],
 [
 "NO",
+"Barion Brown",
+"Out"
+],
+[
+"NO",
+"Christen Miller",
+"Out"
+],
+[
+"NO",
 "Kelvin Banks Jr.",
 "Out"
 ],
@@ -427,6 +437,11 @@
 [
 "PHI",
 "Landon Dickerson",
+"Out"
+],
+[
+"PIT",
+"Rico Dowdle",
 "Out"
 ],
 [
@@ -497,44 +512,44 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 15.3,
+"wind": 16.1,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 12.8,
+"wind": 13.6,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 5.3,
+"wind": 5.8,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 7.8,
+"wind": 6.3,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 2.5,
+"wind": 3.0,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 14.5,
+"wind": 14.1,
 "cold": false,
 "rain": true
 },
 "2026_03_CIN_PIT": {
-"wind": 10.7,
+"wind": 12.1,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 10.8,
+"wind": 12.2,
 "cold": false,
-"rain": false
+"rain": true
 },
 "2026_03_ARI_SF": {
 "wind": 5.4,
@@ -562,5 +577,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 19:21 UTC"
+"written_at": "2026-09-25 20:27 UTC"
 }
