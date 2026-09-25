@@ -281,6 +281,11 @@
 ],
 [
 "MIA",
+"Caleb Douglas",
+"Out"
+],
+[
+"MIA",
 "Ronnie Harrison Jr.",
 "Out"
 ],
@@ -326,13 +331,23 @@
 ],
 [
 "NYJ",
+"Kiko Mauigoa",
+"Out"
+],
+[
+"NYJ",
 "Marcelino McCrary-Ball",
 "Out"
 ],
 [
 "NYJ",
 "Mason Taylor",
-"Doubtful"
+"Out"
+],
+[
+"NYJ",
+"Minkah Fitzpatrick",
+"Out"
 ],
 [
 "PHI",
@@ -446,11 +461,11 @@
 "cold": false,
 "rain": false
 },
-"2026_03_LA_DEN": {
-"wind": 16.6,
+"2026_03_PHI_CHI": {
+"wind": 4.5,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-25 14:02 UTC"
+"written_at": "2026-09-25 15:30 UTC"
 }
