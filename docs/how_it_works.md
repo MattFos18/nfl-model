@@ -255,8 +255,8 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 | Cut | 2019-22 | 2023-25 | 2015-18 (untouched) | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 4 | 80-51, 61.1% | 40-21, 65.6% | 69-55, 55.6% | 66.7% | 72.7% | 64.3% | 41.2% (14-20) | 66.7% | 70.0% | 59.1% |
-| 4.5 | 52-37, 58.4% | 26-15, 63.4% | 43-36, 54.4% | 58.3% | 68.2% | 68.4% | 41.7% (10-14) | 66.7% | 65.0% | 60.0% |
-| 5 | 37-28, 56.9% | 16-6, 72.7% | 29-24, 54.7% | 62.5% | 64.7% | 64.3% | 38.9% (7-11) | 75.0% (3-1) | 85.7% | 63.6% |
+| 4.5 | 52-37, 58.4% | 25-15, 62.5% | 43-36, 54.4% | 58.3% | 68.2% | 68.4% | 41.7% (10-14) | 66.7% | 63.2% | 60.0% |
+| 5 | 36-28, 56.2% | 16-6, 72.7% | 29-24, 54.7% | 62.5% | 64.7% | 61.5% | 38.9% (7-11) | 75.0% (3-1) | 85.7% | 63.6% |
 <!-- /auto:threshold -->
 
 **24 Sep 2026, after the QB rating began counting scrambles and designed runs and fading 0.8 per season:** the flag stays at 4. Across 2019 to 2025 it is 123-78 (61.2%). 4.5 is 83-50 (62.4%): a little better on both windows (60.4% and 66.7% against 59.1% and 66.1%) at two thirds of the volume, and worse on the untouched 2015 to 2018 (39-40 against 61-59). The cut was set on 22 Sep and moves only on live results, not on a backtest this close; the 4.5 shadow rule logs it live. Counting scrambles and designed runs alone made every window's flag record a little worse (docs section 25); the season fade then made it better on both windows.
@@ -318,10 +318,10 @@ tie check on every run; the live table carries the same columns):
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
 | 4+ edge (the flag) | 69-55 | 80-51 | 40-21 |
-| 4.5+ edge | 43-36 | 52-37 | 26-15 |
+| 4.5+ edge | 43-36 | 52-37 | 25-15 |
 | 4+ edge, model's side the underdog or pick'em | 51-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
-| boosted trees alone, 5+ edge | 94-66 | 84-60 | 34-17 |
+| boosted trees alone, 5+ edge | 93-68 | 85-58 | 34-17 |
 | Under 3+ on the total (the totals flag) | 57-47 | 112-68 | 10-13 |
 <!-- /auto:rules -->
 
@@ -607,15 +607,15 @@ the every-game cover rate on the model's side, and the 4-point flag:
 <!-- auto:byweek -->
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | -0.02 | 53% | 18-9 (67%) |
+| 1 | 175 | -0.01 | 53% | 18-9 (67%) |
 | 2 | 176 | -0.14 | 59% | 17-7 (71%) |
-| 3 | 176 | +0.08 | 53% | 14-8 (64%) |
-| 4 | 171 | +0.23 | 51% | 12-5 (71%) |
+| 3 | 176 | +0.08 | 52% | 14-8 (64%) |
+| 4 | 171 | +0.23 | 50% | 12-5 (71%) |
 | 5 to 8 | 632 | +0.15 | 51% | 43-32 (57%) |
 | 9 to 13 | 793 | +0.16 | 49% | 51-33 (61%) |
 | 14 to 17 | 692 | +0.19 | 51% | 34-33 (51%) |
 | 18 | 80 | +0.50 | 59% | 7-8 (47%) |
-| Playoffs | 133 | +0.29 | 47% | 6-5 (55%) |
+| Playoffs | 133 | +0.30 | 47% | 6-5 (55%) |
 <!-- /auto:byweek -->
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
@@ -1441,7 +1441,7 @@ closing line and -110:
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
 | 2016-18 (never used to choose) | 40-39 | -2.6 | 14.4 | -12.1% | 66% |
-| 2019-22 (the threshold was chosen here) | 80-51 | +21.7 | 12.4 | +20.9% | 2.8% |
+| 2019-22 (the threshold was chosen here) | 80-51 | +21.7 | 12.4 | +18.6% | 2.8% |
 | 2023-25 (held out) | 40-21 | +15.4 | 5.0 | +18.2% | 2.6% |
 <!-- /auto:sizing -->
 
