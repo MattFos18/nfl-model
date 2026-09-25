@@ -1875,3 +1875,26 @@ every weight, so it is left alone. His target or carry share over the last 3 gam
 - Finer team ratings (`reports/team_signals_a4.csv`): pass and rush EPA split, success rate. Success rate helps the
   margin on both windows (10.030 → 10.025, 9.914 → 9.907) but worsens team points on 2019-22 and 2015-18; the split
   worsens team points on 2019-22.
+
+## 37. Seven models averaged; the referee in the totals (25 Sep 2026)
+
+The rule for a change is unchanged in spirit (it must not just fit one stretch of seasons) but is scored on bets won as
+well as the miss. `experiments/bet_wins.py` priced every game of 2015-2025 under several models at once.
+
+**Adopted: team points are the average of seven models**, each refit every week on the same games: the live equation,
+three equations with one more set of ratings (success rate; pass and rush EPA; plays per game), the live inputs with
+less and more shrinkage, and gradient-boosted trees on the live inputs. The card's breakdown still shows the equation
+term by term, then one line, "Six more models, averaged in", which opens to each model's number.
+
+| | 2015-18 | 2019-22 | 2023-25 |
+|---|---|---|---|
+| Margin miss, live equation | 9.962 | 10.059 | 9.942 |
+| Margin miss, seven-model average | 9.949 | 10.047 | 9.929 |
+| 4+ flag, live equation | 61-58 | 81-55 | 40-23 |
+| 4+ flag, seven-model average | 68-55 | 80-50 | 40-21 |
+
+The gain held with every tree setting tried (`experiments/bet_wins_gbm.py`). The trees alone miss by more but at a
+5-point edge went 95-66, 84-60 and 34-17; that rule is logged and graded live beside the flag, never bet.
+
+**Totals:** the referee's over rate (prior games, shrunk) joins the total equation: the miss fell on all three windows.
+The totals flag stays retired: across every model and cut, 2023-25 lost.

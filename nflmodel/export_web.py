@@ -116,6 +116,7 @@ BASE = {
     # model
     "m_exp_pf": ("Model", "3.0 expected points for this team", "model.py", False, False), "m_exp_pa": ("Model", "3.0 expected points against", "model.py", False, False),
     "m_win": ("Model", "3.0 win probability", "model.py", False, False), "m_cover": ("Model", "3.0 probability of covering the closing spread", "model.py", False, False),
+    "m_blend_adj": ("Model", "the other six models' average pull on this team's expected points (the blend, 25 Sep 2026): expected points = the equation's number + this", "model.py", False, False),
     "m_over": ("Model", "3.0 probability the game goes over the closing total", "model.py", False, False),
 }
 
@@ -303,6 +304,8 @@ def main():
     d["m_win"] = [pv.p_home.get(g, np.nan) if h else 1 - pv.p_home.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_cover"] = [pv.p_cover_home.get(g, np.nan) if h else 1 - pv.p_cover_home.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["m_over"] = d.game_id.map(pv.p_over)
+    if "home_blend_adj" in pv.columns:
+        d["m_blend_adj"] = [pv.home_blend_adj.get(g, np.nan) if h else pv.away_blend_adj.get(g, np.nan) for g, h in zip(d.game_id, d.home)]
     d["team_spread"] = np.where(d.home, d.spread_line, -d.spread_line)
     d = d.sort_values(["season", "week"])
     cols = [c for c in d.columns if c not in ("game_id",)]
@@ -343,7 +346,7 @@ def main():
                 "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else "",
                 "situation_facts": situation_facts(feats)}
     analysis["home_edges"] = team_home_edges(tg)
-    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
+    meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "blend_label": M.BLEND_LABEL, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
             "code_sha": _code_sha()}   # the commit whose code built these files (nflmodel/publish_check.py)
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
@@ -545,6 +548,10 @@ def export_week(feats=None, games=None, pred=None):
                     row = fp.loc[(r.game_id, tm)]
                     sides[tm] = {c: ((None if pd.isna(row[c]) else round(float(row[c]), 6)) if c in M.FEATS and isinstance(row[c], (float, np.floating)) else clean(row[c])) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
                     sides[tm]["skill_out_players"] = out_detail(r.game_id, tm)
+                    if r.game_id in pv_coef.index and "home_blend_adj" in pv_coef.columns:   # the blend: the other six models' pull and each model's number
+                        sd_ = "home" if tm == r.home_team else "away"; prw = pv_coef.loc[r.game_id]
+                        sides[tm]["blend_adj"] = round(float(prw[f"{sd_}_blend_adj"]), 6)
+                        sides[tm]["models"] = {k: round(float(prw[f"{sd_}_m_{k}"]), 3) for k in M.BLEND_LABEL}
                     if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
                         sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
                         sides[tm]["qb_carried"] = True
@@ -666,6 +673,8 @@ def export_backtest_js(games=None, feats=None):
     bk = allv[cols + ["sigma_margin"]].copy()
     if f"coef_{M.FEATS[0]}" in allv.columns:   # the fit that priced each game, so the deep dive rebuilds its expected points exactly
         bk["coef"] = allv[[f"coef_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["mean"] = allv[[f"mean_{f}" for f in M.FEATS]].round(5).values.tolist(); bk["intercept"] = allv["intercept"].round(5)
+    if "home_blend_adj" in allv.columns:
+        bk["home_adj"] = allv["home_blend_adj"].round(6); bk["away_adj"] = allv["away_blend_adj"].round(6)
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
