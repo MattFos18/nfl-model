@@ -86,6 +86,11 @@
 "injuries": [
 [
 "ARI",
+"Dadrion Taylor-Demerson",
+"Out"
+],
+[
+"ARI",
 "Will Johnson",
 "Out"
 ],
@@ -671,6 +676,11 @@
 "cold": false,
 "rain": false
 },
+"2026_03_BAL_DAL": {
+"wind": 6.2,
+"cold": false,
+"rain": false
+},
 "2026_03_LA_DEN": {
 "wind": 22.2,
 "cold": false,
@@ -682,5 +692,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 22:24 UTC"
+"written_at": "2026-09-25 23:24 UTC"
 }
