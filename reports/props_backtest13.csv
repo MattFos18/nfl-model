@@ -1,0 +1,22 @@
+stat,variant,mae_2019-22,mae_2023-25
+rec_yards,base,19.305,18.278
+rec_yards,"A_injury LIM 0.913, Q 0.907",19.285,18.285
+rec_yards,B_snap_w0.25,19.298,18.249
+rec_yards,B_snap_w0.5,19.352,18.267
+rec_yards,B_snap_w1.0,19.64,18.463
+rec_yards,C_role_w0.25,19.344,18.291
+rec_yards,C_role_w0.5,19.427,18.349
+rec_yards,"D_all (A_injury, B_snap_w0.25)",19.277,18.257
+rush_yards,base,17.858,17.037
+rush_yards,A_injury Q 0.928,17.854,17.027
+rush_yards,B_snap_w0.25,17.811,17.039
+rush_yards,B_snap_w0.5,17.852,17.118
+rush_yards,B_snap_w1.0,18.182,17.507
+rush_yards,C_role_w0.25,17.871,17.061
+rush_yards,C_role_w0.5,17.933,17.125
+rush_yards,"D_all (A_injury, B_snap_w0.25)",17.806,17.027
+pass_yards,base,56.637,56.398
+pass_yards,A_injury ,56.637,56.398
+pass_yards,B_snap_w0.25,57.497,56.567
+pass_yards,B_snap_w0.5,59.367,58.019
+pass_yards,B_snap_w1.0,65.112,64.041

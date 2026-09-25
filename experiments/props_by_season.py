@@ -58,6 +58,21 @@ def lg_series(f, frame, col, fallback):
 def pll(mu, k): mu = np.clip(mu, 1e-3, None); return float(np.mean(mu - k * np.log(mu) + gammaln(k + 1)))
 tv = d[d.pass_play].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tp").reset_index().merge(d[d.play_type.eq("run")].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tr").reset_index(), how="outer").merge(d[d.dropback].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tdb").reset_index(), how="outer").fillna(0)
 T17 = prev_sums(tv, ["posteam"], ["tp", "tr", "tdb"]); ALW = prev_sums(tv.rename(columns={"tdb": "a_tdb"}), ["defteam"], ["a_tdb"]).rename(columns={"games_prev": "agames"})
+def _reports():
+    from nflmodel.features import RAW
+    fr = []
+    for s_ in range(2016, 2027):
+        p_ = RAW / "injuries" / f"injuries_{s_}.parquet"
+        if p_.exists():
+            x = pd.read_parquet(p_); col = "season_type" if "season_type" in x.columns else "game_type"
+            fr.append(x[x[col] == "REG"][["season", "week", "gsis_id", "report_status", "practice_status"]])
+    return pd.concat(fr).dropna(subset=["gsis_id"]).drop_duplicates(["season", "week", "gsis_id"], keep="last").rename(columns={"gsis_id": "pid"})
+def _snaps():
+    e = pd.read_parquet(OUT / "snap_exposure.parquet", columns=["player_id", "game_id", "season", "week", "off_pct"]).rename(columns={"player_id": "pid"}).dropna(subset=["off_pct"])
+    e = e[e.off_pct > 0].sort_values(["pid", "season", "week"]); g_ = e.groupby("pid").off_pct
+    e["s3"] = g_.transform(lambda v: v.shift(1).rolling(3, min_periods=3).mean()); e["s10"] = g_.transform(lambda v: v.shift(1).rolling(10, min_periods=4).mean())
+    return e[["pid", "game_id", "s3", "s10"]]
+_REP, _SNAP = _reports(), _snaps()
 def build(kind):
     if kind == "rec":
         t = d[d.pass_play & d.receiver_player_id.notna()].rename(columns={"receiver_player_id": "pid"}); vcol = "tp"; ev = {"catch": "complete_pass", "td": "pass_touchdown"}; lgp = d[d.pass_play]
@@ -113,6 +128,12 @@ def build(kind):
     ok = f.exp_pts.notna()
     scale_y = ((fy[0] + fy[1] * f.exp_pts) / f.sum_y.replace(0, np.nan)).clip(0.5, 2.0); scale_t = ((ft[0] + ft[1] * f.exp_pts) / f.sum_t.replace(0, np.nan)).clip(0.5, 2.0)
     f["yds_line"] = np.where(ok & scale_y.notna(), f.yds_line * (1 + wy * (scale_y - 1)), f.yds_line); f["td_line"] = np.where(ok & scale_t.notna(), f.td_line * (1 + wt * (scale_t - 1)), f.td_line)
+    # round 13 (25 Sep 2026): this week's injury report for a player who plays, and his snap trend, on the yards line
+    if kind in PR.INJ_F and globals().get("R13_ON", True):
+        f = f.merge(_REP, on=["pid", "season", "week"], how="left").merge(_SNAP, on=["pid", "game_id"], how="left")
+        grp = [PR.inj_group(a_, b_) for a_, b_ in zip(f.report_status, f.practice_status)]
+        fac = np.array([PR.INJ_F[kind].get(g_, 1.0) for g_ in grp]) * np.array([1 + PR.SNAP_W[kind] * (PR.snap_ratio(a_, b_) - 1) for a_, b_ in zip(f.s3, f.s10)])
+        f["yds_line"] = f.yds_line * fac
     f["pos"] = f.pid.map(pos_of).fillna("?"); return f, ev
 def score(x, line, actual, count=False):
     e = x[line] - x[actual]; out = {"n": int(len(x)), "mae": round(float(e.abs().mean()), 3 if count else 2), "bias": round(float(e.mean()), 3 if count else 2), "mean_line": round(float(x[line].mean()), 3 if count else 1), "mean_actual": round(float(x[actual].mean()), 3 if count else 1)}
