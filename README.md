@@ -61,8 +61,8 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | Margin miss | 9.90 | 9.74 |
 | Total miss | 10.24 | 10.12 |
 | Brier (win odds) | 0.216 | 0.210 |
-| Spreads at 3+ pt edge | 84-67 | |
-| Spreads at 4+ pt edge (the flag) | 44-26 (2019 to 2025: 126-80; 119-72 outside Week 18) | |
+| Spreads at 3+ pt edge | 83-67 | |
+| Spreads at 4+ pt edge (the flag) | 44-26 (2019 to 2025: 127-80; 120-72 outside Week 18) | |
 | Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 50-55 (2019 to 2025: 164-126) | |
 
 These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test.
