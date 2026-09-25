@@ -113,6 +113,7 @@ def prep(f: pd.DataFrame) -> pd.DataFrame:
     f["wind_out"] = np.where(f.dome == 1, 0.0, f.wind.fillna(f.wind.median()))
     f["cold"] = np.where(f.dome == 1, 0.0, (f.temp.fillna(60) < 35).astype(float))
     f["warm_in_cold"] = f["cold"] * f.team.isin(WARM_OR_DOME).astype(float)   # warm-climate or dome team outdoors under 35F
+    f["qb_form"] = qb_form(f)
     return f
 
 
@@ -181,7 +182,25 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_over"]   # ref_over (the referee's over rate, prior games, shrunk) added 25 Sep 2026: lower total miss on 2015-18, 2019-22 and 2023-25 (reports/bet_wins.csv)
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_over", "qb_form_sum"]   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
+QB_FORM_K = 100.0
+
+
+def qb_form(f: pd.DataFrame) -> pd.Series:
+    """The starter's EPA per dropback this season before the game, shrunk toward his career rating with QB_FORM_K
+    dropbacks of weight, minus the rating: how far this season is pulling him from his career number."""
+    if "qb_id" not in f.columns or not (OUT / "qb_games.parquet").exists():
+        return pd.Series(0.0, index=f.index)
+    q = pd.read_parquet(OUT / "qb_games.parquet", columns=["qb_id", "season", "week", "dropbacks", "qb_epa"])
+    qd = {k: (x.week.values, x.dropbacks.values, x.qb_epa.values) for k, x in q.sort_values("week").groupby(["qb_id", "season"])}
+    out = []
+    for qid, s, w, r in zip(f.qb_id, f.season, f.week, f.qb_rating):
+        v = qd.get((qid, s)) if isinstance(qid, str) else None
+        if v is None or pd.isna(r):
+            out.append(0.0); continue
+        m = v[0] < w; db, ep = float(v[1][m].sum()), float(v[2][m].sum())
+        out.append((ep + QB_FORM_K * r) / (db + QB_FORM_K) - r)
+    return pd.Series(out, index=f.index)   # ref_over (the referee's over rate, prior games, shrunk) added 25 Sep 2026: lower total miss on 2015-18, 2019-22 and 2023-25 (reports/bet_wins.csv)
 
 
 def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
@@ -192,7 +211,7 @@ def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
                          "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
                          "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
                          "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
-                         "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
+                         "qb_form_sum": ((h.loc[ids, "qb_form"] + a.loc[ids, "qb_form"]).values if "qb_form" in h.columns else np.zeros(len(ids))), "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
                          "div_game": h.loc[ids, "div_game"].values, "skill_out_sum": (h.loc[ids, "skill_out_value"] + a.loc[ids, "skill_out_value"]).values,
                          "snap_out_sum": (h.loc[ids, "off_snap_out"] + a.loc[ids, "off_snap_out"]).values,
                          "turnover_early_sum": (h.loc[ids, "off_turnover_early"] + a.loc[ids, "off_turnover_early"]).values}, index=ids)

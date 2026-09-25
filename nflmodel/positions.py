@@ -119,6 +119,8 @@ def coverage_stats(season: int, week: int, n_games: int = 8) -> tuple[pd.DataFra
         cmp_, yds, td, ints = float(h.def_completions_allowed.sum()), float(h.def_yards_allowed.sum()), float(h.def_receiving_td_allowed.sum()), float(h.def_ints.sum())
         rows.append({"player_id": pid, "cov_games": int(len(h)), "cov_targets": int(att), "cov_catch_pct": round(cmp_ / att, 3), "cov_ypt": round(yds / att, 2),
                      "cov_rating": round(passer_rating(att, cmp_, yds, td, ints), 1), "cov_yds_saved_pg": round((league["ypt"] * att - yds) / len(h), 2)})
+    if not rows:   # nothing charted before the week yet (Week 1 of the first charted season): same as no data
+        return pd.DataFrame(), {}
     return pd.DataFrame(rows).set_index("player_id"), league
 
 

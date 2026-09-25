@@ -369,6 +369,10 @@ def main():
         def _team_plays_pg():   # scrimmage plays a team runs a game, last season and this one (24 Sep 2026): the page's "points a game" for values in EPA per team play
             sp = pd.read_parquet(OUT / "scheme_plays.parquet", columns=["season", "game_id", "posteam", "play_type"]); sp = sp[sp.play_type.isin(["pass", "run"]) & (sp.season >= sp.season.max() - 1)]
             return round(len(sp) / max(sp.groupby(["game_id", "posteam"]).ngroups, 1), 1)
+        if len(pvals) and "group" in pvals.columns and (OUT / "qb_games.parquet").exists():   # a QB's EPA per dropback this season beside the career rating (25 Sep 2026)
+            qg = pd.read_parquet(OUT / "qb_games.parquet"); cs = int(qg.season.max()); qs = qg[qg.season == cs].groupby("qb_id").agg(db=("dropbacks", "sum"), epa=("qb_epa", "sum"))
+            isq = pvals.group == "QB"
+            pvals.loc[isq, "season_db"] = pvals.loc[isq, "player_id"].map(qs.db); pvals.loc[isq, "season_epa_db"] = pvals.loc[isq, "player_id"].map((qs.epa / qs.db.where(qs.db > 0)).round(3))
         (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.drop(columns=[c for c in ["basis"] if c in pvals.columns]).to_dict("records")], "basis": {g: b for g, b in pvals.groupby("group").basis.first().items()} if "basis" in pvals.columns else {},
                                                                           "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"], "team_plays_pg": _team_plays_pg()}, default=clean, separators=(",", ":")) + ";")
     pj = OUT / "props.json"
