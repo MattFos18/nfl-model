@@ -1,0 +1,25 @@
+group,win,won,lost,dim
+fast,2015-18,32,38,pace
+fast,2019-22,34,35,pace
+fast,2023-25,48,48,pace
+slow,2015-18,45,38,pace
+slow,2019-22,27,32,pace
+slow,2023-25,47,45,pace
+dome,2015-18,27,28,roof
+dome,2019-22,26,18,roof
+dome,2023-25,40,41,roof
+outdoors,2015-18,50,48,roof
+outdoors,2019-22,35,49,roof
+outdoors,2023-25,55,52,roof
+calm,2015-18,69,64,windy
+calm,2019-22,56,59,windy
+calm,2023-25,88,80,windy
+wind 10+,2015-18,8,12,windy
+wind 10+,2019-22,5,8,windy
+wind 10+,2023-25,7,13,windy
+good passing,2015-18,30,33,offenses
+good passing,2019-22,25,29,offenses
+good passing,2023-25,34,37,offenses
+weak passing,2015-18,47,43,offenses
+weak passing,2019-22,36,38,offenses
+weak passing,2023-25,61,56,offenses
