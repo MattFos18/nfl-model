@@ -53,7 +53,7 @@ MED = {"rec": 0.81, "rush": 0.84, "pass": 0.88}      # median factor on the yard
 K_CATCH, MED_CATCH = 25.0, 0.9                     # catch rate shrunk toward the league with 25 targets of weight (round 5); receptions line x 0.9, refit on 2017-18 in round 11 (was 0.88; reports/props_backtest11.csv, better on both windows)
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
-BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5093, 0.4857], 'rush_td_ll': [0.577, 0.5481], 'pass_td_ll': [1.4632, 1.4233], 'pass_int_ll': [1.1454, 1.103]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
+BACKTEST_COUNTS = {'rec_catches': [1.43, 1.35], 'rec_td_ll': [0.5095, 0.4857], 'rush_td_ll': [0.5767, 0.5482], 'pass_td_ll': [1.4664, 1.4208], 'pass_int_ll': [1.1454, 1.103]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv)
 RECON_W = {"rec": {"yds": 0.25, "td": 0.5}, "rush": {"yds": 0.25, "td": 0.5}, "pass": {"yds": 0.5, "td": 1.0}}   # round 6: weight of the move toward the team's expected yards and touchdowns from the game model's expected points (best row on both windows per stat)
 TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (103.23, 6.268)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
 PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
@@ -105,7 +105,7 @@ def snap_trends(season: int, week: int) -> dict:
 
 
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {'rec_yards': [19.28, 18.26], 'rush_yards': [17.81, 17.03], 'pass_yards': [56.64, 56.4]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
+BACKTEST = {'rec_yards': [19.28, 18.25], 'rush_yards': [17.8, 17.03], 'pass_yards': [56.74, 56.21]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
