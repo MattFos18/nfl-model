@@ -235,6 +235,11 @@
 "Out"
 ],
 [
+"HOU",
+"Nico Collins",
+"Doubtful"
+],
+[
 "IND",
 "Alec Pierce",
 "Out"
@@ -283,6 +288,11 @@
 "MIA",
 "Caleb Douglas",
 "Out"
+],
+[
+"MIA",
+"Jaylen Wright",
+"Doubtful"
 ],
 [
 "MIA",
@@ -390,9 +400,19 @@
 "Doubtful"
 ],
 [
+"SF",
+"Nick Bosa",
+"Doubtful"
+],
+[
 "TB",
 "Josh Hayes",
 "Out"
+],
+[
+"WAS",
+"Chig Okonkwo",
+"Doubtful"
 ],
 [
 "WAS",
@@ -467,5 +487,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 15:30 UTC"
+"written_at": "2026-09-25 16:32 UTC"
 }
