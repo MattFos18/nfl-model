@@ -35,3 +35,4 @@ checked,reprice,changes,errors
 2026-09-25 12:07 UTC,True,2026_03_TEN_NYG: wind 21 to 18 mph | 2026_03_SEA_WAS: wind 12 to 15 mph,
 2026-09-25 13:13 UTC,False,,
 2026-09-25 14:14 UTC,False,2026_03_PHI_CHI: forecast now inside the window the model uses,
+2026-09-25 15:13 UTC,True,MIA Caleb Douglas now Out | NYJ Kiko Mauigoa now Out | NYJ Mason Taylor now Out | NYJ Minkah Fitzpatrick now Out | 2026_03_PHI_CHI: forecast now inside the window the model uses,
