@@ -13,13 +13,21 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to decide the cut on live games (4.5 showed the best rate on the rebuilt backtest)
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction)
 SHADOWS = {"shadow45": (4.5, None, "4.5+ edge"), "shadowdog": (4.0, "dog", "4+ edge, model's side the underdog or pick'em"),
-           "shadowearly": (4.0, "wk13", "4+ edge, weeks 1 to 13 only")}   # weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
+           "shadowearly": (4.0, "wk13", "4+ edge, weeks 1 to 13 only"),
+           "shadowtrees": (5.0, "trees", "boosted trees alone, 5+ edge")}   # 25 Sep 2026: the blend's tree model on its own went 95-66, 84-60, 34-17 at 5+ (reports/bet_wins.csv)   # weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}   # untouched, tuning, held out
+
+
+def _spread(d, side_rule=None):
+    """The spread a rule reads: the model's, or the tree model's alone for the trees shadow."""
+    if side_rule == "trees":
+        return d.home_m_trees - d.away_m_trees if "home_m_trees" in d.columns else pd.Series(np.nan, index=d.index)
+    return d.model_spread
 
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to 17."""
-    e = d.model_spread - d.spread_line
+    e = _spread(d, side_rule) - d.spread_line
     m = (e.abs() >= edge) & (d.week < 18) & d.spread_line.notna()
     if side_rule == "dog":
         m &= ~((np.sign(e) == np.sign(d.spread_line)) & (d.spread_line != 0))
@@ -28,9 +36,9 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     return m
 
 
-def record(d: pd.DataFrame, m: pd.Series) -> tuple[int, int]:
-    """Wins and losses on the model's side over the rows m (pushes dropped)."""
-    e = d.model_spread - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
+def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
+    """Wins and losses on the rule's side over the rows m (pushes dropped)."""
+    e = _spread(d, side_rule) - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
     f = m & (cm != 0); w = int((((e > 0) & (cm > 0)) | ((e < 0) & (cm < 0)))[f].sum())
     return w, int(f.sum()) - w
 
@@ -43,7 +51,7 @@ def rule_records(d: pd.DataFrame) -> pd.DataFrame:
     for name, edge, sr, lab in rules:
         r = {"rule": name, "label": lab}
         for w, (a, b) in WINDOWS.items():
-            x = d[d.season.between(a, b)]; wi, lo = record(x, rule_mask(x, edge, sr)); r[w] = f"{wi}-{lo}"
+            x = d[d.season.between(a, b)]; wi, lo = record(x, rule_mask(x, edge, sr), sr); r[w] = f"{wi}-{lo}"
         rows.append(r)
     return pd.DataFrame(rows)
 SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (best overall rate at twice the volume, both windows; reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
@@ -66,6 +74,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     p["away_score"] = p.game_id.map(g.away_score)
     p["spread_edge"] = p.model_spread - p.spread_line
     p["total_edge"] = p.model_total - p.total_line
+    p["tree_edge"] = _spread(p, "trees") - p.spread_line
     if base is not None:
         b = base.set_index("game_id")
         p["old_home"] = p.game_id.map(b.home_exp)
@@ -79,9 +88,10 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
         if side_rule == "wk13" and r.week >= 14:
             return ""   # the early-weeks rule sits out the late season
-        if pd.notna(r.spread_line) and abs(r.spread_edge) >= spread_edge:
-            side = r.home_team if r.spread_edge > 0 else r.away_team
-            line = -r.spread_line if r.spread_edge > 0 else r.spread_line
+        se = r.tree_edge if side_rule == "trees" else r.spread_edge
+        if pd.notna(r.spread_line) and pd.notna(se) and abs(se) >= spread_edge:
+            side = r.home_team if se > 0 else r.away_team
+            line = -r.spread_line if se > 0 else r.spread_line
             out.append(f"{side} {line:+g}")
         if total_edge is not None and pd.notna(r.total_line) and abs(r.total_edge) >= total_edge:
             out.append(("Over " if r.total_edge > 0 else "Under ") + f"{r.total_line:g}")
@@ -220,7 +230,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
-           "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only), to decide the rule on live games.", ""]
+           "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only; the boosted trees alone at 5), to decide the rule on live games.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 
