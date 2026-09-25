@@ -441,6 +441,11 @@
 "cold": false,
 "rain": false
 },
+"2026_03_BAL_DAL": {
+"wind": 5.6,
+"cold": false,
+"rain": false
+},
 "2026_03_LA_DEN": {
 "wind": 19.7,
 "cold": false,
@@ -452,5 +457,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-25 02:30 UTC"
+"written_at": "2026-09-25 02:47 UTC"
 }
