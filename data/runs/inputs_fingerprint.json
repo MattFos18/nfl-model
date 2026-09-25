@@ -131,6 +131,11 @@
 ],
 [
 "CAR",
+"Devin Lloyd",
+"Out"
+],
+[
+"CAR",
 "Jonathon Brooks",
 "Out"
 ],
@@ -158,6 +163,11 @@
 "CIN",
 "Andrei Iosivas",
 "Out"
+],
+[
+"CIN",
+"B.J. Hill",
+"Doubtful"
 ],
 [
 "DAL",
@@ -242,6 +252,11 @@
 [
 "IND",
 "Alec Pierce",
+"Out"
+],
+[
+"IND",
+"Ashton Dulin",
 "Out"
 ],
 [
@@ -410,6 +425,11 @@
 "Out"
 ],
 [
+"TB",
+"Josiah Trotter",
+"Out"
+],
+[
 "WAS",
 "Chig Okonkwo",
 "Doubtful"
@@ -481,16 +501,11 @@
 "cold": false,
 "rain": false
 },
-"2026_03_LA_DEN": {
-"wind": 16.6,
-"cold": false,
-"rain": false
-},
 "2026_03_PHI_CHI": {
 "wind": 4.5,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-25 16:50 UTC"
+"written_at": "2026-09-25 17:32 UTC"
 }
