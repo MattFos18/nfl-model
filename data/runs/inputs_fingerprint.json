@@ -78,7 +78,7 @@
 "2026-09-27 20:20"
 ],
 "2026_03_PHI_CHI": [
-"00-0028986",
+"00-0038416",
 "00-0036389",
 "2026-09-28 20:15"
 ]
@@ -177,7 +177,7 @@
 [
 "CHI",
 "Caleb Williams",
-"Doubtful"
+"Out"
 ],
 [
 "CHI",
@@ -963,12 +963,6 @@
 ],
 [
 "CHI",
-"Cairo Santos",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "Caleb Williams",
 "",
 "Did Not Participate In Practice"
@@ -1008,12 +1002,6 @@
 "Tyrique Stevenson",
 "",
 "Limited Participation in Practice"
-],
-[
-"CHI",
-"Tyrique Stevenson Sr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -2402,7 +2390,12 @@
 "wind": 15.1,
 "cold": false,
 "rain": false
+},
+"2026_03_PHI_CHI": {
+"wind": 4.8,
+"cold": false,
+"rain": false
 }
 },
-"written_at": "2026-09-26 19:01 UTC"
+"written_at": "2026-09-26 19:37 UTC"
 }
