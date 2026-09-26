@@ -22,18 +22,57 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT, RUNS, REP = ROOT / "data" / "processed", ROOT / "data" / "runs", ROOT / "reports"
 
 
+_RUN_AT = {"run_at": None}   # the run being logged: every step's row goes to data/runs/run_log.csv as it finishes
+
+# the backtests built from the model's predictions (and the props rule) that the pages quote: re-run after every model
+# run (26 Sep 2026: calibration_start, the season backtest and the props by-season run had not been re-run since the
+# model changed; about three minutes in all). Each writes a stamp of the inputs it read (reports/backtest_inputs.json),
+# and the tie check fails when an input has changed since (a skipped or failed re-run can never pass unseen).
+_P = "data/processed/"
+BACKTESTS = {
+    "sizing backtest": ("experiments.sizing_backtest", [_P + "pred_v3.parquet", _P + "games.parquet", "nflmodel/picks.py", "experiments/sizing_backtest.py"]),
+    "threshold sweep": ("experiments.threshold", [_P + "pred_v3.parquet", _P + "games.parquet", "experiments/threshold.py"]),
+    "calibration start": ("experiments.calibration_start", [_P + "pred_v3.parquet", _P + "games.parquet", "nflmodel/picks.py", "experiments/calibration_start.py"]),
+    "season backtest": ("experiments.season_backtest", [_P + "pred_v3.parquet", _P + "games.parquet", _P + "features_asof.parquet", "nflmodel/season.py", "nflmodel/model.py", "experiments/season_backtest.py"]),
+    "props by season": ("experiments.props_by_season", [_P + "pred_v3.parquet", _P + "games.parquet", _P + "scheme_plays.parquet", _P + "snap_exposure.parquet", _P + "features_asof.parquet", "nflmodel/props.py", "experiments/props_by_season.py"]),
+    "legitimacy tests": ("experiments.legitimacy", [_P + "pred_v3.parquet", _P + "games.parquet", "experiments/legitimacy.py"]),
+}
+STAMPS = REP / "backtest_inputs.json"
+
+
+def input_hashes(paths) -> dict:
+    """sha1 of each input file's bytes (the checkout's file times are all the same, so contents are compared)."""
+    import hashlib
+    return {p: (hashlib.sha1((ROOT / p).read_bytes()).hexdigest()[:16] if (ROOT / p).exists() else "missing") for p in paths}
+
+
+def run_backtest(name: str) -> str:
+    """Run one backtest and stamp the inputs it read."""
+    import json
+    mod, ins = BACKTESTS[name]
+    out = sh([mod])
+    st = json.loads(STAMPS.read_text()) if STAMPS.exists() else {}
+    st[name] = {"ran_at": _RUN_AT["run_at"], "inputs": input_hashes(ins)}
+    STAMPS.write_text(json.dumps(st, indent=1, sort_keys=True))
+    return out
+
+
 def step(name, fn, log):
     t0 = time.time()
     try:
         out = fn()
-        log.append({"step": name, "status": "ok", "detail": str(out)[:200] if out is not None else "", "seconds": round(time.time() - t0, 1)})
+        row = {"step": name, "status": "ok", "detail": str(out)[:200] if out is not None else "", "seconds": round(time.time() - t0, 1)}
         print(f"[ok] {name} ({time.time() - t0:.0f}s)", flush=True)
-        return out
     except Exception as e:  # noqa
-        log.append({"step": name, "status": "error", "detail": f"{type(e).__name__}: {str(e)[:200]}", "seconds": round(time.time() - t0, 1)})
+        out = None
+        row = {"step": name, "status": "error", "detail": f"{type(e).__name__}: {str(e)[:200]}", "seconds": round(time.time() - t0, 1)}
         print(f"[ERROR] {name}: {e}", flush=True)
         traceback.print_exc()
-        return None
+    log.append(row)
+    if _RUN_AT["run_at"]:   # logged as it finishes, so the tie check later in this run sees a failed step (and fails)
+        RUNS.mkdir(parents=True, exist_ok=True); f = RUNS / "run_log.csv"
+        pd.DataFrame([row]).assign(run_at=_RUN_AT["run_at"]).to_csv(f, mode="a", header=not f.exists(), index=False)
+    return out
 
 
 def sh(cmd):
@@ -47,6 +86,7 @@ def main(full=False, skip_network=False):
     from . import pull, picks as P, tracker, weather, export_web, tie_check
     log = []
     run_at = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    _RUN_AT["run_at"] = run_at
     games0 = pd.read_parquet(OUT / "games.parquet")
     season = int(games0.season.max())
     if not skip_network:
@@ -75,10 +115,11 @@ def main(full=False, skip_network=False):
     step("positions", lambda: sh(["nflmodel.positions"]), log)
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
+    step("snap exposure", lambda: sh(["nflmodel.exposure"]), log)   # every player's snap share by game, for the props' snap trend (26 Sep 2026: no step built it; it stopped at Week 2)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)
-    step("sizing backtest", lambda: sh(["experiments.sizing_backtest"]), log)   # the Bets tab's staking numbers follow every re-price (24 Sep 2026: it had gone stale after a model change)
-    step("threshold sweep", lambda: sh(["experiments.threshold"]), log)       # the threshold table the docs quote, likewise   # 2015 to 2018 priced too (untouched by every choice; shown, never tuned on)
+    for name in BACKTESTS:   # every backtest the pages quote, re-run on this model (sizing: 24 Sep 2026; the rest 26 Sep 2026); the legitimacy tests too, before the export that shows them (26 Sep 2026: they ran after it, so the page showed the run before's)
+        step(name, lambda n=name: run_backtest(n), log)
     step("audit reports", lambda: sh(["nflmodel.report"]), log)   # the README's results block and backtest_v3.md, before the tie check reads them (24 Sep 2026: it ran after, so the check compared a run-old README)
     from . import lines
     cur_season, cur_week = lines.current_week(games)
@@ -94,15 +135,13 @@ def main(full=False, skip_network=False):
     step("tie check (sources)", lambda: tie_check.main(False) or (_ for _ in ()).throw(RuntimeError("numbers disagree: see reports/tie_check.md")), log)
     step("export data room", lambda: export_web.main(), log)
     step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
-    step("legitimacy tests", lambda: sh(["experiments.legitimacy"]), log)
     _write(log, run_at, cur_season, cur_week, pk)
     return log
 
 
 def _write(log, run_at, season, week, pk, halted=False):
     RUNS.mkdir(parents=True, exist_ok=True)
-    df = pd.DataFrame(log).assign(run_at=run_at)
-    df.to_csv(RUNS / "run_log.csv", mode="a", header=not (RUNS / "run_log.csv").exists(), index=False)
+    df = pd.DataFrame(log).assign(run_at=run_at)   # each row went to run_log.csv as its step finished (step())
     L = [f"# Weekly run, {run_at}", ""]
     if halted:
         L += ["**Halted: verification failed.** Nothing downstream was rebuilt; the last good picks stand.", ""]
