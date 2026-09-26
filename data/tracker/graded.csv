@@ -1,6 +1,8 @@
 run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,p_cover,kind,side,line,played,close,clv,clv_now,result,units,who,note
-2026-09-26 09:12 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.26,Draft Kings,4.37,0.24,0.607,spread,DEN,2.5,False,,,0.0,pending,,model,
-2026-09-26 09:12 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.26,Draft Kings,4.37,0.24,0.607,spread,DEN,2.5,False,,,0.0,pending,,shadowdog,
-2026-09-26 09:12 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.26,Draft Kings,4.37,0.24,0.607,spread,DEN,2.5,False,,,0.0,pending,,shadowearly,
-2026-09-26 09:12 UTC,2026,3,2026_03_LAC_BUF,Under 50.5,-110,1.0,,,0.16,-3.61,,total,under,50.5,False,,,0.0,pending,,shadowunder,
-2026-09-26 09:12 UTC,2026,3,2026_03_NE_JAX,Under 46.5,-110,1.0,,,0.19,-1.51,,total,under,46.5,False,,,0.0,pending,,shadowunder,
+2026-09-26 11:14 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.25,DraftKings,4.59,-1.32,0.613,spread,DEN,2.5,False,,,0.0,pending,,model,
+2026-09-26 11:14 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.25,DraftKings,4.59,-1.32,0.613,spread,DEN,2.5,False,,,0.0,pending,,shadow45,
+2026-09-26 11:14 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.25,DraftKings,4.59,-1.32,0.613,spread,DEN,2.5,False,,,0.0,pending,,shadowdog,
+2026-09-26 11:14 UTC,2026,3,2026_03_LA_DEN,DEN +2.5,-115,1.0,0.25,DraftKings,4.59,-1.32,0.613,spread,DEN,2.5,False,,,0.0,pending,,shadowearly,
+2026-09-26 11:14 UTC,2026,3,2026_03_LAC_BUF,Under 50.5,-110,1.0,,,0.18,-3.61,,total,under,50.5,False,,,0.0,pending,,shadowunder,
+2026-09-26 11:14 UTC,2026,3,2026_03_NE_JAX,Under 46.5,-110,1.0,,,0.19,-1.51,,total,under,46.5,False,,,0.0,pending,,shadowunder,
+2026-09-26 11:14 UTC,2026,3,2026_03_LA_DEN,Under 44.5,-115,1.0,,,4.59,-1.32,,total,under,44.5,False,,,0.0,pending,,shadowunder,
