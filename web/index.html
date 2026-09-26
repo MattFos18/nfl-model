@@ -251,7 +251,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
 .rphead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:flex-end;justify-content:space-between;margin:10px 0 12px}
 .rpbtns{display:flex;gap:6px;flex-wrap:wrap}
 .rpq{color:var(--muted);font-size:12px}
-.rpp{font-family:var(--mono);font-weight:600}
+.rpp{font-weight:700}
 table.rprec,table.rpsum,table.rgn,table.rgf{border-collapse:collapse;font-variant-numeric:tabular-nums}
 table.rprec{margin:0 0 4px;font-size:13px}
 table.rprec th,table.rprec td{padding:4px 12px 4px 0;text-align:left;white-space:nowrap}
@@ -275,7 +275,7 @@ table.rpsum a{color:var(--ink);font-weight:600;text-decoration:none;border-botto
 .rpt .lab{font-weight:600;font-size:14px;margin-top:2px}
 .rpt .sm{font-size:12px;color:var(--muted);margin-top:2px}
 .rg{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;margin:0 0 16px;scroll-margin-top:12px}
-.rg.on{border-color:var(--accent);box-shadow:inset 4px 0 0 var(--accent)}
+.rg.on{border-color:var(--accent);border-left:5px solid var(--accent)}
 .rgh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px}
 .rgh b{font-family:var(--display);font-size:22px;display:inline-flex;align-items:center;gap:6px}
 .pbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px}
@@ -283,7 +283,7 @@ table.rpsum a{color:var(--ink);font-weight:600;text-decoration:none;border-botto
 .pb.bet{border-color:var(--accent);background:var(--accent-soft)}
 .pb .pk{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
 .pb .pv{font-family:var(--display);font-size:22px;font-weight:600}
-.pb .pp{font-size:14px}.pb .pp b{font-family:var(--mono);font-size:17px}
+.pb .pp{font-size:14px}.pb .pp b{font-family:var(--display);font-size:18px}
 .pb .ps{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}
 .rgsec{margin:0 0 14px;min-width:0}
 .rgsec h4{margin:0 0 6px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:var(--body);border-bottom:1px solid var(--rule-2);padding-bottom:3px}
@@ -2881,9 +2881,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const pctOf = wl => wl && wl[0] + wl[1] ? Math.round(100 * wl[0] / (wl[0] + wl[1])) + "%" : "–", rec = wl => wl && wl[0] + wl[1] ? `${wl[0]}-${wl[1]}` : "no games yet";
     const sp = RP.spread || {}, tt = RP.total || {}, ls = live("model"), lt = live("shadowunder");
     $("rprec").innerHTML = RP.spread ? `<div class="rptiles">
-      <div class="rpt"><div class="big">${pctOf(sp.flag)}</div><div class="lab">Spread bets win</div><div class="sm">edge of ${sp.edge}+ pts · ${rec(sp.flag)} since ${RP.seasons.slice(0, 4)}${ls[0] + ls[1] ? ` · ${W.season}: ${rec(ls)}` : ""}</div></div>
-      <div class="rpt"><div class="big">${pctOf(tt.flag)}</div><div class="lab">Total bets win</div><div class="sm">${tt.side} at a ${Math.round(100 * tt.prob)}%+ chance · ${rec(tt.flag)}${lt[0] + lt[1] ? ` · ${W.season}: ${rec(lt)}` : ""}</div></div>
-      <div class="rpt mute"><div class="big">${pctOf(sp.all)} / ${pctOf(tt.all)}</div><div class="lab">Every game, no filter</div><div class="sm">spread / total, the model's side · you need 52.4% to profit at −110</div></div>
+      <div class="rpt"><div class="big">${pctOf(sp.flag)}</div><div class="lab">Spread bets win</div><div class="sm">edge ${sp.edge}+ pts · ${rec(sp.flag)} since ${RP.seasons.slice(0, 4)}${ls[0] + ls[1] ? ` · ${W.season}: ${rec(ls)}` : ""}</div></div>
+      <div class="rpt"><div class="big">${pctOf(tt.flag)}</div><div class="lab">Total bets win</div><div class="sm">${tt.side}, ${Math.round(100 * tt.prob)}%+ chance · ${rec(tt.flag)} since ${RP.seasons.slice(0, 4)}${lt[0] + lt[1] ? ` · ${W.season}: ${rec(lt)}` : ""}</div></div>
+      <div class="rpt mute"><div class="big">${pctOf(sp.all)} / ${pctOf(tt.all)}</div><div class="lab">Every game, no filter</div><div class="sm">spread / total</div></div>
     </div>` : "";
     // the chart: one row per game, the row opens the game
     const pick = c => c ? `<b>${esc(c.line)}</b> <span class="rpp">${pct0(c.p)}</span>${c.bet ? ` <span class="tag bet">Bet</span>` : ""}${c.result ? " " + RES(c.result) : ""}` : `<span class="rpq">no line</span>`;
@@ -2956,6 +2956,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       let y = M; const avail = PH - 2 * M;
       const place = s => {
         if (s.h <= avail) { if (y + s.h > PH - M) { pdf.addPage(); y = M; } const at = {page: pdf.getNumberOfPages(), y}; pdf.addImage(s.c.toDataURL("image/jpeg", 0.85), "JPEG", M, y, CW, s.h); y += s.h + 10; return at; }
+        if (s.h <= avail * 1.35) { if (y > M) { pdf.addPage(); y = M; } const w = CW * avail / s.h, at = {page: pdf.getNumberOfPages(), y}; pdf.addImage(s.c.toDataURL("image/jpeg", 0.85), "JPEG", M + (CW - w) / 2, y, w, avail); y += avail + 10; return at; }   // a little too tall: shrink to one page rather than split
         if (y > M) { pdf.addPage(); y = M; }
         const k = s.c.height / s.h; let off = 0, first = null;
         while (off < s.h - 0.5) { const hp = Math.min(avail, s.h - off), part = document.createElement("canvas"); part.width = s.c.width; part.height = Math.round(hp * k);
