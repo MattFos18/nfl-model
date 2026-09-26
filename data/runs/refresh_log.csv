@@ -53,3 +53,4 @@ checked,reprice,changes,errors
 2026-09-26 08:12 UTC,False,2026_03_TEN_NYG: wind 19 to 17 mph | 2026_03_TEN_NYG: cold or rain call changed | 2026_03_SEA_WAS: wind 9 to 13 mph | 2026_03_BAL_DAL: wind 9 to 5 mph | 2026_03_LA_DEN: wind 18 to 13 mph | 2026_03_PHI_CHI: forecast now inside the window the model uses,
 2026-09-26 08:15 UTC,False,2026_03_TEN_NYG: wind 19 to 17 mph | 2026_03_TEN_NYG: cold or rain call changed | 2026_03_SEA_WAS: wind 9 to 13 mph | 2026_03_BAL_DAL: wind 9 to 5 mph | 2026_03_LA_DEN: wind 18 to 13 mph,
 2026-09-26 09:11 UTC,True,2026_03_TEN_NYG: wind 19 to 17 mph | 2026_03_TEN_NYG: cold or rain call changed | 2026_03_SEA_WAS: wind 9 to 13 mph | 2026_03_BAL_DAL: wind 9 to 5 mph | 2026_03_LA_DEN: wind 18 to 13 mph | 2026_03_PHI_CHI: forecast now inside the window the model uses,
+2026-09-26 10:13 UTC,False,2026_03_LA_DEN: forecast now inside the window the model uses,
