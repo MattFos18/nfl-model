@@ -656,16 +656,6 @@
 ]
 ],
 "weather": {
-"2026_03_LAC_BUF": {
-"wind": 14.2,
-"cold": false,
-"rain": false
-},
-"2026_03_CAR_CLE": {
-"wind": 11.9,
-"cold": false,
-"rain": false
-},
 "2026_03_HOU_IND": {
 "wind": 6.0,
 "cold": false,
@@ -722,5 +712,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-26 14:30 UTC"
+"written_at": "2026-09-26 14:48 UTC"
 }
