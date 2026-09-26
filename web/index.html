@@ -101,7 +101,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .spark{max-width:360px}
 .gcard{min-width:0}
 .gcard{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
-.gcard.flagged{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.gcard{scroll-margin-top:52px} @media(min-width:1180px){.gcard{scroll-margin-top:12px}} .gcard.flagged{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
 .gcard .top{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px}
 .gcard .top b{font-family:var(--display);font-size:18px;font-weight:600}
 .gcard .top .when{color:var(--muted);font-size:12.5px}
@@ -989,7 +989,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
       const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
       const actualMargin = played ? g.home_score - g.away_score : null;
       h += `<article class="gcard ${g.bet || g.shadowunder_bet ? "flagged" : ""}" id="card${i}">
-        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an under at a 55%+ chance. Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked</span>` : ""}</div>
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an under at a 55%+ chance. Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked, not bet</span>` : ""}</div>
         <div class="blocks">
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
@@ -1025,8 +1025,19 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
     $("cards").innerHTML = h;
     let lastDay = ""; $("jump").innerHTML = W.games.map((g, i) => { const k = g.kickoff || g.gameday || ""; const m = k.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/); const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; const dayLab = d ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()] + " " + (d.getMonth() + 1) + "/" + d.getDate() : ""; const tm = m && m[4] ? `${((+m[4] + 11) % 12) + 1}:${m[5]} ${+m[4] >= 12 ? "PM" : "AM"}` : ""; const head = dayLab && dayLab !== lastDay ? `<span class="day">${dayLab}</span>` : ""; lastDay = dayLab;
       return `${head}<a href="#card${i}" data-i="${i}" class="${g.bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}<small>${tm}</small></a>`; }).join("");
-    $("jump").querySelectorAll("a").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const el = $("card" + a.dataset.i); if (el) el.scrollIntoView({behavior: "smooth", block: "start"}); }));
-    if (window.IntersectionObserver) { const io = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { $("jump").querySelectorAll("a").forEach(a => a.classList.toggle("on", a.dataset.i === e.target.id.slice(4))); } }); }, {rootMargin: "-40% 0px -55% 0px"}); $("cards").querySelectorAll("article.gcard").forEach(el => io.observe(el)); }
+    // the highlighted game: the one clicked, until the next scroll; after that, the card at the top of the screen (under the sticky bar on phones).
+    // (26 Sep 2026: a band 40-45% down the screen lit the card below a short one: clicking LA @ DEN lit PHI @ CHI)
+    const jumpSet = i => $("jump").querySelectorAll("a").forEach(a => { const on = a.dataset.i === String(i); a.classList.toggle("on", on); if (on && getComputedStyle($("jump")).position === "sticky") a.scrollIntoView({block: "nearest", inline: "nearest"}); });
+    let jumpLock = null;
+    $("jump").querySelectorAll("a").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const el = $("card" + a.dataset.i); if (!el) return; jumpSet(a.dataset.i); clearTimeout(jumpLock); jumpLock = setTimeout(() => { jumpLock = null; }, 1500); el.scrollIntoView({behavior: "smooth", block: "start"}); }));
+    const jumpSpy = () => {
+      if (jumpLock) { clearTimeout(jumpLock); jumpLock = setTimeout(() => { jumpLock = null; }, 200); return; }   // the click's own smooth scroll: keep the clicked game
+      const bar = $("jump"), off = (getComputedStyle(bar).position === "sticky" ? bar.getBoundingClientRect().bottom : 0) + 12;
+      let cur = null; $("cards").querySelectorAll("article.gcard").forEach(el => { if (el.getBoundingClientRect().top <= off) cur = el; });
+      if (cur) jumpSet(cur.id.slice(4));
+    };
+    if (!window.__jumpSpy) { let t = 0; window.addEventListener("scroll", () => { if (!t) t = requestAnimationFrame(() => { t = 0; if (window.__jumpSpy) window.__jumpSpy(); }); }, {passive: true}); }
+    window.__jumpSpy = jumpSpy;
     // one box per card; the tab row decides what it shows. Clicking the open tab closes it.
     const CARD_TAB = {take: g => takeawaysHtml(g, W), why: (g, i) => whyHtml(g, W.season, i), h2h: g => h2hHtml(g.home_team, g.away_team, g),
       sch: g => { const m = schemeMatchHtml(g.away_team, g.home_team) + schemeMatchHtml(g.home_team, g.away_team); return m ? m + `<div class="mv" style="grid-column:1 / -1"><span class="chip mute">Readings · not a model input</span><span class="chip mute">Offense in the look · defense allows · how often the defense uses it</span></div>` : "<p class='note' style='margin:0'>No charted plays for these teams yet.</p>"; },
