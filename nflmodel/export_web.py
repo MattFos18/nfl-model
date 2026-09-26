@@ -117,7 +117,7 @@ BASE = {
     "m_exp_pf": ("Model", "3.0 expected points for this team", "model.py", False, False), "m_exp_pa": ("Model", "3.0 expected points against", "model.py", False, False),
     "m_win": ("Model", "3.0 win probability", "model.py", False, False), "m_cover": ("Model", "3.0 probability of covering the closing spread", "model.py", False, False),
     "m_total_adj": ("Model", "the share-out that makes the two team scores add up to the game total's own equation: expected points = the equation + the blend's pull + this", "model.py", False, False),
-    "m_blend_adj": ("Model", "the other six models' average pull on this team's expected points (the blend, 25 Sep 2026): expected points = the equation's number + this", "model.py", False, False),
+    "m_blend_adj": ("Model", f"the other {len(M.BLEND_LABEL) - 1} models' average pull on this team's expected points (the blend, 25 Sep 2026): expected points = the equation's number + this", "model.py", False, False),
     "m_over": ("Model", "3.0 probability the game goes over the closing total", "model.py", False, False),
 }
 
@@ -258,6 +258,95 @@ def write_games_js(games: pd.DataFrame, since: int = 2013):
     print("games.js", len(rows), "games", (WEB / "games.js").stat().st_size / 1e6, "MB")
 
 
+def noise_floor() -> dict:
+    """The paired-bootstrap noise floor on the team points miss, as nflmodel/audit.py writes it into reports/audit.md
+    (section 5): the half-width of the 90% interval, median on the tuning window, largest there, and median held out.
+    The page quotes this one figure wherever it says a change is inside the noise."""
+    import re
+    f = REP / "audit.md"
+    m = re.search(r"plus or minus ([\d.]+) points wide on the tuning window \(largest ([\d.]+)\) and ([\d.]+) on the held-out window", f.read_text()) if f.exists() else None
+    return {"tune": float(m.group(1)), "tune_max": float(m.group(2)), "test": float(m.group(3)), "source": "reports/audit.md"} if m else {}
+
+
+def props_payload(pj: Path) -> str:
+    """props.json as the page reads it; the rule's constants a props run before 26 Sep 2026 did not write are added from
+    nflmodel/props.py (the values that props run used), so the page never shows a stand-in."""
+    from . import props as PR_
+    d = json.loads(pj.read_text())
+    d.setdefault("targetable", PR_.TARGETABLE); d.setdefault("wind_from", PR_.WIND_FROM)
+    return json.dumps(d, separators=(",", ":"))
+
+
+def data_from() -> dict:
+    """The first season each nflverse source has (nflmodel/pull.py DATASETS): the page says "since" these."""
+    from . import pull as PL_
+    return {k: v[1] for k, v in PL_.DATASETS.items()}
+
+
+def model_constants(feats: pd.DataFrame) -> dict:
+    """The model's fixed settings the page describes, from the modules that use them."""
+    from . import weather as WX, trends as TR, season as SE
+    return {"ridge": M.RIDGE, "train_from": M.TRAIN_FROM, "early_weeks": M.EARLY_WEEKS, "late_week": M.LATE_WEEK, "dead_pct": M.DEAD_PCT, "cold_f": M.COLD_F,
+            "wind_fill": round(float(feats.wind.median()), 2),   # model.prep's stand-in for an unknown wind (the median wind in the features)
+            "use_within_days": WX.USE_WITHIN_DAYS, "rain_prob": TR.RAIN_PROB, "rain_mm": TR.RAIN_MM, "zero_feats": M.SIT_FEATS + ["qb_out"] + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS}   # the inputs a breakdown measures from zero, not from the league average
+
+
+def player_model_constants() -> dict:
+    """The player model's settings (players.py, positions.py, ratings.py): the skill value behind "points if out" and
+    each group's replacement level behind "vs an average starter"."""
+    from . import players as PL, positions as PO, ratings as RA
+    return {"decay": PL.DEFAULT["decay"], "k": PL.DEFAULT["k"], "usage_games": PL.DEFAULT["usage_games"], "skill_pct": PL.DEFAULT["pct"], "repl_pct": PO.REPL_PCT,
+            "qb_prior": RA.DEFAULT["qb_prior"], "edge_press": PO.EDGE_PRESS, "min_plays_prior": 100,
+            "starters": PO.STARTERS, "starters_def": PO.STARTERS_DEF, "starter_qb_games": PO.STARTER_QB_GAMES}
+
+
+def week_fit(pv: pd.DataFrame, season: int, week: int) -> dict | None:
+    """The fit that priced the week (the regression refit before it): coefficient, training mean, intercept, the margin
+    and total spreads, how many team-games it learned from. Every game of the week carries the same one; the page's
+    week-context numbers (points if out, points a game, the inputs table) read it from here."""
+    x = pv[(pv.season == season) & (pv.week == week)]
+    if not len(x) or f"coef_{M.FEATS[0]}" not in x.columns:
+        return None
+    r = x.iloc[0]; p6 = lambda v: None if pd.isna(v) else round(float(v), 6)
+    return {"season": season, "week": week, "per_unit": {f: p6(r[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: p6(r[f"mean_{f}"]) for f in M.FEATS}, "intercept": p6(r["intercept"]),
+            "sigma_margin": p6(r.get("sigma_margin")), "sigma_total": p6(r.get("sigma_total")), "n_train": int(r["n_train"]) if "n_train" in r.index and pd.notna(r["n_train"]) else None, "train_from": M.TRAIN_FROM}
+
+
+def matchup_matrix(f2: pd.DataFrame, season: int, week: int, teams: dict) -> dict:
+    """Every pair of teams on a neutral field going into (season, week), priced the model's full way: the seven-model
+    blend on each team's points and the game total from its own equation, shared out by the spread (model.walk_forward).
+    The ratings and QB are the Rankings table's (`teams`); the situation is neutral, outdoors, the typical wind, nobody
+    out, no offseason turnover or out-of-the-race flag, a league-average referee and each QB at his career level."""
+    played = f2[f2.pf.notna() & (f2.season >= M.TRAIN_FROM) & ((f2.season < season) | ((f2.season == season) & (f2.week < week)))]
+    ms = M.fit_blend(played, M.fit_points(played, M.RIDGE), M.RIDGE)
+    names = sorted(teams); wind = float(f2.wind.median()) if "wind" in f2.columns else 0.0
+    rows = []
+    for a in names:
+        for b in names:
+            if a == b: continue
+            A, B = teams[a], teams[b]
+            r = {f: 0.0 for f in M.FEATS} | {"off_epa_play": A["off_epa_play"], "off_pf": A["off_pf"], "def_epa_play": B["def_epa_play"], "def_pf": B["def_pf"], "qb_rating": A["qb_rating"],
+                                            "neutral": 1.0, "wind_out": wind, "off_success": A.get("off_success"), "def_success": B.get("def_success"), "off_pass_epa": A.get("off_pass_epa"),
+                                            "def_pass_epa": B.get("def_pass_epa"), "off_rush_epa": A.get("off_rush_epa"), "def_rush_epa": B.get("def_rush_epa"), "off_plays": A.get("off_plays"), "def_plays": B.get("def_plays")}
+            rows.append({"team": a, "opp": b, **r})
+    x = pd.DataFrame(rows)
+    x["pts"] = M.predict_blend(ms, x)["blend"].values
+    # the total's own equation: each pair once, a as the listed first side (its home flag only pairs the rows)
+    g = x[x.team < x.opp].copy(); h = g.assign(game_id=g.team + "_" + g.opp, pf=np.nan, home=1.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, rain=0.0, cold=0.0, dome=0.0, div_game=0.0,
+                                                skill_out_value=0.0, off_snap_out=0.0, off_turnover_early=0.0)
+    back = x.set_index(["team", "opp"])
+    aw = pd.DataFrame([{**back.loc[(o, t)].to_dict(), "team": o, "opp": t} for t, o in zip(g.team, g.opp)]).assign(game_id=h.game_id.values, pf=np.nan, home=0.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, rain=0.0, cold=0.0,
+                                                                                                                 dome=0.0, div_game=0.0, skill_out_value=0.0, off_snap_out=0.0, off_turnover_early=0.0)
+    test = pd.concat([h, aw], ignore_index=True)
+    th, ta = test[test.home == 1].set_index("game_id"), test[test.home == 0].set_index("game_id")
+    tot = pd.Series(M.total_model(played, test), index=th.index.intersection(ta.index))   # total_model's own row order
+    pts = {t: {} for t in names}
+    for t, o, gid in zip(h.team, h.opp, h.game_id):
+        a_, b_ = float(back.loc[(t, o), "pts"]), float(back.loc[(o, t), "pts"]); T = float(tot[gid])
+        pts[t][o] = round((T + (a_ - b_)) / 2, 2); pts[o][t] = round((T - (a_ - b_)) / 2, 2)
+    return {"season": season, "week": week, "wind": round(wind, 2), "pts": pts}
+
+
 def _code_sha() -> str:
     """The commit this code is at: GITHUB_SHA on the runner, else git's HEAD."""
     import os, subprocess
@@ -317,8 +406,8 @@ def main():
     f2 = M.prep(feats)
     coefs = {}
     for s in range(2019, 2027):
-        train = f2[f2.pf.notna() & (f2.season < s) & (f2.season >= 2013)]
-        m = M.fit_points(train, 10.0)
+        train = f2[f2.pf.notna() & (f2.season < s) & (f2.season >= M.TRAIN_FROM)]
+        m = M.fit_points(train, M.RIDGE)
         coefs[str(s)] = {"per_unit": dict(zip(M.FEATS, (m[-1].coef_ / m[0].scale_).round(5).tolist())),
                          "mean": dict(zip(M.FEATS, m[0].mean_.round(5).tolist())), "intercept": float(np.mean(train.pf))}
     pull = pd.read_csv(RAW / "pull_log.csv").tail(120)
@@ -347,9 +436,12 @@ def main():
                 "tuning_by": {k: tun.groupby(k).team_mae.mean().round(4).to_dict() for k in ["decay", "prior", "alpha", "ridge"]} if len(tun) else {},
                 "decision_log": txt("decision_log.md"), "audit": txt("audit.md"), "backtest_report": txt("backtest_v3.md"), "verification": txt("verification.md"),
                 "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else "",
-                "situation_facts": situation_facts(feats)}
+                "situation_facts": situation_facts(feats), "qb_overlap": M.qb_overlap(f2, max(int(k) for k in coefs)), "noise": noise_floor()}
     analysis["home_edges"] = team_home_edges(tg)
+    from . import picks as P_, backtest as B_
+    _bj = B_.join(pred, games.reset_index()); _bj = _bj[(_bj.game_type == "REG") & _bj.home_score.notna() & _bj.spread_line.notna()]
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "blend_label": M.BLEND_LABEL, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
+            "picks": P_.page_rules(_bj), "model": model_constants(feats), "player_model": player_model_constants(), "data_from": data_from(),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
             "code_sha": _code_sha()}   # the commit whose code built these files (nflmodel/publish_check.py)
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")
@@ -377,10 +469,11 @@ def main():
             isq = pvals.group == "QB"
             pvals.loc[isq, "season_db"] = pvals.loc[isq, "player_id"].map(qs.db); pvals.loc[isq, "season_epa_db"] = pvals.loc[isq, "player_id"].map((qs.epa / qs.db.where(qs.db > 0)).round(3))
         (WEB / "players.js").write_text("window.PLAYERS=" + json.dumps({"season": int(ph.season.max()), "values": [{k: clean(v) for k, v in r.items()} for r in pvals.drop(columns=[c for c in ["basis"] if c in pvals.columns]).to_dict("records")], "basis": {g: b for g, b in pvals.groupby("group").basis.first().items()} if "basis" in pvals.columns else {},
+                                                                          "basis_role": {r: b for r, b in pvals[pvals.group == "Defense"].groupby("def_role").basis.first().items()} if "basis" in pvals.columns and "def_role" in pvals.columns else {},
                                                                           "history": hist, "names": names, "hist_cols": ["season", "team", "role", "games", "plays", "epa_play"], "team_plays_pg": _team_plays_pg()}, default=clean, separators=(",", ":")) + ";")
     pj = OUT / "props.json"
     if pj.exists():   # player-against-scheme projections for the week (nflmodel/props.py)
-        (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
+        (WEB / "props.js").write_text("window.PROPS=" + props_payload(pj) + ";")
     (WEB / "props_backtest.js").write_text("window.PROPS_BT=" + json.dumps(props_backtest_export(csv_rows), default=clean) + ";")   # the five backtest rounds and the by-season run (Results -> Player projections)
     pp = OUT / "props_profiles.json"
     if pp.exists():   # every player's last-17 profile with splits, every defense, the league (Players tab)
@@ -388,12 +481,17 @@ def main():
     from . import player_logs as PLG
     PLG.export()   # every player's game log since 2016, one file a season (web/data/plogs), and the career totals (web/data/player_careers.js)
     rec_rows = {"graded": csv_rows("../data/tracker/props_graded.csv"), "market": csv_rows("../data/tracker/props_vs_market.csv"), "projections": []}
+    if (ROOT / "data" / "tracker" / "props_vs_market.csv").exists():   # the record by stat and edge, the one summary the page reads (props.market_summary)
+        from .props import market_summary as _ms
+        rec_rows["summary"] = _ms(pd.read_csv(ROOT / "data" / "tracker" / "props_vs_market.csv"))
     for f in sorted((ROOT / "reports").glob("props_*_wk*.csv")):
         rec_rows["projections"] += [{k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in r.items()} for r in pd.read_csv(f).to_dict("records")]
     (WEB / "props_record.js").write_text("window.PROPS_REC=" + json.dumps(rec_rows, default=clean, separators=(",", ":")) + ";")   # every projection written, every grade, every line graded (Players tab, Results)
     sp = OUT / "scheme_profiles.json"
     if sp.exists():   # scheme and play-calling profiles (nflmodel/scheme.py), as of the current week
-        (WEB / "scheme.js").write_text("window.SCHEME=" + sp.read_text() + ";")
+        from . import scheme as SC_
+        _sj = json.loads(sp.read_text()); _sj.setdefault("min_n", SC_.MIN_N)   # the play count under which a look's EPA is left blank (scheme._epa)
+        (WEB / "scheme.js").write_text("window.SCHEME=" + json.dumps(_sj, separators=(",", ":")) + ";")
     for t in teams:
         rows = d[d.team == t]
         allc = ["game_id"] + cols
@@ -444,7 +542,11 @@ def export_season() -> dict:
         for k in ("wins", "wins_sd", "wins_p10", "wins_p90", "p_div", "p_playoffs", "p_bye", "p_conf", "p_sb"):
             t[k] = round(t[k], 4)
     out = {"season": sim["season"], "week": sim["week"], "built": built, "n_sims": sim["n_sims"], "games_left": sim["games_left"], "sigma": round(sim["sigma"], 4), "fit_week": sim["fit_week"], "format": sim["format"],
-           "shrink": SE.SHRINK, "sigma_mult": SE.SIGMA_MULT, "tie_band": SE.TIE_BAND, "wind_far": SE.WIND_FAR, "divisions": SE.DIV, "teams": teams, "ratings": sim["ratings"]}
+           "shrink": SE.SHRINK, "sigma_mult": SE.SIGMA_MULT, "tie_band": SE.TIE_BAND, "wind_far": SE.WIND_FAR, "divisions": SE.DIV, "teams": teams, "ratings": sim["ratings"],
+           "tie_rate": sim.get("tie_rate"), "tie_rate_league": SE.league_tie_rate(pd.read_parquet(OUT / "games.parquet"))}
+    bg = REP / "season_by_game.csv"
+    if bg.exists():   # the game-by-game projection tested against the rule (experiments/season_by_game.py): every variant, kind and window
+        out["by_game"] = pd.read_csv(bg).to_dict("records")
     pd.DataFrame(teams).to_csv(REP / "season_odds.csv", index=False)
     # each team's games left with its chance in each (the draws' mean: the page's wins = record + the sum of these, near enough)
     left = {t["team"]: [] for t in teams}
@@ -502,7 +604,7 @@ def export_season() -> dict:
     for c in ("volume_pg", "rate", "yards_pg", "td_pg", "catches_pg", "own_yards", "proj_yards", "proj_td", "proj_catches", "pace_yards", "proj_pg", "prev_pg"):
         pl[c] = pl[c].astype(float).round(2)
     pl.to_csv(REP / "player_season_totals.csv", index=False)
-    out["players"] = {"rows": pl.to_dict("records"), "avail": PS.AVAIL, "blend": PS.BLEND, "min_pg": PS.MIN_PG, "top_n": PS.TOP_N, "break_up": PS.BREAK_UP}
+    out["players"] = {"rows": pl.to_dict("records"), "avail": PS.AVAIL, "blend": PS.BLEND, "min_pg": PS.MIN_PG, "top_n": PS.TOP_N, "break_up": PS.BREAK_UP, "topw": PS.TOPW}
     sc = REP / "season_calibration.csv"
     if sc.exists():
         out["calibration"] = pd.read_csv(sc).to_dict("records")
@@ -523,7 +625,7 @@ def export_week(feats=None, games=None, pred=None):
     rcols = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays", "success"] for s in ["off", "def", "own_def", "opp_off"]]
     pj = OUT / "props.json"
     if pj.exists():   # the props panel, with whatever lines the props log holds now (props --markets refreshes them)
-        (WEB / "props.js").write_text("window.PROPS=" + pj.read_text() + ";")
+        (WEB / "props.js").write_text("window.PROPS=" + props_payload(pj) + ";")
     # this week's picks and the track record for the dashboard tabs
     from . import lines as LN, picks as P, tracker as TK
     cur_season, cur_week = LN.current_week(pd.read_parquet(OUT / "games.parquet"))
@@ -575,7 +677,9 @@ def export_week(feats=None, games=None, pred=None):
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         cal_s, cal_t = P.calibration(pred, games.reset_index(), cur_season)   # the calibrated cover and over odds as a function of the edge, so the card can re-price a moved line the same way the run did
-        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW, "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
+        (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW,
+                                                                   "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season},
+                                                                   "fit": week_fit(pv_coef, cur_season, cur_week)}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
 
@@ -596,8 +700,8 @@ def export_rankings_and_methods():
     out = {}
     qb_by = feats.set_index(["season", "week", "team"]).qb_rating
     for s in range(2014, 2027):
-        train = f2[f2.pf.notna() & (f2.season < s) & (f2.season >= 2013)]
-        m = M.fit_points(train, 10.0)
+        train = f2[f2.pf.notna() & (f2.season < s) & (f2.season >= M.TRAIN_FROM)]
+        m = M.fit_points(train, M.RIDGE)
         per_unit = dict(zip(M.FEATS, m[-1].coef_ / m[0].scale_))
         mean = dict(zip(M.FEATS, m[0].mean_))
         intercept = float(train.pf.mean())
@@ -660,7 +764,11 @@ def export_rankings_and_methods():
                                    "windows": {k: v for k, v in variants.items() if v}}
         print("rankings", s, flush=True)
     season_end = {str(k): int(v) for k, v in played.groupby("season").week.max().items()}
-    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out}, default=clean, separators=(",", ":")) + ";")
+    try:   # the Rankings matchup for the week being priced, on the model's full path (the blend and the total's share-out)
+        ls = str(max(int(k) for k in out)); lw = str(max(int(k) for k in out[ls])); mu_ = matchup_matrix(f2, int(ls), int(lw), out[ls][lw]["teams"])
+    except Exception as e:  # noqa
+        print("matchup matrix failed:", str(e)[:200], flush=True); mu_ = {"error": str(e)[:200]}
+    (WEB / "rankings.js").write_text("window.RANK=" + json.dumps({"params": p, "season_end": season_end, "plays_fill": round(float(played.plays.mean()), 4), "seasons": out, "matchup": mu_}, default=clean, separators=(",", ":")) + ";")
     print("rankings.js", (WEB / "rankings.js").stat().st_size / 1e6, "MB")
     export_backtest_js(games, feats)
 
@@ -685,7 +793,7 @@ def export_backtest_js(games=None, feats=None):
         bk["home_adj"] = allv["home_blend_adj"].round(6); bk["away_adj"] = allv["away_blend_adj"].round(6)
         bk["tree_spread"] = (allv["home_m_trees"] - allv["away_m_trees"]).round(4)   # the trees shadow rule's number (Bets -> Rules compared)
     if "p_over_emp" in allv.columns:
-        bk["p_over_emp"] = allv["p_over_emp"].round(4)   # the totals flag's chance (Backtest -> Totals, Bets -> Rules compared)
+        bk["p_over_emp"] = allv["p_over_emp"].round(6)   # the totals flag's chance (Backtest -> Totals): six decimals, since four put games at 0.450044 on the flag's 0.55 line and the page's record parted from picks.rule_records
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
@@ -701,7 +809,8 @@ def export_backtest_js(games=None, feats=None):
         bk["away_" + col] = side_val(col, "away")
     for col in ["wind_out", "rain", "cold", "dome", "primetime", "div_game"]:
         bk[col] = side_val(col, "home")
-    recs = [[clean(v) for v in r] for r in bk.itertuples(index=False, name=None)]
+    full = {i for i, c in enumerate(bk.columns) if c == "p_over_emp"}   # kept at six decimals (clean() keeps three)
+    recs = [[(None if pd.isna(v) else float(v)) if i in full else clean(v) for i, v in enumerate(r)] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
     print("backtest.js", len(recs), "games", flush=True)
 

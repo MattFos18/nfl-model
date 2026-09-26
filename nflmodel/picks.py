@@ -10,14 +10,38 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
+SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (best overall rate at twice the volume, both windows; reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to decide the cut on live games (4.5 showed the best rate on the rebuilt backtest)
-# shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction)
-SHADOWS = {"shadow45": (4.5, None, "4.5+ edge"), "shadowdog": (4.0, "dog", "4+ edge, model's side the underdog or pick'em"),
-           "shadowearly": (4.0, "wk13", "4+ edge, weeks 1 to 13 only"),
-           "shadowtrees": (5.0, "trees", "boosted trees alone, 5+ edge"),
-           "shadowunder": (0.55, "under_prob", "Under, 55%+ chance (the totals flag)")}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp) went 159-130, 202-150, 68-61; the Under 3+ rule it replaced went 57-47, 112-68, 10-13; overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
-TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: the blend's tree model on its own went 95-66, 84-60, 34-17 at 5+ (reports/bet_wins.csv)   # weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
-WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}   # untouched, tuning, held out
+LAST_BET_WEEK = 17   # no flags in Week 18: starters rest and the line knows it before the ratings do
+EARLY_LAST_WEEK = 13   # the early-weeks shadow: weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
+TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet_wins.csv)
+TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
+# shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction, label)
+SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
+           "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
+           "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
+           "shadowunder": (TOTAL_SHADOW["prob"], "under_prob", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance (the totals flag)")}
+WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
+WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
+CAL_FROM, CAL_CAP = 2019, 7.0   # the cover and over calibration: regular-season games from this season on, the edge capped at this many points
+KELLY_FRACTION, DEFAULT_ODDS = 0.25, -110.0   # the stake: a quarter of the Kelly fraction; the price when no book's is logged
+
+
+def break_even(odds: float = DEFAULT_ODDS) -> float:
+    """The win rate a bet at these American odds needs to break even."""
+    return abs(odds) / (abs(odds) + 100.0) if odds < 0 else 100.0 / (odds + 100.0)
+
+
+def page_rules(d: pd.DataFrame | None = None) -> dict:
+    """Everything the page says about the betting rules, from the constants above (and each rule's backtest record when d,
+    the joined backtest table of played regular-season games with a line, is given), so no sentence on the page restates
+    a number by hand."""
+    out = {"spread_edge": SPREAD_EDGE, "total_edge": TOTAL_EDGE, "total_shadow": TOTAL_SHADOW, "last_week": LAST_BET_WEEK, "early_last_week": EARLY_LAST_WEEK,
+           "kelly_fraction": KELLY_FRACTION, "default_odds": DEFAULT_ODDS, "break_even": round(break_even(), 4), "cal_from": CAL_FROM, "cal_cap": CAL_CAP,
+           "windows": [{"key": k, "from": a, "to": b, "label": WINDOW_LABEL[k]} for k, (a, b) in WINDOWS.items()]}
+    if d is not None:
+        out["rules"] = rule_records(d).to_dict("records")
+    return out
 
 
 def _spread(d, side_rule=None):
@@ -28,15 +52,15 @@ def _spread(d, side_rule=None):
 
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
-    """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to 17."""
+    """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
     if side_rule == "under_prob":
-        return ((1 - d.p_over_emp) >= edge) & (d.week < 18) & d.total_line.notna() if "p_over_emp" in d.columns else pd.Series(False, index=d.index)
+        return ((1 - d.p_over_emp) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna() if "p_over_emp" in d.columns else pd.Series(False, index=d.index)
     e = _spread(d, side_rule) - d.spread_line
-    m = (e.abs() >= edge) & (d.week < 18) & d.spread_line.notna()
+    m = (e.abs() >= edge) & (d.week <= LAST_BET_WEEK) & d.spread_line.notna()
     if side_rule == "dog":
         m &= ~((np.sign(e) == np.sign(d.spread_line)) & (d.spread_line != 0))
     if side_rule == "wk13":
-        m &= d.week <= 13
+        m &= d.week <= EARLY_LAST_WEEK
     return m
 
 
@@ -51,17 +75,16 @@ def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
 
 
 def rule_records(d: pd.DataFrame) -> pd.DataFrame:
-    """Every rule (the flag and the shadows) on the three backtest windows, regular season, weeks 1 to 17.
+    """Every rule (the flag and the shadows) on the three backtest windows, regular season, weeks 1 to LAST_BET_WEEK.
     d is backtest.join(pred, games) limited to played regular-season games with a line."""
     rules = [("model", SPREAD_EDGE, None, f"{SPREAD_EDGE:g}+ edge (the flag)")] + [(n, e, s, lab) for n, (e, s, lab) in SHADOWS.items()]
     rows = []
     for name, edge, sr, lab in rules:
-        r = {"rule": name, "label": lab}
+        r = {"rule": name, "label": lab, "edge": edge, "side_rule": sr}
         for w, (a, b) in WINDOWS.items():
             x = d[d.season.between(a, b)]; wi, lo = record(x, rule_mask(x, edge, sr), sr); r[w] = f"{wi}-{lo}"
         rows.append(r)
     return pd.DataFrame(rows)
-SPREAD_EDGE, TOTAL_EDGE = 4.0, None   # 23 Sep 2026: 4 replaced 5 (best overall rate at twice the volume, both windows; reports/threshold_sweep.csv)  # spread: the ROI-best threshold that holds in both backtest windows. Totals: no threshold does (22 Sep 2026 sweep), so no total flags
 
 
 def fair_ml(p):
@@ -89,11 +112,11 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
 
     def bet(r, spread_edge=spread_edge, total_edge=total_edge, side_rule=None):
         out = []
-        if r.week >= 18:
-            return ""   # final week: starters rest and the line knows it before the ratings do (7-11 on flags 2019 to 2025)
+        if r.week > LAST_BET_WEEK:
+            return ""   # final week: starters rest and the line knows it before the ratings do
         if side_rule == "dog" and pd.notna(r.spread_line) and np.sign(r.spread_edge) == np.sign(r.spread_line) and r.spread_line != 0:
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
-        if side_rule == "wk13" and r.week >= 14:
+        if side_rule == "wk13" and r.week > EARLY_LAST_WEEK:
             return ""   # the early-weeks rule sits out the late season
         if side_rule == "under_prob":
             pe = getattr(r, "p_over_emp", np.nan)
@@ -141,7 +164,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     # stake on a flagged spread: quarter Kelly from the calibrated cover odds for the model's side, at the best book's
     # price when it is logged, otherwise -110
     p["bet_p"] = [(pc if e > 0 else 1 - pc) if (b and pd.notna(pc)) else np.nan for b, e, pc in zip(p.bet, p.spread_edge.fillna(0), p.p_cover_cal_home)]
-    p["bet_odds"] = [(b[3] if b[3] is not None else -110.0) if bet else np.nan for bet, b in zip(p.bet, best)]
+    p["bet_odds"] = [(b[3] if b[3] is not None else DEFAULT_ODDS) if bet else np.nan for bet, b in zip(p.bet, best)]
     p["stake_pct"] = [kelly_stake(pw, od) if pd.notna(pw) else np.nan for pw, od in zip(p.bet_p, p.bet_odds)]
     return p.sort_values("gameday")
 
@@ -151,14 +174,14 @@ def calibration(pred: pd.DataFrame, games: pd.DataFrame, season: int):
     for spreads and for totals. Returns (intercept, slope) pairs."""
     from sklearn.linear_model import LogisticRegression
     g = games.set_index("game_id")
-    d = pred[(pred.game_type == "REG") & (pred.season < season) & (pred.season >= 2019)].copy()
+    d = pred[(pred.game_type == "REG") & (pred.season < season) & (pred.season >= CAL_FROM)].copy()
     d["hs"] = d.game_id.map(g.home_score); d["as_"] = d.game_id.map(g.away_score); d["sl"] = d.game_id.map(g.spread_line); d["tl"] = d.game_id.map(g.total_line)
     d = d[d.hs.notna()]
     out = []
     for edge, res in [(d.model_spread - d.sl, np.sign(d.hs - d.as_ - d.sl)), (d.model_total - d.tl, np.sign(d.hs + d.as_ - d.tl))]:
         ok = edge.notna() & (res != 0) & res.notna()
         won = (np.sign(edge[ok]) == res[ok]).astype(int)
-        x = np.minimum(np.abs(edge[ok].values), 7.0)[:, None]
+        x = np.minimum(np.abs(edge[ok].values), CAL_CAP)[:, None]
         if len(won) < 200 or won.nunique() < 2:
             out.append((0.0, 0.0)); continue
         m = LogisticRegression(C=10.0).fit(x, won)
@@ -168,7 +191,7 @@ def calibration(pred: pd.DataFrame, games: pd.DataFrame, season: int):
 
 def cal_p(cal, edge):
     a, b = cal
-    return float(1.0 / (1.0 + np.exp(-(a + b * min(abs(float(edge)), 7.0)))))
+    return float(1.0 / (1.0 + np.exp(-(a + b * min(abs(float(edge)), CAL_CAP)))))
 
 
 def best_number(hist: pd.DataFrame, r):
@@ -187,7 +210,7 @@ def best_number(hist: pd.DataFrame, r):
     return (line, book, hs, float(odds) if pd.notna(odds) else None)
 
 
-def kelly_stake(p_win: float, odds: float = -110.0, fraction: float = 0.25) -> float:
+def kelly_stake(p_win: float, odds: float = DEFAULT_ODDS, fraction: float = KELLY_FRACTION) -> float:
     """Share of bankroll to stake at American odds, as a percentage: the Kelly criterion times a fraction (a quarter
     by default; full Kelly assumes the cover odds are exact, and calibrated odds are an estimate). 0 when the odds
     do not pay enough for the edge."""
@@ -236,11 +259,11 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         rec_txt = "on the Backtest tab"
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
-           "Win, cover and total are the model's chances for each side at the current line; 52.4% is break-even at -110.",
+           f"Win, cover and total are the model's chances for each side at the current line; {100 * break_even():.1f}% is break-even at {DEFAULT_ODDS:+g}.",
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
-           "Shadow columns are rules logged and graded but never bet (a 4.5 cut; the 4 cut on underdogs only; the 4 cut in weeks 1 to 13 only; the boosted trees alone at 5; Under at a 55%+ chance), to decide the rule on live games.", ""]
+           f"Shadow columns are rules logged and graded but never bet ({'; '.join(lab for _, _, lab in SHADOWS.values())}), to decide the rule on live games.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 

@@ -148,6 +148,10 @@ DEF_W = {"cov_yds": 0.095, "cov_int": 3.6, "sacks": 2.05, "press_ns": 0.39}
 # how fast old games fade (experiments/def_value_decay.py): 0.92 a game and 0.8 a season back, K 300 snaps, best on
 # 2019-22 and better held out than the old 0.99 a game with no fade (a game two seasons back had kept ~70% weight)
 DEF_DECAY, DEF_FADE, DEF_K = 0.92, 0.8, 300.0
+STARTERS = {"Skill": 5, "OL": 5, "Defense": 11, "K": 1, "P": 1}   # the average starter: each team's top N by share (the page quotes these)
+STARTERS_DEF = {"EDGE": 2, "IDL": 2, "LB": 2, "CB": 3, "S": 2}   # defenders, per role
+STARTER_QB_GAMES = 17   # the starting QB: most dropbacks over the team's last this many games
+REPL_PCT = 25   # replacement level for every group but the skill players (players.DEFAULT["pct"]) and the QB (ratings.DEFAULT["qb_prior"]): this percentile of its regulars
 
 
 DEF_ROLE = {"DE": "EDGE", "EDGE": "EDGE", "DT": "IDL", "NT": "IDL", "DL": "IDL", "ILB": "LB", "MLB": "LB", "LB": "LB", "OLB": "LB",
@@ -236,7 +240,7 @@ def role_rates(dg: pd.DataFrame, roles: dict, season: int, week: int) -> tuple[d
             out[pid] = float((w * g.cov_v.values).sum()) / (float((w * g.targets.values).sum()) + sp["k"]) * t_snap + sp["a"] * float((w * g.other_v.values).sum()) / (n + 300.0)
     for role in ROLE_SPEC:
         reg = [out[p] for p in out if roles.get(p) == role and wsn[p] >= 300]
-        repl[role] = float(np.percentile(reg, 25)) if reg else 0.0
+        repl[role] = float(np.percentile(reg, REPL_PCT)) if reg else 0.0
     return out, repl
 
 
@@ -352,13 +356,13 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     roles = defender_roles(dg)
     grp_rate, grp_repl = role_rates(dg, roles, season, week)
     dg = dg.assign(role=dg.player_id.map(roles))   # the role is the position group, so the replacement level is per group
-    pv_def = PlayerValues(dg, DEF_DECAY, DEF_K, season_fade=DEF_FADE); pv_kick = PlayerValues(kg, 0.99, 40.0)
+    pv_def = PlayerValues(dg, DEF_DECAY, DEF_K, REPL_PCT, season_fade=DEF_FADE); pv_kick = PlayerValues(kg, 0.99, 40.0, REPL_PCT)
     from .ratings import QBRatings, DEFAULT as RD
     qb = pd.read_parquet(OUT / "qb_games.parquet"); qbr = QBRatings(qb, RD["qb_k"], RD["qb_decay"], RD.get("qb_prior", -0.12), RD.get("qb_season_fade", 1.0))
     team_db = qb.groupby(["game_id", "team"]).dropbacks.sum().rename("team_db").reset_index()
     tg = pd.read_parquet(OUT / "team_games.parquet"); snaps = snaps_by_game(range(season - 2, season + 1))
     og = pd.read_parquet(OUT / "ol_games.parquet") if (OUT / "ol_games.parquet").exists() else pd.DataFrame(columns=["player_id"])
-    pv_ol = PlayerValues(og, DEF_DECAY, 300.0, season_fade=DEF_FADE); ol_by = {pid: g for pid, g in og.groupby("player_id")}   # current form, as for defenders
+    pv_ol = PlayerValues(og, DEF_DECAY, 300.0, REPL_PCT, season_fade=DEF_FADE); ol_by = {pid: g for pid, g in og.groupby("player_id")}   # current form, as for defenders
     def_by = {pid: g for pid, g in dg.groupby("player_id")}; kick_by = {pid: g for pid, g in kg.groupby("player_id")}
     cov, cov_league = coverage_stats(season, week)
     def last8(g):
@@ -376,7 +380,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
                 # dropbacks a game over his last eight starts: games where he had at least half his team's dropbacks,
                 # so a first-drive exit or a one-play relief appearance is not averaged in as a game (24 Sep 2026)
                 st = h.merge(team_db, on=["game_id", "team"], how="left"); st = st[st.dropbacks >= 0.5 * st.team_db]
-                rec = st.tail(8) if len(st) else h.tail(8)
+                rec = st.tail(p["usage_games"]) if len(st) else h.tail(p["usage_games"])
                 row.update({"games": int(len(rec)), "plays_per_game": round(float(rec.dropbacks.mean()), 1), "share": None, "epa_per_play": round(rating, 3), "value_above_replacement": round(rating - qbr.prior, 4), "basis": "EPA per dropback (QB rating)"})
                 adj = pv_adj.value(r.gsis_id, "passer", season, week)[0] - pv_skill.value(r.gsis_id, "passer", season, week)[0]
                 row["epa_play_vs_avg_def"] = round(rating + adj, 3)   # the QB rating moved by how much his past defenses flattered or hurt his passing
@@ -431,9 +435,9 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     # last 17 games; its top 5 skill players by share of the team's touches, top 5 linemen and top 11 defenders by snap
     # share, and its kicker and punter. value_vs_avg = value_above_replacement - that median (same units); the order
     # within a group is unchanged. "Points if out" keeps the replacement level: it is what a team loses to his backup.
-    TOP = {"Skill": 5, "OL": 5, "Defense": 11, "K": 1, "P": 1}
+    TOP = STARTERS
     h17 = qb[(qb.season < season) | ((qb.season == season) & (qb.week < week))]
-    last17 = h17.merge(h17.groupby("team").game_id.apply(lambda s_: set(s_.drop_duplicates().tail(17))).rename("keep"), left_on="team", right_index=True)
+    last17 = h17.merge(h17.groupby("team").game_id.apply(lambda s_: set(s_.drop_duplicates().tail(STARTER_QB_GAMES))).rename("keep"), left_on="team", right_index=True)
     last17 = last17[[g_ in k_ for g_, k_ in zip(last17.game_id, last17.keep)]]
     starters_qb = set(last17.groupby(["team", "qb_id"]).dropbacks.sum().reset_index().sort_values("dropbacks", ascending=False).drop_duplicates("team").qb_id)
     ref = {}
@@ -448,7 +452,7 @@ def all_values(games: pd.DataFrame, season: int, week: int, p=DEFAULT) -> pd.Dat
     # defenders against the average starter of their own group (24 Sep 2026): an edge rusher's value runs on a larger
     # scale than a safety's, so one median across all eleven set every edge above average; per team 2 EDGE, 2 IDL,
     # 2 LB, 3 CB, 2 S by snap share
-    DTOP = {"EDGE": 2, "IDL": 2, "LB": 2, "CB": 3, "S": 2}; dref = {}
+    DTOP = STARTERS_DEF; dref = {}
     if "def_role" in out.columns:
         for role_, k_ in DTOP.items():
             x_ = out[(out.group == "Defense") & (out.def_role == role_) & out.value_above_replacement.notna()]

@@ -27,6 +27,7 @@ Injuries (nflverse injuries + snap counts, 2012 on):
 from __future__ import annotations
 import numpy as np, pandas as pd
 from pathlib import Path
+RAIN_PROB, RAIN_MM = 50, 1.0   # an unplayed game's forecast calls rain at a 50%+ chance or 1 mm+ in the kickoff hour
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW, OUT = ROOT / "data" / "raw", ROOT / "data" / "processed"
@@ -265,7 +266,7 @@ def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataF
         rain = float(outdoor and any(k in w for k in ["rain", "shower", "drizzle", "storm"]))
         if not w and g.game_id in fc and outdoor:
             # Open-Meteo gives precipitation in millimetres: rain when the hour's chance is 50%+ or 1 mm+ is forecast
-            rain = float(fc[g.game_id][0] >= 50 or fc[g.game_id][1] >= 1.0)
+            rain = float(fc[g.game_id][0] >= RAIN_PROB or fc[g.game_id][1] >= RAIN_MM)
         snow = float(outdoor and any(k in w for k in ["snow", "flurr", "sleet"]))
         v = venue(g)
         for side in ["home", "away"]:

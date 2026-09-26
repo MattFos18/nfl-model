@@ -30,12 +30,18 @@ DIV_IDX = {d: np.array([IDX[t] for t in ts]) for d, ts in DIV.items()}
 CONF_IDX = {c: np.array([IDX[t] for t in TEAMS if CONF_OF[t] == c]) for c in ("AFC", "NFC")}
 SAME_DIV = np.array([[DIV_OF[a] == DIV_OF[b] and a != b for b in TEAMS] for a in TEAMS])
 SAME_CONF = np.array([[CONF_OF[a] == CONF_OF[b] and a != b for b in TEAMS] for a in TEAMS])
-TIE_BAND = 0.07          # a drawn margin this close to zero is a tie (about one game in 230, the league's rate)
+TIE_BAND = 0.07          # a drawn margin this close to zero is a tie (the draws' tie rate and the league's: season.js tie_rate, tie_rate_league)
 WIND_FAR = 7.0           # the game model's stand-in wind for an outdoor game with no forecast yet
 # adopted knobs (reports/season_backtest.csv): future-game margins are shrunk toward zero by SHRINK and drawn with the
 # model's residual scale times SIGMA_MULT; both 0 / 1.0 until a variant beats them on both windows
 SHRINK, SIGMA_MULT = 0.0, 1.0
 
+
+
+def league_tie_rate(games: pd.DataFrame, since: int = 2013) -> dict:
+    """The share of played regular-season games since `since` that ended tied: what TIE_BAND is set to reproduce."""
+    g = games[(games.game_type == "REG") & games.home_score.notna() & (games.season >= since)]
+    return {"rate": float((g.home_score == g.away_score).mean()) if len(g) else None, "ties": int((g.home_score == g.away_score).sum()), "games": int(len(g)), "since": since}
 
 def playoff_format(season: int) -> int:
     return 7 if season >= 2020 else 6
@@ -246,7 +252,7 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
                       "p_div": float(div_win[:, i].mean()), "p_playoffs": float(playoffs[:, i].mean()), "p_bye": float(bye[:, i].mean()),
                       "p_conf": float(conf_champ[:, i].mean()), "p_sb": float(sb_win[:, i].mean())})
     return {"season": season, "week": week, "n_sims": S, "games_left": G, "sigma": float(fit["sigma"] * sigma_mult), "shrink": shrink, "sigma_mult": sigma_mult,
-            "fit_week": fit["week"], "teams": teams, "format": fmt, "left_games": left_games}
+            "fit_week": fit["week"], "teams": teams, "format": fmt, "left_games": left_games, "tie_rate": float(tie.mean()) if G else None}
 
 
 def actuals(games: pd.DataFrame, season: int) -> dict | None:
