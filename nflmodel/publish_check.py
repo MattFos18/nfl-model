@@ -5,7 +5,9 @@ the fix was reported as live. This refuses that, and a page whose health checks 
 
 Checks, on the ref's committed files (git show, so a local rebuild never passes for the committed one):
   1. web/data/meta.js carries the commit whose code built the data (code_sha), and every commit that changed the
-     code (nflmodel/, experiments/, web/index.html) is inside it: the data is not older than the newest code
+     code that builds data (nflmodel/, experiments/) is inside it: the data is not older than the newest code. A change
+     to web/index.html alone builds no data, so it publishes without a new weekly run (26 Sep 2026: every page tweak
+     had waited 15 minutes for a full rebuild); the page still needs every file it loads (3)
   2. web/data/health.js: every health check passes
   3. every data file the page loads exists
 Exit status 0 when all pass, 1 otherwise, with the reasons.
@@ -15,7 +17,7 @@ import json, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CODE = ["nflmodel", "experiments", "web/index.html"]
+CODE = ["nflmodel", "experiments"]   # the code that builds the data; the page (web/index.html) only reads it
 
 
 def _git(*a: str) -> subprocess.CompletedProcess:

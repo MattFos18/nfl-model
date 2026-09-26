@@ -81,6 +81,8 @@ def pull(seasons, only=None, force_current=True):
             print(f"{name:12} {s or 'all':>5} {status:8} {nbytes/1e6:7.1f} MB", flush=True)
     if not only or "injuries" in only:
         espn_injuries()
+    if not only or "injuries" in only or "rosters" in only:
+        reserve_reasons()
     _log(rows)
     return rows
 
@@ -126,6 +128,66 @@ def espn_injuries() -> pd.DataFrame:
         prev = pd.read_csv(dest) if dest.exists() else pd.DataFrame(columns=ESPN_COLS)
         kept = f"kept the file from {prev.fetched_at.max()}" if len(prev) else "no file to keep; the nflverse report alone"
         print(f"espn injuries: {str(e)[:160]}; {kept}", flush=True)
+        return prev
+
+
+REASONS_COLS = ["gsis_id", "team", "name", "reason", "source", "date", "fetched_at"]
+SLEEPER_PLAYERS = "https://api.sleeper.app/v1/players/nfl"
+ESPN_ATHLETE_INJ = "https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/athletes/{id}/injuries?limit=3"
+
+
+def reserve_reasons(max_age_h: float = 12.0) -> pd.DataFrame:
+    """The injury behind each player on a reserve list (IR, PUP, NFI), 26 Sep 2026: the league's report stops listing a
+    player once he goes on IR and ESPN's league page keeps only recent ones (A.J. Brown, IR from Week 2, was on neither),
+    so this asks two sources that keep every player's current injury, matched by id from nflverse's weekly roster:
+    Sleeper's player file (one request, injury_body_part, only when Sleeper lists an injury status) and, for anyone
+    left, ESPN's injury record for the athlete (the newest entry dated this season). Writes
+    data/raw/injuries/reserve_reasons.csv; re-fetched at most every max_age_h hours (Sleeper asks for about one pull a
+    day); never fails the pull."""
+    import requests
+    from .lines import H
+    dest = RAW / "injuries" / "reserve_reasons.csv"; dest.parent.mkdir(parents=True, exist_ok=True)
+    prev = pd.read_csv(dest) if dest.exists() else pd.DataFrame(columns=REASONS_COLS)
+    if len(prev) and (dt.datetime.utcnow() - pd.to_datetime(prev.fetched_at.max())).total_seconds() < max_age_h * 3600:
+        return prev
+    try:
+        cur = max(int(f.stem.split("_")[-1]) for f in (RAW / "rosters").glob("roster_weekly_*.parquet"))
+        r = pd.read_parquet(RAW / "rosters" / f"roster_weekly_{cur}.parquet")
+        r = r[r.week == r.week.max()]
+        from .players import NOT_AVAILABLE
+        r = r[r.status.isin(NOT_AVAILABLE) & r.gsis_id.notna()].drop_duplicates("gsis_id")
+        now = dt.datetime.utcnow().isoformat(timespec="seconds"); rows = {}; season_start = f"{cur}-08-01"
+        try:   # Sleeper: every player in one file
+            sj = requests.get(SLEEPER_PLAYERS, headers=H, timeout=60).json()
+            by_sl = {str(k): v for k, v in sj.items()}; by_gsis = {str(v.get("gsis_id")).strip(): v for v in sj.values() if v.get("gsis_id")}
+            for x in r.itertuples():
+                v = by_sl.get(str(x.sleeper_id).replace(".0", "")) if isinstance(x.sleeper_id, (str, float, int)) and str(x.sleeper_id) not in ("nan", "None", "") else None
+                v = v or by_gsis.get(str(x.gsis_id))
+                if v and v.get("injury_status") and v.get("injury_body_part"):
+                    rows[x.gsis_id] = {"gsis_id": x.gsis_id, "team": x.team, "name": x.full_name, "reason": str(v["injury_body_part"]), "source": "Sleeper", "date": v.get("injury_start_date") or "", "fetched_at": now}
+            print(f"reserve reasons: Sleeper named {len(rows)} of {len(r)}", flush=True)
+        except Exception as e:  # noqa
+            print(f"reserve reasons: Sleeper not read ({str(e)[:120]})", flush=True)
+        n_espn = 0
+        for x in r.itertuples():   # ESPN's record for anyone Sleeper did not name
+            if x.gsis_id in rows or not isinstance(x.espn_id, (str, float, int)) or str(x.espn_id) in ("nan", "None", ""):
+                continue
+            try:
+                lst = requests.get(ESPN_ATHLETE_INJ.format(id=str(x.espn_id).replace(".0", "")), headers=H, timeout=15).json()
+                for it in lst.get("items", [])[:3]:
+                    d = requests.get(it["$ref"].replace("http://", "https://"), headers=H, timeout=15).json()
+                    date = str(d.get("date") or "")[:10]; typ = ((d.get("details") or {}).get("type")) or ((d.get("type") or {}).get("description"))
+                    if typ and date >= season_start and typ.lower() not in ("injured reserve", "out", "questionable", "doubtful"):
+                        rows[x.gsis_id] = {"gsis_id": x.gsis_id, "team": x.team, "name": x.full_name, "reason": str(typ), "source": "ESPN player page", "date": date, "fetched_at": now}; n_espn += 1; break
+            except Exception:  # noqa
+                continue
+        print(f"reserve reasons: ESPN player pages named {n_espn} more; {len(r) - len(rows)} of {len(r)} without a reason", flush=True)
+        out = pd.DataFrame(list(rows.values()), columns=REASONS_COLS)
+        if len(out) or not len(prev):
+            out.to_csv(dest, index=False)
+        return out if len(out) else prev
+    except Exception as e:  # noqa
+        print(f"reserve reasons: {str(e)[:160]}; kept the previous file", flush=True)
         return prev
 
 

@@ -447,6 +447,13 @@ def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
             g = ids.get(str(getattr(r, "espn_id", "") or "").replace(".0", "")) or by_name.get((r.team, nm(r.name)))
             if g:
                 esp[(r.team, g)] = (str(r.status), str(r.detail) if isinstance(r.detail, str) else "", str(r.return_date)[:10] if isinstance(r.return_date, str) else "")
+    # the injury behind each reserve-list player from sources that keep it (pull.reserve_reasons: Sleeper, ESPN's player pages)
+    rsn = {}
+    rf = RAW / "injuries" / "reserve_reasons.csv"
+    if rf.exists():
+        rr = pd.read_csv(rf)
+        tm = dict(zip(cur.gsis_id, cur.team))
+        rsn = {(tm.get(g, t), g): (str(w), f"{src}{', since ' + str(d)[:10] if isinstance(d, str) and d else ''}") for g, t, w, src, d in zip(rr.gsis_id, rr.team, rr.reason, rr.source, rr.date) if isinstance(w, str) and w}
     # the first week of the current stint on a reserve list
     res = ros[ros.status.isin(NOT_AVAILABLE)].sort_values("week")
     for (t, g), x in cur[cur.status.isin(NOT_AVAILABLE)].groupby(["team", "gsis_id"]):
@@ -459,7 +466,7 @@ def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
         code = str(x.status_description_abbr.iloc[0]) if "status_description_abbr" in x.columns else ""
         out[(t, g)] = {"list": RESERVE_CODE.get(code) or (ROSTER_LABEL.get(x.status.iloc[0], x.status.iloc[0]) + (f" (roster code {code})" if code and code != "nan" else "")), "since": int(since)}
     no_injury = {(t, g) for t, g, st in zip(cur.team, cur.gsis_id, cur.status) if st in ("EXE", "SUS", "RET")}   # exempt, suspended, retired: not an injury
-    for key in set(out) | set(esp) | {k for k, v in last_inj.items() if v[:2] == (season, week)}:
+    for key in set(out) | set(esp) | {k for k, v in last_inj.items() if v[:2] == (season, week)}:   # rsn only fills players already out
         o = out.setdefault(key, {})
         if key in no_injury:
             continue
@@ -467,6 +474,8 @@ def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
             o.update({"why": last_inj[key][2], "why_src": f"league report, week {week}"})
         elif key in esp and esp[key][1]:
             o.update({"why": esp[key][1], "why_src": "ESPN injury page"})
+        elif key in rsn:
+            o.update({"why": rsn[key][0], "why_src": rsn[key][1]})
         elif key in last_inj:
             # an older listing names this injury only when it belongs to this stint: listed this season, no more than a
             # week before he went on the list. Last season's listings never do (26 Sep 2026: A.J. Brown, on IR from
