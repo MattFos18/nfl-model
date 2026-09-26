@@ -31,7 +31,7 @@ WINDOW = {s: "2019-22" if s <= 2022 else "2023-25" for s in TEST_SEASONS}
 AVAIL_GRID = np.round(np.arange(0.3, 1.0001, 0.025), 3)
 BLEND_GRID = [0.0, 0.25, 0.5, 0.75, 1.0]
 CACHE = REP / "player_season_rows.csv"
-TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projection, for the accuracy the page leads with (24 Sep 2026)
+TOPW = PS.TOPW   # the top of each list by projection, for the accuracy the page leads with (one source: nflmodel/player_season.py)
 
 
 def rows_for(d, games, names, season, week):

@@ -196,6 +196,19 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     if fjs.exists():   # the live check (injuries, starters, forecasts) logs its errors the same way
         s_ = fjs.read_text(); fr_ = json.loads(s_[s_.index("=") + 1:].rstrip().rstrip(";"))
         rows.append(("live check: injuries, starters and forecasts pulled without an error", "; ".join(fr_.get("errors") or [])[:160] or "no error", "no error", not fr_.get("errors")))
+        from . import pulls as _PU
+        tie("the page's freshness limits (fresh.js late_h) = nflmodel/pulls.py LATE_H", fr_.get("late_h", "missing"), _PU.LATE_H)
+    try:   # docs section 4 quotes the live fit (report.effects_tables, rewritten every run): the QB row and the overlap sentence
+        from . import lines as _LN
+        _s, _w = _LN.current_week(g); _x = p[(p.season == _s) & (p.week == _w)]
+        _doc = (ROOT / "docs" / "how_it_works.md").read_text()
+        _m = re.search(r"\n\| Starting QB rating \| ([+-][\d.]+) \|", _doc)
+        tie("docs section 4 effects table: QB points per unit = the fit that priced the week (pred_v3)", _m.group(1) if _m else "missing", f"{float(_x.iloc[0]['coef_qb_rating']):+.3f}" if len(_x) else "no week")
+        _q = M.qb_overlap(M.prep(M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))), _s)
+        _m = re.search(r"move together \(correlation ([\d.]+) over", _doc)
+        tie("docs section 4: QB and offense rating correlation = model.qb_overlap", _m.group(1) if _m else "missing", f"{_q['corr']:.2f}")
+    except Exception as e:  # noqa
+        rows.append(("docs section 4 live-fit blocks", str(e)[:80], "", False))
     pvf, dgf = OUT / "player_values_all.parquet", OUT / "defender_games.parquet"
     if pvf.exists() and dgf.exists():   # a regular defender who played in the last two seasons always has a snap share (the team-change bug zeroed 99)
         pv = pd.read_parquet(pvf); dgl = pd.read_parquet(dgf, columns=["player_id", "season"]).groupby("player_id").season.max()
@@ -313,6 +326,69 @@ def check_season_equation(rows) -> None:
         side_ = "home" if r.home == 1 else "away"; exp = float(pw.loc[r.game_id, f"{side_}_exp"]) - float(pw.loc[r.game_id, f"{side_}_blend_adj"] if f"{side_}_blend_adj" in pw.columns else 0.0) - float(pw.loc[r.game_id, f"{side_}_total_adj"] if f"{side_}_total_adj" in pw.columns else 0.0)   # the equation's share; the blend's pull sits on top
         worst = max(worst, abs(e - exp)); n += 1
     rows.append((f"season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) ({n} sides, worst gap in points)", round(worst, 4), "0.01 or under", worst <= 0.01))
+
+
+def check_page_facts(rows, meta: dict, wk: dict) -> None:
+    """Every fact the page's text quotes from meta.js, week.js, season.js, rankings.js and props_record.js, against the
+    module or report that produces it (26 Sep 2026: the page had typed them, and several had gone stale)."""
+    def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
+    from . import season as SE, player_season as PS, players as PL, positions as PO, pull as PU, lines as LN
+    g = pd.read_parquet(OUT / "games.parquet"); p = pd.read_parquet(OUT / "pred_v3.parquet")
+    d = B.join(p, g); d = d[(d.game_type == "REG") & d.home_score.notna() & d.spread_line.notna()]
+    pk = meta.get("picks", {})
+    tie("page rules: the flag's cut, the totals flag, the last week bet = picks.py", [pk.get("spread_edge"), pk.get("total_shadow"), pk.get("last_week")], [P.SPREAD_EDGE, P.TOTAL_SHADOW, P.LAST_BET_WEEK])
+    tie("page rules: break-even at the default price = picks.break_even", [pk.get("break_even"), pk.get("default_odds")], [round(P.break_even(), 4), P.DEFAULT_ODDS])
+    tie("page rules: backtest windows = picks.WINDOWS (with the words the reports use)", [(w["key"], w["from"], w["to"], w["label"]) for w in pk.get("windows", [])], [(k, a, b, P.WINDOW_LABEL[k]) for k, (a, b) in P.WINDOWS.items()])
+    rr = P.rule_records(d)
+    tie("Bets tab: every rule's backtest record = picks.rule_records on the prediction table", [[r["rule"]] + [r[w] for w in P.WINDOWS] for r in pk.get("rules", [])], [[r["rule"]] + [r[w] for w in P.WINDOWS] for _, r in rr.iterrows()])
+    tie("page flag threshold (meta.js) = week.js flag threshold", pk.get("spread_edge"), wk.get("spread_edge"))
+    # the Backtest tab grades the flag and the totals flag itself from backtest.js; its window records must be the rule records
+    bk_ = _js("backtest.js"); b_ = pd.DataFrame(bk_["rows"], columns=bk_["cols"]); b_ = b_[(b_.game_type == "REG") & b_.home_score.notna() & (b_.week <= P.LAST_BET_WEEK)]
+    def _pg(x):
+        e = x.model_spread - x.spread_line; cm = x.home_score - x.away_score - x.spread_line; f = x.spread_line.notna() & (e.abs() >= P.SPREAD_EDGE) & (cm != 0)
+        w = int(((e > 0) & (cm > 0) | (e < 0) & (cm < 0))[f].sum()); return f"{w}-{int(f.sum()) - w}"
+    def _pt(x):
+        t = x.home_score + x.away_score; f = x.total_line.notna() & (t != x.total_line) & x.p_over_emp.notna() & ((1 - x.p_over_emp) >= P.TOTAL_SHADOW["prob"])
+        w = int((t < x.total_line)[f].sum()); return f"{w}-{int(f.sum()) - w}"
+    rri = rr.set_index("rule")
+    tie("Backtest tab's flag and totals-flag records (from backtest.js) = picks.rule_records, every window", [[_pg(b_[b_.season.between(a, z)]), _pt(b_[b_.season.between(a, z)])] for a, z in P.WINDOWS.values()],
+        [[rri.loc["model", w], rri.loc["shadowunder", w]] for w in P.WINDOWS])
+    s_, w_ = LN.current_week(g); x = p[(p.season == s_) & (p.week == w_)]
+    fit = wk.get("fit") or {}
+    if len(x):
+        tie("week.js fit (points if out, points a game, the inputs table) = pred_v3's fit for the week (intercept, QB, skill out)", [fit.get("intercept"), (fit.get("per_unit") or {}).get("qb_rating"), (fit.get("per_unit") or {}).get("skill_out_value"), fit.get("sigma_margin")],
+            [round(float(x.iloc[0]["intercept"]), 6), round(float(x.iloc[0]["coef_qb_rating"]), 6), round(float(x.iloc[0]["coef_skill_out_value"]), 6), round(float(x.iloc[0]["sigma_margin"]), 6)])
+        tie("every card's fit = the week's one fit", sorted({json.dumps(g_.get("coefs"), sort_keys=True) == json.dumps({k: fit.get(k) for k in ("per_unit", "mean", "intercept")}, sort_keys=True) for g_ in wk.get("games", []) if g_.get("coefs")}), [True])
+    tie("week.js calibration window = picks.CAL_FROM, CAL_CAP", [(wk.get("cal") or {}).get("from"), (wk.get("cal") or {}).get("cap")], [P.CAL_FROM, P.CAL_CAP])
+    feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
+    q = M.qb_overlap(M.prep(feats), max(int(k) for k in meta["coefs"]))
+    tie("QB rating and offense rating overlap on the page = model.qb_overlap (the fit)", meta["analysis"].get("qb_overlap"), q)
+    au = (REP / "audit.md").read_text() if (REP / "audit.md").exists() else ""
+    nz = meta["analysis"].get("noise") or {}
+    tie("the page's noise figure = reports/audit.md's noise floor", f"plus or minus {nz.get('tune', 0):.3f} points wide on the tuning window" in au, True)
+    mc = meta.get("model", {})
+    tie("the model's stand-in wind (meta.js) = the season simulation's (season.WIND_FAR)", mc.get("wind_fill"), SE.WIND_FAR)
+    tie("the model's constants on the page = model.py", [mc.get("ridge"), mc.get("train_from"), mc.get("early_weeks"), mc.get("late_week"), mc.get("dead_pct"), mc.get("cold_f")], [M.RIDGE, M.TRAIN_FROM, M.EARLY_WEEKS, M.LATE_WEEK, M.DEAD_PCT, M.COLD_F])
+    pm = meta.get("player_model", {})
+    tie("the player model's settings on the page = players.DEFAULT, positions (replacement, starters), ratings.DEFAULT", [pm.get("decay"), pm.get("k"), pm.get("usage_games"), pm.get("skill_pct"), pm.get("repl_pct"), pm.get("qb_prior"), pm.get("starters"), pm.get("starters_def"), pm.get("starter_qb_games")],
+        [PL.DEFAULT["decay"], PL.DEFAULT["k"], PL.DEFAULT["usage_games"], PL.DEFAULT["pct"], PO.REPL_PCT, R.DEFAULT["qb_prior"], PO.STARTERS, PO.STARTERS_DEF, PO.STARTER_QB_GAMES])
+    tie("data sources' first seasons on the page = pull.DATASETS", meta.get("data_from"), {k: v[1] for k, v in PU.DATASETS.items()})
+    sj = _js("season.js")
+    tie("season.js league tie rate = the schedule (season.league_tie_rate)", sj.get("tie_rate_league"), SE.league_tie_rate(g))
+    tie("season.js accuracy cut (top of each list) = player_season.TOPW", (sj.get("players") or {}).get("topw"), PS.TOPW)
+    bg = REP / "season_by_game.csv"
+    if bg.exists():
+        b_ = pd.read_csv(bg)
+        tie("season.js game-by-game test = reports/season_by_game.csv (rows, misses)", [len(sj.get("by_game", [])), round(sum(r["mae"] for r in sj.get("by_game", [])), 1)], [len(b_), round(float(b_.mae.sum()), 1)])
+    rk = _js("rankings.js"); mx = rk.get("matchup") or {}
+    ls = str(max(int(k) for k in rk["seasons"])); lw = str(max(int(k) for k in rk["seasons"][ls])); tm = sorted(rk["seasons"][ls][lw]["teams"])
+    tie("Rankings matchup: priced for the latest ratings table, every pair of teams", [mx.get("season"), mx.get("week"), sum(len(v) for v in (mx.get("pts") or {}).values())], [int(ls), int(lw), len(tm) * (len(tm) - 1)])
+    pr = _js("props_record.js"); vm = TR / "props_vs_market.csv"
+    if vm.exists():
+        from .props import market_summary
+        tie("props record summary on the page = props.market_summary(props_vs_market.csv)", pr.get("summary"), json.loads(json.dumps(market_summary(pd.read_csv(vm)))))
+    else:
+        tie("props record summary absent while no line is graded", pr.get("summary"), None)
 
 
 def check_page() -> list[tuple[str, str, str, bool]]:
@@ -462,6 +538,10 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     if len(mp):
         cur = mp[(mp.season == season) & (mp.week == week)]
         tie("page live table = tracker (pending model rows)", sorted(x["bet"] for x in tr if x.get("who") == "model" and x.get("season") == season and x.get("week") == week), sorted(cur.bet))
+    try:
+        check_page_facts(rows, meta, wk)
+    except Exception as e:  # noqa
+        rows.append(("page facts (rules, fit, constants)", str(e)[:80], "", False))
     rk = _js("rankings.js")
     tie("page rankings: QB replacement level", rk.get("params", {}).get("qb_prior"), R.DEFAULT["qb_prior"])
     # the Season tab: odds and totals on the page = the reports the same export wrote; probabilities add up

@@ -102,11 +102,58 @@ def _rec_pct(w: int, l: int, show_record: bool) -> str:
     return (f"{100 * w / n:.1f}%" + (f" ({w}-{l})" if show_record else "")) if n else "no bets"
 
 
+EFFECT_LABEL = {"off_epa_play": "Own offense EPA per play", "def_epa_play": "Opponent defense EPA per play", "off_pf": "Own offense points rating", "def_pf": "Opponent defense points rating",
+                "qb_rating": "Starting QB rating", "home": "Home", "neutral": "Neutral site", "dome": "Dome", "wind_out": "Wind (outdoor), per mph", "cold": "Cold", "rain": "Rain at kickoff",
+                "warm_in_cold": "Warm-climate or dome team outdoors in the cold", "div_game": "Division game", "qb_out": "Last game's QB listed out",
+                "skill_out_value": "Skill players out: value lost", "opp_skill_out_value": "Opponent's skill players out: value lost", "off_snap_out": "Offensive snaps out",
+                "opp_def_snap_out": "Opponent's defensive snaps out", "off_turnover_early": "Offseason turnover, offense", "opp_def_turnover_early": "Opponent's offseason turnover, defense",
+                "dead_late": "Out of the race", "opp_dead_late": "Opponent out of the race"}
+
+
+def effects_tables() -> dict:
+    """Docs section 4: every input's points from the fit that priced the week being priced (pred_v3's coefficients, the
+    same the cards break down), per unit and per standard deviation of the training games, with the raw gap in the data
+    beside each flag (export_web.situation_facts); and the QB rating's overlap with the offense rating (model.qb_overlap).
+    Written into the docs on every run, so the section quotes the live fit (26 Sep 2026: it had been typed by hand and
+    had gone stale, two signs flipped)."""
+    from . import model as M, lines as LN
+    from .export_web import situation_facts
+    games = pd.read_parquet(OUT / "games.parquet"); pred = pd.read_parquet(OUT / "pred_v3.parquet")
+    s, w = LN.current_week(games)
+    x = pred[(pred.season == s) & (pred.week == w)]
+    feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")); fp = M.prep(feats)
+    train = fp[fp.pf.notna() & (fp.season >= M.TRAIN_FROM) & ((fp.season < s) | ((fp.season == s) & (fp.week < w)))]
+    sf = situation_facts(feats)
+    r0 = x.iloc[0]
+    raw = lambda f: (lambda q: f"{q['on']} with it ({q['n_on']:,} team-games), {q['off']} without" if q else "")(sf["flags"].get(f))
+    wraw = ""
+    if sf.get("wind"):
+        wraw = f"{sf['wind'][0]['pf']} points in calm air, {sf['wind'][3]['pf']} at {sf['wind'][3]['bucket']} mph"
+    L = [f"| Input | Points per unit | Points per SD | Raw points, {sf['seasons']} |", "|---|---|---|---|"]
+    rows = []
+    for f in M.FEATS:
+        c = float(r0[f"coef_{f}"]); sd = float(train[f].std()) if f in train.columns else float("nan")
+        rows.append((abs(c * sd) if sd == sd else 0.0, f"| {EFFECT_LABEL.get(f, f)} | {c:+.3f} | {c * sd:+.2f} | {wraw if f == 'wind_out' else raw(f)} |"))
+    L += [r for _, r in sorted(rows, key=lambda t: -t[0])]
+    L += ["", f"The fit that priced Week {w} of {s}: {int(r0['n_train']):,} team-games from {M.TRAIN_FROM} on. Points per SD is the unit's worth times the input's "
+          "spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB "
+          "from the league average. Raw points: what teams scored with the flag on and off, before any adjustment."]
+    q = M.qb_overlap(fp, s)
+    qb = (f"The QB rating and the offense EPA rating move together (correlation {q['corr']:.2f} over {q['seasons']}), and the regression sorts that out: "
+          f"fitted at once the QB rating is worth {q['qb_per_sd']:+.2f} points per SD and the offense EPA rating {q['off_per_sd']:+.2f}; drop the QB and refit, "
+          f"and the offense EPA coefficient rises to {q['off_per_sd_no_qb']:+.2f} per SD, so the credit is shared, not counted twice.")
+    return {"effects": "\n".join(L), "qb_overlap": qb}
+
+
 def docs_tables(new: pd.DataFrame) -> dict:
     """The docs tables that quote backtest records, built from the same files the tie check reads (24 Sep 2026: they
     were typed by hand and went stale after every model change; the staking table was a run behind unnoticed)."""
     from . import picks as P
     out = {}
+    try:
+        out.update(effects_tables())
+    except Exception as e:  # noqa
+        print("docs effects table not built:", str(e)[:200], flush=True)
     sw = REP / "threshold_sweep.csv"
     if sw.exists():
         t = pd.read_csv(sw); t = t[t.market == "spread"]
@@ -153,6 +200,7 @@ def update_docs(new: pd.DataFrame):
 
 
 def main():
+    from . import picks as P
     new = bt.join(pd.read_parquet(OUT / "pred_v3.parquet"))
     L = ["# NFL Model 3.0 backtest", "",
          "Walk-forward: every week is priced with only games played before it; the points regression is refit before every week on every "
@@ -180,8 +228,8 @@ def main():
     s_ok = st[st.bets >= 100].sort_values("roi", ascending=False).iloc[0]
     t_ok = tt[tt.bets >= 100].sort_values("roi", ascending=False).iloc[0]
     L += [f"Best spread threshold with 100+ bets on the tuning window: {s_ok.edge:g} (ROI {s_ok.roi:+.3f}). "
-          f"Best total threshold: {t_ok.edge:g} (ROI {t_ok.roi:+.3f}). The held-out results below use the live flags (5 / 6) and, separately, these.", ""]
-    for label, se, te in [("live flags (5 / 6)", 5.0, 6.0), (f"tuned ({s_ok.edge:g} / {t_ok.edge:g})", float(s_ok.edge), float(t_ok.edge))]:
+          f"Best total threshold: {t_ok.edge:g} (ROI {t_ok.roi:+.3f}). The held-out results below use the live spread flag ({P.SPREAD_EDGE:g}; totals are not flagged, so they are graded at the tuned {t_ok.edge:g}) and, separately, these.", ""]
+    for label, se, te in [(f"live flag ({P.SPREAD_EDGE:g} / {t_ok.edge:g})", float(P.SPREAD_EDGE), float(t_ok.edge)), (f"tuned ({s_ok.edge:g} / {t_ok.edge:g})", float(s_ok.edge), float(t_ok.edge))]:
         sp, to = bt.grade_spread(d_v, se), bt.grade_total(d_v, te)
         L += [f"## 5. Held-out 2023 to 2025, {label}", "", "Spreads:", "", bt.summarize_bets(sp).round(3).to_markdown(), "",
               bt.summarize_bets(sp, "season").round(3).to_markdown(), "", "By edge size:", "", bt.edge_buckets(sp, edges=(se, se + 1, se + 2, se + 4, 99)).round(3).to_markdown(), "",

@@ -63,44 +63,49 @@ move slower: the equation carries the adaptation.
 
 **QB rating.** For the named starter, EPA per dropback over every game he has played (any team), decayed
 0.985 per game, shrunk toward -0.12 (replacement level; -0.05 until 23 Sep 2026) with a 150-dropback prior. A rookie with no
-history starts at replacement level. Ablation: dropping it costs 0.08 points of miss, the most of any
-input (`reports/ablation.csv`).
+history starts at replacement level. Ablation: dropping it costs more than dropping any other input
+(`reports/ablation.csv`).
 
 ## 4. From ratings to points: the regression
 
-`model.py` fits a ridge regression (penalty 10, inputs standardised) from the ratings and situation each
-team carried into a game to the points it scored. Since 23 Sep 2026 the model has twenty-two inputs, each with one
-plain meaning (fit on 2013 to 2025, points per one standard deviation of the input; the live coefficients are
-printed on the page, Model → How it was built, and refit before every week):
+`model.py` fits a ridge regression (inputs standardised) from the ratings and situation each team carried into a game to
+the points it scored, refit before every week on every game played before it. Since 23 Sep 2026 the model has twenty-two
+inputs, each with one plain meaning. The table is rewritten from the live fit on every run (`nflmodel/report.py`), the same
+coefficients the cards break down:
 
-| Input | Points per SD | Reading |
-|---|---|---|
-| Starting QB rating | +1.4 | The starter's own career EPA per dropback, decayed and shrunk toward replacement level |
-| Own offense points rating | +1.3 | Points the offense scores against an average defense, opponent-adjusted |
-| Opponent defense points rating | -1.3 | Points the opponent's defense allows against an average offense |
-| Home | +1.0 (1.98 points home vs away) | Home teams scored 1.90 more than away teams raw, 2013 to 2025 |
-| Wind (outdoor) | -0.75 (-0.135 per mph) | Offenses average 23.8 points in calm air, 21.4 at 11 to 15 mph |
-| Own offense EPA per play | +0.6 | What the offense adds beyond its points rating and its QB |
-| Opponent defense EPA per play | -0.4 | |
-| Last game's QB listed out | -0.25 (-1.8 points when it applies) | Those games scored about 4 fewer points than the ratings said |
-| Cold under 35F | -0.07 | |
-| Neutral site | -0.06 | |
-| Dome | +0.06 | Indoor teams score more raw (+1.5), but the ratings already know who plays indoors |
-| Warm-climate or dome team outdoors under 35F | about -1.5 points when it applies | Those teams score 19.7 in the cold against 22.3 for everyone in the cold (119 team-games). Cold teams in heat show nothing. Added 22 Sep 2026 |
-| Rain at kickoff | about -1 point when it applies | From the play-by-play weather text; the kickoff forecast (50%+ chance of precipitation) for unplayed games. Added from the ideas test below: -0.010 and -0.013 on the points miss in the two windows |
-| Division game | -0.67 points for each team when it applies | Familiar opponents score a little less. Added 22 Sep 2026 from the both-window test (section 14): -0.006 and -0.006 on the points miss; it moves both teams alike, so the spread barely changes |
-| Skill players out: value lost | -13 points per unit of EPA per play lost (a star receiver out, about 0.03, is -0.4 points) | Player model (section 15): the EPA per touch above replacement of every RB, WR and TE listed Out or Doubtful, times their touch share, summed. Added 22 Sep 2026: with the opponent's loss, -0.009 and -0.012 on the margin miss in the two windows |
-| Opponent's skill players out: value lost | +36 points per unit (the same star out on the other side is +1.1 points for this team) | The same loss on the other side of the ball, in this team's own points equation |
-| Offensive snaps out | negative per share of snaps missing | Sum of last game's offensive snap shares of the players now out: linemen, fullbacks, anyone the touch value cannot see. Player model phase 3, 22 Sep 2026 |
-| Opponent's defensive snaps out | positive | The same sum for the opponent's defense |
-| Offseason turnover, offense (weeks 1 to 8) | -4.7 per unit (a team that lost 20% of last year's snaps: -0.9 points) | 1 minus the share of last season's offensive snaps still on this week's roster. Added 23 Sep 2026 |
-| Opponent's offseason turnover, defense (weeks 1 to 8) | +4.8 per unit | The same share for the defense faced |
-| Out of the race (week 12 on) | about -1 point | 1 when the team's win rate through the previous week is 40% or under, from Week 12 |
-| Opponent out of the race (week 12 on) | about +1 point | The same flag for the opponent |
+<!-- auto:effects -->
+| Input | Points per unit | Points per SD | Raw points, 2013 to 2025 |
+|---|---|---|---|
+| Starting QB rating | +17.087 | +1.65 |  |
+| Own offense points rating | +0.851 | +1.23 |  |
+| Opponent defense points rating | -0.981 | -1.11 |  |
+| Opponent's offseason turnover, defense | +4.691 | +1.08 |  |
+| Home | +1.867 | +0.93 | 23.77 with it (3,407 team-games), 21.87 without |
+| Offseason turnover, offense | -4.294 | -0.92 |  |
+| Wind (outdoor), per mph | -0.135 | -0.75 | 23.82 points in calm air, 21.38 at 11 to 15 mph |
+| Opponent out of the race | +1.308 | +0.44 |  |
+| Rain at kickoff | -1.911 | -0.42 | 20.47 with it (356 team-games), 22.95 without |
+| Skill players out: value lost | -30.784 | -0.40 |  |
+| Opponent's defensive snaps out | +0.610 | +0.40 |  |
+| Opponent defense EPA per play | -13.414 | -0.32 |  |
+| Division game | -0.670 | -0.32 | 22.33 with it (2,496 team-games), 23.11 without |
+| Opponent's skill players out: value lost | +19.117 | +0.25 |  |
+| Warm-climate or dome team outdoors in the cold | -1.834 | -0.23 | 19.68 with it (95 team-games), 22.87 without |
+| Last game's QB listed out | -1.008 | -0.17 | 19.05 with it (214 team-games), 22.95 without |
+| Out of the race | -0.455 | -0.15 |  |
+| Own offense EPA per play | +4.521 | +0.14 |  |
+| Offensive snaps out | -0.193 | -0.13 |  |
+| Neutral site | -0.630 | -0.09 | 22.03 with it (112 team-games), 22.84 without |
+| Cold | +0.247 | +0.06 | 22.29 with it (374 team-games), 22.85 without |
+| Dome | -0.034 | -0.02 | 23.88 with it (1,904 team-games), 22.41 without |
 
-Two expected scores per game give the spread (home minus away) and the total. The QB rating and the offense
-ratings overlap (correlation 0.68) and the regression sorts that out: drop the QB and refit, and the offense EPA
-coefficient rises from 0.6 to 1.4 per SD, so the credit is shared, not counted twice.
+The fit that priced Week 3 of 2026: 7,188 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
+<!-- /auto:effects -->
+
+Two expected scores per game give the spread (home minus away) and the total.
+<!-- auto:qb_overlap -->
+The QB rating and the offense EPA rating move together (correlation 0.75 over 2013 to 2025), and the regression sorts that out: fitted at once the QB rating is worth +1.65 points per SD and the offense EPA rating +0.13; drop the QB and refit, and the offense EPA coefficient rises to +1.22 per SD, so the credit is shared, not counted twice.
+<!-- /auto:qb_overlap -->
 
 **Why twenty and not twenty-six.** Until 22 Sep the model also carried the pass and rush EPA splits, pace, the
 other side of the ball (own defense and opponent offense), the opponent's QB, rest (four flags), division game and
@@ -510,8 +515,8 @@ from the weekly rosters and the snap counts matched by name. The inputs are 1 mi
 and 0 afterwards: `off_turnover_early` for the team's own offense and `opp_def_turnover_early` for the defense it
 faces. Both windows: spread miss 10.019 / 9.993 against 10.052 / 10.040, points 7.365 / 7.300 against 7.403 /
 7.304; the untouched 2015 to 2018 window agrees (10.013 against 10.031). Cutoffs of 4, 6, 8, 12 weeks and all
-season were tried; 8 was best held out. Fitted: about -4.7 points per unit of turnover on offense (a team that
-lost 20% of last year's snaps: -0.9 points early) and +4.8 for the opponent's defensive turnover. Twenty inputs then; twenty-two since the out-of-the-race flags.
+season were tried; 8 was best held out. The fitted points per unit of turnover, own and the opponent's, are in section 4's
+table, rewritten from the live fit every run. Twenty inputs then; twenty-two since the out-of-the-race flags.
 
 **Turnover luck** (23 Sep 2026, `experiments/luck.py`, `reports/luck.csv`). EPA per play carries every
 interception and lost fumble at full weight, and turnovers are the noisiest part of football (2.1% of plays). Two
@@ -734,11 +739,11 @@ not used: they are known only ninety minutes before kickoff, so using them in th
 
 **How a player's impact is rated.** Each rusher or receiver has an EPA per touch: the average EPA of the plays he
 carried or was targeted on, decayed 0.985 per game and shrunk toward replacement level with 480 touches of weight (80 until 23 Sep 2026)
-(a rookie with 20 touches is mostly the prior; a veteran with 300 is mostly himself). Replacement level is the 25th
-percentile of players with 100+ touches in earlier seasons, about 0.05 EPA per touch for receivers and -0.1 for
-rushers. The player's value is (EPA per touch minus replacement) times his share of the team's touches, in EPA per
-team play; a star receiver with 20% of the touches at 0.35 EPA per target is about 0.06. The model's fitted weight
-(about -13 points per unit) turns that into points: about 0.8 points off the team's expected score when he sits.
+(a rookie with 20 touches is mostly the prior; a veteran with 300 is mostly himself). Replacement level is the 10th
+percentile (25th until 23 Sep 2026) of players with 100+ touches in earlier seasons (`players.DEFAULT`). The player's
+value is (EPA per touch minus replacement) times his share of the team's touches, in EPA per team play; a star receiver
+with 20% of the touches at 0.35 EPA per target is about 0.06. The model's fitted weight (section 4's table, the live
+fit) turns that into points off the team's expected score when he sits.
 Team -> Players lists every skill player with these numbers and this week's injury status; a card names who is out
 under "Injuries beyond the QB". In the model since 22 Sep 2026, own and opponent
 (`experiments/player_injury.py`, `reports/player_injury.csv`): margin miss 10.152 to 10.143 (2019-22) and 10.117

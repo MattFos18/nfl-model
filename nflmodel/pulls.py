@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parent.parent
 LN, WX = ROOT / "data" / "lines", ROOT / "data" / "weather"
 ODDS_ANCHOR = [(None, 12, 0.0)]      # The Odds API game lines: once a day at 12:00 UTC (lines.py)
 EVERY_RUN_LATE_H = 2.0               # a source pulled on every line-watch run is late after two hours
+MODEL_LATE_H = 96.0                  # the model run re-prices on every input change and at least four times a week
+LATE_H = {"every_run": EVERY_RUN_LATE_H, "model": MODEL_LATE_H}   # the page's freshness limits for what is not a pull (tie checks, the model run)
 
 
 def _z(t) -> str | None:
