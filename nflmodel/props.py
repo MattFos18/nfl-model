@@ -641,19 +641,24 @@ def grade(d: pd.DataFrame, season: int, week: int, run_at: str) -> pd.DataFrame 
     TR.mkdir(parents=True, exist_ok=True); g.to_csv(TR / "props_graded.csv", index=False); return g
 
 
-def main(season: int | None = None, week: int | None = None, backfill: bool = False):
+def main(season: int | None = None, week: int | None = None, backfill: bool = False, live: bool = False):
     """The week's projections. backfill=True projects an earlier week of the season with the data as of that week (the
     same rule, nothing from the week itself), writes only its CSV and markdown with made = "after the fact", and
-    leaves the live panel, profiles and grades alone; the next run grades it like any other week."""
-    from .lines import current_week
+    leaves the live panel, profiles and grades alone; the next run grades it like any other week.
+    live=True (the line watch, every run): the same projections re-made on the newest line snapshot, forecast and book
+    lines, without re-grading last week (the weekly run grades; its summaries are carried over)."""
+    from .lines import current_week, live_lines, load_log as lines_log
     from .positions import names_by_id
+    from . import weather as WX
     games = pd.read_parquet(OUT / "games.parquet")
     if season is None or week is None:
         season, week = current_week(games)
+    if not backfill:
+        games = WX.apply_to_games(games)   # the kickoff forecast in use now (the line watch pulls it every run)
     run_at = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
-    graded = None if backfill else grade(d, season, week, run_at)
-    vm = None if backfill else grade_market(graded, run_at)
+    graded = None if (backfill or live) else grade(d, season, week, run_at)
+    vm = None if (backfill or live) else grade_market(graded, run_at)
     from .props_lines import load_log, closing
     plog = load_log()
     a = _asof(d, season, week); names = names_by_id(range(season - 2, season + 1))
@@ -662,7 +667,12 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
     VS = vs_defense(d[(d.season < season) | ((d.season == season) & (d.week < week))])   # every charted season, for the card's "against this defense" column
     dg = defender_games(); DF = defenders(dg, names, season, week); VS.update(vs_offense(dg[(dg.season < season) | ((dg.season == season) & (dg.week < week))], games))
     KK = kickers(kicker_games(range(season - 1, season + 1)), names, season, week); SN = snap_trends(season, week)
-    wk = games[(games.season == season) & (games.week == week)]
+    wk = games[(games.season == season) & (games.week == week)].copy()
+    if not backfill:   # the game script reads the current consensus line (lines.live_lines: the newest snapshot, median
+        # across sources, to the half point), the same line the picks and the card are priced on (26 Sep 2026: the
+        # Tuesday nflverse line, 43.5 on ATL@GB against a live 42.5)
+        lv = live_lines(wk[["game_id", "spread_line", "total_line"]], lines_log()).set_index("game_id")
+        wk["spread_line"] = wk.game_id.map(lv.spread_line); wk["total_line"] = wk.game_id.map(lv.total_line); wk["line_ts"] = wk.game_id.map(lv.total_ts.fillna(lv.spread_ts))
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
     out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025, run walk-forward with league averages as of each game (reports/props_by_season.csv)")}
@@ -678,6 +688,8 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, g.total_line, mk, VS)
         out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, g.total_line, mk)
         out["games"][g.game_id][g.home_team]["kicker"] = project_kicker(g.home_team, KK, roster, sp, g.total_line, mk)
+        for team in (g.away_team, g.home_team):   # the line snapshot the game script read (lines.latest), beside the margin and total it used
+            out["games"][g.game_id][team]["volume"]["line_ts"] = (None if backfill or pd.isna(g.line_ts) else str(g.line_ts)) if "line_ts" in wk.columns else None
         if mk is not None and len(mk):   # the book's lines on anyone not listed above (kickers, players without a profile), by team where the roster says
             from .props_lines import norm_name
             byname = {norm_name(r.name): r.team for r in roster[roster.team.isin([g.away_team, g.home_team])].itertuples()}
@@ -705,52 +717,30 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         pr.to_csv(REP / f"props_{season}_wk{week}.csv", index=False)
         if backfill:
             print(f"props backfill: {len(pr)} projections for week {week} of {season}, made after the fact with the data as of that week", flush=True); return
-        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the closing spread and total, shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
+        md = [f"# Week {week}, {season}: player projections (readings, graded next run)", "", f"Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed {DECAY} per game back) x the player's yards per touch shrunk toward the league (receivers {K['rec']:.0f} targets, rushers {K['rush']:.0f} carries, QBs {K['pass']:.0f} dropbacks of weight) and moved toward what the defense allows (receivers {W['rec']:.0%}, rushers {W['rush']:.0%}, QBs {W['pass']:.0%}) x the median factor (receivers {MED['rec']}, rushers {MED['rush']}, QBs {MED['pass']}). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop {abs(WIND_C['pass']):.1%} per mph of kickoff wind above 10. The rule four rounds of backtest chose: {BACKTEST['rec_yards'][0]} / {BACKTEST['rec_yards'][1]} yards off on receiving, {BACKTEST['rush_yards'][0]} / {BACKTEST['rush_yards'][1]} on rushing and {BACKTEST['pass_yards'][0]} / {BACKTEST['pass_yards'][1]} on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league ({K_CATCH:.0f} targets) x {MED_CATCH}; touchdowns: volume x his rate shrunk toward the league ({K_TD['rec']:.0f} / {K_TD['rush']:.0f} / {K_TD['pass']:.0f} touches), receiving and passing scores moved {TD_MARGIN['rec']:.1%} per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built {run_at}.", "", pr.drop(columns=["run_at"]).to_markdown(index=False), ""]
         (REP / f"props_{season}_wk{week}.md").write_text("\n".join(md))
     out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
     if (TR / "props_vs_market.csv").exists():
         vm_all = pd.read_csv(TR / "props_vs_market.csv"); out["market"] = market_summary(vm_all); out["market_rows"] = int(len(vm_all))
+    if live and (OUT / "props.json").exists():   # the weekly run's grading summary, carried (a live re-projection does not re-grade)
+        _old = json.loads((OUT / "props.json").read_text())
+        if "graded" in _old: out["graded"] = _old["graded"]
     if graded is not None and len(graded):
         s = graded.groupby("stat").agg(n=("error", "size"), mae=("error", lambda e: round(float(e.abs().mean()), 2)), bias=("error", lambda e: round(float(e.mean()), 2))).reset_index()
         out["graded"] = s.to_dict("records")
     (OUT / "props.json").write_text(json.dumps(out, default=lambda v: None if (isinstance(v, float) and np.isnan(v)) else (v.item() if hasattr(v, "item") else str(v))))
     # every player's profile, every defense and the league, for the Players tab (the card shows only this week's games)
+    if live:   # the profiles do not read the line or the book: the weekly run's stand
+        print("props (live)", len(pr), "projections for week", week, "on the newest line snapshot; market lines on the cards", out["market_lines"], flush=True); return
     prof = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "receivers": R, "rushers": RU, "passers": Q, "defenses": D, "volume": V, "league": L}
     (OUT / "props_profiles.json").write_text(json.dumps(prof, default=lambda v: None if (isinstance(v, float) and np.isnan(v)) else (v.item() if hasattr(v, "item") else str(v))))
     print("props", len(pr), "projections for week", week, "graded rows", 0 if graded is None else len(graded), "market lines on the cards", out["market_lines"], "graded against the market", out.get("market_rows", 0))
 
 
-def reattach_markets() -> None:
-    """Re-read the props log and put the newest lines beside this week's projections without rebuilding them (the line
-    watch runs this after every snapshot, then export_web --week rewrites props.js): every market per listed player, the
-    mkt_ keys the takeaways use, and each side's market timestamp and pull count."""
-    from .props_lines import load_log, closing
-    f = OUT / "props.json"
-    if not f.exists(): return
-    out = json.loads(f.read_text()); plog = load_log()
-    for gid, gm in out["games"].items():
-        mk = closing(plog, gid) if len(plog) else None
-        for team, side in gm.items():
-            for grp in ("qb", "receivers", "rushers", "defenders", "kicker"):
-                for r in side.get(grp, []):
-                    for k in [k for k in r if k.startswith("mkt_")]: r.pop(k)
-                attach_all_markets(side.get(grp, []), mk)
-            attach_market(side.get("receivers", []), mk, [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches"), ("anytime_td", "mkt_td")])
-            attach_market(side.get("rushers", []), mk, [("rush_yards", "mkt_rush_yards"), ("anytime_td", "mkt_td")])
-            attach_market(side.get("qb", []), mk, [("pass_yards", "mkt_pass_yards")]); attach_market(side.get("defenders", []), mk, [("def_tackles", "mkt_tackles")])
-            side["market_ts"] = (str(mk.ts.iloc[0]) if mk is not None and len(mk) else None)
-            if mk is not None and len(mk): side["market_open_ts"] = str(mk.open_ts.iloc[0]); side["market_pulls"] = int(mk.pulls.iloc[0])
-            side["others"] = []
-    out["market_lines"] = int(sum(1 for gm in out["games"].values() for side in gm.values() for grp in ("receivers", "rushers", "qb") for r in side[grp] if any(k.startswith("mkt_") for k in r)))
-    out["market_refreshed"] = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
-    f.write_text(json.dumps(out, default=lambda v: None if isinstance(v, float) and np.isnan(v) else (float(v) if isinstance(v, (np.floating,)) else int(v) if isinstance(v, np.integer) else str(v))))
-    print("props markets refreshed", out["market_lines"], "lines on the cards; newest pull", max([str(side.get("market_ts")) for gm in out["games"].values() for side in gm.values() if side.get("market_ts")] or ["none"]), flush=True)
-
-
 if __name__ == "__main__":
     import sys
-    if "--markets" in sys.argv:
-        reattach_markets()
+    if "--live" in sys.argv or "--markets" in sys.argv:   # the line watch: re-project on the newest lines, forecast and book lines
+        main(live=True)
     elif "--backfill" in sys.argv:   # python -m nflmodel.props --backfill 2026 1
         i = sys.argv.index("--backfill"); main(int(sys.argv[i + 1]), int(sys.argv[i + 2]), backfill=True)
     else:

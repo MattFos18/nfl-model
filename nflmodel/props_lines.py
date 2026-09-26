@@ -356,12 +356,16 @@ def closing(log: pd.DataFrame, game_id: str) -> pd.DataFrame:
     g = log[log.game_id == game_id]
     if not len(g):
         return pd.DataFrame(columns=["stat", "player", "key", "line", "books", "over_price", "under_price", "open_line", "open_over", "ts", "open_ts", "pulls"])
-    g = g.sort_values("ts"); last = g.ts.max(); first = g.ts.min()
-    cur = g.drop_duplicates(["book", "stat", "player"], keep="last")     # each book's latest line (the sources pull on different clocks)
-    out = cur.groupby(["stat", "player"]).agg(line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
-    op = g.drop_duplicates(["book", "stat", "player"], keep="first").groupby(["stat", "player"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
-    out = out.merge(op, on=["stat", "player"], how="left"); out["ts"] = last; out["open_ts"] = first
+    g = g.sort_values("ts").copy(); last = g.ts.max(); first = g.ts.min()
     teams = set(g.home.dropna()) | set(g.away.dropna()); canon = roster_keys(int(g.season.iloc[0]), teams)
-    out["key"] = [resolve_name(p, canon) for p in out.player]   # the roster's own name for the player the book means
+    keys = {p: resolve_name(p, canon) for p in g.player.dropna().unique()}   # the roster's own name for the player the book means
+    g["key"] = g.player.map(keys)
+    # one consensus per player and stat (26 Sep 2026): books spell a name differently ("Michael Penix Jr." / "Michael
+    # Penix"), and grouping on the spelling gave one player two lines (204.5 and 205.5) that the takeaways and the
+    # props table each picked one of. Each book's latest line per resolved player, then the median across books.
+    cur = g.drop_duplicates(["book", "stat", "key"], keep="last")     # each book's latest line (the sources pull on different clocks)
+    out = cur.groupby(["stat", "key"]).agg(player=("player", lambda x: x.value_counts().index[0]), line=("line", "median"), books=("book", "nunique"), over_price=("over_price", "mean"), under_price=("under_price", "mean")).reset_index()
+    op = g.drop_duplicates(["book", "stat", "key"], keep="first").groupby(["stat", "key"]).agg(open_line=("line", "median"), open_over=("over_price", "mean")).reset_index()
+    out = out.merge(op, on=["stat", "key"], how="left"); out["ts"] = last; out["open_ts"] = first
     out["pulls"] = int(g.ts.nunique())
-    return out
+    return out[["stat", "player", "key", "line", "books", "over_price", "under_price", "open_line", "open_over", "ts", "open_ts", "pulls"]]
