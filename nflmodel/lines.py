@@ -406,10 +406,72 @@ def run(season=None, week=None) -> pd.DataFrame:
     return df
 
 
-def history(game_id: str) -> pd.DataFrame:
+def history(game_id: str, log: pd.DataFrame | None = None) -> pd.DataFrame:
     """Every logged line for one game, oldest first (for the game card's movement chart and CLV)."""
-    d = load_log()
+    d = load_log() if log is None else log
     return d[d.game_id == game_id].sort_values("ts")
+
+
+def consensus(values) -> float | None:
+    """The consensus of one snapshot: the median across sources, rounded to the half point (a number a book posts;
+    26 Sep 2026: the mean printed lines no book offers, 50.15 and BUF -7.2). Halves round up, as JavaScript's
+    Math.round does, so the page's line-history chart and this agree to the half point."""
+    a = sorted(float(v) for v in values if v is not None and pd.notna(v))
+    n = len(a)
+    if not n:
+        return None
+    med = a[(n - 1) // 2] if n % 2 else (a[n // 2 - 1] + a[n // 2]) / 2
+    return float(np.floor(med * 2 + 0.5) / 2)
+
+
+def latest(hist: pd.DataFrame, key: str) -> tuple[float | None, str | None]:
+    """(consensus, ts) of `key` (home_spread or total) at the newest snapshot of one game's log that has it: the line
+    this week's picks, edges, cover and over odds and the props game script are priced against."""
+    if hist is None or not len(hist) or key not in hist.columns:
+        return None, None
+    h = hist[hist[key].notna()]
+    if not len(h):
+        return None, None
+    ts = h.ts.max()
+    return consensus(h[h.ts == ts][key].tolist()), str(ts)
+
+
+def ml_prob(ml) -> float | None:
+    """American moneyline -> implied probability, vig included."""
+    if ml is None or pd.isna(ml):
+        return None
+    ml = float(ml)
+    return -ml / (-ml + 100) if ml < 0 else 100 / (ml + 100)
+
+
+def vegas_win(hist: pd.DataFrame) -> tuple[float | None, str | None, int]:
+    """(home win chance, ts, books) from the newest snapshot with both moneylines: each book's pair with the vig removed,
+    averaged across the books in that snapshot. None when no moneyline has been logged for the game."""
+    if hist is None or not len(hist) or "home_ml" not in hist.columns:
+        return None, None, 0
+    h = hist[hist.home_ml.notna() & hist.away_ml.notna()]
+    if not len(h):
+        return None, None, 0
+    ts = h.ts.max(); x = h[h.ts == ts]
+    v = [a / (a + b) for a, b in ((ml_prob(r.home_ml), ml_prob(r.away_ml)) for r in x.itertuples())]
+    return float(np.mean(v)), str(ts), len(v)
+
+
+def live_lines(games: pd.DataFrame, log: pd.DataFrame | None = None) -> pd.DataFrame:
+    """For each game in `games` (game_id, spread_line, total_line): the current consensus spread and total from the
+    newest lines-log snapshot (lines.latest), falling back to the schedule's line only where the log has none, and the
+    Vegas win chance (lines.vegas_win). Columns: game_id, spread_line, total_line, spread_ts, total_ts, line_source,
+    vegas_win, vegas_win_ts, vegas_win_books."""
+    log = load_log() if log is None else log
+    rows = []
+    for r in games.itertuples():
+        h = log[log.game_id == r.game_id]
+        sl, sts = latest(h, "home_spread"); tl, tts = latest(h, "total"); vw, vts, vn = vegas_win(h)
+        rows.append({"game_id": r.game_id, "spread_line": sl if sl is not None else (float(r.spread_line) if pd.notna(r.spread_line) else np.nan),
+                     "total_line": tl if tl is not None else (float(r.total_line) if pd.notna(r.total_line) else np.nan),
+                     "spread_ts": sts, "total_ts": tts, "line_source": "log" if (sl is not None or tl is not None) else ("schedule" if pd.notna(r.spread_line) else "none"),
+                     "vegas_win": vw, "vegas_win_ts": vts, "vegas_win_books": vn})
+    return pd.DataFrame(rows, columns=["game_id", "spread_line", "total_line", "spread_ts", "total_ts", "line_source", "vegas_win", "vegas_win_ts", "vegas_win_books"])
 
 
 if __name__ == "__main__":

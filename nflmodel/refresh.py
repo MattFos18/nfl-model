@@ -9,6 +9,8 @@ moment's data (it pulls lines first).
 What counts as a change:
   starters     a named QB or a kickoff time changed for a game this week
   injuries     a player moved into or out of Out or Doubtful (the statuses the model counts), league or ESPN
+  reports      a player's Questionable listing or practice status changed (the props count both: props.INJ_F; 26 Sep
+               2026, before this only Out and Doubtful were watched). Re-prices at most once every two hours, as weather.
   weather      inside the forecast window the model uses: wind moved 2 mph or more, or the cold (under 35F) or
                rain call flipped. Weather-only changes re-price at most once every two hours.
 
@@ -33,28 +35,36 @@ def fingerprint() -> dict:
     games = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(games)
     wk = games[(games.season == season) & (games.week == week)]
     teams = set(wk.home_team) | set(wk.away_team)
-    fp = {"season": int(season), "week": int(week), "starters": {}, "injuries": [], "weather": {}}
+    fp = {"season": int(season), "week": int(week), "starters": {}, "injuries": [], "reports": [], "weather": {}}
     sf = RAW / "schedules" / "games.csv"
     if sf.exists():
         s = pd.read_csv(sf, usecols=["game_id", "season", "week", "gameday", "gametime", "home_qb_id", "away_qb_id"])
         s = s[(s.season == season) & (s.week == week)]
         fp["starters"] = {r.game_id: [str(r.home_qb_id) if isinstance(r.home_qb_id, str) else "", str(r.away_qb_id) if isinstance(r.away_qb_id, str) else "", f"{r.gameday} {r.gametime}"] for r in s.itertuples()}
     out_like = {"Out", "Doubtful"}
-    inj = set()
+    inj, rep = set(), set()
     nf = RAW / "injuries" / f"injuries_{season}.parquet"
     if nf.exists():
-        n = pd.read_parquet(nf, columns=["week", "team", "full_name", "report_status"])
-        n = n[(n.week == week) & n.report_status.isin(out_like)]
+        n0 = pd.read_parquet(nf, columns=["week", "team", "full_name", "report_status", "practice_status"])
+        n0 = n0[n0.week == week]
+        n = n0[n0.report_status.isin(out_like)]
         inj |= {(t, str(nm), st) for t, nm, st in zip(n.team, n.full_name, n.report_status)}
+        # what the props read beyond Out and Doubtful: a Questionable listing and the practice status (props.inj_group)
+        q = n0[~n0.report_status.isin(out_like)]
+        rep |= {(t, str(nm), str(st) if isinstance(st, str) else "", str(pr) if isinstance(pr, str) else "") for t, nm, st, pr in zip(q.team, q.full_name, q.report_status, q.practice_status)
+                if (isinstance(st, str) and st) or (isinstance(pr, str) and pr)}
     ef = RAW / "injuries" / "espn_injuries.csv"
     if ef.exists():
         e = pd.read_csv(ef)
         if len(e):
             age = (pd.Timestamp.now("UTC").tz_localize(None) - pd.to_datetime(e.fetched_at, errors="coerce")).dt.total_seconds() / 86400
             e = e[(age <= PL.ESPN_MAX_AGE_DAYS) & e.team.isin(teams)]
-            e = e.assign(st=e.status.map(PL.ESPN_STATUS)); e = e[e.st.isin(out_like)]
+            e = e.assign(st=e.status.map(PL.ESPN_STATUS))
+            rep |= {(t, str(nm), "Questionable (ESPN)", "") for t, nm, st in zip(e.team, e.name, e.st) if st == "Questionable"}
+            e = e[e.st.isin(out_like)]
             inj |= {(t, str(nm), st) for t, nm, st in zip(e.team, e.name, e.st)}
     fp["injuries"] = sorted([list(x) for x in inj])
+    fp["reports"] = sorted([list(x) for x in rep])
     try:
         fc = WX.usable_forecast()
         for gid in wk.game_id:
@@ -84,6 +94,16 @@ def diff(old: dict, new: dict) -> list[tuple[str, str]]:
     for t, nm, st in sorted(a - b):
         if not any((t, nm) == (x[0], x[1]) for x in b):
             out.append(("injuries", f"{t} {nm} no longer {st}"))
+    if "reports" in old:   # a Questionable listing or a practice status that changed (the props re-price on it)
+        ra, rb = {tuple(x) for x in old.get("reports", [])}, {tuple(x) for x in new.get("reports", [])}
+        was = {(x[0], x[1]): x for x in ra}
+        for x in sorted(rb - ra):
+            o = was.get((x[0], x[1]))
+            out.append(("reports", f"{x[0]} {x[1]} {'now ' if o is None else ''}{' / '.join(v for v in x[2:] if v) or 'no status'}" + (f" (was {' / '.join(v for v in o[2:] if v) or 'no status'})" if o else "")))
+        now_keys = {(x[0], x[1]) for x in rb}
+        for x in sorted(ra - rb):
+            if (x[0], x[1]) not in now_keys:
+                out.append(("reports", f"{x[0]} {x[1]} off the report"))
     for gid, w in new["weather"].items():
         o = old.get("weather", {}).get(gid)
         if o is None:
@@ -141,7 +161,8 @@ def check() -> bool:
     if rl.exists():
         t = pd.to_datetime(pd.read_csv(rl, usecols=["run_at"]).run_at.str.replace(" UTC", ""), errors="coerce").max()
         last_run = (pd.Timestamp.now("UTC").tz_localize(None) - t).total_seconds() / 3600 if pd.notna(t) else None
-    reprice = bool(kinds - {"weather"}) or (("weather" in kinds) and (last_run is None or last_run >= WEATHER_GAP_H))
+    slow = {"weather", "reports"}   # these move often (forecasts, the daily practice reports): at most one re-price every two hours
+    reprice = bool(kinds - slow) or (bool(kinds & slow) and (last_run is None or last_run >= WEATHER_GAP_H))
     now = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     status = {"checked": now, "season": new["season"], "week": new["week"], "reprice": reprice, "changes": [w for _, w in changes][:40], "errors": errors,
               "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"],
