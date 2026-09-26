@@ -886,22 +886,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       return `<div class="mv"><span class="chip mute" title="The inputs that move the model's line the most for this game: each team's contribution from that input, home minus away, in points of margin. The line has no such breakdown, so this says where the model's number comes from, not why the market disagrees.">Line drivers: ${top.map(([f, d]) => `${FEAT_LABEL[f] || f} ${d > 0 ? g.home_team : g.away_team} ${Math.abs(d).toFixed(1)}`).join(" · ")}</span></div>`;
     } catch (e) { return ""; }
   }
-  // the raw record of one band of edges, on exactly the games the cover and over calibration is fit on (picks.calibration:
-  // regular season, from cal.from to the season before cal.before, pushes out), so the chip and the bar above it read the same games
-  const CAL = (window.WEEK || {}).cal || null;
-  let CAL_ROWS = null;
-  function calRows() { if (!CAL_ROWS) CAL_ROWS = !CAL || !window.BACKTEST ? [] : bkRows().filter(r => r.home_score != null && r.game_type === "REG" && r.season >= CAL.from && r.season < CAL.before).map(gradeGame); return CAL_ROWS; }
-  const calSide = (c, e) => 1 / (1 + Math.exp(-(c[0] + c[1] * Math.min(e, CAL.cap))));   // the calibrated chance for the side an edge of e favours
-  function histBand(edge, key, wonKey, lab, fit, what) {
-    if (!CAL || edge == null) return "";
-    const e = Math.abs(edge); const lo = Math.min(CAL.cap, Math.floor(e)), hi = lo >= CAL.cap ? 99 : lo + 1;
-    const rows = calRows().filter(r => r[key] != null && Math.abs(r[key]) >= lo && Math.abs(r[key]) < hi && r[wonKey] !== null && r[wonKey] !== undefined);
-    if (rows.length < 10) return "";
-    const w = rows.filter(r => r[wonKey]).length, band = `${lo}${hi === 99 ? "+" : " to " + hi}`;
-    return `<span class="chip alt" title="the raw record of this one band: every regular-season game from ${CAL.from} through ${CAL.before - 1} where the model's ${lab} differed from the line by ${band} points, bet on the model's side and graded against the close (${w}-${rows.length - w}). The bar above is the calibrated chance, a fit across every edge size on the same games (${Math.round(100 * calSide(fit, 0))}% at no edge, ${Math.round(100 * calSide(fit, CAL.cap))}% at ${CAL.cap}+), so it smooths what one band's small sample says.">Edges of ${band}: ${(100 * w / rows.length).toFixed(0)}% ${what}</span>`;
-  }
-  const histCover = edge => histBand(edge, "edge", "pickWon", "spread", CAL && CAL.spread, "covered");
-  const histOver = tedge => histBand(tedge, "tedge", "ouWon", "total", CAL && CAL.total, "won");
+  // the raw record of one band, from the report's records (export_web._report_records_js: every regular-season backtest game,
+  // weeks 1 to 17, graded as the Bets tab grades them), so the card and the report read one set of numbers
+  const RPR = (window.WEEK || {}).report_records || null;
+  const bandOf = (bands, v) => (bands || []).find(b => v >= b.lo && (b.hi == null || v < b.hi));
+  function bandChip(b, lab, what, how) { if (!b || b.wl[0] + b.wl[1] < 10) return ""; const [w, l] = b.wl;
+    return `<span class="chip alt" title="every regular-season game ${RPR.seasons}, weeks 1 to 17, where ${how}, on the model's side against the closing line: ${w}-${l}. The bar above is the model's chance for this game.">${lab}: ${Math.round(100 * w / (w + l))}% ${what}</span>`; }
+  const histCover = edge => { if (edge == null || !RPR) return ""; const b = bandOf(RPR.spread.bands, Math.abs(edge)); return b ? bandChip(b, `Edges of ${b.lo}${b.hi == null ? "+" : " to " + b.hi}`, "covered", `the model's spread differed from the line by ${b.lo}${b.hi == null ? "+" : " to " + b.hi} points`) : ""; };
+  const histOver = g => { if (!RPR || g.p_over_emp == null) return ""; const ch = Math.max(g.p_over_emp, 1 - g.p_over_emp), b = bandOf(RPR.total.bands, ch), lab = b ? `${Math.round(100 * b.lo)}${b.hi == null ? "%+" : "–" + Math.round(100 * b.hi) + "%"}` : "";
+    return b ? bandChip(b, `Chances of ${lab}`, "hit", `the model gave its side of the total a ${lab} chance`) : ""; };
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
   function runMove(g, key, lab) {
     const R = (g.runs || []).filter(r => r[key] != null); if (R.length < 2) return "";
@@ -1057,7 +1050,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="An ${TS.side} at a ${underPct}%+ chance (read off the real, lopsided spread of game totals, the chance in the bar below): ${rec3("shadowunder")}, regular season, weeks 1 to 17; overs lose every way tried. Graded live on Bets, not bet until it holds">${Math.round(100 * (1 - g.p_over_emp))}% under · tracked, not bet</span>` : ""}</div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model") : ""}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
+            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="An ${TS.side} at a ${underPct}%+ chance (read off the real, lopsided spread of game totals, the chance in the bar below): ${rec3("shadowunder")}, regular season, weeks 1 to 17; overs lose every way tried. Graded live on Bets, not bet until it holds">${Math.round(100 * (1 - g.p_over_emp))}% under · tracked, not bet</span>` : ""}</div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model") : ""}${histOver(g)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
