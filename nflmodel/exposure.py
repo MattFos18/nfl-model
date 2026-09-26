@@ -13,8 +13,12 @@ import pandas as pd
 from .features import RAW, OUT, TEAM_FIX
 
 
-def build(seasons=range(2012, 2027)) -> pd.DataFrame:
+def build(seasons=None) -> pd.DataFrame:
+    """Every snap-count season on disk from 2012 to the schedule's newest (the weekly run rebuilds it before the props,
+    whose snap trend reads it: 26 Sep 2026, no step wrote it and it stopped at Week 2)."""
     from .ids import map_pfr
+    if seasons is None:
+        seasons = range(2012, int(pd.read_parquet(OUT / "games.parquet", columns=["season"]).season.max()) + 1)
     fr = []
     for s in seasons:
         f = RAW / "snap_counts" / f"snap_counts_{s}.parquet"

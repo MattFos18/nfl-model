@@ -1,0 +1,7 @@
+window,prob,games,log_loss,brier,side_stated,side_won,side_gap,under55_record
+2016-18,"p_over_emp (model, skewed residuals)",764,0.70305,0.25486,0.5632,0.4974,-0.0658,98-94
+2016-18,p_over_cal (calibrated on the edge),764,0.69521,0.25103,0.5239,0.4895,-0.0344,17-18
+2020-22,"p_over_emp (model, skewed residuals)",788,0.68986,0.24839,0.5734,0.5254,-0.048,158-122
+2020-22,p_over_cal (calibrated on the edge),788,0.69059,0.2487,0.5459,0.5292,-0.0167,47-27
+2023-25,"p_over_emp (model, skewed residuals)",811,0.69726,0.25192,0.5602,0.5203,-0.0399,76-62
+2023-25,p_over_cal (calibrated on the edge),811,0.69525,0.25103,0.5323,0.5265,-0.0058,17-12

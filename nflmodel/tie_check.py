@@ -263,7 +263,35 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         check_season_equation(rows)
     except Exception as e:  # noqa
         rows.append(("season simulation's equation check", str(e)[:80], "", False))
+    check_run(rows, g)
     return rows
+
+
+def check_run(rows, g) -> None:
+    """The weekly run itself: every step finished, every backtest the pages quote was re-run on today's inputs, and the
+    live re-price uses the same function and fit as the model run (26 Sep 2026)."""
+    rl = ROOT / "data" / "runs" / "run_log.csv"
+    if rl.exists():   # a failed step keeps its old file, so it must fail the health check until a run succeeds (P6)
+        r_ = pd.read_csv(rl); last = r_[r_.run_at == r_.run_at.iloc[-1]]
+        bad = [f"{x.step}: {str(x.detail)[:60]}" for x in last.itertuples() if x.status != "ok"]
+        rows.append((f"every step of the newest weekly run finished ({last.run_at.iloc[0]}, {len(last)} steps so far)", "; ".join(bad)[:160] or "all ok", "all ok", not bad))
+    from . import weekly as WK
+    st = json.loads(WK.STAMPS.read_text()) if WK.STAMPS.exists() else {}
+    stale = []
+    for name, (mod, ins) in WK.BACKTESTS.items():
+        now = WK.input_hashes(ins); was = (st.get(name) or {}).get("inputs", {})
+        ch = [k.split("/")[-1] for k in ins if was.get(k) != now[k]]
+        if ch:
+            stale.append(f"{name} ({', '.join(ch)})")
+    rows.append(("backtests the pages quote were re-run on the current model, predictions and code (inputs changed since)", "; ".join(stale)[:160] or "all current", "all current", not stale))
+    from . import lines as LN
+    s_, w_ = LN.current_week(g)
+    dist = M.load_dist(s_, w_); pw = pd.read_parquet(OUT / "pred_v3.parquet"); pw = pw[(pw.season == s_) & (pw.week == w_)]
+    if dist is None:
+        rows.append(("the fit that priced this week is on file (pred_v3_dist.json), so the picks re-price the live line with it", "missing", "on file", False))
+    else:   # the model run's own chances at the schedule's line, rebuilt from the file: the same function and the same fit
+        worst = max([abs(M.price_at(r.model_spread, r.model_total, r.spread_line, r.total_line, dist)[k] - getattr(r, k)) for r in pw.itertuples() for k in ("p_home", "p_cover_home", "p_over", "p_over_emp") if pd.notna(getattr(r, k))] or [0.0])
+        rows.append((f"the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line ({len(pw)} games, worst gap)", f"{worst:.2e}", "1e-9 or under", worst <= 1e-9))
 
 
 def check_season_equation(rows) -> None:
@@ -420,9 +448,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}
         tie("page week = picks file (games)", sorted(pg), sorted(pk.index))
-        _side = lambda b: " ".join(w.split()[0] for w in str(b or "").split(", ") if w)   # the team or Over/Under; the number follows the line log (the freshness tie holds it to the newest snapshot)
-        tie("page week = picks file (bets: the side flagged)", sorted(_side(x.get("bet")) for x in pg.values()), sorted(_side(b) for b in pk.bet.fillna("")))
+        # the picks file is the weekly run's (what it logged); the card's flag follows the line, so the flags are tied to the
+        # tracker (bet_recorded) and to the rule on the card's own edge below, not to this file
         tie("page week = picks file (model spread)", round(float(max(abs((pg[k]["model_spread"] or 0) - pk.loc[k, "model_spread"]) for k in pg if k in pk.index)), 3), 0.0)
+    if wk.get("games"):
+        check_live(rows, wk)
     tr = _js("track.js"); mp = pd.read_csv(TR / "model_picks.csv") if (TR / "model_picks.csv").exists() else pd.DataFrame()
     if len(mp):
         cur = mp[(mp.season == season) & (mp.week == week)]
@@ -464,6 +494,97 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     except Exception as e:  # noqa
         rows.append(("season tab files", str(e)[:80], "", False))
     return rows
+
+
+def check_live(rows, wk) -> None:
+    """The cards display what Python priced (26 Sep 2026: the page re-priced the line itself, so no check could see
+    it). week.js's line is the lines log's consensus now; the edges, chances, flags and stake follow from it; the
+    recorded bet is the tracker's; the props re-project on the same line and carry one book line per player-stat."""
+    from . import lines as LN, model as M_
+    def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
+    G = wk["games"]; log = LN.load_log()
+    want = {}
+    for g_ in G:
+        h = log[log.game_id == g_["game_id"]]; sl, _ = LN.latest(h, "home_spread"); tl, _ = LN.latest(h, "total")
+        want[g_["game_id"]] = [sl, tl]
+    tie("card line = the lines log's consensus now (newest snapshot per game, median across sources, to the half point)", {k: [g_["spread_line"], g_["total_line"]] for g_ in G for k in [g_["game_id"]] if want[k] != [None, None]}, {k: v for k, v in want.items() if v != [None, None]})
+    worst = max([abs(g_["model_spread"] - g_["spread_line"] - g_["spread_edge"]) for g_ in G if g_.get("spread_line") is not None] + [abs(g_["model_total"] - g_["total_line"] - g_["total_edge"]) for g_ in G if g_.get("total_line") is not None] or [0.0])
+    rows.append(("card edges = model minus the card's line (spread and total, worst gap)", round(worst, 4), "0.002 or under", worst <= 0.002))
+    dist = M_.load_dist(wk["season"], wk["week"])
+    if dist is not None:
+        worst = 0.0
+        for g_ in G:
+            pr = M_.price_at(g_["model_spread"], g_["model_total"], g_.get("spread_line"), g_.get("total_line"), dist)
+            for k in ("p_home", "p_cover_home", "p_over_emp"):
+                if g_.get(k) is not None and pd.notna(pr[k]): worst = max(worst, abs(pr[k] - g_[k]))
+        rows.append(("card chances (win, cover, over) = the model's fit priced at the card's line (worst gap; three decimals on the page)", round(worst, 5), "0.0006 or under", worst <= 0.0006))
+    # the live flag: the rule on the card's own numbers (weeks 1 to 17)
+    fl = {g_["game_id"]: ((g_["home_team"] if g_["spread_edge"] > 0 else g_["away_team"]) if g_.get("spread_edge") is not None and abs(g_["spread_edge"]) >= wk["spread_edge"] and g_["week"] < 18 else "") for g_ in G}
+    tie("card flag = the flag rule on the card's edge (side flagged, weeks 1 to 17)", {g_["game_id"]: (g_.get("bet") or "").split(" ")[0] for g_ in G}, fl)
+    pu = wk["total_shadow"]["prob"]
+    fu = {g_["game_id"]: bool(g_.get("p_over_emp") is not None and g_.get("total_line") is not None and 1 - g_["p_over_emp"] >= pu - 0.0005 and g_["week"] < 18) for g_ in G}
+    near = {g_["game_id"] for g_ in G if g_.get("p_over_emp") is not None and abs(1 - g_["p_over_emp"] - pu) < 0.0006}   # at the cut to three decimals: either reading holds
+    tie(f"card totals flag = an under at a {pu:.0%}+ chance on the card's own over chance (p_over_emp)", {k: bool(g_.get("shadowunder_bet")) for g_ in G for k in [g_["game_id"]] if k not in near}, {k: v for k, v in fu.items() if k not in near})
+    mp = pd.read_csv(TR / "model_picks.csv") if (TR / "model_picks.csv").exists() else pd.DataFrame(columns=["season", "week", "game_id", "bet"])
+    cur = mp[(mp.season == wk["season"]) & (mp.week == wk["week"])]
+    tie("card recorded bet = the tracker's logged picks (game, bet)", sorted(f"{g_['game_id']} {b['bet']}" for g_ in G for b in g_.get("bet_recorded", [])), sorted(f"{r.game_id} {r.bet}" for r in cur.itertuples()))
+    vw = {}
+    for g_ in G:
+        v_, _, _ = LN.vegas_win(log[log.game_id == g_["game_id"]]); vw[g_["game_id"]] = v_
+    worst = max([abs((g_.get("vegas_win") or 0) - (vw[g_["game_id"]] or 0)) for g_ in G] or [0.0]); miss = [g_["game_id"] for g_ in G if (g_.get("vegas_win") is None) != (vw[g_["game_id"]] is None)]
+    rows.append(("card Vegas win chance = the newest moneyline snapshot, vig removed per book, averaged (worst gap; games missing one side)", f"{worst:.4f}; {len(miss)}", "0.0006 or under; 0", worst <= 0.0006 and not miss))
+    fin = [g_["game_id"] for g_ in G if g_.get("runs") and (abs(g_["runs"][-1]["model_spread"] - g_["model_spread"]) > 0.002 or abs(g_["runs"][-1]["model_total"] - g_["model_total"]) > 0.002)]
+    rows.append(("each card's run history ends with the run that priced it (model spread and total)", ", ".join(fin) or "all", "all", not fin))
+    try:
+        sj = _js("season.js"); left = {(t, x[1], x[0]): x[3] for t, xs in sj.get("left", {}).items() for x in xs if x[2] == 1}
+        gap = [g_["game_id"] for g_ in G if (g_["home_team"], g_["away_team"], wk["week"]) in left and abs(left[(g_["home_team"], g_["away_team"], wk["week"])] - round(g_["p_home"], 3)) > 0.0015]
+        rows.append(("season file's chance in each game of the week = the card's model win chance (one function, three decimals)", ", ".join(gap) or "all equal", "all equal", not gap))
+        from . import futures as FU
+        tie("season file's books = the newest futures pull", json.dumps(sj.get("books"), sort_keys=True, default=str)[:4000] == json.dumps(json.loads(json.dumps(FU.latest(), default=str)), sort_keys=True, default=str)[:4000], True)
+    except Exception as e:  # noqa
+        rows.append(("season file against the week", str(e)[:80], "", False))
+    from . import weather as WX
+    fc = WX.usable_forecast(); bad = []
+    for g_ in G:
+        if g_.get("home_score") is not None: continue
+        for t, sd in (g_.get("sides") or {}).items():
+            f_ = fc.loc[g_["game_id"]] if g_["game_id"] in fc.index and not sd.get("dome") else None
+            w_ = None if f_ is None or pd.isna(f_.wind) else round(float(f_.wind), 1)
+            if sd.get("wind") != w_: bad.append(f"{g_['game_id']} {t}")
+    if (OUT / "props.json").exists():   # the props' passing-wind factor reads the same forecast
+        pj_ = json.loads((OUT / "props.json").read_text())
+        for g_ in G:
+            if g_.get("home_score") is not None or g_["game_id"] not in pj_["games"]: continue
+            dome = bool((g_.get("sides") or {}).get(g_["home_team"], {}).get("dome"))
+            f_ = fc.loc[g_["game_id"]] if g_["game_id"] in fc.index and not dome else None
+            w_ = None if f_ is None or pd.isna(f_.wind) else float(f_.wind)
+            for t, sd in pj_["games"][g_["game_id"]].items():
+                v = sd.get("volume", {}).get("wind")
+                if (v is None) != (w_ is None) or (v is not None and abs(v - w_) > 1e-9): bad.append(f"{g_['game_id']} {t} props")
+    tie("card and props wind (unplayed games) = the kickoff forecast in use now", bad, [])
+    if (OUT / "props.json").exists():
+        pj = json.loads((OUT / "props.json").read_text()); gm = {g_["game_id"]: g_ for g_ in G}; off = []
+        for gid, sides in pj["games"].items():
+            g_ = gm.get(gid)
+            if g_ is None: continue
+            for t, sd in sides.items():
+                v = sd.get("volume", {}); sg = 1 if t == g_["home_team"] else -1
+                if g_.get("total_line") is not None and v.get("total") != g_["total_line"]: off.append(f"{gid} {t} total")
+                if g_.get("spread_line") is not None and v.get("margin") is not None and abs(v["margin"] - sg * g_["spread_line"]) > 1e-9: off.append(f"{gid} {t} margin")
+                for k in sd.get("kicker", []):
+                    if g_.get("total_line") is not None and abs(k["implied_total"] - round((g_["total_line"] + sg * g_["spread_line"]) / 2, 2)) > 0.006: off.append(f"{gid} {t} kicker")
+        tie("props game script (volume margin and total, kicker implied total) = the card's line", off[:8], [])
+        dup, dis = [], []
+        for gid, sides in pj["games"].items():
+            for t, sd in sides.items():
+                for grp, pairs in (("qb", [("pass_yards", "mkt_pass_yards")]), ("receivers", [("rec_yards", "mkt_rec_yards"), ("rec_catches", "mkt_catches")]), ("rushers", [("rush_yards", "mkt_rush_yards")]), ("defenders", [("def_tackles", "mkt_tackles")])):
+                    for r in sd.get(grp, []):
+                        stats = [m["stat"] for m in r.get("markets", [])]
+                        if len(stats) != len(set(stats)): dup.append(r["name"])
+                        mm = {m["stat"]: m["line"] for m in r.get("markets", [])}
+                        for st_, key in pairs:
+                            if r.get(key) is not None and mm.get(st_) != r[key]: dis.append(f"{r['name']} {st_}")
+        tie("props: one book line per player-stat (the card's takeaways and the props table read the same one)", sorted(set(dup))[:6] + sorted(set(dis))[:6], [])
 
 
 def main(page: bool = False, source: str = "weekly run") -> bool:

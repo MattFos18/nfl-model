@@ -1244,14 +1244,29 @@ workflow runs one command on the runner and prints what it wrote, for testing a 
 **Why the stale line passed every check, and what now fails (23 Sep 2026, evening; Matt).** The tie check and the
 health check compared the page's data to the picks file, and both came from the same weekly-run snapshot, so they
 agreed with each other while both lagged the line log; nothing compared a card to the newest snapshot. Now: the
-line watch rebuilds the cards after every snapshot (`nflmodel.props --markets` puts the newest prop lines beside
-the projections in seconds; `export_web --week` rewrites `week.js` and `props.js`) and commits them with the log;
+line watch rebuilds the cards after every snapshot (`nflmodel.props --live` re-projects the props on the newest line,
+forecast and prop lines; `export_web --week` rewrites `week.js` and `props.js`) and commits them with the log;
 the tie check ties the cards' newest line snapshot to the log's newest; the health check (the Monday audit) fails
 when the cards' newest snapshot is not the log's or the props panel's pull is not the props log's newest; and the
 hourly routine republishes the two files. The page also refuses to half-render: with its core data file missing it
 says so in one line instead of failing part way. A break-it walk (every tab, sub-tab, select value, chip, sortable
 header, card panel, market row and calc, at desktop and phone width, then again with each data file blocked one at
 a time) found no other error.
+
+**Python prices the cards; the page displays them (26 Sep 2026).** The card used to re-price the line itself: it took
+the newest snapshot in the browser, recomputed the edge and cover odds, and kept the flag, the stake, the props game
+script and the week tiles on the Tuesday nflverse line, so one card could show two lines. Now `picks.table` reads the
+current consensus for each game (`lines.latest`: the newest snapshot, the median across sources, to the half point)
+and prices everything on it: the edges, the model's cover, win and over chances (`model.price_at` with the fit that
+priced the game, `data/processed/pred_v3_dist.json`, written by the model run beside `pred_v3`), the calibrated cover
+odds, the flag and the shadow flags, the stake, and the Vegas win chance (`lines.vegas_win`: each book's moneylines
+with the vig removed, averaged over the newest snapshot). The props re-project on the same line in every line watch
+(`props --live`), with the forecast in use and one book line per player and stat. The bet the weekly run logged
+(`data/tracker/model_picks.csv`) travels as `bet_recorded`, shown beside the live flag, so the card says what was
+bet and whether the edge still clears the cut. The tie check proves each of these against its source. A total has
+one chance, `p_over_emp` (`reports/total_prob.csv`: the calibrated alternative scored better on two windows of three
+and its 55% under rule did worse on 2016-18). The weekly run re-runs every backtest the pages quote after the model
+(about three minutes) and stamps its inputs; a changed input or a failed step fails the health check.
 
 **Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
 a 980-pixel desktop page. Below 700 pixels the same page reflows: tighter header and tabs, tiles two across, the

@@ -992,15 +992,16 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   }
   // the consensus at the last snapshot of the line log, per key: the median across sources, to the half point, so it is a number a book posts
   // (26 Sep 2026: the mean printed lines no book offers, 50.15 and BUF -7.2)
+  // (the line-history chart's points only: the card's own line, edges, chances, flags and stake are priced in Python on the
+  // newest snapshot, lines.latest with this same rule, and the page displays them; the tie check holds the two together)
   function consensusLine(v) { const a = v.slice().sort((x, y) => x - y), n = a.length; if (!n) return null; const med = n % 2 ? a[(n - 1) / 2] : (a[n / 2 - 1] + a[n / 2]) / 2; return Math.round(med * 2) / 2; }
-  function latestLine(g, key) { const byTs = {}; (g.line_history || []).forEach(r => { if (r[key] == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(r[key]); }); const ts = Object.keys(byTs).sort(); if (!ts.length) return null; const v = byTs[ts[ts.length - 1]]; return consensusLine(v); }
-  // the calibrated odds the run used (picks.calibration: logistic on the edge, capped at 7), for the side the edge favors, then from the home or over side
-  function calP(cal, edge) { const p = 1 / (1 + Math.exp(-(cal[0] + cal[1] * Math.min(Math.abs(edge), 7)))); return edge > 0 ? p : 1 - p; }
-  function liveLines(g0) {
-    const g = Object.assign({}, g0); const CAL = (window.WEEK || {}).cal || {}; const sl = latestLine(g0, "home_spread"), tl = latestLine(g0, "total");
-    if (sl != null && g0.model_spread != null) { g.spread_line = sl; g.spread_edge = +(g0.model_spread - sl).toFixed(3); if (CAL.spread) g.p_cover_cal_home = calP(CAL.spread, g.spread_edge); }
-    if (tl != null && g0.model_total != null) { g.total_line = tl; g.total_edge = +(g0.model_total - tl).toFixed(3); if (CAL.total) g.p_over_cal = calP(CAL.total, g.total_edge); }
-    return g;
+  // the bet the weekly run logged (tracker) beside the flag on the line now: what was bet, and whether the edge still clears the cut
+  function recordedHtml(g, W) {
+    const R = g.bet_recorded || [], U = g.shadowunder_recorded || []; if (!R.length && !U.length) return "";
+    const H = g.home_team, A = g.away_team, side = g.spread_edge > 0 ? H : A;
+    const u = U.map(r => `<span class="chip mute" title="Logged by the weekly run of ${esc(r.run_at)} (data/tracker/shadowunder_picks.csv): tracked and graded, not bet">Totals flag logged: ${esc(r.bet)}</span>`).join("");
+    if (!R.length) return `<div class="mv">${u}</div>`;
+    return `<div class="mv">${u}${R.map(r => `<span class="chip alt" title="Logged by the weekly run of ${esc(r.run_at)} (data/tracker/model_picks.csv): the bet as placed, graded at this number">Bet logged: ${esc(r.bet)}${r.odds != null ? " at " + (r.odds > 0 ? "+" : "") + r.odds : ""}${r.book ? " · " + esc(r.book) : ""}${r.stake_pct != null ? " · stake " + Number(r.stake_pct).toFixed(1) + "%" : ""} · edge then ${Math.abs(r.spread_edge).toFixed(1)}</span>`).join("")}${g.spread_line == null ? "" : `<span class="chip ${g.bet ? "" : "mute"}" title="The flag on the current consensus line: the edge now against the ${W.spread_edge}-point cut">${g.bet ? `Still flagged now: ${side} ${Math.abs(g.spread_edge).toFixed(1)} edge` : `Not flagged now: edge ${Math.abs(g.spread_edge).toFixed(1)}, under the ${W.spread_edge}-point cut`}</span>`}</div>`;
   }
   // Lines pulled: every line source's last pull (web/data/fresh.js pulls, from the logs), in ET with a live age; a source
   // past its cadence turns red. The ages tick while the page is open, so an old page shows its age.
@@ -1022,29 +1023,32 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
-    const flagged = W.games.filter(g => g.bet);
+    const flagged = W.games.filter(g => g.bet), logged = W.games.filter(g => (g.bet_recorded || []).length);
     const lastTs = W.games.flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop();
-    $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}</b> · ${W.games.length} games · ${flagged.length} flagged${lastTs ? ` · lines as of ${etTime(lastTs)}` : ""}`;
-    if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points; totals: an under at a ${Math.round(100 * ((W.total_shadow || {}).prob || 0.55))}%+ chance (tracked, not bet)` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
+    const TS = W.total_shadow, underPct = Math.round(100 * TS.prob);   // the totals flag's cut (picks.TOTAL_SHADOW)
+    $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}</b> · ${W.games.length} games · ${flagged.length} flagged now${logged.length ? ` · ${logged.length} bet logged` : ""}${lastTs ? ` · lines as of ${etTime(lastTs)}` : ""}${W.built ? ` · priced ${esc(W.built)}` : ""}`;
+    if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points; totals: an ${TS.side} at a ${underPct}%+ chance (tracked, not bet)` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
     const withLine = W.games.filter(g => g.spread_line != null);
-    $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>Flagged: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
+    $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>Flagged on the line now: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
+      <div class="tile"><b>${logged.length}</b><span>Bets logged: ${logged.map(g => g.bet_recorded.map(r => r.bet).join(", ")).join("; ") || "none"}</span></div>
       <div class="tile"><b>${W.games.filter(g => g.shadowunder_bet).length}</b><span>Totals flag (tracked, not bet): ${W.games.filter(g => g.shadowunder_bet).map(g => `${g.away_team}-${g.home_team} ${g.shadowunder_bet}`).join("; ") || "none"}</span></div>
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>Average gap to the spread, points</span></div>
       <div class="tile"><b>${W.games.filter(g => g.home_score != null).length}</b><span>Played so far</span></div>`;
+    const RR = W.rule_records || {}, rec3 = k => RR[k] ? `${RR[k]["2015-18"]}, ${RR[k]["2019-22"]} and ${RR[k]["2023-25"]} on 2015-18, 2019-22 and 2023-25` : "on the Bets tab";
     let h = "";
-    W.games.forEach((g0, i) => {
-      const g = liveLines(g0);   // Vegas on the card is the latest logged line; the edge and cover odds follow it (the flag and its bet stay as recorded at the run)
+    W.games.forEach((g, i) => {
+      // every number on the card is Python's (picks.table on the newest line snapshot, export_web --week): the page displays them
       const H = g.home_team, A = g.away_team, hasLine = g.spread_line != null, played = g.home_score != null;
-      const vh = hasLine ? (g.total_line + g.spread_line) / 2 : null, va = hasLine ? (g.total_line - g.spread_line) / 2 : null;
+      const both = hasLine && g.total_line != null, vh = both ? (g.total_line + g.spread_line) / 2 : null, va = both ? (g.total_line - g.spread_line) / 2 : null;
       const sh = g.sides && g.sides[H] || {};
       const wx = wxTxt(g, sh, played);
-      const sFlag = hasLine && Math.abs(g.spread_edge) >= W.spread_edge, tFlag = hasLine && ((W.total_edge != null && Math.abs(g.total_edge) >= W.total_edge) || !!g.shadowunder_bet);   // the totals flag (under at a 55%+ chance): tracked live, not bet
-      const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = hasLine ? (g.total_edge > 0 ? "Over" : "Under") : null;
-      const vw = vegasWin(g);
-      const mFav = g.p_home >= 0.5 ? H : A, vFav = vw == null ? null : (vw >= 0.5 ? H : A);
+      const sFlag = hasLine && !!g.bet, tFlag = g.total_line != null && !!g.shadowunder_bet;   // the flags as Python set them on this line; the totals flag is tracked, not bet
+      const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = g.total_line != null ? (g.total_edge > 0 ? "Over" : "Under") : null;
+      const vw = g.vegas_win;   // lines.vegas_win: each book's moneylines with the vig removed, averaged over the newest snapshot
       const actualMargin = played ? g.home_score - g.away_score : null;
       h += `<article class="gcard ${g.bet || g.shadowunder_bet ? "flagged" : ""}" id="card${i}">
-        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an under at a 55%+ chance. Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked, not bet</span>` : ""}</div>
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag" title="Flagged on the current consensus line: the edge clears ${W.spread_edge} points">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an ${TS.side} at a ${underPct}%+ chance. Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked, not bet</span>` : ""}</div>
+        ${recordedHtml(g, W)}
         <div class="blocks">
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
@@ -1054,14 +1058,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           </section>
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
-            <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? g.total_line : "No line yet"}</b></div>
+            <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
             ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag && W.total_shadow ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="Under at a 55%+ chance (read off the real, lopsided spread of game totals): 159-130, 202-150 and 68-61 on 2015-18, 2019-22 and 2023-25; overs lose every way tried. Graded live on Bets, not bet until it holds">${g.p_over_emp != null ? Math.round(100 * (1 - g.p_over_emp)) + "% under · " : ""}tracked, not bet</span>` : ""}</div>${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "o", "Cover") : bar("Over", g.p_over, "Under", 1 - g.p_over, "o", "Model")}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
+            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="An ${TS.side} at a ${underPct}%+ chance (read off the real, lopsided spread of game totals, the chance in the bar below): ${rec3("shadowunder")}, regular season, weeks 1 to 17; overs lose every way tried. Graded live on Bets, not bet until it holds">${Math.round(100 * (1 - g.p_over_emp))}% under · tracked, not bet</span>` : ""}</div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model") : ""}${histOver(g.total_edge)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
               <span>Model</span><b class="m">${g.away_exp.toFixed(1)}</b><b class="m">${g.home_exp.toFixed(1)}</b>
-              <span>Vegas</span><b class="v">${hasLine ? va.toFixed(1) : ""}</b><b class="v">${hasLine ? vh.toFixed(1) : ""}</b>
+              <span>Vegas</span><b class="v">${both ? va.toFixed(1) : ""}</b><b class="v">${both ? vh.toFixed(1) : ""}</b>
               ${played ? `<span>Actual</span><b>${g.away_score}</b><b>${g.home_score}</b>` : ""}
             </div>
           </section>
@@ -1102,16 +1106,46 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       if (same) { box.hidden = true; box.dataset.k = ""; return; }
       box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴"); }));
   }
+  // the readings Takeaways and the Report share, one function each so the two can never disagree
+  // scheme: the look the defense uses most (20%+ of plays) where the offense is furthest from the league (40+ plays in it)
+  function schemeEdge(O, D) {
+    const pa = schPeriod(O), pb = schPeriod(D); if (!pa || !pb || !pa.off.plays || !pb.def.plays) return null;
+    const use = {man: pb.def.man, zone: pb.def.zone, cov_COVER_1: (pb.def.coverage || {}).COVER_1, cov_COVER_2: (pb.def.coverage || {}).COVER_2, cov_COVER_3: (pb.def.coverage || {}).COVER_3, cov_COVER_4: (pb.def.coverage || {}).COVER_4, blitz: pb.def.blitz, no_blitz: pb.def.blitz == null ? null : 1 - pb.def.blitz, pressure: pb.def.pressure, clean: pb.def.pressure == null ? null : 1 - pb.def.pressure, heavy_box: pb.def.heavy_box_rate};
+    const o = pa.off.vs || {}, d = pb.def.vs || {}, lv = pa.lg.vs || {}; let best = null;
+    LOOK.forEach(([k, lab]) => { const x = o[k], u = use[k]; if (!x || x.epa == null || u == null || u < 0.2 || x.n < 40) return; const gap = x.epa - ((lv[k] && lv[k].epa) || 0); if (!best || Math.abs(gap) > Math.abs(best.gap)) best = {k, lab, gap, u, x, y: d[k]}; });
+    if (!best || Math.abs(best.gap) < 0.05) return null;
+    return {O, D, look: best.lab.replace(/^Against /, "").replace(/^Runs into a /, "").replace(/ \(.*\)/, "").toLowerCase(), use: best.u, epa: best.x.epa, lg: (lv[best.k] || {}).epa || 0, allows: best.y && best.y.epa != null ? best.y.epa : null, helps: best.gap > 0 ? O : D};
+  }
+  // props: the three largest leans against the book (one consensus line per player-stat), lines of 20+ yards
+  function propLeans(gid) {
+    if (!PR || !PR.games[gid]) return null; const rows = []; const add = (t, r, stat, lab, proj) => { const line = mktLine(r, stat); if (!r.out && line != null && proj != null) rows.push({t, name: r.name, stat: lab, proj, line, rel: (proj - line) / line}); };
+    Object.entries(PR.games[gid]).forEach(([t, side]) => { (side.qb || []).slice(0, 1).forEach(q => add(t, q, "pass_yards", "pass yds", q.proj_pass_yards));
+      (side.receivers || []).forEach(r => add(t, r, "rec_yards", "rec yds", r.proj_rec_yards));
+      (side.rushers || []).forEach(r => add(t, r, "rush_yards", "rush yds", r.proj_rush_yards)); });
+    return rows.filter(x => x.line >= 20).sort((x, y) => Math.abs(y.proj - y.line) - Math.abs(x.proj - x.line)).slice(0, 3);
+  }
+  // the last five meetings before this game (the game itself left out once played): record, points, over record, the last three
+  function meetings(H, A, gid) {
+    if (!G) return null; const meet = G.filter(x => x.hs != null && x.id !== gid && ((x.home === H && x.away === A) || (x.home === A && x.away === H))); const m5 = meet.slice(-5); if (!m5.length) return {n: 0};
+    const f = form(H, m5), ov = m5.filter(x => x.total != null && x.hs + x.as !== x.total);
+    return {n: m5.length, su: f.su, ats: f.ats.replace(/ \(.*\)/, ""), pts: m5.reduce((a, x) => a + x.hs + x.as, 0) / m5.length, over: ov.length ? `${ov.filter(x => x.hs + x.as > x.total).length}-${ov.filter(x => x.hs + x.as < x.total).length}` : null,
+      last: meet.slice(-3).reverse().map(x => { const cov = x.spread == null ? null : Math.sign(x.hs - x.as - x.spread); return {season: x.season, w: x.hs > x.as ? x.home : x.away, ws: Math.max(x.hs, x.as), l: x.hs > x.as ? x.away : x.home, ls: Math.min(x.hs, x.as), tie: x.hs === x.as, line: x.spread == null ? null : lineTxt(x.home, -x.spread), covered: cov == null ? null : (cov > 0 ? x.home : cov < 0 ? x.away : "push")}; })};
+  }
   // Takeaways: the handful of readings on this card that bear on the outcome, each a short line, drawn from the same
   // tables the other tabs show (inputs, absences, the scheme matchup, the last meetings, the props against the book)
+  // a player's book line for one stat: the one consensus per player-stat props_lines.closing writes (median across books at
+  // each book's newest pull); the takeaways and the props table both read it here
+  function mktRow(r, stat) { return (r.markets || []).find(m => m.stat === stat) || null; }
+  function mktLine(r, stat) { const m = mktRow(r, stat); return m ? m.line : null; }
   function takeawaysHtml(g, W) {
     const H = g.home_team, A = g.away_team, out = [];
     const chip = (t, cls = "") => `<span class="chip">${t}</span>`;   // one style: the number carries the sign
     const grp = (cap, chips) => chips.length ? `<div class="tk"><span class="tkl">${cap}</span><div class="mv">${chips.join("")}</div></div>` : "";
     // the model against the line
-    const line = [];
-    if (g.spread_line != null) { const side = g.spread_edge > 0 ? H : A; const flag = Math.abs(g.spread_edge) >= W.spread_edge; const pc_ = g.p_cover_cal_home != null ? Math.round(100 * (g.spread_edge > 0 ? g.p_cover_cal_home : 1 - g.p_cover_cal_home)) : null; line.push(chip(`${side} ${Math.abs(g.spread_edge).toFixed(1)} vs line${pc_ != null ? " · " + pc_ + "% cover" : ""} · ${flag ? "flag" : "no flag"}`, flag ? "alt" : "")); }
-    if (g.total_line != null) line.push(chip(`${g.total_edge > 0 ? "Over" : "Under"} ${Math.abs(g.total_edge).toFixed(1)} vs ${g.total_line}${g.p_over_cal != null ? " · " + Math.round(100 * (g.total_edge > 0 ? g.p_over_cal : 1 - g.p_over_cal)) + "%" : ""} · not flagged`));
+    const line = [];   // the card's own numbers (Python's, on the newest line snapshot), so the tab and the card face read the same
+    if (g.spread_line != null) { const side = g.spread_edge > 0 ? H : A; const flag = !!g.bet; const pc_ = g.p_cover_cal_home != null ? Math.round(100 * (g.spread_edge > 0 ? g.p_cover_cal_home : 1 - g.p_cover_cal_home)) : null; line.push(chip(`${side} ${Math.abs(g.spread_edge).toFixed(1)} vs ${lineTxt(side, g.spread_edge > 0 ? -g.spread_line : g.spread_line)}${pc_ != null ? " · " + pc_ + "% cover" : ""} · ${flag ? "flag" : "no flag"}`, flag ? "alt" : "")); }
+    if (g.total_line != null) { const ov = g.p_over_emp; const side = ov != null ? (ov >= 0.5 ? "Over" : "Under") : (g.total_edge > 0 ? "Over" : "Under"); line.push(chip(`${side} ${g.total_line} · model ${g.model_total.toFixed(1)}${ov != null ? " · " + Math.round(100 * (side === "Over" ? ov : 1 - ov)) + "%" : ""} · ${g.shadowunder_bet ? "totals flag (tracked, not bet)" : "not flagged"}`)); }
+    out.push(grp("Against the line", line));
     // what moves the points: the two largest inputs per team, and anyone of note out
     const drivers = [];
     [H, A].forEach(t => { const inp = g.sides && g.sides[t]; if (!inp) return; const c = contributions(inp, W.season, g.game_id); const top = c.items.filter(x => Math.abs(x.c) >= 0.4).sort((x, y) => Math.abs(y.c) - Math.abs(x.c)).slice(0, 2);
@@ -1120,23 +1154,16 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       if (inp.qb_out) drivers.push(chip(`${t} · starting QB out`, "mute")); });
     out.push(grp("Moves the line", drivers.slice(0, 6)));
     // scheme: the look the defense leans on where the offense is furthest from the league, each way
-    const sch = [];
-    const useMap = pb => ({man: pb.def.man, zone: pb.def.zone, cov_COVER_1: (pb.def.coverage || {}).COVER_1, cov_COVER_2: (pb.def.coverage || {}).COVER_2, cov_COVER_3: (pb.def.coverage || {}).COVER_3, cov_COVER_4: (pb.def.coverage || {}).COVER_4, blitz: pb.def.blitz, no_blitz: pb.def.blitz == null ? null : 1 - pb.def.blitz, pressure: pb.def.pressure, clean: pb.def.pressure == null ? null : 1 - pb.def.pressure, heavy_box: pb.def.heavy_box_rate});
-    [[A, H], [H, A]].forEach(([O, D]) => { const pa = schPeriod(O), pb = schPeriod(D); if (!pa || !pb || !pa.off.plays || !pb.def.plays) return; const use = useMap(pb), o = pa.off.vs || {}, d = pb.def.vs || {}, lv = pa.lg.vs || {};
-      let best = null; LOOK.forEach(([k, lab]) => { const x = o[k], y = d[k], u = use[k]; if (!x || x.epa == null || u == null || u < 0.2 || x.n < 40) return; const gap = x.epa - ((lv[k] && lv[k].epa) || 0); if (!best || Math.abs(gap) > Math.abs(best.gap)) best = {k, lab, gap, u, x, y}; });
-      if (best && Math.abs(best.gap) >= 0.05) sch.push(chip(`${D} ${best.lab.toLowerCase().replace(/^against /, "").replace(/^runs into a /, "").replace(/ \(.*\)/, "")} ${pc(best.u)} · ${O} ${ep(best.x.epa)} in it · league ${ep(((lv[best.k] || {}).epa) || 0)}${best.y && best.y.epa != null ? ` · ${D} allows ${ep(best.y.epa)}` : ""}`, best.gap > 0 ? "" : "mute")); });
+    const sch = [[A, H], [H, A]].map(([O, D]) => schemeEdge(O, D)).filter(Boolean).map(x => chip(`${x.D} ${x.look} ${pc(x.use)} · ${x.O} ${ep(x.epa)} in it · league ${ep(x.lg)}${x.allows != null ? ` · ${x.D} allows ${ep(x.allows)}` : ""}`, x.helps === x.O ? "" : "mute"));
     out.push(grp("Scheme", sch.slice(0, 2)));
     // the last meetings
-    const hist = [];
-    if (G) { const meet = G.filter(x => x.hs != null && ((x.home === H && x.away === A) || (x.home === A && x.away === H))).slice(-5); if (meet.length) { const f = form(H, meet); const tot = meet.reduce((a, x) => a + x.hs + x.as, 0) / meet.length; const over = meet.filter(x => x.tl != null); const ov = over.filter(x => x.hs + x.as > x.tl).length; hist.push(chip(`Last ${meet.length} · ${H} ${f.su} SU · ${f.ats} ATS · ${tot.toFixed(0)} pts/g${over.length ? ` · over ${ov}-${over.length - ov}` : ""}`)); } }
+    const hist = [], mt = meetings(H, A, g.game_id);
+    if (mt && mt.n) hist.push(chip(`Last ${mt.n} · ${H} ${mt.su} SU · ${mt.ats} ATS · ${mt.pts.toFixed(0)} pts/g${mt.over ? ` · over ${mt.over}` : ""}`));
     out.push(grp("Last meetings", hist.slice(0, 2)));
     // props: the largest leans against the book
     const pr = [];
-    if (PR && PR.games[g.game_id]) { const rows = []; Object.entries(PR.games[g.game_id]).forEach(([t, side]) => { (side.qb || []).slice(0, 1).forEach(q => { if (!q.out && q.mkt_pass_yards != null) rows.push({t, name: q.name, stat: "pass yds", proj: q.proj_pass_yards, line: q.mkt_pass_yards, rel: (q.proj_pass_yards - q.mkt_pass_yards) / q.mkt_pass_yards}); });
-      (side.receivers || []).forEach(r => { if (!r.out && r.mkt_rec_yards != null) rows.push({t, name: r.name, stat: "rec yds", proj: r.proj_rec_yards, line: r.mkt_rec_yards, rel: (r.proj_rec_yards - r.mkt_rec_yards) / r.mkt_rec_yards}); });
-      (side.rushers || []).forEach(r => { if (!r.out && r.mkt_rush_yards != null) rows.push({t, name: r.name, stat: "rush yds", proj: r.proj_rush_yards, line: r.mkt_rush_yards, rel: (r.proj_rush_yards - r.mkt_rush_yards) / r.mkt_rush_yards}); }); });
-      rows.filter(x => x.line >= 20).sort((x, y) => Math.abs(y.proj - y.line) - Math.abs(x.proj - x.line)).slice(0, 3).forEach(x => pr.push(chip(`${esc(x.name)} ${x.stat} ${x.proj > x.line ? "over" : "under"} ${x.line} · proj ${x.proj}`, Math.abs(x.rel) >= 0.15 ? "" : "mute")));
-      if (!rows.length) pr.push(chip("No book lines yet", "mute")); }
+    const pl = propLeans(g.game_id);
+    if (pl) { pl.forEach(x => pr.push(chip(`${esc(x.name)} ${x.stat} ${x.proj > x.line ? "over" : "under"} ${x.line} · proj ${x.proj}`, Math.abs(x.rel) >= 0.15 ? "" : "mute"))); if (!pl.length) pr.push(chip("No book lines yet", "mute")); }
     out.push(grp("Props leans", pr.slice(0, 3)));
     return out.join("");
   }
@@ -1237,6 +1264,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (!$("postable").dataset.link) { $("postable").dataset.link = "1"; $("postable").addEventListener("click", ev => { const a = ev.target.closest("a[data-open]"); if (a) { ev.preventDefault(); ev.stopPropagation(); openPlayer(a.dataset.open); } }, true); }
   }
   // ---------- Rankings ----------
+  // the week the ratings open on: going into the week after the newest game played this season (the Team strip reads the same one)
+  function rankWeekDefault(s, weeks) { const bk = bkRows().filter(r => r.season === +s && r.home_score != null); const nxt = bk.length ? Math.max(...bk.map(r => r.week)) + 1 : weeks[weeks.length - 1]; return weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
   function renderRankings() {
     if (!RK) return;
     const seasons = Object.keys(RK.seasons).sort((a, b) => b - a);
@@ -1249,7 +1278,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const lastPlayed = playedWk.length ? Math.max(...playedWk) : 0;
     const weeks = Object.keys(RK.seasons[S]).map(Number).sort((a, b) => a - b).filter(w => w <= lastPlayed + 1);
     const sel = $("rkweek"); sel.innerHTML = ""; weeks.forEach(w => { const o = document.createElement("option"); o.value = w; o.textContent = "going into Week " + w; sel.appendChild(o); });
-    if (rkWeek == null || !weeks.includes(rkWeek)) { const bk = bkRows().filter(r => r.season === rkSeason && r.home_score != null); const nxt = bk.length ? Math.max(...bk.map(r => r.week)) + 1 : weeks[weeks.length - 1]; rkWeek = weeks.includes(nxt) ? nxt : weeks[weeks.length - 1]; }
+    if (rkWeek == null || !weeks.includes(rkWeek)) rkWeek = rankWeekDefault(rkSeason, weeks);
     sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
     const tabl = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tabl.teams);
     const wsel = $("rkwin"); const haveWin = tabl.windows && Object.keys(tabl.windows).length; wsel.disabled = !haveWin; if (!haveWin) rkWin = "model"; wsel.value = rkWin; wsel.onchange = () => { rkWin = wsel.value; renderRankings(); };
@@ -1750,7 +1779,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       rush: r => `${pc(r.share)} of the team's carries (decayed), ${r.carries_pg} a game over his last ${r.games}; ${r.ypc} yards per carry, shrunk ${r.ypc_shrunk}, against this defense ${r.proj_ypc}; ${st(r.light, "yds", "light box")}; ${st(r.heavy, "yds", "heavy box")}; ${r.proj_carries} carries projected.` + vsTip(r, "yards"),
       kick: r => `${r.games} games over his last 17: ${r.pts_pg != null ? r.pts_pg + " kicking points a game" : "no kicks yet"}, ${r.fgm} of ${r.fga} field goals${r.fg_pct != null ? " (" + Math.round(100 * r.fg_pct) + "%)" : ""}, ${r.xpm} of ${r.xpa} extra points; the team ${r.team_pts_dec} points a game decayed; implied total ${r.implied_total}.`,
       def: r => `${Math.round(100 * r.share)}% of the team's tackles (decayed); ${r.tackles_pg} a game (${r.solo_pg} solo) over his last ${r.games}; ${r.sacks_pg} sacks a game, ${r.ints} INT, ${r.pd} passes defended; ${r.opp_plays} opponent plays projected.` + (r.vs_opp ? ` Against ${opp}: ${r.vs_opp.games} games, ${f1(r.vs_opp.n_pg)} tackles a game.` : "")};
-    const rowsFor = (r, kind) => { const have = Object.fromEntries((r.markets || []).map(m => [m.stat, m])); const stats = MKT_ORDER[kind].filter(k => MKT_PROJ[k] && r[MKT_PROJ[k]] != null && !(kind !== "pass" && k === "rush_yards" && r.proj_rush_yards == null)); if (!stats.length) return "";
+    const rowsFor = (r, kind) => { const have = Object.fromEntries(MKT_ORDER[kind].map(k => [k, mktRow(r, k)]).filter(x => x[1])); /* the one book line per player-stat (mktRow), the same the takeaways read */ const stats = MKT_ORDER[kind].filter(k => MKT_PROJ[k] && r[MKT_PROJ[k]] != null && !(kind !== "pass" && k === "rush_yards" && r.proj_rush_yards == null)); if (!stats.length) return "";
       return stats.map((k, i) => { const m = have[k]; const ours = MKT_PROJ[k] ? r[MKT_PROJ[k]] : null; const isTd = k === "anytime_td"; const oursTxt = ours == null ? "<span class='rk'>—</span>" : (isTd ? pc(ours) : (k === "pass_td" || k === "pass_int" || k === "def_sacks" || k === "field_goals" ? f2(ours) : f1(ours)));
         const bookTxt = !m ? "<span class='rk'>no line</span>" : (isTd ? `${pc(implied(m.over))}` : `${m.line}`);
         const cmp = isTd ? (m && ours != null ? implied(m.over) : null) : (m ? m.line : null); const leanTxt = cmp == null || ours == null ? "" : (isTd ? `<span class="lean ${ours > cmp ? "up" : "dn"}">${ours > cmp ? "yes" : "no"} ${Math.round(100 * Math.abs(ours - cmp))}%</span>` : `<span class="lean ${ours > cmp ? "up" : (ours < cmp ? "dn" : "")}">${ours > cmp ? "▲" : (ours < cmp ? "▼" : "=")} ${Math.abs(ours - cmp).toFixed(1)}</span>`);
@@ -1792,7 +1821,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const co = coefsFor(Math.max(...Object.keys(META.coefs).map(Number)));
     const played = (G || []).filter(x => x.hs != null && (x.home === team || x.away === team) && x.season === season);
     const rec = form(team, played);
-    const R = window.RANK; let tabl = null, wk = null; if (R && R.seasons[String(season)]) { const wks = Object.keys(R.seasons[String(season)]).map(Number).sort((a, b) => a - b); const lastPlayed = played.length ? Math.max(...played.map(x => x.week)) : 0; wk = wks.filter(x => x <= lastPlayed + 1).pop(); tabl = wk ? R.seasons[String(season)][String(wk)] : null; }
+    // one ratings snapshot for every team: the week Rankings opens on (rankWeekDefault; 26 Sep 2026: each team's own last
+    // game + 1 put ATL and GB on Week 4 and the rest on Week 3, so two teams could share a rank)
+    const R = window.RANK; let tabl = null, wk = null; if (R && R.seasons[String(season)]) { const wks = Object.keys(R.seasons[String(season)]).map(Number).sort((a, b) => a - b); wk = rankWeekDefault(season, wks); tabl = wk ? R.seasons[String(season)][String(wk)] : null; }
     const teams = tabl ? Object.keys(tabl.teams) : []; const rankOf = (k, dir = 1) => { if (!tabl) return null; const v = tabl.teams[team][k]; return teams.filter(t => (tabl.teams[t][k] - v) * dir > 0).length + 1; };
     const pw = tabl ? tabl.teams[team].power : null;
     $("teamstrip").innerHTML = `<div class="tile"><b>${played.length ? rec.su : "0-0"}</b><span>Record, ${season}${played.length ? " · " + rec.ats + " ATS" : ""}</span></div>
@@ -2704,22 +2735,25 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 <p><b>At a point in time.</b> Backtest → Season odds and totals → "Look back" shows the totals and breakout flags as they stood before Week 1 and going into Weeks 5, 9 and 13 of every season since 2016 (made only from the games before that week), next to what each player finished with, and this season's as they stood each week (kept as made from 24 Sep 2026; the weeks before were rebuilt from the data of the time).</p>`;
   }
   // ---------- Report: the week on one page to send around (26 Sep 2026). Every number is read from the same fields and
-  // functions the cards use (liveLines, contributions, form, the scheme and props readings), so it cannot disagree with them ----------
+  // functions the cards use (contributions, form, and the shared scheme, meetings and props readings), so it cannot disagree with them ----------
   // the Why these numbers groups, named for a reader: offense ratings against offense ratings, the defenses each one faces, and so on
   const REPORT_GROUPS = [["offense", ["off_epa_play", "off_pf"]], ["defense", ["def_epa_play", "def_pf"]], ["QB", ["qb_rating", "qb_out"]], ["home field", ["home", "neutral"]],
     ["injuries", ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out"]], ["weather and venue", ["dome", "wind_out", "cold", "rain", "warm_in_cold"]], ["division game", ["div_game"]],
     ["roster turnover", ["off_turnover_early", "opp_def_turnover_early"]], ["out of the race", ["dead_late", "opp_dead_late"]]];
   const SHADOW_KEYS = ["shadow45_bet", "shadowdog_bet", "shadowearly_bet", "shadowtrees_bet"];
-  function gameReadings(g0) {
-    const W = window.WEEK || {}, g = liveLines(g0), H = g.home_team, A = g.away_team, R = {g, H, A};
+  function gameReadings(g) {
+    const H = g.home_team, A = g.away_team, R = {g, H, A}, TS = (window.WEEK || {}).total_shadow || {};
+    const recB = g.bet_recorded || [], recU = g.shadowunder_recorded || [];
+    // spread: the side with the edge on the line now, its calibrated cover chance; a bet when flagged now or logged by the weekly run
     if (g.spread_line != null) { const home = g.spread_edge > 0, t = home ? H : A;
       R.spread = {side: t, line: lineTxt(t, home ? -g.spread_line : g.spread_line), p: g.p_cover_cal_home == null ? null : (home ? g.p_cover_cal_home : 1 - g.p_cover_cal_home), edge: Math.abs(g.spread_edge), model: lineTxt(H, -g.model_spread),
-        status: g0.bet ? "bet" : (SHADOW_KEYS.some(k => g0[k]) ? "tracked" : "none")}; }
-    if (g.total_line != null) { const over = g.total_edge > 0;
-      R.total = {side: over ? "Over" : "Under", line: `${over ? "Over" : "Under"} ${g.total_line}`, p: g.p_over_cal == null ? null : (over ? g.p_over_cal : 1 - g.p_over_cal), edge: Math.abs(g.total_edge), model: g.model_total.toFixed(1),
-        status: W.total_edge != null && Math.abs(g.total_edge) >= W.total_edge ? "bet" : (g0.shadowunder_bet && !over ? "tracked" : "none")}; }
-    const vw = vegasWin(g), fav = g.p_home >= 0.5 ? H : A;
-    R.win = {side: fav, p: fav === H ? g.p_home : 1 - g.p_home, vegas: vw == null ? null : (fav === H ? vw : 1 - vw)};
+        status: g.bet || recB.length ? "bet" : (SHADOW_KEYS.some(k => g[k]) ? "tracked" : "none"), logged: recB.map(r => r.bet + (r.odds != null ? ` at ${r.odds > 0 ? "+" : ""}${r.odds}` : "")).join(", ")}; }
+    // total: the side the model's chance favors (p_over_emp, the one chance for a total), and the edge in points
+    if (g.total_line != null) { const po = g.p_over_emp, over = po != null ? po >= 0.5 : g.total_edge > 0;
+      R.total = {side: over ? "Over" : "Under", line: `${over ? "Over" : "Under"} ${g.total_line}`, p: po == null ? null : (over ? po : 1 - po), edge: Math.abs(g.total_edge), model: g.model_total.toFixed(1),
+        status: g.shadowunder_bet || recU.length ? "tracked" : "none", logged: recU.map(r => r.bet).join(", ")}; }
+    const fav = g.p_home >= 0.5 ? H : A;
+    R.win = {side: fav, p: fav === H ? g.p_home : 1 - g.p_home, vegas: g.vegas_win == null ? null : (fav === H ? g.vegas_win : 1 - g.vegas_win)};
     R.score = {[A]: g.away_exp, [H]: g.home_exp};
     // a played game: the final, and each call graded against the line shown (win, loss, push)
     if (g.home_score != null) { const m = g.home_score - g.away_score, tot = g.home_score + g.away_score; R.final = {[A]: g.away_score, [H]: g.home_score};
@@ -2732,31 +2766,17 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const grpOf = f => (REPORT_GROUPS.find(([, fs]) => fs.includes(f)) || [f])[0];
       cH.forEach(x => by[grpOf(x.f)] = (by[grpOf(x.f)] || 0) + x.c); cA.forEach(x => by[grpOf(x.f)] = (by[grpOf(x.f)] || 0) - x.c);
       R.drivers = Object.entries(by).filter(([, d]) => Math.abs(d) >= 0.3).sort((u, v) => Math.abs(v[1]) - Math.abs(u[1])).map(([k, d]) => ({team: d > 0 ? H : A, pts: Math.abs(d), label: k})); }
-    // injuries: the league's report for each side, with what the model's equation takes off the spread for each player
-    R.inj = [A, H].some(t => !((g.sides || {})[t] || {}).injuries) ? null : [A, H].map(t => { const sd = (g.sides || {})[t] || {}, L = sd.injuries || [];
-      return {t, qbOut: !!sd.qb_out, qb: sd.qb_name, qbCarried: !!sd.qb_carried, net: L.filter(x => x.priced).reduce((a, x) => a + x.spread_pts, 0),
+    // injuries: the league's report for each side, with what the model's equation takes off the spread for each player (week.js injuries)
+    R.inj = [A, H].some(t => !((g.sides || {})[t] || {}).injuries) ? null : [A, H].map(t => { const sd = g.sides[t], L = sd.injuries;
+      return {t, qbOut: !!sd.qb_out, qb: sd.qb_name, net: L.filter(x => x.priced).reduce((a, x) => a + x.spread_pts, 0),
         big: L.filter(x => x.priced && Math.abs(x.spread_pts) >= 0.05).sort((x, y) => x.spread_pts - y.spread_pts),
         small: L.filter(x => x.priced && Math.abs(x.spread_pts) < 0.05).length,
         q: L.filter(x => !x.priced && x.status === "Questionable" && Math.max(x.off, x.def) >= 0.25)}; });
-    // the last meetings and each side's form, from the schedule since 2013 (games.js)
-    if (G) { const played = G.filter(x => x.hs != null), meet = played.filter(x => x.id !== g.game_id && ((x.home === H && x.away === A) || (x.home === A && x.away === H)));
-      const m5 = meet.slice(-5); if (m5.length) { const f = form(H, m5), ov = m5.filter(x => x.total != null); R.h2h = {n: m5.length, su: f.su, ats: f.ats.replace(/ \(.*\)/, ""), pts: m5.reduce((a, x) => a + x.hs + x.as, 0) / m5.length, over: ov.length ? `${ov.filter(x => x.hs + x.as > x.total).length}-${ov.filter(x => x.hs + x.as < x.total).length}` : null,
-        last: meet.slice(-3).reverse().map(x => { const cov = x.spread == null ? null : Math.sign(x.hs - x.as - x.spread); return {season: x.season, w: x.hs > x.as ? x.home : x.away, ws: Math.max(x.hs, x.as), l: x.hs > x.as ? x.away : x.home, ls: Math.min(x.hs, x.as), tie: x.hs === x.as, line: x.spread == null ? null : lineTxt(x.home, -x.spread), covered: cov == null ? null : (cov > 0 ? x.home : cov < 0 ? x.away : "push")}; })}; }
-      const last = (t, n) => played.filter(x => x.id !== g.game_id && (x.home === t || x.away === t)).slice(-n);
+    R.h2h = meetings(H, A, g.game_id);
+    if (G) { const played = G.filter(x => x.hs != null && x.id !== g.game_id), last = (t, n) => played.filter(x => x.home === t || x.away === t).slice(-n);
       R.form = [A, H].map(t => { const f5 = form(t, last(t, 5)), f10 = form(t, last(t, 10)); return {t, su5: f5.su, ats10: f10.ats.replace(/ \(.*\)/, ""), ou10: f10.ou, pf: f10.pf, pa: f10.pa}; }); }
-    // scheme: each way, the look the defense uses most where the offense is furthest from the league (the Takeaways reading)
-    R.scheme = [];
-    [[A, H], [H, A]].forEach(([O, D]) => { const pa = schPeriod(O), pb = schPeriod(D); if (!pa || !pb || !pa.off.plays || !pb.def.plays) return;
-      const use = {man: pb.def.man, zone: pb.def.zone, cov_COVER_1: (pb.def.coverage || {}).COVER_1, cov_COVER_2: (pb.def.coverage || {}).COVER_2, cov_COVER_3: (pb.def.coverage || {}).COVER_3, cov_COVER_4: (pb.def.coverage || {}).COVER_4, blitz: pb.def.blitz, no_blitz: pb.def.blitz == null ? null : 1 - pb.def.blitz, pressure: pb.def.pressure, clean: pb.def.pressure == null ? null : 1 - pb.def.pressure, heavy_box: pb.def.heavy_box_rate};
-      const o = pa.off.vs || {}, d = pb.def.vs || {}, lv = pa.lg.vs || {}; let best = null;
-      LOOK.forEach(([k, lab]) => { const x = o[k], u = use[k]; if (!x || x.epa == null || u == null || u < 0.2 || x.n < 40) return; const gap = x.epa - ((lv[k] && lv[k].epa) || 0); if (!best || Math.abs(gap) > Math.abs(best.gap)) best = {k, lab, gap, u, x, y: d[k]}; });
-      if (best && Math.abs(best.gap) >= 0.05) R.scheme.push({O, D, look: best.lab.replace(/^Against /, "").replace(/^Runs into a /, "").replace(/ \(.*\)/, "").toLowerCase(), use: best.u, epa: best.x.epa, lg: (lv[best.k] || {}).epa || 0, allows: best.y && best.y.epa != null ? best.y.epa : null, helps: best.gap > 0 ? O : D}); });
-    // props: the largest leans against the book (the Takeaways reading)
-    R.props = [];
-    if (PR && PR.games[g.game_id]) { const rows = []; Object.entries(PR.games[g.game_id]).forEach(([t, sd]) => { (sd.qb || []).slice(0, 1).forEach(q => { if (!q.out && q.mkt_pass_yards != null) rows.push({t, name: q.name, stat: "pass yds", proj: q.proj_pass_yards, line: q.mkt_pass_yards}); });
-      (sd.receivers || []).forEach(r => { if (!r.out && r.mkt_rec_yards != null) rows.push({t, name: r.name, stat: "rec yds", proj: r.proj_rec_yards, line: r.mkt_rec_yards}); });
-      (sd.rushers || []).forEach(r => { if (!r.out && r.mkt_rush_yards != null) rows.push({t, name: r.name, stat: "rush yds", proj: r.proj_rush_yards, line: r.mkt_rush_yards}); }); });
-      R.props = rows.filter(x => x.line >= 20).sort((x, y) => Math.abs(y.proj - y.line) - Math.abs(x.proj - x.line)).slice(0, 3); }
+    R.scheme = [[A, H], [H, A]].map(([O, D]) => schemeEdge(O, D)).filter(Boolean);
+    R.props = propLeans(g.game_id) || [];
     return R;
   }
   const pct0 = p => p == null ? "–" : Math.round(100 * p) + "%";
@@ -2782,14 +2802,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const dl = [];
       if (R.drivers.length) dl.push(["Why", `<div class="rpl">${R.drivers.map(x => `<span><span class="t">${x.team}</span> +${x.pts.toFixed(1)} ${esc(x.label)}</span>`).join("")}</div>`]);
       if (R.inj) dl.push(["Injuries", R.inj.map(x => `<div class="rpl"><span class="t">${x.t} ${pts(x.net)}</span>${x.qbOut ? `<span class="neg">Starting QB out · ${esc(x.qb || "backup")} priced</span>` : ""}${x.big.map(p => `<span>${esc(p.name)} ${esc(p.pos)} ${esc(p.status.toLowerCase())} <span class="neg">${pts(p.spread_pts)}</span></span>`).join("")}${x.small ? `<span class="rpq">${x.small} more out, under 0.1 each</span>` : ""}${!x.big.length && !x.small && !x.qbOut ? `<span class="rpq">nobody out</span>` : ""}${x.q.length ? `<span class="rpq">Questionable: ${x.q.map(p => `${esc(p.name)} ${esc(p.pos)}`).join(", ")}</span>` : ""}</div>`).join("")]);
-      if (R.h2h) dl.push(["Last meetings", `<div class="rpl"><span>Last ${R.h2h.n}: <span class="t">${R.H}</span> ${R.h2h.su} · ${R.h2h.ats} ATS · ${Math.round(R.h2h.pts)} pts a game${R.h2h.over ? ` · over ${R.h2h.over}` : ""}</span>${R.h2h.last.map(m => `<span class="rpq">${m.season} ${m.tie ? `tie ${m.ws}-${m.ls}` : `${m.w} ${m.ws}-${m.ls}`}${m.line ? ` · ${m.line}, ${m.covered === "push" ? "push" : m.covered + " covered"}` : ""}</span>`).join("")}</div>`]);
+      if (R.h2h && R.h2h.n) dl.push(["Last meetings", `<div class="rpl"><span>Last ${R.h2h.n}: <span class="t">${R.H}</span> ${R.h2h.su} · ${R.h2h.ats} ATS · ${Math.round(R.h2h.pts)} pts a game${R.h2h.over ? ` · over ${R.h2h.over}` : ""}</span>${R.h2h.last.map(m => `<span class="rpq">${m.season} ${m.tie ? `tie ${m.ws}-${m.ls}` : `${m.w} ${m.ws}-${m.ls}`}${m.line ? ` · ${m.line}, ${m.covered === "push" ? "push" : m.covered + " covered"}` : ""}</span>`).join("")}</div>`]);
       else dl.push(["Last meetings", `<span class="rpq">None since ${G ? G[0].season : ""}</span>`]);
       if (R.form) dl.push(["Form", R.form.map(f => `<div class="rpl"><span class="t">${f.t}</span><span>last 5 ${f.su5}</span><span>last 10 ATS ${f.ats10}</span><span>O/U ${f.ou10}</span><span>${f.pf}–${f.pa} a game</span></div>`).join("")]);
       if (R.scheme.length) dl.push(["Scheme", R.scheme.map(x => `<div class="rpl"><span class="rpw"><span class="t">${x.O} offense</span> vs ${esc(x.look)} (${x.D} ${pc(x.use)} of plays): ${ep(x.epa)} EPA a play, league ${ep(x.lg)} → <span class="t">helps ${x.helps}</span></span></div>`).join("")]);
       if (R.props.length) dl.push(["Props", `<div class="rpl">${R.props.map(x => `<span>${esc(x.name)} ${x.stat} <span class="t">${x.proj > x.line ? "over" : "under"} ${x.line}</span> <span class="rpq">proj ${x.proj}</span></span>`).join("")}</div>`]);
       return `<article class="rp ${on(R) ? "on" : ""}" id="rp${i}">
         <div class="rt">${LOGO(R.A, 20)}<b>${R.A} @ ${R.H}</b>${LOGO(R.H, 20)}<span class="when">${whenTxt(g)} · ${wxTxt(g, sh, g.home_score != null)}</span></div>
-        <div class="rpcalls">${reportCall("Spread", R.spread, R.spread ? `edge ${R.spread.edge.toFixed(1)} · model ${esc(R.spread.model)}` : "")}${reportCall("Total", R.total, R.total ? `edge ${R.total.edge.toFixed(1)} · model ${R.total.model}` : "")}
+        <div class="rpcalls">${reportCall("Spread", R.spread, R.spread ? `edge ${R.spread.edge.toFixed(1)} · model ${esc(R.spread.model)}${R.spread.logged ? ` · logged ${esc(R.spread.logged)}` : ""}` : "")}${reportCall("Total", R.total, R.total ? `edge ${R.total.edge.toFixed(1)} · model ${R.total.model}` : "")}
           <div class="rpc"><span class="k">Winner</span><span class="v">${R.win.side}${RES(R.win.result)}</span><span class="pr">${pct0(R.win.p)}</span><span class="s">${R.win.vegas == null ? "no moneyline yet" : "Vegas " + pct0(R.win.vegas)}</span></div></div>
         <p class="rpscore">Model score: ${R.A} <b>${R.score[R.A].toFixed(1)}</b> · ${R.H} <b>${R.score[R.H].toFixed(1)}</b>${R.final ? ` · Final: ${R.A} <b>${R.final[R.A]}</b> · ${R.H} <b>${R.final[R.H]}</b>` : ""}</p>
         <dl class="rpd">${dl.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>

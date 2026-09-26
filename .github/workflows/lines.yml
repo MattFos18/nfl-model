@@ -67,10 +67,10 @@ jobs:
         if: steps.gate.outputs.skip != '1'
         id: fresh
         run: python -m nflmodel.refresh --check
-      - name: cards from the log   # the cards read the newest line snapshot and the newest prop lines; the hourly routine republishes these files
+      - name: cards from the log   # Python prices the cards on the newest line snapshot (picks.table: consensus line, edges, chances, flags, stake, Vegas win), the props re-project on it with the newest forecast and book lines, and the books' season markets follow the futures pull; the page only displays these files
         if: steps.gate.outputs.skip != '1'
         run: |
-          python -m nflmodel.props --markets
+          python -m nflmodel.props --live
           python -m nflmodel.export_web --week
       - name: health checks     # every tie check against the files just written; the page's health chip reads web/data/health.js
         if: steps.gate.outputs.skip != '1'
@@ -81,7 +81,7 @@ jobs:
         run: |
           git config user.name "nfl-model bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/lines web/data/week.js web/data/props.js web/data/fresh.js web/data/health.js data/processed/props.json data/weather data/runs/refresh_log.csv
+          git add data/lines web/data/week.js web/data/props.js web/data/season.js web/data/fresh.js web/data/health.js data/processed/props.json data/weather data/runs/refresh_log.csv reports/props_*_wk*.csv reports/props_*_wk*.md
           if [ -e data/raw/injuries/espn_injuries.csv ]; then git add -f data/raw/injuries/espn_injuries.csv; fi
           git diff --cached --quiet || git commit -m "Lines $(date -u +%Y-%m-%dT%H:%M)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)

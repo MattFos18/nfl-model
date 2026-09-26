@@ -69,23 +69,32 @@ def fair_ml(p):
 
 
 def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE) -> pd.DataFrame:
+    """This week's games priced against the current consensus line: the newest lines-log snapshot, median across
+    sources to the half point (lines.latest), the schedule's line only where the log has none (26 Sep 2026: the flag,
+    edges and cover odds were decided on the Tuesday nflverse line while the card showed the live one). The model's
+    chances are re-priced at that line with the fit that priced the game (model.price_at, pred_v3_dist.json); the
+    model's points never read a line. Runs in the weekly run and in every line watch (export_web --week)."""
+    from . import lines as LN, model as M
     pred = pd.read_parquet(OUT / "pred_v3.parquet")
     games = pd.read_parquet(OUT / "games.parquet")
-    base = pd.read_parquet(OUT / "pred_baseline.parquet") if (OUT / "pred_baseline.parquet").exists() else None
     p = pred[(pred.season == season) & (pred.week == week)].copy()
     g = games.set_index("game_id")
     p["gameday"] = p.game_id.map(g.gameday)
-    p["spread_line"] = p.game_id.map(g.spread_line)
-    p["total_line"] = p.game_id.map(g.total_line)
+    log = LN.load_log()
+    live = LN.live_lines(p[["game_id"]].assign(spread_line=p.game_id.map(g.spread_line), total_line=p.game_id.map(g.total_line)), log).set_index("game_id")
+    for c in live.columns:
+        p[c] = p.game_id.map(live[c])
     p["home_score"] = p.game_id.map(g.home_score)
     p["away_score"] = p.game_id.map(g.away_score)
     p["spread_edge"] = p.model_spread - p.spread_line
     p["total_edge"] = p.model_total - p.total_line
     p["tree_edge"] = _spread(p, "trees") - p.spread_line
-    if base is not None:
-        b = base.set_index("game_id")
-        p["old_home"] = p.game_id.map(b.home_exp)
-        p["old_away"] = p.game_id.map(b.away_exp)
+    dist = M.load_dist(season, week)
+    if dist is not None:   # the model's cover and over chances at the live line, same function and fit as the model run
+        pr = [M.price_at(r.model_spread, r.model_total, r.spread_line, r.total_line, dist) for r in p.itertuples()]
+        for k in ("p_home", "p_cover_home", "p_over", "p_over_emp"):
+            p[k] = [x[k] for x in pr]
+    p["priced_live"] = dist is not None
 
     def bet(r, spread_edge=spread_edge, total_edge=total_edge, side_rule=None):
         out = []
@@ -110,16 +119,16 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     for name, (edge, side_rule, _) in SHADOWS.items():   # the shadow rules: recorded, graded, never bet
         p[f"{name}_bet"] = p.apply(lambda r, e=edge, sr=side_rule: bet(r, e, None, sr), axis=1)
     p["shadow_bet"] = p["shadow45_bet"]
-    # calibrated cover and over odds: what edges of this size have actually converted to, fitted on every graded
+    # calibrated cover odds: what spread edges of this size have actually converted to, fitted on every graded
     # backtest game before this season (the model's own cover odds run about 10 points hot: the line carries
-    # information the model does not)
-    cal_s, cal_t = calibration(pred, games, season)
+    # information the model does not). Totals carry one chance, p_over_emp (26 Sep 2026, reports/total_prob.csv: the
+    # calibrated total chance scored better on two windows of three by log loss but not on 2020-22, and the 55% under
+    # flag re-expressed on it did worse on 2016-18, so it failed the every-window test; the card showed both before)
+    cal_s, _ = calibration(pred, games, season)
     p["p_cover_cal_home"] = [cal_p(cal_s, e) if e > 0 else 1 - cal_p(cal_s, e) for e in p.spread_edge.fillna(0)]
-    p["p_over_cal"] = [cal_p(cal_t, e) if e > 0 else 1 - cal_p(cal_t, e) for e in p.total_edge.fillna(0)]
-    p.loc[p.spread_line.isna(), "p_cover_cal_home"] = np.nan; p.loc[p.total_line.isna(), "p_over_cal"] = np.nan
+    p.loc[p.spread_line.isna(), "p_cover_cal_home"] = np.nan
     # the best available number for the model's side across the books in the latest line snapshot
-    from . import lines as LN
-    best = [best_number(LN.history(r.game_id), r) for r in p.itertuples()]
+    best = [best_number(LN.history(r.game_id, log), r) for r in p.itertuples()]
     p["best_line"] = [b[0] for b in best]; p["best_book"] = [b[1] for b in best]
     p["spread_edge_best"] = [(r.model_spread - b[2]) if b[2] is not None else np.nan for r, b in zip(p.itertuples(), best)]
     # a flagged spread is bet at the best available number (the flag itself is decided on the consensus line)
@@ -203,7 +212,8 @@ def log_run(p: pd.DataFrame, run_at: str | None = None) -> pd.DataFrame:
     RUNS = OUT.parent / "runs"; RUNS.mkdir(parents=True, exist_ok=True)
     cols = ["season", "week", "game_id", "model_spread", "model_total", "spread_line", "total_line", "bet"]
     rows = p[cols].copy(); rows.insert(0, "run_at", run_at)
-    rows = rows[p.home_score.isna().values] if "home_score" in p.columns else rows   # only games not yet played
+    # every game of the week, played or not (26 Sep 2026: played games were left out, so a card re-priced after its game
+    # showed a model number that no row of its run history held; runs[] must always hold the run that priced the card)
     f = RUNS / "pred_history.csv"
     rows.round(3).to_csv(f, mode="a", header=not f.exists(), index=False)
     return rows
@@ -216,7 +226,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         vegas = f"{r.home_team} {-r.spread_line:+g} / {r.total_line:g}" if pd.notna(r.spread_line) else "no line yet"
         edge = f"{r.spread_edge:+.1f} / {r.total_edge:+.1f}" if pd.notna(r.spread_line) else ""
         cover = f"{r.home_team} {r.p_cover_home:.0%} / {r.away_team} {1 - r.p_cover_home:.0%}" if pd.notna(r.p_cover_home) else ""
-        over = f"Over {r.p_over:.0%} / Under {1 - r.p_over:.0%}" if pd.notna(r.p_over) else ""
+        over = f"Over {r.p_over_emp:.0%} / Under {1 - r.p_over_emp:.0%}" if pd.notna(r.p_over_emp) else ""
         rows.append({"Game": f"{r.away_team} @ {r.home_team}", "Date": r.gameday,
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,

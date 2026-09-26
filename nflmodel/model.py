@@ -171,6 +171,45 @@ def margin_pmf(mu: float, sigma: float, K: pd.Series) -> np.ndarray:
     return p / p.sum()
 
 
+DIST: dict = {}   # (season, week) -> the fit's key-number weights, training total misses and residual scales (walk_forward fills it)
+
+
+def price_at(mu: float, model_total: float, spread_line, total_line, dist: dict) -> dict:
+    """The model's chances for one game at a given line, from its fit's distribution (dist: K, tres, sigma_margin,
+    sigma_total): home win (key-number weighting), home cover (push excluded), over on a normal curve, and over read
+    off the training games' own total misses (pushes left out). The model run prices the schedule's line with it; the
+    picks re-price the live consensus line with the same function and the same fit."""
+    K = pd.Series(np.asarray(dist["K"], dtype=float), index=MARGIN_RANGE); tres = np.asarray(dist["tres"], dtype=float)
+    sl = np.nan if spread_line is None or pd.isna(spread_line) else float(spread_line)
+    tl = np.nan if total_line is None or pd.isna(total_line) else float(total_line)
+    win, cover = probs_from_margin(mu, dist["sigma_margin"], K, sl)
+    p_over = float(1 - norm.cdf((tl - model_total) / dist["sigma_total"])) if pd.notna(tl) else np.nan
+    p_emp = float(np.mean(model_total + tres > tl) / max(1e-9, np.mean(model_total + tres != tl))) if pd.notna(tl) else np.nan
+    return {"p_home": float(win), "p_cover_home": float(cover) if pd.notna(cover) else np.nan, "p_over": p_over, "p_over_emp": p_emp}
+
+
+def save_dist(season: int, path=None) -> None:
+    """Write the fits of `season` (DIST) to data/processed/pred_v3_dist.json, beside pred_v3, so the picks can re-price a
+    moved line with exactly the fit that priced the game. Floats in full (json's repr round-trips them)."""
+    import json
+    path = OUT / "pred_v3_dist.json" if path is None else path
+    wk = {str(w): {"K": [float(v) for v in d["K"]], "tres": [float(v) for v in d["tres"]], "sigma_margin": float(d["sigma_margin"]), "sigma_total": float(d["sigma_total"])}
+          for (s, w), d in DIST.items() if s == season}
+    path.write_text(json.dumps({"season": int(season), "margin_range": [int(MARGIN_RANGE[0]), int(MARGIN_RANGE[-1])], "weeks": wk}, separators=(",", ":")))
+
+
+def load_dist(season: int, week: int, path=None) -> dict | None:
+    """The fit's distribution for (season, week) from pred_v3_dist.json; None when the file does not hold it."""
+    import json
+    path = OUT / "pred_v3_dist.json" if path is None else path
+    if not path.exists():
+        return None
+    j = json.loads(path.read_text())
+    if int(j.get("season", -1)) != int(season) or str(week) not in j.get("weeks", {}):
+        return None
+    return j["weeks"][str(week)]
+
+
 def probs_from_margin(mu, sigma, K, line):
     """Home win, home cover (push excluded) for a home-minus-away margin at a home spread `line` (nflverse sign)."""
     pmf = margin_pmf(mu, sigma, K)
@@ -294,15 +333,15 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_seas
             sigma_m = float(np.std(tr_margin - tr_mu))
             sigma_t = float(np.std(tr_total - tr_tmu))
             K = key_weights(tr_margin, tr_mu, sigma_m)
-            wc = [probs_from_margin(mu, sigma_m, K, line) for mu, line in zip(g.model_spread, g.spread_line)]
-            g["p_home"] = [w for w, c in wc]
-            g["p_cover_home"] = [c for w, c in wc]
-            g["p_over"] = 1 - norm.cdf((g.total_line - g.model_total) / sigma_t)
             # 25 Sep 2026 (experiments/totals_fix.py): totals are right-skewed, so the chance of the over is read off the
             # training games' own misses (actual minus predicted) shifted to this game's total, not a normal curve;
             # pushes left out. Unders at a 55%+ chance won on 2015-18, 2019-22 and 2023-25 (the totals flag)
             tres = tr_total - tr_tmu
-            g["p_over_emp"] = [float(np.mean(mt + tres > L) / max(1e-9, np.mean(mt + tres != L))) if pd.notna(L) else np.nan for mt, L in zip(g.model_total, g.total_line)]
+            dist = {"K": K.values, "tres": tres, "sigma_margin": sigma_m, "sigma_total": sigma_t}
+            DIST[(int(s), int(wk) if wk is not None else 0)] = dist   # what prices a line for this fit (the picks re-price the live line with it)
+            pr = [price_at(mu, mt, sl, tl, dist) for mu, mt, sl, tl in zip(g.model_spread, g.model_total, g.spread_line, g.total_line)]
+            for k in ("p_home", "p_cover_home", "p_over", "p_over_emp"):
+                g[k] = [x[k] for x in pr]
             g["sigma_margin"], g["sigma_total"] = sigma_m, sigma_t
             g["n_train"] = len(train)
             coefs = dict(zip(FEATS, m[-1].coef_ / m[0].scale_))
@@ -335,6 +374,7 @@ if __name__ == "__main__":
     f = with_trends(pd.read_parquet(a.features))
     pred = walk_forward(f, range(int(lo), int(hi) + 1), a.alpha, verbose=True)
     pred.to_parquet(OUT / "pred_v3.parquet", index=False)
+    save_dist(int(hi))   # the fits' distributions for the season being priced, written with the table they priced
     print(pred.shape)
     ct = coefficient_table(f, range(2013, 2023), a.alpha)
     print(ct.round(3).to_string(index=False))
