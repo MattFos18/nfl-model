@@ -30,18 +30,26 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       # data/raw (play-by-play since 2012, ~300 MB) is not committed; keep it in the Actions cache between runs and
-      # re-pull everything when the cache is missing (first run, or evicted after a week unused)
+      # re-pull everything when the cache is missing (first run, or evicted after a week unused). Each run saves its own
+      # copy and the next run restores the newest (26 Sep 2026: one fixed key is never re-saved, so the line watch read
+      # the first run's copy, without the players table, and two health checks failed)
       - name: restore raw data
         id: raw
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: data/raw
-          key: nflverse-raw-v2
+          key: nflverse-raw-v2-${{ github.run_id }}
+          restore-keys: nflverse-raw-v2
       - name: weekly pipeline
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
-          if [ "${{ github.event.inputs.full }}" = "true" ] || [ "${{ steps.raw.outputs.cache-hit }}" != "true" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
+          if [ "${{ github.event.inputs.full }}" = "true" ] || [ -z "${{ steps.raw.outputs.cache-matched-key }}" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
+      - name: save raw data
+        uses: actions/cache/save@v4
+        with:
+          path: data/raw
+          key: nflverse-raw-v2-${{ github.run_id }}
       - name: commit results
         run: |
           git config user.name "nfl-model bot"
