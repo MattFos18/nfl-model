@@ -347,6 +347,22 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     tie("page inputs = model inputs", meta.get("feats"), M.FEATS)
     wk = _js("week.js")
     tie("page flag threshold = picks threshold", wk.get("spread_edge"), P.SPREAD_EDGE)
+    # the report's injury lines: each unplayed game's priced players add up to the model's injury inputs on the spread
+    # (skill value and offensive snaps on the player's side, defensive snaps in the opponent's equation)
+    _ig = []
+    for g in (wk.get("games") or []):
+        if g.get("home_score") is not None or not g.get("coefs"):
+            continue
+        co = g["coefs"]["per_unit"]
+        for t, o in ((g["home_team"], g["away_team"]), (g["away_team"], g["home_team"])):
+            sd, so = g["sides"].get(t, {}), g["sides"].get(o, {})
+            if "injuries" not in sd:
+                _ig.append(f"{g['game_id']} {t}: no injury list"); continue
+            eff = (co["skill_out_value"] - co["opp_skill_out_value"]) * (sd.get("skill_out_value") or 0) + co["off_snap_out"] * (sd.get("off_snap_out") or 0) - co["opp_def_snap_out"] * (so.get("opp_def_snap_out") or 0)
+            lst = sum(x["spread_pts"] for x in sd["injuries"] if x["priced"])
+            if abs(eff - lst) > 0.05:
+                _ig.append(f"{g['game_id']} {t}: inputs {eff:.2f}, players {lst:.2f}")
+    tie("report injury lines add up to the model's injury inputs (every unplayed game, within 0.05)", _ig, [])
     # the card and deep-dive breakdowns: intercept + sum of coefficient x (input - training mean) from the page's own files = the model's expected points
     SIT = set(M.SIT_FEATS) | {"qb_out"} | set(M.INJ_FEATS) | set(M.CONT_FEATS) | set(M.LATE_FEATS)
     def rebuild(co, inputs):

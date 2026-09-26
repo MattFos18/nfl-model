@@ -514,6 +514,47 @@ def export_season() -> dict:
     return out
 
 
+INJ_REPORT = ("Out", "Doubtful", "Questionable")
+PRICED = ("Out", "Doubtful")   # the model counts Out and Doubtful on the report and the reserve lists; Questionable plays
+
+
+def _add_injuries(wk: list, cur_week: int) -> None:
+    """Each side's injury report for the week (26 Sep 2026, for the weekly report): everyone Out, Doubtful or Questionable
+    on the league's report, and anyone on a reserve list who played last game or went on it this week, with his share of
+    last game's snaps and what the model's equation takes off the spread for him: his offensive snaps times the snaps-out
+    coefficient and his skill value times the skill-out coefficient on his side, his defensive snaps and skill value in the
+    opponent's equation. The same fit that priced the game (the week's coefficients), so the lines add up to the card's
+    injury inputs; Questionable players are listed but not priced, as in the model."""
+    rnf = OUT / "roster_now.parquet"
+    if not rnf.exists():
+        return
+    rn = pd.read_parquet(rnf)
+    for g in wk:
+        co = (g.get("coefs") or {}).get("per_unit") or {}
+        teams = [g["home_team"], g["away_team"]]
+        if g.get("home_score") is not None:   # played: today's roster is not the one the game was priced with
+            continue
+        for tm in teams:
+            sd = (g.get("sides") or {}).get(tm)
+            if sd is None:
+                continue
+            skill = {x["name"]: x["value"] for x in sd.get("skill_out_players", [])}
+            r = rn[rn.team == tm]
+            res = ~r.roster.isin(["Active", "Practice squad", "Cut", "Inactive"])
+            played = (r.off_pct.fillna(0) > 0) | (r.def_pct.fillna(0) > 0)
+            keep = r[r.report.isin(INJ_REPORT) | (res & (played | (r.since == cur_week))) | r.name.isin(list(skill))]   # everyone the skill value counts, even off a reserve list
+            rows = []
+            for p in keep.itertuples():
+                priced = p.report in PRICED or (p.report not in INJ_REPORT and p.roster not in ("Active", "Practice squad", "Cut", "Inactive"))
+                off, dfn, v = float(p.off_pct or 0) if pd.notna(p.off_pct) else 0.0, float(p.def_pct or 0) if pd.notna(p.def_pct) else 0.0, float(skill.get(p.name, 0.0))
+                own = (co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * v) if priced else 0.0
+                opp = (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * v) if priced else 0.0
+                rows.append({"name": p.name, "pos": p.position, "status": p.report or p.roster, "injury": clean(p.injury) or clean(p.why) or "",
+                             "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
+                             "back": clean(p.back)})
+            sd["injuries"] = sorted(rows, key=lambda x: (not x["priced"], x["spread_pts"], x["name"]))
+
+
 def export_week(feats=None, games=None, pred=None):
     """week.js: this week's games with the picks, the inputs, the line log and the fit that priced each game. Runs on its
     own (python -m nflmodel.export_web --week) so the page's cards can follow the line log between weekly runs."""
@@ -574,6 +615,7 @@ def export_week(feats=None, games=None, pred=None):
                        "home_ml": clean(gmeta.home_moneyline) if gmeta is not None else None, "away_ml": clean(gmeta.away_moneyline) if gmeta is not None else None,
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
+        _add_injuries(wk, cur_week)
         cal_s, cal_t = P.calibration(pred, games.reset_index(), cur_season)   # the calibrated cover and over odds as a function of the edge, so the card can re-price a moved line the same way the run did
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW, "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "total": [round(cal_t[0], 6), round(cal_t[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
