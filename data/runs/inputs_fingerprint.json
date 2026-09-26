@@ -627,57 +627,62 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 16.4,
+"wind": 15.3,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 13.6,
+"wind": 13.9,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 5.5,
+"wind": 6.1,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 5.4,
+"wind": 4.0,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 3.1,
+"wind": 4.0,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 15.9,
+"wind": 19.3,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_CIN_PIT": {
-"wind": 11.9,
+"wind": 13.6,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 13.1,
+"wind": 9.1,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_ARI_SF": {
-"wind": 6.8,
+"wind": 7.1,
 "cold": false,
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 6.9,
+"wind": 3.5,
+"cold": false,
+"rain": false
+},
+"2026_03_BAL_DAL": {
+"wind": 8.6,
 "cold": false,
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 19.1,
+"wind": 18.3,
 "cold": false,
 "rain": false
 },
@@ -687,5 +692,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-26 01:33 UTC"
+"written_at": "2026-09-26 04:24 UTC"
 }
