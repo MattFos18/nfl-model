@@ -144,10 +144,12 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
     for r in reg.itertuples():
         dome_of[r.home_team] = float(r.dome) if pd.notna(r.dome) else dome_of.get(r.home_team, 0.0)
     # expected margins: the week being priced from the prediction table where it has the game, later games from the equation
-    pmap = {}
+    pmap, ppmap = {}, {}
     if pred is not None:
         pw = pred[(pred.season == season) & (pred.week == week)]
         pmap = dict(zip(pw.game_id, pw.model_spread))
+        if "p_home" in pw.columns:   # the model's own win chance for the week being priced (model.price_at, key-number weighting)
+            ppmap = dict(zip(pw.game_id, pw.p_home))
     mus, sig, hs, as_ = [], [], [], []
     left_games = []   # each game drawn: its expected margin and the home side's chance (the page shows each team's, 24 Sep 2026)
     mh_cache = {}
@@ -155,6 +157,12 @@ def simulate(season: int, week: int, games: pd.DataFrame, P: dict, fit: dict, pr
         h, a = IDX[r.home_team], IDX[r.away_team]
         if r.game_id in pmap and pd.notna(pmap[r.game_id]):
             mu = float(pmap[r.game_id])
+            ph = ppmap.get(r.game_id)
+            if ph is not None and pd.notna(ph) and 0 < ph < 1:
+                # one win chance per game (26 Sep 2026): the week being priced is drawn at the model's own chance (the card's
+                # and the team file's), so the margin drawn is centred where a normal curve gives that chance; a plain
+                # normal on the spread read ARI@SF 0.766 here against 0.761 on the card
+                mu = float(norm.ppf(ph)) * fit["sigma"] * sigma_mult
         else:
             wk = int(r.week)
             if wk not in mh_cache:
