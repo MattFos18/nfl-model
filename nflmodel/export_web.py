@@ -951,7 +951,7 @@ def export_backtest_js(games=None, feats=None):
         bk["away_" + col] = side_val(col, "away")
     for col in ["wind_out", "rain", "cold", "dome", "primetime", "div_game"]:
         bk[col] = side_val(col, "home")
-    full = {i for i, c in enumerate(bk.columns) if c == "p_over_emp"}   # kept at six decimals (clean() keeps three)
+    full = {i for i, c in enumerate(bk.columns) if c in ("p_over_emp", "model_spread", "model_total")}   # unrounded (clean() keeps three): 26 Sep 2026, 2022_01_TB_DAL's edge of 3.99994 rounded to 4.000 and the page flagged a game the flag rule does not
     recs = [[(None if pd.isna(v) else float(v)) if i in full else clean(v) for i, v in enumerate(r)] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
     print("backtest.js", len(recs), "games", flush=True)
