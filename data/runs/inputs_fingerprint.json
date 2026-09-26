@@ -296,6 +296,11 @@
 ],
 [
 "HOU",
+"Jacob Hummel",
+"Out"
+],
+[
+"HOU",
 "Jadeveon Clowney",
 "Out"
 ],
@@ -341,7 +346,17 @@
 ],
 [
 "KC",
+"Chamarri Conner",
+"Doubtful"
+],
+[
+"KC",
 "Cooper McDonald",
+"Out"
+],
+[
+"KC",
+"Josh Simmons",
 "Out"
 ],
 [
@@ -391,6 +406,11 @@
 ],
 [
 "LAC",
+"Trey Pipkins",
+"Out"
+],
+[
+"LAC",
 "Trey Pipkins III",
 "Out"
 ],
@@ -408,6 +428,11 @@
 "MIA",
 "Jaylen Wright",
 "Doubtful"
+],
+[
+"MIA",
+"Rob Beal Jr.",
+"Out"
 ],
 [
 "MIA",
@@ -487,6 +512,11 @@
 [
 "NYJ",
 "David Onyemata",
+"Out"
+],
+[
+"NYJ",
+"Francisco Mauigoa",
 "Out"
 ],
 [
@@ -682,15 +712,10 @@
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 18.3,
-"cold": false,
-"rain": false
-},
-"2026_03_PHI_CHI": {
-"wind": 5.2,
+"wind": 18.4,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-26 04:24 UTC"
+"written_at": "2026-09-26 06:25 UTC"
 }
