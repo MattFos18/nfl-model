@@ -420,7 +420,7 @@ RESERVE_CODE = {"R01": "Injured reserve", "R48": "Injured reserve, designated to
 def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
     """Why each player the model prices as unavailable is out, from every source we pull (24 Sep 2026): (team, gsis id)
     -> list (the roster's reserve list, by its status code), why (the injury), why_src (where the injury came from:
-    this week's league report, ESPN's injury page, or the last league report that listed him this season), since (the
+    this week's league report, ESPN's injury page, or a league report this season from this stint; never last season's), since (the
     first week of this stint on a reserve list), back (ESPN's expected return date)."""
     cur = ros[ros.week == week] if (ros.week == week).any() else ros[ros.week == ros.week.max()]
     out = {}
@@ -468,8 +468,14 @@ def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
         elif key in esp and esp[key][1]:
             o.update({"why": esp[key][1], "why_src": "ESPN injury page"})
         elif key in last_inj:
-            ls_, lw_, li_, lst_ = last_inj[key]
-            o.update({"why": li_, "why_src": f"last league report that listed him ({'' if ls_ == season else str(ls_) + ' '}week {lw_}{', ' + lst_ if lst_ else ''})"})
+            # an older listing names this injury only when it belongs to this stint: listed this season, no more than a
+            # week before he went on the list. Last season's listings never do (26 Sep 2026: A.J. Brown, on IR from
+            # Week 2, showed "Teeth" from a 2025 Week 17 report; 95 players carried a 2025 reason)
+            ls_, lw_, li_, lst_ = last_inj[key]; since = o.get("since")
+            if ls_ == season and (since is None or lw_ >= since - 1):
+                o.update({"why": li_, "why_src": f"last league report that listed him ({'' if ls_ == season else str(ls_) + ' '}week {lw_}{', ' + lst_ if lst_ else ''})"})
+            else:
+                o.update({"why": "", "why_src": f"not given this season (his last listing, {ls_} week {lw_}, is from before this stint)"})
         if key in esp and esp[key][2]:
             o["back"] = esp[key][2]
     return out

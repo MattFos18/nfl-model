@@ -79,6 +79,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         _s, _w = LN.current_week(g)
         tie("scheme profiles as of the current week", f"{sp['season']} {sp['week']}", f"{_s} {_w}")
         tie("scheme profiles cover 32 teams", len(sp["teams"]), 32)
+    # injury reasons come from this season only (26 Sep 2026: A.J. Brown on IR showed "Teeth" from a 2025 report)
+    if (OUT / "roster_now.parquet").exists():
+        from . import lines as LN3; _s3, _ = LN3.current_week(g); _rn = pd.read_parquet(OUT / "roster_now.parquet")
+        _old = _rn[_rn.why_src.astype(str).str.contains(r"listed him \(20\d\d") & _rn.why.astype(str).ne("")]
+        tie("injury reasons shown come from this season (no reason from an earlier season's report)", sorted(_old.name.astype(str))[:10], [])
     if (OUT / "props.json").exists():
         pj = json.loads((OUT / "props.json").read_text()); from . import lines as LN2; _s2, _w2 = LN2.current_week(g)
         tie("props projections are for the current week", f"{pj['season']} {pj['week']}", f"{_s2} {_w2}")
