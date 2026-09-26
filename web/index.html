@@ -268,30 +268,45 @@ table.rpsum a{color:var(--ink);font-weight:600;text-decoration:none;border-botto
 .tag{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;padding:0 5px;border:1px solid var(--rule);color:var(--muted)}
 .tag.bet{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .res{font-family:var(--mono);font-weight:700}.res.win{color:var(--good)}.res.loss{color:var(--bad)}.res.push{color:var(--muted)}
-.rg{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;margin:0 0 14px;scroll-margin-top:12px}
-.rg.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
-.rgh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 10px}
-.rgh b{font-family:var(--display);font-size:20px;display:inline-flex;align-items:center;gap:6px}
-table.rgn{width:100%;font-size:13.5px}
-table.rgn th,table.rgn td{padding:5px 10px 5px 0;text-align:left;white-space:nowrap;border-bottom:1px solid var(--rule-2)}
-table.rgn thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
-table.rgn tbody th{font-weight:500;color:var(--muted);font-size:12px;width:70px}
-table.rgn tr.pick td{font-weight:600}
-table.rgn tr.sub td{font-size:12px;color:var(--muted);border-bottom:0}
-.rgmove{font-size:12.5px;color:var(--ink-2);margin:6px 0 0}
-.rgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px;margin-top:12px}
-.rgs section.wide{grid-column:1 / -1}
-.rgs h4{margin:0 0 3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;font-family:var(--body)}
-.rgtake{margin:0;font-size:15px}
-.rgline{margin:2px 0;font-size:13px;line-height:1.4}
-.rgline .t{font-weight:600}
-table.rgf{font-size:13px}
-table.rgf th,table.rgf td{padding:2px 12px 2px 0;text-align:left}
-table.rgf thead th{font-size:11px;color:var(--muted);font-weight:500}
+.rptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 6px}
+.rpt{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:10px 14px}
+.rpt .big{font-family:var(--display);font-size:30px;font-weight:600;line-height:1.1;color:var(--accent)}
+.rpt.mute .big{color:var(--ink-2)}
+.rpt .lab{font-weight:600;font-size:14px;margin-top:2px}
+.rpt .sm{font-size:12px;color:var(--muted);margin-top:2px}
+.rg{background:var(--panel);border:1px solid var(--rule);border-radius:8px;padding:16px 18px;margin:0 0 16px;scroll-margin-top:12px}
+.rg.on{border-color:var(--accent);box-shadow:inset 4px 0 0 var(--accent)}
+.rgh{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0 0 12px}
+.rgh b{font-family:var(--display);font-size:22px;display:inline-flex;align-items:center;gap:6px}
+.pbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 14px}
+.pb{border:1px solid var(--rule);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.pb.bet{border-color:var(--accent);background:var(--accent-soft)}
+.pb .pk{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.pb .pv{font-family:var(--display);font-size:22px;font-weight:600}
+.pb .pp{font-size:14px}.pb .pp b{font-family:var(--mono);font-size:17px}
+.pb .ps{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}
+.rgsec{margin:0 0 14px;min-width:0}
+.rgsec h4{margin:0 0 6px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;font-family:var(--body);border-bottom:1px solid var(--rule-2);padding-bottom:3px}
+.rgcols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 26px}
+.rgcols>*{min-width:0}
+.rgcall{margin:0 0 4px;font-size:15px}
+ul.rgwhy{margin:0;padding-left:18px;font-size:13.5px;line-height:1.5}
+.rgline{margin:2px 0 6px;font-size:13.5px;line-height:1.45}
+table.rgt{border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums;margin:0 0 4px;width:auto;min-width:0}
+table.rgt.inj{width:100%}
+table.rgt tr.tm td{font-weight:700;padding-top:10px;border-bottom:1px solid var(--rule)}
+table.rgt td.nw{white-space:nowrap}
+.rgw{overflow-x:auto;max-width:100%}
+table.rgt th,table.rgt td{padding:4px 14px 4px 0;text-align:left;border-bottom:1px solid var(--rule-2);vertical-align:top;white-space:normal}
+table.rgt thead th{font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.03em}
+table.rgt tbody th{font-weight:500;color:var(--muted);white-space:nowrap}
+table.rgt tr.op td,table.rgt tr.op th{color:var(--muted)}
+table.rgt tr.fin td{font-weight:600}
+table.rgt.inj td:nth-child(2){white-space:nowrap}
 .posv{color:var(--good)}
-@media (max-width:640px){.rpms{display:none}table.rpsum td,table.rpsum th{padding:6px 5px;font-size:12px}table.rpsum .tag{display:none}.rgs{grid-template-columns:1fr}table.rgn{font-size:12px}table.rgn th,table.rgn td{white-space:normal;padding-right:6px}table.rgn tbody th{width:52px}table.rgn tr>*:nth-child(5){display:none}table.rprec th,table.rprec td{white-space:normal;padding-right:8px}}
+@media (max-width:640px){.rpms{display:none}table.rpsum td,table.rpsum th{padding:6px 5px;font-size:12px}table.rpsum .tag{display:none}}
 body.solo nav.tabs,body.solo header .controls{display:none}
-@media (max-width:640px){.rpms,table.rpsum .tag{display:none}table.rpsum td,table.rpsum th{padding:6px 5px;font-size:12px}.rpcalls{grid-template-columns:1fr}.rpc{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 10px}.rpc .k{width:100%}dl.rpd{grid-template-columns:1fr;gap:1px}dl.rpd dt{padding-top:6px}}
+@media (max-width:640px){table.rgt.inj th:nth-child(3),table.rgt.inj td:nth-child(3),table.rgt.inj th:nth-child(4),table.rgt.inj td:nth-child(4){display:none}table.rgt.inj tr.tm td{display:table-cell}.rptiles,.pbs,.rgcols{grid-template-columns:1fr}.pb{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 10px}.pb .pk{width:100%}.pb .ps{width:100%}table.rgt{font-size:12px}table.rgt th,table.rgt td{padding-right:8px}.rpms,table.rpsum .tag{display:none}table.rpsum td,table.rpsum th{padding:6px 5px;font-size:12px}.rpcalls{grid-template-columns:1fr}.rpc{flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:2px 10px}.rpc .k{width:100%}dl.rpd{grid-template-columns:1fr;gap:1px}dl.rpd dt{padding-top:6px}}
 </style>
 
 <div class="wrap">
@@ -328,7 +343,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="rptop" class="rptop">
     <div class="rphead"><div><h2 id="rptitle" style="margin:0"></h2><p class="rpq" id="rpnote" style="margin:2px 0 0"></p></div>
       <div class="rpbtns"><button class="chip" id="rppdf" type="button">Download PDF</button><a class="chip mute" id="rpfull" href="#" style="text-decoration:none">Full model</a></div></div>
-    <div id="rprec" class="tablewrap"></div>
+    <div id="rprec"></div>
     <div class="tablewrap rpsumw"><table class="rpsum" id="rpsum"></table></div>
   </div>
   <div id="rpgames"></div>
@@ -1119,7 +1134,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (!G) return null; const meet = G.filter(x => x.hs != null && x.id !== gid && ((x.home === H && x.away === A) || (x.home === A && x.away === H))); const m5 = meet.slice(-5); if (!m5.length) return {n: 0};
     const f = form(H, m5), ov = m5.filter(x => x.total != null && x.hs + x.as !== x.total);
     return {n: m5.length, su: f.su, ats: f.ats.replace(/ \(.*\)/, ""), pts: m5.reduce((a, x) => a + x.hs + x.as, 0) / m5.length, over: ov.length ? `${ov.filter(x => x.hs + x.as > x.total).length}-${ov.filter(x => x.hs + x.as < x.total).length}` : null,
-      last: meet.slice(-3).reverse().map(x => { const cov = x.spread == null ? null : Math.sign(x.hs - x.as - x.spread); return {season: x.season, w: x.hs > x.as ? x.home : x.away, ws: Math.max(x.hs, x.as), l: x.hs > x.as ? x.away : x.home, ls: Math.min(x.hs, x.as), tie: x.hs === x.as, line: x.spread == null ? null : lineTxt(x.home, -x.spread), covered: cov == null ? null : (cov > 0 ? x.home : cov < 0 ? x.away : "push")}; })};
+      last: meet.slice(-5).reverse().map(x => { const cov = x.spread == null ? null : Math.sign(x.hs - x.as - x.spread); return {season: x.season, w: x.hs > x.as ? x.home : x.away, ws: Math.max(x.hs, x.as), l: x.hs > x.as ? x.away : x.home, ls: Math.min(x.hs, x.as), tie: x.hs === x.as, total: x.total, line: x.spread == null ? null : lineTxt(x.home, -x.spread), covered: cov == null ? null : (cov > 0 ? x.home : cov < 0 ? x.away : "push")}; })};
   }
   // Takeaways: the handful of readings on this card that bear on the outcome, each a short line, drawn from the same
   // tables the other tabs show (inputs, absences, the scheme matchup, the last meetings, the props against the book)
@@ -2846,67 +2861,79 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     R.inj = [A, H].some(t => !((g.sides || {})[t] || {}).injuries) ? null : [A, H].map(t => { const sd = g.sides[t], L = sd.injuries;
       return {t, qbOut: !!sd.qb_out, qb: sd.qb_name, net: L.filter(x => x.priced).reduce((a, x) => a + x.spread_pts, 0),
         key: L.filter(x => x.priced && Math.abs(x.spread_pts) >= 0.1).sort((x, y) => x.spread_pts - y.spread_pts).slice(0, 3),
-        q: L.filter(x => !x.priced && x.status === "Questionable" && Math.max(x.off, x.def) >= 0.5).slice(0, 3)}; });
+        q: L.filter(x => !x.priced && x.status === "Questionable" && Math.max(x.off, x.def) >= 0.5).slice(0, 3), all: L}; });
     R.h2h = meetings(H, A, g.game_id);
     if (G) { const played = G.filter(x => x.hs != null && x.id !== g.game_id), last = t => played.filter(x => x.home === t || x.away === t).slice(-5);
       R.form = [A, H].map(t => { const f = form(t, last(t)); return {t, n: f.n, su: f.su, ats: f.ats.replace(/ \(.*\)/, ""), ou: f.ou, pf: f.pf, pa: f.pa}; }); }
     R.scheme = [[A, H], [H, A]].map(([O, D]) => schemeLooks(O, D)).filter(Boolean);
     return R;
   }
+  // the input groups as a reader says them: what the team is better at
+  const WHY_TXT = {offense: "better offense", defense: "better defense", QB: "better QB", "home field": "home field", injuries: "fewer injuries", "weather and venue": "weather and venue", "division game": "division game", "roster turnover": "more of last year's roster back", "out of the race": "opponent out of the race"};
   function renderReport() {
     const W = window.WEEK || {}, RP = W.report_records || {};
     if (!W.games) { $("rpgames").innerHTML = `<p class="note">${esc(W.error || "No week exported.")}</p>`; return; }
     const RS = W.games.map(gameReadings), lastTs = W.games.flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop();
     $("rptitle").textContent = `NFL Model · Week ${W.week}, ${W.season}`;
-    $("rpnote").textContent = `% = the model's chance that side hits${lastTs ? ` · lines as of ${etTime(lastTs)}` : ""}`;
-    // the records: every backtest game since 2015 (the same grading as the Bets tab) and this season's bets as logged
+    $("rpnote").textContent = lastTs ? `Lines as of ${etTime(lastTs)}` : "";
+    // the record, as three plain statements: how the bets have done since 2015, and how the model's side does on every game
     const T = (window.TRACK || []).filter(r => ["win", "loss"].includes(r.result)), live = who => { const x = T.filter(r => r.who === who); return [x.filter(r => r.result === "win").length, x.filter(r => r.result === "loss").length]; };
-    const sp = RP.spread || {}, tt = RP.total || {};
-    $("rprec").innerHTML = RP.spread ? `<table class="rprec"><thead><tr><th></th><th>Bets</th><th>Every game</th><th>${W.season} bets</th></tr></thead><tbody>
-      <tr><th>Spread</th><td>${wlTxt(sp.flag)} <span class="rpq">edge ${sp.edge}+</span></td><td>${wlTxt(sp.all)}</td><td>${wlTxt(live("model"))}</td></tr>
-      <tr><th>Total</th><td>${wlTxt(tt.flag)} <span class="rpq">${tt.side} ${Math.round(100 * tt.prob)}%+</span></td><td>${wlTxt(tt.all)}</td><td>${wlTxt(live("shadowunder"))}</td></tr>
-      </tbody></table><p class="rpq" style="margin:4px 0 0">Backtest ${RP.seasons}, regular season, the model's side against the closing line; break-even at −110 is 52.4%.</p>` : "";
-    // the summary: one row per game, the whole row opens the game below
-    const pick = c => c ? `<span class="pk">${esc(c.line)}</span> <span class="rpp">${pct0(c.p)}</span>${c.bet ? ` <span class="tag bet">Bet</span>` : ""}${c.result ? " " + RES(c.result) : ""}` : `<span class="rpq">no line</span>`;
-    const sc = (S, R) => S ? `${S[R.A].toFixed(1)}–${S[R.H].toFixed(1)}` : "";
-    $("rpsum").innerHTML = `<thead><tr><th>Game</th><th>Spread · cover</th><th>Total · hit</th><th>Win</th><th class="rpms">Model score</th><th class="rpms">Final</th></tr></thead><tbody>` +
-      RS.map((R, i) => `<tr class="${(R.spread && R.spread.bet) || (R.total && R.total.bet) ? "on" : ""}" data-rp="${i}" tabindex="0" role="link"><td><a href="#rp${i}" data-rp="${i}">${R.A} @ ${R.H}</a></td><td>${pick(R.spread)}</td><td>${pick(R.total)}</td><td>${R.win.side} <span class="rpp">${pct0(R.win.p)}</span>${R.win.result ? " " + RES(R.win.result) : ""}</td><td class="mono rpms">${sc(R.score, R)}</td><td class="mono rpms">${R.final ? `${R.final[R.A]}–${R.final[R.H]}` : ""}</td></tr>`).join("") + "</tbody>";
+    const pctOf = wl => wl && wl[0] + wl[1] ? Math.round(100 * wl[0] / (wl[0] + wl[1])) + "%" : "–", rec = wl => wl && wl[0] + wl[1] ? `${wl[0]}-${wl[1]}` : "no games yet";
+    const sp = RP.spread || {}, tt = RP.total || {}, ls = live("model"), lt = live("shadowunder");
+    $("rprec").innerHTML = RP.spread ? `<div class="rptiles">
+      <div class="rpt"><div class="big">${pctOf(sp.flag)}</div><div class="lab">Spread bets win</div><div class="sm">edge of ${sp.edge}+ pts · ${rec(sp.flag)} since ${RP.seasons.slice(0, 4)}${ls[0] + ls[1] ? ` · ${W.season}: ${rec(ls)}` : ""}</div></div>
+      <div class="rpt"><div class="big">${pctOf(tt.flag)}</div><div class="lab">Total bets win</div><div class="sm">${tt.side} at a ${Math.round(100 * tt.prob)}%+ chance · ${rec(tt.flag)}${lt[0] + lt[1] ? ` · ${W.season}: ${rec(lt)}` : ""}</div></div>
+      <div class="rpt mute"><div class="big">${pctOf(sp.all)} / ${pctOf(tt.all)}</div><div class="lab">Every game, no filter</div><div class="sm">spread / total, the model's side · you need 52.4% to profit at −110</div></div>
+    </div>` : "";
+    // the chart: one row per game, the row opens the game
+    const pick = c => c ? `<b>${esc(c.line)}</b> <span class="rpp">${pct0(c.p)}</span>${c.bet ? ` <span class="tag bet">Bet</span>` : ""}${c.result ? " " + RES(c.result) : ""}` : `<span class="rpq">no line</span>`;
+    $("rpsum").innerHTML = `<thead><tr><th>Game</th><th>Spread pick · chance</th><th>Total pick · chance</th><th>Winner · chance</th><th class="rpms">Model score</th><th class="rpms">Final</th></tr></thead><tbody>` +
+      RS.map((R, i) => `<tr class="${(R.spread && R.spread.bet) || (R.total && R.total.bet) ? "on" : ""}" data-rp="${i}" tabindex="0" role="link"><td><a href="#rp${i}" data-rp="${i}">${R.A} @ ${R.H}</a></td><td>${pick(R.spread)}</td><td>${pick(R.total)}</td><td><b>${R.win.side}</b> <span class="rpp">${pct0(R.win.p)}</span>${R.win.result ? " " + RES(R.win.result) : ""}</td><td class="mono rpms">${R.A} ${R.score[R.A].toFixed(1)}, ${R.H} ${R.score[R.H].toFixed(1)}</td><td class="mono rpms">${R.final ? `${R.A} ${R.final[R.A]}, ${R.H} ${R.final[R.H]}` : ""}</td></tr>`).join("") + "</tbody>";
     const pts = v => Math.abs(v) < 0.05 ? "0.0" : (v > 0 ? "+" : "−") + Math.abs(v).toFixed(1), tl = n => Number.isInteger(n) ? String(n) : n.toFixed(1);
     $("rpgames").innerHTML = RS.map((R, i) => { const g = R.g, sh = (g.sides || {})[R.H] || {}, A = R.A, H = R.H;
-      // the numbers: model, Vegas, our side, final
-      const num = `<div class="tablewrap"><table class="rgn"><thead><tr><th></th><th>Spread</th><th>Total</th><th>Win</th><th>Score</th></tr></thead><tbody>
-        <tr><th>Model</th><td>${lineTxt(H, -g.model_spread)}</td><td>${g.model_total.toFixed(1)}</td><td>${R.win.side} ${pct0(R.win.p)}</td><td>${A} ${R.score[A].toFixed(1)} · ${H} ${R.score[H].toFixed(1)}</td></tr>
-        <tr><th>Vegas</th><td>${g.spread_line != null ? lineTxt(H, -g.spread_line) : "–"}</td><td>${g.total_line ?? "–"}</td><td>${R.win.vegas == null ? "–" : R.win.side + " " + pct0(R.win.vegas)}</td><td>${R.vscore ? `${A} ${R.vscore[A].toFixed(1)} · ${H} ${R.vscore[H].toFixed(1)}` : "–"}</td></tr>
-        <tr class="pick"><th>Our side</th><td>${R.spread ? `${esc(R.spread.line)} · <b>${pct0(R.spread.p)}</b>${R.spread.bet ? ` <span class="tag bet">Bet</span>` : ""} ${RES(R.spread.result)}` : "–"}</td><td>${R.total ? `${esc(R.total.line)} · <b>${pct0(R.total.p)}</b>${R.total.bet ? ` <span class="tag bet">Bet</span>` : ""} ${RES(R.total.result)}` : "–"}</td><td>${R.win.side} <b>${pct0(R.win.p)}</b> ${RES(R.win.result)}</td><td>${R.final ? `Final ${A} ${R.final[A]} · ${H} ${R.final[H]}` : ""}</td></tr>
-        <tr class="sub"><th>Edge</th><td>${R.spread ? `${R.spread.edge.toFixed(1)} pts${R.spread.hist ? ` · ${R.spread.hist.lab}: ${wlTxt(R.spread.hist.wl)}` : ""}` : ""}</td><td>${R.total ? `${R.total.edge.toFixed(1)} pts${R.total.hist ? ` · ${R.total.hist.lab}: ${wlTxt(R.total.hist.wl)}` : ""}` : ""}</td><td></td><td></td></tr>
-      </tbody></table></div>`;
-      const mv = R.move, r0 = mv.runs[0], r1 = mv.runs[mv.runs.length - 1];
-      const move = mv.since ? `<p class="rgmove">Since ${md(mv.since)}: line ${mv.spread0 != null && g.spread_line != null ? `${lineTxt(H, -mv.spread0)} → ${lineTxt(H, -g.spread_line)}` : "–"} · total ${mv.total0 != null && g.total_line != null ? `${tl(mv.total0)} → ${tl(g.total_line)}` : "–"}${r0 && r1 && r0 !== r1 ? ` · model ${lineTxt(H, -r0.model_spread)} → ${lineTxt(H, -g.model_spread)}` : ""}</p>` : "";
-      // takeaway: who the model has, the edges behind it, and where it parts from Vegas
-      const fav = g.model_spread >= 0 ? H : A, dSp = g.spread_line == null ? null : g.model_spread - g.spread_line, dT = g.total_line == null ? null : g.model_total - g.total_line;
-      const edges = R.drivers.map(x => `${x.team} ${x.label} +${x.pts.toFixed(1)}`).join(" · ");
-      const vs = [dSp == null ? null : Math.abs(dSp) < 1 ? "spread in line with Vegas" : `${dSp > 0 ? H : A} ${Math.abs(dSp).toFixed(1)} better than Vegas`, dT == null ? null : Math.abs(dT) < 1 ? "total in line" : `total ${Math.abs(dT).toFixed(1)} ${dT > 0 ? "over" : "under"}`].filter(Boolean).join(" · ");
-      const take = `<p class="rgtake"><b>${fav} by ${Math.abs(g.model_spread).toFixed(1)}</b>${vs ? ` · ${vs}` : ""}</p>${edges ? `<p class="rgline">${edges}</p>` : ""}`;
-      // injuries and what they move the line
-      const inj = R.inj ? (() => { const net = R.inj[1].net - R.inj[0].net; return `<p class="rgline"><b>${Math.abs(net) < 0.05 ? "No net effect" : `${net > 0 ? H : A} +${Math.abs(net).toFixed(1)} on the line`}</b> <span class="rpq">(${A} ${pts(R.inj[0].net)} · ${H} ${pts(R.inj[1].net)})</span></p>` +
-        R.inj.map(x => { const items = (x.qbOut ? [`<span class="neg">QB out, ${esc(x.qb || "backup")} starts</span>`] : []).concat(x.key.map(p => `${esc(p.name)} ${esc(p.pos)} ${pts(p.spread_pts)}`)).concat(x.q.map(p => `${esc(p.name)} ${esc(p.pos)} Q`));
-          return items.length ? `<p class="rgline"><span class="t">${x.t}</span> ${items.join(" · ")}</p>` : ""; }).join("") ; })() : `<p class="rgline rpq">Played</p>`;
-      // matchup history (these two teams) and recent form (each team's own last five), kept apart
-      const hh = R.h2h && R.h2h.n ? `<p class="rgline"><b>${H} ${R.h2h.su}</b> · ATS ${R.h2h.ats} · O/U ${R.h2h.over || "–"} · ${Math.round(R.h2h.pts)} pts a game</p>` +
-        `<p class="rgline rpq">${R.h2h.last.slice(0, 2).map(m => `${m.season}: ${m.tie ? `tie ${m.ws}-${m.ls}` : `${m.w} ${m.ws}-${m.ls}`}${m.line ? `, ${m.covered === "push" ? "push" : m.covered + " covered"}` : ""}`).join(" · ")}</p>` : `<p class="rgline rpq">No meetings since ${G ? G[0].season : ""}</p>`;
-      const fm = R.form ? `<table class="rgf"><thead><tr><th></th><th>W-L</th><th>ATS</th><th>O/U</th><th>Pts</th></tr></thead><tbody>${R.form.map(f => `<tr><th>${f.t}</th><td>${f.su}</td><td>${f.ats}</td><td>${f.ou}</td><td>${f.pf}–${f.pa}</td></tr>`).join("")}</tbody></table>` : "";
-      // schemes: each offense in the looks the other defense uses most
-      const sch = R.scheme.length ? R.scheme.map(x => `<p class="rgline"><span class="t">${x.O} O vs ${x.D} D</span> ${x.looks.map(l => `${esc(l.look)} ${pc(l.use)} <span class="${l.gap >= 0.05 ? "posv" : l.gap <= -0.05 ? "neg" : "rpq"}">${lookVerdict(l.gap)}</span>`).join(" · ")} → <b>${x.edge === "even" ? "even" : "edge " + x.edge}</b></p>`).join("") : `<p class="rgline rpq">Not charted yet</p>`;
+      // the three picks, each in its own box: the pick, the chance, the edge, how often edges that size hit
+      const box = (kind, c, what) => c ? `<div class="pb ${c.bet ? "bet" : ""}"><div class="pk">${kind}${c.bet ? ` <span class="tag bet">Bet</span>` : ""}</div><div class="pv">${esc(c.line)} ${RES(c.result)}</div><div class="pp"><b>${pct0(c.p)}</b> ${what}</div>
+        <div class="ps">edge ${c.edge.toFixed(1)} pts${c.hist ? `<br>${c.hist.lab}: ${pctOf(c.hist.wl)} hit (${rec(c.hist.wl)})` : ""}</div></div>` : `<div class="pb"><div class="pk">${kind}</div><div class="ps">no line yet</div></div>`;
+      const picks = `<div class="pbs">${box("Spread", R.spread, "to cover")}${box("Total", R.total, "to hit")}<div class="pb"><div class="pk">Winner</div><div class="pv">${R.win.side} ${RES(R.win.result)}</div><div class="pp"><b>${pct0(R.win.p)}</b> to win</div><div class="ps">${R.win.vegas == null ? "no moneyline yet" : `Vegas: ${pct0(R.win.vegas)}`}</div></div></div>`;
+      // model against Vegas, and the line's move since the week opened
+      const mv = R.move, r0 = mv.runs[0];
+      const vsV = `<table class="rgt"><thead><tr><th></th><th>Spread</th><th>Total</th><th>Score</th></tr></thead><tbody>
+        <tr><th>Model</th><td>${lineTxt(H, -g.model_spread)}</td><td>${g.model_total.toFixed(1)}</td><td>${A} ${R.score[A].toFixed(1)}, ${H} ${R.score[H].toFixed(1)}</td></tr>
+        <tr><th>Vegas</th><td>${g.spread_line != null ? lineTxt(H, -g.spread_line) : "–"}</td><td>${g.total_line ?? "–"}</td><td>${R.vscore ? `${A} ${R.vscore[A].toFixed(1)}, ${H} ${R.vscore[H].toFixed(1)}` : "–"}</td></tr>
+        ${mv.since ? `<tr class="op"><th>Opened ${md(mv.since)}</th><td>${mv.spread0 != null ? lineTxt(H, -mv.spread0) : "–"}${r0 ? ` <span class="rpq">(model ${lineTxt(H, -r0.model_spread)})</span>` : ""}</td><td>${mv.total0 != null ? tl(mv.total0) : "–"}</td><td></td></tr>` : ""}
+        ${R.final ? `<tr class="fin"><th>Final</th><td>${lineTxt(H, -(g.home_score - g.away_score))}</td><td>${g.home_score + g.away_score}</td><td>${A} ${R.final[A]}, ${H} ${R.final[H]}</td></tr>` : ""}</tbody></table>`;
+      // the takeaway in two plain lines: the model's call against Vegas, then why, in points, for each side
+      const fav = g.model_spread >= 0 ? H : A, dog = fav === H ? A : H, vFav = g.spread_line == null ? null : (g.spread_line >= 0 ? H : A);
+      const call = `Model: <b>${fav} by ${Math.abs(g.model_spread).toFixed(1)}</b>${g.spread_line != null ? ` · Vegas: ${vFav} by ${Math.abs(g.spread_line)}` : ""}${g.total_line != null ? ` · total ${g.model_total.toFixed(1)} vs ${g.total_line}` : ""}`;
+      const why = t => R.drivers.filter(x => x.team === t).map(x => `${WHY_TXT[x.label] || x.label} <span class="rpp">+${x.pts.toFixed(1)}</span>`);
+      const whyLines = [fav, dog].map(t => { const w = why(t); return w.length ? `<li><b>${t}:</b> ${w.join(", ")}</li>` : ""; }).join("");
+      const take = `<p class="rgcall">${call}</p>${whyLines ? `<ul class="rgwhy">${whyLines}</ul><p class="rpq" style="margin:2px 0 0">Points each edge adds to that team's side of the spread.</p>` : ""}`;
+      // the injury report: every player listed, what each one moves the line, and the net
+      let inj;
+      if (!R.inj) inj = `<p class="rpq">Game played: today's report no longer applies.</p>`;
+      else { const net = R.inj[1].net - R.inj[0].net, rows = R.inj.flatMap(x => x.all.map(p => ({t: x.t, p})));
+        const eff = p => !p.priced ? `<span class="rpq">not counted</span>` : Math.abs(p.spread_pts) < 0.05 ? `<span class="rpq">under 0.1</span>` : `<b class="neg">${pts(p.spread_pts)}</b>`;
+        inj = `<p class="rgline">${R.inj.map(x => `${x.t}'s injuries cost ${x.t} <b>${Math.abs(x.net).toFixed(1)} pts</b>`).join(" · ")} → <b>${Math.abs(net) < 0.05 ? "no net effect" : `net ${Math.abs(net).toFixed(1)} toward ${net > 0 ? H : A}`}</b></p>` +
+          (R.inj.some(x => x.qbOut) ? `<p class="rgline neg">${R.inj.filter(x => x.qbOut).map(x => `${x.t}'s starting QB is out: ${esc(x.qb || "the backup")} is priced`).join(" · ")}</p>` : "") +
+          (rows.length ? `<div class="rgw"><table class="rgt inj"><thead><tr><th>Player</th><th>Status</th><th>Injury</th><th>Snaps last game</th><th>Line effect</th></tr></thead><tbody>${rows.map(({t, p}, k) => `${k === 0 || rows[k - 1].t !== t ? `<tr class="tm"><td colspan="5">${t}</td></tr>` : ""}<tr><td>${esc(p.name)} <span class="rpq">${esc(p.pos)}</span></td><td>${esc(p.status)}</td><td>${esc(p.injury || "")}</td><td>${Math.max(p.off, p.def) ? Math.round(100 * Math.max(p.off, p.def)) + "%" : "–"}</td><td class="nw">${eff(p)}</td></tr>`).join("")}</tbody></table></div>
+          <p class="rpq" style="margin:2px 0 0">Out, Doubtful and injured reserve are priced; Questionable players are expected to play and are not counted.</p>` : `<p class="rgline rpq">Nobody on the report.</p>`); }
+      // the last meetings of these two teams, one row each
+      const hh = R.h2h && R.h2h.n ? `<p class="rgline">Last ${R.h2h.n}: <b>${H} won ${R.h2h.su.split("-")[0]}</b>, covered ${R.h2h.ats.split("-")[0]}, ${R.h2h.over ? `went over ${R.h2h.over.split("-")[0]}, ` : ""}${Math.round(R.h2h.pts)} points a game</p>
+        <table class="rgt"><thead><tr><th>Year</th><th>Score</th><th>Line</th><th>Covered</th><th>Total</th></tr></thead><tbody>${R.h2h.last.map(m => `<tr><td>${m.season}</td><td class="nw">${m.tie ? `Tie ${m.ws}-${m.ls}` : `${m.w} ${m.ws}-${m.ls}`}</td><td>${m.line || "–"}</td><td>${m.covered == null ? "–" : m.covered === "push" ? "push" : m.covered}</td><td>${m.total == null ? "–" : `${m.ws + m.ls} vs ${tl(m.total)}, ${m.ws + m.ls > m.total ? "over" : m.ws + m.ls < m.total ? "under" : "push"}`}</td></tr>`).join("")}</tbody></table>` : `<p class="rgline rpq">They have not met since ${G ? G[0].season : ""}.</p>`;
+      // each team's own last five games
+      const fm = R.form ? `<table class="rgt"><thead><tr><th>Team</th><th>Won-lost</th><th>Covered</th><th>Overs</th><th>Points for / against</th></tr></thead><tbody>${R.form.map(f => `<tr><td><b>${f.t}</b></td><td>${f.su}</td><td>${f.ats}</td><td>${f.ou}</td><td>${f.pf} / ${f.pa}</td></tr>`).join("")}</tbody></table>` : "";
+      // schemes: for each offense, the looks the other defense uses most and how the offense does in them against the league
+      const sch = R.scheme.length ? R.scheme.map(x => `<div><p class="rgline"><b>${x.O} offense vs ${x.D} defense</b> → <b>${x.edge === "even" ? "even" : "edge " + x.edge}</b></p>
+        <table class="rgt"><thead><tr><th>What ${x.D} runs</th><th>How often</th><th>${x.O} in it</th></tr></thead><tbody>${x.looks.map(l => `<tr><td>${esc(l.look)}</td><td>${pc(l.use)}</td><td class="${l.gap >= 0.05 ? "posv" : l.gap <= -0.05 ? "neg" : ""}">${l.gap >= 0.05 ? "better than the league" : l.gap <= -0.05 ? "worse than the league" : "about the league"} <span class="rpq">(${ep(l.gap)} EPA a play)</span></td></tr>`).join("")}</tbody></table></div>`).join("") : `<p class="rgline rpq">Not charted yet.</p>`;
       return `<article class="rg ${(R.spread && R.spread.bet) || (R.total && R.total.bet) ? "on" : ""}" id="rp${i}">
-        <header class="rgh"><b>${LOGO(A, 20)}${A} @ ${H}${LOGO(H, 20)}</b><span class="rpq">${whenTxt(g)} · ${wxTxt(g, sh, g.home_score != null)}</span></header>
-        ${num}${move}
-        <div class="rgs">
-          <section class="wide"><h4>Takeaway</h4>${take}</section>
-          <section><h4>Injuries · line impact</h4>${inj}</section>
-          <section><h4>Head to head · last ${R.h2h && R.h2h.n ? R.h2h.n : 5} meetings</h4>${hh}</section>
-          <section><h4>Recent form · each team's last 5 games</h4>${fm}</section>
-          <section><h4>Schemes · how each offense fares in what the defense runs most</h4>${sch}</section>
-        </div>
+        <header class="rgh"><b>${LOGO(A, 22)}${A} @ ${H}${LOGO(H, 22)}</b><span class="rpq">${whenTxt(g)} · ${wxTxt(g, sh, g.home_score != null)}</span></header>
+        ${picks}
+        <section class="rgsec"><h4>Takeaway</h4>${take}</section>
+        <section class="rgsec"><h4>Model vs Vegas</h4><div class="rgw">${vsV}</div></section>
+        <section class="rgsec"><h4>Injury report</h4>${inj}</section>
+        <div class="rgcols"><section class="rgsec"><h4>These two teams · last ${R.h2h && R.h2h.n ? R.h2h.n : 5} meetings</h4><div class="rgw">${hh}</div></section>
+        <section class="rgsec"><h4>Recent form · each team's last 5 games</h4><div class="rgw">${fm}</div></section></div>
+        <section class="rgsec"><h4>Scheme matchup</h4><div class="rgcols">${sch}</div></section>
       </article>`; }).join("");
     const go = i => { const el = $("rp" + i); if (el) el.scrollIntoView({behavior: "smooth", block: "start"}); };
     $("rpsum").querySelectorAll("tr[data-rp]").forEach(tr => { tr.addEventListener("click", ev => { ev.preventDefault(); go(tr.dataset.rp); }); tr.addEventListener("keydown", ev => { if (ev.key === "Enter") go(tr.dataset.rp); }); });
@@ -2925,12 +2952,22 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       root.setAttribute("data-theme", "light");   // print on white, whatever the viewer's theme
       const pdf = new window.jspdf.jsPDF({unit: "pt", format: "letter"}), PW = 612, PH = 792, M = 30, CW = PW - 2 * M;
       const shot = async el => { const c = await html2canvas(el, {scale: 2, backgroundColor: "#ffffff", ignoreElements: x => x.classList && (x.classList.contains("rpbtns"))}); return {c, h: c.height * CW / c.width, k: CW / el.getBoundingClientRect().width}; };
-      let y = M; const place = (s, newPage) => { if (newPage || y + s.h > PH - M) { if (y > M) pdf.addPage(); y = M; } const at = {page: pdf.getNumberOfPages(), y}; pdf.addImage(s.c.toDataURL("image/jpeg", 0.92), "JPEG", M, y, CW, s.h); y += s.h + 10; return at; };
+      // a block that fits goes on this page or the next; a taller one (a long injury report) is cut into page-high slices
+      let y = M; const avail = PH - 2 * M;
+      const place = s => {
+        if (s.h <= avail) { if (y + s.h > PH - M) { pdf.addPage(); y = M; } const at = {page: pdf.getNumberOfPages(), y}; pdf.addImage(s.c.toDataURL("image/jpeg", 0.85), "JPEG", M, y, CW, s.h); y += s.h + 10; return at; }
+        if (y > M) { pdf.addPage(); y = M; }
+        const k = s.c.height / s.h; let off = 0, first = null;
+        while (off < s.h - 0.5) { const hp = Math.min(avail, s.h - off), part = document.createElement("canvas"); part.width = s.c.width; part.height = Math.round(hp * k);
+          part.getContext("2d").drawImage(s.c, 0, Math.round(off * k), s.c.width, part.height, 0, 0, s.c.width, part.height);
+          if (off > 0) { pdf.addPage(); y = M; } const at = {page: pdf.getNumberOfPages(), y}; if (!first) first = at;
+          pdf.addImage(part.toDataURL("image/jpeg", 0.85), "JPEG", M, y, CW, hp); y += hp + 10; off += hp; }
+        return first; };
       const head = $("rptop"), sumEl = $("rpsum"), rows = [...sumEl.querySelectorAll("tbody tr")], top = head.getBoundingClientRect().top;
       const rects = rows.map(r => { const b = r.getBoundingClientRect(); return {y: b.top - top, h: b.height, i: r.dataset.rp}; });
-      const hs = await shot(head), hAt = place(hs, false);
+      const hs = await shot(head), hAt = place(hs);
       const games = [...document.querySelectorAll("#rpgames article.rg")], at = {};
-      for (const el of games) { const s = await shot(el); at[el.id.slice(2)] = place(s, false).page; }
+      for (const el of games) { const s = await shot(el); at[el.id.slice(2)] = place(s).page; }
       pdf.setPage(hAt.page); rects.forEach(r => { if (at[r.i]) pdf.link(M, hAt.y + r.y * hs.k, CW, r.h * hs.k, {pageNumber: at[r.i]}); });
       const W = window.WEEK || {};
       await rpDownloads.save({filename: `NFL model week ${W.week} ${W.season}.pdf`, data: pdf.output("blob")});
