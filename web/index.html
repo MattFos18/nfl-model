@@ -2797,7 +2797,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const calls = RS.flatMap((R, i) => [R.spread, R.total].filter(c => c && c.status !== "none").map(c => ({c, R, i})));
     $("rpbets").innerHTML = ["bet", "tracked"].map(st => { const x = calls.filter(y => y.c.status === st); return `<div class="rpb"><span class="tag ${st}">${st === "bet" ? "Bets" : "Tracked, not bet"}</span>${x.length ? x.map(y => `<a href="#rp${y.i}" data-rp="${y.i}">${esc(y.c.line)} <span class="rpp">${pct0(y.c.p)}</span>${RES(y.c.result)} <span class="rpq">${y.R.A} @ ${y.R.H}</span></a>`).join("") : `<span class="rpq">none this week</span>`}</div>`; }).join("");
     $("rpsum").innerHTML = `<thead><tr><th>Game</th><th>Spread</th><th>Total</th><th>Winner</th><th class="rpms">Model score</th></tr></thead><tbody>` + RS.map((R, i) => `<tr class="${on(R) ? "on" : ""}"><td><a href="#rp${i}" data-rp="${i}">${R.A} @ ${R.H}</a></td><td>${cell(R.spread)}</td><td>${cell(R.total)}</td><td>${R.win.side} <span class="rpp">${pct0(R.win.p)}</span>${RES(R.win.result)}</td><td class="mono rpms">${R.A} ${R.score[R.A].toFixed(1)} · ${R.H} ${R.score[R.H].toFixed(1)}${R.final ? `<span class="rpq"> · final ${R.final[R.A]}-${R.final[R.H]}</span>` : ""}</td></tr>`).join("") + "</tbody>";
-    const pts = v => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1);
+    const pts = v => Math.abs(v) < 0.05 ? "0.0" : (v > 0 ? "+" : "−") + Math.abs(v).toFixed(1);
     $("rpgames").innerHTML = RS.map((R, i) => { const g = R.g, sh = (g.sides || {})[R.H] || {};
       const dl = [];
       if (R.drivers.length) dl.push(["Why", `<div class="rpl">${R.drivers.map(x => `<span><span class="t">${x.team}</span> +${x.pts.toFixed(1)} ${esc(x.label)}</span>`).join("")}</div>`]);
