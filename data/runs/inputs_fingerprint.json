@@ -2341,11 +2341,6 @@
 "cold": false,
 "rain": false
 },
-"2026_03_ARI_SF": {
-"wind": 7.6,
-"cold": false,
-"rain": false
-},
 "2026_03_MIN_TB": {
 "wind": 4.8,
 "cold": false,
@@ -2362,10 +2357,10 @@
 "rain": false
 },
 "2026_03_PHI_CHI": {
-"wind": 4.8,
+"wind": 5.0,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-26 23:25 UTC"
+"written_at": "2026-09-26 23:47 UTC"
 }

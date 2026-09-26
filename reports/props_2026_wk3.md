@@ -1,6 +1,6 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.88). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.28 / 18.25 yards off on receiving, 17.8 / 17.03 on rushing and 56.74 / 56.21 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-26 23:22 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.88). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.28 / 18.25 yards off on receiving, 17.8 / 17.03 on rushing and 56.74 / 56.21 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-26 23:44 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -1771,7 +1771,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0041182  | Drew Stevens             | field_goals      |   1.55  |         16.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_yards        |  72.2   |         13.6  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_catches      |   9     |         13.6  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_td           |   0.58  |         13.6  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_td           |   0.581 |         13.6  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_targets      |  13.6   |         13.6  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037744  | Trey McBride             | rec_longest      |  19.3   |         13.6  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0038559  | Michael Wilson           | rec_yards        |  59.1   |         10.2  | live   |
@@ -1781,12 +1781,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0038559  | Michael Wilson           | rec_longest      |  19.4   |         10.2  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_yards        |  39.1   |          6.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_catches      |   3.8   |          6.1  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_td           |   0.157 |          6.1  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_td           |   0.158 |          6.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_targets      |   6.1   |          6.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033307  | Kendrick Bourne          | rec_longest      |  13.2   |          6.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_yards        |  28.8   |          5.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_catches      |   2.7   |          5.1  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_td           |   0.179 |          5.1  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_td           |   0.18  |          5.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_targets      |   5.1   |          5.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_longest      |  15.7   |          5.1  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0037157  | Bam Knight               | rec_yards        |  16.3   |          4.1  | live   |
@@ -1824,12 +1824,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | rush_attempts    |   2.8   |          2.8  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | rush_rec_yards   |  10.8   |          2.8  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | rush_longest     |   7.7   |          2.8  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 237.1   |         42.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.351 |         42.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 237.4   |         42.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.358 |         42.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_int         |   0.871 |         42.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_attempts    |  39.2   |         42.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_completions |  25.6   |         42.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 247.9   |         42.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 248.2   |         42.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033119  | Jacoby Brissett          | pass_longest     |  32.8   |         42.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033890  | Budda Baker              | def_tackles      |   7.5   |         63.8  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | ARI    | 00-0033890  | Budda Baker              | def_sacks        |   0.13  |         63.8  | live   |
@@ -1869,12 +1869,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0035719  | Deebo Samuel Sr.         | rec_longest      |  16.4   |          7.2  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_yards        |  35.3   |          6.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_catches      |   3.4   |          6.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_td           |   0.371 |          6.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_td           |   0.372 |          6.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_targets      |   6.5   |          6.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0031408  | Mike Evans               | rec_longest      |  16.3   |          6.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_yards        |  39.2   |          6.4  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_yards        |  39.3   |          6.4  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_catches      |   4.4   |          6.4  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_td           |   0.453 |          6.4  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_td           |   0.454 |          6.4  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_targets      |   6.4   |          6.4  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033288  | George Kittle            | rec_longest      |  17.4   |          6.4  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0029892  | Kyle Juszczyk            | rec_yards        |  15.5   |          2.5  | live   |
@@ -1892,10 +1892,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0036887  | Luke Farrell             | rec_td           |   0.104 |          1.7  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0036887  | Luke Farrell             | rec_targets      |   1.7   |          1.7  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0036887  | Luke Farrell             | rec_longest      |   8.5   |          1.7  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_yards       |  39.7   |         12.9  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_td          |   0.455 |         12.9  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_yards       |  39.8   |         12.9  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_td          |   0.456 |         12.9  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_attempts    |  12.9   |         12.9  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_rec_yards   |  82.4   |         12.9  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_rec_yards   |  82.5   |         12.9  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0033280  | Christian McCaffrey      | rush_longest     |  13     |         12.9  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0041052  | Kaelon Black             | rush_yards       |  37     |         10.4  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0041052  | Kaelon Black             | rush_td          |   0.293 |         10.4  | live   |
@@ -1912,12 +1912,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | rush_attempts    |   4.3   |          4.3  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | rush_rec_yards   |  16.4   |          4.3  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | rush_longest     |   8.8   |          4.3  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_yards       | 262.9   |         34.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_td          |   2.094 |         34.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_yards       | 263.1   |         34.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_td          |   2.1   |         34.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_int         |   0.707 |         34.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_attempts    |  33.3   |         34.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_completions |  22.7   |         34.5  | live   |
-|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_rush_yards  | 279.3   |         34.5  | live   |
+|     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_rush_yards  | 279.5   |         34.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0037834  | Brock Purdy              | pass_longest     |  34.2   |         34.5  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0039435  | Tatum Bethune            | def_tackles      |   8.4   |         64.9  | live   |
 |     2026 |      3 | 2026_03_ARI_SF  | SF     | 00-0039435  | Tatum Bethune            | def_sacks        |   0.12  |         64.9  | live   |
@@ -2724,12 +2724,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley             | rush_attempts    |   4.1   |          4.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley             | rush_rec_yards   |  23.9   |          4.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley             | rush_longest     |   6.9   |          4.1  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_yards       | 232.7   |         34.4  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_td          |   1.66  |         34.4  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_yards       | 232.6   |         34.4  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_td          |   1.658 |         34.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_int         |   0.705 |         34.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_attempts    |  32.1   |         34.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_completions |  20.4   |         34.4  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_rush_yards  | 253     |         34.4  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_rush_yards  | 252.9   |         34.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts              | pass_longest     |  32.9   |         34.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036418  | Zack Baun                | def_tackles      |   7.6   |         70.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036418  | Zack Baun                | def_sacks        |   0.22  |         70.1  | live   |
@@ -2764,7 +2764,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_longest      |  17     |          6.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_yards        |  40     |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_catches      |   4     |          6.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_td           |   0.289 |          6.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_td           |   0.288 |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland         | rec_longest      |  16.2   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_yards        |  38.8   |          6.5  | live   |
@@ -2784,7 +2784,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rec_longest      |  12.5   |          3.3  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_yards        |  14.7   |          2.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_catches      |   1.7   |          2.9  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_td           |   0.121 |          2.9  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_td           |   0.12  |          2.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036290  | Cole Kmet                | rec_longest      |  11.4   |          2.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040236  | Kyle Monangai            | rec_yards        |  13.4   |          2.8  | live   |
@@ -2798,7 +2798,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_targets      |   2.8   |          2.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_longest      |  12.2   |          2.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_yards       |  60     |         15.2  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.496 |         15.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.495 |         15.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_attempts    |  15.2   |         15.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_rec_yards   |  78.3   |         15.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_longest     |  13.8   |         15.2  | live   |
@@ -2817,12 +2817,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_attempts    |   0.9   |          0.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_rec_yards   |  46.8   |          0.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_longest     |   6.1   |          0.9  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_yards       | 224.1   |         37.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_td          |   1.366 |         37.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_yards       | 224     |         37.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_td          |   1.364 |         37.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_int         |   0.775 |         37.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_attempts    |  36.4   |         37.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_completions |  21.1   |         37.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_rush_yards  | 248.5   |         37.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_rush_yards  | 248.4   |         37.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039918  | Caleb Williams           | pass_longest     |  34.1   |         37.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0035525  | Devin Bush               | def_tackles      |   6.4   |         62.5  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0035525  | Devin Bush               | def_sacks        |   0.08  |         62.5  | live   |
