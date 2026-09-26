@@ -636,7 +636,7 @@ def export_week(feats=None, games=None, pred=None):
         _add_injuries(wk, cur_week)
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW,
-                                                                  "rule_records": _rule_records_js(), "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
+                                                                  "rule_records": _rule_records_js(), "report_records": _report_records_js(), "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
                                                                   "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)]}}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
@@ -678,6 +678,32 @@ def _rule_records_js() -> dict:
     d = B.join(pd.read_parquet(OUT / "pred_v3.parquet"), pd.read_parquet(OUT / "games.parquet"))
     d = d[(d.game_type == "REG") & d.home_score.notna() & d.spread_line.notna()]
     return {r["rule"]: {w: r[w] for w in P.WINDOWS} for r in P.rule_records(d).to_dict("records")}
+
+
+SPREAD_BANDS = [0, 1, 2, 3, 4, 5, 6, 7]   # edge bands, points: 0-1, 1-2, ... 7+
+TOTAL_BANDS = [0.5, 0.525, 0.55, 0.575, 0.6]   # chance bands for the side the total's chance favors: 50-52.5%, ... 60%+
+
+
+def _report_records_js() -> dict:
+    """The report's records (26 Sep 2026): every backtest game 2015 to the last full season, regular season weeks 1 to 17
+    (the same games and grading as picks.rule_records), on the model's side of the spread and of the total, all games
+    and the flagged ones, and by edge band for the spread and by chance band for the total, so each game can say how
+    often an edge its size has hit."""
+    from . import backtest as B, picks as P
+    d = B.join(pd.read_parquet(OUT / "pred_v3.parquet"), pd.read_parquet(OUT / "games.parquet"))
+    lo, hi = min(a for a, _ in P.WINDOWS.values()), max(b for _, b in P.WINDOWS.values())
+    d = d[(d.game_type == "REG") & d.home_score.notna() & d.spread_line.notna() & (d.week < 18) & d.season.between(lo, hi)].copy()
+    e = d.model_spread - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
+    sp = d[(e != 0) & (cm != 0)].assign(win=lambda x: np.sign(x.model_spread - x.spread_line) == np.sign(x.home_score - x.away_score - x.spread_line), edge=lambda x: (x.model_spread - x.spread_line).abs())
+    t = d[d.total_line.notna() & d.p_over_emp.notna() & (d.home_score + d.away_score != d.total_line)].copy()
+    t["over"] = t.p_over_emp >= 0.5; t["chance"] = np.where(t.over, t.p_over_emp, 1 - t.p_over_emp)
+    t["win"] = np.where(t.over, t.home_score + t.away_score > t.total_line, t.home_score + t.away_score < t.total_line)
+    wl = lambda x: [int(x.win.sum()), int((~x.win.astype(bool)).sum())]
+    sb = [{"lo": a, "hi": (SPREAD_BANDS[i + 1] if i + 1 < len(SPREAD_BANDS) else None), "wl": wl(sp[(sp.edge >= a) & ((sp.edge < SPREAD_BANDS[i + 1]) if i + 1 < len(SPREAD_BANDS) else True)])} for i, a in enumerate(SPREAD_BANDS)]
+    tb = [{"lo": a, "hi": (TOTAL_BANDS[i + 1] if i + 1 < len(TOTAL_BANDS) else None), "wl": wl(t[(t.chance >= a) & ((t.chance < TOTAL_BANDS[i + 1]) if i + 1 < len(TOTAL_BANDS) else True)])} for i, a in enumerate(TOTAL_BANDS)]
+    ts = P.TOTAL_SHADOW; tflag = t[(t.chance >= ts["prob"]) & (t.over == (ts["side"] == "over"))]
+    return {"seasons": f"{lo}-{str(hi)[2:]}", "spread": {"edge": P.SPREAD_EDGE, "flag": wl(sp[sp.edge >= P.SPREAD_EDGE]), "all": wl(sp), "bands": sb},
+            "total": {"prob": ts["prob"], "side": ts["side"], "flag": wl(tflag), "all": wl(t), "bands": tb}}
 
 
 def refresh_books() -> None:

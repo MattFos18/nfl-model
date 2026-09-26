@@ -375,6 +375,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     tie("page inputs = model inputs", meta.get("feats"), M.FEATS)
     wk = _js("week.js")
     tie("page flag threshold = picks threshold", wk.get("spread_edge"), P.SPREAD_EDGE)
+    # the report's records: the flagged games' records = the rule records' three windows added up (one grading)
+    _rr, _rp = wk.get("rule_records") or {}, wk.get("report_records") or {}
+    if _rr and _rp:
+        _sum = lambda k: [sum(int(v.split("-")[0]) for v in _rr[k].values()), sum(int(v.split("-")[1]) for v in _rr[k].values())]
+        tie("report records: spread flag and totals flag = the rule records' three windows added up", [_rp["spread"]["flag"], _rp["total"]["flag"]], [_sum("model"), _sum("shadowunder")])
     # the report's injury lines: each unplayed game's priced players add up to the model's injury inputs on the spread
     # (skill value and offensive snaps on the player's side, defensive snaps in the opponent's equation)
     _ig = []
