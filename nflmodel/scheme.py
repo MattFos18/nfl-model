@@ -98,7 +98,10 @@ def _rate(mask: pd.Series, base: pd.Series) -> float | None:
     return round(float(mask[base].mean()), 3) if n else None
 
 
-def _epa(d: pd.DataFrame, mask: pd.Series, min_n: int = 20) -> dict:
+MIN_N = 20   # a look's EPA and success rate stay empty under this many plays (the page quotes it)
+
+
+def _epa(d: pd.DataFrame, mask: pd.Series, min_n: int = MIN_N) -> dict:
     """Plays in a look and the EPA and success rate in them. epa / success stay empty under min_n plays (the cards read
     them); epa_all / success_all are there for any count, for the Scheme tab to show greyed as a small sample (24 Sep
     2026: a blank cell next to 17 plays read as missing data)."""

@@ -22,6 +22,7 @@ KINDS = {"rec": ("receiver_player_id", "rec_yards"), "rush": ("rusher_player_id"
 MIN_PG = {"rec": 2.5, "rush": 4.0, "pass": 20.0}      # per-game volume (targets, carries, dropbacks) a player needs to be projected
 TOP_N = {"rec": 24, "rush": 24, "pass": 12}
 BREAK_UP = 1.25
+TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projection, for the accuracy the page leads with (24 Sep 2026; experiments/player_season_backtest.py scores "within20_top" on it)
 # the share of his team's remaining games his per-game mean is applied to, and the weight of the pace baseline in the
 # blend, by kind: both fitted on 2016 to 2018 as of the same weeks on the season-total error (reports/player_season_backtest.csv,
 # fit rows). The share sits below the share of games such players actually play (0.77, 0.75, 0.74: avail_mean_share rows)

@@ -104,7 +104,9 @@ def snap_trends(season: int, week: int) -> dict:
     return out
 
 
-WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above 10 at kickoff), fitted on 2016 to 2018 (round 4: passing only)
+WIND_FROM = 10.0   # mph at kickoff above which the wind cuts a yards line
+TARGETABLE = 0.97   # share of a team's pass plays that are targets (the rest are throwaways and spikes)
+WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above WIND_FROM at kickoff), fitted on 2016 to 2018 (round 4: passing only)
 BACKTEST = {'rec_yards': [19.28, 18.25], 'rush_yards': [17.8, 17.03], 'pass_yards': [56.74, 56.21]}   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
@@ -164,7 +166,7 @@ def wind_factor(kind: str, wind: float | None) -> float:
     """1 + WIND_C x mph above 10 at kickoff; 1 when the wind is unknown (domes, no forecast yet), as in the backtest."""
     if wind is None or pd.isna(wind) or not WIND_C[kind]:
         return 1.0
-    return 1 + WIND_C[kind] * max(float(wind) - 10.0, 0.0)
+    return 1 + WIND_C[kind] * max(float(wind) - WIND_FROM, 0.0)
 
 
 def official(d: pd.DataFrame) -> pd.DataFrame:
@@ -506,7 +508,7 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
     # his share x the team's game-script pass plays (97%: the rest are throwaways and spikes). An absent teammate's share is
     # not handed to the others: every form of redistribution lost on both windows (round 10)
     for r in rec:
-        tg = r["share"] * vol["pass_plays"] * 0.97
+        tg = r["share"] * vol["pass_plays"] * TARGETABLE
         r.update({"proj_targets": round(tg, 1), "proj_catches_mean": round(tg * r["catch_shrunk"], 1), "proj_catches": round(tg * r["catch_shrunk"] * MED_CATCH, 1), "proj_rec_yards_mean": round(tg * r["proj_ypt"], 1), "proj_rec_yards": round(tg * r["proj_ypt"] * MED["rec"], 1), "proj_rec_td": round(tg * r["td_pt_proj"], 3)})
     rec.sort(key=lambda r: (r["out"], -r["proj_targets"]))
     rus = []
@@ -674,7 +676,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         lv = live_lines(wk[["game_id", "spread_line", "total_line"]], lines_log()).set_index("game_id")
         wk["spread_line"] = wk.game_id.map(lv.spread_line); wk["total_line"] = wk.game_id.map(lv.total_line); wk["line_ts"] = wk.game_id.map(lv.total_ts.fillna(lv.spread_ts))
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "pace": PACE, "wind_c": WIND_C, "wind_from": WIND_FROM, "targetable": TARGETABLE, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025, run walk-forward with league averages as of each game (reports/props_by_season.csv)")}
     rows = []
     for g in wk.itertuples():

@@ -38,6 +38,9 @@ CONT_FEATS = ["off_turnover_early", "opp_def_turnover_early"]   # offseason turn
 EARLY_WEEKS = 8
 LATE_FEATS = ["dead_late", "opp_dead_late"]   # out of the race (23 Sep 2026): from Week 12, a team whose win rate through the previous week is 40% or under, own and opponent
 LATE_WEEK, DEAD_PCT = 12, 0.40
+COLD_F = 35.0        # the cold flag: kickoff temperature under this, outdoors
+RIDGE = 10.0         # the points regression's ridge penalty (reports/equation_checks.csv: 1 to 100 within 0.001)
+TRAIN_FROM = 2013    # the first season every fit trains on
 FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS + CONT_FEATS + LATE_FEATS
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
@@ -111,13 +114,13 @@ def prep(f: pd.DataFrame) -> pd.DataFrame:
     f["opp_rest_short"] = (f.opp_rest <= 5).astype(float)
     f["opp_rest_long"] = (f.opp_rest >= 10).astype(float)
     f["wind_out"] = np.where(f.dome == 1, 0.0, f.wind.fillna(f.wind.median()))
-    f["cold"] = np.where(f.dome == 1, 0.0, (f.temp.fillna(60) < 35).astype(float))
+    f["cold"] = np.where(f.dome == 1, 0.0, (f.temp.fillna(60) < COLD_F).astype(float))
     f["warm_in_cold"] = f["cold"] * f.team.isin(WARM_OR_DOME).astype(float)   # warm-climate or dome team outdoors under 35F
     f["qb_form"] = qb_form(f)
     return f
 
 
-def fit_points(train: pd.DataFrame, alpha: float = 10.0):
+def fit_points(train: pd.DataFrame, alpha: float = RIDGE):
     m = make_pipeline(StandardScaler(), Ridge(alpha=alpha))
     m.fit(train[FEATS].values, train.pf.values)
     return m
@@ -267,7 +270,7 @@ def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
     return pred.reindex(ids).values
 
 
-def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=10.0, min_train_season=2013, verbose=False, refit="week") -> pd.DataFrame:
+def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_season=TRAIN_FROM, verbose=False, refit="week") -> pd.DataFrame:
     """One row per game, priced with only earlier games. refit="week": the regression is refit before every week on every
     played game so far, this season's included (the model keeps learning as the season goes). refit="season": refit once per
     season on prior seasons only (the original 3.0 rule; same accuracy, kept for comparison). The ratings inside f are as-of
@@ -361,6 +364,19 @@ def coefficient_table(f: pd.DataFrame, train_seasons, ridge_alpha=10.0) -> pd.Da
     coef = m[-1].coef_ / m[0].scale_
     sd = m[0].scale_
     return pd.DataFrame({"feature": FEATS, "points_per_unit": coef, "feature_sd": sd, "points_per_sd": coef * sd}).sort_values("points_per_sd", key=abs, ascending=False)
+
+
+def qb_overlap(fp: pd.DataFrame, season: int) -> dict:
+    """How the QB rating and the offense EPA rating share credit in the fit before `season` (fp: prep()'d features):
+    their correlation over the training team-games, each one's points per standard deviation with everything fitted
+    at once, and the offense's when the QB rating is left out and the equation refit. The page and the docs quote these."""
+    train = fp[fp.pf.notna() & (fp.season < season) & (fp.season >= TRAIN_FROM)]
+    per_sd = dict(zip(FEATS, fit_points(train)[-1].coef_))
+    cols = [c for c in FEATS if c != "qb_rating"]
+    m2 = make_pipeline(StandardScaler(), Ridge(alpha=RIDGE)).fit(train[cols].values, train.pf.values)
+    return {"seasons": f"{int(train.season.min())} to {int(train.season.max())}", "n": int(len(train)), "corr": round(float(train.qb_rating.corr(train.off_epa_play)), 3),
+            "qb_per_sd": round(float(per_sd["qb_rating"]), 3), "off_per_sd": round(float(per_sd["off_epa_play"]), 3),
+            "off_per_sd_no_qb": round(float(dict(zip(cols, m2[-1].coef_))["off_epa_play"]), 3)}
 
 
 if __name__ == "__main__":
