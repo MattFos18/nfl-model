@@ -82,6 +82,12 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     if (OUT / "props.json").exists():
         pj = json.loads((OUT / "props.json").read_text()); from . import lines as LN2; _s2, _w2 = LN2.current_week(g)
         tie("props projections are for the current week", f"{pj['season']} {pj['week']}", f"{_s2} {_w2}")
+        # the chip "Game model N pts" and the player lines' team scaling come from the model's expected points; the
+        # weekly run built props one step before the model re-priced, so they carried the previous run's points (26 Sep 2026)
+        _xp = pd.read_parquet(OUT / "pred_v3.parquet").set_index("game_id")
+        _pe = {f"{gid} {t}": s_["recon"]["rec"]["exp_pts"] for gid, gm in pj["games"].items() for t, s_ in gm.items() if s_.get("recon", {}).get("rec", {}).get("exp_pts") is not None}
+        _me = {f"{gid} {t}": round(float(_xp.loc[gid, "home_exp" if gid.endswith("_" + t) else "away_exp"]), 1) for gid, gm in pj["games"].items() for t in gm if gid in _xp.index and f"{gid} {t}" in _pe}
+        tie("props game-model points = the model's expected points (pred_v3)", _pe, _me)
         pf = REP / f"props_{_s2}_wk{_w2}.csv"
         b3, b4 = REP / "props_backtest3.csv", REP / "props_backtest4.csv"
         if b3.exists() and b4.exists():

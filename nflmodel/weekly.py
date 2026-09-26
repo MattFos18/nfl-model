@@ -75,8 +75,8 @@ def main(full=False, skip_network=False):
     step("positions", lambda: sh(["nflmodel.positions"]), log)
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
-    step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
+    step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)
     step("sizing backtest", lambda: sh(["experiments.sizing_backtest"]), log)   # the Bets tab's staking numbers follow every re-price (24 Sep 2026: it had gone stale after a model change)
     step("threshold sweep", lambda: sh(["experiments.threshold"]), log)       # the threshold table the docs quote, likewise   # 2015 to 2018 priced too (untouched by every choice; shown, never tuned on)
     step("audit reports", lambda: sh(["nflmodel.report"]), log)   # the README's results block and backtest_v3.md, before the tie check reads them (24 Sep 2026: it ran after, so the check compared a run-old README)
