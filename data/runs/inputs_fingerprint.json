@@ -711,16 +711,11 @@
 "cold": false,
 "rain": false
 },
-"2026_03_LA_DEN": {
-"wind": 15.1,
-"cold": false,
-"rain": false
-},
 "2026_03_PHI_CHI": {
-"wind": 4.4,
+"wind": 4.8,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-26 17:28 UTC"
+"written_at": "2026-09-26 17:50 UTC"
 }
