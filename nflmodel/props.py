@@ -266,7 +266,7 @@ def defender_games(seasons=range(2016, 2027), force: bool = False) -> pd.DataFra
     defended, and the offense's plays he was on the field against (the team's plays faced). Cached in
     data/processed/def_games.parquet; rebuilt when the newest season's play-by-play is newer than the cache."""
     out = OUT / "def_games.parquet"; files = [RAW / "pbp" / f"play_by_play_{s}.parquet" for s in seasons]; files = [f for f in files if f.exists()]
-    if out.exists() and not force and out.stat().st_mtime >= max(f.stat().st_mtime for f in files):
+    if out.exists() and not force and (not files or out.stat().st_mtime >= max(f.stat().st_mtime for f in files)):   # no raw play-by-play here (a job without the raw cache): the cache is the best there is
         return pd.read_parquet(out)
     rows = []
     for f in files:
