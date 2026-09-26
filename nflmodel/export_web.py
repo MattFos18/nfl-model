@@ -532,6 +532,8 @@ def _add_injuries(wk: list, cur_week: int) -> None:
     for g in wk:
         co = (g.get("coefs") or {}).get("per_unit") or {}
         teams = [g["home_team"], g["away_team"]]
+        if g.get("home_score") is not None:   # played: today's roster is not the one the game was priced with
+            continue
         for tm in teams:
             sd = (g.get("sides") or {}).get(tm)
             if sd is None:
@@ -540,7 +542,7 @@ def _add_injuries(wk: list, cur_week: int) -> None:
             r = rn[rn.team == tm]
             res = ~r.roster.isin(["Active", "Practice squad", "Cut", "Inactive"])
             played = (r.off_pct.fillna(0) > 0) | (r.def_pct.fillna(0) > 0)
-            keep = r[r.report.isin(INJ_REPORT) | (res & (played | (r.since == cur_week)))]
+            keep = r[r.report.isin(INJ_REPORT) | (res & (played | (r.since == cur_week))) | r.name.isin(list(skill))]   # everyone the skill value counts, even off a reserve list
             rows = []
             for p in keep.itertuples():
                 priced = p.report in PRICED or (p.report not in INJ_REPORT and p.roster not in ("Active", "Practice squad", "Cut", "Inactive"))
