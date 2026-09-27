@@ -1620,6 +1620,12 @@
 "Full Participation in Practice"
 ],
 [
+"IND",
+"Spencer Shrader",
+"Questionable (ESPN)",
+""
+],
+[
 "JAX",
 "Branson Combs",
 "",
@@ -1915,6 +1921,12 @@
 ],
 [
 "MIA",
+"De'Von Achane",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Julius Brents",
 "Questionable",
 "Full Participation in Practice"
@@ -2176,6 +2188,12 @@
 "Joseph Ossai",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"NYJ",
+"Qwan'tez Stiggers",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -2522,12 +2540,7 @@
 "wind": 10.9,
 "cold": false,
 "rain": false
-},
-"2026_03_PHI_CHI": {
-"wind": 4.6,
-"cold": false,
-"rain": false
 }
 },
-"written_at": "2026-09-27 17:27 UTC"
+"written_at": "2026-09-27 17:47 UTC"
 }
