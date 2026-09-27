@@ -241,11 +241,6 @@
 ],
 [
 "CAR",
-"Jalen Coker",
-"Out"
-],
-[
-"CAR",
 "Jonathon Brooks",
 "Out"
 ],
@@ -571,7 +566,37 @@
 ],
 [
 "KC",
+"Chamarri Conner",
+"Out"
+],
+[
+"KC",
 "Cooper McDonald",
+"Out"
+],
+[
+"KC",
+"Diego Pounds",
+"Out"
+],
+[
+"KC",
+"Garrett Nussmeier",
+"Out"
+],
+[
+"KC",
+"Jack Pyburn",
+"Out"
+],
+[
+"KC",
+"Jared Wiley",
+"Out"
+],
+[
+"KC",
+"Josh Simmons",
 "Out"
 ],
 [
@@ -693,6 +718,11 @@
 "MIA",
 "DJ Campbell",
 "Out"
+],
+[
+"MIA",
+"De'Von Achane",
+"Doubtful"
 ],
 [
 "MIA",
@@ -1200,6 +1230,12 @@
 ],
 [
 "CAR",
+"Jalen Coker",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Mike Jackson",
 "Questionable (ESPN)",
 ""
@@ -1253,8 +1289,8 @@
 ""
 ],
 [
-"MIA",
-"De'Von Achane",
+"MIN",
+"Justin Jefferson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1308,5 +1344,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-09-27 20:50 UTC"
+"written_at": "2026-09-27 21:31 UTC"
 }
