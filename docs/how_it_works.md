@@ -208,7 +208,8 @@ mechanical, not a matter of care:
   backtest is therefore "the model against the close". Live, the tracker records the line the pick was made at and
   the closing line value once the game closes.
 - **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
-  games is the recorded game-time weather.
+  games is the recorded game-time weather (nflverse posts it days after the score; until then the game keeps the kickoff
+  reading it was priced with, 27 Sep 2026).
 - **Forecasts are used only within 4 days of kickoff.** Open-Meteo gives a 10-day hourly forecast, but five days out
   the wind and rain numbers are too loose to move a line on, and they change by the day. So `weather.apply_to_games`
   and the rain flag take a forecast only when it was fetched within `USE_WITHIN_DAYS = 4` of kickoff; any other

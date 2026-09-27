@@ -131,12 +131,13 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            # receiving and passing: round 15 (the median factor that rises with the mean, 27 Sep 2026; one row per window); rushing: round 13 (injury report and snap trend, 25 Sep 2026; round 15 kept its flat factor)
-            r13 = pd.read_csv(REP / "props_backtest13.csv"); r15 = pd.read_csv(REP / "props_backtest15.csv")
+            # receiving and rushing: round 17 (the active-games share on the yards lines, 27 Sep 2026; its touch frame is this report's
+            # frame: rec blend_0.75, rush share_a); passing: round 15 (the median factor that rises with the mean; one row per window)
+            r15 = pd.read_csv(REP / "props_backtest15.csv"); r17 = pd.read_csv(REP / "props_backtest17.csv")
             def _r15(stat, var): return [float(r15[(r15.stat == stat) & (r15.variant == var) & (r15.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
-            b2 = {"rec_yards": _r15("rec_yards", "A_logistic_mean_s5"), "pass_yards": _r15("pass_yards", "A_linear_mean"),
-                  "rush_yards": [float(r13[(r13.stat == "rush_yards") & (r13.variant == "D_all (A_injury, B_snap_w0.25)")]["mae_2019-22"].iloc[0]), float(r13[(r13.stat == "rush_yards") & (r13.variant == "D_all (A_injury, B_snap_w0.25)")]["mae_2023-25"].iloc[0])]}
-            # within 0.01: two decimals on the by-season run, and round 13 was scored on the team scores before they were matched to the game total (25 Sep 2026), which moved receiving and rushing by at most 0.007
+            def _r17(stat, var): return [float(r17[(r17.frame == "touch") & (r17.stat == stat) & (r17.variant == var) & (r17.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
+            b2 = {"rec_yards": _r17("rec_yards", "blend_0.75"), "pass_yards": _r15("pass_yards", "A_linear_mean"), "rush_yards": _r17("rush_yards", "share_a")}
+            # within 0.01: two decimals on the by-season run
             rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.01)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.01 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
