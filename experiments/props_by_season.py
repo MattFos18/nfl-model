@@ -121,10 +121,13 @@ def build(kind):
     team_pg = f.tv / f.tgames
     if kind == "pass": team_pg = (1 - PR.PACE["pass"]) * team_pg + PR.PACE["pass"] * f.a_tdb / f.agames
     share = 1.0 if kind == "pass" else f.n_85 / f.team_n_85.replace(0, np.nan); share_flat = 1.0 if kind == "pass" else f.n / f.team_n.replace(0, np.nan)
-    f["vol"] = share * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); vol_raw = share_flat * f.tv / f.tgames
     # round 14 (27 Sep 2026): the touchdown volume from his share over every game he was active for (a game without a touch
-    # as 0), and the rate's prior the league's x his position's factor (props.td_prior); the yards and receptions keep vol
+    # as 0), and the rate's prior the league's x his position's factor (props.td_prior). Round 17 (27 Sep 2026): the yards and
+    # receptions volume from the blend props.SHARE_A_W of the touch-games share and that one (props.share_blend); this frame
+    # grades only player-games with a touch, so the gain shows on round 17's active frame (reports/props_backtest17.csv), not here
     f["pos"] = f.pid.map(pos_of).fillna("?"); share_td = 1.0 if kind == "pass" else (f.n_85a / f.team_n_85a.replace(0, np.nan)).fillna(share)
+    share_y = 1.0 if kind == "pass" else PR.share_blend(kind, share, share_td)
+    f["vol"] = share_y * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); vol_raw = share_flat * f.tv / f.tgames
     f["vol_td"] = share_td * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); pos_fac = np.array([PR.td_prior(kind, p_, 1.0) for p_ in f.pos]) if kind != "pass" else 1.0
     wind = 1 + PR.WIND_C[kind] * np.maximum(f.wind - 10, 0)
     f["mean_line"] = adj(f.vol * (f.yds + K * lg) / (f.n + K)) * wind   # the mean before the median factor and the team scaling (round 15 fits its factor from it)
