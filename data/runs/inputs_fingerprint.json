@@ -2277,57 +2277,57 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 13.4,
+"wind": 13.5,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 12.2,
+"wind": 12.8,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 4.0,
+"wind": 4.7,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 6.9,
+"wind": 7.7,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 4.8,
+"wind": 4.5,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 14.4,
+"wind": 9.9,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_CIN_PIT": {
-"wind": 13.2,
+"wind": 13.0,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 10.8,
+"wind": 11.9,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_03_ARI_SF": {
-"wind": 6.0,
+"wind": 7.0,
 "cold": false,
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 5.8,
+"wind": 6.3,
 "cold": false,
 "rain": false
 },
 "2026_03_BAL_DAL": {
-"wind": 6.5,
+"wind": 5.6,
 "cold": false,
 "rain": false
 },
@@ -2335,12 +2335,7 @@
 "wind": 11.1,
 "cold": false,
 "rain": false
-},
-"2026_03_PHI_CHI": {
-"wind": 4.3,
-"cold": false,
-"rain": false
 }
 },
-"written_at": "2026-09-27 12:31 UTC"
+"written_at": "2026-09-27 14:26 UTC"
 }

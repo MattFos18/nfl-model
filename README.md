@@ -58,7 +58,7 @@ backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project
 | | 3.0 | Vegas close |
 |---|---|---|
 | Team points miss | 7.26 | 7.21 |
-| Margin miss | 9.91 | 9.74 |
+| Margin miss | 9.90 | 9.74 |
 | Total miss | 10.18 | 10.12 |
 | Brier (win odds) | 0.216 | 0.210 |
 | Spreads at 3+ pt edge | 84-67 | |
