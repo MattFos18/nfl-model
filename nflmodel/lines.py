@@ -340,18 +340,29 @@ def backfill_espn_prices() -> int:
 
 
 def current_week(games: pd.DataFrame):
-    """The week to price: the one holding the next unplayed kickoff, unless fewer than four of its games are still
-    to come (Monday night, say), in which case the following week."""
+    """The week to price: the one holding the next unplayed kickoff. It stays that week until every one of its games
+    has kicked off (27 Sep 2026: the page moved to Week 4 at 4:25 on Sunday afternoon, with two Week 3 games still to
+    play, because the rule used to move on once fewer than four games were left; Matt: "it's still week 3"). The
+    following week's lines are logged alongside from then (weeks_to_log), so its openers are not lost."""
     now = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
     up = games[(games.kickoff_et >= now) & games.home_score.isna() & (games.game_type == "REG")].sort_values("kickoff_et")
     if len(up) == 0:
         return int(games.season.max()), int(games.week.max())
-    s, w = int(up.iloc[0].season), int(up.iloc[0].week)
+    return int(up.iloc[0].season), int(up.iloc[0].week)
+
+
+def weeks_to_log(games: pd.DataFrame) -> list[tuple[int, int]]:
+    """The weeks the line watch pulls the ESPN scoreboard for: the picks week, and the following week once fewer than
+    four games of the picks week are still to come (the books post it by Sunday evening)."""
+    now = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+    s, w = current_week(games)
+    up = games[(games.kickoff_et >= now) & games.home_score.isna() & (games.game_type == "REG")]
+    out = [(s, w)]
     if len(up[(up.season == s) & (up.week == w)]) < 4:
-        later = up[(up.season > s) | ((up.season == s) & (up.week > w))]
+        later = up[(up.season > s) | ((up.season == s) & (up.week > w))].sort_values("kickoff_et")
         if len(later):
-            s, w = int(later.iloc[0].season), int(later.iloc[0].week)
-    return s, w
+            out.append((int(later.iloc[0].season), int(later.iloc[0].week)))
+    return out
 
 
 def odds_api_due(now: dt.datetime) -> bool:
@@ -379,9 +390,11 @@ def run(season=None, week=None) -> pd.DataFrame:
         sources.append(("oddsapi", odds_api))     # once a day from 12:00 UTC: ~30 credits a month, leaving the free 500 for the player props (props_lines.py); ESPN carries the game lines every run
         from .props_lines import mark
         mark("oddsapi", dt.datetime.utcnow())
+    weeks = weeks_to_log(games) if week == current_week(games)[1] else [(season, week)]   # ESPN's scoreboard is one week a call: this week, and the next once this one is nearly done
     for name, fn in sources:
         try:
-            rows += fn(season, week, ts)
+            for s_, w_ in (weeks if name == "espn" else [(season, week)]):   # the Odds API returns every upcoming game in one call (matched by teams and kickoff date)
+                rows += fn(s_, w_, ts)
         except Exception as e:  # noqa
             errors.append(f"{name}: {str(e)[:120]}")
     df = attach_game_ids(rows)

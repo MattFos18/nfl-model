@@ -236,8 +236,8 @@ def build(fetch_live: bool = True) -> dict:
         out_games[b.game_id]["bets"].append({"who": b.who, "bet": b.bet, "odds": clean(getattr(b, "odds", None)), "result": b.result, "units": clean(round(float(b.units), 3)) if pd.notna(getattr(b, "units", np.nan)) else None,
                                              "close": clean(getattr(b, "close", None)), "clv": clean(getattr(b, "clv", None))})
     # the records: the week being played (the latest week with a game under way or final; the picks week when none),
-    # the model's side of each market and each rule's bets. The picks week moves on to the next once fewer than four
-    # games are left (lines.current_week), while this week's last games are still being played
+    # the model's side of each market and each rule's bets. The picks week moves on once every game has kicked off
+    # (lines.current_week), so during Monday night the record is still this week's
     started = [(int(g.loc[k].season), int(g.loc[k].week)) for k, v in out_games.items() if v["status"] != "scheduled"]
     rs, rw = max(started) if started else (season, week)
     wk = {k: v for k, v in out_games.items() if g.loc[k].season == rs and g.loc[k].week == rw}
