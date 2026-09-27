@@ -356,6 +356,11 @@
 ],
 [
 "LA",
+"Myles Garrett",
+"Out"
+],
+[
+"LA",
 "Puka Nacua",
 "Doubtful"
 ],
@@ -2272,42 +2277,42 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 14.9,
+"wind": 13.4,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 11.9,
+"wind": 12.2,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 3.8,
+"wind": 4.0,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 5.5,
+"wind": 6.9,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 5.7,
+"wind": 4.8,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 14.8,
+"wind": 14.4,
 "cold": false,
-"rain": false
+"rain": true
 },
 "2026_03_CIN_PIT": {
-"wind": 13.9,
+"wind": 13.2,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 11.7,
+"wind": 10.8,
 "cold": false,
 "rain": true
 },
@@ -2317,17 +2322,17 @@
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 6.9,
+"wind": 5.8,
 "cold": false,
 "rain": false
 },
 "2026_03_BAL_DAL": {
-"wind": 7.1,
+"wind": 6.5,
 "cold": false,
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 8.9,
+"wind": 11.1,
 "cold": false,
 "rain": false
 },
@@ -2337,5 +2342,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-27 09:33 UTC"
+"written_at": "2026-09-27 12:31 UTC"
 }

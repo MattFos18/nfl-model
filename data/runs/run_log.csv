@@ -3082,3 +3082,43 @@ grade,ok,,0.4,2026-09-27 09:16 UTC
 tie check (sources),ok,True,3.3,2026-09-27 09:16 UTC
 export data room,ok,,124.7,2026-09-27 09:16 UTC
 tie check (page),ok,True,4.6,2026-09-27 09:16 UTC
+pull,ok,"[('2026-09-27T12:14:34', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2180912, '74588010f4a4'), ('2026-09-27T12:14:34', 'players', 'all'",11.6,2026-09-27 12:14 UTC
+pull player history,ok,"[('2026-09-27T12:14:46', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'ok', 149299, '8606f428d500'), ('2026-09-27T12",10.7,2026-09-27 12:14 UTC
+build,ok,"team_games (8202, 142)",190.3,2026-09-27 12:14 UTC
+features,ok,[40 rows x 8 columns],16.9,2026-09-27 12:14 UTC
+verify,ok,Result: PASS,0.5,2026-09-27 12:14 UTC
+weather,ok,"            game_id          kickoff_et  ... precip        fetched_at
+0   2026_03_LAC_BUF 2026-09-27 13:00:00  ...    0.0  2026-09-27 08:18
+1   2026_03_CAR_CLE 2026-09-27 13:00:00  ...    0.0  2026-09",133.4,2026-09-27 12:14 UTC
+lines,ok,"{'ts': '2026-09-27T12-20-38Z', 'season': 2026, 'week': 3, 'rows': 15, 'errors': ''}",1.1,2026-09-27 12:14 UTC
+ratings,ok,"(7668, 49)",32.2,2026-09-27 12:14 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,71.3,2026-09-27 12:14 UTC
+players,ok,max           0.104589         1.360481    14.000000,148.3,2026-09-27 12:14 UTC
+positions,ok,Skill     527.0  0.004299  0.00080  0.0531,30.6,2026-09-27 12:14 UTC
+scheme,ok,"scheme_plays (352588, 83) profiles for 32 teams as of 2026 3",7.1,2026-09-27 12:14 UTC
+player splits,ok,player_splits.js 1.56 MB,95.4,2026-09-27 12:14 UTC
+snap exposure,ok,"snap exposure (327629, 10) seasons 2013 to 2026",1.5,2026-09-27 12:14 UTC
+model,ok,               neutral            0.082       0.133          0.011,99.9,2026-09-27 12:14 UTC
+props,ok,props 2829 projections for week 3 graded rows 0 market lines on the cards 374 graded against the market 0,22.7,2026-09-27 12:14 UTC
+sizing backtest,ok,   2025   13-9    0.591        2.82,6.1,2026-09-27 12:14 UTC
+threshold sweep,ok,DONE,1.7,2026-09-27 12:14 UTC
+calibration start,ok,   last 5 seasons     0.5207     0.5231     0.5255              0.69424            0.25054                0.68626              0.5586             0.5895             95              0.69277            ,1.8,2026-09-27 12:14 UTC
+season backtest,ok,"{'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad",104.0,2026-09-27 12:14 UTC
+props by season,ok,DONE,10.9,2026-09-27 12:14 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",18.7,2026-09-27 12:14 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",2.4,2026-09-27 12:14 UTC
+picks,ok,"              game_id  season  week  ...     bet_p bet_odds stake_pct
+3060   2026_03_ATL_GB    2026     3  ...       NaN      NaN       NaN
+3061  2026_03_LAC_BUF    2026     3  ...       NaN      NaN ",0.3,2026-09-27 12:14 UTC
+log run,ok,"                    run_at  season  week  ... spread_line  total_line       bet
+3060  2026-09-27 12:14 UTC    2026     3  ...         4.5        42.5          
+3061  2026-09-27 12:14 UTC    2026     3",0.0,2026-09-27 12:14 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-09-27 12:14 UTC    2026     3  ...        4.58      -0.88    0.612
+
+[1 rows x 12 columns]",0.1,2026-09-27 12:14 UTC
+inputs fingerprint,ok,"{'season': 2026, 'week': 3, 'starters': {'2026_03_ATL_GB': ['00-0036264', '00-0039917', '2026-09-24 20:15'], '2026_03_LAC_BUF': ['00-0034857', '00-0036355', '2026-09-27 13:00'], '2026_03_CAR_CLE': ['0",0.2,2026-09-27 12:14 UTC
+grade,ok,,0.4,2026-09-27 12:14 UTC
+tie check (sources),ok,True,3.2,2026-09-27 12:14 UTC
+export data room,ok,,114.8,2026-09-27 12:14 UTC
+tie check (page),ok,True,4.9,2026-09-27 12:14 UTC
