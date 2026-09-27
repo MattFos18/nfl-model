@@ -571,11 +571,6 @@
 ],
 [
 "KC",
-"Cooper McDonald",
-"Out"
-],
-[
-"KC",
 "Diego Pounds",
 "Out"
 ],
@@ -1217,6 +1212,12 @@
 ],
 "reports": [
 [
+"BAL",
+"Mark Andrews",
+"Questionable (ESPN)",
+""
+],
+[
 "BUF",
 "Christian Benford",
 "Questionable (ESPN)",
@@ -1249,6 +1250,12 @@
 [
 "CIN",
 "Jalen Davis",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
+"Jalen Thompson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1307,6 +1314,12 @@
 ""
 ],
 [
+"NO",
+"Pete Werner",
+"Questionable (ESPN)",
+""
+],
+[
 "NYG",
 "Brian Burns",
 "Questionable (ESPN)",
@@ -1331,6 +1344,12 @@
 ""
 ],
 [
+"SF",
+"Mike Evans",
+"Questionable (ESPN)",
+""
+],
+[
 "TB",
 "Jalen McMillan",
 "Questionable (ESPN)",
@@ -1338,5 +1357,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-09-27 21:53 UTC"
+"written_at": "2026-09-27 22:11 UTC"
 }
