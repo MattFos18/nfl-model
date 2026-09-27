@@ -10,14 +10,14 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 0 | 0 | | | | 68-55 | 80-51 | 40-21 |
-| shadow: 4.5+ edge | 0 | 0 | | | | 43-36 | 52-37 | 25-15 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 0 | 0 | | | | 50-38 | 73-42 | 32-18 |
-| shadow: 4+ edge, weeks 1 to 13 only | 0 | 0 | | | | 54-41 | 68-37 | 33-16 |
-| shadow: boosted trees alone, 5+ edge | 0 | 0 | | | | 94-67 | 83-60 | 33-17 |
+| 4+ edge (the flag, bet) | 0 | 0 | | | | 70-55 | 80-50 | 40-21 |
+| shadow: 4.5+ edge | 0 | 0 | | | | 42-36 | 52-36 | 25-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 0 | 0 | | | | 52-38 | 73-41 | 32-18 |
+| shadow: 4+ edge, weeks 1 to 13 only | 0 | 0 | | | | 55-41 | 68-36 | 33-16 |
+| shadow: boosted trees alone, 5+ edge | 0 | 0 | | | | 92-66 | 81-60 | 33-18 |
 | shadow: Under, 55%+ chance (the totals flag) | 0 | 0 | | | | 145-124 | 190-146 | 76-62 |
 
-Live against the backtest: nothing settled yet; the flag's backtest rate is 62.5% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
+Live against the backtest: nothing settled yet; the flag's backtest rate is 62.8% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 

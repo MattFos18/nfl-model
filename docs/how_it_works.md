@@ -259,8 +259,8 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 <!-- auto:threshold -->
 | Cut | 2019-22 | 2023-25 | 2015-18 (untouched) | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 4 | 80-51, 61.1% | 40-21, 65.6% | 68-55, 55.3% | 66.7% | 72.7% | 64.3% | 41.2% (14-20) | 66.7% | 70.0% | 59.1% |
-| 4.5 | 52-37, 58.4% | 25-15, 62.5% | 43-36, 54.4% | 58.3% | 68.2% | 68.4% | 41.7% (10-14) | 66.7% | 63.2% | 60.0% |
+| 4 | 80-50, 61.5% | 40-21, 65.6% | 70-55, 56.0% | 68.6% | 72.7% | 64.3% | 41.2% (14-20) | 66.7% | 70.0% | 59.1% |
+| 4.5 | 52-36, 59.1% | 25-15, 62.5% | 42-36, 53.8% | 58.3% | 68.2% | 68.4% | 43.5% (10-13) | 66.7% | 63.2% | 60.0% |
 | 5 | 37-28, 56.9% | 16-6, 72.7% | 29-24, 54.7% | 62.5% | 64.7% | 64.3% | 38.9% (7-11) | 75.0% (3-1) | 85.7% | 63.6% |
 <!-- /auto:threshold -->
 
@@ -322,11 +322,11 @@ tie check on every run; the live table carries the same columns):
 <!-- auto:rules -->
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
-| 4+ edge (the flag) | 68-55 | 80-51 | 40-21 |
-| 4.5+ edge | 43-36 | 52-37 | 25-15 |
-| 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 |
-| 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
-| boosted trees alone, 5+ edge | 94-67 | 83-60 | 33-17 |
+| 4+ edge (the flag) | 70-55 | 80-50 | 40-21 |
+| 4.5+ edge | 42-36 | 52-36 | 25-15 |
+| 4+ edge, model's side the underdog or pick'em | 52-38 | 73-41 | 32-18 |
+| 4+ edge, weeks 1 to 13 only | 55-41 | 68-36 | 33-16 |
+| boosted trees alone, 5+ edge | 92-66 | 81-60 | 33-18 |
 | Under, 55%+ chance (the totals flag) | 145-124 | 190-146 | 76-62 |
 <!-- /auto:rules -->
 
@@ -612,15 +612,15 @@ the every-game cover rate on the model's side, and the 4-point flag:
 <!-- auto:byweek -->
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | -0.01 | 53% | 18-9 (67%) |
+| 1 | 175 | -0.02 | 54% | 18-9 (67%) |
 | 2 | 176 | -0.14 | 59% | 17-7 (71%) |
 | 3 | 176 | +0.08 | 53% | 14-8 (64%) |
 | 4 | 171 | +0.23 | 51% | 12-5 (71%) |
-| 5 to 8 | 632 | +0.15 | 51% | 43-32 (57%) |
-| 9 to 13 | 793 | +0.16 | 49% | 51-33 (61%) |
-| 14 to 17 | 692 | +0.19 | 51% | 33-33 (50%) |
+| 5 to 8 | 632 | +0.15 | 51% | 44-32 (58%) |
+| 9 to 13 | 793 | +0.16 | 49% | 51-32 (61%) |
+| 14 to 17 | 692 | +0.19 | 51% | 34-33 (51%) |
 | 18 | 80 | +0.50 | 59% | 7-8 (47%) |
-| Playoffs | 133 | +0.29 | 47% | 6-5 (55%) |
+| Playoffs | 133 | +0.30 | 47% | 6-5 (55%) |
 <!-- /auto:byweek -->
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
@@ -1460,9 +1460,9 @@ closing line and -110:
 <!-- auto:sizing -->
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 39-39 | -3.5 | 14.4 | -12.1% | 70% |
-| 2019-22 (the threshold was chosen here) | 80-51 | +21.7 | 12.4 | +19.7% | 2.8% |
-| 2023-25 (held out) | 40-21 | +15.4 | 5.0 | +16.2% | 2.6% |
+| 2016-18 (never used to choose) | 41-39 | -1.7 | 14.4 | -12.1% | 62% |
+| 2019-22 (the threshold was chosen here) | 80-50 | +22.7 | 12.4 | +20.6% | 2.2% |
+| 2023-25 (held out) | 40-21 | +15.4 | 5.0 | +17.2% | 2.6% |
 <!-- /auto:sizing -->
 
 The table is rewritten from `reports/sizing_backtest.csv` on every run. The held-out and tuning records are
