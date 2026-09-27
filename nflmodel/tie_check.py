@@ -119,7 +119,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props game-script line = props_backtest3.csv", {"total": float(gs.loc["league_total", "mae_2019-22"]), **{k: [float(gs.loc[c, "mae_2019-22"]), float(gs.loc[c, "mae_2023-25"]), float(gs.loc[c, "n_2019-22"])] for k, c in [("rec", "tp"), ("rush", "tr"), ("pass", "tdb")]}}, {"total": float(pj["gs_total"]), **{k: [float(x) for x in v] for k, v in pj["gs"].items()}})
             fitted = _ast.literal_eval(r4[r4.stat == "pass_yards"].fitted.iloc[0])
             tie("props passing wind factor = props_backtest4.csv", round(float(fitted["wind_c"]), 4), round(float(pj["wind_c"]["pass"]), 4))
-        if (WEB / "props_backtest.js").exists():
+        # 27 Sep 2026: the weekly run checks the sources before the export rewrites props_backtest.js, so a by-season rerun that
+        # changed a table's rows read as a disagreement (the 17:14 run); the page file is compared only once it is newer than the report
+        if (WEB / "props_backtest.js").exists() and (WEB / "props_backtest.js").stat().st_mtime < (REP / "props_by_season.csv").stat().st_mtime:
+            rows.append(("props backtest tables on the page: props_backtest.js older than the by-season report, compared after the export (page run)", "skipped here", "skipped here", True))
+        elif (WEB / "props_backtest.js").exists():
             pb = _js("props_backtest.js")
             tie("props backtest rounds on the page = the five CSVs (rows)", [len(pd.read_csv(REP / f)) for f in ["props_backtest.csv", "props_backtest2.csv", "props_backtest3.csv", "props_backtest4.csv", "props_backtest5.csv", "props_backtest6.csv", "props_backtest7.csv", "props_backtest8.csv", "props_backtest9.csv", "props_backtest10.csv"]], [r["n_rows"] for r in pb["rounds"]])
             if (REP / "props_vs_market_backtest.csv").exists():
