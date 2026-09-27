@@ -1990,6 +1990,22 @@ on; left for a test built on the snap-count rows. The Week 3 lines that prompted
 to the book's numbers: those gaps sit on the volume side, a rookie's share from two games, which the roster-sum cap did
 not fix.
 
+**The volume side, round seventeen (27 Sep 2026).** Round fourteen had found that the usage share behind every volume
+counts only a player's games with a touch, so a backup's share is that of his good days, and had moved the touchdown
+volume to his share over every game he was active for (snap counts; a game without a touch counts 0). Round seventeen
+(`experiments/props_backtest17.py`, `reports/props_backtest17.csv`, `_tiers.csv`) tested that share on the yards and
+receptions lines, scored on both the touch frame (player-games with a touch) and the active frame (plus every game a
+projected player played snaps in with no touch, actual 0: the population the card projects). The active share wins the
+active frame by 0.7 yards receiving (17.40 / 16.29 to 16.69 / 15.54) and a yard rushing (14.54 / 13.47 to 13.56 / 12.32)
+and gives 0.05 / 0.07 yards on the touch frame receiving, all of it in the 0-20 tier; every tier from 20 yards up improves
+on both frames, the stars' bias shrinking (80+ receiving -4.2 / -4.0 to -2.9 / -2.5). Adopted (`props.SHARE_A_W`): the
+yards and receptions volume from a blend of the two shares, the weight chosen on 2017-18 on the active frame, receiving
+three quarters on the active share (touch 19.16 / 18.16, active 16.84 / 15.70; receptions 1.343 / 1.259 against 1.411 /
+1.326 on the active frame, 1.445 / 1.373 against 1.435 / 1.355 on the touch frame, following the targets volume) and
+rushing all of it (17.77 / 17.04; 13.56 / 12.32). The cap at one over the players who play won again but needs to know
+who plays; the by-season report now tracks the new share, so its touch-frame numbers barely move while the card's
+population gains.
+
 ## 41. What actually happened, as it happens (27 Sep 2026)
 
 nflverse posts scores hours after the games, so until the Tuesday weekly run a finished game sat on the page as

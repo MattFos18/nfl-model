@@ -1,0 +1,109 @@
+frame,stat,variant,window,n,mae,bias,se_vs_base,mean_line,mean_actual,note
+touch,rec_yards,base,2017-18,7518,19.6456,-5.773,0.0,27.28,33.052,the adopted rule
+touch,rec_yards,base,2019-22,16076,19.1677,-5.306,0.0,26.772,32.078,the adopted rule
+touch,rec_yards,base,2023-25,12383,18.1567,-5.261,0.0,25.302,30.563,the adopted rule
+touch,rec_yards,share_a,2017-18,7518,19.7581,-6.969,0.031,26.084,33.052,
+touch,rec_yards,share_a,2019-22,16076,19.2184,-6.624,0.0223,25.453,32.078,
+touch,rec_yards,share_a,2023-25,12383,18.2245,-6.501,0.0239,24.061,30.563,
+touch,rec_yards,blend_0.25,2017-18,7518,19.6352,-6.076,0.0082,26.976,33.052,
+touch,rec_yards,blend_0.25,2019-22,16076,19.1357,-5.639,0.006,26.439,32.078,
+touch,rec_yards,blend_0.25,2023-25,12383,18.1292,-5.574,0.0064,24.989,30.563,
+touch,rec_yards,blend_0.5,2017-18,7518,19.6504,-6.376,0.0161,26.676,33.052,
+touch,rec_yards,blend_0.5,2019-22,16076,19.1311,-5.969,0.0117,26.109,32.078,
+touch,rec_yards,blend_0.5,2023-25,12383,18.1307,-5.883,0.0124,24.679,30.563,
+touch,rec_yards,blend_0.75,2017-18,7518,19.6917,-6.673,0.0237,26.379,33.052,
+touch,rec_yards,blend_0.75,2019-22,16076,19.158,-6.297,0.0171,25.781,32.078,
+touch,rec_yards,blend_0.75,2023-25,12383,18.1614,-6.191,0.0183,24.371,30.563,
+touch,rec_yards,share_a_cap1,2017-18,7518,19.7584,-6.996,0.0312,26.056,33.052,cap over the frame's players: who touched (hindsight)
+touch,rec_yards,share_a_cap1,2019-22,16076,19.2134,-6.644,0.0223,25.434,32.078,cap over the frame's players: who touched (hindsight)
+touch,rec_yards,share_a_cap1,2023-25,12383,18.2217,-6.51,0.024,24.053,30.563,cap over the frame's players: who touched (hindsight)
+touch,rec_catches,base,2017-18,7518,1.4335,-0.343,0.0,2.554,2.897,the adopted rule
+touch,rec_catches,base,2019-22,16076,1.4349,-0.29,0.0,2.594,2.884,the adopted rule
+touch,rec_catches,base,2023-25,12383,1.3549,-0.292,0.0,2.491,2.783,the adopted rule
+touch,rec_catches,share_a,2017-18,7518,1.463,-0.516,0.0032,2.381,2.897,
+touch,rec_catches,share_a,2019-22,16076,1.459,-0.488,0.0024,2.396,2.884,
+touch,rec_catches,share_a,2023-25,12383,1.3883,-0.487,0.0026,2.296,2.783,
+touch,rec_catches,blend_0.25,2017-18,7518,1.4347,-0.386,0.0009,2.511,2.897,
+touch,rec_catches,blend_0.25,2019-22,16076,1.4321,-0.339,0.0007,2.545,2.884,
+touch,rec_catches,blend_0.25,2023-25,12383,1.3547,-0.34,0.0007,2.443,2.783,
+touch,rec_catches,blend_0.5,2017-18,7518,1.4405,-0.429,0.0017,2.468,2.897,
+touch,rec_catches,blend_0.5,2019-22,16076,1.4354,-0.389,0.0013,2.495,2.884,
+touch,rec_catches,blend_0.5,2023-25,12383,1.3611,-0.389,0.0014,2.394,2.783,
+touch,rec_catches,blend_0.75,2017-18,7518,1.4502,-0.473,0.0025,2.424,2.897,
+touch,rec_catches,blend_0.75,2019-22,16076,1.4447,-0.439,0.0018,2.446,2.884,
+touch,rec_catches,blend_0.75,2023-25,12383,1.3726,-0.438,0.002,2.345,2.783,
+touch,rec_catches,share_a_cap1,2017-18,7518,1.4623,-0.519,0.0032,2.378,2.897,cap over the frame's players: who touched (hindsight)
+touch,rec_catches,share_a_cap1,2019-22,16076,1.4583,-0.49,0.0024,2.394,2.884,cap over the frame's players: who touched (hindsight)
+touch,rec_catches,share_a_cap1,2023-25,12383,1.3881,-0.488,0.0026,2.295,2.783,cap over the frame's players: who touched (hindsight)
+active,rec_yards,base,2017-18,9239,18.0395,-3.215,0.0,23.68,26.895,the adopted rule
+active,rec_yards,base,2019-22,20298,17.3992,-2.581,0.0,22.824,25.405,the adopted rule
+active,rec_yards,base,2023-25,15966,16.2858,-2.507,0.0,21.197,23.704,the adopted rule
+active,rec_yards,share_a,2017-18,9239,17.5075,-4.643,0.0306,22.252,26.895,
+active,rec_yards,share_a,2019-22,20298,16.6929,-4.18,0.0218,21.225,25.405,
+active,rec_yards,share_a,2023-25,15966,15.5395,-4.04,0.0238,19.664,23.704,
+active,rec_yards,blend_0.25,2017-18,9239,17.8774,-3.578,0.0079,23.317,26.895,
+active,rec_yards,blend_0.25,2019-22,20298,17.1884,-2.987,0.0056,22.418,25.405,
+active,rec_yards,blend_0.25,2023-25,15966,16.0691,-2.894,0.0061,20.81,23.704,
+active,rec_yards,blend_0.5,2017-18,9239,17.7362,-3.936,0.0155,22.959,26.895,
+active,rec_yards,blend_0.5,2019-22,20298,17.0001,-3.388,0.0111,22.018,25.405,
+active,rec_yards,blend_0.5,2023-25,15966,15.873,-3.277,0.012,20.427,23.704,
+active,rec_yards,blend_0.75,2017-18,9239,17.613,-4.291,0.0231,22.605,26.895,
+active,rec_yards,blend_0.75,2019-22,20298,16.8347,-3.785,0.0165,21.621,25.405,
+active,rec_yards,blend_0.75,2023-25,15966,15.6957,-3.659,0.0179,20.045,23.704,
+active,rec_yards,share_a_cap1,2017-18,9239,17.5091,-4.712,0.031,22.183,26.895,cap over the frame's players: who played snaps
+active,rec_yards,share_a_cap1,2019-22,20298,16.6849,-4.235,0.022,21.17,25.405,cap over the frame's players: who played snaps
+active,rec_yards,share_a_cap1,2023-25,15966,15.5307,-4.084,0.0239,19.619,23.704,cap over the frame's players: who played snaps
+active,rec_catches,base,2017-18,9239,1.4075,-0.038,0.0,2.319,2.357,the adopted rule
+active,rec_catches,base,2019-22,20298,1.4108,0.045,0.0,2.329,2.284,the adopted rule
+active,rec_catches,base,2023-25,15966,1.3258,0.049,0.0,2.207,2.158,the adopted rule
+active,rec_catches,share_a,2017-18,9239,1.3522,-0.258,0.0035,2.099,2.357,
+active,rec_catches,share_a,2019-22,20298,1.3296,-0.212,0.0026,2.072,2.284,
+active,rec_catches,share_a,2023-25,15966,1.2441,-0.21,0.0029,1.948,2.158,
+active,rec_catches,blend_0.25,2017-18,9239,1.3887,-0.093,0.0009,2.264,2.357,
+active,rec_catches,blend_0.25,2019-22,20298,1.3835,-0.02,0.0007,2.265,2.284,
+active,rec_catches,blend_0.25,2023-25,15966,1.2987,-0.016,0.0007,2.143,2.158,
+active,rec_catches,blend_0.5,2017-18,9239,1.3736,-0.148,0.0017,2.209,2.357,
+active,rec_catches,blend_0.5,2019-22,20298,1.361,-0.084,0.0013,2.201,2.284,
+active,rec_catches,blend_0.5,2023-25,15966,1.2768,-0.081,0.0015,2.078,2.158,
+active,rec_catches,blend_0.75,2017-18,9239,1.3616,-0.203,0.0026,2.154,2.357,
+active,rec_catches,blend_0.75,2019-22,20298,1.3433,-0.148,0.002,2.136,2.284,
+active,rec_catches,blend_0.75,2023-25,15966,1.2588,-0.145,0.0022,2.013,2.158,
+active,rec_catches,share_a_cap1,2017-18,9239,1.3508,-0.266,0.0035,2.091,2.357,cap over the frame's players: who played snaps
+active,rec_catches,share_a_cap1,2019-22,20298,1.328,-0.219,0.0026,2.065,2.284,cap over the frame's players: who played snaps
+active,rec_catches,share_a_cap1,2023-25,15966,1.2432,-0.216,0.0029,1.943,2.158,cap over the frame's players: who played snaps
+touch,rush_yards,base,2017-18,3497,18.1198,-3.605,0.0,27.634,31.238,the adopted rule
+touch,rush_yards,base,2019-22,7778,17.8023,-4.232,0.0,26.863,31.095,the adopted rule
+touch,rush_yards,base,2023-25,6196,17.0266,-3.631,0.0,26.927,30.559,the adopted rule
+touch,rush_yards,share_a,2017-18,3497,18.0817,-4.406,0.0354,26.832,31.238,
+touch,rush_yards,share_a,2019-22,7778,17.7738,-5.229,0.026,25.866,31.095,
+touch,rush_yards,share_a,2023-25,6196,17.0414,-4.556,0.0285,26.002,30.559,
+touch,rush_yards,blend_0.25,2017-18,3497,18.089,-3.804,0.009,27.434,31.238,
+touch,rush_yards,blend_0.25,2019-22,7778,17.7554,-4.478,0.0069,26.617,31.095,
+touch,rush_yards,blend_0.25,2023-25,6196,16.9946,-3.861,0.0074,26.697,30.559,
+touch,rush_yards,blend_0.5,2017-18,3497,18.0705,-4.004,0.0181,27.234,31.238,
+touch,rush_yards,blend_0.5,2019-22,7778,17.7313,-4.726,0.0136,26.369,31.095,
+touch,rush_yards,blend_0.5,2023-25,6196,16.9838,-4.092,0.0147,26.466,30.559,
+touch,rush_yards,blend_0.75,2017-18,3497,18.0656,-4.205,0.027,27.033,31.238,
+touch,rush_yards,blend_0.75,2019-22,7778,17.7365,-4.976,0.02,26.119,31.095,
+touch,rush_yards,blend_0.75,2023-25,6196,16.9993,-4.324,0.0218,26.235,30.559,
+touch,rush_yards,share_a_cap1,2017-18,3497,18.0302,-4.997,0.0464,26.241,31.238,cap over the frame's players: who touched (hindsight)
+touch,rush_yards,share_a_cap1,2019-22,7778,17.7231,-5.781,0.0323,25.313,31.095,cap over the frame's players: who touched (hindsight)
+touch,rush_yards,share_a_cap1,2023-25,6196,16.9989,-5.066,0.0349,25.493,30.559,cap over the frame's players: who touched (hindsight)
+active,rush_yards,base,2017-18,4271,16.2919,-1.836,0.0,23.741,25.577,the adopted rule
+active,rush_yards,base,2019-22,11061,14.5407,-1.421,0.0,20.445,21.866,the adopted rule
+active,rush_yards,base,2023-25,9264,13.4658,-0.828,0.0,19.611,20.438,the adopted rule
+active,rush_yards,share_a,2017-18,4271,15.7826,-2.857,0.0354,22.72,25.577,
+active,rush_yards,share_a,2019-22,11061,13.5575,-2.866,0.0256,18.999,21.866,
+active,rush_yards,share_a,2023-25,9264,12.324,-2.346,0.0289,18.092,20.438,
+active,rush_yards,blend_0.25,2017-18,4271,16.1496,-2.09,0.0088,23.488,25.577,
+active,rush_yards,blend_0.25,2019-22,11061,14.2734,-1.778,0.0064,20.087,21.866,
+active,rush_yards,blend_0.25,2023-25,9264,13.1633,-1.206,0.0071,19.233,20.438,
+active,rush_yards,blend_0.5,2017-18,4271,16.0151,-2.344,0.0178,23.233,25.577,
+active,rush_yards,blend_0.5,2019-22,11061,14.0185,-2.137,0.0128,19.728,21.866,
+active,rush_yards,blend_0.5,2023-25,9264,12.8708,-1.585,0.0143,18.853,20.438,
+active,rush_yards,blend_0.75,2017-18,4271,15.8906,-2.6,0.0267,22.977,25.577,
+active,rush_yards,blend_0.75,2019-22,11061,13.7785,-2.5,0.0193,19.366,21.866,
+active,rush_yards,blend_0.75,2023-25,9264,12.5907,-1.965,0.0216,18.473,20.438,
+active,rush_yards,share_a_cap1,2017-18,4271,15.7066,-3.545,0.0452,22.033,25.577,cap over the frame's players: who played snaps
+active,rush_yards,share_a_cap1,2019-22,11061,13.4821,-3.541,0.0307,18.324,21.866,cap over the frame's players: who played snaps
+active,rush_yards,share_a_cap1,2023-25,9264,12.2671,-2.932,0.0331,17.507,20.438,cap over the frame's players: who played snaps
