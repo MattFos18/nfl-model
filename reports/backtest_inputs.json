@@ -4,7 +4,7 @@
    "data/processed/games.parquet": "55b90777cbd933f6",
    "data/processed/pred_v3.parquet": "8b4196338a5ca1c2",
    "experiments/calibration_start.py": "bb0d33e9362eb2ac",
-   "nflmodel/picks.py": "79fcf52f42936fd2"
+   "nflmodel/picks.py": "0e8476c095e135b4"
   },
   "ran_at": null
  },
@@ -44,7 +44,7 @@
    "data/processed/games.parquet": "55b90777cbd933f6",
    "data/processed/pred_v3.parquet": "8b4196338a5ca1c2",
    "experiments/sizing_backtest.py": "dfa0e6307ab6c671",
-   "nflmodel/picks.py": "79fcf52f42936fd2"
+   "nflmodel/picks.py": "0e8476c095e135b4"
   },
   "ran_at": null
  },

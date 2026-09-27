@@ -466,7 +466,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="card"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">By edge size, each season <span class="seg" id="bkbandseg" style="margin:0"></span></h3><p class="note" id="bkbandnote"></p><div class="tablewrap" style="max-height:70vh"><table id="bkbands"></table></div></div>
       <div class="card"><h3>Every cutoff, tested</h3><div id="sweep"></div></div>
       <div class="card"><h3>By week of the season</h3><p class="note" id="bkweeknote"></p><div class="tablewrap"><table id="bkweeks"></table></div></div>
-      <div class="card"><h3>Win chances, checked against what happened</h3><p class="note">Stated chance vs how often the favorite won; the closing moneyline beside it.</p><div class="tablewrap" style="max-height:44vh"><table id="bkwin"></table></div></div>
+      <div class="card"><h3>Win chances, checked against what happened</h3><p class="note">Stated chance vs how often the favorite won; the closing moneyline beside it. The chance is the calibrated one the cards show, each season graded with the fit that was in force for it (the raw chance where none was).</p><div class="tablewrap" style="max-height:44vh"><table id="bkwin"></table></div></div>
       <div class="card"><h3>Every game</h3><div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div><div id="bksummary"></div><div class="tablewrap" style="max-height:70vh"><table id="bktable"></table></div></div>
     </details>
   </div>
@@ -614,7 +614,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="howbox" style="margin-bottom:14px"><dl>
       <dt>Plays, scores, schedules</dt><dd>nflverse play-by-play, schedules, injuries and depth charts (Model → Data pulls and verification lists every download with its hash).</dd>
       <dt>Lines</dt><dd id="d_lines"></dd>
-      <dt>Vegas on a card</dt><dd>The latest logged line (the median across sources at the last snapshot, to the half point); the edge, the cover odds and the best number follow it. The Vegas win chance is the newest snapshot's moneylines with the vig removed (each book's pair, averaged), and the chip under it is the model's rounded win chance minus Vegas's. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
+      <dt>Vegas on a card</dt><dd>The latest logged line (the median across sources at the last snapshot, to the half point); the edge, the cover odds and the best number follow it. The Vegas win chance is the newest snapshot's moneylines with the vig removed (each book's pair, averaged), and the chip under it is the model's rounded win chance minus Vegas's. The model's win chance is calibrated (a logistic mapping of the raw chance, fit on the seasons before this one and refit every run; the raw chance ran hot when the home side was a slight underdog), the raw figure in the bar's tooltip; the season odds still simulate on the raw chance. A flag and its bet stay as recorded at the weekly run, so a flagged card can show a line that has since moved.</dd>
       <dt>Player prop lines</dt><dd id="d_props"></dd>
       <dt>Weather</dt><dd id="d_weather"></dd>
       <dt>Injuries</dt><dd>nflverse injury reports and weekly rosters (IR and the like): the starting QB listed out, the value of skill players out (player model), snap-weighted absences on offense and the opponent's defense.</dd>
@@ -912,6 +912,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // totals, ran too far from 50% both ways on the backtest). The raw chance stays for the totals flag (55%+ under is on it) and the band records
   function overP(g) { return g.p_over_cal != null ? g.p_over_cal : g.p_over_emp; }
   const overTitle = g => { const c = ((window.WEEK || {}).cal || {}).over; return g.p_over_cal == null || g.p_over_emp == null ? "" : `Calibrated: what over chances like this one have come in at (a logistic mapping of the model's raw chance, fit on ${c ? c.from + " to " + (c.before - 1) : "the backtest"}, refit every run). Raw: Over ${Math.round(100 * g.p_over_emp)}% / Under ${Math.round(100 * (1 - g.p_over_emp))}%. The totals flag reads the raw chance.`; };
+  // the win chance the reader sees (27 Sep 2026): the calibrated p_home_cal (picks.home_calibration: the raw p_home ran hot when the home side was a
+  // slight underdog, said 45% won 39% 2015-25), a logistic on its logit fit on the seasons before this one; the raw p_home stays on the card for the
+  // tooltip and for the season simulation, which prices its games on the raw chance
+  function winP(g) { return g.p_home_cal != null ? g.p_home_cal : g.p_home; }
+  const winTitle = g => { const c = ((window.WEEK || {}).cal || {}).home; return g.p_home_cal == null || g.p_home == null ? "" : `Calibrated: what win chances like this one have come in at (a logistic mapping of the model's raw chance, fit on ${c ? c.from + " to " + (c.before - 1) : "the backtest"}, refit every run). Raw: ${g.home_team} ${Math.round(100 * g.p_home)}% / ${g.away_team} ${Math.round(100 * (1 - g.p_home))}%. The season odds simulate on the raw chance.`; };
   const histOver = g => { if (!RPR || g.p_over_emp == null) return ""; const over = overP(g) >= 0.5, ch = over ? g.p_over_emp : 1 - g.p_over_emp, b = bandOf(RPR.total.bands, ch), lab = b ? `${Math.round(100 * b.lo)}${b.hi == null ? "%+" : "–" + Math.round(100 * b.hi) + "%"}` : "";
     return b ? bandChip(b, `Raw chances of ${lab}`, "hit", `the model's raw chance for its side of the total was ${lab} (the records are kept by the raw chance; the bar shows it calibrated)`) : ""; };
   // how the model's own number moved from the first run of the week (Tuesday) to now, when it moved at least a quarter point
@@ -1079,10 +1084,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
             </div>
           </section>
           <section class="blk win"><div class="bh">Win</div>
-            ${bar(H, g.p_home, A, 1 - g.p_home, "h", "Model")}
+            ${bar(H, winP(g), A, 1 - winP(g), "h", "Model", winTitle(g))}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
             ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
-            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * g.p_home))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's win chance minus Vegas's, from the two bars above">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
+            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * winP(g)))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's ${g.p_home_cal != null ? "calibrated " : ""}win chance minus Vegas's, from the two bars above${g.p_home_cal != null ? ` (raw: ${H} ${Math.round(100 * g.p_home)}%)` : ""}">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
@@ -1422,11 +1427,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // the model's win chance for its favorite in bands against the actual win rate; the closing moneyline beside it
   const WIN_BANDS = [[0.5, 0.55], [0.55, 0.6], [0.6, 0.65], [0.65, 0.7], [0.7, 0.75], [0.75, 0.8], [0.8, 0.85], [0.85, 0.9], [0.9, 1.01]];
   function winBand(p) { const q = Math.max(p, 1 - p); return WIN_BANDS.find(([a, b]) => q >= a && q < b); }
+  // the win chance graded here is the one the cards show: p_home_cal with the fit in force for that season (27 Sep 2026, backtest.js), the raw p_home where none was
+  const winBk = r => r.p_home_cal != null ? r.p_home_cal : r.p_home;
   function winCalibTable(rows) {
     const el = $("bkwin"); if (!el) return;
-    const g = rows.filter(r => r.p_home != null && r.home_score != null && r.home_score !== r.away_score);
-    const out = WIN_BANDS.map(([a, b]) => { const x = g.filter(r => { const q = Math.max(r.p_home, 1 - r.p_home); return q >= a && q < b; }); if (!x.length) return null;
-      const won = x.filter(r => (r.p_home >= 0.5) === (r.home_score > r.away_score)).length; const avg = x.reduce((s_, r) => s_ + Math.max(r.p_home, 1 - r.p_home), 0) / x.length;
+    const g = rows.filter(r => winBk(r) != null && r.home_score != null && r.home_score !== r.away_score);
+    const out = WIN_BANDS.map(([a, b]) => { const x = g.filter(r => { const q = Math.max(winBk(r), 1 - winBk(r)); return q >= a && q < b; }); if (!x.length) return null;
+      const won = x.filter(r => (winBk(r) >= 0.5) === (r.home_score > r.away_score)).length; const avg = x.reduce((s_, r) => s_ + Math.max(winBk(r), 1 - winBk(r)), 0) / x.length;
       const v = x.map(r => ({vw: vegasWin(r), r})).filter(o => o.vw != null); const vwon = v.filter(o => (o.vw >= 0.5) === (o.r.home_score > o.r.away_score)).length; const vavg = v.length ? v.reduce((s_, o) => s_ + Math.max(o.vw, 1 - o.vw), 0) / v.length : null;
       return {a, b, n: x.length, avg, won, v: v.length, vavg, vwon}; }).filter(Boolean);
     el.innerHTML = `<thead><tr><th class="l">Model win chance</th><th>Games</th><th title="the model's average chance in the band">Model says</th><th title="how often the model's favorite won">Actually won</th><th title="actual minus model, in points of probability">Gap</th><th title="the closing moneyline's chance, vig removed, on the same games">Vegas says</th><th title="how often the Vegas favorite won on those games">Actually won</th></tr></thead><tbody>` +
@@ -1543,8 +1550,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     let lastS = null, lastX = -99; fl.forEach((x, i) => { if (x.season !== lastS) { lastS = x.season; if (xx(i) - lastX >= 34 && xx(i) <= Wc - mc.r - 24) { uc += `<line x1="${xx(i)}" x2="${xx(i)}" y1="${Hc - mc.b}" y2="${Hc - mc.b + 4}" stroke="var(--rule)"/><text x="${xx(i)}" y="${Hc - 8}" font-size="10.5" fill="var(--text-secondary)">${x.season}</text>`; lastX = xx(i); } } });
     $("unitschart").innerHTML = uc + "</svg>";
     const yn = v => v === true ? "<span class='pos'>yes</span>" : (v === false ? "<span class='neg'>no</span>" : "push");
-    let h = "<thead><tr><th>Wk</th><th class='l'>Date</th><th class='l'>Game</th><th class='l'>Model score</th><th class='l'>Vegas implied</th><th class='l'>Actual</th><th>Model spread</th><th>Vegas spread</th><th title='the final margin as a spread: minus means the home team won by that much'>Actual spread</th><th class='l'>Model lean</th><th>Edge</th><th class='l'>Covered</th><th>Model total</th><th>Vegas total</th><th>Actual total</th><th class='l'>O/U call</th><th class='l'>Hit</th><th>Home win %</th><th class='l'>Winner</th></tr></thead><tbody>";
-    g.forEach(r => { h += `<tr><td>${r.week}</td><td class="l">${r.gameday || ""}</td><td class="l"><b>${r.away_team} @ ${r.home_team}</b></td><td class="l mono" style="color:var(--model)">${r.away_exp.toFixed(1)} - ${r.home_exp.toFixed(1)}</td><td class="l mono" style="color:var(--vegas)">${r.away_implied == null ? "" : r.away_implied.toFixed(1) + " - " + r.home_implied.toFixed(1)}</td><td class="l mono"><b>${r.away_score} - ${r.home_score}</b></td><td class="mono">${lineTxt(r.home_team, +(-r.ms).toFixed(1))}</td><td class="mono">${r.spread_line == null ? "" : lineTxt(r.home_team, -r.spread_line)}</td><td class="mono">${lineTxt(r.home_team, -r.margin)}</td><td class="l">${r.pick || ""}</td><td class="mono ${r.edge != null && FLAG != null && Math.abs(r.edge) >= FLAG ? "flag" : ""}">${sgn(r.edge)}</td><td class="l">${r.pick ? yn(r.pickWon) : ""}</td><td class="mono">${r.mt.toFixed(1)}</td><td class="mono">${r.total_line ?? ""}</td><td class="mono">${r.total}</td><td class="l">${r.ouPick || ""}${isTotFlag(r) ? ` <span class='badge' title="the totals flag: ${TS.side} at a ${Math.round(100 * TS.prob)}%+ chance (tracked, not bet)">flag</span>` : ""}</td><td class="l">${r.ouPick ? yn(r.ouWon) : ""}</td><td class="mono">${pct(r.p_home)}</td><td class="l">${r.margin > 0 ? r.home_team : (r.margin < 0 ? r.away_team : "tie")} ${r.suWon === true ? "<span class='pos'>✓</span>" : (r.suWon === false ? "<span class='neg'>✗</span>" : "")}</td></tr>`; });
+    let h = "<thead><tr><th>Wk</th><th class='l'>Date</th><th class='l'>Game</th><th class='l'>Model score</th><th class='l'>Vegas implied</th><th class='l'>Actual</th><th>Model spread</th><th>Vegas spread</th><th title='the final margin as a spread: minus means the home team won by that much'>Actual spread</th><th class='l'>Model lean</th><th>Edge</th><th class='l'>Covered</th><th>Model total</th><th>Vegas total</th><th>Actual total</th><th class='l'>O/U call</th><th class='l'>Hit</th><th title='the calibrated win chance the cards show, with the fit in force that season (raw where none was)'>Home win %</th><th class='l'>Winner</th></tr></thead><tbody>";
+    g.forEach(r => { h += `<tr><td>${r.week}</td><td class="l">${r.gameday || ""}</td><td class="l"><b>${r.away_team} @ ${r.home_team}</b></td><td class="l mono" style="color:var(--model)">${r.away_exp.toFixed(1)} - ${r.home_exp.toFixed(1)}</td><td class="l mono" style="color:var(--vegas)">${r.away_implied == null ? "" : r.away_implied.toFixed(1) + " - " + r.home_implied.toFixed(1)}</td><td class="l mono"><b>${r.away_score} - ${r.home_score}</b></td><td class="mono">${lineTxt(r.home_team, +(-r.ms).toFixed(1))}</td><td class="mono">${r.spread_line == null ? "" : lineTxt(r.home_team, -r.spread_line)}</td><td class="mono">${lineTxt(r.home_team, -r.margin)}</td><td class="l">${r.pick || ""}</td><td class="mono ${r.edge != null && FLAG != null && Math.abs(r.edge) >= FLAG ? "flag" : ""}">${sgn(r.edge)}</td><td class="l">${r.pick ? yn(r.pickWon) : ""}</td><td class="mono">${r.mt.toFixed(1)}</td><td class="mono">${r.total_line ?? ""}</td><td class="mono">${r.total}</td><td class="l">${r.ouPick || ""}${isTotFlag(r) ? ` <span class='badge' title="the totals flag: ${TS.side} at a ${Math.round(100 * TS.prob)}%+ chance (tracked, not bet)">flag</span>` : ""}</td><td class="l">${r.ouPick ? yn(r.ouWon) : ""}</td><td class="mono">${pct(winBk(r))}</td><td class="l">${r.margin > 0 ? r.home_team : (r.margin < 0 ? r.away_team : "tie")} ${r.suWon === true ? "<span class='pos'>✓</span>" : (r.suWon === false ? "<span class='neg'>✗</span>" : "")}</td></tr>`; });
     $("bktable").innerHTML = h + "</tbody>";
   }
 
@@ -2842,8 +2849,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (g.total_line != null) { const po = overP(g), pr = g.p_over_emp, over = po != null ? po >= 0.5 : g.total_edge > 0, ch = po == null ? null : (over ? po : 1 - po), chr = pr == null ? null : (over ? pr : 1 - pr), b = chr == null ? null : band((RP.total || {}).bands, chr);
       R.total = {side: over ? "Over" : "Under", line: `${over ? "Over" : "Under"} ${g.total_line}`, p: ch, edge: Math.abs(g.total_edge),
         bet: !!g.shadowunder_bet || (g.shadowunder_recorded || []).length > 0, hist: b ? {wl: b.wl, lab: `raw chances ${Math.round(100 * b.lo)}${b.hi == null ? "%+" : "–" + Math.round(100 * b.hi) + "%"}`} : null}; }
-    const fav = g.p_home >= 0.5 ? H : A;
-    R.win = {side: fav, p: fav === H ? g.p_home : 1 - g.p_home, vegas: g.vegas_win == null ? null : (fav === H ? g.vegas_win : 1 - g.vegas_win)};
+    // winner: the calibrated win chance, as the card (p_home_cal, 27 Sep 2026); the same side as the raw chance, the mapping being monotone
+    const pw = winP(g), fav = pw >= 0.5 ? H : A;
+    R.win = {side: fav, p: fav === H ? pw : 1 - pw, vegas: g.vegas_win == null ? null : (fav === H ? g.vegas_win : 1 - g.vegas_win)};
     R.score = {[A]: g.away_exp, [H]: g.home_exp};
     if (g.spread_line != null && g.total_line != null) R.vscore = {[A]: (g.total_line - g.spread_line) / 2, [H]: (g.total_line + g.spread_line) / 2};
     // a played game: the final, and each call graded at the line shown

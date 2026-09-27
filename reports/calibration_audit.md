@@ -1,11 +1,11 @@
-# Calibration audit, 2026-09-27 16:48 UTC
+# Calibration audit, 2026-09-27 17:11 UTC
 
-Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the home win chance, the calibrated cover chance and the calibrated over chance); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
+Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
 ## Findings (27 Sep 2026 audit; the tables below are today's)
 
 - Over chance: the raw p_over_emp was too far from 50% on both sides, every window (said 63% over, the over came 50%: 2015-25 n 256, z -4.5; said 55%, came 50%: n 1119, z -2.8; said 46%, came 49%: n 1125, z +2.3; the same shape in each window). Cause: the chance is priced as if the model's total were the truth and the line carried nothing, while the line's miss is the model's (MAE 10.5 each). Shipped 27 Sep 2026, a mapping and not a model change: the cards, the takeaways and the report show p_over_cal = logistic(a + b x logit(p_over_emp)) (picks.over_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, refit every run (today a -0.040, b 0.389 on 2869 games: 63% raw reads 54%, 55% reads 51%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below), and the checked over table is now the calibrated one. The totals flag (unders at 55%+) stays on the raw chance, the same monotone mapping, so it is the same rule with the same records; the raw table stays below for the record.
-- Home win chance (p_home): the home side wins less often than said when the model has it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0). The line is high in the same games but less (43% implied). Every home bucket under 60% is below its stated chance; overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage. A model change (a home term that follows recent seasons), so it stays failing; not a mapping.
+- Home win chance (p_home): the home side won less often than said when the model had it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0); the line was high in the same games but less (43% implied); overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage; a home term that follows recent seasons did not fix the 2023-25 bucket (31 variants, reports/home_field_recency.md), so the model stays. Shipped 27 Sep 2026, a mapping and not a model change: the cards, the friends' report and the picks file show p_home_cal = logistic(a + b x logit(p_home)) (picks.home_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, ties dropped, the identity under 500 games (two seasons: a one-season fit read worse than the raw chance), refit every run (today a -0.123, b 1.191 on 2885 games: 45% raw reads 41%, 35% reads 30%, 65% reads 65%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below; a richer form with an intercept shift for the home side being the model's underdog was worse than the raw chance on 2016-18 and is not adopted), and the checked home table is now the calibrated one. It does not cure the 2023-25 slight-underdog bucket: it moves a third of those games down into 0.3-0.4, where they sit within noise, and the 147 left say 45% and won 35% (z -2.5), three games under the check's 150-game floor; the stretch (b over 1) also reads the few 10-20% home sides low (2016-25 n 61, said 16%, won 31%, under the floor). The season simulation (season.py, the season file's chance per game) still reads the raw chance; the raw table stays below for the record.
 - Calibrated cover chance (the cards' cover odds, picks.calibration): honest within noise in every band, 2019-25. It is nearly flat (50% at a 0-point edge to 56% at 7) and conservative on the flags: 4-5 point edges said 54% and covered 64% (n 107, z +2.0) while 2-4 point edges covered 48% (n 546). The raw bell-curve chance (p_cover_home, picks file only) runs 8 to 15 points hot at every edge (3-4 points: said 61%, covered 47%, z -3.7), as documented.
 - Cover biases (2019-25, all games at the model's side): home or away side, favourite or underdog, primetime and divisional games are all within 2 SE in every window. One bucket is not: in 2023-25 the model's side covered 41% in the highest third of totals (n 201, z -3.0); 2019-22 was 54% and 2015-18 51% in the same third, so it is not a standing flaw.
 - Margin scale: the stated sigma (13.0 to 13.2) is a shade wide against the realised spread of result minus model spread (12.8 to 12.9): the 50% interval holds 53 to 55%, the 80% 80 to 82%, the 95% 94 to 95%.
@@ -13,7 +13,73 @@ Every chance the model states against what happened, regular season, from the co
 - Season odds (reports/season_calibration.csv): 2019-22 is within noise in every band; 2023-25 is overconfident at both ends (division chances said 1% came 4%, n 183, z +4.5; playoff chances said 77% came 59%, n 41, z -2.9), as the docs already say.
 - Player props (data/tracker/props_graded.csv, two weeks, projections made after the fact): every volume stat is projected high. Targets 4.9 said, 3.4 happened (ratio 0.69, z 12); carries 0.78; catches 0.80; receiving TDs 0.78 (101 said, 79 scored); interceptions 0.70; tackles 0.88. A quarter of the receiving rows (22.5%) are players who saw no target; without them targets are still 18% high and receiving TDs 7.5% high. TD chances read as 1 - exp(-projection) overstate the anytime rate: a 0.15-0.25 TD projection scored in 8.6% of games against 17.9% implied (n 128, z -2.7). Cause: the volume shares do not fall enough for depth players, and no availability check drops players who will not play. Two weeks is too few for a check; reviewed here until the record is long enough.
 
-## Game winner: home win chance (p_home) by decile
+## Game winner: calibrated home win chance (p_home_cal, the cards' figure) by decile
+
+p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on every regular-season game from 2015 to the season before the one priced, ties dropped (walk-forward; each season below is scored with the fit in force for it, the identity under 500 games, so 2017 is the first season scored). Today's fit on 2015 to 2025: a -0.123, b 1.191 on 2885 games (b = 1 and a = 0 would be p_home itself): 35% raw reads 29.7%, 45% raw reads 41.0%, 55% raw reads 52.9%, 65% raw reads 64.9%, 75% raw reads 76.6%. Ties count half. The season simulation (season.py) still reads the raw chance.
+
+**2015-18** (2017 to 2018 scored): 512 games, said 0.566 home, happened 0.584. Against the moneyline (511 games): Brier model 0.2079, line 0.2048; log loss model 0.6054, line 0.5993.
+
+| Bucket | Games | Said | Happened | z |
+|---|---|---|---|---|
+| [0.2, 0.3) | 34 | 0.260 | 0.206 | -0.7 |
+| [0.3, 0.4) | 56 | 0.354 | 0.330 | -0.4 |
+| [0.4, 0.5) | 84 | 0.453 | 0.458 | +0.1 |
+| [0.5, 0.6) | 110 | 0.555 | 0.573 | +0.4 |
+| [0.6, 0.7) | 107 | 0.647 | 0.710 | +1.4 |
+| [0.7, 0.8) | 78 | 0.744 | 0.782 | +0.8 |
+| [0.8, 0.9) | 33 | 0.837 | 0.818 | -0.3 |
+
+**2019-22** (2019 to 2022 scored): 1055 games, said 0.543 home, happened 0.524. Against the moneyline (1055 games): Brier model 0.2163, line 0.2099; log loss model 0.6248, line 0.6094.
+
+| Bucket | Games | Said | Happened | z |
+|---|---|---|---|---|
+| [0.1, 0.2) | 35 | 0.159 | 0.314 | +2.5 |
+| [0.2, 0.3) | 79 | 0.253 | 0.222 | -0.6 |
+| [0.3, 0.4) | 143 | 0.348 | 0.332 | -0.4 |
+| [0.4, 0.5) | 179 | 0.450 | 0.405 | -1.2 |
+| [0.5, 0.6) | 186 | 0.551 | 0.522 | -0.8 |
+| [0.6, 0.7) | 173 | 0.652 | 0.630 | -0.6 |
+| [0.7, 0.8) | 159 | 0.751 | 0.711 | -1.2 |
+| [0.8, 0.9) | 71 | 0.835 | 0.873 | +0.9 |
+
+**2023-25** (2023 to 2025 scored): 816 games, said 0.536 home, happened 0.542. Against the moneyline (816 games): Brier model 0.2151, line 0.2101; log loss model 0.6204, line 0.6083.
+
+| Bucket | Games | Said | Happened | z |
+|---|---|---|---|---|
+| [0.2, 0.3) | 66 | 0.254 | 0.295 | +0.8 |
+| [0.3, 0.4) | 123 | 0.361 | 0.374 | +0.3 |
+| [0.4, 0.5) | 147 | 0.451 | 0.347 | -2.5 |
+| [0.5, 0.6) | 153 | 0.552 | 0.582 | +0.7 |
+| [0.6, 0.7) | 139 | 0.651 | 0.734 | +2.0 |
+| [0.7, 0.8) | 100 | 0.746 | 0.730 | -0.4 |
+| [0.8, 0.9) | 60 | 0.848 | 0.817 | -0.7 |
+
+**2015-25** (2017 to 2025 scored): 2383 games, said 0.545 home, happened 0.543. Against the moneyline (2382 games): Brier model 0.2141, line 0.2089; log loss model 0.6191, line 0.6069.
+
+| Bucket | Games | Said | Happened | z |
+|---|---|---|---|---|
+| [0.1, 0.2) | 60 | 0.159 | 0.317 | +3.4 |
+| [0.2, 0.3) | 179 | 0.254 | 0.246 | -0.3 |
+| [0.3, 0.4) | 322 | 0.354 | 0.348 | -0.2 |
+| [0.4, 0.5) | 410 | 0.451 | 0.395 | -2.3 |
+| [0.5, 0.6) | 449 | 0.552 | 0.555 | +0.1 |
+| [0.6, 0.7) | 419 | 0.650 | 0.685 | +1.5 |
+| [0.7, 0.8) | 337 | 0.748 | 0.733 | -0.6 |
+| [0.8, 0.9) | 164 | 0.840 | 0.841 | +0.0 |
+| [0.9, 1.0) | 38 | 0.924 | 0.921 | -0.1 |
+
+### The mapping against the raw chance: log loss and Brier (lower is better), and the mapped 0.4-0.5 and 0.3-0.4 buckets
+
+| Window | Games | Log loss p_home | Log loss p_home_cal | Brier p_home | Brier p_home_cal | Mapped 0.4-0.5 said / happened | Mapped 0.3-0.4 said / happened |
+|---|---|---|---|---|---|---|---|
+| 2016-18 (2017 to 2018 scored) | 512 | 0.60718 | 0.60473 | 0.20854 | 0.20756 | 0.453 / 0.458 (n 84) | 0.354 / 0.330 (n 56) |
+| 2019-22 (2019 to 2022 scored) | 1055 | 0.62627 | 0.62479 | 0.21733 | 0.21626 | 0.450 / 0.405 (n 179) | 0.348 / 0.332 (n 143) |
+| 2020-22 (2020 to 2022 scored) | 799 | 0.62789 | 0.62671 | 0.21790 | 0.21677 | 0.449 / 0.412 (n 137) | 0.349 / 0.344 (n 112) |
+| 2023-25 (2023 to 2025 scored) | 816 | 0.62178 | 0.62043 | 0.21598 | 0.21512 | 0.451 / 0.347 (n 147) | 0.361 / 0.374 (n 123) |
+
+### Raw home win chance (p_home, the season simulation's chance) by decile: the record, not a check
+
+Ties count half.
 
 **2015-18**: 1024 games, said 0.573 home, happened 0.571. Against the moneyline (1023 games): Brier model 0.2152, line 0.2146; log loss model 0.6214, line 0.6201.
 
@@ -44,7 +110,7 @@ Every chance the model states against what happened, regular season, from the co
 |---|---|---|---|---|
 | [0.2, 0.3) | 36 | 0.266 | 0.306 | +0.5 |
 | [0.3, 0.4) | 87 | 0.351 | 0.374 | +0.4 |
-| [0.4, 0.5) | 180 | 0.450 | 0.339 | -3.0 **FAIL** |
+| [0.4, 0.5) | 180 | 0.450 | 0.339 | -3.0 |
 | [0.5, 0.6) | 181 | 0.552 | 0.530 | -0.6 |
 | [0.6, 0.7) | 166 | 0.649 | 0.717 | +1.8 |
 | [0.7, 0.8) | 107 | 0.744 | 0.720 | -0.6 |
@@ -56,7 +122,7 @@ Every chance the model states against what happened, regular season, from the co
 |---|---|---|---|---|
 | [0.2, 0.3) | 112 | 0.263 | 0.295 | +0.8 |
 | [0.3, 0.4) | 327 | 0.355 | 0.303 | -2.0 |
-| [0.4, 0.5) | 556 | 0.455 | 0.391 | -3.0 **FAIL** |
+| [0.4, 0.5) | 556 | 0.455 | 0.391 | -3.0 |
 | [0.5, 0.6) | 652 | 0.553 | 0.525 | -1.4 |
 | [0.6, 0.7) | 631 | 0.648 | 0.671 | +1.2 |
 | [0.7, 0.8) | 435 | 0.745 | 0.738 | -0.3 |
@@ -316,4 +382,4 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 | rush_td | 230 | 0.23 | 0.20 | +0.03 | +1.1 | 0.32 | 0.85 | 0.95 | 0.42 | 1.02 |
 | rush_yards | 230 | 27.87 | 25.00 | +2.87 | +1.9 | 17.68 | 0.90 | 0.52 | 0.77 | 1.03 |
 
-Result: FAIL (home win: 2 bucket(s) out, cover: 0 bucket(s) out, over: 0 bucket(s) out)
+Result: PASS (home win: 0 bucket(s) out, cover: 0 bucket(s) out, over: 0 bucket(s) out)

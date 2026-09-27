@@ -294,7 +294,7 @@ CAL_MIN_N, CAL_Z = 150, 2.5   # a calibration bucket fails when it holds this ma
 CAL_WINDOWS = list(P.WINDOWS.items()) + [("2015-25", (2015, 2025))]
 AUDIT_NOTES = [   # the 27 Sep 2026 audit (every model output against what happened, 2015 to 2025); the tables below are rebuilt every run
     "Over chance: the raw p_over_emp was too far from 50% on both sides, every window (said 63% over, the over came 50%: 2015-25 n 256, z -4.5; said 55%, came 50%: n 1119, z -2.8; said 46%, came 49%: n 1125, z +2.3; the same shape in each window). Cause: the chance is priced as if the model's total were the truth and the line carried nothing, while the line's miss is the model's (MAE 10.5 each). Shipped 27 Sep 2026, a mapping and not a model change: the cards, the takeaways and the report show p_over_cal = logistic(a + b x logit(p_over_emp)) (picks.over_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, refit every run (today a -0.040, b 0.389 on 2869 games: 63% raw reads 54%, 55% reads 51%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below), and the checked over table is now the calibrated one. The totals flag (unders at 55%+) stays on the raw chance, the same monotone mapping, so it is the same rule with the same records; the raw table stays below for the record.",
-    "Home win chance (p_home): the home side wins less often than said when the model has it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0). The line is high in the same games but less (43% implied). Every home bucket under 60% is below its stated chance; overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage. A model change (a home term that follows recent seasons), so it stays failing; not a mapping.",
+    "Home win chance (p_home): the home side won less often than said when the model had it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0); the line was high in the same games but less (43% implied); overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage; a home term that follows recent seasons did not fix the 2023-25 bucket (31 variants, reports/home_field_recency.md), so the model stays. Shipped 27 Sep 2026, a mapping and not a model change: the cards, the friends' report and the picks file show p_home_cal = logistic(a + b x logit(p_home)) (picks.home_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, ties dropped, the identity under 500 games (two seasons: a one-season fit read worse than the raw chance), refit every run (today a -0.123, b 1.191 on 2885 games: 45% raw reads 41%, 35% reads 30%, 65% reads 65%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below; a richer form with an intercept shift for the home side being the model's underdog was worse than the raw chance on 2016-18 and is not adopted), and the checked home table is now the calibrated one. It does not cure the 2023-25 slight-underdog bucket: it moves a third of those games down into 0.3-0.4, where they sit within noise, and the 147 left say 45% and won 35% (z -2.5), three games under the check's 150-game floor; the stretch (b over 1) also reads the few 10-20% home sides low (2016-25 n 61, said 16%, won 31%, under the floor). The season simulation (season.py, the season file's chance per game) still reads the raw chance; the raw table stays below for the record.",
     "Calibrated cover chance (the cards' cover odds, picks.calibration): honest within noise in every band, 2019-25. It is nearly flat (50% at a 0-point edge to 56% at 7) and conservative on the flags: 4-5 point edges said 54% and covered 64% (n 107, z +2.0) while 2-4 point edges covered 48% (n 546). The raw bell-curve chance (p_cover_home, picks file only) runs 8 to 15 points hot at every edge (3-4 points: said 61%, covered 47%, z -3.7), as documented.",
     "Cover biases (2019-25, all games at the model's side): home or away side, favourite or underdog, primetime and divisional games are all within 2 SE in every window. One bucket is not: in 2023-25 the model's side covered 41% in the highest third of totals (n 201, z -3.0); 2019-22 was 54% and 2015-18 51% in the same third, so it is not a standing flaw.",
     "Margin scale: the stated sigma (13.0 to 13.2) is a shade wide against the realised spread of result minus model spread (12.8 to 12.9): the 50% interval holds 53 to 55%, the 80% 80 to 82%, the 95% 94 to 95%.",
@@ -323,12 +323,12 @@ def _cal_md(t: pd.DataFrame, min_n: int = 30, fail: bool = True) -> list[str]:
 
 def check_calibration(rows) -> None:
     """Every chance the model states against what happened (27 Sep 2026: the player-TD miscalibration was found by
-    hand against book prices, not by a check). Three checks, on the committed prediction table and results: the home
-    win chance by decile, the calibrated cover chance by band of the edge (2019 on, the calibration window) and the
-    over chance by decile, per backtest window and pooled. A bucket with CAL_MIN_N games whose outcome sits more than
-    CAL_Z binomial standard errors from the stated chance fails. The wider audit (raw cover chance, biases by side and
-    situation, totals bias, margin scale, team points, season odds, props) is written to reports/calibration_audit.md
-    every run; it does not fail the check."""
+    hand against book prices, not by a check). Three checks, on the committed prediction table and results: the calibrated
+    home win chance by decile, the calibrated cover chance by band of the edge (2019 on, the calibration window) and the
+    calibrated over chance by decile, per backtest window and pooled, each the figure the cards show. A bucket with CAL_MIN_N
+    games whose outcome sits more than CAL_Z binomial standard errors from the stated chance fails. The wider audit (raw home
+    win and over chances, raw cover chance, biases by side and situation, totals bias, margin scale, team points, season odds,
+    props) is written to reports/calibration_audit.md every run; it does not fail the check."""
     p = pd.read_parquet(OUT / "pred_v3.parquet"); g = pd.read_parquet(OUT / "games.parquet")
     d = B.join(p, g); d = d[(d.game_type == "REG") & d.home_score.notna()].copy()
     gi = g.set_index("game_id"); d["primetime"] = d.game_id.map(gi.primetime).fillna(0); d["div_game"] = d.game_id.map(gi.div_game).fillna(0)
@@ -336,24 +336,51 @@ def check_calibration(rows) -> None:
     L = [f"# Calibration audit, {pd.Timestamp.now('UTC').strftime('%Y-%m-%d %H:%M UTC')}", "",
          "Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). "
          f"Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with {CAL_MIN_N}+ games and |z| over {CAL_Z:g} fails the health check "
-         "(the three checked tables are the home win chance, the calibrated cover chance and the calibrated over chance); every other table is the audit's record and does not fail. Windows are the backtest's: "
+         "(the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: "
          "2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.", "", "## Findings (27 Sep 2026 audit; the tables below are today's)", ""]
     L += [f"- {n}" for n in AUDIT_NOTES] + [""]
     fails = {"home win": [], "cover": [], "over": []}
     def note(k, w, t):
         for ix, r in t[(t.n >= CAL_MIN_N) & (t.z.abs() > CAL_Z)].iterrows():
             fails[k].append(f"{w} {ix}: said {r.said:.3f}, happened {r.actual:.3f} (n {int(r.n)}, z {r.z:+.1f})")
-    # 1. home win chance by decile, with the Brier score and log loss against the moneyline where there is one
-    L += ["## Game winner: home win chance (p_home) by decile", ""]
+    # 1. the home win chance: the calibrated one on the cards (picks.home_calibration, shipped 27 Sep 2026: each season scored with the fit in
+    # force for it, seasons before from HOME_CAL_FROM) is the checked table; the raw p_home (the season simulation's chance) is the record, not a check.
+    # Both against the closing moneyline (vig removed) where there is one
     def imp(m): m = m.astype(float); return np.where(m < 0, -m / (-m + 100), 100 / (m + 100))
+    def vs_line(x, col):
+        ml = x[x.home_moneyline.notna() & x.away_moneyline.notna()]; y = ml.hw.values; q = ml[col].clip(1e-6, 1 - 1e-6).values
+        ph, pa = imp(ml.home_moneyline), imp(ml.away_moneyline); pv = ph / (ph + pa)
+        ll = lambda q_: float(-np.mean(y * np.log(q_) + (1 - y) * np.log(1 - q_))) if len(y) else np.nan
+        return f"Against the moneyline ({len(ml)} games): Brier model {np.mean((q - y) ** 2):.4f}, line {np.mean((pv - y) ** 2):.4f}; log loss model {ll(q):.4f}, line {ll(pv):.4f}."
+    ch = P.home_calibrations(p, g); hfit = {s_ for s_, c in ch.items() if c[2] >= P.HOME_CAL_MIN_N}   # seasons with a fitted mapping (the first two priced seasons have none: the identity)
+    d["p_home_cal"] = [P.home_cal_p(ch[int(s_)], q) if int(s_) in hfit else np.nan for s_, q in zip(d.season, d.p_home)]
+    curh = ch[int(g.season.max())]
+    L += ["## Game winner: calibrated home win chance (p_home_cal, the cards' figure) by decile", "",
+          f"p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on every regular-season game from {P.HOME_CAL_FROM} to the season before the one priced, ties dropped (walk-forward; each season below is scored with the fit in force for it, the identity under {P.HOME_CAL_MIN_N} games, so {int(min(hfit)) if hfit else '?'} is the first season scored). "
+          f"Today's fit on {P.HOME_CAL_FROM} to {int(g.season.max()) - 1}: a {curh[0]:+.3f}, b {curh[1]:.3f} on {curh[2]} games (b = 1 and a = 0 would be p_home itself): "
+          f"{', '.join(f'{q:.0%} raw reads {P.home_cal_p(curh, q):.1%}' for q in (0.35, 0.45, 0.55, 0.65, 0.75))}. Ties count half. The season simulation (season.py) still reads the raw chance.", ""]
+    for w, (a, b) in CAL_WINDOWS:
+        x = d[d.season.between(a, b) & d.p_home_cal.notna()]
+        if not len(x): continue
+        t = _cal_table(x, x.p_home_cal, "p_home_cal", "hw", np.arange(0, 1.01, 0.1)); note("home win", w, t)
+        L += [f"**{w}** ({int(x.season.min())} to {int(x.season.max())} scored): {len(x)} games, said {x.p_home_cal.mean():.3f} home, happened {x.hw.mean():.3f}. {vs_line(x, 'p_home_cal')}", ""] + _cal_md(t) + [""]
+    # the mapping against the raw chance it replaced: log loss and Brier per window (the audit's test, on which it shipped), and the mapped slight-underdog buckets
+    L += ["### The mapping against the raw chance: log loss and Brier (lower is better), and the mapped 0.4-0.5 and 0.3-0.4 buckets", "",
+          "| Window | Games | Log loss p_home | Log loss p_home_cal | Brier p_home | Brier p_home_cal | Mapped 0.4-0.5 said / happened | Mapped 0.3-0.4 said / happened |", "|---|---|---|---|---|---|---|---|"]
+    for w, (a_, b_) in [("2016-18", (2016, 2018)), ("2019-22", (2019, 2022)), ("2020-22", (2020, 2022)), ("2023-25", (2023, 2025))]:
+        x = d[d.season.between(a_, b_) & d.p_home_cal.notna()]; y = x.hw.values
+        if not len(x): continue
+        ll = lambda q_: float(-np.mean(y * np.log(q_) + (1 - y) * np.log(1 - q_))); q0 = x.p_home.clip(1e-6, 1 - 1e-6).values; q1 = x.p_home_cal.clip(1e-6, 1 - 1e-6).values
+        ta = _cal_table(x, x.p_home_cal, "p_home_cal", "hw", np.arange(0, 1.01, 0.1))
+        cell = lambda k: (f"{ta.loc[k, 'said']:.3f} / {ta.loc[k, 'actual']:.3f} (n {int(ta.loc[k, 'n'])})" if k in ta.index else "")
+        L.append(f"| {w} ({int(x.season.min())} to {int(x.season.max())} scored) | {len(x)} | {ll(q0):.5f} | {ll(q1):.5f} | {np.mean((q0 - y) ** 2):.5f} | {np.mean((q1 - y) ** 2):.5f} | {cell(pd.Interval(0.4, 0.5, closed='left'))} | {cell(pd.Interval(0.3, 0.4, closed='left'))} |")
+    L.append("")
+    L += ["### Raw home win chance (p_home, the season simulation's chance) by decile: the record, not a check", "", "Ties count half.", ""]
     for w, (a, b) in CAL_WINDOWS:
         x = d[d.season.between(a, b)]
         if not len(x): continue
-        t = _cal_table(x, x.p_home, "p_home", "hw", np.arange(0, 1.01, 0.1)); note("home win", w, t)
-        ml = x[x.home_moneyline.notna() & x.away_moneyline.notna()]; y = ml.hw.values; q = ml.p_home.clip(1e-6, 1 - 1e-6).values
-        ph, pa = imp(ml.home_moneyline), imp(ml.away_moneyline); pv = ph / (ph + pa)
-        ll = lambda q_: float(-np.mean(y * np.log(q_) + (1 - y) * np.log(1 - q_))) if len(y) else np.nan
-        L += [f"**{w}**: {len(x)} games, said {x.p_home.mean():.3f} home, happened {x.hw.mean():.3f}. Against the moneyline ({len(ml)} games): Brier model {np.mean((q - y) ** 2):.4f}, line {np.mean((pv - y) ** 2):.4f}; log loss model {ll(q):.4f}, line {ll(pv):.4f}.", ""] + _cal_md(t) + [""]
+        t = _cal_table(x, x.p_home, "p_home", "hw", np.arange(0, 1.01, 0.1))
+        L += [f"**{w}**: {len(x)} games, said {x.p_home.mean():.3f} home, happened {x.hw.mean():.3f}. {vs_line(x, 'p_home')}", ""] + _cal_md(t, fail=False) + [""]
     # 2. the cover chance: the calibrated one on the cards (the mapping the run uses today, fit on CAL_FROM to the season before) and the raw one, by band of the edge
     s = d[d.spread_line.notna()].copy(); s["edge"] = s.model_spread - s.spread_line; s["cm"] = s.result - s.spread_line; s = s[s.cm != 0]
     s["won"] = (np.sign(s.edge) == np.sign(s.cm)).astype(float)
@@ -464,7 +491,7 @@ def check_calibration(rows) -> None:
         L += ["## Player props", "", "data/tracker/props_graded.csv is missing; not audited.", ""]
     L += [f"Result: {'PASS' if not any(fails.values()) else 'FAIL'} ({', '.join(f'{k}: {len(v)} bucket(s) out' for k, v in fails.items())})", ""]
     (REP / "calibration_audit.md").write_text("\n".join(L))
-    rows.append((f"calibration: home win chance by decile = the home win rate (regular season, per window and pooled 2015-25; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["home win"])[:200] or "all within", "all within", not fails["home win"]))
+    rows.append((f"calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["home win"])[:200] or "all within", "all within", not fails["home win"]))
     rows.append((f"calibration: calibrated cover chance by band of the edge = the cover rate of the model's side ({P.CAL_FROM} on, the calibration window, and pooled; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["cover"])[:200] or "all within", "all within", not fails["cover"]))
     rows.append((f"calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["over"])[:200] or "all within", "all within", not fails["over"]))
 
@@ -559,6 +586,15 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
         rows.append(("backtest.js calibrated over chance = picks.over_calibrations as of each season, on the file's own raw chance (worst gap)", round(worst, 7), "0.00001 or under", worst <= 1e-5))
     else:
         tie("backtest.js carries the calibrated over chance (p_over_cal)", "missing", "present")
+    # the home win calibration (27 Sep 2026): the week's coefficients on the page are the picks' fit, and every backtest season carries the fit in force for it
+    chh = P.home_calibration(p, g, s_); hm_ = ((wk.get("cal") or {}).get("home") or {})
+    tie("week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip)", [hm_.get(k) for k in ("a", "b", "from", "before", "n", "clip")], [round(chh[0], 6), round(chh[1], 6), P.HOME_CAL_FROM, s_, chh[2], P.HOME_CAL_CLIP])
+    if "p_home_cal" in bfull.columns:
+        ch_all = P.home_calibrations(p, g); bh = bfull[bfull.p_home.notna() & bfull.p_home_cal.notna()]
+        worst = max([abs(P.home_cal_p(ch_all[int(s)], q) - v) for s, q, v in zip(bh.season, bh.p_home, bh.p_home_cal) if int(s) in ch_all] or [0.0])
+        rows.append(("backtest.js calibrated home win chance = picks.home_calibrations as of each season, on the file's own raw chance (worst gap)", round(worst, 7), "0.00001 or under", worst <= 1e-5))
+    else:
+        tie("backtest.js carries the calibrated home win chance (p_home_cal)", "missing", "present")
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     q = M.qb_overlap(M.prep(feats), max(int(k) for k in meta["coefs"]))
     tie("QB rating and offense rating overlap on the page = model.qb_overlap (the fit)", meta["analysis"].get("qb_overlap"), q)
@@ -729,6 +765,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         def cal_o(q): q = min(max(q, ov["clip"]), 1 - ov["clip"]); return 1 / (1 + math.exp(-(ov["a"] + ov["b"] * math.log(q / (1 - q)))))
         worst = max([abs(cal_o(g["p_over_emp"]) - g["p_over_cal"]) for g in wk["games"] if ov and g.get("p_over_emp") is not None and g.get("p_over_cal") is not None] or [0.0])
         rows.append(("card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap)", round(worst, 5), "0.0006 or under", bool(ov) and worst <= 0.0006))
+        # the calibrated win chance on each card (27 Sep 2026) = week.js cal.home on the card's own raw p_home (both at six decimals, so the gap is the arithmetic's)
+        hc = wk["cal"].get("home") or {}
+        def cal_h(q): q = min(max(q, hc["clip"]), 1 - hc["clip"]); return 1 / (1 + math.exp(-(hc["a"] + hc["b"] * math.log(q / (1 - q)))))
+        worst = max([abs(cal_h(g["p_home"]) - g["p_home_cal"]) for g in wk["games"] if hc and g.get("p_home") is not None and g.get("p_home_cal") is not None] or [0.0])
+        rows.append(("card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap)", round(worst, 5), "0.0006 or under", bool(hc) and worst <= 0.0006))
     if pk_f.exists() and "games" in wk:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}
@@ -827,7 +868,8 @@ def check_live(rows, wk) -> None:
     try:
         sj = _js("season.js"); left = {(t, x[1], x[0]): x[3] for t, xs in sj.get("left", {}).items() for x in xs if x[2] == 1}
         gap = [g_["game_id"] for g_ in G if (g_["home_team"], g_["away_team"], wk["week"]) in left and abs(left[(g_["home_team"], g_["away_team"], wk["week"])] - round(g_["p_home"], 3)) > 0.0015]
-        rows.append(("season file's chance in each game of the week = the card's model win chance (one function, three decimals)", ", ".join(gap) or "all equal", "all equal", not gap))
+        # the season simulation prices each game with the model's raw chance (season.py); the card carries that as p_home and displays p_home_cal (27 Sep 2026)
+        rows.append(("season file's chance in each game of the week = the card's raw model win chance, p_home (one function, three decimals; the card displays it calibrated)", ", ".join(gap) or "all equal", "all equal", not gap))
         from . import futures as FU
         tie("season file's books = the newest futures pull", json.dumps(sj.get("books"), sort_keys=True, default=str)[:4000] == json.dumps(json.loads(json.dumps(FU.latest(), default=str)), sort_keys=True, default=str)[:4000], True)
     except Exception as e:  # noqa

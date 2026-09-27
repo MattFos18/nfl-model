@@ -28,6 +28,12 @@ WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
 CAL_FROM, CAL_CAP = 2019, 7.0   # the cover calibration: regular-season games from this season on, the edge capped at this many points
 OVER_CAL_FROM, OVER_CAL_CLIP, OVER_CAL_MIN_N = 2015, 0.02, 200   # 27 Sep 2026: the over calibration (over_calibration): regular-season games from this season on (every priced season; the audit fit from 2015 scored best on every window, reports/calibration_audit.md), p_over_emp clipped to [0.02, 0.98] before the logit, the identity under 200 games
+# 27 Sep 2026: the home win calibration (home_calibration): the same form on p_home (the audit: the home side won 39% of the games it was
+# said to win 45% of, 2015-25 n 556, z -3.0; a home-field term that follows recent seasons did not fix it, reports/home_field_recency.md).
+# Fit on regular-season games from 2015 to the season before the one priced, ties dropped; the identity under 500 games (two seasons: with
+# the over's 200 the 2016 season was scored on a fit to 2015 alone, 256 games, which read worse than the raw chance and left 2016-18 a wash;
+# from two seasons on the mapping is better by log loss and Brier on 2016-18, 2019-22, 2020-22 and 2023-25, the three later windows the same either way)
+HOME_CAL_FROM, HOME_CAL_CLIP, HOME_CAL_MIN_N = 2015, 0.02, 500
 KELLY_FRACTION, DEFAULT_ODDS = 0.25, -110.0   # the stake: a quarter of the Kelly fraction; the price when no book's is logged
 
 
@@ -41,7 +47,7 @@ def page_rules(d: pd.DataFrame | None = None) -> dict:
     the joined backtest table of played regular-season games with a line, is given), so no sentence on the page restates
     a number by hand."""
     out = {"spread_edge": SPREAD_EDGE, "total_edge": TOTAL_EDGE, "total_shadow": TOTAL_SHADOW, "last_week": LAST_BET_WEEK, "early_last_week": EARLY_LAST_WEEK,
-           "kelly_fraction": KELLY_FRACTION, "default_odds": DEFAULT_ODDS, "break_even": round(break_even(), 4), "cal_from": CAL_FROM, "cal_cap": CAL_CAP, "over_cal_from": OVER_CAL_FROM,
+           "kelly_fraction": KELLY_FRACTION, "default_odds": DEFAULT_ODDS, "break_even": round(break_even(), 4), "cal_from": CAL_FROM, "cal_cap": CAL_CAP, "over_cal_from": OVER_CAL_FROM, "home_cal_from": HOME_CAL_FROM,
            "windows": [{"key": k, "from": a, "to": b, "label": WINDOW_LABEL[k]} for k, (a, b) in WINDOWS.items()]}
     if d is not None:
         out["rules"] = rule_records(d).to_dict("records")
@@ -160,6 +166,11 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     # The cards show p_over_cal; the totals flag (TOTAL_SHADOW, bet() above) stays on the raw p_over_emp, as documented at the constant
     cal_o = over_calibration(pred, games, season)
     p["p_over_cal"] = [over_cal_p(cal_o, x) if pd.notna(x) else np.nan for x in p.p_over_emp] if "p_over_emp" in p.columns else np.nan
+    # calibrated home win chance (27 Sep 2026, reports/calibration_audit.md): p_home runs hot when the home side is a slight underdog (said 45%,
+    # won 39%, 2015-25). p_home_cal maps it the same way, a logistic on its logit fit on the seasons before this one from HOME_CAL_FROM: better
+    # log loss and Brier on every window. The cards show p_home_cal; p_home stays on the row (the season simulation and the season file read it)
+    cal_h = home_calibration(pred, games, season)
+    p["p_home_cal"] = [home_cal_p(cal_h, x) if pd.notna(x) else np.nan for x in p.p_home] if "p_home" in p.columns else np.nan
     # the best available number for the model's side across the books in the latest line snapshot
     best = [best_number(LN.history(r.game_id, log), r) for r in p.itertuples()]
     p["best_line"] = [b[0] for b in best]; p["best_book"] = [b[1] for b in best]
@@ -251,6 +262,46 @@ def over_cal_p(cal, p_over_emp) -> float:
     return float(1.0 / (1.0 + np.exp(-(a + b * np.log(q / (1 - q))))))
 
 
+def _home_rows(pred: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
+    """The games the home win calibration learns from (27 Sep 2026): regular season from HOME_CAL_FROM, a result, ties dropped
+    (a tie is neither a home win nor a loss); lg = logit of p_home (clipped to HOME_CAL_CLIP), hw = the home side won. The chance
+    is the model run's, priced with the fit that priced the game (pred_v3), which is what the audit grades."""
+    g = games.set_index("game_id")
+    d = pred[(pred.game_type == "REG") & (pred.season >= HOME_CAL_FROM) & pred.p_home.notna()].copy()
+    d["res"] = d.game_id.map(g.home_score) - d.game_id.map(g.away_score)
+    d = d[d.res.notna() & (d.res != 0)]
+    q = d.p_home.clip(HOME_CAL_CLIP, 1 - HOME_CAL_CLIP)
+    d["lg"] = np.log(q / (1 - q)); d["hw"] = (d.res > 0).astype(int)
+    return d[["season", "lg", "hw"]]
+
+
+def home_calibration(pred: pd.DataFrame, games: pd.DataFrame, season: int) -> tuple[float, float, int]:
+    """(a, b, n): logistic fit of 'the home side won' on logit(p_home), regular season, seasons HOME_CAL_FROM to season - 1 (the
+    season being priced never learns from itself; in-season the fit is the one made before Week 1). The identity (0, 1) under
+    HOME_CAL_MIN_N games, so p_home_cal = p_home. Tested 27 Sep 2026 against a richer form with an intercept shift for the home
+    side being the model's underdog (the bucket where the miss sits): worse than the raw chance on 2016-18 and on log loss in
+    2019-22, so the two-coefficient form stays (reports/decision_log.md)."""
+    from sklearn.linear_model import LogisticRegression
+    d = _home_rows(pred, games); d = d[d.season < season]
+    if len(d) < HOME_CAL_MIN_N or d.hw.nunique() < 2:
+        return (0.0, 1.0, int(len(d)))
+    m = LogisticRegression(C=10.0).fit(d[["lg"]].values, d.hw.values)
+    return (float(m.intercept_[0]), float(m.coef_[0][0]), int(len(d)))
+
+
+def home_calibrations(pred: pd.DataFrame, games: pd.DataFrame) -> dict:
+    """season -> home_calibration as of that season, for every season the prediction table holds (backtest.js and the
+    calibration audit grade each season with the fit that would have been in force)."""
+    return {int(s): home_calibration(pred, games, int(s)) for s in sorted(pred.season.unique())}
+
+
+def home_cal_p(cal, p_home) -> float:
+    """The calibrated home win chance: logistic(a + b x logit(p_home clipped to HOME_CAL_CLIP))."""
+    a, b = cal[0], cal[1]
+    q = min(max(float(p_home), HOME_CAL_CLIP), 1 - HOME_CAL_CLIP)
+    return float(1.0 / (1.0 + np.exp(-(a + b * np.log(q / (1 - q))))))
+
+
 def best_number(hist: pd.DataFrame, r):
     """(line for the model's side, book, home_spread used) from the latest snapshot; None when there is no log."""
     if hist is None or len(hist) == 0 or pd.isna(r.spread_line):
@@ -299,10 +350,11 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         cover = f"{r.home_team} {r.p_cover_home:.0%} / {r.away_team} {1 - r.p_cover_home:.0%}" if pd.notna(r.p_cover_home) else ""
         po = getattr(r, "p_over_cal", np.nan) if pd.notna(getattr(r, "p_over_cal", np.nan)) else r.p_over_emp   # 27 Sep 2026: the calibrated chance, as the card; the raw p_over_emp stays in the csv
         over = f"Over {po:.0%} / Under {1 - po:.0%}" if pd.notna(po) else ""
+        ph = getattr(r, "p_home_cal", np.nan) if pd.notna(getattr(r, "p_home_cal", np.nan)) else r.p_home   # 27 Sep 2026: the calibrated win chance, as the card; the raw p_home stays in the csv
         rows.append({"Game": f"{r.away_team} @ {r.home_team}", "Date": r.gameday,
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
-                     "Win": f"{r.home_team} {r.p_home:.0%} / {r.away_team} {1 - r.p_home:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
+                     "Win": f"{r.home_team} {ph:.0%} / {r.away_team} {1 - ph:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
                      "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else "",
                      **{f"Shadow: {lab}": (getattr(r, f"{name}_bet", "") if isinstance(getattr(r, f"{name}_bet", ""), str) else "") for name, (_, _, lab) in SHADOWS.items()}})
     df = pd.DataFrame(rows)
@@ -318,7 +370,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
         rec_txt = "on the Backtest tab"
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
-           f"Win, cover and total are the model's chances for each side at the current line (the total chance calibrated on the backtest, picks.over_calibration, 27 Sep 2026; the totals flag reads the raw one, p_over_emp in the csv); {100 * break_even():.1f}% is break-even at {DEFAULT_ODDS:+g}.",
+           f"Win, cover and total are the model's chances for each side at the current line (the win and total chances calibrated on the backtest, picks.home_calibration and picks.over_calibration, 27 Sep 2026; the raw p_home stays in the csv, and the totals flag reads the raw p_over_emp there); {100 * break_even():.1f}% is break-even at {DEFAULT_ODDS:+g}.",
            f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
            "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
            "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
