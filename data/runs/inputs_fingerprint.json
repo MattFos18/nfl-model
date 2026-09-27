@@ -361,6 +361,11 @@
 ],
 [
 "DAL",
+"Jalen Thompson",
+"Out"
+],
+[
+"DAL",
 "Malik Hooker",
 "Out"
 ],
@@ -766,6 +771,11 @@
 ],
 [
 "MIN",
+"Justin Jefferson",
+"Out"
+],
+[
+"MIN",
 "Nick Samac",
 "Out"
 ],
@@ -1101,6 +1111,11 @@
 ],
 [
 "SF",
+"Mike Evans",
+"Out"
+],
+[
+"SF",
 "Nick Bosa",
 "Out"
 ],
@@ -1254,12 +1269,6 @@
 ""
 ],
 [
-"DAL",
-"Jalen Thompson",
-"Questionable (ESPN)",
-""
-],
-[
 "DEN",
 "Marvin Mims Jr.",
 "Questionable (ESPN)",
@@ -1292,12 +1301,6 @@
 [
 "LAC",
 "Donte Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
-"Justin Jefferson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1344,12 +1347,6 @@
 ""
 ],
 [
-"SF",
-"Mike Evans",
-"Questionable (ESPN)",
-""
-],
-[
 "TB",
 "Jalen McMillan",
 "Questionable (ESPN)",
@@ -1357,5 +1354,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-09-27 22:11 UTC"
+"written_at": "2026-09-27 22:28 UTC"
 }

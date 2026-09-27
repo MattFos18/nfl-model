@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-27 22:13 UTC
+# Tie-out (sources and page), 2026-09-27 22:29 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -7,7 +7,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | README flag record, held out | 44-26 | 44-26 | yes |
 | README flag record, 2019 to 2025 | 127-80 | 127-80 | yes |
 | README flag record, outside Week 18 | 120-72 | 120-72 | yes |
-| README held-out margin miss | 9.90 | 9.90 | yes |
+| README held-out margin miss | 9.91 | 9.91 | yes |
 | threshold sweep, cut 4, 2019-22 | 80-51 | 80-51 | yes |
 | threshold sweep, cut 4, 2023-25 | 40-21 | 40-21 | yes |
 | docs section 9 row, cut 4, 2019-22 | 80-51 | 80-51 | yes |
@@ -24,19 +24,19 @@ The same number must read the same everywhere it appears. Each row: what was com
 | track record backtest columns: 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 | 50-38 | 73-42 | 32-18 | yes |
 | docs section 9 rule table: 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 | 54-41 | 68-37 | 33-16 | yes |
 | track record backtest columns: 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 | 54-41 | 68-37 | 33-16 | yes |
-| docs section 9 rule table: boosted trees alone, 5+ edge | 94-69 | 84-60 | 34-17 | 94-69 | 84-60 | 34-17 | yes |
-| track record backtest columns: boosted trees alone, 5+ edge | 94-69 | 84-60 | 34-17 | 94-69 | 84-60 | 34-17 | yes |
+| docs section 9 rule table: boosted trees alone, 5+ edge | 93-68 | 84-59 | 34-17 | 93-68 | 84-59 | 34-17 | yes |
+| track record backtest columns: boosted trees alone, 5+ edge | 93-68 | 84-59 | 34-17 | 93-68 | 84-59 | 34-17 | yes |
 | docs section 9 rule table: Under, 55%+ chance (the totals flag) | 145-124 | 190-146 | 76-62 | 145-124 | 190-146 | 76-62 | yes |
 | track record backtest columns: Under, 55%+ chance (the totals flag) | 145-124 | 190-146 | 76-62 | 145-124 | 190-146 | 76-62 | yes |
 | docs by-week row: weeks 1 | 175 -0.01 53 18-9 67 | 175 -0.01 53 18-9 67 | yes |
 | docs by-week row: weeks 2 | 176 -0.14 59 17-7 71 | 176 -0.14 59 17-7 71 | yes |
 | docs by-week row: weeks 3 | 176 +0.08 53 14-8 64 | 176 +0.08 53 14-8 64 | yes |
-| docs by-week row: weeks 4 | 171 +0.23 51 12-5 71 | 171 +0.23 51 12-5 71 | yes |
+| docs by-week row: weeks 4 | 171 +0.24 51 12-5 71 | 171 +0.24 51 12-5 71 | yes |
 | docs by-week row: weeks 5 to 8 | 632 +0.15 51 43-32 57 | 632 +0.15 51 43-32 57 | yes |
 | docs by-week row: weeks 9 to 13 | 793 +0.16 49 51-33 61 | 793 +0.16 49 51-33 61 | yes |
 | docs by-week row: weeks 14 to 17 | 692 +0.19 51 33-33 50 | 692 +0.19 51 33-33 50 | yes |
 | docs by-week row: weeks 18 | 80 +0.50 59 7-8 47 | 80 +0.50 59 7-8 47 | yes |
-| docs by-week row: weeks Playoffs | 133 +0.29 47 6-5 55 | 133 +0.29 47 6-5 55 | yes |
+| docs by-week row: weeks Playoffs | 133 +0.30 47 6-5 55 | 133 +0.30 47 6-5 55 | yes |
 | scheme profiles as of the current week | 2026 4 | 2026 4 | yes |
 | scheme profiles cover 32 teams | 32 | 32 | yes |
 | injury reasons shown come from this season (no reason from an earlier season's report) | [] | [] | yes |
@@ -55,7 +55,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props by-season tables on the page = reports (rows) | [104, 45, 44] | [104, 45, 44] | yes |
 | props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.01) | {'rec_yards': [19.16, 18.16], 'rush_yards': [17.77, 17.04], 'pass_yards': [56.56 | {'rec_yards': [19.158, 18.1614], 'pass_yards': [56.5589, 56.0612], 'rush_yards': | yes |
 | props graded against the market: page record = tracker file | {'anytime_td': [100, 79], 'def_sacks': [74, 7], 'def_tackles': [34, 23], 'field_ | {'anytime_td': [100, 79], 'def_sacks': [74, 7], 'def_tackles': [34, 23], 'field_ | yes |
-| props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker) | 2839 | 2839 | yes |
+| props file = props page data (projections: 5 per receiver, 5 per rusher, 7 per QB, 3 per defender, 2 per kicker) | 2829 | 2829 | yes |
 | props defender backtests on the page = props_backtest7.csv (adopted variants) | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | {'def_tackles': [1.648, 1.633], 'def_sacks_ll': [0.3813, 0.3887]} | yes |
 | props longest-play backtests on the page = props_backtest8.csv (l_blend_med) | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | {'rec_longest': [9.256, 9.274], 'rush_longest': [7.575, 7.309], 'pass_longest':  | yes |
 | props longest-play constants on the page = props_backtest8.csv (fitted) | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | {'rec_longest': [6.9084, 0.3362, 0.1291, 0.84], 'rush_longest': [6.933, 0.1545,  | yes |
@@ -63,9 +63,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props kicker constants on the page = props_backtest9.csv (fitted team blends) | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | {'kick_points': [2.4861, 0.1843, 0.1489], 'field_goals': [1.0165, 0.1757, 0.0155 | yes |
 | props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game) | {'rec_catches': [1.44, 1.37], 'rec_td_ll': [0.5106, 0.4877], 'rush_td_ll': [0.58 | {'rec_catches': [1.44, 1.37], 'rec_td_ll': [0.5106, 0.4877], 'rush_td_ll': [0.58 | yes |
 | props count constants = props_backtest5.csv | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | {'rec_catch': 'K 25', 'rec_td': 'K 200, margin coefficient 0.020 per point', 'pa | yes |
-| picks file flags = tracker rows (games) | ['2026_04_IND_WAS', '2026_04_JAX_CIN'] | ['2026_04_IND_WAS', '2026_04_JAX_CIN'] | yes |
-| picks file flags = tracker rows (bets) | ['JAX +3', 'WAS +3.5'] | ['JAX +3', 'WAS +3.5'] | yes |
-| picks file stakes = tracker stakes | [0.82, 0.82] | [0.82, 0.82] | yes |
+| picks file flags = tracker rows (games) | ['2026_04_IND_WAS'] | ['2026_04_IND_WAS'] | yes |
+| picks file flags = tracker rows (bets) | ['WAS +3.5'] | ['WAS +3.5'] | yes |
+| picks file stakes = tracker stakes | [0.78] | [0.78] | yes |
 | picks markdown names the live cut | True | True | yes |
 | picks markdown header records (tuning, held out, untouched) | 80-51 40-21 68-55 | 80-51 40-21 68-55 | yes |
 | line watch: every source ran without an error on the newest snapshot | no error | no error | yes |
@@ -80,17 +80,17 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.2% (2025 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-27T22:03Z', 'oddsapi': '2026-09-27T12:11Z', 'props': '2026-09- | {'espn': '2026-09-27T22:03Z', 'oddsapi': '2026-09-27T12:11Z', 'props': '2026-09- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-27T22:21Z', 'oddsapi': '2026-09-27T12:11Z', 'props': '2026-09- | {'espn': '2026-09-27T22:21Z', 'oddsapi': '2026-09-27T12:11Z', 'props': '2026-09- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-09-27 21:59 UTC, 31 steps so far) | all ok | all ok | yes |
+| every step of the newest weekly run finished (2026-09-27 22:18 UTC, 31 steps so far) | all ok | all ok | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
 | the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line (16 games, worst gap) | 0.00e+00 | 1e-9 or under | yes |
 | the page has no duplicate element ids (a duplicate points a control at the wrong element) | [] | [] | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [370, 213, 66, 32, 2026, 4] | [370, 213, 66, 32, 2026, 4] | yes |
-| props record on the page = every projection file, graded rows and market rows | [11109, 7206, 1129] | [11109, 7206, 1129] | yes |
+| props record on the page = every projection file, graded rows and market rows | [11099, 7206, 1129] | [11099, 7206, 1129] | yes |
 | player game logs on the page = nflverse's official player stats, 2025 (targets, catches, rec TD, carries, rush yards, rush TD, completions, pass TD, INT, sacks taken) | [17490.0, 11749.0, 854.0, 15315.0, 66506.0, 526.0, 11749.0, 854.0, 406.0, 1352.0 | [17490.0, 11749.0, 854.0, 15315.0, 66506.0, 526.0, 11749.0, 854.0, 406.0, 1352.0 | yes |
 | player game logs: defenders' tackles, solo, sacks, INT, passes defended = official game by game, 2025 (numbers off; official defensive games missing) | [0, 0] | [0, 0] | yes |
 | player game logs: passing yards, receiving yards and attempts against official, 2025 (worst gap; laterals and a rare passer the play-by-play leaves unnamed) | 17 | 0.05% of the season or under | yes |
@@ -103,10 +103,10 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
 | report records: spread flag and totals flag = the rule records' three windows added up | [[188, 127], [411, 332]] | [[188, 127], [411, 332]] | yes |
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
-| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
+| card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-27T22-03-36Z | 2026-09-27T22-03-36Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-27T22-03-36Z | 2026-09-27T22-03-36Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-27T22-21-02Z | 2026-09-27T22-21-02Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-27T22-21-02Z | 2026-09-27T22-21-02Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.00048 | 0.0006 or under | yes |
 | card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00019 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
@@ -117,7 +117,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | card chances (win, cover, over) = the model's fit priced at the card's line (worst gap; three decimals on the page) | 0.0005 | 0.0006 or under | yes |
 | card flag = the flag rule on the card's edge (side flagged, weeks 1 to 17) | {'2026_04_PIT_CLE': '', '2026_04_IND_WAS': 'WAS', '2026_04_TEN_BAL': '', '2026_0 | {'2026_04_PIT_CLE': '', '2026_04_IND_WAS': 'WAS', '2026_04_TEN_BAL': '', '2026_0 | yes |
 | card totals flag = an under at a 55%+ chance on the card's own over chance (p_over_emp) | {'2026_04_PIT_CLE': False, '2026_04_IND_WAS': False, '2026_04_TEN_BAL': False, ' | {'2026_04_PIT_CLE': False, '2026_04_IND_WAS': False, '2026_04_TEN_BAL': False, ' | yes |
-| card recorded bet = the tracker's logged picks (game, bet) | ['2026_04_IND_WAS WAS +3.5', '2026_04_JAX_CIN JAX +3'] | ['2026_04_IND_WAS WAS +3.5', '2026_04_JAX_CIN JAX +3'] | yes |
+| card recorded bet = the tracker's logged picks (game, bet) | ['2026_04_IND_WAS WAS +3.5'] | ['2026_04_IND_WAS WAS +3.5'] | yes |
 | card Vegas win chance = the newest moneyline snapshot, vig removed per book, averaged (worst gap; games missing one side) | 0.0005; 0 | 0.0006 or under; 0 | yes |
 | each card's run history ends with the run that priced it (model spread and total) | all | all | yes |
 | season file's chance in each game of the week = the card's raw model win chance, p_home (one function, three decimals; the card displays it calibrated) | all equal | all equal | yes |
@@ -126,10 +126,10 @@ The same number must read the same everywhere it appears. Each row: what was com
 | every unplayed outdoor game inside the forecast window (kickoff up to 4 days ahead or 2 days back) is priced with a kickoff forecast | [] | [] | yes |
 | live results: ESPN's final = nflverse's score where nflverse has it | [] | [] | yes |
 | live results: each final's spread, total and winner calls re-graded from its score and close | [] | [] | yes |
-| live results: status and score of every game = the saved ESPN scoreboard | {'ARI@SF': ('in_progress', 23, 6), 'MIN@TB': ('in_progress', 10, 17), 'BAL@DAL': | {'ARI@SF': ('in_progress', 23, 6), 'MIN@TB': ('in_progress', 10, 17), 'BAL@DAL': | yes |
+| live results: status and score of every game = the saved ESPN scoreboard | {'ARI@SF': ('in_progress', 23, 13), 'MIN@TB': ('in_progress', 13, 17), 'BAL@DAL' | {'ARI@SF': ('in_progress', 23, 13), 'MIN@TB': ('in_progress', 13, 17), 'BAL@DAL' | yes |
 | props game script (volume margin and total, kicker implied total) = the card's line | [] | [] | yes |
 | props: one book line per player-stat (the card's takeaways and the props table read the same one) | [] | [] | yes |
-| page live table = tracker (pending model rows) | ['JAX +3', 'WAS +3.5'] | ['JAX +3', 'WAS +3.5'] | yes |
+| page live table = tracker (pending model rows) | ['WAS +3.5'] | ['WAS +3.5'] | yes |
 | page rules: the flag's cut, the totals flag, the last week bet = picks.py | [4.0, {'prob': 0.55, 'side': 'under'}, 17] | [4.0, {'prob': 0.55, 'side': 'under'}, 17] | yes |
 | page rules: break-even at the default price = picks.break_even | [0.5238, -110.0] | [0.5238, -110.0] | yes |
 | page rules: backtest windows = picks.WINDOWS (with the words the reports use) | [('2015-18', 2015, 2018, 'untouched'), ('2019-22', 2019, 2022, 'tuning'), ('2023 | [('2015-18', 2015, 2018, 'untouched'), ('2019-22', 2019, 2022, 'tuning'), ('2023 | yes |
@@ -141,7 +141,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | week.js calibration window = picks.CAL_FROM, CAL_CAP | [2019, 7.0] | [2019, 7.0] | yes |
 | week.js over calibration (cal.over) = picks.over_calibration for the week (a, b, from, before, n, clip) | [-0.039559, 0.389448, 2015, 2026, 2869, 0.02] | [-0.039559, 0.389448, 2015, 2026, 2869, 0.02] | yes |
 | backtest.js calibrated over chance = picks.over_calibrations as of each season, on the file's own raw chance (worst gap) | 5e-07 | 0.00001 or under | yes |
-| week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip) | [-0.12295, 1.190751, 2015, 2026, 2885, 0.02] | [-0.12295, 1.190751, 2015, 2026, 2885, 0.02] | yes |
+| week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip) | [-0.122962, 1.190949, 2015, 2026, 2885, 0.02] | [-0.122962, 1.190949, 2015, 2026, 2885, 0.02] | yes |
 | backtest.js calibrated home win chance = picks.home_calibrations as of each season, on the file's own raw chance (worst gap) | 0.0 | 0.00001 or under | yes |
 | QB rating and offense rating overlap on the page = model.qb_overlap (the fit) | {'seasons': '2013 to 2025', 'n': 7124, 'corr': 0.749, 'qb_per_sd': 1.651, 'off_p | {'seasons': '2013 to 2025', 'n': 7124, 'corr': 0.749, 'qb_per_sd': 1.651, 'off_p | yes |
 | the page's noise figure = reports/audit.md's noise floor | True | True | yes |
@@ -156,11 +156,11 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props record summary on the page = props.market_summary(props_vs_market.csv) | [{'stat': 'anytime_td', 'edge': 'all', 'n': 179, 'wins': 100, 'losses': 79, 'pus | [{'stat': 'anytime_td', 'edge': 'all', 'n': 179, 'wins': 100, 'losses': 79, 'pus | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 | season odds are for the week being priced | 2026 4 | 2026 4 | yes |
-| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1588, 0.1233, 0.1202, 0.0943, 0.0687, 0.0622, 0.0602, 0.0593, 0.0511, 0. | [32, [0.1588, 0.1233, 0.1202, 0.0943, 0.0687, 0.0622, 0.0602, 0.0593, 0.0511, 0. | yes |
+| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.159, 0.1227, 0.1199, 0.0945, 0.0695, 0.0617, 0.06, 0.0591, 0.0512, 0.049 | [32, [0.159, 0.1227, 0.1199, 0.0945, 0.0695, 0.0617, 0.06, 0.0591, 0.0512, 0.049 | yes |
 | season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes) | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | yes |
 | expected wins across the league = regular-season games (every game gives one win, a tie half each) | 272.0 | 272.0 | yes |
-| season wins on the page = record + the chance in each game left (worst team, wins) | 0.043 | 0.1 or under | yes |
-| season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss) | [['2019-22', 1.357, 0.0843, 2.4802], ['2023-25', 1.5792, 0.1378, 2.8595]] | [['2019-22', 1.357, 0.0843, 2.4802], ['2023-25', 1.5792, 0.1378, 2.8595]] | yes |
+| season wins on the page = record + the chance in each game left (worst team, wins) | 0.044 | 0.1 or under | yes |
+| season backtest on the page = reports/season_backtest.csv (base variant, window means: wins off, division Brier, Super Bowl log loss) | [['2019-22', 1.357, 0.0843, 2.4808], ['2023-25', 1.5792, 0.1378, 2.8598]] | [['2019-22', 1.357, 0.0843, 2.4808], ['2023-25', 1.5792, 0.1378, 2.8598]] | yes |
 | season reliability table on the page = reports/season_calibration.csv (rows, teams counted) | [48, 4480] | [48, 4480] | yes |
 | Bets tab: sizing on the page = reports/sizing_backtest.csv (rows) | 16 | 16 | yes |
 | Bets tab: seasons on the page = reports/sizing_seasons.csv (rows) | 10 | 10 | yes |
