@@ -48,15 +48,21 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
         if: steps.gate.outputs.skip != '1'
+      - name: newest raw data copy   # by name from the cache list: the prefix restore kept returning the first weekly run's copy (27 Sep 2026)
+        id: rawkey
+        if: steps.gate.outputs.skip != '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh cache list --key nflverse-raw-v2 --sort created_at --order desc --limit 5 --json key,ref,createdAt,sizeInBytes || true
+          echo "key=$(gh cache list --key nflverse-raw-v2- --sort created_at --order desc --limit 1 --json key -q '.[0].key' || true)" >> "$GITHUB_OUTPUT"
       - name: restore raw data   # props --live re-projects from the play-by-play the weekly run keeps in the Actions cache (26 Sep 2026: without it the step failed); restore only, the weekly run saves it
         if: steps.gate.outputs.skip != '1'
         uses: actions/cache/restore@v4
         with:
           path: data/raw
-          key: nflverse-raw-v2-${{ github.run_id }}   # never saved under this key: restores the newest weekly run's copy
-          restore-keys: |   # the newest run's copy first; a restore key that equals an old key exactly wins over newer prefix matches (27 Sep 2026)
-            nflverse-raw-v2-
-            nflverse-raw-v2
+          key: ${{ steps.rawkey.outputs.key || 'nflverse-raw-v2' }}
+          restore-keys: nflverse-raw-v2
       - name: log lines
         if: steps.gate.outputs.skip != '1'
         env:
