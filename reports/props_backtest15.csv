@@ -1,0 +1,107 @@
+stat,variant,window,n,mae,bias,se_vs_current,mean_line,mean_actual,fitted,against,verdict
+rec_yards,flat,2019-22,16076,19.2767,-5.078,0.0,27.0,32.08,"MED 0.81, the flat factor (the rule before this round)",,the rule before this round
+rec_yards,flat,2023-25,12383,18.2535,-4.908,0.0,25.65,30.56,"MED 0.81, the flat factor (the rule before this round)",,the rule before this round
+rec_yards,A_step_mean,2019-22,16076,19.1785,-5.265,0.0183,26.81,32.08,"lo 0.702 below 30.2 mean yards, hi 0.856 above",,better on both windows
+rec_yards,A_step_mean,2023-25,12383,18.1664,-5.199,0.0205,25.36,30.56,"lo 0.702 below 30.2 mean yards, hi 0.856 above",,better on both windows
+rec_yards,A_logistic_mean,2019-22,16076,19.1763,-5.285,0.018,26.79,32.08,"lo 0.701, hi 0.857, centre 30.7, scale 0.88 mean yards",,better on both windows
+rec_yards,A_logistic_mean,2023-25,12383,18.1649,-5.227,0.0202,25.34,30.56,"lo 0.701, hi 0.857, centre 30.7, scale 0.88 mean yards",,better on both windows
+rec_yards,A_logistic_mean_s5,2019-22,16076,19.1677,-5.307,0.0183,26.77,32.08,"lo 0.690, hi 0.869, centre 32.6, scale 5 mean yards",,better on both windows
+rec_yards,A_logistic_mean_s5,2023-25,12383,18.1568,-5.261,0.0204,25.3,30.56,"lo 0.690, hi 0.869, centre 32.6, scale 5 mean yards",,better on both windows
+rec_yards,A_linear_mean,2019-22,16076,19.1963,-5.233,0.0194,26.84,32.08,"0.679 + 0.00293 x mean yards, clipped 0.5 to 1.2",,better on both windows
+rec_yards,A_linear_mean,2023-25,12383,18.1824,-5.187,0.0206,25.38,30.56,"0.679 + 0.00293 x mean yards, clipped 0.5 to 1.2",,better on both windows
+rec_yards,A_bins5_mean,2019-22,16076,19.1724,-5.152,0.0184,26.93,32.08,"quintiles of mean yards at 15.6, 22.4, 32.5, 45.9: 0.74, 0.70, 0.73, 0.84, 0.87",,better on both windows
+rec_yards,A_bins5_mean,2023-25,12383,18.1702,-5.095,0.0205,25.47,30.56,"quintiles of mean yards at 15.6, 22.4, 32.5, 45.9: 0.74, 0.70, 0.73, 0.84, 0.87",,better on both windows
+rec_yards,A_step_touches,2019-22,16076,19.1938,-5.415,0.0177,26.66,32.08,"lo 0.707 below 4.6 touches, hi 0.851 above",,better on both windows
+rec_yards,A_step_touches,2023-25,12383,18.1876,-5.337,0.0198,25.23,30.56,"lo 0.707 below 4.6 touches, hi 0.851 above",,better on both windows
+rec_yards,A_logistic_touches,2019-22,16076,19.1839,-5.366,0.017,26.71,32.08,"lo 0.701, hi 0.868, centre 4.8, scale 0.74 touches",,better on both windows
+rec_yards,A_logistic_touches,2023-25,12383,18.1762,-5.292,0.0188,25.27,30.56,"lo 0.701, hi 0.868, centre 4.8, scale 0.74 touches",,better on both windows
+rec_yards,B_cap_playing,2019-22,16076,19.1573,-5.378,0.0182,26.7,32.08,"shares x min(1, 1/sum), sum over playing",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_playing,2023-25,12383,18.1514,-5.324,0.0203,25.24,30.56,"shares x min(1, 1/sum), sum over playing",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_playing_half,2019-22,16076,19.1618,-5.342,0.0182,26.74,32.08,"shares x half of min(1, 1/sum), sum over playing",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_playing_half,2023-25,12383,18.1537,-5.292,0.0203,25.27,30.56,"shares x half of min(1, 1/sum), sum over playing",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_roster,2019-22,16076,19.2238,-6.879,0.0244,25.2,32.08,"shares x min(1, 1/sum), sum over roster",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_roster,2023-25,12383,18.1827,-6.384,0.0248,24.18,30.56,"shares x min(1, 1/sum), sum over roster",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_roster_half,2019-22,16076,19.1669,-6.085,0.0185,25.99,32.08,"shares x half of min(1, 1/sum), sum over roster",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_roster_half,2023-25,12383,18.1507,-5.815,0.0203,24.75,30.56,"shares x half of min(1, 1/sum), sum over roster",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_known,2019-22,16076,19.2028,-6.532,0.0228,25.55,32.08,"shares x min(1, 1/sum), sum over known",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_known,2023-25,12383,18.1569,-6.122,0.0239,24.44,30.56,"shares x min(1, 1/sum), sum over known",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_known_half,2019-22,16076,19.1633,-5.914,0.0183,26.16,32.08,"shares x half of min(1, 1/sum), sum over known",A_logistic_mean_s5,better on both windows
+rec_yards,B_cap_known_half,2023-25,12383,18.1425,-5.686,0.0203,24.88,30.56,"shares x half of min(1, 1/sum), sum over known",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_w0.5,2019-22,16076,19.2172,-5.154,0.021,26.92,32.08,"snap trend half way, on the yards line",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_w0.5,2023-25,12383,18.1711,-5.18,0.0224,25.38,30.56,"snap trend half way, on the yards line",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_vol_w0.25,2019-22,16076,19.1666,-5.352,0.0182,26.73,32.08,"snap trend 0.25 of the way on the volume, before the team reconciliation",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_vol_w0.25,2023-25,12383,18.1576,-5.286,0.0203,25.28,30.56,"snap trend 0.25 of the way on the volume, before the team reconciliation",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_vol_w0.5,2019-22,16076,19.2109,-5.247,0.0204,26.83,32.08,"snap trend 0.5 of the way on the volume, before the team reconciliation",A_logistic_mean_s5,better on both windows
+rec_yards,C_snap_vol_w0.5,2023-25,12383,18.1695,-5.23,0.0219,25.33,30.56,"snap trend 0.5 of the way on the volume, before the team reconciliation",A_logistic_mean_s5,better on both windows
+rec_yards,C_decay_0.8,2019-22,16076,19.2211,-5.255,0.0208,26.82,32.08,usage decayed 0.8 per game back (0.85 today),A_logistic_mean_s5,better on both windows
+rec_yards,C_decay_0.8,2023-25,12383,18.1919,-5.242,0.0231,25.32,30.56,usage decayed 0.8 per game back (0.85 today),A_logistic_mean_s5,better on both windows
+rec_yards,C_decay_0.75,2019-22,16076,19.2867,-5.209,0.0247,26.87,32.08,usage decayed 0.75 per game back (0.85 today),A_logistic_mean_s5,not adopted
+rec_yards,C_decay_0.75,2023-25,12383,18.2419,-5.221,0.0271,25.34,30.56,usage decayed 0.75 per game back (0.85 today),A_logistic_mean_s5,not adopted
+rec_catches,flat,2019-22,16076,1.4349,-0.29,0.0,2.59,2.88,"MED_CATCH 0.9, the flat factor",,the rule before this round
+rec_catches,flat,2023-25,12383,1.3549,-0.292,0.0,2.49,2.78,"MED_CATCH 0.9, the flat factor",,the rule before this round
+rec_catches,A_step_targets,2019-22,16076,1.435,-0.27,0.0007,2.61,2.88,"lo 1.002 below 2.9 targets, hi 0.888 above",,not adopted
+rec_catches,A_step_targets,2023-25,12383,1.356,-0.264,0.0009,2.52,2.78,"lo 1.002 below 2.9 targets, hi 0.888 above",,not adopted
+rec_catches,A_logistic_targets,2019-22,16076,1.431,-0.294,0.0005,2.59,2.88,"lo 1.773, hi 0.892, centre 1.2, scale 0.17 targets",,better on both windows
+rec_catches,A_logistic_targets,2023-25,12383,1.3504,-0.29,0.0006,2.49,2.78,"lo 1.773, hi 0.892, centre 1.2, scale 0.17 targets",,better on both windows
+rec_catches,A_bins5_targets,2019-22,16076,1.4355,-0.264,0.0005,2.62,2.88,"quintiles of targets at 2.4, 3.3, 4.7, 6.4: 0.95, 0.96, 0.91, 0.89, 0.89",,not adopted
+rec_catches,A_bins5_targets,2023-25,12383,1.3553,-0.262,0.0006,2.52,2.78,"quintiles of targets at 2.4, 3.3, 4.7, 6.4: 0.95, 0.96, 0.91, 0.89, 0.89",,not adopted
+rec_catches,A_floor1,2019-22,16076,1.4281,-0.277,0.0005,2.61,2.88,at least 1 when the mean catches are 0.40 or more (the median of a count that is 0 less than half the time is 1),,better on both windows
+rec_catches,A_floor1,2023-25,12383,1.3463,-0.277,0.0005,2.51,2.78,at least 1 when the mean catches are 0.40 or more (the median of a count that is 0 less than half the time is 1),,better on both windows
+rec_catches,C_snap_vol_w0.25,2019-22,16076,1.4298,-0.261,0.0012,2.62,2.88,snap trend 0.25 of the way on the targets,A_floor1,better on both windows
+rec_catches,C_snap_vol_w0.25,2023-25,12383,1.3469,-0.268,0.0012,2.52,2.78,snap trend 0.25 of the way on the targets,A_floor1,better on both windows
+rec_catches,C_snap_vol_w0.5,2019-22,16076,1.4391,-0.246,0.0022,2.64,2.88,snap trend 0.5 of the way on the targets,A_floor1,not adopted
+rec_catches,C_snap_vol_w0.5,2023-25,12383,1.3534,-0.259,0.0021,2.52,2.78,snap trend 0.5 of the way on the targets,A_floor1,not adopted
+rush_yards,flat,2019-22,7778,17.8023,-4.232,0.0,26.86,31.09,"MED 0.84, the flat factor (the rule before this round)",,the rule before this round
+rush_yards,flat,2023-25,6196,17.0265,-3.631,0.0,26.93,30.56,"MED 0.84, the flat factor (the rule before this round)",,the rule before this round
+rush_yards,A_step_mean,2019-22,7778,17.7914,-5.637,0.0177,25.46,31.09,"lo 0.683 below 13.9 mean yards, hi 0.791 above",,"better on both windows, inside the noise"
+rush_yards,A_step_mean,2023-25,6196,17.0146,-5.03,0.0198,25.53,30.56,"lo 0.683 below 13.9 mean yards, hi 0.791 above",,"better on both windows, inside the noise"
+rush_yards,A_logistic_mean,2019-22,7778,17.8081,-5.605,0.0179,25.49,31.09,"lo 0.575, hi 0.789, centre 8.1, scale 0.25 mean yards",,not adopted
+rush_yards,A_logistic_mean,2023-25,6196,17.0269,-5.009,0.0201,25.55,30.56,"lo 0.575, hi 0.789, centre 8.1, scale 0.25 mean yards",,not adopted
+rush_yards,A_logistic_mean_s5,2019-22,7778,17.7809,-5.612,0.0171,25.48,31.09,"lo 0.750, hi 0.797, centre 34.0, scale 5 mean yards",,"better on both windows, inside the noise"
+rush_yards,A_logistic_mean_s5,2023-25,6196,17.008,-5.015,0.0191,25.54,30.56,"lo 0.750, hi 0.797, centre 34.0, scale 5 mean yards",,"better on both windows, inside the noise"
+rush_yards,A_linear_mean,2019-22,7778,17.7952,-5.464,0.0158,25.63,31.09,"0.770 + 0.00038 x mean yards, clipped 0.5 to 1.2",,"better on both windows, inside the noise"
+rush_yards,A_linear_mean,2023-25,6196,17.02,-4.863,0.0177,25.7,30.56,"0.770 + 0.00038 x mean yards, clipped 0.5 to 1.2",,"better on both windows, inside the noise"
+rush_yards,A_bins5_mean,2019-22,7778,17.7946,-5.631,0.0183,25.46,31.09,"quintiles of mean yards at 10.2, 19.6, 31.1, 52.4: 0.72, 0.79, 0.75, 0.79, 0.79",,"better on both windows, inside the noise"
+rush_yards,A_bins5_mean,2023-25,6196,17.0238,-5.052,0.0207,25.51,30.56,"quintiles of mean yards at 10.2, 19.6, 31.1, 52.4: 0.72, 0.79, 0.75, 0.79, 0.79",,"better on both windows, inside the noise"
+rush_yards,A_step_touches,2019-22,7778,17.7902,-5.615,0.0174,25.48,31.09,"lo 0.747 below 6.3 touches, hi 0.794 above",,"better on both windows, inside the noise"
+rush_yards,A_step_touches,2023-25,6196,17.0148,-5.032,0.0197,25.53,30.56,"lo 0.747 below 6.3 touches, hi 0.794 above",,"better on both windows, inside the noise"
+rush_yards,A_logistic_touches,2019-22,7778,17.7899,-5.633,0.0175,25.46,31.09,"lo 0.732, hi 0.792, centre 4.8, scale 1.36 touches",,"better on both windows, inside the noise"
+rush_yards,A_logistic_touches,2023-25,6196,17.0152,-5.039,0.0196,25.52,30.56,"lo 0.732, hi 0.792, centre 4.8, scale 1.36 touches",,"better on both windows, inside the noise"
+rush_yards,B_cap_playing,2019-22,7778,17.7433,-5.173,0.0248,25.92,31.09,"shares x min(1, 1/sum), sum over playing",flat,better on both windows
+rush_yards,B_cap_playing,2023-25,6196,16.9928,-4.537,0.0269,26.02,30.56,"shares x min(1, 1/sum), sum over playing",flat,better on both windows
+rush_yards,B_cap_playing_half,2019-22,7778,17.756,-4.702,0.0126,26.39,31.09,"shares x half of min(1, 1/sum), sum over playing",flat,better on both windows
+rush_yards,B_cap_playing_half,2023-25,6196,16.9978,-4.084,0.0136,26.47,30.56,"shares x half of min(1, 1/sum), sum over playing",flat,better on both windows
+rush_yards,B_cap_roster,2019-22,7778,18.0288,-7.992,0.061,23.1,31.09,"shares x min(1, 1/sum), sum over roster",flat,not adopted
+rush_yards,B_cap_roster,2023-25,6196,17.3019,-7.205,0.0658,23.35,30.56,"shares x min(1, 1/sum), sum over roster",flat,not adopted
+rush_yards,B_cap_roster_half,2019-22,7778,17.8015,-6.077,0.0309,25.02,31.09,"shares x half of min(1, 1/sum), sum over roster",flat,not adopted
+rush_yards,B_cap_roster_half,2023-25,6196,17.0503,-5.397,0.0337,25.16,30.56,"shares x half of min(1, 1/sum), sum over roster",flat,not adopted
+rush_yards,B_cap_known,2019-22,7778,17.948,-7.584,0.0572,23.51,31.09,"shares x min(1, 1/sum), sum over known",flat,not adopted
+rush_yards,B_cap_known,2023-25,6196,17.2269,-6.796,0.0615,23.76,30.56,"shares x min(1, 1/sum), sum over known",flat,not adopted
+rush_yards,B_cap_known_half,2019-22,7778,17.7759,-5.883,0.029,25.21,31.09,"shares x half of min(1, 1/sum), sum over known",flat,not adopted
+rush_yards,B_cap_known_half,2023-25,6196,17.0269,-5.199,0.0316,25.36,30.56,"shares x half of min(1, 1/sum), sum over known",flat,not adopted
+rush_yards,C_snap_w0.5,2019-22,7778,17.8481,-4.008,0.0207,27.09,31.09,"snap trend half way, on the yards line",flat,not adopted
+rush_yards,C_snap_w0.5,2023-25,6196,17.1036,-3.454,0.0219,27.1,30.56,"snap trend half way, on the yards line",flat,not adopted
+rush_yards,C_snap_vol_w0.25,2019-22,7778,17.7999,-4.292,0.0036,26.8,31.09,"snap trend 0.25 of the way on the volume, before the team reconciliation",flat,"better on both windows, inside the noise"
+rush_yards,C_snap_vol_w0.25,2023-25,6196,17.023,-3.682,0.0039,26.88,30.56,"snap trend 0.25 of the way on the volume, before the team reconciliation",flat,"better on both windows, inside the noise"
+rush_yards,C_snap_vol_w0.5,2019-22,7778,17.826,-4.132,0.0169,26.96,31.09,"snap trend 0.5 of the way on the volume, before the team reconciliation",flat,not adopted
+rush_yards,C_snap_vol_w0.5,2023-25,6196,17.0877,-3.558,0.0177,27.0,30.56,"snap trend 0.5 of the way on the volume, before the team reconciliation",flat,not adopted
+rush_yards,C_decay_0.8,2019-22,7778,17.8224,-4.19,0.0089,26.9,31.09,usage decayed 0.8 per game back (0.85 today),flat,not adopted
+rush_yards,C_decay_0.8,2023-25,6196,17.0532,-3.586,0.0101,26.97,30.56,usage decayed 0.8 per game back (0.85 today),flat,not adopted
+rush_yards,C_decay_0.75,2019-22,7778,17.8548,-4.15,0.0171,26.94,31.09,usage decayed 0.75 per game back (0.85 today),flat,not adopted
+rush_yards,C_decay_0.75,2023-25,6196,17.0892,-3.546,0.019,27.01,30.56,usage decayed 0.75 per game back (0.85 today),flat,not adopted
+pass_yards,flat,2019-22,2176,56.7426,-3.426,0.0,234.38,237.81,"MED 0.88, the flat factor (the rule before this round)",,the rule before this round
+pass_yards,flat,2023-25,1712,56.2137,3.864,0.0,225.78,221.92,"MED 0.88, the flat factor (the rule before this round)",,the rule before this round
+pass_yards,A_step_mean,2019-22,2176,56.6588,-4.211,0.1466,233.6,237.81,"lo 0.833 below 271.1 mean yards, hi 0.939 above",,"better on both windows, inside the noise"
+pass_yards,A_step_mean,2023-25,1712,56.1498,0.75,0.1489,222.67,221.92,"lo 0.833 below 271.1 mean yards, hi 0.939 above",,"better on both windows, inside the noise"
+pass_yards,A_logistic_mean,2019-22,2176,56.489,-4.092,0.1127,233.72,237.81,"lo 0.777, hi 0.919, centre 241.3, scale 14.45 mean yards",,"better on both windows, inside the noise"
+pass_yards,A_logistic_mean,2023-25,1712,56.1269,1.172,0.1392,223.09,221.92,"lo 0.777, hi 0.919, centre 241.3, scale 14.45 mean yards",,"better on both windows, inside the noise"
+pass_yards,A_logistic_mean_s5,2019-22,2176,56.5399,-4.476,0.1008,233.33,237.81,"lo 0.792, hi 0.897, centre 237.0, scale 5 mean yards",,"better on both windows, inside the noise"
+pass_yards,A_logistic_mean_s5,2023-25,1712,56.158,1.339,0.1349,223.26,221.92,"lo 0.792, hi 0.897, centre 237.0, scale 5 mean yards",,"better on both windows, inside the noise"
+pass_yards,A_linear_mean,2019-22,2176,56.5589,-4.917,0.0844,232.89,237.81,"0.630 + 0.00091 x mean yards, clipped 0.5 to 1.2",,better on both windows
+pass_yards,A_linear_mean,2023-25,1712,56.0612,0.838,0.1005,222.76,221.92,"0.630 + 0.00091 x mean yards, clipped 0.5 to 1.2",,better on both windows
+pass_yards,A_bins5_mean,2019-22,2176,56.8185,-4.464,0.1502,233.34,237.81,"quintiles of mean yards at 228.7, 248.1, 266.8, 289.8: 0.79, 0.84, 0.86, 0.96, 0.88",,not adopted
+pass_yards,A_bins5_mean,2023-25,1712,56.1795,1.041,0.1784,222.96,221.92,"quintiles of mean yards at 228.7, 248.1, 266.8, 289.8: 0.79, 0.84, 0.86, 0.96, 0.88",,not adopted
+pass_yards,A_step_touches,2019-22,2176,56.929,-2.896,0.1924,234.91,237.81,"lo 0.740 below 35.9 touches, hi 0.922 above",,not adopted
+pass_yards,A_step_touches,2023-25,1712,56.5219,1.329,0.2521,223.25,221.92,"lo 0.740 below 35.9 touches, hi 0.922 above",,not adopted
+pass_yards,A_logistic_touches,2019-22,2176,56.8329,-3.834,0.1617,233.97,237.81,"lo 0.755, hi 0.909, centre 35.9, scale -0.00 touches",,not adopted
+pass_yards,A_logistic_touches,2023-25,1712,56.3433,0.913,0.2181,222.83,221.92,"lo 0.755, hi 0.909, centre 35.9, scale -0.00 touches",,not adopted
