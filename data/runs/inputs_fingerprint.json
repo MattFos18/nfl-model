@@ -291,11 +291,6 @@
 ],
 [
 "CIN",
-"Colbie Young",
-"Out"
-],
-[
-"CIN",
 "Connor Lew",
 "Out"
 ],
@@ -906,11 +901,6 @@
 ],
 [
 "NYJ",
-"Breece Hall",
-"Out"
-],
-[
-"NYJ",
 "David Onyemata",
 "Out"
 ],
@@ -1216,6 +1206,12 @@
 ],
 [
 "CIN",
+"Colbie Young",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
 "Jalen Davis",
 "Questionable (ESPN)",
 ""
@@ -1281,6 +1277,12 @@
 ""
 ],
 [
+"NYJ",
+"Breece Hall",
+"Questionable (ESPN)",
+""
+],
+[
 "PHI",
 "Jonathan Greenard",
 "Questionable (ESPN)",
@@ -1293,6 +1295,12 @@
 ""
 ],
 [
+"TB",
+"Jalen McMillan",
+"Questionable (ESPN)",
+""
+],
+[
 "TEN",
 "Tyjae Spears",
 "Questionable (ESPN)",
@@ -1300,5 +1308,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-09-27 20:31 UTC"
+"written_at": "2026-09-27 20:50 UTC"
 }
