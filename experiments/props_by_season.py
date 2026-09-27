@@ -73,6 +73,14 @@ def _snaps():
     e["s3"] = g_.transform(lambda v: v.shift(1).rolling(3, min_periods=3).mean()); e["s10"] = g_.transform(lambda v: v.shift(1).rolling(10, min_periods=4).mean())
     return e[["pid", "game_id", "s3", "s10"]]
 _REP, _SNAP = _reports(), _snaps()
+_ACTIVE = pd.read_parquet(OUT / "snap_exposure.parquet", columns=["player_id", "game_id", "season", "week", "team", "position", "off_pct"]).rename(columns={"player_id": "pid", "team": "posteam"})
+_ACTIVE = _ACTIVE[(_ACTIVE.off_pct > 0) & (_ACTIVE.season >= 2016)].drop_duplicates(["pid", "game_id"])
+def active_share(kind, pg, vcol, sf, tf):
+    """Round 14 (27 Sep 2026): his decayed usage over every game he was active for (snap counts), a game without a touch
+    counting 0 over the team's plays, the touchdown volume's share (props.receivers/rushers share_td)."""
+    za = _ACTIVE[_ACTIVE.pid.isin(pg.pid.unique()) & _ACTIVE.position.isin(PR.SKILL[kind])].merge(pg[["pid", "game_id"]].assign(has=1), on=["pid", "game_id"], how="left")
+    za = za[za.has.isna()][["pid", "posteam", "season", "week", "game_id"]].merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="inner").assign(n=0)
+    return fade_sums(pd.concat([pg[["pid", "posteam", "season", "week", "game_id", "n", "team_n"]], za], ignore_index=True), ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85a", "team_n": "team_n_85a"})
 def build(kind):
     if kind == "rec":
         t = d[d.pass_play & d.receiver_player_id.notna()].rename(columns={"receiver_player_id": "pid"}); vcol = "tp"; ev = {"catch": "complete_pass", "td": "pass_touchdown"}; lgp = d[d.pass_play]
@@ -102,6 +110,7 @@ def build(kind):
     dg = t.groupby(["defteam", "season", "week", "game_id"]).agg(d_n=("n", "sum"), d_yds=("yards_gained", "sum")).reset_index(); D = prev_sums(dg, ["defteam"], ["d_n", "d_yds"])
     f = pg[["pid", "posteam", "season", "week", "game_id", "n", "yds"] + list(ev)].rename(columns={"n": "act_n", "yds": "act_yds", **{k: f"act_{k}" for k in ev}})
     f = f.merge(R[["pid", "game_id", "games_prev"] + cols], on=["pid", "game_id"]).merge(R85[["pid", "game_id", "n_85", "team_n_85"]], on=["pid", "game_id"])
+    if kind != "pass": f = f.merge(active_share(kind, pg, vcol, sf, tf)[["pid", "game_id", "n_85a", "team_n_85a"]], on=["pid", "game_id"], how="left")   # round 14: the touchdown volume's share
     f = f.merge(games, on="game_id").merge(d[["game_id", "posteam", "defteam"]].drop_duplicates(), on=["game_id", "posteam"]).merge(T17[["posteam", "game_id", vcol, "games_prev"]].rename(columns={vcol: "tv", "games_prev": "tgames"}), on=["posteam", "game_id"]).merge(D[["defteam", "game_id", "d_n", "d_yds"]], on=["defteam", "game_id"]).merge(ALW[["defteam", "game_id", "a_tdb", "agames"]], on=["defteam", "game_id"])
     f = f.merge(feat.rename(columns={"team": "posteam"})[["game_id", "posteam", "wind"]], on=["game_id", "posteam"], how="left"); f["wind"] = f.wind.fillna(0.0)
     minv = MIN_VOL * (3 if kind == "pass" else 1); f = f[(f.n >= minv) & (f.games_prev >= 3) & (f.tgames >= 3) & (f.agames >= 3) & (f.season >= 2017)].copy()
@@ -113,12 +122,17 @@ def build(kind):
     if kind == "pass": team_pg = (1 - PR.PACE["pass"]) * team_pg + PR.PACE["pass"] * f.a_tdb / f.agames
     share = 1.0 if kind == "pass" else f.n_85 / f.team_n_85.replace(0, np.nan); share_flat = 1.0 if kind == "pass" else f.n / f.team_n.replace(0, np.nan)
     f["vol"] = share * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); vol_raw = share_flat * f.tv / f.tgames
+    # round 14 (27 Sep 2026): the touchdown volume from his share over every game he was active for (a game without a touch
+    # as 0), and the rate's prior the league's x his position's factor (props.td_prior); the yards and receptions keep vol
+    f["pos"] = f.pid.map(pos_of).fillna("?"); share_td = 1.0 if kind == "pass" else (f.n_85a / f.team_n_85a.replace(0, np.nan)).fillna(share)
+    f["vol_td"] = share_td * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); pos_fac = np.array([PR.td_prior(kind, p_, 1.0) for p_ in f.pos]) if kind != "pass" else 1.0
     wind = 1 + PR.WIND_C[kind] * np.maximum(f.wind - 10, 0)
-    f["yds_line"] = PR.MED[kind] * adj(f.vol * (f.yds + K * lg) / (f.n + K)) * wind; f["yds_raw"] = vol_raw * f.yds / f.n
+    f["mean_line"] = adj(f.vol * (f.yds + K * lg) / (f.n + K)) * wind   # the mean before the median factor and the team scaling (round 15 fits its factor from it)
+    f["yds_line"] = PR.med_factor(kind, f.mean_line.values) * f.mean_line; f["yds_raw"] = vol_raw * f.yds / f.n   # 27 Sep 2026: the median factor by the player's mean (props.MED_TIER, round 15); flat MED for a kind without a curve
     lgc = {k: lg_series(f, t, v, float(t[v].mean())) for k, v in ev.items()}
     for k in ev:
         if k == "catch": f["catch_line"] = PR.MED_CATCH * f.vol * (f[k] + PR.K_CATCH * lgc[k]) / (f.n + PR.K_CATCH)
-        elif k == "td": f["td_line"] = f.vol * (f[k] + PR.K_TD[kind] * lgc[k]) / (f.n + PR.K_TD[kind]) * (1 + PR.TD_MARGIN[kind] * f.me)
+        elif k == "td": f["td_line"] = f.vol_td * (f[k] + PR.K_TD[kind] * lgc[k] * pos_fac) / (f.n + PR.K_TD[kind]) * (1 + PR.TD_MARGIN[kind] * f.me)
         else: f["int_line"] = f.vol * lgc[k]
         f[f"{k}_raw"] = vol_raw * f[k] / f.n
     # round 6: the team's players moved toward the team's expected yards and touchdowns from the game model's expected points
@@ -132,9 +146,10 @@ def build(kind):
     if kind in PR.INJ_F and globals().get("R13_ON", True):
         f = f.merge(_REP, on=["pid", "season", "week"], how="left").merge(_SNAP, on=["pid", "game_id"], how="left")
         grp = [PR.inj_group(a_, b_) for a_, b_ in zip(f.report_status, f.practice_status)]
-        fac = np.array([PR.INJ_F[kind].get(g_, 1.0) for g_ in grp]) * np.array([1 + PR.SNAP_W[kind] * (PR.snap_ratio(a_, b_) - 1) for a_, b_ in zip(f.s3, f.s10)])
+        inj = np.array([PR.INJ_F[kind].get(g_, 1.0) for g_ in grp]); fac = inj * np.array([1 + PR.SNAP_W[kind] * (PR.snap_ratio(a_, b_) - 1) for a_, b_ in zip(f.s3, f.s10)])
         f["yds_line"] = f.yds_line * fac
-    f["pos"] = f.pid.map(pos_of).fillna("?"); return f, ev
+        if kind in PR.INJ_TD: f["td_line"] = f.td_line * inj   # round 14: the injury report on receiving touchdowns (the snap trend lost on touchdowns)
+    return f, ev
 def score(x, line, actual, count=False):
     e = x[line] - x[actual]; out = {"n": int(len(x)), "mae": round(float(e.abs().mean()), 3 if count else 2), "bias": round(float(e.mean()), 3 if count else 2), "mean_line": round(float(x[line].mean()), 3 if count else 1), "mean_actual": round(float(x[actual].mean()), 3 if count else 1)}
     if count:

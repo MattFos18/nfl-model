@@ -118,7 +118,7 @@ BASE = {
     "m_win": ("Model", "3.0 win probability", "model.py", False, False), "m_cover": ("Model", "3.0 probability of covering the closing spread", "model.py", False, False),
     "m_total_adj": ("Model", "the share-out that makes the two team scores add up to the game total's own equation: expected points = the equation + the blend's pull + this", "model.py", False, False),
     "m_blend_adj": ("Model", f"the other {len(M.BLEND_LABEL) - 1} models' average pull on this team's expected points (the blend, 25 Sep 2026): expected points = the equation's number + this", "model.py", False, False),
-    "m_over": ("Model", "3.0 probability the game goes over the closing total, read off the training games' own total misses (pushes left out): the same chance the card and the totals flag use", "model.py", False, False),
+    "m_over": ("Model", "3.0 probability the game goes over the closing total, read off the training games' own total misses (pushes left out): the raw chance the totals flag reads (the card shows it calibrated, picks.over_calibration, 27 Sep 2026)", "model.py", False, False),
 }
 
 
@@ -273,7 +273,7 @@ def props_payload(pj: Path) -> str:
     nflmodel/props.py (the values that props run used), so the page never shows a stand-in."""
     from . import props as PR_
     d = json.loads(pj.read_text())
-    d.setdefault("targetable", PR_.TARGETABLE); d.setdefault("wind_from", PR_.WIND_FROM)
+    d.setdefault("targetable", PR_.TARGETABLE); d.setdefault("wind_from", PR_.WIND_FROM); d.setdefault("med_tier", PR_.MED_TIER)   # 27 Sep 2026: the round-15 median curve
     return json.dumps(d, separators=(",", ":"))
 
 
@@ -729,6 +729,7 @@ def export_week(feats=None, games=None, pred=None):
             coefs_g = None if pr_ is None or f"coef_{M.FEATS[0]}" not in pr_.index else {"per_unit": {f: _p6(pr_[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: _p6(pr_[f"mean_{f}"]) for f in M.FEATS}, "intercept": _p6(pr_["intercept"])}
             kick = sched.get(r.game_id, {}).get("kickoff") or (str(gmeta.kickoff_et)[:16] if gmeta is not None else None)
             wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides, "coefs": coefs_g,
+                       "p_over_cal": _p6(getattr(r, "p_over_cal", None)),   # six decimals (27 Sep 2026): the tie check rebuilds it from the card's three-decimal p_over_emp, whose rounding alone is worth 0.0002
                        "kickoff": kick, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                        "wx": wxs.get(r.game_id), "runs": [{"run_at": x.run_at, "model_spread": clean(x.model_spread), "model_total": clean(x.model_total), "spread_line": clean(x.spread_line), "total_line": clean(x.total_line), "bet": x.bet if isinstance(x.bet, str) else ""} for x in hist_runs[hist_runs.game_id == r.game_id].itertuples()], "home_coach": gmeta.home_coach if gmeta is not None else None, "away_coach": gmeta.away_coach if gmeta is not None else None,
@@ -737,9 +738,11 @@ def export_week(feats=None, games=None, pred=None):
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         _add_injuries(wk, cur_week)
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
+        cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW,
                                                                   "rule_records": _rule_records_js(), "report_records": _report_records_js(), "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
-                                                                  "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season},
+                                                                  "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season,
+                                                                          "over": {"a": round(cal_o[0], 6), "b": round(cal_o[1], 6), "from": P.OVER_CAL_FROM, "before": cur_season, "n": cal_o[2], "clip": P.OVER_CAL_CLIP}},
                                                                   "fit": week_fit(pv_coef, cur_season, cur_week)}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
@@ -936,6 +939,11 @@ def export_backtest_js(games=None, feats=None):
         bk["tree_spread"] = (allv["home_m_trees"] - allv["away_m_trees"]).round(4)   # the trees shadow rule's number (Bets -> Rules compared)
     if "p_over_emp" in allv.columns:
         bk["p_over_emp"] = allv["p_over_emp"].round(6)   # the totals flag's chance (Backtest -> Totals): six decimals, since four put games at 0.450044 on the flag's 0.55 line and the page's record parted from picks.rule_records
+        # the calibrated over chance the cards show (27 Sep 2026), with the fit that was in force for each season (picks.over_calibrations:
+        # seasons before, from OVER_CAL_FROM; the identity where none), so the tab can grade it walk-forward; the flag rule stays on p_over_emp
+        from . import picks as P
+        co = P.over_calibrations(pd.read_parquet(OUT / "pred_v3.parquet"), games)
+        bk["p_over_cal"] = [P.over_cal_p(co[int(s_)], p_) if pd.notna(p_) and int(s_) in co else np.nan for s_, p_ in zip(allv.season, allv.p_over_emp)]
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
@@ -951,7 +959,7 @@ def export_backtest_js(games=None, feats=None):
         bk["away_" + col] = side_val(col, "away")
     for col in ["wind_out", "rain", "cold", "dome", "primetime", "div_game"]:
         bk[col] = side_val(col, "home")
-    full = {i for i, c in enumerate(bk.columns) if c in ("p_over_emp", "model_spread", "model_total")}   # unrounded (clean() keeps three): 26 Sep 2026, 2022_01_TB_DAL's edge of 3.99994 rounded to 4.000 and the page flagged a game the flag rule does not
+    full = {i for i, c in enumerate(bk.columns) if c in ("p_over_emp", "p_over_cal", "model_spread", "model_total")}   # unrounded (clean() keeps three): 26 Sep 2026, 2022_01_TB_DAL's edge of 3.99994 rounded to 4.000 and the page flagged a game the flag rule does not
     recs = [[(None if pd.isna(v) else float(v)) if i in full else clean(v) for i, v in enumerate(r)] for r in bk.itertuples(index=False, name=None)]
     (WEB / "backtest.js").write_text("window.BACKTEST=" + json.dumps({"cols": list(bk.columns), "rows": recs}, default=clean, separators=(",", ":")) + ";")
     print("backtest.js", len(recs), "games", flush=True)

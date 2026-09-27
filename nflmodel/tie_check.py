@@ -127,10 +127,11 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             tie("props by-season tables on the page = reports (rows)", [len(pd.read_csv(REP / f)) for f in ["props_by_season.csv", "props_by_position.csv", "props_by_bucket.csv"]], [len(pb["by_season"]), len(pb["by_position"]), len(pb["by_bucket"])])
             bs = pd.read_csv(REP / "props_by_season.csv"); bs = bs[bs.season.isin(["2019-22", "2023-25"])].set_index(["stat", "season"])
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
-            # passing: the live constants' row in experiments/props_official.py (kept, or the refit when adopted); receiving and rushing: round 13 (injury report and snap trend, 25 Sep 2026)
-            ro = pd.read_csv(REP / "props_official.csv"); r13 = pd.read_csv(REP / "props_backtest13.csv")
-            _src = {"rec_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "rush_yards": (r13, "D_all (A_injury, B_snap_w0.25)"), "pass_yards": (ro, ro[(ro.stat == "pass_yards") & ro.verdict.str.startswith(("kept", "adopted"))].variant.iloc[0])}
-            b2 = {k: [float(t[(t.stat == k) & (t.variant == v)]["mae_2019-22"].iloc[0]), float(t[(t.stat == k) & (t.variant == v)]["mae_2023-25"].iloc[0])] for k, (t, v) in _src.items()}
+            # receiving and passing: round 15 (the median factor that rises with the mean, 27 Sep 2026; one row per window); rushing: round 13 (injury report and snap trend, 25 Sep 2026; round 15 kept its flat factor)
+            r13 = pd.read_csv(REP / "props_backtest13.csv"); r15 = pd.read_csv(REP / "props_backtest15.csv")
+            def _r15(stat, var): return [float(r15[(r15.stat == stat) & (r15.variant == var) & (r15.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
+            b2 = {"rec_yards": _r15("rec_yards", "A_logistic_mean_s5"), "pass_yards": _r15("pass_yards", "A_linear_mean"),
+                  "rush_yards": [float(r13[(r13.stat == "rush_yards") & (r13.variant == "D_all (A_injury, B_snap_w0.25)")]["mae_2019-22"].iloc[0]), float(r13[(r13.stat == "rush_yards") & (r13.variant == "D_all (A_injury, B_snap_w0.25)")]["mae_2023-25"].iloc[0])]}
             # within 0.01: two decimals on the by-season run, and round 13 was scored on the team scores before they were matched to the game total (25 Sep 2026), which moved receiving and rushing by at most 0.007
             rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.01)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.01 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
@@ -292,7 +293,7 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
 CAL_MIN_N, CAL_Z = 150, 2.5   # a calibration bucket fails when it holds this many games and what happened sits more than this many binomial standard errors from what was said
 CAL_WINDOWS = list(P.WINDOWS.items()) + [("2015-25", (2015, 2025))]
 AUDIT_NOTES = [   # the 27 Sep 2026 audit (every model output against what happened, 2015 to 2025); the tables below are rebuilt every run
-    "Over chance (p_over_emp, the cards' total chance): too far from 50% on both sides, every window. Said 63% over, the over came 50% (2015-25: n 256, z -4.5); said 55%, came 50% (n 1119, z -2.8); said 46%, came 49% (n 1125, z +2.3); the same shape in each window (63% said, 51% / 50% / 48% came). Cause: the chance is priced as if the model's total were the truth and the line carried nothing, while the line's miss is the model's (MAE 10.5 each). A calibration mapping fixes it without touching the model: a logistic fit of the over on the logit of p_over_emp (walk-forward, seasons before, from 2015) scores a better log loss and Brier on 2016-18, 2019-22 and 2023-25 (table below). The totals flag (unders at 55%+ on p_over_emp) is a separate rule and would stay as it is. Proposed, not shipped: the check fails until it is.",
+    "Over chance: the raw p_over_emp was too far from 50% on both sides, every window (said 63% over, the over came 50%: 2015-25 n 256, z -4.5; said 55%, came 50%: n 1119, z -2.8; said 46%, came 49%: n 1125, z +2.3; the same shape in each window). Cause: the chance is priced as if the model's total were the truth and the line carried nothing, while the line's miss is the model's (MAE 10.5 each). Shipped 27 Sep 2026, a mapping and not a model change: the cards, the takeaways and the report show p_over_cal = logistic(a + b x logit(p_over_emp)) (picks.over_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, refit every run (today a -0.040, b 0.389 on 2869 games: 63% raw reads 54%, 55% reads 51%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below), and the checked over table is now the calibrated one. The totals flag (unders at 55%+) stays on the raw chance, the same monotone mapping, so it is the same rule with the same records; the raw table stays below for the record.",
     "Home win chance (p_home): the home side wins less often than said when the model has it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0). The line is high in the same games but less (43% implied). Every home bucket under 60% is below its stated chance; overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage. A model change (a home term that follows recent seasons), so it stays failing; not a mapping.",
     "Calibrated cover chance (the cards' cover odds, picks.calibration): honest within noise in every band, 2019-25. It is nearly flat (50% at a 0-point edge to 56% at 7) and conservative on the flags: 4-5 point edges said 54% and covered 64% (n 107, z +2.0) while 2-4 point edges covered 48% (n 546). The raw bell-curve chance (p_cover_home, picks file only) runs 8 to 15 points hot at every edge (3-4 points: said 61%, covered 47%, z -3.7), as documented.",
     "Cover biases (2019-25, all games at the model's side): home or away side, favourite or underdog, primetime and divisional games are all within 2 SE in every window. One bucket is not: in 2023-25 the model's side covered 41% in the highest third of totals (n 201, z -3.0); 2019-22 was 54% and 2015-18 51% in the same third, so it is not a standing flaw.",
@@ -312,10 +313,11 @@ def _cal_table(x: pd.DataFrame, key, said: str, y: str, edges, labels=None) -> p
     return t
 
 
-def _cal_md(t: pd.DataFrame, min_n: int = 30) -> list[str]:
+def _cal_md(t: pd.DataFrame, min_n: int = 30, fail: bool = True) -> list[str]:
+    """fail=False: a table kept for the record (the raw over chance), never marked."""
     L = ["| Bucket | Games | Said | Happened | z |", "|---|---|---|---|---|"]
     for ix, r in t[t.n >= min_n].iterrows():
-        L.append(f"| {ix} | {int(r.n)} | {r.said:.3f} | {r.actual:.3f} | {r.z:+.1f}{' **FAIL**' if r.n >= CAL_MIN_N and abs(r.z) > CAL_Z else ''} |")
+        L.append(f"| {ix} | {int(r.n)} | {r.said:.3f} | {r.actual:.3f} | {r.z:+.1f}{' **FAIL**' if fail and r.n >= CAL_MIN_N and abs(r.z) > CAL_Z else ''} |")
     return L
 
 
@@ -334,7 +336,7 @@ def check_calibration(rows) -> None:
     L = [f"# Calibration audit, {pd.Timestamp.now('UTC').strftime('%Y-%m-%d %H:%M UTC')}", "",
          "Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). "
          f"Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with {CAL_MIN_N}+ games and |z| over {CAL_Z:g} fails the health check "
-         "(the three checked tables are the home win chance, the calibrated cover chance and the over chance); every other table is the audit's record and does not fail. Windows are the backtest's: "
+         "(the three checked tables are the home win chance, the calibrated cover chance and the calibrated over chance); every other table is the audit's record and does not fail. Windows are the backtest's: "
          "2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.", "", "## Findings (27 Sep 2026 audit; the tables below are today's)", ""]
     L += [f"- {n}" for n in AUDIT_NOTES] + [""]
     fails = {"home win": [], "cover": [], "over": []}
@@ -381,36 +383,38 @@ def check_calibration(rows) -> None:
                 f = y[y.edge.abs() >= P.SPREAD_EDGE]; z = (y.won.mean() - y.p_cal.mean()) / np.sqrt(y.p_cal.mean() * (1 - y.p_cal.mean()) / len(y))
                 L.append(f"| {w} | {k} | {len(y)} | {y.p_cal.mean():.3f} | {y.won.mean():.3f} | {z:+.1f} | {len(f)} | {f.won.mean():.3f} |" if len(f) else f"| {w} | {k} | {len(y)} | {y.p_cal.mean():.3f} | {y.won.mean():.3f} | {z:+.1f} | 0 | |")
     L.append("")
-    # 3. the over chance by decile, and the model total's bias by third of the line
+    # 3. the over chance: the calibrated one on the cards (picks.over_calibration, shipped 27 Sep 2026: each season scored with the fit in
+    # force for it, seasons before from OVER_CAL_FROM) is the checked table; the raw p_over_emp (the totals flag's chance) is the record, not a check
     t_ = d[d.total_line.notna() & d.p_over_emp.notna()].copy(); t_["ov"] = t_.total - t_.total_line; t_ = t_[t_.ov != 0]; t_["over"] = (t_.ov > 0).astype(float)
-    L += ["## Totals: over chance (p_over_emp, the cards' figure) by decile", "", "Pushes dropped. p_over (the normal curve, picks file only) is quoted for reference.", ""]
-    for w, (a, b) in CAL_WINDOWS:
-        x = t_[t_.season.between(a, b)]
+    co = P.over_calibrations(p, g); fitted = {s_ for s_, c in co.items() if c[2] >= P.OVER_CAL_MIN_N}   # seasons with a fitted mapping (the first priced season has none: the identity)
+    t_["p_cal"] = [P.over_cal_p(co[int(s_)], q) if int(s_) in fitted else np.nan for s_, q in zip(t_.season, t_.p_over_emp)]
+    cur = co[int(g.season.max())]
+    L += ["## Totals: calibrated over chance (p_over_cal, the cards' figure) by decile", "",
+          f"p_over_cal = logistic(a + b x logit(p_over_emp)), picks.over_calibration: fit on every regular-season game from {P.OVER_CAL_FROM} to the season before the one priced (walk-forward; each season below is scored with the fit in force for it, so {int(min(fitted)) if fitted else '?'} is the first season scored). "
+          f"Today's fit on {P.OVER_CAL_FROM} to {int(g.season.max()) - 1}: a {cur[0]:+.3f}, b {cur[1]:.3f} on {cur[2]} games (b = 1 and a = 0 would be p_over_emp itself): "
+          f"{', '.join(f'{q:.0%} raw reads {P.over_cal_p(cur, q):.1%}' for q in (0.35, 0.45, 0.55, 0.65))}. Pushes dropped. The totals flag (an under at {P.TOTAL_SHADOW['prob']:.0%}+) stays on the raw chance.", ""]
+    for w, (a_, b_) in CAL_WINDOWS:
+        x = t_[t_.season.between(a_, b_) & t_.p_cal.notna()]
         if not len(x): continue
-        t = _cal_table(x, x.p_over_emp, "p_over_emp", "over", np.arange(0, 1.01, 0.1)); note("over", w, t)
-        L += [f"**{w}**: {len(x)} games, said {x.p_over_emp.mean():.3f} over (normal curve {x.p_over.mean():.3f}), happened {x.over.mean():.3f}.", ""] + _cal_md(t) + [""]
-    # the calibrated alternative (proposed 27 Sep 2026): a logistic fit of the over on the logit of p_over_emp, walk-forward on the seasons before, from 2015
-    try:
-        from sklearn.linear_model import LogisticRegression
-        t_["lg"] = np.log(t_.p_over_emp.clip(0.02, 0.98) / (1 - t_.p_over_emp.clip(0.02, 0.98))); calt = {}
-        for s_ in sorted(t_.season.unique()):
-            tr_ = t_[t_.season < s_]
-            if len(tr_) >= 200:
-                m_ = LogisticRegression(C=10.0).fit(tr_[["lg"]].values, tr_.over.astype(int).values); calt[s_] = (float(m_.intercept_[0]), float(m_.coef_[0][0]))
-        t_["p_alt"] = [1 / (1 + np.exp(-(calt[s_][0] + calt[s_][1] * l))) if s_ in calt else np.nan for s_, l in zip(t_.season, t_.lg)]
-        L += ["### Proposed mapping (not shipped): over chance = logistic(a + b x logit(p_over_emp)), fit walk-forward on the seasons before, from 2015", "",
-              f"Today's fit on 2015 to {int(t_.season.max())}: a {calt.get(max(calt), (np.nan, np.nan))[0]:+.3f}, b {calt.get(max(calt), (np.nan, np.nan))[1]:.3f} (b = 1 and a = 0 would be p_over_emp itself). The flag rule (unders at 55%+ on p_over_emp) is not part of this.", "",
-              "| Window | Games | Log loss p_over_emp | Log loss mapped | Brier p_over_emp | Brier mapped | Mapped 0.5-0.6 said / happened | Mapped 0.4-0.5 said / happened |", "|---|---|---|---|---|---|---|---|"]
-        for w, (a, b) in [("2016-18", (2016, 2018)), ("2019-22", (2019, 2022)), ("2020-22", (2020, 2022)), ("2023-25", (2023, 2025))]:
-            x = t_[t_.season.between(a, b) & t_.p_alt.notna()]; y = x.over.values
-            if not len(x): continue
-            ll = lambda q_: float(-np.mean(y * np.log(q_) + (1 - y) * np.log(1 - q_))); q0 = x.p_over_emp.clip(1e-6, 1 - 1e-6).values; q1 = x.p_alt.clip(1e-6, 1 - 1e-6).values
-            ta = _cal_table(x, x.p_alt, "p_alt", "over", np.arange(0, 1.01, 0.1))
-            cell = lambda k: (f"{ta.loc[k, 'said']:.3f} / {ta.loc[k, 'actual']:.3f} (n {int(ta.loc[k, 'n'])})" if k in ta.index else "")
-            L.append(f"| {w} | {len(x)} | {ll(q0):.5f} | {ll(q1):.5f} | {np.mean((q0 - y) ** 2):.5f} | {np.mean((q1 - y) ** 2):.5f} | {cell(pd.Interval(0.5, 0.6, closed='left'))} | {cell(pd.Interval(0.4, 0.5, closed='left'))} |")
-        L.append("")
-    except Exception as e:  # noqa
-        L += [f"(proposed mapping not scored: {str(e)[:80]})", ""]
+        t = _cal_table(x, x.p_cal, "p_cal", "over", np.arange(0, 1.01, 0.1)); note("over", w, t)
+        L += [f"**{w}** ({int(x.season.min())} to {int(x.season.max())} scored): {len(x)} games, said {x.p_cal.mean():.3f} over, happened {x.over.mean():.3f}.", ""] + _cal_md(t) + [""]
+    # the mapping against the raw chance it replaced: log loss and Brier per window (the audit's test, on which it shipped)
+    L += ["### The mapping against the raw chance: log loss and Brier (lower is better), and the mapped 0.5-0.6 and 0.4-0.5 buckets", "",
+          "| Window | Games | Log loss p_over_emp | Log loss p_over_cal | Brier p_over_emp | Brier p_over_cal | Mapped 0.5-0.6 said / happened | Mapped 0.4-0.5 said / happened |", "|---|---|---|---|---|---|---|---|"]
+    for w, (a_, b_) in [("2016-18", (2016, 2018)), ("2019-22", (2019, 2022)), ("2020-22", (2020, 2022)), ("2023-25", (2023, 2025))]:
+        x = t_[t_.season.between(a_, b_) & t_.p_cal.notna()]; y = x.over.values
+        if not len(x): continue
+        ll = lambda q_: float(-np.mean(y * np.log(q_) + (1 - y) * np.log(1 - q_))); q0 = x.p_over_emp.clip(1e-6, 1 - 1e-6).values; q1 = x.p_cal.clip(1e-6, 1 - 1e-6).values
+        ta = _cal_table(x, x.p_cal, "p_cal", "over", np.arange(0, 1.01, 0.1))
+        cell = lambda k: (f"{ta.loc[k, 'said']:.3f} / {ta.loc[k, 'actual']:.3f} (n {int(ta.loc[k, 'n'])})" if k in ta.index else "")
+        L.append(f"| {w} | {len(x)} | {ll(q0):.5f} | {ll(q1):.5f} | {np.mean((q0 - y) ** 2):.5f} | {np.mean((q1 - y) ** 2):.5f} | {cell(pd.Interval(0.5, 0.6, closed='left'))} | {cell(pd.Interval(0.4, 0.5, closed='left'))} |")
+    L.append("")
+    L += ["### Raw over chance (p_over_emp, the totals flag's chance) by decile: the record, not a check", "", "Pushes dropped. p_over (the normal curve, picks file only) is quoted for reference.", ""]
+    for w, (a_, b_) in CAL_WINDOWS:
+        x = t_[t_.season.between(a_, b_)]
+        if not len(x): continue
+        t = _cal_table(x, x.p_over_emp, "p_over_emp", "over", np.arange(0, 1.01, 0.1))
+        L += [f"**{w}**: {len(x)} games, said {x.p_over_emp.mean():.3f} over (normal curve {x.p_over.mean():.3f}), happened {x.over.mean():.3f}.", ""] + _cal_md(t, fail=False) + [""]
     tt = d[d.total_line.notna()].copy(); tt["third"] = pd.qcut(tt.total_line, 3, labels=["low", "mid", "high"])
     L += ["### Model total against the actual total, by third of the line (bias = said minus happened)", "", "| Window | Third | Games | Line | Model | Actual | Bias model | Bias line | MAE model | MAE line |", "|---|---|---|---|---|---|---|---|---|---|"]
     for w, (a, b) in P.WINDOWS.items():
@@ -462,7 +466,7 @@ def check_calibration(rows) -> None:
     (REP / "calibration_audit.md").write_text("\n".join(L))
     rows.append((f"calibration: home win chance by decile = the home win rate (regular season, per window and pooled 2015-25; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["home win"])[:200] or "all within", "all within", not fails["home win"]))
     rows.append((f"calibration: calibrated cover chance by band of the edge = the cover rate of the model's side ({P.CAL_FROM} on, the calibration window, and pooled; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["cover"])[:200] or "all within", "all within", not fails["cover"]))
-    rows.append((f"calibration: over chance (p_over_emp) by decile = the over rate (regular season, per window and pooled; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["over"])[:200] or "all within", "all within", not fails["over"]))
+    rows.append((f"calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of {CAL_MIN_N}+ games within {CAL_Z:g} SE)", "; ".join(fails["over"])[:200] or "all within", "all within", not fails["over"]))
 
 
 def check_run(rows, g) -> None:
@@ -545,6 +549,16 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
             [round(float(x.iloc[0]["intercept"]), 6), round(float(x.iloc[0]["coef_qb_rating"]), 6), round(float(x.iloc[0]["coef_skill_out_value"]), 6), round(float(x.iloc[0]["sigma_margin"]), 6)])
         tie("every card's fit = the week's one fit", sorted({json.dumps(g_.get("coefs"), sort_keys=True) == json.dumps({k: fit.get(k) for k in ("per_unit", "mean", "intercept")}, sort_keys=True) for g_ in wk.get("games", []) if g_.get("coefs")}), [True])
     tie("week.js calibration window = picks.CAL_FROM, CAL_CAP", [(wk.get("cal") or {}).get("from"), (wk.get("cal") or {}).get("cap")], [P.CAL_FROM, P.CAL_CAP])
+    # the over calibration (27 Sep 2026): the week's coefficients on the page are the picks' fit, and every backtest season carries the fit in force for it
+    co_ = P.over_calibration(p, g, s_); ov_ = ((wk.get("cal") or {}).get("over") or {})
+    tie("week.js over calibration (cal.over) = picks.over_calibration for the week (a, b, from, before, n, clip)", [ov_.get(k) for k in ("a", "b", "from", "before", "n", "clip")], [round(co_[0], 6), round(co_[1], 6), P.OVER_CAL_FROM, s_, co_[2], P.OVER_CAL_CLIP])
+    bfull = pd.DataFrame(bk_["rows"], columns=bk_["cols"])
+    if "p_over_cal" in bfull.columns:
+        co_all = P.over_calibrations(p, g); bb = bfull[bfull.p_over_emp.notna() & bfull.p_over_cal.notna()]
+        worst = max([abs(P.over_cal_p(co_all[int(s)], q) - v) for s, q, v in zip(bb.season, bb.p_over_emp, bb.p_over_cal) if int(s) in co_all] or [0.0])
+        rows.append(("backtest.js calibrated over chance = picks.over_calibrations as of each season, on the file's own raw chance (worst gap)", round(worst, 7), "0.00001 or under", worst <= 1e-5))
+    else:
+        tie("backtest.js carries the calibrated over chance (p_over_cal)", "missing", "present")
     feats = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     q = M.qb_overlap(M.prep(feats), max(int(k) for k in meta["coefs"]))
     tie("QB rating and offense rating overlap on the page = model.qb_overlap (the fit)", meta["analysis"].get("qb_overlap"), q)
@@ -710,6 +724,11 @@ def check_page() -> list[tuple[str, str, str, bool]]:
         worst = max([abs(cal_p(wk["cal"]["spread"], g["spread_edge"]) - g["p_cover_cal_home"]) for g in wk["games"] if g.get("spread_edge") is not None and g.get("p_cover_cal_home") is not None] or [0.0])
         # 0.0006: the page carries the cover odds and the edge to 3 decimals, so the odds' own rounding alone reaches 0.0005 and the edge's adds a little (25 Sep 2026: a 0.00050x gap failed the run)
         rows.append(("card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap)", round(worst, 5), "0.0006 or under", worst <= 0.0006))
+        # the calibrated over chance on each card (27 Sep 2026) = week.js cal.over on the card's own raw chance (three decimals on the page, so 0.0002 of gap is its rounding)
+        ov = wk["cal"].get("over") or {}
+        def cal_o(q): q = min(max(q, ov["clip"]), 1 - ov["clip"]); return 1 / (1 + math.exp(-(ov["a"] + ov["b"] * math.log(q / (1 - q)))))
+        worst = max([abs(cal_o(g["p_over_emp"]) - g["p_over_cal"]) for g in wk["games"] if ov and g.get("p_over_emp") is not None and g.get("p_over_cal") is not None] or [0.0])
+        rows.append(("card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap)", round(worst, 5), "0.0006 or under", bool(ov) and worst <= 0.0006))
     if pk_f.exists() and "games" in wk:
         pk = pd.read_csv(pk_f).set_index("game_id")
         pg = {x["game_id"]: x for x in wk["games"]}

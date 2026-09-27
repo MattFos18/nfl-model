@@ -22,7 +22,7 @@ Updated 23 Sep 2026. The model has twenty-two inputs (section 4); everything bel
 | Rest, short week, bye, primetime | Tested and not in: none lowered the miss on both windows once the ratings were in | `experiments/` |
 | Referees, head-to-head, coach and QB against-the-spread records, off a loss, travel, time zones, snow, special teams, sack rates, pace, new coach | Tested and not in (section 14 and the decision log). Head-to-head, coaches and QBs are shown on each card as reference | `experiments/` |
 | Line movement, splits, sharp money | Not in. Nothing to backtest with until the line log has a season behind it. The best available number across books is used for the flagged bet and shown on the card | `lines.py`, `picks.py` |
-| Bet flag | A spread edge of 4 points or more (5 until 23 Sep 2026), no flags in Week 18, totals not flagged. Cover odds on the cards are calibrated on the backtest | `picks.py` |
+| Bet flag | A spread edge of 4 points or more (5 until 23 Sep 2026), no flags in Week 18, totals not flagged (an under at a 55%+ raw chance is tracked, not bet). Cover odds and the total chance on the cards are calibrated on the backtest | `picks.py` |
 
 ## 2. The data
 
@@ -451,7 +451,7 @@ backtest covered 54%, because the line carries information the model does not. T
 figure instead: a logistic curve of "the model's side covered" against the size of the edge (capped at 7), fitted
 on every graded regular-season game before the current season and refit every run. On the same buckets it reads
 48%, 49%, 51%, 52%, 53%, 55%, 56%, 57% for edges of 0-1 up to 7+, against actual 49%, 44%, 50%, 52%, 54%, 57%,
-52%, 58% over 2019 to 2025. The same is done for the total. The raw bell-curve figure stays in the picks file.
+52%, 58% over 2019 to 2025. The raw bell-curve figure stays in the picks file. The total's chance is calibrated the same way since 27 Sep 2026 (`picks.over_calibration`, `reports/calibration_audit.md`): the raw chance `p_over_emp` ran too far from 50% both ways (said 63% over, 50% came, 2015 to 2025), so the cards show `p_over_cal` = a logistic on its logit, fit on every regular-season game from 2015 to the season before the one priced (today a -0.040, b 0.389: 63% raw reads 54%), better by log loss and Brier on every window; the 55% under flag stays on the raw chance, the same rule with the same records.
 
 **Bet at the best number** (22 Sep 2026, `picks.best_number`). The flag is decided on the consensus line, but
 a flagged spread is written at the best available number for the model's side across the books in the latest
@@ -1268,9 +1268,9 @@ odds, the flag and the shadow flags, the stake, and the Vegas win chance (`lines
 with the vig removed, averaged over the newest snapshot). The props re-project on the same line in every line watch
 (`props --live`), with the forecast in use and one book line per player and stat. The bet the weekly run logged
 (`data/tracker/model_picks.csv`) travels as `bet_recorded`, shown beside the live flag, so the card says what was
-bet and whether the edge still clears the cut. The tie check proves each of these against its source. A total has
-one chance, `p_over_emp` (`reports/total_prob.csv`: the calibrated alternative scored better on two windows of three
-and its 55% under rule did worse on 2016-18). The weekly run re-runs every backtest the pages quote after the model
+bet and whether the edge still clears the cut. The tie check proves each of these against its source. The totals flag reads
+one chance, `p_over_emp` (`reports/total_prob.csv`: re-expressing the 55% under rule on a calibrated chance did worse on
+2016-18); since 27 Sep 2026 the card shows that chance calibrated, `p_over_cal` (`picks.over_calibration`, section 14), and the tie check rebuilds each card's figure from the week's fit, exported as `cal.over`. The weekly run re-runs every backtest the pages quote after the model
 (about three minutes) and stamps its inputs; a changed input or a failed step fails the health check.
 
 **Phones** (23 Sep 2026). The page declares a viewport, so a phone renders it at its own width instead of shrinking
@@ -1931,7 +1931,7 @@ scoring drops of 2017, 2022 and 2023.
 
 The flag now reads the chance of the under off the real spread of totals (the training games' own misses, shifted to
 this game's predicted total) and flags an under at 55% or more: 159-130, 202-150 and 68-61 on 2015-18, 2019-22 and
-2023-25, positive at every cut from 54% to 56%. It is graded live beside the spread rules and not bet until it holds
+2023-25, positive at every cut from 54% to 56%. That is the raw chance; the card shows it calibrated since 27 Sep 2026 (the same monotone mapping for every game, so the flag is the same rule). It is graded live beside the spread rules and not bet until it holds
 on live games; 2024 and 2025 were losing seasons for it. No over rule tried (median totals, a league-scoring input,
 trees, a fitted chance, pace, roof, wind, passing strength) won on two windows (`experiments/totals_fix.py`).
 
@@ -1946,3 +1946,40 @@ added up to about 1.9 points off the game total on average. Each team's score is
 that are priced and bet: home = (total + spread) / 2, away = (total - spread) / 2. The spread and total do not move;
 the team-points miss goes 7.381 / 7.340 / 7.268 to 7.398 / 7.353 / 7.259 on 2015-18 / 2019-22 / 2023-25. The card's
 breakdown shows the step as one line, "Matched to the game total".
+
+## 40. The median factor rises with the player's mean (27 Sep 2026)
+
+**The question.** In Week 3 the card's established starters sat well under their book lines (Barkley's rushing yards
+42.2 against 71.5, Adams 49.1 against 71.5, London 45.4 against 67) and low-usage players over (Horton 19.8 against
+1.5). The books are a diagnostic only, never an input; the test is against what happened. Round fifteen
+(`experiments/props_backtest15.py`, `reports/props_backtest15.csv`, `reports/props_backtest15_tiers.csv`) scores the
+adopted rule by decile of the line, per stat and window, and it shows the bias: the top decile of receiving lines
+sat 10 yards under what happened on both windows (-10.4 in 2019-22, -10.1 in 2023-25) against 2.5 to 3.5 under in
+the bottom six deciles. One flat median factor (0.81) turns every player's mean into the line, but the median of a
+right-skewed yardage distribution sits far below the mean for a 3-target player and close to it for a 10-target one,
+so a flat factor over-shrinks the stars and under-shrinks small roles.
+
+**Adopted: a median factor that rises with the player's mean** (`props.MED_TIER`, `props.med_factor`), fitted on
+2017-18 by mean absolute error with the team reconciliation applied at every candidate, in the order the live rule
+uses. Receivers: a logistic from 0.690 to 0.869 centred at 32.6 mean yards with the scale fixed at 5 yards, so the
+factor climbs over about 20 yards rather than jumping (0.72 at 25 yards, 0.84 at 40): 19.17 / 18.16 against the flat
+factor's 19.28 / 18.25, five paired standard errors on each window. The step, the free logistic (which fitted a cliff
+at 30.7 yards), five quintile bins and the forms in projected touches all won too (19.17 to 19.19 / 18.17 to 18.19).
+QBs: 0.630 + 0.00091 x mean yards, clipped to 0.5 to 1.2 (0.81 at 200 mean yards, 0.90 at 300): 56.56 / 56.06
+against 56.74 / 56.21; the free logistic was inside the noise on 2023-25. Rushers stay flat at 0.84: every form gained
+0.01 to 0.02 on both windows, inside one standard error. After the change the top receiving decile sits 6 to 8 yards
+under, the bottom deciles 4 to 5 (a median sits under the mean by design; the tables are in the tiers report).
+
+**Not adopted, tested beside it.** Usage shares capped at one (round ten had only tested handing an absent player's
+share out, which lost): capped over the players who play it gains 0.11 / 0.09 receiving and 0.03 / 0.02 rushing on
+top of the curve, but that needs hindsight; over the roster the card can know (anyone with a profile who played for
+the team in its last three games, less this week's Out and Doubtful) it lost on rushing (17.95 / 17.23 in full) and was
+inside the noise on receiving (19.16 / 18.14 by half against 19.17 / 18.16). The snap trend at half weight (worse) or
+applied to the volume before the reconciliation instead of to the line (no gain); usage decayed 0.80 or 0.75 per game
+instead of 0.85 (both worse). Receptions: a factor that varies with targets was no better as a step or bins; a floor of
+one catch for anyone likelier than not to catch one wins 1.428 / 1.346 against 1.435 / 1.355, but the by-season build
+scores only player-games with a target, so it cannot see the zero-target games a fringe player's floor would be graded
+on; left for a test built on the snap-count rows. The Week 3 lines that prompted the round move the right way (Adams
+49.1 to 53.9, London 45.4 to 48.7, Wilson 52.8 to 57.0; Horton 19.8 to 17.4; Barkley's rushing line unchanged) and not
+to the book's numbers: those gaps sit on the volume side, a rookie's share from two games, which the roster-sum cap did
+not fix.

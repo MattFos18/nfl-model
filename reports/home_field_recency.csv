@@ -1,0 +1,2386 @@
+variant,window,metric,value
+base,2015-18,margin_mae,9.949362919179853
+base,2019-22,margin_mae,10.019899525394734
+base,2023-25,margin_mae,9.904596522660054
+A decay 0.8,2015-18,margin_mae,9.94764902079508
+A decay 0.8,2019-22,margin_mae,9.9989238944901
+A decay 0.8,2023-25,margin_mae,9.913240983290343
+A decay 0.7,2015-18,margin_mae,9.960127323293902
+A decay 0.7,2019-22,margin_mae,9.98696481638892
+A decay 0.7,2023-25,margin_mae,9.93071130448895
+A decay 0.6,2015-18,margin_mae,9.98187274871043
+A decay 0.6,2019-22,margin_mae,9.98573564621261
+A decay 0.6,2023-25,margin_mae,9.955057025821892
+D home x era (2020+),2015-18,margin_mae,9.949362919179853
+D home x era (2020+),2019-22,margin_mae,10.049719718054412
+D home x era (2020+),2023-25,margin_mae,9.903872015051475
+"B last 2 seasons, shrink 0",2015-18,margin_mae,9.954054681702477
+"B last 2 seasons, shrink 0",2019-22,margin_mae,10.00641002542791
+"B last 2 seasons, shrink 0",2023-25,margin_mae,9.918111703149563
+"B last 2 seasons, shrink 100",2015-18,margin_mae,9.952800165697141
+"B last 2 seasons, shrink 100",2019-22,margin_mae,10.004121911818883
+"B last 2 seasons, shrink 100",2023-25,margin_mae,9.915218548240187
+"B last 2 seasons, shrink 300",2015-18,margin_mae,9.95157996575881
+"B last 2 seasons, shrink 300",2019-22,margin_mae,10.003284878250831
+"B last 2 seasons, shrink 300",2023-25,margin_mae,9.912031687028625
+"B last 3 seasons, shrink 0",2015-18,margin_mae,9.951678014286278
+"B last 3 seasons, shrink 0",2019-22,margin_mae,10.024946381275
+"B last 3 seasons, shrink 0",2023-25,margin_mae,9.91461325388173
+"B last 3 seasons, shrink 100",2015-18,margin_mae,9.951161033347537
+"B last 3 seasons, shrink 100",2019-22,margin_mae,10.021505839949045
+"B last 3 seasons, shrink 100",2023-25,margin_mae,9.913230172204843
+"B last 3 seasons, shrink 300",2015-18,margin_mae,9.950658380176531
+"B last 3 seasons, shrink 300",2019-22,margin_mae,10.017911967688704
+"B last 3 seasons, shrink 300",2023-25,margin_mae,9.911314268728473
+"B last 4 seasons, shrink 0",2015-18,margin_mae,9.950060059547212
+"B last 4 seasons, shrink 0",2019-22,margin_mae,10.015270138305885
+"B last 4 seasons, shrink 0",2023-25,margin_mae,9.912405933783841
+"B last 4 seasons, shrink 100",2015-18,margin_mae,9.949703687432716
+"B last 4 seasons, shrink 100",2019-22,margin_mae,10.014865947847758
+"B last 4 seasons, shrink 100",2023-25,margin_mae,9.910646004722672
+"B last 4 seasons, shrink 300",2015-18,margin_mae,9.949407217871945
+"B last 4 seasons, shrink 300",2019-22,margin_mae,10.0146641528729
+"B last 4 seasons, shrink 300",2023-25,margin_mae,9.908321109234862
+"C last 2 seasons + this season x1, shrink 0",2015-18,margin_mae,9.953466489917455
+"C last 2 seasons + this season x1, shrink 0",2019-22,margin_mae,9.993033316121062
+"C last 2 seasons + this season x1, shrink 0",2023-25,margin_mae,9.919662818784884
+"C last 2 seasons + this season x1, shrink 100",2015-18,margin_mae,9.952847629395066
+"C last 2 seasons + this season x1, shrink 100",2019-22,margin_mae,9.993279743201597
+"C last 2 seasons + this season x1, shrink 100",2023-25,margin_mae,9.917278897119727
+"C last 2 seasons + this season x1, shrink 300",2015-18,margin_mae,9.951995927856892
+"C last 2 seasons + this season x1, shrink 300",2019-22,margin_mae,9.995057779901737
+"C last 2 seasons + this season x1, shrink 300",2023-25,margin_mae,9.914280361561843
+"C last 2 seasons + this season x3, shrink 0",2015-18,margin_mae,9.955174399183617
+"C last 2 seasons + this season x3, shrink 0",2019-22,margin_mae,9.985466448699073
+"C last 2 seasons + this season x3, shrink 0",2023-25,margin_mae,9.924909069737504
+"C last 2 seasons + this season x3, shrink 100",2015-18,margin_mae,9.954437752211506
+"C last 2 seasons + this season x3, shrink 100",2019-22,margin_mae,9.985238511496847
+"C last 2 seasons + this season x3, shrink 100",2023-25,margin_mae,9.922378622839515
+"C last 2 seasons + this season x3, shrink 300",2015-18,margin_mae,9.953362425212827
+"C last 2 seasons + this season x3, shrink 300",2019-22,margin_mae,9.986908442021132
+"C last 2 seasons + this season x3, shrink 300",2023-25,margin_mae,9.91870232887615
+"C last 3 seasons + this season x1, shrink 0",2015-18,margin_mae,9.952509527182732
+"C last 3 seasons + this season x1, shrink 0",2019-22,margin_mae,10.009233877773452
+"C last 3 seasons + this season x1, shrink 0",2023-25,margin_mae,9.916363399049226
+"C last 3 seasons + this season x1, shrink 100",2015-18,margin_mae,9.952106304274675
+"C last 3 seasons + this season x1, shrink 100",2019-22,margin_mae,10.007922665798453
+"C last 3 seasons + this season x1, shrink 100",2023-25,margin_mae,9.915069877049323
+"C last 3 seasons + this season x1, shrink 300",2015-18,margin_mae,9.951541506876579
+"C last 3 seasons + this season x1, shrink 300",2019-22,margin_mae,10.007726398956002
+"C last 3 seasons + this season x1, shrink 300",2023-25,margin_mae,9.91321880230552
+"C last 3 seasons + this season x3, shrink 0",2015-18,margin_mae,9.95470413190628
+"C last 3 seasons + this season x3, shrink 0",2019-22,margin_mae,9.995635332666534
+"C last 3 seasons + this season x3, shrink 0",2023-25,margin_mae,9.92052991510676
+"C last 3 seasons + this season x3, shrink 100",2015-18,margin_mae,9.954145160333816
+"C last 3 seasons + this season x3, shrink 100",2019-22,margin_mae,9.99598806021507
+"C last 3 seasons + this season x3, shrink 100",2023-25,margin_mae,9.919033403080853
+"C last 3 seasons + this season x3, shrink 300",2015-18,margin_mae,9.953365411425574
+"C last 3 seasons + this season x3, shrink 300",2019-22,margin_mae,9.997520721355539
+"C last 3 seasons + this season x3, shrink 300",2023-25,margin_mae,9.916657206606384
+"A2 home term decay 0.8, shrink 0",2015-18,margin_mae,9.950691532683331
+"A2 home term decay 0.8, shrink 0",2019-22,margin_mae,10.004714899635111
+"A2 home term decay 0.8, shrink 0",2023-25,margin_mae,9.905643389184384
+"A2 home term decay 0.8, shrink 100",2015-18,margin_mae,9.950479308216257
+"A2 home term decay 0.8, shrink 100",2019-22,margin_mae,10.005838429286534
+"A2 home term decay 0.8, shrink 100",2023-25,margin_mae,9.905499594934891
+"A2 home term decay 0.7, shrink 0",2015-18,margin_mae,9.951180181091143
+"A2 home term decay 0.7, shrink 0",2019-22,margin_mae,9.997562570530098
+"A2 home term decay 0.7, shrink 0",2023-25,margin_mae,9.908247017381688
+"A2 home term decay 0.7, shrink 100",2015-18,margin_mae,9.950895890031314
+"A2 home term decay 0.7, shrink 100",2019-22,margin_mae,9.999701672113735
+"A2 home term decay 0.7, shrink 100",2023-25,margin_mae,9.90772173270038
+"A2 home term decay 0.6, shrink 0",2015-18,margin_mae,9.951851017385653
+"A2 home term decay 0.6, shrink 0",2019-22,margin_mae,9.99095651627935
+"A2 home term decay 0.6, shrink 0",2023-25,margin_mae,9.911827484512473
+"A2 home term decay 0.6, shrink 100",2015-18,margin_mae,9.95137508149411
+"A2 home term decay 0.6, shrink 100",2019-22,margin_mae,9.994215653019557
+"A2 home term decay 0.6, shrink 100",2023-25,margin_mae,9.9105830068874
+base,2015-18,total_mae,10.706617519368606
+base,2019-22,total_mae,10.528306346738836
+base,2023-25,total_mae,10.182170409871878
+A decay 0.8,2015-18,total_mae,10.706617519368606
+A decay 0.8,2019-22,total_mae,10.528306346738836
+A decay 0.8,2023-25,total_mae,10.182170409871878
+A decay 0.7,2015-18,total_mae,10.706617519368606
+A decay 0.7,2019-22,total_mae,10.528306346738836
+A decay 0.7,2023-25,total_mae,10.182170409871878
+A decay 0.6,2015-18,total_mae,10.706617519368606
+A decay 0.6,2019-22,total_mae,10.528306346738836
+A decay 0.6,2023-25,total_mae,10.182170409871878
+D home x era (2020+),2015-18,total_mae,10.706617519368606
+D home x era (2020+),2019-22,total_mae,10.528306346738836
+D home x era (2020+),2023-25,total_mae,10.182170409871878
+"B last 2 seasons, shrink 0",2015-18,total_mae,10.706617519368606
+"B last 2 seasons, shrink 0",2019-22,total_mae,10.528306346738836
+"B last 2 seasons, shrink 0",2023-25,total_mae,10.182170409871878
+"B last 2 seasons, shrink 100",2015-18,total_mae,10.706617519368606
+"B last 2 seasons, shrink 100",2019-22,total_mae,10.528306346738836
+"B last 2 seasons, shrink 100",2023-25,total_mae,10.182170409871878
+"B last 2 seasons, shrink 300",2015-18,total_mae,10.706617519368606
+"B last 2 seasons, shrink 300",2019-22,total_mae,10.528306346738836
+"B last 2 seasons, shrink 300",2023-25,total_mae,10.182170409871878
+"B last 3 seasons, shrink 0",2015-18,total_mae,10.706617519368606
+"B last 3 seasons, shrink 0",2019-22,total_mae,10.528306346738836
+"B last 3 seasons, shrink 0",2023-25,total_mae,10.182170409871878
+"B last 3 seasons, shrink 100",2015-18,total_mae,10.706617519368606
+"B last 3 seasons, shrink 100",2019-22,total_mae,10.528306346738836
+"B last 3 seasons, shrink 100",2023-25,total_mae,10.182170409871878
+"B last 3 seasons, shrink 300",2015-18,total_mae,10.706617519368606
+"B last 3 seasons, shrink 300",2019-22,total_mae,10.528306346738836
+"B last 3 seasons, shrink 300",2023-25,total_mae,10.182170409871878
+"B last 4 seasons, shrink 0",2015-18,total_mae,10.706617519368606
+"B last 4 seasons, shrink 0",2019-22,total_mae,10.528306346738836
+"B last 4 seasons, shrink 0",2023-25,total_mae,10.182170409871878
+"B last 4 seasons, shrink 100",2015-18,total_mae,10.706617519368606
+"B last 4 seasons, shrink 100",2019-22,total_mae,10.528306346738836
+"B last 4 seasons, shrink 100",2023-25,total_mae,10.182170409871878
+"B last 4 seasons, shrink 300",2015-18,total_mae,10.706617519368606
+"B last 4 seasons, shrink 300",2019-22,total_mae,10.528306346738836
+"B last 4 seasons, shrink 300",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x1, shrink 0",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x1, shrink 0",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x1, shrink 0",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x1, shrink 100",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x1, shrink 100",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x1, shrink 100",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x1, shrink 300",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x1, shrink 300",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x1, shrink 300",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x3, shrink 0",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x3, shrink 0",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x3, shrink 0",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x3, shrink 100",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x3, shrink 100",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x3, shrink 100",2023-25,total_mae,10.182170409871878
+"C last 2 seasons + this season x3, shrink 300",2015-18,total_mae,10.706617519368606
+"C last 2 seasons + this season x3, shrink 300",2019-22,total_mae,10.528306346738836
+"C last 2 seasons + this season x3, shrink 300",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x1, shrink 0",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x1, shrink 0",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x1, shrink 0",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x1, shrink 100",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x1, shrink 100",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x1, shrink 100",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x1, shrink 300",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x1, shrink 300",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x1, shrink 300",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x3, shrink 0",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x3, shrink 0",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x3, shrink 0",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x3, shrink 100",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x3, shrink 100",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x3, shrink 100",2023-25,total_mae,10.182170409871878
+"C last 3 seasons + this season x3, shrink 300",2015-18,total_mae,10.706617519368606
+"C last 3 seasons + this season x3, shrink 300",2019-22,total_mae,10.528306346738836
+"C last 3 seasons + this season x3, shrink 300",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.8, shrink 0",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.8, shrink 0",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.8, shrink 0",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.8, shrink 100",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.8, shrink 100",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.8, shrink 100",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.7, shrink 0",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.7, shrink 0",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.7, shrink 0",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.7, shrink 100",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.7, shrink 100",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.7, shrink 100",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.6, shrink 0",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.6, shrink 0",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.6, shrink 0",2023-25,total_mae,10.182170409871878
+"A2 home term decay 0.6, shrink 100",2015-18,total_mae,10.706617519368606
+"A2 home term decay 0.6, shrink 100",2019-22,total_mae,10.528306346738836
+"A2 home term decay 0.6, shrink 100",2023-25,total_mae,10.182170409871878
+base,2015-18,flag_record,68-55
+base,2019-22,flag_record,80-51
+base,2023-25,flag_record,40-21
+A decay 0.8,2015-18,flag_record,67-54
+A decay 0.8,2019-22,flag_record,83-55
+A decay 0.8,2023-25,flag_record,37-24
+A decay 0.7,2015-18,flag_record,66-53
+A decay 0.7,2019-22,flag_record,86-60
+A decay 0.7,2023-25,flag_record,38-25
+A decay 0.6,2015-18,flag_record,69-52
+A decay 0.6,2019-22,flag_record,89-69
+A decay 0.6,2023-25,flag_record,41-30
+D home x era (2020+),2015-18,flag_record,68-55
+D home x era (2020+),2019-22,flag_record,82-61
+D home x era (2020+),2023-25,flag_record,38-22
+"B last 2 seasons, shrink 0",2015-18,flag_record,65-56
+"B last 2 seasons, shrink 0",2019-22,flag_record,79-64
+"B last 2 seasons, shrink 0",2023-25,flag_record,44-25
+"B last 2 seasons, shrink 100",2015-18,flag_record,64-56
+"B last 2 seasons, shrink 100",2019-22,flag_record,77-58
+"B last 2 seasons, shrink 100",2023-25,flag_record,43-25
+"B last 2 seasons, shrink 300",2015-18,flag_record,64-54
+"B last 2 seasons, shrink 300",2019-22,flag_record,79-55
+"B last 2 seasons, shrink 300",2023-25,flag_record,41-22
+"B last 3 seasons, shrink 0",2015-18,flag_record,66-56
+"B last 3 seasons, shrink 0",2019-22,flag_record,79-61
+"B last 3 seasons, shrink 0",2023-25,flag_record,37-25
+"B last 3 seasons, shrink 100",2015-18,flag_record,66-57
+"B last 3 seasons, shrink 100",2019-22,flag_record,77-60
+"B last 3 seasons, shrink 100",2023-25,flag_record,37-25
+"B last 3 seasons, shrink 300",2015-18,flag_record,67-57
+"B last 3 seasons, shrink 300",2019-22,flag_record,79-55
+"B last 3 seasons, shrink 300",2023-25,flag_record,38-24
+"B last 4 seasons, shrink 0",2015-18,flag_record,66-57
+"B last 4 seasons, shrink 0",2019-22,flag_record,84-52
+"B last 4 seasons, shrink 0",2023-25,flag_record,40-24
+"B last 4 seasons, shrink 100",2015-18,flag_record,66-57
+"B last 4 seasons, shrink 100",2019-22,flag_record,83-51
+"B last 4 seasons, shrink 100",2023-25,flag_record,40-24
+"B last 4 seasons, shrink 300",2015-18,flag_record,67-57
+"B last 4 seasons, shrink 300",2019-22,flag_record,81-50
+"B last 4 seasons, shrink 300",2023-25,flag_record,39-25
+"C last 2 seasons + this season x1, shrink 0",2015-18,flag_record,66-54
+"C last 2 seasons + this season x1, shrink 0",2019-22,flag_record,80-64
+"C last 2 seasons + this season x1, shrink 0",2023-25,flag_record,38-24
+"C last 2 seasons + this season x1, shrink 100",2015-18,flag_record,65-52
+"C last 2 seasons + this season x1, shrink 100",2019-22,flag_record,75-59
+"C last 2 seasons + this season x1, shrink 100",2023-25,flag_record,37-24
+"C last 2 seasons + this season x1, shrink 300",2015-18,flag_record,64-53
+"C last 2 seasons + this season x1, shrink 300",2019-22,flag_record,77-57
+"C last 2 seasons + this season x1, shrink 300",2023-25,flag_record,38-25
+"C last 2 seasons + this season x3, shrink 0",2015-18,flag_record,64-56
+"C last 2 seasons + this season x3, shrink 0",2019-22,flag_record,79-65
+"C last 2 seasons + this season x3, shrink 0",2023-25,flag_record,38-27
+"C last 2 seasons + this season x3, shrink 100",2015-18,flag_record,66-57
+"C last 2 seasons + this season x3, shrink 100",2019-22,flag_record,75-63
+"C last 2 seasons + this season x3, shrink 100",2023-25,flag_record,37-26
+"C last 2 seasons + this season x3, shrink 300",2015-18,flag_record,66-57
+"C last 2 seasons + this season x3, shrink 300",2019-22,flag_record,78-56
+"C last 2 seasons + this season x3, shrink 300",2023-25,flag_record,37-26
+"C last 3 seasons + this season x1, shrink 0",2015-18,flag_record,68-54
+"C last 3 seasons + this season x1, shrink 0",2019-22,flag_record,81-60
+"C last 3 seasons + this season x1, shrink 0",2023-25,flag_record,36-26
+"C last 3 seasons + this season x1, shrink 100",2015-18,flag_record,66-54
+"C last 3 seasons + this season x1, shrink 100",2019-22,flag_record,78-57
+"C last 3 seasons + this season x1, shrink 100",2023-25,flag_record,38-26
+"C last 3 seasons + this season x1, shrink 300",2015-18,flag_record,66-55
+"C last 3 seasons + this season x1, shrink 300",2019-22,flag_record,78-53
+"C last 3 seasons + this season x1, shrink 300",2023-25,flag_record,38-26
+"C last 3 seasons + this season x3, shrink 0",2015-18,flag_record,65-56
+"C last 3 seasons + this season x3, shrink 0",2019-22,flag_record,76-59
+"C last 3 seasons + this season x3, shrink 0",2023-25,flag_record,36-27
+"C last 3 seasons + this season x3, shrink 100",2015-18,flag_record,63-57
+"C last 3 seasons + this season x3, shrink 100",2019-22,flag_record,77-57
+"C last 3 seasons + this season x3, shrink 100",2023-25,flag_record,36-27
+"C last 3 seasons + this season x3, shrink 300",2015-18,flag_record,64-56
+"C last 3 seasons + this season x3, shrink 300",2019-22,flag_record,76-54
+"C last 3 seasons + this season x3, shrink 300",2023-25,flag_record,36-27
+"A2 home term decay 0.8, shrink 0",2015-18,flag_record,66-57
+"A2 home term decay 0.8, shrink 0",2019-22,flag_record,78-50
+"A2 home term decay 0.8, shrink 0",2023-25,flag_record,37-23
+"A2 home term decay 0.8, shrink 100",2015-18,flag_record,66-57
+"A2 home term decay 0.8, shrink 100",2019-22,flag_record,78-51
+"A2 home term decay 0.8, shrink 100",2023-25,flag_record,37-23
+"A2 home term decay 0.7, shrink 0",2015-18,flag_record,68-56
+"A2 home term decay 0.7, shrink 0",2019-22,flag_record,76-52
+"A2 home term decay 0.7, shrink 0",2023-25,flag_record,37-24
+"A2 home term decay 0.7, shrink 100",2015-18,flag_record,68-56
+"A2 home term decay 0.7, shrink 100",2019-22,flag_record,76-51
+"A2 home term decay 0.7, shrink 100",2023-25,flag_record,37-24
+"A2 home term decay 0.6, shrink 0",2015-18,flag_record,69-56
+"A2 home term decay 0.6, shrink 0",2019-22,flag_record,78-57
+"A2 home term decay 0.6, shrink 0",2023-25,flag_record,39-27
+"A2 home term decay 0.6, shrink 100",2015-18,flag_record,68-56
+"A2 home term decay 0.6, shrink 100",2019-22,flag_record,77-56
+"A2 home term decay 0.6, shrink 100",2023-25,flag_record,38-26
+base,2015-18,flag_pct,0.5528455284552846
+base,2019-22,flag_pct,0.6106870229007634
+base,2023-25,flag_pct,0.6557377049180327
+A decay 0.8,2015-18,flag_pct,0.5537190082644629
+A decay 0.8,2019-22,flag_pct,0.6014492753623188
+A decay 0.8,2023-25,flag_pct,0.6065573770491803
+A decay 0.7,2015-18,flag_pct,0.5546218487394958
+A decay 0.7,2019-22,flag_pct,0.589041095890411
+A decay 0.7,2023-25,flag_pct,0.6031746031746031
+A decay 0.6,2015-18,flag_pct,0.5702479338842975
+A decay 0.6,2019-22,flag_pct,0.5632911392405063
+A decay 0.6,2023-25,flag_pct,0.5774647887323944
+D home x era (2020+),2015-18,flag_pct,0.5528455284552846
+D home x era (2020+),2019-22,flag_pct,0.5734265734265734
+D home x era (2020+),2023-25,flag_pct,0.6333333333333333
+"B last 2 seasons, shrink 0",2015-18,flag_pct,0.5371900826446281
+"B last 2 seasons, shrink 0",2019-22,flag_pct,0.5524475524475524
+"B last 2 seasons, shrink 0",2023-25,flag_pct,0.6376811594202898
+"B last 2 seasons, shrink 100",2015-18,flag_pct,0.5333333333333333
+"B last 2 seasons, shrink 100",2019-22,flag_pct,0.5703703703703704
+"B last 2 seasons, shrink 100",2023-25,flag_pct,0.6323529411764706
+"B last 2 seasons, shrink 300",2015-18,flag_pct,0.5423728813559322
+"B last 2 seasons, shrink 300",2019-22,flag_pct,0.5895522388059702
+"B last 2 seasons, shrink 300",2023-25,flag_pct,0.6507936507936508
+"B last 3 seasons, shrink 0",2015-18,flag_pct,0.5409836065573771
+"B last 3 seasons, shrink 0",2019-22,flag_pct,0.5642857142857143
+"B last 3 seasons, shrink 0",2023-25,flag_pct,0.5967741935483871
+"B last 3 seasons, shrink 100",2015-18,flag_pct,0.5365853658536586
+"B last 3 seasons, shrink 100",2019-22,flag_pct,0.5620437956204379
+"B last 3 seasons, shrink 100",2023-25,flag_pct,0.5967741935483871
+"B last 3 seasons, shrink 300",2015-18,flag_pct,0.5403225806451613
+"B last 3 seasons, shrink 300",2019-22,flag_pct,0.5895522388059702
+"B last 3 seasons, shrink 300",2023-25,flag_pct,0.6129032258064516
+"B last 4 seasons, shrink 0",2015-18,flag_pct,0.5365853658536586
+"B last 4 seasons, shrink 0",2019-22,flag_pct,0.6176470588235294
+"B last 4 seasons, shrink 0",2023-25,flag_pct,0.625
+"B last 4 seasons, shrink 100",2015-18,flag_pct,0.5365853658536586
+"B last 4 seasons, shrink 100",2019-22,flag_pct,0.6194029850746269
+"B last 4 seasons, shrink 100",2023-25,flag_pct,0.625
+"B last 4 seasons, shrink 300",2015-18,flag_pct,0.5403225806451613
+"B last 4 seasons, shrink 300",2019-22,flag_pct,0.6183206106870229
+"B last 4 seasons, shrink 300",2023-25,flag_pct,0.609375
+"C last 2 seasons + this season x1, shrink 0",2015-18,flag_pct,0.55
+"C last 2 seasons + this season x1, shrink 0",2019-22,flag_pct,0.5555555555555556
+"C last 2 seasons + this season x1, shrink 0",2023-25,flag_pct,0.6129032258064516
+"C last 2 seasons + this season x1, shrink 100",2015-18,flag_pct,0.5555555555555556
+"C last 2 seasons + this season x1, shrink 100",2019-22,flag_pct,0.5597014925373134
+"C last 2 seasons + this season x1, shrink 100",2023-25,flag_pct,0.6065573770491803
+"C last 2 seasons + this season x1, shrink 300",2015-18,flag_pct,0.5470085470085471
+"C last 2 seasons + this season x1, shrink 300",2019-22,flag_pct,0.5746268656716418
+"C last 2 seasons + this season x1, shrink 300",2023-25,flag_pct,0.6031746031746031
+"C last 2 seasons + this season x3, shrink 0",2015-18,flag_pct,0.5333333333333333
+"C last 2 seasons + this season x3, shrink 0",2019-22,flag_pct,0.5486111111111112
+"C last 2 seasons + this season x3, shrink 0",2023-25,flag_pct,0.5846153846153846
+"C last 2 seasons + this season x3, shrink 100",2015-18,flag_pct,0.5365853658536586
+"C last 2 seasons + this season x3, shrink 100",2019-22,flag_pct,0.5434782608695652
+"C last 2 seasons + this season x3, shrink 100",2023-25,flag_pct,0.5873015873015873
+"C last 2 seasons + this season x3, shrink 300",2015-18,flag_pct,0.5365853658536586
+"C last 2 seasons + this season x3, shrink 300",2019-22,flag_pct,0.582089552238806
+"C last 2 seasons + this season x3, shrink 300",2023-25,flag_pct,0.5873015873015873
+"C last 3 seasons + this season x1, shrink 0",2015-18,flag_pct,0.5573770491803278
+"C last 3 seasons + this season x1, shrink 0",2019-22,flag_pct,0.574468085106383
+"C last 3 seasons + this season x1, shrink 0",2023-25,flag_pct,0.5806451612903226
+"C last 3 seasons + this season x1, shrink 100",2015-18,flag_pct,0.55
+"C last 3 seasons + this season x1, shrink 100",2019-22,flag_pct,0.5777777777777777
+"C last 3 seasons + this season x1, shrink 100",2023-25,flag_pct,0.59375
+"C last 3 seasons + this season x1, shrink 300",2015-18,flag_pct,0.5454545454545454
+"C last 3 seasons + this season x1, shrink 300",2019-22,flag_pct,0.5954198473282443
+"C last 3 seasons + this season x1, shrink 300",2023-25,flag_pct,0.59375
+"C last 3 seasons + this season x3, shrink 0",2015-18,flag_pct,0.5371900826446281
+"C last 3 seasons + this season x3, shrink 0",2019-22,flag_pct,0.562962962962963
+"C last 3 seasons + this season x3, shrink 0",2023-25,flag_pct,0.5714285714285714
+"C last 3 seasons + this season x3, shrink 100",2015-18,flag_pct,0.525
+"C last 3 seasons + this season x3, shrink 100",2019-22,flag_pct,0.5746268656716418
+"C last 3 seasons + this season x3, shrink 100",2023-25,flag_pct,0.5714285714285714
+"C last 3 seasons + this season x3, shrink 300",2015-18,flag_pct,0.5333333333333333
+"C last 3 seasons + this season x3, shrink 300",2019-22,flag_pct,0.5846153846153846
+"C last 3 seasons + this season x3, shrink 300",2023-25,flag_pct,0.5714285714285714
+"A2 home term decay 0.8, shrink 0",2015-18,flag_pct,0.5365853658536586
+"A2 home term decay 0.8, shrink 0",2019-22,flag_pct,0.609375
+"A2 home term decay 0.8, shrink 0",2023-25,flag_pct,0.6166666666666667
+"A2 home term decay 0.8, shrink 100",2015-18,flag_pct,0.5365853658536586
+"A2 home term decay 0.8, shrink 100",2019-22,flag_pct,0.6046511627906976
+"A2 home term decay 0.8, shrink 100",2023-25,flag_pct,0.6166666666666667
+"A2 home term decay 0.7, shrink 0",2015-18,flag_pct,0.5483870967741935
+"A2 home term decay 0.7, shrink 0",2019-22,flag_pct,0.59375
+"A2 home term decay 0.7, shrink 0",2023-25,flag_pct,0.6065573770491803
+"A2 home term decay 0.7, shrink 100",2015-18,flag_pct,0.5483870967741935
+"A2 home term decay 0.7, shrink 100",2019-22,flag_pct,0.5984251968503937
+"A2 home term decay 0.7, shrink 100",2023-25,flag_pct,0.6065573770491803
+"A2 home term decay 0.6, shrink 0",2015-18,flag_pct,0.552
+"A2 home term decay 0.6, shrink 0",2019-22,flag_pct,0.5777777777777777
+"A2 home term decay 0.6, shrink 0",2023-25,flag_pct,0.5909090909090909
+"A2 home term decay 0.6, shrink 100",2015-18,flag_pct,0.5483870967741935
+"A2 home term decay 0.6, shrink 100",2019-22,flag_pct,0.5789473684210527
+"A2 home term decay 0.6, shrink 100",2023-25,flag_pct,0.59375
+base,2015-18,flag_net,13.0
+base,2019-22,flag_net,29.0
+base,2023-25,flag_net,19.0
+A decay 0.8,2015-18,flag_net,13.0
+A decay 0.8,2019-22,flag_net,28.0
+A decay 0.8,2023-25,flag_net,13.0
+A decay 0.7,2015-18,flag_net,13.0
+A decay 0.7,2019-22,flag_net,26.0
+A decay 0.7,2023-25,flag_net,13.0
+A decay 0.6,2015-18,flag_net,17.0
+A decay 0.6,2019-22,flag_net,20.0
+A decay 0.6,2023-25,flag_net,11.0
+D home x era (2020+),2015-18,flag_net,13.0
+D home x era (2020+),2019-22,flag_net,21.0
+D home x era (2020+),2023-25,flag_net,16.0
+"B last 2 seasons, shrink 0",2015-18,flag_net,9.0
+"B last 2 seasons, shrink 0",2019-22,flag_net,15.0
+"B last 2 seasons, shrink 0",2023-25,flag_net,19.0
+"B last 2 seasons, shrink 100",2015-18,flag_net,8.0
+"B last 2 seasons, shrink 100",2019-22,flag_net,19.0
+"B last 2 seasons, shrink 100",2023-25,flag_net,18.0
+"B last 2 seasons, shrink 300",2015-18,flag_net,10.0
+"B last 2 seasons, shrink 300",2019-22,flag_net,24.0
+"B last 2 seasons, shrink 300",2023-25,flag_net,19.0
+"B last 3 seasons, shrink 0",2015-18,flag_net,10.0
+"B last 3 seasons, shrink 0",2019-22,flag_net,18.0
+"B last 3 seasons, shrink 0",2023-25,flag_net,12.0
+"B last 3 seasons, shrink 100",2015-18,flag_net,9.0
+"B last 3 seasons, shrink 100",2019-22,flag_net,17.0
+"B last 3 seasons, shrink 100",2023-25,flag_net,12.0
+"B last 3 seasons, shrink 300",2015-18,flag_net,10.0
+"B last 3 seasons, shrink 300",2019-22,flag_net,24.0
+"B last 3 seasons, shrink 300",2023-25,flag_net,14.0
+"B last 4 seasons, shrink 0",2015-18,flag_net,9.0
+"B last 4 seasons, shrink 0",2019-22,flag_net,32.0
+"B last 4 seasons, shrink 0",2023-25,flag_net,16.0
+"B last 4 seasons, shrink 100",2015-18,flag_net,9.0
+"B last 4 seasons, shrink 100",2019-22,flag_net,32.0
+"B last 4 seasons, shrink 100",2023-25,flag_net,16.0
+"B last 4 seasons, shrink 300",2015-18,flag_net,10.0
+"B last 4 seasons, shrink 300",2019-22,flag_net,31.0
+"B last 4 seasons, shrink 300",2023-25,flag_net,14.0
+"C last 2 seasons + this season x1, shrink 0",2015-18,flag_net,12.0
+"C last 2 seasons + this season x1, shrink 0",2019-22,flag_net,16.0
+"C last 2 seasons + this season x1, shrink 0",2023-25,flag_net,14.0
+"C last 2 seasons + this season x1, shrink 100",2015-18,flag_net,13.0
+"C last 2 seasons + this season x1, shrink 100",2019-22,flag_net,16.0
+"C last 2 seasons + this season x1, shrink 100",2023-25,flag_net,13.0
+"C last 2 seasons + this season x1, shrink 300",2015-18,flag_net,11.0
+"C last 2 seasons + this season x1, shrink 300",2019-22,flag_net,20.0
+"C last 2 seasons + this season x1, shrink 300",2023-25,flag_net,13.0
+"C last 2 seasons + this season x3, shrink 0",2015-18,flag_net,8.0
+"C last 2 seasons + this season x3, shrink 0",2019-22,flag_net,14.0
+"C last 2 seasons + this season x3, shrink 0",2023-25,flag_net,11.0
+"C last 2 seasons + this season x3, shrink 100",2015-18,flag_net,9.0
+"C last 2 seasons + this season x3, shrink 100",2019-22,flag_net,12.0
+"C last 2 seasons + this season x3, shrink 100",2023-25,flag_net,11.0
+"C last 2 seasons + this season x3, shrink 300",2015-18,flag_net,9.0
+"C last 2 seasons + this season x3, shrink 300",2019-22,flag_net,22.0
+"C last 2 seasons + this season x3, shrink 300",2023-25,flag_net,11.0
+"C last 3 seasons + this season x1, shrink 0",2015-18,flag_net,14.0
+"C last 3 seasons + this season x1, shrink 0",2019-22,flag_net,21.0
+"C last 3 seasons + this season x1, shrink 0",2023-25,flag_net,10.0
+"C last 3 seasons + this season x1, shrink 100",2015-18,flag_net,12.0
+"C last 3 seasons + this season x1, shrink 100",2019-22,flag_net,21.0
+"C last 3 seasons + this season x1, shrink 100",2023-25,flag_net,12.0
+"C last 3 seasons + this season x1, shrink 300",2015-18,flag_net,11.0
+"C last 3 seasons + this season x1, shrink 300",2019-22,flag_net,25.0
+"C last 3 seasons + this season x1, shrink 300",2023-25,flag_net,12.0
+"C last 3 seasons + this season x3, shrink 0",2015-18,flag_net,9.0
+"C last 3 seasons + this season x3, shrink 0",2019-22,flag_net,17.0
+"C last 3 seasons + this season x3, shrink 0",2023-25,flag_net,9.0
+"C last 3 seasons + this season x3, shrink 100",2015-18,flag_net,6.0
+"C last 3 seasons + this season x3, shrink 100",2019-22,flag_net,20.0
+"C last 3 seasons + this season x3, shrink 100",2023-25,flag_net,9.0
+"C last 3 seasons + this season x3, shrink 300",2015-18,flag_net,8.0
+"C last 3 seasons + this season x3, shrink 300",2019-22,flag_net,22.0
+"C last 3 seasons + this season x3, shrink 300",2023-25,flag_net,9.0
+"A2 home term decay 0.8, shrink 0",2015-18,flag_net,9.0
+"A2 home term decay 0.8, shrink 0",2019-22,flag_net,28.0
+"A2 home term decay 0.8, shrink 0",2023-25,flag_net,14.0
+"A2 home term decay 0.8, shrink 100",2015-18,flag_net,9.0
+"A2 home term decay 0.8, shrink 100",2019-22,flag_net,27.0
+"A2 home term decay 0.8, shrink 100",2023-25,flag_net,14.0
+"A2 home term decay 0.7, shrink 0",2015-18,flag_net,12.0
+"A2 home term decay 0.7, shrink 0",2019-22,flag_net,24.0
+"A2 home term decay 0.7, shrink 0",2023-25,flag_net,13.0
+"A2 home term decay 0.7, shrink 100",2015-18,flag_net,12.0
+"A2 home term decay 0.7, shrink 100",2019-22,flag_net,25.0
+"A2 home term decay 0.7, shrink 100",2023-25,flag_net,13.0
+"A2 home term decay 0.6, shrink 0",2015-18,flag_net,13.0
+"A2 home term decay 0.6, shrink 0",2019-22,flag_net,21.0
+"A2 home term decay 0.6, shrink 0",2023-25,flag_net,12.0
+"A2 home term decay 0.6, shrink 100",2015-18,flag_net,12.0
+"A2 home term decay 0.6, shrink 100",2019-22,flag_net,21.0
+"A2 home term decay 0.6, shrink 100",2023-25,flag_net,12.0
+base,2015-18,under_record,145-124
+base,2019-22,under_record,190-146
+base,2023-25,under_record,76-62
+A decay 0.8,2015-18,under_record,145-124
+A decay 0.8,2019-22,under_record,190-146
+A decay 0.8,2023-25,under_record,76-62
+A decay 0.7,2015-18,under_record,145-124
+A decay 0.7,2019-22,under_record,190-146
+A decay 0.7,2023-25,under_record,76-62
+A decay 0.6,2015-18,under_record,145-124
+A decay 0.6,2019-22,under_record,190-146
+A decay 0.6,2023-25,under_record,76-62
+D home x era (2020+),2015-18,under_record,145-124
+D home x era (2020+),2019-22,under_record,190-146
+D home x era (2020+),2023-25,under_record,76-62
+"B last 2 seasons, shrink 0",2015-18,under_record,145-124
+"B last 2 seasons, shrink 0",2019-22,under_record,190-146
+"B last 2 seasons, shrink 0",2023-25,under_record,76-62
+"B last 2 seasons, shrink 100",2015-18,under_record,145-124
+"B last 2 seasons, shrink 100",2019-22,under_record,190-146
+"B last 2 seasons, shrink 100",2023-25,under_record,76-62
+"B last 2 seasons, shrink 300",2015-18,under_record,145-124
+"B last 2 seasons, shrink 300",2019-22,under_record,190-146
+"B last 2 seasons, shrink 300",2023-25,under_record,76-62
+"B last 3 seasons, shrink 0",2015-18,under_record,145-124
+"B last 3 seasons, shrink 0",2019-22,under_record,190-146
+"B last 3 seasons, shrink 0",2023-25,under_record,76-62
+"B last 3 seasons, shrink 100",2015-18,under_record,145-124
+"B last 3 seasons, shrink 100",2019-22,under_record,190-146
+"B last 3 seasons, shrink 100",2023-25,under_record,76-62
+"B last 3 seasons, shrink 300",2015-18,under_record,145-124
+"B last 3 seasons, shrink 300",2019-22,under_record,190-146
+"B last 3 seasons, shrink 300",2023-25,under_record,76-62
+"B last 4 seasons, shrink 0",2015-18,under_record,145-124
+"B last 4 seasons, shrink 0",2019-22,under_record,190-146
+"B last 4 seasons, shrink 0",2023-25,under_record,76-62
+"B last 4 seasons, shrink 100",2015-18,under_record,145-124
+"B last 4 seasons, shrink 100",2019-22,under_record,190-146
+"B last 4 seasons, shrink 100",2023-25,under_record,76-62
+"B last 4 seasons, shrink 300",2015-18,under_record,145-124
+"B last 4 seasons, shrink 300",2019-22,under_record,190-146
+"B last 4 seasons, shrink 300",2023-25,under_record,76-62
+"C last 2 seasons + this season x1, shrink 0",2015-18,under_record,145-124
+"C last 2 seasons + this season x1, shrink 0",2019-22,under_record,190-146
+"C last 2 seasons + this season x1, shrink 0",2023-25,under_record,76-62
+"C last 2 seasons + this season x1, shrink 100",2015-18,under_record,145-124
+"C last 2 seasons + this season x1, shrink 100",2019-22,under_record,190-146
+"C last 2 seasons + this season x1, shrink 100",2023-25,under_record,76-62
+"C last 2 seasons + this season x1, shrink 300",2015-18,under_record,145-124
+"C last 2 seasons + this season x1, shrink 300",2019-22,under_record,190-146
+"C last 2 seasons + this season x1, shrink 300",2023-25,under_record,76-62
+"C last 2 seasons + this season x3, shrink 0",2015-18,under_record,145-124
+"C last 2 seasons + this season x3, shrink 0",2019-22,under_record,190-146
+"C last 2 seasons + this season x3, shrink 0",2023-25,under_record,76-62
+"C last 2 seasons + this season x3, shrink 100",2015-18,under_record,145-124
+"C last 2 seasons + this season x3, shrink 100",2019-22,under_record,190-146
+"C last 2 seasons + this season x3, shrink 100",2023-25,under_record,76-62
+"C last 2 seasons + this season x3, shrink 300",2015-18,under_record,145-124
+"C last 2 seasons + this season x3, shrink 300",2019-22,under_record,190-146
+"C last 2 seasons + this season x3, shrink 300",2023-25,under_record,76-62
+"C last 3 seasons + this season x1, shrink 0",2015-18,under_record,145-124
+"C last 3 seasons + this season x1, shrink 0",2019-22,under_record,190-146
+"C last 3 seasons + this season x1, shrink 0",2023-25,under_record,76-62
+"C last 3 seasons + this season x1, shrink 100",2015-18,under_record,145-124
+"C last 3 seasons + this season x1, shrink 100",2019-22,under_record,190-146
+"C last 3 seasons + this season x1, shrink 100",2023-25,under_record,76-62
+"C last 3 seasons + this season x1, shrink 300",2015-18,under_record,145-124
+"C last 3 seasons + this season x1, shrink 300",2019-22,under_record,190-146
+"C last 3 seasons + this season x1, shrink 300",2023-25,under_record,76-62
+"C last 3 seasons + this season x3, shrink 0",2015-18,under_record,145-124
+"C last 3 seasons + this season x3, shrink 0",2019-22,under_record,190-146
+"C last 3 seasons + this season x3, shrink 0",2023-25,under_record,76-62
+"C last 3 seasons + this season x3, shrink 100",2015-18,under_record,145-124
+"C last 3 seasons + this season x3, shrink 100",2019-22,under_record,190-146
+"C last 3 seasons + this season x3, shrink 100",2023-25,under_record,76-62
+"C last 3 seasons + this season x3, shrink 300",2015-18,under_record,145-124
+"C last 3 seasons + this season x3, shrink 300",2019-22,under_record,190-146
+"C last 3 seasons + this season x3, shrink 300",2023-25,under_record,76-62
+"A2 home term decay 0.8, shrink 0",2015-18,under_record,145-124
+"A2 home term decay 0.8, shrink 0",2019-22,under_record,190-146
+"A2 home term decay 0.8, shrink 0",2023-25,under_record,76-62
+"A2 home term decay 0.8, shrink 100",2015-18,under_record,145-124
+"A2 home term decay 0.8, shrink 100",2019-22,under_record,190-146
+"A2 home term decay 0.8, shrink 100",2023-25,under_record,76-62
+"A2 home term decay 0.7, shrink 0",2015-18,under_record,145-124
+"A2 home term decay 0.7, shrink 0",2019-22,under_record,190-146
+"A2 home term decay 0.7, shrink 0",2023-25,under_record,76-62
+"A2 home term decay 0.7, shrink 100",2015-18,under_record,145-124
+"A2 home term decay 0.7, shrink 100",2019-22,under_record,190-146
+"A2 home term decay 0.7, shrink 100",2023-25,under_record,76-62
+"A2 home term decay 0.6, shrink 0",2015-18,under_record,145-124
+"A2 home term decay 0.6, shrink 0",2019-22,under_record,190-146
+"A2 home term decay 0.6, shrink 0",2023-25,under_record,76-62
+"A2 home term decay 0.6, shrink 100",2015-18,under_record,145-124
+"A2 home term decay 0.6, shrink 100",2019-22,under_record,190-146
+"A2 home term decay 0.6, shrink 100",2023-25,under_record,76-62
+base,2015-18,under_pct,0.5390334572490706
+base,2019-22,under_pct,0.5654761904761905
+base,2023-25,under_pct,0.5507246376811594
+A decay 0.8,2015-18,under_pct,0.5390334572490706
+A decay 0.8,2019-22,under_pct,0.5654761904761905
+A decay 0.8,2023-25,under_pct,0.5507246376811594
+A decay 0.7,2015-18,under_pct,0.5390334572490706
+A decay 0.7,2019-22,under_pct,0.5654761904761905
+A decay 0.7,2023-25,under_pct,0.5507246376811594
+A decay 0.6,2015-18,under_pct,0.5390334572490706
+A decay 0.6,2019-22,under_pct,0.5654761904761905
+A decay 0.6,2023-25,under_pct,0.5507246376811594
+D home x era (2020+),2015-18,under_pct,0.5390334572490706
+D home x era (2020+),2019-22,under_pct,0.5654761904761905
+D home x era (2020+),2023-25,under_pct,0.5507246376811594
+"B last 2 seasons, shrink 0",2015-18,under_pct,0.5390334572490706
+"B last 2 seasons, shrink 0",2019-22,under_pct,0.5654761904761905
+"B last 2 seasons, shrink 0",2023-25,under_pct,0.5507246376811594
+"B last 2 seasons, shrink 100",2015-18,under_pct,0.5390334572490706
+"B last 2 seasons, shrink 100",2019-22,under_pct,0.5654761904761905
+"B last 2 seasons, shrink 100",2023-25,under_pct,0.5507246376811594
+"B last 2 seasons, shrink 300",2015-18,under_pct,0.5390334572490706
+"B last 2 seasons, shrink 300",2019-22,under_pct,0.5654761904761905
+"B last 2 seasons, shrink 300",2023-25,under_pct,0.5507246376811594
+"B last 3 seasons, shrink 0",2015-18,under_pct,0.5390334572490706
+"B last 3 seasons, shrink 0",2019-22,under_pct,0.5654761904761905
+"B last 3 seasons, shrink 0",2023-25,under_pct,0.5507246376811594
+"B last 3 seasons, shrink 100",2015-18,under_pct,0.5390334572490706
+"B last 3 seasons, shrink 100",2019-22,under_pct,0.5654761904761905
+"B last 3 seasons, shrink 100",2023-25,under_pct,0.5507246376811594
+"B last 3 seasons, shrink 300",2015-18,under_pct,0.5390334572490706
+"B last 3 seasons, shrink 300",2019-22,under_pct,0.5654761904761905
+"B last 3 seasons, shrink 300",2023-25,under_pct,0.5507246376811594
+"B last 4 seasons, shrink 0",2015-18,under_pct,0.5390334572490706
+"B last 4 seasons, shrink 0",2019-22,under_pct,0.5654761904761905
+"B last 4 seasons, shrink 0",2023-25,under_pct,0.5507246376811594
+"B last 4 seasons, shrink 100",2015-18,under_pct,0.5390334572490706
+"B last 4 seasons, shrink 100",2019-22,under_pct,0.5654761904761905
+"B last 4 seasons, shrink 100",2023-25,under_pct,0.5507246376811594
+"B last 4 seasons, shrink 300",2015-18,under_pct,0.5390334572490706
+"B last 4 seasons, shrink 300",2019-22,under_pct,0.5654761904761905
+"B last 4 seasons, shrink 300",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x1, shrink 0",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x1, shrink 0",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x1, shrink 0",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x1, shrink 100",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x1, shrink 100",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x1, shrink 100",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x1, shrink 300",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x1, shrink 300",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x1, shrink 300",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x3, shrink 0",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x3, shrink 0",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x3, shrink 0",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x3, shrink 100",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x3, shrink 100",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x3, shrink 100",2023-25,under_pct,0.5507246376811594
+"C last 2 seasons + this season x3, shrink 300",2015-18,under_pct,0.5390334572490706
+"C last 2 seasons + this season x3, shrink 300",2019-22,under_pct,0.5654761904761905
+"C last 2 seasons + this season x3, shrink 300",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x1, shrink 0",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x1, shrink 0",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x1, shrink 0",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x1, shrink 100",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x1, shrink 100",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x1, shrink 100",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x1, shrink 300",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x1, shrink 300",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x1, shrink 300",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x3, shrink 0",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x3, shrink 0",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x3, shrink 0",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x3, shrink 100",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x3, shrink 100",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x3, shrink 100",2023-25,under_pct,0.5507246376811594
+"C last 3 seasons + this season x3, shrink 300",2015-18,under_pct,0.5390334572490706
+"C last 3 seasons + this season x3, shrink 300",2019-22,under_pct,0.5654761904761905
+"C last 3 seasons + this season x3, shrink 300",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.8, shrink 0",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.8, shrink 0",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.8, shrink 0",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.8, shrink 100",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.8, shrink 100",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.8, shrink 100",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.7, shrink 0",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.7, shrink 0",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.7, shrink 0",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.7, shrink 100",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.7, shrink 100",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.7, shrink 100",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.6, shrink 0",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.6, shrink 0",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.6, shrink 0",2023-25,under_pct,0.5507246376811594
+"A2 home term decay 0.6, shrink 100",2015-18,under_pct,0.5390334572490706
+"A2 home term decay 0.6, shrink 100",2019-22,under_pct,0.5654761904761905
+"A2 home term decay 0.6, shrink 100",2023-25,under_pct,0.5507246376811594
+base,2015-18,margin_bias,-0.21043306319825336
+base,2019-22,margin_bias,-0.9814809770197617
+base,2023-25,margin_bias,0.24527073854825793
+A decay 0.8,2015-18,margin_bias,-0.16601338775883612
+A decay 0.8,2019-22,margin_bias,-0.6192838912882531
+A decay 0.8,2023-25,margin_bias,0.37423062014107683
+A decay 0.7,2015-18,margin_bias,-0.14242854671303443
+A decay 0.7,2019-22,margin_bias,-0.4309969812393886
+A decay 0.7,2023-25,margin_bias,0.3480430966089395
+A decay 0.6,2015-18,margin_bias,-0.11959128191309072
+A decay 0.6,2019-22,margin_bias,-0.2595019349162147
+A decay 0.6,2023-25,margin_bias,0.3001426567450191
+D home x era (2020+),2015-18,margin_bias,-0.21043306319825328
+D home x era (2020+),2019-22,margin_bias,-1.1105225088775663
+D home x era (2020+),2023-25,margin_bias,0.34803348474118107
+"B last 2 seasons, shrink 0",2015-18,margin_bias,-0.22867419728533
+"B last 2 seasons, shrink 0",2019-22,margin_bias,-0.08242391076406944
+"B last 2 seasons, shrink 0",2023-25,margin_bias,-0.04010413352854442
+"B last 2 seasons, shrink 100",2015-18,margin_bias,-0.22572022767330252
+"B last 2 seasons, shrink 100",2019-22,margin_bias,-0.22491566164079396
+"B last 2 seasons, shrink 100",2023-25,margin_bias,0.003376324517039809
+"B last 2 seasons, shrink 300",2015-18,margin_bias,-0.22198017497482633
+"B last 2 seasons, shrink 300",2019-22,margin_bias,-0.4069987655872409
+"B last 2 seasons, shrink 300",2023-25,margin_bias,0.059871986965879066
+"B last 3 seasons, shrink 0",2015-18,margin_bias,-0.2416345711435079
+"B last 3 seasons, shrink 0",2019-22,margin_bias,-0.3688340050677094
+"B last 3 seasons, shrink 0",2023-25,margin_bias,0.2651019124422953
+"B last 3 seasons, shrink 100",2015-18,margin_bias,-0.23434844869008603
+"B last 3 seasons, shrink 100",2019-22,margin_bias,-0.4370716369901251
+"B last 3 seasons, shrink 100",2023-25,margin_bias,0.26270636359977323
+"B last 3 seasons, shrink 300",2015-18,margin_bias,-0.22603489992555043
+"B last 3 seasons, shrink 300",2019-22,margin_bias,-0.5362495087790005
+"B last 3 seasons, shrink 300",2023-25,margin_bias,0.25930241934830706
+"B last 4 seasons, shrink 0",2015-18,margin_bias,-0.2982560404396698
+"B last 4 seasons, shrink 0",2019-22,margin_bias,-0.6145216733783788
+"B last 4 seasons, shrink 0",2023-25,margin_bias,0.5837912535515762
+"B last 4 seasons, shrink 100",2015-18,margin_bias,-0.284811753973301
+"B last 4 seasons, shrink 100",2019-22,margin_bias,-0.6461032340042188
+"B last 4 seasons, shrink 100",2023-25,margin_bias,0.5552368818622151
+"B last 4 seasons, shrink 300",2015-18,margin_bias,-0.26749986603490283
+"B last 4 seasons, shrink 300",2019-22,margin_bias,-0.6953524436734182
+"B last 4 seasons, shrink 300",2023-25,margin_bias,0.5104934866682198
+"C last 2 seasons + this season x1, shrink 0",2015-18,margin_bias,-0.16997802251960537
+"C last 2 seasons + this season x1, shrink 0",2019-22,margin_bias,0.01539388009542785
+"C last 2 seasons + this season x1, shrink 0",2023-25,margin_bias,0.006288872646604539
+"C last 2 seasons + this season x1, shrink 100",2015-18,margin_bias,-0.1755038608356302
+"C last 2 seasons + this season x1, shrink 100",2019-22,margin_bias,-0.11882775034169879
+"C last 2 seasons + this season x1, shrink 100",2023-25,margin_bias,0.037381793897514
+"C last 2 seasons + this season x1, shrink 300",2015-18,margin_bias,-0.18298049621888676
+"C last 2 seasons + this season x1, shrink 300",2019-22,margin_bias,-0.30131293618481914
+"C last 2 seasons + this season x1, shrink 300",2023-25,margin_bias,0.08019140776427157
+"C last 2 seasons + this season x3, shrink 0",2015-18,margin_bias,-0.10390044915675643
+"C last 2 seasons + this season x3, shrink 0",2019-22,margin_bias,0.13283873023487572
+"C last 2 seasons + this season x3, shrink 0",2023-25,margin_bias,0.06164552478600511
+"C last 2 seasons + this season x3, shrink 100",2015-18,margin_bias,-0.11500329143389039
+"C last 2 seasons + this season x3, shrink 100",2019-22,margin_bias,0.014115602023791382
+"C last 2 seasons + this season x3, shrink 100",2023-25,margin_bias,0.08077848788429542
+"C last 2 seasons + this season x3, shrink 300",2015-18,margin_bias,-0.1312696616793282
+"C last 2 seasons + this season x3, shrink 300",2019-22,margin_bias,-0.15851486467812637
+"C last 2 seasons + this season x3, shrink 300",2023-25,margin_bias,0.10878471242381021
+"C last 3 seasons + this season x1, shrink 0",2015-18,margin_bias,-0.18368995692926782
+"C last 3 seasons + this season x1, shrink 0",2019-22,margin_bias,-0.2626964624107765
+"C last 3 seasons + this season x1, shrink 0",2023-25,margin_bias,0.25946605897459163
+"C last 3 seasons + this season x1, shrink 100",2015-18,margin_bias,-0.18530691703512575
+"C last 3 seasons + this season x1, shrink 100",2019-22,margin_bias,-0.33372735569250966
+"C last 3 seasons + this season x1, shrink 100",2023-25,margin_bias,0.25790987219934275
+"C last 3 seasons + this season x1, shrink 300",2015-18,margin_bias,-0.18832020314709313
+"C last 3 seasons + this season x1, shrink 300",2019-22,margin_bias,-0.44048870874267315
+"C last 3 seasons + this season x1, shrink 300",2023-25,margin_bias,0.2556329557919327
+"C last 3 seasons + this season x3, shrink 0",2015-18,margin_bias,-0.11892182414640919
+"C last 3 seasons + this season x3, shrink 0",2019-22,margin_bias,-0.1212403712946692
+"C last 3 seasons + this season x3, shrink 0",2023-25,margin_bias,0.2553258083934872
+"C last 3 seasons + this season x3, shrink 100",2015-18,margin_bias,-0.1264498471030805
+"C last 3 seasons + this season x3, shrink 100",2019-22,margin_bias,-0.19145772889209844
+"C last 3 seasons + this season x3, shrink 100",2023-25,margin_bias,0.25408089595167443
+"C last 3 seasons + this season x3, shrink 300",2015-18,margin_bias,-0.13834565258469989
+"C last 3 seasons + this season x3, shrink 300",2019-22,margin_bias,-0.30163884306152516
+"C last 3 seasons + this season x3, shrink 300",2023-25,margin_bias,0.25229242076552116
+"A2 home term decay 0.8, shrink 0",2015-18,margin_bias,-0.20917445182993322
+"A2 home term decay 0.8, shrink 0",2019-22,margin_bias,-0.6409028760133207
+"A2 home term decay 0.8, shrink 0",2023-25,margin_bias,0.35932300299797876
+"A2 home term decay 0.8, shrink 100",2015-18,margin_bias,-0.20880809517936844
+"A2 home term decay 0.8, shrink 100",2019-22,margin_bias,-0.6723438124330532
+"A2 home term decay 0.8, shrink 100",2023-25,margin_bias,0.34971333145769884
+"A2 home term decay 0.7, shrink 0",2015-18,margin_bias,-0.1779192989754778
+"A2 home term decay 0.7, shrink 0",2019-22,margin_bias,-0.4409340103191409
+"A2 home term decay 0.7, shrink 0",2023-25,margin_bias,0.34211845653714335
+"A2 home term decay 0.7, shrink 100",2015-18,margin_bias,-0.18275080063596255
+"A2 home term decay 0.7, shrink 100",2019-22,margin_bias,-0.5092365035862332
+"A2 home term decay 0.7, shrink 100",2023-25,margin_bias,0.33028640843602586
+"A2 home term decay 0.6, shrink 0",2015-18,margin_bias,-0.14653861826757947
+"A2 home term decay 0.6, shrink 0",2019-22,margin_bias,-0.25369308057037576
+"A2 home term decay 0.6, shrink 0",2023-25,margin_bias,0.28516525308480867
+"A2 home term decay 0.6, shrink 100",2015-18,margin_bias,-0.15848398599543687
+"A2 home term decay 0.6, shrink 100",2019-22,margin_bias,-0.3746221152835746
+"A2 home term decay 0.6, shrink 100",2023-25,margin_bias,0.27827000123366863
+base,2015-18,cal_fails,0
+base,2019-22,cal_fails,0
+base,2023-25,cal_fails,1
+base,2015-25,cal_fails,1
+A decay 0.8,2015-18,cal_fails,0
+A decay 0.8,2019-22,cal_fails,0
+A decay 0.8,2023-25,cal_fails,1
+A decay 0.8,2015-25,cal_fails,1
+A decay 0.7,2015-18,cal_fails,0
+A decay 0.7,2019-22,cal_fails,0
+A decay 0.7,2023-25,cal_fails,0
+A decay 0.7,2015-25,cal_fails,1
+A decay 0.6,2015-18,cal_fails,0
+A decay 0.6,2019-22,cal_fails,0
+A decay 0.6,2023-25,cal_fails,1
+A decay 0.6,2015-25,cal_fails,1
+D home x era (2020+),2015-18,cal_fails,0
+D home x era (2020+),2019-22,cal_fails,0
+D home x era (2020+),2023-25,cal_fails,1
+D home x era (2020+),2015-25,cal_fails,1
+"B last 2 seasons, shrink 0",2015-18,cal_fails,0
+"B last 2 seasons, shrink 0",2019-22,cal_fails,0
+"B last 2 seasons, shrink 0",2023-25,cal_fails,1
+"B last 2 seasons, shrink 0",2015-25,cal_fails,1
+"B last 2 seasons, shrink 100",2015-18,cal_fails,0
+"B last 2 seasons, shrink 100",2019-22,cal_fails,0
+"B last 2 seasons, shrink 100",2023-25,cal_fails,0
+"B last 2 seasons, shrink 100",2015-25,cal_fails,1
+"B last 2 seasons, shrink 300",2015-18,cal_fails,0
+"B last 2 seasons, shrink 300",2019-22,cal_fails,0
+"B last 2 seasons, shrink 300",2023-25,cal_fails,1
+"B last 2 seasons, shrink 300",2015-25,cal_fails,1
+"B last 3 seasons, shrink 0",2015-18,cal_fails,0
+"B last 3 seasons, shrink 0",2019-22,cal_fails,0
+"B last 3 seasons, shrink 0",2023-25,cal_fails,1
+"B last 3 seasons, shrink 0",2015-25,cal_fails,1
+"B last 3 seasons, shrink 100",2015-18,cal_fails,0
+"B last 3 seasons, shrink 100",2019-22,cal_fails,0
+"B last 3 seasons, shrink 100",2023-25,cal_fails,1
+"B last 3 seasons, shrink 100",2015-25,cal_fails,1
+"B last 3 seasons, shrink 300",2015-18,cal_fails,0
+"B last 3 seasons, shrink 300",2019-22,cal_fails,0
+"B last 3 seasons, shrink 300",2023-25,cal_fails,1
+"B last 3 seasons, shrink 300",2015-25,cal_fails,1
+"B last 4 seasons, shrink 0",2015-18,cal_fails,0
+"B last 4 seasons, shrink 0",2019-22,cal_fails,0
+"B last 4 seasons, shrink 0",2023-25,cal_fails,1
+"B last 4 seasons, shrink 0",2015-25,cal_fails,1
+"B last 4 seasons, shrink 100",2015-18,cal_fails,0
+"B last 4 seasons, shrink 100",2019-22,cal_fails,0
+"B last 4 seasons, shrink 100",2023-25,cal_fails,1
+"B last 4 seasons, shrink 100",2015-25,cal_fails,1
+"B last 4 seasons, shrink 300",2015-18,cal_fails,0
+"B last 4 seasons, shrink 300",2019-22,cal_fails,0
+"B last 4 seasons, shrink 300",2023-25,cal_fails,1
+"B last 4 seasons, shrink 300",2015-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 0",2015-18,cal_fails,0
+"C last 2 seasons + this season x1, shrink 0",2019-22,cal_fails,0
+"C last 2 seasons + this season x1, shrink 0",2023-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 0",2015-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 100",2015-18,cal_fails,0
+"C last 2 seasons + this season x1, shrink 100",2019-22,cal_fails,0
+"C last 2 seasons + this season x1, shrink 100",2023-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 100",2015-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 300",2015-18,cal_fails,0
+"C last 2 seasons + this season x1, shrink 300",2019-22,cal_fails,0
+"C last 2 seasons + this season x1, shrink 300",2023-25,cal_fails,1
+"C last 2 seasons + this season x1, shrink 300",2015-25,cal_fails,1
+"C last 2 seasons + this season x3, shrink 0",2015-18,cal_fails,0
+"C last 2 seasons + this season x3, shrink 0",2019-22,cal_fails,0
+"C last 2 seasons + this season x3, shrink 0",2023-25,cal_fails,1
+"C last 2 seasons + this season x3, shrink 0",2015-25,cal_fails,1
+"C last 2 seasons + this season x3, shrink 100",2015-18,cal_fails,0
+"C last 2 seasons + this season x3, shrink 100",2019-22,cal_fails,0
+"C last 2 seasons + this season x3, shrink 100",2023-25,cal_fails,1
+"C last 2 seasons + this season x3, shrink 100",2015-25,cal_fails,0
+"C last 2 seasons + this season x3, shrink 300",2015-18,cal_fails,0
+"C last 2 seasons + this season x3, shrink 300",2019-22,cal_fails,0
+"C last 2 seasons + this season x3, shrink 300",2023-25,cal_fails,1
+"C last 2 seasons + this season x3, shrink 300",2015-25,cal_fails,1
+"C last 3 seasons + this season x1, shrink 0",2015-18,cal_fails,0
+"C last 3 seasons + this season x1, shrink 0",2019-22,cal_fails,0
+"C last 3 seasons + this season x1, shrink 0",2023-25,cal_fails,2
+"C last 3 seasons + this season x1, shrink 0",2015-25,cal_fails,1
+"C last 3 seasons + this season x1, shrink 100",2015-18,cal_fails,0
+"C last 3 seasons + this season x1, shrink 100",2019-22,cal_fails,0
+"C last 3 seasons + this season x1, shrink 100",2023-25,cal_fails,2
+"C last 3 seasons + this season x1, shrink 100",2015-25,cal_fails,1
+"C last 3 seasons + this season x1, shrink 300",2015-18,cal_fails,0
+"C last 3 seasons + this season x1, shrink 300",2019-22,cal_fails,0
+"C last 3 seasons + this season x1, shrink 300",2023-25,cal_fails,2
+"C last 3 seasons + this season x1, shrink 300",2015-25,cal_fails,0
+"C last 3 seasons + this season x3, shrink 0",2015-18,cal_fails,0
+"C last 3 seasons + this season x3, shrink 0",2019-22,cal_fails,0
+"C last 3 seasons + this season x3, shrink 0",2023-25,cal_fails,1
+"C last 3 seasons + this season x3, shrink 0",2015-25,cal_fails,1
+"C last 3 seasons + this season x3, shrink 100",2015-18,cal_fails,0
+"C last 3 seasons + this season x3, shrink 100",2019-22,cal_fails,0
+"C last 3 seasons + this season x3, shrink 100",2023-25,cal_fails,1
+"C last 3 seasons + this season x3, shrink 100",2015-25,cal_fails,1
+"C last 3 seasons + this season x3, shrink 300",2015-18,cal_fails,0
+"C last 3 seasons + this season x3, shrink 300",2019-22,cal_fails,0
+"C last 3 seasons + this season x3, shrink 300",2023-25,cal_fails,2
+"C last 3 seasons + this season x3, shrink 300",2015-25,cal_fails,1
+"A2 home term decay 0.8, shrink 0",2015-18,cal_fails,0
+"A2 home term decay 0.8, shrink 0",2019-22,cal_fails,0
+"A2 home term decay 0.8, shrink 0",2023-25,cal_fails,1
+"A2 home term decay 0.8, shrink 0",2015-25,cal_fails,1
+"A2 home term decay 0.8, shrink 100",2015-18,cal_fails,0
+"A2 home term decay 0.8, shrink 100",2019-22,cal_fails,0
+"A2 home term decay 0.8, shrink 100",2023-25,cal_fails,1
+"A2 home term decay 0.8, shrink 100",2015-25,cal_fails,1
+"A2 home term decay 0.7, shrink 0",2015-18,cal_fails,0
+"A2 home term decay 0.7, shrink 0",2019-22,cal_fails,0
+"A2 home term decay 0.7, shrink 0",2023-25,cal_fails,1
+"A2 home term decay 0.7, shrink 0",2015-25,cal_fails,0
+"A2 home term decay 0.7, shrink 100",2015-18,cal_fails,0
+"A2 home term decay 0.7, shrink 100",2019-22,cal_fails,0
+"A2 home term decay 0.7, shrink 100",2023-25,cal_fails,1
+"A2 home term decay 0.7, shrink 100",2015-25,cal_fails,0
+"A2 home term decay 0.6, shrink 0",2015-18,cal_fails,0
+"A2 home term decay 0.6, shrink 0",2019-22,cal_fails,0
+"A2 home term decay 0.6, shrink 0",2023-25,cal_fails,1
+"A2 home term decay 0.6, shrink 0",2015-25,cal_fails,1
+"A2 home term decay 0.6, shrink 100",2015-18,cal_fails,0
+"A2 home term decay 0.6, shrink 100",2019-22,cal_fails,0
+"A2 home term decay 0.6, shrink 100",2023-25,cal_fails,1
+"A2 home term decay 0.6, shrink 100",2015-25,cal_fails,0
+base,2015-18,cal_fail_buckets,
+base,2019-22,cal_fail_buckets,
+base,2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.339 n 180 z -3.0"
+base,2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.455 won 0.391 n 556 z -3.0"
+A decay 0.8,2015-18,cal_fail_buckets,
+A decay 0.8,2019-22,cal_fail_buckets,
+A decay 0.8,2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.354 n 181 z -2.6"
+A decay 0.8,2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.454 won 0.394 n 547 z -2.8"
+A decay 0.7,2015-18,cal_fail_buckets,
+A decay 0.7,2019-22,cal_fail_buckets,
+A decay 0.7,2023-25,cal_fail_buckets,
+A decay 0.7,2015-25,cal_fail_buckets,"[0.3, 0.4): said 0.355 won 0.287 n 322 z -2.5"
+A decay 0.6,2015-18,cal_fail_buckets,
+A decay 0.6,2019-22,cal_fail_buckets,
+A decay 0.6,2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.350 n 180 z -2.8"
+A decay 0.6,2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.454 won 0.398 n 549 z -2.7"
+D home x era (2020+),2015-18,cal_fail_buckets,
+D home x era (2020+),2019-22,cal_fail_buckets,
+D home x era (2020+),2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.337 n 184 z -3.1"
+D home x era (2020+),2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.454 won 0.392 n 560 z -3.0"
+"B last 2 seasons, shrink 0",2015-18,cal_fail_buckets,
+"B last 2 seasons, shrink 0",2019-22,cal_fail_buckets,
+"B last 2 seasons, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.349 n 169 z -2.7"
+"B last 2 seasons, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.398 n 545 z -2.5"
+"B last 2 seasons, shrink 100",2015-18,cal_fail_buckets,
+"B last 2 seasons, shrink 100",2019-22,cal_fail_buckets,
+"B last 2 seasons, shrink 100",2023-25,cal_fail_buckets,
+"B last 2 seasons, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.399 n 554 z -2.6"
+"B last 2 seasons, shrink 300",2015-18,cal_fail_buckets,
+"B last 2 seasons, shrink 300",2019-22,cal_fail_buckets,
+"B last 2 seasons, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.354 n 175 z -2.5"
+"B last 2 seasons, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.397 n 550 z -2.6"
+"B last 3 seasons, shrink 0",2015-18,cal_fail_buckets,
+"B last 3 seasons, shrink 0",2019-22,cal_fail_buckets,
+"B last 3 seasons, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.448 won 0.354 n 181 z -2.6"
+"B last 3 seasons, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.394 n 558 z -2.8"
+"B last 3 seasons, shrink 100",2015-18,cal_fail_buckets,
+"B last 3 seasons, shrink 100",2019-22,cal_fail_buckets,
+"B last 3 seasons, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.447 won 0.354 n 181 z -2.5"
+"B last 3 seasons, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.393 n 557 z -2.8"
+"B last 3 seasons, shrink 300",2015-18,cal_fail_buckets,
+"B last 3 seasons, shrink 300",2019-22,cal_fail_buckets,
+"B last 3 seasons, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.447 won 0.352 n 182 z -2.6"
+"B last 3 seasons, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.392 n 553 z -2.8"
+"B last 4 seasons, shrink 0",2015-18,cal_fail_buckets,
+"B last 4 seasons, shrink 0",2019-22,cal_fail_buckets,
+"B last 4 seasons, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.356 n 180 z -2.5"
+"B last 4 seasons, shrink 0",2015-25,cal_fail_buckets,"[0.3, 0.4): said 0.356 won 0.287 n 348 z -2.7"
+"B last 4 seasons, shrink 100",2015-18,cal_fail_buckets,
+"B last 4 seasons, shrink 100",2019-22,cal_fail_buckets,
+"B last 4 seasons, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.344 n 186 z -2.9"
+"B last 4 seasons, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.392 n 558 z -2.9"
+"B last 4 seasons, shrink 300",2015-18,cal_fail_buckets,
+"B last 4 seasons, shrink 300",2019-22,cal_fail_buckets,
+"B last 4 seasons, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.344 n 183 z -2.8"
+"B last 4 seasons, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.392 n 555 z -2.9"
+"C last 2 seasons + this season x1, shrink 0",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 0",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.339 n 177 z -3.0"
+"C last 2 seasons + this season x1, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.396 n 555 z -2.7"
+"C last 2 seasons + this season x1, shrink 100",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 100",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.339 n 177 z -3.0"
+"C last 2 seasons + this season x1, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.397 n 550 z -2.6"
+"C last 2 seasons + this season x1, shrink 300",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 300",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x1, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.345 n 177 z -2.8"
+"C last 2 seasons + this season x1, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.393 n 551 z -2.8"
+"C last 2 seasons + this season x3, shrink 0",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 0",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.337 n 175 z -3.0"
+"C last 2 seasons + this season x3, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.399 n 557 z -2.5"
+"C last 2 seasons + this season x3, shrink 100",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 100",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.343 n 178 z -2.9"
+"C last 2 seasons + this season x3, shrink 100",2015-25,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 300",2015-18,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 300",2019-22,cal_fail_buckets,
+"C last 2 seasons + this season x3, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.451 won 0.341 n 179 z -3.0"
+"C last 2 seasons + this season x3, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.397 n 561 z -2.7"
+"C last 3 seasons + this season x1, shrink 0",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 0",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.447 won 0.341 n 179 z -2.9; [0.6, 0.7): said 0.649 won 0.744 n 164 z +2.6"
+"C last 3 seasons + this season x1, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.395 n 557 z -2.7"
+"C last 3 seasons + this season x1, shrink 100",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 100",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.447 won 0.346 n 179 z -2.7; [0.6, 0.7): said 0.649 won 0.745 n 165 z +2.6"
+"C last 3 seasons + this season x1, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.396 n 556 z -2.7"
+"C last 3 seasons + this season x1, shrink 300",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 300",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x1, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.446 won 0.348 n 178 z -2.6; [0.6, 0.7): said 0.648 won 0.744 n 168 z +2.6"
+"C last 3 seasons + this season x1, shrink 300",2015-25,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 0",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 0",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.337 n 181 z -3.0"
+"C last 3 seasons + this season x3, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.396 n 565 z -2.7"
+"C last 3 seasons + this season x3, shrink 100",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 100",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.337 n 181 z -3.0"
+"C last 3 seasons + this season x3, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.452 won 0.394 n 566 z -2.8"
+"C last 3 seasons + this season x3, shrink 300",2015-18,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 300",2019-22,cal_fail_buckets,
+"C last 3 seasons + this season x3, shrink 300",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.339 n 183 z -3.0; [0.6, 0.7): said 0.649 won 0.745 n 165 z +2.6"
+"C last 3 seasons + this season x3, shrink 300",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.399 n 568 z -2.6"
+"A2 home term decay 0.8, shrink 0",2015-18,cal_fail_buckets,
+"A2 home term decay 0.8, shrink 0",2019-22,cal_fail_buckets,
+"A2 home term decay 0.8, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.344 n 183 z -2.9"
+"A2 home term decay 0.8, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.454 won 0.395 n 561 z -2.8"
+"A2 home term decay 0.8, shrink 100",2015-18,cal_fail_buckets,
+"A2 home term decay 0.8, shrink 100",2019-22,cal_fail_buckets,
+"A2 home term decay 0.8, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.344 n 183 z -2.9"
+"A2 home term decay 0.8, shrink 100",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.454 won 0.393 n 564 z -2.9"
+"A2 home term decay 0.7, shrink 0",2015-18,cal_fail_buckets,
+"A2 home term decay 0.7, shrink 0",2019-22,cal_fail_buckets,
+"A2 home term decay 0.7, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.353 n 184 z -2.6"
+"A2 home term decay 0.7, shrink 0",2015-25,cal_fail_buckets,
+"A2 home term decay 0.7, shrink 100",2015-18,cal_fail_buckets,
+"A2 home term decay 0.7, shrink 100",2019-22,cal_fail_buckets,
+"A2 home term decay 0.7, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.449 won 0.353 n 184 z -2.6"
+"A2 home term decay 0.7, shrink 100",2015-25,cal_fail_buckets,
+"A2 home term decay 0.6, shrink 0",2015-18,cal_fail_buckets,
+"A2 home term decay 0.6, shrink 0",2019-22,cal_fail_buckets,
+"A2 home term decay 0.6, shrink 0",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.352 n 182 z -2.7"
+"A2 home term decay 0.6, shrink 0",2015-25,cal_fail_buckets,"[0.4, 0.5): said 0.453 won 0.400 n 566 z -2.5"
+"A2 home term decay 0.6, shrink 100",2015-18,cal_fail_buckets,
+"A2 home term decay 0.6, shrink 100",2019-22,cal_fail_buckets,
+"A2 home term decay 0.6, shrink 100",2023-25,cal_fail_buckets,"[0.4, 0.5): said 0.450 won 0.352 n 182 z -2.7"
+"A2 home term decay 0.6, shrink 100",2015-25,cal_fail_buckets,
+base,2015-18,cal_worst_z,1.1600537013014451
+base,2019-22,cal_worst_z,2.1800187954939445
+base,2023-25,cal_worst_z,3.009567265002144
+base,2015-25,cal_worst_z,3.003707388152377
+A decay 0.8,2015-18,cal_worst_z,0.7839295282902322
+A decay 0.8,2019-22,cal_worst_z,2.0228302523292325
+A decay 0.8,2023-25,cal_worst_z,2.575393280400434
+A decay 0.8,2015-25,cal_worst_z,2.801798235412482
+A decay 0.7,2015-18,cal_worst_z,1.0610868234763118
+A decay 0.7,2019-22,cal_worst_z,1.4598918460683348
+A decay 0.7,2023-25,cal_worst_z,2.1861027580882375
+A decay 0.7,2015-25,cal_worst_z,2.5262242476040138
+A decay 0.6,2015-18,cal_worst_z,0.9566231673203358
+A decay 0.6,2019-22,cal_worst_z,1.626669726495207
+A decay 0.6,2023-25,cal_worst_z,2.767728539330145
+A decay 0.6,2015-25,cal_worst_z,2.654058259161717
+D home x era (2020+),2015-18,cal_worst_z,1.1600537013014451
+D home x era (2020+),2019-22,cal_worst_z,2.028989491687965
+D home x era (2020+),2023-25,cal_worst_z,3.0841432722266133
+D home x era (2020+),2015-25,cal_worst_z,2.964622000055163
+"B last 2 seasons, shrink 0",2015-18,cal_worst_z,0.9453532556711793
+"B last 2 seasons, shrink 0",2019-22,cal_worst_z,1.6228578406485776
+"B last 2 seasons, shrink 0",2023-25,cal_worst_z,2.653115240228493
+"B last 2 seasons, shrink 0",2015-25,cal_worst_z,2.546958964773405
+"B last 2 seasons, shrink 100",2015-18,cal_worst_z,0.8792859977018969
+"B last 2 seasons, shrink 100",2019-22,cal_worst_z,1.6326968819780912
+"B last 2 seasons, shrink 100",2023-25,cal_worst_z,2.4208841196801756
+"B last 2 seasons, shrink 100",2015-25,cal_worst_z,2.5655714457396517
+"B last 2 seasons, shrink 300",2015-18,cal_worst_z,0.994832814545707
+"B last 2 seasons, shrink 300",2019-22,cal_worst_z,1.6929467571688848
+"B last 2 seasons, shrink 300",2023-25,cal_worst_z,2.5424960086174844
+"B last 2 seasons, shrink 300",2015-25,cal_worst_z,2.6445069778504497
+"B last 3 seasons, shrink 0",2015-18,cal_worst_z,1.0916743476644026
+"B last 3 seasons, shrink 0",2019-22,cal_worst_z,1.792529198511445
+"B last 3 seasons, shrink 0",2023-25,cal_worst_z,2.561568451741458
+"B last 3 seasons, shrink 0",2015-25,cal_worst_z,2.7511897641767282
+"B last 3 seasons, shrink 100",2015-18,cal_worst_z,1.0459635601578054
+"B last 3 seasons, shrink 100",2019-22,cal_worst_z,1.7421239913516824
+"B last 3 seasons, shrink 100",2023-25,cal_worst_z,2.533731474346735
+"B last 3 seasons, shrink 100",2015-25,cal_worst_z,2.7905377297156546
+"B last 3 seasons, shrink 300",2015-18,cal_worst_z,1.229473477920686
+"B last 3 seasons, shrink 300",2019-22,cal_worst_z,1.832630187459015
+"B last 3 seasons, shrink 300",2023-25,cal_worst_z,2.588079496289575
+"B last 3 seasons, shrink 300",2015-25,cal_worst_z,2.802729193472205
+"B last 4 seasons, shrink 0",2015-18,cal_worst_z,1.234376796568507
+"B last 4 seasons, shrink 0",2019-22,cal_worst_z,1.4469644512787778
+"B last 4 seasons, shrink 0",2023-25,cal_worst_z,2.549151084012936
+"B last 4 seasons, shrink 0",2015-25,cal_worst_z,2.6829862209045485
+"B last 4 seasons, shrink 100",2015-18,cal_worst_z,1.269011942201622
+"B last 4 seasons, shrink 100",2019-22,cal_worst_z,1.6718925221896106
+"B last 4 seasons, shrink 100",2023-25,cal_worst_z,2.871134893133029
+"B last 4 seasons, shrink 100",2015-25,cal_worst_z,2.864739132175884
+"B last 4 seasons, shrink 300",2015-18,cal_worst_z,1.3962716460014963
+"B last 4 seasons, shrink 300",2019-22,cal_worst_z,1.7604364935727728
+"B last 4 seasons, shrink 300",2023-25,cal_worst_z,2.8427476935213885
+"B last 4 seasons, shrink 300",2015-25,cal_worst_z,2.8887216493211736
+"C last 2 seasons + this season x1, shrink 0",2015-18,cal_worst_z,1.2763252553603641
+"C last 2 seasons + this season x1, shrink 0",2019-22,cal_worst_z,1.484503509040639
+"C last 2 seasons + this season x1, shrink 0",2023-25,cal_worst_z,3.011490648906824
+"C last 2 seasons + this season x1, shrink 0",2015-25,cal_worst_z,2.6903579566870386
+"C last 2 seasons + this season x1, shrink 100",2015-18,cal_worst_z,1.2601005523875215
+"C last 2 seasons + this season x1, shrink 100",2019-22,cal_worst_z,1.2488192120431314
+"C last 2 seasons + this season x1, shrink 100",2023-25,cal_worst_z,2.987642262673483
+"C last 2 seasons + this season x1, shrink 100",2015-25,cal_worst_z,2.6160736427888756
+"C last 2 seasons + this season x1, shrink 300",2015-18,cal_worst_z,1.3047610600993047
+"C last 2 seasons + this season x1, shrink 300",2019-22,cal_worst_z,1.7514935884138179
+"C last 2 seasons + this season x1, shrink 300",2023-25,cal_worst_z,2.833289570511895
+"C last 2 seasons + this season x1, shrink 300",2015-25,cal_worst_z,2.8285749978288472
+"C last 2 seasons + this season x3, shrink 0",2015-18,cal_worst_z,0.9247758304387704
+"C last 2 seasons + this season x3, shrink 0",2019-22,cal_worst_z,1.4032118499642094
+"C last 2 seasons + this season x3, shrink 0",2023-25,cal_worst_z,3.02380666528349
+"C last 2 seasons + this season x3, shrink 0",2015-25,cal_worst_z,2.5227138563801343
+"C last 2 seasons + this season x3, shrink 100",2015-18,cal_worst_z,0.8252132984235506
+"C last 2 seasons + this season x3, shrink 100",2019-22,cal_worst_z,1.4090251385438994
+"C last 2 seasons + this season x3, shrink 100",2023-25,cal_worst_z,2.9100784842639245
+"C last 2 seasons + this season x3, shrink 100",2015-25,cal_worst_z,2.4226096903779224
+"C last 2 seasons + this season x3, shrink 300",2015-18,cal_worst_z,0.8639274078088266
+"C last 2 seasons + this season x3, shrink 300",2019-22,cal_worst_z,1.654097813481843
+"C last 2 seasons + this season x3, shrink 300",2023-25,cal_worst_z,2.9584247976587825
+"C last 2 seasons + this season x3, shrink 300",2015-25,cal_worst_z,2.661079009066713
+"C last 3 seasons + this season x1, shrink 0",2015-18,cal_worst_z,1.144054323800666
+"C last 3 seasons + this season x1, shrink 0",2019-22,cal_worst_z,1.527993757836594
+"C last 3 seasons + this season x1, shrink 0",2023-25,cal_worst_z,2.855470237417061
+"C last 3 seasons + this season x1, shrink 0",2015-25,cal_worst_z,2.707584824895547
+"C last 3 seasons + this season x1, shrink 100",2015-18,cal_worst_z,1.1429155725143207
+"C last 3 seasons + this season x1, shrink 100",2019-22,cal_worst_z,1.622644259139478
+"C last 3 seasons + this season x1, shrink 100",2023-25,cal_worst_z,2.7069313426584722
+"C last 3 seasons + this season x1, shrink 100",2015-25,cal_worst_z,2.681714019606872
+"C last 3 seasons + this season x1, shrink 300",2015-18,cal_worst_z,1.108920651268566
+"C last 3 seasons + this season x1, shrink 300",2019-22,cal_worst_z,1.2959540868680952
+"C last 3 seasons + this season x1, shrink 300",2023-25,cal_worst_z,2.6272933441592223
+"C last 3 seasons + this season x1, shrink 300",2015-25,cal_worst_z,2.442022585807111
+"C last 3 seasons + this season x3, shrink 0",2015-18,cal_worst_z,1.0093226436251774
+"C last 3 seasons + this season x3, shrink 0",2019-22,cal_worst_z,1.6121768405697072
+"C last 3 seasons + this season x3, shrink 0",2023-25,cal_worst_z,3.018978383409635
+"C last 3 seasons + this season x3, shrink 0",2015-25,cal_worst_z,2.667295448608071
+"C last 3 seasons + this season x3, shrink 100",2015-18,cal_worst_z,0.9519094686726114
+"C last 3 seasons + this season x3, shrink 100",2019-22,cal_worst_z,1.7566186621778808
+"C last 3 seasons + this season x3, shrink 100",2023-25,cal_worst_z,3.0216097279569785
+"C last 3 seasons + this season x3, shrink 100",2015-25,cal_worst_z,2.7906726134911235
+"C last 3 seasons + this season x3, shrink 300",2015-18,cal_worst_z,1.14326222294663
+"C last 3 seasons + this season x3, shrink 300",2019-22,cal_worst_z,1.4842626536623873
+"C last 3 seasons + this season x3, shrink 300",2023-25,cal_worst_z,2.9941135870159403
+"C last 3 seasons + this season x3, shrink 300",2015-25,cal_worst_z,2.580782747264902
+"A2 home term decay 0.8, shrink 0",2015-18,cal_worst_z,1.1545002564270574
+"A2 home term decay 0.8, shrink 0",2019-22,cal_worst_z,1.854008256319348
+"A2 home term decay 0.8, shrink 0",2023-25,cal_worst_z,2.8602242119569175
+"A2 home term decay 0.8, shrink 0",2015-25,cal_worst_z,2.811600288360957
+"A2 home term decay 0.8, shrink 100",2015-18,cal_worst_z,1.0726507688792328
+"A2 home term decay 0.8, shrink 100",2019-22,cal_worst_z,2.058123848814086
+"A2 home term decay 0.8, shrink 100",2023-25,cal_worst_z,2.8681209004006947
+"A2 home term decay 0.8, shrink 100",2015-25,cal_worst_z,2.9262186941951067
+"A2 home term decay 0.7, shrink 0",2015-18,cal_worst_z,1.232314666912631
+"A2 home term decay 0.7, shrink 0",2019-22,cal_worst_z,1.5185868621156646
+"A2 home term decay 0.7, shrink 0",2023-25,cal_worst_z,2.611605280091781
+"A2 home term decay 0.7, shrink 0",2015-25,cal_worst_z,2.4513287484611785
+"A2 home term decay 0.7, shrink 100",2015-18,cal_worst_z,1.2283534777991094
+"A2 home term decay 0.7, shrink 100",2019-22,cal_worst_z,1.5347276085097705
+"A2 home term decay 0.7, shrink 100",2023-25,cal_worst_z,2.62162155857245
+"A2 home term decay 0.7, shrink 100",2015-25,cal_worst_z,2.4689209867049238
+"A2 home term decay 0.6, shrink 0",2015-18,cal_worst_z,1.2708966425275756
+"A2 home term decay 0.6, shrink 0",2019-22,cal_worst_z,1.5860003479257772
+"A2 home term decay 0.6, shrink 0",2023-25,cal_worst_z,2.6539968349168257
+"A2 home term decay 0.6, shrink 0",2015-25,cal_worst_z,2.508218382590106
+"A2 home term decay 0.6, shrink 100",2015-18,cal_worst_z,1.2227001483710362
+"A2 home term decay 0.6, shrink 100",2019-22,cal_worst_z,1.642840185310905
+"A2 home term decay 0.6, shrink 100",2023-25,cal_worst_z,2.6608585227633514
+"A2 home term decay 0.6, shrink 100",2015-25,cal_worst_z,2.4990997274969393
+base,2015-18,p40_50_n,178
+base,2019-22,p40_50_n,198
+base,2023-25,p40_50_n,180
+base,2015-25,p40_50_n,556
+A decay 0.8,2015-18,p40_50_n,175
+A decay 0.8,2019-22,p40_50_n,191
+A decay 0.8,2023-25,p40_50_n,181
+A decay 0.8,2015-25,p40_50_n,547
+A decay 0.7,2015-18,p40_50_n,175
+A decay 0.7,2019-22,p40_50_n,194
+A decay 0.7,2023-25,p40_50_n,179
+A decay 0.7,2015-25,p40_50_n,548
+A decay 0.6,2015-18,p40_50_n,179
+A decay 0.6,2019-22,p40_50_n,190
+A decay 0.6,2023-25,p40_50_n,180
+A decay 0.6,2015-25,p40_50_n,549
+D home x era (2020+),2015-18,p40_50_n,178
+D home x era (2020+),2019-22,p40_50_n,198
+D home x era (2020+),2023-25,p40_50_n,184
+D home x era (2020+),2015-25,p40_50_n,560
+"B last 2 seasons, shrink 0",2015-18,p40_50_n,170
+"B last 2 seasons, shrink 0",2019-22,p40_50_n,206
+"B last 2 seasons, shrink 0",2023-25,p40_50_n,169
+"B last 2 seasons, shrink 0",2015-25,p40_50_n,545
+"B last 2 seasons, shrink 100",2015-18,p40_50_n,173
+"B last 2 seasons, shrink 100",2019-22,p40_50_n,206
+"B last 2 seasons, shrink 100",2023-25,p40_50_n,175
+"B last 2 seasons, shrink 100",2015-25,p40_50_n,554
+"B last 2 seasons, shrink 300",2015-18,p40_50_n,170
+"B last 2 seasons, shrink 300",2019-22,p40_50_n,205
+"B last 2 seasons, shrink 300",2023-25,p40_50_n,175
+"B last 2 seasons, shrink 300",2015-25,p40_50_n,550
+"B last 3 seasons, shrink 0",2015-18,p40_50_n,171
+"B last 3 seasons, shrink 0",2019-22,p40_50_n,206
+"B last 3 seasons, shrink 0",2023-25,p40_50_n,181
+"B last 3 seasons, shrink 0",2015-25,p40_50_n,558
+"B last 3 seasons, shrink 100",2015-18,p40_50_n,173
+"B last 3 seasons, shrink 100",2019-22,p40_50_n,203
+"B last 3 seasons, shrink 100",2023-25,p40_50_n,181
+"B last 3 seasons, shrink 100",2015-25,p40_50_n,557
+"B last 3 seasons, shrink 300",2015-18,p40_50_n,171
+"B last 3 seasons, shrink 300",2019-22,p40_50_n,200
+"B last 3 seasons, shrink 300",2023-25,p40_50_n,182
+"B last 3 seasons, shrink 300",2015-25,p40_50_n,553
+"B last 4 seasons, shrink 0",2015-18,p40_50_n,171
+"B last 4 seasons, shrink 0",2019-22,p40_50_n,198
+"B last 4 seasons, shrink 0",2023-25,p40_50_n,180
+"B last 4 seasons, shrink 0",2015-25,p40_50_n,549
+"B last 4 seasons, shrink 100",2015-18,p40_50_n,173
+"B last 4 seasons, shrink 100",2019-22,p40_50_n,199
+"B last 4 seasons, shrink 100",2023-25,p40_50_n,186
+"B last 4 seasons, shrink 100",2015-25,p40_50_n,558
+"B last 4 seasons, shrink 300",2015-18,p40_50_n,173
+"B last 4 seasons, shrink 300",2019-22,p40_50_n,199
+"B last 4 seasons, shrink 300",2023-25,p40_50_n,183
+"B last 4 seasons, shrink 300",2015-25,p40_50_n,555
+"C last 2 seasons + this season x1, shrink 0",2015-18,p40_50_n,172
+"C last 2 seasons + this season x1, shrink 0",2019-22,p40_50_n,206
+"C last 2 seasons + this season x1, shrink 0",2023-25,p40_50_n,177
+"C last 2 seasons + this season x1, shrink 0",2015-25,p40_50_n,555
+"C last 2 seasons + this season x1, shrink 100",2015-18,p40_50_n,172
+"C last 2 seasons + this season x1, shrink 100",2019-22,p40_50_n,201
+"C last 2 seasons + this season x1, shrink 100",2023-25,p40_50_n,177
+"C last 2 seasons + this season x1, shrink 100",2015-25,p40_50_n,550
+"C last 2 seasons + this season x1, shrink 300",2015-18,p40_50_n,172
+"C last 2 seasons + this season x1, shrink 300",2019-22,p40_50_n,202
+"C last 2 seasons + this season x1, shrink 300",2023-25,p40_50_n,177
+"C last 2 seasons + this season x1, shrink 300",2015-25,p40_50_n,551
+"C last 2 seasons + this season x3, shrink 0",2015-18,p40_50_n,176
+"C last 2 seasons + this season x3, shrink 0",2019-22,p40_50_n,206
+"C last 2 seasons + this season x3, shrink 0",2023-25,p40_50_n,175
+"C last 2 seasons + this season x3, shrink 0",2015-25,p40_50_n,557
+"C last 2 seasons + this season x3, shrink 100",2015-18,p40_50_n,177
+"C last 2 seasons + this season x3, shrink 100",2019-22,p40_50_n,200
+"C last 2 seasons + this season x3, shrink 100",2023-25,p40_50_n,178
+"C last 2 seasons + this season x3, shrink 100",2015-25,p40_50_n,555
+"C last 2 seasons + this season x3, shrink 300",2015-18,p40_50_n,176
+"C last 2 seasons + this season x3, shrink 300",2019-22,p40_50_n,206
+"C last 2 seasons + this season x3, shrink 300",2023-25,p40_50_n,179
+"C last 2 seasons + this season x3, shrink 300",2015-25,p40_50_n,561
+"C last 3 seasons + this season x1, shrink 0",2015-18,p40_50_n,174
+"C last 3 seasons + this season x1, shrink 0",2019-22,p40_50_n,204
+"C last 3 seasons + this season x1, shrink 0",2023-25,p40_50_n,179
+"C last 3 seasons + this season x1, shrink 0",2015-25,p40_50_n,557
+"C last 3 seasons + this season x1, shrink 100",2015-18,p40_50_n,174
+"C last 3 seasons + this season x1, shrink 100",2019-22,p40_50_n,203
+"C last 3 seasons + this season x1, shrink 100",2023-25,p40_50_n,179
+"C last 3 seasons + this season x1, shrink 100",2015-25,p40_50_n,556
+"C last 3 seasons + this season x1, shrink 300",2015-18,p40_50_n,172
+"C last 3 seasons + this season x1, shrink 300",2019-22,p40_50_n,207
+"C last 3 seasons + this season x1, shrink 300",2023-25,p40_50_n,178
+"C last 3 seasons + this season x1, shrink 300",2015-25,p40_50_n,557
+"C last 3 seasons + this season x3, shrink 0",2015-18,p40_50_n,178
+"C last 3 seasons + this season x3, shrink 0",2019-22,p40_50_n,206
+"C last 3 seasons + this season x3, shrink 0",2023-25,p40_50_n,181
+"C last 3 seasons + this season x3, shrink 0",2015-25,p40_50_n,565
+"C last 3 seasons + this season x3, shrink 100",2015-18,p40_50_n,179
+"C last 3 seasons + this season x3, shrink 100",2019-22,p40_50_n,206
+"C last 3 seasons + this season x3, shrink 100",2023-25,p40_50_n,181
+"C last 3 seasons + this season x3, shrink 100",2015-25,p40_50_n,566
+"C last 3 seasons + this season x3, shrink 300",2015-18,p40_50_n,178
+"C last 3 seasons + this season x3, shrink 300",2019-22,p40_50_n,207
+"C last 3 seasons + this season x3, shrink 300",2023-25,p40_50_n,183
+"C last 3 seasons + this season x3, shrink 300",2015-25,p40_50_n,568
+"A2 home term decay 0.8, shrink 0",2015-18,p40_50_n,173
+"A2 home term decay 0.8, shrink 0",2019-22,p40_50_n,205
+"A2 home term decay 0.8, shrink 0",2023-25,p40_50_n,183
+"A2 home term decay 0.8, shrink 0",2015-25,p40_50_n,561
+"A2 home term decay 0.8, shrink 100",2015-18,p40_50_n,175
+"A2 home term decay 0.8, shrink 100",2019-22,p40_50_n,206
+"A2 home term decay 0.8, shrink 100",2023-25,p40_50_n,183
+"A2 home term decay 0.8, shrink 100",2015-25,p40_50_n,564
+"A2 home term decay 0.7, shrink 0",2015-18,p40_50_n,175
+"A2 home term decay 0.7, shrink 0",2019-22,p40_50_n,205
+"A2 home term decay 0.7, shrink 0",2023-25,p40_50_n,184
+"A2 home term decay 0.7, shrink 0",2015-25,p40_50_n,564
+"A2 home term decay 0.7, shrink 100",2015-18,p40_50_n,175
+"A2 home term decay 0.7, shrink 100",2019-22,p40_50_n,205
+"A2 home term decay 0.7, shrink 100",2023-25,p40_50_n,184
+"A2 home term decay 0.7, shrink 100",2015-25,p40_50_n,564
+"A2 home term decay 0.6, shrink 0",2015-18,p40_50_n,175
+"A2 home term decay 0.6, shrink 0",2019-22,p40_50_n,209
+"A2 home term decay 0.6, shrink 0",2023-25,p40_50_n,182
+"A2 home term decay 0.6, shrink 0",2015-25,p40_50_n,566
+"A2 home term decay 0.6, shrink 100",2015-18,p40_50_n,176
+"A2 home term decay 0.6, shrink 100",2019-22,p40_50_n,210
+"A2 home term decay 0.6, shrink 100",2023-25,p40_50_n,182
+"A2 home term decay 0.6, shrink 100",2015-25,p40_50_n,568
+base,2015-18,p40_50_said,0.45729917732557107
+base,2019-22,p40_50_said,0.45595027060024124
+base,2023-25,p40_50_said,0.4504977962670209
+base,2015-25,p40_50_said,0.45461692530730785
+A decay 0.8,2015-18,p40_50_said,0.4569615778367559
+A decay 0.8,2019-22,p40_50_said,0.4550865308265924
+A decay 0.8,2023-25,p40_50_said,0.4488017950107286
+A decay 0.8,2015-25,p40_50_said,0.4536068160991834
+A decay 0.7,2015-18,p40_50_said,0.4574081409778646
+A decay 0.7,2019-22,p40_50_said,0.45358614223183413
+A decay 0.7,2023-25,p40_50_said,0.4500041286354862
+A decay 0.7,2015-25,p40_50_said,0.4536366337406098
+A decay 0.6,2015-18,p40_50_said,0.4570842946501995
+A decay 0.6,2019-22,p40_50_said,0.45348648226906424
+A decay 0.6,2023-25,p40_50_said,0.4526842667112657
+A decay 0.6,2015-25,p40_50_said,0.45439651799915437
+D home x era (2020+),2015-18,p40_50_said,0.45729917732557107
+D home x era (2020+),2019-22,p40_50_said,0.45565122323720403
+D home x era (2020+),2023-25,p40_50_said,0.450071336634148
+D home x era (2020+),2015-25,p40_50_said,0.4543416459028594
+"B last 2 seasons, shrink 0",2015-18,p40_50_said,0.45495163362112834
+"B last 2 seasons, shrink 0",2019-22,p40_50_said,0.45190383398824946
+"B last 2 seasons, shrink 0",2023-25,p40_50_said,0.45065721437164313
+"B last 2 seasons, shrink 0",2015-25,p40_50_said,0.45246795733207135
+"B last 2 seasons, shrink 100",2015-18,p40_50_said,0.45642488111377916
+"B last 2 seasons, shrink 100",2019-22,p40_50_said,0.45224878219945824
+"B last 2 seasons, shrink 100",2023-25,p40_50_said,0.4510614792636972
+"B last 2 seasons, shrink 100",2015-25,p40_50_said,0.45317782028324766
+"B last 2 seasons, shrink 300",2015-18,p40_50_said,0.45631788792945316
+"B last 2 seasons, shrink 300",2019-22,p40_50_said,0.45399139377730907
+"B last 2 seasons, shrink 300",2023-25,p40_50_said,0.44989939148794805
+"B last 2 seasons, shrink 300",2015-25,p40_50_said,0.45340849124135696
+"B last 3 seasons, shrink 0",2015-18,p40_50_said,0.4555568687380879
+"B last 3 seasons, shrink 0",2019-22,p40_50_said,0.4529452695520565
+"B last 3 seasons, shrink 0",2023-25,p40_50_said,0.4482804289916483
+"B last 3 seasons, shrink 0",2015-25,p40_50_said,0.4522324511280018
+"B last 3 seasons, shrink 100",2015-18,p40_50_said,0.4564987592017778
+"B last 3 seasons, shrink 100",2019-22,p40_50_said,0.45248550945325616
+"B last 3 seasons, shrink 100",2023-25,p40_50_said,0.4472306537451478
+"B last 3 seasons, shrink 100",2015-25,p40_50_said,0.4520244023138067
+"B last 3 seasons, shrink 300",2015-18,p40_50_said,0.45638790972953003
+"B last 3 seasons, shrink 300",2019-22,p40_50_said,0.4519939273093905
+"B last 3 seasons, shrink 300",2023-25,p40_50_said,0.44702915128297915
+"B last 3 seasons, shrink 300",2015-25,p40_50_said,0.4517186682805243
+"B last 4 seasons, shrink 0",2015-18,p40_50_said,0.4557256200029189
+"B last 4 seasons, shrink 0",2019-22,p40_50_said,0.45270021611033096
+"B last 4 seasons, shrink 0",2023-25,p40_50_said,0.45008217553782487
+"B last 4 seasons, shrink 0",2015-25,p40_50_said,0.4527841810694957
+"B last 4 seasons, shrink 100",2015-18,p40_50_said,0.4564608811934891
+"B last 4 seasons, shrink 100",2019-22,p40_50_said,0.4534739116271196
+"B last 4 seasons, shrink 100",2023-25,p40_50_said,0.44879346749540966
+"B last 4 seasons, shrink 100",2015-25,p40_50_said,0.4528398312086319
+"B last 4 seasons, shrink 300",2015-18,p40_50_said,0.455979017666852
+"B last 4 seasons, shrink 300",2019-22,p40_50_said,0.4540932650687153
+"B last 4 seasons, shrink 300",2023-25,p40_50_said,0.4487805256416039
+"B last 4 seasons, shrink 300",2015-25,p40_50_said,0.4529293081035194
+"C last 2 seasons + this season x1, shrink 0",2015-18,p40_50_said,0.456446211220834
+"C last 2 seasons + this season x1, shrink 0",2019-22,p40_50_said,0.4519613262645955
+"C last 2 seasons + this season x1, shrink 0",2023-25,p40_50_said,0.4516309777956557
+"C last 2 seasons + this season x1, shrink 0",2015-25,p40_50_said,0.4532458821807589
+"C last 2 seasons + this season x1, shrink 100",2015-18,p40_50_said,0.45610846334904087
+"C last 2 seasons + this season x1, shrink 100",2019-22,p40_50_said,0.45179751556536635
+"C last 2 seasons + this season x1, shrink 100",2023-25,p40_50_said,0.45071880527888664
+"C last 2 seasons + this season x1, shrink 100",2015-25,p40_50_said,0.45279851792552106
+"C last 2 seasons + this season x1, shrink 300",2015-18,p40_50_said,0.45584477300553655
+"C last 2 seasons + this season x1, shrink 300",2019-22,p40_50_said,0.4524268995758236
+"C last 2 seasons + this season x1, shrink 300",2023-25,p40_50_said,0.45059318576905666
+"C last 2 seasons + this season x1, shrink 300",2015-25,p40_50_said,0.4529047705125076
+"C last 2 seasons + this season x3, shrink 0",2015-18,p40_50_said,0.45573277440037513
+"C last 2 seasons + this season x3, shrink 0",2019-22,p40_50_said,0.45156593574883064
+"C last 2 seasons + this season x3, shrink 0",2023-25,p40_50_said,0.4508791420648494
+"C last 2 seasons + this season x3, shrink 0",2015-25,p40_50_said,0.4526667880073138
+"C last 2 seasons + this season x3, shrink 100",2015-18,p40_50_said,0.4557768572129302
+"C last 2 seasons + this season x3, shrink 100",2019-22,p40_50_said,0.4495624521143562
+"C last 2 seasons + this season x3, shrink 100",2023-25,p40_50_said,0.4512365307136925
+"C last 2 seasons + this season x3, shrink 100",2015-25,p40_50_said,0.45208125516503994
+"C last 2 seasons + this season x3, shrink 300",2015-18,p40_50_said,0.45662169067779657
+"C last 2 seasons + this season x3, shrink 300",2019-22,p40_50_said,0.4505445438189267
+"C last 2 seasons + this season x3, shrink 300",2023-25,p40_50_said,0.45080724568537284
+"C last 2 seasons + this season x3, shrink 300",2015-25,p40_50_said,0.45253492079086066
+"C last 3 seasons + this season x1, shrink 0",2015-18,p40_50_said,0.45658924996974387
+"C last 3 seasons + this season x1, shrink 0",2019-22,p40_50_said,0.4527610191944966
+"C last 3 seasons + this season x1, shrink 0",2023-25,p40_50_said,0.4468923927977134
+"C last 3 seasons + this season x1, shrink 0",2015-25,p40_50_said,0.45207094384417135
+"C last 3 seasons + this season x1, shrink 100",2015-18,p40_50_said,0.4566539781324316
+"C last 3 seasons + this season x1, shrink 100",2019-22,p40_50_said,0.45324587603924726
+"C last 3 seasons + this season x1, shrink 100",2023-25,p40_50_said,0.4469607032288354
+"C last 3 seasons + this season x1, shrink 100",2015-25,p40_50_said,0.4522889764549853
+"C last 3 seasons + this season x1, shrink 300",2015-18,p40_50_said,0.45626116363248065
+"C last 3 seasons + this season x1, shrink 300",2019-22,p40_50_said,0.4530510952996458
+"C last 3 seasons + this season x1, shrink 300",2023-25,p40_50_said,0.4462050512817447
+"C last 3 seasons + this season x1, shrink 300",2015-25,p40_50_said,0.4518545709155546
+"C last 3 seasons + this season x3, shrink 0",2015-18,p40_50_said,0.45696782577996936
+"C last 3 seasons + this season x3, shrink 0",2019-22,p40_50_said,0.45152938853445784
+"C last 3 seasons + this season x3, shrink 0",2023-25,p40_50_said,0.44862210764371313
+"C last 3 seasons + this season x3, shrink 0",2015-25,p40_50_said,0.4523113778945928
+"C last 3 seasons + this season x3, shrink 100",2015-18,p40_50_said,0.45686837593359547
+"C last 3 seasons + this season x3, shrink 100",2019-22,p40_50_said,0.45168504182267505
+"C last 3 seasons + this season x3, shrink 100",2023-25,p40_50_said,0.4487216913344582
+"C last 3 seasons + this season x3, shrink 100",2015-25,p40_50_said,0.4523766502457978
+"C last 3 seasons + this season x3, shrink 300",2015-18,p40_50_said,0.4569721005131488
+"C last 3 seasons + this season x3, shrink 300",2019-22,p40_50_said,0.45231273929679355
+"C last 3 seasons + this season x3, shrink 300",2023-25,p40_50_said,0.44888360446341
+"C last 3 seasons + this season x3, shrink 300",2015-25,p40_50_said,0.45266808194116337
+"A2 home term decay 0.8, shrink 0",2015-18,p40_50_said,0.45774673391073606
+"A2 home term decay 0.8, shrink 0",2019-22,p40_50_said,0.4547226744650703
+"A2 home term decay 0.8, shrink 0",2023-25,p40_50_said,0.44943728558504425
+"A2 home term decay 0.8, shrink 0",2015-25,p40_50_said,0.45393111674502645
+"A2 home term decay 0.8, shrink 100",2015-18,p40_50_said,0.4576521124026096
+"A2 home term decay 0.8, shrink 100",2019-22,p40_50_said,0.45490103557009515
+"A2 home term decay 0.8, shrink 100",2023-25,p40_50_said,0.44973403562600495
+"A2 home term decay 0.8, shrink 100",2015-25,p40_50_said,0.45407812325789926
+"A2 home term decay 0.7, shrink 0",2015-18,p40_50_said,0.45734606799705024
+"A2 home term decay 0.7, shrink 0",2019-22,p40_50_said,0.45279447851068305
+"A2 home term decay 0.7, shrink 0",2023-25,p40_50_said,0.4490243171928636
+"A2 home term decay 0.7, shrink 0",2015-25,p40_50_said,0.4529767807759942
+"A2 home term decay 0.7, shrink 100",2015-18,p40_50_said,0.4574882187520331
+"A2 home term decay 0.7, shrink 100",2019-22,p40_50_said,0.4533613476323846
+"A2 home term decay 0.7, shrink 100",2023-25,p40_50_said,0.4493989920311731
+"A2 home term decay 0.7, shrink 100",2015-25,p40_50_said,0.45334916503542644
+"A2 home term decay 0.6, shrink 0",2015-18,p40_50_said,0.45703284817873396
+"A2 home term decay 0.6, shrink 0",2019-22,p40_50_said,0.4517258995599285
+"A2 home term decay 0.6, shrink 0",2023-25,p40_50_said,0.4495092127173375
+"A2 home term decay 0.6, shrink 0",2015-25,p40_50_said,0.4526539543354398
+"A2 home term decay 0.6, shrink 100",2015-18,p40_50_said,0.45705334389870783
+"A2 home term decay 0.6, shrink 100",2019-22,p40_50_said,0.45165588922538424
+"A2 home term decay 0.6, shrink 100",2023-25,p40_50_said,0.44976737884192186
+"A2 home term decay 0.6, shrink 100",2015-25,p40_50_said,0.45272321868438914
+base,2015-18,p40_50_won,0.45786516853932585
+base,2019-22,p40_50_won,0.3787878787878788
+base,2023-25,p40_50_won,0.3388888888888889
+base,2015-25,p40_50_won,0.39118705035971224
+A decay 0.8,2015-18,p40_50_won,0.44857142857142857
+A decay 0.8,2019-22,p40_50_won,0.38219895287958117
+A decay 0.8,2023-25,p40_50_won,0.35359116022099446
+A decay 0.8,2015-25,p40_50_won,0.3939670932358318
+A decay 0.7,2015-18,p40_50_won,0.46
+A decay 0.7,2019-22,p40_50_won,0.40463917525773196
+A decay 0.7,2023-25,p40_50_won,0.3687150837988827
+A decay 0.7,2015-25,p40_50_won,0.41058394160583944
+A decay 0.6,2015-18,p40_50_won,0.44972067039106145
+A decay 0.6,2019-22,p40_50_won,0.39473684210526316
+A decay 0.6,2023-25,p40_50_won,0.35
+A decay 0.6,2015-25,p40_50_won,0.39799635701275043
+D home x era (2020+),2015-18,p40_50_won,0.45786516853932585
+D home x era (2020+),2019-22,p40_50_won,0.3838383838383838
+D home x era (2020+),2023-25,p40_50_won,0.33695652173913043
+D home x era (2020+),2015-25,p40_50_won,0.3919642857142857
+"B last 2 seasons, shrink 0",2015-18,p40_50_won,0.45
+"B last 2 seasons, shrink 0",2019-22,p40_50_won,0.39563106796116504
+"B last 2 seasons, shrink 0",2023-25,p40_50_won,0.34911242603550297
+"B last 2 seasons, shrink 0",2015-25,p40_50_won,0.3981651376146789
+"B last 2 seasons, shrink 100",2015-18,p40_50_won,0.4421965317919075
+"B last 2 seasons, shrink 100",2019-22,p40_50_won,0.39563106796116504
+"B last 2 seasons, shrink 100",2023-25,p40_50_won,0.36
+"B last 2 seasons, shrink 100",2015-25,p40_50_won,0.3989169675090253
+"B last 2 seasons, shrink 300",2015-18,p40_50_won,0.4441176470588235
+"B last 2 seasons, shrink 300",2019-22,p40_50_won,0.3951219512195122
+"B last 2 seasons, shrink 300",2023-25,p40_50_won,0.35428571428571426
+"B last 2 seasons, shrink 300",2015-25,p40_50_won,0.3972727272727273
+"B last 3 seasons, shrink 0",2015-18,p40_50_won,0.4415204678362573
+"B last 3 seasons, shrink 0",2019-22,p40_50_won,0.3907766990291262
+"B last 3 seasons, shrink 0",2023-25,p40_50_won,0.35359116022099446
+"B last 3 seasons, shrink 0",2015-25,p40_50_won,0.3942652329749104
+"B last 3 seasons, shrink 100",2015-18,p40_50_won,0.43641618497109824
+"B last 3 seasons, shrink 100",2019-22,p40_50_won,0.3916256157635468
+"B last 3 seasons, shrink 100",2023-25,p40_50_won,0.35359116022099446
+"B last 3 seasons, shrink 100",2015-25,p40_50_won,0.39317773788150806
+"B last 3 seasons, shrink 300",2015-18,p40_50_won,0.4415204678362573
+"B last 3 seasons, shrink 300",2019-22,p40_50_won,0.3875
+"B last 3 seasons, shrink 300",2023-25,p40_50_won,0.3516483516483517
+"B last 3 seasons, shrink 300",2015-25,p40_50_won,0.3924050632911392
+"B last 4 seasons, shrink 0",2015-18,p40_50_won,0.4473684210526316
+"B last 4 seasons, shrink 0",2019-22,p40_50_won,0.4015151515151515
+"B last 4 seasons, shrink 0",2023-25,p40_50_won,0.35555555555555557
+"B last 4 seasons, shrink 0",2015-25,p40_50_won,0.4007285974499089
+"B last 4 seasons, shrink 100",2015-18,p40_50_won,0.4421965317919075
+"B last 4 seasons, shrink 100",2019-22,p40_50_won,0.3944723618090452
+"B last 4 seasons, shrink 100",2023-25,p40_50_won,0.34408602150537637
+"B last 4 seasons, shrink 100",2015-25,p40_50_won,0.3924731182795699
+"B last 4 seasons, shrink 300",2015-18,p40_50_won,0.4421965317919075
+"B last 4 seasons, shrink 300",2019-22,p40_50_won,0.39195979899497485
+"B last 4 seasons, shrink 300",2023-25,p40_50_won,0.3442622950819672
+"B last 4 seasons, shrink 300",2015-25,p40_50_won,0.3918918918918919
+"C last 2 seasons + this season x1, shrink 0",2015-18,p40_50_won,0.45058139534883723
+"C last 2 seasons + this season x1, shrink 0",2019-22,p40_50_won,0.40048543689320387
+"C last 2 seasons + this season x1, shrink 0",2023-25,p40_50_won,0.3389830508474576
+"C last 2 seasons + this season x1, shrink 0",2015-25,p40_50_won,0.3963963963963964
+"C last 2 seasons + this season x1, shrink 100",2015-18,p40_50_won,0.44476744186046513
+"C last 2 seasons + this season x1, shrink 100",2019-22,p40_50_won,0.4079601990049751
+"C last 2 seasons + this season x1, shrink 100",2023-25,p40_50_won,0.3389830508474576
+"C last 2 seasons + this season x1, shrink 100",2015-25,p40_50_won,0.3972727272727273
+"C last 2 seasons + this season x1, shrink 300",2015-18,p40_50_won,0.44476744186046513
+"C last 2 seasons + this season x1, shrink 300",2019-22,p40_50_won,0.3910891089108911
+"C last 2 seasons + this season x1, shrink 300",2023-25,p40_50_won,0.3446327683615819
+"C last 2 seasons + this season x1, shrink 300",2015-25,p40_50_won,0.3929219600725953
+"C last 2 seasons + this season x3, shrink 0",2015-18,p40_50_won,0.45738636363636365
+"C last 2 seasons + this season x3, shrink 0",2019-22,p40_50_won,0.4029126213592233
+"C last 2 seasons + this season x3, shrink 0",2023-25,p40_50_won,0.33714285714285713
+"C last 2 seasons + this season x3, shrink 0",2015-25,p40_50_won,0.3994614003590664
+"C last 2 seasons + this season x3, shrink 100",2015-18,p40_50_won,0.4604519774011299
+"C last 2 seasons + this season x3, shrink 100",2019-22,p40_50_won,0.4
+"C last 2 seasons + this season x3, shrink 100",2023-25,p40_50_won,0.34269662921348315
+"C last 2 seasons + this season x3, shrink 100",2015-25,p40_50_won,0.4009009009009009
+"C last 2 seasons + this season x3, shrink 300",2015-18,p40_50_won,0.45738636363636365
+"C last 2 seasons + this season x3, shrink 300",2019-22,p40_50_won,0.3932038834951456
+"C last 2 seasons + this season x3, shrink 300",2023-25,p40_50_won,0.3407821229050279
+"C last 2 seasons + this season x3, shrink 300",2015-25,p40_50_won,0.3966131907308378
+"C last 3 seasons + this season x1, shrink 0",2015-18,p40_50_won,0.4454022988505747
+"C last 3 seasons + this season x1, shrink 0",2019-22,p40_50_won,0.39950980392156865
+"C last 3 seasons + this season x1, shrink 0",2023-25,p40_50_won,0.3407821229050279
+"C last 3 seasons + this season x1, shrink 0",2015-25,p40_50_won,0.39497307001795334
+"C last 3 seasons + this season x1, shrink 100",2015-18,p40_50_won,0.4454022988505747
+"C last 3 seasons + this season x1, shrink 100",2019-22,p40_50_won,0.39655172413793105
+"C last 3 seasons + this season x1, shrink 100",2023-25,p40_50_won,0.3463687150837989
+"C last 3 seasons + this season x1, shrink 100",2015-25,p40_50_won,0.39568345323741005
+"C last 3 seasons + this season x1, shrink 300",2015-18,p40_50_won,0.44476744186046513
+"C last 3 seasons + this season x1, shrink 300",2019-22,p40_50_won,0.4082125603864734
+"C last 3 seasons + this season x1, shrink 300",2023-25,p40_50_won,0.34831460674157305
+"C last 3 seasons + this season x1, shrink 300",2015-25,p40_50_won,0.400359066427289
+"C last 3 seasons + this season x3, shrink 0",2015-18,p40_50_won,0.45786516853932585
+"C last 3 seasons + this season x3, shrink 0",2019-22,p40_50_won,0.39563106796116504
+"C last 3 seasons + this season x3, shrink 0",2023-25,p40_50_won,0.3370165745856354
+"C last 3 seasons + this season x3, shrink 0",2015-25,p40_50_won,0.39646017699115044
+"C last 3 seasons + this season x3, shrink 100",2015-18,p40_50_won,0.4553072625698324
+"C last 3 seasons + this season x3, shrink 100",2019-22,p40_50_won,0.3907766990291262
+"C last 3 seasons + this season x3, shrink 100",2023-25,p40_50_won,0.3370165745856354
+"C last 3 seasons + this season x3, shrink 100",2015-25,p40_50_won,0.39399293286219084
+"C last 3 seasons + this season x3, shrink 300",2015-18,p40_50_won,0.45786516853932585
+"C last 3 seasons + this season x3, shrink 300",2019-22,p40_50_won,0.40096618357487923
+"C last 3 seasons + this season x3, shrink 300",2023-25,p40_50_won,0.33879781420765026
+"C last 3 seasons + this season x3, shrink 300",2015-25,p40_50_won,0.3987676056338028
+"A2 home term decay 0.8, shrink 0",2015-18,p40_50_won,0.45375722543352603
+"A2 home term decay 0.8, shrink 0",2019-22,p40_50_won,0.3902439024390244
+"A2 home term decay 0.8, shrink 0",2023-25,p40_50_won,0.3442622950819672
+"A2 home term decay 0.8, shrink 0",2015-25,p40_50_won,0.3948306595365419
+"A2 home term decay 0.8, shrink 100",2015-18,p40_50_won,0.4542857142857143
+"A2 home term decay 0.8, shrink 100",2019-22,p40_50_won,0.38349514563106796
+"A2 home term decay 0.8, shrink 100",2023-25,p40_50_won,0.3442622950819672
+"A2 home term decay 0.8, shrink 100",2015-25,p40_50_won,0.39273049645390073
+"A2 home term decay 0.7, shrink 0",2015-18,p40_50_won,0.4542857142857143
+"A2 home term decay 0.7, shrink 0",2019-22,p40_50_won,0.4
+"A2 home term decay 0.7, shrink 0",2023-25,p40_50_won,0.3532608695652174
+"A2 home term decay 0.7, shrink 0",2015-25,p40_50_won,0.4015957446808511
+"A2 home term decay 0.7, shrink 100",2015-18,p40_50_won,0.4542857142857143
+"A2 home term decay 0.7, shrink 100",2019-22,p40_50_won,0.4
+"A2 home term decay 0.7, shrink 100",2023-25,p40_50_won,0.3532608695652174
+"A2 home term decay 0.7, shrink 100",2015-25,p40_50_won,0.4015957446808511
+"A2 home term decay 0.6, shrink 0",2015-18,p40_50_won,0.4542857142857143
+"A2 home term decay 0.6, shrink 0",2019-22,p40_50_won,0.39712918660287083
+"A2 home term decay 0.6, shrink 0",2023-25,p40_50_won,0.3516483516483517
+"A2 home term decay 0.6, shrink 0",2015-25,p40_50_won,0.4001766784452297
+"A2 home term decay 0.6, shrink 100",2015-18,p40_50_won,0.45738636363636365
+"A2 home term decay 0.6, shrink 100",2019-22,p40_50_won,0.3952380952380952
+"A2 home term decay 0.6, shrink 100",2023-25,p40_50_won,0.3516483516483517
+"A2 home term decay 0.6, shrink 100",2015-25,p40_50_won,0.4005281690140845
+base,2015-18,p40_50_z,0.015157907083522092
+base,2019-22,p40_50_z,-2.1800187954939445
+base,2023-25,p40_50_z,-3.009567265002144
+base,2015-25,p40_50_z,-3.003707388152377
+A decay 0.8,2015-18,p40_50_z,-0.2228094412456356
+A decay 0.8,2019-22,p40_50_z,-2.0228302523292325
+A decay 0.8,2023-25,p40_50_z,-2.575393280400434
+A decay 0.8,2015-25,p40_50_z,-2.801798235412482
+A decay 0.7,2015-18,p40_50_z,0.06882430240575078
+A decay 0.7,2019-22,p40_50_z,-1.3694176127508242
+A decay 0.7,2023-25,p40_50_z,-2.1861027580882375
+A decay 0.7,2015-25,p40_50_z,-2.0243972898150417
+A decay 0.6,2015-18,p40_50_z,-0.19776698067348142
+A decay 0.6,2019-22,p40_50_z,-1.626669726495207
+A decay 0.6,2023-25,p40_50_z,-2.767728539330145
+A decay 0.6,2015-25,p40_50_z,-2.654058259161717
+D home x era (2020+),2015-18,p40_50_z,0.015157907083522092
+D home x era (2020+),2019-22,p40_50_z,-2.028989491687965
+D home x era (2020+),2023-25,p40_50_z,-3.0841432722266133
+D home x era (2020+),2015-25,p40_50_z,-2.964622000055163
+"B last 2 seasons, shrink 0",2015-18,p40_50_z,-0.12965009168287875
+"B last 2 seasons, shrink 0",2019-22,p40_50_z,-1.6228578406485776
+"B last 2 seasons, shrink 0",2023-25,p40_50_z,-2.653115240228493
+"B last 2 seasons, shrink 0",2015-25,p40_50_z,-2.546958964773405
+"B last 2 seasons, shrink 100",2015-18,p40_50_z,-0.3757189762506737
+"B last 2 seasons, shrink 100",2019-22,p40_50_z,-1.6326968819780912
+"B last 2 seasons, shrink 100",2023-25,p40_50_z,-2.4208841196801756
+"B last 2 seasons, shrink 100",2015-25,p40_50_z,-2.5655714457396517
+"B last 2 seasons, shrink 300",2015-18,p40_50_z,-0.3193644688855758
+"B last 2 seasons, shrink 300",2019-22,p40_50_z,-1.6929467571688848
+"B last 2 seasons, shrink 300",2023-25,p40_50_z,-2.5424960086174844
+"B last 2 seasons, shrink 300",2015-25,p40_50_z,-2.6445069778504497
+"B last 3 seasons, shrink 0",2015-18,p40_50_z,-0.36855835252131613
+"B last 3 seasons, shrink 0",2019-22,p40_50_z,-1.792529198511445
+"B last 3 seasons, shrink 0",2023-25,p40_50_z,-2.561568451741458
+"B last 3 seasons, shrink 0",2015-25,p40_50_z,-2.7511897641767282
+"B last 3 seasons, shrink 100",2015-18,p40_50_z,-0.5303008971009084
+"B last 3 seasons, shrink 100",2019-22,p40_50_z,-1.7421239913516824
+"B last 3 seasons, shrink 100",2023-25,p40_50_z,-2.533731474346735
+"B last 3 seasons, shrink 100",2015-25,p40_50_z,-2.7905377297156546
+"B last 3 seasons, shrink 300",2015-18,p40_50_z,-0.39032169043171555
+"B last 3 seasons, shrink 300",2019-22,p40_50_z,-1.832630187459015
+"B last 3 seasons, shrink 300",2023-25,p40_50_z,-2.588079496289575
+"B last 3 seasons, shrink 300",2015-25,p40_50_z,-2.802729193472205
+"B last 4 seasons, shrink 0",2015-18,p40_50_z,-0.21943107368474113
+"B last 4 seasons, shrink 0",2019-22,p40_50_z,-1.4469644512787778
+"B last 4 seasons, shrink 0",2023-25,p40_50_z,-2.549151084012936
+"B last 4 seasons, shrink 0",2015-25,p40_50_z,-2.4503524015916787
+"B last 4 seasons, shrink 100",2015-18,p40_50_z,-0.376667226851409
+"B last 4 seasons, shrink 100",2019-22,p40_50_z,-1.6718925221896106
+"B last 4 seasons, shrink 100",2023-25,p40_50_z,-2.871134893133029
+"B last 4 seasons, shrink 100",2015-25,p40_50_z,-2.864739132175884
+"B last 4 seasons, shrink 300",2015-18,p40_50_z,-0.3639739930012546
+"B last 4 seasons, shrink 300",2019-22,p40_50_z,-1.7604364935727728
+"B last 4 seasons, shrink 300",2023-25,p40_50_z,-2.8427476935213885
+"B last 4 seasons, shrink 300",2015-25,p40_50_z,-2.8887216493211736
+"C last 2 seasons + this season x1, shrink 0",2015-18,p40_50_z,-0.15441964097335642
+"C last 2 seasons + this season x1, shrink 0",2019-22,p40_50_z,-1.484503509040639
+"C last 2 seasons + this season x1, shrink 0",2023-25,p40_50_z,-3.011490648906824
+"C last 2 seasons + this season x1, shrink 0",2015-25,p40_50_z,-2.6903579566870386
+"C last 2 seasons + this season x1, shrink 100",2015-18,p40_50_z,-0.29862501245474266
+"C last 2 seasons + this season x1, shrink 100",2019-22,p40_50_z,-1.2488192120431314
+"C last 2 seasons + this season x1, shrink 100",2023-25,p40_50_z,-2.987642262673483
+"C last 2 seasons + this season x1, shrink 100",2015-25,p40_50_z,-2.6160736427888756
+"C last 2 seasons + this season x1, shrink 300",2015-18,p40_50_z,-0.29169532576289275
+"C last 2 seasons + this season x1, shrink 300",2019-22,p40_50_z,-1.7514935884138179
+"C last 2 seasons + this season x1, shrink 300",2023-25,p40_50_z,-2.833289570511895
+"C last 2 seasons + this season x1, shrink 300",2015-25,p40_50_z,-2.8285749978288472
+"C last 2 seasons + this season x3, shrink 0",2015-18,p40_50_z,0.04404765047146748
+"C last 2 seasons + this season x3, shrink 0",2019-22,p40_50_z,-1.4032118499642094
+"C last 2 seasons + this season x3, shrink 0",2023-25,p40_50_z,-3.02380666528349
+"C last 2 seasons + this season x3, shrink 0",2015-25,p40_50_z,-2.5227138563801343
+"C last 2 seasons + this season x3, shrink 100",2015-18,p40_50_z,0.1248862933069842
+"C last 2 seasons + this season x3, shrink 100",2019-22,p40_50_z,-1.4090251385438994
+"C last 2 seasons + this season x3, shrink 100",2023-25,p40_50_z,-2.9100784842639245
+"C last 2 seasons + this season x3, shrink 100",2015-25,p40_50_z,-2.4226096903779224
+"C last 2 seasons + this season x3, shrink 300",2015-18,p40_50_z,0.020365855043066834
+"C last 2 seasons + this season x3, shrink 300",2019-22,p40_50_z,-1.654097813481843
+"C last 2 seasons + this season x3, shrink 300",2023-25,p40_50_z,-2.9584247976587825
+"C last 2 seasons + this season x3, shrink 300",2015-25,p40_50_z,-2.661079009066713
+"C last 3 seasons + this season x1, shrink 0",2015-18,p40_50_z,-0.29625071740834946
+"C last 3 seasons + this season x1, shrink 0",2019-22,p40_50_z,-1.527993757836594
+"C last 3 seasons + this season x1, shrink 0",2023-25,p40_50_z,-2.855470237417061
+"C last 3 seasons + this season x1, shrink 0",2015-25,p40_50_z,-2.707584824895547
+"C last 3 seasons + this season x1, shrink 100",2015-18,p40_50_z,-0.29796146446717037
+"C last 3 seasons + this season x1, shrink 100",2019-22,p40_50_z,-1.622644259139478
+"C last 3 seasons + this season x1, shrink 100",2023-25,p40_50_z,-2.7069313426584722
+"C last 3 seasons + this season x1, shrink 100",2015-25,p40_50_z,-2.681714019606872
+"C last 3 seasons + this season x1, shrink 300",2015-18,p40_50_z,-0.30263766313979606
+"C last 3 seasons + this season x1, shrink 300",2019-22,p40_50_z,-1.2959540868680952
+"C last 3 seasons + this season x1, shrink 300",2023-25,p40_50_z,-2.6272933441592223
+"C last 3 seasons + this season x1, shrink 300",2015-25,p40_50_z,-2.442022585807111
+"C last 3 seasons + this season x3, shrink 0",2015-18,p40_50_z,0.024033264789184196
+"C last 3 seasons + this season x3, shrink 0",2019-22,p40_50_z,-1.6121768405697072
+"C last 3 seasons + this season x3, shrink 0",2023-25,p40_50_z,-3.018978383409635
+"C last 3 seasons + this season x3, shrink 0",2015-25,p40_50_z,-2.667295448608071
+"C last 3 seasons + this season x3, shrink 100",2015-18,p40_50_z,-0.04192884149788492
+"C last 3 seasons + this season x3, shrink 100",2019-22,p40_50_z,-1.7566186621778808
+"C last 3 seasons + this season x3, shrink 100",2023-25,p40_50_z,-3.0216097279569785
+"C last 3 seasons + this season x3, shrink 100",2015-25,p40_50_z,-2.7906726134911235
+"C last 3 seasons + this season x3, shrink 300",2015-18,p40_50_z,0.023918758149225686
+"C last 3 seasons + this season x3, shrink 300",2019-22,p40_50_z,-1.4842626536623873
+"C last 3 seasons + this season x3, shrink 300",2023-25,p40_50_z,-2.9941135870159403
+"C last 3 seasons + this season x3, shrink 300",2015-25,p40_50_z,-2.580782747264902
+"A2 home term decay 0.8, shrink 0",2015-18,p40_50_z,-0.10532433564778741
+"A2 home term decay 0.8, shrink 0",2019-22,p40_50_z,-1.854008256319348
+"A2 home term decay 0.8, shrink 0",2023-25,p40_50_z,-2.8602242119569175
+"A2 home term decay 0.8, shrink 0",2015-25,p40_50_z,-2.811600288360957
+"A2 home term decay 0.8, shrink 100",2015-18,p40_50_z,-0.08938770507589514
+"A2 home term decay 0.8, shrink 100",2019-22,p40_50_z,-2.058123848814086
+"A2 home term decay 0.8, shrink 100",2023-25,p40_50_z,-2.8681209004006947
+"A2 home term decay 0.8, shrink 100",2015-25,p40_50_z,-2.9262186941951067
+"A2 home term decay 0.7, shrink 0",2015-18,p40_50_z,-0.08126559078759221
+"A2 home term decay 0.7, shrink 0",2019-22,p40_50_z,-1.5185868621156646
+"A2 home term decay 0.7, shrink 0",2023-25,p40_50_z,-2.611605280091781
+"A2 home term decay 0.7, shrink 0",2015-25,p40_50_z,-2.4513287484611785
+"A2 home term decay 0.7, shrink 100",2015-18,p40_50_z,-0.08503823237177968
+"A2 home term decay 0.7, shrink 100",2019-22,p40_50_z,-1.5347276085097705
+"A2 home term decay 0.7, shrink 100",2023-25,p40_50_z,-2.62162155857245
+"A2 home term decay 0.7, shrink 100",2015-25,p40_50_z,-2.4689209867049238
+"A2 home term decay 0.6, shrink 0",2015-18,p40_50_z,-0.07295219533573033
+"A2 home term decay 0.6, shrink 0",2019-22,p40_50_z,-1.5860003479257772
+"A2 home term decay 0.6, shrink 0",2023-25,p40_50_z,-2.6539968349168257
+"A2 home term decay 0.6, shrink 0",2015-25,p40_50_z,-2.508218382590106
+"A2 home term decay 0.6, shrink 100",2015-18,p40_50_z,0.008868788161831375
+"A2 home term decay 0.6, shrink 100",2019-22,p40_50_z,-1.642840185310905
+"A2 home term decay 0.6, shrink 100",2023-25,p40_50_z,-2.6608585227633514
+"A2 home term decay 0.6, shrink 100",2015-25,p40_50_z,-2.4990997274969393
+base,2015-18,brier,0.21508728881476286
+base,2019-22,brier,0.2173303559117677
+base,2023-25,brier,0.21597502669731433
+base,2015-25,brier,0.21615493299421093
+A decay 0.8,2015-18,brier,0.2151689139465101
+A decay 0.8,2019-22,brier,0.2166528780060935
+A decay 0.8,2023-25,brier,0.21630244859656492
+A decay 0.8,2015-25,brier,0.2160292062979109
+A decay 0.7,2015-18,brier,0.21535224675916093
+A decay 0.7,2019-22,brier,0.2164416138215346
+A decay 0.7,2023-25,brier,0.21681857089097653
+A decay 0.7,2015-25,brier,0.21616254131610937
+A decay 0.6,2015-18,brier,0.21573648515272414
+A decay 0.6,2019-22,brier,0.21637371020567991
+A decay 0.6,2023-25,brier,0.21749169610276184
+A decay 0.6,2015-25,brier,0.21646343664360465
+D home x era (2020+),2015-18,brier,0.21508728881476286
+D home x era (2020+),2019-22,brier,0.21814334175534716
+D home x era (2020+),2023-25,brier,0.21594686124691786
+D home x era (2020+),2015-25,brier,0.21644326358400467
+"B last 2 seasons, shrink 0",2015-18,brier,0.2151995540220054
+"B last 2 seasons, shrink 0",2019-22,brier,0.21623558626312592
+"B last 2 seasons, shrink 0",2023-25,brier,0.21644474940059538
+"B last 2 seasons, shrink 0",2015-25,brier,0.21592808370881425
+"B last 2 seasons, shrink 100",2015-18,brier,0.21517250142777994
+"B last 2 seasons, shrink 100",2019-22,brier,0.21629147822861472
+"B last 2 seasons, shrink 100",2023-25,brier,0.2163591109439652
+"B last 2 seasons, shrink 100",2015-25,brier,0.21591474456770668
+"B last 2 seasons, shrink 300",2015-18,brier,0.21514308169912116
+"B last 2 seasons, shrink 300",2019-22,brier,0.2164280205866135
+"B last 2 seasons, shrink 300",2023-25,brier,0.21625536903485204
+"B last 2 seasons, shrink 300",2015-25,brier,0.21592485613513526
+"B last 3 seasons, shrink 0",2015-18,brier,0.21522880986684864
+"B last 3 seasons, shrink 0",2019-22,brier,0.21698893808647707
+"B last 3 seasons, shrink 0",2023-25,brier,0.21626581424962765
+"B last 3 seasons, shrink 0",2015-25,brier,0.216162533821272
+"B last 3 seasons, shrink 100",2015-18,brier,0.2152027724198757
+"B last 3 seasons, shrink 100",2019-22,brier,0.21697301122744644
+"B last 3 seasons, shrink 100",2023-25,brier,0.21622323619377823
+"B last 3 seasons, shrink 100",2015-25,brier,0.21613551866564137
+"B last 3 seasons, shrink 300",2015-18,brier,0.2151713574791282
+"B last 3 seasons, shrink 300",2019-22,brier,0.2169740731410163
+"B last 3 seasons, shrink 300",2023-25,brier,0.21616566864829131
+"B last 3 seasons, shrink 300",2015-25,brier,0.21610856747475132
+"B last 4 seasons, shrink 0",2015-18,brier,0.2152315174406274
+"B last 4 seasons, shrink 0",2019-22,brier,0.217134546334097
+"B last 4 seasons, shrink 0",2023-25,brier,0.21603845394724466
+"B last 4 seasons, shrink 0",2015-25,brier,0.21615246931351523
+"B last 4 seasons, shrink 100",2015-18,brier,0.21520544923898632
+"B last 4 seasons, shrink 100",2019-22,brier,0.217134627883389
+"B last 4 seasons, shrink 100",2023-25,brier,0.2160166865925678
+"B last 4 seasons, shrink 100",2015-25,brier,0.21613714290059854
+"B last 4 seasons, shrink 300",2015-18,brier,0.21517382798668733
+"B last 4 seasons, shrink 300",2019-22,brier,0.21714106899901037
+"B last 4 seasons, shrink 300",2023-25,brier,0.21598868180895464
+"B last 4 seasons, shrink 300",2015-25,brier,0.21612041174729907
+"C last 2 seasons + this season x1, shrink 0",2015-18,brier,0.21512573713518682
+"C last 2 seasons + this season x1, shrink 0",2019-22,brier,0.2159274901013037
+"C last 2 seasons + this season x1, shrink 0",2023-25,brier,0.21645396717281337
+"C last 2 seasons + this season x1, shrink 0",2015-25,brier,0.21579229502463643
+"C last 2 seasons + this season x1, shrink 100",2015-18,brier,0.21511971118510204
+"C last 2 seasons + this season x1, shrink 100",2019-22,brier,0.21602102070402154
+"C last 2 seasons + this season x1, shrink 100",2023-25,brier,0.21638381566858123
+"C last 2 seasons + this season x1, shrink 100",2015-25,brier,0.21580447484692555
+"C last 2 seasons + this season x1, shrink 300",2015-18,brier,0.2151119613895827
+"C last 2 seasons + this season x1, shrink 300",2019-22,brier,0.21619731418102775
+"C last 2 seasons + this season x1, shrink 300",2023-25,brier,0.21629115976468544
+"C last 2 seasons + this season x1, shrink 300",2015-25,brier,0.21583986227699492
+"C last 2 seasons + this season x3, shrink 0",2015-18,brier,0.21511280223385737
+"C last 2 seasons + this season x3, shrink 0",2019-22,brier,0.21574290918844188
+"C last 2 seasons + this season x3, shrink 0",2023-25,brier,0.21653634791014828
+"C last 2 seasons + this season x3, shrink 0",2015-25,brier,0.21574367481034787
+"C last 2 seasons + this season x3, shrink 100",2015-18,brier,0.21510947958614213
+"C last 2 seasons + this season x3, shrink 100",2019-22,brier,0.21582660814597887
+"C last 2 seasons + this season x3, shrink 100",2023-25,brier,0.21647046540147913
+"C last 2 seasons + this season x3, shrink 100",2015-25,brier,0.21575443124622598
+"C last 2 seasons + this season x3, shrink 300",2015-18,brier,0.2151047936350452
+"C last 2 seasons + this season x3, shrink 300",2019-22,brier,0.21598685438857845
+"C last 2 seasons + this season x3, shrink 300",2023-25,brier,0.21637691037074958
+"C last 2 seasons + this season x3, shrink 300",2015-25,brier,0.21578480101028263
+"C last 3 seasons + this season x1, shrink 0",2015-18,brier,0.2151706321099544
+"C last 3 seasons + this season x1, shrink 0",2019-22,brier,0.2166036550309615
+"C last 3 seasons + this season x1, shrink 0",2023-25,brier,0.21627014517446597
+"C last 3 seasons + this season x1, shrink 0",2015-25,brier,0.21600277091558615
+"C last 3 seasons + this season x1, shrink 100",2015-18,brier,0.21515980266472812
+"C last 3 seasons + this season x1, shrink 100",2019-22,brier,0.21663351443693885
+"C last 3 seasons + this season x1, shrink 100",2023-25,brier,0.21623652503712343
+"C last 3 seasons + this season x1, shrink 100",2015-25,brier,0.21600034545421237
+"C last 3 seasons + this season x1, shrink 300",2015-18,brier,0.21514487277657768
+"C last 3 seasons + this season x1, shrink 300",2019-22,brier,0.21669611276643957
+"C last 3 seasons + this season x1, shrink 300",2023-25,brier,0.21618774980490993
+"C last 3 seasons + this season x1, shrink 300",2015-25,brier,0.21600412868138716
+"C last 3 seasons + this season x3, shrink 0",2015-18,brier,0.21515797580526017
+"C last 3 seasons + this season x3, shrink 0",2019-22,brier,0.21624605382024062
+"C last 3 seasons + this season x3, shrink 0",2023-25,brier,0.21632638600112702
+"C last 3 seasons + this season x3, shrink 0",2015-25,brier,0.215883829009278
+"C last 3 seasons + this season x3, shrink 100",2015-18,brier,0.21514967562064083
+"C last 3 seasons + this season x3, shrink 100",2019-22,brier,0.21629510248157444
+"C last 3 seasons + this season x3, shrink 100",2023-25,brier,0.2162961183746091
+"C last 3 seasons + this season x3, shrink 100",2015-25,brier,0.21589023611304947
+"C last 3 seasons + this season x3, shrink 300",2015-18,brier,0.2151376985185907
+"C last 3 seasons + this season x3, shrink 300",2019-22,brier,0.21638698728490224
+"C last 3 seasons + this season x3, shrink 300",2023-25,brier,0.216249074746446
+"C last 3 seasons + this season x3, shrink 300",2015-25,brier,0.21590622447727414
+"A2 home term decay 0.8, shrink 0",2015-18,brier,0.2151206958638442
+"A2 home term decay 0.8, shrink 0",2019-22,brier,0.21672615539544823
+"A2 home term decay 0.8, shrink 0",2023-25,brier,0.21597092542384477
+"A2 home term decay 0.8, shrink 0",2015-25,brier,0.21594540989728206
+"A2 home term decay 0.8, shrink 100",2015-18,brier,0.21511575959126716
+"A2 home term decay 0.8, shrink 100",2019-22,brier,0.21677656763802516
+"A2 home term decay 0.8, shrink 100",2023-25,brier,0.215970849205177
+"A2 home term decay 0.8, shrink 100",2015-25,brier,0.21596201368946413
+"A2 home term decay 0.7, shrink 0",2015-18,brier,0.21512228808835174
+"A2 home term decay 0.7, shrink 0",2019-22,brier,0.21640000918690505
+"A2 home term decay 0.7, shrink 0",2023-25,brier,0.21604367477579564
+"A2 home term decay 0.7, shrink 0",2015-25,brier,0.21584762394186743
+"A2 home term decay 0.7, shrink 100",2015-18,brier,0.215116881048594
+"A2 home term decay 0.7, shrink 100",2019-22,brier,0.21649655059691494
+"A2 home term decay 0.7, shrink 100",2023-25,brier,0.21603517794826754
+"A2 home term decay 0.7, shrink 100",2015-25,brier,0.2158784981966466
+"A2 home term decay 0.6, shrink 0",2015-18,brier,0.21512675228976713
+"A2 home term decay 0.6, shrink 0",2019-22,brier,0.21611459411706563
+"A2 home term decay 0.6, shrink 0",2023-25,brier,0.21615216784620606
+"A2 home term decay 0.6, shrink 0",2015-25,brier,0.21577577205551982
+"A2 home term decay 0.6, shrink 100",2015-18,brier,0.21511927178458468
+"A2 home term decay 0.6, shrink 100",2019-22,brier,0.21626622902726922
+"A2 home term decay 0.6, shrink 100",2023-25,brier,0.21612363335246157
+"A2 home term decay 0.6, shrink 100",2015-25,brier,0.21582034222687127
+base,2015-18,said_home,0.5726410838354358
+base,2019-22,said_home,0.5595939033149142
+base,2023-25,said_home,0.5549653432694908
+base,2015-25,said_home,0.5629042341805267
+A decay 0.8,2015-18,said_home,0.5723277693201021
+A decay 0.8,2019-22,said_home,0.5574876306220924
+A decay 0.8,2023-25,said_home,0.554089231206501
+A decay 0.8,2015-25,said_home,0.5617788942157502
+A decay 0.7,2015-18,said_home,0.5721559832487939
+A decay 0.7,2019-22,said_home,0.5564322438793564
+A decay 0.7,2023-25,said_home,0.5542827086293809
+A decay 0.7,2015-25,said_home,0.5613880602352542
+A decay 0.6,2015-18,said_home,0.572003733043827
+A decay 0.6,2019-22,said_home,0.5555172387989373
+A decay 0.6,2023-25,said_home,0.5542779365477951
+A decay 0.6,2015-25,said_home,0.5609994147816091
+D home x era (2020+),2015-18,said_home,0.5726410838354359
+D home x era (2020+),2019-22,said_home,0.5631142609837618
+D home x era (2020+),2023-25,said_home,0.5521377572025804
+D home x era (2020+),2015-25,said_home,0.5633901295553231
+"B last 2 seasons, shrink 0",2015-18,said_home,0.5730125404373783
+"B last 2 seasons, shrink 0",2019-22,said_home,0.5350477226958594
+"B last 2 seasons, shrink 0",2023-25,said_home,0.5627860057851078
+"B last 2 seasons, shrink 0",2015-25,said_home,0.556294842684855
+"B last 2 seasons, shrink 100",2015-18,said_home,0.5729542316819656
+"B last 2 seasons, shrink 100",2019-22,said_home,0.5389514062251849
+"B last 2 seasons, shrink 100",2023-25,said_home,0.5615970088839208
+"B last 2 seasons, shrink 100",2015-25,said_home,0.5573616670325328
+"B last 2 seasons, shrink 300",2015-18,said_home,0.5728793991220962
+"B last 2 seasons, shrink 300",2019-22,said_home,0.5439339630629991
+"B last 2 seasons, shrink 300",2023-25,said_home,0.5600506551616804
+"B last 2 seasons, shrink 300",2015-25,said_home,0.5587150847476414
+"B last 3 seasons, shrink 0",2015-18,said_home,0.5734233049025713
+"B last 3 seasons, shrink 0",2019-22,said_home,0.542801181526577
+"B last 3 seasons, shrink 0",2023-25,said_home,0.5544060933916232
+"B last 3 seasons, shrink 0",2015-25,said_home,0.5569036555918261
+"B last 3 seasons, shrink 100",2015-18,said_home,0.5732359929143622
+"B last 3 seasons, shrink 100",2019-22,said_home,0.5446783060294769
+"B last 3 seasons, shrink 100",2023-25,said_home,0.5544751386226835
+"B last 3 seasons, shrink 100",2015-25,said_home,0.5575409266740984
+"B last 3 seasons, shrink 300",2015-18,said_home,0.5730235116570089
+"B last 3 seasons, shrink 300",2019-22,said_home,0.5474040481502156
+"B last 3 seasons, shrink 300",2023-25,said_home,0.5545726980732018
+"B last 3 seasons, shrink 300",2015-25,said_home,0.5584865866538816
+"B last 4 seasons, shrink 0",2015-18,said_home,0.5749771185609172
+"B last 4 seasons, shrink 0",2019-22,said_home,0.5495440845195881
+"B last 4 seasons, shrink 0",2023-25,said_home,0.5456352560402107
+"B last 4 seasons, shrink 0",2015-25,said_home,0.5574383238353563
+"B last 4 seasons, shrink 100",2015-18,said_home,0.5746207863625621
+"B last 4 seasons, shrink 100",2019-22,said_home,0.5504112376189129
+"B last 4 seasons, shrink 100",2023-25,said_home,0.5464242549536547
+"B last 4 seasons, shrink 100",2015-25,said_home,0.5578506849621412
+"B last 4 seasons, shrink 300",2015-18,said_home,0.5741613549565918
+"B last 4 seasons, shrink 300",2019-22,said_home,0.5517627650761171
+"B last 4 seasons, shrink 300",2023-25,said_home,0.5476599411318178
+"B last 4 seasons, shrink 300",2015-25,said_home,0.5585290005507486
+"C last 2 seasons + this season x1, shrink 0",2015-18,said_home,0.5714716921767262
+"C last 2 seasons + this season x1, shrink 0",2019-22,said_home,0.5324076896134626
+"C last 2 seasons + this season x1, shrink 0",2023-25,said_home,0.5615064338930934
+"C last 2 seasons + this season x1, shrink 0",2015-25,said_home,0.5544270726728617
+"C last 2 seasons + this season x1, shrink 100",2015-18,said_home,0.571632299073384
+"C last 2 seasons + this season x1, shrink 100",2019-22,said_home,0.5360863782578007
+"C last 2 seasons + this season x1, shrink 100",2023-25,said_home,0.560655869448529
+"C last 2 seasons + this season x1, shrink 100",2015-25,said_home,0.5555847298041882
+"C last 2 seasons + this season x1, shrink 300",2015-18,said_home,0.5718491525216327
+"C last 2 seasons + this season x1, shrink 300",2019-22,said_home,0.5410799796830128
+"C last 2 seasons + this season x1, shrink 300",2023-25,said_home,0.5594844684091296
+"C last 2 seasons + this season x1, shrink 300",2015-25,said_home,0.5571510317684214
+"C last 2 seasons + this season x3, shrink 0",2015-18,said_home,0.5697175313836161
+"C last 2 seasons + this season x3, shrink 0",2019-22,said_home,0.5292194221130545
+"C last 2 seasons + this season x3, shrink 0",2023-25,said_home,0.5599500158250558
+"C last 2 seasons + this season x3, shrink 0",2015-25,said_home,0.5522060294920004
+"C last 2 seasons + this season x3, shrink 100",2015-18,said_home,0.5700243890500207
+"C last 2 seasons + this season x3, shrink 100",2019-22,said_home,0.532478139854756
+"C last 2 seasons + this season x3, shrink 100",2023-25,said_home,0.5594318271426258
+"C last 2 seasons + this season x3, shrink 100",2015-25,said_home,0.5533560562633407
+"C last 2 seasons + this season x3, shrink 300",2015-18,said_home,0.5704729888343525
+"C last 2 seasons + this season x3, shrink 300",2019-22,said_home,0.5372078529925753
+"C last 2 seasons + this season x3, shrink 300",2023-25,said_home,0.5586727540638801
+"C last 2 seasons + this season x3, shrink 300",2015-25,said_home,0.5550243843833057
+"C last 3 seasons + this season x1, shrink 0",2015-18,said_home,0.5718854515271178
+"C last 3 seasons + this season x1, shrink 0",2019-22,said_home,0.539954093878547
+"C last 3 seasons + this season x1, shrink 0",2023-25,said_home,0.554552183675867
+"C last 3 seasons + this season x1, shrink 0",2015-25,said_home,0.5553633344680977
+"C last 3 seasons + this season x1, shrink 100",2015-18,said_home,0.5719333524506767
+"C last 3 seasons + this season x1, shrink 100",2019-22,said_home,0.5419032865028229
+"C last 3 seasons + this season x1, shrink 100",2023-25,said_home,0.5545981429645949
+"C last 3 seasons + this season x1, shrink 100",2015-25,said_home,0.5561035595264526
+"C last 3 seasons + this season x1, shrink 300",2015-18,said_home,0.5720206291047228
+"C last 3 seasons + this season x1, shrink 300",2019-22,said_home,0.5448299236621504
+"C last 3 seasons + this season x1, shrink 300",2023-25,said_home,0.5546651528592821
+"C last 3 seasons + this season x1, shrink 300",2015-25,said_home,0.5572198474611327
+"C last 3 seasons + this season x3, shrink 0",2015-18,said_home,0.5701529533037574
+"C last 3 seasons + this season x3, shrink 0",2019-22,said_home,0.5361361630614869
+"C last 3 seasons + this season x3, shrink 0",2023-25,said_home,0.5546377217131612
+"C last 3 seasons + this season x3, shrink 0",2015-25,said_home,0.5533833012541816
+"C last 3 seasons + this season x3, shrink 100",2015-18,said_home,0.5703589985221584
+"C last 3 seasons + this season x3, shrink 100",2019-22,said_home,0.5380622732837618
+"C last 3 seasons + this season x3, shrink 100",2023-25,said_home,0.55467743062932
+"C last 3 seasons + this season x3, shrink 100",2015-25,said_home,0.5541692905680774
+"C last 3 seasons + this season x3, shrink 300",2015-18,said_home,0.5706840170496956
+"C last 3 seasons + this season x3, shrink 300",2019-22,said_home,0.5410808569317268
+"C last 3 seasons + this season x3, shrink 300",2023-25,said_home,0.554734712236139
+"C last 3 seasons + this season x3, shrink 300",2015-25,said_home,0.5554004361680656
+"A2 home term decay 0.8, shrink 0",2015-18,said_home,0.5725968820343592
+"A2 home term decay 0.8, shrink 0",2019-22,said_home,0.5503375510325212
+"A2 home term decay 0.8, shrink 0",2023-25,said_home,0.5518301865424199
+"A2 home term decay 0.8, shrink 0",2015-25,said_home,0.5586316945634225
+"A2 home term decay 0.8, shrink 100",2015-18,said_home,0.5725886260496407
+"A2 home term decay 0.8, shrink 100",2019-22,said_home,0.5511940803696067
+"A2 home term decay 0.8, shrink 100",2023-25,said_home,0.5520946976218227
+"A2 home term decay 0.8, shrink 100",2015-25,said_home,0.5590154684366752
+"A2 home term decay 0.7, shrink 0",2015-18,said_home,0.5717463723024031
+"A2 home term decay 0.7, shrink 0",2019-22,said_home,0.5448918716346407
+"A2 home term decay 0.7, shrink 0",2023-25,said_home,0.552295568715795
+"A2 home term decay 0.7, shrink 0",2015-25,said_home,0.556477510840862
+"A2 home term decay 0.7, shrink 100",2015-18,said_home,0.5718798576465003
+"A2 home term decay 0.7, shrink 100",2019-22,said_home,0.5467560629158166
+"A2 home term decay 0.7, shrink 100",2023-25,said_home,0.5526223678189186
+"A2 home term decay 0.7, shrink 100",2015-25,said_home,0.5572961909314129
+"A2 home term decay 0.6, shrink 0",2015-18,said_home,0.5708937614332867
+"A2 home term decay 0.6, shrink 0",2019-22,said_home,0.5397870848755554
+"A2 home term decay 0.6, shrink 0",2023-25,said_home,0.553851800337631
+"A2 home term decay 0.6, shrink 0",2015-25,said_home,0.5547542850870133
+"A2 home term decay 0.6, shrink 100",2015-18,said_home,0.571221257823677
+"A2 home term decay 0.6, shrink 100",2019-22,said_home,0.5430926401685481
+"A2 home term decay 0.6, shrink 100",2023-25,said_home,0.554044927516573
+"A2 home term decay 0.6, shrink 100",2015-25,said_home,0.5561291759042443
+base,2015-18,won_home,0.5712890625
+base,2019-22,won_home,0.523696682464455
+base,2023-25,won_home,0.5422794117647058
+base,2015-25,won_home,0.5457685664939551
+A decay 0.8,2015-18,won_home,0.5712890625
+A decay 0.8,2019-22,won_home,0.523696682464455
+A decay 0.8,2023-25,won_home,0.5422794117647058
+A decay 0.8,2015-25,won_home,0.5457685664939551
+A decay 0.7,2015-18,won_home,0.5712890625
+A decay 0.7,2019-22,won_home,0.523696682464455
+A decay 0.7,2023-25,won_home,0.5422794117647058
+A decay 0.7,2015-25,won_home,0.5457685664939551
+A decay 0.6,2015-18,won_home,0.5712890625
+A decay 0.6,2019-22,won_home,0.523696682464455
+A decay 0.6,2023-25,won_home,0.5422794117647058
+A decay 0.6,2015-25,won_home,0.5457685664939551
+D home x era (2020+),2015-18,won_home,0.5712890625
+D home x era (2020+),2019-22,won_home,0.523696682464455
+D home x era (2020+),2023-25,won_home,0.5422794117647058
+D home x era (2020+),2015-25,won_home,0.5457685664939551
+"B last 2 seasons, shrink 0",2015-18,won_home,0.5712890625
+"B last 2 seasons, shrink 0",2019-22,won_home,0.523696682464455
+"B last 2 seasons, shrink 0",2023-25,won_home,0.5422794117647058
+"B last 2 seasons, shrink 0",2015-25,won_home,0.5457685664939551
+"B last 2 seasons, shrink 100",2015-18,won_home,0.5712890625
+"B last 2 seasons, shrink 100",2019-22,won_home,0.523696682464455
+"B last 2 seasons, shrink 100",2023-25,won_home,0.5422794117647058
+"B last 2 seasons, shrink 100",2015-25,won_home,0.5457685664939551
+"B last 2 seasons, shrink 300",2015-18,won_home,0.5712890625
+"B last 2 seasons, shrink 300",2019-22,won_home,0.523696682464455
+"B last 2 seasons, shrink 300",2023-25,won_home,0.5422794117647058
+"B last 2 seasons, shrink 300",2015-25,won_home,0.5457685664939551
+"B last 3 seasons, shrink 0",2015-18,won_home,0.5712890625
+"B last 3 seasons, shrink 0",2019-22,won_home,0.523696682464455
+"B last 3 seasons, shrink 0",2023-25,won_home,0.5422794117647058
+"B last 3 seasons, shrink 0",2015-25,won_home,0.5457685664939551
+"B last 3 seasons, shrink 100",2015-18,won_home,0.5712890625
+"B last 3 seasons, shrink 100",2019-22,won_home,0.523696682464455
+"B last 3 seasons, shrink 100",2023-25,won_home,0.5422794117647058
+"B last 3 seasons, shrink 100",2015-25,won_home,0.5457685664939551
+"B last 3 seasons, shrink 300",2015-18,won_home,0.5712890625
+"B last 3 seasons, shrink 300",2019-22,won_home,0.523696682464455
+"B last 3 seasons, shrink 300",2023-25,won_home,0.5422794117647058
+"B last 3 seasons, shrink 300",2015-25,won_home,0.5457685664939551
+"B last 4 seasons, shrink 0",2015-18,won_home,0.5712890625
+"B last 4 seasons, shrink 0",2019-22,won_home,0.523696682464455
+"B last 4 seasons, shrink 0",2023-25,won_home,0.5422794117647058
+"B last 4 seasons, shrink 0",2015-25,won_home,0.5457685664939551
+"B last 4 seasons, shrink 100",2015-18,won_home,0.5712890625
+"B last 4 seasons, shrink 100",2019-22,won_home,0.523696682464455
+"B last 4 seasons, shrink 100",2023-25,won_home,0.5422794117647058
+"B last 4 seasons, shrink 100",2015-25,won_home,0.5457685664939551
+"B last 4 seasons, shrink 300",2015-18,won_home,0.5712890625
+"B last 4 seasons, shrink 300",2019-22,won_home,0.523696682464455
+"B last 4 seasons, shrink 300",2023-25,won_home,0.5422794117647058
+"B last 4 seasons, shrink 300",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x1, shrink 0",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x1, shrink 0",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x1, shrink 0",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x1, shrink 0",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x1, shrink 100",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x1, shrink 100",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x1, shrink 100",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x1, shrink 100",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x1, shrink 300",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x1, shrink 300",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x1, shrink 300",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x1, shrink 300",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x3, shrink 0",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x3, shrink 0",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x3, shrink 0",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x3, shrink 0",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x3, shrink 100",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x3, shrink 100",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x3, shrink 100",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x3, shrink 100",2015-25,won_home,0.5457685664939551
+"C last 2 seasons + this season x3, shrink 300",2015-18,won_home,0.5712890625
+"C last 2 seasons + this season x3, shrink 300",2019-22,won_home,0.523696682464455
+"C last 2 seasons + this season x3, shrink 300",2023-25,won_home,0.5422794117647058
+"C last 2 seasons + this season x3, shrink 300",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x1, shrink 0",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x1, shrink 0",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x1, shrink 0",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x1, shrink 0",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x1, shrink 100",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x1, shrink 100",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x1, shrink 100",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x1, shrink 100",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x1, shrink 300",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x1, shrink 300",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x1, shrink 300",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x1, shrink 300",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x3, shrink 0",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x3, shrink 0",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x3, shrink 0",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x3, shrink 0",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x3, shrink 100",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x3, shrink 100",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x3, shrink 100",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x3, shrink 100",2015-25,won_home,0.5457685664939551
+"C last 3 seasons + this season x3, shrink 300",2015-18,won_home,0.5712890625
+"C last 3 seasons + this season x3, shrink 300",2019-22,won_home,0.523696682464455
+"C last 3 seasons + this season x3, shrink 300",2023-25,won_home,0.5422794117647058
+"C last 3 seasons + this season x3, shrink 300",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.8, shrink 0",2015-18,won_home,0.5712890625
+"A2 home term decay 0.8, shrink 0",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.8, shrink 0",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.8, shrink 0",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.8, shrink 100",2015-18,won_home,0.5712890625
+"A2 home term decay 0.8, shrink 100",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.8, shrink 100",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.8, shrink 100",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.7, shrink 0",2015-18,won_home,0.5712890625
+"A2 home term decay 0.7, shrink 0",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.7, shrink 0",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.7, shrink 0",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.7, shrink 100",2015-18,won_home,0.5712890625
+"A2 home term decay 0.7, shrink 100",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.7, shrink 100",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.7, shrink 100",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.6, shrink 0",2015-18,won_home,0.5712890625
+"A2 home term decay 0.6, shrink 0",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.6, shrink 0",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.6, shrink 0",2015-25,won_home,0.5457685664939551
+"A2 home term decay 0.6, shrink 100",2015-18,won_home,0.5712890625
+"A2 home term decay 0.6, shrink 100",2019-22,won_home,0.523696682464455
+"A2 home term decay 0.6, shrink 100",2023-25,won_home,0.5422794117647058
+"A2 home term decay 0.6, shrink 100",2015-25,won_home,0.5457685664939551
+base,2015-18,games,1024
+base,2019-22,games,1055
+base,2023-25,games,816
+base,2015-25,games,2895
+A decay 0.8,2015-18,games,1024
+A decay 0.8,2019-22,games,1055
+A decay 0.8,2023-25,games,816
+A decay 0.8,2015-25,games,2895
+A decay 0.7,2015-18,games,1024
+A decay 0.7,2019-22,games,1055
+A decay 0.7,2023-25,games,816
+A decay 0.7,2015-25,games,2895
+A decay 0.6,2015-18,games,1024
+A decay 0.6,2019-22,games,1055
+A decay 0.6,2023-25,games,816
+A decay 0.6,2015-25,games,2895
+D home x era (2020+),2015-18,games,1024
+D home x era (2020+),2019-22,games,1055
+D home x era (2020+),2023-25,games,816
+D home x era (2020+),2015-25,games,2895
+"B last 2 seasons, shrink 0",2015-18,games,1024
+"B last 2 seasons, shrink 0",2019-22,games,1055
+"B last 2 seasons, shrink 0",2023-25,games,816
+"B last 2 seasons, shrink 0",2015-25,games,2895
+"B last 2 seasons, shrink 100",2015-18,games,1024
+"B last 2 seasons, shrink 100",2019-22,games,1055
+"B last 2 seasons, shrink 100",2023-25,games,816
+"B last 2 seasons, shrink 100",2015-25,games,2895
+"B last 2 seasons, shrink 300",2015-18,games,1024
+"B last 2 seasons, shrink 300",2019-22,games,1055
+"B last 2 seasons, shrink 300",2023-25,games,816
+"B last 2 seasons, shrink 300",2015-25,games,2895
+"B last 3 seasons, shrink 0",2015-18,games,1024
+"B last 3 seasons, shrink 0",2019-22,games,1055
+"B last 3 seasons, shrink 0",2023-25,games,816
+"B last 3 seasons, shrink 0",2015-25,games,2895
+"B last 3 seasons, shrink 100",2015-18,games,1024
+"B last 3 seasons, shrink 100",2019-22,games,1055
+"B last 3 seasons, shrink 100",2023-25,games,816
+"B last 3 seasons, shrink 100",2015-25,games,2895
+"B last 3 seasons, shrink 300",2015-18,games,1024
+"B last 3 seasons, shrink 300",2019-22,games,1055
+"B last 3 seasons, shrink 300",2023-25,games,816
+"B last 3 seasons, shrink 300",2015-25,games,2895
+"B last 4 seasons, shrink 0",2015-18,games,1024
+"B last 4 seasons, shrink 0",2019-22,games,1055
+"B last 4 seasons, shrink 0",2023-25,games,816
+"B last 4 seasons, shrink 0",2015-25,games,2895
+"B last 4 seasons, shrink 100",2015-18,games,1024
+"B last 4 seasons, shrink 100",2019-22,games,1055
+"B last 4 seasons, shrink 100",2023-25,games,816
+"B last 4 seasons, shrink 100",2015-25,games,2895
+"B last 4 seasons, shrink 300",2015-18,games,1024
+"B last 4 seasons, shrink 300",2019-22,games,1055
+"B last 4 seasons, shrink 300",2023-25,games,816
+"B last 4 seasons, shrink 300",2015-25,games,2895
+"C last 2 seasons + this season x1, shrink 0",2015-18,games,1024
+"C last 2 seasons + this season x1, shrink 0",2019-22,games,1055
+"C last 2 seasons + this season x1, shrink 0",2023-25,games,816
+"C last 2 seasons + this season x1, shrink 0",2015-25,games,2895
+"C last 2 seasons + this season x1, shrink 100",2015-18,games,1024
+"C last 2 seasons + this season x1, shrink 100",2019-22,games,1055
+"C last 2 seasons + this season x1, shrink 100",2023-25,games,816
+"C last 2 seasons + this season x1, shrink 100",2015-25,games,2895
+"C last 2 seasons + this season x1, shrink 300",2015-18,games,1024
+"C last 2 seasons + this season x1, shrink 300",2019-22,games,1055
+"C last 2 seasons + this season x1, shrink 300",2023-25,games,816
+"C last 2 seasons + this season x1, shrink 300",2015-25,games,2895
+"C last 2 seasons + this season x3, shrink 0",2015-18,games,1024
+"C last 2 seasons + this season x3, shrink 0",2019-22,games,1055
+"C last 2 seasons + this season x3, shrink 0",2023-25,games,816
+"C last 2 seasons + this season x3, shrink 0",2015-25,games,2895
+"C last 2 seasons + this season x3, shrink 100",2015-18,games,1024
+"C last 2 seasons + this season x3, shrink 100",2019-22,games,1055
+"C last 2 seasons + this season x3, shrink 100",2023-25,games,816
+"C last 2 seasons + this season x3, shrink 100",2015-25,games,2895
+"C last 2 seasons + this season x3, shrink 300",2015-18,games,1024
+"C last 2 seasons + this season x3, shrink 300",2019-22,games,1055
+"C last 2 seasons + this season x3, shrink 300",2023-25,games,816
+"C last 2 seasons + this season x3, shrink 300",2015-25,games,2895
+"C last 3 seasons + this season x1, shrink 0",2015-18,games,1024
+"C last 3 seasons + this season x1, shrink 0",2019-22,games,1055
+"C last 3 seasons + this season x1, shrink 0",2023-25,games,816
+"C last 3 seasons + this season x1, shrink 0",2015-25,games,2895
+"C last 3 seasons + this season x1, shrink 100",2015-18,games,1024
+"C last 3 seasons + this season x1, shrink 100",2019-22,games,1055
+"C last 3 seasons + this season x1, shrink 100",2023-25,games,816
+"C last 3 seasons + this season x1, shrink 100",2015-25,games,2895
+"C last 3 seasons + this season x1, shrink 300",2015-18,games,1024
+"C last 3 seasons + this season x1, shrink 300",2019-22,games,1055
+"C last 3 seasons + this season x1, shrink 300",2023-25,games,816
+"C last 3 seasons + this season x1, shrink 300",2015-25,games,2895
+"C last 3 seasons + this season x3, shrink 0",2015-18,games,1024
+"C last 3 seasons + this season x3, shrink 0",2019-22,games,1055
+"C last 3 seasons + this season x3, shrink 0",2023-25,games,816
+"C last 3 seasons + this season x3, shrink 0",2015-25,games,2895
+"C last 3 seasons + this season x3, shrink 100",2015-18,games,1024
+"C last 3 seasons + this season x3, shrink 100",2019-22,games,1055
+"C last 3 seasons + this season x3, shrink 100",2023-25,games,816
+"C last 3 seasons + this season x3, shrink 100",2015-25,games,2895
+"C last 3 seasons + this season x3, shrink 300",2015-18,games,1024
+"C last 3 seasons + this season x3, shrink 300",2019-22,games,1055
+"C last 3 seasons + this season x3, shrink 300",2023-25,games,816
+"C last 3 seasons + this season x3, shrink 300",2015-25,games,2895
+"A2 home term decay 0.8, shrink 0",2015-18,games,1024
+"A2 home term decay 0.8, shrink 0",2019-22,games,1055
+"A2 home term decay 0.8, shrink 0",2023-25,games,816
+"A2 home term decay 0.8, shrink 0",2015-25,games,2895
+"A2 home term decay 0.8, shrink 100",2015-18,games,1024
+"A2 home term decay 0.8, shrink 100",2019-22,games,1055
+"A2 home term decay 0.8, shrink 100",2023-25,games,816
+"A2 home term decay 0.8, shrink 100",2015-25,games,2895
+"A2 home term decay 0.7, shrink 0",2015-18,games,1024
+"A2 home term decay 0.7, shrink 0",2019-22,games,1055
+"A2 home term decay 0.7, shrink 0",2023-25,games,816
+"A2 home term decay 0.7, shrink 0",2015-25,games,2895
+"A2 home term decay 0.7, shrink 100",2015-18,games,1024
+"A2 home term decay 0.7, shrink 100",2019-22,games,1055
+"A2 home term decay 0.7, shrink 100",2023-25,games,816
+"A2 home term decay 0.7, shrink 100",2015-25,games,2895
+"A2 home term decay 0.6, shrink 0",2015-18,games,1024
+"A2 home term decay 0.6, shrink 0",2019-22,games,1055
+"A2 home term decay 0.6, shrink 0",2023-25,games,816
+"A2 home term decay 0.6, shrink 0",2015-25,games,2895
+"A2 home term decay 0.6, shrink 100",2015-18,games,1024
+"A2 home term decay 0.6, shrink 100",2019-22,games,1055
+"A2 home term decay 0.6, shrink 100",2023-25,games,816
+"A2 home term decay 0.6, shrink 100",2015-25,games,2895
+"B last 2 seasons, shrink 0",2015-18,home_term_mean,2.506726024292675
+"B last 2 seasons, shrink 0",2019-22,home_term_mean,0.9978706526678086
+"B last 2 seasons, shrink 0",2023-25,home_term_mean,2.144375670094777
+"B last 2 seasons, shrink 100",2015-18,home_term_mean,2.5037720546806477
+"B last 2 seasons, shrink 100",2019-22,home_term_mean,1.140362403544533
+"B last 2 seasons, shrink 100",2023-25,home_term_mean,2.100895212049193
+"B last 2 seasons, shrink 300",2015-18,home_term_mean,2.5000320019821713
+"B last 2 seasons, shrink 300",2019-22,home_term_mean,1.3224455074909798
+"B last 2 seasons, shrink 300",2023-25,home_term_mean,2.0443995496003535
+"B last 3 seasons, shrink 0",2015-18,home_term_mean,2.519686398150853
+"B last 3 seasons, shrink 0",2019-22,home_term_mean,1.2842807469714488
+"B last 3 seasons, shrink 0",2023-25,home_term_mean,1.8391696241239373
+"B last 3 seasons, shrink 100",2015-18,home_term_mean,2.512400275697431
+"B last 3 seasons, shrink 100",2019-22,home_term_mean,1.3525183788938646
+"B last 3 seasons, shrink 100",2023-25,home_term_mean,1.8415651729664593
+"B last 3 seasons, shrink 300",2015-18,home_term_mean,2.5040867269328952
+"B last 3 seasons, shrink 300",2019-22,home_term_mean,1.4516962506827398
+"B last 3 seasons, shrink 300",2023-25,home_term_mean,1.8449691172179254
+"B last 4 seasons, shrink 0",2015-18,home_term_mean,2.5763078674470146
+"B last 4 seasons, shrink 0",2019-22,home_term_mean,1.5299684152821178
+"B last 4 seasons, shrink 0",2023-25,home_term_mean,1.5204802830146564
+"B last 4 seasons, shrink 100",2015-18,home_term_mean,2.562863580980646
+"B last 4 seasons, shrink 100",2019-22,home_term_mean,1.5615499759079583
+"B last 4 seasons, shrink 100",2023-25,home_term_mean,1.549034654704018
+"B last 4 seasons, shrink 300",2015-18,home_term_mean,2.5455516930422477
+"B last 4 seasons, shrink 300",2019-22,home_term_mean,1.6107991855771573
+"B last 4 seasons, shrink 300",2023-25,home_term_mean,1.593778049898013
+"C last 2 seasons + this season x1, shrink 0",2015-18,home_term_mean,2.4480298495269506
+"C last 2 seasons + this season x1, shrink 0",2019-22,home_term_mean,0.9000528618083113
+"C last 2 seasons + this season x1, shrink 0",2023-25,home_term_mean,2.097982663919628
+"C last 2 seasons + this season x1, shrink 100",2015-18,home_term_mean,2.453555687842975
+"C last 2 seasons + this season x1, shrink 100",2019-22,home_term_mean,1.0342744922454379
+"C last 2 seasons + this season x1, shrink 100",2023-25,home_term_mean,2.0668897426687183
+"C last 2 seasons + this season x1, shrink 300",2015-18,home_term_mean,2.461032323226232
+"C last 2 seasons + this season x1, shrink 300",2019-22,home_term_mean,1.2167596780885583
+"C last 2 seasons + this season x1, shrink 300",2023-25,home_term_mean,2.024080128801961
+"C last 2 seasons + this season x3, shrink 0",2015-18,home_term_mean,2.3819522761641014
+"C last 2 seasons + this season x3, shrink 0",2019-22,home_term_mean,0.7826080116688634
+"C last 2 seasons + this season x3, shrink 0",2023-25,home_term_mean,2.0426260117802273
+"C last 2 seasons + this season x3, shrink 100",2015-18,home_term_mean,2.393055118441236
+"C last 2 seasons + this season x3, shrink 100",2019-22,home_term_mean,0.9013311398799476
+"C last 2 seasons + this season x3, shrink 100",2023-25,home_term_mean,2.0234930486819374
+"C last 2 seasons + this season x3, shrink 300",2015-18,home_term_mean,2.4093214886866736
+"C last 2 seasons + this season x3, shrink 300",2019-22,home_term_mean,1.0739616065818656
+"C last 2 seasons + this season x3, shrink 300",2023-25,home_term_mean,1.9954868241424224
+"C last 3 seasons + this season x1, shrink 0",2015-18,home_term_mean,2.461741783936613
+"C last 3 seasons + this season x1, shrink 0",2019-22,home_term_mean,1.1781432043145157
+"C last 3 seasons + this season x1, shrink 0",2023-25,home_term_mean,1.844805477591641
+"C last 3 seasons + this season x1, shrink 100",2015-18,home_term_mean,2.463358744042471
+"C last 3 seasons + this season x1, shrink 100",2019-22,home_term_mean,1.2491740975962489
+"C last 3 seasons + this season x1, shrink 100",2023-25,home_term_mean,1.84636166436689
+"C last 3 seasons + this season x1, shrink 300",2015-18,home_term_mean,2.4663720301544387
+"C last 3 seasons + this season x1, shrink 300",2019-22,home_term_mean,1.3559354506464127
+"C last 3 seasons + this season x1, shrink 300",2023-25,home_term_mean,1.8486385807742998
+"C last 3 seasons + this season x3, shrink 0",2015-18,home_term_mean,2.3969736511537545
+"C last 3 seasons + this season x3, shrink 0",2019-22,home_term_mean,1.0366871131984083
+"C last 3 seasons + this season x3, shrink 0",2023-25,home_term_mean,1.8489457281727455
+"C last 3 seasons + this season x3, shrink 100",2015-18,home_term_mean,2.404501674110426
+"C last 3 seasons + this season x3, shrink 100",2019-22,home_term_mean,1.1069044707958373
+"C last 3 seasons + this season x3, shrink 100",2023-25,home_term_mean,1.8501906406145583
+"C last 3 seasons + this season x3, shrink 300",2015-18,home_term_mean,2.416397479592045
+"C last 3 seasons + this season x3, shrink 300",2019-22,home_term_mean,1.2170855849652644
+"C last 3 seasons + this season x3, shrink 300",2023-25,home_term_mean,1.8519791158007115
+"A2 home term decay 0.8, shrink 0",2015-18,home_term_mean,2.4872262788372788
+"A2 home term decay 0.8, shrink 0",2019-22,home_term_mean,1.5563496179170602
+"A2 home term decay 0.8, shrink 0",2023-25,home_term_mean,1.744948533568254
+"A2 home term decay 0.8, shrink 100",2015-18,home_term_mean,2.4868599221867136
+"A2 home term decay 0.8, shrink 100",2019-22,home_term_mean,1.5877905543367927
+"A2 home term decay 0.8, shrink 100",2023-25,home_term_mean,1.7545582051085336
+"A2 home term decay 0.7, shrink 0",2015-18,home_term_mean,2.4559711259828227
+"A2 home term decay 0.7, shrink 0",2019-22,home_term_mean,1.3563807522228801
+"A2 home term decay 0.7, shrink 0",2023-25,home_term_mean,1.7621530800290897
+"A2 home term decay 0.7, shrink 100",2015-18,home_term_mean,2.4608026276433077
+"A2 home term decay 0.7, shrink 100",2019-22,home_term_mean,1.4246832454899725
+"A2 home term decay 0.7, shrink 100",2023-25,home_term_mean,1.7739851281302068
+"A2 home term decay 0.6, shrink 0",2015-18,home_term_mean,2.4245904452749247
+"A2 home term decay 0.6, shrink 0",2019-22,home_term_mean,1.169139822474115
+"A2 home term decay 0.6, shrink 0",2023-25,home_term_mean,1.819106283481424
+"A2 home term decay 0.6, shrink 100",2015-18,home_term_mean,2.436535813002782
+"A2 home term decay 0.6, shrink 100",2019-22,home_term_mean,1.2900688571873138
+"A2 home term decay 0.6, shrink 100",2023-25,home_term_mean,1.8260015353325643
+base,2015-18,qualifies,False
+base,2019-22,qualifies,False
+base,2023-25,qualifies,False
+base,2015-25,qualifies,False
+A decay 0.8,2015-18,qualifies,False
+A decay 0.8,2019-22,qualifies,False
+A decay 0.8,2023-25,qualifies,False
+A decay 0.8,2015-25,qualifies,False
+A decay 0.7,2015-18,qualifies,False
+A decay 0.7,2019-22,qualifies,False
+A decay 0.7,2023-25,qualifies,False
+A decay 0.7,2015-25,qualifies,False
+A decay 0.6,2015-18,qualifies,False
+A decay 0.6,2019-22,qualifies,False
+A decay 0.6,2023-25,qualifies,False
+A decay 0.6,2015-25,qualifies,False
+D home x era (2020+),2015-18,qualifies,False
+D home x era (2020+),2019-22,qualifies,False
+D home x era (2020+),2023-25,qualifies,False
+D home x era (2020+),2015-25,qualifies,False
+"B last 2 seasons, shrink 0",2015-18,qualifies,False
+"B last 2 seasons, shrink 0",2019-22,qualifies,False
+"B last 2 seasons, shrink 0",2023-25,qualifies,False
+"B last 2 seasons, shrink 0",2015-25,qualifies,False
+"B last 2 seasons, shrink 100",2015-18,qualifies,False
+"B last 2 seasons, shrink 100",2019-22,qualifies,False
+"B last 2 seasons, shrink 100",2023-25,qualifies,False
+"B last 2 seasons, shrink 100",2015-25,qualifies,False
+"B last 2 seasons, shrink 300",2015-18,qualifies,False
+"B last 2 seasons, shrink 300",2019-22,qualifies,False
+"B last 2 seasons, shrink 300",2023-25,qualifies,False
+"B last 2 seasons, shrink 300",2015-25,qualifies,False
+"B last 3 seasons, shrink 0",2015-18,qualifies,False
+"B last 3 seasons, shrink 0",2019-22,qualifies,False
+"B last 3 seasons, shrink 0",2023-25,qualifies,False
+"B last 3 seasons, shrink 0",2015-25,qualifies,False
+"B last 3 seasons, shrink 100",2015-18,qualifies,False
+"B last 3 seasons, shrink 100",2019-22,qualifies,False
+"B last 3 seasons, shrink 100",2023-25,qualifies,False
+"B last 3 seasons, shrink 100",2015-25,qualifies,False
+"B last 3 seasons, shrink 300",2015-18,qualifies,False
+"B last 3 seasons, shrink 300",2019-22,qualifies,False
+"B last 3 seasons, shrink 300",2023-25,qualifies,False
+"B last 3 seasons, shrink 300",2015-25,qualifies,False
+"B last 4 seasons, shrink 0",2015-18,qualifies,False
+"B last 4 seasons, shrink 0",2019-22,qualifies,False
+"B last 4 seasons, shrink 0",2023-25,qualifies,False
+"B last 4 seasons, shrink 0",2015-25,qualifies,False
+"B last 4 seasons, shrink 100",2015-18,qualifies,False
+"B last 4 seasons, shrink 100",2019-22,qualifies,False
+"B last 4 seasons, shrink 100",2023-25,qualifies,False
+"B last 4 seasons, shrink 100",2015-25,qualifies,False
+"B last 4 seasons, shrink 300",2015-18,qualifies,False
+"B last 4 seasons, shrink 300",2019-22,qualifies,False
+"B last 4 seasons, shrink 300",2023-25,qualifies,False
+"B last 4 seasons, shrink 300",2015-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 0",2015-18,qualifies,False
+"C last 2 seasons + this season x1, shrink 0",2019-22,qualifies,False
+"C last 2 seasons + this season x1, shrink 0",2023-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 0",2015-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 100",2015-18,qualifies,False
+"C last 2 seasons + this season x1, shrink 100",2019-22,qualifies,False
+"C last 2 seasons + this season x1, shrink 100",2023-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 100",2015-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 300",2015-18,qualifies,False
+"C last 2 seasons + this season x1, shrink 300",2019-22,qualifies,False
+"C last 2 seasons + this season x1, shrink 300",2023-25,qualifies,False
+"C last 2 seasons + this season x1, shrink 300",2015-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 0",2015-18,qualifies,False
+"C last 2 seasons + this season x3, shrink 0",2019-22,qualifies,False
+"C last 2 seasons + this season x3, shrink 0",2023-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 0",2015-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 100",2015-18,qualifies,False
+"C last 2 seasons + this season x3, shrink 100",2019-22,qualifies,False
+"C last 2 seasons + this season x3, shrink 100",2023-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 100",2015-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 300",2015-18,qualifies,False
+"C last 2 seasons + this season x3, shrink 300",2019-22,qualifies,False
+"C last 2 seasons + this season x3, shrink 300",2023-25,qualifies,False
+"C last 2 seasons + this season x3, shrink 300",2015-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 0",2015-18,qualifies,False
+"C last 3 seasons + this season x1, shrink 0",2019-22,qualifies,False
+"C last 3 seasons + this season x1, shrink 0",2023-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 0",2015-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 100",2015-18,qualifies,False
+"C last 3 seasons + this season x1, shrink 100",2019-22,qualifies,False
+"C last 3 seasons + this season x1, shrink 100",2023-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 100",2015-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 300",2015-18,qualifies,False
+"C last 3 seasons + this season x1, shrink 300",2019-22,qualifies,False
+"C last 3 seasons + this season x1, shrink 300",2023-25,qualifies,False
+"C last 3 seasons + this season x1, shrink 300",2015-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 0",2015-18,qualifies,False
+"C last 3 seasons + this season x3, shrink 0",2019-22,qualifies,False
+"C last 3 seasons + this season x3, shrink 0",2023-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 0",2015-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 100",2015-18,qualifies,False
+"C last 3 seasons + this season x3, shrink 100",2019-22,qualifies,False
+"C last 3 seasons + this season x3, shrink 100",2023-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 100",2015-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 300",2015-18,qualifies,False
+"C last 3 seasons + this season x3, shrink 300",2019-22,qualifies,False
+"C last 3 seasons + this season x3, shrink 300",2023-25,qualifies,False
+"C last 3 seasons + this season x3, shrink 300",2015-25,qualifies,False
+"A2 home term decay 0.8, shrink 0",2015-18,qualifies,False
+"A2 home term decay 0.8, shrink 0",2019-22,qualifies,False
+"A2 home term decay 0.8, shrink 0",2023-25,qualifies,False
+"A2 home term decay 0.8, shrink 0",2015-25,qualifies,False
+"A2 home term decay 0.8, shrink 100",2015-18,qualifies,False
+"A2 home term decay 0.8, shrink 100",2019-22,qualifies,False
+"A2 home term decay 0.8, shrink 100",2023-25,qualifies,False
+"A2 home term decay 0.8, shrink 100",2015-25,qualifies,False
+"A2 home term decay 0.7, shrink 0",2015-18,qualifies,False
+"A2 home term decay 0.7, shrink 0",2019-22,qualifies,False
+"A2 home term decay 0.7, shrink 0",2023-25,qualifies,False
+"A2 home term decay 0.7, shrink 0",2015-25,qualifies,False
+"A2 home term decay 0.7, shrink 100",2015-18,qualifies,False
+"A2 home term decay 0.7, shrink 100",2019-22,qualifies,False
+"A2 home term decay 0.7, shrink 100",2023-25,qualifies,False
+"A2 home term decay 0.7, shrink 100",2015-25,qualifies,False
+"A2 home term decay 0.6, shrink 0",2015-18,qualifies,False
+"A2 home term decay 0.6, shrink 0",2019-22,qualifies,False
+"A2 home term decay 0.6, shrink 0",2023-25,qualifies,False
+"A2 home term decay 0.6, shrink 0",2015-25,qualifies,False
+"A2 home term decay 0.6, shrink 100",2015-18,qualifies,False
+"A2 home term decay 0.6, shrink 100",2019-22,qualifies,False
+"A2 home term decay 0.6, shrink 100",2023-25,qualifies,False
+"A2 home term decay 0.6, shrink 100",2015-25,qualifies,False
