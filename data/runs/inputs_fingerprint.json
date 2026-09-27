@@ -1603,6 +1603,12 @@
 ],
 [
 "IND",
+"Laiatu Latu",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Laquon Treadwell",
 "",
 "Full Participation in Practice"
@@ -1618,12 +1624,6 @@
 "Sauce Gardner",
 "",
 "Full Participation in Practice"
-],
-[
-"IND",
-"Spencer Shrader",
-"Questionable (ESPN)",
-""
 ],
 [
 "JAX",
@@ -2190,12 +2190,6 @@
 "Full Participation in Practice"
 ],
 [
-"NYJ",
-"Qwan'tez Stiggers",
-"Questionable (ESPN)",
-""
-],
-[
 "PHI",
 "Andrew Mukuba",
 "",
@@ -2419,6 +2413,12 @@
 ],
 [
 "TEN",
+"Fernando Carmona",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "James Williams",
 "",
 "Full Participation in Practice"
@@ -2522,25 +2522,30 @@
 ],
 "weather": {
 "2026_03_ARI_SF": {
-"wind": 4.7,
+"wind": 5.4,
 "cold": false,
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 6.6,
+"wind": 6.0,
 "cold": false,
 "rain": false
 },
 "2026_03_BAL_DAL": {
-"wind": 6.3,
+"wind": 7.0,
 "cold": false,
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 10.9,
+"wind": 9.5,
+"cold": false,
+"rain": false
+},
+"2026_03_PHI_CHI": {
+"wind": 4.6,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-27 17:47 UTC"
+"written_at": "2026-09-27 18:07 UTC"
 }
