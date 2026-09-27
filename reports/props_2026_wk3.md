@@ -1,6 +1,6 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.88). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.28 / 18.25 yards off on receiving, 17.8 / 17.03 on rushing and 56.74 / 56.21 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-27 09:30 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x the median factor (receivers 0.81, rushers 0.84, QBs 0.88). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule four rounds of backtest chose: 19.28 / 18.25 yards off on receiving, 17.8 / 17.03 on rushing and 56.74 / 56.21 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_backtest4.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-27 10:13 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -240,12 +240,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0037012  | Trey Lance               | rush_attempts    |   4.5   |          4.5  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0037012  | Trey Lance               | rush_rec_yards   |  15.9   |          4.5  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0037012  | Trey Lance               | rush_longest     |   8.6   |          4.5  | live   |
-|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 214.5   |         38.6  | live   |
+|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 215.1   |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_td          |   1.294 |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_int         |   0.791 |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_attempts    |  34.7   |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_completions |  22.4   |         38.6  | live   |
-|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 234.9   |         38.6  | live   |
+|     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 235.5   |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0036355  | Justin Herbert           | pass_longest     |  33.9   |         38.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038553  | Daiyan Henley            | def_tackles      |   6.8   |         66.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | LAC    | 00-0038553  | Daiyan Henley            | def_sacks        |   0.14  |         66.6  | live   |
@@ -333,12 +333,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0035537  | Ty Johnson               | rush_attempts    |   4.1   |          4.1  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0035537  | Ty Johnson               | rush_rec_yards   |  31.5   |          4.1  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0035537  | Ty Johnson               | rush_longest     |   7.5   |          4.1  | live   |
-|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_yards       | 247.8   |         34.9  | live   |
+|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_yards       | 248.4   |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_td          |   1.881 |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_int         |   0.715 |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_attempts    |  32     |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_completions |  21.9   |         34.9  | live   |
-|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_rush_yards  | 286.6   |         34.9  | live   |
+|     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_rush_yards  | 287.2   |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0034857  | Josh Allen               | pass_longest     |  34.6   |         34.9  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0037254  | Terrel Bernard           | def_tackles      |   6     |         65.6  | live   |
 |     2026 |      3 | 2026_03_LAC_BUF | BUF    | 00-0037254  | Terrel Bernard           | def_sacks        |   0.04  |         65.6  | live   |
@@ -1286,12 +1286,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0037594  | Julius Chestnut          | rush_attempts    |   1.3   |          1.3  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0037594  | Julius Chestnut          | rush_rec_yards   |   4.4   |          1.3  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0037594  | Julius Chestnut          | rush_longest     |   6.5   |          1.3  | live   |
-|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_yards       | 188.1   |         35.2  | live   |
+|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_yards       | 187.6   |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_td          |   0.998 |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_int         |   0.722 |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_attempts    |  32.2   |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_completions |  19.9   |         35.2  | live   |
-|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_rush_yards  | 200     |         35.2  | live   |
+|     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_rush_yards  | 199.5   |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0040676  | Cam Ward                 | pass_longest     |  30.4   |         35.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0039858  | Cedric Gray              | def_tackles      |   9.4   |         66.2  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | TEN    | 00-0039858  | Cedric Gray              | def_sacks        |   0.09  |         66.2  | live   |
@@ -1379,12 +1379,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0036893  | Najee Harris             | rush_attempts    |   6.3   |          6.3  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0036893  | Najee Harris             | rush_rec_yards   |  17.5   |          6.3  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0036893  | Najee Harris             | rush_longest     |   7.6   |          6.3  | live   |
-|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 224.8   |         33.5  | live   |
+|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 224.3   |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_td          |   1.415 |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_int         |   0.687 |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_attempts    |  31.8   |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_completions |  18.4   |         33.5  | live   |
-|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 233.4   |         33.5  | live   |
+|     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 232.9   |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_longest     |  28.5   |         33.5  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0034673  | Tremaine Edmunds         | def_tackles      |   6.4   |         58.9  | live   |
 |     2026 |      3 | 2026_03_TEN_NYG | NYG    | 00-0034673  | Tremaine Edmunds         | def_sacks        |   0.08  |         58.9  | live   |
@@ -1467,12 +1467,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | rush_attempts    |   2.5   |          2.5  | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | rush_rec_yards   |   8     |          2.5  | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | rush_longest     |   6.6   |          2.5  | live   |
-|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_yards       | 228.4   |         39    | live   |
+|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_yards       | 228.3   |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_td          |   1.414 |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_int         |   0.799 |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_attempts    |  36.4   |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_completions |  24.2   |         39    | live   |
-|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_rush_yards  | 236.4   |         39    | live   |
+|     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_rush_yards  | 236.3   |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0036442  | Joe Burrow               | pass_longest     |  32.5   |         39    | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0040738  | Demetrius Knight Jr.     | def_tackles      |   6.2   |         59.8  | live   |
 |     2026 |      3 | 2026_03_CIN_PIT | CIN    | 00-0040738  | Demetrius Knight Jr.     | def_sacks        |   0.16  |         59.8  | live   |
@@ -1643,12 +1643,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0039299  | George Holani            | rush_attempts    |   5.3   |          5.3  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0039299  | George Holani            | rush_rec_yards   |  28.1   |          5.3  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0039299  | George Holani            | rush_longest     |   7.6   |          5.3  | live   |
-|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_yards       | 240     |         30.7  | live   |
+|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_yards       | 239.8   |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_td          |   1.758 |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_int         |   0.629 |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_attempts    |  29.5   |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_completions |  19.8   |         30.7  | live   |
-|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_rush_yards  | 247.7   |         30.7  | live   |
+|     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_rush_yards  | 247.5   |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0035704  | Drew Lock                | pass_longest     |  32.7   |         30.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0036994  | Ernest Jones             | def_tackles      |   8.4   |         61.2  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | SEA    | 00-0036994  | Ernest Jones             | def_sacks        |   0.06  |         61.2  | live   |
@@ -1736,12 +1736,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | rush_attempts    |   3     |          3    | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | rush_rec_yards   |  13.7   |          3    | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | rush_longest     |   9.3   |          3    | live   |
-|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_yards       | 202.7   |         33.8  | live   |
+|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_yards       | 202.5   |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_td          |   1.19  |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_int         |   0.693 |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_attempts    |  31.7   |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_completions |  19.9   |         33.8  | live   |
-|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_rush_yards  | 216.4   |         33.8  | live   |
+|     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_rush_yards  | 216.2   |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0032268  | Marcus Mariota           | pass_longest     |  30.1   |         33.8  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0037819  | Leo Chenal               | def_tackles      |   5     |         61.7  | live   |
 |     2026 |      3 | 2026_03_SEA_WAS | WAS    | 00-0037819  | Leo Chenal               | def_sacks        |   0.14  |         61.7  | live   |
