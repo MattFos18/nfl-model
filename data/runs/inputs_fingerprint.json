@@ -381,17 +381,42 @@
 ],
 [
 "DEN",
+"Dallen Bentley",
+"Out"
+],
+[
+"DEN",
 "Jonah Coleman",
 "Out"
 ],
 [
 "DEN",
-"Jonathon Cooper",
+"Kage Casey",
 "Out"
 ],
 [
 "DEN",
-"Nick Gargiulo",
+"Lil'Jordan Humphrey",
+"Out"
+],
+[
+"DEN",
+"Marvin Mims Jr.",
+"Out"
+],
+[
+"DEN",
+"Sai'vion Jones",
+"Out"
+],
+[
+"DEN",
+"Sam Ehlinger",
+"Out"
+],
+[
+"DEN",
+"Tyler Onyedim",
 "Out"
 ],
 [
@@ -631,8 +656,28 @@
 ],
 [
 "LA",
+"Bill Murray",
+"Out"
+],
+[
+"LA",
+"CJ Daniels",
+"Out"
+],
+[
+"LA",
 "Kamren Kinchens",
 "Doubtful"
+],
+[
+"LA",
+"Kamren Kinchens",
+"Out"
+],
+[
+"LA",
+"Maximus Pulley",
+"Out"
 ],
 [
 "LA",
@@ -646,7 +691,22 @@
 ],
 [
 "LA",
+"Puka Nacua",
+"Out"
+],
+[
+"LA",
 "Ronnie Rivers",
+"Out"
+],
+[
+"LA",
+"Tutu Atwell",
+"Out"
+],
+[
+"LA",
+"Ty Simpson",
 "Out"
 ],
 [
@@ -797,6 +857,11 @@
 [
 "MIN",
 "Caleb Tiernan",
+"Out"
+],
+[
+"MIN",
+"Charles Demmings",
 "Out"
 ],
 [
@@ -1241,6 +1306,11 @@
 ],
 [
 "TEN",
+"Jaylon Jones",
+"Out"
+],
+[
+"TEN",
 "Kylen Granson",
 "Out"
 ],
@@ -1666,12 +1736,6 @@
 ],
 [
 "DEN",
-"Marvin Mims Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"DEN",
 "RJ Harvey",
 "",
 "Full Participation in Practice"
@@ -1990,12 +2054,6 @@
 ],
 [
 "LA",
-"Colby Parkinson",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Jordan Whittington",
 "",
 "Full Participation in Practice"
@@ -2278,12 +2336,6 @@
 ],
 [
 "NO",
-"Carl Granderson",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Chase Young",
 "",
 "Full Participation in Practice"
@@ -2335,6 +2387,12 @@
 "Travis Etienne",
 "",
 "Full Participation in Practice"
+],
+[
+"NO",
+"Travis Etienne Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -2596,6 +2654,18 @@
 ],
 [
 "SF",
+"Dre Greenlaw",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Gracen Halton",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Mike Evans",
 "Questionable",
 "Limited Participation in Practice"
@@ -2786,7 +2856,7 @@
 "rain": false
 },
 "2026_03_LA_DEN": {
-"wind": 4.0,
+"wind": 11.9,
 "cold": false,
 "rain": false
 },
@@ -2796,5 +2866,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-27 22:42 UTC"
+"written_at": "2026-09-27 23:29 UTC"
 }
