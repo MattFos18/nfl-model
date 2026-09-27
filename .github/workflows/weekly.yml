@@ -39,7 +39,9 @@ jobs:
         with:
           path: data/raw
           key: nflverse-raw-v2-${{ github.run_id }}
-          restore-keys: nflverse-raw-v2
+          restore-keys: |   # the newest run's copy first; a restore key that equals an old key exactly wins over newer prefix matches (27 Sep 2026)
+            nflverse-raw-v2-
+            nflverse-raw-v2
       - name: weekly pipeline
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
