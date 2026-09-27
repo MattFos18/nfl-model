@@ -177,7 +177,8 @@ def status_by_game(games: pd.DataFrame) -> dict:
 
 def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
     """Fill temp/wind for unplayed outdoor games from the latest usable forecast (within USE_WITHIN_DAYS of kickoff);
-    everything else unplayed is left blank so the model uses the league-typical weather."""
+    everything else unplayed is left blank so the model uses the league-typical weather. A played game whose game-time
+    weather nflverse has not posted yet keeps the kickoff reading it was priced with."""
     fc = usable_forecast()
     g = games.copy()
     un = g.home_score.isna()
@@ -186,6 +187,13 @@ def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
     m = g.game_id.isin(fc.index) & un
     g.loc[m, "temp"] = g.loc[m, "game_id"].map(fc.temp)
     g.loc[m, "wind"] = g.loc[m, "game_id"].map(fc.wind)
+    # a played game nflverse has not given its game-time weather yet (the schedule posts scores within hours and the
+    # weather days later: Week 3 of 2026 had 1 of 8 outdoor games filled the Sunday evening) keeps the kickoff reading
+    # it was priced with, from the last good fetch; nflverse's reading replaces it when it lands (27 Sep 2026)
+    lg = last_good().set_index("game_id")
+    pl = ~un & g.temp.isna() & ~g.roof.isin(["dome", "closed"]) & g.game_id.isin(lg.index)
+    g.loc[pl, "temp"] = g.loc[pl, "game_id"].map(lg.temp)
+    g.loc[pl, "wind"] = g.loc[pl, "game_id"].map(lg.wind)
     return g
 
 
