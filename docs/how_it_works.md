@@ -215,8 +215,14 @@ mechanical, not a matter of care:
   unplayed outdoor game is priced as typical weather (7 mph, not cold, dry). With runs on Tuesday, Thursday, Saturday
   and Sunday that means a Thursday game is priced with its forecast from Tuesday, and Sunday and Monday games from
   Thursday and Saturday. The card says which applies ("Forecast 2 days out" or "5 days out, weather TBD, typical
-  assumed until 4 days out"). A fetch that fails is retried four times and, failing that, the game is simply priced as
-  typical; the next run tries again.
+  assumed until 4 days out"). A fetch that fails is retried four times and, failing that, the game keeps its last good
+  reading (`weather.carry_forward`, status `carried`); only a game never fetched is priced as typical.
+- **A game keeps its forecast after kickoff** (27 Sep 2026). `weather.run` used to fetch only games still to kick off,
+  so the forecast file dropped a game the moment it started; every re-price before nflverse posted the score (six
+  weekly runs on one Sunday) priced the early games as typical weather, and the cards said "Weather TBD" for games
+  played in 13 mph wind. The fetch now reaches back a day (Open-Meteo `past_days`), a game older than that and still
+  unscored carries its last good row, and a tie check fails the page when any unplayed outdoor game inside the window
+  (kickoff within 4 days ahead or 2 days back) is priced without a forecast (`tie_check.check_live`, `health.py`).
 
 `audit.py` checks the rule by force: every game from Week 10 of 2024 onward was corrupted and the earlier weeks'
 numbers rebuilt; not one changed (section 10).
@@ -1983,3 +1989,19 @@ on; left for a test built on the snap-count rows. The Week 3 lines that prompted
 49.1 to 53.9, London 45.4 to 48.7, Wilson 52.8 to 57.0; Horton 19.8 to 17.4; Barkley's rushing line unchanged) and not
 to the book's numbers: those gaps sit on the volume side, a rookie's share from two games, which the roster-sum cap did
 not fix.
+
+## 41. What actually happened, as it happens (27 Sep 2026)
+
+nflverse posts scores hours after the games, so until the Tuesday weekly run a finished game sat on the page as
+unplayed. `nflmodel/results.py` runs every line watch: it fetches the ESPN scoreboard for every week with an unplayed
+game that has kicked off (the picks week has moved on to the next by Monday night, so the week being played is fetched
+on its own), saves it (`data/results/scoreboard_<season>_wk<week>.json`), and writes one row per game: status, clock,
+score. A final is graded in Python against what the model said before kickoff: its spread and total from the last run
+before kickoff (`data/runs/pred_history.csv`, never a re-price after the game started) and the closing line (the newest
+lines-log snapshot before kickoff; the schedule's line where none was logged). Three calls per game, every game and not
+only the flags: the model's side of the spread, its side of the total, its winner. The logged bets (the flag, the
+shadow rules, Matt's) are graded by the tracker's own `grade_rows` on a games frame carrying ESPN's finals and the
+close, so the live grade is the grade the tracker gives later. The page displays it (`web/data/live.js`): the card's
+top line carries the live score or the final with the three calls marked, the week tiles a running record, the Bets
+tab a "This week, live" table, the report the final. Two ties guard it: where nflverse already has a score it must
+equal ESPN's, and every final's calls are re-graded by the tie check from the file's own scores and closes.

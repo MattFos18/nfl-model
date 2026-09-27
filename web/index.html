@@ -86,6 +86,7 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 .badge.model{background:var(--model-soft);color:var(--model);border-color:transparent}
 .badge.vegas{background:var(--vegas-soft);color:var(--vegas);border-color:transparent}
 .badge.noise{background:var(--rule-2);color:var(--muted);border-color:transparent}
+.badge.live{background:var(--good);color:#fff;border-color:transparent}
 .tiles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
 .tile{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;min-width:150px;flex:1 1 170px;display:flex;flex-direction:column;gap:2px}
 .tile b{font-family:var(--display);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -531,6 +532,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="live">
   <p class="note">Model picks (flagged at the thresholds, at the best number) and your bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Rules compared, below, grades the shadow rules on the same games without betting them, next to each rule's backtest record. Your bets go in data/tracker/my_bets.csv: game_id, bet (KC -3, Over 47.5, MIA ML), odds, stake, and a note with your read on the game, so your judgment gets graded next to the model's.</p>
   <div class="grid2e">
+    <div class="card" style="grid-column:1 / -1"><h3>This week, live</h3><div id="liveweek"></div></div>
     <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
     <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules compared</h3><div id="trackrules"></div></div>
@@ -668,6 +670,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 <script src="data/catalog.js"></script>
 <script src="data/legit.js"></script>
 <script src="data/fresh.js"></script>
+<script src="data/live.js"></script>
 <script src="data/health.js"></script>
 <script src="data/props.js"></script>
 <script>
@@ -1034,6 +1037,37 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   }
   renderPulls(); setInterval(renderPulls, 30000);
 
+  // live results (web/data/live.js, nflmodel/results.py): the ESPN scoreboard's score and status, and the model's pre-kickoff
+  // calls graded in Python at the close; the page displays them. Nothing here until the line watch has run with a game under way.
+  function liveOf(g) { return ((window.LIVE || {}).games || {})[g.game_id] || null; }
+  const resMark = r => r ? `<span class="res ${r}">${r === "win" ? "✓" : r === "loss" ? "✗" : "push"}</span>` : "";
+  function liveHtml(g, lv) {
+    if (!lv || lv.status === "scheduled" || g.home_score != null) return "";
+    const sc = `${lv.away_team} ${lv.away_score}, ${lv.home_team} ${lv.home_score}`, L = window.LIVE || {};
+    if (lv.status !== "final") return `<span class="badge live" title="live from the ESPN scoreboard, as of ${esc(L.checked || "")}">${esc(lv.detail || "In progress")} · ${sc}</span>`;
+    const C = lv.calls || {}, P = lv.priced || {}, CL = lv.close || {}, r = x => x && x.result ? " " + resMark(x.result) : "";
+    const tip = `the model's side at the close (${esc(CL.source || "")}${CL.ts ? ", " + esc(etTime(CL.ts)) : ""}), from its last run before kickoff (${esc(P.run_at || "")}); graded by nflmodel/results.py`;
+    return `<span class="badge" title="final, from the ESPN scoreboard as of ${esc(L.checked || "")}; nflverse's score replaces it on the weekly run">Final · ${sc}</span><span class="mv" style="display:inline-flex;margin-left:6px">${C.spread ? `<span class="chip mute" title="${tip}">${lineTxt(C.spread.side, C.spread.line)}${r(C.spread)}</span>` : ""}${C.total ? `<span class="chip mute" title="${tip}">${C.total.side} ${C.total.line}${r(C.total)}</span>` : ""}${C.winner ? `<span class="chip mute" title="the model's favorite before kickoff">Winner ${C.winner.side}${r(C.winner)}</span>` : ""}${(lv.bets || []).map(b => `<span class="chip alt" title="graded by the tracker's grader at the close">${b.who === "matt" ? "Your bet" : b.who === "model" ? "Bet" : esc(b.who)}: ${esc(b.bet)}${r(b)}</span>`).join("")}</span>`;
+  }
+  function liveTile() {
+    const R = (window.LIVE || {}).record; if (!R || !R.finals) return "";
+    const bets = Object.entries(R.bets || {}).filter(([w]) => w === "model" || w === "matt").map(([w, b]) => `${w === "matt" ? "your bets" : "bets"} ${b.text}${b.n > b.w + b.l + b.p ? ` (${b.n - b.w - b.l - b.p} open)` : ""}`).join(" · ");
+    return `<div class="tile" title="the model's side of each market at the close, from its last run before kickoff, on the finals so far (web/data/live.js); every game, not only the flags"><b>${R.spread.text}</b><span>Week ${R.week} so far, model side vs the spread · total ${R.total.text} · winner ${R.winner.text}${bets ? " · " + bets : ""} · ${R.finals} of ${R.games} final</span></div>`;
+  }
+  function renderLiveWeek() {
+    const el = $("liveweek"); if (!el) return; const L = window.LIVE;
+    if (!L || !L.record) { el.innerHTML = "<p class='note'>No live scores yet: the line watch fills this once a game is under way.</p>"; return; }
+    const R = L.record, G = Object.entries(L.games || {}).filter(([, v]) => v.season === R.season && v.week === R.week).sort((a, b) => String(a[1].kickoff).localeCompare(String(b[1].kickoff)));
+    const st = v => v.status === "final" ? `<b>Final</b> ${v.away_team} ${v.away_score}, ${v.home_team} ${v.home_score}` : v.status === "in_progress" ? `<span class="badge live">${esc(v.detail || "live")}</span> ${v.away_team} ${v.away_score}, ${v.home_team} ${v.home_score}` : esc(v.detail || "scheduled");
+    const call = (c, f) => c ? `${f(c)}${c.result ? " " + resMark(c.result) : ""}` : "";
+    const bets = Object.entries(R.bets || {}).map(([w, b]) => `<b>${w === "matt" ? "Your bets" : w === "model" ? "Model bets" : esc(w)}</b><span>${b.text}${b.n > b.w + b.l + b.p ? ` (${b.n - b.w - b.l - b.p} open)` : ""}${b.w + b.l ? `, ${sgn(b.units, 2)} units` : ""}</span>`).join("");
+    el.innerHTML = `<p class="note">Scores from the ESPN scoreboard every line watch (as of ${esc(L.checked)}), graded at the closing line against the model's numbers from its last run before kickoff; nflverse's official scores replace them on the weekly run, and the tie check fails if the two disagree. Every game is graded on the model's side, flagged or not.</p>
+      <div class="kv"><b>Week ${R.week}</b><span>${R.finals} of ${R.games} final${R.in_progress ? `, ${R.in_progress} in progress` : ""}</span><b>Model side, spread</b><span>${R.spread.text}</span><b>Total</b><span>${R.total.text}</span><b>Winner</b><span>${R.winner.text}</span>${bets}</div>
+      <div class="tablewrap"><table><thead><tr><th class="l">Game</th><th class="l">Score</th><th class="l" title="the model's side at the close, from its last run before kickoff">Spread call</th><th class="l">Total call</th><th class="l">Winner</th><th class="l">Bets</th><th class="l" title="the model's spread and total as priced before kickoff, and the run">Priced</th><th class="l">Close</th></tr></thead><tbody>` +
+      G.map(([gid, v]) => { const C = v.calls || {}, P = v.priced || {}, CL = v.close || {};
+        return `<tr><td class="l"><b>${v.away_team} @ ${v.home_team}</b></td><td class="l">${st(v)}</td><td class="l">${call(C.spread, c => lineTxt(c.side, c.line))}</td><td class="l">${call(C.total, c => `${c.side} ${c.line}`)}</td><td class="l">${call(C.winner, c => c.side)}</td><td class="l">${(v.bets || []).map(b => `${b.who === "matt" ? "you" : b.who}: ${esc(b.bet)}${b.result ? " " + resMark(b.result) : ""}`).join("<br>")}</td><td class="l mono">${P.model_spread != null ? `${lineTxt(v.home_team, -P.model_spread)} · ${Number(P.model_total).toFixed(1)}` : ""}${P.run_at ? ` <span class="rk">${esc(P.run_at.slice(5, 16))}</span>` : ""}</td><td class="l mono">${CL.spread != null ? lineTxt(v.home_team, -CL.spread) : ""}${CL.total != null ? ` · ${CL.total}` : ""}${CL.source && CL.source !== "lines log" ? ` <span class="rk">${esc(CL.source)}</span>` : ""}</td></tr>`; }).join("") + "</tbody></table></div>"
+      + (L.mismatch && L.mismatch.length ? `<p class="note neg">ESPN and nflverse disagree on a score: ${L.mismatch.map(esc).join("; ")}</p>` : "");
+  }
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
@@ -1047,21 +1081,24 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="tile"><b>${logged.length}</b><span>Bets logged: ${logged.map(g => g.bet_recorded.map(r => r.bet).join(", ")).join("; ") || "none"}</span></div>
       <div class="tile"><b>${W.games.filter(g => g.shadowunder_bet).length}</b><span>Totals flag (tracked, not bet): ${W.games.filter(g => g.shadowunder_bet).map(g => `${g.away_team}-${g.home_team} ${g.shadowunder_bet}`).join("; ") || "none"}</span></div>
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>Average gap to the spread, points</span></div>
-      <div class="tile"><b>${W.games.filter(g => g.home_score != null).length}</b><span>Played so far</span></div>`;
+      <div class="tile"><b>${W.games.filter(g => g.home_score != null || (liveOf(g) || {}).status === "final").length}</b><span>Played so far</span></div>${liveTile()}`;
     const RR = W.rule_records || {}, rec3 = k => RR[k] ? `${RR[k]["2015-18"]}, ${RR[k]["2019-22"]} and ${RR[k]["2023-25"]} on 2015-18, 2019-22 and 2023-25` : "on the Bets tab";
     let h = "";
     W.games.forEach((g, i) => {
       // every number on the card is Python's (picks.table on the newest line snapshot, export_web --week): the page displays them
-      const H = g.home_team, A = g.away_team, hasLine = g.spread_line != null, played = g.home_score != null;
+      // the score from the ESPN scoreboard (web/data/live.js, nflmodel/results.py) stands in until nflverse posts it; a live final counts as played
+      const lv = liveOf(g), lvFinal = !!lv && lv.status === "final" && g.home_score == null;
+      const HS = g.home_score != null ? g.home_score : (lvFinal ? lv.home_score : null), AS = g.away_score != null ? g.away_score : (lvFinal ? lv.away_score : null);
+      const H = g.home_team, A = g.away_team, hasLine = g.spread_line != null, played = HS != null;
       const both = hasLine && g.total_line != null, vh = both ? (g.total_line + g.spread_line) / 2 : null, va = both ? (g.total_line - g.spread_line) / 2 : null;
       const sh = g.sides && g.sides[H] || {};
       const wx = wxTxt(g, sh, played);
       const sFlag = hasLine && !!g.bet, tFlag = g.total_line != null && !!g.shadowunder_bet;   // the flags as Python set them on this line; the totals flag is tracked, not bet
       const sSide = hasLine ? (g.spread_edge > 0 ? H : A) : null, tSide = g.total_line != null ? (g.total_edge > 0 ? "Over" : "Under") : null;
       const vw = g.vegas_win;   // lines.vegas_win: each book's moneylines with the vig removed, averaged over the newest snapshot
-      const actualMargin = played ? g.home_score - g.away_score : null;
+      const actualMargin = played ? HS - AS : null;
       h += `<article class="gcard ${g.bet || g.shadowunder_bet ? "flagged" : ""}" id="card${i}">
-        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${g.bet ? `<span class="badge flag" title="Flagged on the current consensus line: the edge clears ${W.spread_edge} points">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an ${TS.side} at a ${underPct}%+ raw chance (the bar shows the calibrated one). Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked, not bet</span>` : ""}</div>
+        <div class="top"><b>${A} @ ${H}</b><span class="when">${whenTxt(g)} · ${wx}${g.referee ? " · Ref " + esc(g.referee) : ""}</span>${liveHtml(g, lv)}${g.bet ? `<span class="badge flag" title="Flagged on the current consensus line: the edge clears ${W.spread_edge} points">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an ${TS.side} at a ${underPct}%+ raw chance (the bar shows the calibrated one). Graded live on Bets, not bet until it holds">${esc(g.shadowunder_bet)} · tracked, not bet</span>` : ""}</div>
         ${recordedHtml(g, W)}
         <div class="blocks">
           <section class="blk spread"><div class="bh">Spread</div>
@@ -1073,14 +1110,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
-            ${played ? `<div class="kv2"><span>Actual</span><b>${g.home_score + g.away_score}</b></div>` : ""}
+            ${played ? `<div class="kv2"><span>Actual</span><b>${HS + AS}</b></div>` : ""}
             ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="An ${TS.side} at a ${underPct}%+ raw chance (this game ${Math.round(100 * (1 - g.p_over_emp))}%, read off the real, lopsided spread of game totals; the bar below shows it calibrated, the same mapping for every game): ${rec3("shadowunder")}, regular season, weeks 1 to 17; overs lose every way tried. Graded live on Bets, not bet until it holds">${Math.round(100 * (1 - overP(g)))}% under · tracked, not bet</span>` : ""}</div>${overP(g) != null ? bar("Over", overP(g), "Under", 1 - overP(g), "o", g.p_over_cal != null ? "Total" : "Model", overTitle(g)) : ""}${histOver(g)}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
               <span>Model</span><b class="m">${g.away_exp.toFixed(1)}</b><b class="m">${g.home_exp.toFixed(1)}</b>
               <span>Vegas</span><b class="v">${both ? va.toFixed(1) : ""}</b><b class="v">${both ? vh.toFixed(1) : ""}</b>
-              ${played ? `<span>Actual</span><b>${g.away_score}</b><b>${g.home_score}</b>` : ""}
+              ${played ? `<span>Actual</span><b>${AS}</b><b>${HS}</b>` : ""}
             </div>
           </section>
           <section class="blk win"><div class="bh">Win</div>
@@ -2505,7 +2542,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     $("legitstart").innerHTML = cs.length ? `<thead><tr><th class="l">Fit on</th><th title="stated odds at an edge of 4 and 6, 2026">Odds at 4 / 6</th><th>Log loss, all games 2020-22</th><th>2023-25</th><th>Log loss, flags 2020-22</th><th>2023-25</th><th>Flags said / won 2023-25</th><th class="l">Verdict</th></tr></thead><tbody>` + cs.map(r => `<tr><td class="l">${esc(r.variant)}</td><td class="mono">${(100 * r.odds_at_4).toFixed(1)}% / ${(100 * r.odds_at_6).toFixed(1)}%</td><td class="mono">${r["logloss_all_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_all_2023-25"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2023-25"].toFixed(4)}</td><td class="mono">${(100 * r["flags_said_2023-25"]).toFixed(0)}% / ${(100 * r["flags_won_2023-25"]).toFixed(0)}%</td><td class="l">${esc(r.verdict)}</td></tr>`).join("") + "</tbody>" : "";
   }
   function renderTrack() {
-    renderLegit();
+    renderLegit(); renderLiveWeek();
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
@@ -2859,6 +2896,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       if (R.spread) { const d = (R.spread.side === H ? m : -m) + (R.spread.side === H ? -g.spread_line : g.spread_line); R.spread.result = d > 0 ? "win" : d < 0 ? "loss" : "push"; }
       if (R.total) { const d = R.total.side === "Over" ? tot - g.total_line : g.total_line - tot; R.total.result = d > 0 ? "win" : d < 0 ? "loss" : "push"; }
       R.win.result = m === 0 ? "push" : ((m > 0 ? H : A) === R.win.side ? "win" : "loss"); }
+    else { const lv = liveOf(g); if (lv && lv.status === "final") { R.final = {[A]: lv.away_score, [H]: lv.home_score}; R.live = lv; const C = lv.calls || {};
+      if (R.spread && C.spread && C.spread.side === R.spread.side) R.spread.result = C.spread.result;
+      if (R.total && C.total && C.total.side === R.total.side) R.total.result = C.total.result;
+      if (C.winner && C.winner.side === R.win.side) R.win.result = C.winner.result; } }
     // the line and the model from the week's first snapshot and run to now
     const snaps = {}; (g.line_history || []).forEach(r => { (snaps[r.ts] = snaps[r.ts] || {s: [], t: []}); if (r.home_spread != null) snaps[r.ts].s.push(r.home_spread); if (r.total != null) snaps[r.ts].t.push(r.total); });
     const ts = Object.keys(snaps).sort(), first = ts.find(t => snaps[t].s.length), firstT = ts.find(t => snaps[t].t.length);
@@ -2913,7 +2954,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         <tr><th>Model</th><td>${lineTxt(H, -g.model_spread)}</td><td>${g.model_total.toFixed(1)}</td><td>${A} ${R.score[A].toFixed(1)}, ${H} ${R.score[H].toFixed(1)}</td></tr>
         <tr><th>Vegas</th><td>${g.spread_line != null ? lineTxt(H, -g.spread_line) : "–"}</td><td>${g.total_line ?? "–"}</td><td>${R.vscore ? `${A} ${R.vscore[A].toFixed(1)}, ${H} ${R.vscore[H].toFixed(1)}` : "–"}</td></tr>
         ${mv.since ? `<tr class="op"><th>Opened ${md(mv.since)}</th><td>${mv.spread0 != null ? lineTxt(H, -mv.spread0) : "–"}${r0 ? ` <span class="rpq">(model ${lineTxt(H, -r0.model_spread)})</span>` : ""}</td><td>${mv.total0 != null ? tl(mv.total0) : "–"}</td><td></td></tr>` : ""}
-        ${R.final ? `<tr class="fin"><th>Final</th><td>${lineTxt(H, -(g.home_score - g.away_score))}</td><td>${g.home_score + g.away_score}</td><td>${A} ${R.final[A]}, ${H} ${R.final[H]}</td></tr>` : ""}</tbody></table>`;
+        ${R.final ? `<tr class="fin"><th>Final${R.live ? ` <span class="rpq" title="from the ESPN scoreboard; nflverse's score replaces it on the weekly run">live</span>` : ""}</th><td>${lineTxt(H, -(R.final[H] - R.final[A]))}</td><td>${R.final[H] + R.final[A]}</td><td>${A} ${R.final[A]}, ${H} ${R.final[H]}</td></tr>` : ""}</tbody></table>`;
       // the takeaway in two plain lines: the model's call against Vegas, then why, in points, for each side
       const fav = g.model_spread >= 0 ? H : A, dog = fav === H ? A : H, vFav = g.spread_line == null ? null : (g.spread_line >= 0 ? H : A);
       const call = `Model: <b>${fav} by ${Math.abs(g.model_spread).toFixed(1)}</b>${g.spread_line != null ? ` · Vegas: ${vFav} by ${Math.abs(g.spread_line)}` : ""}${g.total_line != null ? ` · total ${g.model_total.toFixed(1)} vs ${g.total_line}` : ""}`;

@@ -54,6 +54,16 @@ def main() -> bool:
         if fl.exists():
             f = pd.read_csv(fl); ft = pd.to_datetime(f.fetched_at, errors="coerce").max(); age_h = (now - ft).total_seconds() / 3600 if pd.notna(ft) else 9e9
             add("FAIL" if age_h > 96 else "OK", "kickoff forecasts are fresh", f"fetched {age_h:.0f} hours ago (limit 96)")
+            # 27 Sep 2026: every unplayed outdoor game inside the window has a reading (fetched, or carried from the last good fetch
+            # once it kicked off): the forecast file used to drop a game at kickoff, and re-prices lost its weather
+            try:
+                from . import weather as WX
+                g_ = pd.read_parquet(OUT / "games.parquet"); nowet = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+                g_ = g_[g_.home_score.isna() & (g_.game_type == "REG") & ~g_.roof.isin(["dome", "closed"]) & (g_.kickoff_et >= nowet - pd.Timedelta(days=2)) & (g_.kickoff_et <= nowet + pd.Timedelta(days=WX.USE_WITHIN_DAYS))]
+                have = set(f[f.status.isin(["ok", "carried"])].game_id); miss = sorted(set(g_.game_id) - have)
+                add("FAIL" if miss else "OK", "kickoff forecast for every outdoor game inside the window", f"{len(g_) - len(miss)} of {len(g_)} games have a reading" + (f"; missing: {', '.join(miss)}" if miss else ""))
+            except Exception as e:  # noqa
+                add("WARN", "kickoff forecast coverage", str(e)[:80])
         else:
             add("WARN", "kickoff forecasts", "data/weather/forecast_latest.csv missing")
         # 5. the coming week's picks and tracker

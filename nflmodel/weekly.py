@@ -7,7 +7,8 @@ Steps, each logged to data/runs/run_log.csv with its status; a failed pull is re
   4. weather   kickoff forecasts for the next 10 days (Open-Meteo), applied to unplayed outdoor games
   5. ratings   as-of feature table, trends and injuries
   6. model     3.0 walk-forward through the current season; old model too for the comparison column
-  7. grade     last week's flagged picks and Matt's bets (tracker), closing line value where a line was logged
+  7. grade     last week's flagged picks and Matt's bets (tracker), closing line value where a line was logged;
+               the live results (ESPN's scores, the model's pre-kickoff calls graded) right after the lines
   8. picks     this week's table and flags; export the data room
   9. recap     reports/weekly_<date>.md: what was pulled, what changed, this week's flags, last week's record
 
@@ -109,6 +110,7 @@ def main(full=False, skip_network=False):
     games.to_parquet(OUT / "games.parquet", index=False)
     if not skip_network:
         step("lines", lambda: sh(["nflmodel.lines"]), log)   # every live number from the same moment: the lines are pulled with the starters, injuries and forecast above
+    step("live results", lambda: sh(["nflmodel.results"] + (["--no-fetch"] if skip_network else [])), log)   # the ESPN scoreboard's scores and the pre-kickoff calls graded (27 Sep 2026; web/data/live.js)
     step("ratings", lambda: sh(["nflmodel.ratings"]), log)
     step("trends", lambda: sh(["nflmodel.trends"]), log)
     step("players", lambda: sh(["nflmodel.players"]), log)

@@ -897,6 +897,52 @@ def check_live(rows, wk) -> None:
                 v = sd.get("volume", {}).get("wind")
                 if (v is None) != (w_ is None) or (v is not None and abs(v - w_) > 1e-9): bad.append(f"{g_['game_id']} {t} props")
     tie("card and props wind (unplayed games) = the kickoff forecast in use now", bad, [])
+    # 27 Sep 2026: the forecast file dropped a game at kickoff, so six re-prices that Sunday priced the early games as typical
+    # weather and the cards said "Weather TBD" for games played in 13 mph wind. Every unplayed outdoor game inside the window
+    # (kickoff within USE_WITHIN_DAYS ahead, or up to two days back and not yet scored) must carry a forecast; a fetch failure
+    # falls back to the last good reading (weather.carry_forward), so only a game never fetched can fail this
+    now_ = pd.Timestamp.now(tz="America/New_York").tz_localize(None); nofc = []
+    for g_ in G:
+        w_ = g_.get("wx") or {}
+        if g_.get("home_score") is not None or w_.get("s") == "dome": continue
+        k_ = pd.to_datetime(g_.get("kickoff"), errors="coerce")
+        if pd.isna(k_): continue
+        d_ = (k_ - now_).total_seconds() / 86400
+        if -2 <= d_ <= WX.USE_WITHIN_DAYS and w_.get("s") != "forecast": nofc.append(f"{g_['game_id']} ({w_.get('s')}, kickoff {d_:+.1f} days)")
+    tie(f"every unplayed outdoor game inside the forecast window (kickoff up to {WX.USE_WITHIN_DAYS} days ahead or 2 days back) is priced with a kickoff forecast", nofc, [])
+    # the live results file (nflmodel/results.py): built this run, its scores the newest saved scoreboard's, its finals
+    # nflverse's where nflverse has them, its calls re-graded here from its own scores and closes
+    try:
+        lv = _js("live.js")
+        if lv.get("error"):
+            rows.append(("live results built", lv["error"][:80], "built", False))
+        else:
+            from . import results as RS
+            tie("live results: ESPN's final = nflverse's score where nflverse has it", lv.get("mismatch") or [], [])
+            off_ = []
+            for gid, v in (lv.get("games") or {}).items():
+                if v["status"] != "final": continue
+                hs_, as_ = v["home_score"], v["away_score"]; C = v.get("calls") or {}; cl = v.get("close") or {}
+                if C.get("spread") and cl.get("spread") is not None:
+                    home_ = C["spread"]["side"] == v["home_team"]; m_ = hs_ - as_; want_ = RS._res((m_ - cl["spread"]) if home_ else (cl["spread"] - m_))
+                    if want_ != C["spread"].get("result"): off_.append(f"{gid} spread")
+                if C.get("total") and cl.get("total") is not None:
+                    t_ = hs_ + as_; want_ = RS._res((t_ - cl["total"]) if C["total"]["side"] == "Over" else (cl["total"] - t_))
+                    if want_ != C["total"].get("result"): off_.append(f"{gid} total")
+                if C.get("winner"):
+                    m_ = hs_ - as_; want_ = "push" if m_ == 0 else ("win" if (m_ > 0) == (C["winner"]["side"] == v["home_team"]) else "loss")
+                    if want_ != C["winner"].get("result"): off_.append(f"{gid} winner")
+            tie("live results: each final's spread, total and winner calls re-graded from its score and close", off_, [])
+            sb_ = {}
+            for (s_, w_) in sorted({(v["season"], v["week"]) for v in (lv.get("games") or {}).values()}):
+                j_ = RS.saved(s_, w_)
+                if j_ is not None:
+                    for r_ in RS.parse(j_, s_, w_).itertuples():
+                        sb_[(r_.home_team, r_.away_team)] = (r_.status, None if pd.isna(r_.home_score) else int(r_.home_score), None if pd.isna(r_.away_score) else int(r_.away_score))
+            got_ = {(v["home_team"], v["away_team"]): (v["status"], v["home_score"], v["away_score"]) for v in (lv.get("games") or {}).values()}
+            tie("live results: status and score of every game = the saved ESPN scoreboard", {f"{a}@{h}": x for (h, a), x in got_.items() if (h, a) in sb_}, {f"{a}@{h}": x for (h, a), x in sb_.items() if (h, a) in got_})
+    except Exception as e:  # noqa
+        rows.append(("live results file", str(e)[:80], "readable", False))
     if (OUT / "props.json").exists():
         pj = json.loads((OUT / "props.json").read_text()); gm = {g_["game_id"]: g_ for g_ in G}; off = []
         for gid, sides in pj["games"].items():
