@@ -555,6 +555,11 @@
 "Out"
 ],
 [
+"PHI",
+"Marquise Brown",
+"Out"
+],
+[
 "PIT",
 "Gennings Dunker",
 "Out"
@@ -954,13 +959,7 @@
 "CHI",
 "Cairo Santos",
 "",
-"Did Not Participate In Practice"
-],
-[
-"CHI",
-"Caleb Williams",
-"",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "CHI",
@@ -972,7 +971,7 @@
 "CHI",
 "Joe Thuney",
 "",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "CHI",
@@ -982,27 +981,15 @@
 ],
 [
 "CHI",
-"Noah Sewell",
-"",
-"Limited Participation in Practice"
-],
-[
-"CHI",
-"Shemar Turner",
-"",
-"Limited Participation in Practice"
-],
-[
-"CHI",
 "Tyrique Stevenson",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "CHI",
 "Tyson Bagent",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "CHI",
@@ -1924,15 +1911,9 @@
 ],
 [
 "PHI",
-"Dallas Goedert",
-"",
-"Did Not Participate In Practice"
-],
-[
-"PHI",
 "DeVonta Smith",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "PHI",
@@ -1943,20 +1924,14 @@
 [
 "PHI",
 "Jonathan Greenard",
-"",
-"Limited Participation in Practice"
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "PHI",
 "Jonathan Greenard",
 "Questionable (ESPN)",
 ""
-],
-[
-"PHI",
-"Marquise Brown",
-"",
-"Did Not Participate In Practice"
 ],
 [
 "PHI",
@@ -1968,7 +1943,7 @@
 "PHI",
 "Tank Bigsby",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "PHI",
@@ -2297,65 +2272,65 @@
 ],
 "weather": {
 "2026_03_LAC_BUF": {
-"wind": 15.5,
+"wind": 15.1,
 "cold": false,
 "rain": false
 },
 "2026_03_CAR_CLE": {
-"wind": 12.8,
+"wind": 12.5,
 "cold": false,
 "rain": false
 },
 "2026_03_HOU_IND": {
-"wind": 5.6,
+"wind": 4.9,
 "cold": false,
 "rain": false
 },
 "2026_03_NE_JAX": {
-"wind": 4.1,
+"wind": 4.7,
 "cold": false,
 "rain": false
 },
 "2026_03_KC_MIA": {
-"wind": 3.5,
+"wind": 5.0,
 "cold": false,
 "rain": false
 },
 "2026_03_TEN_NYG": {
-"wind": 13.0,
+"wind": 10.6,
 "cold": false,
 "rain": false
 },
 "2026_03_CIN_PIT": {
-"wind": 13.7,
+"wind": 13.4,
 "cold": false,
 "rain": false
 },
 "2026_03_SEA_WAS": {
-"wind": 11.4,
+"wind": 11.9,
 "cold": false,
 "rain": true
 },
 "2026_03_ARI_SF": {
-"wind": 7.3,
+"wind": 5.4,
 "cold": false,
 "rain": false
 },
 "2026_03_MIN_TB": {
-"wind": 5.9,
+"wind": 6.3,
 "cold": false,
 "rain": false
 },
-"2026_03_LA_DEN": {
-"wind": 5.6,
+"2026_03_BAL_DAL": {
+"wind": 8.9,
 "cold": false,
 "rain": false
 },
 "2026_03_PHI_CHI": {
-"wind": 4.8,
+"wind": 4.7,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-27 04:36 UTC"
+"written_at": "2026-09-27 06:35 UTC"
 }
