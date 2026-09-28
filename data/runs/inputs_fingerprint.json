@@ -366,11 +366,6 @@
 ],
 [
 "DAL",
-"Jalen Thompson",
-"Out"
-],
-[
-"DAL",
 "Malik Hooker",
 "Out"
 ],
@@ -792,7 +787,7 @@
 [
 "LV",
 "Jack Bech",
-"Out"
+"Doubtful"
 ],
 [
 "LV",
@@ -862,11 +857,6 @@
 [
 "MIN",
 "Caleb Tiernan",
-"Out"
-],
-[
-"MIN",
-"Charles Demmings",
 "Out"
 ],
 [
@@ -1047,11 +1037,6 @@
 [
 "NYJ",
 "David Onyemata",
-"Out"
-],
-[
-"NYJ",
-"Dylan Parham",
 "Out"
 ],
 [
@@ -1327,11 +1312,6 @@
 [
 "WAS",
 "Jayden Daniels",
-"Out"
-],
-[
-"WAS",
-"Leo Chenal",
 "Out"
 ],
 [
@@ -1708,6 +1688,12 @@
 ],
 [
 "DAL",
+"Jalen Thompson",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "James Houston",
 "",
 "Full Participation in Practice"
@@ -1729,12 +1715,6 @@
 "RJ Harvey",
 "",
 "Full Participation in Practice"
-],
-[
-"DEN",
-"RJ Harvey",
-"Questionable (ESPN)",
-""
 ],
 [
 "DET",
@@ -2248,6 +2228,12 @@
 ],
 [
 "MIN",
+"Charles Demmings",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
@@ -2509,6 +2495,12 @@
 "David Bailey",
 "",
 "Full Participation in Practice"
+],
+[
+"NYJ",
+"Dylan Parham",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
@@ -2860,6 +2852,12 @@
 ],
 [
 "WAS",
+"Leo Chenal",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Percy Butler",
 "",
 "Full Participation in Practice"
@@ -2872,16 +2870,11 @@
 ]
 ],
 "weather": {
-"2026_03_LA_DEN": {
-"wind": 7.8,
-"cold": false,
-"rain": false
-},
 "2026_03_PHI_CHI": {
 "wind": 4.2,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 03:06 UTC"
+"written_at": "2026-09-28 04:20 UTC"
 }
