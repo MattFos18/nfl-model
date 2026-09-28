@@ -817,7 +817,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   if (sub.seasonsec === "seasonbt") sub.seasonsec = "odds";
   if (["inputs", "overview"].includes(sub.teamsec)) sub.teamsec = "roster";   // Overview removed 24 Sep 2026: every part of it was on another tab
   { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
-  tab = "live";   // every visit starts on Live (28 Sep 2026)
+  tab = "live";   // every visit starts on Live (28 Sep 2026), at the top: the browser's own scroll restore is off
+  try { history.scrollRestoration = "manual"; } catch (e) {}
+  window.scrollTo(0, 0); window.addEventListener("load", () => window.scrollTo(0, 0)); window.addEventListener("pageshow", () => window.scrollTo(0, 0));
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
   META.columns.forEach(c => { if (HIDE.has(c)) return; const g = (META.dictionary[c]||{}).group || "Other"; (groupsOf[g] = groupsOf[g] || []).push(c); });
