@@ -109,6 +109,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh api "repos/$GITHUB_REPOSITORY/pages" > /dev/null 2>&1; then gh workflow run pages.yml --ref main; else echo "Pages not enabled: Settings -> Pages -> Source: GitHub Actions"; fi
+      - name: Monday audit fallback   # GitHub's cron has never started health.yml on this repo (28 Sep 2026: two manual runs, no scheduled one); once each Monday after 13:00 UTC, dispatch it when nothing has run that day
+        if: steps.gate.outputs.skip != '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$(date -u +%u)" = "1" ] && [ "$(date -u +%H)" -ge 13 ]; then
+            n=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow health.yml --created "$(date -u +%Y-%m-%d)" --json databaseId --jq length || echo 1)
+            echo "audit runs today: $n"; if [ "$n" = "0" ]; then gh workflow run health.yml --ref main; fi
+          fi
       - name: re-price when an input changed
         if: steps.gate.outputs.skip != '1' && (steps.fresh.outputs.reprice == '1')
         env:
