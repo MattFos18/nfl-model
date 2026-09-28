@@ -2267,4 +2267,7 @@ live record from the page's grades (the same legs as the tiles; the shadows keep
 column, no Model picks or Matt's bets cards; the flagged bets' units are counted at -110 from the same graded legs.
 Info: the captions under each section are gone; the method text stays. Teams -> Ratings by week: the chart alone
 (no bands, labels right of the last point), the table under it gone.
+The chart card is capped at 860px wide so its text and dots stay normal size (it scaled to the full page before).
+Season: the odds and totals views lose every note and footnote (the sentence under Wins, the Model/Books explanation
+under Odds, the availability footnote under Projected, the header tooltips); the numbers stay.
 
