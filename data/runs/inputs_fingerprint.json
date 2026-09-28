@@ -535,6 +535,11 @@
 "Out"
 ],
 [
+"NO",
+"Travis Etienne Jr.",
+"Out"
+],
+[
 "NYG",
 "Deonte Banks",
 "Out"
@@ -671,22 +676,7 @@
 ],
 [
 "SF",
-"Enrique Cruz Jr.",
-"Out"
-],
-[
-"SF",
-"Ephesians Prysock",
-"Out"
-],
-[
-"SF",
 "James Thompson Jr.",
-"Out"
-],
-[
-"SF",
-"Kurtis Rourke",
 "Out"
 ],
 [
@@ -700,23 +690,8 @@
 "Out"
 ],
 [
-"SF",
-"Tatum Bethune",
-"Out"
-],
-[
-"TB",
-"Ayden Garnes",
-"Out"
-],
-[
 "TB",
 "Baker Mayfield",
-"Out"
-],
-[
-"TB",
-"Billy Schrauth",
 "Out"
 ],
 [
@@ -726,47 +701,7 @@
 ],
 [
 "TB",
-"Luke Haggard",
-"Out"
-],
-[
-"TB",
-"Rakeem Nunez-Roches",
-"Out"
-],
-[
-"TB",
 "Rueben Bain Jr.",
-"Out"
-],
-[
-"TEN",
-"Atonio Mafi",
-"Out"
-],
-[
-"TEN",
-"Brandon Crenshaw-Dickson",
-"Out"
-],
-[
-"TEN",
-"Jackie Marshall",
-"Out"
-],
-[
-"TEN",
-"Jaylon Jones",
-"Out"
-],
-[
-"TEN",
-"Kylen Granson",
-"Out"
-],
-[
-"TEN",
-"Michael Carter",
 "Out"
 ],
 [
@@ -777,11 +712,6 @@
 [
 "WAS",
 "Frankie Luvu",
-"Out"
-],
-[
-"WAS",
-"Javontae Jean-Baptiste",
 "Out"
 ],
 [
@@ -1875,12 +1805,6 @@
 "Full Participation in Practice"
 ],
 [
-"NO",
-"Travis Etienne Jr.",
-"Questionable (ESPN)",
-""
-],
-[
 "NYG",
 "Andrew Thomas",
 "",
@@ -2356,5 +2280,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 19:26 UTC"
+"written_at": "2026-09-28 20:07 UTC"
 }
