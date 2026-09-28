@@ -2250,3 +2250,11 @@ rank chips above it and the table below; the scheme, box-score and roster tables
 the game log is denser; every caption is gone. Players: a player's page opens with his rank chip and tiles, the
 value calculation panel is gone (the method is in Info), every section's caption is gone, the tables are compact.
 
+**After the switch (28 Sep 2026, weekly run 145).** With the props reading the model's margin, the walk-forward
+by-season errors moved a hundredth (passing 56.56 / 56.06 to 56.55 / 56.05; the touchdown log losses at the fourth
+decimal); the page's constants follow the by-season run, and the check against the rounds that set the rule allows
+0.02 because those rounds read the closing line. The props game-script tie now compares to the model's expected
+points (pred_v3), not the card's line. The "numbers reproduce the previous commit" check read the previous code sha
+from the working meta.js, which the same run had already rewritten, so it never skipped on a code change; it now
+reads the committed file.
+

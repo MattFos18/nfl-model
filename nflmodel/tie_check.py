@@ -142,8 +142,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             def _r15(stat, var): return [float(r15[(r15.stat == stat) & (r15.variant == var) & (r15.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
             def _r17(stat, var): return [float(r17[(r17.frame == "touch") & (r17.stat == stat) & (r17.variant == var) & (r17.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
             b2 = {"rec_yards": _r17("rec_yards", "blend_0.75"), "pass_yards": _r15("pass_yards", "A_linear_mean"), "rush_yards": _r17("rush_yards", "share_a")}
-            # within 0.01: two decimals on the by-season run
-            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.01)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.01 for k in b1 for i in (0, 1))))
+            # within 0.02: two decimals on the by-season run, and the rounds read the closing line for the game script where the
+            # live rule reads the model's margin and total (28 Sep 2026, no market input; passing 2023-25 sits 0.011 apart)
+            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.02)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.02 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
@@ -525,7 +526,10 @@ def check_run(rows, g) -> None:
     try:
         import subprocess as _sp
         meta_f = WEB / "meta.js"
-        prev_sha = json.loads(meta_f.read_text()[meta_f.read_text().index("=") + 1:].rstrip().rstrip(";")).get("code_sha", "") if meta_f.exists() else ""
+        # the previous build's code sha is the committed meta.js's (28 Sep 2026: the working file is rewritten earlier in the same
+        # run, so reading it made every build "same code" and a model change failed one run instead of being skipped)
+        _mt = _sp.run(["git", "show", "HEAD:web/data/meta.js"], cwd=ROOT, capture_output=True, text=True).stdout
+        prev_sha = json.loads(_mt[_mt.index("=") + 1:].rstrip().rstrip(";")).get("code_sha", "") if _mt and "=" in _mt else ""
         newest = _sp.run(["git", "log", "-1", "--format=%H", "HEAD", "--", "nflmodel", "experiments"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         same_code = bool(prev_sha) and bool(newest) and _sp.run(["git", "merge-base", "--is-ancestor", newest, prev_sha], cwd=ROOT, capture_output=True).returncode == 0
         if same_code:
@@ -1052,17 +1056,21 @@ def check_live(rows, wk) -> None:
     except Exception as e:  # noqa
         rows.append(("live results file", str(e)[:80], "readable", False))
     if (OUT / "props.json").exists():
+        # the game script reads the game model's own margin and total (28 Sep 2026, Matt: no market input): the home side's
+        # margin is home_exp - away_exp, the total home_exp + away_exp, the kicker's total the team's expected points (pred_v3)
         pj = json.loads((OUT / "props.json").read_text()); gm = {g_["game_id"]: g_ for g_ in G}; off = []
+        _pv = pd.read_parquet(OUT / "pred_v3.parquet", columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if (OUT / "pred_v3.parquet").exists() else None
         for gid, sides in pj["games"].items():
             g_ = gm.get(gid)
-            if g_ is None: continue
+            if g_ is None or _pv is None or gid not in _pv.index: continue
+            he, ae = float(_pv.loc[gid, "home_exp"]), float(_pv.loc[gid, "away_exp"])
             for t, sd in sides.items():
                 v = sd.get("volume", {}); sg = 1 if t == g_["home_team"] else -1
-                if g_.get("total_line") is not None and v.get("total") != g_["total_line"]: off.append(f"{gid} {t} total")
-                if g_.get("spread_line") is not None and v.get("margin") is not None and abs(v["margin"] - sg * g_["spread_line"]) > 1e-9: off.append(f"{gid} {t} margin")
+                if v.get("total") is not None and abs(v["total"] - (he + ae)) > 1e-6: off.append(f"{gid} {t} total")
+                if v.get("margin") is not None and abs(v["margin"] - sg * (he - ae)) > 1e-6: off.append(f"{gid} {t} margin")
                 for k in sd.get("kicker", []):
-                    if g_.get("total_line") is not None and abs(k["implied_total"] - round((g_["total_line"] + sg * g_["spread_line"]) / 2, 2)) > 0.006: off.append(f"{gid} {t} kicker")
-        tie("props game script (volume margin and total, kicker implied total) = the card's line", off[:8], [])
+                    if abs(k["implied_total"] - round(he if sg == 1 else ae, 2)) > 0.006: off.append(f"{gid} {t} kicker")
+        tie("props game script (volume margin and total, kicker implied total) = the game model's expected points (pred_v3)", off[:8], [])
         dup, dis = [], []
         for gid, sides in pj["games"].items():
             for t, sd in sides.items():
