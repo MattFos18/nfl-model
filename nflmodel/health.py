@@ -73,10 +73,13 @@ def main() -> bool:
             pk = REP / f"picks_{season}_wk{week}.csv"
             add("OK" if pk.exists() else "FAIL", f"picks file for Week {week}, {season}", pk.name if pk.exists() else "missing")
             if pk.exists():
-                p = pd.read_csv(pk); flagged = p[p.bet.fillna("") != ""]
+                # only games still to come: a flag on a game that has kicked off is never recorded (tracker._record), and a
+                # recorded pick stays once its game starts; the week's file re-prices every game on the newest line
+                kick = pd.to_datetime(g.set_index("game_id").kickoff_et); now_ = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+                p = pd.read_csv(pk); p = p[p.game_id.map(kick) > now_]; flagged = p[p.bet.fillna("") != ""]
                 mp = DATA / "tracker" / "model_picks.csv"
                 cur = pd.read_csv(mp) if mp.exists() else pd.DataFrame(columns=["season", "week", "bet"])
-                cur = cur[(cur.season == season) & (cur.week == week)]
+                cur = cur[(cur.season == season) & (cur.week == week) & (cur.game_id.map(kick) > now_)]
                 same = sorted(flagged.bet) == sorted(cur.bet)
                 add("OK" if same else "FAIL", "tracker holds the week's flags", f"picks: {sorted(flagged.bet)}; tracker: {sorted(cur.bet)}")
                 from .picks import SHADOWS
@@ -84,7 +87,7 @@ def main() -> bool:
                     col, f2 = f"{name}_bet", DATA / "tracker" / f"{name}_picks.csv"
                     if col in p.columns:
                         want = sorted(p[p[col].fillna("") != ""][col]); have = pd.read_csv(f2) if f2.exists() else pd.DataFrame(columns=["season", "week", "bet"])
-                        have = sorted(have[(have.season == season) & (have.week == week)].bet) if len(have) else []
+                        have = sorted(have[(have.season == season) & (have.week == week) & (have.game_id.map(kick) > now_)].bet) if len(have) else []
                         add("OK" if want == have else "FAIL", f"shadow rule recorded for the week: {name}", f"picks: {want}; tracker: {have}")
         except Exception as e:  # noqa
             add("FAIL", "picks and tracker check", str(e)[:120])

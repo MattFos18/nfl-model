@@ -161,11 +161,13 @@ def _record(picks: pd.DataFrame, run_at: str, col: str, fname: str):
     f = TR / fname
     if f.exists():
         old = pd.read_csv(f)
-        # keep old rows for games already kicked off; an unplayed game's earlier pick is replaced by this run's, or
-        # dropped when this run no longer flags it (the line or the inputs moved)
-        played = old.game_id.map(games.home_score).notna()
+        # keep old rows for games already kicked off (scored, or past kickoff and not yet scored: 28 Sep 2026, three
+        # shadow Unders recorded before kickoff were dropped by the runs between kickoff and nflverse's score); an
+        # unplayed game's earlier pick is replaced by this run's, or dropped when this run no longer flags it (the
+        # line or the inputs moved), so the recorded bet is the flag at the last run before kickoff
+        started = old.game_id.map(games.home_score).notna() | (pd.to_datetime(old.game_id.map(games.kickoff_et)) <= now)
         cur = set(picks[(picks.season == picks.season.max())].game_id)
-        old = old[played | ~old.game_id.isin(cur)]
+        old = old[started | ~old.game_id.isin(cur)]
         new = pd.concat([old, new], ignore_index=True)
     new.to_csv(f, index=False)
     return new
