@@ -3150,15 +3150,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const W = window.WEEK || {}, H = g.home_team, A = g.away_team, R = {g, H, A}, RP = W.report_records || {};
     const band = (bands, v) => (bands || []).find(b => v >= b.lo && (b.hi == null || v < b.hi));
     // spread: our side at the line now, its calibrated cover chance, the edge, how often edges this size have covered; a bet when flagged
-    if (g.spread_line != null) { const home = g.spread_edge > 0, t = home ? H : A, b = band((RP.spread || {}).bands, Math.abs(g.spread_edge));
+    if (g.spread_line != null) { const home = g.p_cover_home != null ? g.p_cover_home >= 0.5 : g.spread_edge > 0, t = home ? H : A, b = band((RP.spread || {}).bands, Math.abs(g.spread_edge));
       R.spread = {side: t, line: lineTxt(t, home ? -g.spread_line : g.spread_line), p: g.p_cover_cal_home == null ? null : (home ? g.p_cover_cal_home : 1 - g.p_cover_cal_home), raw: g.p_cover_home == null ? null : (home ? g.p_cover_home : 1 - g.p_cover_home), edge: Math.abs(g.spread_edge),
         bet: !!g.bet || (g.bet_recorded || []).length > 0, hist: b ? {wl: b.wl, lab: `edges ${b.lo}${b.hi == null ? "+" : "–" + b.hi}`} : null}; }
     // total: the side the calibrated chance favors (p_over_cal, the card's figure; 27 Sep 2026), the band record by the raw chance of that side; a bet when the totals flag is set
-    if (g.total_line != null) { const po = overP(g), pr = g.p_over_emp, over = po != null ? po >= 0.5 : g.total_edge > 0, ch = po == null ? null : (over ? po : 1 - po), chr = pr == null ? null : (over ? pr : 1 - pr), b = chr == null ? null : band((RP.total || {}).bands, chr);
+    if (g.total_line != null) { const po = overP(g), pr = g.p_over_emp, over = pr != null ? pr >= 0.5 : po != null ? po >= 0.5 : g.total_edge > 0, ch = po == null ? null : (over ? po : 1 - po), chr = pr == null ? null : (over ? pr : 1 - pr), b = chr == null ? null : band((RP.total || {}).bands, chr);
       R.total = {side: over ? "Over" : "Under", line: `${over ? "Over" : "Under"} ${g.total_line}`, p: ch, raw: chr, edge: Math.abs(g.total_edge),
         bet: !!g.shadowunder_bet || (g.shadowunder_recorded || []).length > 0, hist: b ? {wl: b.wl, lab: `raw chances ${Math.round(100 * b.lo)}${b.hi == null ? "%+" : "–" + Math.round(100 * b.hi) + "%"}`} : null}; }
     // winner: the calibrated win chance, as the card (p_home_cal, 27 Sep 2026); the same side as the raw chance, the mapping being monotone
-    const pw = winP(g), fav = pw >= 0.5 ? H : A;
+    const pw = winP(g), fav = (g.p_home != null ? g.p_home : pw) >= 0.5 ? H : A;
     R.win = {side: fav, p: fav === H ? pw : 1 - pw, raw: g.p_home == null ? null : (fav === H ? g.p_home : 1 - g.p_home), vegas: g.vegas_win == null ? null : (fav === H ? g.vegas_win : 1 - g.vegas_win)};
     R.score = {[A]: g.away_exp, [H]: g.home_exp};
     if (g.spread_line != null && g.total_line != null) R.vscore = {[A]: (g.total_line - g.spread_line) / 2, [H]: (g.total_line + g.spread_line) / 2};
@@ -3168,9 +3168,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       if (R.total) { const d = R.total.side === "Over" ? tot - g.total_line : g.total_line - tot; R.total.result = d > 0 ? "win" : d < 0 ? "loss" : "push"; }
       R.win.result = m === 0 ? "push" : ((m > 0 ? H : A) === R.win.side ? "win" : "loss"); }
     else { const lv = liveOf(g); if (lv && lv.status === "final") { R.final = {[A]: lv.away_score, [H]: lv.home_score}; R.live = lv; const C = lv.calls || {};
-      if (R.spread && C.spread && C.spread.side === R.spread.side) R.spread.result = C.spread.result;
-      if (R.total && C.total && C.total.side === R.total.side) R.total.result = C.total.result;
-      if (C.winner && C.winner.side === R.win.side) R.win.result = C.winner.result; } }
+      // Python's grade where it graded the same side; otherwise (the table's side is the likelier one, Python's the average's) graded here from the final at the line shown
+      const m = lv.home_score - lv.away_score, tot = lv.home_score + lv.away_score, res = d => d > 0 ? "win" : d < 0 ? "loss" : "push";
+      if (R.spread) R.spread.result = C.spread && C.spread.side === R.spread.side ? C.spread.result : res((R.spread.side === H ? m : -m) + (R.spread.side === H ? -g.spread_line : g.spread_line));
+      if (R.total) R.total.result = C.total && C.total.side === R.total.side ? C.total.result : res(R.total.side === "Over" ? tot - g.total_line : g.total_line - tot);
+      R.win.result = C.winner && C.winner.side === R.win.side ? C.winner.result : (m === 0 ? "push" : ((m > 0 ? H : A) === R.win.side ? "win" : "loss")); } }
     // the line and the model from the week's first snapshot and run to now
     const snaps = {}; (g.line_history || []).forEach(r => { (snaps[r.ts] = snaps[r.ts] || {s: [], t: []}); if (r.home_spread != null) snaps[r.ts].s.push(r.home_spread); if (r.total != null) snaps[r.ts].t.push(r.total); });
     const ts = Object.keys(snaps).sort(), first = ts.find(t => snaps[t].s.length), firstT = ts.find(t => snaps[t].t.length);
