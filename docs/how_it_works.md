@@ -207,10 +207,15 @@ mechanical, not a matter of care:
 - **Lines.** The closing spread and total from nflverse for played games; the current line for unplayed ones. The
   backtest is therefore "the model against the close". Live, the tracker records the line the pick was made at and
   the closing line value once the game closes.
-- **Reproducible.** The same inputs give the same numbers: the boosted trees fit on one thread (27 Sep 2026; in
-  parallel their histogram sums rounded differently from runner to runner and a third of the historical games moved by
-  up to 1.35 points between two runs), and a tie check fails a run whose numbers for past seasons differ from the
-  previous commit's when the code that builds them has not changed.
+- **Reproducible.** The same inputs give the same numbers. The boosted trees did not reproduce across GitHub's runners
+  (27 to 28 Sep 2026: identical library versions, identical features to 1e-14, one thread, and two runs still moved a
+  third of the games before 2026 by up to a point, while every ridge was identical and the same fit on one machine
+  never moved), so each trees fit's predictions are stored under a key of its inputs (`data/processed/trees_cache.parquet`:
+  the training rows' features and points and the test rows' features rounded to nine decimals, the parameters) and a
+  later run with the same inputs reads them back instead of refitting. A game's number is the number the first fit gave
+  it, on any machine, until its inputs change; keys a run does not touch are dropped. Two ties guard it: the trees
+  columns of `pred_v3` equal their stored fits, and the numbers for past seasons equal the previous commit's whenever the
+  code that builds them has not changed.
 - **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
   games is the recorded game-time weather (nflverse posts it days after the score; until then the game keeps the kickoff
   reading it was priced with, 27 Sep 2026).

@@ -534,6 +534,15 @@ def check_run(rows, g) -> None:
             rows.append(("the model's numbers for past seasons reproduce the previous commit's", "skipped: the code that builds the data changed since the last build", "skipped: the code that builds the data changed since the last build", True))
     except Exception as e:  # noqa
         rows.append(("the model's numbers for past seasons reproduce the previous commit's", str(e)[:80], "", False))
+    # the trees' stored predictions (model.TREES_CACHE, 28 Sep 2026) are the numbers in pred_v3: every team-game's trees column
+    # equals its cache row, and no team-game is without one
+    if M.TREES_CACHE.exists():
+        pv_ = pd.read_parquet(OUT / "pred_v3.parquet", columns=["game_id", "home_team", "away_team", "home_m_trees", "away_m_trees"]); tc_ = pd.read_parquet(M.TREES_CACHE).drop_duplicates(["game_id", "team"], keep="last")
+        both_ = pd.concat([pv_[["game_id", "home_team", "home_m_trees"]].rename(columns={"home_team": "team", "home_m_trees": "p"}), pv_[["game_id", "away_team", "away_m_trees"]].rename(columns={"away_team": "team", "away_m_trees": "p"})]).merge(tc_[["game_id", "team", "pred"]], on=["game_id", "team"], how="left")
+        gap_ = float((both_.p - both_.pred).abs().max()) if both_.pred.notna().any() else 0.0; miss_ = int(both_.pred.isna().sum())
+        rows.append(("the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one)", f"{gap_:.2e}; {miss_}", "1e-9 or under; 0", gap_ <= 1e-9 and miss_ == 0))
+    else:
+        rows.append(("the trees' stored fits (trees_cache.parquet)", "missing", "on file", False))
     from . import weekly as WK
     st = json.loads(WK.STAMPS.read_text()) if WK.STAMPS.exists() else {}
     stale = []
