@@ -24,6 +24,11 @@ def _js(name: str):
     s = (WEB / name).read_text(); return json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
 
 
+def _unpack(d: dict) -> dict:
+    """The inverse of export_web.pack_rows: {cols, rows} back to a list of dicts (props_record.js, 28 Sep 2026)."""
+    return {k: ([dict(zip(v["cols"], r)) for r in v["rows"]] if isinstance(v, dict) and "cols" in v and "rows" in v else v) for k, v in d.items()}
+
+
 def check_sources() -> list[tuple[str, str, str, bool]]:
     rows = []
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
@@ -657,7 +662,7 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
     rk = _js("rankings.js"); mx = rk.get("matchup") or {}
     ls = str(max(int(k) for k in rk["seasons"])); lw = str(max(int(k) for k in rk["seasons"][ls])); tm = sorted(rk["seasons"][ls][lw]["teams"])
     tie("Rankings matchup: priced for the latest ratings table, every pair of teams", [mx.get("season"), mx.get("week"), sum(len(v) for v in (mx.get("pts") or {}).values())], [int(ls), int(lw), len(tm) * (len(tm) - 1)])
-    pr = _js("props_record.js"); vm = TR / "props_vs_market.csv"
+    pr = _unpack(_js("props_record.js")); vm = TR / "props_vs_market.csv"
     if vm.exists():
         from .props import market_summary
         tie("props record summary on the page = props.market_summary(props_vs_market.csv)", pr.get("summary"), json.loads(json.dumps(market_summary(pd.read_csv(vm)))))
@@ -677,7 +682,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             ppg = _js("player_profiles.js"); pp0 = json.loads((OUT / "props_profiles.json").read_text())
             tie("player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week)", [len(pp0["receivers"]), len(pp0["rushers"]), len(pp0["passers"]), len(pp0["defenses"]), pp0["season"], pp0["week"]], [len(ppg["receivers"]), len(ppg["rushers"]), len(ppg["passers"]), len(ppg["defenses"]), ppg["season"], ppg["week"]])
         if (WEB / "props_record.js").exists():
-            prr = _js("props_record.js"); n_proj = sum(len(pd.read_csv(f)) for f in REP.glob("props_*_wk*.csv")); n_gr = len(pd.read_csv(TR / "props_graded.csv")) if (TR / "props_graded.csv").exists() else 0; n_mk = len(pd.read_csv(TR / "props_vs_market.csv")) if (TR / "props_vs_market.csv").exists() else 0
+            prr = _unpack(_js("props_record.js")); n_proj = sum(len(pd.read_csv(f)) for f in REP.glob("props_*_wk*.csv")); n_gr = len(pd.read_csv(TR / "props_graded.csv")) if (TR / "props_graded.csv").exists() else 0; n_mk = len(pd.read_csv(TR / "props_vs_market.csv")) if (TR / "props_vs_market.csv").exists() else 0
             tie("props record on the page = every projection file, graded rows and market rows", [n_proj, n_gr, n_mk], [len(prr["projections"]), len(prr["graded"]), len(prr["market"])])
         if (WEB / "player_careers.js").exists():
             pc = _js("player_careers.js"); yr = max(y for y in pc["seasons"] if y < max(pc["seasons"]))   # the last complete season

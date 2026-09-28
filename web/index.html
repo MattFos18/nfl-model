@@ -692,6 +692,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 <script src="data/players.js"></script>
 <script src="data/player_profiles.js"></script>
 <script src="data/props_record.js"></script>
+<script>(o => { for (const k in o) if (o[k] && o[k].cols && o[k].rows) o[k] = o[k].rows.map(r => Object.fromEntries(o[k].cols.map((c, i) => [c, r[i]]))); })(window.PROPS_REC || {});</script>
 <script src="data/scheme.js"></script>
 <script src="data/season.js"></script>
 <script src="data/catalog.js"></script>
