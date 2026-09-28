@@ -170,14 +170,18 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             fitted5 = {st: r5[r5.stat == st].fitted.dropna().iloc[0] for st in ["rec_catch", "rec_td", "pass_td"]}
             fitted5["rec_catch"] = fitted5["rec_catch"].split(", median factor")[0]   # the catch K is round five's; its factor was refit in round eleven (tied above)
             tie("props count constants = props_backtest5.csv", fitted5, {"rec_catch": f"K {pj['k_catch']:.0f}", "rec_td": f"K {pj['k_td']['rec']:.0f}, margin coefficient {pj['td_margin']['rec']:.3f} per point", "pass_td": f"K {pj['k_td']['pass']:.0f}, margin coefficient {pj['td_margin']['pass']:.3f} per point"})
-    # the week's picks file against the tracker's unplayed model picks
+    # the week's picks file against the tracker's model picks, on the games still to come: a flag on a game that has
+    # kicked off is never recorded, and a recorded pick stays once its game starts, while the week's file re-prices
+    # every game on the newest line and inputs (28 Sep 2026: the picks week stays on a week until Monday night, so a
+    # finished game can read as flagged with post-game inputs)
     from . import lines as LN
     season, week = LN.current_week(g)
     pk_f = REP / f"picks_{season}_wk{week}.csv"
     if pk_f.exists() and (TR / "model_picks.csv").exists():
         pk = pd.read_csv(pk_f); mp = pd.read_csv(TR / "model_picks.csv")
-        flagged = pk[pk.bet.fillna("") != ""]
-        cur = mp[(mp.season == season) & (mp.week == week)]
+        kick_ = pd.to_datetime(g.set_index("game_id").kickoff_et); now_ = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
+        flagged = pk[(pk.bet.fillna("") != "") & (pk.game_id.map(kick_) > now_)]
+        cur = mp[(mp.season == season) & (mp.week == week) & (mp.game_id.map(kick_) > now_)]
         tie("picks file flags = tracker rows (games)", sorted(flagged.game_id), sorted(cur.game_id))
         tie("picks file flags = tracker rows (bets)", sorted(flagged.bet), sorted(cur.bet))
         if "stake_pct" in flagged.columns and "stake_pct" in cur.columns:
