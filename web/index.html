@@ -575,7 +575,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules compared</h3><div id="trackrules"></div></div>
   </div>
-  <div class="card" style="margin-top:14px"><h3>Every recorded bet</h3><div class="tablewrap" style="border:0"><table id="tracktable"></table></div></div>
   </div>
 </section>
 
@@ -2928,7 +2927,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       : `<p class="note">The rules and their backtest records are ${MISSING} in meta.js.</p>`;
     let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th class='l'>Book</th><th>Odds</th><th>Stake</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Note</th><th class='l'>Recorded</th></tr></thead><tbody>";
     T.filter(r => r.who === "model" || r.who === "matt").slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who === "matt" ? "You" : "Model"}</td><td>${r.season ?? ""}</td><td>${r.week ?? ""}</td><td class="l mono">${r.game_id}</td><td class="l"><b>${esc(r.bet)}</b></td><td class="l">${esc(r.book || "")}</td><td class="mono">${r.odds ?? ""}</td><td class="mono">${ok(r.stake_pct) ? Number(r.stake_pct).toFixed(1) + "%" : ""}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono ${ok(r.clv) ? (r.clv > 0 ? "pos" : (r.clv < 0 ? "neg" : "")) : ""}">${ok(r.clv) ? (r.clv > 0 ? "+" : "") + Number(r.clv).toFixed(1) : (ok(r.clv_now) ? `<span class="rk" title="against the latest logged line; the close is known once the game kicks off">${(r.clv_now > 0 ? "+" : "") + Number(r.clv_now).toFixed(1)} so far</span>` : "")}</td><td class="l">${esc(r.result || "")}</td><td class="mono ${ok(r.units) ? (r.units > 0 ? "pos" : (r.units < 0 ? "neg" : "")) : ""}">${ok(r.units) ? Number(r.units).toFixed(2) : ""}</td><td class="l" style="white-space:normal;max-width:320px">${esc(r.note || "")}</td><td class="l rk">${esc(r.run_at || "")}</td></tr>`; });
-    $("tracktable").innerHTML = h + "</tbody>";
+    if ($("tracktable")) $("tracktable").innerHTML = h + "</tbody>";   // no log table on the page (28 Sep 2026, Matt)
   }
 
 
