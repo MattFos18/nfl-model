@@ -2170,3 +2170,13 @@ written by export_web._add_injuries). Head to head · last 5 and Recent form · 
 the last row; the scheme matchup has a verdict chip per side and no "readings" chip. Panel headers are bold with an
 accent rule.
 
+**Third pass (28 Sep 2026).** The scheme matchup's verdict is the offense's gap in each look the defense plays,
+weighted by how often it plays it and averaged (the weights normalised: the looks overlap, so a plain sum overstated
+it), shown as EPA a play, a word (even, slight, solid, big) and the points over the offense's plays a game; each
+player's "Fit" is the same average over his own splits. The two sides sit in one grid so their tables line up, and
+the player table fills its column. Score projection shows each input's points only (the equation is in Info); the
+player props panel has no click-to-calculation. The card title row is centred vertically. The Games tab's record
+tiles come in two rows, "Closing line" and "Opening line", the second from results.py's grade of the same sides
+against the consensus opener; the Picks tab shows the week's tally as soon as a game is final, with the opener's
+records on the current week.
+
