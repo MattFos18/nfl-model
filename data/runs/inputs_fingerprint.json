@@ -241,6 +241,11 @@
 ],
 [
 "CAR",
+"Jaycee Horn",
+"Out"
+],
+[
+"CAR",
 "Nick Scott",
 "Out"
 ],
@@ -881,6 +886,11 @@
 ],
 [
 "NE",
+"A.J. Brown",
+"Out"
+],
+[
+"NE",
 "Behren Morton",
 "Out"
 ],
@@ -917,11 +927,6 @@
 [
 "NE",
 "Leonard Taylor III",
-"Out"
-],
-[
-"NE",
-"Mike Onwenu",
 "Out"
 ],
 [
@@ -1564,12 +1569,6 @@
 [
 "CAR",
 "Jalen Coker",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
-"Jaycee Horn",
 "Questionable (ESPN)",
 ""
 ],
@@ -2877,5 +2876,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 17:08 UTC"
+"written_at": "2026-09-28 17:38 UTC"
 }
