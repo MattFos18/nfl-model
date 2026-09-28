@@ -180,6 +180,11 @@
 "Out"
 ],
 [
+"CIN",
+"Colbie Young",
+"Out"
+],
+[
 "CLE",
 "Teven Jenkins",
 "Out"
@@ -715,6 +720,11 @@
 "Out"
 ],
 [
+"TEN",
+"Fernando Carmona",
+"Doubtful"
+],
+[
 "WAS",
 "Chig Okonkwo",
 "Out"
@@ -1051,12 +1061,6 @@
 "Tyson Bagent",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"CIN",
-"Colbie Young",
-"Questionable (ESPN)",
-""
 ],
 [
 "CIN",
@@ -2164,12 +2168,6 @@
 ],
 [
 "TEN",
-"Fernando Carmona",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
 "Jackson Slater",
 "Questionable (ESPN)",
 ""
@@ -2279,10 +2277,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 4.8,
+"wind": 4.0,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 21:35 UTC"
+"written_at": "2026-09-28 22:15 UTC"
 }
