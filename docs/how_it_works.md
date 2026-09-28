@@ -2218,7 +2218,10 @@ tracker read lines only to grade and to pick bets. Two places did read the marke
 2. The total equation's referee input, ref_over, is the referee's over rate against the closing total in his
    previous games (adopted 25 Sep 2026). A line-free version, ref_tot (each previous game's total minus the league's
    mean total of the season before, averaged and shrunk; nflmodel/trends.py), is under test against it and against no
-   referee input at all (`experiments/ref_noline.py`, reports/ref_noline.csv); the outcome goes in the decision log.
+   referee input at all (`experiments/ref_noline.py`, reports/ref_noline.csv). Total miss, 2015-18 / 2019-22 / 2023-25:
+   no referee input 10.761 / 10.566 / 10.200; ref_tot 10.744 / 10.541 / 10.177; ref_over 10.707 / 10.528 / 10.182.
+   The line-free reading beats no input on all three windows (the line-based one was a touch better on two, and is
+   out by the rule); ref_tot is the total equation's referee input from 28 Sep 2026, ref_over stays a trend reading.
 
 **The starting QB on the injury report.** A starter listed Out showed only his snaps-out points (Caleb Williams
 -0.2) while the swap to the backup sat in Score projection's Quarterback line. His row now carries the swap too:

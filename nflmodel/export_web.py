@@ -92,6 +92,7 @@ BASE = {
     "ref_over": ("Trends (shown, not used)", "Referee's over rate before this game, shrunk to 0.5. Noise", "trends.py", False, True),
     "ref_home_cover": ("Trends (shown, not used)", "Referee's home cover rate, shrunk. Noise", "trends.py", False, True),
     "ref_pen": ("Trends (shown, not used)", "Referee's penalties per game vs league, shrunk", "trends.py", False, True),
+    "ref_tot": ("Totals", "Referee's game totals against the league's mean total of the season before, previous games, shrunk (the total equation; no line)", "trends.py", False, True),
     "sun_late": ("Trends (shown, not used)", "Sunday late window", "trends.py", False, True), "body_clock_early": ("Trends (shown, not used)", "West Coast team at 1pm ET on the road", "trends.py", False, True),
     "cold_edge": ("Trends (shown, not used)", "Team's cold-game margin edge, applied when cold", "trends.py", False, True),
     "rain": ("Situation", "Rain, showers or a storm at kickoff (play-by-play weather text; the forecast for unplayed games)", "play-by-play / Open-Meteo", True, False),
@@ -332,10 +333,10 @@ def matchup_matrix(f2: pd.DataFrame, season: int, week: int, teams: dict) -> dic
     x = pd.DataFrame(rows)
     x["pts"] = M.predict_blend(ms, x)["blend"].values
     # the total's own equation: each pair once, a as the listed first side (its home flag only pairs the rows)
-    g = x[x.team < x.opp].copy(); h = g.assign(game_id=g.team + "_" + g.opp, pf=np.nan, home=1.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, rain=0.0, cold=0.0, dome=0.0, div_game=0.0,
+    g = x[x.team < x.opp].copy(); h = g.assign(game_id=g.team + "_" + g.opp, pf=np.nan, home=1.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, ref_tot=0.0, rain=0.0, cold=0.0, dome=0.0, div_game=0.0,
                                                 skill_out_value=0.0, off_snap_out=0.0, off_turnover_early=0.0)
     back = x.set_index(["team", "opp"])
-    aw = pd.DataFrame([{**back.loc[(o, t)].to_dict(), "team": o, "opp": t} for t, o in zip(g.team, g.opp)]).assign(game_id=h.game_id.values, pf=np.nan, home=0.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, rain=0.0, cold=0.0,
+    aw = pd.DataFrame([{**back.loc[(o, t)].to_dict(), "team": o, "opp": t} for t, o in zip(g.team, g.opp)]).assign(game_id=h.game_id.values, pf=np.nan, home=0.0, qb_out=0.0, qb_form=0.0, ref_over=0.5, ref_tot=0.0, rain=0.0, cold=0.0,
                                                                                                                  dome=0.0, div_game=0.0, skill_out_value=0.0, off_snap_out=0.0, off_turnover_early=0.0)
     test = pd.concat([h, aw], ignore_index=True)
     th, ta = test[test.home == 1].set_index("game_id"), test[test.home == 0].set_index("game_id")

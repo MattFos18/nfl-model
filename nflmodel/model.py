@@ -279,7 +279,7 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_over", "qb_form_sum"]   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_tot", "qb_form_sum"]   # ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
 QB_FORM_K = 100.0
 
 
@@ -297,7 +297,13 @@ def qb_form(f: pd.DataFrame) -> pd.Series:
             out.append(0.0); continue
         m = v[0] < w; db, ep = float(v[1][m].sum()), float(v[2][m].sum())
         out.append((ep + QB_FORM_K * r) / (db + QB_FORM_K) - r)
-    return pd.Series(out, index=f.index)   # ref_over (the referee's over rate, prior games, shrunk) added 25 Sep 2026: lower total miss on 2015-18, 2019-22 and 2023-25 (reports/bet_wins.csv)
+    return pd.Series(out, index=f.index)
+# The referee (25 Sep 2026: ref_over, his over rate against the closing total in previous games, lowered the total miss on
+# every window). 28 Sep 2026, Matt: no market line in any input, so ref_over gave way to ref_tot, the same reading built
+# without a line (each previous game's total minus the league's mean total of the season before, averaged and shrunk;
+# trends.py). experiments/ref_noline.py, reports/ref_noline.csv, total miss on 2015-18 / 2019-22 / 2023-25:
+# no referee input 10.761 / 10.566 / 10.200; ref_tot 10.744 / 10.541 / 10.177; ref_over 10.707 / 10.528 / 10.182.
+# ref_tot beats no input on all three windows and is adopted; ref_over stays a trend reading (shown, not used).
 
 
 def _game_frame(f: pd.DataFrame) -> pd.DataFrame:

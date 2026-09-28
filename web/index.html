@@ -311,7 +311,7 @@ table.rpsum a{color:var(--ink);font-weight:600;text-decoration:none;border-botto
 .pb .pv{font-family:var(--display);font-size:22px;font-weight:600}
 .pb .pp{font-size:14px}.pb .pp b{font-family:var(--display);font-size:18px}
 .pb .ps{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.35}
-.rgsec{margin:0 0 14px;min-width:0} .rgsec table.rgt{width:auto} .rgsec table.rgt td,.rgsec table.rgt th{padding-right:28px} .rgsec table.rgt.pl{width:100%} .rgsec table.rgt.pl td,.rgsec table.rgt.pl th{padding-right:8px;font-size:12.5px} .rgsec table.rgt.pl th{vertical-align:bottom} .fw{display:inline-block;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:0 5px;margin-left:5px;vertical-align:middle;line-height:15px}
+.rgsec{margin:0 0 14px;min-width:0} .rocols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start} @media(max-width:1150px){.rocols{grid-template-columns:1fr}} .tablewrap.ro{border:0;background:transparent;overflow:visible} .tablewrap.ro table.rgt{width:auto;font-size:13px} .tablewrap.ro table.rgt td,.tablewrap.ro table.rgt th{padding-right:22px;white-space:nowrap} .tablewrap.ro table.rgt tr.slotgrp td{border-top:2px solid var(--rule)} .tablewrap.ro table.rgt td .rpq{font-weight:400} .rgsec table.rgt{width:auto} .rgsec table.rgt td,.rgsec table.rgt th{padding-right:28px} .rgsec table.rgt.pl{width:100%} .rgsec table.rgt.pl td,.rgsec table.rgt.pl th{padding-right:8px;font-size:12.5px} .rgsec table.rgt.pl th{vertical-align:bottom} .fw{display:inline-block;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);border-radius:3px;padding:0 5px;margin-left:5px;vertical-align:middle;line-height:15px}
 .rgsec h4{margin:0 0 8px;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);font-weight:700;font-family:var(--body);border-bottom:2px solid var(--accent);padding-bottom:4px;display:inline-block} table.rgt tr.sum td{border-top:2px solid var(--rule);border-bottom:0;font-weight:600;color:var(--ink);padding-top:7px} table.rgt td.tm{display:inline-flex;align-items:center;gap:5px;font-weight:700} .rgv{display:inline-block;padding:1px 8px;border-radius:4px;font-size:12px;font-weight:700;background:var(--panel-2);border:1px solid var(--rule)} .rgv.posv{border-color:var(--good)} .rgv.neg{border-color:var(--bad)}
 .rgcols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 26px} .rgcols.sch{grid-template-rows:auto auto auto;grid-auto-flow:column;align-items:start} @media(max-width:640px){.rgcols.sch{grid-auto-flow:row;grid-template-rows:none}}
 .rgcols>*{min-width:0}
@@ -453,9 +453,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     </div>
   </div>
   <div id="games" hidden>
-    <p class="note">One row per game for the team and season chosen at the top right, straight from the built tables: the box score (checked against Pro-Football-Reference), the EPA stats, the ratings carried into the game, the trend readings, the model's call and the closing line. Turn column groups on and off; hover a header for the definition and source. "Allowed" groups are what the defense gave up.</p>
+
     <div class="chips" id="groupchips"></div>
-    <div class="legend"><span><span class="dot v3"></span>used by 3.0</span><span>points colored by win/loss</span></div>
     <div class="tablewrap"><table id="gamestable"></table></div>
     <div class="status" id="gamesstatus"></div>
   </div>
@@ -471,13 +470,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     </div>
   </div>
   <div id="roster" hidden>
-    <p class="note">This week's roster (nflverse weekly rosters), the latest depth chart, this week's injury report and practice status, last game's snap share, and the player model's value (Vs an average starter at his position, in EPA per team play; Points if out for the offense, which is against his replacement). Out means Out or Doubtful on the report, or IR, PUP, suspended or exempt on the roster; those are the players the model prices as unavailable.</p>
-    <div class="card" style="margin-bottom:12px"><h3>Not available this week</h3><p class="note" style="margin:4px 0 8px" id="rosteroutnote"></p><div class="tablewrap" style=""><table id="rosterout"></table></div></div>
-    <div style="display:grid;gap:12px">
-      <div class="card"><h3>Offense</h3><div class="tablewrap" style=""><table id="rosteroff"></table></div></div>
-      <div class="card"><h3>Defense</h3><div class="tablewrap" style=""><table id="rosterdef"></table></div></div>
+
+    <div class="card" style="margin-bottom:12px"><h3>Not available this week</h3><div class="tablewrap ro" style=""><table id="rosterout" class="rgt"></table></div></div>
+    <div class="rocols">
+      <div class="card"><h3>Offense</h3><div class="tablewrap ro" style=""><table id="rosteroff" class="rgt"></table></div></div>
+      <div class="card"><h3>Defense</h3><div class="tablewrap ro" style=""><table id="rosterdef" class="rgt"></table></div></div>
     </div>
-    <details style="margin-top:10px"><summary style="font-size:13px;font-weight:600">Everyone else on the roster</summary><div class="tablewrap" style="margin-top:6px"><table id="rosterrest"></table></div></details>
+    <details style="margin-top:10px"><summary style="font-size:13px;font-weight:600">Everyone else on the roster</summary><div class="tablewrap ro" style="margin-top:6px"><table id="rosterrest" class="rgt"></table></div></details>
   </div>
 </section>
 
@@ -1461,7 +1460,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
           </section>
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
@@ -1961,7 +1960,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       h += "</tr>";
     });
     $("gamestable").innerHTML = h + "</tbody>";
-    $("gamesstatus").textContent = `${team} ${season}: ${rs.length} games, ${cols.length} of ${META.columns.length - HIDE.size} columns shown.`;
+    $("gamesstatus").textContent = "";   // no count line (28 Sep 2026, Matt)
   }
 
   // ---------- Team: ratings by week ----------
@@ -2268,18 +2267,20 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // why each one is out, from every source pulled (players.unavailable_reasons): the league's report this week, ESPN's
     // injury page, the last report that listed him, and the roster's reserve list with the week the stint began
     const snapPct = r => { const v = r.unit === "Defense" ? r.def_pct : r.off_pct; return v == null ? "" : Math.round(100 * v) + "%"; };
-    $("rosteroutnote").textContent = "Everyone the model prices as unavailable: Out or Doubtful on this week's report, or on a reserve list (IR, PUP, suspended, exempt). Injury: this week's league report first, then ESPN's injury page, then the last report that listed him (dated, so an old listing reads as one). Points if out: what the game model takes off the team's expected points (skill players; the QB is priced by the QB rating).";
-    $("rosterout").innerHTML = outs.length ? `<thead><tr><th class="l">Player</th><th>Pos</th><th class="l">Status</th><th class="l">Injury</th><th class="l">From</th><th>Since</th><th>Expected back</th><th title="share of his unit's snaps in the last game he played">Snaps, last game</th><th>Points if out</th></tr></thead><tbody>` +
-      outs.map(r => `<tr><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position)}</td><td class="l">${esc(r.list || r.report || r.roster || "")}</td><td class="l">${esc(r.why || "not published")}</td><td class="l note">${esc(r.why_src || "")}</td><td class="mono">${r.since == null ? "" : r.since <= 1 ? "before the season" : "week " + r.since}</td><td class="mono">${esc(r.back || "")}</td><td class="mono">${snapPct(r)}</td><td class="mono">${outPts(r)}</td></tr>`).join("") + "</tbody>"
-      : `<tbody><tr><td class="l">Nobody listed out yet this week.</td></tr></tbody>`;
+    $("rosterout").innerHTML = outs.length ? `<thead><tr><th>Player</th><th>Status</th><th>Injury</th><th>Since</th><th>Back</th><th title="share of his unit's snaps in the last game he played">Snaps</th><th title="what the game model takes off the team's expected points (skill players; the QB is priced by the QB rating)">Pts if out</th></tr></thead><tbody>` +
+      outs.map(r => `<tr><td class="nw"><b>${esc(r.name)}</b> <span class="rpq">${esc(r.position)}</span></td><td class="nw">${esc(r.list || r.report || r.roster || "")}</td><td class="nw">${r.why ? esc(r.why) : `<span class="rpq">not published</span>`}</td><td class="nw">${r.since == null ? "" : r.since <= 1 ? "preseason" : "week " + r.since}</td><td class="nw">${esc(r.back || "")}</td><td>${snapPct(r)}</td><td>${outPts(r)}</td></tr>`).join("") + "</tbody>"
+      : `<tbody><tr><td>Nobody listed out yet this week.</td></tr></tbody>`;
     const table = (rows, unit) => { rows = rows.slice().sort((a, b) => rankOf(a.slot) - rankOf(b.slot) || (a.depth || 9) - (b.depth || 9) || String(a.name).localeCompare(b.name));
-      let h = `<thead><tr><th>Slot</th><th>#</th><th class='l'>Player</th><th>Pos</th><th class='l'>Status</th><th>Snaps last game</th><th>Vs an average starter</th>${unit === "Offense" ? "<th>Points if out</th>" : ""}</tr></thead><tbody>`;
-      rows.forEach(r => { const sn = unit === "Offense" ? r.off_pct : r.def_pct; h += `<tr class="${isOut(r) ? "neg" : ""}"><td>${esc(r.slot || "")}${r.depth ? " <span class='rk'>" + r.depth + "</span>" : ""}</td><td class="mono">${r.number ?? ""}</td><td class="l"><b>${esc(r.name)}</b></td><td>${esc(r.position)}</td><td class="l">${statusChip(r)}</td><td class="mono">${sn == null ? "" : Math.round(100 * sn) + "%"}</td><td class="mono">${r.value == null ? "" : nz(VA_ID(r.player_id), v => (v >= 0 ? "+" : "") + v.toFixed(3))}</td>${unit === "Offense" ? `<td class="mono">${outPts(r)}</td>` : ""}</tr>`; });
+      // one row a player, grouped by slot with a rule between groups; the slot carries the depth (QB1), the number sits by the name (28 Sep 2026, Matt)
+      let h = `<thead><tr><th>Slot</th><th>Player</th><th>Status</th><th title="share of the unit's snaps in the last game">Snaps</th><th title="the player model's value against an average starter at his position, in EPA a team play">Vs avg starter</th>${unit === "Offense" ? `<th title="what the game model takes off the team's expected points if he is out">Pts if out</th>` : ""}</tr></thead><tbody>`;
+      let last = null;
+      rows.forEach(r => { const sn = unit === "Offense" ? r.off_pct : r.def_pct, grp = String(r.slot || "").replace(/\d+$/, ""), first = last !== null && grp !== last; last = grp;
+        h += `<tr class="${isOut(r) ? "neg" : ""}${first ? " slotgrp" : ""}"><td class="nw"><b>${esc(r.slot || "")}</b>${r.depth ? `<span class="rpq">${r.depth}</span>` : ""}</td><td class="nw"><b>${esc(r.name)}</b> <span class="rpq">${r.number == null ? "" : "#" + r.number}</span></td><td class="nw">${statusChip(r)}</td><td>${sn == null ? "" : Math.round(100 * sn) + "%"}</td><td>${r.value == null ? "" : nz(VA_ID(r.player_id), v => (v >= 0 ? "+" : "") + v.toFixed(3))}</td>${unit === "Offense" ? `<td>${outPts(r)}</td>` : ""}</tr>`; });
       return h + "</tbody>"; };
     $("rosteroff").innerHTML = table(R.filter(r => r.unit === "Offense"), "Offense");
     $("rosterdef").innerHTML = table(R.filter(r => r.unit === "Defense"), "Defense");
-    const rest = R.filter(r => !r.unit); let h = "<thead><tr><th class='l'>Player</th><th>Pos</th><th class='l'>Roster</th><th class='l'>Status</th></tr></thead><tbody>";
-    rest.sort((a, b) => String(a.roster).localeCompare(b.roster) || String(a.position).localeCompare(b.position)).forEach(r => { h += `<tr><td class="l">${esc(r.name)}</td><td>${esc(r.position)}</td><td class="l">${esc(r.roster)}</td><td class="l">${statusChip(r)}</td></tr>`; });
+    const rest = R.filter(r => !r.unit); let h = "<thead><tr><th>Player</th><th>Roster</th><th>Status</th></tr></thead><tbody>";
+    rest.sort((a, b) => String(a.roster).localeCompare(b.roster) || String(a.position).localeCompare(b.position)).forEach(r => { h += `<tr><td class="nw"><b>${esc(r.name)}</b> <span class="rpq">${esc(r.position)}</span></td><td class="nw">${esc(r.roster)}</td><td class="nw">${statusChip(r)}</td></tr>`; });
     $("rosterrest").innerHTML = h + "</tbody>";
   }
   // ---------- Players tab (league-wide) ----------
