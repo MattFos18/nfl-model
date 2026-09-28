@@ -7,7 +7,11 @@ margin, total and team misses and the 4+ spread flag on 2015-18, 2019-22 and 202
 import os, pandas as pd
 from nflmodel import model as M
 from nflmodel.model import OUT
-from experiments.common import both
+from experiments.common import score
+WINDOWS = {"2015-18": range(2015, 2019), "2019-22": range(2019, 2023), "2023-25": range(2023, 2026)}   # every window (the rule)
+def both(f):
+    pred = M.walk_forward(f, range(2015, 2026))   # one pass, scored on each window
+    return {w: score(pred, seasons) for w, seasons in WINDOWS.items()}
 S = os.environ.get("REF_SCRATCH", "/tmp/ref_noline")
 os.makedirs(S, exist_ok=True)
 M.TREES_CACHE = type(OUT)(S) / "trees_cache_ref.parquet"; M._TC = {"df": None, "used": set(), "new": []}
