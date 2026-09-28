@@ -14,8 +14,13 @@ then the page showed a finished game as unplayed. Every line-watch run:
      Matt's) through tracker.grade_rows at the same close, so the number here is the tracker's number later
   4. a cross-check: where nflverse already has the score it must equal ESPN's (the tie check fails otherwise)
 
-Written to data/results/live_scores.csv and web/data/live.js (the cards, the Bets tab and the report display it).
-Usage: python -m nflmodel.results [--no-fetch]
+  5. the play-by-play (28 Sep 2026, the Live tab): for every game under way or final, ESPN's game summary (the drives
+     and every play, the scoring plays, its win-probability series where the feed carries one, the team stats and box
+     score), fetched fresh while the game is on and once more after the final, saved trimmed to
+     data/results/summary_<game_id>.json and written compact to web/data/plays.js; displayed as ESPN's, never priced
+
+Written to data/results/live_scores.csv, web/data/live.js (the cards, the Bets tab and the report display it) and
+web/data/plays.js (the Live tab). Usage: python -m nflmodel.results [--no-fetch]
 """
 from __future__ import annotations
 import glob, json, sys
@@ -106,6 +111,117 @@ def parse(j: dict, season: int, week: int) -> pd.DataFrame:
         rows.append({"season": season, "week": week, "home_team": home, "away_team": away, "status": state, "detail": ty.get("shortDetail") or ty.get("detail"),
                      "period": st.get("period"), "clock": st.get("displayClock"), "home_score": hs if state != "scheduled" else None, "away_score": as_ if state != "scheduled" else None, "espn_id": ev.get("id"), "live": live})
     return pd.DataFrame(rows, columns=["season", "week", "home_team", "away_team", "status", "detail", "period", "clock", "home_score", "away_score", "espn_id", "live"])
+
+
+SUMMARY_URLS = ["https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={id}",   # answers the runners with the drives, scoring plays, win probability, leaders and box score (28 Sep 2026)
+                "https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={id}",       # refused the runners (403) that day
+                "https://cdn.espn.com/core/nfl/playbyplay?xhr=1&gameId={id}"]                          # the play-by-play package: drives and box score, no win probability
+BOX_GROUPS = ["passing", "rushing", "receiving", "defensive", "interceptions", "kicking", "punting", "kickReturns", "puntReturns", "fumbles"]
+
+
+def _gp(j: dict) -> dict:
+    """The game package: the summary's top level, or gamepackageJSON in the cdn play-by-play package."""
+    return (j or {}).get("gamepackageJSON") or (j or {})
+
+
+def fetch_summary(espn_id: str) -> dict:
+    from . import lines as LNM
+    j, _ = LNM._get_json([u.format(id=espn_id) for u in SUMMARY_URLS], LNM.H)
+    return j
+
+
+def trim_summary(j: dict) -> dict:
+    """The parts the page reads, without ESPN's logos, links, headshots and reference URLs: a saved summary is a
+    tenth of the feed."""
+    g = _gp(j)
+    def team(t): t = t or {}; return {"id": t.get("id"), "abbreviation": t.get("abbreviation"), "displayName": t.get("displayName")}
+    def play(p): return {k: v for k, v in p.items() if k not in ("teamParticipants", "modified", "priority", "wallclock", "alternativeText", "shortAlternativeText")}
+    def drive(d): return {**{k: v for k, v in d.items() if k not in ("plays", "team")}, "team": team(d.get("team")), "plays": [play(p) for p in d.get("plays") or []]}
+    def athlete(a): a = a or {}; return {"id": a.get("id"), "displayName": a.get("displayName"), "shortName": a.get("shortName"), "jersey": a.get("jersey"), "position": (a.get("position") or {}).get("abbreviation")}
+    drives = g.get("drives") or {}
+    out = {"drives": {"previous": [drive(d) for d in drives.get("previous") or []], **({"current": drive(drives["current"])} if drives.get("current") else {})},
+           "scoringPlays": [{**{k: v for k, v in sp.items() if k != "team"}, "team": team(sp.get("team"))} for sp in g.get("scoringPlays") or []],
+           "winprobability": [{k: v for k, v in w.items() if k in ("homeWinPercentage", "tiePercentage", "secondsLeft", "playId")} for w in g.get("winprobability") or []],
+           "leaders": [{"team": team(l.get("team")), "leaders": [{"name": c.get("name"), "displayName": c.get("displayName"), "leaders": [{"displayValue": x.get("displayValue"), "athlete": athlete(x.get("athlete")), "team": team(x.get("team"))} for x in (c.get("leaders") or [])[:1]]} for c in l.get("leaders") or []]} for l in g.get("leaders") or []],
+           "boxscore": {"teams": [{"team": team(t.get("team")), "homeAway": t.get("homeAway"), "statistics": [{k: v for k, v in st.items() if k in ("name", "label", "displayValue")} for st in t.get("statistics") or []]} for t in (g.get("boxscore") or {}).get("teams") or []],
+                        "players": [{"team": team(t.get("team")), "statistics": [{"name": st.get("name"), "labels": st.get("labels"), "athletes": [{"athlete": athlete(a.get("athlete")), "stats": a.get("stats")} for a in st.get("athletes") or []]} for st in t.get("statistics") or []]} for t in (g.get("boxscore") or {}).get("players") or []]},
+           "header": {}}
+    h = g.get("header") or {}
+    if h:
+        c = (h.get("competitions") or [{}])[0]
+        out["header"] = {"id": h.get("id"), "week": h.get("week"), "season": h.get("season"),
+                         "competitions": [{"id": c.get("id"), "date": c.get("date"), "status": c.get("status"),
+                                           "competitors": [{**{k: v for k, v in x.items() if k in ("id", "homeAway", "score", "winner", "record", "linescores", "possession")}, "team": team(x.get("team"))} for x in c.get("competitors") or []]}]}
+    return out
+
+
+def parse_summary(j: dict) -> dict:
+    """One game's play-by-play, compact, for web/data/plays.js: the drives with every play, the scoring plays, ESPN's
+    win-probability series, the team stats, the box score, the leaders; team codes as nflverse spells them."""
+    g = _gp(j); h = (g.get("header") or {}); c = (h.get("competitions") or [{}])[0]
+    ab = lambda t: ESPN_ABBR.get((t or {}).get("abbreviation"), (t or {}).get("abbreviation"))
+    ids, home, away, score, lines = {}, None, None, {}, {}
+    for x in c.get("competitors") or []:
+        t = ab(x.get("team")); ids[str((x.get("team") or {}).get("id"))] = t
+        if x.get("homeAway") == "home": home = t
+        else: away = t
+        sc = x.get("score"); score[t] = int(float(sc)) if sc not in (None, "") else None
+        lines[t] = [int(float(l.get("displayValue") or l.get("value") or 0)) for l in x.get("linescores") or []]
+    st = (c.get("status") or {}); ty = st.get("type") or {}
+    state = "final" if ty.get("completed") else STATE.get(ty.get("state"), "scheduled")
+    def play(p):
+        s_ = p.get("start") or {}; o = {"id": p.get("id"), "q": (p.get("period") or {}).get("number"), "clock": (p.get("clock") or {}).get("displayValue"),
+                                      "dd": (s_.get("downDistanceText") or "").strip() or None, "type": (p.get("type") or {}).get("text"), "text": (p.get("text") or "").strip(), "yds": p.get("statYardage")}
+        if p.get("scoringPlay"): o["sc"] = [p.get("awayScore"), p.get("homeScore")]
+        if p.get("isTurnover"): o["to"] = True
+        if p.get("isPenalty"): o["pen"] = True
+        return o
+    def drive(d, current=False):
+        s_ = d.get("start") or {}; e_ = d.get("end") or {}
+        return {"id": d.get("id"), "team": ab(d.get("team")), "result": d.get("displayResult"), "short": d.get("shortDisplayResult"), "desc": d.get("description"),
+                "q": (s_.get("period") or {}).get("number"), "clock": (s_.get("clock") or {}).get("displayValue"), "start": s_.get("text"), "end": e_.get("text"),
+                "yards": d.get("yards"), "plays_n": d.get("offensivePlays"), "time": (d.get("timeElapsed") or {}).get("displayValue"), "score": bool(d.get("isScore")), "current": current,
+                "plays": [play(p) for p in d.get("plays") or []]}
+    dr = g.get("drives") or {}; drives = [drive(d) for d in dr.get("previous") or []]
+    if dr.get("current") and dr["current"].get("id") not in {d["id"] for d in drives}:
+        drives.append(drive(dr["current"], True))
+    scoring = [{"q": (sp.get("period") or {}).get("number"), "clock": (sp.get("clock") or {}).get("displayValue"), "team": ab(sp.get("team")), "type": (sp.get("scoringType") or {}).get("abbreviation") or (sp.get("type") or {}).get("abbreviation"),
+                "text": sp.get("text"), "away": sp.get("awayScore"), "home": sp.get("homeScore")} for sp in g.get("scoringPlays") or []]
+    # ESPN's win probability after each play, keyed by play id; placed on the game clock (seconds elapsed: a quarter is
+    # 900, overtime 600) from that play's period and clock, for the Live tab's chart
+    when = {}
+    for d in drives:
+        for p_ in d["plays"]:
+            try:
+                m_, s_ = (p_.get("clock") or "0:00").split(":"); left = int(m_) * 60 + int(s_); q_ = int(p_.get("q") or 1)
+                when[p_["id"]] = (q_ - 1) * 900 + (900 - left) if q_ <= 4 else 3600 + (q_ - 5) * 600 + (600 - left)
+            except Exception:  # noqa
+                pass
+    wp = []
+    for w in g.get("winprobability") or []:
+        if w.get("homeWinPercentage") is None: continue
+        t_ = when.get(w.get("playId"), 0 if not wp else None)
+        if t_ is not None: wp.append([t_, round(float(w["homeWinPercentage"]), 4), w.get("playId")])
+    box = g.get("boxscore") or {}
+    team_stats = {ab(t.get("team")): [[st_.get("label"), st_.get("displayValue")] for st_ in t.get("statistics") or []] for t in box.get("teams") or []}
+    players = {}
+    for t in box.get("players") or []:
+        tt = ab(t.get("team")); players[tt] = {}
+        for st_ in t.get("statistics") or []:
+            if st_.get("name") not in BOX_GROUPS or not st_.get("athletes"): continue
+            players[tt][st_["name"]] = {"labels": st_.get("labels"), "rows": [[(a.get("athlete") or {}).get("shortName") or (a.get("athlete") or {}).get("displayName"), *(a.get("stats") or [])] for a in st_["athletes"]]}
+    leaders = {}
+    for l in g.get("leaders") or []:
+        tt = ab(l.get("team")); leaders[tt] = [[c_.get("displayName") or c_.get("name"), ((c_.get("leaders") or [{}])[0].get("athlete") or {}).get("shortName"), (c_.get("leaders") or [{}])[0].get("displayValue")] for c_ in l.get("leaders") or [] if c_.get("leaders")]
+    plays_all = [p for d in drives for p in d["plays"]]
+    return {"espn_id": h.get("id") or c.get("id"), "status": state, "detail": ty.get("shortDetail") or ty.get("detail"), "home_team": home, "away_team": away,
+            "home_score": score.get(home), "away_score": score.get(away), "linescores": lines, "drives": drives, "scoring": scoring, "wp": wp,
+            "team_stats": team_stats, "box": players, "leaders": leaders, "n_plays": len(plays_all), "last_play": plays_all[-1]["text"] if plays_all else None}
+
+
+def saved_summary(game_id: str) -> dict | None:
+    f = RES / f"summary_{game_id}.json"
+    return json.loads(f.read_text()) if f.exists() else None
 
 
 def _to_utc(kick_et) -> pd.Timestamp | None:
@@ -241,6 +357,24 @@ def build(fetch_live: bool = True) -> dict:
                                 "home_score": None if r.status == "scheduled" or pd.isna(r.home_score) else int(r.home_score), "away_score": None if r.status == "scheduled" or pd.isna(r.away_score) else int(r.away_score),
                                 "nflverse_scored": bool(pd.notna(x.home_score)), "priced": priced, "close": {k: clean(v) for k, v in close.items()},
                                 "calls": calls(x.home_team, x.away_team, priced, close, hs, as_), "bets": [], "live": r.live if isinstance(r.live, dict) else {}, "espn_id": r.espn_id}
+    # the play-by-play (28 Sep 2026): every game under way or final; a final whose saved summary is already final is not
+    # fetched again, a game under way is fetched every run; without network (or on a failed fetch) the saved file stands
+    plays = {}
+    for gid, v in out_games.items():
+        if v["status"] == "scheduled" or not v.get("espn_id"):
+            continue
+        old_ = saved_summary(gid); j = None
+        done_ = old_ is not None and ((((old_.get("header") or {}).get("competitions") or [{}])[0].get("status") or {}).get("type") or {}).get("completed")
+        if fetch_live and not done_:
+            try:
+                j = trim_summary(fetch_summary(v["espn_id"]))
+                (RES / f"summary_{gid}.json").write_text(json.dumps(j, separators=(",", ":")))
+            except Exception as e:  # noqa
+                errors.append(f"summary {gid}: {str(e)[:100]}")
+        if j is None:
+            j = old_
+        if j is not None:
+            plays[gid] = parse_summary(j)
     gr = bets_for(set(out_games), live.reset_index())
     for b in gr.itertuples():
         out_games[b.game_id]["bets"].append({"who": b.who, "bet": b.bet, "odds": clean(getattr(b, "odds", None)), "result": b.result, "units": clean(round(float(b.units), 3)) if pd.notna(getattr(b, "units", np.nan)) else None,
@@ -272,11 +406,13 @@ def build(fetch_live: bool = True) -> dict:
                "note": "scores from the ESPN scoreboard, graded at the model's numbers from the last run before kickoff and the closing line; nflverse's scores replace them on the weekly run"}
     WEB.mkdir(parents=True, exist_ok=True)
     (WEB / "live.js").write_text("window.LIVE=" + json.dumps(payload, default=clean, separators=(",", ":")) + ";")
+    (WEB / "plays.js").write_text("window.PLAYS=" + json.dumps({"checked": checked, "games": plays, "note": "ESPN's play-by-play for every game under way or final, as saved by the line watch; displayed as ESPN's, never priced"}, default=clean, separators=(",", ":")) + ";")
+    payload["plays"] = plays
     return payload
 
 
 if __name__ == "__main__":
     p = build(fetch_live="--no-fetch" not in sys.argv)
     r = p["record"]
-    print(f"live results: week {r['week']}, {r['finals']} final of {r['games']}, {r['in_progress']} in progress; spread {r['spread']['text']}, total {r['total']['text']}, winner {r['winner']['text']}"
+    print(f"live results: week {r['week']}, {r['finals']} final of {r['games']}, {r['in_progress']} in progress; spread {r['spread']['text']}, total {r['total']['text']}, winner {r['winner']['text']}; play-by-play for {len(p['plays'])} games"
           + (f"; mismatch: {p['mismatch']}" if p["mismatch"] else "") + (f"; errors: {p['errors']}" if p["errors"] else ""))

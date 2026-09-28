@@ -2032,14 +2032,29 @@ top line carries the live score or the final with the three calls marked, the we
 tab a "This week, live" table, the report the final. Two ties guard it: where nflverse already has a score it must
 equal ESPN's, and every final's calls are re-graded by the tie check from the file's own scores and closes.
 
-## 42. Live, and the page on GitHub Pages (27 Sep 2026)
+## 42. Live: the scores on their own tab, with the play-by-play (27 and 28 Sep 2026)
 
-The Week tab opens with a Live strip: every game of the week as ESPN's scoreboard has it, the score, the clock, who has
-the ball and where, the last play, ESPN's own live win chance beside the model's pregame one, the quarter scores, and
-for a final the three calls marked. It is display, not pricing: the graded numbers are Python's from `live.js`
-(section 41); the raw fields come from `results.parse` (the line watch, every 30 minutes) and, where the host lets the
-page fetch, from ESPN itself every 45 seconds while a game is on. The claude.ai page cannot fetch outside its frame, so
-there the strip is as fresh as the last publish. The same `web/` folder is therefore published to GitHub Pages by
-`.github/workflows/pages.yml` on every commit that changes it (the repository is public, so it costs nothing and needs
-no publish step): that copy follows the line watch on its own and its Live strip refreshes itself. Pages has to be
-switched on once in the repository settings (Source: GitHub Actions).
+The Live tab is the scoreboard: every game of the week as ESPN's scoreboard has it, games under way first, then the
+ones to come, then the finals. A card carries the two scores, the clock, who has the ball and the down and distance,
+the last play, ESPN's own live win chance beside the model's pregame one (the card's calibrated chance, Python's), and
+for a final the three calls marked; a game to come shows its kickoff, the model's line beside the close and the
+broadcast. Opening a game shows the quarter scores, the drives with every play (the newest at the top, scoring plays
+and turnovers marked), the scoring summary, the box score and team stats, the leaders, ESPN's win probability over the
+game with the model's pregame chance marked at kickoff, and the model's numbers for it: its line and total before
+kickoff against the close, its calls graded once the game is final, the logged bets.
+
+Two sources, one shape. Every line watch `nflmodel/results.py` saves the scoreboard (section 41) and, for every game
+under way or final, ESPN's game summary (`site.web.api.espn.com/.../summary?event=`, the play-by-play package as a
+fallback), trimmed of logos, links and headshots to `data/results/summary_<game_id>.json`; a final is fetched once
+more after it ends and then stands. `parse_summary` turns it into `web/data/plays.js`: the drives and plays, the
+scoring plays, the win-probability series placed on the game clock from each play's quarter and time, the team stats,
+the box score, the leaders. It is display, not pricing: every graded number (the calls, the records) is Python's from
+`live.js`, and the ties check that plays.js is the saved summaries re-parsed, that a final's score in the summary is
+the scoreboard's, and that its last scoring play carries the final score.
+
+Where the host lets the page fetch (GitHub Pages, a local copy), the tab refreshes itself: the scoreboard every 30
+seconds while a game is on, and the open game's summary with it, read with the same field mapping the Python parser
+uses. The claude.ai page cannot fetch outside its frame, so there the tab is as fresh as the last publish and says so.
+The same `web/` folder is published to GitHub Pages by `.github/workflows/pages.yml` (dispatched by the line watch
+and the weekly run after each commit, since a push by the workflow token starts no other workflow); the repository is
+public, so it costs nothing. Pages has to be switched on once in the repository settings (Source: GitHub Actions).
