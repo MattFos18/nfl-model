@@ -105,6 +105,11 @@ def trend_table(games: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
     d["over_hit"] = np.where(played & d.total_line.notna(), (d.total > d.total_line).astype(float), np.nan)
     d["home_cov"] = np.where(played & d.home & d.spread_line.notna(), (d.result > d.spread_line).astype(float), np.nan)
     d["ref_over"] = _prior_mean(d, "referee", "over_hit", 60, 0.5)
+    # the same referee reading without the market (28 Sep 2026, Matt: no line in any input): each played game's total
+    # minus the league's mean total of the previous season, averaged over his previous games and shrunk to 0 (k=60)
+    lg = d[played].groupby("season").total.mean(); prev_lg = d.season.map({s_ + 1: v for s_, v in lg.items()})
+    d["tot_dev"] = np.where(played & prev_lg.notna(), d.total - prev_lg, np.nan)
+    d["ref_tot"] = _prior_mean(d, "referee", "tot_dev", 60, 0.0)
     d["ref_home_cover"] = _prior_mean(d[d.home].copy(), "referee", "home_cov", 60, 0.5).reindex(d.index)
     d["ref_home_cover"] = d.groupby("game_id").ref_home_cover.transform("max")
     # penalties per game by referee (both teams), from team_box
@@ -132,7 +137,7 @@ def trend_table(games: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
     d["home_epa"] = np.where(d.home, d.epa_play, np.nan)
     d["away_epa"] = np.where(~d.home, d.epa_play, np.nan)
     d["off_home_split"] = (_prior_mean(d, "team", "home_epa", 12, 0.0, 3) - _prior_mean(d, "team", "away_epa", 12, 0.0, 3)) * np.where(d.home, 1.0, -1.0)
-    keep = ["game_id", "season", "week", "team", "opp", "home", "team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over",
+    keep = ["game_id", "season", "week", "team", "opp", "home", "team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_tot",
             "ref_home_cover", "ref_pen", "sun_late", "body_clock_early", "cold_edge", "wind_edge", "off_home_split", "is_cold", "is_windy"]
     return d[keep].reset_index(drop=True)
 
