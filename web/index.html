@@ -1611,8 +1611,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         const id = `x${gIdx}_${ti}_${gi}`;
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
         let extra = "";
-        if (gname.startsWith("Injuries")) { const opp = g.sides[t === g.home_team ? g.away_team : g.home_team] || {}; const pts = v => (v > 0 ? "+" : "") + v.toFixed(1); const chips = (arr, who) => (arr || []).map(x => `<span class="chip">${who} out: ${esc(x.name)} · ${pts(co.per_unit.skill_out_value * x.value)} pts</span>`).join("");
-          extra = chips(inp.skill_out_players, t) + (opp.skill_out_players || []).map(x => `<span class="chip">Opponent out: ${esc(x.name)} · ${pts(co.per_unit.opp_skill_out_value * x.value)} pts</span>`).join(""); extra = extra ? `<div class="mv">${extra}</div>` : `<div class="mv"><span class="chip mute">Nobody of note listed out</span></div>`; }
+        // no player chips under the injury inputs (28 Sep 2026, Matt): the Injury report panel lists everyone with his points
         h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table>${extra}</td></tr>`;
       });
       if (c.blend != null && inp.models) {
