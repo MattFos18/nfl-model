@@ -976,6 +976,23 @@ def check_live(rows, wk) -> None:
                         sb_[(r_.home_team, r_.away_team)] = (r_.status, None if pd.isna(r_.home_score) else int(r_.home_score), None if pd.isna(r_.away_score) else int(r_.away_score))
             got_ = {(v["home_team"], v["away_team"]): (v["status"], v["home_score"], v["away_score"]) for v in (lv.get("games") or {}).values()}
             tie("live results: status and score of every game = the saved ESPN scoreboard", {f"{a}@{h}": x for (h, a), x in got_.items() if (h, a) in sb_}, {f"{a}@{h}": x for (h, a), x in sb_.items() if (h, a) in got_})
+            # the play-by-play feed (28 Sep 2026, the Live tab): plays.js is the saved summaries re-parsed, one game per started
+            # game with a summary on disk; a final's score in the summary = the scoreboard's, and its last scoring play carries it
+            pj = _js("plays.js"); PG = pj.get("games") or {}
+            have_ = sorted(gid for gid, v in (lv.get("games") or {}).items() if v["status"] != "scheduled" and (RS.RES / f"summary_{gid}.json").exists())
+            tie("play-by-play: one game per started game with a saved ESPN summary", sorted(PG), have_)
+            cnt_, sc_, last_ = [], [], []
+            for gid, g_ in PG.items():
+                sv_ = RS.saved_summary(gid)
+                if sv_ is None: continue
+                want_ = RS.parse_summary(sv_)
+                if (len(g_["drives"]), g_["n_plays"], len(g_["scoring"]), len(g_["wp"])) != (len(want_["drives"]), want_["n_plays"], len(want_["scoring"]), len(want_["wp"])): cnt_.append(gid)
+                v = (lv.get("games") or {}).get(gid) or {}
+                if v.get("status") == "final" and g_["status"] == "final" and (g_["home_score"], g_["away_score"]) != (v.get("home_score"), v.get("away_score")): sc_.append(f"{gid} {g_['away_score']}-{g_['home_score']} vs {v.get('away_score')}-{v.get('home_score')}")
+                if v.get("status") == "final" and g_["status"] == "final" and g_["scoring"] and (g_["scoring"][-1]["away"], g_["scoring"][-1]["home"]) != (v.get("away_score"), v.get("home_score")): last_.append(gid)
+            tie("play-by-play: drives, plays, scoring plays and win-probability points per game = the saved summary re-parsed", cnt_, [])
+            tie("play-by-play: a final's score in the summary = the scoreboard's", sc_, [])
+            tie("play-by-play: a final's last scoring play carries the final score", last_, [])
     except Exception as e:  # noqa
         rows.append(("live results file", str(e)[:80], "readable", False))
     if (OUT / "props.json").exists():

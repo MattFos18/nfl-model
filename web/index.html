@@ -87,11 +87,26 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 .badge.vegas{background:var(--vegas-soft);color:var(--vegas);border-color:transparent}
 .badge.noise{background:var(--rule-2);color:var(--muted);border-color:transparent}
 .badge.live{background:var(--good);color:#fff;border-color:transparent}
-.lstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin:10px 0 4px} .lstrip .lg{border:1px solid var(--rule);border-radius:6px;padding:8px 10px;background:var(--panel);display:flex;flex-direction:column;gap:4px;font-size:12.5px}
-.lstrip .lg.on{border-color:var(--good)} .lstrip .lrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px} .lstrip .lrow b{font-variant-numeric:tabular-nums;font-size:15px} .lstrip .pos::before{content:"●";font-size:9px;margin-right:4px;color:var(--good)}
-.lstrip .lq{display:grid;grid-template-columns:auto repeat(5,1.6em);gap:0 4px;font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px} .lstrip .lq span{text-align:right} .lstrip .lq span:first-child{text-align:left}
-.lstrip .lsm{color:var(--muted);font-size:11.5px;line-height:1.35} .lstrip .lwp{display:flex;gap:6px;align-items:center;font-size:11px;color:var(--muted)} .lstrip .lwp i{flex:1;height:5px;border-radius:3px;background:var(--rule-2);position:relative;overflow:hidden} .lstrip .lwp i::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w);background:var(--good)}
-.lhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:8px} .lhead h3{margin:0;font-size:14px} .lhead .lsm{font-size:11.5px;color:var(--muted)}
+.lsm{color:var(--muted);font-size:11.5px;line-height:1.35}
+.lhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:4px} .lhead h3{margin:0;font-size:18px}
+.sbh{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.sb{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:10px}
+.sg{border:1px solid var(--rule);border-radius:8px;background:var(--panel);padding:10px 12px 9px;display:grid;grid-template-columns:1fr auto;gap:0 12px;cursor:pointer;min-width:0}
+.sg:hover{border-color:var(--ink-2)} .sg:focus-visible{outline:2px solid var(--accent);outline-offset:2px} .sg.on{border-color:var(--good);box-shadow:inset 3px 0 0 var(--good)} .sg.sel{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.sg .tm{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:600;line-height:1.7;min-width:0;white-space:nowrap} .sg .tm .rc{font-weight:400;color:var(--muted);font-size:11.5px;margin-left:2px} .sg .tm.pos::after{content:"●";color:var(--good);font-size:9px;margin-left:4px} .sg .tm.lose{color:var(--ink-2);font-weight:500}
+.sg .sc{font-family:var(--display);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;text-align:right;line-height:1.15;align-self:center} .sg .sc.lose{color:var(--muted);font-weight:500}
+.sg .stt{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px;color:var(--ink-2);margin-top:5px;flex-wrap:wrap;min-width:0} .sg .stt b{color:var(--ink);white-space:nowrap} .sg .stt b.on{color:var(--good)} .sg .stt .res{margin-left:2px}
+.sg .lp{grid-column:1 / -1;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px} .sg .lp .badge{margin-left:0;margin-right:2px}
+.lwp{grid-column:1 / -1;display:flex;gap:6px;align-items:center;font-size:11px;color:var(--muted);margin-top:6px} .lwp i{flex:1;height:5px;border-radius:3px;background:var(--rule-2);position:relative;overflow:hidden} .lwp i::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w);background:var(--good)}
+.gd{border:1px solid var(--rule);border-radius:8px;background:var(--panel);padding:14px;margin:10px 0 6px} .gdh{display:flex;align-items:center;justify-content:space-between;gap:10px 18px;flex-wrap:wrap}
+.gds{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:32px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1} .gds .t{display:flex;align-items:center;gap:6px;font-size:18px;font-family:var(--body);font-weight:600} .gds .dash{color:var(--muted);font-size:20px;font-weight:400}
+.gdi{font-size:13px;color:var(--ink-2)} .gd nav.sub{margin:10px 0 6px}
+table.lqt{border-collapse:collapse;font-size:12.5px;font-variant-numeric:tabular-nums;margin-top:10px} table.lqt th,table.lqt td{padding:2px 10px 2px 0;text-align:right} table.lqt th:first-child,table.lqt td:first-child{text-align:left;padding-right:14px} table.lqt thead th{font-size:10.5px;color:var(--muted);font-weight:500} table.lqt tbody th{font-weight:600}
+.drv{border-top:1px solid var(--rule-2);padding:7px 0} .drv .dh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px;cursor:pointer;flex-wrap:wrap} .drv .dh .dr{color:var(--ink-2);font-weight:600;font-size:12px;white-space:nowrap} .drv.sc .dh .dr{color:var(--good)}
+.pls{margin:6px 0 2px} .pl{display:grid;grid-template-columns:58px 1fr;gap:2px 10px;font-size:12.5px;padding:3px 0 3px 8px;border-left:2px solid var(--rule-2);margin:2px 0;line-height:1.4} .pl .pc{color:var(--muted);font-variant-numeric:tabular-nums;font-size:11.5px;white-space:nowrap} .pl .pd{color:var(--muted);font-size:11px} .pl.sc{border-left-color:var(--good)} .pl.sc .pt{font-weight:600} .pl.to{border-left-color:var(--bad)}
+table.rgt.bx{width:100%} table.rgt.bx td,table.rgt.bx th{padding-right:10px;font-variant-numeric:tabular-nums} table.rgt.bx td:not(:first-child),table.rgt.bx th:not(:first-child){text-align:right}
+.wpw{position:relative} .wpw svg{width:100%;height:auto;display:block;max-height:220px} .wpt{position:absolute;top:4px;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:3px 7px;font-size:11.5px;color:var(--ink);pointer-events:none;white-space:nowrap}
+@media (max-width:640px){.gds{font-size:26px;gap:8px} .gds .t{font-size:15px} .sb{grid-template-columns:1fr} .gd{padding:12px}}
 .tiles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
 .tile{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;min-width:150px;flex:1 1 170px;display:flex;flex-direction:column;gap:2px}
 .tile b{font-family:var(--display);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -323,6 +338,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div>
 </header>
 <nav class="tabs" role="tablist">
+  <button role="tab" data-tab="live">Live</button>
   <button role="tab" data-tab="week">This week</button>
   <button role="tab" data-tab="report">Report</button>
   <button role="tab" data-tab="seasonsec">Season</button>
@@ -334,13 +350,18 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <button role="tab" data-tab="model">Model</button>
 </nav>
 
+<section class="tab" id="live" hidden>
+  <div class="lhead"><h3>Scores</h3><span class="lsm" id="liveasof"></span></div>
+  <div class="lsm" id="livenote"></div>
+  <div id="livegame" hidden></div>
+  <div id="liveboard"></div>
+</section>
 <section class="tab" id="week" hidden>
   <div class="pulls" id="pulls" aria-label="When each line source was last pulled"></div>
   <div class="row" style="justify-content:space-between">
     <p class="note" id="weeknote" style="margin:0"></p>
     <div class="legend" style="margin:0"><span><span class="dot" style="background:var(--model)"></span>Model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span><span><span class="badge flag">Flag</span> Edge past the threshold</span></div>
   </div>
-  <div id="livestrip" hidden></div>
   <div class="tiles" id="weektiles"></div>
   <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
@@ -535,7 +556,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 </section>
 
 <section class="tab" id="bets" hidden>
-  <div id="live">
+  <div id="betslive">
   <p class="note">Model picks (flagged at the thresholds, at the best number) and your bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Rules compared, below, grades the shadow rules on the same games without betting them, next to each rule's backtest record. Your bets go in data/tracker/my_bets.csv: game_id, bet (KC -3, Over 47.5, MIA ML), odds, stake, and a note with your read on the game, so your judgment gets graded next to the model's.</p>
   <div class="grid2e">
     <div class="card" style="grid-column:1 / -1"><h3>This week, live</h3><div id="liveweek"></div></div>
@@ -677,6 +698,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 <script src="data/legit.js"></script>
 <script src="data/fresh.js"></script>
 <script src="data/live.js"></script>
+<script src="data/plays.js"></script>
 <script src="data/health.js"></script>
 <script src="data/props.js"></script>
 <script>
@@ -795,6 +817,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   if (sub.seasonsec === "seasonbt") sub.seasonsec = "odds";
   if (["inputs", "overview"].includes(sub.teamsec)) sub.teamsec = "roster";   // Overview removed 24 Sep 2026: every part of it was on another tab
   { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
+  // the Live tab (28 Sep 2026): #live opens it; a visit while a game is on lands on it unless another tab was chosen this session
+  if (location.hash === "#live") tab = "live";
+  else { try { if (!sessionStorage.getItem("tabpicked") && window.LIVE && Object.values(LIVE.games || {}).some(g => g.status === "in_progress")) tab = "live"; } catch (e) {} }
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
   META.columns.forEach(c => { if (HIDE.has(c)) return; const g = (META.dictionary[c]||{}).group || "Other"; (groupsOf[g] = groupsOf[g] || []).push(c); });
@@ -812,7 +837,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     ht.value = team; hs.value = season; }
   $("season").addEventListener("change", e => { season = +e.target.value; howWeek = null; gameIdx = 0; save(); render(); });
   // a top tab always opens on its first sub-tab (24 Sep 2026)
-  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; const first = document.querySelector(`#${tab} nav.sub button`); if (first) sub[tab] = first.dataset.sub; save(); showTab(); render(); window.scrollTo(0, 0); }));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; try { sessionStorage.setItem("tabpicked", "1"); } catch (e) {} if (location.hash === "#live" || location.hash === "#report") history.replaceState(null, "", location.pathname); const first = document.querySelector(`#${tab} nav.sub button`); if (first) sub[tab] = first.dataset.sub; save(); showTab(); render(); window.scrollTo(0, 0); }));
   document.querySelectorAll("nav.sub button").forEach(b => b.addEventListener("click", () => { const sec = b.closest("section").id; sub[sec] = b.dataset.sub; save(); showTab(); render(); }));
   function showTab() {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
@@ -1074,49 +1099,166 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         return `<tr><td class="l"><b>${v.away_team} @ ${v.home_team}</b></td><td class="l">${st(v)}</td><td class="l">${call(C.spread, c => lineTxt(c.side, c.line))}</td><td class="l">${call(C.total, c => `${c.side} ${c.line}`)}</td><td class="l">${call(C.winner, c => c.side)}</td><td class="l">${(v.bets || []).map(b => `${b.who === "matt" ? "you" : b.who}: ${esc(b.bet)}${b.result ? " " + resMark(b.result) : ""}`).join("<br>")}</td><td class="l mono">${P.model_spread != null ? `${lineTxt(v.home_team, -P.model_spread)} · ${Number(P.model_total).toFixed(1)}` : ""}${P.run_at ? ` <span class="rk">${esc(P.run_at.slice(5, 16))}</span>` : ""}</td><td class="l mono">${CL.spread != null ? lineTxt(v.home_team, -CL.spread) : ""}${CL.total != null ? ` · ${CL.total}` : ""}${CL.source && CL.source !== "lines log" ? ` <span class="rk">${esc(CL.source)}</span>` : ""}</td></tr>`; }).join("") + "</tbody></table></div>"
       + (L.mismatch && L.mismatch.length ? `<p class="note neg">ESPN and nflverse disagree on a score: ${L.mismatch.map(esc).join("; ")}</p>` : "");
   }
-  // Live strip (27 Sep 2026): the week's games as ESPN's scoreboard has them. Source, in order: the scoreboard fetched by this
-  // page (GitHub Pages allows it; the claude.ai frame blocks every outside fetch, so there the strip reads live.js, the line
-  // watch's copy) and web/data/live.js. Raw display only (score, clock, possession, last play, ESPN's own live win chance, quarter
-  // scores); every graded number (the calls, the records) is Python's from live.js. Refreshes every 45 s while a game is on.
-  const LIVE_ESPN = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
+  // ---------- Live tab (28 Sep 2026): the scoreboard on its own page, and the play-by-play ----------
+  // Sources, in order: the ESPN scoreboard and the open game's summary fetched by this page (GitHub Pages and a local copy
+  // allow it; the claude.ai frame blocks every outside fetch), else web/data/live.js and web/data/plays.js, the line watch's
+  // copies (nflmodel/results.py, every 30 minutes). Raw display only: score, clock, possession, the drives and plays, the
+  // box score, ESPN's own win chance. Every graded number (the calls, the records) and every model number is Python's
+  // (live.js, week.js); the page never prices anything from what it fetches.
+  const LIVE_ESPN = "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
+  const LIVE_SUMMARY = "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=";
   const ESPN_AB = {WSH: "WAS", JAC: "JAX", LAR: "LA"};
-  let liveNow = null, liveSrc = "line watch", liveTimer = null, liveFetchDead = false;
-  function parseScoreboard(j) {   // the same fields nflmodel/results.parse reads
+  const abOf = t => t && t.abbreviation ? (ESPN_AB[t.abbreviation] || t.abbreviation) : null;
+  let liveNow = null, liveAt = null, liveTimer = null, liveFetchDead = false, liveOpen = null, livePlays = {}, liveSub = "plays", liveDrives = {};
+  function parseScoreboard(j) {   // the same fields nflmodel/results.parse reads, keyed AWAY@HOME
     const out = {};
-    (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}; let H, A, hs, as_;
-      (c.competitors || []).forEach(x => { const ab = ESPN_AB[x.team.abbreviation] || x.team.abbreviation; ids[String(x.team.id)] = ab; lines[ab] = (x.linescores || []).map(l => Math.round(+l.value || 0)); const sc = x.score == null || x.score === "" ? null : Math.round(+x.score); if (x.homeAway === "home") { H = ab; hs = sc; } else { A = ab; as_ = sc; } });
+    (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}, recs = {}; let H, A, hs, as_;
+      (c.competitors || []).forEach(x => { const ab = abOf(x.team); ids[String(x.team.id)] = ab; lines[ab] = (x.linescores || []).map(l => Math.round(+l.value || 0)); recs[ab] = ((x.records || []).find(r => r.type === "total") || {}).summary; const sc = x.score == null || x.score === "" ? null : Math.round(+x.score); if (x.homeAway === "home") { H = ab; hs = sc; } else { A = ab; as_ = sc; } });
       const state = ty.completed ? "final" : ({pre: "scheduled", in: "in_progress", post: "final"}[ty.state] || "scheduled"); const si = c.situation || {}, lp = si.lastPlay || {}, pr = lp.probability || {};
-      out[`${A}@${H}`] = {home_team: H, away_team: A, status: state, detail: ty.shortDetail || ty.detail, home_score: state === "scheduled" ? null : hs, away_score: state === "scheduled" ? null : as_,
-        live: state === "scheduled" ? {broadcast: c.broadcast} : {down: si.downDistanceText, possession: ids[String(si.possession)], red_zone: !!si.isRedZone, last_play: (lp.text || "").trim() || null, espn_home_wp: pr.homeWinPercentage, linescores: lines, broadcast: c.broadcast}}; });
+      out[`${A}@${H}`] = {home_team: H, away_team: A, status: state, detail: ty.shortDetail || ty.detail, period: st.period, clock: st.displayClock, home_score: state === "scheduled" ? null : hs, away_score: state === "scheduled" ? null : as_, espn_id: ev.id,
+        live: state === "scheduled" ? {broadcast: c.broadcast, records: recs} : {down: si.downDistanceText, possession: ids[String(si.possession)], red_zone: !!si.isRedZone, last_play: (lp.text || "").trim() || null, espn_home_wp: pr.homeWinPercentage, linescores: lines, records: recs, broadcast: c.broadcast}}; });
     return out;
+  }
+  function parseSummary(j) {   // the same mapping as nflmodel/results.parse_summary, for a summary this page fetched
+    const g = j.gamepackageJSON || j || {}, h = g.header || {}, c = (h.competitions || [])[0] || {}; let H, A; const score = {}, lines = {};
+    (c.competitors || []).forEach(x => { const t = abOf(x.team); if (x.homeAway === "home") H = t; else A = t; score[t] = x.score == null || x.score === "" ? null : Math.round(+x.score); lines[t] = (x.linescores || []).map(l => Math.round(+(l.displayValue != null ? l.displayValue : l.value) || 0)); });
+    const ty = (c.status || {}).type || {}; const state = ty.completed ? "final" : ({pre: "scheduled", in: "in_progress", post: "final"}[ty.state] || "scheduled");
+    const play = p => { const s = p.start || {}; const o = {id: p.id, q: (p.period || {}).number, clock: (p.clock || {}).displayValue, dd: (s.downDistanceText || "").trim() || null, type: (p.type || {}).text, text: (p.text || "").trim(), yds: p.statYardage}; if (p.scoringPlay) o.sc = [p.awayScore, p.homeScore]; if (p.isTurnover) o.to = true; if (p.isPenalty) o.pen = true; return o; };
+    const drive = (d, cur) => { const s = d.start || {}, e = d.end || {}; return {id: d.id, team: abOf(d.team), result: d.displayResult, short: d.shortDisplayResult, desc: d.description, q: (s.period || {}).number, clock: (s.clock || {}).displayValue, start: s.text, end: e.text, yards: d.yards, plays_n: d.offensivePlays, time: (d.timeElapsed || {}).displayValue, score: !!d.isScore, current: !!cur, plays: (d.plays || []).map(play)}; };
+    const dr = g.drives || {}; const drives = (dr.previous || []).map(d => drive(d, false)); if (dr.current && !drives.some(d => d.id === dr.current.id)) drives.push(drive(dr.current, true));
+    const scoring = (g.scoringPlays || []).map(sp => ({q: (sp.period || {}).number, clock: (sp.clock || {}).displayValue, team: abOf(sp.team), type: (sp.scoringType || {}).abbreviation || (sp.type || {}).abbreviation, text: sp.text, away: sp.awayScore, home: sp.homeScore}));
+    const when = {}; drives.forEach(d => d.plays.forEach(p => { const m = String(p.clock || "0:00").split(":"); const left = (+m[0] || 0) * 60 + (+m[1] || 0), q = +p.q || 1; when[p.id] = q <= 4 ? (q - 1) * 900 + (900 - left) : 3600 + (q - 5) * 600 + (600 - left); }));
+    const wp = []; (g.winprobability || []).forEach(w => { if (w.homeWinPercentage == null) return; const t = when[w.playId] != null ? when[w.playId] : (wp.length ? null : 0); if (t != null) wp.push([t, Math.round(1e4 * w.homeWinPercentage) / 1e4, w.playId]); });
+    const box = g.boxscore || {}; const team_stats = {}; (box.teams || []).forEach(t => { team_stats[abOf(t.team)] = (t.statistics || []).map(s => [s.label, s.displayValue]); });
+    const groups = ["passing", "rushing", "receiving", "defensive", "interceptions", "kicking", "punting", "kickReturns", "puntReturns", "fumbles"]; const players = {};
+    (box.players || []).forEach(t => { const tt = abOf(t.team); players[tt] = {}; (t.statistics || []).forEach(s => { if (!groups.includes(s.name) || !(s.athletes || []).length) return; players[tt][s.name] = {labels: s.labels, rows: s.athletes.map(a => [((a.athlete || {}).shortName || (a.athlete || {}).displayName), ...(a.stats || [])])}; }); });
+    const leaders = {}; (g.leaders || []).forEach(l => { leaders[abOf(l.team)] = (l.leaders || []).filter(c_ => (c_.leaders || []).length).map(c_ => [c_.displayName || c_.name, ((c_.leaders[0].athlete || {}).shortName), c_.leaders[0].displayValue]); });
+    const all = drives.flatMap(d => d.plays);
+    return {espn_id: h.id || c.id, status: state, detail: ty.shortDetail || ty.detail, home_team: H, away_team: A, home_score: score[H], away_score: score[A], linescores: lines, drives, scoring, wp, team_stats, box: players, leaders, n_plays: all.length, last_play: all.length ? all[all.length - 1].text : null, fetched: new Date()};
   }
   async function liveFetch(season, week) {
     if (liveFetchDead) return null;
     try { const r = await fetch(`${LIVE_ESPN}?week=${week}&seasontype=2&dates=${season}`, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return parseScoreboard(await r.json()); }
-    catch (e) { liveFetchDead = true; return null; }   // the claude.ai frame: no outside fetch, so live.js stands
+    catch (e) { liveFetchDead = true; return null; }   // the claude.ai frame: no outside fetch, so live.js and plays.js stand
   }
-  function renderLiveStrip() {
-    const el = $("livestrip"); if (!el) return; const W = window.WEEK || {}, L = window.LIVE || {}; const G = L.games || {};
-    const games = (W.games || []).map(g => ({g, lv: G[g.game_id] || null, fresh: liveNow ? liveNow[`${g.away_team}@${g.home_team}`] : null}));
-    const show = games.filter(x => x.lv || x.fresh); if (!show.length) { el.hidden = true; return; }
-    const st = x => (x.fresh || x.lv), anyOn = show.some(x => st(x).status === "in_progress");
-    const asOf = liveNow ? `ESPN, live · refreshed ${new Date().toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"})}` : `ESPN, as of ${esc(etTime(L.checked || ""))} (the line watch pulls it every 30 minutes)`;
-    const card = x => { const g = x.g, v = st(x), lv = x.lv || {}, live = (x.fresh && x.fresh.live) || (lv.live) || {}, H = g.home_team, A = g.away_team, on = v.status === "in_progress", fin = v.status === "final";
-      const q = live.linescores && live.linescores[H] && live.linescores[H].length ? `<div class="lq"><span></span>${["1","2","3","4","OT"].slice(0, Math.max(live.linescores[H].length, 4)).map(h => `<span>${h}</span>`).join("")}${[A, H].map(t => `<span>${t}</span>${(live.linescores[t] || []).map(v_ => `<span>${v_}</span>`).join("")}${"<span></span>".repeat(Math.max(0, Math.max(live.linescores[H].length, 4) - (live.linescores[t] || []).length))}`).join("")}</div>` : "";
-      const pos = t => on && live.possession === t ? "pos" : "";
-      const ourP = g.p_home_cal != null ? g.p_home_cal : g.p_home;   // the card's pregame win chance (Python), beside ESPN's live one
-      const wp = on && live.espn_home_wp != null ? `<div class="lwp" title="ESPN's live win chance for ${H} (its own model, displayed as is) beside the model's pregame chance from the card"><span>${H} ${Math.round(100 * live.espn_home_wp)}% live</span><i style="--w:${Math.round(100 * live.espn_home_wp)}%"></i><span>${ourP != null ? `pregame ${Math.round(100 * ourP)}%` : ""}</span></div>` : "";
-      const C = (lv.calls || {}), r = c => c && c.result ? " " + resMark(c.result) : "";
-      const calls = fin && x.lv ? `<div class="lsm">${C.spread ? `${lineTxt(C.spread.side, C.spread.line)}${r(C.spread)}` : ""}${C.total ? ` · ${C.total.side} ${C.total.line}${r(C.total)}` : ""}${C.winner ? ` · ${C.winner.side}${r(C.winner)}` : ""}</div>` : "";
-      const when = v.status === "scheduled" ? `<div class="lsm">${esc(whenTxt(g).split(" · ").slice(0, 2).join(" · "))}${live.broadcast ? " · " + esc(live.broadcast) : ""}</div>` : "";
-      return `<div class="lg ${on ? "on" : ""}"><div class="lrow"><span class="${pos(A)}">${LOGO(A, 18)}${A}</span><b>${v.away_score ?? ""}</b></div><div class="lrow"><span class="${pos(H)}">${LOGO(H, 18)}${H}</span><b>${v.home_score ?? ""}</b></div>
-        <div class="lsm">${on ? `<span class="badge live" style="margin-left:0">${esc(v.detail || "live")}</span>${live.down ? " " + esc(live.down) : ""}${live.red_zone ? " · red zone" : ""}` : fin ? `<b>Final</b>` : ""}</div>${q}${wp}${on && live.last_play ? `<div class="lsm" title="${esc(live.last_play)}">${esc(live.last_play.length > 90 ? live.last_play.slice(0, 88) + "…" : live.last_play)}</div>` : ""}${calls}${when}</div>`; };
-    const R = L.record || {};
-    el.innerHTML = `<div class="lhead"><h3>Live</h3><span class="lsm">${asOf}${R.finals ? ` · ${R.finals} of ${R.games} final · model side ${R.spread.text} spread, ${R.total.text} total, ${R.winner.text} winner (graded at the close, Python)` : ""}</span></div><div class="lstrip">${show.map(card).join("")}</div>`;
+  async function fetchSummary(eid) { if (liveFetchDead || !eid) return null; try { const r = await fetch(LIVE_SUMMARY + eid, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return parseSummary(await r.json()); } catch (e) { return null; } }
+  // every game live.js knows, with the page's own fetch laid over the line watch's copy
+  function liveGames() {
+    const L = window.LIVE || {}; return Object.entries(L.games || {}).map(([gid, lv]) => { const fresh = liveNow ? liveNow[`${lv.away_team}@${lv.home_team}`] : null; const v = fresh || lv; return {gid, lv, v, live: Object.assign({}, lv.live || {}, (fresh && fresh.live) || {}), fresh: !!fresh}; });
+  }
+  const playsOf = gid => livePlays[gid] || ((window.PLAYS || {}).games || {})[gid] || null;
+  const weekCard = gid => ((window.WEEK || {}).games || []).find(g => g.game_id === gid) || null;
+  const kickTxt = k => { const m = String(k || "").match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/); if (!m) return ""; const d = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]); return d.toLocaleDateString("en-US", {weekday: "short"}) + " " + d.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"}); };
+  const qTxt = (q, clock) => q == null ? "" : `${q <= 4 ? "Q" + q : q === 5 ? "OT" : "OT" + (q - 4)}${clock ? " " + clock : ""}`;
+  async function liveTick() {
+    if (liveFetchDead) return;
+    const L = window.LIVE || {}; const weeks = [...new Set(Object.values(L.games || {}).map(v => `${v.season}|${v.week}`))];
+    let any = false; const merged = {};
+    for (const w of weeks) { const [s, k] = w.split("|"); const f = await liveFetch(+s, +k); if (f) { Object.assign(merged, f); any = true; } }
+    if (any) { liveNow = merged; liveAt = new Date(); }
+    if (liveOpen) { const x = liveGames().find(g => g.gid === liveOpen); const P = playsOf(liveOpen); if (x && x.v.status !== "scheduled" && (x.v.status === "in_progress" || !P || (P.status !== "final"))) { const s = await fetchSummary(x.v.espn_id || x.lv.espn_id); if (s) livePlays[liveOpen] = s; } }
+    if (tab === "live") renderLive();
+    const on = liveGames().some(x => x.v.status === "in_progress");
+    if (liveTimer) clearTimeout(liveTimer); liveTimer = setTimeout(liveTick, on ? 30000 : 300000);
+  }
+  function renderLive() {
+    const L = window.LIVE, el = $("liveboard"); const R = (L || {}).record || {};
+    if (!L || !L.games || !Object.keys(L.games).length) { $("liveasof").textContent = ""; el.innerHTML = "<p class='note'>No scores yet: the line watch fills this once a game is under way.</p>"; $("livegame").hidden = true; return; }
+    const G = liveGames(); const on = G.filter(x => x.v.status === "in_progress"), up = G.filter(x => x.v.status === "scheduled").sort((a, b) => String(a.lv.kickoff).localeCompare(String(b.lv.kickoff))), fin = G.filter(x => x.v.status === "final").sort((a, b) => String(a.lv.kickoff).localeCompare(String(b.lv.kickoff)));
+    const host = location.hostname.endsWith("github.io") || location.protocol === "file:" || location.hostname === "localhost";
+    $("liveasof").innerHTML = liveNow ? `<span class="badge live" style="margin-left:0">live</span> ESPN, refreshed ${liveAt.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit", second: "2-digit"})}${on.length ? " · every 30 s while a game is on" : " · every 5 min between games"}`
+      : `ESPN as of ${esc(etTime(L.checked || ""))}, the line watch's copy (every 30 min)${liveFetchDead && !host ? ` · <a href="https://mattfos18.github.io/nfl-model/#live" target="_blank" rel="noopener">the GitHub Pages copy</a> refreshes itself during games` : ""}`;
+    $("livenote").innerHTML = R.finals ? `Week ${R.week}: ${R.finals} of ${R.games} final${R.in_progress ? `, ${R.in_progress} on now` : ""} · model side ${R.spread.text} vs the spread, ${R.total.text} totals, ${R.winner.text} winners <span class="rk" title="graded in Python at the close against the model's last run before kickoff (nflmodel/results.py); every game, not only the flags">graded at the close</span>` : "";
+    const card = x => { const v = x.v, lv = x.lv, live = x.live, H = v.home_team, A = v.away_team, onNow = v.status === "in_progress", finNow = v.status === "final", wk = weekCard(x.gid);
+      const rec = t => (live.records || {})[t] ? `<span class="rc">${esc(live.records[t])}</span>` : "";
+      const lead = finNow || onNow ? (v.home_score > v.away_score ? H : v.away_score > v.home_score ? A : null) : null;
+      const row = t => `<div class="tm ${onNow && live.possession === t ? "pos" : ""} ${lead && lead !== t ? "lose" : ""}">${LOGO(t, 22)}${t}${rec(t)}</div><div class="sc ${lead && lead !== t ? "lose" : ""}">${v.status === "scheduled" ? "" : (t === H ? v.home_score : v.away_score) ?? ""}</div>`;
+      let stt, extra = "";
+      if (onNow) { stt = `<b class="on">${esc(v.detail || "In progress")}</b><span>${live.down ? esc(live.down) : ""}${live.red_zone ? ' <span class="badge live">red zone</span>' : ""}</span>`; if (live.last_play) extra += `<div class="lp" title="${esc(live.last_play)}">${esc(live.last_play)}</div>`;
+        const pre = wk && (wk.p_home_cal != null ? wk.p_home_cal : wk.p_home); if (live.espn_home_wp != null) extra += `<div class="lwp" title="ESPN's live win chance for ${H}, its own model displayed as is; beside it the model's pregame chance from the card (Python)"><span>${H} ${Math.round(100 * live.espn_home_wp)}%</span><i style="--w:${Math.round(100 * live.espn_home_wp)}%"></i><span>${pre != null ? `pregame ${Math.round(100 * pre)}%` : "live win chance"}</span></div>`; }
+      else if (finNow) { const C = lv.calls || {}, r = c => c && c.result ? " " + resMark(c.result) : ""; stt = `<b>${esc(v.detail && /final/i.test(v.detail) ? v.detail : "Final")}</b><span title="the model's side at the close, graded in Python (live.js)">${C.spread ? `${lineTxt(C.spread.side, C.spread.line)}${r(C.spread)}` : ""}${C.total ? ` · ${C.total.side} ${C.total.line}${r(C.total)}` : ""}${C.winner ? ` · ${C.winner.side}${r(C.winner)}` : ""}</span>`; }
+      else { stt = `<b>${esc(kickTxt(lv.kickoff))}</b><span>${live.broadcast ? esc(live.broadcast) : ""}</span>`; if (wk && wk.spread_line != null) extra += `<div class="lp"><span class="badge model">Model</span> ${lineTxt(H, -wk.model_spread)} · ${Number(wk.model_total).toFixed(1)} <span class="badge vegas">Vegas</span> ${lineTxt(H, -wk.spread_line)}${wk.total_line != null ? ` · ${wk.total_line}` : ""}${wk.bet ? ` <span class="badge flag">Flag</span>` : ""}</div>`; }
+      return `<div class="sg ${onNow ? "on" : ""} ${liveOpen === x.gid ? "sel" : ""}" role="button" tabindex="0" data-gid="${x.gid}">${row(A)}${row(H)}<div class="stt">${stt}</div>${extra}</div>`; };
+    const wkOf = xs => [...new Set(xs.map(x => x.lv.week))].sort();
+    const group = (title, xs) => xs.length ? `<div class="sbh">${title}</div><div class="sb">${xs.map(card).join("")}</div>` : "";
+    el.innerHTML = group("On now", on) + wkOf(up).map(w => group(`Coming up · Week ${w}`, up.filter(x => x.lv.week === w))).join("") + wkOf(fin).map(w => group(`Final · Week ${w}`, fin.filter(x => x.lv.week === w))).join("")
+      + (L.mismatch && L.mismatch.length ? `<p class="note neg">ESPN and nflverse disagree on a score: ${L.mismatch.map(esc).join("; ")}</p>` : "");
+    el.querySelectorAll(".sg").forEach(b => { const open = () => { liveOpen = b.dataset.gid === liveOpen ? null : b.dataset.gid; liveDrives = {}; renderLive(); if (liveOpen) { $("livegame").scrollIntoView({behavior: "smooth", block: "start"}); if (!liveFetchDead && !livePlays[liveOpen]) liveTick(); } }; b.addEventListener("click", open); b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }); });
+    renderLiveGame();
+    if (!liveTimer && !liveFetchDead) liveTimer = setTimeout(liveTick, 0);
+  }
+  function renderLiveGame() {
+    const el = $("livegame"); const x = liveOpen ? liveGames().find(g => g.gid === liveOpen) : null;
+    if (!x) { el.hidden = true; el.innerHTML = ""; return; }
+    const v = x.v, lv = x.lv, live = x.live, H = v.home_team, A = v.away_team, P = playsOf(x.gid), wk = weekCard(x.gid), onNow = v.status === "in_progress";
+    const lines = (P && P.linescores && P.linescores[H] && P.linescores[H].length ? P.linescores : live.linescores) || {}; const nq = Math.max((lines[H] || []).length, (lines[A] || []).length, 4);
+    const lq = lines[H] && lines[H].length ? `<table class="lqt"><thead><tr><th></th>${Array.from({length: nq}, (_, i) => `<th>${i < 4 ? i + 1 : "OT"}</th>`).join("")}<th>T</th></tr></thead><tbody>${[A, H].map(t => `<tr><th>${LOGO(t, 16)}${t}</th>${Array.from({length: nq}, (_, i) => `<td>${(lines[t] || [])[i] ?? ""}</td>`).join("")}<td><b>${(t === H ? v.home_score : v.away_score) ?? ""}</b></td></tr>`).join("")}</tbody></table>` : "";
+    const stt = onNow ? `<span class="badge live" style="margin-left:0">${esc(v.detail || "live")}</span> ${live.down ? esc(live.down) : ""}${live.possession ? ` · ${live.possession} ball` : ""}` : v.status === "final" ? `<b>${esc(v.detail && /final/i.test(v.detail) ? v.detail : "Final")}</b>` : `${esc(whenTxt(lv))}`;
+    const src = P ? (P.fetched ? `play-by-play from ESPN, refreshed ${P.fetched.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit", second: "2-digit"})}` : `play-by-play as saved by the line watch, ${esc(etTime((window.PLAYS || {}).checked || ""))}`) : (v.status === "scheduled" ? "" : "no play-by-play saved yet");
+    const subs = [["plays", "Plays"], ["scoring", "Scoring"], ["box", "Box score"], ["stats", "Team stats"], ["wp", "Win chance"], ["model", "Model"]];
+    el.innerHTML = `<div class="gd"><div class="gdh"><div class="gds"><span class="t">${LOGO(A, 26)}${A}</span><b>${v.status === "scheduled" ? "" : v.away_score ?? ""}</b><span class="dash">${v.status === "scheduled" ? "at" : "–"}</span><b>${v.status === "scheduled" ? "" : v.home_score ?? ""}</b><span class="t">${LOGO(H, 26)}${H}</span></div><div class="gdi">${stt}${live.broadcast ? ` · ${esc(live.broadcast)}` : ""}</div><button class="chip" id="liveclose" title="back to the scoreboard">Close</button></div>${lq}<div class="lsm" style="margin-top:6px">${src}</div>
+      <nav class="sub">${subs.map(([k, t]) => `<button data-lsub="${k}" aria-selected="${liveSub === k}">${t}</button>`).join("")}</nav><div id="livesub"></div></div>`;
     el.hidden = false;
-    // keep it moving while a game is on: ESPN itself where the host allows a fetch, else nothing to do until the next publish
-    if (liveTimer) { clearTimeout(liveTimer); liveTimer = null; }
-    if (anyOn && !liveFetchDead) liveTimer = setTimeout(async () => { const f = await liveFetch(W.season, W.week); if (f) { liveNow = f; } renderLiveStrip(); }, liveNow ? 45000 : 0);
+    $("liveclose").addEventListener("click", () => { liveOpen = null; renderLive(); });
+    el.querySelectorAll("[data-lsub]").forEach(b => b.addEventListener("click", () => { liveSub = b.dataset.lsub; renderLiveGame(); }));
+    const S = $("livesub");
+    if (liveSub === "plays") S.innerHTML = renderPlays(x, P);
+    else if (liveSub === "scoring") S.innerHTML = P && P.scoring.length ? `<div class="tablewrap" style="max-height:none"><table><thead><tr><th class="l">When</th><th class="l">Team</th><th class="l">Play</th><th class="l">${A}</th><th class="l">${H}</th></tr></thead><tbody>${P.scoring.map(s => `<tr><td class="l mono">${qTxt(s.q, s.clock)}</td><td class="l">${LOGO(s.team, 16)}${s.team} <span class="rk">${esc(s.type || "")}</span></td><td class="l">${esc(s.text)}</td><td class="l">${s.away}</td><td class="l">${s.home}</td></tr>`).join("")}</tbody></table></div>` : "<p class='note'>No scoring plays yet.</p>";
+    else if (liveSub === "box") S.innerHTML = P && Object.keys(P.box || {}).length ? [A, H].map(t => { const B = P.box[t] || {}; const order = ["passing", "rushing", "receiving", "defensive", "interceptions", "kicking", "punting", "kickReturns", "puntReturns", "fumbles"]; return `<h3 style="margin-top:12px">${LOGO(t, 18)}${t}</h3>` + order.filter(k => B[k]).map(k => `<div class="rgw"><table class="rgt bx"><thead><tr><th>${esc(k.replace(/([A-Z])/g, " $1").toLowerCase())}</th>${(B[k].labels || []).map(l => `<th>${esc(l)}</th>`).join("")}</tr></thead><tbody>${B[k].rows.map(r => `<tr><td class="nw">${esc(r[0])}</td>${r.slice(1).map(c => `<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`).join(""); }).join("") : "<p class='note'>No box score yet.</p>";
+    else if (liveSub === "stats") { const TS = (P || {}).team_stats || {}; const rows = (TS[A] || []).map((r, i) => [r[0], r[1], ((TS[H] || [])[i] || [])[1]]); S.innerHTML = rows.length ? `<div class="rgw"><table class="rgt bx"><thead><tr><th></th><th>${LOGO(A, 16)}${A}</th><th>${LOGO(H, 16)}${H}</th></tr></thead><tbody>${rows.map(r => `<tr><td class="nw">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>` + (P && P.leaders && Object.keys(P.leaders).length ? `<h3 style="margin-top:12px">Leaders</h3><div class="rgw"><table class="rgt bx"><tbody>${[A, H].map(t => (P.leaders[t] || []).map(l => `<tr><td class="nw">${LOGO(t, 16)}${t}</td><td class="nw">${esc(l[0])}</td><td class="nw">${esc(l[1])}</td><td>${esc(l[2])}</td></tr>`).join("")).join("")}</tbody></table></div>` : "") : "<p class='note'>No team stats yet.</p>"; }
+    else if (liveSub === "wp") { const pre = wk && (wk.p_home_cal != null ? wk.p_home_cal : wk.p_home); S.innerHTML = wpChart(P, pre, H, A, live); wpHover(S, P, H, A); }
+    else if (liveSub === "model") S.innerHTML = renderLiveModel(x, wk);
+  }
+  function renderPlays(x, P) {
+    if (!P || !P.drives.length) return `<p class="note">${x.v.status === "scheduled" ? "The play-by-play appears once the game kicks off." : "No plays yet."}</p>`;
+    const H = x.v.home_team, A = x.v.away_team; const open = liveDrives[x.gid] || new Set([P.drives[P.drives.length - 1].id]); liveDrives[x.gid] = open;
+    const drives = [...P.drives].reverse();
+    const html = drives.map((d, i) => { const isOpen = open.has(d.id); const plays = [...d.plays].reverse();
+      return `<div class="drv ${d.score ? "sc" : ""}"><div class="dh" role="button" tabindex="0" data-did="${d.id}"><span><b>${LOGO(d.team, 16)}${d.team}</b> <span class="lsm">${esc(d.desc || "")}${d.start ? ` · from ${esc(d.start)}` : ""}${d.q ? ` · ${qTxt(d.q, d.clock)}` : ""}</span></span><span class="dr">${d.current || (i === 0 && x.v.status === "in_progress") ? '<span class="badge live" style="margin-left:0">on the field</span>' : esc(d.result || "")}</span></div>
+        ${isOpen ? `<div class="pls">${plays.map(p => `<div class="pl ${p.sc ? "sc" : ""} ${p.to ? "to" : ""}"><span class="pc">${qTxt(p.q, p.clock)}</span><span>${p.dd ? `<span class="pd">${esc(p.dd)}</span> ` : ""}<span class="pt">${esc(p.text)}</span>${p.sc ? ` <span class="pd">${A} ${p.sc[0]}, ${H} ${p.sc[1]}</span>` : ""}${p.to ? ' <span class="badge" style="color:var(--bad);border-color:var(--bad)">turnover</span>' : ""}</span></div>`).join("")}</div>` : ""}</div>`; }).join("");
+    queueMicrotask(() => { const S = $("livesub"); if (!S) return; S.querySelectorAll(".dh").forEach(h => { const tog = () => { const id = h.dataset.did; open.has(id) ? open.delete(id) : open.add(id); renderLiveGame(); }; h.addEventListener("click", tog); h.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tog(); } }); }); });
+    return `<div class="lsm" style="margin:6px 0 4px">Newest first. Click a drive to open or close it. ${P.n_plays} plays, ${P.drives.length} drives.</div>` + html;
+  }
+  function renderLiveModel(x, wk) {
+    const lv = x.lv, v = x.v, H = v.home_team, A = v.away_team, P = lv.priced || {}, CL = lv.close || {}, C = lv.calls || {}, r = c => c && c.result ? " " + resMark(c.result) : "";
+    const rows = [];
+    if (wk && wk.spread_line != null) rows.push(["Model line, this card", `${lineTxt(H, -wk.model_spread)} · total ${Number(wk.model_total).toFixed(1)}${wk.p_home_cal != null ? ` · ${H} wins ${Math.round(100 * wk.p_home_cal)}%` : ""}`], ["Vegas now", `${lineTxt(H, -wk.spread_line)}${wk.total_line != null ? ` · ${wk.total_line}` : ""}`]);
+    if (P.model_spread != null) rows.push(["Priced before kickoff", `${lineTxt(H, -P.model_spread)} · total ${Number(P.model_total).toFixed(1)} <span class="rk">${esc(P.run_at || "")}${P.after_kickoff ? " · after kickoff" : ""}</span>`]);
+    if (CL.spread != null || CL.total != null) rows.push(["Close", `${CL.spread != null ? lineTxt(H, -CL.spread) : ""}${CL.total != null ? ` · ${CL.total}` : ""} <span class="rk">${esc(CL.source || "")}${CL.ts ? ", " + esc(etTime(CL.ts)) : ""}</span>`]);
+    if (C.spread) rows.push(["Model side, spread", `${lineTxt(C.spread.side, C.spread.line)} <span class="rk">edge ${C.spread.edge}</span>${r(C.spread)}`]);
+    if (C.total) rows.push(["Model side, total", `${C.total.side} ${C.total.line} <span class="rk">edge ${C.total.edge}</span>${r(C.total)}`]);
+    if (C.winner) rows.push(["Model's winner", `${C.winner.side}${r(C.winner)}`]);
+    (lv.bets || []).forEach(b => rows.push([b.who === "matt" ? "Your bet" : b.who === "model" ? "Bet" : esc(b.who), `${esc(b.bet)}${b.odds != null ? ` (${b.odds})` : ""}${r(b)}${b.units != null && b.result ? ` · ${sgn(b.units, 2)} units` : ""}`]));
+    if (wk && wk.bet) rows.push(["Flag", esc(wk.bet)]);
+    return rows.length ? `<div class="kv" style="margin-top:8px">${rows.map(([k, val]) => `<b>${k}</b><span>${val}</span>`).join("")}</div><p class="note" style="margin-top:10px">Every number here is Python's: the card's numbers from week.js, the pre-kickoff numbers, the close and the graded calls from live.js (nflmodel/results.py). Nothing on this tab is priced from the live feed.</p>` : "<p class='note'>No model numbers for this game.</p>";
+  }
+  // ESPN's win probability over the game (one series, its own model, displayed as is) with the model's pregame chance marked at kickoff
+  function wpChart(P, pre, H, A, live) {
+    const wp = (P && P.wp) || []; const now = live && live.espn_home_wp != null ? live.espn_home_wp : null;
+    if (wp.length < 2) return `<p class="note">${now != null ? `ESPN's live win chance: ${H} ${Math.round(100 * now)}%${pre != null ? `; the model's pregame chance ${Math.round(100 * pre)}%` : ""}.` : ""} No win-probability series in the feed for this game yet.</p>`;
+    const W = 640, Hh = 150, ml = 40, mr = 12, mt = 14, mb = 24, xmax = Math.max(3600, wp[wp.length - 1][0]); const X = t => ml + (W - ml - mr) * t / xmax, Y = p => mt + (Hh - mt - mb) * (1 - p);
+    const ticks = [0, 900, 1800, 2700, 3600].concat(xmax > 3600 ? [xmax] : []); const lab = ["Kickoff", "Q2", "Q3", "Q4", xmax > 3600 ? "OT" : "End", "End"];
+    const path = wp.map((w, i) => `${i ? "L" : "M"}${X(w[0]).toFixed(1)},${Y(w[1]).toFixed(1)}`).join(" ");
+    const last = wp[wp.length - 1];
+    return `<div class="wpc"><div class="lsm" style="margin:6px 0">ESPN win probability for <b>${H}</b> through the game (its own model, as published)${pre != null ? `; <span style="color:var(--ink)">◆</span> the model's pregame chance, ${Math.round(100 * pre)}%` : ""}. Latest ${Math.round(100 * last[1])}%.</div>
+      <div class="wpw"><svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="ESPN win probability for ${H} over the game">
+        ${[0, .25, .5, .75, 1].map(p => `<line x1="${ml}" x2="${W - mr}" y1="${Y(p)}" y2="${Y(p)}" stroke="var(--rule-2)" stroke-width="${p === .5 ? 1.5 : 1}"/><text x="${ml - 6}" y="${Y(p) + 3.5}" text-anchor="end" font-size="10" fill="var(--muted)">${Math.round(100 * p)}</text>`).join("")}
+        ${ticks.map((t, i) => `<line x1="${X(t)}" x2="${X(t)}" y1="${mt}" y2="${Hh - mb}" stroke="var(--rule-2)"/><text x="${X(t)}" y="${Hh - 8}" text-anchor="${i === 0 ? "start" : i === ticks.length - 1 ? "end" : "middle"}" font-size="10" fill="var(--muted)">${lab[i]}</text>`).join("")}
+        <path d="${path}" fill="none" stroke="var(--model)" stroke-width="2" stroke-linejoin="round"/>
+        ${pre != null ? `<path d="M${X(0)},${Y(pre) - 6} l6,6 l-6,6 l-6,-6 z" fill="var(--ink)"/>` : ""}
+        <circle cx="${X(last[0])}" cy="${Y(last[1])}" r="4" fill="var(--model)" stroke="var(--panel)" stroke-width="2"/>
+        <line class="xh" x1="0" x2="0" y1="${mt}" y2="${Hh - mb}" stroke="var(--ink-2)" stroke-dasharray="3 3" visibility="hidden"/><circle class="xd" r="4.5" fill="var(--panel)" stroke="var(--model)" stroke-width="2" visibility="hidden"/>
+        <rect class="hit" x="${ml}" y="0" width="${W - ml - mr}" height="${Hh}" fill="transparent"/></svg><div class="wpt" hidden></div></div></div>`;
+  }
+  function wpHover(S, P, H, A) {
+    const svg = S.querySelector("svg"), tip = S.querySelector(".wpt"); if (!svg || !P) return; const wp = P.wp; const W = 640, ml = 40, mr = 12, mt = 14, Hh = 150, mb = 24, xmax = Math.max(3600, wp[wp.length - 1][0]);
+    const X = t => ml + (W - ml - mr) * t / xmax, Y = p => mt + (Hh - mt - mb) * (1 - p); const xh = svg.querySelector(".xh"), xd = svg.querySelector(".xd");
+    const clockOf = t => { const q = t < 3600 ? Math.floor(t / 900) + 1 : 5 + Math.floor((t - 3600) / 600); const left = q <= 4 ? 900 - (t - (q - 1) * 900) : 600 - (t - 3600 - (q - 5) * 600); return qTxt(Math.min(q, 5), `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`); };
+    const move = e => { const r = svg.getBoundingClientRect(); const t = Math.max(0, Math.min(xmax, (e.clientX - r.left) / r.width * W - ml) / (W - ml - mr) * xmax); let k = 0; for (let i = 1; i < wp.length; i++) if (Math.abs(wp[i][0] - t) < Math.abs(wp[k][0] - t)) k = i; const w = wp[k];
+      xh.setAttribute("x1", X(w[0])); xh.setAttribute("x2", X(w[0])); xh.setAttribute("visibility", "visible"); xd.setAttribute("cx", X(w[0])); xd.setAttribute("cy", Y(w[1])); xd.setAttribute("visibility", "visible");
+      tip.hidden = false; tip.textContent = `${clockOf(w[0])} · ${H} ${Math.round(100 * w[1])}%, ${A} ${Math.round(100 * (1 - w[1]))}%`; tip.style.left = `${Math.min(r.width - 170, Math.max(0, (e.clientX - r.left) + 10))}px`; };
+    svg.addEventListener("mousemove", move); svg.addEventListener("touchstart", e => move(e.touches[0]), {passive: true}); svg.addEventListener("touchmove", e => move(e.touches[0]), {passive: true});
+    svg.addEventListener("mouseleave", () => { xh.setAttribute("visibility", "hidden"); xd.setAttribute("visibility", "hidden"); tip.hidden = true; });
   }
   function renderWeek() {
     const W = window.WEEK || {};
@@ -1133,7 +1275,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>Average gap to the spread, points</span></div>
       <div class="tile"><b>${W.games.filter(g => g.home_score != null || (liveOf(g) || {}).status === "final").length}</b><span>Played so far</span></div>${liveTile()}`;
     const RR = W.rule_records || {}, rec3 = k => RR[k] ? `${RR[k]["2015-18"]}, ${RR[k]["2019-22"]} and ${RR[k]["2023-25"]} on 2015-18, 2019-22 and 2023-25` : "on the Bets tab";
-    renderLiveStrip();
     let h = "";
     W.games.forEach((g, i) => {
       // every number on the card is Python's (picks.table on the newest line snapshot, export_web --week): the page displays them
@@ -3083,6 +3224,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   $("rppdf").addEventListener("click", reportPdf);
   $("rpfull").addEventListener("click", ev => { ev.preventDefault(); document.body.classList.remove("solo"); tab = "week"; save(); showTab(); render(); window.scrollTo(0, 0); });
   function render() {
+    if (tab === "live") return renderLive();
     if (tab === "week") return renderWeek();
     if (tab === "report") return renderReport();
     if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
@@ -3126,7 +3268,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   document.querySelectorAll("[data-v]").forEach(el => { const v = el.dataset.v.split(".").reduce((o, k) => (o == null ? null : o[k]), window); if (v == null || (typeof v === "number" && isNaN(v))) el.innerHTML = MISSING; else el.textContent = (VF[el.dataset.f] || String)(v); });
   fillDefs();
   // #report opens the report on its own, for sending to friends (the site's tabs one click away)
-  const soloReport = () => { if (location.hash === "#report") { tab = "report"; document.body.classList.add("solo"); } };
+  const soloReport = () => { if (location.hash === "#report") { tab = "report"; document.body.classList.add("solo"); } if (location.hash === "#live") tab = "live"; };
   soloReport(); window.addEventListener("hashchange", () => { soloReport(); showTab(); render(); });
   showTab(); render(); load();
 })();

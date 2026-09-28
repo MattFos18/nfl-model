@@ -85,7 +85,7 @@ jobs:
       - name: cards from the log   # Python prices the cards on the newest line snapshot (picks.table: consensus line, edges, chances, flags, stake, Vegas win), the props re-project on it with the newest forecast and book lines, and the books' season markets follow the futures pull; the page only displays these files
         if: steps.gate.outputs.skip != '1'
         run: |
-          python -m nflmodel.results      # scores from the ESPN scoreboard, the model's pre-kickoff calls graded (web/data/live.js, 27 Sep 2026)
+          python -m nflmodel.results      # scores from the ESPN scoreboard, the model's pre-kickoff calls graded (web/data/live.js, 27 Sep 2026); the play-by-play of every game under way or final (web/data/plays.js, 28 Sep 2026)
           python -m nflmodel.props --live
           python -m nflmodel.export_web --week
       - name: health checks     # every tie check against the files just written; the page's health chip reads web/data/health.js
@@ -97,7 +97,7 @@ jobs:
         run: |
           git config user.name "nfl-model bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/lines data/results web/data/week.js web/data/props.js web/data/season.js web/data/fresh.js web/data/health.js web/data/live.js data/processed/props.json data/weather data/runs/refresh_log.csv reports/props_*_wk*.csv reports/props_*_wk*.md
+          git add data/lines data/results web/data/week.js web/data/props.js web/data/season.js web/data/fresh.js web/data/health.js web/data/live.js web/data/plays.js data/processed/props.json data/weather data/runs/refresh_log.csv reports/props_*_wk*.csv reports/props_*_wk*.md
           if [ -e data/raw/injuries/espn_injuries.csv ]; then git add -f data/raw/injuries/espn_injuries.csv; fi
           git diff --cached --quiet || git commit -m "Lines $(date -u +%Y-%m-%dT%H:%M)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
