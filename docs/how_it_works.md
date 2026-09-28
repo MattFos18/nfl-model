@@ -2135,15 +2135,16 @@ predictions are pred_tuesday.parquet. Openers are an archive (data/archive/opene
 online's season pages, 1,786 of 1,808 regular-season games 2015-21; its close is within a point of nflverse's on 96%).
 Four cases on the archive's games (both lines graded on the same games): the full model at the close, the Tuesday
 model at the close, the Tuesday model at the opener, and the full model at the opener (unfair: Sunday information on a
-Sunday-night line). Each carries every-game ATS, the flagged games (the model's side 3+ or 4+ points from the line; 4
-is the site's flag) with units at -110, and the same for totals; the two models are also shown at the close on the
-backtest's three windows. Runs every weekly run after the model; a tie row recomputes every row from the files.
+Sunday-night line). Each carries every-game ATS with units at -110, the site's flag (the model's side 4+ points from the line) and
+every-game totals (the totals flag is a chance rule and is not re-priced at the opener, so it is not in the study); the
+two models are also shown at the close on the backtest's three windows. The page shows one card a window with the two
+models as rows and the close and the opener side by side. Runs every weekly run after the model; a tie row recomputes every row from the files.
 
 What it says: the opener's edge is not the injury report and weather. On every game ATS the Tuesday model at the opener
-reads 52.0% and 56.7% (2015-18, 2019-21) against 50.5% and 52.2% for the same model at the close. On 3+ edges it reads
-61.5% and 62.0% at the opener against 57.9% and 55.2% at the close. At the site's 4-point flag the samples are about a
+reads 52.0% and 56.7% (2015-18, 2019-21) against 50.5% and 52.2% for the same model at the close. At the site's 4-point flag the samples are about a
 hundred bets a window and the opener and the close sit within noise of each other (54.9% / 66.0% against the full model
-at the close 55.2% / 66.7%). Totals lean the opener's way at both cuts. The full model at the close beats the Tuesday
+at the close 55.2% / 66.7%; on 3+ edges, checked in the session, the opener read 61.5% / 62.0% against 57.9% / 55.2%).
+Every-game totals lean the opener's way. The full model at the close beats the Tuesday
 model at the close on 2019-22 and 2023-25 (injuries and weather help late in the week), not on 2015-18.
 
 **The Picks tab** is now the picks table, the bet order and the 6-point teaser. The bankroll box, the stakes and the
@@ -2155,6 +2156,8 @@ teaser of one's own. The jump bar on Breakdown rides up to the top of the screen
 carry no Actual rows (the score is on Games); the sparkline no longer clips its labels.
 
 **Colours.** Matt is red-green colour-blind. Loss, negative units and negative returns are a magenta (--bad) instead of
-a red, so they read apart from the green of a win; the History bar is a dark neutral with a striped fill so it reads
-apart from the blue Model bar and the orange Vegas bar. Every colour is also paired with a mark or a word.
+a red, so they read apart from the green of a win; the three bars differ by hue, lightness and pattern (Model a solid
+blue, History a dark neutral with diagonal stripes, Vegas an orange with horizontal stripes). Every colour is also
+paired with a mark or a word. The Picks panels sit in cards of a fixed width so the columns stay close together on a
+wide screen.
 

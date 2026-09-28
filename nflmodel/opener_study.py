@@ -22,7 +22,7 @@ RAW_OPENERS = ROOT / "data" / "archive" / "openers_2015_2021.csv"
 PRED_TUE = OUT / "pred_tuesday.parquet"
 TUESDAY_ZERO = ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out", "qb_out", "wind_out", "cold", "rain", "warm_in_cold"]
 from .picks import SPREAD_EDGE
-CUTS = [3.0, float(SPREAD_EDGE)]   # the study's flags: the model's side this many points or more from the line, spreads and totals alike; the second is the site's own spread flag
+CUTS = [float(SPREAD_EDGE)]   # the study's flag: the site's own spread flag (the model's side SPREAD_EDGE or more points from the line); totals are every game only, the totals flag being a chance rule that needs a re-price at the opener
 PRICE = -110.0
 WINDOWS_OPEN = {"2015-18": (2015, 2018), "2019-21": (2019, 2021)}   # the archive's reach
 WINDOWS_CLOSE = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
@@ -82,13 +82,13 @@ def grade(pred: pd.DataFrame, games: pd.DataFrame, line: str, windows: dict, opn
     d = d[d.hs.notna() & d.sl.notna() & d.tl.notna()]
     m = d.hs - d.as_; t = d.hs + d.as_; se = d.model_spread - d.sl; te = d.model_total - d.tl
     d["cov"] = np.sign(np.where(se > 0, m - d.sl, d.sl - m)); d["ov"] = np.sign(np.where(te > 0, t - d.tl, d.tl - t))
-    d["sflag"] = se.abs() >= cut; d["tflag"] = te.abs() >= cut
+    d["sflag"] = se.abs() >= cut
     rows = []
     for w, (a, b) in windows.items():
-        x = d[d.season.between(a, b)]; fs = x[x.sflag]; ft = x[x.tflag]
+        x = d[d.season.between(a, b)]; fs = x[x.sflag]
         rows.append({"model": label, "line": line, "cut": cut, "window": w, "n": int(len(x)),
-                     "ats": _rec(x["cov"]), "ats_pct": _pct(x["cov"]), "flags": _rec(fs["cov"]), "flags_pct": _pct(fs["cov"]), "flags_units": _units(fs["cov"]),
-                     "totals": _rec(x["ov"]), "totals_pct": _pct(x["ov"]), "tflags": _rec(ft["ov"]), "tflags_pct": _pct(ft["ov"]), "tflags_units": _units(ft["ov"])})
+                     "ats": _rec(x["cov"]), "ats_pct": _pct(x["cov"]), "ats_units": _units(x["cov"]), "flags": _rec(fs["cov"]), "flags_pct": _pct(fs["cov"]), "flags_units": _units(fs["cov"]),
+                     "totals": _rec(x["ov"]), "totals_pct": _pct(x["ov"]), "totals_units": _units(x["ov"])})
     return rows
 
 
@@ -114,14 +114,14 @@ def write(res: dict) -> None:
     L = ["# The opener study", "",
          f"The full model (the one that prices the week, injuries and weather in) and a Tuesday model (the same fits with {', '.join(TUESDAY_ZERO)} at zero: what a Tuesday does not know), "
          f"each graded on the model's side against the closing line (nflverse) and against the opening line ({res['archive']['file']}, {res['archive']['games']} regular-season games, {res['archive']['seasons']}). "
-         f"Flags: the model's side the cut or more points from the line, at {' and '.join(f'{c:g}' for c in CUTS)} points (the second is the site's spread flag); units at {PRICE:g}. Every game ATS counts every game with a line. Rebuilt every weekly run (nflmodel/opener_study.py).", "",
+         f"Spreads: every game with a line, and the site's flag (the model's side {CUTS[0]:g}+ points from the line). Totals: every game with a line (the totals flag is a chance rule, not re-priced at the opener). Units at {PRICE:g}, one unit a bet. Rebuilt every weekly run (nflmodel/opener_study.py).", "",
          "## Against the opener and the close, the archive's games", "",
-         "| Cut | Model | Line | Window | Games | ATS every game | % | Flags | % | Units | Totals every game | % | Totals flagged | % | Units |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+         "| Model | Line | Window | Games | ATS every game | % | Units | Flag | % | Units | Totals every game | % | Units |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in res["open"]:
-        L.append(f"| {r['cut']:g}+ | {LABEL[r['model']]} | {r['line']} | {r['window']} | {r['n']} | {r['ats']} | {r['ats_pct']} | {r['flags']} | {r['flags_pct']} | {r['flags_units']} | {r['totals']} | {r['totals_pct']} | {r['tflags']} | {r['tflags_pct']} | {r['tflags_units']} |")
-    L += ["", "## At the close, the backtest's windows", "", "| Cut | Model | Window | Games | ATS every game | % | Flags | % | Units | Totals every game | % | Totals flagged | % | Units |", "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+        L.append(f"| {LABEL[r['model']]} | {r['line']} | {r['window']} | {r['n']} | {r['ats']} | {r['ats_pct']} | {r['ats_units']} | {r['flags']} | {r['flags_pct']} | {r['flags_units']} | {r['totals']} | {r['totals_pct']} | {r['totals_units']} |")
+    L += ["", "## At the close, the backtest's windows", "", "| Model | Window | Games | ATS every game | % | Units | Flag | % | Units | Totals every game | % | Units |", "|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in res["close"]:
-        L.append(f"| {r['cut']:g}+ | {LABEL[r['model']]} | {r['window']} | {r['n']} | {r['ats']} | {r['ats_pct']} | {r['flags']} | {r['flags_pct']} | {r['flags_units']} | {r['totals']} | {r['totals_pct']} | {r['tflags']} | {r['tflags_pct']} | {r['tflags_units']} |")
+        L.append(f"| {LABEL[r['model']]} | {r['window']} | {r['n']} | {r['ats']} | {r['ats_pct']} | {r['ats_units']} | {r['flags']} | {r['flags_pct']} | {r['flags_units']} | {r['totals']} | {r['totals_pct']} | {r['totals_units']} |")
     (ROOT / "reports" / "opener_study.md").write_text("\n".join(L) + "\n")
 
 
