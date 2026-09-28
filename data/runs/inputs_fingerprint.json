@@ -1196,11 +1196,6 @@
 ],
 [
 "SF",
-"Brandon Aiyuk",
-"Out"
-],
-[
-"SF",
 "C.J. West",
 "Out"
 ],
@@ -2044,6 +2039,12 @@
 ],
 [
 "LA",
+"Jaylen Watson",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Jordan Whittington",
 "",
 "Full Participation in Practice"
@@ -2867,15 +2868,15 @@
 ],
 "weather": {
 "2026_03_LA_DEN": {
-"wind": 12.8,
+"wind": 7.8,
 "cold": false,
 "rain": false
 },
 "2026_03_PHI_CHI": {
-"wind": 4.5,
+"wind": 4.2,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 00:49 UTC"
+"written_at": "2026-09-28 02:32 UTC"
 }
