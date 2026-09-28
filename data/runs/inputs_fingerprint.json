@@ -1226,6 +1226,11 @@
 ],
 [
 "TB",
+"Baker Mayfield",
+"Out"
+],
+[
+"TB",
 "Billy Schrauth",
 "Out"
 ],
@@ -2716,12 +2721,6 @@
 ],
 [
 "TB",
-"Baker Mayfield",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Jacob Parrish",
 "",
 "Full Participation in Practice"
@@ -2873,10 +2872,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 4.1,
+"wind": 4.5,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 16:48 UTC"
+"written_at": "2026-09-28 17:08 UTC"
 }
