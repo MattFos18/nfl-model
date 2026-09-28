@@ -241,11 +241,6 @@
 ],
 [
 "CAR",
-"Jonathon Brooks",
-"Out"
-],
-[
-"CAR",
 "Nick Scott",
 "Out"
 ],
@@ -812,7 +807,7 @@
 [
 "MIA",
 "De'Von Achane",
-"Doubtful"
+"Out"
 ],
 [
 "MIA",
@@ -1569,6 +1564,12 @@
 [
 "CAR",
 "Jalen Coker",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
+"Jaycee Horn",
 "Questionable (ESPN)",
 ""
 ],
@@ -2877,10 +2878,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 4.3,
+"wind": 4.7,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 14:50 UTC"
+"written_at": "2026-09-28 16:10 UTC"
 }

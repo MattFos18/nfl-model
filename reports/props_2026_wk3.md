@@ -1,6 +1,6 @@
 # Week 3, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.16 / 18.16 yards off on receiving, 17.77 / 17.04 on rushing and 56.56 / 56.06 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-28 15:12 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.16 / 18.16 yards off on receiving, 17.77 / 17.04 on rushing and 56.56 / 56.06 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-28 16:07 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2704,19 +2704,19 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0039371  | Kris Abrams-Draine      | def_solo_tackles |   2.1   |         64.6  | live   |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0032569  | Wil Lutz                | kick_points      |   7     |         21    | live   |
 |     2026 |      3 | 2026_03_LA_DEN  | DEN    | 00-0032569  | Wil Lutz                | field_goals      |   1.66  |         21    | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_yards        |  81.2   |          9.4  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_yards        |  81.1   |          9.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_catches      |   5.6   |          9.4  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_td           |   0.54  |          9.4  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_td           |   0.539 |          9.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_targets      |   9.4   |          9.4  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036912  | DeVonta Smith           | rec_longest      |  20.2   |          9.4  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_yards        |  36.2   |          5    | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_yards        |  36.1   |          5    | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_catches      |   3     |          5    | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_td           |   0.336 |          5    | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_td           |   0.335 |          5    | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_targets      |   5     |          5    | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038393  | Dontayvion Wicks        | rec_longest      |  15.4   |          5    | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_yards        |  14.8   |          3.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_catches      |   1.9   |          3.1  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_td           |   0.134 |          3.1  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_td           |   0.133 |          3.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_targets      |   3.1   |          3.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rec_longest      |  10.2   |          3.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0040024  | Darius Cooper           | rec_yards        |  10.3   |          1.9  | live   |
@@ -2735,17 +2735,17 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley            | rec_targets      |   1.5   |          1.5  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley            | rec_longest      |   8.5   |          1.5  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_yards       |  42.7   |         12.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_td          |   0.279 |         12.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_td          |   0.278 |         12.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_attempts    |  12.8   |         12.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_rec_yards   |  57.5   |         12.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0034844  | Saquon Barkley          | rush_longest     |  14.6   |         12.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_yards       |  28.3   |          6.9  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_td          |   0.214 |          6.9  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_td          |   0.213 |          6.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_attempts    |   6.9   |          6.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_rec_yards   |  28.3   |          6.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0038555  | Tank Bigsby             | rush_longest     |   9.2   |          6.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_yards       |  20.6   |          5.7  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_td          |   0.235 |          5.7  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_td          |   0.234 |          5.7  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_attempts    |   5.7   |          5.7  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_rec_yards   |  20.6   |          5.7  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | rush_longest     |   9     |          5.7  | live   |
@@ -2754,12 +2754,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley            | rush_attempts    |   3.2   |          3.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley            | rush_rec_yards   |  19     |          3.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0039746  | Will Shipley            | rush_longest     |   6.9   |          3.2  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_yards       | 225.9   |         34.2  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_td          |   1.608 |         34.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_yards       | 225.7   |         34.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_td          |   1.602 |         34.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_int         |   0.701 |         34.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_attempts    |  31.9   |         34.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_completions |  20.3   |         34.2  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_rush_yards  | 246.5   |         34.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_rush_yards  | 246.3   |         34.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036389  | Jalen Hurts             | pass_longest     |  32.9   |         34.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036418  | Zack Baun               | def_tackles      |   7.6   |         70.1  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0036418  | Zack Baun               | def_sacks        |   0.22  |         70.1  | live   |
@@ -2789,7 +2789,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | PHI    | 00-0033787  | Jake Elliott            | field_goals      |   1.59  |         22.5  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_yards        |  42.5   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_catches      |   3.9   |          6.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_td           |   0.322 |          6.8  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_td           |   0.321 |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040126  | Colston Loveland        | rec_longest      |  16.2   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III       | rec_yards        |  46.7   |          6.8  | live   |
@@ -2797,9 +2797,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III       | rec_td           |   0.244 |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III       | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040735  | Luther Burden III       | rec_longest      |  17     |          6.8  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_yards        |  39.8   |          6.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_yards        |  39.7   |          6.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_catches      |   4.4   |          6.2  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_td           |   0.237 |          6.2  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_td           |   0.236 |          6.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_targets      |   6.2   |          6.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0032464  | Kalif Raymond           | rec_longest      |  14.1   |          6.2  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0039919  | Rome Odunze             | rec_yards        |  35.7   |          6.2  | live   |
@@ -2827,10 +2827,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040277  | Jahdae Walker           | rec_td           |   0.072 |          1.7  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040277  | Jahdae Walker           | rec_targets      |   1.7   |          1.7  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040277  | Jahdae Walker           | rec_longest      |  12.2   |          1.7  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_yards       |  63.3   |         15.3  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_yards       |  63.2   |         15.3  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_td          |   0.527 |         15.3  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_attempts    |  15.3   |         15.3  | live   |
-|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_rec_yards   |  78.1   |         15.3  | live   |
+|     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_rec_yards   |  78     |         15.3  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0036275  | D'Andre Swift           | rush_longest     |  13.8   |         15.3  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040236  | Kyle Monangai           | rush_yards       |  37.7   |          9.9  | live   |
 |     2026 |      3 | 2026_03_PHI_CHI | CHI    | 00-0040236  | Kyle Monangai           | rush_td          |   0.26  |          9.9  | live   |
