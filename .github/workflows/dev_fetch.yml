@@ -1,0 +1,50 @@
+name: dev fetch samples
+# One-off, dispatched by hand while building the play-by-play feed: saves ESPN game summaries for the saved scoreboards'
+# games under data/results/dev_summary so the parser can be written against real files. Removed once the feed ships.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - name: fetch summaries
+        run: |
+          python - <<'PY'
+          import glob, json, requests, pathlib
+          out = pathlib.Path("data/results/dev_summary"); out.mkdir(parents=True, exist_ok=True)
+          H = {"User-Agent": "Mozilla/5.0"}
+          n = 0
+          for f in sorted(glob.glob("data/results/scoreboard_*.json")):
+              j = json.load(open(f))
+              for ev in j.get("events", []):
+                  st = (ev.get("status") or {}).get("type") or {}
+                  if st.get("state") == "pre" and n > 0: continue
+                  eid = ev["id"]
+                  for url in [f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={eid}",
+                              f"https://cdn.espn.com/core/nfl/playbyplay?xhr=1&gameId={eid}"]:
+                      try:
+                          r = requests.get(url, headers=H, timeout=30); r.raise_for_status()
+                          tag = "summary" if "summary?" in url else "pbp"
+                          (out / f"{tag}_{eid}.json").write_text(r.text)
+                          print(tag, eid, len(r.text), "keys:", list(r.json().keys())[:30])
+                      except Exception as e:
+                          print("FAILED", url, e)
+                  n += 1
+                  if n >= 6: break
+              if n >= 6: break
+          PY
+      - name: commit
+        run: |
+          git config user.name "nfl-model bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/results/dev_summary
+          git diff --cached --quiet || git commit -m "Dev: ESPN summary samples"
+          git push
