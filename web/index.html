@@ -68,6 +68,7 @@ td.win{color:var(--good)} td.loss{color:var(--bad)}
 .card{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:14px}
 .viz-root{position:relative}
 .viz-root svg{width:100%;height:auto;display:block;max-width:100%}
+#chartcard{max-width:860px}
 .tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;font-size:12px;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.12);display:none;z-index:5;white-space:nowrap}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
 .kv b{font-weight:500;color:var(--ink-2)}
@@ -386,7 +387,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <button data-sub="totals">Player totals</button>
   </nav>
   <div id="odds">
-    <p class="note" id="seasonnote"></p>
     <div class="grid2">
       <div class="card" style="grid-column:1 / -1"><div class="tablewrap" style=""><table id="sbtable"></table></div></div>
     </div>
@@ -395,8 +395,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="totals" hidden>
     <div class="seg" id="pskindseg" role="group" aria-label="Stat"></div> <div class="seg" id="psposseg" role="group" aria-label="Position"></div>
     <div id="psscore"></div>
-    <div class="card"><h3 id="bohead">Breakout watch</h3><p class="note" id="bonote" style="margin:4px 0 10px"></p><div class="bocards" id="bocards"></div></div>
-    <div class="card" style="margin-top:14px"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">Projected season totals <input id="psq" type="search" placeholder="Search a player" style="width:190px;font-weight:400"></h3><p class="note" id="totalsnote" style="margin:4px 0 8px"></p><div class="tablewrap" style=""><table id="pstable"></table></div></div>
+    <div class="card"><h3 id="bohead">Breakouts</h3><div class="bocards" id="bocards"></div></div>
+    <div class="card" style="margin-top:14px"><h3 style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">Projected season totals <input id="psq" type="search" placeholder="Search a player" style="width:190px;font-weight:400"></h3><div class="tablewrap" style=""><table id="pstable"></table></div></div>
   </div>
 </section>
 
@@ -1950,7 +1950,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // ---------- Team: ratings by week ----------
   function renderRatings() {
     const rs = rows().filter(r => r.r_off_epa_play != null);
-    const W = 900, H = 250, m = {t: 14, r: 128, b: 24, l: 52};   // labels sit right of the last point (28 Sep 2026, Matt)
+    const W = 800, H = 240, m = {t: 14, r: 128, b: 24, l: 52};   // labels sit right of the last point (28 Sep 2026, Matt)
     const xs = rs.map(r => r.week), ys = rs.flatMap(r => [r.r_off_epa_play, r.r_own_def_epa_play]).filter(v => v != null);
     if (!rs.length) { $("chart").innerHTML = ""; if ($("ratingstable")) $("ratingstable").innerHTML = ""; $("charttitle").textContent = "No ratings for this season"; return; }
     // league context: for each week, the middle half of the 32 teams on each rating, and this team's rank
@@ -2926,7 +2926,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   let psKind = "rec", psPos = "all";
   function renderSeason() {
     const S = window.SEASON;
-    if (!S) { $("seasonnote").textContent = "Season odds are not built yet."; return; }
+    if (!S) { $("sbtable").innerHTML = "<tr><td class='l'>Season odds are not built yet.</td></tr>"; return; }
     const cur = sub.seasonsec || "odds";
     const pct = v => v == null ? "" : (v >= 0.995 ? "99+" : v < 0.005 && v > 0 ? "<1" : (100 * v).toFixed(v >= 0.1 ? 0 : 1)) + "%";
     const rec = t => `${Math.floor(t.wins_now)}-${t.losses_now}${t.ties_now ? "-" + t.ties_now : ""}`;
@@ -2935,7 +2935,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const n3 = v => v == null || isNaN(v) ? "" : (+v).toFixed(3);
     if (cur === "odds") {
       const BK = S.books || {};
-      $("seasonnote").innerHTML = ""; $("seasonnote").hidden = true;
       const rows = S.teams.slice().sort((a, b) => b.p_sb - a.p_sb || b.p_conf - a.p_conf || b.wins - a.wins); const LEFT = S.left || {};
       // a cell with the model's number and, under it, the books' where they price it
       const odd = (p, m, t, bold) => `<td class="mono">${bold ? `<b>${pct(p)}</b>` : pct(p)}${BK[m] && BK[m][t] != null ? `<div class="bkv">books ${pct(BK[m][t])}</div>` : ""}</td>`;
@@ -2943,10 +2942,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         const bk = (m) => { const b = Object.values(((BK.books || {})[m] || {})[t.team] || {}); if (!b.length || BK[m] == null || BK[m][t.team] == null) return "–"; return b.length > 1 ? `${pct(BK[m][t.team])} <small class="rk">${b.length} books, ${pct(Math.min(...b))}–${pct(Math.max(...b))}</small>` : `${pct(BK[m][t.team])} <small class="rk">DraftKings</small>`; };
         const odds = [["Division", t.p_div, "div"], ["Playoffs", t.p_playoffs, null], ["First-round bye", t.p_bye, null], ["Conference", t.p_conf, "conf"], ["Super Bowl", t.p_sb, "sb"]];
         const wins = dCard("Wins", n1(t.wins), [["Won so far", rec(t), n1(t.wins_now)], ["Games left", `${L.length} games, the win chances below added up`, `+ ${n2(sum)}`], ["Expected wins", "", n1(t.wins_now + sum), true]],
-          `<div class="gg">${L.map(g => `<span><i>Wk ${g[0]}</i> ${g[2] ? "" : "@"}${g[1]} <b>${Math.round(100 * g[3])}%</b></span>`).join("")}</div>Range, 10th to 90th percentile of the runs: ${n1(t.wins_p10)} to ${n1(t.wins_p90)} wins`);
-        const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Seasons</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr dm">${Math.round(p * N).toLocaleString()}</td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table><div class="ft">Model: the share of ${N.toLocaleString()} simulated seasons (every game left played out from the model's win chance, then standings and playoffs) that end that way. Books: the sportsbook price with its margin removed.</div></div>`;
+          `<div class="gg">${L.map(g => `<span><i>Wk ${g[0]}</i> ${g[2] ? "" : "@"}${g[1]} <b>${Math.round(100 * g[3])}%</b></span>`).join("")}</div>`);
+        const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Seasons</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr dm">${Math.round(p * N).toLocaleString()}</td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table></div>`;
         return `<tr class="tcalc" data-for="${t.team}" hidden><td colspan="10" class="dcell">${dPanel([wins, oc])}</td></tr>`; };
-      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th title="expected wins over the season, and the range 80% of the simulated seasons land in">Wins · likely range</th><th title="share of ${S.n_sims.toLocaleString()} simulated seasons in which it wins the division; books: the sportsbooks' chance, margin removed">Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
+      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
         rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small class="rk">${Math.round(t.wins_p10)} to ${Math.round(t.wins_p90)} wins</small></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
       oneOpen("sbtable", "tr.mrow[data-t]", tr => $("sbtable").querySelector(`tr.tcalc[data-for="${tr.dataset.t}"]`));
       $("divgrid").innerHTML = Object.entries(S.divisions).map(([d, ts]) => { const rs = ts.map(t => S.teams.find(x => x.team === t)).filter(Boolean).sort((a, b) => b.p_div - a.p_div); return `<div class="card"><h3>${d}</h3><table><thead><tr><th class="l">Team</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Super Bowl</th></tr></thead><tbody>${rs.map(t => `<tr><td class="l">${LOGO(t.team)}${t.team}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}</td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_sb)}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
@@ -2973,7 +2972,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const bo = kr.filter(r => r.breakout), nt = kr.filter(r => r.new_top), lead = kr[0];
       $("psscore").innerHTML = ""; $("psscore").hidden = true;   // no tiles here (28 Sep 2026, Matt): the accuracy figures live on Backtest -> Season odds and totals
       const flagged = bo.concat(nt);
-      $("bohead").textContent = "Breakouts"; $("bonote").hidden = true; $("totalsnote").hidden = true;
+      
       $("bocards").innerHTML = flagged.length ? flagged.map(r => `<div class="bo" data-ps="${r.player_id}"><div class="bn">${LOGO(r.team)}${esc(r.name)} <span class="bt">${esc(r.pos)} · ${r.team}</span></div><div class="bv">${num(r.proj_yards)} <span class="bt">yds · #${r.rank}</span></div>` +
         `<div class="bw">${r.breakout ? `${f1(r.proj_pg)} vs ${f1(r.prev_pg)} a game <b class="pos">+${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}%</b>` : `${f1(r.proj_pg)} a game · <b>new</b>`}</div></div>`).join("") : `<p class="note">None this week.</p>`;
       const ok = b => b ? `<span class="pos">✓</span>` : `<span class="neg">✗</span>`;
@@ -2982,8 +2981,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           ["His rate a game", `${f2(r.volume_pg)} ${VL} × ${f2(r.rate)} yds ${PER}`, f1(r.yards_pg)],
           ["His own total", `${num(r.yards_so_far)} so far + ${f1(r.yards_pg)} × ${left} games left × ${av}`, num(r.own_yards)],
           ["His pace", gp > 0 ? `${f1(r.yards_so_far / gp)} a game so far × ${r.team_games} games` : "no games yet: last season's total", num(r.pace_yards)],
-          ["Projected", `${f2(1 - r.blend)} × own + ${f2(r.blend)} × pace`, num(r.proj_yards), true]],
-          `${av} = the share of the games left players like him end up playing (fitted on ${nz(fitW)}).`);
+          ["Projected", `${f2(1 - r.blend)} × own + ${f2(r.blend)} × pace`, num(r.proj_yards), true]]);
         const td = dCard(r.kind === "rec" ? "Touchdowns and catches" : "Touchdowns", null, [
           ["Touchdowns", `${num(r.td_so_far)} so far + ${f2(r.td_pg)} a game × ${left} × ${av}`, f1(r.proj_td), true]].concat(r.kind === "rec" && r.proj_catches != null && !isNaN(r.proj_catches) ? [["Catches", `${num(r.catches_so_far)} so far + ${f2(r.catches_pg)} a game × ${left} × ${av}`, num(r.proj_catches), true]] : []));
         const brk = dCard("Breakout test", r.breakout ? "Yes" : r.new_top ? "New" : "No", r.prev_games ? [
@@ -2995,7 +2993,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const q = ($("psq").value || "").trim().toLowerCase(), shown = kr.filter(r => !q || r.name.toLowerCase().includes(q));
       // one rank (within the filter shown), the same fixed columns whatever the position, no books column and no badges
       // (28 Sep 2026, Matt: the cards above carry the breakouts; the books' leader chance was empty everywhere)
-      $("pstable").innerHTML = `<colgroup><col style="width:6%"><col style="width:24%"><col style="width:10%"><col style="width:12%"><col style="width:12%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:8%"></colgroup><thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th title="yards this season, and the games played">This season</th><th title="expected season total, allowing for games missed (players like these played ${share == null ? "missing" : Math.round(100 * share) + "%"} of their team's games left, ${fitW || "missing"})">Projected</th><th title="touchdowns this season">TD</th><th title="expected touchdowns this season">Projected TD</th><th title="yards last season">Last season</th><th title="touchdowns last season">Last TD</th></tr></thead><tbody>` +
+      $("pstable").innerHTML = `<colgroup><col style="width:6%"><col style="width:24%"><col style="width:10%"><col style="width:12%"><col style="width:12%"><col style="width:9%"><col style="width:9%"><col style="width:10%"><col style="width:8%"></colgroup><thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th>This season</th><th>Projected</th><th>TD</th><th>Projected TD</th><th>Last season</th><th>Last TD</th></tr></thead><tbody>` +
         (shown.length ? shown.map(r => `<tr class="mrow" data-ps="${r.player_id}" style="cursor:pointer"><td class="mono">${posRank[r.player_id]}</td><td class="l"><b>${esc(r.name)}</b> <small class="rk">${esc(r.pos)}</small></td><td class="l">${LOGO(r.team)}${r.team}</td><td class="mono">${num(r.yards_so_far)} <small class="rk">in ${r.games_so_far}</small></td><td class="mono"><b>${num(r.proj_yards)}</b></td><td class="mono">${num(r.td_so_far)}</td><td class="mono">${f1(r.proj_td)}</td><td class="mono">${r.prev_games ? num(r.prev_yards) : "<small class='rk'>none</small>"}</td><td class="mono">${r.prev_games ? num(r.prev_td) : "<small class='rk'>none</small>"}</td></tr>${calc(r)}`).join("")
           : `<tr><td class="l" colspan="9">No match for “${esc(q)}”.</td></tr>`) + "</tbody>";
       oneOpen("pstable", "tr.mrow[data-ps]", tr => $("pstable").querySelector(`tr.pscalc[data-for="${tr.dataset.ps}"]`));
