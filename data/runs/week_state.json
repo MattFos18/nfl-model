@@ -1,0 +1,15 @@
+{
+ "season": 2026,
+ "week": 3,
+ "complete": false,
+ "missing": [
+  "nflverse score: 2026_03_PHI_CHI",
+  "play-by-play: 2026_03_PHI_CHI",
+  "player stats: 2026_03_PHI_CHI",
+  "snap counts: 2026_03_PHI_CHI",
+  "charting (participation, FTN): 2026_03_PHI_CHI"
+ ],
+ "all_kicked_off": false,
+ "pending": false,
+ "checked": "2026-09-28 16:50 UTC"
+}

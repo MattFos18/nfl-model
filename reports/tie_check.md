@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-28 16:25 UTC
+# Tie-out (sources and page), 2026-09-28 16:50 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -81,13 +81,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.1% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-28T16:16Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | {'espn': '2026-09-28T16:16Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-28T16:40Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | {'espn': '2026-09-28T16:40Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-09-28 16:14 UTC, 31 steps so far) | all ok | all ok | yes |
-| the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
+| every step of the newest weekly run finished (2026-09-28 16:35 UTC, 31 steps so far) | all ok | all ok | yes |
+| the model's numbers for games through 2025 reproduce the previous commit's, same code (games moved; worst gap) | 0; 0.0000 | 0; 0.0000 | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
 | the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line (16 games, worst gap) | 0.00e+00 | 1e-9 or under | yes |
@@ -108,8 +108,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-28T16-16-57Z | 2026-09-28T16-16-57Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-28T16-16-57Z | 2026-09-28T16-16-57Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-28T16-40-50Z | 2026-09-28T16-40-50Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-28T16-40-50Z | 2026-09-28T16-40-50Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0006 or under | yes |
 | card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00017 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
@@ -119,9 +119,9 @@ The same number must read the same everywhere it appears. Each row: what was com
 | card edges = model minus the card's line (spread and total, worst gap) | 0.0 | 0.002 or under | yes |
 | card chances (win, cover, over) = the model's fit priced at the card's line (worst gap; three decimals on the page) | 0.0005 | 0.0006 or under | yes |
 | card flag = the flag rule on the card's edge (side flagged, weeks 1 to 17) | {'2026_03_ATL_GB': '', '2026_03_LAC_BUF': '', '2026_03_CAR_CLE': 'CLE', '2026_03 | {'2026_03_ATL_GB': '', '2026_03_LAC_BUF': '', '2026_03_CAR_CLE': 'CLE', '2026_03 | yes |
-| week picker: the coming week is offered exactly when every game is priced with its fit and has a logged spread and total | 4 | 4 | yes |
-| week picker: the coming week's games = picks.table for that week (game, flags) | [] | [] | yes |
-| week picker: the coming week's points, lines and chances = picks.table for that week (worst gap) | 0.00048 | 0.0006 or under | yes |
+| page week = the picks week (the earliest week with a game not yet in every source) | [2026, 3] | [2026, 3] | yes |
+| every week before the picks week is complete (score, play-by-play, player stats, snap counts, charting for every game) | [] | [] | yes |
+| week.js carries no coming week (28 Sep 2026: none is shown until the week before it is complete) | None | None | yes |
 | card totals flag = an under at a 55%+ chance on the card's own over chance (p_over_emp) | {'2026_03_ATL_GB': False, '2026_03_LAC_BUF': True, '2026_03_CAR_CLE': False, '20 | {'2026_03_ATL_GB': False, '2026_03_LAC_BUF': True, '2026_03_CAR_CLE': False, '20 | yes |
 | card recorded bet = the tracker's logged picks (game, bet) | [] | [] | yes |
 | card Vegas win chance = the newest moneyline snapshot, vig removed per book, averaged (worst gap; games missing one side) | 0.0005; 0 | 0.0006 or under; 0 | yes |
