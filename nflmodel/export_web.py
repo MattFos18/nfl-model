@@ -486,7 +486,9 @@ def main():
         rec_rows["summary"] = _ms(pd.read_csv(ROOT / "data" / "tracker" / "props_vs_market.csv"))
     for f in sorted((ROOT / "reports").glob("props_*_wk*.csv")):
         rec_rows["projections"] += [{k: (None if isinstance(v, float) and np.isnan(v) else v) for k, v in r.items()} for r in pd.read_csv(f).to_dict("records")]
-    (WEB / "props_record.js").write_text("window.PROPS_REC=" + json.dumps(rec_rows, default=clean, separators=(",", ":")) + ";")   # every projection written, every grade, every line graded (Players tab, Results)
+    # every projection written, every grade, every line graded (Players tab, Results); packed as columns and rows (28 Sep 2026:
+    # the same rows as objects were 4.7 MB of a 60 MB page), the page unpacks it right after loading it, tie_check._unpack too
+    (WEB / "props_record.js").write_text("window.PROPS_REC=" + json.dumps(pack_rows(rec_rows), default=clean, separators=(",", ":")) + ";")
     sp = OUT / "scheme_profiles.json"
     if sp.exists():   # scheme and play-calling profiles (nflmodel/scheme.py), as of the current week
         from . import scheme as SC_
@@ -655,6 +657,17 @@ def _add_injuries(wk: list, cur_week: int) -> None:
                              "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
                              "back": clean(p.back)})
             sd["injuries"] = sorted(rows, key=lambda x: (not x["priced"], x["spread_pts"], x["name"]))
+
+
+def pack_rows(d: dict) -> dict:
+    """Each list of same-keyed dicts becomes {cols, rows}; everything else stays. The page and tie_check unpack it."""
+    out = {}
+    for k, v in d.items():
+        if isinstance(v, list) and v and all(isinstance(x, dict) for x in v) and all(list(x.keys()) == list(v[0].keys()) for x in v):
+            cols = list(v[0].keys()); out[k] = {"cols": cols, "rows": [[x[c] for c in cols] for x in v]}
+        else:
+            out[k] = v
+    return out
 
 
 def export_week(feats=None, games=None, pred=None):
