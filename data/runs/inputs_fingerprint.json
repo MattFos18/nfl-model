@@ -871,6 +871,11 @@
 ],
 [
 "MIN",
+"Josh Oliver",
+"Doubtful"
+],
+[
+"MIN",
 "Nick Samac",
 "Out"
 ],
@@ -1302,6 +1307,11 @@
 [
 "WAS",
 "Jayden Daniels",
+"Out"
+],
+[
+"WAS",
+"Leo Chenal",
 "Out"
 ],
 [
@@ -2260,12 +2270,6 @@
 ],
 [
 "MIN",
-"Josh Oliver",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
 "Justin Jefferson",
 "Questionable (ESPN)",
 ""
@@ -2764,6 +2768,12 @@
 ],
 [
 "TEN",
+"Jackson Slater",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "James Williams",
 "",
 "Full Participation in Practice"
@@ -2854,12 +2864,6 @@
 ],
 [
 "WAS",
-"Leo Chenal",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Percy Butler",
 "",
 "Full Participation in Practice"
@@ -2873,10 +2877,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 4.2,
+"wind": 4.4,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 05:30 UTC"
+"written_at": "2026-09-28 14:08 UTC"
 }
