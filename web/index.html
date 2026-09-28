@@ -823,9 +823,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   if (sub.seasonsec === "seasonbt") sub.seasonsec = "odds";
   if (["inputs", "overview"].includes(sub.teamsec)) sub.teamsec = "roster";   // Overview removed 24 Sep 2026: every part of it was on another tab
   { const el = document.getElementById(tab); if (!el || !el.classList.contains("tab")) tab = "week"; }
-  // the Live tab (28 Sep 2026): #live opens it; a visit while a game is on lands on it unless another tab was chosen this session
-  if (location.hash === "#live") tab = "live";
-  else { try { if (!sessionStorage.getItem("tabpicked") && window.LIVE && Object.values(LIVE.games || {}).some(g => g.status === "in_progress")) tab = "live"; } catch (e) {} }
+  tab = "live";   // every visit starts on Live (28 Sep 2026); #report still opens the report on its own
   const save = () => { try { localStorage.setItem("dataroom2", JSON.stringify({team, season, tab, sub, on: [...on]})); } catch (e) {} };
   const groupsOf = {};
   META.columns.forEach(c => { if (HIDE.has(c)) return; const g = (META.dictionary[c]||{}).group || "Other"; (groupsOf[g] = groupsOf[g] || []).push(c); });
@@ -843,7 +841,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     ht.value = team; hs.value = season; }
   $("season").addEventListener("change", e => { season = +e.target.value; howWeek = null; gameIdx = 0; save(); render(); });
   // a top tab always opens on its first sub-tab (24 Sep 2026)
-  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { tab = b.dataset.tab; try { sessionStorage.setItem("tabpicked", "1"); } catch (e) {} if (location.hash === "#live" || location.hash === "#report") history.replaceState(null, "", location.pathname); const first = document.querySelector(`#${tab} nav.sub button`); if (first) sub[tab] = first.dataset.sub; save(); showTab(); render(); window.scrollTo(0, 0); }));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { if (tab !== b.dataset.tab) { liveOpen = null; document.querySelectorAll("#cards .whybox").forEach(x => { x.hidden = true; x.dataset.k = ""; }); document.querySelectorAll("#cards button.why").forEach(o => { o.setAttribute("aria-expanded", "false"); o.textContent = o.textContent.replace("▴", "▾"); }); } tab = b.dataset.tab; if (location.hash === "#live" || location.hash === "#report") history.replaceState(null, "", location.pathname); const first = document.querySelector(`#${tab} nav.sub button`); if (first) sub[tab] = first.dataset.sub; save(); showTab(); render(); window.scrollTo(0, 0); }));
   document.querySelectorAll("nav.sub button").forEach(b => b.addEventListener("click", () => { const sec = b.closest("section").id; sub[sec] = b.dataset.sub; save(); showTab(); render(); }));
   function showTab() {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
@@ -1419,7 +1417,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       sch: g => { const m = schemeMatchHtml(g.away_team, g.home_team) + schemeMatchHtml(g.home_team, g.away_team); return m ? m + `<div class="mv" style="grid-column:1 / -1"><span class="chip mute">Readings · not a model input</span><span class="chip mute">Offense in the look · defense allows · how often the defense uses it</span></div>` : "<p class='note' style='margin:0'>No charted plays for these teams yet.</p>"; },
       props: g => { const pr = propsHtml(g.game_id, g.away_team, g.home_team) + propsHtml(g.game_id, g.home_team, g.away_team); return pr ? pr + propsRecordHtml() : "<p class='note' style='margin:0'>No projections for these teams yet.</p>"; }};
     $("cards").querySelectorAll("button.why[data-k]").forEach(b => b.addEventListener("click", () => { const i = +b.dataset.i, k = b.dataset.k, box = $("box" + i), g = W.games[i]; const same = !box.hidden && box.dataset.k === k;
-      $("cards").querySelectorAll(`button.why[data-i="${i}"]`).forEach(o => { o.setAttribute("aria-expanded", "false"); o.textContent = o.textContent.replace("▴", "▾"); });
+      $("cards").querySelectorAll(".whybox").forEach(x => { if (x !== box) { x.hidden = true; x.dataset.k = ""; } });   // one card open at a time (28 Sep 2026)
+      $("cards").querySelectorAll("button.why").forEach(o => { o.setAttribute("aria-expanded", "false"); o.textContent = o.textContent.replace("▴", "▾"); });
       if (same) { box.hidden = true; box.dataset.k = ""; return; }
       box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴"); }));
   }
