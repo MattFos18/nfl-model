@@ -509,6 +509,31 @@ def check_run(rows, g) -> None:
         r_ = pd.read_csv(rl); last = r_[r_.run_at == r_.run_at.iloc[-1]]
         bad = [f"{x.step}: {str(x.detail)[:60]}" for x in last.itertuples() if x.status != "ok"]
         rows.append((f"every step of the newest weekly run finished ({last.run_at.iloc[0]}, {len(last)} steps so far)", "; ".join(bad)[:160] or "all ok", "all ok", not bad))
+    # 27 Sep 2026: the model's numbers for games before this season must be the same from run to run when nothing
+    # that builds them changed. Two runs half an hour apart disagreed on a third of the historical games (the trees),
+    # and the by-season props check caught it at the fourth decimal. Compared with the previous commit's predictions
+    # when that commit's code is this code (meta.js code_sha = the newest commit touching nflmodel/ or experiments/)
+    try:
+        import subprocess as _sp
+        meta_f = WEB / "meta.js"
+        prev_sha = json.loads(meta_f.read_text()[meta_f.read_text().index("=") + 1:].rstrip().rstrip(";")).get("code_sha", "") if meta_f.exists() else ""
+        newest = _sp.run(["git", "log", "-1", "--format=%H", "HEAD", "--", "nflmodel", "experiments"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        same_code = bool(prev_sha) and bool(newest) and _sp.run(["git", "merge-base", "--is-ancestor", newest, prev_sha], cwd=ROOT, capture_output=True).returncode == 0
+        if same_code:
+            r_ = _sp.run(["git", "show", "HEAD:data/processed/pred_v3.parquet"], cwd=ROOT, capture_output=True)
+            if r_.returncode == 0 and r_.stdout:
+                import io
+                old_ = pd.read_parquet(io.BytesIO(r_.stdout)).set_index("game_id"); new_ = pd.read_parquet(OUT / "pred_v3.parquet").set_index("game_id")
+                last_full = int(new_[new_.game_type.eq("REG")].season.max()) - 1 if "game_type" in new_.columns else int(new_.season.max()) - 1
+                ix = old_.index.intersection(new_.index); ix = ix[new_.loc[ix].season <= last_full]
+                cols_ = [c for c in ("home_exp", "away_exp", "model_spread", "model_total", "p_home") if c in old_.columns and c in new_.columns]
+                gap_ = float((old_.loc[ix, cols_] - new_.loc[ix, cols_]).abs().max().max()) if len(ix) else 0.0
+                n_ = int(((old_.loc[ix, cols_] - new_.loc[ix, cols_]).abs().max(axis=1) > 1e-6).sum()) if len(ix) else 0
+                rows.append((f"the model's numbers for games through {last_full} reproduce the previous commit's, same code (games moved; worst gap)", f"{n_}; {gap_:.4f}", "0; 0.0000", n_ == 0))
+        else:
+            rows.append(("the model's numbers for past seasons reproduce the previous commit's", "skipped: the code that builds the data changed since the last build", "skipped: the code that builds the data changed since the last build", True))
+    except Exception as e:  # noqa
+        rows.append(("the model's numbers for past seasons reproduce the previous commit's", str(e)[:80], "", False))
     from . import weekly as WK
     st = json.loads(WK.STAMPS.read_text()) if WK.STAMPS.exists() else {}
     stale = []
