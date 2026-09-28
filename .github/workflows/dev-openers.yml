@@ -10,16 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: fetch
+      - name: fetch the season pages
         run: |
-          mkdir -p data/raw/openers_probe
+          rm -rf data/raw/openers_probe; mkdir -p data/raw/openers_probe
           UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36"
-          curl -sSL -A "$UA" -o data/raw/openers_probe/index.html "https://www.sportsbookreviewsonline.com/scores-odds-archives/nfl/" || true
-          curl -sSL -A "$UA" -o data/raw/openers_probe/index2.html "https://www.sportsbookreviewsonline.com/scoresoddsarchives/nfl/nfloddsarchives.htm" || true
-          for s in "2015-16" "2023-24"; do curl -sSL -A "$UA" -o "data/raw/openers_probe/nfl_odds_$s.xlsx" "https://www.sportsbookreviewsonline.com/scoresoddsarchives/nfl/nfl%20odds%20$s.xlsx" || true; curl -sSL -A "$UA" -o "data/raw/openers_probe/nfl_odds_${s}_b.xlsx" "https://www.sportsbookreviewsonline.com/scores-odds-archives/nfl/nfl-odds-$s.xlsx" || true; done
-          ls -la data/raw/openers_probe; for f in data/raw/openers_probe/*; do echo "== $f"; file "$f"; head -c 300 "$f" | tr -d '\0' | head -5; echo; done
-          grep -oiE 'href="[^"]*\.(xlsx|xls|csv)"' data/raw/openers_probe/index.html | head -40 || true
+          for s in 2015-16 2016-17 2017-18 2018-19 2019-20 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26; do
+            curl -sSL -A "$UA" -o "data/raw/openers_probe/nfl-odds-$s.html" "https://www.sportsbookreviewsonline.com/scoresoddsarchives/nfl-odds-$s" || true
+            echo "$s: $(wc -c < data/raw/openers_probe/nfl-odds-$s.html) bytes, tables: $(grep -oi '<table' data/raw/openers_probe/nfl-odds-$s.html | wc -l), xlsx links: $(grep -oiE 'href="[^"]*\.(xlsx|xls|csv)"' data/raw/openers_probe/nfl-odds-$s.html | head -3 | tr '\n' ' ')"
+          done
       - name: commit
         run: |
           git config user.name "nfl-model bot"; git config user.email "actions@users.noreply.github.com"
-          git add -f data/raw/openers_probe && (git commit -q -m "dev: openers probe" && git push) || echo "nothing"
+          git add -A data/raw/openers_probe && (git commit -q -m "dev: openers probe (season pages)" && git push) || echo "nothing"
