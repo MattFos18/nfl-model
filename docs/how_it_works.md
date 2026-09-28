@@ -347,7 +347,7 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
 | boosted trees alone, 5+ edge | 94-66 | 85-62 | 34-17 |
-| Under, 55%+ chance (the totals flag) | 145-124 | 190-146 | 76-62 |
+| Under, 55%+ chance (the totals flag) | 135-127 | 175-128 | 71-59 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
