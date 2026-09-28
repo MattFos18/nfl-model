@@ -78,7 +78,7 @@
 "2026-09-27 20:20"
 ],
 "2026_03_PHI_CHI": [
-"00-0038416",
+"00-0028986",
 "00-0036389",
 "2026-09-28 20:15"
 ]
@@ -97,6 +97,16 @@
 [
 "ATL",
 "Samson Ebukam",
+"Out"
+],
+[
+"BAL",
+"Ethan Pocic",
+"Out"
+],
+[
+"BAL",
+"Jovaughn Gwyn",
 "Out"
 ],
 [
@@ -156,7 +166,27 @@
 ],
 [
 "CHI",
+"Jamree Kromah",
+"Out"
+],
+[
+"CHI",
+"Jayden Loving",
+"Out"
+],
+[
+"CHI",
+"Jordan McFadden",
+"Out"
+],
+[
+"CHI",
 "Noah Sewell",
+"Out"
+],
+[
+"CHI",
+"Ozzy Trapilo",
 "Out"
 ],
 [
@@ -383,6 +413,11 @@
 "LA",
 "Ronnie Rivers",
 "Out"
+],
+[
+"LA",
+"Terrance Ferguson",
+"Doubtful"
 ],
 [
 "LAC",
@@ -626,6 +661,16 @@
 ],
 [
 "PHI",
+"AJ Epenesa",
+"Out"
+],
+[
+"PHI",
+"Cole Payton",
+"Out"
+],
+[
+"PHI",
 "Dallas Goedert",
 "Out"
 ],
@@ -642,6 +687,11 @@
 [
 "PHI",
 "Marquise Brown",
+"Out"
+],
+[
+"PHI",
+"Tanner McKee",
 "Out"
 ],
 [
@@ -1484,6 +1534,12 @@
 ],
 [
 "LA",
+"Colby Parkinson",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Jordan Whittington",
 "",
 "Full Participation in Practice"
@@ -1964,12 +2020,6 @@
 ],
 [
 "PHI",
-"Jonathan Greenard",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Saquon Barkley",
 "",
 "Full Participation in Practice"
@@ -2306,5 +2356,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 22:58 UTC"
+"written_at": "2026-09-28 23:30 UTC"
 }
