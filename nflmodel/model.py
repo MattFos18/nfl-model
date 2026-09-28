@@ -19,6 +19,7 @@ from sklearn.linear_model import Ridge
 from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
+from threadpoolctl import threadpool_limits
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
@@ -146,7 +147,12 @@ def fit_blend(train: pd.DataFrame, ridge_model=None, alpha: float = 10.0) -> dic
         cols = list(FEATS) + extra
         m = make_pipeline(StandardScaler(), Ridge(alpha=al)); m.fit(train[cols].fillna(train[cols].mean()).values, train.pf.values); ms[k] = (m, cols)
     t = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.03, max_leaf_nodes=8, min_samples_leaf=60, l2_regularization=1.0, random_state=0)
-    t.fit(train[FEATS].values, train.pf.values); ms["trees"] = (t, list(FEATS))
+    # one thread (27 Sep 2026): two weekly runs half an hour apart, on identical inputs for every game before 2026, gave the
+    # trees different numbers on a third of those games (up to 1.35 points; the ridges were identical). The histogram sums
+    # are added in parallel, so the order, and the rounding, followed the runner's cores; sequential sums reproduce
+    with threadpool_limits(limits=1):
+        t.fit(train[FEATS].values, train.pf.values)
+    ms["trees"] = (t, list(FEATS))
     ms["_means"] = train[sorted({c for m, cols in ms.values() for c in cols})].mean()
     return ms
 
@@ -156,7 +162,8 @@ def predict_blend(ms: dict, x: pd.DataFrame) -> pd.DataFrame:
     mu = ms["_means"]; out = pd.DataFrame(index=x.index)
     for k in BLEND_LABEL:
         m, cols = ms[k]
-        out[k] = m.predict(x[cols].fillna(mu[cols]).values)
+        with threadpool_limits(limits=1):   # the trees' prediction too (fit_blend)
+            out[k] = m.predict(x[cols].fillna(mu[cols]).values)
     out["blend"] = out[list(BLEND_LABEL)].mean(axis=1)
     return out
 

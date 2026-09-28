@@ -207,6 +207,10 @@ mechanical, not a matter of care:
 - **Lines.** The closing spread and total from nflverse for played games; the current line for unplayed ones. The
   backtest is therefore "the model against the close". Live, the tracker records the line the pick was made at and
   the closing line value once the game closes.
+- **Reproducible.** The same inputs give the same numbers: the boosted trees fit on one thread (27 Sep 2026; in
+  parallel their histogram sums rounded differently from runner to runner and a third of the historical games moved by
+  up to 1.35 points between two runs), and a tie check fails a run whose numbers for past seasons differ from the
+  previous commit's when the code that builds them has not changed.
 - **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
   games is the recorded game-time weather (nflverse posts it days after the score; until then the game keeps the kickoff
   reading it was priced with, 27 Sep 2026).
