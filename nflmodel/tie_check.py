@@ -637,6 +637,20 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
     # the home win calibration (27 Sep 2026): the week's coefficients on the page are the picks' fit, and every backtest season carries the fit in force for it
     chh = P.home_calibration(p, g, s_); hm_ = ((wk.get("cal") or {}).get("home") or {})
     tie("week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip)", [hm_.get(k) for k in ("a", "b", "from", "before", "n", "clip")], [round(chh[0], 6), round(chh[1], 6), P.HOME_CAL_FROM, s_, chh[2], P.HOME_CAL_CLIP])
+    # the teaser legs' calibration (28 Sep 2026): the week's coefficients on the page are the picks' fit, and every card's teased chances rebuild from its own numbers
+    ct_ = P.tease_calibration(p, g, s_); te_ = ((wk.get("cal") or {}).get("tease") or {})
+    tie("week.js teaser calibration (cal.tease) = picks.tease_calibration for the week (spread a, b, n; total a, b, n; pts, from, before, clip)",
+        [(te_.get("spread") or {}).get(k) for k in ("a", "b", "n")] + [(te_.get("total") or {}).get(k) for k in ("a", "b", "n")] + [te_.get(k) for k in ("pts", "from", "before", "clip")],
+        [round(ct_["spread"][0], 6), round(ct_["spread"][1], 6), ct_["spread"][2], round(ct_["total"][0], 6), round(ct_["total"][1], 6), ct_["total"][2], P.TEASE_PTS, P.TEASE_FROM, s_, P.TEASE_CLIP])
+    worst_t = 0.0
+    for g_ in wk.get("games", []):
+        for kind, edge, sig in [("spread", g_.get("spread_edge"), g_.get("sigma_margin")), ("total", g_.get("total_edge"), g_.get("sigma_total"))]:
+            raw, cal = g_.get(f"tease_{kind}_raw"), g_.get(f"tease_{kind}_cal")
+            if edge is None or edge == 0 or sig is None:
+                worst_t = max(worst_t, 1.0 if raw is not None or cal is not None else 0.0); continue
+            r_ = P.tease_raw(edge, sig)
+            worst_t = max(worst_t, abs(r_ - (raw if raw is not None else 9)), abs(P.tease_cal_p(ct_[kind], r_) - (cal if cal is not None else 9)))
+    rows.append(("every card's teased chances (tease_spread_raw/cal, tease_total_raw/cal) rebuild from its edge, its fit's sigma and the week's calibration (worst gap; blank exactly when there is no line or no edge)", round(worst_t, 7), "0.0001 or under", worst_t <= 1e-4))
     if "p_home_cal" in bfull.columns:
         ch_all = P.home_calibrations(p, g); bh = bfull[bfull.p_home.notna() & bfull.p_home_cal.notna()]
         worst = max([abs(P.home_cal_p(ch_all[int(s)], q) - v) for s, q, v in zip(bh.season, bh.p_home, bh.p_home_cal) if int(s) in ch_all] or [0.0])
