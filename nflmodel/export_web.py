@@ -760,54 +760,10 @@ def export_week(feats=None, games=None, pred=None):
                                                                   "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season,
                                                                           "over": {"a": round(cal_o[0], 6), "b": round(cal_o[1], 6), "from": P.OVER_CAL_FROM, "before": cur_season, "n": cal_o[2], "clip": P.OVER_CAL_CLIP},
                                                                           "home": {"a": round(cal_h[0], 6), "b": round(cal_h[1], 6), "from": P.HOME_CAL_FROM, "before": cur_season, "n": cal_h[2], "clip": P.HOME_CAL_CLIP}},
-                                                                  "fit": week_fit(pv_coef, cur_season, cur_week),
-                                                                  "next": next_week_payload(cur_season, cur_week)}, default=clean, separators=(",", ":")) + ";")
+                                                                  "fit": week_fit(pv_coef, cur_season, cur_week)}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
         raise   # a failed export fails its step (and the line watch), never a silent stale page
-
-
-NEXT_COLS = ["game_id", "season", "week", "home_team", "away_team", "gameday", "spread_line", "total_line", "line_source", "spread_ts", "total_ts", "vegas_win", "model_spread", "model_total",
-             "home_exp", "away_exp", "spread_edge", "total_edge", "p_home", "p_home_cal", "p_cover_home", "p_cover_cal_home", "p_over_emp", "p_over_cal", "bet", "shadowunder_bet", "home_score", "away_score"]
-
-
-def next_week_ready(season: int, week: int):
-    """(week, picks table) for the week after the picks week, when it is ready to show (28 Sep 2026, Matt: "see next
-    week if the data is ready; if not, rather not see it than stale projections"): the model has priced every one of
-    its games with the fit for that week (pred_v3_dist) and the line watch has logged a spread and a total for each
-    (the books' posted lines, not the schedule's carried number). Otherwise (None, None), and the page offers no such
-    week. Re-priced on the newest line every export, as the picks week is."""
-    from . import lines as LN, picks as P
-    games = pd.read_parquet(OUT / "games.parquet")
-    later = games[(games.season == season) & (games.week > week) & (games.game_type == "REG") & games.home_score.isna()]
-    if not len(later):
-        return None, None
-    nxt = int(later.week.min())
-    pk = P.table(season, nxt)
-    n_sched = int((later.week == nxt).sum())
-    if len(pk) == 0 or len(pk) != n_sched or not bool(pk.priced_live.all()):
-        return None, None
-    ok = pk.spread_line.notna() & pk.total_line.notna() & pk.spread_ts.notna() & pk.total_ts.notna() & (pk.line_source == "log")
-    if not bool(ok.all()):
-        return None, None
-    return nxt, pk
-
-
-def next_week_payload(season: int, week: int) -> dict | None:
-    """week.js "next": the coming week's picks table for the week picker, or None when it is not ready (next_week_ready)."""
-    nxt, pk = next_week_ready(season, week)
-    if nxt is None:
-        return None
-    from . import lines as LN
-    sched = _schedule_now(season, nxt); gm = pd.read_parquet(OUT / "games.parquet").set_index("game_id")
-    rows = []
-    for r in pk.itertuples():
-        d = {c: clean(getattr(r, c, None)) for c in NEXT_COLS}
-        for c in ("p_over_cal", "p_home_cal", "p_home"):   # six decimals, as the picks week's cards (the tie check rebuilds them)
-            v = getattr(r, c, None); d[c] = None if v is None or pd.isna(v) else round(float(v), 6)
-        d["kickoff"] = sched.get(r.game_id, {}).get("kickoff") or (str(gm.loc[r.game_id].kickoff_et)[:16] if r.game_id in gm.index else None)
-        rows.append(d)
-    return {"season": season, "week": nxt, "games": rows, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
 
 
 def _schedule_now(season: int, week: int) -> dict:

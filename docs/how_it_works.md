@@ -2063,9 +2063,13 @@ The same `web/` folder is published to GitHub Pages by `.github/workflows/pages.
 and the weekly run after each commit, since a push by the workflow token starts no other workflow); the repository is
 public, so it costs nothing. Pages has to be switched on once in the repository settings (Source: GitHub Actions).
 
-### The week picker and the coming week (28 Sep 2026)
+### The week picker, and when the picks week moves on (28 Sep 2026)
 
-The This week tab has a week picker. A past week is the picks table alone, from the backtest file (the closing line, every call graded). The picks week is the cards. The coming week is offered as "Week N (next)" only when `export_web.next_week_ready` says it is ready: the model has priced every one of its games with the fit for that week (pred_v3_dist.json) and the line watch has logged a spread and a total for each (the books' posted line, not the schedule's carried number). Then week.js carries `next` with `picks.table` for that week on the live line, re-priced every line watch like the cards; otherwise `next` is null and the picker has no such option, so a stale projection is never on offer. The tie check holds both: the option is present exactly when Python finds the week ready, and every number on it is picks.table's for that week. Nothing on the coming week is recorded: the tracker logs a flag at the weekly run that makes it the picks week.
+The This week tab has a week picker. A past week is the picks table alone, from the backtest file (the closing line, every call graded). The picks week is the cards. No coming week is offered: Matt would rather not see a week than see it priced on stale data.
+
+The picks week is data-based (`lines.current_week`): the earliest regular-season week of the season that is not complete, where complete means every game of the week is scored by nflverse and present in every source the model reads: play-by-play (team_box), player stats (player_games), snap counts (snap_exposure) and charting (scheme_plays, from participation and FTN). `lines.week_complete` names what is missing per game. So the cards stay on Week 3 through Monday night and move to Week 4 at the first weekly run whose pull has the Monday game in every source, priced on it; before that rule the picks week moved at the last kickoff and the new week was priced without that game. Pro-Football-Reference's line data runs weeks behind and is not on the list.
+
+Some sources post a day late, so weekly.yml runs again Tuesday 11:00 and 16:00 ET and Wednesday 06:00 ET with `--if-pending`: the run happens only when the last run's data/runs/week_state.json says the picks week has fully kicked off but a source is still missing. The health check carries the state as a row (a warning while waiting, a failure past 36 hours); the tie check holds the page's week to the rule and checks every earlier week is complete.
 
 ### The model's side against the opener (28 Sep 2026)
 

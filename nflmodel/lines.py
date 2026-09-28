@@ -339,16 +339,67 @@ def backfill_espn_prices() -> int:
     return n
 
 
+# the sources a week must carry for every one of its games before the picks week moves on (28 Sep 2026, Matt: "make
+# sure every piece of data is fully updated"; some sources post a day after the game). Each is a processed table with
+# one or more rows per game_id. Pro-Football-Reference's line data (ol_games) is not on the list: it runs weeks behind.
+WEEK_SOURCES = [("nflverse score", "games.parquet"), ("play-by-play", "team_box.parquet"), ("player stats", "player_games.parquet"),
+                ("snap counts", "snap_exposure.parquet"), ("charting (participation, FTN)", "scheme_plays.parquet")]
+_SRC_CACHE: dict = {}
+
+
+def _source_games(fname: str, season: int) -> set:
+    """The game_ids of `season` a processed table carries (a score for games.parquet), read once per file version."""
+    f = OUT / fname
+    if not f.exists():
+        return set()
+    key = (fname, season, f.stat().st_mtime_ns, f.stat().st_size)
+    if key not in _SRC_CACHE:
+        cols = ["game_id", "season"] + (["home_score"] if fname == "games.parquet" else [])
+        d = pd.read_parquet(f, columns=cols); d = d[d.season == season]
+        if fname == "games.parquet":
+            d = d[d.home_score.notna()]
+        _SRC_CACHE[key] = set(d.game_id)
+    return _SRC_CACHE[key]
+
+
+def week_complete(games: pd.DataFrame, season: int, week: int) -> tuple[bool, list[str]]:
+    """Whether every regular-season game of the week is in every source (WEEK_SOURCES), and what is missing
+    ("play-by-play: 2026_03_PHI_CHI"). A game not yet played is missing from all of them."""
+    ids = list(games[(games.season == season) & (games.week == week) & (games.game_type == "REG")].game_id)
+    missing = []
+    for label, fname in WEEK_SOURCES:
+        have = _source_games(fname, season)
+        gone = [g for g in ids if g not in have]
+        if gone:
+            missing.append(f"{label}: {', '.join(gone)}")
+    return (not missing) and bool(ids), missing
+
+
 def current_week(games: pd.DataFrame):
-    """The week to price: the one holding the next unplayed kickoff. It stays that week until every one of its games
-    has kicked off (27 Sep 2026: the page moved to Week 4 at 4:25 on Sunday afternoon, with two Week 3 games still to
-    play, because the rule used to move on once fewer than four games were left; Matt: "it's still week 3"). The
-    following week's lines are logged alongside from then (weeks_to_log), so its openers are not lost."""
+    """The week to price: the earliest regular-season week of the latest season that is not complete, complete meaning
+    every one of its games is scored and in every source the model reads (week_complete). So the picks week holds
+    until the last game of the week before is played AND its play-by-play, player stats, snap counts and charting have
+    all arrived (28 Sep 2026, Matt: the cards used to move to the next week at the last kickoff, priced without that
+    game; "rather not see it than see old stale projections"). The switch happens at the first weekly run whose pull
+    has everything (weekly.yml retries Tuesday afternoon and evening and Wednesday morning while a source is late)."""
+    season = int(games.season.max())
+    reg = games[(games.season == season) & (games.game_type == "REG")]
+    for w in sorted(reg.week.unique()):
+        if not week_complete(games, season, int(w))[0]:
+            return season, int(w)
+    return season, int(reg.week.max()) if len(reg) else int(games.week.max())
+
+
+def week_state(games: pd.DataFrame) -> dict:
+    """What holds the picks week where it is: {season, week, pending, missing, all_kicked_off}. pending = every game
+    of the picks week has kicked off but a source is still missing, so a retry run is worth it (weekly --if-pending)."""
     now = pd.Timestamp.now(tz="America/New_York").tz_localize(None)
-    up = games[(games.kickoff_et >= now) & games.home_score.isna() & (games.game_type == "REG")].sort_values("kickoff_et")
-    if len(up) == 0:
-        return int(games.season.max()), int(games.week.max())
-    return int(up.iloc[0].season), int(up.iloc[0].week)
+    s, w = current_week(games)
+    ok, missing = week_complete(games, s, w)
+    wk = games[(games.season == s) & (games.week == w) & (games.game_type == "REG")]
+    kicked = bool(len(wk)) and bool((wk.kickoff_et <= now).all())
+    return {"season": s, "week": w, "complete": ok, "missing": missing, "all_kicked_off": kicked, "pending": kicked and not ok,
+            "checked": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")}
 
 
 def weeks_to_log(games: pd.DataFrame) -> list[tuple[int, int]]:

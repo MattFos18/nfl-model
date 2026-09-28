@@ -27,6 +27,18 @@ def main() -> bool:
         add("FAIL" if len(bad) else "OK", "every step of the latest run ok", ", ".join(f"{r.step}: {r.status}" for r in bad.itertuples()) if len(bad) else f"{len(last)} steps ok")
         for step in ["verify", "tie check (sources)", "tie check (page)", "export data room", "record picks"]:
             add("OK" if step in set(last.step) else "FAIL", f"latest run has the step: {step}", "present" if step in set(last.step) else "missing")
+        # the picks week holds until the week before is in every source (28 Sep 2026); a source more than 36 hours late fails
+        try:
+            from . import lines as _LN
+            g_ = pd.read_parquet(DATA / "processed" / "games.parquet"); st = _LN.week_state(g_)
+            if st["pending"]:
+                last_k = pd.to_datetime(g_[(g_.season == st["season"]) & (g_.week == st["week"]) & (g_.game_type == "REG")].kickoff_et).max()
+                late_h = (pd.Timestamp.now(tz="America/New_York").tz_localize(None) - last_k).total_seconds() / 3600
+                add("FAIL" if late_h > 36 else "WARN", "picks week waiting on a late source", f"week {st['week']} kicked off fully {late_h:.0f} hours ago; missing: " + "; ".join(st["missing"]) + " (the run retries Tue 11am, 4pm and Wed 6am ET)")
+            else:
+                add("OK", "picks week's sources", f"week {st['week']}: " + ("every game in every source" if st["complete"] else "in play; the week before it is complete"))
+        except Exception as e:  # noqa
+            add("FAIL", "picks week's sources", f"could not check: {str(e)[:120]}")
         n7 = log[log.t > now - pd.Timedelta(days=7)].run_at.nunique()
         add("OK" if n7 >= 3 else "WARN", "runs in the last seven days", f"{n7} (four scheduled: Tue, Thu, Sat, Sun)")
     else:
