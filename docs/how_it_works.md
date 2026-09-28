@@ -2161,3 +2161,12 @@ blue, History a dark neutral with diagonal stripes, Vegas an orange with horizon
 paired with a mark or a word. The Picks panels sit in cards of a fixed width so the columns stay close together on a
 wide screen.
 
+**The Breakdown cards, second pass (28 Sep 2026).** The title carries the two logos and no referee. The totals flag
+badge reads like the spread's ("Under 50.5", no "tracked, not bet"), and the total block carries no tracked chip; the
+logged totals-flag chips are gone from the card (Bets grades them). The Takeaways panel is gone. The injury report is
+a small table (team, points lost to injuries, starting QB) with a net line, then the player table, no footnote; a
+played game keeps the report as it stood at the last export before it was scored (data/runs/injury_reports.json,
+written by export_web._add_injuries). Head to head · last 5 and Recent form · last 5 are tables with the summary as
+the last row; the scheme matchup has a verdict chip per side and no "readings" chip. Panel headers are bold with an
+accent rule.
+
