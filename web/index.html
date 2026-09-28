@@ -26,7 +26,7 @@
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.45;margin:0;padding-block:0 40px;padding-inline:16px}
-.wrap{max-width:1440px;margin:0 auto}
+.wrap{max-width:1640px;margin:0 auto}
 header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding-block:18px 10px}
 h1{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.01em;margin:0;text-wrap:balance}
 h2{font-family:var(--display);font-weight:600;font-size:19px;margin:18px 0 8px;text-wrap:balance}
@@ -1357,7 +1357,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const flagged = W.games.filter(g => g.bet), logged = W.games.filter(g => (g.bet_recorded || []).length);
     const lastTs = W.games.flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop();
     const TS = W.total_shadow, underPct = Math.round(100 * TS.prob);   // the totals flag's cut (picks.TOTAL_SHADOW)
-    $("weeknote").innerHTML = `<b>Week ${W.week}, ${W.season}</b> · ${W.games.length} games · ${flagged.length} flagged now${logged.length ? ` · ${logged.length} bet logged` : ""}${lastTs ? ` · lines as of ${etTime(lastTs)}` : ""}${W.built ? ` · priced ${esc(W.built)}` : ""}`;
+    $("weeknote").innerHTML = ""; $("weeknote").hidden = true;   // the current week carries no note (28 Sep 2026, Matt); a past week shows its tally
     if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points; totals: an ${TS.side} at a ${underPct}%+ raw chance (tracked, not bet)` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
     const withLine = W.games.filter(g => g.spread_line != null);
     $("weektiles").innerHTML = `<div class="tile"><b>${flagged.length}</b><span>Flagged on the line now: ${flagged.map(g => g.bet).join("; ") || "none"}</span></div>
