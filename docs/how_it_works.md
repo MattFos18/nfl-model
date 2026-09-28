@@ -2279,3 +2279,14 @@ to Backtest -> Game picks (a Rules compared card under By season), and Backtest'
 flag's record and units this season from the same legs Bets counts, beside the backtest rate. A model change can move
 every Backtest number; it cannot move a Bets number.
 
+**Info tab reorganised (28 Sep 2026).** Eleven views become eight: Game model, A rating step by step, Player
+projections, Season odds and totals, Decision log, Data, Definitions, Health checks. Game model merges the old
+"how it was built" and "inputs" views: the equation first, then three short step cards (ratings, points, odds),
+the inputs table, the tested-and-not-used table (one row per idea, only ideas not in the model; the deeper tests
+fold under "More tests"), then the why-questions as collapsed entries, and "how the inputs were chosen", "how the
+knobs were chosen" and the full write-up as collapsed sections. The player-value input tests moved to Player
+projections. Data merges the source list, every data store, the data-pull log and the verification report (the
+last two collapsed). Definitions holds each card number as a collapsed entry with the every-column table under it.
+Decision log keeps the table with the audit collapsed. The Season write-up's test paragraphs and the "standard
+way" section fold away. Old saved view names map to the merged views on load.
+
