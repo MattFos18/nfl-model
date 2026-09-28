@@ -881,11 +881,6 @@
 ],
 [
 "MIN",
-"Justin Jefferson",
-"Out"
-],
-[
-"MIN",
 "Nick Samac",
 "Out"
 ],
@@ -1232,11 +1227,6 @@
 [
 "SF",
 "Kurtis Rourke",
-"Out"
-],
-[
-"SF",
-"Mike Evans",
 "Out"
 ],
 [
@@ -2174,6 +2164,12 @@
 ],
 [
 "LV",
+"Jackson Powers-Johnson",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Kwity Paye",
 "Questionable",
 "Limited Participation in Practice"
@@ -2276,6 +2272,18 @@
 ],
 [
 "MIN",
+"Josh Oliver",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Justin Jefferson",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
 "Tyrion Ingram-Dawkins",
 "",
 "Full Participation in Practice"
@@ -2333,6 +2341,12 @@
 "Reggie Gilliam",
 "",
 "Limited Participation in Practice"
+],
+[
+"NO",
+"Anfernee Jennings",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2672,6 +2686,12 @@
 ],
 [
 "SF",
+"Mike Evans",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Trent Williams",
 "",
 "Full Participation in Practice"
@@ -2699,6 +2719,12 @@
 "Baker Mayfield",
 "",
 "Full Participation in Practice"
+],
+[
+"TB",
+"Baker Mayfield",
+"Questionable (ESPN)",
+""
 ],
 [
 "TB",
@@ -2840,23 +2866,8 @@
 ]
 ],
 "weather": {
-"2026_03_ARI_SF": {
-"wind": 8.6,
-"cold": false,
-"rain": false
-},
-"2026_03_MIN_TB": {
-"wind": 5.0,
-"cold": false,
-"rain": false
-},
-"2026_03_BAL_DAL": {
-"wind": 6.3,
-"cold": false,
-"rain": false
-},
 "2026_03_LA_DEN": {
-"wind": 11.9,
+"wind": 12.8,
 "cold": false,
 "rain": false
 },
@@ -2866,5 +2877,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-27 23:29 UTC"
+"written_at": "2026-09-28 00:30 UTC"
 }
