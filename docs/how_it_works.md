@@ -2271,3 +2271,11 @@ The chart card is capped at 860px wide so its text and dots stay normal size (it
 Season: the odds and totals views lose every note and footnote (the sentence under Wins, the Model/Books explanation
 under Odds, the availability footnote under Projected, the header tooltips); the numbers stay.
 
+**Bets is the ledger, Backtest is the lab (28 Sep 2026).** Bets shows only what was recorded before kickoff and graded
+after: this season's flagged bets by week, a By season table with one row per recorded season (every season with a
+tracker row, so 2026 now and each season from here on; graded from the recorded legs, never re-run), and Rules compared
+for the live season alone. The walk-forward By season rows and the rules' backtest records on the three windows moved
+to Backtest -> Game picks (a Rules compared card under By season), and Backtest's tiles gain a Live so far tile: the
+flag's record and units this season from the same legs Bets counts, beside the backtest rate. A model change can move
+every Backtest number; it cannot move a Bets number.
+
