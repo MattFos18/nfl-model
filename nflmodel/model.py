@@ -20,6 +20,7 @@ from sklearn.ensemble import HistGradientBoostingRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from threadpoolctl import threadpool_limits
+import hashlib, json
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
@@ -140,20 +141,62 @@ BLEND_LABEL = {"ridge": "The equation shown", "success": "+ success rate", "spli
                "alpha3": "Less shrinkage", "alpha30": "More shrinkage", "trees": "Boosted trees"}
 
 
-def fit_blend(train: pd.DataFrame, ridge_model=None, alpha: float = 10.0) -> dict:
-    """The seven fitted models; ridge_model is the live equation if already fitted."""
+TREES = dict(max_iter=300, learning_rate=0.03, max_leaf_nodes=8, min_samples_leaf=60, l2_regularization=1.0, random_state=0)
+# The trees' predictions are kept (28 Sep 2026): the boosted trees did not reproduce across GitHub's runners on identical
+# inputs (the same library versions, the same features to 1e-14, one thread: two runs still moved a third of the games
+# before 2026 by up to a point; identical on one machine, so the runner's hardware decides the rounding somewhere inside
+# the fit). So a fit's predictions are stored under a key of its inputs (the training rows' features and points and the
+# test rows' features, rounded to nine decimals, in a fixed row order, plus the parameters), and a later run with the same
+# inputs reads them back instead of refitting: a game's number is the number the first fit gave it, on any machine, until
+# its inputs change. Keys not touched by a run are dropped, so the file holds exactly the fits behind pred_v3.
+TREES_CACHE = OUT / "trees_cache.parquet"
+_TC: dict = {"df": None, "used": set(), "new": []}
+
+
+def _trees_cache() -> pd.DataFrame:
+    if _TC["df"] is None:
+        _TC["df"] = pd.read_parquet(TREES_CACHE) if TREES_CACHE.exists() else pd.DataFrame({"key": pd.Series(dtype=str), "game_id": pd.Series(dtype=str), "team": pd.Series(dtype=str), "pred": pd.Series(dtype=float)})
+    return _TC["df"]
+
+
+def trees_key(train: pd.DataFrame, test: pd.DataFrame) -> str:
+    """sha1 of everything the trees' fit and prediction depend on, robust to row order and to last-digit noise."""
+    h = hashlib.sha1(json.dumps(TREES, sort_keys=True).encode() + ",".join(FEATS).encode())
+    tr = train.sort_values(["game_id", "team"]); te = test.sort_values(["game_id", "team"])
+    h.update(np.ascontiguousarray(np.round(tr[FEATS].values.astype(float), 9)).tobytes()); h.update(np.round(tr.pf.values.astype(float), 9).tobytes())
+    h.update(np.ascontiguousarray(np.round(te[FEATS].values.astype(float), 9)).tobytes()); h.update("|".join(te.game_id.astype(str) + ":" + te.team.astype(str)).encode())
+    return h.hexdigest()
+
+
+def save_trees_cache() -> None:
+    """Write the fits this run read or made (walk_forward calls it once at the end)."""
+    df = _trees_cache()
+    parts = [df[df.key.isin(_TC["used"])]] + _TC["new"]
+    out = pd.concat(parts, ignore_index=True).drop_duplicates(["key", "game_id", "team"], keep="last").sort_values(["key", "game_id", "team"]).reset_index(drop=True)
+    out.to_parquet(TREES_CACHE, index=False); _TC["df"] = out; _TC["new"] = []
+
+
+def fit_blend(train: pd.DataFrame, ridge_model=None, alpha: float = 10.0, test: pd.DataFrame | None = None) -> dict:
+    """The seven fitted models; ridge_model is the live equation if already fitted. With `test` (the rows the fit will
+    price, carrying game_id and team), the trees' predictions come from the cache when this fit was made before."""
     ms = {"ridge": (ridge_model or fit_points(train, alpha), list(FEATS))}
     for k, (extra, al) in BLEND.items():
         cols = list(FEATS) + extra
         m = make_pipeline(StandardScaler(), Ridge(alpha=al)); m.fit(train[cols].fillna(train[cols].mean()).values, train.pf.values); ms[k] = (m, cols)
-    t = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.03, max_leaf_nodes=8, min_samples_leaf=60, l2_regularization=1.0, random_state=0)
-    # one thread (27 Sep 2026): two weekly runs half an hour apart, on identical inputs for every game before 2026, gave the
-    # trees different numbers on a third of those games (up to 1.35 points; the ridges were identical). The histogram sums
-    # are added in parallel, so the order, and the rounding, followed the runner's cores; sequential sums reproduce
-    with threadpool_limits(limits=1):
+    key = trees_key(train, test) if test is not None and "game_id" in test.columns else None
+    if key is not None:
+        c = _trees_cache(); c = c[c.key == key]
+        want = set(zip(test.game_id.astype(str), test.team.astype(str)))
+        if want and want <= set(zip(c.game_id, c.team)):
+            _TC["used"].add(key)
+            ms["trees"] = ("cache", dict(zip(zip(c.game_id, c.team), c.pred))); ms["_trees_key"] = None
+            ms["_means"] = train[sorted({c_ for k_ in BLEND_LABEL if k_ in ms and k_ != "trees" for c_ in ms[k_][1]})].mean()
+            return ms
+    t = HistGradientBoostingRegressor(**TREES)
+    with threadpool_limits(limits=1):   # one thread: sequential sums, the same on any core count
         t.fit(train[FEATS].values, train.pf.values)
-    ms["trees"] = (t, list(FEATS))
-    ms["_means"] = train[sorted({c for m, cols in ms.values() for c in cols})].mean()
+    ms["trees"] = (t, list(FEATS)); ms["_trees_key"] = key
+    ms["_means"] = train[sorted({c for k_ in BLEND_LABEL if k_ in ms for c in ms[k_][1]})].mean()
     return ms
 
 
@@ -162,8 +205,13 @@ def predict_blend(ms: dict, x: pd.DataFrame) -> pd.DataFrame:
     mu = ms["_means"]; out = pd.DataFrame(index=x.index)
     for k in BLEND_LABEL:
         m, cols = ms[k]
-        with threadpool_limits(limits=1):   # the trees' prediction too (fit_blend)
+        if isinstance(m, str):   # the trees' stored predictions for these rows
+            out[k] = [cols[(g, t)] for g, t in zip(x.game_id.astype(str), x.team.astype(str))]
+            continue
+        with threadpool_limits(limits=1):
             out[k] = m.predict(x[cols].fillna(mu[cols]).values)
+        if k == "trees" and ms.get("_trees_key") and "game_id" in x.columns:   # a fresh fit on its test rows: kept for the next run
+            _TC["used"].add(ms["_trees_key"]); _TC["new"].append(pd.DataFrame({"key": ms["_trees_key"], "game_id": x.game_id.astype(str).values, "team": x.team.astype(str).values, "pred": out[k].values.astype(float)}))
     out["blend"] = out[list(BLEND_LABEL)].mean(axis=1)
     return out
 
@@ -297,7 +345,7 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
                 test = test_all[test_all.week == wk].copy()
             m = fit_points(train, ridge_alpha)
             tr_pred = m.predict(train[FEATS].values)
-            bl = predict_blend(fit_blend(train, m, ridge_alpha), test)
+            bl = predict_blend(fit_blend(train, m, ridge_alpha, test=test), test)
             test["exp_ridge"] = bl["ridge"].values
             test["exp"] = bl["blend"].values
             for k in BLEND_LABEL:
@@ -361,6 +409,7 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
             out.append(g)
             if verbose and (wk is None or wk == weeks[-1]):
                 print(f"season {s}: last fit on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)
+    save_trees_cache()
     return pd.concat(out, ignore_index=True)
 
 
