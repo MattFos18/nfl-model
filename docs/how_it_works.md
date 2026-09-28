@@ -2175,8 +2175,8 @@ weighted by how often it plays it and averaged (the weights normalised: the look
 it), shown as EPA a play, a word (even, slight, solid, big) and the points over the offense's plays a game; each
 player's "Fit" is the same average over his own splits. The two sides sit in one grid so their tables line up, and
 the player table fills its column. Score projection shows each input's points only (the equation is in Info); the
-player props panel has no click-to-calculation. The card title row is centred vertically. The Games tab's record
-tiles come in two rows, "Closing line" and "Opening line", the second from results.py's grade of the same sides
-against the consensus opener; the Picks tab shows the week's tally as soon as a game is final, with the opener's
+player props panel has no click-to-calculation. The card title row is centred vertically. The Games tab's Spread and
+Totals tiles carry the record at the close and at the opener side by side, the second from results.py's grade of the
+same sides against the consensus opener; the Picks tab shows the week's tally as soon as a game is final, with the opener's
 records on the current week.
 
