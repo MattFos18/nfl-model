@@ -1,0 +1,28 @@
+name: heartbeat
+# GitHub's cron starts the line watch only a few times a day on this repo (28 Sep 2026: two scheduled runs in a day against
+# thirty kicks), so a Claude routine kicked it hourly. This job replaces the routine: it dispatches the line watch, waits
+# 30 minutes and dispatches itself, a chain that costs nothing on a public repository. Its own queue with cancel-in-progress,
+# so a second chain never forms; the line watch restarts the chain when it finds none (a lost runner, an outage).
+on:
+  schedule:
+    - cron: "17 */2 * * *"   # a restart a few times a day when the chain is lost, whenever GitHub honours it
+  workflow_dispatch:
+permissions:
+  actions: write
+concurrency:
+  group: nfl-model-heartbeat
+  cancel-in-progress: true
+jobs:
+  beat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: kick the line watch, wait, repeat
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          n=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow lines.yml --status in_progress --json databaseId --jq length || echo 0)
+          q=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow lines.yml --status queued --json databaseId --jq length || echo 0)
+          if [ "$n" = "0" ] && [ "$q" = "0" ]; then gh workflow run lines.yml --ref main; echo "line watch dispatched"; else echo "line watch already running or queued ($n/$q)"; fi
+          sleep 1800
+          gh workflow run heartbeat.yml --ref main

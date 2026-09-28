@@ -109,6 +109,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if gh api "repos/$GITHUB_REPOSITORY/pages" > /dev/null 2>&1; then gh workflow run pages.yml --ref main; else echo "Pages not enabled: Settings -> Pages -> Source: GitHub Actions"; fi
+      - name: keep the heartbeat going   # the chain that kicks this workflow every 30 minutes (heartbeat.yml); restart it when none is queued or running
+        if: steps.gate.outputs.skip != '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          a=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow heartbeat.yml --status in_progress --json databaseId --jq length || echo 1)
+          b=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow heartbeat.yml --status queued --json databaseId --jq length || echo 1)
+          echo "heartbeat runs: $a in progress, $b queued"; if [ "$a" = "0" ] && [ "$b" = "0" ]; then gh workflow run heartbeat.yml --ref main; fi
       - name: Monday audit fallback   # GitHub's cron has never started health.yml on this repo (28 Sep 2026: two manual runs, no scheduled one); once each Monday after 13:00 UTC, dispatch it when nothing has run that day
         if: steps.gate.outputs.skip != '1'
         continue-on-error: true
