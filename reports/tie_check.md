@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-09-28 19:08 UTC
+# Tie-out (sources and page), 2026-09-28 19:28 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -70,7 +70,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks markdown header records (tuning, held out, untouched) | 80-51 40-21 68-55 | 80-51 40-21 68-55 | yes |
 | line watch: every source ran without an error on the newest snapshot | no error | no error | yes |
 | prop lines: book names resolve to rostered players (99%+) | 100.0% | 99% or more | yes |
-| published page size under 60 MB (the cap is 64 MB a version) | 58.4 MB | under 60 MB | yes |
+| published page size under 60 MB (the cap is 64 MB a version) | 58.5 MB | under 60 MB | yes |
 | live check: injuries, starters and forecasts pulled without an error | no error | no error | yes |
 | the page's freshness limits (fresh.js late_h) = nflmodel/pulls.py LATE_H | {'every_run': 2.0, 'model': 96.0} | {'every_run': 2.0, 'model': 96.0} | yes |
 | docs section 4 effects table: QB points per unit = the fit that priced the week (pred_v3) | +17.087 | +17.087 | yes |
@@ -81,13 +81,13 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.1% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-28T18:54Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | {'espn': '2026-09-28T18:54Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-09-28T19:18Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | {'espn': '2026-09-28T19:18Z', 'oddsapi': '2026-09-28T12:12Z', 'props': '2026-09- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-09-28 18:48 UTC, 31 steps so far) | all ok | all ok | yes |
-| the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
+| every step of the newest weekly run finished (2026-09-28 19:15 UTC, 32 steps so far) | all ok | all ok | yes |
+| the model's numbers for games through 2025 reproduce the previous commit's, same code (games moved; worst gap) | 0; 0.0000 | 0; 0.0000 | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
 | the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line (16 games, worst gap) | 0.00e+00 | 1e-9 or under | yes |
@@ -108,8 +108,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot | 2026-09-28T18-54-01Z | 2026-09-28T18-54-01Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-28T18-54-01Z | 2026-09-28T18-54-01Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot | 2026-09-28T19-18-04Z | 2026-09-28T19-18-04Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-09-28T19-18-04Z | 2026-09-28T19-18-04Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0006 or under | yes |
 | card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00017 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
@@ -130,6 +130,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | season file's books = the newest futures pull | True | True | yes |
 | card and props wind (unplayed games) = the kickoff forecast in use now | [] | [] | yes |
 | every unplayed outdoor game inside the forecast window (kickoff up to 4 days ahead or 2 days back) is priced with a kickoff forecast | [] | [] | yes |
+| opener_study.js (Backtest -> Opener study) = opener_study.study() recomputed from pred_v3, pred_tuesday and the archive (every row) | same | same | yes |
 | live results: ESPN's final = nflverse's score where nflverse has it | [] | [] | yes |
 | live results: each final's spread, total and winner calls re-graded from its score and close | [] | [] | yes |
 | live results: each final's spread and total calls re-graded from its score and the opening line | [] | [] | yes |
@@ -184,4 +185,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | player season totals on the page = reports/player_season_totals.csv (rows, projected yards, breakouts) | [307, 226151.2, 9] | [307, 226151.2, 9] | yes |
 | player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 
-Result: PASS (179 of 179 tie)
+Result: PASS (180 of 180 tie)

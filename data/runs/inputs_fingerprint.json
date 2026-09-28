@@ -375,16 +375,6 @@
 "Out"
 ],
 [
-"LA",
-"Ty Simpson",
-"Out"
-],
-[
-"LAC",
-"Alex Harkey",
-"Out"
-],
-[
 "LAC",
 "Brenen Thompson",
 "Out"
@@ -392,11 +382,6 @@
 [
 "LAC",
 "Charlie Kolar",
-"Out"
-],
-[
-"LAC",
-"DJ Uiagalelei",
 "Out"
 ],
 [
@@ -486,21 +471,6 @@
 ],
 [
 "MIN",
-"Caleb Tiernan",
-"Out"
-],
-[
-"MIN",
-"Elijah Williams",
-"Out"
-],
-[
-"MIN",
-"Jakobe Thomas",
-"Out"
-],
-[
-"MIN",
 "Josh Oliver",
 "Out"
 ],
@@ -510,23 +480,8 @@
 "Out"
 ],
 [
-"MIN",
-"Tavierre Thomas",
-"Out"
-],
-[
-"MIN",
-"Zemaiah Vaughn",
-"Out"
-],
-[
 "NE",
 "A.J. Brown",
-"Out"
-],
-[
-"NE",
-"Behren Morton",
 "Out"
 ],
 [
@@ -537,11 +492,6 @@
 [
 "NE",
 "Craig Woodson",
-"Out"
-],
-[
-"NE",
-"Dametrious Crownover",
 "Out"
 ],
 [
@@ -561,11 +511,6 @@
 ],
 [
 "NE",
-"Leonard Taylor III",
-"Out"
-],
-[
-"NE",
 "Quintayvious Hutchins",
 "Out"
 ],
@@ -581,11 +526,6 @@
 ],
 [
 "NO",
-"John Ridgeway III",
-"Out"
-],
-[
-"NO",
 "Kelvin Banks Jr.",
 "Out"
 ],
@@ -595,53 +535,13 @@
 "Out"
 ],
 [
-"NO",
-"Treyton Welch",
-"Out"
-],
-[
-"NO",
-"Tyree Wilson",
-"Out"
-],
-[
-"NO",
-"Zach Wilson",
-"Out"
-],
-[
-"NYG",
-"Bobby Jamison-Travis",
-"Out"
-],
-[
 "NYG",
 "Deonte Banks",
 "Out"
 ],
 [
 "NYG",
-"Devin Singletary",
-"Out"
-],
-[
-"NYG",
-"J.C. Davis",
-"Out"
-],
-[
-"NYG",
 "Jaxson Dart",
-"Out"
-],
-[
-"NYG",
-"Josh Tupou",
-"Out"
-],
-[
-"NYG",
-"Thomas Fidone II",
 "Out"
 ],
 [
@@ -657,11 +557,6 @@
 [
 "NYJ",
 "Arian Smith",
-"Out"
-],
-[
-"NYJ",
-"Blake Grupe",
 "Out"
 ],
 [
@@ -705,11 +600,6 @@
 "Out"
 ],
 [
-"NYJ",
-"Nahshon Wright",
-"Out"
-],
-[
 "PHI",
 "Dallas Goedert",
 "Out"
@@ -731,21 +621,6 @@
 ],
 [
 "PIT",
-"Drew Allar",
-"Out"
-],
-[
-"PIT",
-"Eli Heidenreich",
-"Out"
-],
-[
-"PIT",
-"Gabriel Rubio",
-"Out"
-],
-[
-"PIT",
 "Gennings Dunker",
 "Out"
 ],
@@ -756,17 +631,7 @@
 ],
 [
 "PIT",
-"Kevin Jobity Jr.",
-"Out"
-],
-[
-"PIT",
 "Rico Dowdle",
-"Out"
-],
-[
-"PIT",
-"Will Howard",
 "Out"
 ],
 [
@@ -776,32 +641,12 @@
 ],
 [
 "SEA",
-"Avery Smith",
-"Out"
-],
-[
-"SEA",
 "Brandon Pili",
 "Out"
 ],
 [
 "SEA",
-"Connor O'Toole",
-"Out"
-],
-[
-"SEA",
-"Jalen Milroe",
-"Out"
-],
-[
-"SEA",
 "Julian Love",
-"Out"
-],
-[
-"SEA",
-"Montorie Foster Jr.",
 "Out"
 ],
 [
@@ -2511,5 +2356,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 19:05 UTC"
+"written_at": "2026-09-28 19:26 UTC"
 }
