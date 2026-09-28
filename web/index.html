@@ -379,6 +379,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="pktools"></div>
 </section>
 <section class="tab" id="week" hidden>
+  <h2 id="wkhead" style="margin:6px 0 10px"></h2>
   <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
 </section>
@@ -1415,6 +1416,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   function renderWeek() {
     const W = window.WEEK || {};
     $("week").classList.toggle("nojump", !W.games);
+    $("wkhead").textContent = W.games ? `Week ${W.week}, ${W.season}` : "";   // the week at the top of the Breakdown (28 Sep 2026, Matt)
     if (!W.games) { $("cards").innerHTML = `<p class="note">${esc(W.error || "No week exported.")}</p>`; $("jump").hidden = true; return; }
     const flagged = W.games.filter(g => g.bet), logged = W.games.filter(g => (g.bet_recorded || []).length);
     const lastTs = W.games.flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop();
