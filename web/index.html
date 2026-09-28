@@ -26,7 +26,7 @@
 }
 *{box-sizing:border-box}
 body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.45;margin:0;padding-block:0 40px;padding-inline:16px}
-.wrap{max-width:1640px;margin:0 auto}
+.wrap{max-width:1880px;margin:0 auto}
 header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px;padding-block:18px 10px}
 h1{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.01em;margin:0;text-wrap:balance}
 h2{font-family:var(--display);font-weight:600;font-size:19px;margin:18px 0 8px;text-wrap:balance}
@@ -749,12 +749,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // prop-line pull, the latest live check of starters, injuries and weather); each source's own time on hover
   (() => {
     const toD = t => { const m = String(t || "").match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2})[:-](\d{2})/); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5])) : null; };
-    const fmt = d => d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"}) + " ET";
+    const fmt = d => d.toLocaleString("en-US", {timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit"}) + " ET";
     const lineTs = window.WEEK ? (WEEK.games || []).flatMap(g => (g.line_history || []).map(r => r.ts)).sort().pop() : null;
     const propTs = window.PROPS ? Object.values(PROPS.games || {}).flatMap(gm => Object.values(gm).map(sd => sd.market_ts)).filter(Boolean).sort().pop() : null;
     const src = [["Model re-priced", META.built], ["Game lines", lineTs], ["Prop lines", propTs], ["Starters, injuries and weather checked", window.FRESH && FRESH.checked]].map(([k, t]) => [k, toD(t)]).filter(([, d]) => d);
     const newest = src.reduce((a, b) => (!a || b[1] > a[1]) ? b : a, null);
-    $("built").textContent = newest ? "Last updated " + fmt(newest[1]) : "Last updated " + META.built;
+    $("built").textContent = newest ? "Updated " + fmt(newest[1]) : "Updated " + META.built;
     $("built").title = src.map(([k, d]) => `${k}: ${fmt(d)}`).join("\n") + (window.FRESH && FRESH.changes && FRESH.changes.length ? `\nLast check found: ${FRESH.changes.slice(0, 6).join("; ")}` : "");
   })();
 
