@@ -106,6 +106,7 @@ def parse(j: dict, season: int, week: int) -> pd.DataFrame:
         # last play, ESPN's own live win chance, the quarter scores, the statistical leaders; displayed as ESPN's, never priced
         si = comp.get("situation") or {}; lp = si.get("lastPlay") or {}; pr = lp.get("probability") or {}
         live = {"down": si.get("downDistanceText"), "possession": ids.get(str(si.get("possession"))), "red_zone": bool(si.get("isRedZone")), "last_play": (lp.get("text") or "").strip() or None,
+                "yard_line": si.get("yardLine"), "distance": si.get("distance"), "down_n": si.get("down"), "home_timeouts": si.get("homeTimeouts"), "away_timeouts": si.get("awayTimeouts"),   # the field (28 Sep 2026): yardLine counts from the home goal line
                 "espn_home_wp": pr.get("homeWinPercentage"), "linescores": lines, "records": recs, "broadcast": comp.get("broadcast"),
                 "leaders": [{"stat": l.get("name"), "name": ((l.get("leaders") or [{}])[0].get("athlete") or {}).get("shortName"), "team": ids.get(str((((l.get("leaders") or [{}])[0].get("team") or {}).get("id")))), "value": (l.get("leaders") or [{}])[0].get("displayValue")} for l in (comp.get("leaders") or []) if l.get("leaders")]} if state != "scheduled" else {"broadcast": comp.get("broadcast"), "records": recs}
         rows.append({"season": season, "week": week, "home_team": home, "away_team": away, "status": state, "detail": ty.get("shortDetail") or ty.get("detail"),
