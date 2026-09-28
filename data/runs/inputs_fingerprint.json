@@ -86,57 +86,12 @@
 "injuries": [
 [
 "ARI",
-"Andrew Billings",
-"Out"
-],
-[
-"ARI",
-"Carson Beck",
-"Out"
-],
-[
-"ARI",
 "Dadrion Taylor-Demerson",
 "Out"
 ],
 [
 "ARI",
-"Josh Fryar",
-"Out"
-],
-[
-"ARI",
-"Reggie Virgil",
-"Out"
-],
-[
-"ARI",
 "Will Johnson",
-"Out"
-],
-[
-"ATL",
-"Cooper Rush",
-"Out"
-],
-[
-"ATL",
-"Ethan Onianwa",
-"Out"
-],
-[
-"ATL",
-"Jack Strand",
-"Out"
-],
-[
-"ATL",
-"Malcolm DeWalt IV",
-"Out"
-],
-[
-"ATL",
-"Robert Longerbeam",
 "Out"
 ],
 [
@@ -152,11 +107,6 @@
 [
 "BAL",
 "Carl Jones",
-"Out"
-],
-[
-"BAL",
-"Elijah Sarratt",
 "Out"
 ],
 [
@@ -181,27 +131,7 @@
 ],
 [
 "BUF",
-"Jalon Kilgore",
-"Out"
-],
-[
-"BUF",
 "Jordan Hancock",
-"Out"
-],
-[
-"BUF",
-"Jude Bowry",
-"Out"
-],
-[
-"BUF",
-"Mike Danna",
-"Out"
-],
-[
-"BUF",
-"Skyler Bell",
 "Out"
 ],
 [
@@ -341,27 +271,12 @@
 ],
 [
 "DAL",
-"Ajani Cornelius",
-"Out"
-],
-[
-"DAL",
-"Camden Brown",
-"Out"
-],
-[
-"DAL",
 "Cobie Durant",
 "Out"
 ],
 [
 "DAL",
 "DeMarvion Overshown",
-"Out"
-],
-[
-"DAL",
-"Emari Demercado",
 "Out"
 ],
 [
@@ -867,7 +782,7 @@
 [
 "MIN",
 "Josh Oliver",
-"Doubtful"
+"Out"
 ],
 [
 "MIN",
@@ -2876,5 +2791,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 17:38 UTC"
+"written_at": "2026-09-28 18:44 UTC"
 }

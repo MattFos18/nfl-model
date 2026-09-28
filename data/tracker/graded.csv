@@ -1,8 +1,8 @@
 run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,p_cover,kind,side,line,played,close,clv,clv_now,result,units,who,note
-2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.5,pending,,model,
-2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.5,pending,,shadowdog,
-2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.5,pending,,shadowearly,
-2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.5,pending,,shadowtrees,
+2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.0,pending,,model,
+2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.0,pending,,shadowdog,
+2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.0,pending,,shadowearly,
+2026-09-27 22:18 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-110,1.0,0.78,DraftKings,4.35,1.88,0.653,spread,WAS,3.5,False,,,0.0,pending,,shadowtrees,
 2026-09-27 16:15 UTC,2026,3,2026_03_LAC_BUF,Under 50.5,-110,1.0,,,0.41,-3.28,,total,under,50.5,True,50.5,0.0,,win,0.9090909090909091,shadowunder,
 2026-09-27 16:15 UTC,2026,3,2026_03_NE_JAX,Under 46.5,-110,1.0,,,0.11,-2.71,,total,under,46.5,True,46.5,0.0,,win,0.9090909090909091,shadowunder,
 2026-09-27 22:18 UTC,2026,4,2026_04_LAC_SEA,Under 43.5,-110,1.0,,,-0.72,-1.51,,total,under,43.5,False,,,0.0,pending,,shadowunder,
