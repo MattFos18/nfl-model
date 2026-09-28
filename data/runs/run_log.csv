@@ -4185,3 +4185,44 @@ grade,ok,,0.3,2026-09-28 15:34 UTC
 tie check (sources),ok,True,2.7,2026-09-28 15:34 UTC
 export data room,ok,,71.3,2026-09-28 15:34 UTC
 tie check (page),ok,True,4.3,2026-09-28 15:34 UTC
+pull,ok,"[('2026-09-28T15:55:38', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2181220, 'b11e9daf9328'), ('2026-09-28T15:55:38', 'players', 'all'",11.1,2026-09-28 15:55 UTC
+pull player history,ok,"[('2026-09-28T15:55:49', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'ok', 149299, '8606f428d500'), ('2026-09-28T15",12.7,2026-09-28 15:55 UTC
+build,ok,"team_games (8202, 142)",155.2,2026-09-28 15:55 UTC
+features,ok,[40 rows x 8 columns],13.7,2026-09-28 15:55 UTC
+verify,ok,Result: PASS,0.5,2026-09-28 15:55 UTC
+weather,ok,"            game_id           kickoff_et  ... precip        fetched_at
+0   2026_03_PHI_CHI  2026-09-28 20:15:00  ...    0.0  2026-09-28 11:58
+1   2026_04_PIT_CLE  2026-10-01 20:15:00  ...    0.3  2026",128.8,2026-09-28 15:55 UTC
+lines,ok,"{'ts': '2026-09-28T16-01-00Z', 'season': 2026, 'week': 3, 'rows': 17, 'errors': ''}",1.2,2026-09-28 15:55 UTC
+live results,ok,"live results: week 3, 15 final of 16, 0 in progress; spread 8-5-2, total 10-5, winner 10-5; play-by-play for 15 games",1.0,2026-09-28 15:55 UTC
+ratings,ok,"(7668, 49)",25.1,2026-09-28 15:55 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,64.2,2026-09-28 15:55 UTC
+players,ok,max           0.104589         1.360481    14.000000,136.7,2026-09-28 15:55 UTC
+positions,ok,Skill     527.0  0.004299  0.00080  0.0531,28.0,2026-09-28 15:55 UTC
+scheme,ok,"scheme_plays (354350, 83) profiles for 32 teams as of 2026 3",6.4,2026-09-28 15:55 UTC
+player splits,ok,player_splits.js 1.58 MB,86.5,2026-09-28 15:55 UTC
+snap exposure,ok,"snap exposure (328936, 10) seasons 2013 to 2026",1.4,2026-09-28 15:55 UTC
+model,ok,               neutral            0.082       0.133          0.011,59.1,2026-09-28 15:55 UTC
+props,ok,props 2864 projections for week 3 graded rows 0 market lines on the cards 381 graded against the market 1129,24.6,2026-09-28 15:55 UTC
+sizing backtest,ok,   2025   13-9    0.591        2.82,5.5,2026-09-28 15:55 UTC
+threshold sweep,ok,DONE,1.6,2026-09-28 15:55 UTC
+calibration start,ok,   last 5 seasons     0.5205     0.5225     0.5244              0.69458            0.25071                0.68567              0.5600             0.5895             95              0.69273            ,1.7,2026-09-28 15:55 UTC
+season backtest,ok,"{'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad",104.0,2026-09-28 15:55 UTC
+props by season,ok,DONE,15.0,2026-09-28 15:55 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",17.3,2026-09-28 15:55 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",2.4,2026-09-28 15:55 UTC
+picks,ok,"              game_id  season  week  ...     bet_p bet_odds stake_pct
+3060   2026_03_ATL_GB    2026     3  ...       NaN      NaN       NaN
+3061  2026_03_LAC_BUF    2026     3  ...       NaN      NaN ",0.3,2026-09-28 15:55 UTC
+log run,ok,"                    run_at  season  week  ... spread_line  total_line       bet
+3060  2026-09-28 15:55 UTC    2026     3  ...         4.5        42.5          
+3061  2026-09-28 15:55 UTC    2026     3",0.0,2026-09-28 15:55 UTC
+record picks,ok,"                 run_at season week  ... spread_edge total_edge p_cover
+0  2026-09-27 22:18 UTC   2026    4  ...        4.35       1.88   0.653
+
+[1 rows x 12 columns]",0.1,2026-09-28 15:55 UTC
+inputs fingerprint,ok,"{'season': 2026, 'week': 3, 'starters': {'2026_03_ATL_GB': ['00-0036264', '00-0039917', '2026-09-24 20:15'], '2026_03_LAC_BUF': ['00-0034857', '00-0036355', '2026-09-27 13:00'], '2026_03_CAR_CLE': ['0",0.2,2026-09-28 15:55 UTC
+grade,ok,,0.4,2026-09-28 15:55 UTC
+tie check (sources),ok,True,3.8,2026-09-28 15:55 UTC
+export data room,ok,,107.0,2026-09-28 15:55 UTC
+tie check (page),ok,True,6.0,2026-09-28 15:55 UTC

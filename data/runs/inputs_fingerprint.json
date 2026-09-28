@@ -241,11 +241,6 @@
 ],
 [
 "CAR",
-"Jonathon Brooks",
-"Out"
-],
-[
-"CAR",
 "Nick Scott",
 "Out"
 ],
@@ -1574,6 +1569,12 @@
 ],
 [
 "CAR",
+"Jaycee Horn",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Mike Jackson",
 "Questionable (ESPN)",
 ""
@@ -2882,5 +2883,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 15:45 UTC"
+"written_at": "2026-09-28 16:10 UTC"
 }
