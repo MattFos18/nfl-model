@@ -2244,3 +2244,9 @@ seasons they learn from) moved to Backtest -> Game picks, under the rest; nothin
 each game on the model's side from Python's grade of a final (the live results file) or the backtest's row for a
 past week; the units are the tracker's.
 
+**Teams and Players, a tidy pass (28 Sep 2026).** Teams: the header tiles read Record, Power, Points a game and
+Out this week in the site's tile style; the ratings-by-week chart is wider, labelled at the last point, with the
+rank chips above it and the table below; the scheme, box-score and roster tables are compact and content-sized;
+the game log is denser; every caption is gone. Players: a player's page opens with his rank chip and tiles, the
+value calculation panel is gone (the method is in Info), every section's caption is gone, the tables are compact.
+
