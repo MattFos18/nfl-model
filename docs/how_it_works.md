@@ -206,7 +206,11 @@ mechanical, not a matter of care:
   priced or anything after it (section 8).
 - **Lines.** The closing spread and total from nflverse for played games; the current line for unplayed ones. The
   backtest is therefore "the model against the close". Live, the tracker records the line the pick was made at and
-  the closing line value once the game closes.
+  the closing line value once the game closes. A flag is re-read at every run on the newest line and inputs, so an
+  unplayed game's recorded pick follows the latest run (replaced when the flag moves, dropped when it goes): the bet
+  on the record is the flag at the last run before kickoff. Once a game kicks off its rows stand, scored or not
+  (28 Sep 2026: the rule read "scored" alone, and three shadow Unders recorded before kickoff were dropped by the
+  runs between kickoff and nflverse's score; restored from the file's history).
 - **Reproducible.** The same inputs give the same numbers. The boosted trees did not reproduce across GitHub's runners
   (27 to 28 Sep 2026: identical library versions, identical features to 1e-14, one thread, and two runs still moved a
   third of the games before 2026 by up to a point, while every ridge was identical and the same fit on one machine
