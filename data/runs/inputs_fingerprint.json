@@ -661,11 +661,6 @@
 ],
 [
 "LA",
-"Jaylen Watson",
-"Out"
-],
-[
-"LA",
 "Kamren Kinchens",
 "Doubtful"
 ],
@@ -1267,11 +1262,6 @@
 [
 "TEN",
 "Brandon Crenshaw-Dickson",
-"Out"
-],
-[
-"TEN",
-"Fernando Carmona",
 "Out"
 ],
 [
@@ -2030,6 +2020,12 @@
 ],
 [
 "LA",
+"Jaylen Watson",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Jordan Whittington",
 "",
 "Full Participation in Practice"
@@ -2762,6 +2758,12 @@
 ],
 [
 "TEN",
+"Fernando Carmona",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "James Williams",
 "",
 "Full Participation in Practice"
@@ -2876,5 +2878,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 04:20 UTC"
+"written_at": "2026-09-28 05:30 UTC"
 }
