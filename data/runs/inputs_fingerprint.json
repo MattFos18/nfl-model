@@ -471,6 +471,11 @@
 ],
 [
 "MIN",
+"Charles Demmings",
+"Out"
+],
+[
+"MIN",
 "Josh Oliver",
 "Out"
 ],
@@ -932,6 +937,12 @@
 "Joe Andreessen",
 "",
 "Full Participation in Practice"
+],
+[
+"BUF",
+"Josh Allen",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -1649,12 +1660,6 @@
 ],
 [
 "MIN",
-"Charles Demmings",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
@@ -2279,5 +2284,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-28 21:03 UTC"
+"written_at": "2026-09-28 21:35 UTC"
 }
