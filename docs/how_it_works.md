@@ -2258,3 +2258,13 @@ points (pred_v3), not the card's line. The "numbers reproduce the previous commi
 from the working meta.js, which the same run had already rewritten, so it never skipped on a code change; it now
 reads the committed file.
 
+**Backtest and Bets, pared (28 Sep 2026).** Backtest -> Game picks: no caption, one control (Spreads or Totals; the
+totals rule is the flag, every cutoff stays in Details), five tiles (the rule since 2015, the three windows, the
+margin miss), the units chart, a By season table with fewer columns, Details, and "Is the edge real?" as the sizing
+table alone; the cover-odds tables moved into Details. The other three views lose their captions. Bets: a By season
+table (the flag at the close, one unit a bet, then this season live), rules named by their thresholds, the flag rows'
+live record from the page's grades (the same legs as the tiles; the shadows keep the tracker's graded rows), no CLV
+column, no Model picks or Matt's bets cards; the flagged bets' units are counted at -110 from the same graded legs.
+Info: the captions under each section are gone; the method text stays. Teams -> Ratings by week: the chart alone
+(no bands, labels right of the last point), the table under it gone.
+

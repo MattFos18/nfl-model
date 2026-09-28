@@ -464,7 +464,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="ratings" hidden>
 
     <div class="card viz-root" id="chartcard"><h3 id="charttitle"></h3><div id="chart"></div><div class="tip" id="tip"></div></div>
-    <div class="card" style="margin-top:12px"><h3>By week</h3><div class="tablewrap ro" style=""><table id="ratingstable" class="rgt"></table></div></div>
+
   </div>
   <div id="roster" hidden>
 
@@ -487,7 +487,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="opener" hidden></div>
   <div id="backtest">
     <p class="note" id="bknote"></p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px"><div class="seg" id="bkmkt"></div><div class="seg" id="bktside"></div><div class="seg" id="bktcut"></div></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px"><div class="seg" id="bkmkt"></div></div>
     <div id="bkscore"></div>
     <div class="card viz-root"><h3 id="unitshead">Units won on the flag, one unit a bet</h3><div id="unitschart" style="max-width:760px"></div></div>
     <div class="card" style="margin-top:14px"><h3>By season</h3><div class="tablewrap" style=""><table id="bkseasons"></table></div></div>
@@ -497,15 +497,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="card"><h3>By week of the season</h3><p class="note" id="bkweeknote"></p><div class="tablewrap"><table id="bkweeks"></table></div></div>
       <div class="card"><h3>Win chances, checked against what happened</h3><p class="note">Stated chance vs how often the favorite won; the closing moneyline beside it. The chance is the calibrated one the cards show, each season graded with the fit that was in force for it (the raw chance where none was).</p><div class="tablewrap" style=""><table id="bkwin"></table></div></div>
       <div class="card"><h3>Every game</h3><div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div><div id="bksummary"></div><div class="tablewrap" style=""><table id="bktable"></table></div></div>
+      <div class="card"><h3 title="every game with a line: the calibrated chance for the model's side in bands (walk-forward) and how often that side covered">Cover odds against what happened</h3><div class="tablewrap ro"><table id="legitcal" class="rgt"></table></div></div>
+      <div class="card"><h3>Which seasons the cover odds learn from</h3><div class="tablewrap ro"><table id="legitstart" class="rgt"></table></div></div>
     </details>
+      <div class="card" style="margin-top:14px"><h3 title="the flag's bets at the closing line and -110, regular season; by luck = the chance a 52.4% coin does at least this well over this many bets; 2019-22 is where the threshold was chosen, 2023-25 was held out, 2016-18 was never used for any choice">Is the edge real?</h3><div class="tablewrap ro"><table id="legitsize" class="rgt"></table></div></div>
   </div>
-    <div class="card" style="margin-top:14px"><h3>Is the edge real? Luck, staking and the cover odds</h3><p class="note" id="legitnote"></p>
-      <div class="tablewrap"><table id="legitsize"></table></div>
-      <h3 style="margin-top:14px">By season, one unit a bet</h3><div class="tablewrap"><table id="legitseasons"></table></div>
-      <h3 style="margin-top:14px">The cover odds on the cards against what happened</h3><p class="note">Every game with a line, the calibrated chance for the model's side in bands (walk-forward: each season's fit uses only the seasons before it), and how often that side covered.</p><div class="tablewrap"><table id="legitcal"></table></div>
-      <h3 style="margin-top:14px">Which seasons the cover odds learn from</h3><div class="tablewrap"><table id="legitstart"></table></div>
-    </div>
-
   <div id="props" hidden>
     <p class="note" id="pbnote"></p>
     <div class="row"><label class="ctl">Stat <select id="pbstat"></select></label></div>
@@ -567,9 +563,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="betslive">
   <div class="lv-tiles" id="rectiles"></div>
   <div class="grid2e">
-    <div class="card" style="grid-column:1 / -1"><h3>By week</h3><div class="tablewrap ro"><table id="recweeks" class="rgt"></table></div></div>
-    <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
-    <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
+    <div class="card"><h3>By week</h3><div class="tablewrap ro"><table id="recweeks" class="rgt"></table></div></div>
+    <div class="card"><h3>By season</h3><div class="tablewrap ro"><table id="recseasons" class="rgt"></table></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules compared</h3><div id="trackrules"></div></div>
   </div>
   </div>
@@ -600,7 +595,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="inputsx" hidden></div>
   <div id="how" hidden>
     <div class="row" style="margin:0 0 8px"><label class="ctl">Team <select id="howteam"></select></label><label class="ctl">Season <select id="howseason"></select></label></div>
-    <p class="note">Follow one rating from the raw game data to the number. Every row is a game the model used, with its weight; the sums at the bottom give the rating, and it is checked against the number the model actually used.</p>
     <div class="row"><label class="ctl">As of <select id="howweek"></select></label><label class="ctl">Stat <select id="howstat"><option value="epa_play">EPA per play (main rating)</option><option value="pass_epa">Pass EPA</option><option value="rush_epa">Rush EPA</option><option value="pf">Points</option><option value="plays">Pace (plays)</option><option value="success">Success rate (computed, not in the regression)</option></select></label><label class="ctl">Side <select id="howside"><option value="off">Offense</option><option value="def">Defense</option></select></label></div>
     <p class="note" id="howformula"></p>
     <div class="tablewrap" style=""><table id="howtable"></table></div>
@@ -608,7 +602,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div>
 
   <div id="dict" hidden>
-    <p class="note">Every column in the data: where it comes from, what it means, and whether it feeds 3.0.</p>
     <div class="tablewrap"><table id="dicttable"></table></div>
   </div>
   <div id="catalog" hidden>
@@ -629,13 +622,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="card" style="margin-top:12px"><h3 id="hvallh">Every check</h3><div class="tablewrap" style=""><table id="hvall"></table></div></div>
   </div>
   <div id="log" hidden>
-    <p class="note">Every nflverse download with its size and hash, and the verification that runs after each rebuild (team totals against Pro-Football-Reference, scores against the schedule, offense/defense mirrors).</p>
     <div class="tablewrap" style=""><table id="logtable"></table></div>
     <h2>Verification</h2>
     <div class="md" id="verification"></div>
   </div>
   <div id="decisions" hidden>
-    <p class="note">Every claim that was tested, the test, the result and the decision, newest first. Then the backtest audit.</p>
     <div class="md" id="decisionlog"></div>
     <h2>Backtest audit</h2>
     <div class="md" id="auditmd"></div>
@@ -1843,11 +1834,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const su = rec(g, "suWon"), vsu = rec(g, "vegasSuWon"), ats = rec(g, "pickWon"), ou = rec(g, "ouWon"), tfg = tfRec(g);
     // the flag as bet: regular season, weeks 1 to picks.LAST_BET_WEEK, a spread edge at the live cut, graded at the closing line with pushes out (the same test as Bets -> Rules compared)
     // Spreads: the flag. Totals: a rule picked here (default the totals flag: graded live, not bet)
-    if (bkTSide == null) { bkTSide = TS ? TS.side : "under"; bkTCut = "p"; }
+    bkTSide = TS ? TS.side : "under"; bkTCut = "p";
     segPick("bkmkt", [["spread", "Spreads"], ["total", "Totals"]], bkMkt, k => { bkMkt = k; renderBacktest(); });
-    segPick("bktside", [["under", "Unders"], ["over", "Overs"], ["both", "Both"]], bkTSide, k => { bkTSide = k; renderBacktest(); });
-    segPick("bktcut", [["p", `${TS ? Math.round(100 * TS.prob) : "missing"}%+ chance`]].concat([3, 4, 5, 6].map(c => [String(c), c + "+ pts"])), String(bkTCut), k => { bkTCut = k === "p" ? k : +k; renderBacktest(); });
-    $("bktside").hidden = $("bktcut").hidden = bkMkt !== "total";
+    // the totals rule is the flag (28 Sep 2026, Matt: fewer controls); every cutoff is in Details
     const TOT = bkMkt === "total", sideOk = e => bkTSide === "both" || (bkTSide === "under" ? e < 0 : e > 0);
     const PR = bkTCut === "p", pSide = r => r.p_over_emp == null ? null : (bkTSide === "under" ? 1 - r.p_over_emp : bkTSide === "over" ? r.p_over_emp : Math.max(r.p_over_emp, 1 - r.p_over_emp));
     const RULE = TOT ? `${bkTSide === "both" ? "Over or under" : bkTSide === "under" ? "Under" : "Over"}${PR ? `, ${TS ? Math.round(100 * TS.prob) : "missing"}%+ chance` : ` ${bkTCut}+ pts`}${TS && bkTSide === TS.side && PR ? " (the totals flag)" : ""}` : "The flag";
@@ -1862,19 +1851,17 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const latest = seasons[0], withLine = all.filter(r => r.vMargErr != null);
     const flagTile = (lab, x) => { const f = fr(x); return [lab, f.n ? `${f.w}-${f.l}<small>${pctS(f.pct)}</small>` : "none yet", f.n ? `${uS(f.u)} units at ${oddsTxt(ODDS)}` : "no flagged game graded yet", f.n ? (f.u > 0 ? "good" : "bad") : ""]; };
     const terms = `Weeks 1–${nz(LASTWK)}, ${oddsTxt(ODDS)} (break-even ${pct1(BE)})`;
-    $("bknote").innerHTML = TOT ? `Since ${FIRST}, each game priced before it was played · ${RULE}: ${PR ? "the raw chance of that side from the real, lopsided spread of game totals (the cards show it calibrated; the flag is on the raw)" : `the model's total ${bkTSide === "under" ? "under" : bkTSide === "over" ? "over" : "off"} the closing total by ${bkTCut}+ points`}, ${terms} · the totals flag is tracked live, not bet` : `Since ${FIRST}, each game priced before it was played · flag = ${nz(FLAG)}+ point spread edge, ${terms} · ${WIN3.map(([w, d]) => `${w} ${d}`).join(", ")}`;
+    $("bknote").innerHTML = "";   // no caption (28 Sep 2026, Matt)
     $("bkbandnote").innerHTML = `Weeks 1–${nz(LASTWK)}, green at ${pct1(BE)}+ (break-even at ${oddsTxt(ODDS)}).`;
     $("bkweeknote").innerHTML = `Gap = model's spread miss − the line's. Weeks after ${nz(LASTWK)} and playoffs are never flagged.`;
     $("bkscore").innerHTML = scoreCard([flagTile(`${RULE}, ${FIRST} to now`, all)].concat(WIN3.map(([w, d, a, b]) => flagTile(`${w} · ${d}`, all.filter(r => r.season >= a && r.season <= b))),
-      LAST_WIN != null && latest > LAST_WIN ? [flagTile(`${latest} so far`, all.filter(r => r.season === latest))] : [],
-      (() => { const t = all.filter(r => r.week <= LASTWK && r.ouWon !== null && r.tedge != null), w = t.filter(r => r.ouWon).length, l = t.length - w, tf = tfRec(all);
-        return [["Over/under, every game", `${w}-${l}<small>${pctS(100 * w / Math.max(1, w + l))}</small>`, `the totals flag: ${tf.w}-${tf.l} (${tf.pct}) · tracked, not bet`]]; })(),
-      [["Margin miss a game", `${mean(withLine, "mMargErr")}<small>points</small>`, `closing line: ${mean(withLine, "vMargErr")}`]]));
+      [["Margin miss a game", `${mean(withLine, "mMargErr")}<small>points</small>`, `the closing line: ${mean(withLine, "vMargErr")}`]]));   // five tiles (28 Sep 2026, Matt): the rule, the three windows, the miss
     $("bksummary").innerHTML = `<p class="note">${g.length} games: winner picked ${su.pct} (the Vegas favorite ${vsu.pct}); against the spread on every game ${ats.pct} (${ats.w}-${ats.l}); over/under on every game ${ou.pct}, the totals flag ${tfg.pct} (${tfg.w}-${tfg.l}); points miss per team ${mean(g, "mErr")} (Vegas implied ${mean(g, "vErr")}).</p>`;
     // by season: the flag's record and units, then how the model did on every game beside the closing line
     const bsRow = (lab, x, bold) => { const f = fr(x), c = rec(x, "pickWon"), a = rec(x, "suWon"), b = rec(x, "vegasSuWon"), wl = x.filter(r => r.vMargErr != null), xl = x.filter(r => r.week <= LASTWK && r.tedge != null), o = rec(xl, "ouWon"), tf = tfRec(x);
-      return `<tr${bold ? ' class="hl"' : ""}><td class="l">${bold ? `<b>${lab}</b>` : lab}</td><td class="mono">${f.n ? `${f.w}-${f.l}` : ""}</td><td class="mono ${f.pct == null ? "" : f.pct >= 100 * BE ? "pos" : "neg"}">${pctS(f.pct)}</td><td class="mono ${f.u > 0 ? "pos" : f.u < 0 ? "neg" : ""}">${f.n ? uS(f.u) : ""}</td><td class="mono">${c.pct}</td><td class="mono">${o.pct} <small class="rk">${o.w}-${o.l}</small></td><td class="mono ${tf.w + tf.l ? (tf.w / (tf.w + tf.l) >= BE ? "pos" : "neg") : ""}">${tf.w + tf.l ? `${tf.w}-${tf.l}` : ""}</td><td class="mono">${a.pct} / ${b.pct}</td><td class="mono">${mean(wl, "mMargErr")} / ${mean(wl, "vMargErr")}</td></tr>`; };
-    $("bkseasons").innerHTML = `<thead><tr><th class="l">Season</th><th title="the rule's bets, weeks 1 to ${nz(LASTWK)}">${TOT ? RULE.replace(" (the totals flag)", "") : "Flag"}</th><th>Win %</th><th title="one unit a bet at ${oddsTxt(ODDS)}">Units</th><th title="the model's side on every game with a line, against the spread">Every game</th><th title="over/under, the model's side on every game with a total, weeks 1 to ${nz(LASTWK)}">O/U every game</th><th title="the totals flag: tracked, not bet">Totals flag</th><th title="straight up: the model's favorite won / the Vegas favorite won">Winner: model / Vegas</th><th title="the miss of the final margin, points a game: the model / the closing line">Margin miss: model / line</th></tr></thead><tbody>` +
+      return `<tr${bold ? ' class="hl"' : ""}><td class="l">${bold ? `<b>${lab}</b>` : lab}</td><td class="mono">${f.n ? `${f.w}-${f.l}` : ""}</td><td class="mono ${f.pct == null ? "" : f.pct >= 100 * BE ? "pos" : "neg"}">${pctS(f.pct)}</td><td class="mono ${f.u > 0 ? "pos" : f.u < 0 ? "neg" : ""}">${f.n ? uS(f.u) : ""}</td><td class="mono">${TOT ? `${o.pct} <small class="rk">${o.w}-${o.l}</small>` : c.pct}</td><td class="mono">${a.pct} / ${b.pct}</td><td class="mono">${mean(wl, "mMargErr")} / ${mean(wl, "vMargErr")}</td></tr>`; };
+    // fewer columns (28 Sep 2026, Matt): the rule's record, win % and units; the model's side on every game; winners; the margin miss
+    $("bkseasons").innerHTML = `<thead><tr><th class="l">Season</th><th title="the rule's bets, weeks 1 to ${nz(LASTWK)}">${TOT ? RULE.replace(" (the totals flag)", "") : "Flag"}</th><th>Win %</th><th title="one unit a bet at ${oddsTxt(ODDS)}">Units</th><th title="${TOT ? "over/under, the model's side on every game with a total" : "the model's side on every game with a line, against the spread"}">Every game</th><th title="straight up: the model's favorite won / the Vegas favorite won">Winner: model / Vegas</th><th title="the miss of the final margin, points a game: the model / the closing line">Margin miss: model / line</th></tr></thead><tbody>` +
       seasons.map(s => bsRow(s, all.filter(r => r.season === s))).join("") + WIN3.map(([w, , a, b]) => bsRow(w, all.filter(r => r.season >= a && r.season <= b), true)).join("") + bsRow(`${FIRST} to now`, all, true) + "</tbody>";
     // by size of the edge (bands, not cutoffs), each season, for spreads and totals: the flag's weeks, one unit a bet at the default price
     const BANDS = [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 99]];
@@ -1963,37 +1950,36 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // ---------- Team: ratings by week ----------
   function renderRatings() {
     const rs = rows().filter(r => r.r_off_epa_play != null);
-    const W = 900, H = 320, m = {t: 16, r: 18, b: 26, l: 52};   // wider and cleaner (28 Sep 2026, Matt)
+    const W = 900, H = 250, m = {t: 14, r: 128, b: 24, l: 52};   // labels sit right of the last point (28 Sep 2026, Matt)
     const xs = rs.map(r => r.week), ys = rs.flatMap(r => [r.r_off_epa_play, r.r_own_def_epa_play]).filter(v => v != null);
-    if (!rs.length) { $("chart").innerHTML = ""; $("ratingstable").innerHTML = ""; $("charttitle").textContent = "No ratings for this season"; return; }
+    if (!rs.length) { $("chart").innerHTML = ""; if ($("ratingstable")) $("ratingstable").innerHTML = ""; $("charttitle").textContent = "No ratings for this season"; return; }
     // league context: for each week, the middle half of the 32 teams on each rating, and this team's rank
     const wk = (RK && RK.seasons[String(season)]) || {};
     const q = (arr, p) => { const a = arr.slice().sort((u, v) => u - v); if (!a.length) return null; const i = (a.length - 1) * p; const lo = Math.floor(i), hi = Math.ceil(i); return a[lo] + (a[hi] - a[lo]) * (i - lo); };
     const bands = rs.map(r => { const T = (wk[String(r.week)] || {}).teams || {}; const offs = Object.values(T).map(t => t.off_epa_play), defs = Object.values(T).map(t => t.def_epa_play);
       const rankOf = (arr, v) => arr.length ? arr.filter(u => u > v).length + 1 : null;
       return {week: r.week, o25: q(offs, .25), o75: q(offs, .75), d25: q(defs, .25), d75: q(defs, .75), oRank: rankOf(offs, r.r_off_epa_play), dRank: rankOf(defs, r.r_own_def_epa_play), n: offs.length}; });
-    const bandVals = bands.flatMap(b => [b.o25, b.o75, b.d25, b.d75]).filter(v => v != null);
-    const allY = ys.concat(bandVals);
+    const allY = ys.concat([0]);   // the zero line always in view; no league bands (they cluttered the chart)
     const span = Math.max(0.04, Math.max(...allY) - Math.min(...allY)); const ymin = Math.min(...allY) - span * 0.15, ymax = Math.max(...allY) + span * 0.15;
     const x = w => m.l + (w - Math.min(...xs)) / Math.max(1, (Math.max(...xs) - Math.min(...xs))) * (W - m.l - m.r), y = v => m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b);
     const path = key => rs.map((r, i) => (i ? "L" : "M") + x(r.week).toFixed(1) + " " + y(r[key]).toFixed(1)).join(" ");
-    const raw = (ymax - ymin) / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 5, 10].map(k => k * mag).find(k => k >= raw);
+    const raw = (ymax - ymin) / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 5, 10].map(k => k * mag).find(k => k >= raw);
     const ticks = []; for (let v = Math.ceil(ymin / step) * step; v <= ymax + 1e-9; v = +(v + step).toFixed(4)) ticks.push(v);
     let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Offense and defense EPA rating by week">`;
     const bandPath = (lo, hi, fill) => { const ok = bands.filter(b => b[lo] != null); if (ok.length < 2) return ""; return `<path d="${ok.map((b, i) => (i ? "L" : "M") + x(b.week).toFixed(1) + " " + y(b[hi]).toFixed(1)).join(" ")} ${ok.slice().reverse().map(b => "L" + x(b.week).toFixed(1) + " " + y(b[lo]).toFixed(1)).join(" ")} Z" fill="${fill}" opacity="0.5"/>`; };
-    s += bandPath("o25", "o75", "var(--model-soft)") + bandPath("d25", "d75", "var(--vegas-soft)");
     ticks.forEach(v => { s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--rule-2)" stroke-dasharray="2 4"/><text x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end" font-size="12" fill="var(--muted)">${v.toFixed(step < 0.01 ? 3 : 2)}</text>`; });
     s += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)" stroke-width="1.5"/>`;
     xs.forEach(w => { s += `<text x="${x(w)}" y="${H - 6}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink-2)">Wk ${w}</text>`; });
     s += `<path d="${path("r_off_epa_play")}" fill="none" stroke="var(--series-1)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="${path("r_own_def_epa_play")}" fill="none" stroke="var(--series-2)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
     rs.forEach(r => { s += `<circle cx="${x(r.week)}" cy="${y(r.r_off_epa_play)}" r="5" fill="var(--series-1)" stroke="var(--surface-1)" stroke-width="2.5"/><circle cx="${x(r.week)}" cy="${y(r.r_own_def_epa_play)}" r="5" fill="var(--series-2)" stroke="var(--surface-1)" stroke-width="2.5"/>`; });
-    const lastR = rs[rs.length - 1]; s += `<text x="${x(lastR.week) - 10}" y="${y(lastR.r_off_epa_play) - 10}" text-anchor="end" font-size="12" font-weight="700" fill="var(--series-1)">Offense ${lastR.r_off_epa_play >= 0 ? "+" : ""}${lastR.r_off_epa_play.toFixed(3)}</text><text x="${x(lastR.week) - 10}" y="${y(lastR.r_own_def_epa_play) - 10}" text-anchor="end" font-size="12" font-weight="700" fill="var(--series-2)">Defense ${lastR.r_own_def_epa_play >= 0 ? "+" : ""}${lastR.r_own_def_epa_play.toFixed(3)}</text>`;
+    const lastR = rs[rs.length - 1], yo = y(lastR.r_off_epa_play), yd = y(lastR.r_own_def_epa_play), sep = Math.abs(yo - yd) < 16 ? (yo < yd ? -8 : 8) : 0;
+    s += `<text x="${x(lastR.week) + 12}" y="${yo + 4 + sep}" font-size="12.5" font-weight="700" fill="var(--series-1)">Offense ${lastR.r_off_epa_play >= 0 ? "+" : ""}${lastR.r_off_epa_play.toFixed(3)}</text><text x="${x(lastR.week) + 12}" y="${yd + 4 - sep}" font-size="12.5" font-weight="700" fill="var(--series-2)">Defense ${lastR.r_own_def_epa_play >= 0 ? "+" : ""}${lastR.r_own_def_epa_play.toFixed(3)}</text>`;
     const l = rs[rs.length - 1], lb = bands[bands.length - 1]; const rk = (n, tot) => n ? ` (${n} of ${tot})` : "";
     const ord = n => n == null ? "" : n + (n % 10 === 1 && n !== 11 ? "st" : n % 10 === 2 && n !== 12 ? "nd" : n % 10 === 3 && n !== 13 ? "rd" : "th");
     const latest = `<span class="chip" style="cursor:default">Offense <b>${ord(lb.oRank)}</b> of ${lb.n}</span><span class="chip" style="cursor:default">Defense <b>${ord(lb.dRank)}</b> of ${lb.n}</span><span class="chip mute" style="cursor:default">going into week ${l.week}</span>`;
     rs.forEach(r => { s += `<rect class="hit" data-w="${r.week}" x="${x(r.week) - 12}" y="${m.t}" width="24" height="${H - m.t - m.b}" fill="transparent"/>`; });
     s += "</svg>";
-    $("chart").innerHTML = `<div class="mv" style="margin:0 0 8px">${latest}</div><div class="legend" style="margin:0 0 4px"><span><span class="dot" style="background:var(--series-1)"></span>Offense</span><span><span class="dot" style="background:var(--series-2)"></span>Defense, positive is good</span><span><span class="dot" style="background:var(--model-soft);border:1px solid var(--rule)"></span>League middle half</span></div>` + s;
+    $("chart").innerHTML = `<div class="mv" style="margin:0 0 8px">${latest}</div>` + s;
     $("charttitle").textContent = `EPA rating by week`;
     const tip = $("tip");
     $("chart").querySelectorAll("rect.hit").forEach(el => { el.addEventListener("mousemove", ev => { const r = rs.find(q => q.week == el.dataset.w); const box = $("chartcard").getBoundingClientRect(); tip.style.display = "block"; tip.style.left = (ev.clientX - box.left + 12) + "px"; tip.style.top = (ev.clientY - box.top - 10) + "px"; const bb = bands.find(b => b.week == r.week) || {}; tip.innerHTML = `<b>Week ${r.week}</b> ${r.home ? "vs" : "@"} ${r.opp}${r.pf != null ? " (" + r.pf + "-" + r.pa + ")" : ""}<br>offense ${r.r_off_epa_play.toFixed(3)}${bb.oRank ? " (" + bb.oRank + " of " + bb.n + ")" : ""} · defense ${r.r_own_def_epa_play.toFixed(3)}${bb.dRank ? " (" + bb.dRank + " of " + bb.n + ")" : ""}<br>QB ${esc(r.qb_name || "")} ${r.qb_rating != null ? r.qb_rating.toFixed(3) : ""} · ${r.n_games} games in`; }); el.addEventListener("mouseleave", () => tip.style.display = "none"); });
@@ -2001,7 +1987,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const RL = {r_off_epa_play: "Off EPA", r_own_def_epa_play: "Def EPA", r_off_pf: "Off points", r_own_def_pf: "Def points", qb_rating: "QB", n_games: "Games in"};
     let h = "<thead><tr><th class='sticky'>Wk</th><th class='l'>Opp</th>" + cols.map(c => `<th title="${esc((META.dictionary[c]||{}).definition||c)}">${RL[c]}</th>`).join("") + "</tr></thead><tbody>";
     rs.forEach(r => { h += `<tr><td class="sticky">${r.week}</td><td class="l">${r.home ? "vs " : "@ "}${r.opp}</td>` + cols.map(c => `<td class="mono">${fmt(r[c], c)}</td>`).join("") + "</tr>"; });
-    $("ratingstable").innerHTML = h + "</tbody>";
+    if ($("ratingstable")) $("ratingstable").innerHTML = h + "</tbody>";
   }
 
   // ---------- Team: how a rating is built ----------
@@ -2794,7 +2780,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     $("logtable").innerHTML = h + "</tbody>";
     $("verification").innerHTML = mdToHtml((META.analysis && META.analysis.verification) || META.verification || "No verification report exported.");
   }
-  function renderDecisions() { const A = META.analysis || {}; $("decisionlog").innerHTML = mdToHtml(A.decision_log || ""); $("auditmd").innerHTML = mdToHtml(A.audit || ""); }
+  function renderDecisions() { const A = META.analysis || {}; $("decisionlog").innerHTML = mdToHtml((A.decision_log || "").replace(/^[\s\S]*?(?=\n\|)/, ""));   /* the log's intro paragraphs stay in the file, not on the page (28 Sep 2026, Matt) */ $("auditmd").innerHTML = mdToHtml(A.audit || ""); }
 
   // ---------- Track record ----------
   function trackSummary(rows_) {
@@ -2816,7 +2802,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // the season under way is graded live below (what the page said before each game), so the backtest table keeps the finished seasons; its "all" row runs from the first season to the last finished one
     const yrsB = B.by_season.map(r => +r.season).filter(y => !isNaN(y)), firstB = yrsB.length ? Math.min(...yrsB) : null;
     const cs = CUR_SEASON, lastDone = Math.max(...bs.filter(r => !win(r) && +r.season < cs).map(r => +r.season)), allLab = `${nz(firstB)} to ${lastDone}`;
-    $("pbnote").innerHTML = `Every player-game since ${nz(firstB)}, projected from only the games before it with the rule the page uses today, against what he did, and against the raw rule the page started with (flat season rates: no game script, no shrinkage). Lower miss is better. The rule was tuned on ${wk_(TUNE)}; ${wk_(HELD)} was held out.`;
+    $("pbnote").innerHTML = "";   // no caption (28 Sep 2026, Matt)
     const byS = {}; bs.forEach(r => byS[r.season] = r);
     const G = ((window.PROPS_REC || {}).graded || []).filter(r => r.stat === pbStat && r.season === cs), gm = G.length ? G.reduce((a, r) => a + Math.abs(r.error), 0) / G.length : null;
     // a window's miss against the raw rule (a count stat: its Poisson fit)
@@ -2848,7 +2834,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const sel = $("pmstat"); if (!sel.options.length) { PB_STATS.concat([["def_tackles", "Tackles + assists"], ["def_sacks", "Sacks"]]).forEach(([k, lab]) => { const o = document.createElement("option"); o.value = k; o.textContent = lab; sel.appendChild(o); }); sel.value = pmStat; sel.onchange = () => { pmStat = sel.value; renderPlayerModel(); }; }
     const c = P || {}; const chip = (t, tip) => `<span class="chip" title="${esc(tip || "")}">${t}</span>`;
     const RW = c.recon_w || {}, way = v => v == null ? MISSING : `${Math.round(100 * v)}% of the way`;
-    $("pmnote").innerHTML = `The player projections on every card (yards, receptions, touchdowns, interceptions, tackles, sacks), the rule they follow and every variant tested to choose it. Each round tested walk-forward on a tuning window (${wk_(TUNE)}) and a held-out window (${wk_(HELD)}), constants fitted on 2016 to 2018 only; a step was kept only when it helped on both. Lower is better throughout. How the rule performs by season is under Backtest → Player props; every term is under Definitions and sources. Docs section 18.`;
+    $("pmnote").innerHTML = "";   /* no caption (28 Sep 2026, Matt) */
     const rule = {
       rec_yards: [chip(`Volume: team pass plays x game script x his share (decayed ${c.decay}; season boundary x ${c.fade ? c.fade.rec[0] : ""}, team change x ${c.fade ? c.fade.rec[1] : ""})`, "the team's pass plays per game over its last 17, moved by the closing spread and total, x his usage share decayed per game back with the round-10 fade; an absent teammate's share is not handed to the others (every form of redistribution lost on both windows)"), chip(`Rate: yards per target shrunk to the league (${c.k && c.k.rec} targets), ${Math.round(100 * (c.w ? c.w.rec : 0))}% toward the defense`), chip(`Line = volume x rate x a median factor ${c.med_tier && c.med_tier.rec ? `${c.med_tier.rec[1]} to ${c.med_tier.rec[2]}` : c.med && c.med.rec}`, `the median factor: yards are right-skewed, so the line off by least sits below the mean; it rises with his mean${c.med_tier && c.med_tier.rec ? ` (a logistic centred at ${c.med_tier.rec[3]} mean yards, scale ${c.med_tier.rec[4]}; round 15)` : ""}`), chip(`Scaled toward the game model's points, ${way((RW.rec || {}).yds)}`)],
       rush_yards: [chip(`Volume: team runs x game script x his share (decayed ${c.decay}; season boundary x ${c.fade ? c.fade.rush[0] : ""}, team change x ${c.fade ? c.fade.rush[1] : ""})`, "his usage share decayed per game back with the round-10 fade; an absent teammate's share is not handed to the others"), chip(`Rate: yards per carry shrunk to the league (${c.k && c.k.rush} carries), ${Math.round(100 * (c.w ? c.w.rush : 0))}% toward the defense`), chip(`Line = volume x rate x ${c.med && c.med.rush}`, "the median factor, flat for rushers: no curve in the mean was worth it (round 15)"), chip(`Scaled toward the game model's points, ${way((RW.rush || {}).yds)}`)],
@@ -2874,15 +2860,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       return tables.length ? `<div class="card" style="margin-bottom:14px"><h3>${esc(R.title)}</h3><p class="note">${esc(R.note)} Source: ${esc(R.source)}.</p>${tables.join("")}</div>` : ""; }).join("") || "<p class='note'>Not tested in any round for this stat.</p>";
   }
   function renderLegit() {
-    const L = window.LEGIT; if (!L || !L.sizing) { $("legitnote").textContent = "Not built yet."; return; }
+    const L = window.LEGIT; if (!L || !L.sizing) { $("legitsize").innerHTML = ""; return; }
     const S = L.sizing; const flat = w => S.find(r => r.window === w && r.staking === "flat") || {}; const q = w => S.find(r => r.window === w && r.staking === "kelly_q") || {};
     const pv = v => v == null ? "" : (v < 0.001 ? "under 0.1%" : (100 * v).toFixed(v < 0.01 ? 1 : 0) + "%");
     const SW = [...new Set(S.map(r => r.window))], first = SW.slice().sort()[0], ff = flat(first);   // the sizing report's windows; the earliest was never used for any choice
     const res = ff.units_flat == null ? MISSING : ff.units_flat > 0 ? `the flag made ${ff.units_flat.toFixed(1)} units` : ff.units_flat < 0 ? `the flag lost ${Math.abs(ff.units_flat).toFixed(1)} units` : "the flag broke even";
-    $("legitnote").innerHTML = `The flag's bets at the closing line and ${oddsTxt(ODDS)}, regular season weeks 1 to ${nz(LASTWK)}. "By luck" is the chance a coin that wins ${pct1(BE)} of the time (break-even at ${oddsTxt(ODDS)}) does at least this well over this many bets. ${wk_(TUNE)} is where the threshold was chosen, so its number flatters; ${wk_(HELD)} was held out; ${first} was never used for any choice, and there ${res}: ${ff.record || MISSING} (${pv(ff.p_value_vs_break_even)} by luck). Stakes: the live rule is the Kelly fraction × ${PK ? PK.kelly_fraction : MISSING} from the calibrated cover odds.`;
     const rows = SW.map(w => { const f = flat(w), k = q(w); return `<tr><td class="l">${w}</td><td class="mono">${f.record || ""}</td><td class="mono">${f.win_pct != null ? (100 * f.win_pct).toFixed(1) + "%" : ""}</td><td class="mono">${f.units_flat != null ? (f.units_flat > 0 ? "+" : "") + f.units_flat.toFixed(1) : ""}</td><td class="mono">${f.roi_flat != null ? (100 * f.roi_flat).toFixed(1) + "%" : ""}</td><td class="mono">${f.max_drawdown != null ? f.max_drawdown.toFixed(1) : ""}</td><td class="mono">${f.longest_losing_streak ?? ""}</td><td class="mono">${k.growth_pct != null ? (k.growth_pct > 0 ? "+" : "") + k.growth_pct.toFixed(1) + "%" : ""}</td><td class="mono">${k.max_drawdown != null ? k.max_drawdown.toFixed(1) + "%" : ""}</td><td class="mono"><b>${pv(f.p_value_vs_break_even)}</b></td><td class="mono">${f.seasons_losing_flat || ""}</td></tr>`; }).join("");
     $("legitsize").innerHTML = `<thead><tr><th class="l">Window</th><th>Record</th><th>Win %</th><th title="one unit a bet">Units</th><th>ROI</th><th title="largest peak-to-trough fall, units">Drawdown</th><th title="longest run of losses">Losing run</th><th title="bankroll growth at a quarter Kelly">Quarter Kelly</th><th title="largest fall at a quarter Kelly, % of the peak">Its drawdown</th><th title="the chance of at least this record from a coin that wins 52.4%">By luck</th><th title="seasons that lost money at one unit a bet">Losing seasons</th></tr></thead><tbody>${rows}</tbody>`;
-    $("legitseasons").innerHTML = `<thead><tr>${(L.seasons || []).map(r => `<th>${r.season}</th>`).join("")}</tr></thead><tbody><tr>${(L.seasons || []).map(r => `<td class="mono">${r.record}</td>`).join("")}</tr><tr>${(L.seasons || []).map(r => `<td class="mono ${r.units_flat > 0 ? "pos" : r.units_flat < 0 ? "neg" : ""}">${r.units_flat > 0 ? "+" : ""}${r.units_flat.toFixed(1)}</td>`).join("")}</tr></tbody>`;
     $("legitcal").innerHTML = `<thead><tr><th class="l">Window</th><th>Stated chance</th><th>Games</th><th>Said</th><th>Covered</th></tr></thead><tbody>` + (L.cover_cal || []).map(r => `<tr><td class="l">${r.window}</td><td class="mono">${Math.round(100 * r.band_from)}–${Math.round(100 * Math.min(r.band_to, 1))}%</td><td class="mono">${r.games}</td><td class="mono">${(100 * r.said).toFixed(1)}%</td><td class="mono">${(100 * r.covered).toFixed(1)}%</td></tr>`).join("") + "</tbody>";
     const cs = L.cal_start || [];
     $("legitstart").innerHTML = cs.length ? `<thead><tr><th class="l">Fit on</th><th title="stated odds at an edge of 4 and 6, 2026">Odds at 4 / 6</th><th>Log loss, all games 2020-22</th><th>2023-25</th><th>Log loss, flags 2020-22</th><th>2023-25</th><th>Flags said / won 2023-25</th><th class="l">Verdict</th></tr></thead><tbody>` + cs.map(r => `<tr><td class="l">${esc(r.variant)}</td><td class="mono">${(100 * r.odds_at_4).toFixed(1)}% / ${(100 * r.odds_at_6).toFixed(1)}%</td><td class="mono">${r["logloss_all_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_all_2023-25"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2023-25"].toFixed(4)}</td><td class="mono">${(100 * r["flags_said_2023-25"]).toFixed(0)}% / ${(100 * r["flags_won_2023-25"]).toFixed(0)}%</td><td class="l">${esc(r.verdict)}</td></tr>`).join("") + "</tbody>" : "";
@@ -2892,9 +2876,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   function weekRecord(gs, season, week) {
     const RS = gs.map(gameReadings), rec = k => { const r = RS.map(R => R[k] && R[k].result).filter(Boolean); return {w: r.filter(x => x === "win").length, l: r.filter(x => x === "loss").length, p: r.filter(x => x === "push").length, n: r.length}; };
     const legs = RS.flatMap(R => ["spread", "total"].map(k => R[k]).filter(x => x && x.bet && x.result));
-    const bets = {w: legs.filter(x => x.result === "win").length, l: legs.filter(x => x.result === "loss").length, p: legs.filter(x => x.result === "push").length, n: legs.length};
-    const T = (window.TRACK || []).filter(r => r.season === season && r.week === week && (r.who === "model" || r.who === "shadowunder") && ["win", "loss", "push"].includes(r.result));
-    return {season, week, n: gs.length, fin: RS.filter(R => R.final).length, spread: rec("spread"), total: rec("total"), win: rec("win"), bets, units: T.reduce((a, r) => a + (r.units || 0), 0), graded: T.length};
+    const cnt = L => ({w: L.filter(x => x.result === "win").length, l: L.filter(x => x.result === "loss").length, p: L.filter(x => x.result === "push").length, n: L.length});
+    const bets = cnt(legs), betsS = cnt(RS.map(R => R.spread).filter(x => x && x.bet && x.result)), betsT = cnt(RS.map(R => R.total).filter(x => x && x.bet && x.result));
+    // units at the site's standard price (ODDS, -110): a win pays 100/110, a loss costs one, a push nothing; the same legs as the count (28 Sep 2026, Matt: "shouldn't the units be closer to 4?")
+    const pay = typeof ODDS === "number" && ODDS < 0 ? 100 / -ODDS : 100 / 110, units = legs.reduce((a, x) => a + (x.result === "win" ? pay : x.result === "loss" ? -1 : 0), 0);
+    const uOf = c => c.w * pay - c.l;
+    return {season, week, n: gs.length, fin: RS.filter(R => R.final).length, spread: rec("spread"), total: rec("total"), win: rec("win"), bets, betsS, betsT, units, unitsS: uOf(betsS), unitsT: uOf(betsT), graded: legs.length};
   }
   const recTxt = r => r.n ? `${r.w}-${r.l}${r.p ? "-" + r.p : ""}` : "–";
   const recSum = rs => rs.reduce((a, r) => ({w: a.w + r.w, l: a.l + r.l, p: a.p + r.p, n: a.n + r.n}), {w: 0, l: 0, p: 0, n: 0});
@@ -2905,22 +2892,28 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const rows = weeks.map(w => weekRecord(w === W.week ? W.games : weekGames(W.season, w), W.season, w)).filter(r => r.fin);
     const lvRec = r => `<span class="lv-w">${r.w}</span><span class="lv-sep">-</span><span class="lv-l">${r.l}</span>${r.p ? `<span class="lv-sep">-</span><span class="lv-p">${r.p}</span>` : ""}`;
     const tile = (lab, val, sub) => `<div class="lv-tile"><div class="lv-tl">${lab}</div><div class="lv-tv">${val}</div>${sub ? `<div class="lv-ts">${sub}</div>` : ""}</div>`;
-    const S = {spread: recSum(rows.map(r => r.spread)), total: recSum(rows.map(r => r.total)), win: recSum(rows.map(r => r.win)), bets: recSum(rows.map(r => r.bets))}, units = rows.reduce((a, r) => a + r.units, 0), fin = rows.reduce((a, r) => a + r.fin, 0);
-    $("rectiles").innerHTML = rows.length ? `${tile(String(W.season), `Week ${rows[rows.length - 1].week}`, `${fin} games final`)}${tile("Flagged bets", lvRec(S.bets), `${units > 0 ? "+" : ""}${units.toFixed(2)} units`)}${tile("Spreads", lvRec(S.spread), "the model's side, every game")}${tile("Totals", lvRec(S.total), "the model's side, every game")}${tile("Winners", lvRec(S.win), "every game")}` : "";
+    const S = {spread: recSum(rows.map(r => r.spread)), total: recSum(rows.map(r => r.total)), win: recSum(rows.map(r => r.win)), bets: recSum(rows.map(r => r.bets)), betsS: recSum(rows.map(r => r.betsS)), betsT: recSum(rows.map(r => r.betsT))}, units = rows.reduce((a, r) => a + r.units, 0), fin = rows.reduce((a, r) => a + r.fin, 0);
+    window.REC_SEASON = {season: W.season, ...S, units, unitsS: rows.reduce((a, r) => a + r.unitsS, 0), unitsT: rows.reduce((a, r) => a + r.unitsT, 0)};
+    // by season: the flag's record at the close, one unit a bet (the backtest's seasons, legit.js), then this season from the page's grades
+    const L = window.LEGIT || {}, sv = (L.seasons || []).map(r => `<tr><td><b>${r.season}</b></td><td>${esc(r.record)}</td><td class="${r.units_flat > 0 ? "posv" : r.units_flat < 0 ? "neg" : ""}">${r.units_flat > 0 ? "+" : ""}${Number(r.units_flat).toFixed(1)}</td></tr>`).join("");
+    $("recseasons").innerHTML = `<thead><tr><th>Season</th><th title="the 4-point spread flag at the closing line; past seasons walk-forward, this season live">Flagged spreads</th><th title="one unit a bet at -110">Units</th></tr></thead><tbody>${sv}${rows.length ? `<tr class="sum"><td>${W.season} so far</td><td>${recTxt(S.betsS)}</td><td class="${window.REC_SEASON.unitsS > 0 ? "posv" : window.REC_SEASON.unitsS < 0 ? "neg" : ""}">${(window.REC_SEASON.unitsS > 0 ? "+" : "") + window.REC_SEASON.unitsS.toFixed(1)}</td></tr>` : ""}</tbody>`;
+    $("rectiles").innerHTML = rows.length ? `${tile(String(W.season), `Week ${rows[rows.length - 1].week}`, `${fin} games final`)}${tile("Flagged bets", lvRec(S.bets), `${units > 0 ? "+" : ""}${units.toFixed(2)} units at ${typeof ODDS === "number" ? ODDS : -110}`)}${tile("Spreads", lvRec(S.spread), "every game")}${tile("Totals", lvRec(S.total), "every game")}${tile("Winners", lvRec(S.win), "every game")}` : "";
     $("recweeks").innerHTML = rows.length ? `<thead><tr><th>Week</th><th>Final</th><th>Flagged bets</th><th>Units</th><th>Spreads</th><th>Totals</th><th>Winners</th></tr></thead><tbody>${rows.map(r => `<tr><td><b>Week ${r.week}</b></td><td>${r.fin} of ${r.n}</td><td><b>${recTxt(r.bets)}</b></td><td class="${r.units > 0 ? "posv" : r.units < 0 ? "neg" : ""}">${r.graded ? (r.units > 0 ? "+" : "") + r.units.toFixed(2) : "–"}</td><td>${recTxt(r.spread)}</td><td>${recTxt(r.total)}</td><td>${recTxt(r.win)}</td></tr>`).join("")}<tr class="sum"><td>Season</td><td>${fin}</td><td><b>${recTxt(S.bets)}</b></td><td class="${units > 0 ? "posv" : units < 0 ? "neg" : ""}">${(units > 0 ? "+" : "") + units.toFixed(2)}</td><td>${recTxt(S.spread)}</td><td>${recTxt(S.total)}</td><td>${recTxt(S.win)}</td></tr></tbody>` : "<tbody><tr><td>No game final yet this season.</td></tr></tbody>";
   }
   function renderTrack() {
     renderRecord();
     const T = window.TRACK || [];
-    $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
-    $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
+
     // every rule and its backtest record on each window, as nflmodel/picks.py computes them (meta.js picks.rules: rule_records)
     const RR = (PK && PK.rules) || [];
-    const labOf = r => r.rule === "model" ? `${esc(r.label)}, bet` : (r.side_rule === "under_prob" ? `totals flag: ${esc(r.label.replace(/ \(the totals flag\)$/, ""))} (tracked, not bet)` : `shadow: ${esc(r.label)}`);
+    const labOf = r => esc(String(r.label).replace(/ \(the flag\)$/, "").replace(/ \(the totals flag\)$/, "").replace(/^shadow: /, ""));   // the threshold alone (28 Sep 2026, Matt)
     const ruleRow = rr => { const x = T.filter(r => r.who === rr.rule); const st = x.filter(r => ["win", "loss", "push"].includes(r.result)); const w = st.filter(r => r.result === "win").length, l = st.filter(r => r.result === "loss").length, p = st.filter(r => r.result === "push").length;
       const u = st.reduce((a, r) => a + (r.units || 0), 0); const c = x.map(r => (r.clv != null && !isNaN(r.clv)) ? r.clv : ((r.clv_now != null && !isNaN(r.clv_now)) ? r.clv_now : null)).filter(v => v != null); const avg = c.length ? c.reduce((a, v) => a + v, 0) / c.length : null;
-      return `<tr><td class="l">${labOf(rr)}</td><td class="mono">${x.length}</td><td class="mono">${st.length ? `${w}-${l}${p ? "-" + p : ""}${w + l ? ` (${(100 * w / (w + l)).toFixed(0)}%)` : ""}` : "nothing settled"}</td><td class="mono ${u > 0 ? "pos" : (u < 0 ? "neg" : "")}">${st.length ? sgn(u, 2) : ""}</td><td class="mono">${avg == null ? "" : (avg > 0 ? "+" : "") + avg.toFixed(2)}</td>${WINS.map(wn => `<td class="mono rk">${nz(rr[wn.key])}</td>`).join("")}</tr>`; };
-    $("trackrules").innerHTML = RR.length ? `<div class="tablewrap" title="the flag is bet; the shadows are logged and graded on the same games but never bet; the right-hand columns are each rule's backtest record on the three windows (nflmodel/picks.py)"><table><thead><tr><th class='grp'></th><th class='grp' colspan='4'>Live, ${nz(CUR_SEASON)}</th><th class='grp' colspan='${WINS.length}'>Backtest</th></tr><tr><th class='l'>Rule</th><th>Bets</th><th>Record</th><th>Units</th><th title="closing line value; the latest logged line stands in until a game kicks off">Avg CLV</th>${WINS.map(w => `<th title="${w.label}">${w.from} to ${w.to}</th>`).join("")}</tr></thead><tbody>${RR.map(ruleRow).join("")}</tbody></table></div>`
+      // the flag and the totals flag: this season's record from the page's grades (the same legs as the tiles); the shadows: the tracker's graded rows
+      const RSN = window.REC_SEASON, live = rr.rule === "model" && RSN ? {c: RSN.betsS, u: RSN.unitsS} : rr.side_rule === "under_prob" && RSN ? {c: RSN.betsT, u: RSN.unitsT} : null;
+      const recCell = live ? (live.c.n ? `${live.c.w}-${live.c.l}${live.c.p ? "-" + live.c.p : ""}` : "–") : (st.length ? `${w}-${l}${p ? "-" + p : ""}` : "–"), uCell = live ? (live.c.n ? sgn(live.u, 2) : "") : (st.length ? sgn(u, 2) : ""), nCell = live ? live.c.n : x.length, uv = live ? live.u : u;
+      return `<tr><td class="l">${labOf(rr)}</td><td class="mono">${nCell}</td><td class="mono">${recCell}</td><td class="mono ${uv > 0 ? "pos" : (uv < 0 ? "neg" : "")}">${uCell}</td>${WINS.map(wn => `<td class="mono rk">${nz(rr[wn.key])}</td>`).join("")}</tr>`; };
+    $("trackrules").innerHTML = RR.length ? `<div class="tablewrap" title="the flag is bet; the shadows are logged and graded on the same games but never bet; the right-hand columns are each rule's backtest record on the three windows (nflmodel/picks.py)"><table><thead><tr><th class='grp'></th><th class='grp' colspan='3'>Live, ${nz(CUR_SEASON)}</th><th class='grp' colspan='${WINS.length}'>Backtest</th></tr><tr><th class='l'>Rule</th><th>Bets</th><th>Record</th><th title="one unit a bet at -110">Units</th>${WINS.map(w => `<th title="${w.label}">${w.from} to ${w.to}</th>`).join("")}</tr></thead><tbody>${RR.map(ruleRow).join("")}</tbody></table></div>`
       : `<p class="note">The rules and their backtest records are ${MISSING} in meta.js.</p>`;
     let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th class='l'>Book</th><th>Odds</th><th>Stake</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Note</th><th class='l'>Recorded</th></tr></thead><tbody>";
     T.filter(r => r.who === "model" || r.who === "matt").slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who === "matt" ? "You" : "Model"}</td><td>${r.season ?? ""}</td><td>${r.week ?? ""}</td><td class="l mono">${r.game_id}</td><td class="l"><b>${esc(r.bet)}</b></td><td class="l">${esc(r.book || "")}</td><td class="mono">${r.odds ?? ""}</td><td class="mono">${ok(r.stake_pct) ? Number(r.stake_pct).toFixed(1) + "%" : ""}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono ${ok(r.clv) ? (r.clv > 0 ? "pos" : (r.clv < 0 ? "neg" : "")) : ""}">${ok(r.clv) ? (r.clv > 0 ? "+" : "") + Number(r.clv).toFixed(1) : (ok(r.clv_now) ? `<span class="rk" title="against the latest logged line; the close is known once the game kicks off">${(r.clv_now > 0 ? "+" : "") + Number(r.clv_now).toFixed(1)} so far</span>` : "")}</td><td class="l">${esc(r.result || "")}</td><td class="mono ${ok(r.units) ? (r.units > 0 ? "pos" : (r.units < 0 ? "neg" : "")) : ""}">${ok(r.units) ? Number(r.units).toFixed(2) : ""}</td><td class="l" style="white-space:normal;max-width:320px">${esc(r.note || "")}</td><td class="l rk">${esc(r.run_at || "")}</td></tr>`; });
@@ -3023,10 +3016,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (!sel.dataset.bound) { sel.dataset.bound = "1"; sel.addEventListener("change", () => { psSnap = sel.value; renderSnapshots(window.SEASON, sbKind); }); }
     const [yr, wk] = psSnap.split("-").map(Number), live = yr === X.live_season, snap = X.snaps[psSnap] || {}, rows = snap[kind] || [], acc = (X.acc[psSnap] || {})[kind], meta = snap._meta || {};
     const KL = {rec: "receiving yards", rush: "rushing yards", pass: "passing yards"}, num = v => v == null ? "" : Math.round(+v).toLocaleString();
-    $("pssnapnote").innerHTML = (live ? `This season's projections as they stood ${wk === 1 ? "before the first game" : "going into Week " + wk}${meta.reconstructed ? " (rebuilt from the data before that week: the record began on 24 Sep 2026; every week from now on is kept as made)" : ", kept as made"}; the actual column is his total so far.` :
-      `The backtest's projections ${wk === 1 ? "before Week 1" : "going into Week " + wk} of ${yr}, made only from games before that week, beside what each player finished with.`) +
-      (acc ? ` Across all ${acc.n} players projected: ${KL[kind]} off by <b>${num(acc.mae)}</b> on average, against ${num(acc.pace)} for his pace${wk === 1 ? " (before a game, pace is last season)" : ""} and ${num(acc.prev)} for last season's total. Breakout flags: ${acc.flags}${acc.flags ? `, ${acc.hits} came true` : ""}.` : "") +
-      "";
+    $("pssnapnote").innerHTML = "";   /* no caption (28 Sep 2026, Matt) */;
     $("pssnaptable").innerHTML = rows.length ? `<thead><tr><th>Rank</th><th class="l">Player</th><th class="l">Team</th><th>Projected</th><th>Projected TD</th><th>Flag</th><th>Last season</th><th>${live ? "So far" : "Finished with"}</th><th>${live ? "Rank so far" : "Finished"}</th>${live ? "" : "<th>Off by</th>"}</tr></thead><tbody>` +
       rows.map(r => `<tr><td class="mono">${r[3]}</td><td class="l"><b>${esc(r[1])}</b></td><td class="l">${LOGO(r[2])}${esc(r[2])}</td><td class="mono"><b>${num(r[4])}</b></td><td class="mono">${(+r[5]).toFixed(1)}</td><td>${r[6] === 1 ? `<span class="badge flag">Breakout</span>` : r[6] === 2 ? `<span class="badge">New</span>` : ""}</td><td class="mono">${num(r[7])}</td><td class="mono">${num(r[8])}</td><td class="mono">${r[9]}</td>${live ? "" : `<td class="mono ${Math.abs(r[8] - r[4]) > 300 ? "neg" : ""}">${r[8] - r[4] >= 0 ? "+" : ""}${num(r[8] - r[4])}</td>`}</tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">No projections of this kind in this snapshot.</td></tr></tbody>`;
   }
@@ -3037,7 +3027,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const n3 = v => v == null || isNaN(v) ? "" : (+v).toFixed(3);
     const B = S.backtest; const PB = S.player_backtest || [];
     const BW = B ? [...new Set(B.by_week.map(r => +r.asof_week))].sort((a, b) => a - b) : [];
-    $("seasonbtnote").innerHTML = `Made at Weeks ${BW.length ? BW.join(", ") : MISSING} of ${TUNE ? TUNE.from : MISSING} to ${HELD ? HELD.to : MISSING} from only the games before, scored against what happened · tuned on ${wk_(TUNE)}, ${wk_(HELD)} held out`;
+    $("seasonbtnote").innerHTML = "";   // no caption (28 Sep 2026, Matt)
     if (!B) { $("sbt1").innerHTML = `<tbody><tr><td class="l">No season backtest yet (reports/season_backtest.csv).</td></tr></tbody>`; }
     else {
       const W = {}; B.windows.forEach(r => W[r.window] = r);
@@ -3106,9 +3096,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const mkKey = {}; MK.forEach(m => mkKey[`${m.game_id}|${m.player_id}|${m.stat}`] = m);
     const S = G.filter(r => r.stat === pbStat), live = S.filter(r => r.made !== "after the fact").length, weeksAfter = [...new Set(S.filter(r => r.made === "after the fact").map(r => r.week))].sort((a, b) => a - b);
     const P = window.PROPS_REC && window.PROPS_REC.projections || []; const firstLive = Math.min(...P.filter(r => r.made === "live").map(r => r.week));
-    $("plivenote").textContent = !S.length ? `Nothing graded yet for this stat.` :
-      `${S.length.toLocaleString()} ${statLab(pbStat).toLowerCase()} projections graded.` + (weeksAfter.length ? ` Week${weeksAfter.length > 1 ? "s" : ""} ${weeksAfter.join(" and ")} ${weeksAfter.length > 1 ? "were" : "was"} projected after the fact (with only the data as of each week), before the projections went live.` : "") +
-      (isFinite(firstLive) && !live ? ` Week ${firstLive} is the first projected before the games; it is graded on the run after them.` : "");
+    $("plivenote").textContent = !S.length ? `Nothing graded yet for this stat.` : "";   /* no caption (28 Sep 2026, Matt); weeks projected after the fact are marked in the table */
     const summ = (rows, keyf) => { const by = {}; rows.forEach(r => { const k = keyf(r); (by[k] = by[k] || []).push(r); }); return Object.entries(by).map(([k, rs]) => { const n = rs.length, mae = rs.reduce((a, r) => a + Math.abs(r.error), 0) / n, bias = rs.reduce((a, r) => a + r.error, 0) / n; const withLine = rs.map(r => mkKey[`${r.game_id}|${r.player_id}|${r.stat}`]).filter(Boolean); const w = withLine.filter(m => m.result === "win").length, l = withLine.filter(m => m.result === "loss").length; return {k, n, mae, bias, w, l, nl: withLine.length, after: rs.every(r => r.made === "after the fact")}; }); };
     const tbl = (id, head, items, sortf) => { const nl = items.some(x => x.nl); $(id).innerHTML = items.length ? `<thead><tr><th class="l">${head}</th><th>Graded</th><th title="mean absolute error">Off by</th><th title="mean of actual minus projection: above zero the projections ran low">Bias</th>${nl ? `<th title="the projection's side against the book line, where one was logged">vs book</th>` : ""}</tr></thead><tbody>` + items.sort(sortf).map(x => `<tr><td class="l">${x.lab}</td><td class="mono">${x.n}</td><td class="mono"><b>${x.mae.toFixed(2)}</b></td><td class="mono ${x.bias > 0 ? "pos" : x.bias < 0 ? "neg" : ""}">${x.bias > 0 ? "+" : ""}${x.bias.toFixed(2)}</td>${nl ? `<td class="mono">${x.nl ? `${x.w}-${x.l}` : ""}</td>` : ""}</tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded yet.</td></tr></tbody>`; };
     tbl("pliveweek", "Week", summ(S, r => r.week).map(x => Object.assign(x, {lab: `Week ${x.k}${x.after ? " <small>(after the fact)</small>" : ""}`})), (a, b) => a.k - b.k);
@@ -3124,7 +3112,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // Model -> Every data store (data/catalog.js, nflmodel/catalog.py: read from the files themselves)
   function renderCatalog() {
     const C = window.CATALOG; if (!C) { $("catnote").textContent = "The catalog is not built yet."; return; }
-    $("catnote").innerHTML = `Every data store the model keeps, read from the files themselves on the last build (${esc(etTime(C.built))}): what each holds, its size, rows and columns, the step that writes it and where it shows on the site. Raw downloads ${C.totals.raw_mb} MB, built tables ${C.totals.processed_mb} MB, logs ${C.totals.logs_mb} MB, the page's files ${C.totals.page_mb} MB. Routes: ${esc(C.routes)}`;
+    $("catnote").innerHTML = "";   /* no caption (28 Sep 2026, Matt) */
     const cols = c => c && c.length ? `<details><summary>${c.length} columns</summary><div style="font-family:var(--mono);font-size:11px;max-width:70ch;white-space:normal">${c.map(esc).join(", ")}</div></details>` : "";
     const n = v => v == null ? "" : (v < 0 ? "" : Number(v).toLocaleString());
     $("catraw").innerHTML = `<thead><tr><th class="l">Dataset</th><th class="l">What it holds</th><th>Seasons</th><th>Files</th><th>MB</th><th title="rows in the latest season's file">Rows (latest)</th><th class="l">Columns</th><th class="l">Step</th><th class="l">Shows in</th><th>Last pulled</th></tr></thead><tbody>` +
@@ -3354,7 +3342,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       return `<tr><td>${name(m)}</td><td class="r">${cell(c.ats_pct, c.ats, c.ats_units)}</td><td class="r on">${cell(o.ats_pct, o.ats, o.ats_units)}</td><td class="r">${cell(c.flags_pct, c.flags, c.flags_units)}</td><td class="r on">${cell(o.flags_pct, o.flags, o.flags_units)}</td><td class="r">${cell(c.totals_pct, c.totals, c.totals_units)}</td><td class="r on">${cell(o.totals_pct, o.totals, o.totals_units)}</td></tr>`; }).join("")}</tbody></table></div>`; }).join("");
     const cw = [...new Set(O.close.map(r => r.window))];
     const closeCard = `<div class="card" style="margin-top:14px"><h3>At the close, every window <span class="rpq" style="font-weight:400">· the line the site grades</span></h3><table class="bo-t op-t"><thead><tr><th></th><th></th><th class="r">Games</th><th class="r">Every game</th><th class="r">Flag ${O.site_flag}+</th><th class="r">Totals, every game</th></tr></thead><tbody>${cw.flatMap(w => ["full", "tuesday"].map(m => { const r = find(O.close, m, "close", w) || {}; return `<tr><td>${w}</td><td>${name(m)}</td><td class="r">${r.n ?? ""}</td><td class="r">${cell(r.ats_pct, r.ats, r.ats_units)}</td><td class="r">${cell(r.flags_pct, r.flags, r.flags_units)}</td><td class="r">${cell(r.totals_pct, r.totals, r.totals_units)}</td></tr>`; })).join("")}</tbody></table></div>`;
-    el.innerHTML = `<p class="note" style="max-width:900px">Does the model do better against the opening line than the close, and is the difference only the injury report and the weather? Sunday is the model as it prices the week. Tuesday is the same model without the injury report and the kickoff weather. Each is graded on its own side against the close (the line the site grades) and against the opener (the first line posted; an archive of ${O.archive.games} games, ${O.archive.seasons}). Each cell: the win rate, the record, the units at ${oddsTxt(O.price)} with one unit a bet. Shaded columns are the opener.</p>${openCards}${closeCard}`;
+    el.innerHTML = `${openCards}${closeCard}`;
   }
   function render() {
     if (tab === "live") return renderLive();
