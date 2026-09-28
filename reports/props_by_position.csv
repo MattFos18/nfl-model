@@ -1,6 +1,6 @@
 stat,window,position,n,mae,bias,mean_line,mean_actual,over_rate,ll,anytime_pred,anytime_actual
 rec_yards,2019-22,RB,4229,12.56,-3.12,14.9,18.0,0.495,,,
-rec_yards,2019-22,TE,3916,16.58,-6.36,21.1,27.5,0.555,,,
+rec_yards,2019-22,TE,3916,16.58,-6.37,21.1,27.5,0.555,,,
 rec_yards,2019-22,WR,7890,24.02,-7.97,34.0,42.0,0.531,,,
 rec_yards,2023-25,RB,3087,11.67,-3.45,13.4,16.8,0.505,,,
 rec_yards,2023-25,TE,3105,16.07,-6.54,20.6,27.1,0.563,,,
