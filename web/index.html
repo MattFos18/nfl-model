@@ -1302,7 +1302,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   let wkSel = null;
   function weekGames(season, week) {
     const W = window.WEEK || {}; if (W.games && W.season === season && W.week === week) return W.games;
-    if (W.next && W.next.season === season && W.next.week === week) return W.next.games.map(g => ({...g, bet_recorded: [], shadowunder_recorded: []}));
     const B = window.BACKTEST; if (!B) return []; const ci = Object.fromEntries(B.cols.map((c, i) => [c, i])); const v = (r, k) => ci[k] == null ? null : r[ci[k]];
     const ml = (h, a) => { const ph = mlProb(h), pa = mlProb(a); return ph == null || pa == null ? null : ph / (ph + pa); };
     return B.rows.filter(r => v(r, "season") === season && v(r, "week") === week && v(r, "game_type") === "REG").map(r => { const g = {game_id: v(r, "game_id"), home_team: v(r, "home_team"), away_team: v(r, "away_team"), spread_line: v(r, "spread_line"), total_line: v(r, "total_line"), model_spread: v(r, "model_spread"), model_total: v(r, "model_total"), away_exp: v(r, "away_exp"), home_exp: v(r, "home_exp"), p_cover_home: v(r, "p_cover_home"), p_cover_cal_home: v(r, "p_cover_home"), p_over_emp: v(r, "p_over_emp"), p_over_cal: v(r, "p_over_cal"), p_home: v(r, "p_home"), p_home_cal: v(r, "p_home_cal"), vegas_win: ml(v(r, "home_ml"), v(r, "away_ml")), home_score: v(r, "home_score"), away_score: v(r, "away_score"), kickoff: v(r, "gameday")};
@@ -1331,16 +1330,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
     // the week picker: every regular-season week of this season the backtest holds, and the current one
     const B = window.BACKTEST, wi = B ? B.cols.indexOf("week") : -1, si = B ? B.cols.indexOf("season") : -1, gi = B ? B.cols.indexOf("game_type") : -1;
-    const weeks = [...new Set((B ? B.rows.filter(r => r[si] === W.season && r[gi] === "REG").map(r => r[wi]) : []).concat([W.week], W.next ? [W.next.week] : []))].sort((a, b) => a - b);
+    const weeks = [...new Set((B ? B.rows.filter(r => r[si] === W.season && r[gi] === "REG").map(r => r[wi]) : []).concat([W.week]))].sort((a, b) => a - b);
     if (wkSel == null || !weeks.includes(wkSel)) wkSel = W.week;
-    const sel = $("wkpick"); if (sel.options.length !== weeks.length) { sel.innerHTML = weeks.map(w => `<option value="${w}">Week ${w}${w === W.week ? " (current)" : W.next && w === W.next.week ? " (next)" : ""}</option>`).join(""); sel.onchange = () => { wkSel = +sel.value; renderWeek(); window.scrollTo(0, 0); }; }
+    const sel = $("wkpick"); if (sel.options.length !== weeks.length) { sel.innerHTML = weeks.map(w => `<option value="${w}">Week ${w}${w === W.week ? " (current)" : ""}</option>`).join(""); sel.onchange = () => { wkSel = +sel.value; renderWeek(); window.scrollTo(0, 0); }; }
     sel.value = String(wkSel);
     $("wkpdf").onclick = () => weekPdf(W.season, wkSel, weekGames(W.season, wkSel));
     if (wkSel !== W.week) {   // a past week: the picks table alone (the cards, inputs and lines are the current week's)
       const gs = weekGames(W.season, wkSel), fin = gs.filter(g => g.home_score != null), RSx = gs.map(gameReadings);
       const rec = k => { const r = RSx.map(R => R[k] && R[k].result).filter(Boolean); return `${r.filter(x => x === "win").length}-${r.filter(x => x === "loss").length}${r.filter(x => x === "push").length ? "-" + r.filter(x => x === "push").length : ""}`; };
-      const isNext = W.next && wkSel === W.next.week;
-      $("weeknote").innerHTML = isNext ? `<b>Week ${wkSel}, ${W.season}</b> · next week · ${gs.length} games · on the line now, priced ${esc(W.next.built || "")} · nothing logged yet` : `<b>Week ${wkSel}, ${W.season}</b> · ${gs.length} games · ${fin.length} played · model side ${rec("spread")} vs the spread, ${rec("total")} totals, ${rec("win")} winners (at the closing line, the backtest's numbers)`;
+      $("weeknote").innerHTML = `<b>Week ${wkSel}, ${W.season}</b> · ${gs.length} games · ${fin.length} played · model side ${rec("spread")} vs the spread, ${rec("total")} totals, ${rec("win")} winners (at the closing line, the backtest's numbers)`;
       $("weektiles").innerHTML = ""; $("jump").innerHTML = ""; $("jump").hidden = true; $("cards").innerHTML = `<div class="tablewrap rpsumw" style="margin-top:0"><table class="rpsum">${picksTableHtml(gs, false)}</table></div>`; return;
     }
     const flagged = W.games.filter(g => g.bet), logged = W.games.filter(g => (g.bet_recorded || []).length);

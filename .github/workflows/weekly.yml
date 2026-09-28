@@ -2,6 +2,9 @@ name: weekly run
 on:
   schedule:
     - cron: "0 10 * * 2"    # Tuesday 06:00 ET (10:00 UTC; 11:00 UTC after the clocks change)
+    - cron: "0 15 * * 2"    # Tuesday 11:00 ET, retry: runs only while the picks week waits on a late source (28 Sep 2026)
+    - cron: "0 20 * * 2"    # Tuesday 16:00 ET, retry
+    - cron: "0 10 * * 3"    # Wednesday 06:00 ET, retry
     - cron: "0 14 * * 6"    # Saturday 10:00 ET
     - cron: "0 18 * * 4"    # Thursday 14:00 ET: fresh kickoff forecast and lines for Thursday night
     - cron: "0 13 * * 0"    # Sunday 09:00 ET: final forecast and lines before the early games
@@ -47,7 +50,8 @@ jobs:
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
-          if [ "${{ github.event.inputs.full }}" = "true" ] || [ -z "${{ steps.raw.outputs.cache-matched-key }}" ]; then python -m nflmodel.weekly --full; else python -m nflmodel.weekly; fi
+          case "${{ github.event.schedule }}" in "0 15 * * 2"|"0 20 * * 2"|"0 10 * * 3") retry="--if-pending";; *) retry="";; esac   # the retries run only while a source is late (data/runs/week_state.json)
+          if [ "${{ github.event.inputs.full }}" = "true" ] || [ -z "${{ steps.raw.outputs.cache-matched-key }}" ]; then python -m nflmodel.weekly --full $retry; else python -m nflmodel.weekly $retry; fi
       - name: save raw data
         uses: actions/cache/save@v4
         with:

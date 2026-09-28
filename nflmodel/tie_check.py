@@ -899,25 +899,13 @@ def check_live(rows, wk) -> None:
     # the live flag: the rule on the card's own numbers (weeks 1 to 17)
     fl = {g_["game_id"]: ((g_["home_team"] if g_["spread_edge"] > 0 else g_["away_team"]) if g_.get("spread_edge") is not None and abs(g_["spread_edge"]) >= wk["spread_edge"] and g_["week"] < 18 else "") for g_ in G}
     tie("card flag = the flag rule on the card's edge (side flagged, weeks 1 to 17)", {g_["game_id"]: (g_.get("bet") or "").split(" ")[0] for g_ in G}, fl)
-    # the coming week in the picker (28 Sep 2026): shown exactly when export_web.next_week_ready says so, and then every
-    # number is picks.table's for that week on the same lines log (the model's points, the line, the chances, the flags)
-    from . import export_web as EW
-    nxt_, pk_ = EW.next_week_ready(wk["season"], wk["week"])
-    nx = wk.get("next")
-    tie("week picker: the coming week is offered exactly when every game is priced with its fit and has a logged spread and total", None if nx is None else nx["week"], nxt_)
-    if nx is not None and pk_ is not None:
-        pk_ = pk_.set_index("game_id"); worst_ = 0.0; off_ = []
-        for g_ in nx["games"]:
-            if g_["game_id"] not in pk_.index: off_.append(g_["game_id"]); continue
-            r_ = pk_.loc[g_["game_id"]]
-            for k_ in ("model_spread", "model_total", "spread_line", "total_line", "home_exp", "away_exp", "p_cover_cal_home", "p_over_cal", "p_home_cal"):
-                a_, b_ = g_.get(k_), r_[k_]
-                if a_ is None and pd.isna(b_): continue
-                if a_ is None or pd.isna(b_): off_.append(f"{g_['game_id']} {k_}"); continue
-                worst_ = max(worst_, abs(float(a_) - float(b_)))
-            if (g_.get("bet") or "") != (r_.bet if isinstance(r_.bet, str) else "") or (g_.get("shadowunder_bet") or "") != (r_.shadowunder_bet if isinstance(r_.shadowunder_bet, str) else ""): off_.append(f"{g_['game_id']} flag")
-        tie("week picker: the coming week's games = picks.table for that week (game, flags)", off_, [])
-        rows.append(("week picker: the coming week's points, lines and chances = picks.table for that week (worst gap)", round(worst_, 5), "0.0006 or under", worst_ <= 0.0006))
+    # the picks week (28 Sep 2026, Matt): the earliest week not yet complete, complete meaning every game scored and in every
+    # source the model reads; every week before it is complete, so the cards never price on a week missing a game's data
+    g__ = pd.read_parquet(OUT / "games.parquet"); s__, w__ = LN.current_week(g__)
+    tie("page week = the picks week (the earliest week with a game not yet in every source)", [wk["season"], wk["week"]], [s__, w__])
+    before_ = [f"week {int(w)}: " + "; ".join(LN.week_complete(g__, s__, int(w))[1]) for w in sorted(g__[(g__.season == s__) & (g__.game_type == "REG")].week.unique()) if w < w__ and not LN.week_complete(g__, s__, int(w))[0]]
+    tie("every week before the picks week is complete (score, play-by-play, player stats, snap counts, charting for every game)", before_, [])
+    tie("week.js carries no coming week (28 Sep 2026: none is shown until the week before it is complete)", wk.get("next"), None)
     pu = wk["total_shadow"]["prob"]
     fu = {g_["game_id"]: bool(g_.get("p_over_emp") is not None and g_.get("total_line") is not None and 1 - g_["p_over_emp"] >= pu - 0.0005 and g_["week"] < 18) for g_ in G}
     near = {g_["game_id"] for g_ in G if g_.get("p_over_emp") is not None and abs(1 - g_["p_over_emp"] - pu) < 0.0006}   # at the cut to three decimals: either reading holds

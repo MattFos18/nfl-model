@@ -83,6 +83,18 @@ def sh(cmd):
     return (r.stdout or "").strip().splitlines()[-1] if r.stdout.strip() else ""
 
 
+STATE = RUNS / "week_state.json"
+
+
+def write_state():
+    """data/runs/week_state.json: the picks week and whether a source is still outstanding (lines.week_state)."""
+    import json
+    from . import lines
+    st = lines.week_state(pd.read_parquet(OUT / "games.parquet"))
+    RUNS.mkdir(parents=True, exist_ok=True); STATE.write_text(json.dumps(st, indent=1))
+    return st
+
+
 def main(full=False, skip_network=False):
     from . import pull, picks as P, tracker, weather, export_web, tie_check
     log = []
@@ -138,6 +150,8 @@ def main(full=False, skip_network=False):
     step("export data room", lambda: export_web.main(), log)
     step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
     _write(log, run_at, cur_season, cur_week, pk)
+    st = write_state()
+    print(f"picks week {st['season']} week {st['week']}: " + ("complete" if st["complete"] else ("waiting on " + "; ".join(st["missing"]) if st["pending"] else "in play")), flush=True)
     return log
 
 
@@ -167,6 +181,13 @@ def _write(log, run_at, season, week, pk, halted=False):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--full", action="store_true")
+    ap.add_argument("--if-pending", action="store_true", help="run only when the last run left the picks week waiting on a late source (the Tuesday and Wednesday retries)")
     ap.add_argument("--skip-network", action="store_true")
     a = ap.parse_args()
+    if a.if_pending:
+        import json
+        st = json.loads(STATE.read_text()) if STATE.exists() else {}
+        if not st.get("pending"):
+            print(f"nothing pending: week {st.get('week')} " + ("complete" if st.get("complete") else "still in play") + "; no run"); sys.exit(0)
+        print(f"retry: week {st.get('week')} waiting on " + "; ".join(st.get("missing", [])))
     main(a.full, a.skip_network)
