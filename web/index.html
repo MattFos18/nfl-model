@@ -389,7 +389,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="odds">
     <p class="note" id="seasonnote"></p>
     <div class="grid2">
-      <div class="card" style="grid-column:1 / -1"><h3>Super Bowl, conference, playoff and division odds</h3><div class="tablewrap" style="max-height:70vh"><table id="sbtable"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><div class="tablewrap" style="max-height:70vh"><table id="sbtable"></table></div></div>
     </div>
     <div class="grid2e" id="divgrid" style="margin-top:14px"></div>
   </div>
@@ -924,11 +924,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const lab = v => key === "home_spread" ? lineTxt(v >= 0 ? H.home : H.away, -Math.abs(v)) : (Number.isInteger(v) ? String(v) : v.toFixed(1)); const day = t => t.slice(5, 10).replace("-", "/");
     if (vals.length < 2) return `<div class="mv"><span class="chip">Open ${vals.length ? lab(vals[0]) : "–"}</span><span class="chip mute">${vals.length ? "1 snapshot" : "No snapshots yet"}</span></div>`;
     const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
-    const W = 320, Hh = 64, m = 10, ml = 56, mr = 90; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 6 + (hi - v) / (hi - lo) * (Hh - 2 * m - 12);   // ml 56 and mr 86: room for "HOU -2.5" and "Model HOU -1.4" (44 and 70 clipped them, 26 Sep 2026)
+    const W = 600, Hh = 92, m = 14, ml = 92, mr = 150; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 6 + (hi - v) / (hi - lo) * (Hh - 2 * m - 12);   // ml 56 and mr 86: room for "HOU -2.5" and "Model HOU -1.4" (44 and 70 clipped them, 26 Sep 2026)
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="line movement">`;
-    if (modelVal != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-dasharray="3 3"/><text x="${W - mr + 4}" y="${(y(modelVal) + 3.5).toFixed(1)}" font-size="9.5" fill="var(--model)">Model ${lab(modelVal)}</text>`;
-    svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="1.8"/><circle cx="${x(0)}" cy="${y(vals[0]).toFixed(1)}" r="2.5" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="2.5" fill="var(--vegas)"/>`;
-    svg += `<text x="${ml - 4}" y="${(y(vals[0]) + 3.5).toFixed(1)}" text-anchor="end" font-size="9.5" fill="var(--vegas)">${lab(vals[0])}</text><text x="${W - mr + 4}" y="${(y(vals[vals.length - 1]) + (modelVal != null && Math.abs(y(modelVal) - y(vals[vals.length - 1])) < 10 ? (y(modelVal) <= y(vals[vals.length - 1]) ? 12 : -6) : 3.5)).toFixed(1)}" font-size="9.5" font-weight="600" fill="var(--vegas)">Line ${lab(vals[vals.length - 1])}</text>`;
+    if (modelVal != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-width="1.8" stroke-dasharray="6 5"/><text x="${W - mr + 8}" y="${(y(modelVal) + 4).toFixed(1)}" font-size="12.5" fill="var(--model)">Model ${lab(modelVal)}</text>`;
+    svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="${x(0)}" cy="${y(vals[0]).toFixed(1)}" r="4" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="4" fill="var(--vegas)"/>`;
+    svg += `<text x="${ml - 8}" y="${(y(vals[0]) + 4).toFixed(1)}" text-anchor="end" font-size="12.5" fill="var(--vegas)">${lab(vals[0])}</text><text x="${W - mr + 8}" y="${(y(vals[vals.length - 1]) + (modelVal != null && Math.abs(y(modelVal) - y(vals[vals.length - 1])) < 14 ? (y(modelVal) <= y(vals[vals.length - 1]) ? 15 : -8) : 4)).toFixed(1)}" font-size="12.5" font-weight="700" fill="var(--vegas)">Line ${lab(vals[vals.length - 1])}</text>`;
     svg += `</svg>`;
     const d = vals[vals.length - 1] - vals[0];
     return svg;
@@ -1363,7 +1363,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const up = games.filter(g => g.home_score == null && (liveOf(g) || {}).status !== "final"), out = [], T = PK && PK.tease_pts != null ? PK.tease_pts : 6;
     up.map(gameReadings).forEach(R => { const g = R.g, base = {game: `${R.A} @ ${R.H}`, when: kickTxt(g.kickoff), gid: g.game_id};
       if (R.spread) { const home = R.spread.side === R.H, L = home ? -g.spread_line : g.spread_line;
-        out.push({...base, k: "spread", id: g.game_id + "|s", txt: R.spread.line, tease: lineTxt(R.spread.side, L + T), edge: R.spread.edge, p: R.spread.p, raw: R.spread.raw, tp: g.tease_spread_cal ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[1], traw: g.tease_spread_raw ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[0], bet: !!g.bet}); }
+        out.push({...base, k: "spread", id: g.game_id + "|s", txt: R.spread.line, tease: lineTxt(R.spread.side, L + T), keys: [3, 7, 10].filter(k => (L < -k && -k <= L + T) || (L < k && k <= L + T)), edge: R.spread.edge, p: R.spread.p, raw: R.spread.raw, tp: g.tease_spread_cal ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[1], traw: g.tease_spread_raw ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[0], bet: !!g.bet}); }
       if (R.total) { const over = R.total.side === "Over";
         out.push({...base, k: "total", id: g.game_id + "|t", txt: R.total.line, tease: `${R.total.side} ${over ? g.total_line - T : g.total_line + T}`, edge: R.total.edge, p: R.total.p, raw: R.total.raw, tp: g.tease_total_cal ?? teaseJS("total", g.total_edge, g.sigma_total)[1], traw: g.tease_total_raw ?? teaseJS("total", g.total_edge, g.sigma_total)[0], bet: !!g.shadowunder_bet}); } });
     return out;
@@ -1383,7 +1383,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const best = [2, 3, 4].map(n => { const pick = []; const seen = new Set(); for (const x of legs) { if (seen.has(x.gid)) continue; seen.add(x.gid); pick.push(x); if (pick.length === n) break; }
       if (pick.length < n || TO[String(n)] == null) return ""; const p = pick.reduce((a, x) => a * x.tp, 1), book = TO[String(n)], ev = p * (decOdds(book) - 1) - (1 - p);
       return `<div><span class="k">Best ${n}-leg</span><span class="legs">${pick.map(x => esc(x.tease)).join(" · ")}</span><span class="r"><b>${pct0(p)}</b></span><span class="r">fair ${oddsTxt(fairOdds(p))}</span><span class="r">at ${oddsTxt(book)}&nbsp;→&nbsp;${retTxt(ev)}</span></div>`; }).join("");
-    const tbl = `<table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Teased line</th><th>Game</th><th>Kickoff</th><th></th><th class="r">Historical chance</th><th class="r">Model chance</th><th></th></tr></thead><tbody>${legs.map(x => `<tr class="${sel.has(x.id) ? "on" : ""}"><td class="bo-ck"><input type="checkbox" data-leg="${x.id}"${sel.has(x.id) ? " checked" : ""}></td><td><b>${esc(x.tease)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td></td><td class="r bo-p">${pct0(x.tp)}</td><td class="r bo-r">${x.traw == null ? "" : pct0(x.traw)}</td><td></td></tr>`).join("")}</tbody></table>`;
+    const tbl = `<table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Teased line</th><th>Game</th><th>Kickoff</th><th></th><th class="r">Historical chance</th><th class="r">Model chance</th><th title="the key numbers (3, 7, 10) the six points carry the spread across">Crosses</th></tr></thead><tbody>${legs.map(x => `<tr class="${sel.has(x.id) ? "on" : ""}"><td class="bo-ck"><input type="checkbox" data-leg="${x.id}"${sel.has(x.id) ? " checked" : ""}></td><td><b>${esc(x.tease)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td></td><td class="r bo-p">${pct0(x.tp)}</td><td class="r bo-r">${x.traw == null ? "" : pct0(x.traw)}</td><td class="bo-g">${x.keys && x.keys.length ? x.keys.join(", ") : ""}</td></tr>`).join("")}</tbody></table>`;
     return `<div class="pk-sec" data-combo="tease"><h3 class="pk-h">${Number.isInteger(T) ? T : T.toFixed(1)}-point teaser</h3>${best ? `<div class="pk-best">${best}</div>` : ""}<div class="bo-sum" id="sum-tease"></div>${tbl}</div>`;
   }
   function teaserSummary(games) {
@@ -1471,10 +1471,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
             </div>
           </section>
           <section class="blk win"><div class="bh">Win</div>
+            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * winP(g)))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return `<div class="edge"><span>Edge</span><b>${dm === 0 ? "Same as Vegas" : `${Math.abs(dm)}% · ${dm > 0 ? H : A} vs Vegas`}</b></div>`; })()}
             ${g.p_home != null ? bar(H, g.p_home, A, 1 - g.p_home, "h", "Model", "The model's own win chance: its bell curve on its number, reshaped so 3 and 7 get their true share") : ""}
             ${g.p_home_cal != null ? bar(H, g.p_home_cal, A, 1 - g.p_home_cal, "c", "History", winTitle(g)) : ""}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
-            ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * winP(g)))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's ${g.p_home_cal != null ? "calibrated " : ""}win chance minus Vegas's, from the two bars above${g.p_home_cal != null ? ` (raw: ${H} ${Math.round(100 * g.p_home)}%)` : ""}">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}
@@ -1508,7 +1508,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       $("cards").querySelectorAll(".whybox").forEach(x => { if (x !== box) { x.hidden = true; x.dataset.k = ""; } });   // one card open at a time (28 Sep 2026)
       $("cards").querySelectorAll("button.why").forEach(o => { o.setAttribute("aria-expanded", "false"); o.textContent = o.textContent.replace("▴", "▾"); });
       if (same) { box.hidden = true; box.dataset.k = ""; return; }
-      box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴"); }));
+      box.innerHTML = CARD_TAB[k](g, i); box.dataset.k = k; box.hidden = false; b.setAttribute("aria-expanded", "true"); b.textContent = b.textContent.replace("▾", "▴");
+      if (k === "sch" && !window.PSPLITS) loadScript("data/player_splits.js", "psplits", () => { if (box.dataset.k === "sch" && !box.hidden) box.innerHTML = CARD_TAB.sch(g, i); }); }));   /* the players' splits load on first use (28 Sep 2026) */
   }
   // the readings Takeaways and the Report share, one function each so the two can never disagree
   // scheme: the look the defense uses most (20%+ of plays) where the offense is furthest from the league (40+ plays in it)
@@ -1621,7 +1622,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table>`;
       return h;
     });
-    return cols.join("") + booksHtml(g);
+    return cols.join("");
   }
   // the books right now: where each number sits, the best price for the model's side, and the full log folded away
   function booksHtml(g) {
@@ -2937,8 +2938,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           `<div class="gg">${L.map(g => `<span><i>Wk ${g[0]}</i> ${g[2] ? "" : "@"}${g[1]} <b>${Math.round(100 * g[3])}%</b></span>`).join("")}</div>Range, 10th to 90th percentile of the runs: ${n1(t.wins_p10)} to ${n1(t.wins_p90)} wins`);
         const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Seasons</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr dm">${Math.round(p * N).toLocaleString()}</td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table><div class="ft">Model: the share of ${N.toLocaleString()} simulated seasons (every game left played out from the model's win chance, then standings and playoffs) that end that way. Books: the sportsbook price with its margin removed.</div></div>`;
         return `<tr class="tcalc" data-for="${t.team}" hidden><td colspan="10" class="dcell">${dPanel([wins, oc])}</td></tr>`; };
-      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th title="expected wins; small: the 10th to 90th percentile">Wins</th><th title="share of ${S.n_sims.toLocaleString()} simulated seasons in which it wins the division; books: the sportsbooks' chance, margin removed">Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
-        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small class="rk">${n1(t.wins_p10)}–${n1(t.wins_p90)}</small></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
+      $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th title="expected wins over the season, and the range 80% of the simulated seasons land in">Wins · likely range</th><th title="share of ${S.n_sims.toLocaleString()} simulated seasons in which it wins the division; books: the sportsbooks' chance, margin removed">Division</th><th>Playoffs</th><th title="the top seed's first-round bye">Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
+        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small class="rk">${Math.round(t.wins_p10)} to ${Math.round(t.wins_p90)} wins</small></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
       oneOpen("sbtable", "tr.mrow[data-t]", tr => $("sbtable").querySelector(`tr.tcalc[data-for="${tr.dataset.t}"]`));
       $("divgrid").innerHTML = Object.entries(S.divisions).map(([d, ts]) => { const rs = ts.map(t => S.teams.find(x => x.team === t)).filter(Boolean).sort((a, b) => b.p_div - a.p_div); return `<div class="card"><h3>${d}</h3><table><thead><tr><th class="l">Team</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Super Bowl</th></tr></thead><tbody>${rs.map(t => `<tr><td class="l">${LOGO(t.team)}${t.team}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}</td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_sb)}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
       return;
@@ -2962,11 +2963,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const pooled = (w, f) => { const x = PB.filter(r => r.row === "mae" && r.kind === psKind && String(r.asof_week) === String(w) && [wk_(TUNE), wk_(HELD)].includes(r.window) && r[f] != null && !isNaN(r[f])); const n = x.reduce((a, r) => a + r.n, 0); return n ? x.reduce((a, r) => a + r[f] * r.n, 0) / n : null; };
       const hit = w => PB.find(r => r.row === "breakout" && r.kind === psKind && String(r.asof_week) === "all" && r.window === w) || {};
       const bo = kr.filter(r => r.breakout), nt = kr.filter(r => r.new_top), lead = kr[0];
-      $("psscore").innerHTML = scoreCard([
-        lead ? ["Leader", `${num(lead.proj_yards)}<small>yds</small>`, `${esc(lead.name)} · ${lead.team}`] : null,
-        cp != null ? ["Lands within 20%", p0(pooled(cp, "within20_top")), `top ${TW_} players, ${cp === 1 ? "before Week 1" : "at Week " + cp} · by Week 9: ${p0(pooled(9, "within20_top"))}`] : null,
-        ["Breakouts", `${bo.length}${nt.length ? `<small>+ ${nt.length} new</small>` : ""}`, ""],
-        hit(wk_(TUNE)).value != null ? ["Breakouts that hit", `${p0(hit(wk_(TUNE)).value)} / ${p0(hit(wk_(HELD)).value)}`, `${wk_(TUNE)} / ${wk_(HELD)}`, "good"] : null]);
+      $("psscore").innerHTML = ""; $("psscore").hidden = true;   // no tiles here (28 Sep 2026, Matt): the accuracy figures live on Backtest -> Season odds and totals
       const flagged = bo.concat(nt);
       $("bohead").textContent = "Breakouts"; $("bonote").hidden = true; $("totalsnote").hidden = true;
       $("bocards").innerHTML = flagged.length ? flagged.map(r => `<div class="bo" data-ps="${r.player_id}"><div class="bn">${LOGO(r.team)}${esc(r.name)} <span class="bt">${esc(r.pos)} · ${r.team}</span></div><div class="bv">${num(r.proj_yards)} <span class="bt">yds · #${r.rank}</span></div>` +
@@ -3300,9 +3297,27 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return `<div class="rgcols"><section class="rgsec"><h4>Head to head · last ${R.h2h && R.h2h.n ? R.h2h.n : 10}</h4><div class="rgw">${hh}</div></section>
       <section class="rgsec"><h4>Recent form · last 10</h4><div class="rgw">${fm}</div></section></div>`;
   }
+  // the offense's main players against the looks this defense plays, and against this opponent (Players -> Matchups data: player_splits.js, since 2016)
+  const SPLIT_KEY = {man: "man", zone: "zone", blitz: "blitz", no_blitz: "noblitz", pressure: "press", heavy_box: "heavy", cov_COVER_1: "cov1", cov_COVER_2: "cov2", cov_COVER_3: "cov3", cov_COVER_4: "cov4"};
+  function schemePlayersHtml(x) {
+    const X = window.PSPLITS, PF = window.PROFILES; if (!X || !PF || !X.rows) return "";
+    const O = x.O, D = x.D, idx = Object.fromEntries(X.looks.map((q, i) => [q[0], i]));
+    const looks = x.looks.filter(l => SPLIT_KEY[l.k] && idx[SPLIT_KEY[l.k]] != null).slice(0, 4);
+    const pick = (obj, key, n, filt) => Object.entries(obj || {}).filter(([, p]) => p.team === O && (!filt || filt(p))).sort((a, b) => (b[1][key] || 0) - (a[1][key] || 0)).slice(0, n);
+    const list = [...pick(PF.passers, "dropbacks_pg", 1).map(([pid, p]) => ({pid, p, role: "pass"})), ...pick(PF.rushers, "carries_pg", 2, p => p.pos !== "QB").map(([pid, p]) => ({pid, p, role: "rush"})), ...pick(PF.receivers, "targets_pg", 4).map(([pid, p]) => ({pid, p, role: "rec"}))];
+    if (!list.length) return "";
+    const unit = {rec: "targets", rush: "carries", pass: "dropbacks"}, role = {rec: "", rush: " · runs", pass: " · passes"};
+    const rowsOf = e => { const r = X.rows[e.pid] && X.rows[e.pid][e.role]; return (r && (r.all || r.last || r.cur)) || []; };
+    const cell = (rows, key) => { const r = rows.find(z => z[0] === idx[key]), base = rows.find(z => z[0] === 0); if (!r || !base || r[3] == null || base[3] == null) return `<td class="rpq">–</td>`; const d = r[3] - base[3];
+      return `<td class="nw ${r[1] < FEW ? "rpq" : d >= 0.05 ? "posv" : d <= -0.05 ? "neg" : ""}" title="${r[1]} plays against it: ${r[3].toFixed(2)} EPA a play, ${base[3].toFixed(2)} on every play"><b>${d >= 0 ? "+" : ""}${d.toFixed(2)}</b></td>`; };
+    const vsOpp = e => { const o = (((X.opp || {})[e.pid] || {})[e.role] || []).find(r => r[0] === D); if (!o) return `<td class="rpq">–</td>`;
+      return `<td class="nw ${o[2] < FEW ? "rpq" : o[4] >= 0.1 ? "posv" : o[4] <= -0.1 ? "neg" : ""}" title="${o[1]} games: ${o[2]} ${unit[e.role]}, ${o[3]} yards, ${o[5]} TD"><b>${o[4] >= 0 ? "+" : ""}${o[4].toFixed(2)}</b> <span class="rpq">${o[1]} g</span></td>`; };
+    return `<table class="rgt" style="margin-top:10px"><thead><tr><th>${O} player</th><th>Plays</th>${looks.map(l => `<th>${esc(l.look)}</th>`).join("")}<th>vs ${D}</th></tr></thead><tbody>${list.map(e => { const rows = rowsOf(e), base = rows.find(z => z[0] === 0);
+      return `<tr><td class="nw"><b>${esc(e.p.name)}</b> <span class="rpq">${esc(e.p.pos)}${role[e.role]}</span></td><td class="rpq">${base ? base[1] : "–"}</td>${looks.map(l => cell(rows, SPLIT_KEY[l.k])).join("")}${vsOpp(e)}</tr>`; }).join("")}</tbody></table><p class="rpq" style="margin:4px 0 0">His EPA a play against the look minus his EPA on every play, since 2016 · vs ${D}: his EPA a play in their meetings · grey: under ${FEW} plays</p>`;
+  }
   function schemeReportHtml(R) {
-    const sch = R.scheme.length ? R.scheme.map(x => `<div><p class="rgline" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b>${LOGO(x.O, 16)}${x.O} offense</b><span class="rpq">vs</span><b>${LOGO(x.D, 16)}${x.D} defense</b><span class="rgv ${x.edge === "even" ? "" : x.edge.endsWith("offense") ? "posv" : "neg"}">${x.edge === "even" ? "Even" : "Edge " + x.edge} · ${ep(x.net)}</span></p>
-      <table class="rgt"><thead><tr><th>${x.D} plays</th><th>How often</th><th>${x.O} vs the league</th><th>Weighted</th></tr></thead><tbody>${x.looks.map(l => `<tr><td>${esc(l.look)}</td><td>${pc(l.use)}</td><td class="nw"><b class="${l.gap >= 0.05 ? "posv" : l.gap <= -0.05 ? "neg" : ""}">${ep(l.gap)}</b> <span class="rpq">EPA a play</span></td><td class="nw rpq">${pc(l.use)} × ${ep(l.gap)} = ${ep(l.use * l.gap)}</td></tr>`).join("")}<tr class="sum"><td colspan="4">Sum ${ep(x.net)} → ${x.edge === "even" ? "even (inside ±0.02)" : "edge " + x.edge + " (past ±0.02)"}</td></tr></tbody></table></div>`).join("") : `<p class="rgline rpq">Not charted yet.</p>`;
+    const sch = R.scheme.length ? R.scheme.map(x => `<div><p class="rgline" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><b>${LOGO(x.O, 16)}${x.O} offense</b><span class="rpq">vs</span><b>${LOGO(x.D, 16)}${x.D} defense</b><span class="rgv ${x.edge === "even" ? "" : x.edge.endsWith("offense") ? "posv" : "neg"}" title="${x.O}'s EPA a play against the looks ${x.D} actually plays, each look weighted by how often ${x.D} plays it: ${ep(x.net)} a play against the league's offenses. Past ±0.02 it is an edge. A reading, not a model input.">${x.edge === "even" ? "Even" : "Edge " + x.edge} · ${ep(x.net)} EPA a play</span></p>
+      <table class="rgt"><thead><tr><th>${x.D} plays</th><th>How often</th><th>${x.O} vs the league</th></tr></thead><tbody>${x.looks.map(l => `<tr><td>${esc(l.look)}</td><td>${pc(l.use)}</td><td class="nw"><b class="${l.gap >= 0.05 ? "posv" : l.gap <= -0.05 ? "neg" : ""}">${ep(l.gap)}</b> <span class="rpq">EPA a play</span></td></tr>`).join("")}</tbody></table>${schemePlayersHtml(x)}</div>`).join("") : `<p class="rgline rpq">Not charted yet.</p>`;
     return `<section class="rgsec"><h4>Scheme matchup</h4><div class="rgcols">${sch}</div></section>`;
   }
 
