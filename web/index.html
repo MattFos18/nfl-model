@@ -571,7 +571,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div class="lv-tiles" id="rectiles"></div>
   <div class="grid2e">
     <div class="card" style="grid-column:1 / -1"><h3>By week</h3><div class="tablewrap ro"><table id="recweeks" class="rgt"></table></div></div>
-    <div class="card" style="grid-column:1 / -1"><h3>This week, live</h3><div id="liveweek"></div></div>
     <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
     <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules compared</h3><div id="trackrules"></div></div>
@@ -2915,7 +2914,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     $("recweeks").innerHTML = rows.length ? `<thead><tr><th>Week</th><th>Final</th><th>Flagged bets</th><th>Units</th><th>Spreads</th><th>Totals</th><th>Winners</th></tr></thead><tbody>${rows.map(r => `<tr><td><b>Week ${r.week}</b></td><td>${r.fin} of ${r.n}</td><td><b>${recTxt(r.bets)}</b></td><td class="${r.units > 0 ? "posv" : r.units < 0 ? "neg" : ""}">${r.graded ? (r.units > 0 ? "+" : "") + r.units.toFixed(2) : "–"}</td><td>${recTxt(r.spread)}</td><td>${recTxt(r.total)}</td><td>${recTxt(r.win)}</td></tr>`).join("")}<tr class="sum"><td>Season</td><td>${fin}</td><td><b>${recTxt(S.bets)}</b></td><td class="${units > 0 ? "posv" : units < 0 ? "neg" : ""}">${(units > 0 ? "+" : "") + units.toFixed(2)}</td><td>${recTxt(S.spread)}</td><td>${recTxt(S.total)}</td><td>${recTxt(S.win)}</td></tr></tbody>` : "<tbody><tr><td>No game final yet this season.</td></tr></tbody>";
   }
   function renderTrack() {
-    renderRecord(); renderLiveWeek();
+    renderRecord();
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
