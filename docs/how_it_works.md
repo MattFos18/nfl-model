@@ -2038,7 +2038,7 @@ equal ESPN's, and every final's calls are re-graded by the tie check from the fi
 
 ## 42. Live: the scores on their own tab, with the play-by-play (27 and 28 Sep 2026)
 
-The Live tab is the scoreboard: every game of the week as ESPN's scoreboard has it, games under way first, then the
+The Games tab (Live until 28 Sep 2026) is the scoreboard: every game of the week as ESPN's scoreboard has it, games under way first, then the
 ones to come, then the finals. A card carries the two scores, the clock, who has the ball and the down and distance,
 the last play, ESPN's own live win chance beside the model's pregame one (the card's calibrated chance, Python's), and
 for a final the three calls marked; a game to come shows its kickoff, the model's line beside the close and the
@@ -2065,7 +2065,7 @@ public, so it costs nothing. Pages has to be switched on once in the repository 
 
 ### The week picker, and when the picks week moves on (28 Sep 2026)
 
-The This week tab has a week picker. A past week is the picks table alone, from the backtest file (the closing line, every call graded). The picks week is the cards. No coming week is offered: Matt would rather not see a week than see it priced on stale data.
+The Picks tab has a week picker (section 43). A past week is the picks table alone, from the backtest file (the closing line, every call graded). The picks week's cards are the Breakdown tab. No coming week is offered: Matt would rather not see a week than see it priced on stale data.
 
 The picks week is data-based (`lines.current_week`): the earliest regular-season week of the season that is not complete, where complete means every game of the week is scored by nflverse and present in every source the model reads: play-by-play (team_box), player stats (player_games), snap counts (snap_exposure) and charting (scheme_plays, from participation and FTN). `lines.week_complete` names what is missing per game. So the cards stay on Week 3 through Monday night and move to Week 4 at the first weekly run whose pull has the Monday game in every source, priced on it; before that rule the picks week moved at the last kickoff and the new week was priced without that game. Pro-Football-Reference's line data runs weeks behind and is not on the list.
 
@@ -2074,3 +2074,52 @@ Some sources post a day late, so weekly.yml runs again Tuesday 11:00 and 16:00 E
 ### The model's side against the opener (28 Sep 2026)
 
 results.py grades each final's spread and total call at the closing line (`calls`) and, beside it, at the opening line (`calls_open`): the game's oldest logged snapshot in the lines log, `lines.consensus` on it, which the line watch logs from Sunday evening when the books post the coming week. The record in live.js carries `spread_open` and `total_open` beside `spread` and `total`; live_scores.csv carries the opener and the open calls; the Live tiles show both. A game with nothing logged before its close has no opener and no open grade. Parked ideas that came out of the Live tab (pricing live odds in-game against the books) are in docs/ideas.md.
+
+## 43. Games, Picks, Breakdown: the tab groups, the bet order with stakes, the teaser and parlay builders (28 Sep 2026)
+
+The tab bar is three groups. This week: Games (the scoreboard, section 42), Picks and Breakdown (the week's cards, what the
+Picks tab was). Season: Season, Rankings, Teams, Players. Model: Backtest, Bets, Model. The old `#report` link opens Picks.
+
+The Picks tab is the week picker and the PDF button, the picks table (the friends' chart), and for the picks week three
+panels under it, every one open: the bet order, a 6-point teaser builder and a parlay builder. A bankroll box at the top
+right is kept on the device alone (localStorage); with one set, every stake on the tab is `picks.kelly_stake`'s arithmetic
+(a quarter of the Kelly fraction) on the calibrated chance at the price shown, in dollars, blank when the chance does not
+clear the price. Nothing on the tab reaches the PDF, which stays the one-page table.
+
+**The bet order** ranks every spread side and total side still to play by the edge, with the calibrated chance, the model's
+own, the stake at the default price (`picks.DEFAULT_ODDS`) and the flag.
+
+**The teaser builder** lists every leg moved `picks.TEASE_PTS` (6) points the model's way: the side's line plus 6, the
+over minus 6, the under plus 6. Each leg's chance is Python's (`tease_spread_cal`, `tease_total_cal` in week.js, from
+`picks.table`): the bell curve's chance at the teased line (`picks.tease_raw`, a normal on the model's number with the
+fit's sigma, so the side that is |edge| inside the line clears the teased one when the miss stays inside |edge| + 6),
+mapped by a calibration fit on the seasons before the one priced from `TEASE_FROM` (2015), regular season, the model's
+side, pushes at the teased line dropped (`picks.tease_calibration`). The raw chance runs hot on every window (said 72-73%,
+hit 70.7% on spreads and 68-71% on totals), so the mapping is needed; its form was chosen by the every-window rule on
+walk-forward log loss and Brier against the raw chance:
+
+| Legs | Form | 2016-18 raw / mapped | 2019-22 raw / mapped | 2023-25 raw / mapped |
+|---|---|---|---|---|
+| Spreads | shift of the logit (slope 1) | 0.6090 / 0.6090 | 0.6119 / 0.6107 | 0.6013 / 0.6006 |
+| Spreads | intercept and slope | 0.6090 / 0.6072 | 0.6119 / 0.6058 | 0.6013 / 0.6032 |
+| Totals | intercept and slope | 0.6391 / 0.6306 | 0.6289 / 0.6252 | 0.6101 / 0.6072 |
+| Totals | shift of the logit | 0.6391 / 0.6350 | 0.6289 / 0.6237 | 0.6101 / 0.6100 |
+
+Log loss; the spreads' two-coefficient form lost 2023-25 (the fit before 2023 had a slope of 0.04 and flattened the
+ranking), so spreads take the shift (`TEASE_SLOPE`), never worse than raw; totals take intercept and slope, better than
+raw and than the shift on two windows of three. Today's fits: spreads a shift of -0.094 on 2,868 legs (a 73% raw leg
+reads 71%), totals a 0.519, b 0.288 on 2,861 (73% reads 69%, 77% reads 71%). Tick legs and the panel shows the legs'
+chances multiplied, the book's price (a box, starting from `picks.TEASER_ODDS` by number of legs: -110 for two, +160
+for three, +260 for four), the fair price from the chance, the expected return per dollar and the stake. Two legs from
+one game are counted as independent, and the panel says so when it happens.
+
+**The parlay builder** is the same on straight legs at the calibrated chance, with one leg price (a box, from
+`picks.PARLAY_LEG_ODDS`, -110) whose payout is the legs' decimal prices multiplied (`picks.parlay_odds`).
+
+Every number is Python's or its arithmetic: the chances and the calibration are exported (week.js `cal.tease`, tied by
+the tie check to `picks.tease_calibration`, and every card's four teased numbers rebuilt from its edge and sigma), the
+Kelly fraction, prices and teaser points come from meta.js (`picks.page_rules`); the page multiplies and formats.
+
+Also on 28 Sep 2026: no panel on a Games card or a Breakdown card scrolls sideways any more (Matt: no scrollbars
+anywhere). The box score takes the card's full width, and on a phone its tables are fixed-layout with the player name
+cut with an ellipsis; the picks table on a phone drops the score grid and the kickoff and wraps its cells.

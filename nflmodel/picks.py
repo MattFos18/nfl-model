@@ -35,6 +35,94 @@ OVER_CAL_FROM, OVER_CAL_CLIP, OVER_CAL_MIN_N = 2015, 0.02, 200   # 27 Sep 2026: 
 # from two seasons on the mapping is better by log loss and Brier on 2016-18, 2019-22, 2020-22 and 2023-25, the three later windows the same either way)
 HOME_CAL_FROM, HOME_CAL_CLIP, HOME_CAL_MIN_N = 2015, 0.02, 500
 KELLY_FRACTION, DEFAULT_ODDS = 0.25, -110.0   # the stake: a quarter of the Kelly fraction; the price when no book's is logged
+# 28 Sep 2026: 6-point teaser legs on the model's side (the Picks tab's teaser builder). The raw chance is the bell curve's (the fit's
+# sigma) at the line moved TEASE_PTS the model's way; it runs hot (said 72-73%, hit 70.7% on spreads and 68-71% on totals, every window),
+# so each leg is calibrated on the seasons before the one priced from TEASE_FROM: spreads by a shift of the logit (the two-coefficient
+# form lost to the raw chance on 2023-25 by log loss), totals by intercept and slope (better than the raw chance and the shift on 2016-18
+# and 2023-25); both forms beat the raw chance on 2016-18, 2019-22 and 2023-25 by log loss and Brier (reports/decision_log.md). The
+# identity under TEASE_MIN_N legs. TEASER_ODDS: the book price the builder starts from by number of legs (editable on the page);
+# PARLAY_LEG_ODDS the straight price a parlay leg starts from.
+TEASE_PTS, TEASE_FROM, TEASE_CLIP, TEASE_MIN_N = 6.0, 2015, 0.02, 200
+TEASE_SLOPE = {"spread": False, "total": True}   # whether the leg's calibration fits a slope on the logit (False: a shift, slope 1)
+TEASER_ODDS = {2: -110.0, 3: 160.0, 4: 260.0, 5: 400.0, 6: 600.0}
+PARLAY_LEG_ODDS = -110.0
+
+
+def tease_raw(edge_abs: float, sigma: float, pts: float = TEASE_PTS) -> float:
+    """The bell curve's chance that the model's side covers its line moved `pts` its way: the margin (or total) as a normal on
+    the model's number with the fit's sigma, so the side that is |edge| points inside the line clears the teased line when the
+    miss stays inside |edge| + pts."""
+    from scipy.stats import norm
+    return float(norm.cdf((abs(float(edge_abs)) + pts) / float(sigma)))
+
+
+def _tease_rows(pred: pd.DataFrame, games: pd.DataFrame) -> pd.DataFrame:
+    """The legs the teaser calibration learns from: regular season from TEASE_FROM, a line and a result, the model's side
+    (edge not zero), pushes at the teased line dropped; kind (spread, total), lg = logit of the raw chance (clipped to
+    TEASE_CLIP), hit = the teased line covered. Priced at the schedule's closing line (pred_v3), which is what the backtest grades."""
+    g = games.set_index("game_id")
+    d = pred[(pred.game_type == "REG") & (pred.season >= TEASE_FROM)].copy()
+    d["hs"] = d.game_id.map(g.home_score); d["as_"] = d.game_id.map(g.away_score); d["sl"] = d.game_id.map(g.spread_line); d["tl"] = d.game_id.map(g.total_line)
+    d = d[d.hs.notna()]
+    m = d.hs - d.as_; t = d.hs + d.as_
+    out = []
+    for kind, edge, val, line, sig in [("spread", d.model_spread - d.sl, m, d.sl, d.sigma_margin), ("total", d.model_total - d.tl, t, d.tl, d.sigma_total)]:
+        ok = edge.notna() & (edge != 0) & line.notna() & sig.notna()
+        e, v, l, sg = edge[ok], val[ok], line[ok], sig[ok]
+        raw = pd.Series([tease_raw(x, y) for x, y in zip(e, sg)], index=e.index)
+        dd = pd.Series(np.where(e > 0, v - (l - TEASE_PTS), (l + TEASE_PTS) - v), index=e.index)   # the side's margin over its teased line
+        x = pd.DataFrame({"season": d.season[ok], "kind": kind, "raw": raw, "hit": (dd > 0).astype(int)})[dd != 0]
+        out.append(x)
+    x = pd.concat(out)
+    q = x.raw.clip(TEASE_CLIP, 1 - TEASE_CLIP); x["lg"] = np.log(q / (1 - q))
+    return x[["season", "kind", "lg", "hit"]]
+
+
+def _fit_logit(d: pd.DataFrame, y: str, slope: bool, min_n: int) -> tuple[float, float, int]:
+    """(a, b, n): logistic(a + b x lg) fit on d, with b free (slope) or fixed at 1 (a shift alone, by Newton's method on the
+    intercept); the identity (0, 1, n) under min_n rows or one outcome only."""
+    if len(d) < min_n or d[y].nunique() < 2:
+        return (0.0, 1.0, int(len(d)))
+    if slope:
+        from sklearn.linear_model import LogisticRegression
+        m = LogisticRegression(C=10.0).fit(d[["lg"]].values, d[y].values)
+        return (float(m.intercept_[0]), float(m.coef_[0][0]), int(len(d)))
+    a, lg, yy = 0.0, d.lg.values, d[y].values
+    for _ in range(100):
+        q = 1.0 / (1.0 + np.exp(-(a + lg))); step = (yy - q).sum() / max(1e-12, (q * (1 - q)).sum())
+        a += step
+        if abs(step) < 1e-12:
+            break
+    return (float(a), 1.0, int(len(d)))
+
+
+def tease_calibration(pred: pd.DataFrame, games: pd.DataFrame, season: int) -> dict:
+    """{"spread": (a, b, n), "total": (a, b, n)}: each leg kind's calibration, fit on regular-season legs from TEASE_FROM to
+    season - 1 (the season being priced never learns from itself; in-season the fit is the one made before Week 1), a shift
+    for spreads and intercept-and-slope for totals (TEASE_SLOPE). The identity under TEASE_MIN_N legs."""
+    d = _tease_rows(pred, games); d = d[d.season < season]
+    return {k: _fit_logit(d[d.kind == k], "hit", TEASE_SLOPE[k], TEASE_MIN_N) for k in ("spread", "total")}
+
+
+def tease_calibrations(pred: pd.DataFrame, games: pd.DataFrame) -> dict:
+    """season -> tease_calibration as of that season, for every season the prediction table holds (the calibration audit
+    grades each season with the fit that would have been in force)."""
+    return {int(s): tease_calibration(pred, games, int(s)) for s in sorted(pred.season.unique())}
+
+
+def tease_cal_p(cal, raw) -> float:
+    """The calibrated teased chance: logistic(a + b x logit(raw clipped to TEASE_CLIP))."""
+    a, b = cal[0], cal[1]
+    q = min(max(float(raw), TEASE_CLIP), 1 - TEASE_CLIP)
+    return float(1.0 / (1.0 + np.exp(-(a + b * np.log(q / (1 - q))))))
+
+
+def parlay_odds(american: list[float]) -> float:
+    """The American price of a parlay of straight legs at these prices: the decimal payouts multiplied."""
+    dec = 1.0
+    for o in american:
+        dec *= (1.0 + 100.0 / abs(o)) if o < 0 else (1.0 + o / 100.0)
+    return round((dec - 1.0) * 100.0, 1) if dec >= 2.0 else round(-100.0 / (dec - 1.0), 1)
 
 
 def break_even(odds: float = DEFAULT_ODDS) -> float:
@@ -48,6 +136,7 @@ def page_rules(d: pd.DataFrame | None = None) -> dict:
     a number by hand."""
     out = {"spread_edge": SPREAD_EDGE, "total_edge": TOTAL_EDGE, "total_shadow": TOTAL_SHADOW, "last_week": LAST_BET_WEEK, "early_last_week": EARLY_LAST_WEEK,
            "kelly_fraction": KELLY_FRACTION, "default_odds": DEFAULT_ODDS, "break_even": round(break_even(), 4), "cal_from": CAL_FROM, "cal_cap": CAL_CAP, "over_cal_from": OVER_CAL_FROM, "home_cal_from": HOME_CAL_FROM,
+           "tease_pts": TEASE_PTS, "tease_from": TEASE_FROM, "tease_min_n": TEASE_MIN_N, "teaser_odds": {str(k): v for k, v in TEASER_ODDS.items()}, "parlay_leg_odds": PARLAY_LEG_ODDS,
            "windows": [{"key": k, "from": a, "to": b, "label": WINDOW_LABEL[k]} for k, (a, b) in WINDOWS.items()]}
     if d is not None:
         out["rules"] = rule_records(d).to_dict("records")
@@ -166,6 +255,13 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     # The cards show p_over_cal; the totals flag (TOTAL_SHADOW, bet() above) stays on the raw p_over_emp, as documented at the constant
     cal_o = over_calibration(pred, games, season)
     p["p_over_cal"] = [over_cal_p(cal_o, x) if pd.notna(x) else np.nan for x in p.p_over_emp] if "p_over_emp" in p.columns else np.nan
+    # 6-point teaser legs on the model's side (28 Sep 2026, the Picks tab's builder): the raw bell-curve chance at the teased line and its
+    # calibrated one (tease_calibration, fit on the seasons before this one from TEASE_FROM); NaN without a line or on a zero edge
+    cal_t = tease_calibration(pred, games, season)
+    for kind, edge, sig in [("spread", p.spread_edge, p.sigma_margin), ("total", p.total_edge, p.sigma_total)]:
+        raw = [tease_raw(e, sg) if pd.notna(e) and e != 0 and pd.notna(sg) else np.nan for e, sg in zip(edge, sig)]
+        p[f"tease_{kind}_raw"] = raw
+        p[f"tease_{kind}_cal"] = [tease_cal_p(cal_t[kind], r) if pd.notna(r) else np.nan for r in raw]
     # calibrated home win chance (27 Sep 2026, reports/calibration_audit.md): p_home runs hot when the home side is a slight underdog (said 45%,
     # won 39%, 2015-25). p_home_cal maps it the same way, a logistic on its logit fit on the seasons before this one from HOME_CAL_FROM: better
     # log loss and Brier on every window. The cards show p_home_cal; p_home stays on the row (the season simulation and the season file read it)

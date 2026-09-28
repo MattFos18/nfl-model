@@ -745,6 +745,7 @@ def export_week(feats=None, games=None, pred=None):
                        "p_over_cal": _p6(getattr(r, "p_over_cal", None)),   # six decimals (27 Sep 2026): the tie check rebuilds it from the card's three-decimal p_over_emp, whose rounding alone is worth 0.0002
                        "p_home_cal": _p6(getattr(r, "p_home_cal", None)),   # the calibrated win chance the card shows (27 Sep 2026, picks.home_calibration); p_home stays the raw one the season file is tied to
                        "p_home": _p6(getattr(r, "p_home", None)),   # six decimals too: the mapping's slope (1.19) stretches three-decimal rounding to the tie check's whole 0.0006 allowance
+                       **{k: _p6(getattr(r, k, None)) for k in ("tease_spread_raw", "tease_spread_cal", "tease_total_raw", "tease_total_cal")},   # the 6-point teaser legs (28 Sep 2026), six decimals for the tie check
                        "kickoff": kick, "roof": gmeta.roof if gmeta is not None else None,
                        "referee": gmeta.referee if gmeta is not None else None, "stadium": gmeta.stadium if gmeta is not None else None,
                        "wx": wxs.get(r.game_id), "runs": [{"run_at": x.run_at, "model_spread": clean(x.model_spread), "model_total": clean(x.model_total), "spread_line": clean(x.spread_line), "total_line": clean(x.total_line), "bet": x.bet if isinstance(x.bet, str) else ""} for x in hist_runs[hist_runs.game_id == r.game_id].itertuples()], "home_coach": gmeta.home_coach if gmeta is not None else None, "away_coach": gmeta.away_coach if gmeta is not None else None,
@@ -755,11 +756,13 @@ def export_week(feats=None, games=None, pred=None):
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
         cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         cal_h = P.home_calibration(pred, games.reset_index(), cur_season)   # the home win calibration the cards' win chance used (27 Sep 2026; the tie check rebuilds each card's p_home_cal with it)
+        cal_t = P.tease_calibration(pred, games.reset_index(), cur_season)   # the 6-point teaser legs' calibration (28 Sep 2026; the tie check rebuilds each card's tease_*_cal with it)
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW,
                                                                   "rule_records": _rule_records_js(), "report_records": _report_records_js(), "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
                                                                   "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season,
                                                                           "over": {"a": round(cal_o[0], 6), "b": round(cal_o[1], 6), "from": P.OVER_CAL_FROM, "before": cur_season, "n": cal_o[2], "clip": P.OVER_CAL_CLIP},
-                                                                          "home": {"a": round(cal_h[0], 6), "b": round(cal_h[1], 6), "from": P.HOME_CAL_FROM, "before": cur_season, "n": cal_h[2], "clip": P.HOME_CAL_CLIP}},
+                                                                          "home": {"a": round(cal_h[0], 6), "b": round(cal_h[1], 6), "from": P.HOME_CAL_FROM, "before": cur_season, "n": cal_h[2], "clip": P.HOME_CAL_CLIP},
+                                                                          "tease": {k: {"a": round(v[0], 6), "b": round(v[1], 6), "n": v[2]} for k, v in cal_t.items()} | {"pts": P.TEASE_PTS, "from": P.TEASE_FROM, "before": cur_season, "clip": P.TEASE_CLIP}},
                                                                   "fit": week_fit(pv_coef, cur_season, cur_week)}, default=clean, separators=(",", ":")) + ";")
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
