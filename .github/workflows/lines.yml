@@ -102,6 +102,13 @@ jobs:
           git diff --cached --quiet || git commit -m "Lines $(date -u +%Y-%m-%dT%H:%M)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
           for i in 1 2 3 4 5; do git push && break; [ "$i" = 5 ] && exit 1; echo "push failed (try $i), retrying"; sleep $((i * 15)); git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main); done   # GitHub answered a push with a 500 once and lost a run (24 Sep 2026)
+      - name: publish the page to GitHub Pages   # a push by the workflow token starts no other workflow, so pages.yml is dispatched here; skipped until Pages is enabled in the repository settings (28 Sep 2026)
+        if: steps.gate.outputs.skip != '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/$GITHUB_REPOSITORY/pages" > /dev/null 2>&1; then gh workflow run pages.yml --ref main; else echo "Pages not enabled: Settings -> Pages -> Source: GitHub Actions"; fi
       - name: re-price when an input changed
         if: steps.gate.outputs.skip != '1' && (steps.fresh.outputs.reprice == '1')
         env:

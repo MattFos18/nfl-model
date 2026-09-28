@@ -13,6 +13,7 @@ on:
 permissions:
   contents: write
   issues: write         # the site-health alert (nflmodel/health_alert.py)
+  actions: write        # to dispatch the Pages deploy after the commit (28 Sep 2026)
 concurrency:
   group: nfl-model-weekly   # its own queue (24 Sep 2026): GitHub keeps one pending run per group, so a shared group let a line watch cancel a queued weekly run; pushes retry and rebase instead
   cancel-in-progress: false
@@ -61,6 +62,13 @@ jobs:
           git diff --cached --quiet || git commit -m "Weekly run $(date -u +%Y-%m-%d)"
           git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main)
           for i in 1 2 3 4 5; do git push && break; [ "$i" = 5 ] && exit 1; echo "push failed (try $i), retrying"; sleep $((i * 15)); git pull --rebase -X theirs origin main || (git rebase --abort || true; git pull --no-rebase -X ours origin main); done   # GitHub answered a push with a 500 once and lost a run (24 Sep 2026)
+      - name: publish the page to GitHub Pages   # a push by the workflow token starts no other workflow, so pages.yml is dispatched here; skipped until Pages is enabled in the repository settings (28 Sep 2026)
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/$GITHUB_REPOSITORY/pages" > /dev/null 2>&1; then gh workflow run pages.yml --ref main; else echo "Pages not enabled: Settings -> Pages -> Source: GitHub Actions"; fi
       - name: health alert      # one GitHub issue labelled site-health, opened when a check fails, closed when all pass
         if: always()          # 24 Sep 2026: without it a crashed line watch never raised the alert
         env:
