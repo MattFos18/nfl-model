@@ -64,7 +64,7 @@ LOG_WHAT = {
     "lines/futures": ("the books' season-long markets as fetched, one folder a day: ESPN's futures feed and The Odds API outrights (nflmodel/futures.py)", "line watch", "Season"),
     "weather/forecast_latest.csv": ("the latest Open-Meteo kickoff forecast per unplayed outdoor game; a game that has kicked off keeps its last good reading (status carried) until it is scored", "weekly run and line watch", "cards; game model wind, cold, rain"),
     "results/summary_<game_id>.json": ("ESPN's game summary for every game under way or final this week, trimmed to the drives and every play, the scoring plays, its win-probability series, the team stats, the box score and the leaders (nflmodel/results.py); web/data/plays.js is it re-parsed", "line watch", "Live tab"),
-    "results/live_scores.csv": ("the week's games from the ESPN scoreboard: status, clock, score, and for a final the model's spread, total and winner calls graded at the close against its last run before kickoff (nflmodel/results.py)", "line watch", "cards; Bets: This week, live; report"),
+    "results/live_scores.csv": ("the week's games from the ESPN scoreboard: status, clock, score, and for a final the model's spread, total and winner calls graded at the close and at the opening line against its last run before kickoff (nflmodel/results.py)", "line watch", "cards; Bets: This week, live; report"),
     "weather/forecast_log.csv": ("every forecast pulled, by run", "weekly run", "the record"),
     "weather/archive_kickoff.csv": ("weather at kickoff for played games (Open-Meteo archive)", "weather archive workflow", "backtest inputs"),
     "tracker/model_picks.csv": ("every model flag with the line at the run, graded with closing line value", "weekly run", "Bets tab"),

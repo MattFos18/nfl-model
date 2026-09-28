@@ -2062,3 +2062,11 @@ uses. The claude.ai page cannot fetch outside its frame, so there the tab is as 
 The same `web/` folder is published to GitHub Pages by `.github/workflows/pages.yml` (dispatched by the line watch
 and the weekly run after each commit, since a push by the workflow token starts no other workflow); the repository is
 public, so it costs nothing. Pages has to be switched on once in the repository settings (Source: GitHub Actions).
+
+### The week picker and the coming week (28 Sep 2026)
+
+The This week tab has a week picker. A past week is the picks table alone, from the backtest file (the closing line, every call graded). The picks week is the cards. The coming week is offered as "Week N (next)" only when `export_web.next_week_ready` says it is ready: the model has priced every one of its games with the fit for that week (pred_v3_dist.json) and the line watch has logged a spread and a total for each (the books' posted line, not the schedule's carried number). Then week.js carries `next` with `picks.table` for that week on the live line, re-priced every line watch like the cards; otherwise `next` is null and the picker has no such option, so a stale projection is never on offer. The tie check holds both: the option is present exactly when Python finds the week ready, and every number on it is picks.table's for that week. Nothing on the coming week is recorded: the tracker logs a flag at the weekly run that makes it the picks week.
+
+### The model's side against the opener (28 Sep 2026)
+
+results.py grades each final's spread and total call at the closing line (`calls`) and, beside it, at the opening line (`calls_open`): the game's oldest logged snapshot in the lines log, `lines.consensus` on it, which the line watch logs from Sunday evening when the books post the coming week. The record in live.js carries `spread_open` and `total_open` beside `spread` and `total`; live_scores.csv carries the opener and the open calls; the Live tiles show both. A game with nothing logged before its close has no opener and no open grade. Parked ideas that came out of the Live tab (pricing live odds in-game against the books) are in docs/ideas.md.
