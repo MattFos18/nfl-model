@@ -139,8 +139,9 @@ def main() -> bool:
             merged = PL.load_injuries([season]); merged = merged[merged.week == week]      # what the model actually sees, fill included
             fill = set(merged.team) - have
             days_to_kick = (g[(g.season == season) & (g.week == week)].kickoff_et.min() - pd.Timestamp.now("America/New_York").tz_localize(None)).total_seconds() / 86400
-            covered = len(have | fill); level = "OK" if covered == 32 or days_to_kick > 2 else "WARN"
-            add(level, f"injury reports cover the week being priced (week {week})", f"league reports for {len(have)} teams, ESPN fills {len(fill)} more ({'no ESPN file' if e_age > 1e8 else f'fetched {e_age * 24:.0f} hours ago'}), {covered} of 32; first kickoff in {days_to_kick:.1f} days")
+            gw = g[(g.season == season) & (g.week == week)]; playing = set(gw.home_team) | set(gw.away_team)   # teams with a game this week (a bye week has fewer than 32; 28 Sep 2026)
+            covered = len((have | fill) & playing); level = "OK" if covered == len(playing) or days_to_kick > 2 else "WARN"
+            add(level, f"injury reports cover the week being priced (week {week})", f"league reports for {len(have & playing)} teams, ESPN fills {len(fill & playing)} more ({'no ESPN file' if e_age > 1e8 else f'fetched {e_age * 24:.0f} hours ago'}), {covered} of {len(playing)} playing; first kickoff in {days_to_kick:.1f} days")
         except Exception as e:  # noqa
             add("OK" if "not on this machine" in str(e) else "WARN", "injury reports cover the week being priced", str(e)[:120])
         s = (WEB / "rankings.js").read_text(); rk = json.loads(s[s.index("=") + 1:].rstrip().rstrip(";"))
