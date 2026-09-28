@@ -1212,7 +1212,7 @@ receiving and rushing errors are the fade rows; the by-season run carries the fa
 in green, so the two no longer look alike. The Player props table lists only the markets the rule projects, with
 "no line" where no book has posted one; the opening line moved into the Book cell's hover, the "Other book lines"
 section (lines on players without a projection) is gone, and clicking any market row opens the player's
-calculation with that step lit; the Model tab holds the why. The win-band chip and the "moved" chip under the
+calculation with that step lit; the Info tab (Model until 28 Sep 2026) holds the why. The win-band chip and the "moved" chip under the
 line graphs are gone (the calibration table is on the Backtest tab; the graph shows the move). PrizePicks'
 adjusted-odds lines (a 0.5-yard "line" at a cut payout) are dropped by the parser and filtered out of the log
 when it is read. Underdog's pick'em search endpoint answers from the runner (100 lines a page, real higher/lower
@@ -2123,3 +2123,38 @@ Kelly fraction, prices and teaser points come from meta.js (`picks.page_rules`);
 Also on 28 Sep 2026: no panel on a Games card or a Breakdown card scrolls sideways any more (Matt: no scrollbars
 anywhere). The box score takes the card's full width, and on a phone its tables are fixed-layout with the player name
 cut with an ellipsis; the picks table on a phone drops the score grid and the kickoff and wraps its cells.
+
+## 44. The opener study, the Picks tab pared back, colours for colour-blind eyes (28 Sep 2026)
+
+**The opener study** (nflmodel/opener_study.py; Backtest → Opener study; reports/opener_study.md). Matt asked whether
+the model does better against the opening line than the close, and whether the difference is only the injury report
+and the weather. A Tuesday model prices every game walk-forward with the same fits and the inputs a Tuesday does not
+have at zero (skill_out_value, opp_skill_out_value, off_snap_out, opp_def_snap_out, qb_out, wind_out, cold, rain,
+warm_in_cold); it keeps its own trees cache (trees_cache_tuesday.parquet) so the live model's is untouched, and its
+predictions are pred_tuesday.parquet. Openers are an archive (data/archive/openers_2015_2021.csv, sportsbookreviews-
+online's season pages, 1,786 of 1,808 regular-season games 2015-21; its close is within a point of nflverse's on 96%).
+Four cases on the archive's games (both lines graded on the same games): the full model at the close, the Tuesday
+model at the close, the Tuesday model at the opener, and the full model at the opener (unfair: Sunday information on a
+Sunday-night line). Each carries every-game ATS, the flagged games (the model's side 3+ or 4+ points from the line; 4
+is the site's flag) with units at -110, and the same for totals; the two models are also shown at the close on the
+backtest's three windows. Runs every weekly run after the model; a tie row recomputes every row from the files.
+
+What it says: the opener's edge is not the injury report and weather. On every game ATS the Tuesday model at the opener
+reads 52.0% and 56.7% (2015-18, 2019-21) against 50.5% and 52.2% for the same model at the close. On 3+ edges it reads
+61.5% and 62.0% at the opener against 57.9% and 55.2% at the close. At the site's 4-point flag the samples are about a
+hundred bets a window and the opener and the close sit within noise of each other (54.9% / 66.0% against the full model
+at the close 55.2% / 66.7%). Totals lean the opener's way at both cuts. The full model at the close beats the Tuesday
+model at the close on 2019-22 and 2023-25 (injuries and weather help late in the week), not on 2015-18.
+
+**The Picks tab** is now the picks table, the bet order and the 6-point teaser. The bankroll box, the stakes and the
+parlay builder are gone (Matt: a parlay adds nothing, the teaser tells you which legs to tease). The bet order is one
+compact table, spreads then totals, with the historical chance (the calibrated one), the model's own chance and the
+edge. The teaser panel opens with the best 2-, 3- and 4-leg teasers (the top legs by historical teased chance, one leg a
+game) priced at the book's usual prices with the fair price and the expected return, then every leg to tick for a
+teaser of one's own. The jump bar on Breakdown rides up to the top of the screen with the page; the Breakdown cards
+carry no Actual rows (the score is on Games); the sparkline no longer clips its labels.
+
+**Colours.** Matt is red-green colour-blind. Loss, negative units and negative returns are a magenta (--bad) instead of
+a red, so they read apart from the green of a win; the History bar is a dark neutral with a striped fill so it reads
+apart from the blue Model bar and the orange Vegas bar. Every colour is also paired with a mark or a word.
+

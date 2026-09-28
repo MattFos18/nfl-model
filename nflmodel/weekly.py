@@ -131,6 +131,7 @@ def main(full=False, skip_network=False):
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
     step("snap exposure", lambda: sh(["nflmodel.exposure"]), log)   # every player's snap share by game, for the props' snap trend (26 Sep 2026: no step built it; it stopped at Week 2)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
+    step("opener study", lambda: sh(["nflmodel.opener_study"]), log)   # the Tuesday model and the archive openers, for the Backtest tab (28 Sep 2026)
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)
     for name in BACKTESTS:   # every backtest the pages quote, re-run on this model (sizing: 24 Sep 2026; the rest 26 Sep 2026); the legitimacy tests too, before the export that shows them (26 Sep 2026: they ran after it, so the page showed the run before's)
         step(name, lambda n=name: run_backtest(n), log)

@@ -7,7 +7,7 @@
   --ground:#F4F3EE; --panel:#FFFFFF; --panel-2:#FAF9F5; --ink:#191C1F; --ink-2:#4A5250; --muted:#767E78; --rule:#D9D5CB; --rule-2:#ECE9E1;
   --accent:#1C6B47; --accent-ink:#FFFFFF; --accent-soft:#E3F0E9; --gold:#A8780A; --gold-soft:#F6EED8; --v3:#1C6B47; --old:#A8780A;
   --model:#2a78d6; --model-soft:#E4EEFA; --vegas:#c95a24; --vegas-soft:#F9E7DD; --series-1:#2a78d6; --series-2:#eb6834; --surface-1:#FFFFFF; --text-primary:#191C1F; --text-secondary:#4A5250;
-  --good:#1C6B47; --warn:#A8780A; --bad:#B23A3A; --bad-soft:#F6E3E3;
+  --good:#1C6B47; --warn:#A8780A; --bad:#8E2A8E; --bad-soft:#F3E3F3; --hist:#2B2F33; --hist-soft:#E6E4DE;   /* 28 Sep 2026: bad is a magenta and History a dark neutral, both readable with red-green colour-blindness (Matt) */
   --display:"IBM Plex Sans Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 :root[data-theme="dark"]{
@@ -137,7 +137,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline;margin-top:2px;padding-top:4px;border-top:1px dashed var(--rule)}
 .blk .edge span{color:var(--ink-2)} .blk .edge b{font-family:var(--display);font-size:16px;font-weight:600}
 .blk .edge b.flag{color:var(--accent)}
-.spark{width:100%;height:auto;margin-top:6px;display:block}
+.spark{width:100%;height:auto;margin-top:6px;display:block;overflow:visible}
 .spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
 .score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
@@ -231,7 +231,7 @@ button.q:hover{border-color:var(--accent);color:var(--accent)}
 tr.howrow td{background:var(--panel-2)}
 .brow{display:grid;grid-template-columns:56px 1fr;gap:6px;align-items:center;margin-top:4px}
 .brow .bl{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
-.brow .bl.m{color:var(--model)} .brow .bl.v{color:var(--vegas)} .brow .bl.c{color:var(--accent)} .bar .c.lead{background:var(--accent-soft)}
+.brow .bl.m{color:var(--model)} .brow .bl.v{color:var(--vegas)} .brow .bl.c{color:var(--hist)} .bar .c.lead{background:repeating-linear-gradient(135deg,var(--hist-soft) 0 5px,#D5D2CA 5px 7px)}
 .brow .bar{margin-top:0}
 
 table tr.grp td{font-weight:600;background:var(--panel-2)}
@@ -280,7 +280,7 @@ table.rprec{margin:0 0 4px;font-size:13px}
 table.rprec th,table.rprec td{padding:4px 12px 4px 0;text-align:left;white-space:nowrap}
 table.rprec thead th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .rpsumw{margin:14px 0 18px;max-height:none;overflow:visible} table.rpsum tbody tr:last-child td{border-bottom:0}
-.pk-sec{margin:0 0 22px} .pk-h{font-family:inherit;font-size:16px;font-weight:700;margin:0 0 8px;letter-spacing:0} table.pk-t{table-layout:fixed;width:100%;font-size:14px} table.pk-t th,table.pk-t td{padding:7px 10px;overflow:hidden;text-overflow:ellipsis} table.pk-t th.r,table.pk-t td.r{text-align:right} table.pk-t tr.bo-sec td{text-align:left;padding:14px 10px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--rule);background:none} table.pk-t tr.bo-sec:first-child td{padding-top:2px} table.pk-t td.bo-n{text-align:right;padding-right:4px} table.pk-t .bo-p{font-size:14px}
+.pk-sec{margin:0 0 22px} .pk-h{font-family:inherit;font-size:16px;font-weight:700;margin:0 0 8px;letter-spacing:0} table.pk-t{table-layout:fixed;width:100%;max-width:960px;font-size:14px} table.pk-t th,table.pk-t td{padding:7px 10px;overflow:hidden;text-overflow:ellipsis} table.pk-t th.r,table.pk-t td.r{text-align:right} table.pk-t tr.bo-sec td{text-align:left;padding:14px 10px 4px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--rule);background:none} table.pk-t tr.bo-sec:first-child td{padding-top:2px} table.pk-t td.bo-n{text-align:right;padding-right:4px} table.pk-t .bo-p{font-size:14px} table.pk-t th{white-space:normal;line-height:1.2;vertical-align:bottom} .pk-best{max-width:960px;margin:0 0 12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel-2);padding:4px 14px} .pk-best div{display:grid;grid-template-columns:78px 1fr 60px 90px 150px;gap:14px;align-items:baseline;padding:7px 0;border-bottom:1px solid var(--rule-2);font-size:14px} .pk-best div:last-child{border-bottom:0} .pk-best .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600} .pk-best b{font-weight:700} .pk-best .legs{font-weight:600} .pk-best .r{text-align:right;font-variant-numeric:tabular-nums} .pk-best .posv{color:var(--good)} .pk-best .neg{color:var(--bad)} .bo-sum{max-width:960px} table.op-t{font-size:13.5px;width:auto;min-width:0} table.op-t th,table.op-t td{padding:7px 12px;white-space:nowrap} @media(max-width:640px){.pk-best div{grid-template-columns:1fr 1fr;gap:4px 10px}}
 .bank{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);font-weight:500} .bank input{font:inherit;width:96px;padding:4px 8px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-variant-numeric:tabular-nums}
 .bo-t td.bo-ck input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer;vertical-align:middle} .bo-sum{display:flex;flex-wrap:wrap;gap:8px 30px;align-items:flex-end;padding:12px 16px;margin:0 0 10px;border:1px solid var(--rule);border-radius:6px;background:var(--panel-2);font-size:14px} .bo-sum b{font-weight:700;font-size:16px;font-variant-numeric:tabular-nums} .bo-sum .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px} .bo-sum input{font:inherit;width:78px;padding:3px 6px;border:1px solid var(--rule);border-radius:4px;background:var(--panel);font-weight:700;font-size:15px} .bo-sum .rpq{font-size:12px;align-self:center} table.bo-sel{margin-bottom:12px}
 table.rpsum{width:100%;font-size:13px}
@@ -357,7 +357,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div class="tg"><span class="tgl">Model</span><div class="tgb">
     <button role="tab" data-tab="results">Backtest</button>
     <button role="tab" data-tab="bets">Bets</button>
-    <button role="tab" data-tab="model">Model</button>
+    <button role="tab" data-tab="model">Info</button>
   </div></div>
 </nav>
 
@@ -371,13 +371,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div class="row" style="justify-content:space-between;align-items:center">
     <div class="row" style="margin:0;gap:8px;align-items:center"><label for="wkpick" hidden>Week</label><select id="wkpick" class="chip" style="font-weight:600"></select><button class="chip alt" id="wkpdf" title="a clean one-page table of the week's picks, printed or saved as a PDF from the print dialog">Download PDF</button></div>
     <p class="note" id="weeknote" style="margin:0" hidden></p>
-    <label class="bank" title="your bankroll: every stake below is a quarter of the Kelly fraction of it, at the calibrated chance and the price shown (kept on this device only)">Bankroll $<input id="bankroll" type="number" min="0" step="50" placeholder="0"></label>
   </div>
   <div class="tablewrap rpsumw" id="pktable" style="margin-top:0"></div>
   <div id="pktools"></div>
 </section>
 <section class="tab" id="week" hidden>
-  <div class="legend" style="margin:0 0 6px"><span><span class="dot" style="background:var(--model)"></span>Model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span></div>
   <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
 </section>
@@ -489,7 +487,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <button data-sub="backtest">Game picks</button>
     <button data-sub="props">Player props</button>
     <button data-sub="seasonbt">Season odds and totals</button>
+    <button data-sub="opener">Opener study</button>
   </nav>
+  <div id="opener" hidden></div>
   <div id="backtest">
     <p class="note" id="bknote"></p>
     <div style="display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px"><div class="seg" id="bkmkt"></div><div class="seg" id="bktside"></div><div class="seg" id="bktcut"></div></div>
@@ -691,6 +691,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 
 <script src="data/meta.js"></script>
 <script src="data/week.js"></script>
+<script src="data/opener_study.js"></script>
 <script src="data/track.js"></script>
 <script src="data/rankings.js"></script>
 <script src="data/backtest.js"></script>
@@ -923,7 +924,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const lab = v => key === "home_spread" ? lineTxt(v >= 0 ? H.home : H.away, -Math.abs(v)) : (Number.isInteger(v) ? String(v) : v.toFixed(1)); const day = t => t.slice(5, 10).replace("-", "/");
     if (vals.length < 2) return `<div class="mv"><span class="chip">Open ${vals.length ? lab(vals[0]) : "–"}</span><span class="chip mute">${vals.length ? "1 snapshot" : "No snapshots yet"}</span></div>`;
     const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
-    const W = 320, Hh = 52, m = 6, ml = 56, mr = 86; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 6 + (hi - v) / (hi - lo) * (Hh - 2 * m - 12);   // ml 56 and mr 86: room for "HOU -2.5" and "Model HOU -1.4" (44 and 70 clipped them, 26 Sep 2026)
+    const W = 320, Hh = 64, m = 10, ml = 56, mr = 90; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => m + 6 + (hi - v) / (hi - lo) * (Hh - 2 * m - 12);   // ml 56 and mr 86: room for "HOU -2.5" and "Model HOU -1.4" (44 and 70 clipped them, 26 Sep 2026)
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="line movement">`;
     if (modelVal != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${y(modelVal).toFixed(1)}" y2="${y(modelVal).toFixed(1)}" stroke="var(--model)" stroke-dasharray="3 3"/><text x="${W - mr + 4}" y="${(y(modelVal) + 3.5).toFixed(1)}" font-size="9.5" fill="var(--model)">Model ${lab(modelVal)}</text>`;
     svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="1.8"/><circle cx="${x(0)}" cy="${y(vals[0]).toFixed(1)}" r="2.5" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${y(vals[vals.length - 1]).toFixed(1)}" r="2.5" fill="var(--vegas)"/>`;
@@ -1348,16 +1349,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return `<colgroup><col class="k0"><col class="k1"><col class="k2"><col class="k3"><col class="k4"></colgroup><thead><tr><th>Game</th><th>Spread</th><th>Total</th><th>Winner</th><th>${gridHead}</th></tr></thead><tbody>` +
       RS.map((R, i) => `<tr class="${(R.spread && R.spread.bet) || (R.total && R.total.bet) ? "on" : ""}"${links === "report" ? ` data-rp="${i}" tabindex="0" role="link"` : ""}><td class="rpgm">${links === "report" ? `<a href="#rp${i}" data-rp="${i}">${LOGO(R.A, 18)}${R.A} @ ${LOGO(R.H, 18)}${R.H}</a>` : links ? `<a href="#card${i}">${LOGO(R.A, 18)}${R.A} @ ${LOGO(R.H, 18)}${R.H}</a>` : `<b>${LOGO(R.A, 18)}${R.A} @ ${LOGO(R.H, 18)}${R.H}</b>`}${R.g.kickoff ? `<div class="rpc">${esc(kickTxt(R.g.kickoff))}</div>` : ""}</td><td>${rpPick(R.spread)}</td><td>${rpPick(R.total)}</td><td><div class="rpk"><b>${R.win.side}</b>${rpRes(R.win.result)}</div><div class="rpc">${pctSide(R.win.p)}</div></td><td>${grid(R)}</td></tr>`).join("") + "</tbody>";
   }
-  // ---------- Picks tab (28 Sep 2026, Matt: Games / Picks / Breakdown): the week's table, the bet order with stakes, and the teaser and parlay builders ----------
-  // the bankroll lives on this device only; every stake is picks.kelly_stake's arithmetic (a quarter of the Kelly fraction) on the calibrated chance at the price shown
-  let bankroll = 0; try { bankroll = +localStorage.getItem("bankroll") || 0; } catch (e) {}
-  const teaseSel = new Set(), parlaySel = new Set(); let teaseBook = {}, parlayLegOdds = null;
+  // ---------- Picks tab (28 Sep 2026, Matt: Games / Picks / Breakdown): the week's table, the bet order, and the 6-point teaser ----------
+  const teaseSel = new Set(); let teaseBook = {};
   const decOdds = o => o < 0 ? 1 + 100 / Math.abs(o) : 1 + o / 100;   // American odds to the decimal payout
   const amOdds = dec => dec >= 2 ? Math.round((dec - 1) * 100) : Math.round(-100 / (dec - 1));   // the decimal payout as American odds
   const fairOdds = p => amOdds(1 / p);
-  const kellyPct = (p, odds) => { const b = decOdds(odds) - 1, k = (p * b - (1 - p)) / b; return Math.max(0, k) * (PK ? PK.kelly_fraction : 0.25) * 100; };   // picks.kelly_stake
-  const money = v => v == null || !(Math.round(v) >= 1) ? "–" : "$" + Math.round(v).toLocaleString();
-  const stakeOf = (p, odds) => bankroll > 0 && p != null && odds != null ? bankroll * kellyPct(p, odds) / 100 : null;
+  const retTxt = ev => ev == null ? "–" : `<span class="${ev >= 0 ? "posv" : "neg"}">${ev >= 0 ? "+" : "−"}${Math.abs(100 * ev).toFixed(1)}%</span>`;   // the expected return per dollar
   // every unplayed game's spread side and total side as a leg: straight (the calibrated chance) and teased (tease_*_cal, Python's)
   function pickLegs(games) {
     const up = games.filter(g => g.home_score == null && (liveOf(g) || {}).status !== "final"), out = [], T = PK && PK.tease_pts != null ? PK.tease_pts : 6;
@@ -1368,36 +1365,33 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         out.push({...base, k: "total", id: g.game_id + "|t", txt: R.total.line, tease: `${R.total.side} ${over ? g.total_line - T : g.total_line + T}`, edge: R.total.edge, p: R.total.p, raw: R.total.raw, tp: g.tease_total_cal ?? null, traw: g.tease_total_raw ?? null, bet: !!g.shadowunder_bet}); } });
     return out;
   }
-  // the bet order: every leg ranked by the edge (points from the line), one table, spreads then totals: the calibrated chance, the model's own, the stake; the flagged ones marked
-  const PK_COLS = `<colgroup><col style="width:4%"><col style="width:15%"><col style="width:13%"><col style="width:13%"><col style="width:9%"><col style="width:10%"><col style="width:10%"><col style="width:10%"><col></colgroup>`;
+  const PK_COLS = `<colgroup><col style="width:5%"><col style="width:17%"><col style="width:15%"><col style="width:15%"><col style="width:9%"><col style="width:15%"><col style="width:14%"><col></colgroup>`;
+  // the bet order: every leg ranked by the edge (points from the line), one table, spreads then totals; the historical chance is the calibrated one, the model chance its own; the flagged ones marked
   function betOrderHtml(games) {
     const legs = pickLegs(games); if (!legs.length) return "";
-    const od = PK ? PK.default_odds : -110;
-    const rows = k => { const r = legs.filter(x => x.k === k).sort((a, b) => b.edge - a.edge); return `<tr class="bo-sec"><td colspan="9">${k === "spread" ? "Spreads" : "Totals"}</td></tr>` + r.map((x, i) => `<tr class="${x.bet ? "on" : ""}"><td class="bo-n">${i + 1}</td><td><b>${esc(x.txt)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td class="r">${x.edge.toFixed(1)}</td><td class="r bo-p">${pctSide(x.p)}</td><td class="r bo-r">${x.raw == null ? "" : pct0(x.raw)}</td><td class="r bo-r">${money(stakeOf(x.p, od))}</td><td>${x.bet ? `<span class="rpb">Bet</span>` : ""}</td></tr>`).join(""); };
-    return `<div class="pk-sec"><h3 class="pk-h">Bet order</h3><table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Pick</th><th>Game</th><th>Kickoff</th><th class="r">Edge</th><th class="r">Chance</th><th class="r">Model</th><th class="r">Stake</th><th></th></tr></thead><tbody>${rows("spread")}${rows("total")}</tbody></table></div>`;
+    const rows = k => { const r = legs.filter(x => x.k === k).sort((a, b) => b.edge - a.edge); return `<tr class="bo-sec"><td colspan="8">${k === "spread" ? "Spreads" : "Totals"}</td></tr>` + r.map((x, i) => `<tr class="${x.bet ? "on" : ""}"><td class="bo-n">${i + 1}</td><td><b>${esc(x.txt)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td class="r">${x.edge.toFixed(1)}</td><td class="r bo-p">${pctSide(x.p)}</td><td class="r bo-r">${x.raw == null ? "" : pct0(x.raw)}</td><td>${x.bet ? `<span class="rpb">Bet</span>` : ""}</td></tr>`).join(""); };
+    return `<div class="pk-sec"><h3 class="pk-h">Bet order</h3><table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Pick</th><th>Game</th><th>Kickoff</th><th class="r">Edge</th><th class="r">Historical chance</th><th class="r">Model chance</th><th></th></tr></thead><tbody>${rows("spread")}${rows("total")}</tbody></table></div>`;
   }
-  // the teaser and parlay builders: tick legs; the combined chance is the legs' chances multiplied, the book's price editable, fair odds, the expected return and the stake
-  function comboHtml(kind, games) {
-    const legs = pickLegs(games).filter(x => kind === "tease" ? x.tp != null : x.p != null); if (!legs.length) return "";
-    const sel = kind === "tease" ? teaseSel : parlaySel, T = PK && PK.tease_pts != null ? PK.tease_pts : 6;
-    const rows = legs.map(x => ({...x, pp: kind === "tease" ? x.tp : x.p, pr: kind === "tease" ? x.traw : x.raw, line: kind === "tease" ? x.tease : x.txt})).sort((a, b) => b.pp - a.pp);
-    const tbl = `<table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>${kind === "tease" ? "Teased line" : "Pick"}</th><th>Game</th><th>Kickoff</th><th></th><th class="r">Chance</th><th class="r">Model</th><th></th><th></th></tr></thead><tbody>${rows.map(x => `<tr class="${sel.has(x.id) ? "on" : ""}"><td class="bo-ck"><input type="checkbox" data-leg="${x.id}"${sel.has(x.id) ? " checked" : ""}></td><td><b>${esc(x.line)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td></td><td class="r bo-p">${pct0(x.pp)}</td><td class="r bo-r">${x.pr == null ? "" : pct0(x.pr)}</td><td></td><td></td></tr>`).join("")}</tbody></table>`;
-    const title = kind === "tease" ? `${Number.isInteger(T) ? T : T.toFixed(1)}-point teaser` : "Parlay";
-    return `<div class="pk-sec" data-combo="${kind}"><h3 class="pk-h">${title}</h3><div class="bo-sum" id="sum-${kind}"></div>${tbl}</div>`;
+  // the teaser: every leg moved TEASE_PTS the model's way, ranked by the historical teased chance; the best 2-, 3- and 4-leg teasers (one leg a game) priced at the book's usual price; tick legs to price your own
+  function teaserHtml(games) {
+    const legs = pickLegs(games).filter(x => x.tp != null).sort((a, b) => b.tp - a.tp); if (!legs.length) return "";
+    const sel = teaseSel, T = PK && PK.tease_pts != null ? PK.tease_pts : 6, TO = (PK && PK.teaser_odds) || {"2": -110, "3": 160, "4": 260, "5": 400, "6": 600};
+    const best = [2, 3, 4].map(n => { const pick = []; const seen = new Set(); for (const x of legs) { if (seen.has(x.gid)) continue; seen.add(x.gid); pick.push(x); if (pick.length === n) break; }
+      if (pick.length < n || TO[String(n)] == null) return ""; const p = pick.reduce((a, x) => a * x.tp, 1), book = TO[String(n)], ev = p * (decOdds(book) - 1) - (1 - p);
+      return `<div><span class="k">Best ${n}-leg</span><span class="legs">${pick.map(x => esc(x.tease)).join(" · ")}</span><span class="r"><b>${pct0(p)}</b></span><span class="r">fair ${oddsTxt(fairOdds(p))}</span><span class="r">at ${oddsTxt(book)}&nbsp;→&nbsp;${retTxt(ev)}</span></div>`; }).join("");
+    const tbl = `<table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Teased line</th><th>Game</th><th>Kickoff</th><th></th><th class="r">Historical chance</th><th class="r">Model chance</th><th></th></tr></thead><tbody>${legs.map(x => `<tr class="${sel.has(x.id) ? "on" : ""}"><td class="bo-ck"><input type="checkbox" data-leg="${x.id}"${sel.has(x.id) ? " checked" : ""}></td><td><b>${esc(x.tease)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td></td><td class="r bo-p">${pct0(x.tp)}</td><td class="r bo-r">${x.traw == null ? "" : pct0(x.traw)}</td><td></td></tr>`).join("")}</tbody></table>`;
+    return `<div class="pk-sec" data-combo="tease"><h3 class="pk-h">${Number.isInteger(T) ? T : T.toFixed(1)}-point teaser</h3>${best ? `<div class="pk-best">${best}</div>` : ""}<div class="bo-sum" id="sum-tease"></div>${tbl}</div>`;
   }
-  function comboSummary(kind, games) {
-    const el = $("sum-" + kind); if (!el) return;
-    const sel = kind === "tease" ? teaseSel : parlaySel, legs = pickLegs(games).filter(x => sel.has(x.id)), n = legs.length;
-    if (!n) { el.innerHTML = `<span class="rpq">Tick the legs below.</span>`; return; }
-    const p = legs.reduce((a, x) => a * (kind === "tease" ? x.tp : x.p), 1);
-    const TO = (PK && PK.teaser_odds) || {"2": -110, "3": 160, "4": 260, "5": 400, "6": 600}, lo = parlayLegOdds != null ? parlayLegOdds : (PK && PK.parlay_leg_odds != null ? PK.parlay_leg_odds : -110);   // picks.TEASER_ODDS and PARLAY_LEG_ODDS (meta.js); the same numbers stand in until the run that exports them
-    const book = kind === "tease" ? (teaseBook[n] !== undefined ? teaseBook[n] : (TO[String(n)] != null ? TO[String(n)] : null)) : amOdds(Math.pow(decOdds(lo), n));
-    const ev = book == null ? null : p * (decOdds(book) - 1) - (1 - p), st = book == null ? null : stakeOf(p, book);
+  function teaserSummary(games) {
+    const el = $("sum-tease"); if (!el) return;
+    const legs = pickLegs(games).filter(x => teaseSel.has(x.id)), n = legs.length;
+    if (!n) { el.innerHTML = `<span class="rpq">Tick legs to price your own teaser.</span>`; return; }
+    const p = legs.reduce((a, x) => a * x.tp, 1), TO = (PK && PK.teaser_odds) || {"2": -110, "3": 160, "4": 260, "5": 400, "6": 600};
+    const book = teaseBook[n] !== undefined ? teaseBook[n] : (TO[String(n)] != null ? TO[String(n)] : null);
+    const ev = book == null ? null : p * (decOdds(book) - 1) - (1 - p);
     const cell = (k, v) => `<span><span class="k">${k}</span><b>${v}</b></span>`;
-    el.innerHTML = cell("Legs", n) + cell("Chance", pct0(p)) +
-      (kind === "tease" ? `<span><span class="k">Book pays</span><input type="number" step="5" data-book="${n}" value="${book == null ? "" : book}" placeholder="odds"></span>` : `<span><span class="k">Leg price</span><input type="number" step="5" data-leg-odds value="${lo}"></span>` + cell("Pays", oddsTxt(book))) +
-      cell("Fair price", oddsTxt(fairOdds(p))) + cell("Expected return", ev == null ? "–" : `${ev >= 0 ? "+" : "−"}${Math.abs(100 * ev).toFixed(1)}%`) + cell("Stake", bankroll > 0 ? (st > 0 ? money(st) : "none") : "set a bankroll");
-    el.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { const v = i.value === "" ? null : +i.value; if (i.dataset.book) teaseBook[+i.dataset.book] = v; else parlayLegOdds = v; comboSummary(kind, games); }));
+    el.innerHTML = cell("Legs", n) + cell("Chance", pct0(p)) + `<span><span class="k">Book pays</span><input type="number" step="5" data-book="${n}" value="${book == null ? "" : book}" placeholder="odds"></span>` + cell("Fair price", oddsTxt(fairOdds(p))) + cell("Expected return", retTxt(ev));
+    el.querySelectorAll("input").forEach(i => i.addEventListener("change", () => { teaseBook[+i.dataset.book] = i.value === "" ? null : +i.value; teaserSummary(games); }));
   }
   function renderPicks() {
     const W = window.WEEK || {};
@@ -1409,14 +1403,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const sel = $("wkpick"); if (sel.options.length !== weeks.length) { sel.innerHTML = weeks.map(w => `<option value="${w}">Week ${w}</option>`).join(""); sel.onchange = () => { wkSel = +sel.value; renderPicks(); window.scrollTo(0, 0); }; }
     sel.value = String(wkSel);
     $("wkpdf").onclick = () => weekPdf(W.season, wkSel, weekGames(W.season, wkSel));
-    const bk = $("bankroll"); bk.value = bankroll > 0 ? String(bankroll) : ""; bk.onchange = () => { bankroll = Math.max(0, +bk.value || 0); try { localStorage.setItem("bankroll", String(bankroll)); } catch (e) {} renderPicks(); };
     const cur = wkSel === W.week, gs = cur ? W.games : weekGames(W.season, wkSel);
     const t = cur ? null : picksTally(gs); $("weeknote").innerHTML = t ? `<span class="tally">${t.html}</span>` : ""; $("weeknote").hidden = !t;   // a past week shows its tally; the current week carries no note (28 Sep 2026, Matt)
     $("pktable").innerHTML = `<table class="rpsum">${picksTableHtml(gs, cur)}</table>`;
     $("pktable").querySelectorAll("a[href^='#card']").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const id = a.getAttribute("href").slice(1); tab = "week"; save(); showTab(); render(); const el = $(id); if (el) el.scrollIntoView({block: "start"}); }));   // a game opens its Breakdown card
-    $("pktools").innerHTML = cur ? betOrderHtml(W.games) + comboHtml("tease", W.games) + comboHtml("parlay", W.games) : "";
-    $("pktools").querySelectorAll("input[data-leg]").forEach(c => c.addEventListener("change", () => { const d = c.closest("[data-combo]").dataset.combo, S = d === "tease" ? teaseSel : parlaySel; if (c.checked) S.add(c.dataset.leg); else S.delete(c.dataset.leg); c.closest("tr").classList.toggle("on", c.checked); comboSummary(d, W.games); }));
-    if (cur) { comboSummary("tease", W.games); comboSummary("parlay", W.games); }
+    $("pktools").innerHTML = cur ? betOrderHtml(W.games) + teaserHtml(W.games) : "";
+    $("pktools").querySelectorAll("input[data-leg]").forEach(c => c.addEventListener("change", () => { if (c.checked) teaseSel.add(c.dataset.leg); else teaseSel.delete(c.dataset.leg); c.closest("tr").classList.toggle("on", c.checked); teaserSummary(W.games); }));
+    if (cur) teaserSummary(W.games);
   }
   function picksTally(games) {
     const RS = games.map(gameReadings), rec = k => { const r = RS.map(R => R[k] && R[k].result).filter(Boolean); return r.length ? `${r.filter(x => x === "win").length}-${r.filter(x => x === "loss").length}${r.filter(x => x === "push").length ? "-" + r.filter(x => x === "push").length : ""}` : null; };
@@ -1460,27 +1453,23 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
-            ${played ? `<div class="kv2"><span>Actual</span><b>${lineTxt(H, -actualMargin)}</b></div>` : ""}
             ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.stake_pct != null && sFlag ? ` <span class="chip alt" title="A quarter of the Kelly fraction from the calibrated cover odds at the book's price: the share of a bankroll the edge supports. Full Kelly assumes the odds are exact.">Stake ${Number(g.stake_pct).toFixed(1)}% of bankroll · ¼ Kelly at ${g.bet_odds > 0 ? "+" : ""}${Math.round(g.bet_odds)}</span>` : ""}${sFlag ? flagReason(g) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
           </section>
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
-            ${played ? `<div class="kv2"><span>Actual</span><b>${HS + AS}</b></div>` : ""}
             ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b>${tFlag ? `<span class="chip mute" style="grid-column:1 / -1;justify-self:start" title="An ${TS.side} at a ${underPct}%+ raw chance (this game ${Math.round(100 * (1 - g.p_over_emp))}%, read off the real, lopsided spread of game totals; the bar below shows it calibrated, the same mapping for every game): ${rec3("shadowunder")}, regular season, weeks 1 to 17; overs lose every way tried. Graded live on Bets, not bet until it holds">${Math.round(100 * (1 - overP(g)))}% under · tracked, not bet</span>` : ""}</div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model", "The model's own over chance, read off the real spread of game totals around its number, as if the line carried nothing") : ""}${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "c", "History", overHist(g)) : ""}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
               <span>Model</span><b class="m">${g.away_exp.toFixed(1)}</b><b class="m">${g.home_exp.toFixed(1)}</b>
               <span>Vegas</span><b class="v">${both ? va.toFixed(1) : ""}</b><b class="v">${both ? vh.toFixed(1) : ""}</b>
-              ${played ? `<span>Actual</span><b>${AS}</b><b>${HS}</b>` : ""}
             </div>
           </section>
           <section class="blk win"><div class="bh">Win</div>
             ${g.p_home != null ? bar(H, g.p_home, A, 1 - g.p_home, "h", "Model", "The model's own win chance: its bell curve on its number, reshaped so 3 and 7 get their true share") : ""}
             ${g.p_home_cal != null ? bar(H, g.p_home_cal, A, 1 - g.p_home_cal, "c", "History", winTitle(g)) : ""}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
-            ${played ? `<div class="kv2" style="margin-top:4px"><span>Actual</span><b>${actualMargin > 0 ? H : (actualMargin < 0 ? A : "tie")}</b></div>` : ""}
             ${vw == null ? "" : (() => { const dm = Math.max(0, Math.min(100, Math.round(100 * winP(g)))) - Math.max(0, Math.min(100, Math.round(100 * vw))); return dm === 0 ? `<span class="chip mute">Same as Vegas</span>` : `<span class="chip" title="the model's ${g.p_home_cal != null ? "calibrated " : ""}win chance minus Vegas's, from the two bars above${g.p_home_cal != null ? ` (raw: ${H} ${Math.round(100 * g.p_home)}%)` : ""}">${dm > 0 ? H : A} +${Math.abs(dm)}% vs Vegas</span>`; })()}
           </section>
         </div>
@@ -1498,6 +1487,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     let jumpLock = null;
     $("jump").querySelectorAll("a").forEach(a => a.addEventListener("click", ev => { ev.preventDefault(); const el = $("card" + a.dataset.i); if (!el) return; jumpSet(a.dataset.i); clearTimeout(jumpLock); jumpLock = setTimeout(() => { jumpLock = null; }, 1500); el.scrollIntoView({behavior: "smooth", block: "start"}); }));
     const jumpSpy = () => {
+      const bar_ = $("jump"); if (getComputedStyle(bar_).position === "fixed") bar_.style.top = Math.max(12, 158 - window.scrollY) + "px";   // rides up with the page (28 Sep 2026, Matt)
       if (jumpLock) { clearTimeout(jumpLock); jumpLock = setTimeout(() => { jumpLock = null; }, 200); return; }   // the click's own smooth scroll: keep the clicked game
       const bar = $("jump"), off = (getComputedStyle(bar).position === "sticky" ? bar.getBoundingClientRect().bottom : 0) + 12;
       let cur = null; const cards_ = $("cards").querySelectorAll("article.gcard"); cards_.forEach(el => { if (el.getBoundingClientRect().top <= off) cur = el; });
@@ -1505,7 +1495,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       if (cur) jumpSet(cur.id.slice(4));
     };
     if (!window.__jumpSpy) { let t = 0; window.addEventListener("scroll", () => { if (!t) t = requestAnimationFrame(() => { t = 0; if (window.__jumpSpy) window.__jumpSpy(); }); }, {passive: true}); }
-    window.__jumpSpy = jumpSpy;
+    window.__jumpSpy = jumpSpy; jumpSpy();
     // one box per card; the tab row decides what it shows. Clicking the open tab closes it.
     const CARD_TAB = {take: g => takeawaysHtml(g, W), why: (g, i) => whyHtml(g, W.season, i), inj: g => injuryReportHtml(gameReadings(g)), h2h: g => historyReportHtml(gameReadings(g)),
       sch: g => schemeReportHtml(gameReadings(g)),
@@ -3316,6 +3306,21 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return `<section class="rgsec"><h4>Scheme matchup</h4><div class="rgcols">${sch}</div><div class="mv" style="margin-top:6px"><span class="chip mute">Readings · not a model input</span></div></section>`;
   }
 
+  // the opener study (28 Sep 2026, nflmodel/opener_study.py): the full model and the Tuesday model, at the close and at the archive's opener
+  let opCut = null;
+  function renderOpenerStudy() {
+    const O = window.OPENER; const el = $("opener"); if (!O) { el.innerHTML = `<p class="note">${MISSING}</p>`; return; }
+    if (opCut == null || !O.cuts.includes(opCut)) opCut = O.site_flag != null && O.cuts.includes(O.site_flag) ? O.site_flag : O.cuts[0];
+    const cell = v => v == null ? "–" : v, u = v => v == null ? "–" : `<span class="${v >= 0 ? "posv" : "neg"}">${v > 0 ? "+" : ""}${v}</span>`;
+    const head = withLine => `<thead><tr><th>Model</th>${withLine ? "<th>Line</th>" : ""}<th>Window</th><th class="r">Games</th><th class="r">ATS, every game</th><th class="r">%</th><th class="r">${opCut}+ edges</th><th class="r">%</th><th class="r">Units</th><th class="r">Totals, every game</th><th class="r">%</th><th class="r">Totals ${opCut}+</th><th class="r">%</th><th class="r">Units</th></tr></thead>`;
+    const row = (r, withLine) => `<tr class="${r.line === "open" ? "on" : ""}"><td><b>${r.model === "full" ? "Sunday" : "Tuesday"}</b></td>${withLine ? `<td>${r.line === "open" ? "opener" : "close"}</td>` : ""}<td>${r.window}</td><td class="r">${r.n}</td><td class="r">${r.ats}</td><td class="r"><b>${cell(r.ats_pct)}</b></td><td class="r">${r.flags}</td><td class="r"><b>${cell(r.flags_pct)}</b></td><td class="r">${u(r.flags_units)}</td><td class="r">${r.totals}</td><td class="r"><b>${cell(r.totals_pct)}</b></td><td class="r">${r.tflags}</td><td class="r"><b>${cell(r.tflags_pct)}</b></td><td class="r">${u(r.tflags_units)}</td></tr>`;
+    const byWin = rows => { const rs = rows.filter(r => r.cut === opCut), ws = [...new Set(rs.map(r => r.window))]; return ws.flatMap(w => rs.filter(r => r.window === w)); };
+    el.innerHTML = `<p class="note">Sunday = the model as it prices the week, injuries and weather in. Tuesday = the same model without the injury report and the kickoff weather. Opener = the first line posted (${O.archive.games} games, ${O.archive.seasons}, an archive), close = the closing line. Units at ${oddsTxt(O.price)}, one unit a bet.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px"><div class="seg" id="opcut"></div></div>
+      <div class="card"><h3>Against the opener and the close</h3><div class="tablewrap" style="max-height:none;border:0;background:none"><table class="bo-t op-t">${head(true)}<tbody>${byWin(O.open).map(r => row(r, true)).join("")}</tbody></table></div></div>
+      <div class="card" style="margin-top:14px"><h3>At the close, every window</h3><div class="tablewrap" style="max-height:none;border:0;background:none"><table class="bo-t op-t">${head(false)}<tbody>${byWin(O.close).map(r => row(r, false)).join("")}</tbody></table></div></div>`;
+    segPick("opcut", O.cuts.map(c => [c, `${c}+ point edges${c === O.site_flag ? " (the flag)" : ""}`]), opCut, k => { opCut = +k; renderOpenerStudy(); });
+  }
   function render() {
     if (tab === "live") return renderLive();
     if (tab === "week") return renderWeek();
@@ -3323,7 +3328,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
     if (tab === "bets") return renderTrack();
     if (tab === "seasonsec") return renderSeason();
-    if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else renderBacktest(); return; }
+    if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else if (sub.results === "opener") renderOpenerStudy(); else renderBacktest(); return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "healthv") renderHealth(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }

@@ -977,6 +977,14 @@ def check_live(rows, wk) -> None:
     tie(f"every unplayed outdoor game inside the forecast window (kickoff up to {WX.USE_WITHIN_DAYS} days ahead or 2 days back) is priced with a kickoff forecast", nofc, [])
     # the live results file (nflmodel/results.py): built this run, its scores the newest saved scoreboard's, its finals
     # nflverse's where nflverse has them, its calls re-graded here from its own scores and closes
+    # the opener study (28 Sep 2026): the page's rows are opener_study.study() on pred_v3, pred_tuesday and the archive, recomputed here
+    try:
+        from . import opener_study as OS
+        os_ = _js("opener_study.js"); rebuilt = OS.study()
+        same = json.dumps(os_.get("open"), sort_keys=True) == json.dumps(rebuilt["open"], sort_keys=True) and json.dumps(os_.get("close"), sort_keys=True) == json.dumps(rebuilt["close"], sort_keys=True)
+        rows.append(("opener_study.js (Backtest -> Opener study) = opener_study.study() recomputed from pred_v3, pred_tuesday and the archive (every row)", "same" if same else "differs", "same", same))
+    except Exception as e:  # noqa
+        rows.append(("opener_study.js (Backtest -> Opener study) rebuilt", str(e)[:80], "built", False))
     try:
         lv = _js("live.js")
         if lv.get("error"):
