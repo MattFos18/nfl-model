@@ -50,7 +50,7 @@ FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "
 MARGIN_RANGE = np.arange(-60, 61)
 
 
-TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_home_cover", "ref_pen", "sun_late",
+TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss", "ref_over", "ref_tot", "ref_home_cover", "ref_pen", "sun_late",
                "body_clock_early", "cold_edge", "wind_edge", "off_home_split", "off_starters_out", "def_starters_out", "qb_out",
                "rain", "snow", "travel_miles", "tz_shift", "ol_out", "off_snap_out", "def_snap_out", "off_continuity", "def_continuity"]
 
@@ -58,11 +58,11 @@ TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss",
 def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     """Merge the as-of trend and injury table (trends.py) onto the feature table; missing values become 0 / league."""
     t = pd.read_parquet(OUT / "trends_asof.parquet")
-    t = t[["game_id", "team"] + TREND_FEATS]
+    t = t[["game_id", "team"] + [c for c in TREND_FEATS if c in t.columns]]   # a column the table predates is filled below (28 Sep 2026: ref_tot)
     f = f.merge(t, on=["game_id", "team"], how="left")
     fill = {"ref_over": 0.5, "ref_home_cover": 0.5, "off_continuity": 0.83, "def_continuity": 0.83}   # continuity: league-typical share when unknown
     for c in TREND_FEATS:
-        f[c] = f[c].fillna(fill.get(c, 0.0))
+        f[c] = f[c].fillna(fill.get(c, 0.0)) if c in f.columns else fill.get(c, 0.0)
     f["home_edge_in_play"] = f.team_home_edge * f.home            # own edge counts only at home
     # player model: value lost to skill players listed out (players.py), own offense and the opponent's
     pi = OUT / "player_injury.parquet"
@@ -308,7 +308,7 @@ def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
                          "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
                          "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
                          "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
-                         "qb_form_sum": ((h.loc[ids, "qb_form"] + a.loc[ids, "qb_form"]).values if "qb_form" in h.columns else np.zeros(len(ids))), "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
+                         "qb_form_sum": ((h.loc[ids, "qb_form"] + a.loc[ids, "qb_form"]).values if "qb_form" in h.columns else np.zeros(len(ids))), "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "ref_tot": (h.loc[ids, "ref_tot"].values if "ref_tot" in h.columns else np.zeros(len(ids))), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
                          "div_game": h.loc[ids, "div_game"].values, "skill_out_sum": (h.loc[ids, "skill_out_value"] + a.loc[ids, "skill_out_value"]).values,
                          "snap_out_sum": (h.loc[ids, "off_snap_out"] + a.loc[ids, "off_snap_out"]).values,
                          "turnover_early_sum": (h.loc[ids, "off_turnover_early"] + a.loc[ids, "off_turnover_early"]).values}, index=ids)

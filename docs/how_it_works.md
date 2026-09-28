@@ -2204,3 +2204,31 @@ at least two of three. The slower fade (x1.0) wins more flags on two windows but
 passes the every-window rule; the live setting stays. A 1-2 team rated 7th is the rating reading EPA a play, not the
 record: it moves as the season's games accumulate (this season's share of the weight is about 38% after two games,
 60% after four, 79% after eight; §80 of the decision log).
+
+## 46. No market input in any projection; the QB swap on the injury report; the pages pared again (28 Sep 2026)
+
+**No line anywhere in a projection.** Matt: "I never use Vegas lines for anything that helps my projections, right?"
+An audit of every projection path: the game model's inputs carry no line (model.FEATS); the season simulation and the
+player season totals carry none; the bet rules, the edge bands, the teaser calibration, the opener study and the
+tracker read lines only to grade and to pick bets. Two places did read the market:
+
+1. The player props' game script (the team's expected plays: favourites run more, high totals add pass plays) and
+   the kicker's implied total read the closing spread and total. They now read the game model's own margin and
+   total (nflmodel/props.py; round 6 had found the model's margin in place of the line changed nothing).
+2. The total equation's referee input, ref_over, is the referee's over rate against the closing total in his
+   previous games (adopted 25 Sep 2026). A line-free version, ref_tot (each previous game's total minus the league's
+   mean total of the season before, averaged and shrunk; nflmodel/trends.py), is under test against it and against no
+   referee input at all (`experiments/ref_noline.py`, reports/ref_noline.csv); the outcome goes in the decision log.
+
+**The starting QB on the injury report.** A starter listed Out showed only his snaps-out points (Caleb Williams
+-0.2) while the swap to the backup sat in Score projection's Quarterback line. His row now carries the swap too:
+the backup's QB rating minus his own, times the rating's points per unit, plus the QB-out term, from the same QB
+rater the features used (export_web._add_injuries, shown only when that rater reproduces the priced starter's
+rating). The team's points lost to injuries counts it.
+
+**Pages.** Season -> Player totals: one rank (within the filter shown), fixed columns whatever the position, This
+season / Projected / TD / Projected TD / Last season / Last TD, no books column (empty everywhere) and no badges
+(the cards above carry them). Rankings: no captions under the matchup, the scatter and the power rating, no
+footnote. No table scrolls vertically anywhere (the rankings, the season team odds). Picks: the flagged bets'
+record is one chip beside the week picker. The scheme players table's look headers carry the defense's usage;
+Fit vs the defense's looks and Past vs the defense are spelt out, the games too.

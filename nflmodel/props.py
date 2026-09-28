@@ -798,16 +798,20 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025, run walk-forward with league averages as of each game (reports/props_by_season.csv)")}
     rows = []
     for g in wk.itertuples():
-        sp = None if pd.isna(g.spread_line) else float(g.spread_line)   # nflverse: positive when the home team is favoured
         wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
         mk = closing(plog, g.game_id) if len(plog) else None
         ha = (float(xp.loc[g.game_id, "home_exp"]), float(xp.loc[g.game_id, "away_exp"])) if g.game_id in xp.index else (None, None)
+        # the game script and the kicker's total read the game model's own margin and total, never the book's line
+        # (28 Sep 2026, Matt: no market input anywhere in a projection; round 6 had found the model's margin in place
+        # of the closing line changed nothing). Home side's margin, positive when the home team is favoured; a game
+        # the model has not priced counts as zero, as a missing line did in the backtest.
+        sp = None if ha[0] is None else ha[0] - ha[1]; mt = None if ha[0] is None else ha[0] + ha[1]
         aq = g.away_qb_id if isinstance(g.away_qb_id, str) else None; hq = g.home_qb_id if isinstance(g.home_qb_id, str) else None   # nflverse names the starters for played games and the coming week
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, g.total_line, wd, mk, ha[1], VS, aq, SN), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, g.total_line, wd, mk, ha[0], VS, hq, SN)}
-        out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, g.total_line, mk, VS)
-        out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, g.total_line, mk, VS)
-        out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, g.total_line, mk)
-        out["games"][g.game_id][g.home_team]["kicker"] = project_kicker(g.home_team, KK, roster, sp, g.total_line, mk)
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, mt, wd, mk, ha[1], VS, aq, SN), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, mt, wd, mk, ha[0], VS, hq, SN)}
+        out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, mt, mk, VS)
+        out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, mt, mk, VS)
+        out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, mt, mk)
+        out["games"][g.game_id][g.home_team]["kicker"] = project_kicker(g.home_team, KK, roster, sp, mt, mk)
         for team in (g.away_team, g.home_team):   # the line snapshot the game script read (lines.latest), beside the margin and total it used
             out["games"][g.game_id][team]["volume"]["line_ts"] = (None if backfill or pd.isna(g.line_ts) else str(g.line_ts)) if "line_ts" in wk.columns else None
         if mk is not None and len(mk):   # the book's lines on anyone not listed above (kickers, players without a profile), by team where the roster says

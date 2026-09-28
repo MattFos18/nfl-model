@@ -622,7 +622,7 @@ INJ_REPORT = ("Out", "Doubtful", "Questionable")
 PRICED = ("Out", "Doubtful")   # the model counts Out and Doubtful on the report and the reserve lists; Questionable plays
 
 
-def _add_injuries(wk: list, cur_week: int) -> None:
+def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> None:
     """Each side's injury report for the week (26 Sep 2026, for the weekly report): everyone Out, Doubtful or Questionable
     on the league's report, and anyone on a reserve list who played last game or went on it this week, with his share of
     last game's snaps and what the model's equation takes off the spread for him: his offensive snaps times the snaps-out
@@ -633,6 +633,15 @@ def _add_injuries(wk: list, cur_week: int) -> None:
     if not rnf.exists():
         return
     rn = pd.read_parquet(rnf)
+    # the starting QB listed Out is priced through the quarterback inputs, not the snaps-out line (28 Sep 2026, Matt: "how is
+    # Caleb Williams only -0.2"): his row also carries the swap, the backup's rating minus his own times the rating's points
+    # per unit, plus the QB-out term, from the same QB rater the features used (ratings.QBRatings, live settings); shown
+    # only when the rater reproduces the priced starter's rating to 1e-4, so the card's number is the equation's
+    qbr = None
+    qbg = OUT / "qb_games.parquet"
+    if cur_season is not None and qbg.exists():
+        from . import ratings as RT
+        pr = RT.DEFAULT; qbr = RT.QBRatings(pd.read_parquet(qbg), pr["qb_k"], pr["qb_decay"], pr.get("qb_prior", -0.12), pr.get("qb_season_fade", 1.0))
     # a played game keeps the report as it stood at the last export before it was scored (28 Sep 2026, Matt: the injury report
     # stays on the card after the game); data/runs/injury_reports.json holds each game's last pre-score report
     cache_f = OUT.parent / "runs" / "injury_reports.json"
@@ -661,9 +670,17 @@ def _add_injuries(wk: list, cur_week: int) -> None:
                 off, dfn, v = float(p.off_pct or 0) if pd.notna(p.off_pct) else 0.0, float(p.def_pct or 0) if pd.notna(p.def_pct) else 0.0, float(skill.get(p.name, 0.0))
                 own = (co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * v) if priced else 0.0
                 opp = (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * v) if priced else 0.0
-                rows.append({"name": p.name, "pos": p.position, "status": p.report or p.roster, "injury": clean(p.injury) or clean(p.why) or "",
-                             "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
-                             "back": clean(p.back)})
+                row = {"name": p.name, "pos": p.position, "status": p.report or p.roster, "injury": clean(p.injury) or clean(p.why) or "",
+                       "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
+                       "back": clean(p.back)}
+                if qbr is not None and priced and p.position == "QB" and sd.get("qb_out") and sd.get("qb_rating") is not None and sd.get("qb_name") and p.name != sd.get("qb_name") and isinstance(p.player_id, str):
+                    st = r[r.name == sd["qb_name"]]
+                    if len(st) and isinstance(st.iloc[0].player_id, str):
+                        priced_r = qbr.rating(st.iloc[0].player_id, cur_season, cur_week); his = qbr.rating(p.player_id, cur_season, cur_week)
+                        if abs(priced_r - float(sd["qb_rating"])) < 1e-4:
+                            row["qb_pts"] = round(co.get("qb_rating", 0) * (priced_r - his) + co.get("qb_out", 0) * float(sd.get("qb_out") or 0), 3)
+                            row["qb_swap"] = {"to": sd["qb_name"], "his_rating": round(his, 4), "to_rating": round(priced_r, 4)}
+                rows.append(row)
             sd["injuries"] = sorted(rows, key=lambda x: (not x["priced"], x["spread_pts"], x["name"]))
             cache.setdefault(g["game_id"], {})[tm] = sd["injuries"]   # the last pre-score report, for the card after the game
     keep_ids = {g["game_id"] for g in wk}
@@ -764,7 +781,7 @@ def export_week(feats=None, games=None, pred=None):
                        "bet_recorded": rec["bet"].get(r.game_id, []), "shadowunder_recorded": rec["shadowunder"].get(r.game_id, []),
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
-        _add_injuries(wk, cur_week)
+        _add_injuries(wk, cur_week, cur_season)
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
         cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         cal_h = P.home_calibration(pred, games.reset_index(), cur_season)   # the home win calibration the cards' win chance used (27 Sep 2026; the tie check rebuilds each card's p_home_cal with it)
