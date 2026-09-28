@@ -23,26 +23,19 @@ jobs:
           python - <<'PY'
           import glob, json, requests, pathlib
           out = pathlib.Path("data/results/dev_summary"); out.mkdir(parents=True, exist_ok=True)
-          H = {"User-Agent": "Mozilla/5.0"}
-          n = 0
-          for f in sorted(glob.glob("data/results/scoreboard_*.json")):
-              j = json.load(open(f))
-              for ev in j.get("events", []):
-                  st = (ev.get("status") or {}).get("type") or {}
-                  if st.get("state") == "pre" and n > 0: continue
-                  eid = ev["id"]
-                  for url in [f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={eid}",
-                              f"https://cdn.espn.com/core/nfl/playbyplay?xhr=1&gameId={eid}"]:
-                      try:
-                          r = requests.get(url, headers=H, timeout=30); r.raise_for_status()
-                          tag = "summary" if "summary?" in url else "pbp"
-                          (out / f"{tag}_{eid}.json").write_text(r.text)
-                          print(tag, eid, len(r.text), "keys:", list(r.json().keys())[:30])
-                      except Exception as e:
-                          print("FAILED", url, e)
-                  n += 1
-                  if n >= 6: break
-              if n >= 6: break
+          H = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
+               "Accept": "application/json, text/plain, */*", "Accept-Language": "en-US,en;q=0.9", "Referer": "https://www.espn.com/"}
+          for eid in ["401872948", "401872963"]:
+              for tag, url in [("summary", f"https://site.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={eid}"),
+                               ("summary2", f"https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/summary?event={eid}"),
+                               ("game", f"https://cdn.espn.com/core/nfl/game?xhr=1&gameId={eid}"),
+                               ("wp", f"https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/events/{eid}/competitions/{eid}/probabilities?limit=1000")]:
+                  try:
+                      r = requests.get(url, headers=H, timeout=30); r.raise_for_status()
+                      (out / f"{tag}_{eid}.json").write_text(r.text)
+                      j = r.json(); print(tag, eid, len(r.text), "keys:", list(j.keys())[:30], "wp:", len((j.get("gamepackageJSON") or j).get("winprobability") or j.get("items") or []))
+                  except Exception as e:
+                      print("FAILED", tag, url, e)
           PY
       - name: commit
         run: |
