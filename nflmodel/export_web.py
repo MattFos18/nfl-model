@@ -633,10 +633,18 @@ def _add_injuries(wk: list, cur_week: int) -> None:
     if not rnf.exists():
         return
     rn = pd.read_parquet(rnf)
+    # a played game keeps the report as it stood at the last export before it was scored (28 Sep 2026, Matt: the injury report
+    # stays on the card after the game); data/runs/injury_reports.json holds each game's last pre-score report
+    cache_f = OUT.parent / "runs" / "injury_reports.json"
+    cache = json.loads(cache_f.read_text()) if cache_f.exists() else {}
     for g in wk:
         co = (g.get("coefs") or {}).get("per_unit") or {}
         teams = [g["home_team"], g["away_team"]]
-        if g.get("home_score") is not None:   # played: today's roster is not the one the game was priced with
+        if g.get("home_score") is not None:   # played: today's roster is not the one the game was priced with; the cached report stands
+            for tm in teams:
+                sd = (g.get("sides") or {}).get(tm)
+                if sd is not None and tm in (cache.get(g["game_id"]) or {}):
+                    sd["injuries"] = cache[g["game_id"]][tm]
             continue
         for tm in teams:
             sd = (g.get("sides") or {}).get(tm)
@@ -657,6 +665,10 @@ def _add_injuries(wk: list, cur_week: int) -> None:
                              "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
                              "back": clean(p.back)})
             sd["injuries"] = sorted(rows, key=lambda x: (not x["priced"], x["spread_pts"], x["name"]))
+            cache.setdefault(g["game_id"], {})[tm] = sd["injuries"]   # the last pre-score report, for the card after the game
+    keep_ids = {g["game_id"] for g in wk}
+    cache = {k: v for k, v in cache.items() if k in keep_ids}   # the week's games alone
+    cache_f.parent.mkdir(parents=True, exist_ok=True); cache_f.write_text(json.dumps(cache, separators=(",", ":"), default=clean))
 
 
 def pack_rows(d: dict) -> dict:
