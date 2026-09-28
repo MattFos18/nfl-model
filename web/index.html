@@ -502,6 +502,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="card"><h3>Every game</h3><div class="row"><label class="ctl">Seasons <select id="bkseason"></select></label></div><div id="bksummary"></div><div class="tablewrap" style=""><table id="bktable"></table></div></div>
     </details>
   </div>
+    <div class="card" style="margin-top:14px"><h3>Is the edge real? Luck, staking and the cover odds</h3><p class="note" id="legitnote"></p>
+      <div class="tablewrap"><table id="legitsize"></table></div>
+      <h3 style="margin-top:14px">By season, one unit a bet</h3><div class="tablewrap"><table id="legitseasons"></table></div>
+      <h3 style="margin-top:14px">The cover odds on the cards against what happened</h3><p class="note">Every game with a line, the calibrated chance for the model's side in bands (walk-forward: each season's fit uses only the seasons before it), and how often that side covered.</p><div class="tablewrap"><table id="legitcal"></table></div>
+      <h3 style="margin-top:14px">Which seasons the cover odds learn from</h3><div class="tablewrap"><table id="legitstart"></table></div>
+    </div>
+
   <div id="props" hidden>
     <p class="note" id="pbnote"></p>
     <div class="row"><label class="ctl">Stat <select id="pbstat"></select></label></div>
@@ -561,20 +568,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 
 <section class="tab" id="bets" hidden>
   <div id="betslive">
-  <p class="note">Model picks (flagged at the thresholds, at the best number) and your bets, graded against results. CLV = the line recorded minus the closing line, from the bet's side; positive beat the close. Rules compared, below, grades the shadow rules on the same games without betting them, next to each rule's backtest record. Your bets go in data/tracker/my_bets.csv: game_id, bet (KC -3, Over 47.5, MIA ML), odds, stake, and a note with your read on the game, so your judgment gets graded next to the model's.</p>
+  <div class="lv-tiles" id="rectiles"></div>
   <div class="grid2e">
+    <div class="card" style="grid-column:1 / -1"><h3>By week</h3><div class="tablewrap ro"><table id="recweeks" class="rgt"></table></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>This week, live</h3><div id="liveweek"></div></div>
     <div class="card"><h3>Model picks</h3><div id="trackmodel"></div></div>
     <div class="card"><h3>Matt's bets</h3><div id="trackmatt"></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules compared</h3><div id="trackrules"></div></div>
-    <div class="card" style="grid-column:1 / -1"><h3>Is the edge real? Luck, staking and the cover odds</h3><p class="note" id="legitnote"></p>
-      <div class="tablewrap"><table id="legitsize"></table></div>
-      <h3 style="margin-top:14px">By season, one unit a bet</h3><div class="tablewrap"><table id="legitseasons"></table></div>
-      <h3 style="margin-top:14px">The cover odds on the cards against what happened</h3><p class="note">Every game with a line, the calibrated chance for the model's side in bands (walk-forward: each season's fit uses only the seasons before it), and how often that side covered.</p><div class="tablewrap"><table id="legitcal"></table></div>
-      <h3 style="margin-top:14px">Which seasons the cover odds learn from</h3><div class="tablewrap"><table id="legitstart"></table></div>
-    </div>
   </div>
-  <div class="tablewrap" style="margin-top:14px"><table id="tracktable"></table></div>
+  <div class="card" style="margin-top:14px"><h3>Every recorded bet</h3><div class="tablewrap" style="border:0"><table id="tracktable"></table></div></div>
   </div>
 </section>
 
@@ -1105,7 +1107,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const st = v => v.status === "final" ? `<b>Final</b> ${v.away_team} ${v.away_score}, ${v.home_team} ${v.home_score}` : v.status === "in_progress" ? `<span class="badge live">${esc(v.detail || "live")}</span> ${v.away_team} ${v.away_score}, ${v.home_team} ${v.home_score}` : esc(v.detail || "scheduled");
     const call = (c, f) => c ? `${f(c)}${c.result ? " " + resMark(c.result) : ""}` : "";
     const bets = Object.entries(R.bets || {}).map(([w, b]) => `<b>${w === "matt" ? "Your bets" : w === "model" ? "Model bets" : esc(w)}</b><span>${b.text}${b.n > b.w + b.l + b.p ? ` (${b.n - b.w - b.l - b.p} open)` : ""}${b.w + b.l ? `, ${sgn(b.units, 2)} units` : ""}</span>`).join("");
-    el.innerHTML = `<p class="note">Scores from the ESPN scoreboard every line watch (as of ${esc(L.checked)}), graded at the closing line against the model's numbers from its last run before kickoff; nflverse's official scores replace them on the weekly run, and the tie check fails if the two disagree. Every game is graded on the model's side, flagged or not.</p>
+    el.innerHTML = `
       <div class="kv"><b>Week ${R.week}</b><span>${R.finals} of ${R.games} final${R.in_progress ? `, ${R.in_progress} in progress` : ""}</span><b>Model side, spread</b><span>${R.spread.text}</span><b>Total</b><span>${R.total.text}</span><b>Winner</b><span>${R.winner.text}</span>${bets}</div>
       <div class="tablewrap"><table><thead><tr><th class="l">Game</th><th class="l">Score</th><th class="l" title="the model's side at the close, from its last run before kickoff">Spread call</th><th class="l">Total call</th><th class="l">Winner</th><th class="l">Bets</th><th class="l" title="the model's spread and total as priced before kickoff, and the run">Priced</th><th class="l">Close</th></tr></thead><tbody>` +
       G.map(([gid, v]) => { const C = v.calls || {}, P = v.priced || {}, CL = v.close || {};
@@ -2890,8 +2892,30 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const cs = L.cal_start || [];
     $("legitstart").innerHTML = cs.length ? `<thead><tr><th class="l">Fit on</th><th title="stated odds at an edge of 4 and 6, 2026">Odds at 4 / 6</th><th>Log loss, all games 2020-22</th><th>2023-25</th><th>Log loss, flags 2020-22</th><th>2023-25</th><th>Flags said / won 2023-25</th><th class="l">Verdict</th></tr></thead><tbody>` + cs.map(r => `<tr><td class="l">${esc(r.variant)}</td><td class="mono">${(100 * r.odds_at_4).toFixed(1)}% / ${(100 * r.odds_at_6).toFixed(1)}%</td><td class="mono">${r["logloss_all_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_all_2023-25"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2023-25"].toFixed(4)}</td><td class="mono">${(100 * r["flags_said_2023-25"]).toFixed(0)}% / ${(100 * r["flags_won_2023-25"]).toFixed(0)}%</td><td class="l">${esc(r.verdict)}</td></tr>`).join("") + "</tbody>" : "";
   }
+  // the season so far, week by week: every game's spread, total and winner call graded on the model's side (Python's grade for a
+  // final, the backtest's rows for a past week), the flagged bets (every BET badge) and their units from the tracker (28 Sep 2026, Matt)
+  function weekRecord(gs, season, week) {
+    const RS = gs.map(gameReadings), rec = k => { const r = RS.map(R => R[k] && R[k].result).filter(Boolean); return {w: r.filter(x => x === "win").length, l: r.filter(x => x === "loss").length, p: r.filter(x => x === "push").length, n: r.length}; };
+    const legs = RS.flatMap(R => ["spread", "total"].map(k => R[k]).filter(x => x && x.bet && x.result));
+    const bets = {w: legs.filter(x => x.result === "win").length, l: legs.filter(x => x.result === "loss").length, p: legs.filter(x => x.result === "push").length, n: legs.length};
+    const T = (window.TRACK || []).filter(r => r.season === season && r.week === week && (r.who === "model" || r.who === "shadowunder") && ["win", "loss", "push"].includes(r.result));
+    return {season, week, n: gs.length, fin: RS.filter(R => R.final).length, spread: rec("spread"), total: rec("total"), win: rec("win"), bets, units: T.reduce((a, r) => a + (r.units || 0), 0), graded: T.length};
+  }
+  const recTxt = r => r.n ? `${r.w}-${r.l}${r.p ? "-" + r.p : ""}` : "–";
+  const recSum = rs => rs.reduce((a, r) => ({w: a.w + r.w, l: a.l + r.l, p: a.p + r.p, n: a.n + r.n}), {w: 0, l: 0, p: 0, n: 0});
+  function renderRecord() {
+    const W = window.WEEK || {}, B = window.BACKTEST; if (!W.games || !B) { $("rectiles").innerHTML = ""; $("recweeks").innerHTML = ""; return; }
+    const wi = B.cols.indexOf("week"), si = B.cols.indexOf("season"), gi = B.cols.indexOf("game_type");
+    const weeks = [...new Set(B.rows.filter(r => r[si] === W.season && r[gi] === "REG").map(r => r[wi]).concat([W.week]))].sort((a, b) => a - b);
+    const rows = weeks.map(w => weekRecord(w === W.week ? W.games : weekGames(W.season, w), W.season, w)).filter(r => r.fin);
+    const lvRec = r => `<span class="lv-w">${r.w}</span><span class="lv-sep">-</span><span class="lv-l">${r.l}</span>${r.p ? `<span class="lv-sep">-</span><span class="lv-p">${r.p}</span>` : ""}`;
+    const tile = (lab, val, sub) => `<div class="lv-tile"><div class="lv-tl">${lab}</div><div class="lv-tv">${val}</div>${sub ? `<div class="lv-ts">${sub}</div>` : ""}</div>`;
+    const S = {spread: recSum(rows.map(r => r.spread)), total: recSum(rows.map(r => r.total)), win: recSum(rows.map(r => r.win)), bets: recSum(rows.map(r => r.bets))}, units = rows.reduce((a, r) => a + r.units, 0), fin = rows.reduce((a, r) => a + r.fin, 0);
+    $("rectiles").innerHTML = rows.length ? `${tile(String(W.season), `Week ${rows[rows.length - 1].week}`, `${fin} games final`)}${tile("Flagged bets", lvRec(S.bets), `${units > 0 ? "+" : ""}${units.toFixed(2)} units`)}${tile("Spreads", lvRec(S.spread), "the model's side, every game")}${tile("Totals", lvRec(S.total), "the model's side, every game")}${tile("Winners", lvRec(S.win), "every game")}` : "";
+    $("recweeks").innerHTML = rows.length ? `<thead><tr><th>Week</th><th>Final</th><th>Flagged bets</th><th>Units</th><th>Spreads</th><th>Totals</th><th>Winners</th></tr></thead><tbody>${rows.map(r => `<tr><td><b>Week ${r.week}</b></td><td>${r.fin} of ${r.n}</td><td><b>${recTxt(r.bets)}</b></td><td class="${r.units > 0 ? "posv" : r.units < 0 ? "neg" : ""}">${r.graded ? (r.units > 0 ? "+" : "") + r.units.toFixed(2) : "–"}</td><td>${recTxt(r.spread)}</td><td>${recTxt(r.total)}</td><td>${recTxt(r.win)}</td></tr>`).join("")}<tr class="sum"><td>Season</td><td>${fin}</td><td><b>${recTxt(S.bets)}</b></td><td class="${units > 0 ? "posv" : units < 0 ? "neg" : ""}">${(units > 0 ? "+" : "") + units.toFixed(2)}</td><td>${recTxt(S.spread)}</td><td>${recTxt(S.total)}</td><td>${recTxt(S.win)}</td></tr></tbody>` : "<tbody><tr><td>No game final yet this season.</td></tr></tbody>";
+  }
   function renderTrack() {
-    renderLegit(); renderLiveWeek();
+    renderRecord(); renderLiveWeek();
     const T = window.TRACK || [];
     $("trackmodel").innerHTML = trackSummary(T.filter(r => r.who === "model"));
     $("trackmatt").innerHTML = trackSummary(T.filter(r => r.who === "matt"));
@@ -2901,7 +2925,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const ruleRow = rr => { const x = T.filter(r => r.who === rr.rule); const st = x.filter(r => ["win", "loss", "push"].includes(r.result)); const w = st.filter(r => r.result === "win").length, l = st.filter(r => r.result === "loss").length, p = st.filter(r => r.result === "push").length;
       const u = st.reduce((a, r) => a + (r.units || 0), 0); const c = x.map(r => (r.clv != null && !isNaN(r.clv)) ? r.clv : ((r.clv_now != null && !isNaN(r.clv_now)) ? r.clv_now : null)).filter(v => v != null); const avg = c.length ? c.reduce((a, v) => a + v, 0) / c.length : null;
       return `<tr><td class="l">${labOf(rr)}</td><td class="mono">${x.length}</td><td class="mono">${st.length ? `${w}-${l}${p ? "-" + p : ""}${w + l ? ` (${(100 * w / (w + l)).toFixed(0)}%)` : ""}` : "nothing settled"}</td><td class="mono ${u > 0 ? "pos" : (u < 0 ? "neg" : "")}">${st.length ? sgn(u, 2) : ""}</td><td class="mono">${avg == null ? "" : (avg > 0 ? "+" : "") + avg.toFixed(2)}</td>${WINS.map(wn => `<td class="mono rk">${nz(rr[wn.key])}</td>`).join("")}</tr>`; };
-    $("trackrules").innerHTML = RR.length ? `<p class="note">The flag is bet. The shadows are logged and graded on the same games but never bet, so the rule is chosen on live results, not on the backtest that produced the candidates. The right-hand columns are each rule's backtest record (regular season, weeks 1 to ${nz(LASTWK)}; nflmodel/picks.py) on the ${WINS.map(w => w.label).join(", ")} windows. Decision in January 2027.</p><div class="tablewrap"><table><thead><tr><th class='grp'></th><th class='grp' colspan='4'>Live, ${nz(CUR_SEASON)}</th><th class='grp' colspan='${WINS.length}'>Backtest</th></tr><tr><th class='l'>Rule</th><th>Bets</th><th>Record</th><th>Units</th><th title="closing line value; the latest logged line stands in until a game kicks off">Avg CLV</th>${WINS.map(w => `<th title="${w.label}">${w.from} to ${w.to}</th>`).join("")}</tr></thead><tbody>${RR.map(ruleRow).join("")}</tbody></table></div>`
+    $("trackrules").innerHTML = RR.length ? `<div class="tablewrap" title="the flag is bet; the shadows are logged and graded on the same games but never bet; the right-hand columns are each rule's backtest record on the three windows (nflmodel/picks.py)"><table><thead><tr><th class='grp'></th><th class='grp' colspan='4'>Live, ${nz(CUR_SEASON)}</th><th class='grp' colspan='${WINS.length}'>Backtest</th></tr><tr><th class='l'>Rule</th><th>Bets</th><th>Record</th><th>Units</th><th title="closing line value; the latest logged line stands in until a game kicks off">Avg CLV</th>${WINS.map(w => `<th title="${w.label}">${w.from} to ${w.to}</th>`).join("")}</tr></thead><tbody>${RR.map(ruleRow).join("")}</tbody></table></div>`
       : `<p class="note">The rules and their backtest records are ${MISSING} in meta.js.</p>`;
     let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th class='l'>Book</th><th>Odds</th><th>Stake</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Note</th><th class='l'>Recorded</th></tr></thead><tbody>";
     T.filter(r => r.who === "model" || r.who === "matt").slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who === "matt" ? "You" : "Model"}</td><td>${r.season ?? ""}</td><td>${r.week ?? ""}</td><td class="l mono">${r.game_id}</td><td class="l"><b>${esc(r.bet)}</b></td><td class="l">${esc(r.book || "")}</td><td class="mono">${r.odds ?? ""}</td><td class="mono">${ok(r.stake_pct) ? Number(r.stake_pct).toFixed(1) + "%" : ""}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono ${ok(r.clv) ? (r.clv > 0 ? "pos" : (r.clv < 0 ? "neg" : "")) : ""}">${ok(r.clv) ? (r.clv > 0 ? "+" : "") + Number(r.clv).toFixed(1) : (ok(r.clv_now) ? `<span class="rk" title="against the latest logged line; the close is known once the game kicks off">${(r.clv_now > 0 ? "+" : "") + Number(r.clv_now).toFixed(1)} so far</span>` : "")}</td><td class="l">${esc(r.result || "")}</td><td class="mono ${ok(r.units) ? (r.units > 0 ? "pos" : (r.units < 0 ? "neg" : "")) : ""}">${ok(r.units) ? Number(r.units).toFixed(2) : ""}</td><td class="l" style="white-space:normal;max-width:320px">${esc(r.note || "")}</td><td class="l rk">${esc(r.run_at || "")}</td></tr>`; });
@@ -3345,7 +3369,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
     if (tab === "bets") return renderTrack();
     if (tab === "seasonsec") return renderSeason();
-    if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else if (sub.results === "opener") renderOpenerStudy(); else renderBacktest(); return; }
+    if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else if (sub.results === "opener") renderOpenerStudy(); else { renderBacktest(); renderLegit(); } return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "analysis") renderAnalysis(); if (s === "inputsx") renderInputsX(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "dict") renderDict(); if (s === "log") renderLog(); if (s === "healthv") renderHealth(); if (s === "catalog") renderCatalog(); if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
     if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }

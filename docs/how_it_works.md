@@ -2235,3 +2235,12 @@ season / Projected / TD / Projected TD / Last season / Last TD, no books column 
 footnote. No table scrolls vertically anywhere (the rankings, the season team odds). Picks: the flagged bets'
 record is one chip beside the week picker. The scheme players table's look headers carry the defense's usage;
 Fit vs the defense's looks and Past vs the defense are spelt out, the games too.
+
+**The Bets tab as a record (28 Sep 2026).** Matt: "just have it keep track of everything historically and going
+forward". The tab now holds only records: season tiles (flagged bets and units, the model's side on every spread,
+total and winner), a week-by-week table of the same, this week live, the model's picks and Matt's bets, the rules
+compared (live against the backtest) and every recorded bet. The edge study (luck, staking, the cover odds and which
+seasons they learn from) moved to Backtest -> Game picks, under the rest; nothing was deleted. The week rows grade
+each game on the model's side from Python's grade of a final (the live results file) or the backtest's row for a
+past week; the units are the tracker's.
+
