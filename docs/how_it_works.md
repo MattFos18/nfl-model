@@ -342,7 +342,7 @@ tie check on every run; the live table carries the same columns):
 | 4.5+ edge | 43-36 | 52-37 | 25-15 |
 | 4+ edge, model's side the underdog or pick'em | 51-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
-| boosted trees alone, 5+ edge | 94-66 | 84-60 | 34-17 |
+| boosted trees alone, 5+ edge | 96-68 | 84-60 | 35-17 |
 | Under, 55%+ chance (the totals flag) | 145-124 | 190-146 | 76-62 |
 <!-- /auto:rules -->
 
@@ -628,15 +628,15 @@ the every-game cover rate on the model's side, and the 4-point flag:
 <!-- auto:byweek -->
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | -0.01 | 53% | 18-9 (67%) |
+| 1 | 175 | -0.02 | 53% | 18-9 (67%) |
 | 2 | 176 | -0.14 | 59% | 17-7 (71%) |
 | 3 | 176 | +0.08 | 53% | 14-8 (64%) |
-| 4 | 171 | +0.24 | 50% | 12-5 (71%) |
+| 4 | 171 | +0.23 | 50% | 12-5 (71%) |
 | 5 to 8 | 632 | +0.15 | 51% | 43-32 (57%) |
 | 9 to 13 | 793 | +0.16 | 49% | 51-33 (61%) |
 | 14 to 17 | 692 | +0.19 | 51% | 34-33 (51%) |
 | 18 | 80 | +0.50 | 59% | 7-8 (47%) |
-| Playoffs | 133 | +0.30 | 47% | 7-5 (58%) |
+| Playoffs | 133 | +0.30 | 47% | 6-5 (55%) |
 <!-- /auto:byweek -->
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
@@ -1477,8 +1477,8 @@ closing line and -110:
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
 | 2016-18 (never used to choose) | 40-39 | -2.6 | 14.4 | -12.1% | 66% |
-| 2019-22 (the threshold was chosen here) | 80-51 | +21.7 | 12.4 | +19.4% | 2.8% |
-| 2023-25 (held out) | 40-21 | +15.4 | 5.0 | +17.6% | 2.6% |
+| 2019-22 (the threshold was chosen here) | 80-51 | +21.7 | 12.4 | +21.3% | 2.8% |
+| 2023-25 (held out) | 40-21 | +15.4 | 5.0 | +18.2% | 2.6% |
 <!-- /auto:sizing -->
 
 The table is rewritten from `reports/sizing_backtest.csv` on every run. The held-out and tuning records are
