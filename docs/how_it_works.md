@@ -2026,3 +2026,15 @@ close, so the live grade is the grade the tracker gives later. The page displays
 top line carries the live score or the final with the three calls marked, the week tiles a running record, the Bets
 tab a "This week, live" table, the report the final. Two ties guard it: where nflverse already has a score it must
 equal ESPN's, and every final's calls are re-graded by the tie check from the file's own scores and closes.
+
+## 42. Live, and the page on GitHub Pages (27 Sep 2026)
+
+The Week tab opens with a Live strip: every game of the week as ESPN's scoreboard has it, the score, the clock, who has
+the ball and where, the last play, ESPN's own live win chance beside the model's pregame one, the quarter scores, and
+for a final the three calls marked. It is display, not pricing: the graded numbers are Python's from `live.js`
+(section 41); the raw fields come from `results.parse` (the line watch, every 30 minutes) and, where the host lets the
+page fetch, from ESPN itself every 45 seconds while a game is on. The claude.ai page cannot fetch outside its frame, so
+there the strip is as fresh as the last publish. The same `web/` folder is therefore published to GitHub Pages by
+`.github/workflows/pages.yml` on every commit that changes it (the repository is public, so it costs nothing and needs
+no publish step): that copy follows the line watch on its own and its Live strip refreshes itself. Pages has to be
+switched on once in the repository settings (Source: GitHub Actions).

@@ -5,7 +5,9 @@ then the page showed a finished game as unplayed. Every line-watch run:
   1. fetch the ESPN scoreboard for every week with an unplayed game that has kicked off or kicks off within a day
      (the picks week is the next one by Monday, so the Monday night final is in a week the line watch no longer
      pulls), saved to data/results/scoreboard_<season>_wk<week>.json; without network the saved files stand
-  2. one row per game: status (scheduled, in progress, final), the clock, the score
+  2. one row per game: status (scheduled, in progress, final), the clock, the score; while a game is on, the situation
+     ESPN carries (possession, down and distance, the last play, its live win chance, quarter scores, leaders) for the
+     page's Live strip, displayed as ESPN's and never priced
   3. a final is graded against the model's numbers from the last run before kickoff (data/runs/pred_history.csv)
      and the closing line (the newest lines-log snapshot before kickoff; the schedule's line when none was logged):
      the model's side of the spread and of the total, its winner; the logged bets (the flag, the shadow rules,
@@ -82,10 +84,12 @@ def parse(j: dict, season: int, week: int) -> pd.DataFrame:
     for ev in (j or {}).get("events", []):
         comp = (ev.get("competitions") or [{}])[0]
         st = (comp.get("status") or ev.get("status") or {}); ty = st.get("type") or {}
-        home = away = None; hs = as_ = None
+        home = away = None; hs = as_ = None; ids = {}; lines = {}; recs = {}
         for c in comp.get("competitors", []):
-            ab = ESPN_ABBR.get(c["team"]["abbreviation"], c["team"]["abbreviation"])
+            ab = ESPN_ABBR.get(c["team"]["abbreviation"], c["team"]["abbreviation"]); ids[str((c.get("team") or {}).get("id"))] = ab
             sc = c.get("score"); sc = int(float(sc)) if sc not in (None, "") else None
+            lines[ab] = [int(float(x.get("value") or 0)) for x in (c.get("linescores") or [])]
+            recs[ab] = next((r.get("summary") for r in (c.get("records") or []) if r.get("type") == "total"), None)
             if c.get("homeAway") == "home":
                 home, hs = ab, sc
             else:
@@ -93,9 +97,15 @@ def parse(j: dict, season: int, week: int) -> pd.DataFrame:
         state = STATE.get(ty.get("state"), "scheduled")
         if ty.get("completed"):
             state = "final"
+        # the game situation ESPN carries while a game is on (27 Sep 2026, the Live strip): possession, down and distance, the
+        # last play, ESPN's own live win chance, the quarter scores, the statistical leaders; displayed as ESPN's, never priced
+        si = comp.get("situation") or {}; lp = si.get("lastPlay") or {}; pr = lp.get("probability") or {}
+        live = {"down": si.get("downDistanceText"), "possession": ids.get(str(si.get("possession"))), "red_zone": bool(si.get("isRedZone")), "last_play": (lp.get("text") or "").strip() or None,
+                "espn_home_wp": pr.get("homeWinPercentage"), "linescores": lines, "records": recs, "broadcast": comp.get("broadcast"),
+                "leaders": [{"stat": l.get("name"), "name": ((l.get("leaders") or [{}])[0].get("athlete") or {}).get("shortName"), "team": ids.get(str((((l.get("leaders") or [{}])[0].get("team") or {}).get("id")))), "value": (l.get("leaders") or [{}])[0].get("displayValue")} for l in (comp.get("leaders") or []) if l.get("leaders")]} if state != "scheduled" else {"broadcast": comp.get("broadcast"), "records": recs}
         rows.append({"season": season, "week": week, "home_team": home, "away_team": away, "status": state, "detail": ty.get("shortDetail") or ty.get("detail"),
-                     "period": st.get("period"), "clock": st.get("displayClock"), "home_score": hs if state != "scheduled" else None, "away_score": as_ if state != "scheduled" else None, "espn_id": ev.get("id")})
-    return pd.DataFrame(rows, columns=["season", "week", "home_team", "away_team", "status", "detail", "period", "clock", "home_score", "away_score", "espn_id"])
+                     "period": st.get("period"), "clock": st.get("displayClock"), "home_score": hs if state != "scheduled" else None, "away_score": as_ if state != "scheduled" else None, "espn_id": ev.get("id"), "live": live})
+    return pd.DataFrame(rows, columns=["season", "week", "home_team", "away_team", "status", "detail", "period", "clock", "home_score", "away_score", "espn_id", "live"])
 
 
 def _to_utc(kick_et) -> pd.Timestamp | None:
@@ -230,7 +240,7 @@ def build(fetch_live: bool = True) -> dict:
                                 "home_team": x.home_team, "away_team": x.away_team,
                                 "home_score": None if r.status == "scheduled" or pd.isna(r.home_score) else int(r.home_score), "away_score": None if r.status == "scheduled" or pd.isna(r.away_score) else int(r.away_score),
                                 "nflverse_scored": bool(pd.notna(x.home_score)), "priced": priced, "close": {k: clean(v) for k, v in close.items()},
-                                "calls": calls(x.home_team, x.away_team, priced, close, hs, as_), "bets": []}
+                                "calls": calls(x.home_team, x.away_team, priced, close, hs, as_), "bets": [], "live": r.live if isinstance(r.live, dict) else {}, "espn_id": r.espn_id}
     gr = bets_for(set(out_games), live.reset_index())
     for b in gr.itertuples():
         out_games[b.game_id]["bets"].append({"who": b.who, "bet": b.bet, "odds": clean(getattr(b, "odds", None)), "result": b.result, "units": clean(round(float(b.units), 3)) if pd.notna(getattr(b, "units", np.nan)) else None,

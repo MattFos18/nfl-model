@@ -1,0 +1,33 @@
+name: pages
+# The page on GitHub Pages (27 Sep 2026): web/ published as it is on every commit that changes it, so the site follows the
+# line watch (every 30 minutes) and the weekly run with no publish step of its own. There the page may fetch ESPN's scoreboard
+# itself, so the Live strip refreshes every 45 seconds while a game is on. Pages must be enabled once in the repository's
+# settings (Settings -> Pages -> Source: GitHub Actions); configure-pages asks for it below and the first run fails until then.
+on:
+  push:
+    branches: [main]
+    paths: [web/**]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: deployment
+        uses: actions/deploy-pages@v4
