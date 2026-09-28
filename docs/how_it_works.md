@@ -2290,3 +2290,9 @@ last two collapsed). Definitions holds each card number as a collapsed entry wit
 Decision log keeps the table with the audit collapsed. The Season write-up's test paragraphs and the "standard
 way" section fold away. Old saved view names map to the merged views on load.
 
+**Overview and the equation table (28 Sep 2026).** Info opens on an Overview: what the site is, the model in three
+steps, how a bet is flagged, how it is tested, the spread and totals flags' records on the three windows and live,
+where the data comes from, when it updates, and a one-line guide to every tab; every number comes from the same
+fields the tabs use. On Game model the equation is a grouped table (input, points per unit, league average; sign
+coloured) in place of the monospace dump.
+
