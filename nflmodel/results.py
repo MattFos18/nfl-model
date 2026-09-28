@@ -260,6 +260,20 @@ def close_before_kickoff(gid: str, kick_utc, log: pd.DataFrame, sched) -> dict:
     return out
 
 
+def opening_line(gid: str, log: pd.DataFrame) -> dict:
+    """The opening consensus (28 Sep 2026, Matt: the model's side kept against the opener as well as the close): the
+    oldest lines-log snapshot of the game that carries each number (the line watch logs the coming week from Sunday
+    evening, when the books post it), lines.consensus on that snapshot. Nothing logged: no opener, and no grade."""
+    from . import lines as LNM
+    h = log[log.game_id == gid]
+    out = {"spread": None, "total": None, "ts": None, "source": "lines log"}
+    for key, name in (("home_spread", "spread"), ("total", "total")):
+        if key in h.columns and h[key].notna().any():
+            hk = h[h[key].notna()]; ts = hk.ts.min()
+            out[name] = LNM.consensus(hk[hk.ts == ts][key].tolist()); out["ts"] = str(ts) if out["ts"] is None else min(out["ts"], str(ts))
+    return out
+
+
 def _res(d: float) -> str:
     return "push" if abs(d) < 1e-9 else ("win" if d > 0 else "loss")
 
@@ -346,6 +360,7 @@ def build(fetch_live: bool = True) -> dict:
         x = g.loc[r.game_id]; kick_utc = _to_utc(x.kickoff_et)
         priced = priced_before_kickoff(r.game_id, kick_utc, hist)
         close = close_before_kickoff(r.game_id, kick_utc, log, x)
+        opn = opening_line(r.game_id, log)
         hs, as_ = (int(r.home_score), int(r.away_score)) if r.status == "final" and r.home_score is not None and not pd.isna(r.home_score) else (None, None)
         if hs is not None and pd.notna(x.home_score) and (int(x.home_score) != hs or int(x.away_score) != as_):
             mismatch.append(f"{r.game_id}: ESPN {as_}-{hs}, nflverse {int(x.away_score)}-{int(x.home_score)}")
@@ -356,8 +371,8 @@ def build(fetch_live: bool = True) -> dict:
         out_games[r.game_id] = {"season": int(x.season), "week": int(x.week), "status": r.status, "detail": r.detail, "period": clean(r.period), "clock": r.clock, "kickoff": clean(x.kickoff_et),
                                 "home_team": x.home_team, "away_team": x.away_team,
                                 "home_score": None if r.status == "scheduled" or pd.isna(r.home_score) else int(r.home_score), "away_score": None if r.status == "scheduled" or pd.isna(r.away_score) else int(r.away_score),
-                                "nflverse_scored": bool(pd.notna(x.home_score)), "priced": priced, "close": {k: clean(v) for k, v in close.items()},
-                                "calls": calls(x.home_team, x.away_team, priced, close, hs, as_), "bets": [], "live": r.live if isinstance(r.live, dict) else {}, "espn_id": r.espn_id}
+                                "nflverse_scored": bool(pd.notna(x.home_score)), "priced": priced, "close": {k: clean(v) for k, v in close.items()}, "open": {k: clean(v) for k, v in opn.items()},
+                                "calls": calls(x.home_team, x.away_team, priced, close, hs, as_), "calls_open": {k: v for k, v in calls(x.home_team, x.away_team, priced, opn, hs, as_).items() if k != "winner"}, "bets": [], "live": r.live if isinstance(r.live, dict) else {}, "espn_id": r.espn_id}
     # the play-by-play (28 Sep 2026): every game under way or final; a final whose saved summary is already final is not
     # fetched again, a game under way is fetched every run; without network (or on a failed fetch) the saved file stands
     plays = {}
@@ -391,6 +406,9 @@ def build(fetch_live: bool = True) -> dict:
            "spread": _record([v["calls"]["spread"]["result"] for v in fin if v["calls"].get("spread", {}).get("result")]),
            "total": _record([v["calls"]["total"]["result"] for v in fin if v["calls"].get("total", {}).get("result")]),
            "winner": _record([v["calls"]["winner"]["result"] for v in fin if v["calls"].get("winner", {}).get("result")]),
+           # the same sides against the opening line (28 Sep 2026): a call graded only where the game has an opener logged
+           "spread_open": _record([v["calls_open"]["spread"]["result"] for v in fin if v.get("calls_open", {}).get("spread", {}).get("result")]),
+           "total_open": _record([v["calls_open"]["total"]["result"] for v in fin if v.get("calls_open", {}).get("total", {}).get("result")]),
            "bets": {}}
     for who in sorted({b["who"] for v in wk.values() for b in v["bets"]}):
         bs = [b for v in wk.values() for b in v["bets"] if b["who"] == who]
@@ -401,10 +419,12 @@ def build(fetch_live: bool = True) -> dict:
     rows = [{"game_id": k, **{c: v.get(c) for c in ("status", "detail", "home_score", "away_score")}, "close_spread": v["close"].get("spread"), "close_total": v["close"].get("total"),
              "model_spread": (v["priced"] or {}).get("model_spread"), "model_total": (v["priced"] or {}).get("model_total"), "priced_at": (v["priced"] or {}).get("run_at"),
              "spread_call": v["calls"].get("spread", {}).get("side"), "spread_result": v["calls"].get("spread", {}).get("result"), "total_call": v["calls"].get("total", {}).get("side"), "total_result": v["calls"].get("total", {}).get("result"),
-             "winner_call": v["calls"].get("winner", {}).get("side"), "winner_result": v["calls"].get("winner", {}).get("result"), "checked": checked} for k, v in out_games.items()]
+             "winner_call": v["calls"].get("winner", {}).get("side"), "winner_result": v["calls"].get("winner", {}).get("result"),
+             "open_spread": v["open"].get("spread"), "open_total": v["open"].get("total"), "spread_call_open": v["calls_open"].get("spread", {}).get("side"), "spread_result_open": v["calls_open"].get("spread", {}).get("result"),
+             "total_call_open": v["calls_open"].get("total", {}).get("side"), "total_result_open": v["calls_open"].get("total", {}).get("result"), "checked": checked} for k, v in out_games.items()]
     pd.DataFrame(rows).to_csv(RES / "live_scores.csv", index=False)
     payload = {"checked": checked, "season": season, "week": week, "games": out_games, "record": rec, "mismatch": mismatch, "errors": errors,
-               "note": "scores from the ESPN scoreboard, graded at the model's numbers from the last run before kickoff and the closing line; nflverse's scores replace them on the weekly run"}
+               "note": "scores from the ESPN scoreboard, graded at the model's numbers from the last run before kickoff against the closing line (calls) and the opening line (calls_open); nflverse's scores replace them on the weekly run"}
     WEB.mkdir(parents=True, exist_ok=True)
     (WEB / "live.js").write_text("window.LIVE=" + json.dumps(payload, default=clean, separators=(",", ":")) + ";")
     (WEB / "plays.js").write_text("window.PLAYS=" + json.dumps({"checked": checked, "games": plays, "note": "ESPN's play-by-play for every game under way or final, as saved by the line watch; displayed as ESPN's, never priced"}, default=clean, separators=(",", ":")) + ";")

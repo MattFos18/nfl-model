@@ -899,6 +899,25 @@ def check_live(rows, wk) -> None:
     # the live flag: the rule on the card's own numbers (weeks 1 to 17)
     fl = {g_["game_id"]: ((g_["home_team"] if g_["spread_edge"] > 0 else g_["away_team"]) if g_.get("spread_edge") is not None and abs(g_["spread_edge"]) >= wk["spread_edge"] and g_["week"] < 18 else "") for g_ in G}
     tie("card flag = the flag rule on the card's edge (side flagged, weeks 1 to 17)", {g_["game_id"]: (g_.get("bet") or "").split(" ")[0] for g_ in G}, fl)
+    # the coming week in the picker (28 Sep 2026): shown exactly when export_web.next_week_ready says so, and then every
+    # number is picks.table's for that week on the same lines log (the model's points, the line, the chances, the flags)
+    from . import export_web as EW
+    nxt_, pk_ = EW.next_week_ready(wk["season"], wk["week"])
+    nx = wk.get("next")
+    tie("week picker: the coming week is offered exactly when every game is priced with its fit and has a logged spread and total", None if nx is None else nx["week"], nxt_)
+    if nx is not None and pk_ is not None:
+        pk_ = pk_.set_index("game_id"); worst_ = 0.0; off_ = []
+        for g_ in nx["games"]:
+            if g_["game_id"] not in pk_.index: off_.append(g_["game_id"]); continue
+            r_ = pk_.loc[g_["game_id"]]
+            for k_ in ("model_spread", "model_total", "spread_line", "total_line", "home_exp", "away_exp", "p_cover_cal_home", "p_over_cal", "p_home_cal"):
+                a_, b_ = g_.get(k_), r_[k_]
+                if a_ is None and pd.isna(b_): continue
+                if a_ is None or pd.isna(b_): off_.append(f"{g_['game_id']} {k_}"); continue
+                worst_ = max(worst_, abs(float(a_) - float(b_)))
+            if (g_.get("bet") or "") != (r_.bet if isinstance(r_.bet, str) else "") or (g_.get("shadowunder_bet") or "") != (r_.shadowunder_bet if isinstance(r_.shadowunder_bet, str) else ""): off_.append(f"{g_['game_id']} flag")
+        tie("week picker: the coming week's games = picks.table for that week (game, flags)", off_, [])
+        rows.append(("week picker: the coming week's points, lines and chances = picks.table for that week (worst gap)", round(worst_, 5), "0.0006 or under", worst_ <= 0.0006))
     pu = wk["total_shadow"]["prob"]
     fu = {g_["game_id"]: bool(g_.get("p_over_emp") is not None and g_.get("total_line") is not None and 1 - g_["p_over_emp"] >= pu - 0.0005 and g_["week"] < 18) for g_ in G}
     near = {g_["game_id"] for g_ in G if g_.get("p_over_emp") is not None and abs(1 - g_["p_over_emp"] - pu) < 0.0006}   # at the cut to three decimals: either reading holds
@@ -977,6 +996,24 @@ def check_live(rows, wk) -> None:
                     m_ = hs_ - as_; want_ = "push" if m_ == 0 else ("win" if (m_ > 0) == (C["winner"]["side"] == v["home_team"]) else "loss")
                     if want_ != C["winner"].get("result"): off_.append(f"{gid} winner")
             tie("live results: each final's spread, total and winner calls re-graded from its score and close", off_, [])
+            # the same sides against the opener (28 Sep 2026): re-graded from the score and the opening line, and the two records recounted
+            off_ = []; ro_ = {"spread": [], "total": []}
+            for gid, v in (lv.get("games") or {}).items():
+                if v["status"] != "final": continue
+                hs_, as_ = v["home_score"], v["away_score"]; C = v.get("calls_open") or {}; op = v.get("open") or {}
+                if C.get("spread") and op.get("spread") is not None:
+                    home_ = C["spread"]["side"] == v["home_team"]; m_ = hs_ - as_; want_ = RS._res((m_ - op["spread"]) if home_ else (op["spread"] - m_))
+                    if want_ != C["spread"].get("result"): off_.append(f"{gid} spread")
+                if C.get("total") and op.get("total") is not None:
+                    t_ = hs_ + as_; want_ = RS._res((t_ - op["total"]) if C["total"]["side"] == "Over" else (op["total"] - t_))
+                    if want_ != C["total"].get("result"): off_.append(f"{gid} total")
+                R_ = lv.get("record") or {}
+                if v["season"] == R_.get("season") and v["week"] == R_.get("week"):
+                    for k_ in ro_:
+                        if C.get(k_, {}).get("result"): ro_[k_].append(C[k_]["result"])
+            tie("live results: each final's spread and total calls re-graded from its score and the opening line", off_, [])
+            R_ = lv.get("record") or {}
+            tie("live results: the week's records against the opener = the finals' open calls recounted", [R_.get("spread_open", {}).get("text"), R_.get("total_open", {}).get("text")], [RS._record(ro_["spread"])["text"], RS._record(ro_["total"])["text"]])
             sb_ = {}
             for (s_, w_) in sorted({(v["season"], v["week"]) for v in (lv.get("games") or {}).values()}):
                 j_ = RS.saved(s_, w_)
