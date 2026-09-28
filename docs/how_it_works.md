@@ -2174,9 +2174,33 @@ accent rule.
 weighted by how often it plays it and averaged (the weights normalised: the looks overlap, so a plain sum overstated
 it), shown as EPA a play, a word (even, slight, solid, big) and the points over the offense's plays a game; each
 player's "Fit" is the same average over his own splits. The two sides sit in one grid so their tables line up, and
-the player table fills its column. Score projection shows each input's points only (the equation is in Info); the
+the player table fills its column. Score projection shows the two teams side by side, each input's points only, no bars (the equation is in Info); the
 player props panel has no click-to-calculation. The card title row is centred vertically. The Games tab's Spread and
 Totals tiles carry the record at the close and at the opener side by side, the second from results.py's grade of the
-same sides against the consensus opener; the Picks tab shows the week's tally as soon as a game is final, with the opener's
-records on the current week.
+same sides against the consensus opener; the Picks tab shows only the flagged bets' record (every BET badge with a grade) once a game is
+final.
 
+## 45. A faster fade of last season (28 Sep 2026)
+
+Matt: New England is 1-2 and rated 7th; does the model lean on last season too hard? The rating's last-season games
+carry the multiplier 0.8 on top of the per-game decay 0.94. `experiments/season_fade.py` (reports/season_fade.csv)
+rebuilt the ratings and priced every game 2015-2025 with the live pipeline under eight settings: last season x0.65,
+x0.5, x0.35, x0.2, x0.5 with decay 0.92, x0.65 with decay 0.90, and x1.0 as a check, scored on the margin miss,
+the weeks 1-4 margin miss and the 4-point flag on each window.
+
+| Variant | Margin 15-18 / 19-22 / 23-25 | Weeks 1-4 margin | 4+ flag |
+|---|---|---|---|
+| Live (x0.8, decay 0.94) | 9.949 / 10.020 / 9.906 | 10.256 / 9.353 / 10.187 | 69-55 / 80-51 / 40-21 |
+| x0.65 | 9.949 / 10.017 / 9.901 | 10.261 / 9.364 / 10.213 | 57-54 / 74-47 / 40-21 |
+| x0.5 | 9.958 / 10.018 / 9.905 | 10.270 / 9.388 / 10.236 | 56-55 / 68-48 / 38-20 |
+| x0.35 | 9.954 / 10.028 / 9.898 | 10.277 / 9.418 / 10.265 | 56-51 / 69-54 / 39-16 |
+| x0.2 | 9.970 / 10.043 / 9.910 | 10.333 / 9.462 / 10.303 | 61-58 / 73-58 / 42-22 |
+| x0.5, decay 0.92 | 9.960 / 10.024 / 9.894 | 10.275 / 9.413 / 10.249 | 56-54 / 67-52 / 42-20 |
+| x0.65, decay 0.90 | 9.970 / 10.021 / 9.900 | 10.278 / 9.400 / 10.264 | 61-56 / 68-50 / 42-20 |
+| x1.0 (slower) | 9.954 / 10.032 / 9.908 | 10.262 / 9.362 / 10.156 | 74-61 / 87-54 / 39-24 |
+
+Every faster fade misses worse in weeks 1-4 on every window, the weeks it was meant to help, and wins fewer flags on
+at least two of three. The slower fade (x1.0) wins more flags on two windows but misses worse on all three. Nothing
+passes the every-window rule; the live setting stays. A 1-2 team rated 7th is the rating reading EPA a play, not the
+record: it moves as the season's games accumulate (this season's share of the weight is about 38% after two games,
+60% after four, 79% after eight; §80 of the decision log).
