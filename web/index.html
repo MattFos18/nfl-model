@@ -87,6 +87,11 @@ pre{font-family:var(--mono);font-size:12px;white-space:pre-wrap;color:var(--ink-
 .badge.vegas{background:var(--vegas-soft);color:var(--vegas);border-color:transparent}
 .badge.noise{background:var(--rule-2);color:var(--muted);border-color:transparent}
 .badge.live{background:var(--good);color:#fff;border-color:transparent}
+.lstrip{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin:10px 0 4px} .lstrip .lg{border:1px solid var(--rule);border-radius:6px;padding:8px 10px;background:var(--panel);display:flex;flex-direction:column;gap:4px;font-size:12.5px}
+.lstrip .lg.on{border-color:var(--good)} .lstrip .lrow{display:flex;justify-content:space-between;align-items:baseline;gap:8px} .lstrip .lrow b{font-variant-numeric:tabular-nums;font-size:15px} .lstrip .pos::before{content:"●";font-size:9px;margin-right:4px;color:var(--good)}
+.lstrip .lq{display:grid;grid-template-columns:auto repeat(5,1.6em);gap:0 4px;font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px} .lstrip .lq span{text-align:right} .lstrip .lq span:first-child{text-align:left}
+.lstrip .lsm{color:var(--muted);font-size:11.5px;line-height:1.35} .lstrip .lwp{display:flex;gap:6px;align-items:center;font-size:11px;color:var(--muted)} .lstrip .lwp i{flex:1;height:5px;border-radius:3px;background:var(--rule-2);position:relative;overflow:hidden} .lstrip .lwp i::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w);background:var(--good)}
+.lhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:8px} .lhead h3{margin:0;font-size:14px} .lhead .lsm{font-size:11.5px;color:var(--muted)}
 .tiles{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 12px}
 .tile{background:var(--panel);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;min-width:150px;flex:1 1 170px;display:flex;flex-direction:column;gap:2px}
 .tile b{font-family:var(--display);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
@@ -335,6 +340,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <p class="note" id="weeknote" style="margin:0"></p>
     <div class="legend" style="margin:0"><span><span class="dot" style="background:var(--model)"></span>Model</span><span><span class="dot" style="background:var(--vegas)"></span>Vegas</span><span><span class="badge flag">Flag</span> Edge past the threshold</span></div>
   </div>
+  <div id="livestrip" hidden></div>
   <div class="tiles" id="weektiles"></div>
   <nav class="jump" id="jump" aria-label="Games"></nav>
   <div class="cards" id="cards"></div>
@@ -1068,6 +1074,50 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         return `<tr><td class="l"><b>${v.away_team} @ ${v.home_team}</b></td><td class="l">${st(v)}</td><td class="l">${call(C.spread, c => lineTxt(c.side, c.line))}</td><td class="l">${call(C.total, c => `${c.side} ${c.line}`)}</td><td class="l">${call(C.winner, c => c.side)}</td><td class="l">${(v.bets || []).map(b => `${b.who === "matt" ? "you" : b.who}: ${esc(b.bet)}${b.result ? " " + resMark(b.result) : ""}`).join("<br>")}</td><td class="l mono">${P.model_spread != null ? `${lineTxt(v.home_team, -P.model_spread)} · ${Number(P.model_total).toFixed(1)}` : ""}${P.run_at ? ` <span class="rk">${esc(P.run_at.slice(5, 16))}</span>` : ""}</td><td class="l mono">${CL.spread != null ? lineTxt(v.home_team, -CL.spread) : ""}${CL.total != null ? ` · ${CL.total}` : ""}${CL.source && CL.source !== "lines log" ? ` <span class="rk">${esc(CL.source)}</span>` : ""}</td></tr>`; }).join("") + "</tbody></table></div>"
       + (L.mismatch && L.mismatch.length ? `<p class="note neg">ESPN and nflverse disagree on a score: ${L.mismatch.map(esc).join("; ")}</p>` : "");
   }
+  // Live strip (27 Sep 2026): the week's games as ESPN's scoreboard has them. Source, in order: the scoreboard fetched by this
+  // page (GitHub Pages allows it; the claude.ai frame blocks every outside fetch, so there the strip reads live.js, the line
+  // watch's copy) and web/data/live.js. Raw display only (score, clock, possession, last play, ESPN's own live win chance, quarter
+  // scores); every graded number (the calls, the records) is Python's from live.js. Refreshes every 45 s while a game is on.
+  const LIVE_ESPN = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
+  const ESPN_AB = {WSH: "WAS", JAC: "JAX", LAR: "LA"};
+  let liveNow = null, liveSrc = "line watch", liveTimer = null, liveFetchDead = false;
+  function parseScoreboard(j) {   // the same fields nflmodel/results.parse reads
+    const out = {};
+    (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}; let H, A, hs, as_;
+      (c.competitors || []).forEach(x => { const ab = ESPN_AB[x.team.abbreviation] || x.team.abbreviation; ids[String(x.team.id)] = ab; lines[ab] = (x.linescores || []).map(l => Math.round(+l.value || 0)); const sc = x.score == null || x.score === "" ? null : Math.round(+x.score); if (x.homeAway === "home") { H = ab; hs = sc; } else { A = ab; as_ = sc; } });
+      const state = ty.completed ? "final" : ({pre: "scheduled", in: "in_progress", post: "final"}[ty.state] || "scheduled"); const si = c.situation || {}, lp = si.lastPlay || {}, pr = lp.probability || {};
+      out[`${A}@${H}`] = {home_team: H, away_team: A, status: state, detail: ty.shortDetail || ty.detail, home_score: state === "scheduled" ? null : hs, away_score: state === "scheduled" ? null : as_,
+        live: state === "scheduled" ? {broadcast: c.broadcast} : {down: si.downDistanceText, possession: ids[String(si.possession)], red_zone: !!si.isRedZone, last_play: (lp.text || "").trim() || null, espn_home_wp: pr.homeWinPercentage, linescores: lines, broadcast: c.broadcast}}; });
+    return out;
+  }
+  async function liveFetch(season, week) {
+    if (liveFetchDead) return null;
+    try { const r = await fetch(`${LIVE_ESPN}?week=${week}&seasontype=2&dates=${season}`, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return parseScoreboard(await r.json()); }
+    catch (e) { liveFetchDead = true; return null; }   // the claude.ai frame: no outside fetch, so live.js stands
+  }
+  function renderLiveStrip() {
+    const el = $("livestrip"); if (!el) return; const W = window.WEEK || {}, L = window.LIVE || {}; const G = L.games || {};
+    const games = (W.games || []).map(g => ({g, lv: G[g.game_id] || null, fresh: liveNow ? liveNow[`${g.away_team}@${g.home_team}`] : null}));
+    const show = games.filter(x => x.lv || x.fresh); if (!show.length) { el.hidden = true; return; }
+    const st = x => (x.fresh || x.lv), anyOn = show.some(x => st(x).status === "in_progress");
+    const asOf = liveNow ? `ESPN, live · refreshed ${new Date().toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"})}` : `ESPN, as of ${esc(etTime(L.checked || ""))} (the line watch pulls it every 30 minutes)`;
+    const card = x => { const g = x.g, v = st(x), lv = x.lv || {}, live = (x.fresh && x.fresh.live) || (lv.live) || {}, H = g.home_team, A = g.away_team, on = v.status === "in_progress", fin = v.status === "final";
+      const q = live.linescores && live.linescores[H] && live.linescores[H].length ? `<div class="lq"><span></span>${["1","2","3","4","OT"].slice(0, Math.max(live.linescores[H].length, 4)).map(h => `<span>${h}</span>`).join("")}${[A, H].map(t => `<span>${t}</span>${(live.linescores[t] || []).map(v_ => `<span>${v_}</span>`).join("")}${"<span></span>".repeat(Math.max(0, Math.max(live.linescores[H].length, 4) - (live.linescores[t] || []).length))}`).join("")}</div>` : "";
+      const pos = t => on && live.possession === t ? "pos" : "";
+      const ourP = g.p_home_cal != null ? g.p_home_cal : g.p_home;   // the card's pregame win chance (Python), beside ESPN's live one
+      const wp = on && live.espn_home_wp != null ? `<div class="lwp" title="ESPN's live win chance for ${H} (its own model, displayed as is) beside the model's pregame chance from the card"><span>${H} ${Math.round(100 * live.espn_home_wp)}% live</span><i style="--w:${Math.round(100 * live.espn_home_wp)}%"></i><span>${ourP != null ? `pregame ${Math.round(100 * ourP)}%` : ""}</span></div>` : "";
+      const C = (lv.calls || {}), r = c => c && c.result ? " " + resMark(c.result) : "";
+      const calls = fin && x.lv ? `<div class="lsm">${C.spread ? `${lineTxt(C.spread.side, C.spread.line)}${r(C.spread)}` : ""}${C.total ? ` · ${C.total.side} ${C.total.line}${r(C.total)}` : ""}${C.winner ? ` · ${C.winner.side}${r(C.winner)}` : ""}</div>` : "";
+      const when = v.status === "scheduled" ? `<div class="lsm">${esc(whenTxt(g).split(" · ").slice(0, 2).join(" · "))}${live.broadcast ? " · " + esc(live.broadcast) : ""}</div>` : "";
+      return `<div class="lg ${on ? "on" : ""}"><div class="lrow"><span class="${pos(A)}">${LOGO(A, 18)}${A}</span><b>${v.away_score ?? ""}</b></div><div class="lrow"><span class="${pos(H)}">${LOGO(H, 18)}${H}</span><b>${v.home_score ?? ""}</b></div>
+        <div class="lsm">${on ? `<span class="badge live" style="margin-left:0">${esc(v.detail || "live")}</span>${live.down ? " " + esc(live.down) : ""}${live.red_zone ? " · red zone" : ""}` : fin ? `<b>Final</b>` : ""}</div>${q}${wp}${on && live.last_play ? `<div class="lsm" title="${esc(live.last_play)}">${esc(live.last_play.length > 90 ? live.last_play.slice(0, 88) + "…" : live.last_play)}</div>` : ""}${calls}${when}</div>`; };
+    const R = L.record || {};
+    el.innerHTML = `<div class="lhead"><h3>Live</h3><span class="lsm">${asOf}${R.finals ? ` · ${R.finals} of ${R.games} final · model side ${R.spread.text} spread, ${R.total.text} total, ${R.winner.text} winner (graded at the close, Python)` : ""}</span></div><div class="lstrip">${show.map(card).join("")}</div>`;
+    el.hidden = false;
+    // keep it moving while a game is on: ESPN itself where the host allows a fetch, else nothing to do until the next publish
+    if (liveTimer) { clearTimeout(liveTimer); liveTimer = null; }
+    if (anyOn && !liveFetchDead) liveTimer = setTimeout(async () => { const f = await liveFetch(W.season, W.week); if (f) { liveNow = f; } renderLiveStrip(); }, liveNow ? 45000 : 0);
+  }
   function renderWeek() {
     const W = window.WEEK || {};
     if (!W.games) { $("cards").innerHTML = ""; $("weeknote").textContent = W.error || "No week exported."; return; }
@@ -1083,6 +1133,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="tile"><b>${withLine.length ? (withLine.reduce((a, g) => a + Math.abs(g.spread_edge), 0) / withLine.length).toFixed(1) : ""}</b><span>Average gap to the spread, points</span></div>
       <div class="tile"><b>${W.games.filter(g => g.home_score != null || (liveOf(g) || {}).status === "final").length}</b><span>Played so far</span></div>${liveTile()}`;
     const RR = W.rule_records || {}, rec3 = k => RR[k] ? `${RR[k]["2015-18"]}, ${RR[k]["2019-22"]} and ${RR[k]["2023-25"]} on 2015-18, 2019-22 and 2023-25` : "on the Bets tab";
+    renderLiveStrip();
     let h = "";
     W.games.forEach((g, i) => {
       // every number on the card is Python's (picks.table on the newest line snapshot, export_web --week): the page displays them
