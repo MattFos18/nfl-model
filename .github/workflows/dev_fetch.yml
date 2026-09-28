@@ -2,6 +2,9 @@ name: dev fetch samples
 # One-off, dispatched by hand while building the play-by-play feed: saves ESPN game summaries for the saved scoreboards'
 # games under data/results/dev_summary so the parser can be written against real files. Removed once the feed ships.
 on:
+  push:
+    branches: [claude/sharp-cray-vbvt7i]
+    paths: ['.github/workflows/dev_fetch.yml']   # runs when this file changes on the branch; the API cannot dispatch a workflow that lives only on a branch
   workflow_dispatch:
 permissions:
   contents: write
