@@ -45,6 +45,8 @@ def build_table():
             else:
                 verdict = "stays: dropping it is mixed across windows"
         else:
+            if i.get("note") == "rule4":
+                fail.append("4 (the coordinator table is not a weekly pull)")
             verdict = "ADOPT" if not fail else "not adopted: rule " + "; ".join(fail)
         row = {"family": i["family"], "idea": name, "equation": eqlab, "inputs": " ".join(i["cols"]) + (" (+ opponent's)" if i["opp"] else "") + (f" [{i['mode']}]" if i["level"] == "game" and i["eq"] == "P" else ""),
                "rule1": bool(v.rule1), "rule2": bool(v.rule2), "placebo_draws": ps["draws"], "placebo_beaten": ps["beaten"],
@@ -101,7 +103,7 @@ def write_report():
     n_ideas = int((~T.equation.str.contains("dropped")).sum())
     n1 = int((T.rule1 & ~T.equation.str.contains("dropped")).sum()); n12 = int((T.rule1 & T.rule2 & ~T.equation.str.contains("dropped")).sum())
     L += [f"**Count.** {n_ideas} ideas added and {int(T.equation.str.contains('dropped').sum())} live terms re-checked by dropping them. {n1} of the {n_ideas} lower the miss on all three windows (rule 1); "
-          f"by chance alone, with three windows each a coin flip, about one in eight would. {n12} also pass rule 2. Passing all of 1 to 3: {len(combo.get('passed', []))}.", ""]
+          f"by chance alone, with three windows each a coin flip, about one in eight would. {n12} of them also pass{'es' if n12 == 1 else ''} rule 2. Passing all of 1 to 3: {len(combo.get('passed', []))}.", ""]
     # master table
     def row_md(r):
         miss = " / ".join(f"{r[f'd_team_miss_{w}']:+.3f}" for w in W)
@@ -116,7 +118,7 @@ def write_report():
     L += ["Reading the tables: every change is idea minus base, per window 2015-18 / 2019-22 / 2023-25. Misses in points (below zero is better). Flag records as the change "
           "in wins minus losses (above zero is better). Log loss of the calibrated win chance, times 1000 (below zero is better). Moneyline: the change in units won by "
           "the model's side at the closing moneyline (a reading; the rule does not use it). Placebo percentile: the share of shuffled draws whose gain the real idea beats, per window; "
-          "run for ideas passing rules 1 and 2 (the rule's gate).", ""]
+          "run in full (50 draws) for the idea passing rules 1 and 2 (the rule's gate); the six that pass rule 1 but fail rule 2 were given an informational run of up to 20 draws, stopped once 3 draws matched or beat them on some window (at 20 draws the rule allows 2), so their percentiles rest on the draws shown.", ""]
     for fam in FAMILIES:
         x = T[T.family == fam]
         if not len(x):
