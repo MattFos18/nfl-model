@@ -2309,6 +2309,8 @@ ball, the line of scrimmage in blue, the line to gain in yellow, the ball with a
 distance in a header row with the team in possession (the big field adds the drive's plays, yards and time).
 The last play is drawn on the field as ESPN draws it (29 Sep 2026): from where it started to where it ended (the
 scoreboard's lastPlay start and end yardLine, exported by results.py and read the same way by the page's own refresh),
-a solid arrow for a run, a dashed arc for a pass, a dotted line for a kick or punt, red when it lost yards; timeouts,
-penalties and clock stoppages draw nothing.
+a straight line with a tag saying what it was and the yards (Run +7, Pass +26, Sack −8, Interception, Fumble lost,
+Punt 43, FG good), white with a dark halo, red for a loss or a turnover; an incomplete pass gets the tag alone at the
+spot; timeouts and clock stoppages draw nothing. ESPN's end spot and its ball spot can differ after a penalty or a
+re-spot, so an offensive play by the team in possession is slid to end where the ball is, its length kept.
 
