@@ -10,27 +10,26 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 4 | 0 | nothing settled |  | +0.00 | 68-55 | 80-51 | 40-21 |
-| shadow: 4.5+ edge | 2 | 0 | nothing settled |  | +0.00 | 43-36 | 52-37 | 25-15 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 4 | 0 | nothing settled |  | +0.00 | 50-38 | 73-42 | 32-18 |
-| shadow: 4+ edge, weeks 1 to 13 only | 4 | 0 | nothing settled |  | +0.00 | 54-41 | 68-37 | 33-16 |
-| shadow: boosted trees alone, 5+ edge | 3 | 0 | nothing settled |  | +0.00 | 94-66 | 85-62 | 34-17 |
+| 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 68-55 | 80-51 | 40-21 |
+| shadow: 4.5+ edge | 1 | 0 | nothing settled |  | +0.00 | 43-36 | 52-37 | 25-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 50-38 | 73-42 | 32-18 |
+| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 54-41 | 68-37 | 33-16 |
+| shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 94-66 | 85-62 | 34-17 |
 | shadow: Under, 55%+ chance (the totals flag) | 7 | 3 | 2-1 (67%) | +0.82 | +0.14 | 135-127 | 175-128 | 71-59 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.5% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 
-4 recorded, 0 settled, 4 pending.
+3 recorded, 0 settled, 3 pending.
 
 Every bet:
 
 |   season |   week | game_id         | bet      |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:---------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      4 | 2026_04_IND_WAS | WAS +3.5 |   -112 |     nan |   nan | pending  |     nan |
+|     2026 |      4 | 2026_04_IND_WAS | WAS +3.5 |   -108 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     nan |   nan | pending  |     nan |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG +1.5 |   -118 |     nan |   nan | pending  |     nan |
-|     2026 |      4 | 2026_04_GB_TB   | TB +3.5  |    100 |     nan |   nan | pending  |     nan |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG +1.5 |   -115 |     nan |   nan | pending  |     nan |
 
 ## Matt's bets
 
