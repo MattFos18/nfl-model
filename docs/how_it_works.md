@@ -2413,3 +2413,12 @@ The Ratings by week view is gone: its EPA rating chart sits at the top of the Ga
 saved Ratings view opens the Game log).
 The team strip tiles show on the Roster and depth chart view only, not on every team view.
 
+**Scheme and Play Calling redone; view buttons in Title Case; the Players list came back blank (29 Sep 2026, Matt).**
+The Scheme view is one card a side. The offense card: Play calling (the rates), Results (EPA and success), By the look
+it faced. The defense card: What it plays, Coverage mix (bars, this season or last when this season is not charted
+yet), Results allowed, By the look it played. Every table reads Measure, this season in bold, the league, the rank
+(#1 the best), last season; a look table shows only the seasons that have charted plays and greys a look under the
+minimum. The view buttons on every tab are in Title Case. A bug: opening a player, leaving the Players tab and coming
+back showed nothing, because the tab switch took the player page's own sub-nav as the section's first view once the
+Players nav was removed; the switch now reads only the section's top-level nav.
+
