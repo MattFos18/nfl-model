@@ -1271,8 +1271,9 @@ health check compared the page's data to the picks file, and both came from the 
 agreed with each other while both lagged the line log; nothing compared a card to the newest snapshot. Now: the
 line watch rebuilds the cards after every snapshot (`nflmodel.props --live` re-projects the props on the newest line,
 forecast and prop lines; `export_web --week` rewrites `week.js` and `props.js`) and commits them with the log;
-the tie check ties the cards' newest line snapshot to the log's newest; the health check (the Monday audit) fails
-when the cards' newest snapshot is not the log's or the props panel's pull is not the props log's newest; and the
+the tie check ties the cards' newest line snapshot to the log's newest for the cards' games (29 Sep 2026: once every
+game of the week has kicked off the log carries only next week's games, so the whole-log comparison could never pass
+on a Monday night); the health check (the Monday audit) fails when the cards' newest snapshot is not the log's or the props panel's pull is not the props log's newest; and the
 hourly routine republishes the two files. The page also refuses to half-render: with its core data file missing it
 says so in one line instead of failing part way. A break-it walk (every tab, sub-tab, select value, chip, sortable
 header, card panel, market row and calc, at desktop and phone width, then again with each data file blocked one at

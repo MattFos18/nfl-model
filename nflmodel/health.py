@@ -114,8 +114,9 @@ def main() -> bool:
         add("FAIL" if age_h > 96 else "OK", "page data is fresh", f"built {age_h:.0f} hours ago (limit 96)")
         # nothing on a card may be older than its source: the newest line snapshot on the cards is the log's newest, and the
         # props panel's line pull is the props log's newest (the line watch rewrites week.js after every snapshot)
-        ll = pd.read_csv(RAW.parent / "lines" / "lines_log.csv", usecols=["ts"]) if (RAW.parent / "lines" / "lines_log.csv").exists() else None
+        ll = pd.read_csv(RAW.parent / "lines" / "lines_log.csv", usecols=["ts", "game_id"]) if (RAW.parent / "lines" / "lines_log.csv").exists() else None
         page_ts = max([r["ts"] for g in wk.get("games", []) for r in g.get("line_history", [])] or ["none"])
+        if ll is not None: ll = ll[ll.game_id.isin([g_["game_id"] for g_ in wk.get("games", [])])]   # the log's rows for the cards' games (29 Sep 2026: after the week's last kickoff the log carries only next week's)
         if ll is not None and len(ll):
             add("OK" if page_ts == ll.ts.max() else "FAIL", "cards carry the newest line snapshot", f"cards {page_ts}, log {ll.ts.max()}")
         pl = RAW.parent / "lines" / "props_log.csv"

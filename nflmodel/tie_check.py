@@ -813,8 +813,9 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     pk_f = REP / f"picks_{season}_wk{week}.csv"
     llf = LNS / "lines_log.csv"
     if llf.exists() and wk.get("games"):   # no number on a card older than its source: the cards' newest snapshot is the log's newest
-        ll = pd.read_csv(llf, usecols=["ts"]); page_ts = max([r["ts"] for g in wk["games"] for r in g.get("line_history", [])] or ["none"])
-        tie("cards' newest line snapshot = the line log's newest snapshot", page_ts, str(ll.ts.max()))
+        ll = pd.read_csv(llf, usecols=["ts", "game_id"]); ll = ll[ll.game_id.isin([g_["game_id"] for g_ in wk["games"]])]   # the log's rows for the cards' games: once every game has kicked off the log carries only next week's (29 Sep 2026)
+        page_ts = max([r["ts"] for g in wk["games"] for r in g.get("line_history", [])] or ["none"])
+        tie("cards' newest line snapshot = the line log's newest snapshot for the cards' games", page_ts, str(ll.ts.max()))
         # the Vegas win chance on a card comes from the newest snapshot with moneylines; it must be the log's newest one
         lm = LN.load_log(); lm = lm[lm.home_ml.notna() & lm.away_ml.notna() & lm.game_id.isin([g_["game_id"] for g_ in wk["games"]])]
         if len(lm):

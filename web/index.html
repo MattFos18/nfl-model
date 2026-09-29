@@ -27,7 +27,7 @@ h3{font-family:var(--display);font-weight:600;font-size:16px;margin:0 0 6px}
 .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-left:auto}
 label.ctl{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 select{font:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;min-width:120px}
-select:focus,button:focus,.chip:focus,.why:focus{outline:2px solid var(--accent);outline-offset:1px}
+select:focus-visible,button:focus-visible,.chip:focus-visible,.why:focus-visible{outline:2px solid var(--accent);outline-offset:1px} button:focus:not(:focus-visible),.chip:focus:not(:focus-visible){outline:none}
 nav.tabs{display:flex;flex-wrap:wrap;gap:0 8px;border-bottom:1px solid var(--rule);align-items:flex-end}
 nav.tabs .tg{display:flex;flex-direction:column} nav.tabs .tg+.tg{border-left:1px solid var(--rule);padding-left:8px} nav.tabs .tgl{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 13px 0;line-height:1} nav.tabs .tgb{display:flex;gap:2px;flex-wrap:wrap}
 nav.tabs button{font:inherit;font-family:var(--display);font-size:15.5px;font-weight:500;color:var(--ink-2);background:none;border:0;border-bottom:3px solid transparent;padding:5px 13px 8px;cursor:pointer}
