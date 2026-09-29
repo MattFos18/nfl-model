@@ -144,6 +144,9 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .spark{width:100%;height:auto;margin-top:6px;display:block;overflow:visible}
 .spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
 .score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
+.schgrid{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start} .schgrid .card{flex:0 1 auto;max-width:100%} .schgrid .card{margin:0}
+.bxcols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start} @media(max-width:1150px){.bxcols{grid-template-columns:1fr}}
+.mu-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 40px;align-items:start} .mu-lines{display:flex;gap:22px;margin-top:10px} .mu-lines small{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600} .mu-lines b{font-size:16px} table.mu-t td.mono{white-space:nowrap} @media (max-width:640px){.mu-grid{grid-template-columns:1fr}}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
 .chip.alt{background:var(--accent-soft);color:var(--accent)}
 .pulls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-size:12.5px}
@@ -360,7 +363,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div></div>
   <div class="tg"><span class="tgl">Season</span><div class="tgb">
     <button role="tab" data-tab="seasonsec">Season</button>
-    <button role="tab" data-tab="rank">Rankings</button>
     <button role="tab" data-tab="teamsec">Teams</button>
     <button role="tab" data-tab="playersec">Players</button>
   </div></div>
@@ -410,16 +412,25 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div>
 </section>
 
-<section class="tab" id="rank" hidden>
-  <nav class="sub" id="ranksub">
-    <button data-sub="teams">Teams</button>
-    <button data-sub="positions">Positions</button>
+<section class="tab" id="teamsec" hidden>
+  <div class="controls" style="margin:0 0 10px;justify-content:flex-start">
+    <label class="ctl">Team <select id="team"></select></label>
+    <label class="ctl">Season <select id="season"></select></label>
+  </div>
+  <div class="lv-tiles" id="teamstrip" style="margin:0 0 12px"></div>
+  <nav class="sub" id="teamsub">
+    <button data-sub="rankings">Rankings</button>
+    <button data-sub="roster">Roster and depth chart</button>
+    <button data-sub="ratings">Ratings by week</button>
+    <button data-sub="games">Game log</button>
+    <button data-sub="box">Player box scores</button>
+    <button data-sub="scheme">Scheme and play calling</button>
   </nav>
-  <div id="teams">
+  <div id="rankings" hidden>
   
   <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model" id="rkwinmodel">Model (decayed)</option><option value="season">This season only, equal weight</option><option value="last3">Last three weeks</option><option value="last1">Last week only</option><option value="lastseason">Last season only</option></select></label></div>
   <div class="grid2e" style="margin-bottom:14px">
-    <div class="card viz-root" id="scatcard"><h3>Offense and defense</h3><p class="note" id="scatsub" style="margin:0 0 6px"></p><div id="scatter"></div><div class="tip" id="tip2"></div></div>
+    <div class="card viz-root" id="scatcard"><p class="note" id="scatsub" style="margin:0 0 6px"></p><div id="scatter"></div><div class="tip" id="tip2"></div></div>
     <div class="card viz-root"><h3>Power rating</h3><p class="note" id="powersub" style="margin:0 0 6px"></p><div id="powerbar"></div></div>
   </div>
   <div class="card" style="margin-bottom:14px"><h3>Matchup</h3>
@@ -432,29 +443,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div class="tablewrap"><table id="rktable"></table></div>
   <div class="status" id="rkstatus"></div>
   </div>
-  <div id="positions" hidden>
-  <div class="row"><label class="ctl">Position <select id="posgroup"></select></label><label class="ctl">Show <select id="posn"><option value="32">Top 32</option><option value="64">Top 64</option><option value="1000">All</option></select></label></div>
-  <div class="tablewrap" style=""><table id="postable"></table></div>
-  </div>
-</section>
-
-
-
-<section class="tab" id="teamsec" hidden>
-  <div class="controls" style="margin:0 0 10px;justify-content:flex-start">
-    <label class="ctl">Team <select id="team"></select></label>
-    <label class="ctl">Season <select id="season"></select></label>
-  </div>
-  <div class="lv-tiles" id="teamstrip" style="margin:0 0 12px"></div>
-  <nav class="sub" id="teamsub">
-    <button data-sub="roster">Roster and depth chart</button>
-    <button data-sub="ratings">Ratings by week</button>
-    <button data-sub="games">Game log</button>
-    <button data-sub="box">Player box scores</button>
-    <button data-sub="scheme">Scheme and play calling</button>
-  </nav>
   <div id="scheme" hidden>
-    <div class="grid2">
+    <div class="grid2 schgrid">
       <div class="card"><h3>Offense: what it calls</h3><div class="tablewrap ro" style=""><table id="schoff" class="rgt"></table></div></div>
       <div class="card"><h3>Defense: what it plays</h3><div class="tablewrap ro" style=""><table id="schdef" class="rgt"></table></div></div>
       <div class="card"><h3>Offense by the look it faced</h3><div class="tablewrap ro" style=""><table id="schoffvs" class="rgt"></table></div></div>
@@ -560,6 +550,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 </section>
 
 <section class="tab" id="playersec" hidden>
+  <nav class="sub" id="playersub">
+    <button data-sub="plist">Players</button>
+    <button data-sub="positions">Rankings by position</button>
+  </nav>
+  <div id="plist">
   <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
     <label class="ctl">Search <input id="plq" type="search" placeholder="Any player" style="width:190px"></label>
     <label class="ctl">Team <select id="plteam"><option value="">All</option></select></label>
@@ -568,6 +563,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div>
   <div class="card" style="margin-top:10px"><h3 id="pllisth">Players</h3><div class="tablewrap" style=""><table id="pltable"></table></div></div>
   <div class="card" style="margin-top:14px" id="plcard"><div id="plhead"><h3 style="margin:0">Pick a player</h3></div><div id="plpage"></div></div>
+  </div>
+  <div id="positions" hidden>
+  <div class="row"><label class="ctl">Position <select id="posgroup"></select></label><label class="ctl">Show <select id="posn"><option value="32">Top 32</option><option value="64">Top 64</option><option value="1000">All</option></select></label></div>
+  <div class="tablewrap" style=""><table id="postable"></table></div>
+  </div>
 </section>
 
 <section class="tab" id="bets" hidden>
@@ -801,10 +801,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // ---------- state ----------
   const SEASONS = Object.keys((window.RANK || {}).seasons || {}).map(Number).sort((a, b) => b - a);   // every season the rankings cover, newest first
   const CUR_SEASON = (window.WEEK && WEEK.season) || SEASONS[0] || null;
-  let team = "KC", season = CUR_SEASON, data = null, tab = "week", sub = {teamsec: "roster", model: "overview", results: "backtest", rank: "teams", seasonsec: "odds"}, gameIdx = 0;
+  let team = "KC", season = CUR_SEASON, data = null, tab = "week", sub = {teamsec: "rankings", model: "overview", results: "backtest", rank: "teams", seasonsec: "odds", playersec: "plist"}, gameIdx = 0;
   const OLD_INFO = {inputsx: "analysis", dict: "defs", log: "catalog"};   // Info views merged 28 Sep 2026
   let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all", bkBand = "spread", bkMkt = "spread", bkTSide = null, bkTCut = null;
-  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "roster", model: "analysis", results: "backtest"}, o.sub); if (OLD_INFO[sub.model]) sub.model = OLD_INFO[sub.model]; if (o.sub && o.sub.model === "analysis" && !o.sub.overview_seen) sub.model = "overview";
+  try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "roster", model: "analysis", results: "backtest"}, o.sub); if (OLD_INFO[sub.model]) sub.model = OLD_INFO[sub.model]; if (tab === "rank") { tab = o.sub && o.sub.rank === "positions" ? "playersec" : "teamsec"; if (tab === "playersec") sub.playersec = "positions"; else sub.teamsec = "rankings"; }   // the Rankings tab folded into Teams and Players (29 Sep 2026) if (o.sub && o.sub.model === "analysis" && !o.sub.overview_seen) sub.model = "overview";
       if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (["how", "overview"].includes(sub.teamsec)) { sub.teamsec = "roster"; } if (sub.results === "proplive") sub.results = "props"; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
   const GROUP_ORDER = ["Model inputs", "Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
     "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
@@ -841,7 +841,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   function showTab() {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x.dataset.tab === tab ? "true" : "false"));
     document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== tab);
-    ["teamsec", "model", "results", "rank", "seasonsec"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "seasonsec" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
+    ["teamsec", "model", "results", "seasonsec", "playersec"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "seasonsec" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
       document.querySelectorAll(`#${sec} > div[id]`).forEach(d => d.hidden = d.id !== cur); });
   }
   groups.forEach(g => { const b = document.createElement("button"); b.className = "chip"; b.textContent = g; b.setAttribute("aria-pressed", on.has(g) ? "true" : "false");
@@ -1782,7 +1782,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         const pts = inp => { if (!co || wind == null) return null; let x = co.intercept; META.feats.forEach(f => { x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
         pA = pts(inputsFor(mu.A, mu.B)); pB = pts(inputsFor(mu.B, mu.A));
         how = co ? `the equation alone (the fit before the ${S} season, without the other models or the total's share-out${rkWin !== "model" ? ", on the window picked above" : ""}) · wind ${nz(wind)} mph, nobody out` : `no fit for ${S} in meta.js (fits are kept from ${Math.min(...Object.keys(META.coefs).map(Number))} on)`; }
-      $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span></div>`;   /* no note under the matchup (28 Sep 2026, Matt) */
+      const f3 = v => v == null ? "–" : (v >= 0 ? "+" : "") + v.toFixed(3), f1 = v => v == null ? "–" : (v >= 0 ? "+" : "") + v.toFixed(1), rk = (k, t) => ranks[k] && ranks[k][t] ? `<span class="rpq">#${ranks[k][t]}</span>` : "";
+      const sp = pA != null && pB != null ? pA - pB : null, tot = pA != null && pB != null ? pA + pB : null;
+      const rowsR = [["Power", "power", f1], ["Offense EPA", "off_epa_play", f3], ["Defense EPA", "def_epa_play", f3], ["Points for", "off_pf", f1], ["Points allowed", "def_pf", f1], ["QB rating", "qb_rating", f3]];
+      $("muOut").innerHTML = `<div class="mu-grid"><div><div class="score"><span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span></div>
+        <div class="mu-lines">${sp != null ? `<span><small>Spread</small><b>${sp > 0 ? mu.A : mu.B} ${sp === 0 ? "pick" : "-" + Math.abs(sp).toFixed(1)}</b></span><span><small>Total</small><b>${tot.toFixed(1)}</b></span>` : ""}</div></div>
+        <div class="tablewrap ro"><table class="rgt mu-t"><thead><tr><th class="l"></th><th>${LOGO(mu.A)}${mu.A}</th><th>${LOGO(mu.B)}${mu.B}</th></tr></thead><tbody>${rowsR.map(([lab, k, f]) => `<tr><td class="l">${lab}</td><td class="mono">${f(val(mu.A, k))} ${rk(k, mu.A)}</td><td class="mono">${f(val(mu.B, k))} ${rk(k, mu.B)}</td></tr>`).join("")}</tbody></table></div></div>`;
     };
     ["muA", "muB"].forEach(id => { $(id).onchange = price; });
     price();
@@ -1795,7 +1800,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const x = v => m.l + (v + lim) / (2 * lim) * (W - m.l - m.r), y = v => m.t + (lim - v) / (2 * lim) * (Hh - m.t - m.b);
     let sv = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Offense EPA rating against defense EPA rating, one dot per team">`;
     sv += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/><line x1="${x(0)}" x2="${x(0)}" y1="${m.t}" y2="${Hh - m.b}" stroke="var(--rule)"/>`;
-    sv += `<text x="${W - m.r}" y="${Hh - 8}" text-anchor="end" font-size="11" fill="var(--text-secondary)">Offense rating, EPA per play →</text><text transform="translate(12 ${Hh - m.b}) rotate(-90)" font-size="11" fill="var(--text-secondary)" text-anchor="start">Defense rating →</text>`;
     sv += `<text x="${W - m.r - 4}" y="${m.t + 12}" text-anchor="end" font-size="10.5" fill="var(--text-muted)">Strong both</text><text x="${m.l + 4}" y="${Hh - m.b - 6}" font-size="10.5" fill="var(--text-muted)">Weak both</text><text x="${m.l + 4}" y="${m.t + 12}" font-size="10.5" fill="var(--text-muted)">Defense carries</text><text x="${W - m.r - 4}" y="${Hh - m.b - 6}" text-anchor="end" font-size="10.5" fill="var(--text-muted)">Offense carries</text>`;
     // labels: nudge any two that would overlap apart vertically, so every team stays readable
     const lab = teams.map((t, i) => ({t, px: x(xs[i]), py: y(ys[i]), lx: x(xs[i]) + 6, ly: y(ys[i]) + 4})).sort((a, b) => a.py - b.py);
@@ -1809,10 +1813,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // power bars
     const ordP = teams.slice().sort((a, b) => val(b, "power") - val(a, "power"));
     const maxP = Math.max(...ordP.map(t => Math.abs(val(t, "power"))), 1);
-    const rowH = 12, W2 = 520, H2 = m.t + ordP.length * rowH + 8, cx = W2 / 2 + 20;
+    // the bars span the card (29 Sep 2026, Matt): the team label at the left edge, the bars centred on zero and using the rest
+    const rowH = 12, W2 = 520, H2 = m.t + ordP.length * rowH + 8, lw = 40, maxW = (W2 - lw - 8) / 2 - 30, cx = lw + 30 + maxW;
     let pb = `<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Power rating by team">`;
     pb += `<line x1="${cx}" x2="${cx}" y1="${m.t - 4}" y2="${H2 - 4}" stroke="var(--rule)"/>`;
-    ordP.forEach((t, i) => { const v = val(t, "power"), w = Math.abs(v) / maxP * (W2 / 2 - 110), yy = m.t + i * rowH; pb += `<rect x="${v >= 0 ? cx : cx - w}" y="${yy}" width="${w.toFixed(1)}" height="${rowH - 3}" rx="2" fill="var(--series-1)"/><text x="${cx - (W2 / 2 - 110) - 40}" y="${yy + rowH - 4}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--text-primary)">${t}</text><text x="${v >= 0 ? cx + w + 4 : cx - w - 4}" y="${yy + rowH - 4}" text-anchor="${v >= 0 ? "start" : "end"}" font-size="9.5" fill="var(--text-secondary)">${sgn(v)}</text>`; });
+    ordP.forEach((t, i) => { const v = val(t, "power"), w = Math.abs(v) / maxP * maxW, yy = m.t + i * rowH; pb += `<rect x="${v >= 0 ? cx : cx - w}" y="${yy}" width="${w.toFixed(1)}" height="${rowH - 3}" rx="2" fill="var(--series-1)"/><text x="${lw - 4}" y="${yy + rowH - 4}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--text-primary)">${t}</text><text x="${v >= 0 ? cx + w + 4 : cx - w - 4}" y="${yy + rowH - 4}" text-anchor="${v >= 0 ? "start" : "end"}" font-size="9.5" fill="var(--text-secondary)">${sgn(v)}</text>`; });
     pb += "</svg>";
     $("powerbar").innerHTML = pb;
   }
@@ -2610,7 +2615,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const sides = [tm, gm[boxGame].opp]; let h = "";
       const main = {rec: "yards", rush: "yards", pass: "attempts", def: "tackles", kick: "points"};
       sides.forEach(t => {
-        h += `<div class="card" style="margin-top:12px"><h3 style="display:flex;align-items:center;gap:8px">${LOGO(t, 22)}${t}</h3>`;
+        h += `<div class="card" style="margin-top:12px"><h3 style="display:flex;align-items:center;gap:8px">${LOGO(t, 22)}${t}</h3><div class="bxcols"><div>`;
+        let colDef = "";
         Object.keys(LOGT).forEach(k => {
           const cols = C.cols[k], ix = Object.fromEntries(cols.map((c, i) => [c, i])), T = LOGT[k];
           const rows = []; Object.entries(L).forEach(([pid, kinds]) => (kinds[k] || []).forEach(r => { if (r[1] === boxGame && r[2] === t) rows.push([pid, r]); }));
@@ -2619,10 +2625,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           const has = c => rows.some(([, r]) => r[ix[c]] != null && r[ix[c]] !== 0);
           const shown = T.cols.filter(([c]) => c === "snaps" || has(c));
           const cell = (r, c, kind) => { const v = r[ix[c]]; if (v == null) return ""; if (kind === "s") return `${v}${r[ix.snap_pct] != null ? ` <span class="rpq">${Math.round(100 * r[ix.snap_pct])}%</span>` : ""}`; if (kind === "e") return `<span class="${v > 0 ? "pos" : v < 0 ? "neg" : ""}">${v > 0 ? "+" : ""}${(+v).toFixed(1)}</span>`; if (kind === "r" || kind === "t") return (+v).toFixed(1); return (+v).toLocaleString(); };
-          h += `<div class="tablewrap ro" style="margin-top:8px"><table class="rgt"><thead><tr><th>${T.title}</th>${shown.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead><tbody>` +
+          const tbl = `<div class="tablewrap ro" style="margin-top:8px"><table class="rgt"><thead><tr><th>${T.title}</th>${shown.map(([, l]) => `<th>${l}</th>`).join("")}</tr></thead><tbody>` +
             rows.map(([pid, r]) => `<tr class="mrow" data-pl="${pid}"><td class="nw"><a href="#" data-pl="${pid}" style="text-decoration:none;font-weight:700">${esc((NM[pid] || [pid])[0])}</a> <span class="rpq">${esc((NM[pid] || [, ""])[1] || "")}</span></td>${shown.map(([c, , kd]) => `<td class="mono">${cell(r, c, kd)}</td>`).join("")}</tr>`).join("") + `</tbody></table></div>`;
+          if (k === "def") colDef += tbl; else h += tbl;
         });
-        h += `</div>`;
+        h += `</div><div>${colDef}</div></div></div>`;
       });
       $("boxout").innerHTML = h;
     }));
@@ -3483,13 +3490,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (tab === "live") return renderLive();
     if (tab === "week") return renderWeek();
     if (tab === "picks") return renderPicks();
-    if (tab === "rank") return (sub.rank === "positions" ? renderPositions() : renderRankings());
     if (tab === "bets") return renderTrack();
     if (tab === "seasonsec") return renderSeason();
     if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else if (sub.results === "opener") renderOpenerStudy(); else { renderBacktest(); renderLegit(); } return; }
-    if (tab === "playersec") { renderPlayersTab(); return; }
+    if (tab === "playersec") { if (sub.playersec === "positions") renderPositions(); else renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "overview") renderOverview(); if (s === "analysis") renderAnalysis(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "defs") renderDict(); if (s === "healthv") renderHealth(); if (s === "catalog") { renderCatalog(); renderLog(); } if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
-    if (tab === "teamsec") { if (!data) return; const s = sub.teamsec; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
+    if (tab === "teamsec") { const s = sub.teamsec; const rk = s === "rankings"; $("teamstrip").hidden = rk; document.querySelector("#teamsec .controls").hidden = rk; if (rk) return renderRankings(); if (!data) return; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
   }
   // ---------- Definitions and sources: the paragraphs that quote numbers, written from the data files ----------
   function fillDefs() {

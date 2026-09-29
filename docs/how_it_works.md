@@ -2334,3 +2334,11 @@ takes with him (RB, WR, TE) plus his share of last game's snaps through the snap
 own, the defense's through what the opponent gains), with the week's fit; the QB1 row says "QB rating" since he is
 priced by it. Snaps reads 0% for a player not in last game's snap counts; a player with no value reads a dash.
 
+**Rankings folded into Teams and Players (29 Sep 2026, Matt).** The Rankings tab is gone: the team rankings (scatter,
+power bars, matchup, table) are the first view of the Teams tab, open by default, with the team picker and the tiles
+hidden there; the rankings by position are a second view of the Players tab beside the player list. An old saved
+Rankings tab maps to the new place. On the team rankings: no heading on the scatter, no axis labels (the corner
+labels say it), the power bars span the card, and the Matchup card shows the spread and total beside the score and
+the two teams' power, EPA, points and QB ratings with their ranks. Scheme cards are sized to their tables and flow
+side by side; each team's box score has its offense tables in one column and its defense in the other.
+
