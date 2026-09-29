@@ -1225,7 +1225,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (kick && !/fg/i.test(lab)) {   // a punt or kickoff as ESPN draws it: the flight as a dashed arc to where it was fielded, the return as a solid line; the distance from the play text
       const m = String(text || "").match(/(?:punts|kicks) (\d+) yards?(?: from [A-Z]{2,4} \d+)? to (?:the )?(?:([A-Z]{2,4}) (\d+)|(end zone))/i);
       const d = pl.to >= pl.from ? 1 : -1, catchY = m ? (m[3] ? (d > 0 ? 100 : 0) : yardOfSpot(`${m[1] ? m[2] : ""} ${m[3] || ""}`.trim() || `${m[2]} ${m[3]}`, H, A)) : null;
-      const cy = catchY != null ? catchY : pl.to, xa = X(pl.from), xc = X(cy), xb = X(pl.to), lift = big ? 44 : 18;
+      const cy = catchY != null ? catchY : pl.to, xa = X(pl.from), xc = X(cy), xb = X(pl.to), lift = big ? 32 : 14;
       const arc = `M${xa},${yy} Q${(xa + xc) / 2},${yy - lift} ${xc},${yy}`;
       const ret = Math.abs(pl.to - cy) >= 1 ? `${seg(xc, xb, "#FFFFFF", false)}${arrow(xb, pl.to >= cy ? 1 : -1, "#FFFFFF")}` : "";
       return `<path d="${arc}" fill="none" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><path d="${arc}" fill="none" stroke="#FFFFFF" stroke-width="${w}" stroke-dasharray="${big ? "8 6" : "4 3"}" stroke-linecap="round"/>${dot(xa, "#FFFFFF")}${dot(xc, "#FFFFFF")}${ret}${pillAt((xa + xc) / 2, `${lab}${m ? " " + m[1] : ""}`, "#FFFFFF")}`; }
