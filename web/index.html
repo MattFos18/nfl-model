@@ -418,7 +418,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <nav class="sub" id="teamsub">
     <button data-sub="rankings">Rankings</button>
     <button data-sub="roster">Roster and depth chart</button>
-    <button data-sub="ratings">Ratings by week</button>
     <button data-sub="games">Game log</button>
     <button data-sub="box">Player box scores</button>
     <button data-sub="scheme">Scheme and play calling</button>
@@ -454,7 +453,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     </div>
   </div>
   <div id="games" hidden>
-
+    <div class="card viz-root" id="chartcard" style="margin-bottom:14px"><h3 id="charttitle"></h3><div id="chart"></div><div class="tip" id="tip"></div></div>
     <div class="chips" id="groupchips"></div>
     <div class="tablewrap"><table id="gamestable"></table></div>
     <div class="status" id="gamesstatus"></div>
@@ -462,11 +461,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   <div id="box" hidden>
     <div class="controls" style="margin:0 0 10px;justify-content:flex-start"><label class="ctl">Game <select id="boxgame"></select></label></div>
     <div id="boxout"></div>
-  </div>
-  <div id="ratings" hidden>
-
-    <div class="card viz-root" id="chartcard"><h3 id="charttitle"></h3><div id="chart"></div><div class="tip" id="tip"></div></div>
-
   </div>
   <div id="roster" hidden>
 
@@ -799,7 +793,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const OLD_INFO = {inputsx: "analysis", dict: "defs", log: "catalog"};   // Info views merged 28 Sep 2026
   let rkSeason = null, rkWeek = null, rkSort = "power", rkDir = -1, rkWin = "model", mu = {A: "KC", B: "BUF"}, howWeek = null, howStat = "epa_play", howSide = "off", bkSeason = "all", bkBand = "spread", bkMkt = "spread", bkTSide = null, bkTCut = null;
   try { const s = localStorage.getItem("dataroom2"); if (s) { const o = JSON.parse(s); if (o.team) team = o.team; if (o.season) season = o.season; if (o.tab) tab = o.tab; if (o.sub) sub = Object.assign({teamsec: "roster", model: "analysis", results: "backtest"}, o.sub); if (OLD_INFO[sub.model]) sub.model = OLD_INFO[sub.model]; if (tab === "rank") { tab = o.sub && o.sub.rank === "positions" ? "playersec" : "teamsec"; if (tab !== "playersec") sub.teamsec = "rankings"; } sub.playersec = "plist";   // the Rankings tab folded into Teams and Players (29 Sep 2026) if (o.sub && o.sub.model === "analysis" && !o.sub.overview_seen) sub.model = "overview";
-      if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (["how", "overview"].includes(sub.teamsec)) { sub.teamsec = "roster"; } if (sub.results === "proplive") sub.results = "props"; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
+      if (tab === "history") { tab = "results"; sub.results = "backtest"; } if (tab === "track" || (tab === "results" && o.sub && o.sub.results === "live")) { tab = "bets"; sub.results = "backtest"; } if (["how", "overview"].includes(sub.teamsec)) { sub.teamsec = "roster"; } if (sub.teamsec === "ratings") sub.teamsec = "games"; if (sub.results === "proplive") sub.results = "props"; if (o.on) { on.clear(); o.on.forEach(g => on.add(g)); } } } catch (e) {}
   const GROUP_ORDER = ["Model inputs", "Result","Line","Situation","Model","EPA stats","EPA stats (allowed)","Box score","Box score (allowed)","Drives","Drives (allowed)",
     "Ratings into the game","Trends (shown, not used)","Injuries","EPA stats, garbage time removed","EPA stats (allowed), garbage time removed","Drives, garbage time removed","Other"];
   const DEFAULT_ON = new Set(["Result","Line","Situation","Model","EPA stats","Box score","Ratings into the game"]);
@@ -3468,7 +3462,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (tab === "results") { if (sub.results === "props") { renderPropsBacktest(); renderPropsLive(); } else if (sub.results === "seasonbt") renderSeasonBacktest(); else if (sub.results === "opener") renderOpenerStudy(); else { renderBacktest(); renderLegit(); } return; }
     if (tab === "playersec") { renderPlayersTab(); return; }
     if (tab === "model") { const s = sub.model; if (s === "overview") renderOverview(); if (s === "analysis") renderAnalysis(); if (s === "how") { syncHowSelectors(); if (!data) { load(); return; } renderHow(); } if (s === "defs") renderDict(); if (s === "healthv") renderHealth(); if (s === "catalog") { renderCatalog(); renderLog(); } if (s === "decisions") renderDecisions(); if (s === "playermodel") renderPlayerModel(); if (s === "seasonhow") renderSeasonHow(); return; }
-    if (tab === "teamsec") { const s = sub.teamsec; const rk = s === "rankings"; $("teamstrip").hidden = rk; document.querySelector("#teamsec .controls").hidden = rk; if (rk) return renderRankings(); if (!data) return; renderTeamStrip(); if (s === "games") renderGames(); if (s === "ratings") renderRatings(); if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
+    if (tab === "teamsec") { const s = sub.teamsec; const rk = s === "rankings"; $("teamstrip").hidden = rk; document.querySelector("#teamsec .controls").hidden = rk; if (rk) return renderRankings(); if (!data) return; renderTeamStrip(); if (s === "games") { renderRatings(); renderGames(); } if (s === "roster") renderRoster(); if (s === "scheme") renderScheme(); if (s === "box") renderBox(); }
   }
   // ---------- Definitions and sources: the paragraphs that quote numbers, written from the data files ----------
   function fillDefs() {
