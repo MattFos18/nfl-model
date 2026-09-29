@@ -805,6 +805,7 @@ if __name__ == "__main__":
     ap.add_argument("--names", default=None)
     ap.add_argument("--draws", type=int, default=N_PLACEBO)
     ap.add_argument("--tag", default="placebo")
+    ap.add_argument("--stop", type=int, default=STOP_AT)
     a = ap.parse_args()
     names = a.names.split("||") if a.names else None
     if a.stage == "base":
@@ -814,7 +815,7 @@ if __name__ == "__main__":
     elif a.stage == "real":
         stage_real(a.jobs, names)
     elif a.stage == "placebo":
-        stage_placebo(a.jobs, names, a.draws, tag=a.tag)
+        stage_placebo(a.jobs, names, a.draws, stop_at=a.stop, tag=a.tag)
     elif a.stage == "combo":
         stage_combo(a.jobs)
     elif a.stage == "report":

@@ -1,0 +1,129 @@
+team,season,head_coach,oc,dc,status
+ARI,2013,Bruce Arians,Harold Goodwin,Todd Bowles,ok
+ATL,2013,Mike Smith,Dirk Koetter,Mike Nolan,ok
+BAL,2013,John Harbaugh,Jim Caldwell,Dean Pees,ok
+BUF,2013,Doug Marrone,Nathaniel Hackett,Mike Pettine,ok
+CAR,2013,Ron Rivera,Mike Shula,Sean McDermott,ok
+CHI,2013,Mike Ditka; Cowboys; Chicago Bears; George McCaskey; CBSSports.com; 1985 Bears; Chicago Tribune; ESPN,Aaron Kromer,Mel Tucker,ok
+CIN,2013,Marvin Lewis,Jay Gruden,Mike Zimmer,ok
+CLE,2013,Rob Chudzinski,Norv Turner,Ray Horton,ok
+DAL,2013,Jason Garrett,Bill Callahan,Monte Kiffin,ok
+DEN,2013,John Fox,Adam Gase,Jack Del Rio,ok
+DET,2013,Jim Schwartz,Scott Linehan,Gunther Cunningham,ok
+GB,2013,Mike McCarthy,Tom Clements,Dom Capers,ok
+HOU,2013,Gary Kubiak,Rick Dennison,Wade Phillips,ok
+IND,2013,Chuck Pagano,Pep Hamilton,Greg Manusky,ok
+JAX,2013,Gus Bradley,Jedd Fisch,Bob Babich,ok
+KC,2013,Andy Reid,Doug Pederson,Bob Sutton,ok
+LA,2013,Jeff Fisher,Brian Schottenheimer,Tim Walton,ok
+LAC,2013,Mike McCoy,Ken Whisenhunt,John Pagano,ok
+LV,2013,Dennis Allen,Greg Olson,Jason Tarver,ok
+MIA,2013,Joe Philbin,Mike Sherman,Kevin Coyle,ok
+MIN,2013,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NE,2013,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NO,2013,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NYG,2013,Tom Coughlin,Kevin Gilbride,Perry Fewell,ok
+NYJ,2013,Rex Ryan,Marty Mornhinweg,Dennis Thurman,ok
+PHI,2013,Chip Kelly,Pat Shurmur,Billy Davis,ok
+PIT,2013,Mike Tomlin,Todd Haley,Dick LeBeau,ok
+SEA,2013,Pete Carroll,Darrell Bevell,Dan Quinn,ok
+SF,2013,Jim Harbaugh,Greg Roman,Vic Fangio,ok
+TB,2013,Butch Davis,Mike Sullivan,Bill Sheridan,ok
+TEN,2013,Mike Munchak,Dowell Loggains,Jerry Gray,ok
+WAS,2013,Mike Shanahan,Kyle Shanahan,Jim Haslett,ok
+ARI,2014,Bruce Arians,Harold Goodwin,Todd Bowles,ok
+ATL,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+BAL,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+BUF,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+CAR,2014,Ron Rivera,Mike Shula,Sean McDermott,ok
+CHI,2014,Marc Trestman,Aaron Kromer,Mel Tucker,ok
+CIN,2014,Marvin Lewis,Hue Jackson,Paul Guenther,ok
+CLE,2014,Mike Pettine,Kyle Shanahan,Jim O'Neil,ok
+DAL,2014,Jason Garrett,,Rod Marinelli,ok
+DEN,2014,John Fox,Adam Gase,Jack Del Rio,ok
+DET,2014,Jim Caldwell,Joe Lombardi,Teryl Austin,ok
+GB,2014,Mike McCarthy,Tom Clements,Dom Capers,ok
+HOU,2014,Bill O'Brien,,Romeo Crennel,ok
+IND,2014,Chuck Pagano,Pep Hamilton,Greg Manusky,ok
+JAX,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+KC,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LA,2014,Jeff Fisher,Brian Schottenheimer,Gregg Williams,ok
+LAC,2014,Mike McCoy,Frank Reich,John Pagano,ok
+LV,2014,Dennis Allen,Greg Olson,Jason Tarver,ok
+MIA,2014,Joe Philbin,Bill Lazor,Kevin Coyle,ok
+MIN,2014,Mike Zimmer,Norv Turner,George Edwards,ok
+NE,2014,Bill Belichick,Josh McDaniels,Matt Patricia,ok
+NO,2014,Sean Payton,"Pete Carmichael, Jr.",Rob Ryan,ok
+NYG,2014,Tom Coughlin,Ben McAdoo,Perry Fewell,ok
+NYJ,2014,Rex Ryan,Marty Mornhinweg,Dennis Thurman,ok
+PHI,2014,Chip Kelly,Pat Shurmur,Bill Davis,ok
+PIT,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+SEA,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+SF,2014,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+TB,2014,Lovie Smith,Jeff Tedford,Leslie Frazier,ok
+TEN,2014,Ken Whisenhunt,Jason Michael,Ray Horton,ok
+WAS,2014,Jay Gruden,Sean McVay,Jim Haslett,ok
+ARI,2015,Bruce Arians,Harold Goodwin,James Bettcher,ok
+ATL,2015,Dan Quinn,Kyle Shanahan,Richard Smith,ok
+BAL,2015,John Harbaugh,Marc Trestman,Dean Pees,ok
+BUF,2015,Rex Ryan,Greg Roman,Dennis Thurman,ok
+CAR,2015,Ron Rivera,Mike Shula,Sean McDermott,ok
+CHI,2015,John Fox,Adam Gase,Vic Fangio,ok
+CIN,2015,Marvin Lewis,Hue Jackson,Paul Guenther,ok
+CLE,2015,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+DAL,2015,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+DEN,2015,Gary Kubiak,Rick Dennison,Wade Phillips,ok
+DET,2015,Jim Caldwell,Joe Lombardi,Teryl Austin,ok
+GB,2015,Mike McCarthy,Edgar Bennett,Dom Capers,ok
+HOU,2015,Bill O'Brien,George Godsey,Romeo Crennel,ok
+IND,2015,Chuck Pagano,Rob Chudzinski,Greg Manusky,ok
+JAX,2015,ElizaBeth Mayers,Greg Olson,Bob Babich,ok
+KC,2015,2015 season; Kansas City Chiefs; National Football League; head coach; Andy Reid; John Dorsey; Jamaal Charles; torn ACL; Chicago Bears; Baltimore Ravens; Pittsburgh Steelers; 1970 Cincinnati Bengals; 2019; 2020,Doug Pederson,Bob Sutton,ok
+LA,2015,Jeff Fisher,Rob Boras,Gregg Williams,ok
+LAC,2015,Mike McCoy,Frank Reich,John Pagano,ok
+LV,2015,Jack Del Rio,Bill Musgrave,Ken Norton Jr.,ok
+MIA,2015,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+MIN,2015,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NE,2015,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NO,2015,Sean Payton,Pete Carmichael,Dennis Allen,ok
+NYG,2015,Tom Coughlin,Ben McAdoo,Steve Spagnuolo,ok
+NYJ,2015,Todd Bowles,Chan Gailey,Kacy Rodgers,ok
+PHI,2015,Chip Kelly,Pat Shurmur,Billy Davis,ok
+PIT,2015,Mike Tomlin,Todd Haley,Keith Butler,ok
+SEA,2015,Pete Carroll,Darrell Bevell,Kris Richard,ok
+SF,2015,Bill Nayes,Geep Chryst,Eric Mangini,ok
+TB,2015,Lovie Smith,Dirk Koetter,Leslie Frazier,ok
+TEN,2015,Ken Whisenhunt,Jason Michael,Ray Horton,ok
+WAS,2015,Jay Gruden,Sean McVay,Joe Barry,ok
+ARI,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+ATL,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+BAL,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+BUF,2016,Anthony Lynn,,Dennis Thurman,ok
+CAR,2016,Ron Rivera,Mike Shula,Sean McDermott,ok
+CHI,2016,John Fox,Dowell Loggains,Vic Fangio,ok
+CIN,2016,Marvin Lewis,Ken Zampese,Paul Guenther,ok
+CLE,2016,Hue Jackson,,Ray Horton,ok
+DAL,2016,Jason Garrett,Scott Linehan,Rod Marinelli,ok
+DEN,2016,Gary Kubiak,Rick Dennison,Wade Phillips,ok
+DET,2016,Jim Caldwell,Jim Bob Cooter,Teryl Austin,ok
+GB,2016,Mike McCarthy,Edgar Bennett,Dom Capers,ok
+HOU,2016,Bill O'Brien,George Godsey,Romeo Crennel,ok
+IND,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+JAX,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+KC,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LA,2016,Jeff Fisher,Rob Boras,Gregg Williams,ok
+LAC,2016,Mike McCoy,Ken Whisenhunt,John Pagano,ok
+LV,2016,Jack Del Rio,Bill Musgrave,Ken Norton Jr.,ok
+MIA,2016,Adam Gase,Clyde Christensen,Vance Joseph,ok
+MIN,2016,Mike Zimmer,Norv Turner,George Edwards,ok
+NE,2016,Bill Belichick,Josh McDaniels,Matt Patricia,ok
+NO,2016,Sean Payton,Pete Carmichael,Dennis Allen,ok
+NYG,2016,Ben McAdoo,Mike Sullivan,Steve Spagnuolo,ok
+NYJ,2016,Todd Bowles,Chan Gailey,Kacy Rodgers,ok
+PHI,2016,Doug Pederson,Frank Reich,Jim Schwartz,ok
+PIT,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+SEA,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+SF,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+TB,2016,Dirk Koetter,Todd Monken,Mike Smith,ok
+TEN,2016,Mike Mularkey,Terry Robiskie,Dick LeBeau,ok
+WAS,2016,Jay Gruden,Sean McVay,Joe Barry,ok
