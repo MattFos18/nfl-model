@@ -2348,5 +2348,6 @@ on the Teams tab; the team and season pickers and the tiles sit under them and s
 the Live tab, one failed fetch of ESPN's scoreboard used to end the page's own polling for the visit, leaving the line
 watch's copy (live.js, every 30 minutes) to stand even with a game on. A miss is now skipped; after three in a row the
 page falls back to live.js and retries every minute while a game is on (every 10 minutes otherwise), and a fetch that
-succeeds resumes the 15-second polling.
+succeeds resumes the 15-second polling. The rankings table no longer prints a grey rank beside each number; the
+rows are ranked by the sorted column.
 
