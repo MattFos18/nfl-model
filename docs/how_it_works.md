@@ -2351,3 +2351,14 @@ page falls back to live.js and retries every minute while a game is on (every 10
 succeeds resumes the 15-second polling. The rankings table no longer prints a grey rank beside each number; the
 rows are ranked by the sorted column.
 
+**Sub-view tabs, the team odds table, the Breakdown jump list, the Live first paint, one Players view (29 Sep 2026,
+Matt).** The view buttons under each tab are one row of underlined tabs, not stacked pills (they wrap on a phone). The
+Futures team odds table is set larger than the other tables, with 24-pixel logos. On the Breakdown, the jump list is a
+sticky column beside the cards instead of a box fixed under a header that scrolls away, and picking the game in view
+scrolls the list itself, never the page. The Live tab's first paint waits for the page's own ESPN answer (a few hundred
+milliseconds) rather than drawing the line watch's copy first, which could be half an hour old and flashed a game as
+still on before the fetch showed it final. The Players tab is one view: the list keeps its search and filters, its
+Unit menu gains the five defensive roles (edge, interior line, linebacker, corner, safety), quarterbacks show EPA per
+dropback and dropbacks this season, corners and safeties show their coverage line; the separate rankings-by-position
+table is gone. On the player totals calculation the yards card is headed Yards, its last row Projected.
+
