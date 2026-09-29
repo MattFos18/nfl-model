@@ -37,7 +37,13 @@ def build_table():
             fail.append(f"3 ({ps['beaten']} of {ps['draws']} shuffles matched it)")
         eqlab = {"P": "points", "T": "total", "DP": "points, dropped", "DT": "total, dropped"}[i["eq"]]
         if i["eq"] in ("DP", "DT"):
-            verdict = "live term earns its place (dropping it worsens every window)" if all(v[f"d_team_{w}"] > 0 for w in WINDOWS) else "re-check: dropping it does not worsen every window"
+            key = "d_total" if i["eq"] == "DT" else "d_team"
+            if all(v[f"{key}_{w}"] > 0 for w in WINDOWS):
+                verdict = "stays: dropping it worsens the miss on every window"
+            elif v.rule1:
+                verdict = "stays: dropping it lowers the miss on every window but fails rule " + "; ".join(x for x in fail if x.startswith("2")) if not v.rule2 else "dropping it passes rules 1 and 2 (removal not placebo-testable; flagged for the next round)"
+            else:
+                verdict = "stays: dropping it is mixed across windows"
         else:
             verdict = "ADOPT" if not fail else "not adopted: rule " + "; ".join(fail)
         row = {"family": i["family"], "idea": name, "equation": eqlab, "inputs": " ".join(i["cols"]) + (" (+ opponent's)" if i["opp"] else "") + (f" [{i['mode']}]" if i["level"] == "game" and i["eq"] == "P" else ""),
