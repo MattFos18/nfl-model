@@ -441,11 +441,6 @@
 ],
 [
 "LAC",
-"David Njoku",
-"Out"
-],
-[
-"LAC",
 "Elijah Molden",
 "Out"
 ],
@@ -2349,10 +2344,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 5.3,
+"wind": 5.2,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-29 00:30 UTC"
+"written_at": "2026-09-29 01:01 UTC"
 }
