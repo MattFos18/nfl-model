@@ -72,20 +72,28 @@ def fetch(team: str, season: int) -> dict:
     return {"team": team, "season": season, "head_coach": "", "oc": "", "dc": "", "status": "error: " + err}
 
 
-def main(seasons):
+def main(seasons, only_errors=False):
     rows = []
     print("ROWHEAD,team,season,head_coach,oc,dc,status", flush=True)
+    redo = None
+    if only_errors and OUTF.exists():   # refetch only the rows a run could not read (rate-limited), one at a time
+        have = pd.read_csv(OUTF)
+        redo = set(zip(have.team, have.season)) - set(zip(have[have.status.isin(["ok", "no staff list", "no article"])].team, have[have.status.isin(["ok", "no staff list", "no article"])].season))
     for s in seasons:
         for t in TEAMS:
-            rows.append(fetch(t, s)); time.sleep(0.2)
+            if redo is not None and (t, s) not in redo:
+                continue
+            rows.append(fetch(t, s)); time.sleep(3.0 if redo is not None else 0.2)
             r = rows[-1]; print("ROW," + ",".join(str(r[c]).replace(",", " ") for c in ["team", "season", "head_coach", "oc", "dc", "status"]), flush=True)   # as it lands, so a run cut off by its time limit still hands over what it fetched
     out = pd.DataFrame(rows).sort_values(["season", "team"])
+    if redo is not None:   # keep every row already read, replace the refetched ones
+        out = pd.concat([pd.read_csv(OUTF), out], ignore_index=True).drop_duplicates(["team", "season"], keep="last").sort_values(["season", "team"])
     OUTF.parent.mkdir(parents=True, exist_ok=True); out.to_csv(OUTF, index=False)
     print("coverage:"); print(out.groupby("season").status.value_counts().unstack(fill_value=0).to_string())
     print("===CSV START==="); print(out.to_csv(index=False), end=""); print("===CSV END===")
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2013-2026"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2013-2026"); ap.add_argument("--only-errors", action="store_true"); a = ap.parse_args()
     lo, hi = (a.seasons.split("-") + [None])[:2]
-    main(list(range(int(lo), int(hi or lo) + 1)))
+    main(list(range(int(lo), int(hi or lo) + 1)), a.only_errors)
