@@ -2321,6 +2321,10 @@ Then again the same evening: the play runs along the ball's line and leads to th
 straight line; a pass as a dashed arc from the throw to the catch; an incomplete pass as a dashed arc from the ball
 downfield ending in an X); no tag on the field, the play's name and yards (Run +7, Pass +26, Sack −8, Incomplete,
 Punt 55) sit as a chip in the header row beside the down and distance.
+Then (29 Sep 2026, Matt: cleaner, better aligned): the play is a soft translucent band on the ground from where it
+started to the ball (red for a loss or a turnover), with a thin dashed arc above it for a pass from the throw to the
+catch, the arc leaving the ball's arrow and stopping at the ball's back edge; an incomplete pass is the arc from the
+ball's arrow downfield to a thin X; a punt or kickoff is the arc of the kick with the return as a band; no chip.
 
 **Roster columns filled (29 Sep 2026, Matt).** Back: when ESPN gives no return date, the league's rules: injured reserve
 and PUP mean four games out, so "week N earliest" is four weeks after the week he went on the list (week 5 for a
