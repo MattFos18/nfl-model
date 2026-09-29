@@ -2307,4 +2307,8 @@ chance as a second bar in the same style. The field is ESPN's: a striped green f
 and yard numbers, the end zones in the teams' colours, the current drive as a band from where it started to the
 ball, the line of scrimmage in blue, the line to gain in yellow, the ball with a possession arrow, and the down and
 distance in a header row with the team in possession (the big field adds the drive's plays, yards and time).
+The last play is drawn on the field as ESPN draws it (29 Sep 2026): from where it started to where it ended (the
+scoreboard's lastPlay start and end yardLine, exported by results.py and read the same way by the page's own refresh),
+a solid arrow for a run, a dashed arc for a pass, a dotted line for a kick or punt, red when it lost yards; timeouts,
+penalties and clock stoppages draw nothing.
 

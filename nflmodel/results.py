@@ -105,7 +105,9 @@ def parse(j: dict, season: int, week: int) -> pd.DataFrame:
         # the game situation ESPN carries while a game is on (27 Sep 2026, the Live strip): possession, down and distance, the
         # last play, ESPN's own live win chance, the quarter scores, the statistical leaders; displayed as ESPN's, never priced
         si = comp.get("situation") or {}; lp = si.get("lastPlay") or {}; pr = lp.get("probability") or {}
-        live = {"down": si.get("downDistanceText"), "possession": ids.get(str(si.get("possession"))), "red_zone": bool(si.get("isRedZone")), "last_play": (lp.get("text") or "").strip() or None,
+        lps, lpe = lp.get("start") or {}, lp.get("end") or {}   # the last play drawn on the field (29 Sep 2026): where it started and ended (yardLine from the home goal line), its yards and type
+        play = {"from": lps.get("yardLine"), "to": lpe.get("yardLine"), "yds": lp.get("statYardage"), "type": (lp.get("type") or {}).get("abbreviation"), "team": ids.get(str((lp.get("team") or {}).get("id")))} if lps.get("yardLine") is not None and lpe.get("yardLine") is not None else None
+        live = {"down": si.get("downDistanceText"), "possession": ids.get(str(si.get("possession"))), "red_zone": bool(si.get("isRedZone")), "last_play": (lp.get("text") or "").strip() or None, "play": play,
                 "yard_line": si.get("yardLine"), "distance": si.get("distance"), "down_n": si.get("down"), "home_timeouts": si.get("homeTimeouts"), "away_timeouts": si.get("awayTimeouts"),   # the field (28 Sep 2026): yardLine counts from the home goal line
                 "espn_home_wp": pr.get("homeWinPercentage"), "linescores": lines, "records": recs, "broadcast": comp.get("broadcast"),
                 "leaders": [{"stat": l.get("name"), "name": ((l.get("leaders") or [{}])[0].get("athlete") or {}).get("shortName"), "team": ids.get(str((((l.get("leaders") or [{}])[0].get("team") or {}).get("id")))), "value": (l.get("leaders") or [{}])[0].get("displayValue")} for l in (comp.get("leaders") or []) if l.get("leaders")]} if state != "scheduled" else {"broadcast": comp.get("broadcast"), "records": recs}
