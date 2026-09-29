@@ -88,7 +88,7 @@ def lean_walk_forward(fp: pd.DataFrame, G: pd.DataFrame, feats: list, tfeats: li
             te = test_all[test_all.week == wk]
             hmask = (te.home == 1).values
             h_ids = te.game_id.values[hmask]; a_ids = te.game_id.values[~hmask]
-            ids = [g for g in h_ids if g in set(a_ids)]
+            aset = set(a_ids); ids = [g for g in h_ids if g in aset]
             rec = pd.DataFrame({"game_id": ids, "season": s, "week": wk})
             trh = tr[tr.home == 1].set_index("game_id"); tra = tr[tr.home == 0].set_index("game_id")
             tid = trh.index.intersection(tra.index)
@@ -105,9 +105,10 @@ def lean_walk_forward(fp: pd.DataFrame, G: pd.DataFrame, feats: list, tfeats: li
                 preds["trees"] = t.predict(te[feats].fillna(mu[feats]).values)
                 bl = pd.Series(np.mean([preds[k] for k in M.BLEND_LABEL], axis=0), index=te.game_id.values + np.where(hmask, "|h", "|a"))
                 rec["model_spread"] = bl.loc[[g + "|h" for g in ids]].values - bl.loc[[g + "|a" for g in ids]].values
-                trp = pd.Series(ridge.predict(X), index=tr.index)
+                trp = ridge.predict(X)
+                ph = pd.Series(trp[(tr.home == 1).values], index=trh.index); pa = pd.Series(trp[(tr.home == 0).values], index=tra.index)
                 tr_margin = (trh.loc[tid, "pf"] - tra.loc[tid, "pf"]).values
-                tr_mu = (trp[tr.index[tr.home == 1]].values[trh.index.get_indexer(tid)] - trp[tr.index[tr.home == 0]].values[tra.index.get_indexer(tid)])
+                tr_mu = (ph.loc[tid] - pa.loc[tid]).values
                 sigma_m = float(np.std(tr_margin - tr_mu))
                 K = M.key_weights(tr_margin, tr_mu, sigma_m)
                 rec["p_home"] = _p_home(rec.model_spread.values, sigma_m, K.values)
@@ -353,7 +354,7 @@ def hist_ratio(L, keys, num, den, k, prior):
     return (sn + k * prior) / (sd + k)
 
 
-def stage_build():
+def build_long():
     from experiments import situational_feats as SF
     games = GAMES
     bp = pd.read_parquet(SCR / "base_2014.parquet")
@@ -376,8 +377,8 @@ def stage_build():
     for c in ["shotgun_r", "nohuddle_r", "pass_oe_r", "def_sack_r"]:
         L[c] = (L[c] - L.groupby("season")[c].transform("mean")).fillna(0.0)   # against the league that season (a level shift only)
     # coach 4th-down go rate, shrunk (K = 40 opportunities) to the previous season's league rate
-    lg4 = L[played].groupby("season").apply(lambda x: x.go4.sum() / max(1.0, x.opp4.sum()), include_groups=False)
-    prior4 = L.season.map(lambda s: lg4.get(s - 1, lg4.get(s, 0.3)))
+    lg4 = L[played & (L.season >= 2012)].groupby("season").apply(lambda x: x.go4.sum() / max(1.0, x.opp4.sum()), include_groups=False)
+    prior4 = L.season.map(lambda s: lg4.get(s - 1, lg4.get(2012)))
     L["go4"], L["opp4"] = L.go4.fillna(0.0), L.opp4.fillna(0.0)
     from experiments.situational_feats import hist
     sg, ng = hist(L, ["coach"], "go4", k=0.0, contrib=played & (L.season >= 2012), return_n=True)
@@ -425,8 +426,17 @@ def stage_build():
     L["stadium_total_r"] = hist(L, ["stadium_id"], "r_total", contrib=hrow)
     L["pair"] = [("|".join(sorted([a, b])) if isinstance(a, str) and isinstance(b, str) else None) for a, b in zip(L.coach, L.opp_coach)]
     L["coach_pair_total_r"] = hist(L, ["pair"], "r_total", contrib=hrow)
-    L.to_parquet(SCR / "long.parquet", index=False)
+    L = L.copy(); L.to_parquet(SCR / "long.parquet", index=False); (SCR / "notes.json").write_text(json.dumps(notes, default=str))
     log("long saved", L.shape)
+    return L, fp, notes
+
+
+def stage_build():
+    if (SCR / "long.parquet").exists() and os.environ.get("SG_REUSE_LONG"):
+        L = pd.read_parquet(SCR / "long.parquet"); fp = M.prep(M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")))
+        notes = json.loads((SCR / "notes.json").read_text()) if (SCR / "notes.json").exists() else {}
+    else:
+        L, fp, notes = build_long()
 
     # ---------- onto the model's team rows (fp) and the game frame
     keep = ["cvc", "coach_vs_team", "team_vs_team", "qb_vs_team", "coach_career", "coach_at_stadium", "team_at_stadium", "road_at_stadium", "team_on_surface",
@@ -435,7 +445,10 @@ def stage_build():
             "team_prime_r", "team_slot_r", "coach_prime_r", "coach_slot_r", "qb_prime_r", "qb_slot_r", "bc_early_west", "bc_late_east", "bc_night_edge", "after_prime",
             "ref_team_r", "ref_team_pts", "ref_team_venue", "ref_home_r", "ref_fav_r", "ref_div_home", "shotgun_r", "nohuddle_r", "pass_oe_r", "def_sack_r",
             "cov_match", "blitz_match", "box_match", "coach_vs_family", "db_out", "front_out", "wr12_out", "qb_badwx_hist", "coach_inj_hist", "prime", "go4", "opp4",
-            "tz_shift", "gd", "badwx"]
+            "tz_shift_v", "gd", "badwx"]
+    L["tz_shift_v"] = L.tz_shift
+    clash = [c for c in keep if c in fp.columns]
+    assert not clash, clash
     X = L[["game_id", "team"] + keep].drop_duplicates(["game_id", "team"])
     fpx = fp.merge(X, on=["game_id", "team"], how="left")
     assert len(fpx) == len(fp)
@@ -450,7 +463,7 @@ def stage_build():
     fpx["wd_wind"] = wd * fpx.wind_out; fpx["wd_rain"] = wd * fpx.rain; fpx["wd_snow"] = wd * fpx.snow
     month = pd.to_datetime(fpx.gd).dt.month.fillna(9)
     fpx["cold_team_dome"] = ((1 - wd) * (fpx.home == 0) * (fpx.dome == 1) * ((month >= 12) | (month <= 2))).astype(float)
-    fpx["miles_cold"] = fpx.miles * fpx.cold; fpx["tz_cold"] = fpx.tz_shift.abs() * fpx.cold
+    fpx["miles_cold"] = fpx.miles * fpx.cold; fpx["tz_cold"] = fpx.tz_shift_v.abs() * fpx.cold
     fpx["passoe_wind"] = fpx.pass_oe_r * fpx.wind_out
     bad_now = ((fpx.dome == 0) & ((fpx.cold == 1) | (fpx.wind_out >= 15) | (fpx.rain == 1) | (fpx.snow == 1))).astype(float)
     fpx["qb_badwx_r"] = fpx.qb_badwx_hist * bad_now
@@ -493,7 +506,7 @@ def stage_build():
         return (fh.loc[ids, c] + fa.loc[ids, c]).values
     for c in ["surf_mismatch", "dome_team_out", "out_team_in_dome", "miles", "short_week", "off_bye"]:
         GC[c + "_sum"] = both(c)
-    GC["tz_abs_sum"] = (fh.loc[ids, "tz_shift"].abs() + fa.loc[ids, "tz_shift"].abs()).values
+    GC["tz_abs_sum"] = (fh.loc[ids, "tz_shift_v"].abs() + fa.loc[ids, "tz_shift_v"].abs()).values
     GC["go4_sum"] = both("coach_go4")
     GC["div_game"] = fh.loc[ids, "div_game"].values
     GC["snow"] = fh.loc[ids, "snow"].values
@@ -571,6 +584,11 @@ def materialise(idea: dict, fp: pd.DataFrame, gc: pd.DataFrame, seed=None):
     return fp, g, [f"x_{c}" for c in idea["cols"]]
 
 
+def _slug(name: str) -> str:
+    import hashlib
+    return hashlib.md5(name.encode()).hexdigest()[:12]
+
+
 def run_idea(idea: dict, seed=None, keep_pred=False) -> dict:
     W = _load(); t0 = time.time()
     fp, g, cols = materialise(idea, W["fp"], W["gc"], seed)
@@ -592,7 +610,7 @@ def run_idea(idea: dict, seed=None, keep_pred=False) -> dict:
     if seed is None:
         out.update(reading(idea, fp, g, cols))
         if keep_pred:
-            P.to_parquet(SCR / "preds" / f"{abs(hash(idea['name'])) % 10**10}.parquet", index=False)
+            P.to_parquet(SCR / "preds" / f"{_slug(idea['name'])}.parquet", index=False)
     return out
 
 
@@ -632,7 +650,7 @@ def stage_base():
         rng = np.random.default_rng(7); fp["_chk"] = rng.normal(size=len(fp))
         M.FEATS = BASE_FEATS + ["_chk"]
         try:
-            ref = M.walk_forward(fp.drop(columns=[c for c in ["rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "wind_out", "cold", "warm_in_cold", "qb_form", "dead_late", "opp_dead_late", "off_turnover_early", "opp_def_turnover_early"] if c in fp.columns] and []), [2019])
+            ref = M.walk_forward(fp, [2019])   # prep() is idempotent on prepped rows
         finally:
             M.FEATS = list(BASE_FEATS)
         mine = lean_walk_forward(fp, G, BASE_FEATS + ["_chk"], BASE_TOTAL, seasons=[2019])

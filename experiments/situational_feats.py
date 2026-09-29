@@ -85,7 +85,8 @@ def hist(L: pd.DataFrame, keys: list, val, k: float = K_HIST, contrib=None, prio
     cs = agg.groupby(level=list(range(len(keys))), sort=False).cumsum() - agg
     cs.columns = ["_cv", "_cn"]
     j = d[kk].join(cs, on=kk)
-    out = ((j._cv + k * prior) / (j._cn + k)).values
+    with np.errstate(invalid="ignore", divide="ignore"):
+        out = ((j._cv + k * prior) / (j._cn + k)).to_numpy(dtype=float, copy=True)
     out[miss] = prior
     if return_n:
         n = j._cn.values.copy(); n[miss] = 0

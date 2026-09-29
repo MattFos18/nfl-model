@@ -186,14 +186,16 @@ def expected_defense(known_out: pd.DataFrame, ratings: pd.DataFrame, roles: dict
 
 
 # ------------------------------------------------------------------------------------------------ pbp-based readings
-def pass_plays_with_defenders(seasons=range(2016, 2026)):
-    """Every targeted pass play with the targeted receiver, the defense on the field (participation) and the defenders
-    credited on the play (solo / assist tackles, passes defensed, interceptions; the play-by-play)."""
-    cols = ["game_id", "play_id", "season", "week", "posteam", "defteam", "receiver_player_id", "yards_gained", "pass_attempt", "sack", "season_type",
+def plays_participation(seasons=range(2016, 2026)):
+    """Every regular-season run and pass play with the targeted receiver, the passer, the yards, the defenders credited
+    (solo / assist tackles, passes defensed, interceptions; the play-by-play, weekly) and, from the participation file,
+    the defense on the field, the man/zone call and the box count. The participation file is published after a season,
+    so everything read from it enters only games of LATER seasons."""
+    cols = ["game_id", "play_id", "season", "week", "posteam", "defteam", "play_type", "receiver_player_id", "passer_player_id", "rusher_player_id", "yards_gained", "pass_attempt", "sack", "season_type",
             "solo_tackle_1_player_id", "solo_tackle_2_player_id", "assist_tackle_1_player_id", "assist_tackle_2_player_id", "pass_defense_1_player_id", "pass_defense_2_player_id", "interception_player_id"]
     out = []
     for s in seasons:
-        p = pd.read_parquet(RAW / "pbp" / f"play_by_play_{s}.parquet", columns=cols); p = p[(p.season_type == "REG") & p.receiver_player_id.notna() & (p.pass_attempt == 1)]
-        pa = pd.read_parquet(RAW / "participation" / f"pbp_participation_{s}.parquet", columns=["nflverse_game_id", "play_id", "defense_players"]).rename(columns={"nflverse_game_id": "game_id"})
+        p = pd.read_parquet(RAW / "pbp" / f"play_by_play_{s}.parquet", columns=cols); p = p[(p.season_type == "REG") & p.play_type.isin(["pass", "run"])]
+        pa = pd.read_parquet(RAW / "participation" / f"pbp_participation_{s}.parquet", columns=["nflverse_game_id", "play_id", "defense_players", "defense_man_zone_type", "defenders_in_box"]).rename(columns={"nflverse_game_id": "game_id"})
         p = p.merge(pa, on=["game_id", "play_id"], how="left"); out.append(p)
     return pd.concat(out, ignore_index=True)
