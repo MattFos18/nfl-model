@@ -326,6 +326,11 @@
 ],
 [
 "NE",
+"Greg Van Roten",
+"Out"
+],
+[
+"NE",
 "Quintayvious Hutchins",
 "Out"
 ],
@@ -442,6 +447,11 @@
 [
 "WAS",
 "Leo Chenal",
+"Out"
+],
+[
+"WAS",
+"Marvin Jones Jr.",
 "Out"
 ],
 [
@@ -741,6 +751,12 @@
 ],
 [
 "LV",
+"Justin Shorter",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Treydan Stukes",
 "Questionable (ESPN)",
 ""
@@ -796,12 +812,6 @@
 [
 "NE",
 "Eli Raridon",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
-"Greg Van Roten",
 "Questionable (ESPN)",
 ""
 ],
@@ -1011,5 +1021,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-29 20:35 UTC"
+"written_at": "2026-09-29 21:15 UTC"
 }
