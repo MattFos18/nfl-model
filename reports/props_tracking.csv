@@ -1,0 +1,673 @@
+stat,variant,window,n,yards_mae,yards_bias,yards_diff_vs_rule,yards_se_vs_rule,vol_mae,vol_diff_vs_rule,vol_se_vs_rule,params,td_ll,td_ll_diff_vs_rule,td_ll_se_vs_rule,table,tier,rule_mae
+rec_yards,rule,2017-18,7518,19.6893,-6.488,0.0,0.0,1.8752,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rec_yards,rule,2019-22,16076,19.131,-6.06,0.0,0.0,1.8257,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rec_yards,rule,2023-25,12383,18.1454,-5.907,0.0,0.0,1.7128,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rec_yards,rule,2019-25,28459,18.7021,-5.994,0.0,0.0,1.7766,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rec_yards,air_share_blend[vol_blend],2017-18,7518,19.6721,-6.376,-0.0173,0.0119,1.8787,0.0035,0.0017,k=100 c=+0.250,,,,window,,
+rec_yards,air_share_blend[vol_blend],2019-22,16076,19.1097,-5.936,-0.0213,0.0077,1.8294,0.0037,0.0011,k=100 c=+0.250,,,,window,,
+rec_yards,air_share_blend[vol_blend],2023-25,12383,18.1461,-5.779,0.0007,0.0086,1.7191,0.0062,0.0012,k=100 c=+0.250,,,,window,,
+rec_yards,air_share_blend[vol_blend],2019-25,28459,18.6904,-5.868,-0.0117,0.0057,1.7814,0.0048,0.0008,k=100 c=+0.250,,,,window,,
+rec_yards,air_share_ratio[vol_ratio],2017-18,7518,19.6893,-6.49,-0.0,0.0012,1.875,-0.0001,0.0002,k=200 c=-0.050,,,,window,,
+rec_yards,air_share_ratio[vol_ratio],2019-22,16076,19.133,-6.057,0.002,0.0011,1.826,0.0003,0.0002,k=200 c=-0.050,,,,window,,
+rec_yards,air_share_ratio[vol_ratio],2023-25,12383,18.1495,-5.886,0.0041,0.0031,1.7143,0.0015,0.0005,k=200 c=-0.050,,,,window,,
+rec_yards,air_share_ratio[vol_ratio],2019-25,28459,18.705,-5.982,0.0029,0.0015,1.7774,0.0008,0.0002,k=200 c=-0.050,,,,window,,
+rec_yards,adot_x_catch[prior],2017-18,7518,19.6652,-6.566,-0.0241,0.0133,1.8752,0.0,0.0,"k=25 c=+0.075 per sd; sd=0.4675, c per unit=+0.1604",,,,window,,
+rec_yards,adot_x_catch[prior],2019-22,16076,19.1063,-6.119,-0.0247,0.0087,1.8257,0.0,0.0,"k=25 c=+0.075 per sd; sd=0.4675, c per unit=+0.1604",,,,window,,
+rec_yards,adot_x_catch[prior],2023-25,12383,18.149,-5.968,0.0037,0.0098,1.7128,0.0,0.0,"k=25 c=+0.075 per sd; sd=0.4675, c per unit=+0.1604",,,,window,,
+rec_yards,adot_x_catch[prior],2019-25,28459,18.6898,-6.053,-0.0123,0.0065,1.7766,0.0,0.0,"k=25 c=+0.075 per sd; sd=0.4675, c per unit=+0.1604",,,,window,,
+rec_yards,adot_x_catch[direct],2017-18,7518,19.6613,-6.458,-0.028,0.0167,1.8752,0.0,0.0,"k=25 c=+0.050 per sd; sd=0.4675, c per unit=+0.107",,,,window,,
+rec_yards,adot_x_catch[direct],2019-22,16076,19.1076,-6.008,-0.0233,0.0111,1.8257,0.0,0.0,"k=25 c=+0.050 per sd; sd=0.4675, c per unit=+0.107",,,,window,,
+rec_yards,adot_x_catch[direct],2023-25,12383,18.1543,-5.851,0.0089,0.0123,1.7128,0.0,0.0,"k=25 c=+0.050 per sd; sd=0.4675, c per unit=+0.107",,,,window,,
+rec_yards,adot_x_catch[direct],2019-25,28459,18.6928,-5.939,-0.0093,0.0082,1.7766,0.0,0.0,"k=25 c=+0.050 per sd; sd=0.4675, c per unit=+0.107",,,,window,,
+rec_yards,adot_x_catch[prior_lit],2017-18,7518,20.0791,-6.635,0.3898,0.0635,1.8752,0.0,0.0,"k=200 (literal, no c)",,,,window,,
+rec_yards,adot_x_catch[prior_lit],2019-22,16076,19.4757,-5.95,0.3447,0.0405,1.8257,0.0,0.0,"k=200 (literal, no c)",,,,window,,
+rec_yards,adot_x_catch[prior_lit],2023-25,12383,18.5804,-5.753,0.4351,0.0432,1.7128,0.0,0.0,"k=200 (literal, no c)",,,,window,,
+rec_yards,adot_x_catch[prior_lit],2019-25,28459,19.0862,-5.864,0.384,0.0296,1.7766,0.0,0.0,"k=200 (literal, no c)",,,,window,,
+rec_yards,pos_ypt_control[prior],2017-18,7518,19.667,-6.507,-0.0223,0.0131,1.8752,0.0,0.0,"k=5 c=+0.075 per sd; sd=0.09562, c per unit=+0.7844",,,,window,,
+rec_yards,pos_ypt_control[prior],2019-22,16076,19.1125,-6.049,-0.0185,0.0105,1.8257,0.0,0.0,"k=5 c=+0.075 per sd; sd=0.09562, c per unit=+0.7844",,,,window,,
+rec_yards,pos_ypt_control[prior],2023-25,12383,18.1559,-5.901,0.0105,0.0109,1.7128,0.0,0.0,"k=5 c=+0.075 per sd; sd=0.09562, c per unit=+0.7844",,,,window,,
+rec_yards,pos_ypt_control[prior],2019-25,28459,18.6962,-5.984,-0.0059,0.0076,1.7766,0.0,0.0,"k=5 c=+0.075 per sd; sd=0.09562, c per unit=+0.7844",,,,window,,
+rec_yards,pos_ypt_control[direct],2017-18,7518,19.6657,-6.399,-0.0237,0.016,1.8752,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.09562, c per unit=+0.5229",,,,window,,
+rec_yards,pos_ypt_control[direct],2019-22,16076,19.1157,-5.899,-0.0153,0.0133,1.8257,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.09562, c per unit=+0.5229",,,,window,,
+rec_yards,pos_ypt_control[direct],2023-25,12383,18.1657,-5.752,0.0203,0.0135,1.7128,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.09562, c per unit=+0.5229",,,,window,,
+rec_yards,pos_ypt_control[direct],2019-25,28459,18.7023,-5.835,0.0002,0.0095,1.7766,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.09562, c per unit=+0.5229",,,,window,,
+rec_yards,yac_over_exp[prior],2017-18,7518,19.6885,-6.446,-0.0008,0.0056,1.8752,0.0,0.0,"k=100 c=+0.025 per sd; sd=0.101, c per unit=+0.2474",,,,window,,
+rec_yards,yac_over_exp[prior],2019-22,16076,19.125,-6.061,-0.006,0.0044,1.8257,0.0,0.0,"k=100 c=+0.025 per sd; sd=0.101, c per unit=+0.2474",,,,window,,
+rec_yards,yac_over_exp[prior],2023-25,12383,18.1437,-5.905,-0.0017,0.0047,1.7128,0.0,0.0,"k=100 c=+0.025 per sd; sd=0.101, c per unit=+0.2474",,,,window,,
+rec_yards,yac_over_exp[prior],2019-25,28459,18.698,-5.993,-0.0041,0.0032,1.7766,0.0,0.0,"k=100 c=+0.025 per sd; sd=0.101, c per unit=+0.2474",,,,window,,
+rec_yards,yac_over_exp[direct],2017-18,7518,19.6893,-6.488,0.0,0.0,1.8752,0.0,0.0,"k=5 c=+0.000 per sd; sd=0.531, c per unit=+0",,,,window,,
+rec_yards,yac_over_exp[direct],2019-22,16076,19.131,-6.06,0.0,0.0,1.8257,0.0,0.0,"k=5 c=+0.000 per sd; sd=0.531, c per unit=+0",,,,window,,
+rec_yards,yac_over_exp[direct],2023-25,12383,18.1454,-5.907,0.0,0.0,1.7128,0.0,0.0,"k=5 c=+0.000 per sd; sd=0.531, c per unit=+0",,,,window,,
+rec_yards,yac_over_exp[direct],2019-25,28459,18.7021,-5.994,0.0,0.0,1.7766,0.0,0.0,"k=5 c=+0.000 per sd; sd=0.531, c per unit=+0",,,,window,,
+rec_yards,separation[prior],2017-18,7518,19.6818,-6.432,-0.0075,0.0097,1.8752,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.3474, c per unit=+0.1439",,,,window,,
+rec_yards,separation[prior],2019-22,16076,19.1539,-6.025,0.0229,0.0072,1.8257,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.3474, c per unit=+0.1439",,,,window,,
+rec_yards,separation[prior],2023-25,12383,18.1413,-5.883,-0.0041,0.0077,1.7128,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.3474, c per unit=+0.1439",,,,window,,
+rec_yards,separation[prior],2019-25,28459,18.7133,-5.963,0.0111,0.0053,1.7766,0.0,0.0,"k=5 c=+0.050 per sd; sd=0.3474, c per unit=+0.1439",,,,window,,
+rec_yards,separation[direct],2017-18,7518,19.6856,-6.435,-0.0037,0.01,1.8752,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3474, c per unit=+0.07197",,,,window,,
+rec_yards,separation[direct],2019-22,16076,19.1518,-6.042,0.0208,0.0074,1.8257,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3474, c per unit=+0.07197",,,,window,,
+rec_yards,separation[direct],2023-25,12383,18.1438,-5.898,-0.0016,0.0082,1.7128,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3474, c per unit=+0.07197",,,,window,,
+rec_yards,separation[direct],2019-25,28459,18.7132,-5.979,0.011,0.0055,1.7766,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3474, c per unit=+0.07197",,,,window,,
+rec_yards,drop_rate[prior],2017-18,7518,19.6797,-6.474,-0.0096,0.0082,1.8752,0.0,0.0,"k=5 c=-0.050 per sd; sd=0.02565, c per unit=-1.949",,,,window,,
+rec_yards,drop_rate[prior],2019-22,16076,19.1381,-6.048,0.0071,0.0068,1.8257,0.0,0.0,"k=5 c=-0.050 per sd; sd=0.02565, c per unit=-1.949",,,,window,,
+rec_yards,drop_rate[prior],2023-25,12383,18.1569,-5.877,0.0115,0.0071,1.7128,0.0,0.0,"k=5 c=-0.050 per sd; sd=0.02565, c per unit=-1.949",,,,window,,
+rec_yards,drop_rate[prior],2019-25,28459,18.7112,-5.974,0.009,0.0049,1.7766,0.0,0.0,"k=5 c=-0.050 per sd; sd=0.02565, c per unit=-1.949",,,,window,,
+rec_yards,drop_rate[direct],2017-18,7518,19.6785,-6.459,-0.0108,0.0082,1.8752,0.0,0.0,"k=5 c=-0.025 per sd; sd=0.02565, c per unit=-0.9746",,,,window,,
+rec_yards,drop_rate[direct],2019-22,16076,19.1342,-6.027,0.0032,0.0067,1.8257,0.0,0.0,"k=5 c=-0.025 per sd; sd=0.02565, c per unit=-0.9746",,,,window,,
+rec_yards,drop_rate[direct],2023-25,12383,18.1521,-5.856,0.0067,0.0071,1.7128,0.0,0.0,"k=5 c=-0.025 per sd; sd=0.02565, c per unit=-0.9746",,,,window,,
+rec_yards,drop_rate[direct],2019-25,28459,18.7069,-5.953,0.0047,0.0049,1.7766,0.0,0.0,"k=5 c=-0.025 per sd; sd=0.02565, c per unit=-0.9746",,,,window,,
+rec_yards,combo,2017-18,7518,19.6459,-6.333,-0.0434,0.0226,1.8749,-0.0002,0.0004,adot_x_catch[direct] k=25 c=+0.050; separation[prior] k=5 c=+0.050; drop_rate[direct] k=5 c=-0.025; yac_over_exp[prior] k=100 c=+0.025; air_share_ratio[vol_ratio] k=200 c=-0.100,,,,window,,
+rec_yards,combo,2019-22,16076,19.1317,-5.935,0.0007,0.0155,1.8265,0.0008,0.0003,adot_x_catch[direct] k=25 c=+0.050; separation[prior] k=5 c=+0.050; drop_rate[direct] k=5 c=-0.025; yac_over_exp[prior] k=100 c=+0.025; air_share_ratio[vol_ratio] k=200 c=-0.100,,,,window,,
+rec_yards,combo,2023-25,12383,18.1607,-5.733,0.0153,0.0171,1.7171,0.0043,0.001,adot_x_catch[direct] k=25 c=+0.050; separation[prior] k=5 c=+0.050; drop_rate[direct] k=5 c=-0.025; yac_over_exp[prior] k=100 c=+0.025; air_share_ratio[vol_ratio] k=200 c=-0.100,,,,window,,
+rec_yards,combo,2019-25,28459,18.7092,-5.848,0.0071,0.0115,1.7789,0.0023,0.0005,adot_x_catch[direct] k=25 c=+0.050; separation[prior] k=5 c=+0.050; drop_rate[direct] k=5 c=-0.025; yac_over_exp[prior] k=100 c=+0.025; air_share_ratio[vol_ratio] k=200 c=-0.100,,,,window,,
+rush_yards,rule,2017-18,3497,18.041,-4.157,0.0,0.0,3.0824,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rush_yards,rule,2019-22,7778,17.6866,-4.781,0.0,0.0,2.933,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rush_yards,rule,2023-25,6196,16.9681,-4.387,0.0,0.0,2.8393,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rush_yards,rule,2019-25,13974,17.368,-4.606,0.0,0.0,2.8914,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+rush_yards,ryoe[prior],2017-18,3497,18.0055,-4.098,-0.0355,0.0331,3.0824,0.0,0.0,"k=5 c=+0.400 per sd; sd=0.3447, c per unit=+1.16",,,,window,,
+rush_yards,ryoe[prior],2019-22,7778,17.6894,-4.752,0.0028,0.0292,2.933,0.0,0.0,"k=5 c=+0.400 per sd; sd=0.3447, c per unit=+1.16",,,,window,,
+rush_yards,ryoe[prior],2023-25,6196,16.9976,-4.323,0.0295,0.0322,2.8393,0.0,0.0,"k=5 c=+0.400 per sd; sd=0.3447, c per unit=+1.16",,,,window,,
+rush_yards,ryoe[prior],2019-25,13974,17.3826,-4.562,0.0146,0.0216,2.8914,0.0,0.0,"k=5 c=+0.400 per sd; sd=0.3447, c per unit=+1.16",,,,window,,
+rush_yards,ryoe[direct],2017-18,3497,18.0327,-4.148,-0.0083,0.0161,3.0824,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3447, c per unit=+0.07252",,,,window,,
+rush_yards,ryoe[direct],2019-22,7778,17.6582,-4.744,-0.0284,0.0138,2.933,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3447, c per unit=+0.07252",,,,window,,
+rush_yards,ryoe[direct],2023-25,6196,16.9432,-4.33,-0.0249,0.0181,2.8393,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3447, c per unit=+0.07252",,,,window,,
+rush_yards,ryoe[direct],2019-25,13974,17.3412,-4.56,-0.0268,0.0111,2.8914,0.0,0.0,"k=5 c=+0.025 per sd; sd=0.3447, c per unit=+0.07252",,,,window,,
+rush_yards,ryoe[prior_lit],2017-18,3497,18.0247,-4.157,-0.0163,0.0091,3.0824,0.0,0.0,"k=5 (literal, no c)",,,,window,,
+rush_yards,ryoe[prior_lit],2019-22,7778,17.6711,-4.794,-0.0155,0.0072,2.933,0.0,0.0,"k=5 (literal, no c)",,,,window,,
+rush_yards,ryoe[prior_lit],2023-25,6196,16.9584,-4.389,-0.0097,0.0093,2.8393,0.0,0.0,"k=5 (literal, no c)",,,,window,,
+rush_yards,ryoe[prior_lit],2019-25,13974,17.3551,-4.614,-0.0129,0.0058,2.8914,0.0,0.0,"k=5 (literal, no c)",,,,window,,
+rush_yards,ryoe[rate_lit],2017-18,3497,18.236,-4.691,0.195,0.0664,3.0824,0.0,0.0,"k=10 (literal, no c)",,,,window,,
+rush_yards,ryoe[rate_lit],2019-22,7778,17.8801,-5.05,0.1935,0.0389,2.933,0.0,0.0,"k=10 (literal, no c)",,,,window,,
+rush_yards,ryoe[rate_lit],2023-25,6196,17.1065,-4.688,0.1385,0.0434,2.8393,0.0,0.0,"k=10 (literal, no c)",,,,window,,
+rush_yards,ryoe[rate_lit],2019-25,13974,17.5371,-4.89,0.1691,0.029,2.8914,0.0,0.0,"k=10 (literal, no c)",,,,window,,
+rush_yards,inside10_share[td_prior],2017-18,3497,18.041,-4.157,0.0,0.0,3.0824,0.0,0.0,k=400 c=+1.500,0.54016,-0.00028,0.00029,window,,
+rush_yards,inside10_share[td_prior],2019-22,7778,17.6866,-4.781,0.0,0.0,2.933,0.0,0.0,k=400 c=+1.500,0.58222,-4e-05,0.00018,window,,
+rush_yards,inside10_share[td_prior],2023-25,6196,16.9681,-4.387,0.0,0.0,2.8393,0.0,0.0,k=400 c=+1.500,0.5517,-0.00036,0.00022,window,,
+rush_yards,inside10_share[td_prior],2019-25,13974,17.368,-4.606,0.0,0.0,2.8914,0.0,0.0,k=400 c=+1.500,0.56869,-0.00018,0.00014,window,,
+pass_yards,rule,2017-18,1046,60.7221,-6.689,0.0,0.0,7.5939,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+pass_yards,rule,2019-22,2176,56.5737,-4.626,0.0,0.0,7.686,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+pass_yards,rule,2023-25,1712,56.1092,1.577,0.0,0.0,7.7009,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+pass_yards,rule,2019-25,3888,56.3692,-1.895,0.0,0.0,7.6925,0.0,0.0,the adopted rule (props_by_season.build),,,,window,,
+pass_yards,cpoe[prior],2017-18,1046,60.6706,-7.149,-0.0515,0.1043,7.5939,0.0,0.0,"k=25 c=+0.125 per sd; sd=3.34, c per unit=+0.03743",,,,window,,
+pass_yards,cpoe[prior],2019-22,2176,56.5637,-4.724,-0.01,0.0491,7.686,0.0,0.0,"k=25 c=+0.125 per sd; sd=3.34, c per unit=+0.03743",,,,window,,
+pass_yards,cpoe[prior],2023-25,1712,56.0377,1.392,-0.0715,0.0649,7.7009,0.0,0.0,"k=25 c=+0.125 per sd; sd=3.34, c per unit=+0.03743",,,,window,,
+pass_yards,cpoe[prior],2019-25,3888,56.3321,-2.031,-0.0371,0.0396,7.6925,0.0,0.0,"k=25 c=+0.125 per sd; sd=3.34, c per unit=+0.03743",,,,window,,
+pass_yards,cpoe[direct],2017-18,1046,60.5567,-7.126,-0.1654,0.2267,7.5939,0.0,0.0,"k=1600 c=-0.050 per sd; sd=0.3876, c per unit=-0.129",,,,window,,
+pass_yards,cpoe[direct],2019-22,2176,57.0105,-5.072,0.4368,0.1328,7.686,0.0,0.0,"k=1600 c=-0.050 per sd; sd=0.3876, c per unit=-0.129",,,,window,,
+pass_yards,cpoe[direct],2023-25,1712,56.4009,0.857,0.2917,0.1386,7.7009,0.0,0.0,"k=1600 c=-0.050 per sd; sd=0.3876, c per unit=-0.129",,,,window,,
+pass_yards,cpoe[direct],2019-25,3888,56.7421,-2.461,0.3729,0.0962,7.6925,0.0,0.0,"k=1600 c=-0.050 per sd; sd=0.3876, c per unit=-0.129",,,,window,,
+pass_yards,adot[prior],2017-18,1046,60.5883,-6.732,-0.1338,0.1648,7.5939,0.0,0.0,"k=1600 c=-0.375 per sd; sd=0.1065, c per unit=-3.523",,,,window,,
+pass_yards,adot[prior],2019-22,2176,56.7544,-4.533,0.1806,0.1028,7.686,0.0,0.0,"k=1600 c=-0.375 per sd; sd=0.1065, c per unit=-3.523",,,,window,,
+pass_yards,adot[prior],2023-25,1712,56.1241,1.232,0.0149,0.1141,7.7009,0.0,0.0,"k=1600 c=-0.375 per sd; sd=0.1065, c per unit=-3.523",,,,window,,
+pass_yards,adot[prior],2019-25,3888,56.4768,-1.994,0.1077,0.0764,7.6925,0.0,0.0,"k=1600 c=-0.375 per sd; sd=0.1065, c per unit=-3.523",,,,window,,
+pass_yards,adot[direct],2017-18,1046,60.6245,-6.754,-0.0976,0.119,7.5939,0.0,0.0,"k=25 c=-0.025 per sd; sd=0.8672, c per unit=-0.02883",,,,window,,
+pass_yards,adot[direct],2019-22,2176,56.6739,-4.701,0.1002,0.0747,7.686,0.0,0.0,"k=25 c=-0.025 per sd; sd=0.8672, c per unit=-0.02883",,,,window,,
+pass_yards,adot[direct],2023-25,1712,56.0479,1.204,-0.0613,0.0807,7.7009,0.0,0.0,"k=25 c=-0.025 per sd; sd=0.8672, c per unit=-0.02883",,,,window,,
+pass_yards,adot[direct],2019-25,3888,56.3983,-2.101,0.0291,0.0549,7.6925,0.0,0.0,"k=25 c=-0.025 per sd; sd=0.8672, c per unit=-0.02883",,,,window,,
+pass_yards,ttt_x_opp_pressure[direct],2017-18,1046,60.7221,-6.689,0.0,0.0,7.5939,0.0,0.0,"k=25 c=+0.000 per sd; sd=0.002644, c per unit=+0",,,,window,,
+pass_yards,ttt_x_opp_pressure[direct],2019-22,2176,56.5737,-4.626,0.0,0.0,7.686,0.0,0.0,"k=25 c=+0.000 per sd; sd=0.002644, c per unit=+0",,,,window,,
+pass_yards,ttt_x_opp_pressure[direct],2023-25,1712,56.1092,1.577,0.0,0.0,7.7009,0.0,0.0,"k=25 c=+0.000 per sd; sd=0.002644, c per unit=+0",,,,window,,
+pass_yards,ttt_x_opp_pressure[direct],2019-25,3888,56.3692,-1.895,0.0,0.0,7.6925,0.0,0.0,"k=25 c=+0.000 per sd; sd=0.002644, c per unit=+0",,,,window,,
+pass_yards,combo,2017-18,1046,60.3525,-7.044,-0.3696,0.2947,7.5939,0.0,0.0,cpoe[direct] k=1600 c=-0.050; adot[prior] k=1600 c=-0.475,,,,window,,
+pass_yards,combo,2019-22,2176,57.2176,-4.854,0.6438,0.1804,7.686,0.0,0.0,cpoe[direct] k=1600 c=-0.050; adot[prior] k=1600 c=-0.475,,,,window,,
+pass_yards,combo,2023-25,1712,56.5044,0.532,0.3953,0.192,7.7009,0.0,0.0,cpoe[direct] k=1600 c=-0.050; adot[prior] k=1600 c=-0.475,,,,window,,
+pass_yards,combo,2019-25,3888,56.9035,-2.482,0.5344,0.1317,7.6925,0.0,0.0,cpoe[direct] k=1600 c=-0.050; adot[prior] k=1600 c=-0.475,,,,window,,
+rec_yards,rule,2017-18,3624,13.878,-7.466,0.0,,,,,,,,,tier,0-20,13.878
+rec_yards,rule,2017-18,2164,21.868,-6.784,0.0,,,,,,,,,tier,20-40,21.868
+rec_yards,rule,2017-18,1183,27.747,-3.089,0.0,,,,,,,,,tier,40-60,27.747
+rec_yards,rule,2017-18,477,31.711,-7.23,0.0,,,,,,,,,tier,60-80,31.711
+rec_yards,rule,2017-18,70,35.071,0.872,0.0,,,,,,,,,tier,80+,35.071
+rec_yards,rule,2019-22,8193,13.225,-6.778,0.0,,,,,,,,,tier,0-20,13.225
+rec_yards,rule,2019-22,4153,20.941,-5.263,0.0,,,,,,,,,tier,20-40,20.941
+rec_yards,rule,2019-22,2543,28.909,-6.143,0.0,,,,,,,,,tier,40-60,28.909
+rec_yards,rule,2019-22,1002,31.875,-4.333,0.0,,,,,,,,,tier,60-80,31.875
+rec_yards,rule,2019-22,185,36.629,-0.379,0.0,,,,,,,,,tier,80+,36.629
+rec_yards,rule,2023-25,6759,12.531,-6.019,0.0,,,,,,,,,tier,0-20,12.531
+rec_yards,rule,2023-25,3015,21.071,-6.21,0.0,,,,,,,,,tier,20-40,21.071
+rec_yards,rule,2023-25,1803,27.404,-5.551,0.0,,,,,,,,,tier,40-60,27.404
+rec_yards,rule,2023-25,657,32.395,-4.788,0.0,,,,,,,,,tier,60-80,32.395
+rec_yards,rule,2023-25,149,38.748,-3.933,0.0,,,,,,,,,tier,80+,38.748
+rec_yards,rule,2019-25,14952,12.911,-6.435,0.0,,,,,,,,,tier,0-20,12.911
+rec_yards,rule,2019-25,7168,20.996,-5.661,0.0,,,,,,,,,tier,20-40,20.996
+rec_yards,rule,2019-25,4346,28.285,-5.897,0.0,,,,,,,,,tier,40-60,28.285
+rec_yards,rule,2019-25,1659,32.081,-4.513,0.0,,,,,,,,,tier,60-80,32.081
+rec_yards,rule,2019-25,334,37.575,-1.964,0.0,,,,,,,,,tier,80+,37.575
+rec_yards,air_share_blend[vol_blend],2017-18,3624,13.878,-7.584,-0.0,,,,,,,,,tier,0-20,13.878
+rec_yards,air_share_blend[vol_blend],2017-18,2164,21.813,-6.832,-0.056,,,,,,,,,tier,20-40,21.868
+rec_yards,air_share_blend[vol_blend],2017-18,1183,27.779,-2.611,0.032,,,,,,,,,tier,40-60,27.747
+rec_yards,air_share_blend[vol_blend],2017-18,477,31.616,-5.907,-0.095,,,,,,,,,tier,60-80,31.711
+rec_yards,air_share_blend[vol_blend],2017-18,70,35.05,3.384,-0.021,,,,,,,,,tier,80+,35.071
+rec_yards,air_share_blend[vol_blend],2019-22,8193,13.222,-6.909,-0.003,,,,,,,,,tier,0-20,13.225
+rec_yards,air_share_blend[vol_blend],2019-22,4153,20.879,-5.319,-0.062,,,,,,,,,tier,20-40,20.941
+rec_yards,air_share_blend[vol_blend],2019-22,2543,28.835,-5.47,-0.074,,,,,,,,,tier,40-60,28.909
+rec_yards,air_share_blend[vol_blend],2019-22,1002,31.948,-3.033,0.074,,,,,,,,,tier,60-80,31.875
+rec_yards,air_share_blend[vol_blend],2019-22,185,36.904,1.167,0.275,,,,,,,,,tier,80+,36.629
+rec_yards,air_share_blend[vol_blend],2023-25,6759,12.532,-6.152,0.001,,,,,,,,,tier,0-20,12.531
+rec_yards,air_share_blend[vol_blend],2023-25,3015,21.064,-6.214,-0.007,,,,,,,,,tier,20-40,21.071
+rec_yards,air_share_blend[vol_blend],2023-25,1803,27.366,-4.789,-0.038,,,,,,,,,tier,40-60,27.404
+rec_yards,air_share_blend[vol_blend],2023-25,657,32.496,-3.45,0.101,,,,,,,,,tier,60-80,32.395
+rec_yards,air_share_blend[vol_blend],2023-25,149,38.938,-2.317,0.189,,,,,,,,,tier,80+,38.748
+rec_yards,air_share_blend[vol_blend],2019-25,14952,12.91,-6.566,-0.001,,,,,,,,,tier,0-20,12.911
+rec_yards,air_share_blend[vol_blend],2019-25,7168,20.957,-5.695,-0.039,,,,,,,,,tier,20-40,20.996
+rec_yards,air_share_blend[vol_blend],2019-25,4346,28.226,-5.188,-0.059,,,,,,,,,tier,40-60,28.285
+rec_yards,air_share_blend[vol_blend],2019-25,1659,32.165,-3.198,0.084,,,,,,,,,tier,60-80,32.081
+rec_yards,air_share_blend[vol_blend],2019-25,334,37.811,-0.387,0.237,,,,,,,,,tier,80+,37.575
+rec_yards,air_share_ratio[vol_ratio],2017-18,3624,13.879,-7.463,0.0,,,,,,,,,tier,0-20,13.878
+rec_yards,air_share_ratio[vol_ratio],2017-18,2164,21.872,-6.779,0.003,,,,,,,,,tier,20-40,21.868
+rec_yards,air_share_ratio[vol_ratio],2017-18,1183,27.738,-3.112,-0.009,,,,,,,,,tier,40-60,27.747
+rec_yards,air_share_ratio[vol_ratio],2017-18,477,31.711,-7.238,0.0,,,,,,,,,tier,60-80,31.711
+rec_yards,air_share_ratio[vol_ratio],2017-18,70,35.102,0.838,0.031,,,,,,,,,tier,80+,35.071
+rec_yards,air_share_ratio[vol_ratio],2019-22,8193,13.226,-6.774,0.001,,,,,,,,,tier,0-20,13.225
+rec_yards,air_share_ratio[vol_ratio],2019-22,4153,20.946,-5.257,0.005,,,,,,,,,tier,20-40,20.941
+rec_yards,air_share_ratio[vol_ratio],2019-22,2543,28.912,-6.146,0.003,,,,,,,,,tier,40-60,28.909
+rec_yards,air_share_ratio[vol_ratio],2019-22,1002,31.874,-4.333,-0.001,,,,,,,,,tier,60-80,31.875
+rec_yards,air_share_ratio[vol_ratio],2019-22,185,36.614,-0.338,-0.015,,,,,,,,,tier,80+,36.629
+rec_yards,air_share_ratio[vol_ratio],2023-25,6759,12.532,-6.002,0.001,,,,,,,,,tier,0-20,12.531
+rec_yards,air_share_ratio[vol_ratio],2023-25,3015,21.079,-6.18,0.008,,,,,,,,,tier,20-40,21.071
+rec_yards,air_share_ratio[vol_ratio],2023-25,1803,27.417,-5.521,0.012,,,,,,,,,tier,40-60,27.404
+rec_yards,air_share_ratio[vol_ratio],2023-25,657,32.393,-4.797,-0.002,,,,,,,,,tier,60-80,32.395
+rec_yards,air_share_ratio[vol_ratio],2023-25,149,38.75,-3.887,0.001,,,,,,,,,tier,80+,38.748
+rec_yards,air_share_ratio[vol_ratio],2019-25,14952,12.912,-6.425,0.001,,,,,,,,,tier,0-20,12.911
+rec_yards,air_share_ratio[vol_ratio],2019-25,7168,21.002,-5.645,0.006,,,,,,,,,tier,20-40,20.996
+rec_yards,air_share_ratio[vol_ratio],2019-25,4346,28.292,-5.887,0.007,,,,,,,,,tier,40-60,28.285
+rec_yards,air_share_ratio[vol_ratio],2019-25,1659,32.079,-4.517,-0.001,,,,,,,,,tier,60-80,32.081
+rec_yards,air_share_ratio[vol_ratio],2019-25,334,37.567,-1.921,-0.008,,,,,,,,,tier,80+,37.575
+rec_yards,adot_x_catch[prior],2017-18,3624,13.883,-7.817,0.005,,,,,,,,,tier,0-20,13.878
+rec_yards,adot_x_catch[prior],2017-18,2164,21.777,-6.927,-0.092,,,,,,,,,tier,20-40,21.868
+rec_yards,adot_x_catch[prior],2017-18,1183,27.753,-2.714,0.006,,,,,,,,,tier,40-60,27.747
+rec_yards,adot_x_catch[prior],2017-18,477,31.666,-6.278,-0.044,,,,,,,,,tier,60-80,31.711
+rec_yards,adot_x_catch[prior],2017-18,70,35.259,2.301,0.188,,,,,,,,,tier,80+,35.071
+rec_yards,adot_x_catch[prior],2019-22,8193,13.238,-7.152,0.013,,,,,,,,,tier,0-20,13.225
+rec_yards,adot_x_catch[prior],2019-22,4153,20.851,-5.427,-0.09,,,,,,,,,tier,20-40,20.941
+rec_yards,adot_x_catch[prior],2019-22,2543,28.833,-5.528,-0.076,,,,,,,,,tier,40-60,28.909
+rec_yards,adot_x_catch[prior],2019-22,1002,31.917,-3.32,0.042,,,,,,,,,tier,60-80,31.875
+rec_yards,adot_x_catch[prior],2019-22,185,36.75,0.808,0.12,,,,,,,,,tier,80+,36.629
+rec_yards,adot_x_catch[prior],2023-25,6759,12.553,-6.416,0.022,,,,,,,,,tier,0-20,12.531
+rec_yards,adot_x_catch[prior],2023-25,3015,21.039,-6.262,-0.032,,,,,,,,,tier,20-40,21.071
+rec_yards,adot_x_catch[prior],2023-25,1803,27.379,-4.87,-0.025,,,,,,,,,tier,40-60,27.404
+rec_yards,adot_x_catch[prior],2023-25,657,32.426,-3.784,0.031,,,,,,,,,tier,60-80,32.395
+rec_yards,adot_x_catch[prior],2023-25,149,38.884,-2.632,0.136,,,,,,,,,tier,80+,38.748
+rec_yards,adot_x_catch[prior],2019-25,14952,12.928,-6.819,0.017,,,,,,,,,tier,0-20,12.911
+rec_yards,adot_x_catch[prior],2019-25,7168,20.93,-5.778,-0.066,,,,,,,,,tier,20-40,20.996
+rec_yards,adot_x_catch[prior],2019-25,4346,28.23,-5.255,-0.055,,,,,,,,,tier,40-60,28.285
+rec_yards,adot_x_catch[prior],2019-25,1659,32.118,-3.504,0.038,,,,,,,,,tier,60-80,32.081
+rec_yards,adot_x_catch[prior],2019-25,334,37.702,-0.726,0.127,,,,,,,,,tier,80+,37.575
+rec_yards,adot_x_catch[direct],2017-18,3624,13.882,-7.797,0.004,,,,,,,,,tier,0-20,13.878
+rec_yards,adot_x_catch[direct],2017-18,2164,21.763,-6.94,-0.105,,,,,,,,,tier,20-40,21.868
+rec_yards,adot_x_catch[direct],2017-18,1183,27.76,-2.489,0.013,,,,,,,,,tier,40-60,27.747
+rec_yards,adot_x_catch[direct],2017-18,477,31.633,-5.469,-0.077,,,,,,,,,tier,60-80,31.711
+rec_yards,adot_x_catch[direct],2017-18,70,35.426,3.952,0.354,,,,,,,,,tier,80+,35.071
+rec_yards,adot_x_catch[direct],2019-22,8193,13.235,-7.136,0.01,,,,,,,,,tier,0-20,13.225
+rec_yards,adot_x_catch[direct],2019-22,4153,20.854,-5.455,-0.087,,,,,,,,,tier,20-40,20.941
+rec_yards,adot_x_catch[direct],2019-22,2543,28.812,-5.227,-0.097,,,,,,,,,tier,40-60,28.909
+rec_yards,adot_x_catch[direct],2019-22,1002,31.971,-2.55,0.096,,,,,,,,,tier,60-80,31.875
+rec_yards,adot_x_catch[direct],2019-22,185,36.92,2.083,0.291,,,,,,,,,tier,80+,36.629
+rec_yards,adot_x_catch[direct],2023-25,6759,12.552,-6.4,0.02,,,,,,,,,tier,0-20,12.531
+rec_yards,adot_x_catch[direct],2023-25,3015,21.045,-6.262,-0.025,,,,,,,,,tier,20-40,21.071
+rec_yards,adot_x_catch[direct],2023-25,1803,27.386,-4.523,-0.018,,,,,,,,,tier,40-60,27.404
+rec_yards,adot_x_catch[direct],2023-25,657,32.452,-3.002,0.058,,,,,,,,,tier,60-80,32.395
+rec_yards,adot_x_catch[direct],2023-25,149,39.037,-1.241,0.289,,,,,,,,,tier,80+,38.748
+rec_yards,adot_x_catch[direct],2019-25,14952,12.926,-6.803,0.015,,,,,,,,,tier,0-20,12.911
+rec_yards,adot_x_catch[direct],2019-25,7168,20.935,-5.794,-0.061,,,,,,,,,tier,20-40,20.996
+rec_yards,adot_x_catch[direct],2019-25,4346,28.22,-4.935,-0.065,,,,,,,,,tier,40-60,28.285
+rec_yards,adot_x_catch[direct],2019-25,1659,32.162,-2.729,0.081,,,,,,,,,tier,60-80,32.081
+rec_yards,adot_x_catch[direct],2019-25,334,37.865,0.6,0.29,,,,,,,,,tier,80+,37.575
+rec_yards,adot_x_catch[prior_lit],2017-18,3624,14.28,-9.09,0.402,,,,,,,,,tier,0-20,13.878
+rec_yards,adot_x_catch[prior_lit],2017-18,2164,22.215,-6.9,0.347,,,,,,,,,tier,20-40,21.868
+rec_yards,adot_x_catch[prior_lit],2017-18,1183,28.221,-1.24,0.474,,,,,,,,,tier,40-60,27.747
+rec_yards,adot_x_catch[prior_lit],2017-18,477,31.839,-2.257,0.128,,,,,,,,,tier,60-80,31.711
+rec_yards,adot_x_catch[prior_lit],2017-18,70,36.517,7.671,1.446,,,,,,,,,tier,80+,35.071
+rec_yards,adot_x_catch[prior_lit],2019-22,8193,13.675,-8.397,0.45,,,,,,,,,tier,0-20,13.225
+rec_yards,adot_x_catch[prior_lit],2019-22,4153,21.237,-5.296,0.296,,,,,,,,,tier,20-40,20.941
+rec_yards,adot_x_catch[prior_lit],2019-22,2543,28.881,-2.712,-0.028,,,,,,,,,tier,40-60,28.909
+rec_yards,adot_x_catch[prior_lit],2019-22,1002,32.404,0.972,0.529,,,,,,,,,tier,60-80,31.875
+rec_yards,adot_x_catch[prior_lit],2019-22,185,37.533,5.758,0.904,,,,,,,,,tier,80+,36.629
+rec_yards,adot_x_catch[prior_lit],2023-25,6759,13.015,-7.546,0.484,,,,,,,,,tier,0-20,12.531
+rec_yards,adot_x_catch[prior_lit],2023-25,3015,21.462,-5.829,0.391,,,,,,,,,tier,20-40,21.071
+rec_yards,adot_x_catch[prior_lit],2023-25,1803,27.656,-1.957,0.252,,,,,,,,,tier,40-60,27.404
+rec_yards,adot_x_catch[prior_lit],2023-25,657,32.948,0.655,0.553,,,,,,,,,tier,60-80,32.395
+rec_yards,adot_x_catch[prior_lit],2023-25,149,39.57,2.91,0.822,,,,,,,,,tier,80+,38.748
+rec_yards,adot_x_catch[prior_lit],2019-25,14952,13.377,-8.012,0.465,,,,,,,,,tier,0-20,12.911
+rec_yards,adot_x_catch[prior_lit],2019-25,7168,21.331,-5.52,0.336,,,,,,,,,tier,20-40,20.996
+rec_yards,adot_x_catch[prior_lit],2019-25,4346,28.373,-2.399,0.088,,,,,,,,,tier,40-60,28.285
+rec_yards,adot_x_catch[prior_lit],2019-25,1659,32.619,0.847,0.539,,,,,,,,,tier,60-80,32.081
+rec_yards,adot_x_catch[prior_lit],2019-25,334,38.442,4.487,0.867,,,,,,,,,tier,80+,37.575
+rec_yards,pos_ypt_control[prior],2017-18,3624,13.878,-7.76,-0.001,,,,,,,,,tier,0-20,13.878
+rec_yards,pos_ypt_control[prior],2017-18,2164,21.793,-6.82,-0.075,,,,,,,,,tier,20-40,21.868
+rec_yards,pos_ypt_control[prior],2017-18,1183,27.741,-2.681,-0.006,,,,,,,,,tier,40-60,27.747
+rec_yards,pos_ypt_control[prior],2017-18,477,31.689,-6.309,-0.022,,,,,,,,,tier,60-80,31.711
+rec_yards,pos_ypt_control[prior],2017-18,70,35.281,2.016,0.21,,,,,,,,,tier,80+,35.071
+rec_yards,pos_ypt_control[prior],2019-22,8193,13.247,-7.175,0.022,,,,,,,,,tier,0-20,13.225
+rec_yards,pos_ypt_control[prior],2019-22,4153,20.86,-5.309,-0.081,,,,,,,,,tier,20-40,20.941
+rec_yards,pos_ypt_control[prior],2019-22,2543,28.826,-5.307,-0.083,,,,,,,,,tier,40-60,28.909
+rec_yards,pos_ypt_control[prior],2019-22,1002,31.925,-3.096,0.05,,,,,,,,,tier,60-80,31.875
+rec_yards,pos_ypt_control[prior],2019-22,185,36.738,1.018,0.109,,,,,,,,,tier,80+,36.629
+rec_yards,pos_ypt_control[prior],2023-25,6759,12.558,-6.414,0.026,,,,,,,,,tier,0-20,12.531
+rec_yards,pos_ypt_control[prior],2023-25,3015,21.049,-6.149,-0.022,,,,,,,,,tier,20-40,21.071
+rec_yards,pos_ypt_control[prior],2023-25,1803,27.384,-4.693,-0.02,,,,,,,,,tier,40-60,27.404
+rec_yards,pos_ypt_control[prior],2023-25,657,32.447,-3.575,0.052,,,,,,,,,tier,60-80,32.395
+rec_yards,pos_ypt_control[prior],2023-25,149,38.88,-2.467,0.131,,,,,,,,,tier,80+,38.748
+rec_yards,pos_ypt_control[prior],2019-25,14952,12.935,-6.831,0.024,,,,,,,,,tier,0-20,12.911
+rec_yards,pos_ypt_control[prior],2019-25,7168,20.939,-5.662,-0.056,,,,,,,,,tier,20-40,20.996
+rec_yards,pos_ypt_control[prior],2019-25,4346,28.228,-5.052,-0.057,,,,,,,,,tier,40-60,28.285
+rec_yards,pos_ypt_control[prior],2019-25,1659,32.132,-3.286,0.051,,,,,,,,,tier,60-80,32.081
+rec_yards,pos_ypt_control[prior],2019-25,334,37.693,-0.537,0.119,,,,,,,,,tier,80+,37.575
+rec_yards,pos_ypt_control[direct],2017-18,3624,13.878,-7.746,-0.0,,,,,,,,,tier,0-20,13.878
+rec_yards,pos_ypt_control[direct],2017-18,2164,21.783,-6.815,-0.085,,,,,,,,,tier,20-40,21.868
+rec_yards,pos_ypt_control[direct],2017-18,1183,27.746,-2.435,-0.001,,,,,,,,,tier,40-60,27.747
+rec_yards,pos_ypt_control[direct],2017-18,477,31.668,-5.536,-0.043,,,,,,,,,tier,60-80,31.711
+rec_yards,pos_ypt_control[direct],2017-18,70,35.492,3.333,0.421,,,,,,,,,tier,80+,35.071
+rec_yards,pos_ypt_control[direct],2019-22,8193,13.244,-7.161,0.019,,,,,,,,,tier,0-20,13.225
+rec_yards,pos_ypt_control[direct],2019-22,4153,20.87,-5.32,-0.071,,,,,,,,,tier,20-40,20.941
+rec_yards,pos_ypt_control[direct],2019-22,2543,28.801,-4.885,-0.108,,,,,,,,,tier,40-60,28.909
+rec_yards,pos_ypt_control[direct],2019-22,1002,31.995,-2.113,0.12,,,,,,,,,tier,60-80,31.875
+rec_yards,pos_ypt_control[direct],2019-22,185,36.892,2.559,0.263,,,,,,,,,tier,80+,36.629
+rec_yards,pos_ypt_control[direct],2023-25,6759,12.558,-6.402,0.026,,,,,,,,,tier,0-20,12.531
+rec_yards,pos_ypt_control[direct],2023-25,3015,21.063,-6.133,-0.008,,,,,,,,,tier,20-40,21.071
+rec_yards,pos_ypt_control[direct],2023-25,1803,27.399,-4.244,-0.006,,,,,,,,,tier,40-60,27.404
+rec_yards,pos_ypt_control[direct],2023-25,657,32.495,-2.583,0.1,,,,,,,,,tier,60-80,32.395
+rec_yards,pos_ypt_control[direct],2023-25,149,39.035,-0.818,0.286,,,,,,,,,tier,80+,38.748
+rec_yards,pos_ypt_control[direct],2019-25,14952,12.934,-6.818,0.022,,,,,,,,,tier,0-20,12.911
+rec_yards,pos_ypt_control[direct],2019-25,7168,20.951,-5.662,-0.044,,,,,,,,,tier,20-40,20.996
+rec_yards,pos_ypt_control[direct],2019-25,4346,28.219,-4.619,-0.066,,,,,,,,,tier,40-60,28.285
+rec_yards,pos_ypt_control[direct],2019-25,1659,32.193,-2.299,0.112,,,,,,,,,tier,60-80,32.081
+rec_yards,pos_ypt_control[direct],2019-25,334,37.848,1.052,0.273,,,,,,,,,tier,80+,37.575
+rec_yards,yac_over_exp[prior],2017-18,3624,13.88,-7.486,0.001,,,,,,,,,tier,0-20,13.878
+rec_yards,yac_over_exp[prior],2017-18,2164,21.867,-6.816,-0.002,,,,,,,,,tier,20-40,21.868
+rec_yards,yac_over_exp[prior],2017-18,1183,27.727,-2.892,-0.02,,,,,,,,,tier,40-60,27.747
+rec_yards,yac_over_exp[prior],2017-18,477,31.76,-6.845,0.05,,,,,,,,,tier,60-80,31.711
+rec_yards,yac_over_exp[prior],2017-18,70,34.958,1.438,-0.113,,,,,,,,,tier,80+,35.071
+rec_yards,yac_over_exp[prior],2019-22,8193,13.224,-6.793,-0.001,,,,,,,,,tier,0-20,13.225
+rec_yards,yac_over_exp[prior],2019-22,4153,20.933,-5.327,-0.008,,,,,,,,,tier,20-40,20.941
+rec_yards,yac_over_exp[prior],2019-22,2543,28.897,-6.143,-0.012,,,,,,,,,tier,40-60,28.909
+rec_yards,yac_over_exp[prior],2019-22,1002,31.859,-4.041,-0.016,,,,,,,,,tier,60-80,31.875
+rec_yards,yac_over_exp[prior],2019-22,185,36.598,0.08,-0.032,,,,,,,,,tier,80+,36.629
+rec_yards,yac_over_exp[prior],2023-25,6759,12.532,-6.036,0.001,,,,,,,,,tier,0-20,12.531
+rec_yards,yac_over_exp[prior],2023-25,3015,21.062,-6.274,-0.009,,,,,,,,,tier,20-40,21.071
+rec_yards,yac_over_exp[prior],2023-25,1803,27.399,-5.533,-0.006,,,,,,,,,tier,40-60,27.404
+rec_yards,yac_over_exp[prior],2023-25,657,32.407,-4.466,0.013,,,,,,,,,tier,60-80,32.395
+rec_yards,yac_over_exp[prior],2023-25,149,38.759,-3.342,0.011,,,,,,,,,tier,80+,38.748
+rec_yards,yac_over_exp[prior],2019-25,14952,12.911,-6.45,-0.0,,,,,,,,,tier,0-20,12.911
+rec_yards,yac_over_exp[prior],2019-25,7168,20.987,-5.725,-0.008,,,,,,,,,tier,20-40,20.996
+rec_yards,yac_over_exp[prior],2019-25,4346,28.276,-5.89,-0.009,,,,,,,,,tier,40-60,28.285
+rec_yards,yac_over_exp[prior],2019-25,1659,32.076,-4.209,-0.004,,,,,,,,,tier,60-80,32.081
+rec_yards,yac_over_exp[prior],2019-25,334,37.562,-1.447,-0.013,,,,,,,,,tier,80+,37.575
+rec_yards,yac_over_exp[direct],2017-18,3624,13.878,-7.466,0.0,,,,,,,,,tier,0-20,13.878
+rec_yards,yac_over_exp[direct],2017-18,2164,21.868,-6.784,0.0,,,,,,,,,tier,20-40,21.868
+rec_yards,yac_over_exp[direct],2017-18,1183,27.747,-3.089,0.0,,,,,,,,,tier,40-60,27.747
+rec_yards,yac_over_exp[direct],2017-18,477,31.711,-7.23,0.0,,,,,,,,,tier,60-80,31.711
+rec_yards,yac_over_exp[direct],2017-18,70,35.071,0.872,0.0,,,,,,,,,tier,80+,35.071
+rec_yards,yac_over_exp[direct],2019-22,8193,13.225,-6.778,0.0,,,,,,,,,tier,0-20,13.225
+rec_yards,yac_over_exp[direct],2019-22,4153,20.941,-5.263,0.0,,,,,,,,,tier,20-40,20.941
+rec_yards,yac_over_exp[direct],2019-22,2543,28.909,-6.143,0.0,,,,,,,,,tier,40-60,28.909
+rec_yards,yac_over_exp[direct],2019-22,1002,31.875,-4.333,0.0,,,,,,,,,tier,60-80,31.875
+rec_yards,yac_over_exp[direct],2019-22,185,36.629,-0.379,0.0,,,,,,,,,tier,80+,36.629
+rec_yards,yac_over_exp[direct],2023-25,6759,12.531,-6.019,0.0,,,,,,,,,tier,0-20,12.531
+rec_yards,yac_over_exp[direct],2023-25,3015,21.071,-6.21,0.0,,,,,,,,,tier,20-40,21.071
+rec_yards,yac_over_exp[direct],2023-25,1803,27.404,-5.551,0.0,,,,,,,,,tier,40-60,27.404
+rec_yards,yac_over_exp[direct],2023-25,657,32.395,-4.788,0.0,,,,,,,,,tier,60-80,32.395
+rec_yards,yac_over_exp[direct],2023-25,149,38.748,-3.933,0.0,,,,,,,,,tier,80+,38.748
+rec_yards,yac_over_exp[direct],2019-25,14952,12.911,-6.435,0.0,,,,,,,,,tier,0-20,12.911
+rec_yards,yac_over_exp[direct],2019-25,7168,20.996,-5.661,0.0,,,,,,,,,tier,20-40,20.996
+rec_yards,yac_over_exp[direct],2019-25,4346,28.285,-5.897,0.0,,,,,,,,,tier,40-60,28.285
+rec_yards,yac_over_exp[direct],2019-25,1659,32.081,-4.513,0.0,,,,,,,,,tier,60-80,32.081
+rec_yards,yac_over_exp[direct],2019-25,334,37.575,-1.964,0.0,,,,,,,,,tier,80+,37.575
+rec_yards,separation[prior],2017-18,3624,13.873,-7.43,-0.005,,,,,,,,,tier,0-20,13.878
+rec_yards,separation[prior],2017-18,2164,21.837,-6.681,-0.031,,,,,,,,,tier,20-40,21.868
+rec_yards,separation[prior],2017-18,1183,27.757,-2.988,0.01,,,,,,,,,tier,40-60,27.747
+rec_yards,separation[prior],2017-18,477,31.731,-7.331,0.02,,,,,,,,,tier,60-80,31.711
+rec_yards,separation[prior],2017-18,70,35.207,0.792,0.136,,,,,,,,,tier,80+,35.071
+rec_yards,separation[prior],2019-22,8193,13.227,-6.711,0.002,,,,,,,,,tier,0-20,13.225
+rec_yards,separation[prior],2019-22,4153,21.0,-5.15,0.059,,,,,,,,,tier,20-40,20.941
+rec_yards,separation[prior],2019-22,2543,28.948,-6.272,0.039,,,,,,,,,tier,40-60,28.909
+rec_yards,separation[prior],2019-22,1002,31.888,-4.501,0.013,,,,,,,,,tier,60-80,31.875
+rec_yards,separation[prior],2019-22,185,36.578,-0.1,-0.051,,,,,,,,,tier,80+,36.629
+rec_yards,separation[prior],2023-25,6759,12.533,-5.963,0.002,,,,,,,,,tier,0-20,12.531
+rec_yards,separation[prior],2023-25,3015,21.055,-6.15,-0.016,,,,,,,,,tier,20-40,21.071
+rec_yards,separation[prior],2023-25,1803,27.431,-5.649,0.027,,,,,,,,,tier,40-60,27.404
+rec_yards,separation[prior],2023-25,657,32.305,-4.967,-0.09,,,,,,,,,tier,60-80,32.395
+rec_yards,separation[prior],2023-25,149,38.726,-3.763,-0.022,,,,,,,,,tier,80+,38.748
+rec_yards,separation[prior],2019-25,14952,12.913,-6.373,0.002,,,,,,,,,tier,0-20,12.911
+rec_yards,separation[prior],2019-25,7168,21.023,-5.571,0.028,,,,,,,,,tier,20-40,20.996
+rec_yards,separation[prior],2019-25,4346,28.319,-6.014,0.034,,,,,,,,,tier,40-60,28.285
+rec_yards,separation[prior],2019-25,1659,32.053,-4.686,-0.028,,,,,,,,,tier,60-80,32.081
+rec_yards,separation[prior],2019-25,334,37.536,-1.734,-0.038,,,,,,,,,tier,80+,37.575
+rec_yards,separation[direct],2017-18,3624,13.873,-7.441,-0.006,,,,,,,,,tier,0-20,13.878
+rec_yards,separation[direct],2017-18,2164,21.842,-6.675,-0.026,,,,,,,,,tier,20-40,21.868
+rec_yards,separation[direct],2017-18,1183,27.765,-2.982,0.018,,,,,,,,,tier,40-60,27.747
+rec_yards,separation[direct],2017-18,477,31.743,-7.339,0.032,,,,,,,,,tier,60-80,31.711
+rec_yards,separation[direct],2017-18,70,35.257,0.832,0.186,,,,,,,,,tier,80+,35.071
+rec_yards,separation[direct],2019-22,8193,13.227,-6.727,0.002,,,,,,,,,tier,0-20,13.225
+rec_yards,separation[direct],2019-22,4153,20.995,-5.176,0.054,,,,,,,,,tier,20-40,20.941
+rec_yards,separation[direct],2019-22,2543,28.946,-6.292,0.037,,,,,,,,,tier,40-60,28.909
+rec_yards,separation[direct],2019-22,1002,31.892,-4.543,0.017,,,,,,,,,tier,60-80,31.875
+rec_yards,separation[direct],2019-22,185,36.544,0.211,-0.085,,,,,,,,,tier,80+,36.629
+rec_yards,separation[direct],2023-25,6759,12.534,-5.974,0.003,,,,,,,,,tier,0-20,12.531
+rec_yards,separation[direct],2023-25,3015,21.059,-6.161,-0.012,,,,,,,,,tier,20-40,21.071
+rec_yards,separation[direct],2023-25,1803,27.447,-5.68,0.042,,,,,,,,,tier,40-60,27.404
+rec_yards,separation[direct],2023-25,657,32.279,-5.032,-0.116,,,,,,,,,tier,60-80,32.395
+rec_yards,separation[direct],2023-25,149,38.73,-3.594,-0.018,,,,,,,,,tier,80+,38.748
+rec_yards,separation[direct],2019-25,14952,12.913,-6.387,0.002,,,,,,,,,tier,0-20,12.911
+rec_yards,separation[direct],2019-25,7168,21.022,-5.59,0.026,,,,,,,,,tier,20-40,20.996
+rec_yards,separation[direct],2019-25,4346,28.324,-6.038,0.039,,,,,,,,,tier,40-60,28.285
+rec_yards,separation[direct],2019-25,1659,32.045,-4.737,-0.035,,,,,,,,,tier,60-80,32.081
+rec_yards,separation[direct],2019-25,334,37.52,-1.486,-0.055,,,,,,,,,tier,80+,37.575
+rec_yards,drop_rate[prior],2017-18,3624,13.877,-7.493,-0.002,,,,,,,,,tier,0-20,13.878
+rec_yards,drop_rate[prior],2017-18,2164,21.84,-6.781,-0.028,,,,,,,,,tier,20-40,21.868
+rec_yards,drop_rate[prior],2017-18,1183,27.734,-3.019,-0.013,,,,,,,,,tier,40-60,27.747
+rec_yards,drop_rate[prior],2017-18,477,31.716,-7.022,0.005,,,,,,,,,tier,60-80,31.711
+rec_yards,drop_rate[prior],2017-18,70,35.185,1.167,0.114,,,,,,,,,tier,80+,35.071
+rec_yards,drop_rate[prior],2019-22,8193,13.238,-6.845,0.013,,,,,,,,,tier,0-20,13.225
+rec_yards,drop_rate[prior],2019-22,4153,20.949,-5.249,0.008,,,,,,,,,tier,20-40,20.941
+rec_yards,drop_rate[prior],2019-22,2543,28.92,-6.012,0.011,,,,,,,,,tier,40-60,28.909
+rec_yards,drop_rate[prior],2019-22,1002,31.796,-4.058,-0.079,,,,,,,,,tier,60-80,31.875
+rec_yards,drop_rate[prior],2019-22,185,36.76,0.07,0.131,,,,,,,,,tier,80+,36.629
+rec_yards,drop_rate[prior],2023-25,6759,12.54,-6.038,0.008,,,,,,,,,tier,0-20,12.531
+rec_yards,drop_rate[prior],2023-25,3015,21.106,-6.217,0.035,,,,,,,,,tier,20-40,21.071
+rec_yards,drop_rate[prior],2023-25,1803,27.392,-5.406,-0.012,,,,,,,,,tier,40-60,27.404
+rec_yards,drop_rate[prior],2023-25,657,32.389,-4.49,-0.005,,,,,,,,,tier,60-80,32.395
+rec_yards,drop_rate[prior],2023-25,149,38.78,-3.536,0.031,,,,,,,,,tier,80+,38.748
+rec_yards,drop_rate[prior],2019-25,14952,12.922,-6.48,0.011,,,,,,,,,tier,0-20,12.911
+rec_yards,drop_rate[prior],2019-25,7168,21.015,-5.656,0.019,,,,,,,,,tier,20-40,20.996
+rec_yards,drop_rate[prior],2019-25,4346,28.286,-5.761,0.001,,,,,,,,,tier,40-60,28.285
+rec_yards,drop_rate[prior],2019-25,1659,32.031,-4.229,-0.05,,,,,,,,,tier,60-80,32.081
+rec_yards,drop_rate[prior],2019-25,334,37.661,-1.539,0.087,,,,,,,,,tier,80+,37.575
+rec_yards,drop_rate[direct],2017-18,3624,13.876,-7.486,-0.002,,,,,,,,,tier,0-20,13.878
+rec_yards,drop_rate[direct],2017-18,2164,21.835,-6.782,-0.033,,,,,,,,,tier,20-40,21.868
+rec_yards,drop_rate[direct],2017-18,1183,27.726,-3.006,-0.021,,,,,,,,,tier,40-60,27.747
+rec_yards,drop_rate[direct],2017-18,477,31.729,-6.903,0.019,,,,,,,,,tier,60-80,31.711
+rec_yards,drop_rate[direct],2017-18,70,35.285,1.401,0.214,,,,,,,,,tier,80+,35.071
+rec_yards,drop_rate[direct],2019-22,8193,13.233,-6.828,0.008,,,,,,,,,tier,0-20,13.225
+rec_yards,drop_rate[direct],2019-22,4153,20.941,-5.261,0.0,,,,,,,,,tier,20-40,20.941
+rec_yards,drop_rate[direct],2019-22,2543,28.931,-5.992,0.022,,,,,,,,,tier,40-60,28.909
+rec_yards,drop_rate[direct],2019-22,1002,31.762,-3.941,-0.112,,,,,,,,,tier,60-80,31.875
+rec_yards,drop_rate[direct],2019-22,185,36.836,0.412,0.207,,,,,,,,,tier,80+,36.629
+rec_yards,drop_rate[direct],2023-25,6759,12.535,-6.035,0.004,,,,,,,,,tier,0-20,12.531
+rec_yards,drop_rate[direct],2023-25,3015,21.099,-6.214,0.028,,,,,,,,,tier,20-40,21.071
+rec_yards,drop_rate[direct],2023-25,1803,27.391,-5.373,-0.014,,,,,,,,,tier,40-60,27.404
+rec_yards,drop_rate[direct],2023-25,657,32.381,-4.306,-0.014,,,,,,,,,tier,60-80,32.395
+rec_yards,drop_rate[direct],2023-25,149,38.805,-3.171,0.057,,,,,,,,,tier,80+,38.748
+rec_yards,drop_rate[direct],2019-25,14952,12.918,-6.469,0.006,,,,,,,,,tier,0-20,12.911
+rec_yards,drop_rate[direct],2019-25,7168,21.007,-5.662,0.012,,,,,,,,,tier,20-40,20.996
+rec_yards,drop_rate[direct],2019-25,4346,28.292,-5.735,0.007,,,,,,,,,tier,40-60,28.285
+rec_yards,drop_rate[direct],2019-25,1659,32.007,-4.085,-0.073,,,,,,,,,tier,60-80,32.081
+rec_yards,drop_rate[direct],2019-25,334,37.715,-1.186,0.14,,,,,,,,,tier,80+,37.575
+rec_yards,combo,2017-18,3624,13.874,-7.795,-0.005,,,,,,,,,tier,0-20,13.878
+rec_yards,combo,2017-18,2164,21.715,-6.857,-0.154,,,,,,,,,tier,20-40,21.868
+rec_yards,combo,2017-18,1183,27.714,-2.151,-0.033,,,,,,,,,tier,40-60,27.747
+rec_yards,combo,2017-18,477,31.743,-4.869,0.033,,,,,,,,,tier,60-80,31.711
+rec_yards,combo,2017-18,70,35.739,4.914,0.668,,,,,,,,,tier,80+,35.071
+rec_yards,combo,2019-22,8193,13.248,-7.124,0.024,,,,,,,,,tier,0-20,13.225
+rec_yards,combo,2019-22,4153,20.91,-5.397,-0.031,,,,,,,,,tier,20-40,20.941
+rec_yards,combo,2019-22,2543,28.854,-5.222,-0.055,,,,,,,,,tier,40-60,28.909
+rec_yards,combo,2019-22,1002,31.875,-2.038,0.0,,,,,,,,,tier,60-80,31.875
+rec_yards,combo,2019-22,185,37.099,3.701,0.47,,,,,,,,,tier,80+,36.629
+rec_yards,combo,2023-25,6759,12.556,-6.341,0.025,,,,,,,,,tier,0-20,12.531
+rec_yards,combo,2023-25,3015,21.061,-6.212,-0.009,,,,,,,,,tier,20-40,21.071
+rec_yards,combo,2023-25,1803,27.403,-4.379,-0.002,,,,,,,,,tier,40-60,27.404
+rec_yards,combo,2023-25,657,32.393,-2.394,-0.002,,,,,,,,,tier,60-80,32.395
+rec_yards,combo,2023-25,149,39.121,0.397,0.372,,,,,,,,,tier,80+,38.748
+rec_yards,combo,2019-25,14952,12.935,-6.77,0.024,,,,,,,,,tier,0-20,12.911
+rec_yards,combo,2019-25,7168,20.974,-5.74,-0.022,,,,,,,,,tier,20-40,20.996
+rec_yards,combo,2019-25,4346,28.252,-4.872,-0.033,,,,,,,,,tier,40-60,28.285
+rec_yards,combo,2019-25,1659,32.08,-2.179,-0.0,,,,,,,,,tier,60-80,32.081
+rec_yards,combo,2019-25,334,38.001,2.227,0.426,,,,,,,,,tier,80+,37.575
+rush_yards,rule,2017-18,1655,10.896,-4.477,0.0,,,,,,,,,tier,0-20,10.896
+rush_yards,rule,2017-18,870,20.28,-4.258,0.0,,,,,,,,,tier,20-40,20.28
+rush_yards,rule,2017-18,655,26.438,-4.731,0.0,,,,,,,,,tier,40-60,26.438
+rush_yards,rule,2017-18,262,31.454,-2.635,0.0,,,,,,,,,tier,60-80,31.454
+rush_yards,rule,2017-18,55,33.736,6.659,0.0,,,,,,,,,tier,80+,33.736
+rush_yards,rule,2019-22,3917,10.412,-4.206,0.0,,,,,,,,,tier,0-20,10.412
+rush_yards,rule,2019-22,1815,20.829,-4.223,0.0,,,,,,,,,tier,20-40,20.829
+rush_yards,rule,2019-22,1349,27.015,-6.893,0.0,,,,,,,,,tier,40-60,27.015
+rush_yards,rule,2019-22,583,31.533,-4.512,0.0,,,,,,,,,tier,60-80,31.533
+rush_yards,rule,2019-22,114,36.397,-9.807,0.0,,,,,,,,,tier,80+,36.397
+rush_yards,rule,2023-25,3132,10.464,-4.489,0.0,,,,,,,,,tier,0-20,10.464
+rush_yards,rule,2023-25,1417,18.633,-2.817,0.0,,,,,,,,,tier,20-40,18.633
+rush_yards,rule,2023-25,1068,26.438,-6.441,0.0,,,,,,,,,tier,40-60,26.438
+rush_yards,rule,2023-25,493,29.758,-4.691,0.0,,,,,,,,,tier,60-80,29.758
+rush_yards,rule,2023-25,86,35.475,0.727,0.0,,,,,,,,,tier,80+,35.475
+rush_yards,rule,2019-25,7049,10.435,-4.331,0.0,,,,,,,,,tier,0-20,10.435
+rush_yards,rule,2019-25,3232,19.866,-3.607,0.0,,,,,,,,,tier,20-40,19.866
+rush_yards,rule,2019-25,2417,26.76,-6.693,0.0,,,,,,,,,tier,40-60,26.76
+rush_yards,rule,2019-25,1076,30.72,-4.594,0.0,,,,,,,,,tier,60-80,30.72
+rush_yards,rule,2019-25,200,36.001,-5.277,0.0,,,,,,,,,tier,80+,36.001
+rush_yards,ryoe[prior],2017-18,1655,10.864,-4.532,-0.032,,,,,,,,,tier,0-20,10.896
+rush_yards,ryoe[prior],2017-18,870,20.072,-4.486,-0.208,,,,,,,,,tier,20-40,20.28
+rush_yards,ryoe[prior],2017-18,655,26.492,-4.501,0.054,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[prior],2017-18,262,31.732,-1.46,0.278,,,,,,,,,tier,60-80,31.454
+rush_yards,ryoe[prior],2017-18,55,33.742,7.353,0.006,,,,,,,,,tier,80+,33.736
+rush_yards,ryoe[prior],2019-22,3917,10.442,-4.298,0.03,,,,,,,,,tier,0-20,10.412
+rush_yards,ryoe[prior],2019-22,1815,20.876,-4.301,0.047,,,,,,,,,tier,20-40,20.829
+rush_yards,ryoe[prior],2019-22,1349,26.944,-7.014,-0.072,,,,,,,,,tier,40-60,27.015
+rush_yards,ryoe[prior],2019-22,583,31.362,-3.521,-0.17,,,,,,,,,tier,60-80,31.533
+rush_yards,ryoe[prior],2019-22,114,36.532,-7.066,0.134,,,,,,,,,tier,80+,36.397
+rush_yards,ryoe[prior],2023-25,3132,10.492,-4.633,0.028,,,,,,,,,tier,0-20,10.464
+rush_yards,ryoe[prior],2023-25,1417,18.635,-3.221,0.002,,,,,,,,,tier,20-40,18.633
+rush_yards,ryoe[prior],2023-25,1068,26.516,-5.963,0.079,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[prior],2023-25,493,29.775,-3.387,0.017,,,,,,,,,tier,60-80,29.758
+rush_yards,ryoe[prior],2023-25,86,35.496,3.766,0.021,,,,,,,,,tier,80+,35.475
+rush_yards,ryoe[prior],2019-25,7049,10.464,-4.447,0.029,,,,,,,,,tier,0-20,10.435
+rush_yards,ryoe[prior],2019-25,3232,19.893,-3.828,0.027,,,,,,,,,tier,20-40,19.866
+rush_yards,ryoe[prior],2019-25,2417,26.755,-6.549,-0.005,,,,,,,,,tier,40-60,26.76
+rush_yards,ryoe[prior],2019-25,1076,30.635,-3.46,-0.085,,,,,,,,,tier,60-80,30.72
+rush_yards,ryoe[prior],2019-25,200,36.086,-2.408,0.085,,,,,,,,,tier,80+,36.001
+rush_yards,ryoe[direct],2017-18,1655,10.89,-4.492,-0.006,,,,,,,,,tier,0-20,10.896
+rush_yards,ryoe[direct],2017-18,870,20.197,-4.396,-0.082,,,,,,,,,tier,20-40,20.28
+rush_yards,ryoe[direct],2017-18,655,26.48,-4.718,0.042,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[direct],2017-18,262,31.558,-2.093,0.104,,,,,,,,,tier,60-80,31.454
+rush_yards,ryoe[direct],2017-18,55,33.691,7.105,-0.045,,,,,,,,,tier,80+,33.736
+rush_yards,ryoe[direct],2019-22,3917,10.416,-4.234,0.003,,,,,,,,,tier,0-20,10.412
+rush_yards,ryoe[direct],2019-22,1815,20.794,-4.313,-0.034,,,,,,,,,tier,20-40,20.829
+rush_yards,ryoe[direct],2019-22,1349,26.966,-6.992,-0.05,,,,,,,,,tier,40-60,27.015
+rush_yards,ryoe[direct],2019-22,583,31.368,-3.843,-0.165,,,,,,,,,tier,60-80,31.533
+rush_yards,ryoe[direct],2019-22,114,36.32,-7.153,-0.078,,,,,,,,,tier,80+,36.397
+rush_yards,ryoe[direct],2023-25,3132,10.471,-4.534,0.006,,,,,,,,,tier,0-20,10.464
+rush_yards,ryoe[direct],2023-25,1417,18.591,-3.056,-0.042,,,,,,,,,tier,20-40,18.633
+rush_yards,ryoe[direct],2023-25,1068,26.368,-6.311,-0.07,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[direct],2023-25,493,29.702,-3.762,-0.056,,,,,,,,,tier,60-80,29.758
+rush_yards,ryoe[direct],2023-25,86,35.339,3.467,-0.137,,,,,,,,,tier,80+,35.475
+rush_yards,ryoe[direct],2019-25,7049,10.44,-4.367,0.005,,,,,,,,,tier,0-20,10.435
+rush_yards,ryoe[direct],2019-25,3232,19.828,-3.762,-0.038,,,,,,,,,tier,20-40,19.866
+rush_yards,ryoe[direct],2019-25,2417,26.701,-6.691,-0.059,,,,,,,,,tier,40-60,26.76
+rush_yards,ryoe[direct],2019-25,1076,30.605,-3.806,-0.115,,,,,,,,,tier,60-80,30.72
+rush_yards,ryoe[direct],2019-25,200,35.898,-2.586,-0.103,,,,,,,,,tier,80+,36.001
+rush_yards,ryoe[prior_lit],2017-18,1655,10.889,-4.491,-0.007,,,,,,,,,tier,0-20,10.896
+rush_yards,ryoe[prior_lit],2017-18,870,20.226,-4.337,-0.053,,,,,,,,,tier,20-40,20.28
+rush_yards,ryoe[prior_lit],2017-18,655,26.423,-4.696,-0.015,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[prior_lit],2017-18,262,31.494,-2.394,0.041,,,,,,,,,tier,60-80,31.454
+rush_yards,ryoe[prior_lit],2017-18,55,33.727,6.804,-0.009,,,,,,,,,tier,80+,33.736
+rush_yards,ryoe[prior_lit],2019-22,3917,10.412,-4.236,-0.0,,,,,,,,,tier,0-20,10.412
+rush_yards,ryoe[prior_lit],2019-22,1815,20.804,-4.277,-0.025,,,,,,,,,tier,20-40,20.829
+rush_yards,ryoe[prior_lit],2019-22,1349,26.982,-6.935,-0.033,,,,,,,,,tier,40-60,27.015
+rush_yards,ryoe[prior_lit],2019-22,583,31.475,-4.325,-0.058,,,,,,,,,tier,60-80,31.533
+rush_yards,ryoe[prior_lit],2019-22,114,36.443,-9.244,0.045,,,,,,,,,tier,80+,36.397
+rush_yards,ryoe[prior_lit],2023-25,3132,10.467,-4.532,0.003,,,,,,,,,tier,0-20,10.464
+rush_yards,ryoe[prior_lit],2023-25,1417,18.618,-2.933,-0.015,,,,,,,,,tier,20-40,18.633
+rush_yards,ryoe[prior_lit],2023-25,1068,26.397,-6.354,-0.041,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[prior_lit],2023-25,493,29.756,-4.406,-0.002,,,,,,,,,tier,60-80,29.758
+rush_yards,ryoe[prior_lit],2023-25,86,35.444,1.332,-0.032,,,,,,,,,tier,80+,35.475
+rush_yards,ryoe[prior_lit],2019-25,7049,10.436,-4.367,0.001,,,,,,,,,tier,0-20,10.435
+rush_yards,ryoe[prior_lit],2019-25,3232,19.846,-3.688,-0.02,,,,,,,,,tier,20-40,19.866
+rush_yards,ryoe[prior_lit],2019-25,2417,26.723,-6.678,-0.037,,,,,,,,,tier,40-60,26.76
+rush_yards,ryoe[prior_lit],2019-25,1076,30.687,-4.363,-0.032,,,,,,,,,tier,60-80,30.72
+rush_yards,ryoe[prior_lit],2019-25,200,36.013,-4.696,0.012,,,,,,,,,tier,80+,36.001
+rush_yards,ryoe[rate_lit],2017-18,1655,11.141,-4.255,0.245,,,,,,,,,tier,0-20,10.896
+rush_yards,ryoe[rate_lit],2017-18,870,20.435,-5.178,0.155,,,,,,,,,tier,20-40,20.28
+rush_yards,ryoe[rate_lit],2017-18,655,26.616,-5.139,0.178,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[rate_lit],2017-18,262,31.554,-5.433,0.1,,,,,,,,,tier,60-80,31.454
+rush_yards,ryoe[rate_lit],2017-18,55,33.695,-1.249,-0.041,,,,,,,,,tier,80+,33.736
+rush_yards,ryoe[rate_lit],2019-22,3917,10.628,-3.773,0.215,,,,,,,,,tier,0-20,10.412
+rush_yards,ryoe[rate_lit],2019-22,1815,20.898,-4.898,0.07,,,,,,,,,tier,20-40,20.829
+rush_yards,ryoe[rate_lit],2019-22,1349,27.451,-8.053,0.436,,,,,,,,,tier,40-60,27.015
+rush_yards,ryoe[rate_lit],2019-22,583,31.433,-5.871,-0.1,,,,,,,,,tier,60-80,31.533
+rush_yards,ryoe[rate_lit],2019-22,114,36.439,-11.611,0.042,,,,,,,,,tier,80+,36.397
+rush_yards,ryoe[rate_lit],2023-25,3132,10.707,-4.194,0.243,,,,,,,,,tier,0-20,10.464
+rush_yards,ryoe[rate_lit],2023-25,1417,18.794,-3.947,0.161,,,,,,,,,tier,20-40,18.633
+rush_yards,ryoe[rate_lit],2023-25,1068,26.332,-6.951,-0.106,,,,,,,,,tier,40-60,26.438
+rush_yards,ryoe[rate_lit],2023-25,493,30.081,-5.331,0.323,,,,,,,,,tier,60-80,29.758
+rush_yards,ryoe[rate_lit],2023-25,86,33.42,-3.101,-2.056,,,,,,,,,tier,80+,35.475
+rush_yards,ryoe[rate_lit],2019-25,7049,10.663,-3.96,0.228,,,,,,,,,tier,0-20,10.435
+rush_yards,ryoe[rate_lit],2019-25,3232,19.976,-4.481,0.109,,,,,,,,,tier,20-40,19.866
+rush_yards,ryoe[rate_lit],2019-25,2417,26.957,-7.566,0.196,,,,,,,,,tier,40-60,26.76
+rush_yards,ryoe[rate_lit],2019-25,1076,30.814,-5.624,0.094,,,,,,,,,tier,60-80,30.72
+rush_yards,ryoe[rate_lit],2019-25,200,35.141,-7.952,-0.86,,,,,,,,,tier,80+,36.001
+rush_yards,inside10_share[td_prior],2017-18,1655,10.896,-4.477,0.0,,,,,,,,,tier,0-20,10.896
+rush_yards,inside10_share[td_prior],2017-18,870,20.28,-4.258,0.0,,,,,,,,,tier,20-40,20.28
+rush_yards,inside10_share[td_prior],2017-18,655,26.438,-4.731,0.0,,,,,,,,,tier,40-60,26.438
+rush_yards,inside10_share[td_prior],2017-18,262,31.454,-2.635,0.0,,,,,,,,,tier,60-80,31.454
+rush_yards,inside10_share[td_prior],2017-18,55,33.736,6.659,0.0,,,,,,,,,tier,80+,33.736
+rush_yards,inside10_share[td_prior],2019-22,3917,10.412,-4.206,0.0,,,,,,,,,tier,0-20,10.412
+rush_yards,inside10_share[td_prior],2019-22,1815,20.829,-4.223,0.0,,,,,,,,,tier,20-40,20.829
+rush_yards,inside10_share[td_prior],2019-22,1349,27.015,-6.893,0.0,,,,,,,,,tier,40-60,27.015
+rush_yards,inside10_share[td_prior],2019-22,583,31.533,-4.512,0.0,,,,,,,,,tier,60-80,31.533
+rush_yards,inside10_share[td_prior],2019-22,114,36.397,-9.807,0.0,,,,,,,,,tier,80+,36.397
+rush_yards,inside10_share[td_prior],2023-25,3132,10.464,-4.489,0.0,,,,,,,,,tier,0-20,10.464
+rush_yards,inside10_share[td_prior],2023-25,1417,18.633,-2.817,0.0,,,,,,,,,tier,20-40,18.633
+rush_yards,inside10_share[td_prior],2023-25,1068,26.438,-6.441,0.0,,,,,,,,,tier,40-60,26.438
+rush_yards,inside10_share[td_prior],2023-25,493,29.758,-4.691,0.0,,,,,,,,,tier,60-80,29.758
+rush_yards,inside10_share[td_prior],2023-25,86,35.475,0.727,0.0,,,,,,,,,tier,80+,35.475
+rush_yards,inside10_share[td_prior],2019-25,7049,10.435,-4.331,0.0,,,,,,,,,tier,0-20,10.435
+rush_yards,inside10_share[td_prior],2019-25,3232,19.866,-3.607,0.0,,,,,,,,,tier,20-40,19.866
+rush_yards,inside10_share[td_prior],2019-25,2417,26.76,-6.693,0.0,,,,,,,,,tier,40-60,26.76
+rush_yards,inside10_share[td_prior],2019-25,1076,30.72,-4.594,0.0,,,,,,,,,tier,60-80,30.72
+rush_yards,inside10_share[td_prior],2019-25,200,36.001,-5.277,0.0,,,,,,,,,tier,80+,36.001
+pass_yards,rule,2017-18,15,46.727,38.682,0.0,,,,,,,,,tier,0-150,46.727
+pass_yards,rule,2017-18,88,62.91,7.207,0.0,,,,,,,,,tier,150-200,62.91
+pass_yards,rule,2017-18,643,62.067,-9.216,0.0,,,,,,,,,tier,200-250,62.067
+pass_yards,rule,2017-18,290,57.225,-8.371,0.0,,,,,,,,,tier,250-300,57.225
+pass_yards,rule,2017-18,10,77.382,14.252,0.0,,,,,,,,,tier,300+,77.382
+pass_yards,rule,2019-22,24,46.113,34.081,0.0,,,,,,,,,tier,0-150,46.113
+pass_yards,rule,2019-22,220,59.286,21.307,0.0,,,,,,,,,tier,150-200,59.286
+pass_yards,rule,2019-22,1304,55.0,-6.937,0.0,,,,,,,,,tier,200-250,55.0
+pass_yards,rule,2019-22,613,59.539,-10.894,0.0,,,,,,,,,tier,250-300,59.539
+pass_yards,rule,2019-22,15,49.138,10.203,0.0,,,,,,,,,tier,300+,49.138
+pass_yards,rule,2023-25,51,55.034,45.92,0.0,,,,,,,,,tier,0-150,55.034
+pass_yards,rule,2023-25,257,60.918,14.35,0.0,,,,,,,,,tier,150-200,60.918
+pass_yards,rule,2023-25,1133,54.566,-3.453,0.0,,,,,,,,,tier,200-250,54.566
+pass_yards,rule,2023-25,270,58.31,2.047,0.0,,,,,,,,,tier,250-300,58.31
+pass_yards,rule,2023-25,1,29.014,29.014,0.0,,,,,,,,,tier,300+,29.014
+pass_yards,rule,2019-25,75,52.179,42.132,0.0,,,,,,,,,tier,0-150,52.179
+pass_yards,rule,2019-25,477,60.166,17.559,0.0,,,,,,,,,tier,150-200,60.166
+pass_yards,rule,2019-25,2437,54.798,-5.318,0.0,,,,,,,,,tier,200-250,54.798
+pass_yards,rule,2019-25,883,59.163,-6.937,0.0,,,,,,,,,tier,250-300,59.163
+pass_yards,rule,2019-25,16,47.881,11.378,0.0,,,,,,,,,tier,300+,47.881
+pass_yards,cpoe[prior],2017-18,15,38.336,29.488,-8.391,,,,,,,,,tier,0-150,46.727
+pass_yards,cpoe[prior],2017-18,88,63.003,5.568,0.094,,,,,,,,,tier,150-200,62.91
+pass_yards,cpoe[prior],2017-18,643,62.154,-9.913,0.087,,,,,,,,,tier,200-250,62.067
+pass_yards,cpoe[prior],2017-18,290,57.209,-7.567,-0.016,,,,,,,,,tier,250-300,57.225
+pass_yards,cpoe[prior],2017-18,10,78.623,15.777,1.241,,,,,,,,,tier,300+,77.382
+pass_yards,cpoe[prior],2019-22,24,45.207,32.154,-0.906,,,,,,,,,tier,0-150,46.113
+pass_yards,cpoe[prior],2019-22,220,59.04,20.016,-0.246,,,,,,,,,tier,150-200,59.286
+pass_yards,cpoe[prior],2019-22,1304,55.031,-7.08,0.031,,,,,,,,,tier,200-250,55.0
+pass_yards,cpoe[prior],2019-22,613,59.571,-10.403,0.032,,,,,,,,,tier,250-300,59.539
+pass_yards,cpoe[prior],2019-22,15,48.776,10.392,-0.362,,,,,,,,,tier,300+,49.138
+pass_yards,cpoe[prior],2023-25,51,54.064,43.361,-0.97,,,,,,,,,tier,0-150,55.034
+pass_yards,cpoe[prior],2023-25,257,60.505,12.926,-0.414,,,,,,,,,tier,150-200,60.918
+pass_yards,cpoe[prior],2023-25,1133,54.599,-3.523,0.033,,,,,,,,,tier,200-250,54.566
+pass_yards,cpoe[prior],2023-25,270,58.298,3.013,-0.012,,,,,,,,,tier,250-300,58.31
+pass_yards,cpoe[prior],2023-25,1,28.205,28.205,-0.809,,,,,,,,,tier,300+,29.014
+pass_yards,cpoe[prior],2019-25,75,51.23,39.775,-0.949,,,,,,,,,tier,0-150,52.179
+pass_yards,cpoe[prior],2019-25,477,59.829,16.196,-0.336,,,,,,,,,tier,150-200,60.166
+pass_yards,cpoe[prior],2019-25,2437,54.83,-5.426,0.032,,,,,,,,,tier,200-250,54.798
+pass_yards,cpoe[prior],2019-25,883,59.182,-6.3,0.019,,,,,,,,,tier,250-300,59.163
+pass_yards,cpoe[prior],2019-25,16,47.491,11.506,-0.39,,,,,,,,,tier,300+,47.881
+pass_yards,cpoe[direct],2017-18,15,51.371,45.679,4.645,,,,,,,,,tier,0-150,46.727
+pass_yards,cpoe[direct],2017-18,88,62.745,10.704,-0.165,,,,,,,,,tier,150-200,62.91
+pass_yards,cpoe[direct],2017-18,643,61.899,-8.08,-0.168,,,,,,,,,tier,200-250,62.067
+pass_yards,cpoe[direct],2017-18,290,57.129,-13.534,-0.097,,,,,,,,,tier,250-300,57.225
+pass_yards,cpoe[direct],2017-18,10,68.173,3.972,-9.209,,,,,,,,,tier,300+,77.382
+pass_yards,cpoe[direct],2019-22,24,48.148,39.478,2.035,,,,,,,,,tier,0-150,46.113
+pass_yards,cpoe[direct],2019-22,220,60.094,23.348,0.808,,,,,,,,,tier,150-200,59.286
+pass_yards,cpoe[direct],2019-22,1304,55.418,-6.818,0.418,,,,,,,,,tier,200-250,55.0
+pass_yards,cpoe[direct],2019-22,613,59.76,-13.642,0.221,,,,,,,,,tier,250-300,59.539
+pass_yards,cpoe[direct],2019-22,15,52.034,8.851,2.896,,,,,,,,,tier,300+,49.138
+pass_yards,cpoe[direct],2023-25,51,57.014,49.136,1.98,,,,,,,,,tier,0-150,55.034
+pass_yards,cpoe[direct],2023-25,257,61.231,16.192,0.313,,,,,,,,,tier,150-200,60.918
+pass_yards,cpoe[direct],2023-25,1133,54.763,-4.017,0.197,,,,,,,,,tier,200-250,54.566
+pass_yards,cpoe[direct],2023-25,270,58.634,-2.534,0.324,,,,,,,,,tier,250-300,58.31
+pass_yards,cpoe[direct],2023-25,1,35.92,35.92,6.906,,,,,,,,,tier,300+,29.014
+pass_yards,cpoe[direct],2019-25,75,54.177,46.045,1.998,,,,,,,,,tier,0-150,52.179
+pass_yards,cpoe[direct],2019-25,477,60.707,19.493,0.541,,,,,,,,,tier,150-200,60.166
+pass_yards,cpoe[direct],2019-25,2437,55.114,-5.516,0.315,,,,,,,,,tier,200-250,54.798
+pass_yards,cpoe[direct],2019-25,883,59.415,-10.246,0.253,,,,,,,,,tier,250-300,59.163
+pass_yards,cpoe[direct],2019-25,16,51.027,10.542,3.146,,,,,,,,,tier,300+,47.881
+pass_yards,adot[prior],2017-18,15,45.308,37.633,-1.418,,,,,,,,,tier,0-150,46.727
+pass_yards,adot[prior],2017-18,88,61.864,7.004,-1.045,,,,,,,,,tier,150-200,62.91
+pass_yards,adot[prior],2017-18,643,61.874,-8.93,-0.193,,,,,,,,,tier,200-250,62.067
+pass_yards,adot[prior],2017-18,290,57.557,-8.998,0.332,,,,,,,,,tier,250-300,57.225
+pass_yards,adot[prior],2017-18,10,77.48,12.92,0.098,,,,,,,,,tier,300+,77.382
+pass_yards,adot[prior],2019-22,24,44.631,33.983,-1.482,,,,,,,,,tier,0-150,46.113
+pass_yards,adot[prior],2019-22,220,59.741,21.7,0.455,,,,,,,,,tier,150-200,59.286
+pass_yards,adot[prior],2019-22,1304,55.136,-6.689,0.135,,,,,,,,,tier,200-250,55.0
+pass_yards,adot[prior],2019-22,613,59.771,-11.157,0.232,,,,,,,,,tier,250-300,59.539
+pass_yards,adot[prior],2019-22,15,49.767,7.269,0.629,,,,,,,,,tier,300+,49.138
+pass_yards,adot[prior],2023-25,51,56.125,47.74,1.09,,,,,,,,,tier,0-150,55.034
+pass_yards,adot[prior],2023-25,257,61.064,14.607,0.146,,,,,,,,,tier,150-200,60.918
+pass_yards,adot[prior],2023-25,1133,54.566,-4.014,-0.001,,,,,,,,,tier,200-250,54.566
+pass_yards,adot[prior],2023-25,270,58.05,1.616,-0.259,,,,,,,,,tier,250-300,58.31
+pass_yards,adot[prior],2023-25,1,32.186,32.186,3.172,,,,,,,,,tier,300+,29.014
+pass_yards,adot[prior],2019-25,75,52.447,43.338,0.267,,,,,,,,,tier,0-150,52.179
+pass_yards,adot[prior],2019-25,477,60.454,17.879,0.288,,,,,,,,,tier,150-200,60.166
+pass_yards,adot[prior],2019-25,2437,54.871,-5.445,0.072,,,,,,,,,tier,200-250,54.798
+pass_yards,adot[prior],2019-25,883,59.245,-7.251,0.082,,,,,,,,,tier,250-300,59.163
+pass_yards,adot[prior],2019-25,16,48.668,8.826,0.788,,,,,,,,,tier,300+,47.881
+pass_yards,adot[direct],2017-18,15,46.221,38.419,-0.506,,,,,,,,,tier,0-150,46.727
+pass_yards,adot[direct],2017-18,88,62.276,6.993,-0.634,,,,,,,,,tier,150-200,62.91
+pass_yards,adot[direct],2017-18,643,61.838,-9.036,-0.229,,,,,,,,,tier,200-250,62.067
+pass_yards,adot[direct],2017-18,290,57.608,-8.875,0.382,,,,,,,,,tier,250-300,57.225
+pass_yards,adot[direct],2017-18,10,77.155,12.796,-0.227,,,,,,,,,tier,300+,77.382
+pass_yards,adot[direct],2019-22,24,45.427,34.281,-0.685,,,,,,,,,tier,0-150,46.113
+pass_yards,adot[direct],2019-22,220,59.501,21.58,0.215,,,,,,,,,tier,150-200,59.286
+pass_yards,adot[direct],2019-22,1304,55.022,-6.875,0.021,,,,,,,,,tier,200-250,55.0
+pass_yards,adot[direct],2019-22,613,59.784,-11.325,0.245,,,,,,,,,tier,250-300,59.539
+pass_yards,adot[direct],2019-22,15,49.725,7.073,0.586,,,,,,,,,tier,300+,49.138
+pass_yards,adot[direct],2023-25,51,55.536,46.511,0.501,,,,,,,,,tier,0-150,55.034
+pass_yards,adot[direct],2023-25,257,60.745,14.17,-0.174,,,,,,,,,tier,150-200,60.918
+pass_yards,adot[direct],2023-25,1133,54.555,-3.865,-0.011,,,,,,,,,tier,200-250,54.566
+pass_yards,adot[direct],2023-25,270,58.026,1.465,-0.284,,,,,,,,,tier,250-300,58.31
+pass_yards,adot[direct],2023-25,1,31.961,31.961,2.947,,,,,,,,,tier,300+,29.014
+pass_yards,adot[direct],2019-25,75,52.301,42.597,0.122,,,,,,,,,tier,0-150,52.179
+pass_yards,adot[direct],2019-25,477,60.171,17.588,0.006,,,,,,,,,tier,150-200,60.166
+pass_yards,adot[direct],2019-25,2437,54.805,-5.475,0.006,,,,,,,,,tier,200-250,54.798
+pass_yards,adot[direct],2019-25,883,59.246,-7.414,0.083,,,,,,,,,tier,250-300,59.163
+pass_yards,adot[direct],2019-25,16,48.615,8.628,0.734,,,,,,,,,tier,300+,47.881
+pass_yards,ttt_x_opp_pressure[direct],2017-18,15,46.727,38.682,0.0,,,,,,,,,tier,0-150,46.727
+pass_yards,ttt_x_opp_pressure[direct],2017-18,88,62.91,7.207,0.0,,,,,,,,,tier,150-200,62.91
+pass_yards,ttt_x_opp_pressure[direct],2017-18,643,62.067,-9.216,0.0,,,,,,,,,tier,200-250,62.067
+pass_yards,ttt_x_opp_pressure[direct],2017-18,290,57.225,-8.371,0.0,,,,,,,,,tier,250-300,57.225
+pass_yards,ttt_x_opp_pressure[direct],2017-18,10,77.382,14.252,0.0,,,,,,,,,tier,300+,77.382
+pass_yards,ttt_x_opp_pressure[direct],2019-22,24,46.113,34.081,0.0,,,,,,,,,tier,0-150,46.113
+pass_yards,ttt_x_opp_pressure[direct],2019-22,220,59.286,21.307,0.0,,,,,,,,,tier,150-200,59.286
+pass_yards,ttt_x_opp_pressure[direct],2019-22,1304,55.0,-6.937,0.0,,,,,,,,,tier,200-250,55.0
+pass_yards,ttt_x_opp_pressure[direct],2019-22,613,59.539,-10.894,0.0,,,,,,,,,tier,250-300,59.539
+pass_yards,ttt_x_opp_pressure[direct],2019-22,15,49.138,10.203,0.0,,,,,,,,,tier,300+,49.138
+pass_yards,ttt_x_opp_pressure[direct],2023-25,51,55.034,45.92,0.0,,,,,,,,,tier,0-150,55.034
+pass_yards,ttt_x_opp_pressure[direct],2023-25,257,60.918,14.35,0.0,,,,,,,,,tier,150-200,60.918
+pass_yards,ttt_x_opp_pressure[direct],2023-25,1133,54.566,-3.453,0.0,,,,,,,,,tier,200-250,54.566
+pass_yards,ttt_x_opp_pressure[direct],2023-25,270,58.31,2.047,0.0,,,,,,,,,tier,250-300,58.31
+pass_yards,ttt_x_opp_pressure[direct],2023-25,1,29.014,29.014,0.0,,,,,,,,,tier,300+,29.014
+pass_yards,ttt_x_opp_pressure[direct],2019-25,75,52.179,42.132,0.0,,,,,,,,,tier,0-150,52.179
+pass_yards,ttt_x_opp_pressure[direct],2019-25,477,60.166,17.559,0.0,,,,,,,,,tier,150-200,60.166
+pass_yards,ttt_x_opp_pressure[direct],2019-25,2437,54.798,-5.318,0.0,,,,,,,,,tier,200-250,54.798
+pass_yards,ttt_x_opp_pressure[direct],2019-25,883,59.163,-6.937,0.0,,,,,,,,,tier,250-300,59.163
+pass_yards,ttt_x_opp_pressure[direct],2019-25,16,47.881,11.378,0.0,,,,,,,,,tier,300+,47.881
+pass_yards,combo,2017-18,15,49.294,44.118,2.567,,,,,,,,,tier,0-150,46.727
+pass_yards,combo,2017-18,88,61.4,10.565,-1.51,,,,,,,,,tier,150-200,62.91
+pass_yards,combo,2017-18,643,61.654,-7.573,-0.413,,,,,,,,,tier,200-250,62.067
+pass_yards,combo,2017-18,290,57.434,-14.196,0.209,,,,,,,,,tier,250-300,57.225
+pass_yards,combo,2017-18,10,68.65,2.613,-8.731,,,,,,,,,tier,300+,77.382
+pass_yards,combo,2019-22,24,46.875,39.566,0.763,,,,,,,,,tier,0-150,46.113
+pass_yards,combo,2019-22,220,60.712,23.934,1.426,,,,,,,,,tier,150-200,59.286
+pass_yards,combo,2019-22,1304,55.581,-6.427,0.581,,,,,,,,,tier,200-250,55.0
+pass_yards,combo,2019-22,613,59.962,-13.838,0.423,,,,,,,,,tier,250-300,59.539
+pass_yards,combo,2019-22,15,52.624,5.77,3.485,,,,,,,,,tier,300+,49.138
+pass_yards,combo,2023-25,51,59.43,51.798,4.396,,,,,,,,,tier,0-150,55.034
+pass_yards,combo,2023-25,257,61.588,16.667,0.67,,,,,,,,,tier,150-200,60.918
+pass_yards,combo,2023-25,1133,54.773,-4.667,0.207,,,,,,,,,tier,200-250,54.566
+pass_yards,combo,2023-25,270,58.438,-2.839,0.128,,,,,,,,,tier,250-300,58.31
+pass_yards,combo,2023-25,1,40.147,40.147,11.133,,,,,,,,,tier,300+,29.014
+pass_yards,combo,2019-25,75,55.413,47.884,3.233,,,,,,,,,tier,0-150,52.179
+pass_yards,combo,2019-25,477,61.184,20.019,1.018,,,,,,,,,tier,150-200,60.166
+pass_yards,combo,2019-25,2437,55.206,-5.609,0.407,,,,,,,,,tier,200-250,54.798
+pass_yards,combo,2019-25,883,59.496,-10.475,0.333,,,,,,,,,tier,250-300,59.163
+pass_yards,combo,2019-25,16,51.844,7.918,3.963,,,,,,,,,tier,300+,47.881

@@ -12,6 +12,7 @@ weeks 1, 5, 9 and 13 of 2019 to 2025 against the actual totals, beside the pace 
 2019-22 / 2023-25; and how often the breakout flag came true.
 """
 from __future__ import annotations
+from functools import lru_cache
 import numpy as np, pandas as pd
 from pathlib import Path
 from . import props as PR
@@ -27,8 +28,23 @@ TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projectio
 # blend, by kind: both fitted on 2016 to 2018 as of the same weeks on the season-total error (reports/player_season_backtest.csv,
 # fit rows). The share sits below the share of games such players actually play (0.77, 0.75, 0.74: avail_mean_share rows)
 # because the misses are one-sided and the pace half carries part of the load
-AVAIL = {"rec": 0.65, "rush": 0.625, "pass": 0.525}   # refit on 2016-18 on 24 Sep 2026 after the official box-score definitions (kneels, two-point tries, gross passing yards); was 0.6 and 0.5
-BLEND = {"rec": 0.5, "rush": 0.5, "pass": 0.75}
+# 29 Sep 2026 (experiments/player_availability.py and player_availability2.py): each player's own share, AVAIL x p / AVAIL_PBAR
+# at most 1, where p is a binomial logit on what is known as of the week (this week's report and practice status, his missed
+# games of the last 34 team games, reserve lists, age band, position, his share of games so far), fitted on 2016-18: one
+# pooled model for receivers and rushers, a passer-only one for passers. AVAIL and BLEND refit with it on 2016-18. Season-total
+# miss (corrected rows: game-day inactives kept, see roster_at): receiving 125.8 / 123.1 to 123.1 / 120.5, rushing 152.0 / 143.1
+# to 148.1 / 140.0, passing 611.6 / 621.6 to 575.9 / 602.9. Was one flat share: 0.65, 0.625, 0.525 with BLEND 0.5, 0.5, 0.75
+AVAIL = {"rec": 0.70, "rush": 0.675, "pass": 0.625}
+BLEND = {"rec": 0.25, "rush": 0.25, "pass": 0.5}
+AVAIL_PBAR = {"rec": 0.7637, "rush": 0.7399, "pass": 0.7250}   # mean p on 2016-18 by kind
+AVAIL_LOGIT = {"intercept": 0.4370, "k_rush": 0.1152, "k_pass": 0.1433, "p_RB": -0.2703, "p_TE": -0.0986, "p_QB": -0.1112,
+               "rep_out": -0.2904, "rep_doubt": -0.9312, "rep_q": -0.0885, "prac_dnp": -0.7994, "prac_lim": -0.0920,
+               "ir_prev": 1.6569, "ir_season": 0.5274, "miss34_rate": -1.8587, "n34_short": -0.3235, "miss_last": -0.1318,
+               "age_le23": 0.4880, "age_27_29": 0.0231, "age_30_32": -0.0909, "age_33p": -0.1311, "share_now": 1.5860, "wk1": 1.1201}
+AVAIL_LOGIT_PASS = {"intercept": 0.4311, "k_rush": 0.0, "k_pass": 0.3277, "p_RB": 0.0, "p_TE": 0.0, "p_QB": 0.3277,
+                    "rep_out": -0.9211, "rep_doubt": 0.0, "rep_q": 0.2137, "prac_dnp": -0.5396, "prac_lim": -0.2432, "ir_prev": 0.0,
+                    "ir_season": 0.0, "miss34_rate": -3.3021, "n34_short": -1.0366, "miss_last": -0.428, "age_le23": 2.4067,
+                    "age_27_29": -0.0695, "age_30_32": -0.0637, "age_33p": -0.3492, "share_now": 1.429, "wk1": 1.1104}
 BACKTEST = {}   # filled from reports/player_season_backtest.csv by export_web (mean absolute error of the season total by kind and window)
 
 
@@ -53,6 +69,81 @@ def season_actuals(d: pd.DataFrame, season: int, through_week: int | None = None
     return pd.DataFrame(rows, columns=["kind", "player_id", "yards", "td", "games", "touches", "catches"])
 
 
+_TEAM_FIX = {"ARZ": "ARI", "BLT": "BAL", "CLV": "CLE", "HST": "HOU", "SL": "LA", "STL": "LA", "OAK": "LV", "SD": "LAC"}
+_ON_TEAM = {"ACT", "INA", "RES", "PUP", "SUS", "NWT", "RSN", "RSR", "EXE", "NFI"}
+_RESERVE = {"RES", "PUP", "NFI", "RSN", "RSR"}
+
+
+@lru_cache(maxsize=1)
+def _avail_inputs(last_season: int):
+    fr = []
+    for s in range(2013, last_season + 1):
+        f = RAW / "rosters" / f"roster_weekly_{s}.parquet"
+        if f.exists():
+            r = pd.read_parquet(f, columns=["season", "week", "team", "gsis_id", "status", "game_type"]).dropna(subset=["gsis_id"])
+            fr.append(r[r.game_type == "REG"].drop(columns="game_type"))
+    ro = pd.concat(fr, ignore_index=True); ro["team"] = ro.team.replace(_TEAM_FIX)
+    ro["o"] = ro.status.map(lambda x: 0 if x == "ACT" else (1 if x in _ON_TEAM else 2))
+    ro = ro.sort_values("o").drop_duplicates(["gsis_id", "season", "week"]).drop(columns="o")
+    g = pd.read_parquet(OUT / "games.parquet", columns=["game_id", "season", "week", "game_type", "home_team", "away_team", "gameday"])
+    g = g[(g.game_type == "REG") & (g.season >= 2013)]
+    tg = pd.concat([g.rename(columns={t: "team"})[["game_id", "season", "week", "team"]] for t in ("home_team", "away_team")])
+    snap = pd.read_parquet(OUT / "snap_exposure.parquet", columns=["player_id", "game_id", "season", "week", "offense_snaps"])
+    snap = snap[(snap.offense_snaps > 0) & snap.game_id.isin(set(tg.game_id))]
+    day = g.groupby(["season", "week"]).gameday.min()
+    pl = pd.read_parquet(RAW / "players" / "players.parquet", columns=["gsis_id", "birth_date"]).dropna().drop_duplicates("gsis_id")
+    born = pd.to_datetime(pl.set_index("gsis_id").birth_date, errors="coerce")
+    return ro, tg, snap, day, born
+
+
+def availability_p(out: pd.DataFrame, season: int, week: int, coef: dict | None = None) -> np.ndarray:
+    """p: each row's expected share of his team's games left, from what is known before `week`'s games. `out` needs
+    kind, pos, player_id, games_so_far, team_games_played."""
+    ro, tg, snap, day, born = _avail_inputs(season)
+    pids = set(out.player_id); t_asof = season * 100 + week
+    # his own absences: of his last 34 team games before the week (teams he was rostered on, or any game he played in), those without an offensive snap
+    on = ro[ro.status.isin(_ON_TEAM) & ro.gsis_id.isin(pids)].rename(columns={"gsis_id": "player_id"}).merge(tg, on=["season", "week", "team"])
+    b = snap[snap.player_id.isin(pids)]
+    G = pd.concat([on[["player_id", "game_id", "season", "week"]], b[["player_id", "game_id", "season", "week"]]]).drop_duplicates(["player_id", "season", "week"])
+    G = G[G.season * 100 + G.week < t_asof]
+    played = set(zip(b.player_id, b.game_id)); G["missed"] = [0 if (p, x) in played else 1 for p, x in zip(G.player_id, G.game_id)]
+    G = G.sort_values(["player_id", "season", "week"]).groupby("player_id").tail(34)
+    miss = G.groupby("player_id").missed.sum(); n = G.groupby("player_id").size(); last = G.groupby("player_id").missed.last()
+    # this week's report
+    inj = pd.DataFrame(columns=["gsis_id", "report_status", "practice_status"])
+    f = RAW / "injuries" / f"injuries_{season}.parquet"
+    if f.exists():
+        x = pd.read_parquet(f); col = "season_type" if "season_type" in x.columns else "game_type"
+        x = x[(x[col] == "REG") & (x.week == week)].dropna(subset=["gsis_id"])
+        if "date_modified" in x.columns:
+            x = x.sort_values("date_modified")
+        inj = x.drop_duplicates("gsis_id", keep="last")
+    inj = inj.set_index("gsis_id")
+    rs = inj.report_status.reindex(out.player_id).values; ps = inj.practice_status.reindex(out.player_id).fillna("").astype(str).values
+    # reserve lists: the previous roster week, and any earlier week this season
+    rs_s = ro[ro.season == season]
+    prev = rs_s[rs_s.week == week - 1].set_index("gsis_id").status.reindex(out.player_id)
+    res_before = set(rs_s[rs_s.status.isin(_RESERVE) & (rs_s.week < week)].gsis_id)
+    d = day.get((season, week), day[day.index.get_level_values(0) == season].max() if (day.index.get_level_values(0) == season).any() else pd.Timestamp(f"{season}-09-10"))
+    age = ((pd.Timestamp(d) - pd.to_datetime(born.reindex(out.player_id).values)).days / 365.25)
+    age = pd.Series(np.asarray(age, float), index=out.index)
+    age = age.fillna(age.groupby(out.kind).transform("median")).fillna(26.0)
+    pos = np.where(out.pos.isin(["QB", "RB", "TE"]), out.pos, "WR")
+    nn = n.reindex(out.player_id).fillna(0).values; mm = miss.reindex(out.player_id).fillna(0).values
+    X = {"k_rush": (out.kind == "rush").values, "k_pass": (out.kind == "pass").values, "p_RB": pos == "RB", "p_TE": pos == "TE", "p_QB": pos == "QB",
+         "rep_out": rs == "Out", "rep_doubt": rs == "Doubtful", "rep_q": rs == "Questionable",
+         "prac_dnp": np.array([s.startswith("Did Not") for s in ps]), "prac_lim": np.array([s.startswith("Limited") for s in ps]),
+         "ir_prev": prev.isin(_RESERVE).values, "ir_season": out.player_id.isin(res_before).values,
+         "miss34_rate": np.where(nn > 0, mm / np.maximum(nn, 1), 0.0), "n34_short": 1 - np.minimum(nn, 34) / 34,
+         "miss_last": last.reindex(out.player_id).fillna(0).values,
+         "age_le23": (age < 24).values, "age_27_29": ((age >= 27) & (age < 30)).values, "age_30_32": ((age >= 30) & (age < 33)).values, "age_33p": (age >= 33).values,
+         "share_now": np.where(out.team_games_played > 0, out.games_so_far / out.team_games_played.clip(lower=1), 0.0).clip(0, 1),
+         "wk1": (out.team_games_played == 0).values}
+    coef = AVAIL_LOGIT if coef is None else coef
+    z = coef["intercept"] + sum(coef[k] * np.asarray(v, float) for k, v in X.items())
+    return 1 / (1 + np.exp(-z))
+
+
 def roster_at(season: int, week: int) -> pd.DataFrame:
     """Active players by team as of the week, from the weekly roster (the latest week at or before it)."""
     f = RAW / "rosters" / f"roster_weekly_{season}.parquet"
@@ -60,7 +151,8 @@ def roster_at(season: int, week: int) -> pd.DataFrame:
         return pd.DataFrame(columns=["team", "player_id", "position", "name"])
     r = pd.read_parquet(f, columns=["team", "gsis_id", "status", "week", "position", "full_name"]).dropna(subset=["gsis_id"])
     wk = r[r.week <= week].week.max() if (r.week <= week).any() else r.week.min()
-    r = r[(r.week == wk) & (r.status == "ACT")]
+    r = r[(r.week == wk) & r.status.isin(["ACT", "INA"])]      # on the 53: game-day inactives (INA, from 2019) are not known midweek (29 Sep 2026: keeping only ACT dropped them, a look-ahead in the backtest)
+    r = r.assign(_o=(r.status != "ACT").astype(int)).sort_values("_o", kind="stable")
     return r.rename(columns={"gsis_id": "player_id", "full_name": "name"})[["team", "player_id", "position", "name"]].drop_duplicates("player_id")
 
 
@@ -112,7 +204,12 @@ def project(d: pd.DataFrame, names: dict, games: pd.DataFrame, season: int, week
     for c, src in [("prev_yards", "yards"), ("prev_td", "td"), ("prev_games", "games")]:
         out[c] = [float(prev[src].get(k, 0.0)) if k in prev.index else 0.0 for k in key]
     out["team_games_left"] = out.team.map(n_left).fillna(0).astype(int); out["team_games_played"] = out.team.map(n_played).fillna(0).astype(int); out["team_games"] = out.team.map(n_total).fillna(0).astype(int)
-    out["avail"] = out.kind.map(avail)
+    out["avail_p"] = availability_p(out, season, week)   # each player's own share (29 Sep 2026)
+    isp = out.kind.eq("pass")
+    if isp.any():
+        out.loc[isp, "avail_p"] = availability_p(out[isp], season, week, AVAIL_LOGIT_PASS)
+    out["avail_mult"] = out.avail_p / out.kind.map(AVAIL_PBAR)
+    out["avail"] = (out.kind.map(avail) * out.avail_mult).clip(upper=1.0)
     out["games_left_exp"] = out.team_games_left * out.avail
     # baselines: pace (his season so far per team game, over the whole schedule; last season when nothing is played), last season
     out["pace_yards"] = np.where(out.team_games_played > 0, out.yards_so_far / out.team_games_played.clip(lower=1) * out.team_games, out.prev_yards)
@@ -154,7 +251,8 @@ SNAP_LOG = ROOT / "data" / "tracker" / "player_season_snapshots.csv"
 def _finish(R: pd.DataFrame) -> pd.DataFrame:
     """Rows built with availability 1 and no blend (the backtest cache) under the adopted constants: the projection as
     the page showed or would have shown it."""
-    R = R.copy(); a = R.kind.map(AVAIL).astype(float); b = R.kind.map(BLEND).astype(float)
+    R = R.copy(); b = R.kind.map(BLEND).astype(float)
+    a = (R.kind.map(AVAIL).astype(float) * (R.avail_mult if "avail_mult" in R.columns else 1.0)).clip(upper=1.0)
     R["proj_yards"] = (1 - b) * (R.yards_so_far + R.yards_pg * R.team_games_left * a) + b * R.pace_yards
     R["proj_td"] = R.td_so_far + R.td_pg * R.team_games_left * a
     R["rank"] = R.groupby(["season", "week", "kind"]).proj_yards.rank(ascending=False, method="first").astype(int)

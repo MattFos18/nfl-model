@@ -2522,3 +2522,63 @@ with the game model's injury inputs, chosen on the team-points miss, so the Play
 (k 120) and the game model keeps `DEFAULT`. Edge rushers and the interior line rank predictively too; corners, safeties
 and linebackers carry little four-game signal, and a plain decayed rate beats their recipes on this yardstick, but those
 recipes were chosen on All-Pro placement and next-season coverage, a different yardstick, so they stay, noted.
+
+**Round two (29 Sep 2026, Matt: "focus on the player projections per game and totals; for totals the unders are really
+good and the overs are garbage; find where games went wrong and why").**
+
+**Why the overs lose; an under rule to prove live** (`experiments/totals_sides.py`, `reports/totals_sides.md`). Across
+2,895 games 2015-25 the actual total beat the line by 0.4 points on average, but the median game landed half a point
+under it; the total equation predicts the average (bias +0.04), so it sits 0.7 above the typical game and every over
+starts about a point behind. When the model leans over it runs 1.4 points too high and only 38% of an over edge comes
+true (over leans win 50.5%, a loss at every edge size); the worst of it is its biggest projections (49+: 47-67 at 3+
+over), cold outdoor games (about 3 points too high, nearly 5 when a warm or dome team plays in the cold: 6-17) and
+primetime (41-53). Its over chance runs hot: where it says 60-65%, overs won 50% against 55.5% for unders in the same
+band. Tried and not adopted: shrinking the total toward the mean, shrinking only the upside, a two-piece chance, the
+symmetric and earlier-miss chances, league-drift and own-miss offsets, weather interactions, and the total from the two
+team scores; each trades one window for another. The best over rule (60%+ on lines under 43) was one pass in 100 rules
+tried, what luck produces, so overs stay unflagged. On today's equation the live under rule (a 55%+ chance) lost on
+2015-18 (135-127); an under with the model total 3+ points below the line won every window (61-46, 95-50, 21-16, no
+losing season in eleven). It was found after looking at all three windows, 2023-25 holds 37 bets, and it went 10-13 on
+2023-25 under the 25 Sep equation, so it is not proven: the flag stays as it is (29 Sep 2026, Matt: "do not change
+things without proving them fully first") and the 3+ rule is to be proven on live games before it replaces anything.
+
+**Each player's own availability in the season totals** (`experiments/player_availability.py`,
+`experiments/player_availability2.py`, `reports/player_availability.md`, `reports/player_availability2.md`). The flat
+share of the games left a player plays (0.65 receivers, 0.625 rushers, 0.525 passers) is replaced by his own expected
+share: a binomial logit fitted on 2016-18 from this week's report and practice status, his missed games over the last 34
+team games, reserve-list history, age band, position and his share of games so far (one pooled model for receivers and
+rushers, a passer-only model for passers), scaled to the level that minimises the season-total miss (AVAIL x p / mean p,
+at most 1; BLEND toward pace 0.25, 0.25, 0.5). The first study also found a look-ahead in this backtest: from 2019 the
+weekly roster marks game-day inactives, and keeping only active players dropped them, which the page cannot know
+midweek; `roster_at` now keeps both. On the corrected rows, with the rules written before the results:
+
+| Season-total miss, yards | Flat share | Own share |
+|---|---|---|
+| Receivers, 2019-22 / 2023-25 | 125.8 / 123.1 | 123.1 / 120.5 |
+| Rushers | 152.0 / 143.1 | 148.1 / 140.0 |
+| Passers | 611.6 / 621.6 | 575.8 / 602.9 |
+
+Better in every as-of week of both windows for passers and rushers, and in every week but one for receivers (2023-25
+Week 1, +0.2 yards). The passer model was first seen post hoc on the uncorrected rows and then pre-registered on the
+corrected ones, so it is a re-test rather than an independent confirmation. The backtest now scores the test windows
+with these adopted constants; its own grid refit uses in-sample chances and is kept in the fit rows for the record.
+
+**What the losing bets missed** (`experiments/postmortem.py`, `reports/postmortem.md`). Every 4+ spread bet and 55%+
+under of 2015-25, decomposed from the play-by-play. For spread losses, turnovers, return and kick scores and garbage
+time explain about 40% and ordinary variance another 40%; for unders, 58% is ordinary variance. The model's side loses
+its quarterback mid-game far more often than the opponent (19 to 6; those bets 6-13), because it mostly backs underdogs,
+and nothing known before kickoff predicts it. Of 76 skip rules and caps tested on the three windows (skip favourites
+laying 7, Weeks 1-2, Week 17, edges that come only from injuries, and more), six pass by the letter, but dropping the same
+number of bets at random passes as often, so none is adopted. It also found a data error: the listed starting
+quarterback took no snap in 40 team-games of 2024-25 (under test separately).
+
+**Tracking and charting measures in the per-game props: not adopted** (`experiments/props_tracking.py`,
+`reports/props_tracking.md`). Twenty-two player-level signals, each as of before the game, decayed and shrunk like the
+live usage: air-yards share, depth of target times catch rate, yards after catch over expected, separation and drop
+rate for receivers; rush yards over expected and the inside-10 carry share for backs; completion over expected, depth
+of target and time to throw against the opponent's pressure for passers; alone and combined. Three pass the letter of
+the rule (yards after catch over expected as the receivers' prior, rush yards over expected added to the rushers' prior,
+completion over expected as the passers' prior) by 0.002 to 0.07 yards per player-game, inside a paired standard
+error on most windows, where a pure-noise signal passes the same rule about one time in eight and NGS's own
+expected-yards models may have been fitted on seasons inside the test windows. Too small and too uncertain to carry a
+new data dependency: the projection keeps its own recent usage and efficiency.
