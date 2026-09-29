@@ -2409,4 +2409,6 @@ fit there). In the rankings table the Move column follows the column sorted by: 
 same rating (one decimal for the power columns, three for the rest); it is blank on Games.
 The depth chart's Snaps column is titled Snaps last game (his share of his unit's snaps in the team's last game);
 the Not available table no longer shows it, since a player who missed that game always read 0%.
+The Ratings by week view is gone: its EPA rating chart sits at the top of the Game log view, above the games (a
+saved Ratings view opens the Game log).
 
