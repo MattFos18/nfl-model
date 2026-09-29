@@ -138,13 +138,15 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             b1 = {k: [float(bs.loc[(k, "2019-22"), "mae"]), float(bs.loc[(k, "2023-25"), "mae"])] for k in ["rec_yards", "rush_yards", "pass_yards"]}; b2 = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest"].items() if k != "note"}
             # receiving and rushing: round 17 (the active-games share on the yards lines, 27 Sep 2026; its touch frame is this report's
             # frame: rec blend_0.75, rush share_a); passing: round 15 (the median factor that rises with the mean; one row per window)
-            r15 = pd.read_csv(REP / "props_backtest15.csv"); r17 = pd.read_csv(REP / "props_backtest17.csv")
-            def _r15(stat, var): return [float(r15[(r15.stat == stat) & (r15.variant == var) & (r15.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
-            def _r17(stat, var): return [float(r17[(r17.frame == "touch") & (r17.stat == stat) & (r17.variant == var) & (r17.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
-            b2 = {"rec_yards": _r17("rec_yards", "blend_0.75"), "pass_yards": _r15("pass_yards", "A_linear_mean"), "rush_yards": _r17("rush_yards", "share_a")}
-            # within 0.02: two decimals on the by-season run, and the rounds read the closing line for the game script where the
-            # live rule reads the model's margin and total (28 Sep 2026, no market input; passing 2023-25 sits 0.011 apart)
-            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.02)", str(b1), str(b2), all(abs(b1[k][i] - b2[k][i]) <= 0.02 for k in b1 for i in (0, 1))))
+            # round 18 (29 Sep 2026, reports/props_gs_absorb.csv): the adopted rule is the study's as-of same-position absorption at half
+            # the fitted fraction (receiving and rushing) on top of the rushing pace blend; the two rushing gains add, so the expected
+            # rushing miss is the base less both gains. Passing is the study's base (its game script already read the model's margin)
+            r18 = pd.read_csv(REP / "props_gs_absorb.csv"); r18 = r18[(r18.frame == "touch") & (r18.tier == "all")]
+            def _r18(part, stat, var): return [float(r18[(r18.part == part) & (r18.stat == stat) & (r18.variant == var) & (r18.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
+            _rb, _rp, _ra = _r18(1, "rush_yards", "base"), _r18(1, "rush_yards", "pace_0.25"), _r18(2, "rush_yards", "asof_same_half")
+            b2 = {"rec_yards": _r18(2, "rec_yards", "asof_same_half"), "pass_yards": _r18(1, "pass_yards", "base"), "rush_yards": [_rb[i] - (_rb[i] - _rp[i]) - (_rb[i] - _ra[i]) for i in (0, 1)]}
+            # within 0.02: two decimals on the by-season run, and the rushing gains are added rather than run together
+            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.02)", str(b1), str({k: [round(v, 3) for v in b2[k]] for k in b2}), all(abs(b1[k][i] - b2[k][i]) <= 0.02 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
