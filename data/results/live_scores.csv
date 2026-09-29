@@ -1,17 +1,17 @@
 game_id,status,detail,home_score,away_score,close_spread,close_total,model_spread,model_total,priced_at,spread_call,spread_result,total_call,total_result,winner_call,winner_result,open_spread,open_total,spread_call_open,spread_result_open,total_call_open,total_result_open,checked
-2026_03_ATL_GB,final,Final,14,35,4.5,42.5,5.464,47.238,2026-09-24 23:58 UTC,GB,loss,Over,win,GB,loss,6.0,43.5,ATL,win,Over,win,2026-09-29 14:23 UTC
-2026_03_LAC_BUF,final,Final,24,16,7.0,50.5,7.415,47.223,2026-09-27 16:15 UTC,BUF,win,Under,win,BUF,win,7.0,50.5,BUF,win,Under,win,2026-09-29 14:23 UTC
-2026_03_CAR_CLE,final,Final,21,18,-2.5,41.5,0.73,45.028,2026-09-27 16:15 UTC,CLE,win,Over,loss,CLE,win,-2.5,42.5,CLE,win,Over,loss,2026-09-29 14:23 UTC
-2026_03_NYJ_DET,final,Final,31,24,7.0,49.5,6.85,52.335,2026-09-27 16:15 UTC,NYJ,push,Over,win,DET,win,6.5,48.5,DET,win,Over,win,2026-09-29 14:23 UTC
-2026_03_HOU_IND,final,Final,19,17,-1.5,41.5,-1.595,45.654,2026-09-27 16:15 UTC,HOU,loss,Over,loss,HOU,loss,-2.5,43.5,IND,win,Over,loss,2026-09-29 14:23 UTC
-2026_03_KC_MIA,final,Final,10,24,-10.0,45.5,-6.825,47.962,2026-09-27 16:15 UTC,MIA,loss,Over,loss,KC,win,-11.5,45.5,MIA,loss,Over,loss,2026-09-29 14:23 UTC
-2026_03_TEN_NYG,final,Final,12,7,2.5,37.5,5.292,37.067,2026-09-27 16:15 UTC,NYG,win,Under,win,NYG,win,3.5,40.5,NYG,win,Under,win,2026-09-29 14:23 UTC
-2026_03_CIN_PIT,final,Final,30,27,-3.5,42.5,-0.663,41.834,2026-09-27 16:15 UTC,PIT,win,Under,loss,CIN,loss,-3.5,42.5,PIT,win,Under,loss,2026-09-29 14:23 UTC
-2026_03_SEA_WAS,final,Final,33,31,-8.5,40.5,-7.312,44.144,2026-09-27 16:15 UTC,WAS,win,Over,win,SEA,loss,-7.0,40.5,SEA,loss,Over,win,2026-09-29 14:23 UTC
-2026_03_NE_JAX,final,Final,35,6,3.0,46.5,3.114,43.787,2026-09-27 16:15 UTC,JAX,win,Under,win,JAX,win,3.0,45.5,JAX,win,Under,win,2026-09-29 14:23 UTC
-2026_03_ARI_SF,final,Final,36,30,7.5,48.5,9.296,50.395,2026-09-27 19:14 UTC,SF,loss,Over,win,SF,win,8.5,47.5,SF,loss,Over,win,2026-09-29 14:23 UTC
-2026_03_MIN_TB,final,Final,16,23,-1.5,42.5,-1.325,42.281,2026-09-27 19:14 UTC,TB,loss,Under,win,MIN,win,-1.5,42.5,TB,loss,Under,win,2026-09-29 14:23 UTC
-2026_03_BAL_DAL,final,Final,31,34,-3.0,53.5,-1.729,54.377,2026-09-27 19:14 UTC,DAL,push,Over,win,BAL,win,-3.0,52.5,DAL,push,Over,win,2026-09-29 14:23 UTC
-2026_03_LV_NO,final,Final,27,35,3.5,43.5,3.473,45.716,2026-09-27 19:14 UTC,LV,win,Over,win,NO,loss,3.0,43.5,NO,loss,Over,win,2026-09-29 14:23 UTC
-2026_03_LA_DEN,final,Final,30,26,-1.5,43.5,2.164,43.155,2026-09-28 00:16 UTC,DEN,win,Under,loss,DEN,win,-2.5,45.5,DEN,win,Under,loss,2026-09-29 14:23 UTC
-2026_03_PHI_CHI,final,Final,27,7,-3.5,42.5,-3.498,43.442,2026-09-29 00:13 UTC,CHI,win,Over,loss,PHI,loss,-3.5,43.5,CHI,win,Under,win,2026-09-29 14:23 UTC
+2026_04_PIT_CLE,scheduled,10/1 - 8:15 PM EDT,,,-2.5,38.5,-1.998,41.916,2026-09-29 14:19 UTC,CLE,,Over,,PIT,,-2.5,37.5,CLE,,Over,,2026-09-29 14:43 UTC
+2026_04_IND_WAS,scheduled,10/4 - 9:30 AM EDT,,,-3.5,47.5,1.795,49.402,2026-09-29 14:19 UTC,WAS,,Over,,WAS,,-4.5,46.0,WAS,,Over,,2026-09-29 14:43 UTC
+2026_04_NE_BUF,scheduled,10/4 - 1:00 PM EDT,,,7.0,48.5,5.274,47.171,2026-09-29 14:19 UTC,NE,,Under,,BUF,,5.5,50.0,NE,,Under,,2026-09-29 14:43 UTC
+2026_04_NYJ_CHI,scheduled,10/4 - 1:00 PM EDT,,,3.5,42.5,5.158,46.355,2026-09-29 14:19 UTC,CHI,,Over,,CHI,,3.5,43.5,CHI,,Over,,2026-09-29 14:43 UTC
+2026_04_JAX_CIN,scheduled,10/4 - 1:00 PM EDT,,,2.5,51.5,-1.668,48.938,2026-09-29 14:19 UTC,JAX,,Under,,JAX,,2.5,50.5,JAX,,Under,,2026-09-29 14:43 UTC
+2026_04_ARI_NYG,scheduled,10/4 - 1:00 PM EDT,,,-1.5,44.5,2.794,44.929,2026-09-29 14:19 UTC,NYG,,Over,,NYG,,2.5,43.5,NYG,,Over,,2026-09-29 14:43 UTC
+2026_04_LA_PHI,scheduled,10/4 - 1:00 PM EDT,,,-3.0,45.5,-0.943,45.442,2026-09-29 14:19 UTC,PHI,,Under,,LA,,-2.5,46.0,PHI,,Under,,2026-09-29 14:43 UTC
+2026_04_GB_TB,scheduled,10/4 - 1:00 PM EDT,,,-3.5,39.5,2.582,44.192,2026-09-29 14:19 UTC,TB,,Over,,TB,,-1.5,46.0,TB,,Under,,2026-09-29 14:43 UTC
+2026_04_TEN_BAL,scheduled,10/4 - 1:00 PM EDT,,,11.5,43.5,12.457,46.927,2026-09-29 14:19 UTC,BAL,,Over,,BAL,,10.5,45.0,BAL,,Over,,2026-09-29 14:43 UTC
+2026_04_DAL_HOU,scheduled,10/4 - 1:00 PM EDT,,,2.5,47.5,2.823,49.508,2026-09-29 14:19 UTC,HOU,,Over,,HOU,,3.0,47.5,DAL,,Over,,2026-09-29 14:43 UTC
+2026_04_MIA_MIN,scheduled,10/4 - 4:05 PM EDT,,,11.5,38.5,11.128,43.096,2026-09-29 14:19 UTC,MIA,,Over,,MIN,,10.5,42.5,MIN,,Over,,2026-09-29 14:43 UTC
+2026_04_KC_LV,scheduled,10/4 - 4:25 PM EDT,,,-4.5,47.5,-3.75,48.233,2026-09-29 14:19 UTC,LV,,Over,,KC,,-5.5,45.5,LV,,Over,,2026-09-29 14:43 UTC
+2026_04_DEN_SF,scheduled,10/4 - 4:25 PM EDT,,,3.0,46.5,1.626,49.62,2026-09-29 14:19 UTC,DEN,,Over,,SF,,3.5,46.0,DEN,,Over,,2026-09-29 14:43 UTC
+2026_04_LAC_SEA,scheduled,10/4 - 4:25 PM EDT,,,7.0,42.5,6.723,41.487,2026-09-29 14:19 UTC,LAC,,Under,,SEA,,6.5,43.5,SEA,,Under,,2026-09-29 14:43 UTC
+2026_04_DET_CAR,scheduled,10/4 - 8:20 PM EDT,,,-3.5,50.5,-2.121,51.244,2026-09-29 14:19 UTC,CAR,,Over,,DET,,-2.5,49.5,CAR,,Over,,2026-09-29 14:43 UTC
+2026_04_ATL_NO,scheduled,10/5 - 8:15 PM EDT,,,3.0,48.5,2.928,46.885,2026-09-29 14:19 UTC,ATL,,Under,,NO,,3.5,45.5,ATL,,Over,,2026-09-29 14:43 UTC
