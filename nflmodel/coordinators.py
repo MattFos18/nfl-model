@@ -83,7 +83,7 @@ def main(seasons, only_errors=False):
         for t in TEAMS:
             if redo is not None and (t, s) not in redo:
                 continue
-            rows.append(fetch(t, s)); time.sleep(1.0 if redo is not None else 0.2)
+            rows.append(fetch(t, s)); time.sleep(3.0 if redo is not None else 0.2)
             r = rows[-1]; print("ROW," + ",".join(str(r[c]).replace(",", " ") for c in ["team", "season", "head_coach", "oc", "dc", "status"]), flush=True)   # as it lands, so a run cut off by its time limit still hands over what it fetched
     out = pd.DataFrame(rows).sort_values(["season", "team"])
     if redo is not None:   # keep every row already read, replace the refetched ones
