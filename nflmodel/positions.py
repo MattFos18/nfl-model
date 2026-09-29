@@ -480,7 +480,8 @@ if __name__ == "__main__":
     player_history(pd.read_parquet(OUT / "player_games.parquet")).to_parquet(OUT / "player_history.parquet", index=False)
     from .lines import current_week
     cs, cw = current_week(games)
-    av = all_values(games, cs, cw)
+    from .players import RANK
+    av = all_values(games, cs, cw, p=RANK)   # the ranking's own shrinkage (29 Sep 2026)
     av.to_parquet(OUT / "player_values_all.parquet", index=False)
     print("player_values_all", av.shape, av.group.value_counts().to_dict())
     from .players import team_roster

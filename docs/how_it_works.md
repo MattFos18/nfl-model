@@ -2456,3 +2456,69 @@ after the live results, player values, position tables and scheme profiles. So t
 counts landed built all of those as of the old week while the picks, priced after the file, moved to the new one;
 the tie check caught the scheme profiles reading Week 3 against Week 4 picks and the run failed until the next one.
 The snap-share step now runs right after the build, before any step reads the current week.
+
+**The accuracy round (29 Sep 2026, Matt: "do every single one of these, full effort, improve everything").** Eight
+studies across the game model, the props, the player rankings and both season tables, each walk-forward, each scored on
+2019-22 and 2023-25 (and the untouched 2015-18 where the data reaches), each with its rule written before the results.
+Four changed something; four did not. Every script is under `experiments/` and every result under `reports/`.
+
+**Leverage weighting in the team ratings: not adopted** (`experiments/leverage_ratings.py`, `reports/leverage_ratings.md`).
+Plays at a win probability under 10% or over 90% dropped from the EPA ratings, a wider 5%/95% cut, garbage time at half
+weight, and a smooth weight of 4 x wp x (1 - wp). Every form trims the margin miss on all three windows by 0.003 to 0.017,
+every form raises the held-out team-points miss (by 0.001 to 0.006), and none moves the 4+ record (127-80 on 2019-25
+against 123-80 to 127-81). The rule asks for both misses on all three windows, so the ratings keep every play.
+
+**A league scoring level as an input: not adopted** (`experiments/scoring_env.py`, `reports/scoring_env.md`). Last
+season's league points per team-game, the season to date shrunk toward it (64, 128, 256 team-games of weight), the last
+four weeks the same, and the three again in EPA per play: 28 candidates in the points equation and in the total
+equation, then the best pairs. In the total equation every one is worse on 2015-18, adding 0.4 to 1.1 points of positive
+bias there while trimming 2023-25, the shape of the passing rolling factor that was rejected before. In the points
+equation three rows meet the letter of the rule (the recent-scoring level at k 64, the year-to-date EPA level at k 64, and
+the pair), by hundredths of a point that sit inside the boosted trees' measured refit noise, at one k only (128 and 256
+fail), and each loses 4+ spread bets. The intercept keeps carrying the league level.
+
+**The season simulation's update weight and injuries carried forward: not adopted** (`experiments/season_update.py`,
+`reports/season_update.md`). Shrinking each team's as-of ratings toward the league by games played (k 2, 4, 8) is worse
+on 2019-22 by 0.08 to 0.11 wins, mostly in Week 1, where it collapses every rating to the mean; sharpening (k 1, 2) helps
+2019-22 and hurts 2023-25. Carrying the current week's injury inputs into the games ahead at 0.5 or 0.75 a week helps
+2019-22 on all three decisive measures and is flat on 2023-25 (the division and playoff Briers a hair worse), so it fails
+the rule; the effect is small because absences are mostly short and the current week already prices the real ones.
+
+**Player season totals linked to the team, with age priors: not adopted** (`experiments/player_season_link.py`,
+`reports/player_season_link.md`). The team volume behind the games left blended toward the league or toward last season,
+a game script over the remaining schedule from our own ratings, and age-and-position priors on the share, alone and
+together. Several pass the letter of the rule on both windows, by 0.1 to 0.8 yards on season-total misses of 120 to 290
+yards, with fit-window errors equal to the tenth of a yard: noise, not a gain. The projection stays as it was.
+
+**A calibrated chance on every yards and receptions line: adopted** (`experiments/props_chance.py`, `reports/props_chance.md`).
+The cards had a line and a lean against the book, no chance. Eighteen forms were tried on the by-season frame (normal,
+log-normal and gamma curves on the mean, curves centred on the line, empirical tiers, and the nearest neighbours in the
+line); the winner reads the chance off the K past player-games whose line was closest to ours (K a tenth of the table,
+300 to 1500 rows, 2017 to the season before), as the share that beat the book number the same way (a ratio for
+receiving yards and receptions, a difference for passing and rushing yards). Log loss beats every curve on both windows,
+and the stated chance lands within 3 points of what happened in every band on both windows for receiving yards,
+receptions and passing yards; rushing yards miss on one band of tiny lines only, so the rushing chance starts at a 10-yard
+line (within 1.8 points everywhere from there). The chance sits beside each book line on the card (`props.chance_over`,
+`data/processed/props_reference.parquet` from the by-season run), the market record grades the side by it, and the props
+record table shows it.
+
+**Rushing pace and absorption when a starter is out: adopted** (`experiments/props_gs_absorb.py`,
+`reports/props_gs_absorb.md`). The game-script line is not stale (refit, a win-probability form and a squared form all sit
+within a standard error of it), but two changes pass on both windows and both frames: the team's runs a quarter of the
+way toward the opponent's allowed runs per game (carries better by 3 to 4 standard errors; `PACE["rush"]`), and, when a
+starter is out by the report or the roster, half the fitted fraction of his share to his same-position teammates in
+proportion to theirs (WR 0.211, TE 0.125, RB 0.174 of the absent share; `ABSORB`), the first form of redistribution to
+survive since round ten's pro rata lost. Receiving yards 19.16 / 18.16 to 19.13 / 18.15, rushing 17.77 / 17.04 to
+17.69 / 16.97. The by-season backtest now carries both rules, and its game script reads the game model's own margin and
+total, as the live rule has since 28 September, instead of the closing line it still read.
+
+**The player rankings are predictive; the Players tab shrinks less** (`experiments/rankings_predictive.py`,
+`reports/rankings_predictive.md`). For every player-week of 2019-25 the live value was set against his last 4, 8 and 17
+games, the season to date and last season as forecasts of his next four games. The value beats every trailing average for
+passers, rushers and receivers on both windows, with a tenth of the week-to-week churn. One knob wins on both windows for
+all three: 120 plays of shrinkage toward replacement instead of 480 (passer correlation 0.397 / 0.530 against 0.383 /
+0.505, rusher 0.344 / 0.345 against 0.271 / 0.286, receiver 0.212 / 0.237 against 0.204 / 0.216). The 480 is shared
+with the game model's injury inputs, chosen on the team-points miss, so the Players tab ranks on its own `players.RANK`
+(k 120) and the game model keeps `DEFAULT`. Edge rushers and the interior line rank predictively too; corners, safeties
+and linebackers carry little four-game signal, and a plain decayed rate beats their recipes on this yardstick, but those
+recipes were chosen on All-Pro placement and next-season coverage, a different yardstick, so they stay, noted.

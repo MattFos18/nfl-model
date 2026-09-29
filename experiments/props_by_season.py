@@ -57,7 +57,7 @@ def lg_series(f, frame, col, fallback):
     m = asof_mean(frame, col); return pd.Series([m.get((int(a), int(b)), fallback) for a, b in zip(f.season, f.week)], index=f.index).fillna(fallback)
 def pll(mu, k): mu = np.clip(mu, 1e-3, None); return float(np.mean(mu - k * np.log(mu) + gammaln(k + 1)))
 tv = d[d.pass_play].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tp").reset_index().merge(d[d.play_type.eq("run")].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tr").reset_index(), how="outer").merge(d[d.dropback].groupby(["posteam", "defteam", "season", "week", "game_id"]).size().rename("tdb").reset_index(), how="outer").fillna(0)
-T17 = prev_sums(tv, ["posteam"], ["tp", "tr", "tdb"]); ALW = prev_sums(tv.rename(columns={"tdb": "a_tdb"}), ["defteam"], ["a_tdb"]).rename(columns={"games_prev": "agames"})
+T17 = prev_sums(tv, ["posteam"], ["tp", "tr", "tdb"]); ALW = prev_sums(tv.rename(columns={"tp": "a_tp", "tr": "a_tr", "tdb": "a_tdb"}), ["defteam"], ["a_tp", "a_tr", "a_tdb"]).rename(columns={"games_prev": "agames"})   # the opponent's allowed plays of each kind (round 18: the rushing pace blend joins the passing one)
 def _reports():
     from nflmodel.features import RAW
     fr = []
@@ -81,6 +81,51 @@ def active_share(kind, pg, vcol, sf, tf):
     za = _ACTIVE[_ACTIVE.pid.isin(pg.pid.unique()) & _ACTIVE.position.isin(PR.SKILL[kind])].merge(pg[["pid", "game_id"]].assign(has=1), on=["pid", "game_id"], how="left")
     za = za[za.has.isna()][["pid", "posteam", "season", "week", "game_id"]].merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="inner").assign(n=0)
     return fade_sums(pd.concat([pg[["pid", "posteam", "season", "week", "game_id", "n", "team_n"]], za], ignore_index=True), ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).rename(columns={"n": "n_85a", "team_n": "team_n_85a"})
+def _known_out():
+    """Round 18: the absences the live rule can know before a game: the report's Out / Doubtful, or no active listing on the
+    weekly roster that week (reserve, PUP, suspended, cut). (season, week, pid) rows."""
+    from nflmodel.features import RAW
+    rep = _REP[_REP.report_status.isin(["Out", "Doubtful"])][["season", "week", "pid"]].drop_duplicates()
+    ro = []
+    for s_ in range(2016, 2027):
+        p_ = RAW / "rosters" / f"roster_weekly_{s_}.parquet"
+        if p_.exists():
+            x = pd.read_parquet(p_, columns=["season", "week", "gsis_id", "status", "game_type"]); ro.append(x[(x.game_type == "REG") & x.gsis_id.notna()][["season", "week", "gsis_id", "status"]])
+    ro = pd.concat(ro).rename(columns={"gsis_id": "pid"}); ro["act"] = ro.status.eq("ACT").astype(int)
+    ro = ro.groupby(["season", "week", "pid"]).act.max().reset_index(); ro = ro[ro.act == 0][["season", "week", "pid"]]
+    return pd.concat([rep, ro]).drop_duplicates().assign(known_out=1)
+_KNOWN_OUT = _known_out()
+def absorb_shares(kind, f, share_y, pg, vcol, sf, tf):
+    """Round 18 (29 Sep 2026, experiments/props_gs_absorb.py): an out starter's share, props.ABSORB of it, to his same-position
+    teammates in the frame in proportion to their shares. A starter: a snap at a skill position in one of the team's last
+    ABSORB_LOOKBACK games, his decayed share after his last game (the round-17 blend of the touch-games and active-games
+    shares) at least ABSORB_THR, and the report or the weekly roster saying before the game he would not play. Returns share_y."""
+    zero = dict(n=0, team_n=0.0)
+    last = pg.sort_values(["pid", "season", "week"]).groupby("pid").tail(1)[["pid", "posteam"]].assign(season=9999, week=0, game_id="dummy", **zero)   # a sentinel: the state after his last game
+    base = pg[["pid", "posteam", "season", "week", "game_id", "n", "team_n"]]
+    za = _ACTIVE[_ACTIVE.pid.isin(pg.pid.unique()) & _ACTIVE.position.isin(PR.SKILL[kind])].merge(pg[["pid", "game_id"]].assign(has=1), on=["pid", "game_id"], how="left")
+    za = za[za.has.isna()][["pid", "posteam", "season", "week", "game_id"]].merge(tv[["posteam", "season", "week", "game_id", vcol]].rename(columns={vcol: "team_n"}), on=["posteam", "season", "week", "game_id"], how="inner").assign(n=0)
+    post = {}
+    for name, frame_ in (("touch", pd.concat([base, last], ignore_index=True)), ("active", pd.concat([base, za, last], ignore_index=True))):
+        st = fade_sums(frame_, ["pid"], ["n", "team_n"], PR.DECAY, sf, tf).sort_values(["pid", "season", "week"]).reset_index(drop=True)
+        st["pre"] = st.n / st.team_n.replace(0, np.nan); st["post"] = st.groupby("pid").pre.shift(-1)
+        st = st[st.season < 9999].dropna(subset=["post"]); st["key"] = st.season.astype("int64") * 100 + st.week.astype("int64")
+        post[name] = st[["pid", "key", "post"]].rename(columns={"post": f"s_{name}"}).sort_values("key")
+    tg = tv[["posteam", "season", "week", "game_id"]].drop_duplicates().sort_values(["posteam", "season", "week"]).reset_index(drop=True); tg["k"] = tg.groupby("posteam").cumcount()
+    A = _ACTIVE[_ACTIVE.position.isin(PR.SKILL[kind])][["pid", "posteam", "game_id", "position"]].merge(tg[["posteam", "game_id", "k"]], on=["posteam", "game_id"])
+    C = pd.concat([A.assign(k=A.k + off, off=off) for off in range(1, PR.ABSORB_LOOKBACK + 1)]).sort_values("off").drop_duplicates(["pid", "posteam", "k"]).drop(columns=["game_id"]).merge(tg, on=["posteam", "k"])
+    C = C.merge(_KNOWN_OUT, on=["pid", "season", "week"], how="inner"); C["key"] = C.season.astype("int64") * 100 + C.week.astype("int64")
+    for name in ("touch", "active"):
+        C = pd.merge_asof(C.sort_values("key"), post[name], on="key", by="pid", direction="backward", allow_exact_matches=False)
+    C = C.dropna(subset=["s_touch"]); C["s_active"] = C.s_active.fillna(C.s_touch); C["share_abs"] = PR.share_blend(kind, C.s_touch, C.s_active)
+    C["grp"] = C.position.map(PR.ABSORB_GROUP); C = C[(C.share_abs >= PR.ABSORB_THR[kind]) & C.grp.isin(PR.ABSORB[kind])]
+    S = C.groupby(["game_id", "posteam", "grp"]).share_abs.sum()
+    grp = f.pid.map(pos_of).fillna("?").map(PR.ABSORB_GROUP).fillna("?"); key = list(zip(f.game_id, f.posteam, grp))
+    own = np.array([S.get(k_, 0.0) * PR.ABSORB[kind].get(k_[2], 0.0) for k_ in key]); sy = np.asarray(share_y, dtype=float)
+    sum_pos = pd.Series(sy).groupby(pd.Series(key)).transform("sum").values
+    with np.errstate(divide="ignore", invalid="ignore"): add = np.where(sum_pos > 0, sy / sum_pos * own, 0.0)
+    print(f"absorb {kind}: {int((add > 0).sum())} rows, {len(C)} known absences", flush=True)
+    return sy + add
 def build(kind):
     if kind == "rec":
         t = d[d.pass_play & d.receiver_player_id.notna()].rename(columns={"receiver_player_id": "pid"}); vcol = "tp"; ev = {"catch": "complete_pass", "td": "pass_touchdown"}; lgp = d[d.pass_play]
@@ -111,15 +156,17 @@ def build(kind):
     f = pg[["pid", "posteam", "season", "week", "game_id", "n", "yds"] + list(ev)].rename(columns={"n": "act_n", "yds": "act_yds", **{k: f"act_{k}" for k in ev}})
     f = f.merge(R[["pid", "game_id", "games_prev"] + cols], on=["pid", "game_id"]).merge(R85[["pid", "game_id", "n_85", "team_n_85"]], on=["pid", "game_id"])
     if kind != "pass": f = f.merge(active_share(kind, pg, vcol, sf, tf)[["pid", "game_id", "n_85a", "team_n_85a"]], on=["pid", "game_id"], how="left")   # round 14: the touchdown volume's share
-    f = f.merge(games, on="game_id").merge(d[["game_id", "posteam", "defteam"]].drop_duplicates(), on=["game_id", "posteam"]).merge(T17[["posteam", "game_id", vcol, "games_prev"]].rename(columns={vcol: "tv", "games_prev": "tgames"}), on=["posteam", "game_id"]).merge(D[["defteam", "game_id", "d_n", "d_yds"]], on=["defteam", "game_id"]).merge(ALW[["defteam", "game_id", "a_tdb", "agames"]], on=["defteam", "game_id"])
+    f = f.merge(games, on="game_id").merge(d[["game_id", "posteam", "defteam"]].drop_duplicates(), on=["game_id", "posteam"]).merge(T17[["posteam", "game_id", vcol, "games_prev"]].rename(columns={vcol: "tv", "games_prev": "tgames"}), on=["posteam", "game_id"]).merge(D[["defteam", "game_id", "d_n", "d_yds"]], on=["defteam", "game_id"]).merge(ALW[["defteam", "game_id", "a_tp", "a_tr", "a_tdb", "agames"]], on=["defteam", "game_id"])
     f = f.merge(feat.rename(columns={"team": "posteam"})[["game_id", "posteam", "wind"]], on=["game_id", "posteam"], how="left"); f["wind"] = f.wind.fillna(0.0)
     minv = MIN_VOL * (3 if kind == "pass" else 1); f = f[(f.n >= minv) & (f.games_prev >= 3) & (f.tgames >= 3) & (f.agames >= 3) & (f.season >= 2017)].copy()
     if kind == "pass": f = f[f.act_n >= 10]
-    f["me"] = pd.Series(np.where(f.posteam == f.home_team, f.spread_line, -f.spread_line), index=f.index).astype(float).fillna(0.0); f["tc"] = (f.total_line - PR.GS_TOTAL).fillna(0.0)
+    f = f.merge(pred, on="game_id", how="left")   # 29 Sep 2026: the game script reads the game model's expected points, as the live rule does; never the line
+    f["me"] = pd.Series(np.where(f.posteam == f.home_team, f.home_exp - f.away_exp, f.away_exp - f.home_exp), index=f.index).astype(float).fillna(0.0); f["tc"] = (f.home_exp + f.away_exp - PR.GS_TOTAL).fillna(0.0)
     lg = lg_series(f, lgp.assign(yards_gained=lgp.yards_gained.fillna(0.0)), "yards_gained", float(lgp.yards_gained.mean())); K, W = PR.K[kind], PR.W[kind]; b = PR.GS[kind]
     f["d_rate"] = np.where(f.d_n >= 100, f.d_yds / f.d_n.replace(0, np.nan), np.nan); adj = lambda base, w=W: base * np.where(f.d_rate.notna(), 1 + w * (f.d_rate / lg - 1), 1.0)
     team_pg = f.tv / f.tgames
     if kind == "pass": team_pg = (1 - PR.PACE["pass"]) * team_pg + PR.PACE["pass"] * f.a_tdb / f.agames
+    if kind == "rush" and PR.PACE["rush"]: team_pg = (1 - PR.PACE["rush"]) * team_pg + PR.PACE["rush"] * f.a_tr / f.agames   # round 18
     share = 1.0 if kind == "pass" else f.n_85 / f.team_n_85.replace(0, np.nan); share_flat = 1.0 if kind == "pass" else f.n / f.team_n.replace(0, np.nan)
     # round 14 (27 Sep 2026): the touchdown volume from his share over every game he was active for (a game without a touch
     # as 0), and the rate's prior the league's x his position's factor (props.td_prior). Round 17 (27 Sep 2026): the yards and
@@ -127,6 +174,7 @@ def build(kind):
     # grades only player-games with a touch, so the gain shows on round 17's active frame (reports/props_backtest17.csv), not here
     f["pos"] = f.pid.map(pos_of).fillna("?"); share_td = 1.0 if kind == "pass" else (f.n_85a / f.team_n_85a.replace(0, np.nan)).fillna(share)
     share_y = 1.0 if kind == "pass" else PR.share_blend(kind, share, share_td)
+    if kind != "pass": share_y = absorb_shares(kind, f, share_y, pg, vcol, sf, tf)   # round 18: an out starter's share, in part, to his same-position teammates
     f["vol"] = share_y * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); vol_raw = share_flat * f.tv / f.tgames
     f["vol_td"] = share_td * (team_pg + b[0] + b[1] * f.me + b[2] * f.tc); pos_fac = np.array([PR.td_prior(kind, p_, 1.0) for p_ in f.pos]) if kind != "pass" else 1.0
     wind = 1 + PR.WIND_C[kind] * np.maximum(f.wind - 10, 0)
@@ -139,7 +187,7 @@ def build(kind):
         else: f["int_line"] = f.vol * lgc[k]
         f[f"{k}_raw"] = vol_raw * f[k] / f.n
     # round 6: the team's players moved toward the team's expected yards and touchdowns from the game model's expected points
-    f = f.merge(pred, on="game_id", how="left"); f["exp_pts"] = np.where(f.posteam == f.home_team, f.home_exp, f.away_exp)
+    f["exp_pts"] = np.where(f.posteam == f.home_team, f.home_exp, f.away_exp)   # (the expected points were merged for the game script above)
     fy, ft = PR.TEAM_FIT[kind]["yds"], PR.TEAM_FIT[kind]["td"]; wy, wt = PR.RECON_W[kind]["yds"], PR.RECON_W[kind]["td"]
     tg = f.groupby(["game_id", "posteam"]).agg(sum_y=("yds_line", "sum"), sum_t=("td_line", "sum")).reset_index(); f = f.merge(tg, on=["game_id", "posteam"], how="left")
     ok = f.exp_pts.notna()
@@ -161,8 +209,11 @@ def score(x, line, actual, count=False):
         nz = x[x[actual] != x[line]]; out["over_rate"] = round(float((nz[actual] > nz[line]).mean()), 3)
     return out
 by_season, by_pos, by_bucket = [], [], []
+_ref = []   # the chance's reference table (props.chance_over, 29 Sep 2026): every projected player-game's line and actual
 for kind, stat in [("rec", "rec"), ("rush", "rush"), ("pass", "pass")]:
     f, ev = build(kind); print(stat, len(f), flush=True)
+    _ref.append(f[["season", "week", "game_id", "pid"]].assign(kind=kind, line=f.yds_line.values, actual=f.act_yds.values))
+    if kind == "rec": _ref.append(f[["season", "week", "game_id", "pid"]].assign(kind="rec_catch", line=f.catch_line.values, actual=f.act_catch.values))
     stats = [("yards", "yds_line", "yds_raw", "act_yds", False)] + [(k, f"{k}_line", f"{k}_raw", f"act_{k}", k != "catch") for k in ev]
     for name, line, raw, act, count in stats:
         sname = f"{stat}_{ 'catches' if name == 'catch' else name}"
@@ -179,5 +230,6 @@ for kind, stat in [("rec", "rec"), ("rush", "rush"), ("pass", "pass")]:
                 g2 = g.assign(bucket=pd.cut(g[line], edges, right=False))
                 for bk, gb in g2.groupby("bucket", observed=True):
                     if len(gb) >= 50: by_bucket.append({"stat": sname, "window": win, "line_from": int(bk.left), "line_to": int(bk.right) if bk.right < 1000 else None, **score(gb, line, act)})
+pd.concat(_ref, ignore_index=True).to_parquet(OUT / "props_reference.parquet", index=False)
 pd.DataFrame(by_season).to_csv("reports/props_by_season.csv", index=False); pd.DataFrame(by_pos).to_csv("reports/props_by_position.csv", index=False); pd.DataFrame(by_bucket).to_csv("reports/props_by_bucket.csv", index=False)
 print(pd.DataFrame(by_season).to_string()); print("DONE")
