@@ -2296,3 +2296,8 @@ where the data comes from, when it updates, and a one-line guide to every tab; e
 fields the tabs use. On Game model the equation is a grouped table (input, points per unit, league average; sign
 coloured) in place of the monospace dump.
 
+**Live win chance, ESPN's layout (29 Sep 2026).** One line (the home team's ESPN win probability), the band between it
+and 50% filled in the colour of whoever is ahead, the two teams at the top and bottom of the axis, a quarter grid, the
+model's pregame chance as a hollow diamond at kickoff, the play text on hover; capped at 860px. The On-now tile's win
+bar shows both teams' shares in their colours with the model's pregame chance on its own line.
+
