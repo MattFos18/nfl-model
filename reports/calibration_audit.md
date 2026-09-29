@@ -1,4 +1,4 @@
-# Calibration audit, 2026-09-29 05:21 UTC
+# Calibration audit, 2026-09-29 14:39 UTC
 
 Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
@@ -354,31 +354,31 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 
 ## Player props (data/tracker/props_graded.csv)
 
-7206 graded projections over 3 week(s) (2026-W1, 2026-W2, 2026-W3); made: after the fact, live. Ratio = total scored / total said; tiers are thirds of the projection within each stat. Bias = said minus scored, z on its own spread. Too short a record for a failing check.
+8394 graded projections over 3 week(s) (2026-W1, 2026-W2, 2026-W3); made: after the fact, live. Ratio = total scored / total said; tiers are thirds of the projection within each stat. Bias = said minus scored, z on its own spread. Too short a record for a failing check.
 
 | Stat | Rows | Said | Scored | Bias | z | MAE | Ratio | Ratio low tier | Ratio mid | Ratio high |
 |---|---|---|---|---|---|---|---|---|---|---|
-| def_sacks | 672 | 0.14 | 0.11 | +0.03 | +2.4 | 0.19 | 0.78 | 1.12 | 0.45 | 0.82 |
-| def_solo_tackles | 672 | 2.50 | 2.25 | +0.26 | +3.5 | 1.55 | 0.90 | 0.92 | 0.93 | 0.86 |
-| def_tackles | 672 | 4.51 | 4.05 | +0.46 | +4.1 | 2.37 | 0.90 | 0.89 | 0.94 | 0.87 |
-| field_goals | 84 | 1.67 | 1.55 | +0.12 | +1.0 | 0.98 | 0.93 | 1.18 | 0.93 | 0.66 |
-| kick_points | 84 | 7.19 | 6.86 | +0.33 | +0.8 | 2.97 | 0.95 | 0.97 | 0.98 | 0.91 |
-| pass_attempts | 81 | 33.65 | 31.07 | +2.58 | +2.1 | 8.07 | 0.92 | 0.95 | 0.86 | 0.96 |
-| pass_completions | 81 | 20.36 | 19.23 | +1.12 | +1.5 | 5.04 | 0.94 | 0.87 | 0.98 | 0.97 |
-| pass_int | 81 | 0.71 | 0.54 | +0.17 | +2.3 | 0.60 | 0.76 | 0.54 | 0.86 | 0.87 |
-| pass_longest | 81 | 33.18 | 36.16 | -2.98 | -1.5 | 13.39 | 1.09 | 1.18 | 1.07 | 1.02 |
-| pass_rush_yards | 81 | 238.46 | 220.17 | +18.29 | +1.9 | 68.13 | 0.92 | 0.92 | 0.89 | 0.95 |
-| pass_td | 81 | 1.60 | 1.52 | +0.08 | +0.6 | 0.98 | 0.95 | 0.94 | 0.90 | 1.00 |
-| pass_yards | 81 | 223.30 | 203.58 | +19.72 | +2.1 | 65.42 | 0.91 | 0.94 | 0.87 | 0.93 |
-| rec_catches | 587 | 2.86 | 2.36 | +0.50 | +6.2 | 1.64 | 0.82 | 0.81 | 0.75 | 0.87 |
-| rec_longest | 587 | 13.76 | 13.21 | +0.55 | +1.1 | 9.55 | 0.96 | 0.72 | 1.00 | 1.06 |
-| rec_targets | 587 | 4.82 | 3.45 | +1.38 | +12.5 | 2.44 | 0.71 | 0.66 | 0.64 | 0.77 |
-| rec_td | 587 | 0.22 | 0.18 | +0.04 | +2.4 | 0.31 | 0.81 | 0.72 | 0.58 | 0.96 |
-| rec_yards | 587 | 29.35 | 26.60 | +2.74 | +2.4 | 20.67 | 0.91 | 0.89 | 0.74 | 0.99 |
-| rush_attempts | 304 | 7.38 | 5.91 | +1.47 | +5.7 | 3.62 | 0.80 | 0.71 | 0.62 | 0.90 |
-| rush_longest | 304 | 9.80 | 8.03 | +1.77 | +3.9 | 6.19 | 0.82 | 0.48 | 0.76 | 1.06 |
-| rush_rec_yards | 304 | 39.22 | 34.91 | +4.31 | +2.6 | 22.45 | 0.89 | 0.89 | 0.75 | 0.95 |
-| rush_td | 304 | 0.23 | 0.19 | +0.04 | +1.4 | 0.31 | 0.84 | 0.85 | 0.49 | 0.98 |
-| rush_yards | 304 | 27.90 | 25.46 | +2.44 | +1.8 | 17.73 | 0.91 | 0.54 | 0.74 | 1.06 |
+| def_sacks | 777 | 0.14 | 0.11 | +0.03 | +2.7 | 0.19 | 0.77 | 1.19 | 0.46 | 0.80 |
+| def_solo_tackles | 777 | 2.52 | 2.23 | +0.29 | +4.3 | 1.57 | 0.88 | 0.88 | 0.94 | 0.84 |
+| def_tackles | 777 | 4.56 | 4.06 | +0.51 | +4.8 | 2.41 | 0.89 | 0.87 | 0.93 | 0.87 |
+| field_goals | 96 | 1.67 | 1.60 | +0.07 | +0.5 | 1.02 | 0.96 | 1.23 | 0.91 | 0.75 |
+| kick_points | 96 | 7.20 | 7.04 | +0.16 | +0.4 | 3.10 | 0.98 | 1.06 | 0.96 | 0.91 |
+| pass_attempts | 93 | 33.69 | 31.27 | +2.42 | +2.1 | 8.14 | 0.93 | 0.90 | 0.88 | 0.99 |
+| pass_completions | 93 | 20.58 | 19.32 | +1.26 | +1.8 | 5.25 | 0.94 | 0.84 | 0.97 | 0.99 |
+| pass_int | 93 | 0.72 | 0.55 | +0.17 | +2.4 | 0.60 | 0.77 | 0.57 | 0.84 | 0.87 |
+| pass_longest | 93 | 33.16 | 36.05 | -2.89 | -1.6 | 13.44 | 1.09 | 1.14 | 1.08 | 1.05 |
+| pass_rush_yards | 93 | 239.03 | 222.62 | +16.41 | +1.8 | 67.54 | 0.93 | 0.93 | 0.88 | 0.97 |
+| pass_td | 93 | 1.59 | 1.56 | +0.04 | +0.3 | 0.99 | 0.98 | 1.02 | 0.91 | 1.00 |
+| pass_yards | 93 | 223.86 | 205.87 | +17.99 | +2.1 | 64.77 | 0.92 | 0.92 | 0.89 | 0.94 |
+| rec_catches | 686 | 2.86 | 2.36 | +0.49 | +6.5 | 1.64 | 0.83 | 0.81 | 0.75 | 0.88 |
+| rec_longest | 686 | 13.78 | 13.12 | +0.65 | +1.3 | 9.66 | 0.95 | 0.72 | 0.99 | 1.06 |
+| rec_targets | 686 | 4.80 | 3.47 | +1.32 | +12.8 | 2.42 | 0.72 | 0.68 | 0.65 | 0.78 |
+| rec_td | 686 | 0.22 | 0.19 | +0.04 | +2.2 | 0.31 | 0.84 | 0.73 | 0.69 | 0.93 |
+| rec_yards | 686 | 28.96 | 26.72 | +2.25 | +2.1 | 20.47 | 0.92 | 0.93 | 0.75 | 1.01 |
+| rush_attempts | 358 | 7.28 | 5.88 | +1.40 | +6.0 | 3.57 | 0.81 | 0.69 | 0.62 | 0.91 |
+| rush_longest | 358 | 9.79 | 8.06 | +1.73 | +4.1 | 6.28 | 0.82 | 0.52 | 0.77 | 1.05 |
+| rush_rec_yards | 358 | 38.41 | 34.44 | +3.97 | +2.6 | 22.12 | 0.90 | 0.85 | 0.77 | 0.96 |
+| rush_td | 358 | 0.23 | 0.19 | +0.04 | +1.7 | 0.31 | 0.82 | 0.93 | 0.51 | 0.93 |
+| rush_yards | 358 | 27.37 | 25.32 | +2.06 | +1.7 | 17.63 | 0.92 | 0.56 | 0.79 | 1.05 |
 
 Result: PASS (home win: 0 bucket(s) out, cover: 0 bucket(s) out, over: 0 bucket(s) out)
