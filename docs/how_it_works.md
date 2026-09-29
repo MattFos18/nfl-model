@@ -2301,4 +2301,10 @@ coloured) in place of the monospace dump.
 and 50% filled in the colour of whoever is ahead, the two teams at the top and bottom of the axis, a quarter grid, the
 model's pregame chance as a hollow diamond at kickoff, the play text on hover; capped at 860px. The On-now tile's win
 bar shows both teams' shares in their colours with the model's pregame chance on its own line.
+Then (29 Sep 2026, Matt): the two-line chart came back (the ESPN-style one was harder to read), with the model's
+pregame chance as a dashed line in the favourite's colour and the play text on hover; the tile shows the pregame
+chance as a second bar in the same style. The field is ESPN's: a striped green field with 5-yard lines, hash marks
+and yard numbers, the end zones in the teams' colours, the current drive as a band from where it started to the
+ball, the line of scrimmage in blue, the line to gain in yellow, the ball with a possession arrow, and the down and
+distance in a header row with the team in possession (the big field adds the drive's plays, yards and time).
 
