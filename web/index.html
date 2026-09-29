@@ -1189,7 +1189,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       ${[10, 20, 30, 40, 50, 60, 70, 80, 90].map(v => { const n = v <= 50 ? v : 100 - v; return `<text x="${X(v)}" y="${big ? numY2 : numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>${big ? `<text x="${X(v)}" y="${numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>` : ""}`; }).join("")}
       ${fd != null && !goal ? `<line x1="${X(fd)}" x2="${X(fd)}" y1="${top}" y2="${bot}" stroke="#F5C518" stroke-width="${big ? 4 : 3}"/>` : ""}
       ${inPlay ? `<line x1="${X(y)}" x2="${X(y)}" y1="${top}" y2="${bot}" stroke="#2B7BFF" stroke-width="${big ? 4 : 3}"/>` : ""}
-      ${big ? lastPlaySvg(live.play, X, mid, big, inPlay ? y : null, pos, dir) : ""}
+      ${big ? lastPlaySvg(live.play, X, mid, big, inPlay ? y : null, pos, dir, live.last_play, H, A) : ""}
       ${dir ? `<path d="M${X(y) + dir * (big ? 26 : 16)},${mid} l${-dir * (big ? 12 : 8)},${-(big ? 9 : 6)} v${big ? 18 : 12} z" fill="#fff"/>` : ""}
       ${inPlay ? `<ellipse cx="${X(y)}" cy="${mid}" rx="${big ? 14 : 9}" ry="${big ? 8.5 : 5.5}" fill="#7A4A1C" stroke="#fff" stroke-width="1.2"/><line x1="${X(y) - (big ? 5 : 3)}" x2="${X(y) + (big ? 5 : 3)}" y1="${mid}" y2="${mid}" stroke="#fff" stroke-width="1.2"/>` : ""}
     </svg>`;
@@ -1204,7 +1204,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // loss or a turnover; an incomplete pass or a penalty at the spot gets the tag alone; timeouts and stoppages draw nothing
   const PLAY_LABEL = [[/incompletion/i, "Incomplete"], [/interception/i, "Interception"], [/fumble recovery \(own\)/i, "Fumble, kept"], [/fumble|muffed/i, "Fumble, lost"], [/sack/i, "Sack"], [/passing touchdown/i, "TD pass"], [/rushing touchdown/i, "TD run"], [/punt return touchdown/i, "Punt return TD"], [/touchdown/i, "TD"],
     [/reception|^pass/i, "Pass"], [/rush/i, "Run"], [/kickoff/i, "Kickoff"], [/punt/i, "Punt"], [/field goal good/i, "FG good"], [/field goal missed/i, "FG missed"], [/blocked field goal/i, "FG blocked"], [/penalty/i, "Penalty"]];
-  function lastPlaySvg(pl, X, mid, big, ballY, pos, dir) {
+  function lastPlaySvg(pl, X, mid, big, ballY, pos, dir, text, H, A) {
     if (!pl || pl.from == null || pl.to == null) return "";
     const t = pl.type || ""; if (/timeout|two-minute|end period|end of half|end of game/i.test(t)) return "";
     // the line ends at the ball (29 Sep 2026, Matt: "these aren't aligned, ball and line"): ESPN's end spot and its ball spot can differ after a
@@ -1212,17 +1212,27 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (ballY != null && pos && pl.team === pos && pl.to !== ballY && /rush|reception|incompletion|sack|touchdown|penalty/i.test(t)) { const len = pl.to - pl.from; pl = {...pl, from: ballY - len, to: ballY}; }
     const lab = (PLAY_LABEL.find(([re]) => re.test(t)) || [null, t])[1]; if (!lab) return "";
     const turnover = /interception|fumble, lost/i.test(lab), kick = /kickoff|punt|fg/i.test(lab), yds = pl.yds == null ? null : Number(pl.yds);
-    const tag = `${lab}${yds != null && yds !== 0 && !/incomplete|interception|fumble|fg/i.test(lab) ? ` ${kick ? "" : yds > 0 ? "+" : "−"}${Math.abs(yds)}` : ""}`;
-    const x0 = X(pl.from), x1 = X(pl.to), d = x1 >= x0 ? 1 : -1, yy = mid - (big ? 34 : 15), w = big ? 5 : 3, head = big ? 10 : 6;
-    const col = turnover || (yds != null && yds < 0 && !kick) ? "#FF6B6B" : "#FFFFFF", fs = big ? 13 : 9, tw = tag.length * fs * 0.62 + (big ? 16 : 10), th = big ? 20 : 13, tx = (x0 + x1) / 2, ty = yy - (big ? 14 : 8);
-    const pill = `<rect x="${tx - tw / 2}" y="${ty - th}" width="${tw}" height="${th}" rx="${th / 2}" fill="rgba(0,0,0,.62)"/><text x="${tx}" y="${ty - th / 2}" text-anchor="middle" dominant-baseline="central" font-size="${fs}" font-weight="700" fill="${col}">${esc(tag)}</text>`;
-    if (/incomplete/i.test(lab)) {   // ESPN's incomplete pass (29 Sep 2026, Matt): a dashed line downfield from the ball ending in an X, no tag (the feed has no target spot)
-      const dd = dir || d, xa = X(pl.from), xb = X(Math.max(0, Math.min(100, pl.from + dd * 12))), xs = big ? 7 : 4;
-      return `<line x1="${xa}" x2="${xb}" y1="${yy}" y2="${yy}" stroke="rgba(0,0,0,.55)" stroke-width="${w + 3}" stroke-linecap="round"/><line x1="${xa}" x2="${xb}" y1="${yy}" y2="${yy}" stroke="#FFFFFF" stroke-width="${w}" stroke-dasharray="${big ? "8 6" : "4 3"}" stroke-linecap="round"/>
-        <circle cx="${xa}" cy="${yy}" r="${w * 0.9}" fill="#FFFFFF" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/><path d="M${xb - xs},${yy - xs} L${xb + xs},${yy + xs} M${xb - xs},${yy + xs} L${xb + xs},${yy - xs}" stroke="rgba(0,0,0,.55)" stroke-width="${w + 3}" stroke-linecap="round"/><path d="M${xb - xs},${yy - xs} L${xb + xs},${yy + xs} M${xb - xs},${yy + xs} L${xb + xs},${yy - xs}" stroke="#FFFFFF" stroke-width="${w}" stroke-linecap="round"/>`; }
-    if (pl.from === pl.to) return pill;   // nothing moved: the tag at the spot
-    return `<line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="rgba(0,0,0,.55)" stroke-width="${w + 3}" stroke-linecap="round"/><line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>
-      <circle cx="${x0}" cy="${yy}" r="${w * 0.9}" fill="${col}" stroke="rgba(0,0,0,.55)" stroke-width="1.5"/><path d="M${x1 + d * head},${yy} l${-d * head},${-head * 0.65} v${head * 1.3} z" fill="${col}" stroke="rgba(0,0,0,.55)" stroke-width="1.5" stroke-linejoin="round"/>${pill}`;
+    // the line sits in the clear band between the top hash marks and the ball, its tag on the line (not over the yard numbers)
+    const yy = mid - (big ? 24 : 11), w = big ? 5 : 3, head = big ? 10 : 6, fs = big ? 12.5 : 9, th = big ? 19 : 13, halo = "rgba(0,0,0,.55)";
+    const pillAt = (tx, tag, col) => { const tw = tag.length * fs * 0.62 + (big ? 16 : 10); return `<rect x="${tx - tw / 2}" y="${yy - th / 2}" width="${tw}" height="${th}" rx="${th / 2}" fill="rgba(0,0,0,.72)"/><text x="${tx}" y="${yy}" text-anchor="middle" dominant-baseline="central" font-size="${fs}" font-weight="700" fill="${col}">${esc(tag)}</text>`; };
+    const seg = (x0, x1, col, dash) => `<line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"${dash ? ` stroke-dasharray="${big ? "8 6" : "4 3"}"` : ""}/>`;
+    const dot = (x, col) => `<circle cx="${x}" cy="${yy}" r="${w * 0.9}" fill="${col}" stroke="${halo}" stroke-width="1.5"/>`;
+    const arrow = (x1, d, col) => `<path d="M${x1 + d * head},${yy} l${-d * head},${-head * 0.65} v${head * 1.3} z" fill="${col}" stroke="${halo}" stroke-width="1.5" stroke-linejoin="round"/>`;
+    if (/incomplete/i.test(lab)) {   // ESPN's incomplete pass: a dashed line downfield from the ball ending in an X, no tag (the feed has no target spot)
+      const dd = dir || 1, xa = X(pl.from), xb = X(Math.max(0, Math.min(100, pl.from + dd * 12))), xs = big ? 7 : 4;
+      const xm = `M${xb - xs},${yy - xs} L${xb + xs},${yy + xs} M${xb - xs},${yy + xs} L${xb + xs},${yy - xs}`;
+      return `${seg(xa, xb, "#FFFFFF", true)}${dot(xa, "#FFFFFF")}<path d="${xm}" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><path d="${xm}" stroke="#FFFFFF" stroke-width="${w}" stroke-linecap="round"/>`; }
+    if (kick && !/fg/i.test(lab)) {   // a punt or kickoff as ESPN draws it: the flight as a dashed arc to where it was fielded, the return as a solid line; the distance from the play text
+      const m = String(text || "").match(/(?:punts|kicks) (\d+) yards?(?: from [A-Z]{2,4} \d+)? to (?:the )?(?:([A-Z]{2,4}) (\d+)|(end zone))/i);
+      const d = pl.to >= pl.from ? 1 : -1, catchY = m ? (m[3] ? (d > 0 ? 100 : 0) : yardOfSpot(`${m[1] ? m[2] : ""} ${m[3] || ""}`.trim() || `${m[2]} ${m[3]}`, H, A)) : null;
+      const cy = catchY != null ? catchY : pl.to, xa = X(pl.from), xc = X(cy), xb = X(pl.to), lift = big ? 32 : 14;
+      const arc = `M${xa},${yy} Q${(xa + xc) / 2},${yy - lift} ${xc},${yy}`;
+      const ret = Math.abs(pl.to - cy) >= 1 ? `${seg(xc, xb, "#FFFFFF", false)}${arrow(xb, pl.to >= cy ? 1 : -1, "#FFFFFF")}` : "";
+      return `<path d="${arc}" fill="none" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><path d="${arc}" fill="none" stroke="#FFFFFF" stroke-width="${w}" stroke-dasharray="${big ? "8 6" : "4 3"}" stroke-linecap="round"/>${dot(xa, "#FFFFFF")}${dot(xc, "#FFFFFF")}${ret}${pillAt((xa + xc) / 2, `${lab}${m ? " " + m[1] : ""}`, "#FFFFFF")}`; }
+    const tag = `${lab}${yds != null && yds !== 0 && !/interception|fumble|fg/i.test(lab) ? ` ${yds > 0 ? "+" : "−"}${Math.abs(yds)}` : ""}`;
+    const x0 = X(pl.from), x1 = X(pl.to), d = x1 >= x0 ? 1 : -1, col = turnover || (yds != null && yds < 0) ? "#FF6B6B" : "#FFFFFF";
+    if (pl.from === pl.to) return pillAt(x0, tag, col);   // nothing moved: the tag at the spot
+    return `${seg(x0, x1, col, false)}${dot(x0, col)}${arrow(x1, d, col)}${pillAt((x0 + x1) / 2, tag, col)}`;
   }
   const yardSpotTxt = (y, H, A) => y === 50 ? "the 50" : y < 50 ? `${H} ${y}` : `${A} ${100 - y}`;
   const toTxt = (live, H, A) => live.home_timeouts != null || live.away_timeouts != null ? `<span class="lv-lsm" title="timeouts left">${A} ${"●".repeat(live.away_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.away_timeouts ?? 0)))} · ${H} ${"●".repeat(live.home_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.home_timeouts ?? 0)))}</span>` : "";
