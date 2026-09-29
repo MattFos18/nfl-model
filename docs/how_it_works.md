@@ -2430,3 +2430,9 @@ bets, every game's over/under and the total miss (model / line) instead of winne
 Compared lists only the totals rules, and the edge-size and cutoff tables follow the market. The Opener Study is one
 card a window with a Spreads table and a Totals table, and the same split at the close.
 
+**The phone pass (29 Sep 2026, Matt).** Every tab and view was walked at 390 px with every panel, game, row and
+player page opened: no script errors, and no view widens the page any more. Under 700 px every grid falls to one
+column that may shrink, every table scrolls inside its own card, the Picks table drops the Winner and score columns,
+the Live Model grid and the scheme-matchup player table fit or scroll inside their cards, the futures tables scroll
+while a team's or player's calculation panel stays pinned to the screen, and the Decision Log wraps its columns.
+
