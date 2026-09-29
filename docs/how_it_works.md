@@ -2338,7 +2338,15 @@ priced by it. Snaps reads 0% for a player not in last game's snap counts; a play
 power bars, matchup, table) are the first view of the Teams tab, open by default, with the team picker and the tiles
 hidden there; the rankings by position are a second view of the Players tab beside the player list. An old saved
 Rankings tab maps to the new place. On the team rankings: no heading on the scatter, no axis labels (the corner
-labels say it), the power bars span the card, and the Matchup card shows the spread and total beside the score and
-the two teams' power, EPA, points and QB ratings with their ranks. Scheme cards are sized to their tables and flow
+labels say it), the power bars span the card, and the Matchup card is the two teams and the score (a spread, a
+total and a ratings table were tried the same day and taken out). Scheme cards are sized to their tables and flow
 side by side; each team's box score has its offense tables in one column and its defense in the other.
+
+**Teams tab layout; a missed ESPN fetch on the Live tab is retried (29 Sep 2026, Matt).** The view buttons come first
+on the Teams tab; the team and season pickers and the tiles sit under them and show only on the team views (the
+`hidden` attribute alone did not hide the pickers, since their flex display outranked it; a rule covers it now). On
+the Live tab, one failed fetch of ESPN's scoreboard used to end the page's own polling for the visit, leaving the line
+watch's copy (live.js, every 30 minutes) to stand even with a game on. A miss is now skipped; after three in a row the
+page falls back to live.js and retries every minute while a game is on (every 10 minutes otherwise), and a fetch that
+succeeds resumes the 15-second polling.
 

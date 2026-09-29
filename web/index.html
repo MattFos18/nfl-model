@@ -24,7 +24,7 @@ h1{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.01e
 h2{font-family:var(--display);font-weight:600;font-size:19px;margin:18px 0 8px;text-wrap:balance}
 h3{font-family:var(--display);font-weight:600;font-size:16px;margin:0 0 6px}
 .sub{color:var(--ink-2);margin:2px 0 0;max-width:70ch}
-.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-left:auto}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin-left:auto} #teamsec .controls[hidden],#teamstrip[hidden]{display:none}
 label.ctl{display:flex;flex-direction:column;gap:3px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 select{font:inherit;font-size:14px;color:var(--ink);background:var(--panel);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;min-width:120px}
 select:focus-visible,button:focus-visible,.chip:focus-visible,.why:focus-visible{outline:2px solid var(--accent);outline-offset:1px} button:focus:not(:focus-visible),.chip:focus:not(:focus-visible){outline:none}
@@ -146,7 +146,6 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
 .schgrid{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start} .schgrid .card{flex:0 1 auto;max-width:100%} .schgrid .card{margin:0}
 .bxcols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start} @media(max-width:1150px){.bxcols{grid-template-columns:1fr}}
-.mu-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 40px;align-items:start} .mu-lines{display:flex;gap:22px;margin-top:10px} .mu-lines small{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600} .mu-lines b{font-size:16px} table.mu-t td.mono{white-space:nowrap} @media (max-width:640px){.mu-grid{grid-template-columns:1fr}}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
 .chip.alt{background:var(--accent-soft);color:var(--accent)}
 .pulls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 12px;font-size:12.5px}
@@ -413,11 +412,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 </section>
 
 <section class="tab" id="teamsec" hidden>
-  <div class="controls" style="margin:0 0 10px;justify-content:flex-start">
-    <label class="ctl">Team <select id="team"></select></label>
-    <label class="ctl">Season <select id="season"></select></label>
-  </div>
-  <div class="lv-tiles" id="teamstrip" style="margin:0 0 12px"></div>
   <nav class="sub" id="teamsub">
     <button data-sub="rankings">Rankings</button>
     <button data-sub="roster">Roster and depth chart</button>
@@ -426,6 +420,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <button data-sub="box">Player box scores</button>
     <button data-sub="scheme">Scheme and play calling</button>
   </nav>
+  <div class="controls" style="margin:0 0 10px;justify-content:flex-start">
+    <label class="ctl">Team <select id="team"></select></label>
+    <label class="ctl">Season <select id="season"></select></label>
+  </div>
+  <div class="lv-tiles" id="teamstrip" style="margin:0 0 12px"></div>
   <div id="rankings" hidden>
   
   <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model" id="rkwinmodel">Model</option><option value="season">This season</option><option value="last3">Last 3 weeks</option><option value="last1">Last week</option><option value="lastseason">Last season</option></select></label></div>
@@ -1114,7 +1113,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const LIVE_SUMMARY = "https://site.web.api.espn.com/apis/site/v2/sports/football/nfl/summary?event=";
   const ESPN_AB = {WSH: "WAS", JAC: "JAX", LAR: "LA"};
   const abOf = t => t && t.abbreviation ? (ESPN_AB[t.abbreviation] || t.abbreviation) : null;
-  let liveNow = null, liveAt = null, liveTimer = null, liveFetchDead = false, liveOpen = null, livePlays = {}, liveSub = "plays", liveDrives = {};
+  let liveNow = null, liveAt = null, liveTimer = null, liveFetchDead = false, liveFails = 0, liveOpen = null, livePlays = {}, liveSub = "plays", liveDrives = {};
   function parseScoreboard(j) {   // the same fields nflmodel/results.parse reads, keyed AWAY@HOME
     const out = {};
     (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}, recs = {}; let H, A, hs, as_;
@@ -1144,9 +1143,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return {espn_id: h.id || c.id, status: state, detail: ty.shortDetail || ty.detail, home_team: H, away_team: A, home_score: score[H], away_score: score[A], linescores: lines, drives, scoring, wp, team_stats, box: players, leaders, n_plays: all.length, last_play: all.length ? all[all.length - 1].text : null, fetched: new Date()};
   }
   async function liveFetch(season, week) {
-    if (liveFetchDead) return null;
-    try { const r = await fetch(`${LIVE_ESPN}?week=${week}&seasontype=2&dates=${season}`, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return parseScoreboard(await r.json()); }
-    catch (e) { liveFetchDead = true; return null; }   // the claude.ai frame: no outside fetch, so live.js and plays.js stand
+    try { const r = await fetch(`${LIVE_ESPN}?week=${week}&seasontype=2&dates=${season}`, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); liveFails = 0; liveFetchDead = false; return parseScoreboard(await r.json()); }
+    catch (e) { liveFails += 1; if (liveFails >= 3) liveFetchDead = true; return null; }   // one miss is skipped; three in a row (the claude.ai frame: no outside fetch) and live.js and plays.js stand, with a retry every minute while a game is on, else every 10
   }
   async function fetchSummary(eid) { if (liveFetchDead || !eid) return null; try { const r = await fetch(LIVE_SUMMARY + eid, {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return parseSummary(await r.json()); } catch (e) { return null; } }
   // every game live.js knows, with the page's own fetch laid over the line watch's copy
@@ -1249,7 +1247,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const kickTxt = k => { const m = String(k || "").match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})/); if (!m) return ""; const d = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5]); return d.toLocaleDateString("en-US", {weekday: "short"}) + " " + d.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"}); };
   const qTxt = (q, clock) => q == null ? "" : `${q <= 4 ? "Q" + q : q === 5 ? "OT" : "OT" + (q - 4)}${clock ? " " + clock : ""}`;
   async function liveTick() {
-    if (liveFetchDead) return;
     const L = window.LIVE || {}; const weeks = [...new Set(Object.values(L.games || {}).map(v => `${v.season}|${v.week}`))];
     let any = false; const merged = {};
     for (const w of weeks) { const [s, k] = w.split("|"); const f = await liveFetch(+s, +k); if (f) { Object.assign(merged, f); any = true; } }
@@ -1257,7 +1254,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (liveOpen) { const x = liveGames().find(g => g.gid === liveOpen); const P = playsOf(liveOpen); if (x && x.v.status !== "scheduled" && (x.v.status === "in_progress" || !P || (P.status !== "final"))) { const s = await fetchSummary(x.v.espn_id || x.lv.espn_id); if (s) livePlays[liveOpen] = s; } }
     if (tab === "live") renderLive();
     const on = liveGames().some(x => x.v.status === "in_progress");
-    if (liveTimer) clearTimeout(liveTimer); liveTimer = setTimeout(liveTick, on ? 15000 : 600000);   // 15 s while a game is on (the browser asks ESPN directly, nothing to pay), 10 min otherwise
+    if (liveTimer) clearTimeout(liveTimer); liveTimer = setTimeout(liveTick, liveFetchDead ? (on ? 60000 : 600000) : on ? 15000 : 600000);   // 15 s while a game is on (the browser asks ESPN directly, nothing to pay), 10 min otherwise
   }
   function renderLive() {
     const L = window.LIVE, el = $("liveboard"); const R = (L || {}).record || {};
@@ -1287,7 +1284,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       + (L.mismatch && L.mismatch.length ? `<p class="note neg">ESPN and nflverse disagree on a score: ${L.mismatch.map(esc).join("; ")}</p>` : "");
     el.querySelectorAll(".lv-sg").forEach(b => { const open = () => { liveOpen = b.dataset.gid === liveOpen ? null : b.dataset.gid; liveDrives = {}; liveSub = "plays"; renderLive(); if (liveOpen) { $("livegame").scrollIntoView({behavior: "smooth", block: "start"}); if (!liveFetchDead && !livePlays[liveOpen]) liveTick(); } }; b.addEventListener("click", open); b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } }); });
     renderLiveGame();
-    if (!liveTimer && !liveFetchDead) liveTimer = setTimeout(liveTick, 0);
+    if (!liveTimer) liveTimer = setTimeout(liveTick, 0);
   }
   function renderLiveGame() {
     const el = $("livegame"); const x = liveOpen ? liveGames().find(g => g.gid === liveOpen) : null;
@@ -1782,12 +1779,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         const pts = inp => { if (!co || wind == null) return null; let x = co.intercept; META.feats.forEach(f => { x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
         pA = pts(inputsFor(mu.A, mu.B)); pB = pts(inputsFor(mu.B, mu.A));
         how = co ? `the equation alone (the fit before the ${S} season, without the other models or the total's share-out${rkWin !== "model" ? ", on the window picked above" : ""}) · wind ${nz(wind)} mph, nobody out` : `no fit for ${S} in meta.js (fits are kept from ${Math.min(...Object.keys(META.coefs).map(Number))} on)`; }
-      const f3 = v => v == null ? "–" : (v >= 0 ? "+" : "") + v.toFixed(3), f1 = v => v == null ? "–" : (v >= 0 ? "+" : "") + v.toFixed(1), rk = (k, t) => ranks[k] && ranks[k][t] ? `<span class="rpq">#${ranks[k][t]}</span>` : "";
-      const sp = pA != null && pB != null ? pA - pB : null, tot = pA != null && pB != null ? pA + pB : null;
-      const rowsR = [["Power", "power", f1], ["Offense EPA", "off_epa_play", f3], ["Defense EPA", "def_epa_play", f3], ["Points for", "off_pf", f1], ["Points allowed", "def_pf", f1], ["QB rating", "qb_rating", f3]];
-      $("muOut").innerHTML = `<div class="mu-grid"><div><div class="score"><span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span></div>
-        <div class="mu-lines">${sp != null ? `<span><small>Spread</small><b>${sp > 0 ? mu.A : mu.B} ${sp === 0 ? "pick" : "-" + Math.abs(sp).toFixed(1)}</b></span><span><small>Total</small><b>${tot.toFixed(1)}</b></span>` : ""}</div></div>
-        <div class="tablewrap ro"><table class="rgt mu-t"><thead><tr><th class="l"></th><th>${LOGO(mu.A)}${mu.A}</th><th>${LOGO(mu.B)}${mu.B}</th></tr></thead><tbody>${rowsR.map(([lab, k, f]) => `<tr><td class="l">${lab}</td><td class="mono">${f(val(mu.A, k))} ${rk(k, mu.A)}</td><td class="mono">${f(val(mu.B, k))} ${rk(k, mu.B)}</td></tr>`).join("")}</tbody></table></div></div>`;
+      $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span></div>`;
     };
     ["muA", "muB"].forEach(id => { $(id).onchange = price; });
     price();
