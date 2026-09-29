@@ -2639,3 +2639,16 @@ chance bars (29 Sep 2026, Matt: the first version read too much like the win cha
 to any projection, since market numbers stay out of the model. The log builds the history a split study needs; past
 seasons' splits are not public for free (Action Network's free feed leaves them blank, VSiN loads them by script), so a
 test on past seasons waits for a bought history.
+
+**Situational ideas for the game model, under the round-3 rule: nothing adopted** (`experiments/situational_game.py`,
+`reports/situational_game.md`; 29 Sep 2026, Matt). 121 ideas (85 in the points equation, 36 in the total equation)
+and 13 live terms dropped one at a time, each through the full weekly walk-forward on 2015-18, 2019-22 and 2023-25:
+coach vs coach, coach and team at a stadium, travel miles, time-zone shifts, altitude, rest, turf vs grass, dome and
+outdoor teams, primetime and kickoff slot, holidays, referees (with teams, home and road, the model's favourite, flag
+rate, the ref's total against the model), weather and injuries crossed with the above, offense-vs-defense scheme
+matchups and offensive vs defensive coordinator. Every history is as of the week before and measured against the model's
+own expectation, never a line. Seven ideas lower the miss on every window (chance alone gives about fifteen); six of
+them cost spread or totals flags. The seventh, a plain turf flag in the points equation (0.001-0.002 points a window),
+was matched or beaten by its within-season shuffle on some window in 26 of 50 draws, so it fails the placebo. Coach vs
+coach predicts nothing (correlation -0.015 over 1,580 games). Every live weather and injury term was kept; cold and dome
+in the total equation and the QB-out flag in the points equation are marked for a re-check after the 2026 season.

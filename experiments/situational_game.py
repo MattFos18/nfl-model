@@ -341,6 +341,9 @@ def ideas() -> list[dict]:
     add("Run offense vs light box, weighted by the defense's light-box rate (last season)", C, "P", ["box_match"], opp=True)
     add("Head coach vs the defense's coverage family (residual history)", C, "P", ["coach_vs_family"], opp=True)
     add("Scheme pace: shotgun and no-huddle (total)", C, "T", ["shotgun_sum", "nohuddle_sum"], level="game")
+    # the coordinator table another session wrote to data/reference/coordinators.csv on 29 Sep 2026 (Wikipedia; not a weekly pull: rule 4)
+    add("Coordinators: new OC (own), new DC (opponent's)", C, "P", ["new_oc", "opp_new_dc"], note="rule4")
+    add("Coordinators: OC vs this DC (points residual history)", C, "P", ["oc_vs_dc"], note="rule4")
     return I
 
 
@@ -729,6 +732,36 @@ def verdicts(real: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def stage_coord():
+    """Adds the coordinator readings to fp.parquet from data/reference/coordinators.csv (written by another session on
+    29 Sep 2026 from Wikipedia's team-season articles; not something the weekly run pulls, so any idea on it fails rule 4).
+    A garbled or missing entry is left unknown (0). The first name listed is the season's opening coordinator."""
+    from experiments.situational_feats import hist
+    c = pd.read_csv(ROOT / "data" / "reference" / "coordinators.csv")
+    def clean(v):
+        if not isinstance(v, str) or ";" in v or not v.strip():
+            return None
+        return v.split(",")[0].strip() if ", Jr" not in v else v.strip()
+    c["oc"], c["dc"] = c.oc.map(clean), c.dc.map(clean)
+    c = c[c.status == "ok"]
+    oc = {(t, s_): v for t, s_, v in zip(c.team, c.season, c.oc)}; dc = {(t, s_): v for t, s_, v in zip(c.team, c.season, c.dc)}
+    L = pd.read_parquet(SCR / "long.parquet")
+    L["oc"] = [oc.get((t, s_)) for t, s_ in zip(L.team, L.season)]
+    L["opp_dc"] = [dc.get((o, s_)) for o, s_ in zip(L.opp, L.season)]
+    L["new_oc"] = [float(oc.get((t, s_)) is not None and oc.get((t, s_ - 1)) is not None and oc[(t, s_)] != oc[(t, s_ - 1)]) for t, s_ in zip(L.team, L.season)]
+    L["new_dc"] = [float(dc.get((t, s_)) is not None and dc.get((t, s_ - 1)) is not None and dc[(t, s_)] != dc[(t, s_ - 1)]) for t, s_ in zip(L.team, L.season)]
+    L["oc_vs_dc"] = hist(L, ["oc", "opp_dc"], "r_pf", contrib=L.pf.notna())
+    fp = pd.read_parquet(SCR / "fp.parquet")
+    X = L[["game_id", "team", "new_oc", "new_dc", "oc_vs_dc"]].drop_duplicates(["game_id", "team"])
+    fp = fp.drop(columns=[c_ for c_ in ["new_oc", "new_dc", "oc_vs_dc", "opp_new_dc"] if c_ in fp.columns]).merge(X, on=["game_id", "team"], how="left")
+    fp[["new_oc", "new_dc", "oc_vs_dc"]] = fp[["new_oc", "new_dc", "oc_vs_dc"]].fillna(0.0)
+    m = fp.set_index(["game_id", "team"]).new_dc
+    fp["opp_new_dc"] = m.reindex(pd.MultiIndex.from_arrays([fp.game_id, fp.opp])).fillna(0.0).values
+    fp.to_parquet(SCR / "fp.parquet", index=False)
+    cov = c.groupby("season").size()
+    log("coordinators added; team-seasons with a clean entry by season:", cov.to_dict(), "nonzero oc_vs_dc share", float((fp.oc_vs_dc != 0).mean()))
+
+
 def stage_placebo(jobs, names=None, draws=N_PLACEBO, stop_at=STOP_AT, tag="placebo"):
     """Within-season shuffles of the idea's columns; stops an idea once `stop_at` draws beat it on some window."""
     from joblib import Parallel, delayed
@@ -816,6 +849,8 @@ if __name__ == "__main__":
         stage_real(a.jobs, names)
     elif a.stage == "placebo":
         stage_placebo(a.jobs, names, a.draws, stop_at=a.stop, tag=a.tag)
+    elif a.stage == "coord":
+        stage_coord()
     elif a.stage == "combo":
         stage_combo(a.jobs)
     elif a.stage == "report":
