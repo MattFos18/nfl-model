@@ -3,12 +3,9 @@
  "week": 3,
  "complete": false,
  "missing": [
-  "play-by-play: 2026_03_PHI_CHI",
-  "player stats: 2026_03_PHI_CHI",
-  "snap counts: 2026_03_PHI_CHI",
-  "charting (participation, FTN): 2026_03_PHI_CHI"
+  "snap counts: 2026_03_PHI_CHI"
  ],
  "all_kicked_off": true,
  "pending": true,
- "checked": "2026-09-29 04:28 UTC"
+ "checked": "2026-09-29 05:21 UTC"
 }
