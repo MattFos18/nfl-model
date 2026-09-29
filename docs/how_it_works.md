@@ -2449,3 +2449,10 @@ was right. The tolerance is now 0.0005 plus two steps of the empirical reading.\
 **No empty pill beside Download PDF (29 Sep 2026, Matt).** The Picks tab's week tally chip is hidden until the week
 has a result to tally, but the chip rule's own display setting beat the hidden attribute, so an empty pill painted
 next to the PDF button all week until the first game finished. A hidden chip now stays hidden, everywhere.
+
+**Snap exposure is built before anything asks which week it is (29 Sep 2026).** The picks week advances only when
+the week before is in every source, the snap-share file among them, and that file was built late in the weekly run,
+after the live results, player values, position tables and scheme profiles. So the first run after Monday's snap
+counts landed built all of those as of the old week while the picks, priced after the file, moved to the new one;
+the tie check caught the scheme profiles reading Week 3 against Week 4 picks and the run failed until the next one.
+The snap-share step now runs right after the build, before any step reads the current week.

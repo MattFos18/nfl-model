@@ -111,6 +111,7 @@ def main(full=False, skip_network=False):
         step("pull player history", lambda: pull.pull(list(range(2016, season + 1)), ["pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats"], force_current=False), log)
     step("build", lambda: sh(["nflmodel.build"]), log)
     step("features", lambda: sh(["nflmodel.features"]), log)
+    step("snap exposure", lambda: sh(["nflmodel.exposure"]), log)   # every player's snap share by game (raw snap counts only), for the props' snap trend (26 Sep 2026: no step built it; it stopped at Week 2). Before every step that asks which week is current (29 Sep 2026): the picks week advances only once the week before is in this file too, so with the step after the player, position and scheme steps, the first run after Monday's snap counts landed built those as of the old week while the picks moved on
     v = step("verify", lambda: sh(["nflmodel.verify"]), log)
     if log[-1]["status"] == "error":
         _write(log, run_at, season, None, None, halted=True)
@@ -129,7 +130,6 @@ def main(full=False, skip_network=False):
     step("positions", lambda: sh(["nflmodel.positions"]), log)
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
-    step("snap exposure", lambda: sh(["nflmodel.exposure"]), log)   # every player's snap share by game, for the props' snap trend (26 Sep 2026: no step built it; it stopped at Week 2)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
     step("opener study", lambda: sh(["nflmodel.opener_study"]), log)   # the Tuesday model and the archive openers, for the Backtest tab (28 Sep 2026)
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)
