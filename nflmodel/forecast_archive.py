@@ -21,9 +21,9 @@ LEADS = [1, 2]
 
 def fetch(lat, lon, start, end, tz):
     hourly = ",".join(f"{v}_previous_day{d}" for v in VARS.values() for d in LEADS)
-    for attempt in range(4):
+    for attempt in range(6):   # the archive sometimes hangs a request: a short timeout and a retry beat a 60 s wait (29 Sep 2026)
         try:
-            r = requests.get(URL, timeout=60, params={"latitude": lat, "longitude": lon, "start_date": start, "end_date": end, "hourly": hourly,
+            r = requests.get(URL, timeout=12, params={"latitude": lat, "longitude": lon, "start_date": start, "end_date": end, "hourly": hourly,
                                                       "temperature_unit": "fahrenheit", "wind_speed_unit": "mph", "precipitation_unit": "inch", "timezone": tz})
             r.raise_for_status(); j = r.json()["hourly"]
             df = pd.DataFrame({"t": pd.to_datetime(j["time"])})
@@ -32,9 +32,9 @@ def fetch(lat, lon, start, end, tz):
                     df[f"{k}_d{d}"] = j.get(f"{v}_previous_day{d}", [None] * len(df))
             return df
         except Exception as e:  # noqa
-            if attempt == 3:
+            if attempt == 5:
                 print("failed", lat, lon, start, end, e, flush=True); return None
-            time.sleep(3 * (attempt + 1))
+            time.sleep(2 * (attempt + 1))
 
 
 def main(seasons, weeks=None):
