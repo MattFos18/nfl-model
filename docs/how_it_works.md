@@ -2366,6 +2366,7 @@ table is gone. On the player totals calculation the yards card is headed Yards, 
 Breakdown card, Matchup history's two tables span their columns and Recent form shows each team's last ten results as
 a strip of W and L squares in its own column (a teal square for a win, a pale magenta one for a loss, oldest first; the game, score and cover on hover), read from the same
 exported games as the counts beside it. Scheme matchup's looks table has a bar for how often the defense plays each
-look, spans its column, and the player table under it is laid out at fixed column widths so it never runs into the
-other side's. The Picks table, Bet ranking and teaser use one type scale (13.5 to 14 px) with tighter rows.
+look; each side then runs the full card width with the looks table beside the player table, whose columns are the
+looks (capitalised, the share under each), Fit, Edge (even, slight, solid, big), Past vs the opponent and Games, each
+in its own column. The Picks table, Bet ranking and teaser use one type scale (13.5 to 14 px) with tighter rows.
 
