@@ -17,6 +17,7 @@ Last updated 29 Sep 2026.
 - Coordinators: 2013-2025 table from Wikipedia (2026 staff lists not up yet; play-callers are in no free source). Then test offensive against defensive coordinator.
 
 ## Ideas parked, to revisit
+- **A look of its own** (Matt, 29 Sep: keep the simple, easy-to-read layout, but it reads as Claude-made). The cream background, muted greens, rounded pale cards and the IBM Plex type are the tell. Options: a darker sports-data palette (near-black or navy with one team-agnostic accent), a sharper sans such as Inter or Barlow with condensed numerals, square-edged tiles, a proper header with a logo and name. Same layout, new skin; one pass, shown to Matt before it goes live.
 - Expected return (EV %) column on the Bet ranking, and the median total on each card.
 - Track the Under 3+ totals rule live before using it.
 - The boosted trees' own summed total as a totals lead (60.9% / 58.1% / 53.8%, one of about 45 rows tried; watch, not an edge).
