@@ -160,6 +160,11 @@
 "Out"
 ],
 [
+"CIN",
+"Jalen Davis",
+"Out"
+],
+[
 "DAL",
 "Cobie Durant",
 "Doubtful"
@@ -427,7 +432,12 @@
 [
 "TEN",
 "Fernando Carmona",
-"Doubtful"
+"Out"
+],
+[
+"TEN",
+"Jackson Slater",
+"Out"
 ],
 [
 "WAS",
@@ -522,12 +532,6 @@
 [
 "CIN",
 "B.J. Hill",
-"Questionable (ESPN)",
-""
-],
-[
-"CIN",
-"Jalen Davis",
 "Questionable (ESPN)",
 ""
 ],
@@ -976,12 +980,6 @@
 ""
 ],
 [
-"TEN",
-"Jackson Slater",
-"Questionable (ESPN)",
-""
-],
-[
 "WAS",
 "Chig Okonkwo",
 "Questionable (ESPN)",
@@ -1013,5 +1011,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-29 19:17 UTC"
+"written_at": "2026-09-29 19:53 UTC"
 }
