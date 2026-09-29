@@ -2436,3 +2436,12 @@ column that may shrink, every table scrolls inside its own card, the Picks table
 the Live Model grid and the scheme-matchup player table fit or scroll inside their cards, the futures tables scroll
 while a team's or player's calculation panel stays pinned to the screen, and the Decision Log wraps its columns.
 
+
+
+**The card-chances tie check allows for the page's rounding (29 Sep 2026, Matt: "what is this failing check").** The
+check re-prices every card's win, cover and over chances from the card's own model spread and total at the card's
+line, with the run's fit, and compares them with the chances on the card. The card carries all of those to three
+decimals, so the chance's rounding alone reaches 0.0005, and the empirical over reading is a step function over the
+training misses (one step is 1/3,610 this week) that the rounded total can cross. JAX-CIN's Over read 0.401 against
+0.4017 re-priced, a gap of 0.00066 on a 0.0006 tolerance, and the Health tab showed the run failing on a number that
+was right. The tolerance is now 0.0005 plus two steps of the empirical reading.\n
