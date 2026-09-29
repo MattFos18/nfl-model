@@ -84,6 +84,43 @@ def sh(cmd):
 
 
 STATE = RUNS / "week_state.json"
+PULL_SETS = ["schedules", "players", "ngs", "ngs_rec", "ngs_rush", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats", "participation", "ftn"]
+PULL_HISTORY = ["pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats"]
+
+
+def keep_pull_log():
+    """Put back the pull-log rows already committed on this checkout. The workflow restores an older raw copy over the
+    checkout's data/raw, pull log included, and the commit then dropped the newer rows (29 Sep 2026: a retry committed
+    76 deletions). Union of the committed and restored logs, oldest first."""
+    import io, subprocess
+    p = ROOT / "data" / "raw" / "pull_log.csv"
+    try:
+        head = subprocess.run(["git", "show", "HEAD:data/raw/pull_log.csv"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+    except Exception:
+        return
+    if not head.strip():
+        return
+    h = pd.read_csv(io.StringIO(head), dtype=str)
+    cur = pd.read_csv(p, dtype=str) if p.exists() else h.iloc[:0]
+    if len(h.merge(cur, how="left", indicator=True).query("_merge == 'left_only'")) == 0:
+        return
+    both = pd.concat([h, cur], ignore_index=True).drop_duplicates().sort_values("pulled_at", kind="stable")
+    p.parent.mkdir(parents=True, exist_ok=True); both.to_csv(p, index=False)
+    print(f"pull log: {len(both) - len(cur)} committed rows put back")
+
+
+def refresh_raw():
+    """A retry with nothing to do still ends in the workflow's raw-data save (29 Sep 2026: the Tuesday retry restored an
+    old copy without the current players table, saved it as the newest, and the next line watch failed two health
+    checks on it). Pull the same files a run pulls so the copy saved is current; never fail the retry on a network error."""
+    from . import pull
+    try:
+        keep_pull_log()
+        season = int(pd.read_parquet(OUT / "games.parquet").season.max())
+        pull.pull([season - 1, season], PULL_SETS)
+        pull.pull(list(range(2016, season + 1)), PULL_HISTORY, force_current=False)
+    except Exception as e:
+        print(f"raw refresh failed: {type(e).__name__}: {e}")
 
 
 def write_state():
@@ -103,12 +140,13 @@ def main(full=False, skip_network=False):
     games0 = pd.read_parquet(OUT / "games.parquet")
     season = int(games0.season.max())
     if not skip_network:
+        keep_pull_log()
         seasons = list(range(2012, season + 1)) if full else [season - 1, season]
-        step("pull", lambda: pull.pull(seasons, ["schedules", "players", "ngs", "ngs_rec", "ngs_rush", "pbp", "injuries", "snap_counts", "rosters", "depth_charts", "pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats", "participation", "ftn"]), log)
+        step("pull", lambda: pull.pull(seasons, PULL_SETS), log)
         # the player-history sources for every season the game logs cover (only missing files are fetched): the cached
         # raw folder holds the recent seasons, and without these the logs' official tackles and Pro-Football-Reference
         # columns would go blank for older seasons
-        step("pull player history", lambda: pull.pull(list(range(2016, season + 1)), ["pfr_advstats", "pfr_pass", "pfr_rush", "pfr_rec", "player_stats"], force_current=False), log)
+        step("pull player history", lambda: pull.pull(list(range(2016, season + 1)), PULL_HISTORY, force_current=False), log)
     step("build", lambda: sh(["nflmodel.build"]), log)
     step("features", lambda: sh(["nflmodel.features"]), log)
     step("snap exposure", lambda: sh(["nflmodel.exposure"]), log)   # every player's snap share by game (raw snap counts only), for the props' snap trend (26 Sep 2026: no step built it; it stopped at Week 2). Before every step that asks which week is current (29 Sep 2026): the picks week advances only once the week before is in this file too, so with the step after the player, position and scheme steps, the first run after Monday's snap counts landed built those as of the old week while the picks moved on
@@ -189,6 +227,9 @@ if __name__ == "__main__":
         import json
         st = json.loads(STATE.read_text()) if STATE.exists() else {}
         if not st.get("pending"):
-            print(f"nothing pending: week {st.get('week')} " + ("complete" if st.get("complete") else "still in play") + "; no run"); sys.exit(0)
+            print(f"nothing pending: week {st.get('week')} " + ("complete" if st.get("complete") else "still in play") + "; no run")
+            if not a.skip_network:
+                refresh_raw()
+            sys.exit(0)
         print(f"retry: week {st.get('week')} waiting on " + "; ".join(st.get("missing", [])))
     main(a.full, a.skip_network)
