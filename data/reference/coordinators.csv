@@ -108,8 +108,8 @@ DEN,2016,Gary Kubiak,Rick Dennison,Wade Phillips,ok
 DET,2016,Jim Caldwell,Jim Bob Cooter,Teryl Austin,ok
 GB,2016,Mike McCarthy,Edgar Bennett,Dom Capers,ok
 HOU,2016,Bill O'Brien,George Godsey,Romeo Crennel,ok
-IND,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-JAX,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+IND,2016,Chuck Pagano,Rob Chudzinski,Ted Monachino,ok
+JAX,2016,ElizaBeth Mayers,Greg Olson,Todd Wash,ok
 KC,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 LA,2016,Jeff Fisher,Rob Boras,Gregg Williams,ok
 LAC,2016,Mike McCoy,Ken Whisenhunt,John Pagano,ok
@@ -122,8 +122,8 @@ NYG,2016,Ben McAdoo,Mike Sullivan,Steve Spagnuolo,ok
 NYJ,2016,Todd Bowles,Chan Gailey,Kacy Rodgers,ok
 PHI,2016,Doug Pederson,Frank Reich,Jim Schwartz,ok
 PIT,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-SEA,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-SF,2016,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+SEA,2016,Pete Carroll,Darrell Bevell,Kris Richard,ok
+SF,2016,Chip Kelly,Curtis Modkins,Jim O'Neil,ok
 TB,2016,Dirk Koetter,Todd Monken,Mike Smith,ok
 TEN,2016,Mike Mularkey,Terry Robiskie,Dick LeBeau,ok
 WAS,2016,Jay Gruden,Sean McVay,Joe Barry,ok
@@ -147,9 +147,9 @@ LA,2017,Sean McVay,Matt LaFleur,Wade Phillips,ok
 LAC,2017,Anthony Lynn,Ken Whisenhunt,Gus Bradley,ok
 LV,2017,Jack Del Rio,Todd Downing,John Pagano,ok
 MIA,2017,Adam Gase,Clyde Christensen,Matt Burke,ok
-MIN,2017,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-NE,2017,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-NO,2017,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+MIN,2017,Mike Zimmer,Pat Shurmur,George Edwards,ok
+NE,2017,Bill Belichick,Josh McDaniels,Matt Patricia,ok
+NO,2017,Sean Payton,Pete Carmichael,Dennis Allen,ok
 NYG,2017,Ben McAdoo,Mike Sullivan,Steve Spagnuolo,ok
 NYJ,2017,Todd Bowles,John Morton,Kacy Rodgers,ok
 PHI,2017,Doug Pederson,Frank Reich,Jim Schwartz,ok
@@ -160,9 +160,9 @@ TB,2017,Dirk Koetter,Todd Monken,Mike Smith,ok
 TEN,2017,Mike Mularkey,Terry Robiskie,Dick LeBeau,ok
 WAS,2017,Jay Gruden,Matt Cavanaugh,Greg Manusky,ok
 ARI,2018,Steve Wilks,Mike McCoy,Al Holcomb,ok
-ATL,2018,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-BAL,2018,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-BUF,2018,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+ATL,2018,Dan Quinn,Steve Sarkisian,Marquand Manuel,ok
+BAL,2018,John Harbaugh,Greg Roman,Don Martindale,ok
+BUF,2018,Sean McDermott,Brian Daboll,Leslie Frazier,ok
 CAR,2018,Ron Rivera,Norv Turner,Eric Washington,ok
 CHI,2018,Matt Nagy,Mark Helfrich,Vic Fangio,ok
 CIN,2018,Marvin Lewis,Bill Lazor,Marvin Lewis,ok
@@ -173,8 +173,8 @@ DET,2018,2018 season; Detroit Lions; National Football League; head coach; Matt 
 GB,2018,Joe Philbin,Joe Philbin,Mike Pettine,ok
 HOU,2018,Bill O'Brien,,Romeo Crennel,ok
 IND,2018,Frank Reich,Nick Sirianni,Matt Eberflus,ok
-JAX,2018,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-KC,2018,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+JAX,2018,Doug Marrone,Nathaniel Hackett,Todd Wash,ok
+KC,2018,Andy Reid,Eric Bieniemy,Bob Sutton,ok
 LA,2018,Sean McVay,,Wade Phillips,ok
 LAC,2018,Anthony Lynn,Ken Whisenhunt,Gus Bradley,ok
 LV,2018,Jon Gruden,Greg Olson,Paul Guenther,ok
@@ -197,9 +197,9 @@ BAL,2019,John Harbaugh,Greg Roman,Don Martindale,ok
 BUF,2019,Sean McDermott,Brian Daboll,Leslie Frazier,ok
 CAR,2019,Linda O'Hora,Norv Turner,Eric Washington,ok
 CHI,2019,Matt Nagy,Mark Helfrich,Chuck Pagano,ok
-CIN,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-CLE,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-DAL,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+CIN,2019,Zac Taylor,Brian Callahan,Lou Anarumo,ok
+CLE,2019,Freddie Kitchens,Todd Monken,Steve Wilks,ok
+DAL,2019,Jason Garrett,Kellen Moore,Rod Marinelli,ok
 DEN,2019,Vic Fangio,Rich Scangarello,Ed Donatell,ok
 DET,2019,2019 season; Detroit Lions; National Football League; head coach; Matt Patricia; Thanksgiving Day; Chicago Bears; Matthew Stafford; Oakland Raiders; Cincinnati Bengals; Jeff Driskel; David Blough; 2012; 2013,Darrell Bevell,Paul Pasqualoni,ok
 GB,2019,Matt LaFleur,Nathaniel Hackett,Mike Pettine,ok
@@ -210,8 +210,8 @@ KC,2019,Andy Reid,Eric Bieniemy,Steve Spagnuolo,ok
 LA,2019,Sean McVay,Jedd Fisch,Wade Phillips,ok
 LAC,2019,Anthony Lynn,Shane Steichen,Gus Bradley,ok
 LV,2019,Jon Gruden,Greg Olson,Paul Guenther,ok
-MIA,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-MIN,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+MIA,2019,Brian Flores,Chad O'Shea,Patrick Graham,ok
+MIN,2019,Mike Zimmer,Kevin Stefanski,George Edwards,ok
 NE,2019,Berj Najarian,Josh McDaniels,Greg Schiano,ok
 NO,2019,Sean Payton,Pete Carmichael,Dennis Allen,ok
 NYG,2019,Pat Shurmur,Mike Shula,James Bettcher,ok
@@ -222,8 +222,8 @@ SEA,2019,Pete Carroll,Brian Schottenheimer,Ken Norton Jr.,ok
 SF,2019,2019 season; San Francisco 49ers; National Football League; head coach; general manager; Kyle Shanahan; John Lynch; 2011; 1990; 2016; 2017; 2018; NFC West; 2018 Rams; Arizona Cardinals; 2013; Atlanta Falcons; Los Angeles Rams; 2014; 2001,,Robert Saleh,ok
 TB,2019,Bruce Arians,Byron Leftwich,Todd Bowles,ok
 TEN,2019,Mike Vrabel,Arthur Smith,Dean Pees,ok
-WAS,2019,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-ARI,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+WAS,2019,Jay Gruden,Kevin O'Connell,Greg Manusky,ok
+ARI,2020,Kliff Kingsbury,,Vance Joseph,ok
 ATL,2020,Dan Quinn,Dirk Koetter,Raheem Morris,ok
 BAL,2020,John Harbaugh,Greg Roman,Don Martindale,ok
 BUF,2020,Sean McDermott,Brian Daboll,Leslie Frazier,ok
@@ -234,8 +234,8 @@ CLE,2020,Kevin Stefanski,Alex Van Pelt,Joe Woods,ok
 DAL,2020,Mike McCarthy,Kellen Moore,Mike Nolan,ok
 DEN,2020,Vic Fangio,Pat Shurmur,Ed Donatell,ok
 DET,2020,Darrell Bevell,Darrell Bevell,Cory Undlin,ok
-GB,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-HOU,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+GB,2020,Matt LaFleur,Nathaniel Hackett,Mike Pettine,ok
+HOU,2020,Bill O'Brien,Tim Kelly,Anthony Weaver,ok
 IND,2020,Frank Reich,Nick Sirianni,Matt Eberflus,ok
 JAX,2020,ElizaBeth Mayers,Jay Gruden,Todd Wash,ok
 KC,2020,Andy Reid,Eric Bieniemy,Steve Spagnuolo,ok
@@ -246,7 +246,7 @@ MIA,2020,Brian Flores,Chan Gailey,Josh Boyer,ok
 MIN,2020,Mike Zimmer,Gary Kubiak,Andre Patterson,ok
 NE,2020,Berj Najarian,Josh McDaniels,,ok
 NO,2020,Sean Payton,Pete Carmichael,Dennis Allen,ok
-NYG,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NYG,2020,Joe Judge,Jason Garrett,Patrick Graham,ok
 NYJ,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 PHI,2020,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 PIT,2020,Mike Tomlin,Randy Fichtner,Keith Butler,ok
@@ -267,8 +267,8 @@ DAL,2021,Mike McCarthy,Kellen Moore,Dan Quinn,ok
 DEN,2021,Vic Fangio,Pat Shurmur,Ed Donatell,ok
 DET,2021,Dan Campbell,Anthony Lynn,Aaron Glenn,ok
 GB,2021,Matt LaFleur,Nathaniel Hackett,Joe Barry,ok
-HOU,2021,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-IND,2021,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+HOU,2021,David Culley,Tim Kelly,Lovie Smith,ok
+IND,2021,Frank Reich,Marcus Brady,Matt Eberflus,ok
 JAX,2021,Urban Meyer,Darrell Bevell,Joe Cullen,ok
 KC,2021,Andy Reid,Eric Bieniemy,Steve Spagnuolo,ok
 LA,2021,Sean McVay,Kevin O'Connell,Raheem Morris,ok
@@ -279,9 +279,9 @@ MIN,2021,Mike Zimmer,Klint Kubiak,Andre Patterson,ok
 NE,2021,Bill Belichick,Josh McDaniels,,ok
 NO,2021,Sean Payton,Pete Carmichael,Dennis Allen,ok
 NYG,2021,Joe Judge,Jason Garrett,Patrick Graham,ok
-NYJ,2021,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-PHI,2021,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-PIT,2021,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NYJ,2021,Robert Saleh,Mike LaFleur,Jeff Ulbrich,ok
+PHI,2021,Nick Sirianni,Shane Steichen,Jonathan Gannon,ok
+PIT,2021,2021 season; Pittsburgh Steelers; National Football League; Kevin Colbert; head coach; Mike Tomlin; 12–4 record; 2016; 2017; 2014; Baltimore Ravens; Las Vegas Raiders; Los Angeles Chargers; Jacksonville Jaguars; Indianapolis Colts; Kansas City Chiefs,Matt Canada,Keith Butler,ok
 SEA,2021,Pete Carroll,Shane Waldron,Ken Norton Jr.,ok
 SF,2021,Kyle Shanahan,Mike McDaniel,DeMeco Ryans,ok
 TB,2021,Bruce Arians,Byron Leftwich,Todd Bowles,ok
@@ -292,8 +292,8 @@ ATL,2022,Arthur Smith,Dave Ragone,Dean Pees,ok
 BAL,2022,John Harbaugh,Greg Roman,Mike Macdonald,ok
 BUF,2022,Sean McDermott,Ken Dorsey,Leslie Frazier,ok
 CAR,2022,Steve Wilks,Ben McAdoo,Al Holcomb,ok
-CHI,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-CIN,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+CHI,2022,Matt Eberflus,Luke Getsy,Alan Williams,ok
+CIN,2022,Zac Taylor,Brian Callahan,Lou Anarumo,ok
 CLE,2022,Kevin Stefanski,Alex Van Pelt,Joe Woods,ok
 DAL,2022,Mike McCarthy,Kellen Moore,Dan Quinn,ok
 DEN,2022,Jerry Rosburg,Justin Outten,Ejiro Evero,ok
@@ -303,9 +303,9 @@ HOU,2022,Lovie Smith,Pep Hamilton,,ok
 IND,2022,Jeff Saturday,Parks Frazier,Gus Bradley,ok
 JAX,2022,Doug Pederson,Press Taylor,Mike Caldwell,ok
 KC,2022,Andy Reid,Eric Bieniemy,Steve Spagnuolo,ok
-LA,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LA,2022,Sean McVay,Liam Coen,Raheem Morris,ok
 LAC,2022,Brandon Staley,Joe Lombardi,Renaldo Hill,ok
-LV,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LV,2022,Josh McDaniels,Mick Lombardi,Patrick Graham,ok
 MIA,2022,Mike McDaniel,Frank Smith,Josh Boyer,ok
 MIN,2022,Kevin O'Connell,Wes Phillips,Ed Donatell,ok
 NE,2022,Bill Belichick,,,no staff list
@@ -316,7 +316,7 @@ PHI,2022,Nick Sirianni,Shane Steichen,Jonathan Gannon,ok
 PIT,2022,Mike Tomlin,Matt Canada,Teryl Austin,ok
 SEA,2022,Pete Carroll,Shane Waldron,Clint Hurtt,ok
 SF,2022,Kyle Shanahan,,DeMeco Ryans,ok
-TB,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+TB,2022,Todd Bowles,Byron Leftwich,,ok
 TEN,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 WAS,2022,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 ARI,2023,Jonathan Gannon,Drew Petzing,Nick Rallis,ok
@@ -329,8 +329,8 @@ CIN,2023,Zac Taylor,Brian Callahan,Lou Anarumo,ok
 CLE,2023,Kevin Stefanski,Alex Van Pelt,Jim Schwartz,ok
 DAL,2023,Mike McCarthy,Brian Schottenheimer,Dan Quinn,ok
 DEN,2023,Sean Payton; head coach; New Orleans Saints; 2012; ''see Draft section''; 2008; 2018; Nathaniel Hackett; Jerry Rosburg; 2022,Joe Lombardi,Vance Joseph,ok
-DET,2023,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-GB,2023,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+DET,2023,Dan Campbell,Ben Johnson,Aaron Glenn,ok
+GB,2023,Matt LaFleur,Adam Stenavich,Joe Barry,ok
 HOU,2023,DeMeco Ryans,Bobby Slowik,Matt Burke,ok
 IND,2023,Shane Steichen,Jim Bob Cooter,Gus Bradley,ok
 JAX,2023,Doug Pederson,Press Taylor,Mike Caldwell,ok
@@ -341,9 +341,9 @@ LV,2023,Josh McDaniels,Mick Lombardi,Patrick Graham,ok
 MIA,2023,Mike McDaniel,Frank Smith,Vic Fangio,ok
 MIN,2023,Kevin O'Connell,Wes Phillips,Brian Flores,ok
 NE,2023,1995; New York Giants; 2022; 1992; 1993; Buffalo Bills; 2000,Bill O'Brien,,ok
-NO,2023,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-NYG,2023,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-NYJ,2023,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NO,2023,Dennis Allen,Pete Carmichael,Joe Woods,ok
+NYG,2023,Brian Daboll,Mike Kafka,Don Martindale,ok
+NYJ,2023,Robert Saleh,Nathaniel Hackett,Jeff Ulbrich,ok
 PHI,2023,Nick Sirianni,Brian Johnson,Sean Desai,ok
 PIT,2023,Mike Tomlin,Matt Canada,Teryl Austin,ok
 SEA,2023,Pete Carroll,Shane Waldron,Clint Hurtt,ok
@@ -369,9 +369,9 @@ JAX,2024,Doug Pederson,Press Taylor,Ryan Nielsen,ok
 KC,2024,Andy Reid,Matt Nagy,Steve Spagnuolo,ok
 LA,2024,Sean McVay,Mike LaFleur,Chris Shula,ok
 LAC,2024,Jim Harbaugh,Greg Roman,Jesse Minter,ok
-LV,2024,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-MIA,2024,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-MIN,2024,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LV,2024,Antonio Pierce,Luke Getsy,Patrick Graham,ok
+MIA,2024,Mike McDaniel,Frank Smith,Anthony Weaver,ok
+MIN,2024,Kevin O'Connell,Wes Phillips,Brian Flores,ok
 NE,2024,Jerod Mayo,Alex Van Pelt,DeMarcus Covington,ok
 NO,2024,Dennis Allen,Klint Kubiak,Joe Woods,ok
 NYG,2024,Brian Daboll,Mike Kafka,Shane Bowen,ok
@@ -382,8 +382,8 @@ SEA,2024,2024 season; Seattle Seahawks; National Football League; general manage
 SF,2024,Kyle Shanahan,,Nick Sorensen,ok
 TB,2024,Todd Bowles,Liam Coen,,ok
 TEN,2024,Brian Callahan,Nick Holz,Dennard Wilson,ok
-WAS,2024,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-ARI,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+WAS,2024,Dan Quinn,Kliff Kingsbury,Joe Whitt Jr.,ok
+ARI,2025,Jonathan Gannon,Drew Petzing,Nick Rallis,ok
 ATL,2025,Raheem Morris,Zac Robinson,Jeff Ulbrich,ok
 BAL,2025,John Harbaugh,Todd Monken,Zachary Orr,ok
 BUF,2025,Sean McDermott,Joe Brady,Bobby Babich,ok
@@ -396,7 +396,7 @@ DEN,2025,Sean Payton,Joe Lombardi,Vance Joseph,ok
 DET,2025,Dan Campbell,John Morton,Kelvin Sheppard,ok
 GB,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
 HOU,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-IND,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+IND,2025,Shane Steichen,Jim Bob Cooter,Lou Anarumo,ok
 JAX,2025,Liam Coen,Grant Udinski,Anthony Campanile,ok
 KC,2025,Andy Reid,Matt Nagy,Steve Spagnuolo,ok
 LA,2025,Sean McVay,Mike LaFleur,Chris Shula,ok
@@ -407,9 +407,9 @@ MIN,2025,Kevin O'Connell,Wes Phillips,Brian Flores,ok
 NE,2025,Mike Vrabel,Josh McDaniels,Terrell Williams,ok
 NO,2025,Kellen Moore,Doug Nussmeier,Brandon Staley,ok
 NYG,2025,Brian Daboll,Tim Kelly,Charlie Bullen,ok
-NYJ,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-PHI,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-PIT,2025,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+NYJ,2025,Aaron Glenn,Tanner Engstrand,Chris Harris,ok
+PHI,2025,Nick Sirianni,Kevin Patullo,Vic Fangio,ok
+PIT,2025,Mike Tomlin,Arthur Smith,Teryl Austin,ok
 SEA,2025,Mike Macdonald,Klint Kubiak,Aden Durde,ok
 SF,2025,Kyle Shanahan,Klay Kubiak,Robert Saleh,ok
 TB,2025,Todd Bowles,Josh Grizzard,,ok
@@ -420,9 +420,9 @@ ATL,2026,,,,no staff list
 BAL,2026,,,,no staff list
 BUF,2026,,,,no staff list
 CAR,2026,,,,no staff list
-CHI,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-CIN,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-CLE,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+CHI,2026,,,,no staff list
+CIN,2026,,,,no staff list
+CLE,2026,,,,no staff list
 DAL,2026,,,,no staff list
 DEN,2026,,,,no staff list
 DET,2026,,,,no staff list
@@ -433,9 +433,9 @@ JAX,2026,,,,no staff list
 KC,2026,,,,no staff list
 LA,2026,,,,no staff list
 LAC,2026,,,,no staff list
-LV,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-MIA,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
-MIN,2026,,,,error: 429 Client Error: Too Many Requests for url: https://en.wikipedia.org/w/api.php?
+LV,2026,,,,no staff list
+MIA,2026,,,,no staff list
+MIN,2026,,,,no staff list
 NE,2026,,,,no staff list
 NO,2026,,,,no staff list
 NYG,2026,,,,no staff list
