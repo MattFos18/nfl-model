@@ -2352,7 +2352,7 @@ succeeds resumes the 15-second polling. The rankings table no longer prints a gr
 rows are ranked by the sorted column.
 
 **Sub-view tabs, the team odds table, the Breakdown jump list, the Live first paint, one Players view (29 Sep 2026,
-Matt).** The view buttons under each tab are one row of underlined tabs, not stacked pills (they wrap on a phone). The
+Matt).** The view buttons under each tab are one joined row of segments with the open view filled dark, the same control as the Player totals stat picker, so they read apart from the underlined main tabs (an underlined row was tried first and looked too much like them); they wrap inside the box on a phone. The
 Futures team odds table is set larger than the other tables, with 24-pixel logos. On the Breakdown, the jump list is a
 sticky column beside the cards instead of a box fixed under a header that scrolls away, and picking the game in view
 scrolls the list itself, never the page. The Live tab's first paint waits for the page's own ESPN answer (a few hundred
