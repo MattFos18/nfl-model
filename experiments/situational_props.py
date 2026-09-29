@@ -113,7 +113,7 @@ STATS = {"rec_yards": ("rec", "yds_line", "act_yds", "mae", 10.0), "rec_catches"
          "rush_td": ("rush", "td_line", "act_td", "pll", 0.3), "pass_yards": ("pass", "yds_line", "act_yds", "mae", 50.0), "pass_dropbacks": ("pass", "vol", "act_n", "mae", 5.0),
          "pass_td": ("pass", "td_line", "act_td", "pll", 0.3), "pass_int": ("pass", "int_line", "act_int", "pll", 0.3)}
 CHANCE_OF = {"rec_yards": ("ratio", [-15, -10, -5, 0, 5, 10, 15], 0.0), "rec_catches": ("ratio", [-2, -1, 0, 1, 2], 0.0), "rush_yards": ("diff", [-15, -10, -5, 0, 5, 10, 15], 10.0), "pass_yards": ("diff", [-45, -30, -15, 0, 15, 30, 45], 0.0)}
-BOOK_OF = {"rec_yards": "rec_yards", "rec_catches": "rec_catches", "rec_targets": "rec_targets", "rush_yards": "rush_yards", "rush_carries": "rush_attempts", "pass_yards": "pass_yards", "pass_td": "pass_td", "pass_int": "pass_int"}
+BOOK_OF = {"rec_yards": "rec_yards", "rec_catches": "rec_catches", "rec_targets": "rec_targets", "rush_yards": "rush_yards", "rush_carries": "rush_attempts", "pass_yards": "pass_yards", "pass_td": "pass_td", "pass_int": "pass_int", "rec_td": "anytime_td", "rush_td": "anytime_td"}
 POSG = {"rec": {"WR": 0, "TE": 1, "RB": 2, "FB": 2, "HB": 2}, "rush": {"RB": 0, "FB": 0, "HB": 0, "QB": 1}}
 POSG_NAME = {"rec": ["WR", "TE", "RB", "other"], "rush": ["RB", "QB", "other"]}
 A_GRID = np.round(np.linspace(-0.3, 0.3, 241), 5)          # the size per standard deviation of the centred input (L)
@@ -291,6 +291,11 @@ def book_lines():
         x["st_"] = x.game_id.map(dict(zip(g.game_id, ko))); x = x[x.ts_ < x.st_]; x["key"] = x.player.map(norm_name)   # the kickoff from the schedule (pick'em rows carry no start)
         x = x.sort_values("ts_").groupby(["game_id", "stat", "key", "book"]).tail(1)
         _BOOK = x.groupby(["game_id", "stat", "key"]).line.median().reset_index()
+        a = pd.read_csv(RAW.parent / "lines" / "props_log.csv"); a = a[a.stat.eq("anytime_td") & a.over_price.notna()].copy()
+        a["ts_"] = pd.to_datetime(a.ts.str.replace(r"T(\d\d)-(\d\d)-(\d\d)Z", r" \1:\2:\3", regex=True), utc=True, errors="coerce"); a["st_"] = a.game_id.map(dict(zip(g.game_id, ko)))
+        a = a[a.ts_ < a.st_]; a["key"] = a.player.map(norm_name); a = a.sort_values("ts_").groupby(["game_id", "key", "book"]).tail(1)
+        op = a.over_price.astype(float); a["p"] = np.where(op > 0, 100 / (op + 100), -op / (-op + 100))
+        _BOOK = pd.concat([_BOOK, a.groupby(["game_id", "key"]).p.median().rename("line").reset_index().assign(stat="anytime_td")], ignore_index=True)   # anytime: the implied chance (with the vig)
     return _BOOK
 
 
@@ -314,7 +319,9 @@ def lean_record(st, line_var):
     res = []
     for L in (st.line, line_var):
         our = L[q.i.values]; bk = q.line.values; a = st.act[q.i.values]
-        if st.loss == "pll":
+        if BOOK_OF[st.name] == "anytime_td":
+            pa = 1 - np.exp(-np.clip(our, 1e-3, None)); side = np.sign(pa - bk); a = (a >= 1).astype(float); bk = np.full(len(bk), 0.5)   # yes when our chance of a score beats the price's
+        elif st.loss == "pll":
             from scipy.stats import poisson
             side = np.sign((1 - poisson.cdf(np.floor(bk), np.clip(our, 1e-3, None))) - 0.5)   # a count: over when P(more than the line) > 1/2
         else:
@@ -816,7 +823,7 @@ def share_sums_known(KF, roster_too=False):
     less this week's Out and Doubtful (roster_too: and anyone without an active roster listing that week)."""
     f = KF.f; b = PR.GS["rec"]; tplays = f.tv.values / f.tgames.values + b[0] + b[1] * f.me.values + b[2] * f.tc.values
     share_f = np.where(tplays > 0, f.vol.values / tplays, 0.0)
-    S = pd.Series(share_f).groupby([f.game_id.values, f.posteam.values]).sum()
+    S = pd.DataFrame({"game_id": f.game_id.values, "posteam": f.posteam.values, "sh": share_f}).groupby(["game_id", "posteam"]).sh.sum()
     sx = pd.read_parquet(OUT / "snap_exposure.parquet", columns=["player_id", "game_id", "season", "week", "team", "position", "off_pct"]).rename(columns={"player_id": "pid"})
     sx = sx[(sx.off_pct > 0) & sx.position.isin(PR.SKILL["rec"]) & (sx.season >= 2015)]
     tg = sx[["team", "game_id", "season", "week"]].drop_duplicates().sort_values(["team", "season", "week"]).reset_index(drop=True); tg["k"] = tg.groupby("team").cumcount()
@@ -890,23 +897,65 @@ def readings_absorb():
     return out
 
 
+def _combo(st, items, base_lm):
+    lm = base_lm.copy(); KF = st.K
+    for key, v in items:
+        if v["typ"] not in ("L", "P", "H", "C"): continue
+        groups = KF.pos_group if key[2] == "by position" else None; raw = raw_of(KF, v["typ"], v["col"])
+        cands, _ = make_cands(st, v["typ"], raw, KF.season <= (2017 if v["has1718"] else 2025), PAIRS_.get("rec"))
+        _, lm, _ = st.fit(cands, groups, base_lm=lm)
+    lv = st.lf(st.line * np.exp(lm), st.act); return lm, st.windows(lv)
+
+
 def together(keep):
-    """The pieces passing rules 1-3, per stat, refitted together: each piece fitted walk-forward on top of the ones
-    before it (in order of their 2019-25 gain); the combination must pass rules 1 and 2."""
+    """Rule 5. The pieces passing rules 1-3, per stat, one variant per idea (the one with the larger 2019-25 gain),
+    refitted together: each fitted walk-forward on top of the ones before it (largest gain first), the receiving share cap
+    (Task B) as the base line where it passed. First all of them; then, if that fails rules 1-2, a forward pass that keeps
+    a piece only if the combination still passes both."""
     out = {}; by = {}
     for key, v in keep.items():
-        if v["row"].get("rule3") and v["typ"] in ("L", "P", "H", "C"): by.setdefault(key[1], []).append((key, v))
+        if v["row"].get("rule3"): by.setdefault(key[1], []).append((key, v))
     for sname, items in by.items():
-        st = ST_[sname]; KF = st.K; items.sort(key=lambda kv: kv[1]["W"]["2019-22"][0] + kv[1]["W"]["2023-25"][0]); lm = np.zeros(KF.n)
+        st = ST_[sname]; KF = st.K; base = np.zeros(KF.n); names = []
+        cap = [kv for kv in items if kv[1]["typ"] == "B2"]
+        if cap:
+            roster_too = "inactive" in cap[0][1]["col"]; S, _, _ = share_sums_known(KF_["rec"], roster_too); c_ = np.minimum(1.0, 1.0 / np.where(S > 0, S, 1.0))
+            line = {"rec_yards": Rule(KF).yds(Rule(KF).mean * c_), "rec_catches": KF.f.catch_line.values * c_, "rec_targets": KF.f.vol.values * c_}[sname]
+            base = np.log(np.where(st.line > 0, line / np.where(st.line > 0, st.line, 1), 1.0)); names.append(cap[0][0][0])
+        best = {}
         for key, v in items:
-            groups = KF.pos_group if key[2] == "by position" else None; raw = raw_of(KF, v["typ"], v["col"])
-            cands, _ = make_cands(st, v["typ"], raw, KF.season <= (2017 if v["has1718"] else 2025), PAIRS_.get("rec"))
-            _, lm, _ = st.fit(cands, groups, base_lm=lm)
-        lv = st.lf(st.line * np.exp(lm), st.act); W = st.windows(lv); has = all(v["has1718"] for _, v in items)
-        row = {"family": "Together", "idea": " + ".join(f"{k[0]}[{k[2]}]" for k, _ in items), "type": "T", "variant": "together", "stat": sname, "has_2017_18": has, "what": "the passing pieces refitted together",
-               "fit_2026": "", **{f"diff_{w}": round(W[w][0], 5) for w in WIN3}, **{f"se_{w}": round(W[w][1], 5) for w in WIN3}, **{f"base_{w}": round(W[w][2], 4) for w in WIN3}, "rule1": rule1(W, has)}
-        k2 = {("together", sname, "together"): {"lm": lm, "row": row, "W": W}}; rule2(k2); out[sname] = row; log("together", sname, row)
+            if v["typ"] not in ("L", "P", "H", "C"): continue
+            g = v["W"]["2019-22"][0] + v["W"]["2023-25"][0]
+            if key[0] not in best or g < best[key[0]][0]: best[key[0]] = (g, key, v)
+        pieces = [(k, v) for _, k, v in sorted(best.values(), key=lambda t: t[0])]
+        def evaluate(ps, label):
+            lm, W = _combo(st, ps, base); has = all(v["has1718"] for _, v in ps) if ps else True
+            row = {"family": "Together", "idea": " + ".join(names + [f"{k[0]}[{k[2]}]" for k, _ in ps]), "type": "T", "variant": label, "stat": sname, "has_2017_18": has, "what": "the passing pieces refitted together",
+                   "fit_2026": "", **{f"diff_{w}": round(W[w][0], 5) for w in WIN3}, **{f"se_{w}": round(W[w][1], 5) for w in WIN3}, **{f"base_{w}": round(W[w][2], 4) for w in WIN3}, "rule1": rule1(W, has)}
+            k2 = {("together", sname, label): {"lm": lm, "row": row, "W": W}}; rule2(k2); return row
+        row = evaluate(pieces, "together (all)"); out[(sname, "all")] = row; log("together", sname, row["idea"], {w: row[f"diff_{w}"] for w in WIN3}, row["rule1"], row.get("rule2"))
+        if not (row["rule1"] and row.get("rule2")) and len(pieces) > 1:
+            kept = []
+            for kv in pieces:
+                r_ = evaluate(kept + [kv], "trial")
+                if r_["rule1"] and r_.get("rule2"): kept.append(kv)
+            if kept:
+                row = evaluate(kept, "together (forward)"); out[(sname, "forward")] = row; log("together forward", sname, row["idea"], {w: row[f"diff_{w}"] for w in WIN3})
     return out
+
+
+def main_together():
+    import pickle
+    res = pickle.load(open(CACHE / "results_all.pkl", "rb")); setup()
+    keep = res["keep"]
+    for k, v in keep.items():   # the pieces' walk-forward numbers are recomputed inside together; only the metadata is needed
+        v.setdefault("W", {w: (v["row"][f"diff_{w}"], v["row"][f"se_{w}"], v["row"][f"base_{w}"]) for w in WIN3})
+    tog = together(keep)
+    res["rows"] = [r for r in res["rows"] if r["family"] != "Together"] + list(tog.values())
+    with open(CACHE / "results_all.pkl", "wb") as fh: pickle.dump(res, fh)
+    write_report("all")
+
+
 def main_run():
     import pickle
     setup(); fams = sys.argv[2:] or None
@@ -926,6 +975,8 @@ def main_run():
 # ------------------------------------------------------------------------------------------------------------ report
 def verdict(r):
     if r.get("type") == "R": return "reading"
+    if r.get("type") == "T":
+        return ("passes 1-2 together (rule 5 met)" if (r.get("rule1") and r.get("rule2")) else "the combination fails " + ("1" if not r.get("rule1") else "2"))
     if not r.get("rule1"):
         bad = [w for w in WIN3 if not (r.get(f"diff_{w}", 1) < 0 or (w == "2017-18" and not r.get("has_2017_18") and r.get(f"diff_{w}", 1) <= 1e-12))]
         return "fails 1 (" + ", ".join(bad) + ")"
@@ -956,10 +1007,11 @@ def write_report(tag="all"):
     D[cols].to_csv("reports/situational_props.csv", index=False)
     meta = json.load(open(CACHE / "pvp_meta.json"))
     L = [REPORT_HEAD]
-    n_tests = int((D.type.isin(["L", "P", "H", "C"])).sum()); n1 = int(D.rule1.fillna(False).astype(bool).sum())
-    L.append(f"\n## Tally\n\n{n_tests} idea x stat x variant tests (Task A and the four added families), {n1} pass rule 1 (all windows lower), "
-             f"{int(D.rule2.fillna(False).astype(bool).sum())} pass rules 1-2, {int(D.rule3.fillna(False).astype(bool).sum())} pass rules 1-3. Under pure noise about one test in eight would pass rule 1 "
-             f"(three windows each a coin flip), about {n_tests // 8} here: the placebo is what separates the rest.\n")
+    T = D[D.type.isin(["L", "P", "H", "C"])]; n_tests = len(T); f_ = lambda c: int(T[c].fillna(False).astype(bool).sum())
+    L.append(f"\n## Tally\n\n{n_tests} idea x stat x variant tests in Task A and the four added families: {f_('rule1')} pass rule 1 (every window lower), "
+             f"{f_('rule2')} pass rules 1-2, {f_('rule3')} pass rules 1-3 (Task B and the combinations are counted in their own sections). The walk-forward fit "
+             f"often keeps no effect for a season (a window with no change counts as not better), so fewer than the one in eight a coin flip per window "
+             f"would give pass rule 1; the placebo, not rule 1, is what separates a small real gain.\n")
     def table(g):
         out = ["| idea | variant | stat | miss 2017-18 | 2019-22 | 2023-25 | chance LL 2018 / 19-22 / 23-25 | lean rule / variant | placebo (beaten of 50, worst window) | verdict |", "|---|---|---|---|---|---|---|---|---|---|"]
         for _, r in g.iterrows():
@@ -1055,19 +1107,53 @@ FAMILY_NOTE = {
         "correlation is {shadow_persist:.2f}, so a credits-based shadow reading is mostly noise); the receiver's and the QB's "
         "man / zone split from earlier seasons x the opponent's man rate last season; LBs and safeties against TE / RB "
         "receiving; the front (IDL, LB, EDGE) and last season's 8+ box rate against rushing; the pass rush (EDGE, IDL) and "
-        "his line's sacks and hits allowed against passing. The play-caller's coverage mix is the defense's man rate."),
+        "his line's sacks and hits allowed against passing. The play-caller's coverage mix is the defense's man rate. "
+        "How thin the corner pair histories are: of 83,665 receiver x expected-corner pairs in 2019-25, 70% have no earlier-season "
+        "target with that corner on the field; among the rest the median is 5 such targets (about one game's worth), the 90th "
+        "percentile 17, and 2.3% reach 20. Man / zone is known on about 40% of pass plays from 2018 (none before)."),
 }
 
 CODE_NOTE = """
-## Code change for anything that passed
+## What passed, and the code change it would need (described, not applied)
 
-Only an idea marked **passes 1-3** in a table above (and whose "together" row passes 1 and 2) is a candidate; the change is
-described here, not applied (nflmodel/ is not touched by this study). See the summary for which, if any.
+Every piece below passes rules 1-3 alone and its stat's pieces pass rules 1-2 refitted together (rule 5). Each is a factor
+on the final line of one stat only, after round 13's injury/snap factor, exp(b x (z - q)): z the input for this game, q the
+player's own 0.85-decayed mean of z over his earlier player-games (weight 1 on his latest game, 0.85 on the one before, ...,
+over the same games the profile counts). b is the last walk-forward refit (on 2016-2025); rerunning the study re-derives it.
+
+| stat | input z (as of before kickoff) | b per unit of z | size | gain per player-game 2017-18 / 2019-22 / 2023-25 |
+|---|---|---|---|---|
+| receptions | known-out starters' share at his own position group (the share ABSORB already hands on; `absorbed` share of the absent starters, the report's Out/Doubtful or no active listing) | +0.425 | +4.9% per 0.11 of out share | 0.0031 / 0.0009 / 0.0019 catches |
+| receptions | this week's expected starting corners' rating (top three by snap share over the last 3 games, less the known-out; positions.py CB recipe) | -5.64 | -1.9% per sd | - / 0.0002 / 0.0011 |
+| receptions | days of rest (4 to 14) | -0.0094 | -1.9% per 2 days | 0.0005 / 0.0004 / 0.0007 |
+| receptions | known-out RB starters' share (ABSORB's rushing table) | +0.113 | +2.3% per 0.2 | 0.0008 / 0.0004 / 0.0003 |
+| targets | the shares capped at one over the roster the card can know, Out / Doubtful AND anyone without an active roster listing removed (props._KNOWN_OUT's definition); the as-specified version (Out / Doubtful only) fails rule 2 by one lean (83-64 against 84-63) | - | shares x min(1, 1/sum) | 0.0056 / 0.0022 / 0.0028 targets |
+| targets | known-out starters' share at his group | +0.319 | +3.6% per 0.11 | 0.0016 / 0.0012 / 0.0024 |
+| targets | days of rest | -0.0042 | -0.8% per 2 days | 0.0005 / 0.0001 / 0.0004 |
+| receiving TDs | this week's starter's QB rating (the game model's qb_rating) | +0.943 | +9.6% per sd | 0.0007 / 0.0000 / 0.0002 log loss |
+| receiving TDs | rain at kickoff (the game model's rain call; outdoors) | -0.186 | -17% in rain | 0.0002 / 0.0002 / 0.0001 |
+| rushing yards | cold: under 35 F outdoors (the game model's cold call) | +0.1026 | +10.8% (+2.8 yards on a 26-yard line) | 0.0098 / 0.0093 / 0.0039 yards |
+| rushing TDs | mph of kickoff wind above 10 on turf | +0.0343 | +4.5% per sd | 0.0001 / 0.0001 / 0.0002 log loss |
+| passing TDs | expected starting corners' rating minus the corners who played the defense's last 8 games | -11.9 | -1.8% per sd | - / 0.0001 / 0.0003 |
+
+In nflmodel/props.py this is: (1) a table SIT = {stat: [(input, b)]} of the rows above; (2) in project_game, after the
+injury/snap factor, line *= exp(sum b x (z - q)) per stat, with z read from what the weekly run already builds (rest and cold
+and rain from the game's features row, qb_rating from the same row, wind from the forecast with the schedule's surface,
+the known-out shares from the absorb step, the corner ratings from positions.role_rates and the snap counts) and q from the
+player's profile games (a decayed mean kept in receivers()/rushers() beside the share); (3) the targets line
+(share_yds x pass plays x TARGETABLE) scaled by min(1, 1 / the team's share_yds sum over the rows not out) for the targets
+market only; (4) experiments/props_by_season.py applies the same factors so props_reference.parquet (the chance's table)
+carries them. Every gain is under a hundredth of a catch or target, a hundredth of a yard of rushing, a thousandth of log
+loss: real by the rule's placebo, too small to see on a card. The cap on targets makes the targets line disagree with the
+receptions and yards lines it feeds (both lose with the cap: receptions +0.002 / +0.002 / +0.001, yards +0.024 / +0.018 /
+-0.003), so it is the one to weigh before adopting.
 """
 
 
 if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "run":
     main_run(); write_report("_".join(f.replace(" ", "") for f in sys.argv[2:]) if sys.argv[2:] else "all"); sys.exit(0)
+if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "together":
+    main_together(); sys.exit(0)
 if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] == "report":
     write_report(sys.argv[2] if len(sys.argv) > 2 else "all"); sys.exit(0)
 if __name__ == "__main__" and len(sys.argv) > 1 and sys.argv[1] in ("build", "features"):
