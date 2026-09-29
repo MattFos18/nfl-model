@@ -2632,8 +2632,10 @@ regular-season filter, so for 2015-20 the wild-card game was counted; that is fi
 
 **Betting splits on the cards** (`nflmodel/splits.py`; 29 Sep 2026, Matt). The share of bets and the share of money on
 each side of every game's spread, total and moneyline, from DraftKings Network's public splits page, read by Python on
-every line watch (appended to `data/lines/splits_log.csv`, newest in `splits_latest.csv`). Each Breakdown card shows two
-bars in the Spread, Total and Win blocks, Bets and Money, under the model's own bars. Display only: no split is an input
+every line watch (appended to `data/lines/splits_log.csv`, newest in `splits_latest.csv`). Each Breakdown card has a Betting splits
+section under the line chart in its Spread and Total blocks and at the foot of the Win block: Tickets (share of bets
+placed) and Handle (share of money wagered), thin two-tone bars with the number at each end, set apart from the model's
+chance bars (29 Sep 2026, Matt: the first version read too much like the win chances). Display only: no split is an input
 to any projection, since market numbers stay out of the model. The log builds the history a split study needs; past
 seasons' splits are not public for free (Action Network's free feed leaves them blank, VSiN loads them by script), so a
 test on past seasons waits for a bought history.
