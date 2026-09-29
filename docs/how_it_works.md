@@ -2317,4 +2317,8 @@ same day: an incomplete pass is a dashed line downfield ending in an X with no t
 draws it, the flight as a dashed arc from the kick to where it was fielded (the distance parsed from the play text,
 since ESPN's yardage for a kick is the net) and the return as a solid line; the line sits in the clear band between
 the hash marks and the ball with its tag on the line, off the yard numbers; the tile's small field draws no play.
+Then again the same evening: the play runs along the ball's line and leads to the ball (a run, sack or penalty as a
+straight line; a pass as a dashed arc from the throw to the catch; an incomplete pass as a dashed arc from the ball
+downfield ending in an X); no tag on the field, the play's name and yards (Run +7, Pass +26, Sack −8, Incomplete,
+Punt 55) sit as a chip in the header row beside the down and distance.
 
