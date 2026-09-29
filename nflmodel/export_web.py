@@ -296,7 +296,7 @@ def player_model_constants() -> dict:
     """The player model's settings (players.py, positions.py, ratings.py): the skill value behind "points if out" and
     each group's replacement level behind "vs an average starter"."""
     from . import players as PL, positions as PO, ratings as RA
-    return {"decay": PL.DEFAULT["decay"], "k": PL.DEFAULT["k"], "usage_games": PL.DEFAULT["usage_games"], "skill_pct": PL.DEFAULT["pct"], "repl_pct": PO.REPL_PCT,
+    return {"decay": PL.DEFAULT["decay"], "k": PL.DEFAULT["k"], "rank_k": PL.RANK["k"], "usage_games": PL.DEFAULT["usage_games"], "skill_pct": PL.DEFAULT["pct"], "repl_pct": PO.REPL_PCT,
             "qb_prior": RA.DEFAULT["qb_prior"], "edge_press": PO.EDGE_PRESS, "min_plays_prior": 100,
             "starters": PO.STARTERS, "starters_def": PO.STARTERS_DEF, "starter_qb_games": PO.STARTER_QB_GAMES}
 

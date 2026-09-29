@@ -24,7 +24,8 @@ from .features import RAW, OUT, TEAM_FIX
 ROLES = {"passer": ("passer_player_id", "passer_player_name", "qb_dropback"), "rusher": ("rusher_player_id", "rusher_player_name", "rush_attempt"),
          "receiver": ("receiver_player_id", "receiver_player_name", "pass_attempt")}
 SKILL = {"rusher", "receiver"}
-DEFAULT = {"decay": 0.985, "k": 480.0, "usage_games": 8, "pct": 10}   # k 80 / 25th percentile until 23 Sep 2026: swept on both windows and 2015 to 2018 (reports/player_knobs.csv, player_third.csv)
+DEFAULT = {"decay": 0.985, "k": 480.0, "usage_games": 8, "pct": 10}
+RANK = {**DEFAULT, "k": 120.0}   # the Players tab's ranking (29 Sep 2026, experiments/rankings_predictive.py): 120 plays of shrinkage forecasts the next four games better than 480 for passers, rushers and receivers on both windows; the game model's injury inputs keep DEFAULT, chosen on the team-points miss   # k 80 / 25th percentile until 23 Sep 2026: swept on both windows and 2015 to 2018 (reports/player_knobs.csv, player_third.csv)
 PCOLS = ["game_id", "season", "week", "season_type", "posteam", "epa", "qb_epa", "qb_dropback", "rush_attempt", "pass_attempt", "play_type", "two_point_attempt"] + [c for r in ROLES.values() for c in r[:2]]
 
 
