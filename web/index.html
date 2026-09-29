@@ -428,7 +428,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </nav>
   <div id="rankings" hidden>
   
-  <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model" id="rkwinmodel">Model (decayed)</option><option value="season">This season only, equal weight</option><option value="last3">Last three weeks</option><option value="last1">Last week only</option><option value="lastseason">Last season only</option></select></label></div>
+  <div class="row"><label class="ctl">Season <select id="rkseason"></select></label><label class="ctl">As of <select id="rkweek"></select></label><label class="ctl">Window <select id="rkwin"><option value="model" id="rkwinmodel">Model</option><option value="season">This season</option><option value="last3">Last 3 weeks</option><option value="last1">Last week</option><option value="lastseason">Last season</option></select></label></div>
   <div class="grid2e" style="margin-bottom:14px">
     <div class="card viz-root" id="scatcard"><p class="note" id="scatsub" style="margin:0 0 6px"></p><div id="scatter"></div><div class="tip" id="tip2"></div></div>
     <div class="card viz-root"><h3>Power rating</h3><p class="note" id="powersub" style="margin:0 0 6px"></p><div id="powerbar"></div></div>
@@ -1750,7 +1750,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (rkWeek == null || !weeks.includes(rkWeek)) rkWeek = rankWeekDefault(rkSeason, weeks);
     sel.value = rkWeek; sel.onchange = () => { rkWeek = +sel.value; renderRankings(); };
     const tabl = RK.seasons[S][String(rkWeek)]; const teams = Object.keys(tabl.teams);
-    $("rkwinmodel").textContent = `Model (decayed, last season at ${RK.params.prior} weight)`;
+    $("rkwinmodel").textContent = "Model";   // concise (29 Sep 2026, Matt)
     const wsel = $("rkwin"); const haveWin = tabl.windows && Object.keys(tabl.windows).length; wsel.disabled = !haveWin; if (!haveWin) rkWin = "model"; wsel.value = rkWin; wsel.onchange = () => { rkWin = wsel.value; renderRankings(); };
     const src = (rkWin !== "model" && tabl.windows && tabl.windows[rkWin]) ? tabl.windows[rkWin] : tabl.teams;
     const cols = [["power", "Power (pts vs avg team)", 1], ["power_pf", "Points for vs avg", 1], ["power_pa", "Points allowed vs avg", -1], ["off_epa_play", "Off EPA rating", 1], ["def_epa_play", "Def EPA rating", 1],
