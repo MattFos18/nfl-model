@@ -32,11 +32,11 @@ nav.tabs{display:flex;flex-wrap:wrap;gap:0 8px;border-bottom:1px solid var(--rul
 nav.tabs .tg{display:flex;flex-direction:column} nav.tabs .tg+.tg{border-left:1px solid var(--rule);padding-left:8px} nav.tabs .tgl{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:8px 13px 0;line-height:1} nav.tabs .tgb{display:flex;gap:2px;flex-wrap:wrap}
 nav.tabs button{font:inherit;font-family:var(--display);font-size:15.5px;font-weight:500;color:var(--ink-2);background:none;border:0;border-bottom:3px solid transparent;padding:5px 13px 8px;cursor:pointer}
 nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-nav.sub{max-width:none;display:flex;flex-wrap:nowrap;gap:0 4px;margin:12px 0 12px;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none}
-nav.sub::-webkit-scrollbar{display:none}
-nav.sub button{font:inherit;font-size:13.5px;font-weight:500;color:var(--ink-2);background:none;border:0;border-bottom:2px solid transparent;border-radius:0;padding:6px 11px 7px;margin-bottom:-1px;cursor:pointer;white-space:nowrap}
-nav.sub button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
-nav.sub button:hover{color:var(--ink)}
+nav.sub{max-width:none;display:inline-flex;flex-wrap:nowrap;gap:0;margin:12px 0 12px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--panel)}
+nav.sub button{font:inherit;font-size:13px;font-weight:500;color:var(--ink-2);background:var(--panel);border:0;border-left:1px solid var(--rule);border-radius:0;padding:6px 14px;cursor:pointer;white-space:nowrap}
+nav.sub button:first-child{border-left:0}
+nav.sub button[aria-selected="true"]{background:var(--ink);color:var(--ground);font-weight:600}
+nav.sub button:hover:not([aria-selected="true"]){background:var(--panel-2);color:var(--ink)}
 section.tab{padding-top:12px}
 .note{color:var(--ink-2);font-size:13px;max-width:78ch;margin:0 0 12px}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:0 0 12px}
@@ -272,7 +272,7 @@ details.psec{overflow-x:auto} .ptab2 tr.calc td{white-space:normal}
   h1{font-size:22px} h2{font-size:17px}
   header{gap:6px 16px;padding-block:12px 6px}
   nav.tabs button{font-size:14.5px;padding:4px 9px 7px} nav.tabs .tgl{padding:6px 9px 0} nav.tabs .tg+.tg{border-left:0;padding-left:0}
-  nav.sub{flex-wrap:wrap} nav.sub button{padding:5px 9px 6px} .chip{padding:5px 10px}
+  nav.sub{flex-wrap:wrap;border-radius:8px} nav.sub button{padding:5px 10px;border-top:1px solid var(--rule);margin-top:-1px} .chip{padding:5px 10px}
   .tile{flex:1 1 140px;min-width:0;padding:8px 10px} .tile b{font-size:19px}
   .gcard{padding:10px 12px} .gcard .top b{font-size:17px}
   .spark{max-width:100%}
