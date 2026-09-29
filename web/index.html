@@ -164,6 +164,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .bar span{padding:0 6px;white-space:nowrap;overflow:hidden}
 .bar span{background:var(--rule-2)} .bar .h.lead,.bar .o.lead{background:#CFE0F8} .bar .v.lead{background:repeating-linear-gradient(45deg,#F7D3BE 0 5px,#EDB48D 5px 7px)}   /* the tint follows the likelier side, not the home side (28 Sep 2026) */
 .bar .lead{font-weight:600}
+.bar .s.lead{background:#E3DDF3} .brow .bl.s{color:#6A5AA8}   /* betting splits: bets and money (29 Sep 2026) */
 .why{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:13px;cursor:pointer;text-align:left}
 .whybox{display:grid;grid-template-columns:1fr;gap:12px;border-top:1px solid var(--rule-2);padding-top:10px} .whybox[data-k=why]{grid-template-columns:1fr 1fr;gap:12px 28px} @media(max-width:980px){.whybox[data-k=why]{grid-template-columns:1fr}} .whybox[hidden]{display:none}
 
@@ -880,7 +881,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   function bar(leftLabel, leftP, rightLabel, rightP, cls, rowLabel, title) {
     const lp = Math.max(0, Math.min(100, Math.round(leftP * 100))), rp = 100 - lp;
     const b = `<div class="bar"><span class="${cls} ${lp >= rp ? "lead" : ""}" style="width:${lp}%">${leftLabel} ${lp}%</span><span class="${cls} a2 ${rp > lp ? "lead" : ""}" style="width:${rp}%;text-align:right">${rightLabel} ${rp}%</span></div>`;
-    return rowLabel ? `<div class="brow"${title ? ` title="${title}"` : ""}><span class="bl ${cls === "v" ? "v" : cls === "c" ? "c" : "m"}">${rowLabel}</span>${b}</div>` : b;
+    return rowLabel ? `<div class="brow"${title ? ` title="${title}"` : ""}><span class="bl ${cls === "v" ? "v" : cls === "c" ? "c" : cls === "s" ? "s" : "m"}">${rowLabel}</span>${b}</div>` : b;
+  }
+  // betting splits (29 Sep 2026, Matt): the share of bets and of money on each side at DraftKings, read by Python every line
+  // watch; display only, no split is in the model. Two bars per block, in the card's own bar style.
+  function splitBars(g, mk, left, right, leftLab, rightLab) {
+    const S = g.splits && g.splits[mk]; if (!S || !S[left] || !S[right]) return "";
+    const t = String(g.splits.ts || "").replace(/^(\d{4})-(\d{2})-(\d{2})T(\d{2})-(\d{2}).*$/, "$2/$3 $4:$5 UTC");
+    const tip = w => `Share of ${w} on each side at ${g.splits.source}, read ${t}. Shown only: not in the model`;
+    return bar(leftLab, S[left].bets / 100, rightLab, S[right].bets / 100, "s", "Bets", tip("bets")) + bar(leftLab, S[left].money / 100, rightLab, S[right].money / 100, "s", "Money", tip("money"));
   }
   function mlProb(ml) { if (ml == null || isNaN(ml)) return null; return ml < 0 ? (-ml) / (-ml + 100) : 100 / (ml + 100); }
   // Vegas win chance: the newest logged snapshot with both moneylines (each book's pair with the vig removed, averaged
@@ -1510,12 +1519,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${splitBars(g, "spread", H, A, H, A)}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}` : ""}
           </section>
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
-            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model", "The model's own over chance, read off the real spread of game totals around its number, as if the line carried nothing") : ""}${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "c", "History", overHist(g)) : ""}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
+            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model", "The model's own over chance, read off the real spread of game totals around its number, as if the line carried nothing") : ""}${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "c", "History", overHist(g)) : ""}${splitBars(g, "total", "over", "under", "Over", "Under")}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>
@@ -1528,6 +1537,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
             ${g.p_home != null ? bar(H, g.p_home, A, 1 - g.p_home, "h", "Model", "The model's own win chance: its bell curve on its number, reshaped so 3 and 7 get their true share") : ""}
             ${g.p_home_cal != null ? bar(H, g.p_home_cal, A, 1 - g.p_home_cal, "c", "History", winTitle(g)) : ""}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
+            ${splitBars(g, "ml", H, A, H, A)}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}

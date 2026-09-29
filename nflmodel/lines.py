@@ -464,6 +464,11 @@ def run(season=None, week=None) -> pd.DataFrame:
         props_lines.run(season, week, force=bool(os.environ.get("PROPS_EVERY_RUN")), dfs_only=bool(os.environ.get("DFS_EVERY_RUN")))   # player props, on its own budgeted cadence; DFS_EVERY_RUN pulls only the free pick'em lines
     except Exception as e:  # noqa
         errors.append(f"props: {str(e)[:120]}")
+    try:
+        from . import splits
+        splits.run()   # bets % and money % per side from DraftKings Network (29 Sep 2026): display only, never a model input
+    except Exception as e:  # noqa
+        errors.append(f"splits: {str(e)[:120]}")
     status = {"ts": ts, "season": season, "week": week, "rows": len(df), "errors": "; ".join(errors)}
     pd.DataFrame([status]).to_csv(LN / "watch_log.csv", mode="a", header=not (LN / "watch_log.csv").exists(), index=False)
     print(status)
