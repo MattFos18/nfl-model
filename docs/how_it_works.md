@@ -2364,7 +2364,7 @@ table is gone. On the player totals calculation the yards card is headed Yards, 
 
 **Matchup history and Scheme matchup fill their cards; the Picks tab on one type scale (29 Sep 2026, Matt).** On a
 Breakdown card, Matchup history's two tables span their columns and Recent form shows each team's last ten results as
-a strip of W and L squares (teal and magenta, oldest first; the game, score and cover on hover), read from the same
+a strip of W and L squares in its own column (a teal square for a win, a pale magenta one for a loss, oldest first; the game, score and cover on hover), read from the same
 exported games as the counts beside it. Scheme matchup's looks table has a bar for how often the defense plays each
 look, spans its column, and the player table under it is laid out at fixed column widths so it never runs into the
 other side's. The Picks table, Bet ranking and teaser use one type scale (13.5 to 14 px) with tighter rows.
