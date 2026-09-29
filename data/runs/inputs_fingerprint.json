@@ -236,6 +236,11 @@
 ],
 [
 "DAL",
+"Jalen Thompson",
+"Out"
+],
+[
+"DAL",
 "Malik Hooker",
 "Out"
 ],
@@ -1187,12 +1192,6 @@
 [
 "CLE",
 "Tytus Howard",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
-"Jalen Thompson",
 "Questionable (ESPN)",
 ""
 ],
@@ -2351,10 +2350,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 5.1,
+"wind": 5.3,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-28 23:30 UTC"
+"written_at": "2026-09-28 23:58 UTC"
 }
