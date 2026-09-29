@@ -74,10 +74,11 @@ def fetch(team: str, season: int) -> dict:
 
 def main(seasons):
     rows = []
+    print("ROWHEAD,team,season,head_coach,oc,dc,status", flush=True)
     for s in seasons:
         for t in TEAMS:
-            rows.append(fetch(t, s)); time.sleep(0.5)
-        print(s, "done", flush=True)
+            rows.append(fetch(t, s)); time.sleep(0.2)
+            r = rows[-1]; print("ROW," + ",".join(str(r[c]).replace(",", " ") for c in ["team", "season", "head_coach", "oc", "dc", "status"]), flush=True)   # as it lands, so a run cut off by its time limit still hands over what it fetched
     out = pd.DataFrame(rows).sort_values(["season", "team"])
     OUTF.parent.mkdir(parents=True, exist_ok=True); out.to_csv(OUTF, index=False)
     print("coverage:"); print(out.groupby("season").status.value_counts().unstack(fill_value=0).to_string())

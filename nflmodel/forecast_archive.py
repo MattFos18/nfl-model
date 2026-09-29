@@ -44,26 +44,31 @@ def main(seasons):
     intl = g.location.fillna("").str.contains("Neutral", case=False) & g.stadium.fillna("").str.contains("|".join(INTL), case=False)
     for name in INTL:
         g.loc[intl & g.stadium.fillna("").str.contains(name, case=False), "site"] = name
-    rows = []
-    for (site, season), x in g.groupby(["site", "season"]):
-        lat, lon = STADIUM.get(site) or INTL.get(site) or (None, None)
+    rows, cols = [], None
+    # one request per game day (a season-long range was too slow for a 15-minute probe, 29 Sep 2026); every row is printed
+    # as it lands ("ROW," prefix) so a run cut off by its time limit still hands over what it fetched
+    for r in g.sort_values("kickoff_et").itertuples():
+        lat, lon = STADIUM.get(r.site) or INTL.get(r.site) or (None, None)
         if lat is None:
             continue
-        days = pd.to_datetime(x.kickoff_et)
-        h = fetch(lat, lon, (days.min() - pd.Timedelta(days=1)).strftime("%Y-%m-%d"), (days.max() + pd.Timedelta(days=1)).strftime("%Y-%m-%d"), _tz(site))
+        k = pd.Timestamp(r.kickoff_et).floor("h")
+        try:
+            local = k.tz_localize("America/New_York").tz_convert(_tz(r.site)).tz_localize(None)
+        except Exception:  # noqa
+            local = k
+        day = local.strftime("%Y-%m-%d")
+        h = fetch(lat, lon, day, day, _tz(r.site))
         if h is None:
             continue
-        for r in x.itertuples():
-            k = pd.Timestamp(r.kickoff_et).floor("h")
-            try:
-                local = k.tz_localize("America/New_York").tz_convert(_tz(site)).tz_localize(None)
-            except Exception:  # noqa
-                local = k
-            m = h[h.t == local]
-            if len(m):
-                rows.append({"game_id": r.game_id, "season": r.season, "week": r.week, "site": site, "kickoff_local": local,
-                             **{c: m.iloc[0][c] for c in h.columns if c != "t"}})
-        print(site, season, len(x), "games", flush=True); time.sleep(0.3)
+        m = h[h.t == local]
+        if not len(m):
+            continue
+        row = {"game_id": r.game_id, "season": r.season, "week": r.week, "site": r.site, "kickoff_local": local, **{c: m.iloc[0][c] for c in h.columns if c != "t"}}
+        rows.append(row)
+        if cols is None:
+            cols = list(row); print("ROWHEAD," + ",".join(cols), flush=True)
+        print("ROW," + ",".join("" if pd.isna(row[c]) else str(row[c]) for c in cols), flush=True)
+        time.sleep(0.15)
     out = pd.DataFrame(rows)
     WX.mkdir(parents=True, exist_ok=True); out.to_csv(OUTF, index=False)
     cov = out.drop(columns=["game_id", "site", "kickoff_local", "week"]).groupby("season").agg(lambda s: int(s.notna().sum())) if len(out) else out
