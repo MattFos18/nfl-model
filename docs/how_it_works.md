@@ -2629,3 +2629,11 @@ not the placebo: another team's history shuffled in does as well, so the gain is
 information. The closest, rushing reconciled to the game model, beats the placebo on three windows and 40 times in 50
 on the fourth. Nothing changes. The study found the season-total actuals counting week 18 and earlier without a
 regular-season filter, so for 2015-20 the wild-card game was counted; that is fixed separately.
+
+**Betting splits on the cards** (`nflmodel/splits.py`; 29 Sep 2026, Matt). The share of bets and the share of money on
+each side of every game's spread, total and moneyline, from DraftKings Network's public splits page, read by Python on
+every line watch (appended to `data/lines/splits_log.csv`, newest in `splits_latest.csv`). Each Breakdown card shows two
+bars in the Spread, Total and Win blocks, Bets and Money, under the model's own bars. Display only: no split is an input
+to any projection, since market numbers stay out of the model. The log builds the history a split study needs; past
+seasons' splits are not public for free (Action Network's free feed leaves them blank, VSiN loads them by script), so a
+test on past seasons waits for a bought history.

@@ -692,13 +692,14 @@ def stage_real(jobs, only=None):
     path = SCR / "real.csv"
     todo = [i for i in ideas() if i["name"] not in _done(path) and (only is None or i["name"] in only)]
     if "(base)" not in _done(path):
-        W = _load(); b = {"name": "(base)", "seed": -1, "secs": 0.0, **flat(score(W["base"]))}; _append(path, [b])
+        b = {"name": "(base)", "seed": -1, "secs": 0.0, **flat(score(pd.read_parquet(SCR / "base.parquet"))), "coefs": ""}; _append(path, [b])
     # the slow ones (points ideas refit the trees) first, so the pool stays full
     todo.sort(key=lambda i: 0 if i["eq"] in ("P", "DP") else 1)
     log("real runs to do:", len(todo))
     for k in range(0, len(todo), jobs * 2):
         chunk = todo[k:k + jobs * 2]
-        rows = Parallel(n_jobs=jobs, backend="loky")(delayed(run_idea)(i, None, True) for i in chunk)
+        from experiments.situational_game import run_idea as RI   # by reference, not the __main__ copy
+        rows = Parallel(n_jobs=jobs, backend="loky")(delayed(RI)(i, None, True) for i in chunk)
         _append(path, rows)
         for r in rows:
             log("done", r["name"], r["secs"], "s")
@@ -751,7 +752,8 @@ def stage_placebo(jobs, names=None, draws=N_PLACEBO, stop_at=STOP_AT, tag="place
         for k in range(0, len(seeds), jobs):
             if nb >= stop_at:
                 break
-            rows = Parallel(n_jobs=jobs, backend="loky")(delayed(run_idea)(i, s) for s in seeds[k:k + jobs])
+            from experiments.situational_game import run_idea as RI
+            rows = Parallel(n_jobs=jobs, backend="loky")(delayed(RI)(i, s) for s in seeds[k:k + jobs])
             _append(path, rows); nb += beaten(pd.DataFrame(rows))
             log("  ", name, "draws", len(have) + k + len(rows), "beaten", nb)
 
@@ -803,6 +805,7 @@ if __name__ == "__main__":
     ap.add_argument("--names", default=None)
     ap.add_argument("--draws", type=int, default=N_PLACEBO)
     ap.add_argument("--tag", default="placebo")
+    ap.add_argument("--stop", type=int, default=STOP_AT)
     a = ap.parse_args()
     names = a.names.split("||") if a.names else None
     if a.stage == "base":
@@ -812,7 +815,7 @@ if __name__ == "__main__":
     elif a.stage == "real":
         stage_real(a.jobs, names)
     elif a.stage == "placebo":
-        stage_placebo(a.jobs, names, a.draws, tag=a.tag)
+        stage_placebo(a.jobs, names, a.draws, stop_at=a.stop, tag=a.tag)
     elif a.stage == "combo":
         stage_combo(a.jobs)
     elif a.stage == "report":

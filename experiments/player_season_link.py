@@ -29,6 +29,9 @@ exact: per_game is share x V x rate, so a different V for the games left multipl
 set of projected players stays the base's (the MIN_PG cut and the starting QB are decided on the last-17 volume, as the
 page does). The base rows are the harness cache (reports/player_season_rows.csv) after a check that one as-of point
 rebuilt from today's data matches it (else they are rebuilt here); this study's own copies live in the scratchpad.
+They are the harness as it stood when this study was set (flat AVAIL, before commit 8e6706c0 gave each player his own
+availability and kept game-day inactives in the backtest): 10,801 rows. experiments/player_season_link2.py reran these
+variants on today's rule.
 
 Scoring, exactly as the harness: AVAIL and BLEND refit on 2016-18 for each variant on the same grids (they interact
 with any change to the per-game number), then season-total MAE by kind on 2019-22 and 2023-25 (as-of weeks pooled and
@@ -55,6 +58,7 @@ SEASONS = BT.FIT_SEASONS + BT.TEST_SEASONS
 KIND_VOL = {"rec": "pass_plays_pg", "rush": "runs_pg", "pass": "dropbacks_pg"}
 TARGETABLE = 0.97   # per_game's share of pass plays that are targets (player_season.per_game): the share is volume_pg / (V x 0.97)
 K_AGE = 30
+ERRS: dict = {}   # variant -> its per-row test errors (for the clustered standard error of the gain)
 AGE_BANDS = [(0, 24, "<=24"), (25, 27, "25-27"), (28, 30, "28-30"), (31, 99, "31+")]
 POS_GROUP = {"rec": {"WR": "WR", "TE": "TE", "RB": "RB", "FB": "RB", "HB": "RB"}, "rush": {"RB": "RB", "FB": "RB", "HB": "RB", "QB": "QB", "WR": "WR", "TE": "WR"}, "pass": {"QB": "QB"}}
 PART1 = ["base", "b25", "b50", "c25", "c50", "d", "d_m", "e_c25_d", "e_c25_d_m", "e_c50_d", "e_c50_d_m"]
@@ -191,6 +195,7 @@ def ages(R: pd.DataFrame) -> pd.Series:
 def age_band(age: float) -> str:
     if pd.isna(age):
         return "unknown"
+    age = int(np.floor(age))   # whole years at September 1 (29 Sep 2026: fractional ages fell between the bands)
     for lo, hi, lab in AGE_BANDS:
         if lo <= age <= hi:
             return lab
@@ -266,6 +271,7 @@ def score(R: pd.DataFrame, factor: pd.Series, variant: str) -> list[dict]:
     avail, blend, ferr = fit_constants(fit)
     out = [{"variant": variant, "row": "fit", "kind": k, "window": "2016-18", "asof_week": "all", "avail": avail[k], "blend": blend[k], "n": int((fit.kind == k).sum()), "mae": ferr[k]} for k in KINDS]
     T = BT.evaluate(test, avail, blend)
+    ERRS[variant] = T[["kind", "window", "week", "season", "team", "err"]]
     def rec(k, w, wk, g):
         return {"variant": variant, "row": "mae", "kind": k, "window": w, "asof_week": wk, "avail": avail[k], "blend": blend[k], "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(),
                 "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_top": float((g[g["rank"] <= BT.TOPW[k]].rel <= 0.20).mean()), "n_top": int((g["rank"] <= BT.TOPW[k]).sum())}
@@ -285,7 +291,23 @@ def adopt_check(o: pd.DataFrame, variant: str, kind: str) -> dict:
     weekly = m[m.asof_week.astype(str) != "all"]; worst = float((weekly.mae_b - weekly.mae_v).min()) if len(weekly) else 0.0
     both = bool((gains > 0).all()) and len(gains) == 2
     ok = both and worst >= -float(gains.min())
-    return {"variant": variant, "kind": kind, "gain_2019_22": round(float(gains.get("2019-22", np.nan)), 2), "gain_2023_25": round(float(gains.get("2023-25", np.nan)), 2), "worst_week": round(worst, 2), "both_windows": both, "adopt": ok}
+    se = gain_se(variant, kind)
+    return {"variant": variant, "kind": kind, "gain_2019_22": round(float(gains.get("2019-22", np.nan)), 2), "gain_2023_25": round(float(gains.get("2023-25", np.nan)), 2), "worst_week": round(worst, 2), "both_windows": both, "adopt": ok,
+            "se_2019_22": se.get("2019-22", np.nan), "se_2023_25": se.get("2023-25", np.nan)}
+
+
+def gain_se(variant: str, kind: str) -> dict:
+    """Standard error of the pooled gain (base error - variant error, the same rows) clustered by (season, team): a
+    team's players and as-of weeks share its season, so they are not independent draws. For reading, not in the rule."""
+    if variant not in ERRS or "base" not in ERRS:
+        return {}
+    b = ERRS["base"]; v = ERRS[variant]; b = b[b.kind == kind]; v = v.loc[b.index]
+    x = b.assign(diff=b.err - v.err)
+    out = {}
+    for w, g in x.groupby("window"):
+        m = g["diff"].mean(); c = (g["diff"] - m).groupby([g.season, g.team]).sum(); n = len(g); nc = len(c)
+        out[w] = round(float(np.sqrt((c ** 2).sum() * nc / max(nc - 1, 1)) / n), 3)
+    return out
 
 
 def main():
@@ -360,9 +382,11 @@ def write_md(o: pd.DataFrame, ck: pd.DataFrame, best1: dict, ratios: dict, secs:
     for r in F.sort_values(["kind", "variant"]).itertuples():
         L.append(f"| {r.kind} | {r.variant} | {r.avail} | {r.blend} | {r.mae:.1f} |")
     L.append("\n## Adoption check (gain = base MAE - variant MAE, pooled; worst_week = the worst per-week change over both windows)\n")
-    L.append("| kind | variant | gain 2019-22 | gain 2023-25 | worst week | both windows | adopt |"); L.append("|---|---|---|---|---|---|---|")
+    L.append("Standard errors (se) of each pooled gain are clustered by (season, team) and are for reading only; they are not part of the rule. A gain inside about two standard errors of zero is not distinguishable from noise.\n")
+    L.append("| kind | variant | gain 2019-22 (se) | gain 2023-25 (se) | worst week | both windows | adopt |"); L.append("|---|---|---|---|---|---|---|")
     for r in ck.sort_values(["kind", "variant"]).itertuples():
-        L.append(f"| {r.kind} | {r.variant} | {r.gain_2019_22:+.2f} | {r.gain_2023_25:+.2f} | {r.worst_week:+.2f} | {r.both_windows} | {'YES' if r.adopt else 'no'} |")
+        L.append(f"| {r.kind} | {r.variant} | {r.gain_2019_22:+.2f} ({r.se_2019_22:.2f}) | {r.gain_2023_25:+.2f} ({r.se_2023_25:.2f}) | {r.worst_week:+.2f} | {r.both_windows} | {'YES' if r.adopt else 'no'} |")
+    L.append("\nNote on best1: the best Part 1 variant per kind is picked among those passing the rule by their test-window gains, so p2+best1 is a selection on the windows it is then scored on; its pass is weaker evidence than a variant's own.\n")
     L.append("\n## Per as-of week: base against the best Part 1 variant and the Part 2 variants\n")
     W = o[(o.row == "mae") & (o.asof_week.astype(str) != "all")].copy(); W["asof_week"] = W.asof_week.astype(int)
     for k in KINDS:

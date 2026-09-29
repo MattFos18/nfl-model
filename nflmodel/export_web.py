@@ -410,6 +410,30 @@ def model_lineup(pred: pd.DataFrame, games: pd.DataFrame, f2: pd.DataFrame) -> d
             "total_n": int(len(tr)), "total_through": f"{int(last.season)} Week {int(last.week)}", "total_ridge": M.RIDGE, "train_from": M.TRAIN_FROM}
 
 
+
+def _add_splits(wk: list) -> None:
+    """Each card's newest betting splits (data/lines/splits_latest.csv, written by splits.run every line watch): per market
+    the share of bets and of money on each side, the side's line and odds, and when they were read. Display only: no split
+    reaches the model. A game the page does not list has none."""
+    f = ROOT / "data" / "lines" / "splits_latest.csv"
+    if not f.exists():
+        return
+    try:
+        s = pd.read_csv(f)
+    except Exception:  # noqa
+        return
+    s = s[s.game_id.notna()]
+    for g in wk:
+        x = s[s.game_id == g["game_id"]]
+        if not len(x):
+            continue
+        out = {"ts": str(x.ts.iloc[0]), "source": "DraftKings"}
+        for m in ("spread", "total", "ml"):
+            y = x[x.market == m]
+            if len(y):
+                out[m] = {str(r.side): {"bets": int(r.bets_pct), "money": int(r.handle_pct), "line": clean(r.line), "odds": clean(r.odds)} for r in y.itertuples()}
+        g["splits"] = out
+
 def _code_sha() -> str:
     """The commit this code is at: GITHUB_SHA on the runner, else git's HEAD."""
     import os, subprocess
@@ -846,6 +870,7 @@ def export_week(feats=None, games=None, pred=None):
                       "line_history": [{"ts": t, "source": src, "home_spread": clean(hs), "total": clean(tt), "home_ml": clean(hm), "away_ml": clean(am)}
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         _add_injuries(wk, cur_week, cur_season)
+        _add_splits(wk)
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
         cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         cal_h = P.home_calibration(pred, games.reset_index(), cur_season)   # the home win calibration the cards' win chance used (27 Sep 2026; the tie check rebuilds each card's p_home_cal with it)
