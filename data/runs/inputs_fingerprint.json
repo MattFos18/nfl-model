@@ -166,6 +166,11 @@
 ],
 [
 "CHI",
+"Braxton Jones",
+"Doubtful"
+],
+[
+"CHI",
 "Caleb Williams",
 "Out"
 ],
@@ -2359,10 +2364,10 @@
 ],
 "weather": {
 "2026_03_PHI_CHI": {
-"wind": 5.2,
+"wind": 3.0,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-29 01:51 UTC"
+"written_at": "2026-09-29 03:24 UTC"
 }
