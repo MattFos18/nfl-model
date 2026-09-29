@@ -348,6 +348,68 @@ def matchup_matrix(f2: pd.DataFrame, season: int, week: int, teams: dict) -> dic
     return {"season": season, "week": week, "wind": round(wind, 2), "pts": pts}
 
 
+
+def model_lineup(pred: pd.DataFrame, games: pd.DataFrame, f2: pd.DataFrame) -> dict:
+    """Model tab, the seven models and the total model (29 Sep 2026, Matt: the tab showed only the one equation). Each
+    model's own miss on every backtest window, read from the per-game predictions the walk-forward stored (pred_v3: every
+    game priced with only earlier games), and the total equation as fitted on every game played so far."""
+    from . import picks as P_
+    ks = list(M.BLEND_LABEL)
+    g = games.reset_index()[["game_id", "home_score", "away_score"]]
+    d = pred.merge(g, on="game_id", how="left")
+    d = d[(d.game_type == "REG") & d.home_score.notna() & d.away_score.notna()].copy()
+    for s in ["home", "away"]:
+        d[f"{s}_m_blend"] = d[[f"{s}_m_{k}" for k in ks]].mean(axis=1)
+        d[f"{s}_pre"] = d[f"{s}_exp"] - d[f"{s}_total_adj"].fillna(0.0)
+    wins = [(k, a, b) for k, (a, b) in P_.WINDOWS.items()]
+    cur = int(d.season.max()); wins.append((str(cur), cur, cur))
+
+    def miss(x, hcol, acol):
+        pts = np.abs(np.r_[x[hcol] - x.home_score, x[acol] - x.away_score]).mean()
+        mar = np.abs((x[hcol] - x[acol]) - (x.home_score - x.away_score)).mean()
+        return round(float(pts), 3), round(float(mar), 3)
+
+    what = {"ridge": f"The {len(M.FEATS)} inputs above, shrinkage {M.RIDGE:g}",
+            "alpha3": f"The same inputs, less shrinkage ({M.BLEND['alpha3'][1]:g})", "alpha30": f"The same inputs, more shrinkage ({M.BLEND['alpha30'][1]:g})",
+            "trees": f"Boosted trees on the same inputs ({M.TREES['max_iter']} trees, {M.TREES['max_leaf_nodes']} leaves each)"}
+    extra_lab = {"off_success": "offense success rate", "def_success": "defense success rate allowed", "off_pass_epa": "offense pass EPA",
+                 "def_pass_epa": "defense pass EPA allowed", "off_rush_epa": "offense rush EPA", "def_rush_epa": "defense rush EPA allowed",
+                 "off_plays": "offense plays per game", "def_plays": "defense plays per game allowed"}
+    for k, (extra, al) in M.BLEND.items():
+        if extra:
+            what[k] = "The same inputs plus " + ", ".join(extra_lab.get(c, c) for c in extra)
+    rows = []
+    for k in ks + ["blend"]:
+        r = {"key": k, "label": "Average of the seven (used)" if k == "blend" else M.BLEND_LABEL[k].lstrip("+ ").capitalize(), "what": what.get(k, "")}
+        for w, a, b in wins:
+            x = d[(d.season >= a) & (d.season <= b)]
+            r[f"pts_{w}"], r[f"margin_{w}"] = miss(x, f"home_m_{k}", f"away_m_{k}") if len(x) else (None, None)
+            r[f"n_{w}"] = int(len(x))
+        rows.append(r)
+    tot = []
+    for lab, fn in [("Total model (used)", lambda x: x.model_total), ("The two blend scores added", lambda x: x.home_pre + x.away_pre)]:
+        r = {"label": lab}
+        for w, a, b in wins:
+            x = d[(d.season >= a) & (d.season <= b)]
+            r[f"miss_{w}"] = round(float(np.abs(fn(x) - (x.home_score + x.away_score)).mean()), 3) if len(x) else None
+        tot.append(r)
+    played = f2[f2.pf.notna() & (f2.season >= M.TRAIN_FROM)]
+    tr = M._game_frame(played)
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.linear_model import Ridge
+    m = make_pipeline(StandardScaler(), Ridge(alpha=M.RIDGE)).fit(tr[M.TOTAL_FEATS].values, tr.total.values)
+    lab = {"off_sum": "Both offenses' EPA ratings, added", "def_sum": "Both defenses' EPA ratings, added", "pf_sum": "Both offenses' points ratings, added",
+           "pa_sum": "Both defenses' points ratings, added", "qb_sum": "Both starting QBs' ratings, added", "qb_out_sum": "Starting QBs out (0, 1 or 2)",
+           "wind_out": "Wind, mph (0 in a dome)", "rain": "Rain at kickoff (1 or 0)", "cold": f"Below {M.COLD_F:g}°F outdoors (1 or 0)", "dome": "Dome or closed roof (1 or 0)",
+           "ref_tot": "The referee's past game totals against the league, shrunk", "qb_form_sum": "Both QBs' form this season against their career rating"}
+    coefs = [{"input": c, "label": lab.get(c, c), "per_unit": round(float(pu), 4), "mean": round(float(mu), 4), "per_sd": round(float(ps), 3)}
+             for c, pu, mu, ps in zip(M.TOTAL_FEATS, m[-1].coef_ / m[0].scale_, m[0].mean_, m[-1].coef_)]
+    last = played.sort_values(["season", "week"]).iloc[-1]
+    return {"windows": [w for w, _, _ in wins], "models": rows, "totals": tot, "total_coefs": coefs, "total_intercept": round(float(tr.total.mean()), 3),
+            "total_n": int(len(tr)), "total_through": f"{int(last.season)} Week {int(last.week)}", "total_ridge": M.RIDGE, "train_from": M.TRAIN_FROM}
+
+
 def _code_sha() -> str:
     """The commit this code is at: GITHUB_SHA on the runner, else git's HEAD."""
     import os, subprocess
@@ -439,6 +501,7 @@ def main():
                 "how_it_works": (ROOT / "docs" / "how_it_works.md").read_text() if (ROOT / "docs" / "how_it_works.md").exists() else "",
                 "situation_facts": situation_facts(feats), "qb_overlap": M.qb_overlap(f2, max(int(k) for k in coefs)), "noise": noise_floor()}
     analysis["home_edges"] = team_home_edges(tg)
+    analysis["lineup"] = model_lineup(pred, games, f2)
     from . import picks as P_, backtest as B_
     _bj = B_.join(pred, games.reset_index()); _bj = _bj[(_bj.game_type == "REG") & _bj.home_score.notna() & _bj.spread_line.notna()]
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "blend_label": M.BLEND_LABEL, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),

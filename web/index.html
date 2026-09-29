@@ -2708,6 +2708,22 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     ["pace (plays per game)", "Pace", "Plays per game ratings for the offense and the defense faced."],
     ["opponent QB and other side of the ball", "Opponent QB, own defense, opponent offense", "The opponent's QB rating, the team's own defense rating and the opponent's offense rating as inputs to this team's points."]
   ];
+  function lineupParts() {   // the seven models and the total model, each with its own backtest miss (29 Sep 2026, Matt: the tab showed only the one equation)
+    const L = (META.analysis || {}).lineup; if (!L || !L.models) return "";
+    const W = L.windows || [], wl = w => /^\d{4}$/.test(w) ? `${w} so far` : w.replace("-", " to 20");
+    const f = (v, d) => v == null ? MISSING : Number(v).toFixed(d);
+    let h = `<h2>The seven models</h2><p class="note">Every game's points are the average of these seven, each refit before every week on the same games. Miss per team score and on the margin, every game priced with only earlier games.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Model</th><th class='l'>What it reads</th>${W.map(w => `<th colspan="2">${wl(w)}</th>`).join("")}</tr>
+      <tr><th class='l'></th><th class='l'></th>${W.map(() => `<th>Score</th><th>Margin</th>`).join("")}</tr></thead><tbody>`;
+    L.models.forEach(r => { const u = r.key === "blend"; h += `<tr${u ? ' class="tot"' : ""}><td class="l">${u ? "<b>" + r.label + "</b>" : r.label}</td><td class="l" style="white-space:normal;min-width:150px">${r.what}</td>${W.map(w => `<td class="mono">${f(r["pts_" + w], 2)}</td><td class="mono">${f(r["margin_" + w], 2)}</td>`).join("")}</tr>`; });
+    h += `</tbody></table></div>`;
+    h += `<h2>The total model</h2><p class="note">The game total has its own equation; the two team scores are shifted by the same amount to add up to it, so the spread is untouched. Fitted on ${L.total_n.toLocaleString()} games from ${L.train_from} through ${L.total_through}, shrinkage ${L.total_ridge}; each game starts at ${f(L.total_intercept, 1)} points. The ratings overlap, so read their weights together: one can turn negative when another carries the same information.</p>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Input</th><th>Points per unit</th><th>Points per typical difference</th></tr></thead><tbody>
+      ${L.total_coefs.map(r => `<tr><td class="l">${r.label}</td><td class="mono">${(r.per_unit >= 0 ? "+" : "") + f(r.per_unit, 2)}</td><td class="mono">${(r.per_sd >= 0 ? "+" : "") + f(r.per_sd, 2)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Game total miss</th>${W.map(w => `<th>${wl(w)}</th>`).join("")}</tr></thead><tbody>
+      ${L.totals.map((r, i) => `<tr${i === 0 ? ' class="tot"' : ""}><td class="l">${i === 0 ? "<b>" + r.label + "</b>" : r.label}</td>${W.map(w => `<td class="mono">${f(r["miss_" + w], 2)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    return h;
+  }
   function inputsParts() {   // the inputs table, the tested-and-not-used table, the deeper tests and the knobs, for the Game model view (28 Sep 2026: one view, no captions)
     const co = curFit(), MEASURE = measureOf(), NZ = (META.analysis || {}).noise || {};
     const SF = (META.analysis || {}).situation_facts || {};
@@ -2833,6 +2849,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       </div>
       <h2>The ${META.feats.length} inputs</h2>
       ${IP.inputs}
+      ${lineupParts()}
       <h2>Tested and not used</h2>
       ${IP.tested}
       <details class="more"><summary>More tests: the untouched window, turnover luck, rest and surface, scheme, tempo</summary>${IP.more}${IP.legit}</details>
