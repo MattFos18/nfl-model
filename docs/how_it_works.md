@@ -2322,3 +2322,11 @@ straight line; a pass as a dashed arc from the throw to the catch; an incomplete
 downfield ending in an X); no tag on the field, the play's name and yards (Run +7, Pass +26, Sack −8, Incomplete,
 Punt 55) sit as a chip in the header row beside the down and distance.
 
+**Roster columns filled (29 Sep 2026, Matt).** Back: when ESPN gives no return date, the league's rules: injured reserve
+and PUP mean four games out, so "week N earliest" is four weeks after the week he went on the list (week 5 for a
+preseason listing); plain injured reserve from the preseason is out for the season; an ESPN date past the season
+also reads "season" (players.earliest_back). Pts if out for every player, not only skill players: the skill value he
+takes with him (RB, WR, TE) plus his share of last game's snaps through the snap-out input of his unit (the offense's
+own, the defense's through what the opponent gains), with the week's fit; the QB1 row says "QB rating" since he is
+priced by it. Snaps reads 0% for a player not in last game's snap counts; a player with no value reads a dash.
+

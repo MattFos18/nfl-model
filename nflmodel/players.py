@@ -417,6 +417,29 @@ RESERVE_SHORT = {"R01": "IR", "R48": "IR, can return", "R04": "PUP"}
 RESERVE_CODE = {"R01": "Injured reserve", "R48": "Injured reserve, designated to return", "R04": "Physically unable to perform (PUP)"}   # roster status codes checked against ESPN's list and known cases (24 Sep 2026); other reserve codes show as the code
 
 
+def earliest_back(lst: str, since, espn_date: str, season: int) -> str:
+    """When a reserve-list player can be back (29 Sep 2026, Matt: the Back column was blank for nearly everyone). ESPN's
+    date when it gives one inside the season; a date past the season means out for the season. Otherwise the league's
+    rules: a player on injured reserve or PUP must sit four games, so the earliest week is four after the week he went
+    on the list (week 5 for a preseason listing); plain injured reserve from the preseason is out for the season unless
+    he was one of the designated returns (a different roster code). Suspensions and the exempt list carry no week."""
+    lst = str(lst or "")
+    if espn_date:
+        try:
+            d = pd.Timestamp(espn_date)
+            if d > pd.Timestamp(f"{season + 1}-01-15"):
+                return "season"
+            return d.strftime("%b %-d")
+        except Exception:  # noqa
+            pass
+    s = int(since) if since is not None and since == since else None
+    if "designated to return" in lst or "PUP" in lst or "NFI" in lst or lst.startswith("Physically") or lst.startswith("Non-football"):
+        return f"week {max(s or 1, 1) + 4} earliest"
+    if lst.startswith("Injured reserve"):
+        return "season" if (s or 1) <= 1 else f"week {s + 4} earliest"
+    return ""
+
+
 def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
     """Why each player the model prices as unavailable is out, from every source we pull (24 Sep 2026): (team, gsis id)
     -> list (the roster's reserve list, by its status code), why (the injury), why_src (where the injury came from:
@@ -485,8 +508,9 @@ def unavailable_reasons(ros: pd.DataFrame, season: int, week: int) -> dict:
                 o.update({"why": li_, "why_src": f"last league report that listed him ({'' if ls_ == season else str(ls_) + ' '}week {lw_}{', ' + lst_ if lst_ else ''})"})
             else:
                 o.update({"why": "", "why_src": f"not given this season (his last listing, {ls_} week {lw_}, is from before this stint)"})
-        if key in esp and esp[key][2]:
-            o["back"] = esp[key][2]
+        b = earliest_back(o.get("list"), o.get("since"), esp[key][2] if key in esp else "", season)
+        if b:
+            o["back"] = b
     return out
 
 
