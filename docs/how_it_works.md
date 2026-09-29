@@ -2401,3 +2401,10 @@ result. A final game's card carries the Final badge with the score alone; the ca
 Scheme matchup: the share of each look moved out of the titles into the first row of the player table, so both tables'
 titles sit on one baseline.
 
+**Colours and the Matchup card (29 Sep 2026, Matt).** Matt asked to drop the colour-blind palette: a loss, a negative
+number and a negative return are red again (--bad #B23A3A, its soft tint pink), a win and a positive number the same
+green as before. The Matchup card is the two pickers with the projected score beside them and nothing under it; the
+paired rating bars tried earlier in the day are gone (the brief was to use the space to the right, and nothing useful
+fit there). In the rankings table the Move column follows the column sorted by: last week's rank and value on that
+same rating (one decimal for the power columns, three for the rest); it is blank on Games.
+
