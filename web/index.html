@@ -202,7 +202,7 @@ h2.sech{font-size:17px;margin:22px 0 10px}
 .bo .bw{font-size:12.5px;color:var(--ink-2);margin-top:2px}
 .bo .bc{font-size:12px;color:var(--ink-2);margin-top:6px;border-top:1px solid var(--rule-2);padding-top:6px}
 .kv{display:grid;grid-template-columns:auto auto auto;gap:3px 8px;align-items:baseline;justify-content:end} .kv .k{font-family:var(--sans,inherit);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left} .kv .v{font-weight:600;color:var(--ink);text-align:right} .kv .f{color:var(--muted);font-size:10.5px;text-align:left} .gl{display:grid;grid-template-columns:repeat(3,auto);gap:2px 10px;justify-content:end;margin-top:6px;font-size:10.5px;color:var(--muted)} .gl i{font-style:normal;color:var(--ink-2)} .bkv{font-size:10.5px;color:var(--muted);font-weight:400}
-#sbtable{font-size:14.5px} #sbtable td{padding-top:8px;padding-bottom:8px} #sbtable td .tlogo{width:24px;height:24px;vertical-align:-7px;margin-right:8px} #sbtable td b{font-size:15px} #sbtable .bkv{font-size:11.5px} #sbtable small.rk{font-size:12px} #sbtable tr.tcalc td{font-size:12.5px}
+#sbtable{font-size:14.5px} #sbtable td{padding-top:8px;padding-bottom:8px} #sbtable td.mono,#sbtable .dc td.dr,#sbtable .gg b{font-family:inherit;font-variant-numeric:tabular-nums} #sbtable td.mono b{font-weight:600} #sbtable .dc td.dr b{font-weight:600} #sbtable td .tlogo{width:24px;height:24px;vertical-align:-7px;margin-right:8px} #sbtable td.l b{font-size:15px} #sbtable .bkv{font-size:11.5px} #sbtable small.rk{font-size:12px} #sbtable tr.tcalc td{font-size:12.5px}
 #postable{table-layout:fixed;width:100%;min-width:640px} #postable td{white-space:nowrap}
 td.dcell{background:var(--rule-2);padding:10px 12px !important;white-space:normal !important;text-align:left}
 .dp{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
@@ -397,8 +397,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 
 <section class="tab" id="seasonsec" hidden>
   <nav class="sub" id="seasonsub">
-    <button data-sub="odds">Team odds</button>
-    <button data-sub="totals">Player totals</button>
+    <button data-sub="odds">Team Odds</button>
+    <button data-sub="totals">Player Totals</button>
   </nav>
   <div id="odds">
     <div class="grid2">
@@ -3049,14 +3049,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       // a cell with the model's number and, under it, the books' where they price it
       const odd = (p, m, t, bold) => `<td class="mono">${bold ? `<b>${pct(p)}</b>` : pct(p)}${BK[m] && BK[m][t] != null ? `<div class="bkv">books ${pct(BK[m][t])}</div>` : ""}</td>`;
       const calc = t => { const L = LEFT[t.team] || [], sum = L.reduce((a, g) => a + g[3], 0), N = S.n_sims;
-        const bk = (m) => { const b = Object.values(((BK.books || {})[m] || {})[t.team] || {}); if (!b.length || BK[m] == null || BK[m][t.team] == null) return "–"; return b.length > 1 ? `${pct(BK[m][t.team])} <small class="rk">${b.length} books, ${pct(Math.min(...b))}–${pct(Math.max(...b))}</small>` : `${pct(BK[m][t.team])} <small class="rk">DraftKings</small>`; };
+        const bk = (m) => { const b = Object.values(((BK.books || {})[m] || {})[t.team] || {}); if (!b.length || BK[m] == null || BK[m][t.team] == null) return "–"; return b.length > 1 ? `<span title="${b.length} books, ${pct(Math.min(...b))} to ${pct(Math.max(...b))}">${pct(BK[m][t.team])}</span>` : `<span title="DraftKings">${pct(BK[m][t.team])}</span>`; };
         const odds = [["Division", t.p_div, "div"], ["Playoffs", t.p_playoffs, null], ["First-round bye", t.p_bye, null], ["Conference", t.p_conf, "conf"], ["Super Bowl", t.p_sb, "sb"]];
-        const wins = dCard("Wins", n1(t.wins), [["Won so far", rec(t), n1(t.wins_now)], ["Games left", `${L.length} games, the win chances below added up`, `+ ${n2(sum)}`], ["Expected wins", "", n1(t.wins_now + sum), true]],
+        const wins = dCard("Wins", n1(t.wins), [["Won so far", rec(t), n1(t.wins_now)], ["Games left", `${L.length} games, the win chances below added up`, `+${n2(sum)}`], ["Expected wins", "", n1(t.wins_now + sum), true]],
           `<div class="gg">${L.map(g => `<span><i>Wk ${g[0]}</i> ${g[2] ? "" : "@"}${g[1]} <b>${Math.round(100 * g[3])}%</b></span>`).join("")}</div>`);
-        const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Seasons</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr dm">${Math.round(p * N).toLocaleString()}</td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table></div>`;
+        const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table></div>`;
         return `<tr class="tcalc" data-for="${t.team}" hidden><td colspan="10" class="dcell">${dPanel([wins, oc])}</td></tr>`; };
       $("sbtable").innerHTML = `<thead><tr><th>#</th><th class="l">Team</th><th class="l">Division</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Bye</th><th>Conference</th><th>Super Bowl</th></tr></thead><tbody>` +
-        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)} <small class="rk">${Math.round(t.wins_p10)} to ${Math.round(t.wins_p90)} wins</small></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
+        rows.map((t, i) => `<tr class="mrow" data-t="${t.team}" style="cursor:pointer"><td class="mono">${i + 1}</td><td class="l">${LOGO(t.team)}<b>${t.team}</b></td><td class="l">${t.division}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}<div class="bkv">${Math.round(t.wins_p10)} to ${Math.round(t.wins_p90)}</div></td>${odd(t.p_div, "div", t.team)}<td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_bye)}</td>${odd(t.p_conf, "conf", t.team)}${odd(t.p_sb, "sb", t.team, true)}</tr>${calc(t)}`).join("") + "</tbody>";
       oneOpen("sbtable", "tr.mrow[data-t]", tr => $("sbtable").querySelector(`tr.tcalc[data-for="${tr.dataset.t}"]`));
       $("divgrid").innerHTML = Object.entries(S.divisions).map(([d, ts]) => { const rs = ts.map(t => S.teams.find(x => x.team === t)).filter(Boolean).sort((a, b) => b.p_div - a.p_div); return `<div class="card"><h3>${d}</h3><table><thead><tr><th class="l">Team</th><th>Now</th><th>Wins</th><th>Division</th><th>Playoffs</th><th>Super Bowl</th></tr></thead><tbody>${rs.map(t => `<tr><td class="l">${LOGO(t.team)}${t.team}</td><td class="mono">${rec(t)}</td><td class="mono">${n1(t.wins)}</td><td class="mono">${pct(t.p_div)}</td><td class="mono">${pct(t.p_playoffs)}</td><td class="mono">${pct(t.p_sb)}</td></tr>`).join("")}</tbody></table></div>`; }).join("");
       return;
