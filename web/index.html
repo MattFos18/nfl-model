@@ -1195,7 +1195,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     </svg>`;
     const spot = yardSpotTxt(y, H, A);
     const scored = /GOOD|TOUCHDOWN|extra point|two-point/i.test(live.last_play || "");
-    const head = pos ? `<div class="lv-fh${big ? " big" : ""}">${LOGO(pos, big ? 22 : 16)}<b>${pos}</b><span class="dd">${esc(live.down)}${goal ? " · goal to go" : ""}</span>${big && playTag(live.play, live.last_play) ? `<span class="pt">${esc(playTag(live.play, live.last_play))}</span>` : ""}${big && drive && drive.desc ? `<span class="dr">this drive: ${esc(drive.desc)}</span>` : ""}</div>`
+    const head = pos ? `<div class="lv-fh${big ? " big" : ""}">${LOGO(pos, big ? 22 : 16)}<b>${pos}</b><span class="dd">${esc(live.down)}${goal ? " · goal to go" : ""}</span>${big && drive && drive.desc ? `<span class="dr">this drive: ${esc(drive.desc)}</span>` : ""}</div>`
       : `<div class="lv-fh${big ? " big" : ""}"><span class="dd">${scored ? "Kickoff next" : "Between plays"}</span></div>`;
     return `<div class="lv-field${big ? " big" : ""}">${head}${s}</div>`;
   }
