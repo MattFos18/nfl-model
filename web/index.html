@@ -1219,29 +1219,29 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (ballY != null && pos && pl.team === pos && pl.to !== ballY && /rush|reception|incompletion|sack|touchdown|penalty/i.test(t)) { const len = pl.to - pl.from; pl = {...pl, from: ballY - len, to: ballY}; }
     const lab = (PLAY_LABEL.find(([re]) => re.test(t)) || [null, t])[1]; if (!lab) return "";
     const turnover = /interception|fumble, lost/i.test(lab), kick = /kickoff|punt|fg/i.test(lab), yds = pl.yds == null ? null : Number(pl.yds);
-    // the line sits in the clear band between the top hash marks and the ball, its tag on the line (not over the yard numbers)
-    const yy = mid, w = big ? 5 : 3, head = big ? 10 : 6, fs = big ? 12.5 : 9, th = big ? 19 : 13, halo = "rgba(0,0,0,.55)", lift = big ? 46 : 18;
-    const arcPath = (xa, xb) => `M${xa},${yy} Q${(xa + xb) / 2},${yy - lift} ${xb},${yy}`;
-    const arc = (xa, xb, col) => `<path d="${arcPath(xa, xb)}" fill="none" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><path d="${arcPath(xa, xb)}" fill="none" stroke="${col}" stroke-width="${w}" stroke-dasharray="${big ? "8 6" : "4 3"}" stroke-linecap="round"/>`;
-    const pillAt = () => "";   // no tag on the field (29 Sep 2026, Matt): the play's name and yards sit in the header row instead
-    const seg = (x0, x1, col, dash) => `<line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"${dash ? ` stroke-dasharray="${big ? "8 6" : "4 3"}"` : ""}/>`;
-    const dot = (x, col) => `<circle cx="${x}" cy="${yy}" r="${w * 0.9}" fill="${col}" stroke="${halo}" stroke-width="1.5"/>`;
-    const arrow = (x1, d, col) => `<path d="M${x1 + d * head},${yy} l${-d * head},${-head * 0.65} v${head * 1.3} z" fill="${col}" stroke="${halo}" stroke-width="1.5" stroke-linejoin="round"/>`;
-    if (/incomplete/i.test(lab)) {   // ESPN's incomplete pass: a dashed line downfield from the ball ending in an X, no tag (the feed has no target spot)
-      const dd = dir || 1, xa = X(pl.from), xb = X(Math.max(0, Math.min(100, pl.from + dd * 15))), xs = big ? 8 : 4;
-      const xm = `M${xb - xs},${yy - xs} L${xb + xs},${yy + xs} M${xb - xs},${yy + xs} L${xb + xs},${yy - xs}`;
-      return `${arc(xa, xb, "#FFFFFF")}<path d="${xm}" stroke="${halo}" stroke-width="${w + 3}" stroke-linecap="round"/><path d="${xm}" stroke="#FFFFFF" stroke-width="${w}" stroke-linecap="round"/>`; }
-    if (kick && !/fg/i.test(lab)) {   // a punt or kickoff as ESPN draws it: the flight as a dashed arc to where it was fielded, the return as a solid line; the distance from the play text
+    // thin, clean marks (29 Sep 2026, Matt): a line runs along the ball's line and is clipped so it leaves the ball's arrow and stops at the ball's back edge
+    const yy = mid, w = big ? 3 : 2, halo = "rgba(0,0,0,.35)", lift = big ? 34 : 14, nose = big ? 30 : 17, tail = big ? 17 : 10, dash = big ? "6 5" : "3 3";
+    const atBall = v => ballY != null && Math.abs(v - ballY) < 0.5;
+    const clip = (xa, xb) => { const d = xb >= xa ? 1 : -1; return [xa + (atBall(pl.from) && xa === X(pl.from) ? d * nose : 0), xb - (atBall(pl.to) && xb === X(pl.to) ? d * tail : 0)]; };
+    const stroke = (dAttr, col, dashed) => `<path d="${dAttr}" fill="none" stroke="${halo}" stroke-width="${w + 2}" stroke-linecap="round"/><path d="${dAttr}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"${dashed ? ` stroke-dasharray="${dash}"` : ""}/>`;
+    const line = (xa, xb, col, dashed) => stroke(`M${xa},${yy} L${xb},${yy}`, col, dashed);
+    const arc = (xa, xb, col) => stroke(`M${xa},${yy} Q${(xa + xb) / 2},${yy - lift} ${xb},${yy}`, col, true);
+    const dot = () => "";
+    const bh = big ? 9 : 5, band = (xa, xb, loss) => `<rect x="${Math.min(xa, xb)}" y="${yy - bh}" width="${Math.abs(xb - xa)}" height="${2 * bh}" rx="${bh / 2}" fill="${loss ? "#FF6B6B" : "#FFFFFF"}" opacity="${loss ? .5 : .34}"/>`;
+    const xmark = (x, col) => { const r = big ? 6 : 3.5; return `<path d="M${x - r},${yy - r} L${x + r},${yy + r} M${x - r},${yy + r} L${x + r},${yy - r}" stroke="${halo}" stroke-width="${w + 2}" stroke-linecap="round"/><path d="M${x - r},${yy - r} L${x + r},${yy + r} M${x - r},${yy + r} L${x + r},${yy - r}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`; };
+    if (/incomplete/i.test(lab)) {   // ESPN's incomplete pass: a dashed arc from the ball's arrow downfield ending in an X (the feed has no target spot)
+      const dd = dir || 1, xa = X(pl.from) + dd * nose, xb = X(Math.max(0, Math.min(100, pl.from + dd * 15)));
+      return `${arc(xa, xb, "#FFFFFF")}${xmark(xb, "#FFFFFF")}`; }
+    if (kick && !/fg/i.test(lab)) {   // a punt or kickoff: the flight as a dashed arc from the kick to where it was fielded (distance from the play text), the return as a line to the ball
       const m = String(text || "").match(/(?:punts|kicks) (\d+) yards?(?: from [A-Z]{2,4} \d+)? to (?:the )?(?:([A-Z]{2,4}) (\d+)|(end zone))/i);
-      const d = pl.to >= pl.from ? 1 : -1, catchY = m ? (m[3] ? (d > 0 ? 100 : 0) : yardOfSpot(`${m[1] ? m[2] : ""} ${m[3] || ""}`.trim() || `${m[2]} ${m[3]}`, H, A)) : null;
+      const d = pl.to >= pl.from ? 1 : -1, catchY = m ? (m[3] ? (d > 0 ? 100 : 0) : yardOfSpot(`${m[2]} ${m[3] || ""}`.trim(), H, A)) : null;
       const cy = catchY != null ? catchY : pl.to, xa = X(pl.from), xc = X(cy), xb = X(pl.to);
-      const ret = Math.abs(pl.to - cy) >= 1 ? seg(xc, xb, "#FFFFFF", false) : "";
-      return `${arc(xa, xc, "#FFFFFF")}${dot(xa, "#FFFFFF")}${dot(xc, "#FFFFFF")}${ret}`; }
-    const tag = `${lab}${yds != null && yds !== 0 && !/interception|fumble|fg/i.test(lab) ? ` ${yds > 0 ? "+" : "−"}${Math.abs(yds)}` : ""}`;
-    const x0 = X(pl.from), x1 = X(pl.to), d = x1 >= x0 ? 1 : -1, col = turnover || (yds != null && yds < 0) ? "#FF6B6B" : "#FFFFFF";
+      return `${Math.abs(pl.to - cy) >= 1 ? band(xc, xb, false) : ""}${arc(xa, xc, "#FFFFFF")}`; }
     if (pl.from === pl.to) return "";   // nothing moved: nothing drawn
-    if (/pass|td pass|interception/i.test(lab)) return `${arc(x0, x1, col)}${dot(x0, col)}`;   // a pass: a dashed arc from the throw to the catch (the ball sits at the end)
-    return `${seg(x0, x1, col, false)}${dot(x0, col)}`;   // a run, sack or penalty: a straight line to the ball`
+    const loss = turnover || (yds != null && yds < 0), x0 = X(pl.from), x1 = X(pl.to);
+    if (Math.abs(x1 - x0) < 2) return "";
+    if (/pass|td pass|interception/i.test(lab)) { const [a0, a1] = clip(x0, x1); return `${band(x0, x1, loss)}${arc(a0, a1, loss ? "#FF6B6B" : "#FFFFFF")}`; }   // a pass: the ground covered as a band, the throw as a thin dashed arc
+    return band(x0, x1, loss);   // a run, sack or penalty: the ground covered, from where it started to the ball
   }
   const yardSpotTxt = (y, H, A) => y === 50 ? "the 50" : y < 50 ? `${H} ${y}` : `${A} ${100 - y}`;
   const toTxt = (live, H, A) => live.home_timeouts != null || live.away_timeouts != null ? `<span class="lv-lsm" title="timeouts left">${A} ${"●".repeat(live.away_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.away_timeouts ?? 0)))} · ${H} ${"●".repeat(live.home_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.home_timeouts ?? 0)))}</span>` : "";
