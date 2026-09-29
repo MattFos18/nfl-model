@@ -2422,3 +2422,11 @@ minimum. The view buttons on every tab are in Title Case. A bug: opening a playe
 back showed nothing, because the tab switch took the player page's own sub-nav as the section's first view once the
 Players nav was removed; the switch now reads only the section's top-level nav.
 
+**Backtest → Game Picks and Opener Study in plain words, spreads and totals apart (29 Sep 2026, Matt).** "Flag" is
+gone from the page: the tiles read Bets · 4+ pts of edge (Spreads) or Bets · Under, 55%+ chance (Totals), the three
+windows say never tuned on, tuned on, held out, the live tile is This season. On Totals the spread-only cards hide (by
+week, win chances, cover odds, which seasons the odds learn from, is the edge real), the By Season table shows the
+bets, every game's over/under and the total miss (model / line) instead of winners and the margin miss, Rules
+Compared lists only the totals rules, and the edge-size and cutoff tables follow the market. The Opener Study is one
+card a window with a Spreads table and a Totals table, and the same split at the close.
+
