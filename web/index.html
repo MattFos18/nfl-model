@@ -1063,7 +1063,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // live results (web/data/live.js, nflmodel/results.py): the ESPN scoreboard's score and status, and the model's pre-kickoff
   // calls graded in Python at the close; the page displays them. Nothing here until the line watch has run with a game under way.
   function liveOf(g) { return ((window.LIVE || {}).games || {})[g.game_id] || null; }
-  const resMark = r => r ? `<span class="res ${r}">${r === "win" ? "✓" : r === "loss" ? "✗" : "push"}</span>` : "";
+  const resMark = r => "";   // no win/loss/push marks beside a pick (29 Sep 2026, Matt: they read as a glitch); the flagged-bets record line stays
   function liveHtml(g, lv) {
     if (!lv || lv.status === "scheduled" || g.home_score != null) return "";
     const sc = `${lv.away_team} ${lv.away_score}, ${lv.home_team} ${lv.home_score}`, L = window.LIVE || {};
@@ -1385,7 +1385,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   }
   // the picks table (the report's chart, with the Vegas score beside the model's): the week picker and the PDF read it
   // the picks table (the report's chart): a pick reads line, result, chance; the three scores sit in one small grid per game so each team is named once
-  const rpRes = r => r ? `<span class="rpr ${r}">${r === "win" ? "✓" : r === "loss" ? "✗" : "push"}</span>` : "";
+  const rpRes = r => "";   // no win/loss/push marks under a pick (29 Sep 2026, Matt: they read as a glitch); the flagged-bets record line stays
   // the picks table's chance is floored at 50% for the model's side (28 Sep 2026, Matt: the side follows the model's score, and the number must not read against it;
   // on a toss-up the calibrated chance can sit a few points under half, which the cards still show as it is)
   const pctSide = p => p == null ? "" : pct0(Math.max(p, 0.5));
