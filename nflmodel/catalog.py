@@ -58,6 +58,8 @@ PROCESSED_WHAT = {
 }
 LOG_WHAT = {
     "lines/lines_log.csv": ("every game line snapshot from the line watch (ESPN scoreboard provider line, DraftKings when reachable, The Odds API books): spread, total, moneylines, timestamp", "line watch (every 10 minutes)", "cards: Vegas line, line history, best number"),
+    "lines/splits_log.csv": ("every betting-splits read from DraftKings Network's public page, each line watch: per game and market, each side's line, odds, share of tickets and share of handle, timestamp", "line watch", "card Betting splits (display only, not in the model); kept for a split study"),
+    "lines/splits_latest.csv": ("the newest betting-splits read, one row per game, market and side", "line watch", "card Betting splits"),
     "lines/props_log.csv": ("every player prop line pulled (The Odds API books, PrizePicks, Underdog): stat, line, prices, timestamp", "line watch", "card Player props; props record"),
     "lines/watch_log.csv": ("one row per line-watch run: rows logged, errors", "line watch", "health"),
     "lines/raw": ("the raw JSON and HTML of every source pull, by timestamp", "line watch", "the record"),

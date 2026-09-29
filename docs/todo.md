@@ -4,7 +4,7 @@ Last updated 29 Sep 2026.
 
 ## Decisions for Matt, when ready
 - **Private or public.** Staying public for now. Going private means Actions minutes count against a plan. Options: run the line watch every 30 to 60 minutes on weekdays (every 10 on game days) and pay for extra minutes; or run the jobs on your own always-on computer (free); plus a Cloudflare login in front of the site.
-- **Buy historical betting splits** (Action Network / Bet Labs, SportsDataIO). The live splits are logged every 10 minutes from 29 Sep 2026; past seasons let us test them now.
+- **Buy historical betting splits** (Action Network / Bet Labs, SportsDataIO). The live splits are logged every 10 minutes from 29 Sep 2026 (`data/lines/splits_log.csv`); past seasons let us test them now. Matt, 29 Sep: build nothing on splits and highlight nothing (no shadow rule, no flags) until a bought history or a season of our own log can be tested.
 - **Buy historical player prop lines** (The Odds API historical). Every props idea could then be judged on real bets from 2019 to 2025, not one week.
 - **Coverage and alignment charting** (Sports Info Solutions DataHub, or PFF). The only honest way to test receiver against corner.
 - **Workflow file edits.** Claude's permissions block edits to `.github/workflows`. Changing the line watch schedule, or anything in a workflow, needs you to paste the change or allow it.
