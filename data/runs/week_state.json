@@ -9,7 +9,7 @@
   "snap counts: 2026_03_PHI_CHI",
   "charting (participation, FTN): 2026_03_PHI_CHI"
  ],
- "all_kicked_off": false,
- "pending": false,
- "checked": "2026-09-29 00:01 UTC"
+ "all_kicked_off": true,
+ "pending": true,
+ "checked": "2026-09-29 00:32 UTC"
 }
