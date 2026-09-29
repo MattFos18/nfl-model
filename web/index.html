@@ -1120,8 +1120,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}, recs = {}; let H, A, hs, as_;
       (c.competitors || []).forEach(x => { const ab = abOf(x.team); ids[String(x.team.id)] = ab; lines[ab] = (x.linescores || []).map(l => Math.round(+l.value || 0)); recs[ab] = ((x.records || []).find(r => r.type === "total") || {}).summary; const sc = x.score == null || x.score === "" ? null : Math.round(+x.score); if (x.homeAway === "home") { H = ab; hs = sc; } else { A = ab; as_ = sc; } });
       const state = ty.completed ? "final" : ({pre: "scheduled", in: "in_progress", post: "final"}[ty.state] || "scheduled"); const si = c.situation || {}, lp = si.lastPlay || {}, pr = lp.probability || {};
+      const lps = lp.start || {}, lpe = lp.end || {}, play = lps.yardLine != null && lpe.yardLine != null ? {from: lps.yardLine, to: lpe.yardLine, yds: lp.statYardage, type: (lp.type || {}).abbreviation, team: ids[String((lp.team || {}).id)]} : null;   // the last play, as results.py exports it
       out[`${A}@${H}`] = {home_team: H, away_team: A, status: state, detail: ty.shortDetail || ty.detail, period: st.period, clock: st.displayClock, home_score: state === "scheduled" ? null : hs, away_score: state === "scheduled" ? null : as_, espn_id: ev.id,
-        live: state === "scheduled" ? {broadcast: c.broadcast, records: recs} : {down: si.downDistanceText, possession: ids[String(si.possession)], red_zone: !!si.isRedZone, last_play: (lp.text || "").trim() || null, espn_home_wp: pr.homeWinPercentage, linescores: lines, records: recs, broadcast: c.broadcast,
+        live: state === "scheduled" ? {broadcast: c.broadcast, records: recs} : {down: si.downDistanceText, possession: ids[String(si.possession)], red_zone: !!si.isRedZone, last_play: (lp.text || "").trim() || null, play, espn_home_wp: pr.homeWinPercentage, linescores: lines, records: recs, broadcast: c.broadcast,
           yard_line: si.yardLine, distance: si.distance, down_n: si.down, home_timeouts: si.homeTimeouts, away_timeouts: si.awayTimeouts}}; });
     return out;
   }
@@ -1188,6 +1189,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       ${[10, 20, 30, 40, 50, 60, 70, 80, 90].map(v => { const n = v <= 50 ? v : 100 - v; return `<text x="${X(v)}" y="${big ? numY2 : numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>${big ? `<text x="${X(v)}" y="${numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>` : ""}`; }).join("")}
       ${fd != null && !goal ? `<line x1="${X(fd)}" x2="${X(fd)}" y1="${top}" y2="${bot}" stroke="#F5C518" stroke-width="${big ? 4 : 3}"/>` : ""}
       ${inPlay ? `<line x1="${X(y)}" x2="${X(y)}" y1="${top}" y2="${bot}" stroke="#2B7BFF" stroke-width="${big ? 4 : 3}"/>` : ""}
+      ${lastPlaySvg(live.play, X, mid, big)}
       ${dir ? `<path d="M${X(y) + dir * (big ? 26 : 16)},${mid} l${-dir * (big ? 12 : 8)},${-(big ? 9 : 6)} v${big ? 18 : 12} z" fill="#fff"/>` : ""}
       ${inPlay ? `<ellipse cx="${X(y)}" cy="${mid}" rx="${big ? 14 : 9}" ry="${big ? 8.5 : 5.5}" fill="#7A4A1C" stroke="#fff" stroke-width="1.2"/><line x1="${X(y) - (big ? 5 : 3)}" x2="${X(y) + (big ? 5 : 3)}" y1="${mid}" y2="${mid}" stroke="#fff" stroke-width="1.2"/>` : ""}
     </svg>`;
@@ -1196,6 +1198,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const head = pos ? `<div class="lv-fh${big ? " big" : ""}">${LOGO(pos, big ? 22 : 16)}<b>${pos}</b><span class="dd">${esc(live.down)}${goal ? " · goal to go" : ""}</span>${big && drive && drive.desc ? `<span class="dr">this drive: ${esc(drive.desc)}</span>` : ""}</div>`
       : `<div class="lv-fh${big ? " big" : ""}"><span class="dd">${scored ? "Kickoff next" : "Between plays"}</span></div>`;
     return `<div class="lv-field${big ? " big" : ""}">${head}${s}</div>`;
+  }
+  function lastPlaySvg(pl, X, mid, big) {   // ESPN's play line (29 Sep 2026, Matt): from where the last play started to where it ended, above the ball
+    if (!pl || pl.from == null || pl.to == null || pl.from === pl.to || /Off TO|2Min|^TO$|^EH$|^EG$|^EP$|^PEN$/.test(pl.type || "")) return "";
+    const x0 = X(pl.from), x1 = X(pl.to), d = x1 > x0 ? 1 : -1, yy = mid - (big ? 30 : 13), pass = /REC|INTR|INC|PASS|SACK/.test(pl.type || ""), kick = /^K$|PUNT|FG|BFG|FGM/.test(pl.type || "");
+    const col = pl.yds != null && pl.yds < 0 ? "#FF6B6B" : "#FFFFFF", w = big ? 3 : 2, head = big ? 9 : 5;
+    const body = pass ? `<path d="M${x0},${yy} Q${(x0 + x1) / 2},${yy - (big ? 34 : 14)} ${x1},${yy}" fill="none" stroke="${col}" stroke-width="${w}" stroke-dasharray="${big ? "7 5" : "4 3"}" stroke-linecap="round"/>`
+      : `<line x1="${x0}" x2="${x1}" y1="${yy}" y2="${yy}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"${kick ? ` stroke-dasharray="${big ? "2 6" : "1 4"}"` : ""}/>`;
+    return `<circle cx="${x0}" cy="${yy}" r="${big ? 4 : 2.5}" fill="${col}"/>${body}<path d="M${x1 + d * head},${yy} l${-d * head},${-head * 0.7} v${head * 1.4} z" fill="${col}"/>`;
   }
   const yardSpotTxt = (y, H, A) => y === 50 ? "the 50" : y < 50 ? `${H} ${y}` : `${A} ${100 - y}`;
   const toTxt = (live, H, A) => live.home_timeouts != null || live.away_timeouts != null ? `<span class="lv-lsm" title="timeouts left">${A} ${"●".repeat(live.away_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.away_timeouts ?? 0)))} · ${H} ${"●".repeat(live.home_timeouts ?? 0)}${"○".repeat(Math.max(0, 3 - (live.home_timeouts ?? 0)))}</span>` : "";
