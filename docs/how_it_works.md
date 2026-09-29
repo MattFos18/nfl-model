@@ -2312,5 +2312,9 @@ scoreboard's lastPlay start and end yardLine, exported by results.py and read th
 a straight line with a tag saying what it was and the yards (Run +7, Pass +26, Sack −8, Interception, Fumble lost,
 Punt 43, FG good), white with a dark halo, red for a loss or a turnover; an incomplete pass gets the tag alone at the
 spot; timeouts and clock stoppages draw nothing. ESPN's end spot and its ball spot can differ after a penalty or a
-re-spot, so an offensive play by the team in possession is slid to end where the ball is, its length kept.
+re-spot, so an offensive play by the team in possession is slid to end where the ball is, its length kept. Later the
+same day: an incomplete pass is a dashed line downfield ending in an X with no tag; a punt or kickoff is drawn as ESPN
+draws it, the flight as a dashed arc from the kick to where it was fielded (the distance parsed from the play text,
+since ESPN's yardage for a kick is the net) and the return as a solid line; the line sits in the clear band between
+the hash marks and the ball with its tag on the line, off the yard numbers; the tile's small field draws no play.
 
