@@ -1,0 +1,439 @@
+model,features,target,window,n_games,stack_w,team_mae,team_rmse,margin_mae,margin_rmse,spread4,spread4_pct,total_mae,total_rmse,under3,under3_pct,adopt_spread,adopt_total,table,market,rmse_2015_25,acc_at_0_pooled,lookahead_best_frac,lookahead_best_acc,lookahead_n,picked_frac_2015_18,acc_2015-18,acc_2019-22,acc_2023-25,n_2015-18,n_2019-22,n_2023-25
+live model,live,live,2015-18,1024.0,,7.4094,9.3793,9.9491,12.8906,68-55,0.5528,10.7437,13.6279,61-46,0.5701,,,per window,,,,,,,,,,,,,
+live model,live,live,2019-22,1055.0,,7.3477,9.2567,10.0204,12.9333,80-51,0.6107,10.5406,13.2468,95-50,0.6552,,,per window,,,,,,,,,,,,,
+live model,live,live,2023-25,816.0,,7.2623,9.1305,9.9041,12.8029,40-21,0.6557,10.1767,13.021,21-16,0.5676,,,per window,,,,,,,,,,,,,
+live ridge alone,live,points,2015-18,1024.0,,7.397,9.4104,9.962,12.9049,61-58,0.5126,10.7986,13.6999,75-55,0.5769,False,False,per window,,,,,,,,,,,,,
+live ridge alone,live,points,2019-22,1055.0,,7.3437,9.269,10.03,12.9392,81-55,0.5956,10.5845,13.2754,81-63,0.5625,False,False,per window,,,,,,,,,,,,,
+live ridge alone,live,points,2023-25,816.0,,7.2739,9.1673,9.9137,12.8165,40-23,0.6349,10.3148,13.111,12-11,0.5217,False,False,per window,,,,,,,,,,,,,
+live trees alone,live,points,2015-18,1024.0,,7.4695,9.4908,10.0874,13.1192,136-121,0.5292,10.7626,13.7181,121-95,0.5602,False,False,per window,,,,,,,,,,,,,
+live trees alone,live,points,2019-22,1055.0,,7.419,9.3725,10.1576,13.1035,126-98,0.5625,10.6118,13.4041,107-79,0.5753,False,False,per window,,,,,,,,,,,,,
+live trees alone,live,points,2023-25,816.0,,7.3011,9.1898,9.9862,12.8736,60-33,0.6452,10.2213,13.1179,21-22,0.4884,False,False,per window,,,,,,,,,,,,,
+ridge,live,points,2015-18,1024.0,,7.397,9.4104,9.962,12.9049,61-58,0.5126,10.7986,13.6999,75-55,0.5769,False,False,per window,,,,,,,,,,,,,
+ridge,live,points,2019-22,1055.0,,7.3437,9.269,10.03,12.9392,81-55,0.5956,10.5845,13.2754,81-63,0.5625,False,False,per window,,,,,,,,,,,,,
+ridge,live,points,2023-25,816.0,,7.2739,9.1673,9.9137,12.8165,40-23,0.6349,10.3148,13.111,12-11,0.5217,False,False,per window,,,,,,,,,,,,,
+ridge,wide,points,2015-18,1024.0,,7.6035,9.6641,10.208,13.2121,104-109,0.4883,11.166,14.1074,102-121,0.4574,False,False,per window,,,,,,,,,,,,,
+ridge,wide,points,2019-22,1055.0,,7.4011,9.3348,10.195,13.0458,121-95,0.5602,10.706,13.3553,95-74,0.5621,False,False,per window,,,,,,,,,,,,,
+ridge,wide,points,2023-25,816.0,,7.3106,9.1981,9.9825,12.8256,61-50,0.5495,10.3858,13.188,19-28,0.4043,False,False,per window,,,,,,,,,,,,,
+ridge,lasso,points,2015-18,1024.0,,7.4891,9.4971,10.0839,13.0381,99-106,0.4829,10.8848,13.8125,93-86,0.5196,False,False,per window,,,,,,,,,,,,,
+ridge,lasso,points,2019-22,1055.0,,7.371,9.3,10.1678,13.0393,89-82,0.5205,10.6114,13.2641,94-61,0.6065,False,False,per window,,,,,,,,,,,,,
+ridge,lasso,points,2023-25,816.0,,7.2956,9.1834,10.0018,12.8477,57-43,0.57,10.2932,13.1255,18-28,0.3913,False,False,per window,,,,,,,,,,,,,
+ridge,forward,points,2015-18,1024.0,,7.3006,9.3025,9.9009,12.8011,78-56,0.5821,10.6252,13.501,76-52,0.5938,False,False,per window,,,,,,,,,,,,,
+ridge,forward,points,2019-22,1055.0,,7.3952,9.3327,10.0622,12.9601,89-72,0.5528,10.6867,13.4324,113-105,0.5183,False,False,per window,,,,,,,,,,,,,
+ridge,forward,points,2023-25,816.0,,7.2967,9.2079,9.9723,12.8682,48-41,0.5393,10.3225,13.1738,34-33,0.5075,False,False,per window,,,,,,,,,,,,,
+ridge,live,total,2015-18,1024.0,,,,,,,,10.7437,13.6279,61-46,0.5701,,False,per window,,,,,,,,,,,,,
+ridge,live,total,2019-22,1055.0,,,,,,,,10.5406,13.2468,95-50,0.6552,,False,per window,,,,,,,,,,,,,
+ridge,live,total,2023-25,816.0,,,,,,,,10.1767,13.021,21-16,0.5676,,False,per window,,,,,,,,,,,,,
+ridge,wide,total,2015-18,1024.0,,,,,,,,11.1511,14.0989,123-121,0.5041,,False,per window,,,,,,,,,,,,,
+ridge,wide,total,2019-22,1055.0,,,,,,,,10.7164,13.3294,105-87,0.5469,,False,per window,,,,,,,,,,,,,
+ridge,wide,total,2023-25,816.0,,,,,,,,10.3868,13.211,23-31,0.4259,,False,per window,,,,,,,,,,,,,
+ridge,lasso,total,2015-18,1024.0,,,,,,,,10.9617,13.9242,98-107,0.478,,False,per window,,,,,,,,,,,,,
+ridge,lasso,total,2019-22,1055.0,,,,,,,,10.5901,13.2235,88-57,0.6069,,False,per window,,,,,,,,,,,,,
+ridge,lasso,total,2023-25,816.0,,,,,,,,10.2592,13.1125,27-39,0.4091,,False,per window,,,,,,,,,,,,,
+ridge,forward,total,2015-18,1024.0,,,,,,,,10.4817,13.3728,94-59,0.6144,,False,per window,,,,,,,,,,,,,
+ridge,forward,total,2019-22,1055.0,,,,,,,,10.512,13.2243,97-75,0.564,,False,per window,,,,,,,,,,,,,
+ridge,forward,total,2023-25,816.0,,,,,,,,10.3689,13.2304,56-57,0.4956,,False,per window,,,,,,,,,,,,,
+lasso,live,points,2015-18,1024.0,,7.3966,9.3906,9.979,12.9147,58-46,0.5577,10.7356,13.6362,60-39,0.6061,False,False,per window,,,,,,,,,,,,,
+lasso,live,points,2019-22,1055.0,,7.3551,9.2804,10.0344,12.953,72-53,0.576,10.5986,13.2936,76-64,0.5429,False,False,per window,,,,,,,,,,,,,
+lasso,live,points,2023-25,816.0,,7.2769,9.1671,9.9248,12.8353,40-19,0.678,10.2931,13.0918,12-11,0.5217,False,False,per window,,,,,,,,,,,,,
+lasso,wide,points,2015-18,1024.0,,7.4391,9.4149,10.0319,12.9731,74-67,0.5248,10.7552,13.6478,62-52,0.5439,False,False,per window,,,,,,,,,,,,,
+lasso,wide,points,2019-22,1055.0,,7.3734,9.2873,10.0695,12.9743,64-57,0.5289,10.6042,13.2922,78-52,0.6,False,False,per window,,,,,,,,,,,,,
+lasso,wide,points,2023-25,816.0,,7.2966,9.1833,9.9903,12.9044,37-27,0.5781,10.2572,13.0695,9-18,0.3333,False,False,per window,,,,,,,,,,,,,
+lasso,lasso,points,2015-18,1024.0,,7.4711,9.4705,10.0573,13.0019,90-95,0.4865,10.8523,13.7738,88-75,0.5399,False,False,per window,,,,,,,,,,,,,
+lasso,lasso,points,2019-22,1055.0,,7.3675,9.2942,10.1449,13.0236,86-74,0.5375,10.6074,13.2633,91-60,0.6026,False,False,per window,,,,,,,,,,,,,
+lasso,lasso,points,2023-25,816.0,,7.2914,9.1781,9.9897,12.8476,53-42,0.5579,10.2846,13.1107,16-26,0.381,False,False,per window,,,,,,,,,,,,,
+lasso,forward,points,2015-18,1024.0,,7.3088,9.3148,9.908,12.8218,67-50,0.5726,10.629,13.5154,70-49,0.5882,False,False,per window,,,,,,,,,,,,,
+lasso,forward,points,2019-22,1055.0,,7.3817,9.3121,10.0384,12.9546,77-63,0.55,10.6562,13.3805,96-91,0.5134,False,False,per window,,,,,,,,,,,,,
+lasso,forward,points,2023-25,816.0,,7.2975,9.2057,9.9822,12.8833,46-31,0.5974,10.314,13.153,29-27,0.5179,False,False,per window,,,,,,,,,,,,,
+lasso,live,total,2015-18,1024.0,,,,,,,,10.7444,13.6328,58-48,0.5472,,False,per window,,,,,,,,,,,,,
+lasso,live,total,2019-22,1055.0,,,,,,,,10.5448,13.2555,90-52,0.6338,,False,per window,,,,,,,,,,,,,
+lasso,live,total,2023-25,816.0,,,,,,,,10.1831,13.0203,19-15,0.5588,,False,per window,,,,,,,,,,,,,
+lasso,wide,total,2015-18,1024.0,,,,,,,,10.8039,13.6917,63-57,0.525,,False,per window,,,,,,,,,,,,,
+lasso,wide,total,2019-22,1055.0,,,,,,,,10.5672,13.2241,77-48,0.616,,False,per window,,,,,,,,,,,,,
+lasso,wide,total,2023-25,816.0,,,,,,,,10.2252,13.0543,18-22,0.45,,False,per window,,,,,,,,,,,,,
+lasso,lasso,total,2015-18,1024.0,,,,,,,,10.9263,13.8772,93-102,0.4769,,False,per window,,,,,,,,,,,,,
+lasso,lasso,total,2019-22,1055.0,,,,,,,,10.5747,13.2121,84-55,0.6043,,False,per window,,,,,,,,,,,,,
+lasso,lasso,total,2023-25,816.0,,,,,,,,10.24,13.09,23-28,0.451,,False,per window,,,,,,,,,,,,,
+lasso,forward,total,2015-18,1024.0,,,,,,,,10.4947,13.3958,76-52,0.5938,,False,per window,,,,,,,,,,,,,
+lasso,forward,total,2019-22,1055.0,,,,,,,,10.5195,13.228,94-73,0.5629,,False,per window,,,,,,,,,,,,,
+lasso,forward,total,2023-25,816.0,,,,,,,,10.3696,13.2299,55-54,0.5046,,False,per window,,,,,,,,,,,,,
+hgb,live,points,2015-18,1024.0,,7.3938,9.4058,10.0024,13.0142,101-89,0.5316,10.6167,13.5834,106-65,0.6199,False,False,per window,,,,,,,,,,,,,
+hgb,live,points,2019-22,1055.0,,7.3946,9.3294,10.063,13.0248,107-80,0.5722,10.5987,13.3605,105-82,0.5615,False,False,per window,,,,,,,,,,,,,
+hgb,live,points,2023-25,816.0,,7.3386,9.2046,9.9872,12.9178,44-32,0.5789,10.2623,13.116,17-23,0.425,False,False,per window,,,,,,,,,,,,,
+hgb,wide,points,2015-18,1024.0,,7.4872,9.4863,10.0809,13.103,113-96,0.5407,10.726,13.7212,81-68,0.5436,False,False,per window,,,,,,,,,,,,,
+hgb,wide,points,2019-22,1055.0,,7.4227,9.3417,10.029,12.9944,85-71,0.5449,10.7026,13.4244,83-71,0.539,False,False,per window,,,,,,,,,,,,,
+hgb,wide,points,2023-25,816.0,,7.3667,9.2147,10.035,12.9553,49-45,0.5213,10.2905,13.1074,18-19,0.4865,False,False,per window,,,,,,,,,,,,,
+hgb,lasso,points,2015-18,1024.0,,7.4632,9.4647,10.07,13.0254,112-97,0.5359,10.7838,13.7355,92-79,0.538,False,False,per window,,,,,,,,,,,,,
+hgb,lasso,points,2019-22,1055.0,,7.4242,9.3558,10.0772,13.0328,95-82,0.5367,10.6772,13.4265,89-71,0.5562,False,False,per window,,,,,,,,,,,,,
+hgb,lasso,points,2023-25,816.0,,7.3633,9.2257,10.0387,12.9617,50-38,0.5682,10.2764,13.132,20-22,0.4762,False,False,per window,,,,,,,,,,,,,
+hgb,forward,points,2015-18,1024.0,,7.3771,9.3722,9.9599,12.9197,132-83,0.614,10.6397,13.5807,85-66,0.5629,False,False,per window,,,,,,,,,,,,,
+hgb,forward,points,2019-22,1055.0,,7.4201,9.3554,10.0698,13.0023,118-85,0.5813,10.675,13.455,116-94,0.5524,False,False,per window,,,,,,,,,,,,,
+hgb,forward,points,2023-25,816.0,,7.3555,9.2349,9.9944,12.9523,57-46,0.5534,10.2845,13.1672,36-37,0.4932,False,False,per window,,,,,,,,,,,,,
+hgb,live,total,2015-18,1024.0,,,,,,,,10.7153,13.694,78-65,0.5455,,False,per window,,,,,,,,,,,,,
+hgb,live,total,2019-22,1055.0,,,,,,,,10.6965,13.4292,111-73,0.6033,,False,per window,,,,,,,,,,,,,
+hgb,live,total,2023-25,816.0,,,,,,,,10.3074,13.1611,36-32,0.5294,,False,per window,,,,,,,,,,,,,
+hgb,wide,total,2015-18,1024.0,,,,,,,,10.7025,13.7199,92-81,0.5318,,False,per window,,,,,,,,,,,,,
+hgb,wide,total,2019-22,1055.0,,,,,,,,10.6715,13.3612,92-61,0.6013,,False,per window,,,,,,,,,,,,,
+hgb,wide,total,2023-25,816.0,,,,,,,,10.3051,13.1664,31-32,0.4921,,False,per window,,,,,,,,,,,,,
+hgb,lasso,total,2015-18,1024.0,,,,,,,,10.7132,13.666,104-98,0.5149,,False,per window,,,,,,,,,,,,,
+hgb,lasso,total,2019-22,1055.0,,,,,,,,10.6202,13.3137,92-59,0.6093,,False,per window,,,,,,,,,,,,,
+hgb,lasso,total,2023-25,816.0,,,,,,,,10.2999,13.1753,30-36,0.4545,,False,per window,,,,,,,,,,,,,
+hgb,forward,total,2015-18,1024.0,,,,,,,,10.5801,13.5693,110-72,0.6044,,False,per window,,,,,,,,,,,,,
+hgb,forward,total,2019-22,1055.0,,,,,,,,10.6759,13.4173,96-79,0.5486,,False,per window,,,,,,,,,,,,,
+hgb,forward,total,2023-25,816.0,,,,,,,,10.3592,13.2691,57-56,0.5044,,False,per window,,,,,,,,,,,,,
+rf,live,points,2015-18,1024.0,,7.4434,9.4366,10.1041,13.0829,97-86,0.5301,10.6859,13.6028,55-35,0.6111,False,False,per window,,,,,,,,,,,,,
+rf,live,points,2019-22,1055.0,,7.4303,9.3403,10.0735,13.0105,102-91,0.5285,10.7002,13.4049,87-63,0.58,False,False,per window,,,,,,,,,,,,,
+rf,live,points,2023-25,816.0,,7.3705,9.2456,10.0344,12.9855,49-41,0.5444,10.3379,13.1645,12-10,0.5455,False,False,per window,,,,,,,,,,,,,
+rf,wide,points,2015-18,1024.0,,7.496,9.504,10.1805,13.1893,125-119,0.5123,10.778,13.6873,54-47,0.5347,False,False,per window,,,,,,,,,,,,,
+rf,wide,points,2019-22,1055.0,,7.4707,9.3663,10.0562,13.0083,113-95,0.5433,10.7855,13.4794,63-59,0.5164,False,False,per window,,,,,,,,,,,,,
+rf,wide,points,2023-25,816.0,,7.4376,9.3118,10.1233,13.1471,49-58,0.4579,10.3772,13.1906,14-14,0.5,False,False,per window,,,,,,,,,,,,,
+rf,lasso,points,2015-18,1024.0,,7.4874,9.4814,10.1218,13.1344,121-98,0.5525,10.7722,13.6775,62-52,0.5439,False,False,per window,,,,,,,,,,,,,
+rf,lasso,points,2019-22,1055.0,,7.4639,9.3641,10.0488,13.0193,105-89,0.5412,10.7408,13.4628,75-73,0.5068,False,False,per window,,,,,,,,,,,,,
+rf,lasso,points,2023-25,816.0,,7.3895,9.2642,10.0751,13.0677,53-53,0.5,10.2928,13.1353,12-12,0.5,False,False,per window,,,,,,,,,,,,,
+rf,forward,points,2015-18,1024.0,,7.4327,9.4261,10.0346,13.0547,119-90,0.5694,10.7123,13.6007,50-36,0.5814,False,False,per window,,,,,,,,,,,,,
+rf,forward,points,2019-22,1055.0,,7.4563,9.3581,10.0655,13.009,120-93,0.5634,10.7231,13.4558,78-70,0.527,False,False,per window,,,,,,,,,,,,,
+rf,forward,points,2023-25,816.0,,7.3983,9.2699,10.0501,13.0338,51-54,0.4857,10.3445,13.185,23-26,0.4694,False,False,per window,,,,,,,,,,,,,
+rf,live,total,2015-18,1024.0,,,,,,,,10.7482,13.7202,55-51,0.5189,,False,per window,,,,,,,,,,,,,
+rf,live,total,2019-22,1055.0,,,,,,,,10.6891,13.3952,83-66,0.557,,False,per window,,,,,,,,,,,,,
+rf,live,total,2023-25,816.0,,,,,,,,10.2972,13.1404,17-15,0.5312,,False,per window,,,,,,,,,,,,,
+rf,wide,total,2015-18,1024.0,,,,,,,,10.8262,13.7908,53-60,0.469,,False,per window,,,,,,,,,,,,,
+rf,wide,total,2019-22,1055.0,,,,,,,,10.7529,13.4176,70-53,0.5691,,False,per window,,,,,,,,,,,,,
+rf,wide,total,2023-25,816.0,,,,,,,,10.318,13.1683,17-20,0.4595,,False,per window,,,,,,,,,,,,,
+rf,lasso,total,2015-18,1024.0,,,,,,,,10.7651,13.724,56-64,0.4667,,False,per window,,,,,,,,,,,,,
+rf,lasso,total,2019-22,1055.0,,,,,,,,10.7086,13.3559,72-50,0.5902,,False,per window,,,,,,,,,,,,,
+rf,lasso,total,2023-25,816.0,,,,,,,,10.2903,13.1425,15-21,0.4167,,False,per window,,,,,,,,,,,,,
+rf,forward,total,2015-18,1024.0,,,,,,,,10.6424,13.589,79-62,0.5603,,False,per window,,,,,,,,,,,,,
+rf,forward,total,2019-22,1055.0,,,,,,,,10.756,13.4269,87-78,0.5273,,False,per window,,,,,,,,,,,,,
+rf,forward,total,2023-25,816.0,,,,,,,,10.3134,13.1853,37-43,0.4625,,False,per window,,,,,,,,,,,,,
+mlp,live,points,2015-18,1024.0,,7.6115,9.6387,10.2844,13.2805,147-142,0.5087,11.0774,13.9731,113-91,0.5539,False,False,per window,,,,,,,,,,,,,
+mlp,live,points,2019-22,1055.0,,7.4586,9.4222,10.2476,13.126,139-119,0.5388,10.7059,13.5211,114-98,0.5377,False,False,per window,,,,,,,,,,,,,
+mlp,live,points,2023-25,816.0,,7.3567,9.2639,10.0849,13.0164,55-47,0.5392,10.4248,13.1854,18-20,0.4737,False,False,per window,,,,,,,,,,,,,
+mlp,wide,points,2015-18,1024.0,,7.8204,9.8769,10.4789,13.5749,203-190,0.5165,11.2508,14.3505,135-113,0.5444,False,False,per window,,,,,,,,,,,,,
+mlp,wide,points,2019-22,1055.0,,7.6103,9.5765,10.4294,13.3156,172-151,0.5325,10.9841,13.7669,133-121,0.5236,False,False,per window,,,,,,,,,,,,,
+mlp,wide,points,2023-25,816.0,,7.4615,9.3581,10.2754,13.135,100-89,0.5291,10.5485,13.333,42-67,0.3853,False,False,per window,,,,,,,,,,,,,
+mlp,lasso,points,2015-18,1024.0,,7.6486,9.6585,10.1075,13.1062,144-133,0.5199,11.2706,14.1905,116-132,0.4677,False,False,per window,,,,,,,,,,,,,
+mlp,lasso,points,2019-22,1055.0,,7.5259,9.4898,10.2879,13.1907,158-127,0.5544,10.9068,13.6467,130-107,0.5485,False,False,per window,,,,,,,,,,,,,
+mlp,lasso,points,2023-25,816.0,,7.4059,9.2996,10.2227,13.0905,88-92,0.4889,10.4195,13.2124,46-50,0.4792,False,False,per window,,,,,,,,,,,,,
+mlp,forward,points,2015-18,1024.0,,7.4712,9.5116,10.1207,13.1039,195-146,0.5718,10.9354,13.7903,118-76,0.6082,False,False,per window,,,,,,,,,,,,,
+mlp,forward,points,2019-22,1055.0,,7.5528,9.5314,10.2406,13.218,159-141,0.53,10.9338,13.7359,144-122,0.5414,False,False,per window,,,,,,,,,,,,,
+mlp,forward,points,2023-25,816.0,,7.4373,9.3493,10.1208,12.9925,80-71,0.5298,10.5338,13.4474,41-51,0.4457,False,False,per window,,,,,,,,,,,,,
+mlp,live,total,2015-18,1024.0,,,,,,,,10.8282,13.8064,78-72,0.52,,False,per window,,,,,,,,,,,,,
+mlp,live,total,2019-22,1055.0,,,,,,,,10.7907,13.4928,107-90,0.5431,,False,per window,,,,,,,,,,,,,
+mlp,live,total,2023-25,816.0,,,,,,,,10.3418,13.1248,40-34,0.5405,,False,per window,,,,,,,,,,,,,
+mlp,wide,total,2015-18,1024.0,,,,,,,,11.3567,14.5387,149-153,0.4934,,False,per window,,,,,,,,,,,,,
+mlp,wide,total,2019-22,1055.0,,,,,,,,11.2558,14.0336,152-136,0.5278,,False,per window,,,,,,,,,,,,,
+mlp,wide,total,2023-25,816.0,,,,,,,,10.6897,13.4739,87-86,0.5029,,False,per window,,,,,,,,,,,,,
+mlp,lasso,total,2015-18,1024.0,,,,,,,,11.3908,14.5865,136-137,0.4982,,False,per window,,,,,,,,,,,,,
+mlp,lasso,total,2019-22,1055.0,,,,,,,,10.888,13.6549,132-100,0.569,,False,per window,,,,,,,,,,,,,
+mlp,lasso,total,2023-25,816.0,,,,,,,,10.6279,13.4555,70-77,0.4762,,False,per window,,,,,,,,,,,,,
+mlp,forward,total,2015-18,1024.0,,,,,,,,10.6217,13.58,109-87,0.5561,,False,per window,,,,,,,,,,,,,
+mlp,forward,total,2019-22,1055.0,,,,,,,,10.7836,13.5489,137-112,0.5502,,False,per window,,,,,,,,,,,,,
+mlp,forward,total,2023-25,816.0,,,,,,,,10.3993,13.3006,72-71,0.5035,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/total,2015-18,1024.0,0.4,,,,,,,10.7158,13.6006,43-36,0.5443,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/total,2019-22,1055.0,0.4,,,,,,,10.5262,13.2124,82-39,0.6777,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,points/total,2023-25,816.0,0.4,,,,,,,10.2004,13.0149,9-9,0.5,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/total,2015-18,1024.0,0.15,,,,,,,10.7306,13.6231,54-38,0.587,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/total,2019-22,1055.0,0.15,,,,,,,10.5354,13.2226,86-45,0.6565,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,points/total,2023-25,816.0,0.15,,,,,,,10.186,13.0155,17-14,0.5484,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/spread,2015-18,1024.0,0.05,,,9.9488,12.8882,65-55,0.5417,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/spread,2019-22,1055.0,0.05,,,10.0222,12.9325,78-48,0.619,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/spread,2023-25,816.0,0.05,,,9.9036,12.8011,39-22,0.6393,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/total,2015-18,1024.0,0.25,,,,,,,10.7159,13.6015,56-38,0.5957,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/total,2019-22,1055.0,0.25,,,,,,,10.5241,13.2014,84-39,0.6829,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,points/total,2023-25,816.0,0.25,,,,,,,10.1811,13.0061,14-14,0.5,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/spread,2015-18,1024.0,0.7,,,9.8947,12.8026,64-49,0.5664,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/spread,2019-22,1055.0,0.7,,,10.0312,12.9325,78-65,0.5455,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/spread,2023-25,816.0,0.7,,,9.9396,12.8346,40-32,0.5556,,,,,False,,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/total,2015-18,1024.0,0.7,,,,,,,10.6021,13.4787,63-33,0.6562,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/total,2019-22,1055.0,0.7,,,,,,,10.6002,13.3215,98-81,0.5475,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,points/total,2023-25,816.0,0.7,,,,,,,10.2497,13.085,17-18,0.4857,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,total/total,2015-18,1024.0,0.0,,,,,,,10.7437,13.6279,61-46,0.5701,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,total/total,2019-22,1055.0,0.0,,,,,,,10.5406,13.2468,95-50,0.6552,,False,per window,,,,,,,,,,,,,
+stack live+ridge,live,total/total,2023-25,816.0,0.0,,,,,,,10.1767,13.021,21-16,0.5676,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,total/total,2015-18,1024.0,0.2,,,,,,,10.727,13.6278,59-41,0.59,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,total/total,2019-22,1055.0,0.2,,,,,,,10.5375,13.218,93-46,0.6691,,False,per window,,,,,,,,,,,,,
+stack live+ridge,wide,total/total,2023-25,816.0,0.2,,,,,,,10.1982,13.0303,16-14,0.5333,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,total/total,2015-18,1024.0,0.2,,,,,,,10.7261,13.6281,63-47,0.5727,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,total/total,2019-22,1055.0,0.2,,,,,,,10.526,13.2123,91-42,0.6842,,False,per window,,,,,,,,,,,,,
+stack live+ridge,lasso,total/total,2023-25,816.0,0.2,,,,,,,10.1802,13.0181,20-18,0.5263,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,total/total,2015-18,1024.0,1.0,,,,,,,10.4817,13.3728,94-59,0.6144,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,total/total,2019-22,1055.0,1.0,,,,,,,10.512,13.2243,97-75,0.564,,False,per window,,,,,,,,,,,,,
+stack live+ridge,forward,total/total,2023-25,816.0,1.0,,,,,,,10.3689,13.2304,56-57,0.4956,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/total,2015-18,1024.0,0.55,,,,,,,10.6993,13.5867,45-24,0.6522,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/total,2019-22,1055.0,0.55,,,,,,,10.5441,13.2304,78-40,0.661,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,points/total,2023-25,816.0,0.55,,,,,,,10.2127,13.0203,6-9,0.4,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/spread,2015-18,1024.0,0.1,,,9.9471,12.8873,65-50,0.5652,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/spread,2019-22,1055.0,0.1,,,10.0167,12.9294,78-48,0.619,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/spread,2023-25,816.0,0.1,,,9.9064,12.8081,38-22,0.6333,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/total,2015-18,1024.0,0.45,,,,,,,10.6978,13.579,48-32,0.6,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/total,2019-22,1055.0,0.45,,,,,,,10.5419,13.2282,81-40,0.6694,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,points/total,2023-25,816.0,0.45,,,,,,,10.1934,13.0102,12-10,0.5455,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/spread,2015-18,1024.0,0.1,,,9.9484,12.8864,63-54,0.5385,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/spread,2019-22,1055.0,0.1,,,10.0231,12.932,75-51,0.5952,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/spread,2023-25,816.0,0.1,,,9.9037,12.8007,38-23,0.623,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/total,2015-18,1024.0,0.3,,,,,,,10.7136,13.5989,55-34,0.618,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/total,2019-22,1055.0,0.3,,,,,,,10.5253,13.2004,84-39,0.6829,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,points/total,2023-25,816.0,0.3,,,,,,,10.1844,13.0066,13-12,0.52,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/spread,2015-18,1024.0,0.65,,,9.8983,12.8164,51-42,0.5484,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/spread,2019-22,1055.0,0.65,,,10.0113,12.9266,74-57,0.5649,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/spread,2023-25,816.0,0.65,,,9.9411,12.8412,40-29,0.5797,,,,,False,,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/total,2015-18,1024.0,0.7,,,,,,,10.6078,13.4928,58-32,0.6444,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/total,2019-22,1055.0,0.7,,,,,,,10.5875,13.296,88-65,0.5752,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,points/total,2023-25,816.0,0.7,,,,,,,10.2464,13.0747,16-17,0.4848,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,total/total,2015-18,1024.0,0.4,,,,,,,10.7401,13.6245,60-45,0.5714,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,total/total,2019-22,1055.0,0.4,,,,,,,10.5401,13.2474,93-50,0.6503,,False,per window,,,,,,,,,,,,,
+stack live+lasso,live,total/total,2023-25,816.0,0.4,,,,,,,10.1783,13.0198,21-16,0.5676,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,total/total,2015-18,1024.0,0.35,,,,,,,10.7086,13.6029,56-38,0.5957,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,total/total,2019-22,1055.0,0.35,,,,,,,10.5298,13.2129,83-40,0.6748,,False,per window,,,,,,,,,,,,,
+stack live+lasso,wide,total/total,2023-25,816.0,0.35,,,,,,,10.1832,13.0153,16-14,0.5333,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,total/total,2015-18,1024.0,0.25,,,,,,,10.725,13.6279,63-47,0.5727,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,total/total,2019-22,1055.0,0.25,,,,,,,10.5269,13.2104,87-43,0.6692,,False,per window,,,,,,,,,,,,,
+stack live+lasso,lasso,total/total,2023-25,816.0,0.25,,,,,,,10.181,13.0187,20-18,0.5263,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,total/total,2015-18,1024.0,1.0,,,,,,,10.4947,13.3958,76-52,0.5938,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,total/total,2019-22,1055.0,1.0,,,,,,,10.5195,13.228,94-73,0.5629,,False,per window,,,,,,,,,,,,,
+stack live+lasso,forward,total/total,2023-25,816.0,1.0,,,,,,,10.3696,13.2299,55-54,0.5046,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/spread,2015-18,1024.0,0.35,,,9.9401,12.8973,70-57,0.5512,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/spread,2019-22,1055.0,0.35,,,10.0188,12.9423,82-56,0.5942,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/spread,2023-25,816.0,0.35,,,9.9138,12.8222,36-22,0.6207,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/total,2015-18,1024.0,0.7,,,,,,,10.577,13.5143,74-42,0.6379,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/total,2019-22,1055.0,0.7,,,,,,,10.5394,13.2694,91-60,0.6026,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,points/total,2023-25,816.0,0.7,,,,,,,10.19,13.0403,11-16,0.4074,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/spread,2015-18,1024.0,0.15,,,9.9424,12.8912,63-49,0.5625,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/spread,2019-22,1055.0,0.15,,,10.0072,12.9233,69-47,0.5948,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/spread,2023-25,816.0,0.15,,,9.9064,12.8097,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/total,2015-18,1024.0,0.5,,,,,,,10.6425,13.5815,52-38,0.5778,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/total,2019-22,1055.0,0.5,,,,,,,10.5682,13.2681,71-44,0.6174,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,points/total,2023-25,816.0,0.5,,,,,,,10.1867,13.0109,12-10,0.5455,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/spread,2015-18,1024.0,0.2,,,9.9401,12.8785,67-50,0.5726,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/spread,2019-22,1055.0,0.2,,,10.0126,12.9292,73-51,0.5887,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/spread,2023-25,816.0,0.2,,,9.9076,12.8138,37-21,0.6379,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/total,2015-18,1024.0,0.45,,,,,,,10.6754,13.5813,53-42,0.5579,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/total,2019-22,1055.0,0.45,,,,,,,10.5537,13.2608,79-48,0.622,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,points/total,2023-25,816.0,0.45,,,,,,,10.1814,13.0206,12-10,0.5455,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/spread,2015-18,1024.0,0.45,,,9.8877,12.8355,69-45,0.6053,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/spread,2019-22,1055.0,0.45,,,10.0064,12.9259,77-63,0.55,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/spread,2023-25,816.0,0.45,,,9.9162,12.8368,38-24,0.6129,,,,,False,,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/total,2015-18,1024.0,0.6,,,,,,,10.6011,13.5096,55-39,0.5851,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/total,2019-22,1055.0,0.6,,,,,,,10.5622,13.3002,94-62,0.6026,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,points/total,2023-25,816.0,0.6,,,,,,,10.1833,13.045,17-15,0.5312,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,total/total,2015-18,1024.0,0.6,,,,,,,10.6536,13.6007,57-51,0.5278,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,total/total,2019-22,1055.0,0.6,,,,,,,10.5958,13.3174,99-68,0.5928,,False,per window,,,,,,,,,,,,,
+stack live+hgb,live,total/total,2023-25,816.0,0.6,,,,,,,10.2292,13.0729,23-20,0.5349,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,total/total,2015-18,1024.0,0.55,,,,,,,10.6308,13.5885,62-54,0.5345,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,total/total,2019-22,1055.0,0.55,,,,,,,10.5615,13.2482,88-50,0.6377,,False,per window,,,,,,,,,,,,,
+stack live+hgb,wide,total/total,2023-25,816.0,0.55,,,,,,,10.2026,13.0392,20-14,0.5882,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,total/total,2015-18,1024.0,0.5,,,,,,,10.6405,13.5551,61-58,0.5126,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,total/total,2019-22,1055.0,0.5,,,,,,,10.5209,13.2098,88-47,0.6519,,False,per window,,,,,,,,,,,,,
+stack live+hgb,lasso,total/total,2023-25,816.0,0.5,,,,,,,10.1922,13.03,18-15,0.5455,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,total/total,2015-18,1024.0,0.65,,,,,,,10.5557,13.5142,67-53,0.5583,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,total/total,2019-22,1055.0,0.65,,,,,,,10.5744,13.294,86-59,0.5931,,False,per window,,,,,,,,,,,,,
+stack live+hgb,forward,total/total,2023-25,816.0,0.65,,,,,,,10.2553,13.1284,35-36,0.493,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,live,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,live,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,live,points/total,2015-18,1024.0,0.6,,,,,,,10.6363,13.5483,41-25,0.6212,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,points/total,2019-22,1055.0,0.6,,,,,,,10.5917,13.2856,86-40,0.6825,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,points/total,2023-25,816.0,0.6,,,,,,,10.2271,13.0514,7-8,0.4667,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/spread,2015-18,1024.0,0.05,,,9.9482,12.8895,65-49,0.5702,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/spread,2019-22,1055.0,0.05,,,10.0112,12.9248,76-49,0.608,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/spread,2023-25,816.0,0.05,,,9.9056,12.8092,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/total,2015-18,1024.0,0.45,,,,,,,10.686,13.586,37-30,0.5522,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/total,2019-22,1055.0,0.45,,,,,,,10.6026,13.29,66-37,0.6408,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,points/total,2023-25,816.0,0.45,,,,,,,10.2253,13.0414,10-8,0.5556,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/spread,2015-18,1024.0,0.1,,,9.9454,12.8885,61-48,0.5596,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/spread,2019-22,1055.0,0.1,,,10.0064,12.9219,73-48,0.6033,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/spread,2023-25,816.0,0.1,,,9.9055,12.812,39-22,0.6393,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/total,2015-18,1024.0,0.45,,,,,,,10.6832,13.5788,42-34,0.5526,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/total,2019-22,1055.0,0.45,,,,,,,10.5823,13.2839,70-47,0.5983,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,points/total,2023-25,816.0,0.45,,,,,,,10.1846,13.0197,11-6,0.6471,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/spread,2015-18,1024.0,0.3,,,9.9252,12.8774,59-43,0.5784,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/spread,2019-22,1055.0,0.3,,,9.989,12.9087,70-57,0.5512,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/spread,2023-25,816.0,0.3,,,9.9172,12.8318,34-24,0.5862,,,,,False,,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/total,2015-18,1024.0,0.55,,,,,,,10.6604,13.5475,42-28,0.6,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/total,2019-22,1055.0,0.55,,,,,,,10.5914,13.2967,82-52,0.6119,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,points/total,2023-25,816.0,0.55,,,,,,,10.2144,13.0503,17-11,0.6071,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,total/total,2015-18,1024.0,0.45,,,,,,,10.6991,13.6214,45-38,0.5422,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,total/total,2019-22,1055.0,0.45,,,,,,,10.5762,13.28,84-55,0.6043,,False,per window,,,,,,,,,,,,,
+stack live+rf,live,total/total,2023-25,816.0,0.45,,,,,,,10.2109,13.0439,16-10,0.6154,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,total/total,2015-18,1024.0,0.35,,,,,,,10.7097,13.624,45-41,0.5233,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,total/total,2019-22,1055.0,0.35,,,,,,,10.5782,13.2632,72-43,0.6261,,False,per window,,,,,,,,,,,,,
+stack live+rf,wide,total/total,2023-25,816.0,0.35,,,,,,,10.1967,13.0324,15-12,0.5556,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,total/total,2015-18,1024.0,0.4,,,,,,,10.6944,13.6041,43-41,0.5119,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,total/total,2019-22,1055.0,0.4,,,,,,,10.5639,13.2404,74-39,0.6549,,False,per window,,,,,,,,,,,,,
+stack live+rf,lasso,total/total,2023-25,816.0,0.4,,,,,,,10.1945,13.0265,13-9,0.5909,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,total/total,2015-18,1024.0,0.65,,,,,,,10.6147,13.5377,56-49,0.5333,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,total/total,2019-22,1055.0,0.65,,,,,,,10.6337,13.3142,82-59,0.5816,,False,per window,,,,,,,,,,,,,
+stack live+rf,forward,total/total,2023-25,816.0,0.65,,,,,,,10.2329,13.0823,24-28,0.4615,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/total,2015-18,1024.0,0.2,,,,,,,10.7222,13.5961,56-44,0.56,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/total,2019-22,1055.0,0.2,,,,,,,10.5311,13.234,94-45,0.6763,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,points/total,2023-25,816.0,0.2,,,,,,,10.1848,13.0095,15-12,0.5556,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/spread,2015-18,1024.0,0.0,,,9.9491,12.8906,68-55,0.5528,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/spread,2019-22,1055.0,0.0,,,10.0204,12.9333,80-51,0.6107,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/spread,2023-25,816.0,0.0,,,9.9041,12.8029,40-21,0.6557,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/total,2015-18,1024.0,0.2,,,,,,,10.7107,13.5944,58-38,0.6042,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/total,2019-22,1055.0,0.2,,,,,,,10.5384,13.2469,85-54,0.6115,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,points/total,2023-25,816.0,0.2,,,,,,,10.1989,13.003,17-15,0.5312,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/spread,2015-18,1024.0,0.25,,,9.9268,12.8726,65-58,0.5285,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/spread,2019-22,1055.0,0.25,,,10.0247,12.9296,78-55,0.5865,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/spread,2023-25,816.0,0.25,,,9.9312,12.8226,36-27,0.5714,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/total,2015-18,1024.0,0.1,,,,,,,10.743,13.6267,58-49,0.5421,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/total,2019-22,1055.0,0.1,,,,,,,10.543,13.2391,91-49,0.65,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,points/total,2023-25,816.0,0.1,,,,,,,10.1746,13.0034,19-14,0.5758,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/spread,2015-18,1024.0,0.35,,,9.8889,12.8455,81-63,0.5625,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/spread,2019-22,1055.0,0.35,,,10.0425,12.955,79-71,0.5267,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/spread,2023-25,816.0,0.35,,,9.9334,12.8198,46-28,0.6216,,,,,False,,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/total,2015-18,1024.0,0.35,,,,,,,10.6592,13.5251,59-27,0.686,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/total,2019-22,1055.0,0.35,,,,,,,10.5751,13.2961,95-58,0.6209,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,points/total,2023-25,816.0,0.35,,,,,,,10.2436,13.0879,13-16,0.4483,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,total/total,2015-18,1024.0,0.4,,,,,,,10.7155,13.6284,59-41,0.59,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,total/total,2019-22,1055.0,0.4,,,,,,,10.585,13.2898,96-65,0.5963,,False,per window,,,,,,,,,,,,,
+stack live+mlp,live,total/total,2023-25,816.0,0.4,,,,,,,10.2065,13.0049,24-17,0.5854,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,total/total,2015-18,1024.0,0.15,,,,,,,10.7158,13.6273,63-50,0.5575,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,total/total,2019-22,1055.0,0.15,,,,,,,10.5693,13.2612,83-47,0.6385,,False,per window,,,,,,,,,,,,,
+stack live+mlp,wide,total/total,2023-25,816.0,0.15,,,,,,,10.1814,13.004,20-20,0.5,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,total/total,2015-18,1024.0,0.05,,,,,,,10.7402,13.6378,62-44,0.5849,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,total/total,2019-22,1055.0,0.05,,,,,,,10.5385,13.2359,97-46,0.6783,,False,per window,,,,,,,,,,,,,
+stack live+mlp,lasso,total/total,2023-25,816.0,0.05,,,,,,,10.1814,13.0158,20-15,0.5714,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,total/total,2015-18,1024.0,0.65,,,,,,,10.5823,13.504,78-54,0.5909,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,total/total,2019-22,1055.0,0.65,,,,,,,10.6319,13.3669,111-80,0.5812,,False,per window,,,,,,,,,,,,,
+stack live+mlp,forward,total/total,2023-25,816.0,0.65,,,,,,,10.2666,13.134,46-38,0.5476,,False,per window,,,,,,,,,,,,,
+the closing line,-,-,2015-18,1024.0,,,,9.8047,12.745,,,10.5518,13.359,,,,,per window,,,,,,,,,,,,,
+the closing line,-,-,2019-22,1055.0,,,,9.8882,12.7726,,,10.5412,13.2003,,,,,per window,,,,,,,,,,,,,
+the closing line,-,-,2023-25,816.0,,,,9.7445,12.6533,,,10.1207,12.9592,,,,,per window,,,,,,,,,,,,,
+live model,live,live,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3202,0.5134,0.065,0.5572,752.0,0.075,0.5526,0.585,0.5026,190.0,200.0,189.0
+live model,live,live,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+live ridge alone,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3815,0.5106,0.08,0.5271,554.0,0.08,0.5337,0.5319,0.5145,193.0,188.0,173.0
+live ridge alone,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8926,0.5064,0.5,0.5186,993.0,0.35,0.5255,0.5181,0.5026,491.0,498.0,378.0
+live trees alone,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4366,0.5221,0.095,0.5826,599.0,0.095,0.584,0.5644,0.6038,238.0,202.0,159.0
+live trees alone,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0447,0.5118,0.5,0.5285,1298.0,0.5,0.5388,0.5292,0.511,516.0,463.0,319.0
+ridge,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3815,0.5106,0.08,0.5271,554.0,0.08,0.5337,0.5319,0.5145,193.0,188.0,173.0
+ridge,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8926,0.5064,0.5,0.5186,993.0,0.35,0.5255,0.5181,0.5026,491.0,498.0,378.0
+ridge,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.5801,0.4991,0.01,0.5063,2465.0,0.0,0.4946,0.5143,0.4849,1015.0,1011.0,763.0
+ridge,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0434,0.5089,0.35,0.5251,1615.0,0.35,0.5276,0.518,0.531,597.0,583.0,435.0
+ridge,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4223,0.5056,0.025,0.5189,1989.0,0.03,0.5096,0.529,0.5084,677.0,656.0,474.0
+ridge,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.9852,0.5115,0.5,0.5359,1183.0,0.5,0.5561,0.5129,0.5392,437.0,427.0,319.0
+ridge,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3845,0.5074,0.08,0.5471,541.0,0.065,0.5583,0.5241,0.5049,240.0,332.0,206.0
+ridge,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8781,0.518,0.5,0.5375,1092.0,0.5,0.5545,0.5335,0.5193,404.0,403.0,285.0
+ridge,live,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3202,0.5134,0.065,0.5572,752.0,0.075,0.5526,0.585,0.5026,190.0,200.0,189.0
+ridge,wide,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.574,0.5005,0.09,0.5302,713.0,0.085,0.517,0.5564,0.5027,352.0,257.0,185.0
+ridge,lasso,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4449,0.5023,0.09,0.529,535.0,0.08,0.5158,0.556,0.497,285.0,232.0,165.0
+ridge,forward,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2787,0.5242,0.08,0.5938,608.0,0.075,0.6122,0.6008,0.5407,245.0,253.0,209.0
+lasso,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3597,0.502,0.06,0.523,849.0,0.07,0.5288,0.5183,0.5163,191.0,218.0,215.0
+lasso,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.9064,0.5129,0.35,0.5188,1359.0,0.35,0.5302,0.5205,0.5013,496.0,488.0,375.0
+lasso,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3572,0.5013,0.065,0.5294,629.0,0.065,0.5284,0.5536,0.5,229.0,224.0,176.0
+lasso,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.9542,0.5126,0.4,0.5298,1276.0,0.35,0.5485,0.5275,0.4986,536.0,510.0,367.0
+lasso,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4038,0.5041,0.025,0.5172,1949.0,0.075,0.5078,0.5084,0.503,256.0,238.0,165.0
+lasso,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.9665,0.5129,0.5,0.5318,1149.0,0.5,0.5486,0.5096,0.5382,432.0,416.0,301.0
+lasso,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3649,0.502,0.07,0.5434,611.0,0.07,0.5722,0.5397,0.5174,187.0,252.0,172.0
+lasso,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8876,0.5093,0.5,0.5292,1043.0,0.5,0.5438,0.5133,0.5305,388.0,376.0,279.0
+lasso,live,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.325,0.5041,0.075,0.5527,541.0,0.065,0.5469,0.5837,0.5086,245.0,257.0,232.0
+lasso,wide,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3443,0.4995,0.075,0.5468,545.0,0.08,0.5459,0.5833,0.5185,185.0,156.0,135.0
+lasso,lasso,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4174,0.5059,0.065,0.5355,874.0,0.08,0.5229,0.5685,0.5067,262.0,197.0,150.0
+lasso,forward,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2881,0.5181,0.085,0.5868,501.0,0.075,0.5962,0.5894,0.5407,208.0,246.0,209.0
+hgb,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3717,0.5278,0.08,0.5787,705.0,0.085,0.6089,0.581,0.538,225.0,210.0,184.0
+hgb,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.991,0.5075,0.5,0.5227,1190.0,0.3,0.5237,0.5049,0.5103,653.0,616.0,437.0
+hgb,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4422,0.5127,0.085,0.5462,520.0,0.085,0.551,0.5263,0.5621,196.0,171.0,153.0
+hgb,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0219,0.5093,0.5,0.5252,1169.0,0.35,0.5256,0.5349,0.4937,605.0,544.0,399.0
+hgb,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4549,0.5091,0.055,0.5265,1094.0,0.09,0.5372,0.4805,0.5349,188.0,154.0,129.0
+hgb,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0102,0.5188,0.5,0.5342,1170.0,0.5,0.5281,0.57,0.495,462.0,407.0,301.0
+hgb,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4193,0.5224,0.09,0.5525,514.0,0.09,0.5738,0.5389,0.5435,183.0,193.0,138.0
+hgb,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.959,0.5184,0.5,0.5409,1187.0,0.5,0.5634,0.5337,0.5163,465.0,416.0,306.0
+hgb,live,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4489,0.5059,0.085,0.5534,674.0,0.06,0.5607,0.5428,0.5258,428.0,409.0,310.0
+hgb,wide,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4351,0.5152,0.09,0.5393,573.0,0.06,0.5556,0.517,0.5127,396.0,383.0,316.0
+hgb,lasso,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4009,0.5142,0.08,0.5442,724.0,0.09,0.554,0.549,0.5029,213.0,204.0,175.0
+hgb,forward,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4298,0.5127,0.075,0.5563,843.0,0.07,0.5953,0.526,0.5267,341.0,327.0,262.0
+rf,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4083,0.512,0.08,0.5438,502.0,0.075,0.5479,0.5286,0.5153,188.0,210.0,196.0
+rf,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0291,0.5144,0.1,0.5195,2385.0,0.1,0.5152,0.5352,0.504,891.0,867.0,627.0
+rf,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.473,0.4887,0.06,0.5099,855.0,0.065,0.5331,0.4927,0.5044,242.0,274.0,228.0
+rf,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.1117,0.5199,0.35,0.5394,1639.0,0.35,0.5326,0.567,0.5117,629.0,582.0,428.0
+rf,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4481,0.4973,0.065,0.5112,714.0,0.07,0.5222,0.477,0.5407,203.0,239.0,172.0
+rf,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0738,0.5166,0.5,0.5369,1192.0,0.5,0.538,0.5396,0.5316,474.0,417.0,301.0
+rf,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4317,0.5109,0.06,0.5142,846.0,0.07,0.5286,0.4881,0.5227,210.0,252.0,176.0
+rf,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.0322,0.5264,0.45,0.5484,1333.0,0.45,0.5575,0.5533,0.5271,513.0,488.0,332.0
+rf,live,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4403,0.5009,0.06,0.5351,927.0,0.06,0.5635,0.5352,0.5018,323.0,327.0,277.0
+rf,wide,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4817,0.4977,0.06,0.5169,890.0,0.05,0.5149,0.5203,0.5031,404.0,394.0,320.0
+rf,lasso,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.428,0.4991,0.08,0.5219,502.0,0.07,0.5064,0.542,0.4976,233.0,238.0,207.0
+rf,forward,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4171,0.5134,0.09,0.5615,504.0,0.085,0.5771,0.5522,0.5179,201.0,201.0,168.0
+mlp,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.59,0.5102,0.095,0.5341,689.0,0.09,0.5333,0.5519,0.4775,315.0,270.0,178.0
+mlp,live,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.1502,0.4947,0.45,0.5038,1455.0,0.3,0.5064,0.4992,0.4955,707.0,653.0,444.0
+mlp,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.857,0.5084,0.07,0.5226,1282.0,0.075,0.532,0.5148,0.5034,453.0,439.0,298.0
+mlp,wide,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.3576,0.5013,0.5,0.5121,1572.0,0.5,0.5243,0.5106,0.4948,618.0,568.0,386.0
+mlp,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.7222,0.4991,0.005,0.5006,2657.0,0.01,0.493,0.5027,0.5074,933.0,929.0,680.0
+mlp,lasso,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.1327,0.5137,0.4,0.5351,1626.0,0.5,0.5576,0.516,0.504,538.0,500.0,371.0
+mlp,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.6746,0.5034,0.1,0.5361,651.0,0.1,0.5682,0.5304,0.4857,264.0,247.0,140.0
+mlp,forward,points,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,13.1144,0.5261,0.35,0.5283,1768.0,0.5,0.5588,0.5173,0.4593,587.0,520.0,344.0
+mlp,live,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.5027,0.502,0.085,0.5349,731.0,0.085,0.5404,0.5484,0.5118,272.0,248.0,211.0
+mlp,wide,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,14.0608,0.5127,0.025,0.5161,2298.0,0.03,0.5171,0.5055,0.5225,789.0,813.0,599.0
+mlp,lasso,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.937,0.5084,0.05,0.5109,1693.0,0.085,0.5072,0.5217,0.4615,414.0,391.0,273.0
+mlp,forward,total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.4905,0.5095,0.09,0.5721,687.0,0.08,0.5967,0.5556,0.5411,305.0,333.0,207.0
+stack live+ridge,live,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+ridge,live,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2962,0.5091,0.065,0.5338,650.0,0.05,0.5286,0.552,0.5182,350.0,346.0,303.0
+stack live+ridge,wide,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+ridge,wide,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3082,0.5066,0.075,0.5497,513.0,0.065,0.5636,0.5633,0.5044,220.0,245.0,226.0
+stack live+ridge,lasso,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8799,0.5129,0.4,0.5236,1228.0,0.45,0.547,0.5154,0.4968,415.0,390.0,312.0
+stack live+ridge,lasso,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2901,0.5052,0.07,0.5485,567.0,0.07,0.5604,0.5583,0.5251,182.0,206.0,179.0
+stack live+ridge,forward,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8591,0.5133,0.5,0.5476,1030.0,0.5,0.5744,0.5227,0.5441,383.0,375.0,272.0
+stack live+ridge,forward,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3114,0.5059,0.06,0.5517,745.0,0.06,0.5929,0.526,0.545,226.0,308.0,211.0
+stack live+ridge,live,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3202,0.5134,0.065,0.5572,752.0,0.075,0.5526,0.585,0.5026,190.0,200.0,189.0
+stack live+ridge,wide,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3123,0.5002,0.07,0.5647,634.0,0.07,0.5762,0.5991,0.5149,210.0,222.0,202.0
+stack live+ridge,lasso,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.307,0.5056,0.07,0.5531,622.0,0.07,0.5463,0.6,0.5076,205.0,220.0,197.0
+stack live+ridge,forward,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2787,0.5242,0.08,0.5938,608.0,0.075,0.6122,0.6008,0.5407,245.0,253.0,209.0
+stack live+lasso,live,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+lasso,live,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2992,0.5131,0.05,0.5377,969.0,0.05,0.5288,0.5536,0.5288,312.0,345.0,312.0
+stack live+lasso,wide,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8804,0.5137,0.5,0.5273,988.0,0.4,0.5437,0.5246,0.4956,458.0,427.0,341.0
+stack live+lasso,wide,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2928,0.4962,0.065,0.5485,567.0,0.065,0.5464,0.5797,0.5141,183.0,207.0,177.0
+stack live+lasso,lasso,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8789,0.5151,0.5,0.5271,996.0,0.45,0.545,0.5103,0.5,411.0,390.0,308.0
+stack live+lasso,lasso,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.289,0.5048,0.07,0.5468,556.0,0.065,0.5369,0.572,0.5126,203.0,236.0,199.0
+stack live+lasso,forward,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8636,0.5078,0.5,0.5455,979.0,0.5,0.5627,0.5251,0.5496,359.0,358.0,262.0
+stack live+lasso,forward,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3043,0.5045,0.065,0.5618,591.0,0.06,0.5853,0.5393,0.5179,217.0,280.0,195.0
+stack live+lasso,live,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3189,0.5088,0.075,0.5658,562.0,0.075,0.5769,0.6186,0.5,182.0,194.0,186.0
+stack live+lasso,wide,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2973,0.4955,0.075,0.5647,510.0,0.065,0.5536,0.5823,0.5,224.0,237.0,218.0
+stack live+lasso,lasso,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3064,0.4995,0.075,0.5507,523.0,0.065,0.5537,0.5748,0.5158,242.0,254.0,221.0
+stack live+lasso,forward,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2881,0.5181,0.085,0.5868,501.0,0.075,0.5962,0.5894,0.5407,208.0,246.0,209.0
+stack live+hgb,live,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8926,0.5078,0.45,0.5364,1126.0,0.5,0.5592,0.5276,0.5019,397.0,362.0,263.0
+stack live+hgb,live,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.2928,0.5228,0.075,0.5851,576.0,0.075,0.6111,0.6142,0.5249,198.0,197.0,181.0
+stack live+hgb,wide,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.88,0.5104,0.5,0.5364,1003.0,0.45,0.5494,0.5349,0.505,415.0,387.0,303.0
+stack live+hgb,wide,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3084,0.5095,0.06,0.5435,712.0,0.06,0.5458,0.5394,0.5459,240.0,254.0,218.0
+stack live+hgb,lasso,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8788,0.51,0.5,0.5398,993.0,0.5,0.5559,0.5297,0.5311,367.0,353.0,273.0
+stack live+hgb,lasso,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3084,0.5048,0.06,0.5511,724.0,0.065,0.5485,0.567,0.5326,206.0,224.0,184.0
+stack live+hgb,forward,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8689,0.5159,0.5,0.5374,1003.0,0.35,0.5525,0.5434,0.5028,514.0,484.0,352.0
+stack live+hgb,forward,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3036,0.5221,0.07,0.5664,595.0,0.07,0.5846,0.5684,0.5422,195.0,234.0,166.0
+stack live+hgb,live,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3503,0.5102,0.075,0.5526,646.0,0.07,0.5473,0.5616,0.5139,243.0,276.0,216.0
+stack live+hgb,wide,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3115,0.5134,0.07,0.5488,645.0,0.065,0.5615,0.5338,0.5286,244.0,266.0,227.0
+stack live+hgb,lasso,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.283,0.5109,0.075,0.5594,547.0,0.065,0.5523,0.5634,0.5258,239.0,268.0,213.0
+stack live+hgb,forward,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3261,0.5149,0.08,0.5676,525.0,0.045,0.5798,0.5375,0.5106,445.0,467.0,378.0
+stack live+rf,live,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+rf,live,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.314,0.517,0.07,0.5635,520.0,0.06,0.5442,0.572,0.5284,215.0,257.0,229.0
+stack live+rf,wide,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8798,0.5129,0.5,0.5312,994.0,0.4,0.5463,0.5283,0.4985,454.0,424.0,341.0
+stack live+rf,wide,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3264,0.5041,0.06,0.5397,693.0,0.065,0.5326,0.5438,0.5,184.0,217.0,180.0
+stack live+rf,lasso,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8792,0.5093,0.5,0.5429,980.0,0.5,0.5549,0.5343,0.5376,364.0,350.0,266.0
+stack live+rf,lasso,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3156,0.5081,0.055,0.5382,760.0,0.06,0.5333,0.5323,0.5274,210.0,263.0,201.0
+stack live+rf,forward,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.876,0.5144,0.45,0.5448,1072.0,0.5,0.5573,0.5262,0.5394,375.0,344.0,254.0
+stack live+rf,forward,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3175,0.5095,0.07,0.5609,501.0,0.065,0.5503,0.5771,0.512,189.0,227.0,166.0
+stack live+rf,live,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3362,0.5109,0.075,0.5493,537.0,0.07,0.5482,0.5708,0.508,197.0,226.0,187.0
+stack live+rf,wide,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3279,0.5041,0.06,0.54,750.0,0.06,0.5432,0.5523,0.5217,243.0,277.0,230.0
+stack live+rf,lasso,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3108,0.507,0.065,0.5511,617.0,0.055,0.5284,0.5581,0.5249,282.0,310.0,261.0
+stack live+rf,forward,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3291,0.5177,0.07,0.5439,684.0,0.07,0.566,0.5569,0.5025,235.0,246.0,203.0
+stack live+mlp,live,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+mlp,live,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3009,0.5009,0.075,0.5529,548.0,0.075,0.5479,0.6062,0.497,188.0,193.0,167.0
+stack live+mlp,wide,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8815,0.5122,0.5,0.5224,1005.0,0.45,0.5398,0.5203,0.4952,415.0,394.0,313.0
+stack live+mlp,wide,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3032,0.5091,0.075,0.5485,536.0,0.06,0.5527,0.5472,0.5331,275.0,307.0,242.0
+stack live+mlp,lasso,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8794,0.5093,0.5,0.5385,1012.0,0.4,0.5597,0.5277,0.5149,477.0,451.0,336.0
+stack live+mlp,lasso,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3122,0.5077,0.075,0.5653,536.0,0.07,0.5323,0.5991,0.5231,201.0,227.0,195.0
+stack live+mlp,forward,points/spread,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,spreads,12.8783,0.5206,0.4,0.5284,1304.0,0.4,0.5621,0.5184,0.4943,491.0,463.0,350.0
+stack live+mlp,forward,points/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3196,0.5091,0.075,0.5665,519.0,0.065,0.5617,0.5594,0.5099,235.0,261.0,202.0
+stack live+mlp,live,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3316,0.517,0.075,0.5455,605.0,0.065,0.5552,0.5442,0.5104,281.0,294.0,241.0
+stack live+mlp,wide,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3205,0.5081,0.075,0.5369,583.0,0.075,0.5303,0.5829,0.4946,198.0,199.0,186.0
+stack live+mlp,lasso,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3184,0.5117,0.065,0.5553,742.0,0.075,0.5487,0.593,0.5109,195.0,199.0,184.0
+stack live+mlp,forward,total/total,2015-25 / picked on 2015-18,,,,,,,,,,,,,,,study style,totals,13.3505,0.5059,0.08,0.5756,582.0,0.08,0.6127,0.5489,0.5664,204.0,235.0,143.0

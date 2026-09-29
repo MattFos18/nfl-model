@@ -2582,3 +2582,27 @@ completion over expected as the passers' prior) by 0.002 to 0.07 yards per playe
 error on most windows, where a pure-noise signal passes the same rule about one time in eight and NGS's own
 expected-yards models may have been fitted on seasons inside the test windows. Too small and too uncertain to carry a
 new data dependency: the projection keeps its own recent usage and efficiency.
+
+**Machine-learning models against the live one: not adopted** (`experiments/ml_compare.py`, `reports/ml_compare.md`;
+29 Sep 2026, Matt: a published study comparing linear regression, gradient boosting and a neural network). Ridge,
+lasso, gradient boosting, a random forest and a neural network (MLP), each on four input sets (the live inputs, a wide
+set of 94 with every new-signals family, a lasso-selected subset chosen inside every refit, and forward selection on
+2013-18), walk-forward on all three windows, no market input anywhere, plus stacked blends of each with the live model.
+Nothing beats the live model on every window. Margin miss 2015-18 / 2019-22 / 2023-25: live 9.949 / 10.020 / 9.904;
+boosting on the live inputs 10.002 / 10.063 / 9.987; the neural network 10.284 / 10.248 / 10.085; the wide set hurts
+every family. Total miss: live 10.744 / 10.541 / 10.177; the nearest challengers win one or two windows and lose
+2023-25. The stacked blends gain 0.01 on one window and give it back on 2023-25. The published study's headline
+accuracy (55-57% on totals) is reproduced by the live model too (55.7% on 752 bets) when the best threshold is picked
+after seeing all seasons; picked on 2015-18 and scored on the later windows, it lands at 50-54% on 2023-25, so most of
+that headline is look-ahead. One lead to watch, not an edge: the boosted trees' own team points summed to a total and
+bet both ways at 8.5%+ of the line went 60.9% / 58.1% / 53.8%, one of about 45 rows tried.
+
+**The starting-quarterback error in the schedule data: recorded, not changed** (`experiments/qb_id_fix.py`,
+`reports/qb_id_fix.md`). nflverse's schedule lists a starter who never took a snap or came on in relief in 1 to 3
+games a season before 2022, 7 in 2022, 37 in 2024 and 8 in 2025 (a projected starter never reconciled with who played;
+in 15 of the recent ones the listed QB was already injured or on a reserve list that week); the play-by-play's first
+dropback names the real starter every time. Correcting past games only (the game being priced keeps its announced
+starter, as it must live) changes 64 of 7,124 team-games and moves the margin miss by under 0.005 both ways, worse on
+two windows, so it fails the rule written beforehand; the fix would help only through the priced game's own starter,
+which is not known before kickoff in the way the backtest would need. The live cards read the announced starter; a
+listed QB who is on the injury report or a reserve list is the case to watch by eye.
