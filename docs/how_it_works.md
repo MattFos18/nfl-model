@@ -2606,3 +2606,26 @@ starter, as it must live) changes 64 of 7,124 team-games and moves the margin mi
 two windows, so it fails the rule written beforehand; the fix would help only through the priced game's own starter,
 which is not known before kickoff in the way the backtest would need. The live cards read the announced starter; a
 listed QB who is on the injury report or a reserve list is the case to watch by eye.
+
+**The seven models and the total model on the Model tab** (29 Sep 2026, Matt: the tab showed only the one equation).
+Model, Game Model now lists the seven models behind every game's points, what each reads, and each one's own miss per
+team score and on the margin on every backtest window and the current season, read from the per-game predictions the
+walk-forward stores (every game priced with only earlier games); then the total equation's inputs with points per unit
+and per typical difference, fitted on every game played so far, and its game-total miss beside the two blended team
+scores added. No number changes: the table shows what the cards already used.
+
+**Round 3 rule** (`reports/round3_rule.md`, written before any round-3 result; Matt: any small gain with no risk). A
+change is adopted however small the gain only if it is better on every window (2015-18, 2019-22, 2023-25), costs no
+bets, beats the same input shuffled within season on every window at least 45 times in 50, and adds no market input,
+look-ahead or new data source; adopted pieces are rerun together.
+
+**Player season totals linked to the team, rerun under the round-3 rule: not adopted** (`experiments/player_season_link2.py`,
+`reports/player_season_link2.md`). Every variant of the first study (team volume toward the league or last season, game
+script over the games left, age and position priors, their combinations) rerun on top of the availability logit, plus
+schedule strength left, a coaching change, target competition and a reconciliation of each team's rushers to the game
+model's expected rushing, scored on 2015 (built from the same code, never used), 2016-18, 2019-22 and 2023-25. The
+receiving passes of the first run now lose on 2015 and 2016-18. The rushing game-script variants pass every window but
+not the placebo: another team's history shuffled in does as well, so the gain is shrinkage, not the team's own
+information. The closest, rushing reconciled to the game model, beats the placebo on three windows and 40 times in 50
+on the fourth. Nothing changes. The study found the season-total actuals counting week 18 and earlier without a
+regular-season filter, so for 2015-20 the wild-card game was counted; that is fixed separately.
