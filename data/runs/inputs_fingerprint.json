@@ -166,11 +166,6 @@
 ],
 [
 "CHI",
-"Braxton Jones",
-"Doubtful"
-],
-[
-"CHI",
 "Caleb Williams",
 "Out"
 ],
@@ -1103,9 +1098,21 @@
 ],
 [
 "CHI",
+"Braxton Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
 "Cairo Santos",
 "",
 "Full Participation in Practice"
+],
+[
+"CHI",
+"Cam Lewis",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -2362,12 +2369,6 @@
 "Full Participation in Practice"
 ]
 ],
-"weather": {
-"2026_03_PHI_CHI": {
-"wind": 3.0,
-"cold": false,
-"rain": false
-}
-},
-"written_at": "2026-09-29 03:24 UTC"
+"weather": {},
+"written_at": "2026-09-29 04:26 UTC"
 }
