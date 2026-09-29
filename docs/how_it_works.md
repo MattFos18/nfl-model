@@ -2388,3 +2388,23 @@ its result mark, and the teaser says when no game is left to tease (both used to
 The Player props tables, the Score projection, the Injury report and the Player Totals table share the same figures
 in the body face with sized columns.
 
+**Team strip tiles, the roster's points if out, the Bet ranking's order, the printed page (29 Sep 2026, Matt).** The
+team strip is six tiles: Record, Against the spread (with the covered share), Power, Points scored, Points allowed and
+Out this week. On the depth chart the QB1's points if out is the swap to the QB2, priced on the page from exported
+numbers the way the Injury report prices a starter out: the gap between the two ratings against an average starter
+times the fit's points per unit of QB rating, plus the QB-out term (the arithmetic is in the cell's hover); a backup
+QB and anyone under 0.1 points read as a dash, not 0.0. A player with no rating yet (no plays) has a dash under Vs
+avg starter. The Bet ranking is ordered by the historical chance, the calibrated one, with the edge breaking ties, so
+the flagged bets rise to the top; its numeric titles sit over their numbers and a Result column carries the mark. The
+printed picks page is on one type scale with lighter weights. The Live tab's Model view edge row reads line, points,
+result. A final game's card carries the Final badge with the score alone; the calls and their marks are in the blocks.
+Scheme matchup: the share of each look moved out of the titles into the first row of the player table, so both tables'
+titles sit on one baseline.
+
+**Colours and the Matchup card (29 Sep 2026, Matt).** Matt asked to drop the colour-blind palette: a loss, a negative
+number and a negative return are red again (--bad #B23A3A, its soft tint pink), a win and a positive number the same
+green as before. The Matchup card is the two pickers with the projected score beside them and nothing under it; the
+paired rating bars tried earlier in the day are gone (the brief was to use the space to the right, and nothing useful
+fit there). In the rankings table the Move column follows the column sorted by: last week's rank and value on that
+same rating (one decimal for the power columns, three for the rest); it is blank on Games.
+
