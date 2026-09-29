@@ -26,7 +26,7 @@ BREAK_UP = 1.25
 TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projection, for the accuracy the page leads with (24 Sep 2026; experiments/player_season_backtest.py scores "within20_top" on it)
 # the share of his team's remaining games his per-game mean is applied to, and the weight of the pace baseline in the
 # blend, by kind: both fitted on 2016 to 2018 as of the same weeks on the season-total error (reports/player_season_backtest.csv,
-# fit rows). The share sits below the share of games such players actually play (0.77, 0.75, 0.74: avail_mean_share rows)
+# fit rows). The share sits below the share of games such players actually play (0.753, 0.728, 0.729: avail_mean_share rows)
 # because the misses are one-sided and the pace half carries part of the load
 # 29 Sep 2026 (experiments/player_availability.py and player_availability2.py): each player's own share, AVAIL x p / AVAIL_PBAR
 # at most 1, where p is a binomial logit on what is known as of the week (this week's report and practice status, his missed
@@ -34,7 +34,11 @@ TOPW = {"rec": 48, "rush": 32, "pass": 24}   # the top of each list by projectio
 # pooled model for receivers and rushers, a passer-only one for passers. AVAIL and BLEND refit with it on 2016-18. Season-total
 # miss (corrected rows: game-day inactives kept, see roster_at): receiving 125.8 / 123.1 to 123.1 / 120.5, rushing 152.0 / 143.1
 # to 148.1 / 140.0, passing 611.6 / 621.6 to 575.9 / 602.9. Was one flat share: 0.65, 0.625, 0.525 with BLEND 0.5, 0.5, 0.75
-AVAIL = {"rec": 0.70, "rush": 0.675, "pass": 0.625}
+# 29 Sep 2026: the actuals now count regular-season games only (through 2020 week 18 was the wild-card round); on the
+# corrected rows (2016-18 / 2019-22 / 2023-25) receiving 112.0 / 121.3 / 120.5, rushing 142.1 / 145.4 / 140.0, passing
+# 486.2 / 571.3 / 602.9. Every availability constant refitted on the corrected 2016-18 rows under the round-3 rule: only
+# the receiving share moves, 0.70 to 0.675 (receiving 111.8 / 120.6 / 120.1); the rest lose on a window and are kept
+AVAIL = {"rec": 0.675, "rush": 0.675, "pass": 0.625}
 BLEND = {"rec": 0.25, "rush": 0.25, "pass": 0.5}
 AVAIL_PBAR = {"rec": 0.7637, "rush": 0.7399, "pass": 0.7250}   # mean p on 2016-18 by kind
 AVAIL_LOGIT = {"intercept": 0.4370, "k_rush": 0.1152, "k_pass": 0.1433, "p_RB": -0.2703, "p_TE": -0.0986, "p_QB": -0.1112,
@@ -50,8 +54,10 @@ BACKTEST = {}   # filled from reports/player_season_backtest.csv by export_web (
 
 def season_actuals(d: pd.DataFrame, season: int, through_week: int | None = None) -> pd.DataFrame:
     """Every player's regular-season yards, touchdowns and games by kind, through `through_week` (exclusive) or the
-    whole season. One row per (kind, player)."""
-    x = d[(d.season == season) & (d.week <= 18)]
+    whole season. One row per (kind, player). Regular season only: week 18 was the wild-card round through 2020
+    (29 Sep 2026: `week <= 18` alone counted a playoff game in the 2016-20 totals, games and `prev`)."""
+    x = d[d.season == season]
+    x = x[x.season_type.eq("REG")] if "season_type" in x.columns else x[x.week <= (17 if season <= 2020 else 18)]
     if through_week is not None:
         x = x[x.week < through_week]
     rows = []
