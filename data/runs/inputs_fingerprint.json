@@ -146,6 +146,11 @@
 ],
 [
 "CAR",
+"Jonathon Brooks",
+"Out"
+],
+[
+"CAR",
 "Nick Scott",
 "Out"
 ],
@@ -267,6 +272,11 @@
 [
 "DET",
 "Ben Bartch",
+"Out"
+],
+[
+"DET",
+"Cade Mays",
 "Out"
 ],
 [
@@ -437,6 +447,11 @@
 [
 "LAC",
 "Dalvin Tomlinson",
+"Out"
+],
+[
+"LAC",
+"David Njoku",
 "Out"
 ],
 [
@@ -2349,5 +2364,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-29 01:01 UTC"
+"written_at": "2026-09-29 01:51 UTC"
 }
