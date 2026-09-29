@@ -2407,4 +2407,6 @@ green as before. The Matchup card is the two pickers with the projected score be
 paired rating bars tried earlier in the day are gone (the brief was to use the space to the right, and nothing useful
 fit there). In the rankings table the Move column follows the column sorted by: last week's rank and value on that
 same rating (one decimal for the power columns, three for the rest); it is blank on Games.
+The depth chart's Snaps column is titled Snaps last game (his share of his unit's snaps in the team's last game);
+the Not available table no longer shows it, since a player who missed that game always read 0%.
 
