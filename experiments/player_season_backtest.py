@@ -68,7 +68,7 @@ def build_rows() -> pd.DataFrame:
 def evaluate(R: pd.DataFrame, avail: dict, blend: dict) -> pd.DataFrame:
     """Projected yards for every row under the constants: so far + per game x games left x avail, blended toward pace."""
     R = R.copy()
-    a = R.kind.map(avail).astype(float); b = R.kind.map(blend).astype(float)
+    a = (R.kind.map(avail).astype(float) * (R.avail_mult if "avail_mult" in R.columns else 1.0)).clip(upper=1.0); b = R.kind.map(blend).astype(float)   # each player's own share (29 Sep 2026)
     ours = R.yards_so_far + R.yards_pg * R.team_games_left * a
     R["proj_yards"] = (1 - b) * ours + b * R.pace_yards
     R["proj_td"] = R.td_so_far + R.td_pg * R.team_games_left * a
@@ -101,6 +101,10 @@ def main():
         out.append({"row": "avail_mean_share", "kind": k, "window": "2016-18", "asof_week": "all", "value": round(share, 3)})
         print(f"fit {k}: availability {best[1]}, blend toward pace {best[2]}, error {best[0]:.1f} (mean share of games played {share:.3f})", flush=True)
     # 2. the test seasons under the fitted constants
+    # 29 Sep 2026: the test windows are scored with the ADOPTED constants (player_season.AVAIL / BLEND), fitted in
+    # experiments/player_availability2.py on out-of-season chances for 2016-18. The grid above refits on the same rows'
+    # in-sample chances, which flatters the fit for passers; its choice is kept in the fit rows for the record
+    avail, blend = dict(PS.AVAIL), dict(PS.BLEND)
     T = evaluate(test, avail, blend)
     for (k, w, wk), g in T.groupby(["kind", "window", "week"]):
         out.append({"row": "mae", "kind": k, "window": w, "asof_week": wk, "n": int(len(g)), "mae": g.err.mean(), "pace_mae": g.pace_err.mean(), "prev_mae": g.prev_err.mean(), "bias": g.bias.mean(), "within10": float((g.rel <= 0.10).mean()), "within20": float((g.rel <= 0.20).mean()), "within20_prev": float(((g.prev_yards - g.actual_yards).abs() / g.actual_yards.clip(lower=1) <= 0.20).mean()), "within20_top": float((g[g["rank"] <= TOPW[k]].rel <= 0.20).mean()), "n_top": int((g["rank"] <= TOPW[k]).sum())})
