@@ -1189,7 +1189,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       ${[10, 20, 30, 40, 50, 60, 70, 80, 90].map(v => { const n = v <= 50 ? v : 100 - v; return `<text x="${X(v)}" y="${big ? numY2 : numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>${big ? `<text x="${X(v)}" y="${numY1}" text-anchor="middle" dominant-baseline="central" font-size="${nf}" font-weight="700" fill="#fff" fill-opacity=".85">${n}</text>` : ""}`; }).join("")}
       ${fd != null && !goal ? `<line x1="${X(fd)}" x2="${X(fd)}" y1="${top}" y2="${bot}" stroke="#F5C518" stroke-width="${big ? 4 : 3}"/>` : ""}
       ${inPlay ? `<line x1="${X(y)}" x2="${X(y)}" y1="${top}" y2="${bot}" stroke="#2B7BFF" stroke-width="${big ? 4 : 3}"/>` : ""}
-      ${lastPlaySvg(live.play, X, mid, big, inPlay ? y : null, pos)}
+      ${big ? lastPlaySvg(live.play, X, mid, big, inPlay ? y : null, pos) : ""}
       ${dir ? `<path d="M${X(y) + dir * (big ? 26 : 16)},${mid} l${-dir * (big ? 12 : 8)},${-(big ? 9 : 6)} v${big ? 18 : 12} z" fill="#fff"/>` : ""}
       ${inPlay ? `<ellipse cx="${X(y)}" cy="${mid}" rx="${big ? 14 : 9}" ry="${big ? 8.5 : 5.5}" fill="#7A4A1C" stroke="#fff" stroke-width="1.2"/><line x1="${X(y) - (big ? 5 : 3)}" x2="${X(y) + (big ? 5 : 3)}" y1="${mid}" y2="${mid}" stroke="#fff" stroke-width="1.2"/>` : ""}
     </svg>`;
