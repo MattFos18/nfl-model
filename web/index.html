@@ -609,9 +609,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     </dl></div>
     <h2>Every data store</h2>
     <div class="grid2">
-      <div class="card" style="grid-column:1 / -1"><h3>Raw Downloads (Data/raw)</h3><div class="tablewrap" style=""><table id="catraw"></table></div></div>
-      <div class="card" style="grid-column:1 / -1"><h3>Built Tables (Data/processed)</h3><div class="tablewrap" style=""><table id="catproc"></table></div></div>
-      <div class="card" style="grid-column:1 / -1"><h3>Logs and Records (Data/lines, Weather, Tracker, Runs)</h3><div class="tablewrap" style=""><table id="catlogs"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Raw Downloads (data/raw)</h3><div class="tablewrap" style=""><table id="catraw"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Built Tables (data/processed)</h3><div class="tablewrap" style=""><table id="catproc"></table></div></div>
+      <div class="card" style="grid-column:1 / -1"><h3>Logs and Records (data/lines, weather, tracker, runs)</h3><div class="tablewrap" style=""><table id="catlogs"></table></div></div>
       <div class="card"><h3>Reports</h3><div class="tablewrap" style=""><table id="catrep"></table></div></div>
       <div class="card"><h3>The Page's Own Files (Web/data)</h3><div class="tablewrap" style=""><table id="catpage"></table></div></div>
     </div>
@@ -2269,7 +2269,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   }
   const SKILL_POS = {RB: ["RB", "FB", "HB"], WR: ["WR"], TE: ["TE"]};   // the Players list splits the skill group by position
   const inGroup = (r, g) => SKILL_POS[g] ? r.group === "Skill" && SKILL_POS[g].includes(r.position) : DEF_ROLES.has(g) ? r.group === "Defense" && r.def_role === g : r.group === g;
-  const GROUP_LABEL = {QB: "Quarterback", Skill: "RB, WR, TE", RB: "Running backs", WR: "Wide receivers", TE: "Tight ends", OL: "Offensive line", Defense: "Defense", EDGE: "Edge rushers", IDL: "Interior defensive line", LB: "Linebackers", CB: "Cornerbacks", S: "Safeties", K: "Kicker", P: "Punter"};
+  const GROUP_LABEL = {QB: "Quarterbacks", Skill: "RB, WR, TE", RB: "Running Backs", WR: "Wide Receivers", TE: "Tight Ends", OL: "Offensive Line", Defense: "Defense", EDGE: "Edge Rushers", IDL: "Interior Defensive Line", LB: "Linebackers", CB: "Cornerbacks", S: "Safeties", K: "Kickers", P: "Punters"};
   const covTxt = r => r.cov_targets == null ? "" : `<span title="Pro Football Reference coverage stats over his last ${r.cov_games} games: targets when he was the nearest defender, share caught, yards per target, passer rating allowed, and yards saved per game against the league's ${r.cov_league_ypt} yards per target (league rating ${r.cov_league_rating})">${r.cov_targets} tgt · ${Math.round(100 * r.cov_catch_pct)}% caught · ${r.cov_ypt.toFixed(1)} yd/tgt · ${Math.round(r.cov_rating)} rtg · ${sgn(r.cov_yds_saved_pg, 1)} yd/g saved</span>`;
   const basisOf = (g, role) => { const P_ = window.PLAYERS || {}; return (g === "Defense" && role && (P_.basis_role || {})[role]) || (P_.basis || {})[g] || null; };
   // the team at a glance above every Team sub-tab (24 Sep 2026: replaces the Overview sub-tab, whose ratings, games,
@@ -2353,7 +2353,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const isSkill = !q && !!SKILL_POS[grp], isQB = !q && grp === "QB", cov = !q && (grp === "CB" || grp === "S") && rows.some(r => r.cov_targets >= 20);
     const posH = cov ? `<th title="Pro Football Reference coverage: targets as nearest defender, yards per target, passer rating allowed, yards saved a game">Coverage</th>` : isQB ? `<th title="his EPA per dropback this season; the rating is career-long and moves slowly (a faster one won fewer spread bets); this season's form feeds the totals">EPA per dropback, this season</th><th title="dropbacks this season">Dropbacks, this season</th>` : "";
     const posC = r => cov ? `<td class="mono">${r.cov_targets >= 20 ? `${r.cov_targets} tgt · ${r.cov_ypt} yd/t · ${Math.round(r.cov_rating)} rtg · ${r.cov_yds_saved_pg > 0 ? "+" : ""}${r.cov_yds_saved_pg} yd/g` : ""}</td>` : isQB ? `<td class="mono ${r.season_epa_db > 0 ? "pos" : r.season_epa_db < 0 ? "neg" : ""}">${r.season_db ? `${r.season_epa_db >= 0 ? "+" : ""}${r.season_epa_db.toFixed(3)}` : ""}</td><td class="mono">${r.season_db || ""}</td>` : "";
-    $("pllisth").textContent = q ? `Players matching "${$("plq").value.trim()}"` : `${GROUP_LABEL[grp] || grp}, ranked against an average starter`;
+    $("pllisth").textContent = q ? `Players matching "${$("plq").value.trim()}"` : (GROUP_LABEL[grp] || grp);
     let h = `<thead><tr><th>#</th><th class="l">Player</th><th class="l">Team</th><th>Pos</th><th title="expected points against an average starter at his position (Info → Definitions); 0 is an average starter">Vs an average starter</th>${!q ? `<th title="points a game against an average starter at his position: click a player for the conversion">Points a game</th>` : ""}${isSkill ? `<th title="what the model takes off his team's expected points when he is out: his value over the replacement who takes his touches, times his share">Points if out</th>` : ""}<th>Games</th><th>${q ? "Plays a game" : VOL_LABEL[grp] || "Plays a game"}</th>${posH}</tr></thead><tbody>`;
     let lastG = null, n = 0;
     rows.forEach(r => { if (q && r.group !== lastG) { h += `<tr class="grp"><td class="l" colspan="9"><b>${GROUP_LABEL[r.group] || r.group}</b></td></tr>`; lastG = r.group; n = 0; } n++;
