@@ -2377,3 +2377,14 @@ shows Wins and Odds: the Odds card is Model and Books only, the books' number al
 and their range, on hover); the count of simulated seasons behind each chance is gone from the card (Info → Season
 odds and totals explains the simulation).
 
+**Rankings, the Matchup card, the Picks tools and a formatting pass (29 Sep 2026, Matt).** In the rankings table the
+number column is the team's rank on the sorted column whichever way the sort runs (flipped, it reads 32 down to 1).
+The power bars are teal above zero and magenta below, with the team label against the zero line on the bar's base
+side; the scatter's corner labels are small capitals. The Matchup card puts the projected score beside the two
+pickers and, under it, the two teams' Power, offense and defense EPA, points and QB ratings as paired bars from the
+league's zero (blue for team A, orange for team B), each row scaled to the league's widest value; a reading of the
+table, nothing priced on the page. On the Picks tab the Bet ranking keeps every game of the week, a finished one with
+its result mark, and the teaser says when no game is left to tease (both used to disappear once the week was played).
+The Player props tables, the Score projection, the Injury report and the Player Totals table share the same figures
+in the body face with sized columns.
+

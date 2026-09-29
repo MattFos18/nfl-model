@@ -145,7 +145,7 @@ tr.lastyr td{color:var(--ink-2)} tr.sum td{border-top:2px solid var(--rule)}
 .blk .edge b.flag{color:var(--accent)}
 .spark{width:100%;height:auto;margin-top:6px;display:block;overflow:visible}
 .spark.none{height:auto;font-size:11px;color:var(--muted);margin-top:6px}
-.score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
+.score{display:flex;align-items:baseline;gap:14px;font-family:var(--display);font-size:30px;font-weight:600;font-variant-numeric:tabular-nums} .mu-row{gap:8px 18px;flex-wrap:wrap;align-items:flex-end} .mu-row .score{font-size:26px;margin-left:8px;line-height:1.1} #muOut{margin-top:12px} #muOut svg{display:block;width:100%;max-width:640px} .score b{font-weight:700} .score .dash{color:var(--muted);font-weight:400}
 .schgrid{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start} .schgrid .card{flex:0 1 auto;max-width:100%} .schgrid .card{margin:0}
 .bxcols{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;align-items:start} @media(max-width:1150px){.bxcols{grid-template-columns:1fr}}
 .mv{display:flex;flex-wrap:wrap;gap:4px 6px;margin-top:4px} .mv .chip{margin-top:0} .chip.mute{background:transparent;border:1px solid var(--rule);font-weight:500;color:var(--muted)}
@@ -436,11 +436,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="card viz-root"><h3>Power rating</h3><p class="note" id="powersub" style="margin:0 0 6px"></p><div id="powerbar"></div></div>
   </div>
   <div class="card" style="margin-bottom:14px"><h3>Matchup</h3>
-    <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
+    <div class="row mu-row">
       <label class="ctl">Team A <select id="muA"></select></label>
       <label class="ctl">Team B <select id="muB"></select></label>
+      <div class="score" id="muScore"></div>
     </div>
-    <div id="muOut" style="margin-top:10px"></div>
+    <div id="muOut"></div>
   </div>
   <div class="tablewrap"><table id="rktable"></table></div>
   <div class="status" id="rkstatus"></div>
@@ -1418,25 +1419,25 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const teaseJS = (kind, edge, sigma) => { const C = ((window.WEEK || {}).cal || {}).tease; if (!C || !C[kind] || edge == null || edge === 0 || !sigma) return [null, null];
     const T = C.pts != null ? C.pts : 6, raw = normCdf((Math.abs(edge) + T) / sigma), q = Math.min(Math.max(raw, C.clip), 1 - C.clip); return [raw, 1 / (1 + Math.exp(-(C[kind].a + C[kind].b * Math.log(q / (1 - q)))))]; };
   function pickLegs(games) {
-    const up = games.filter(g => g.home_score == null && (liveOf(g) || {}).status !== "final"), out = [], T = PK && PK.tease_pts != null ? PK.tease_pts : 6;
-    up.map(gameReadings).forEach(R => { const g = R.g, base = {game: `${R.A} @ ${R.H}`, when: kickTxt(g.kickoff), gid: g.game_id};
+    const out = [], T = PK && PK.tease_pts != null ? PK.tease_pts : 6;
+    games.map(gameReadings).forEach(R => { const g = R.g, done = g.home_score != null || (liveOf(g) || {}).status === "final", base = {game: `${R.A} @ ${R.H}`, when: kickTxt(g.kickoff), gid: g.game_id, done};
       if (R.spread) { const home = R.spread.side === R.H, L = home ? -g.spread_line : g.spread_line;
-        out.push({...base, k: "spread", id: g.game_id + "|s", txt: R.spread.line, tease: lineTxt(R.spread.side, L + T), keys: [3, 7, 10].filter(k => (L < -k && -k <= L + T) || (L < k && k <= L + T)), edge: R.spread.edge, p: R.spread.p, raw: R.spread.raw, tp: g.tease_spread_cal ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[1], traw: g.tease_spread_raw ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[0], bet: !!g.bet}); }
+        out.push({...base, k: "spread", id: g.game_id + "|s", txt: R.spread.line, res: R.spread.result, tease: lineTxt(R.spread.side, L + T), keys: [3, 7, 10].filter(k => (L < -k && -k <= L + T) || (L < k && k <= L + T)), edge: R.spread.edge, p: R.spread.p, raw: R.spread.raw, tp: g.tease_spread_cal ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[1], traw: g.tease_spread_raw ?? teaseJS("spread", g.spread_edge, g.sigma_margin)[0], bet: !!g.bet}); }
       if (R.total) { const over = R.total.side === "Over";
-        out.push({...base, k: "total", id: g.game_id + "|t", txt: R.total.line, tease: `${R.total.side} ${over ? g.total_line - T : g.total_line + T}`, edge: R.total.edge, p: R.total.p, raw: R.total.raw, tp: g.tease_total_cal ?? teaseJS("total", g.total_edge, g.sigma_total)[1], traw: g.tease_total_raw ?? teaseJS("total", g.total_edge, g.sigma_total)[0], bet: !!g.shadowunder_bet}); } });
+        out.push({...base, k: "total", id: g.game_id + "|t", txt: R.total.line, res: R.total.result, tease: `${R.total.side} ${over ? g.total_line - T : g.total_line + T}`, edge: R.total.edge, p: R.total.p, raw: R.total.raw, tp: g.tease_total_cal ?? teaseJS("total", g.total_edge, g.sigma_total)[1], traw: g.tease_total_raw ?? teaseJS("total", g.total_edge, g.sigma_total)[0], bet: !!g.shadowunder_bet}); } });
     return out;
   }
   const PK_COLS = `<colgroup><col style="width:5%"><col style="width:17%"><col style="width:15%"><col style="width:15%"><col style="width:9%"><col style="width:15%"><col style="width:14%"><col></colgroup>`;
   // the bet order: every leg ranked by the edge (points from the line), one table, spreads then totals; the historical chance is the calibrated one, the model chance its own; the flagged ones marked
   function betOrderHtml(games) {
     const legs = pickLegs(games); if (!legs.length) return "";
-    const rows = k => { const r = legs.filter(x => x.k === k).sort((a, b) => b.edge - a.edge); return `<tr class="bo-sec"><td colspan="8">${k === "spread" ? "Spreads" : "Totals"}</td></tr>` + r.map((x, i) => `<tr class="${x.bet ? "on" : ""}"><td class="bo-n">${i + 1}</td><td><b>${esc(x.txt)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td class="r">${x.edge.toFixed(1)}</td><td class="r bo-p">${pctSide(x.p)}</td><td class="r bo-r">${x.raw == null ? "" : pct0(x.raw)}</td><td>${x.bet ? `<span class="rpb">Bet</span>` : ""}</td></tr>`).join(""); };
+    const rows = k => { const r = legs.filter(x => x.k === k).sort((a, b) => b.edge - a.edge); return `<tr class="bo-sec"><td colspan="8">${k === "spread" ? "Spreads" : "Totals"}</td></tr>` + r.map((x, i) => `<tr class="${x.bet ? "on" : ""}"><td class="bo-n">${i + 1}</td><td><b>${esc(x.txt)}</b></td><td>${x.game}</td><td class="bo-g">${esc(x.when)}</td><td class="r">${x.edge.toFixed(1)}</td><td class="r bo-p">${pctSide(x.p)}</td><td class="r bo-r">${x.raw == null ? "" : pct0(x.raw)}</td><td>${x.bet ? `<span class="rpb">Bet</span> ` : ""}${x.done ? rpRes(x.res) : ""}</td></tr>`).join(""); };
     return `<div class="pk-sec"><h3 class="pk-h">Bet ranking</h3><table class="bo-t pk-t">${PK_COLS}<thead><tr><th></th><th>Pick</th><th>Game</th><th>Kickoff</th><th class="r">Edge</th><th class="r">Historical chance</th><th class="r">Model chance</th><th></th></tr></thead><tbody>${rows("spread")}${rows("total")}</tbody></table></div>`;
   }
   // the teaser: every leg moved TEASE_PTS the model's way, ranked by the historical teased chance; the best 2-, 3- and 4-leg teasers (one leg a game) priced at the book's usual price; tick legs to price your own
   function teaserHtml(games) {
-    const T = PK && PK.tease_pts != null ? PK.tease_pts : 6, legs = pickLegs(games).filter(x => x.tp != null).sort((a, b) => b.tp - a.tp);
-    if (!legs.length) return pickLegs(games).length ? `<div class="pk-sec"><h3 class="pk-h">${Number.isInteger(T) ? T : T.toFixed(1)}-point teaser</h3><p class="rpq" style="margin:0 0 6px">The teased chances come with the weekly run's export; this week file has none yet.</p></div>` : "";
+    const T = PK && PK.tease_pts != null ? PK.tease_pts : 6, all = pickLegs(games), legs = all.filter(x => !x.done && x.tp != null).sort((a, b) => b.tp - a.tp);
+    if (!legs.length) return all.length ? `<div class="pk-sec"><h3 class="pk-h">${Number.isInteger(T) ? T : T.toFixed(1)}-point teaser</h3><p class="rpq" style="margin:0 0 6px">${all.some(x => !x.done) ? "The teased chances come with the weekly run's export; this week file has none yet." : "Every game this week has kicked off; the next week's legs come with its export."}</p></div>` : "";
     const sel = teaseSel, TO = (PK && PK.teaser_odds) || {"2": -110, "3": 160, "4": 260, "5": 400, "6": 600};
     const best = [2, 3, 4].map(n => { const pick = []; const seen = new Set(); for (const x of legs) { if (seen.has(x.gid)) continue; seen.add(x.gid); pick.push(x); if (pick.length === n) break; }
       if (pick.length < n || TO[String(n)] == null) return ""; const p = pick.reduce((a, x) => a * x.tp, 1), book = TO[String(n)], ev = p * (decOdds(book) - 1) - (1 - p);
@@ -1739,7 +1740,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const order = teams.slice().sort((a, b) => (val(b, rkSort) - val(a, rkSort)) * (dirOf[rkSort] || 1) * (rkDir === -1 ? 1 : -1));
     let h = "<thead><tr><th>#</th><th class='l'>Team</th><th title='power rank and points against last week'>Move</th>" + [...cols, ...oldcols].map(([k, lab]) => `<th data-k="${k}" class="sortable ${k === rkSort ? "on" : ""}" title="click to sort">${lab}</th>`).join("") + "</tr></thead><tbody>";
     const move = t => { if (!prevT || prevRank[t] == null) return ""; const dr = prevRank[t] - ranks.power[t]; const dp = (val(t, "power") ?? 0) - (prevPow[t] ?? 0); return `<span class="${dr > 0 ? "pos" : (dr < 0 ? "neg" : "")}">${dr > 0 ? "▲" + dr : (dr < 0 ? "▼" + (-dr) : "·")}</span> <span class="rk">${dp >= 0 ? "+" : ""}${dp.toFixed(1)}</span>`; };
-    order.forEach((t, i) => { h += `<tr><td>${i + 1}</td><td class="l">${LOGO(t)}<b>${t}</b></td><td class="mono">${move(t)}</td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s2 = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s2}</td>`; }).join("") + "</tr>"; });
+    order.forEach((t, i) => { h += `<tr><td>${ranks[rkSort] ? ranks[rkSort][t] : i + 1}</td><td class="l">${LOGO(t)}<b>${t}</b></td><td class="mono">${move(t)}</td>` + [...cols, ...oldcols].map(([k]) => { const v = val(t, k); const s2 = v == null ? "" : (k === "n_games" ? v : (Math.abs(v) < 1 ? v.toFixed(3) : v.toFixed(2))); return `<td class="mono">${s2}</td>`; }).join("") + "</tr>"; });
     $("rktable").innerHTML = h + "</tbody>";
     $("rktable").querySelectorAll("th.sortable").forEach(th => th.addEventListener("click", () => { if (rkSort === th.dataset.k) rkDir = -rkDir; else { rkSort = th.dataset.k; rkDir = -1; } renderRankings(); }));
     // hypothetical matchup: for the week being priced, the model's full path (rankings.js matchup: the seven-model blend and
@@ -1756,7 +1757,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         const pts = inp => { if (!co || wind == null) return null; let x = co.intercept; META.feats.forEach(f => { x += co.per_unit[f] * (inp[f] - co.mean[f]); }); return x; };
         pA = pts(inputsFor(mu.A, mu.B)); pB = pts(inputsFor(mu.B, mu.A));
         how = co ? `the equation alone (the fit before the ${S} season, without the other models or the total's share-out${rkWin !== "model" ? ", on the window picked above" : ""}) · wind ${nz(wind)} mph, nobody out` : `no fit for ${S} in meta.js (fits are kept from ${Math.min(...Object.keys(META.coefs).map(Number))} on)`; }
-      $("muOut").innerHTML = `<div class="score"><span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span></div>`;
+      $("muScore").innerHTML = `<span><b>${mu.A}</b> ${nz(pA, v => v.toFixed(1))}</span><span class="dash">–</span><span>${nz(pB, v => v.toFixed(1))} <b>${mu.B}</b></span>`;
+      // the two teams' ratings as paired bars from the league's zero, each scaled to the league's widest value on that row (a reading of the table, nothing priced here)
+      const mets = [["Power", "power", 1], ["Offense EPA", "off_epa_play", 3], ["Defense EPA", "def_epa_play", 3], ["Points for", "off_pf", 1], ["Points allowed", "def_pf", 1], ["QB rating", "qb_rating", 3]];
+      const GW = 640, lw2 = 118, rh = 30, bh = 9, cxm = lw2 + (GW - lw2 - 56) / 2, half = (GW - lw2 - 56) / 2, GH = 22 + mets.length * rh;
+      let gs = `<svg viewBox="0 0 ${GW} ${GH}" role="img" aria-label="${mu.A} and ${mu.B}, rating by rating"><text x="${GW - 8}" y="12" text-anchor="end" font-size="10.5" font-weight="600" fill="var(--text-secondary)"><tspan fill="var(--series-1)">■</tspan> ${mu.A}   <tspan fill="var(--series-2)">■</tspan> ${mu.B}</text><line x1="${cxm}" x2="${cxm}" y1="18" y2="${GH - 4}" stroke="var(--rule)"/>`;
+      mets.forEach(([lab, k, d], i) => { const mx = Math.max(...teams.map(t => Math.abs(val(t, k) ?? 0)), 1e-9), y0 = 22 + i * rh; gs += `<text x="${lw2 - 10}" y="${y0 + bh + 4}" text-anchor="end" font-size="11.5" fill="var(--text-primary)">${lab}</text>`;
+        [[mu.A, "var(--series-1)", 0], [mu.B, "var(--series-2)", bh + 2]].forEach(([t, col, dy]) => { const v = val(t, k); if (v == null) return; const w = Math.abs(v) / mx * half, pos = v >= 0, yy = y0 + dy; gs += `<rect x="${pos ? cxm + 1 : cxm - 1 - w}" y="${yy}" width="${w.toFixed(1)}" height="${bh}" rx="2" fill="${col}"/><text x="${pos ? cxm + w + 5 : cxm - w - 5}" y="${yy + bh - 1}" text-anchor="${pos ? "start" : "end"}" font-size="10" fill="var(--text-secondary)">${(v >= 0 ? "+" : "") + v.toFixed(d)}</text>`; }); });
+      $("muOut").innerHTML = gs + "</svg>";
     };
     ["muA", "muB"].forEach(id => { $(id).onchange = price; });
     price();
@@ -1769,7 +1777,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const x = v => m.l + (v + lim) / (2 * lim) * (W - m.l - m.r), y = v => m.t + (lim - v) / (2 * lim) * (Hh - m.t - m.b);
     let sv = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="Offense EPA rating against defense EPA rating, one dot per team">`;
     sv += `<line x1="${m.l}" x2="${W - m.r}" y1="${y(0)}" y2="${y(0)}" stroke="var(--rule)"/><line x1="${x(0)}" x2="${x(0)}" y1="${m.t}" y2="${Hh - m.b}" stroke="var(--rule)"/>`;
-    sv += `<text x="${W - m.r - 4}" y="${m.t + 12}" text-anchor="end" font-size="10.5" fill="var(--text-muted)">Strong both</text><text x="${m.l + 4}" y="${Hh - m.b - 6}" font-size="10.5" fill="var(--text-muted)">Weak both</text><text x="${m.l + 4}" y="${m.t + 12}" font-size="10.5" fill="var(--text-muted)">Defense carries</text><text x="${W - m.r - 4}" y="${Hh - m.b - 6}" text-anchor="end" font-size="10.5" fill="var(--text-muted)">Offense carries</text>`;
+    const qa = 'font-size="9" font-weight="600" letter-spacing=".08em" fill="var(--text-muted)"';
+    sv += `<text x="${W - m.r - 4}" y="${m.t + 12}" text-anchor="end" ${qa}>STRONG BOTH</text><text x="${m.l + 4}" y="${Hh - m.b - 6}" ${qa}>WEAK BOTH</text><text x="${m.l + 4}" y="${m.t + 12}" ${qa}>DEFENSE CARRIES</text><text x="${W - m.r - 4}" y="${Hh - m.b - 6}" text-anchor="end" ${qa}>OFFENSE CARRIES</text>`;
     // labels: nudge any two that would overlap apart vertically, so every team stays readable
     const lab = teams.map((t, i) => ({t, px: x(xs[i]), py: y(ys[i]), lx: x(xs[i]) + 6, ly: y(ys[i]) + 4})).sort((a, b) => a.py - b.py);
     for (let pass = 0; pass < 3; pass++) lab.forEach((a, i) => lab.slice(i + 1).forEach(b => { if (Math.abs(a.lx - b.lx) < 34 && Math.abs(a.ly - b.ly) < 11) b.ly = a.ly + 11; }));
@@ -1783,10 +1792,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const ordP = teams.slice().sort((a, b) => val(b, "power") - val(a, "power"));
     const maxP = Math.max(...ordP.map(t => Math.abs(val(t, "power"))), 1);
     // the bars span the card (29 Sep 2026, Matt): the team label at the left edge, the bars centred on zero and using the rest
-    const rowH = 12, W2 = 520, H2 = m.t + ordP.length * rowH + 8, lw = 40, maxW = (W2 - lw - 8) / 2 - 30, cx = lw + 30 + maxW;
+    const rowH = 12, W2 = 520, H2 = m.t + ordP.length * rowH + 8, cx = W2 / 2, maxW = W2 / 2 - 64;   // team labels hug the zero line on the bar's base side, values at the bar's end; teal above zero, magenta below (29 Sep 2026, Matt)
     let pb = `<svg viewBox="0 0 ${W2} ${H2}" role="img" aria-label="Power rating by team">`;
     pb += `<line x1="${cx}" x2="${cx}" y1="${m.t - 4}" y2="${H2 - 4}" stroke="var(--rule)"/>`;
-    ordP.forEach((t, i) => { const v = val(t, "power"), w = Math.abs(v) / maxP * maxW, yy = m.t + i * rowH; pb += `<rect x="${v >= 0 ? cx : cx - w}" y="${yy}" width="${w.toFixed(1)}" height="${rowH - 3}" rx="2" fill="var(--series-1)"/><text x="${lw - 4}" y="${yy + rowH - 4}" text-anchor="end" font-size="9.5" font-weight="600" fill="var(--text-primary)">${t}</text><text x="${v >= 0 ? cx + w + 4 : cx - w - 4}" y="${yy + rowH - 4}" text-anchor="${v >= 0 ? "start" : "end"}" font-size="9.5" fill="var(--text-secondary)">${sgn(v)}</text>`; });
+    ordP.forEach((t, i) => { const v = val(t, "power"), w = Math.abs(v) / maxP * maxW, yy = m.t + i * rowH, pos = v >= 0; pb += `<rect x="${pos ? cx + 1 : cx - 1 - w}" y="${yy}" width="${w.toFixed(1)}" height="${rowH - 3}" rx="2" fill="${pos ? "var(--good)" : "var(--bad)"}"/><text x="${pos ? cx - 6 : cx + 6}" y="${yy + rowH - 4}" text-anchor="${pos ? "end" : "start"}" font-size="9.5" font-weight="600" fill="var(--text-primary)">${t}</text><text x="${pos ? cx + w + 5 : cx - w - 5}" y="${yy + rowH - 4}" text-anchor="${pos ? "start" : "end"}" font-size="9.5" fill="var(--text-secondary)">${sgn(v)}</text>`; });
     pb += "</svg>";
     $("powerbar").innerHTML = pb;
   }
