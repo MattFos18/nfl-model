@@ -786,7 +786,10 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
         se = se.assign(pct=se[["off_pct", "def_pct"]].fillna(0).max(axis=1))
         se = se[(se.pct > 0) & (se.season >= cur_season - 1) & ((se.season < cur_season) | (se.week < cur_week))].sort_values(["season", "week"])
         for pid, g in se.groupby("player_id"):
-            t = g.tail(4); usual[pid] = (round(float(t.pct.mean()), 2), int(len(t)))
+            # this season's games when he has any (30 Sep 2026, Matt: DeShon Elliott read 84% from last season's games while
+            # out all of this one); otherwise last season's, and the row says which season
+            cur = g[g.season == cur_season]; t = (cur if len(cur) else g).tail(4)
+            usual[pid] = (round(float(t.pct.mean()), 2), int(len(t)), int(t.season.iloc[-1]))
     for g in wk:
         co = (g.get("coefs") or {}).get("per_unit") or {}
         teams = [g["home_team"], g["away_team"]]
@@ -818,7 +821,8 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                 opp = (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * v) if priced else 0.0
                 row = {"name": p.name, "pos": p.position, "status": p.report or (PRACTICE.get(clean(p.practice), clean(p.practice)) or "No game status yet" if p.roster == "Active" else p.roster), "injury": clean(p.injury) or clean(p.why) or "",
                        "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
-                       "back": clean(p.back), "usual": usual.get(p.player_id, (None, 0))[0], "usual_n": usual.get(p.player_id, (None, 0))[1]}
+                       "back": clean(p.back), "usual": usual.get(p.player_id, (None, 0, None))[0], "usual_n": usual.get(p.player_id, (None, 0, None))[1],
+                       "usual_season": usual.get(p.player_id, (None, 0, None))[2]}
                 if qbr is not None and priced and p.position == "QB" and sd.get("qb_out") and sd.get("qb_rating") is not None and sd.get("qb_name") and p.name != sd.get("qb_name") and isinstance(p.player_id, str):
                     st = r[r.name == sd["qb_name"]]
                     if len(st) and isinstance(st.iloc[0].player_id, str):

@@ -2771,7 +2771,8 @@ meetings table, a band: Won, Covered, Totals and Points a game, each led by the 
 
 **Usual snaps and whether the report is out** (30 Sep 2026, Matt: last game's snaps read 0 for a starter who missed it).
 The injury report's snaps column is his usual share: the larger of his offense and defense share, averaged over the last
-4 games he played. The hover keeps last game's share, which is what the line effect prices (the snaps-out inputs use
+4 games he played this season; a player who has not played this season shows last season's share with the year
+beside it (30 Sep 2026: DeShon Elliott read 84% from 2025 while out all of 2026). The hover keeps last game's share, which is what the line effect prices (the snaps-out inputs use
 last game). Each team's band says when the week's league report (practice or game status) is not out yet, so an empty
 list reads as "not out yet" rather than "nobody hurt".
 
