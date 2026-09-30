@@ -459,8 +459,10 @@ def write_report():
         if bt: f.append("2: totals flag down " + ", ".join(bt))
         if bl: f.append("2: log loss / Brier up " + ", ".join(bl))
         p = PS.get(v, {})
-        if p.get("draws"):
-            f.append(f"3: beats the placebo on all three windows in {p['real_beats_all3']} of {p['draws']}" + (" (needs 45 of 50)" if not p["pass"] else ""))
+        if p.get("draws") and not p["pass"]:
+            f.append(f"3: beats the placebo on all three windows in {p['real_beats_all3']} of {p['draws']} (needs 45 of 50; a reading at 20 draws)")
+        elif p.get("draws"):
+            f.append(f"(3 passes: {p['real_beats_all3']} of {p['draws']})")
         return "; ".join(f) if f else "passes"
     tab = []
     for v in have:
@@ -543,8 +545,8 @@ Biggest movers under {LABEL[S_['best']]} (2015-25 regular season; the players ad
 
 - The rule's base is the live input rebuilt by this script (it matches `trends_asof.parquet` to 1e-15 on all 7,870 team-games) and
   rounded to 9 decimals like every variant. Run straight from the live table, the base differs by last-digit float noise, which
-  moves the boosted trees' bins: team points miss {b0['team_mae_2015-18'] - b['team_mae_2015-18']:+.4f} / {b0['team_mae_2019-22'] - b['team_mae_2019-22']:+.4f} / {b0['team_mae_2023-25'] - b['team_mae_2023-25']:+.4f}. That is the noise floor of a single comparison; the gated variants' gains (about 0.004 to 0.02) sit above it
-  on 2015-18 and 2023-25 and near it on 2019-22.
+  moves the boosted trees' bins: team points miss {b0['team_mae_2015-18'] - b['team_mae_2015-18']:+.4f} / {b0['team_mae_2019-22'] - b['team_mae_2019-22']:+.4f} / {b0['team_mae_2023-25'] - b['team_mae_2023-25']:+.4f}. That is the noise floor of a single comparison. The gated variants' gains sit well above it on 2015-18 and 2023-25
+  (0.005 to 0.024); on 2019-22 they are 0.0005 to 0.009, around it. The placebo is what separates the two.
 - Fresh trees on this machine for base and every variant (the live trees' cache holds GitHub runners' fits; fresh fits move the
   base spread by 0.008 points on average). Weekly refit, 2013 on, as the live walk-forward.
 - A player's history counts only games for this team (a player traded in or signed counts 0 until he plays for it), and only games
@@ -554,7 +556,8 @@ Biggest movers under {LABEL[S_['best']]} (2015-25 regular season; the players ad
   for LA in 2024 Week 4 above). The ungated variants carry such players all season.
 - `ol_out`, `off_starters_out` and `def_starters_out` are not model inputs (only readings on the page), so their changes, counted
   above, cannot move a prediction. `qb_out` was left as it is.
-- 2026 is weeks 1 to 3 only ({int(b['n_2026'])} games): a reading, not part of the rule. The gated variants are worse there by 0.02 to 0.03.
+- 2026 is weeks 1 to 3 only ({int(b['n_2026'])} games): a reading, not part of the rule. The team points miss there is 0.018 to 0.028 worse under 6b to 6e and 0.006 worse under 6a; the
+  ungated ones are within 0.005 either way except season to date (+0.013).
 - Data snapshot: the weekly run rewrote `data/processed` at 16:23 while the study ran, so every run here reads one snapshot taken
   after it (scratch folder), base and variants alike.
 """
@@ -562,7 +565,19 @@ Biggest movers under {LABEL[S_['best']]} (2015-25 regular season; the players ad
     return T, V, PS, CC
 
 
-HEADLINE = "(headline written after the runs)"
+HEADLINE = """**Verdict: nothing is adopted; the live last-game share stays.** The best variant is 6b: an out player's mean share over his
+last 4 games played, counted only if he played in one of the team's last 4 games. It lowers the team points miss on all three
+windows (-0.017 / -0.004 / -0.020 points on 2015-18 / 2019-22 / 2023-25), improves the win chance's log loss and Brier on all three,
+and beats its placebo on all three windows in 48 of 50 draws. It fails two parts of the rule. The margin miss rises on 2019-22
+(+0.007). The spread flag loses 5 wins net on 2015-18 (68-54 to 59-50), though it gains 6 on 2019-22 and 2 on 2023-25. The totals
+flag does not move.
+
+Plain usual shares with no time limit (variants 1 to 5: last 3, 4 or 8 games played, season to date, the max of last game and
+last 4) are worse. They keep counting players who have been on IR for months, whose absence is already in the team's ratings,
+and they raise both misses on 2019-22 and lose spread wins. Every gated version (last 2, 4 or 8 team games, and two more built on
+the 4-game gate) also fails rule 2, and all but the 2-game gate raise the margin miss on 2019-22. The owner's case is real: in
+2025, 474 times a 90%+ starter who had also missed the previous game was out and priced at 0. But no version of "usual role"
+tested here prices those players better without costing spread bets somewhere."""
 
 
 if __name__ == "__main__":

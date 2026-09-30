@@ -2,7 +2,19 @@
 
 `experiments/usual_snaps.py`; every variant and window in `reports/usual_snaps.csv`. Rule: `reports/round3_rule.md`.
 
-(headline written after the runs)
+**Verdict: nothing is adopted; the live last-game share stays.** The best variant is 6b: an out player's mean share over his
+last 4 games played, counted only if he played in one of the team's last 4 games. It lowers the team points miss on all three
+windows (-0.017 / -0.004 / -0.020 points on 2015-18 / 2019-22 / 2023-25), improves the win chance's log loss and Brier on all three,
+and beats its placebo on all three windows in 48 of 50 draws. It fails two parts of the rule. The margin miss rises on 2019-22
+(+0.007). The spread flag loses 5 wins net on 2015-18 (68-54 to 59-50), though it gains 6 on 2019-22 and 2 on 2023-25. The totals
+flag does not move.
+
+Plain usual shares with no time limit (variants 1 to 5: last 3, 4 or 8 games played, season to date, the max of last game and
+last 4) are worse. They keep counting players who have been on IR for months, whose absence is already in the team's ratings,
+and they raise both misses on 2019-22 and lose spread wins. Every gated version (last 2, 4 or 8 team games, and two more built on
+the 4-game gate) also fails rule 2, and all but the 2-game gate raise the margin miss on 2019-22. The owner's case is real: in
+2025, 474 times a 90%+ starter who had also missed the previous game was out and priced at 0. But no version of "usual role"
+tested here prices those players better without costing spread bets somewhere.
 
 ## The rule, variant by variant
 
@@ -22,10 +34,10 @@ total equation has no snaps-out input. The placebo ran for the four variants tha
 | 4. Season to date (last season if none) | -0.0144 / +0.0025 / -0.0217 | -0.0162 / +0.0322 / -0.0239 | +0 / -4 / -6 | +0 / +0 / +0 | -1.52 / +0.12 / -1.68 | -0.56 / +0.08 / -0.65 | not run | +0.0132 | no: 1: team miss up 2019-22; 1: margin miss up 2019-22; 2: spread flag down 2019-22, 2023-25; 2: log loss / Brier up 2019-22 |
 | 5. max(last game, last 4 played) | -0.0162 / +0.0031 / -0.0258 | -0.0291 / +0.0332 / -0.0344 | -4 / -1 / -9 | +0 / +0 / +0 | -2.63 / +0.31 / -2.35 | -1.12 / +0.09 / -0.96 | not run | -0.0035 | no: 1: team miss up 2019-22; 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2019-22, 2023-25; 2: log loss / Brier up 2019-22 |
 | 6a. Last 4 played, only if he played in the team's last 2 | -0.0055 / -0.0036 / +0.0030 | -0.0094 / -0.0057 / +0.0001 | +0 / -4 / +2 | +0 / +0 / +0 | -0.47 / -0.42 / +0.01 | -0.24 / -0.23 / -0.09 | not run | +0.0063 | no: 1: team miss up 2023-25; 1: margin miss up 2023-25; 2: spread flag down 2019-22; 2: log loss / Brier up 2023-25 |
-| 6b. Last 4 played, only if he played in the team's last 4 | -0.0174 / -0.0036 / -0.0203 | -0.0225 / +0.0073 / -0.0214 | -5 / +6 / +2 | +0 / +0 / +0 | -1.49 / -2.41 / -1.41 | -0.61 / -0.93 / -0.70 | not run | +0.0250 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18 |
-| 6c. Last 4 played, only if he played in the team's last 8 | -0.0140 / -0.0092 / -0.0209 | -0.0306 / +0.0256 / -0.0059 | -3 / -3 / -2 | +0 / +0 / +0 | -2.04 / -1.94 / -1.52 | -0.79 / -0.74 / -0.56 | not run | +0.0177 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2019-22, 2023-25 |
-| 6d. max(last game, last 4 played), the usual part only if he played in the team's last 4 | -0.0158 / -0.0035 / -0.0237 | -0.0227 / +0.0032 / -0.0257 | -8 / -1 / +1 | +0 / +0 / +0 | -1.41 / -2.47 / -1.66 | -0.59 / -0.96 / -0.79 | not run | +0.0280 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2019-22 |
-| 6e. Season to date, only if he played in the team's last 4 | -0.0194 / -0.0005 / -0.0176 | -0.0267 / +0.0092 / -0.0157 | -6 / +1 / -3 | +0 / +0 / +0 | -1.92 / -1.85 / -1.36 | -0.78 / -0.65 / -0.65 | not run | +0.0229 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2023-25 |
+| 6b. Last 4 played, only if he played in the team's last 4 | -0.0174 / -0.0036 / -0.0203 | -0.0225 / +0.0073 / -0.0214 | -5 / +6 / +2 | +0 / +0 / +0 | -1.49 / -2.41 / -1.41 | -0.61 / -0.93 / -0.70 | 50 / 48 / 50 of 50 | +0.0250 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18; (3 passes: 48 of 50) |
+| 6c. Last 4 played, only if he played in the team's last 8 | -0.0140 / -0.0092 / -0.0209 | -0.0306 / +0.0256 / -0.0059 | -3 / -3 / -2 | +0 / +0 / +0 | -2.04 / -1.94 / -1.52 | -0.79 / -0.74 / -0.56 | 20 / 20 / 20 of 20 | +0.0177 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2019-22, 2023-25; 3: beats the placebo on all three windows in 20 of 20 (needs 45 of 50; a reading at 20 draws) |
+| 6d. max(last game, last 4 played), the usual part only if he played in the team's last 4 | -0.0158 / -0.0035 / -0.0237 | -0.0227 / +0.0032 / -0.0257 | -8 / -1 / +1 | +0 / +0 / +0 | -1.41 / -2.47 / -1.66 | -0.59 / -0.96 / -0.79 | 20 / 20 / 20 of 20 | +0.0280 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2019-22; 3: beats the placebo on all three windows in 20 of 20 (needs 45 of 50; a reading at 20 draws) |
+| 6e. Season to date, only if he played in the team's last 4 | -0.0194 / -0.0005 / -0.0176 | -0.0267 / +0.0092 / -0.0157 | -6 / +1 / -3 | +0 / +0 / +0 | -1.92 / -1.85 / -1.36 | -0.78 / -0.65 / -0.65 | 20 / 17 / 20 of 20 | +0.0229 | no: 1: margin miss up 2019-22; 2: spread flag down 2015-18, 2023-25; 3: beats the placebo on all three windows in 17 of 20 (needs 45 of 50; a reading at 20 draws) |
 
 Base (the live inputs rebuilt by the script, same code path as every variant, fresh trees):
 
@@ -113,7 +125,7 @@ game, on 306 team-games; the live input counted every one as 0. He had missed 1 
 
 Biggest movers under 6b. Last 4 played, only if he played in the team's last 4 (2015-25 regular season; the players added, at their usual share):
 
-| game_id | team | off_live | off_var | def_live | def_var | spread_move | players |
+| game_id | team | off_live | off_var | def_live | def_var | home_spread_move | players |
 |---|---|---|---|---|---|---|---|
 | 2022_17_DAL_TEN | TEN | 1.2 | 5.46 | 2.2 | 5.85 | -2.04 | Ben Jones (96%), Ryan Tannehill (91%), Nate Davis (88%), Amani Hooker (82%) |
 | 2023_04_PIT_HOU | HOU | 1.0 | 5.43 | 0.0 | 2.89 | -2.48 | Laremy Tunsil (100%), Scott Quessenberry (100%), Denzel Perryman (98%), Derek Stingley Jr. (96%) |
@@ -130,14 +142,18 @@ Biggest movers under 6b. Last 4 played, only if he played in the team's last 4 (
 
 - The rule's base is the live input rebuilt by this script (it matches `trends_asof.parquet` to 1e-15 on all 7,870 team-games) and
   rounded to 9 decimals like every variant. Run straight from the live table, the base differs by last-digit float noise, which
-  moves the boosted trees' bins: team points miss +0.0007 / +0.0012 / +0.0007. That is the noise floor of a single comparison; the gated variants' gains (about 0.004 to 0.02) sit above it
-  on 2015-18 and 2023-25 and near it on 2019-22.
+  moves the boosted trees' bins: team points miss +0.0007 / +0.0012 / +0.0007. That is the noise floor of a single comparison. The gated variants' gains sit well above it on 2015-18 and 2023-25
+  (0.005 to 0.024); on 2019-22 they are 0.0005 to 0.009, around it. The placebo is what separates the two.
 - Fresh trees on this machine for base and every variant (the live trees' cache holds GitHub runners' fits; fresh fits move the
   base spread by 0.008 points on average). Weekly refit, 2013 on, as the live walk-forward.
 - A player's history counts only games for this team (a player traded in or signed counts 0 until he plays for it), and only games
   with snap data (2012 on). The out set, snap source and id matching are the live ones; nothing new is pulled.
+- The gate counts the team's games, across the offseason: in Weeks 1 to 4 a player who last played in the final games of last
+  season still counts, including one since retired or released but still listed as unavailable (Aaron Donald, retired, counts
+  for LA in 2024 Week 4 above). The ungated variants carry such players all season.
 - `ol_out`, `off_starters_out` and `def_starters_out` are not model inputs (only readings on the page), so their changes, counted
   above, cannot move a prediction. `qb_out` was left as it is.
-- 2026 is weeks 1 to 3 only (48 games): a reading, not part of the rule. The gated variants are worse there by 0.02 to 0.03.
+- 2026 is weeks 1 to 3 only (48 games): a reading, not part of the rule. The team points miss there is 0.018 to 0.028 worse under 6b to 6e and 0.006 worse under 6a; the
+  ungated ones are within 0.005 either way except season to date (+0.013).
 - Data snapshot: the weekly run rewrote `data/processed` at 16:23 while the study ran, so every run here reads one snapshot taken
   after it (scratch folder), base and variants alike.
