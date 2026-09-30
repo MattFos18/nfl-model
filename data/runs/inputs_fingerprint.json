@@ -212,7 +212,7 @@
 [
 "GB",
 "Jayden Reed",
-"Doubtful"
+"Out"
 ],
 [
 "GB",
@@ -237,6 +237,11 @@
 [
 "HOU",
 "M.J. Stewart",
+"Out"
+],
+[
+"HOU",
+"Mario Edwards Jr.",
 "Out"
 ],
 [
@@ -361,8 +366,18 @@
 ],
 [
 "NYJ",
+"Adonai Mitchell",
+"Doubtful"
+],
+[
+"NYJ",
 "Arian Smith",
 "Out"
+],
+[
+"NYJ",
+"Breece Hall",
+"Doubtful"
 ],
 [
 "NYJ",
@@ -373,6 +388,11 @@
 "NYJ",
 "Marcelino McCrary-Ball",
 "Out"
+],
+[
+"NYJ",
+"Mason Taylor",
+"Doubtful"
 ],
 [
 "PHI",
@@ -691,12 +711,6 @@
 ],
 [
 "HOU",
-"Mario Edwards Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
 "Nico Collins",
 "Questionable (ESPN)",
 ""
@@ -889,18 +903,6 @@
 ],
 [
 "NYJ",
-"Adonai Mitchell",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Breece Hall",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
 "Dylan Parham",
 "Questionable (ESPN)",
 ""
@@ -914,12 +916,6 @@
 [
 "NYJ",
 "Kiko Mauigoa",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Mason Taylor",
 "Questionable (ESPN)",
 ""
 ],
@@ -1086,5 +1082,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 16:15 UTC"
+"written_at": "2026-09-30 16:49 UTC"
 }
