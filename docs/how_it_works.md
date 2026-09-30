@@ -2921,3 +2921,11 @@ across its partner books, spread, total and moneyline) in data/lines/splits_cons
 when a number changes. Neither feeds the model, the picks' line or the page. Tried and not usable: VSIN's DraftKings
 and Circa splits (subscriber-locked), Action Network's own splits (paid), SportsBettingDime (not in the page),
 Covers (404).
+
+**The Totals backtest shows both sides** (30 Sep 2026, Matt: "I don't want to just see the unders"). The headline says
+the rule (our bets: unders at a 55%+ chance) with the overs at the same bar beside it, never bet (368-365-5, -33.5
+units); the units chart draws both; a table splits every game's lean by how sure the model was, overs and unders side
+by side (records.appendix ou_bands): overs lose in every band, and the unders' profit sits almost all in the 60%+ band
+(192-136, +42.4; 55-60% is near even). Every Edge Tested lists the unders, then the overs. Both markets gain Our Bets by
+Situation (records.appendix situations): the live rule's bets by the size of the line or total, prime time, Sunday
+daytime, Thursday, division games, indoors or out, and wind 15+ mph on totals. Display only; no rule changed.
