@@ -2799,3 +2799,13 @@ ends with two rows across the weeks, every season together: the record and the a
 worst weeks stand out (records.appendix weekly by_week); it replaces the By Week of the Season table. The miss-against-
 Vegas chart and the win-chance chart went: neither read to a conclusion (the misses sit within a few tenths of a point
 every season; the win chances track Vegas's). Every card sits the same distance apart.
+
+**Four figures under the headline, cleaner tiles** (30 Sep 2026, Matt: "add the stats worth adding"; the tiles "a
+cluster of numbers"). Each tile has one big figure and a labelled row beneath: our bets (record; win %, units, ROI),
+every game (win %; record, units), and the miss of the final margin (model against Vegas, and who was closer by how
+much). Under them, from records.bet_stats: the worst drawdown (the biggest fall in units from a high point), bets a
+season, the average edge on our bets, and the chance the record is luck (a coin winning at break-even, at least this
+many wins over the same bets; binomial). The line's move from open to close was left out on purpose: the backtest picks
+its bets by the gap to the closing line, which favours games where the line moved away from the model, so the share
+would say how the bets were chosen, not skill. "Is the Edge Real?" and the Every Game table went (every game stays in
+the data on GitHub); the edge table shows the record once, in its own column after Total.

@@ -133,3 +133,37 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
     out["gap_bands"] = {"spread": [{"band": f"{a}+" if b == 99 else f"{a}–{b}", "from": a, **_cell(sp_won[sp_ok & wk & e.abs().between(a, b, inclusive="left")], sp_push[sp_ok & wk & e.abs().between(a, b, inclusive="left")])} for a, b in bands],
                         "total": [{"band": f"{a}+" if b == 99 else f"{a}–{b}", "from": a, **_cell(t_won[t_ok & wk & te.abs().between(a, b, inclusive="left")], t_push[t_ok & wk & te.abs().between(a, b, inclusive="left")])} for a, b in bands]}
     return out
+
+
+def bet_stats(d: pd.DataFrame, season_now: int) -> dict:
+    """Four more figures on our bets (30 Sep 2026, Matt: "add the stats worth adding"), the fourth the chance of the
+    record by luck, spreads and totals apart, on the
+    live rules, regular season, graded at the closing line, one unit at DEFAULT_ODDS:
+    - drawdown: the biggest fall in units from a high point to a later low, bet by bet in kickoff order
+    - per_season: bets a season over the finished seasons (this season is still going)
+    - avg_edge: the average points between the model's number and the closing line on the bets
+    The line's move from open to close is left out: the backtest picks its bets by their gap to the closing line, which
+    favours games where the line moved away from the model, so the share would say how the bets were chosen, not skill."""
+    risk = -DEFAULT_ODDS / 100 if DEFAULT_ODDS < 0 else 1.0; win = 1.0 if DEFAULT_ODDS < 0 else DEFAULT_ODDS / 100
+    e = d.model_spread - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
+    sp_ok = d.spread_line.notna() & (e != 0)
+    ct = d.home_score + d.away_score - d.total_line; t_ok = d.total_line.notna() & d.p_over_emp.notna()
+    over = d.p_over_emp >= 0.5; p_side = np.where(over, d.p_over_emp, 1 - d.p_over_emp)
+    wk = d.week <= LAST_BET_WEEK
+    spec = {"spread": (rule_mask(d, SPREAD_EDGE) & sp_ok, ((e > 0) & (cm > 0)) | ((e < 0) & (cm < 0)), cm == 0, e.abs()),
+            "total": (t_ok & wk & ~over & (p_side >= TOTAL_SHADOW["prob"]), ct < 0, ct == 0, (d.model_total - d.total_line).abs())}
+    out = {}
+    for mkt, (m, won, push, edge) in spec.items():
+        x = d[m].assign(_won=won[m], _push=push[m], _edge=edge[m]).sort_values([c for c in ("season", "week", "game_id") if c in d.columns])
+        u = np.where(x._won, win, np.where(x._push, 0.0, -risk)).cumsum()
+        peak = np.maximum.accumulate(np.concatenate([[0.0], u]))[1:]
+        done = x[x.season < season_now]
+        out[mkt] = {"bets": int(len(x)), "drawdown": round(float((peak - u).max()) if len(u) else 0.0, 1),
+                    "per_season": round(len(done) / done.season.nunique(), 1) if len(done) else None,
+                    "avg_edge": round(float(x._edge.mean()), 2) if len(x) else None}
+        # the chance of doing at least this well by luck (30 Sep 2026, Matt: the one number kept from "Is the Edge Real?"): a coin
+        # that wins at break-even for DEFAULT_ODDS, over the same number of graded bets (pushes out), every season
+        w_, l_ = int(x._won.sum()), int((~x._won & ~x._push).sum())
+        from scipy.stats import binom
+        out[mkt]["luck"] = round(float(binom.sf(w_ - 1, w_ + l_, break_even())), 5) if w_ + l_ else None
+    return out
