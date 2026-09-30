@@ -2829,3 +2829,8 @@ dogs, primetime unders. One candidate for a tracking-only rule: unders needing 5
 grid is Week by Week. The rule itself is in the edge table's outlined row.
 The four figures under the tiles (drawdown, bets a season, average edge, chance it's luck) were removed the same day
 (Matt); records.bet_stats still computes them into meta.js, tied by the health check.
+
+**Cover Odds by range** (30 Sep 2026, Matt: "group by the ranges, not by years"). The table now has one row per chance
+range with 2019-22 and 2023-25 side by side (games, said, covered); the bottom range reads "Under 50%" (the calibrated
+chance for the model's side falls under 50% at the smallest edges; those games average 49 to 50%). Week by Week moved
+above Every Edge Tested, and the margin miss tile shows two decimals.
