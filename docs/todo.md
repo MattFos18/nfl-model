@@ -22,6 +22,11 @@ Last updated 29 Sep 2026.
 - **Data:** every file is listed on the site under Info → Data with what it is, what writes it and where it shows. New this round: `data/lines/splits_log.csv` (betting splits every 10 minutes), `data/reference/coordinators.csv`, `data/weather/forecast_archive*.csv` (769 of 777 outdoor games of 2022-25).
 
 ## Ideas parked, to revisit
+- **Every book's line and betting splits** (30 Sep 2026, Matt). The Breakdown card's betting splits are DraftKings'
+  (the only free feed), so its line chart now plots DraftKings' line too. With a paid feed of every book's lines and
+  splits (for example the Odds API's historical odds plus a splits provider such as Action Network), the chart could
+  show the market-wide consensus and the splits could cover more than one book; the splits could also be backtested
+  once there is history. Parked until it is worth paying for.
 - **A look of its own** (Matt, 29 Sep: keep the simple, easy-to-read layout, but it reads as Claude-made). The cream background, muted greens, rounded pale cards and the IBM Plex type are the tell. Options: a darker sports-data palette (near-black or navy with one team-agnostic accent), a sharper sans such as Inter or Barlow with condensed numerals, square-edged tiles, a proper header with a logo and name. Same layout, new skin; one pass, shown to Matt before it goes live.
 - Expected return (EV %) column on the Bet ranking, and the median total on each card.
 - Track the Under 3+ totals rule live before using it.

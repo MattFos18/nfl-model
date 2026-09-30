@@ -2753,3 +2753,29 @@ the edge bolder ... doesn't show the PIT % winner edge, just says PIT"). The Mod
 the Edge row is a tinted band with the model's side of each market in bold and its edge in a chip: points for the
 spread and total, and for the winner the model's win chance minus Vegas's in percentage points, on the displayed
 percentages as on the Breakdown card's Win block (PIT 60% against 57%: +3%).
+
+**Scheme matchup: one row a player, edge words on Fit and Past** (30 Sep 2026, Matt: "don't break apart a running back
+by runs and receiving"; "for his past vs Tennessee I'd like an edge rating as well"). A back or receiver is one row: his
+runs and targets together, each gap measured inside its own kind of play (a run against his run average, a target against
+his target average) and weighted by plays, so a back's targets are never read against his run average. The quarterback
+stays on his dropbacks. Fit and Past vs carry the same edge words (even inside ±0.02, slight to 0.06, solid to 0.12, big
+past that) beside the number; Past is grey under 20 plays. How much these readings are worth is being tested
+(reports/scheme_readings_test.md).
+
+**Head to head in four figures** (30 Sep 2026, Matt: the takeaway line should stand out and read at a glance). Under the
+meetings table, a band: Won, Covered, Totals and Points a game, each led by the side that has the better of it.
+
+**Usual snaps and whether the report is out** (30 Sep 2026, Matt: last game's snaps read 0 for a starter who missed it).
+The injury report's snaps column is his usual share: the larger of his offense and defense share, averaged over the last
+4 games he played. The hover keeps last game's share, which is what the line effect prices (the snaps-out inputs use
+last game). Each team's band says when the week's league report (practice or game status) is not out yet, so an empty
+list reads as "not out yet" rather than "nobody hurt".
+
+**The line chart plots DraftKings** (30 Sep 2026, Matt: the splits are DraftKings', so the line should be too). The
+Breakdown card's line chart now uses DraftKings' snapshots only (every book's line and splits is a parked idea in
+docs/todo.md). Its labels sit in their own rows above and below the plot, so none can land on the line, both line labels
+in the same weight, and a spread reads from the model's side, as the flag at the top of the card does.
+
+**Logos on the picks** (30 Sep 2026, Matt). The Bet Ranking and teaser tables show the team's logo beside a side pick; a
+total has none, and in the teaser a blank slot keeps the lines aligned. The Games table already carries logos and is
+unchanged.
