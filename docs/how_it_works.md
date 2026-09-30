@@ -2902,5 +2902,13 @@ lean taken off every edge) against 4+ on both sides. The home-side weakness is 2
 sides at 4+ win (65-42), so every rule that drops them loses units on 2019-22 and none beats 4+ on every window. Two of them are
 tracked as hidden shadows (graded every run, kept off the page): road sides at 4+ with home sides at 6+, and road sides
 only. The shadow watch (nflmodel/shadow_watch.py, reports/shadow_watch.md) checks every shadow each weekly run and opens
-a GitHub issue labelled shadow-ready when one has 30+ settled live bets, a win rate past break-even beyond luck (p 0.10)
+a ready-check issue (below) when one has 30+ settled live bets, a win rate past break-even beyond luck (p 0.10)
 and 5+ points more return per unit risked than the rule it would replace; it is then re-tested before it is bet.
+
+**Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
+nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude
+routines. Each weekly run now asks them itself and opens one GitHub issue labelled ready-check (GitHub emails the
+owner) when the data is in: a drift alert, a tracked rule ahead of the live rule, 50 settled live flags (check the cover
+odds against live results), nine weeks of this season in the line log (test market signals), and the season's last
+regular-season game scored (re-test the rules and the out-of-the-race input). The issue says what to run; Matt pastes it
+into a Claude session. The four NFL routines were deleted.
