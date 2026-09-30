@@ -2834,3 +2834,10 @@ The four figures under the tiles (drawdown, bets a season, average edge, chance 
 range with 2019-22 and 2023-25 side by side (games, said, covered); the bottom range reads "Under 50%" (the calibrated
 chance for the model's side falls under 50% at the smallest edges; those games average 49 to 50%). Week by Week moved
 above Every Edge Tested, and the margin miss tile shows two decimals.
+
+**Cover Odds as one total** (30 Sep 2026, Matt: "only the total really matters"; the Which Seasons table dropped). The
+sizing backtest's reliability table now covers 2016-18 too (the walk-forward fit needs 200 games before it, so it starts
+in 2016) and all seasons together; the page shows the total by chance range. With every season in, what happened sits
+close to what was said and a little under it in the higher ranges (54-56%: 52.9% covered; 56-58%: 53.7%), so the stated
+chance is honest to slightly generous, not conservative as the two-window view suggested. The Which Seasons the Cover
+Odds Learn from card went (every fit scored within 0.003 of the others; reports/calibration_start.csv keeps it).

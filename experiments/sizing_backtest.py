@@ -88,7 +88,9 @@ def main():
     allg = d[d.won.notna()].copy()
     allg["p"] = [1 / (1 + np.exp(-(cal[s_][0] + cal[s_][1] * min(abs(e), 7.0)))) if s_ in cal else np.nan for s_, e in zip(allg.season, allg.edge)]
     allg = allg[allg.p.notna()]; cr = []
-    for w, (a, b) in {"2019-22": (2019, 2022), "2023-25": (2023, 2025)}.items():
+    # every window the walk-forward fit reaches (it needs 200 games before it, so from 2016) and all of them together, the
+    # one the page shows (30 Sep 2026, Matt: "only the total really matters")
+    for w, (a, b) in {"2016-18": (2016, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025), "All": (int(allg.season.min()), int(allg.season.max()))}.items():
         x = allg[allg.season.between(a, b)]
         for lo, hi in ((0.0, 0.5), (0.5, 0.52), (0.52, 0.54), (0.54, 0.56), (0.56, 0.58), (0.58, 0.6), (0.6, 0.63), (0.63, 1.0)):
             bb = x[(x.p >= lo) & (x.p < hi)]
