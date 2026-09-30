@@ -59,7 +59,7 @@ def run() -> pd.DataFrame:
     nw = int(wk[wk.season == season].week.nunique())
     add("market", f"Ready: test market signals on the {season} line log", nw >= MARKET_WEEKS, f"{nw} weeks of {season} in the line log (ready at {MARKET_WEEKS}).",
         "Run python -m experiments.market_signals: does a line that moved toward the model cover more often, does the opener edge predict the closing move, is there any reverse "
-        "line movement signal. Then the betting splits (data/lines/splits_log.csv, every line-watch pull since 29 Sep 2026, joined to lines_log.csv by game and time): when the "
+        "line movement signal. Then the betting splits (data/lines/splits_log.csv, DraftKings, every line-watch pull since 29 Sep 2026; data/lines/splits_consensus_log.csv, the multi-book consensus, and data/lines/books_log.csv, every book's line, both from 1 Oct 2026; joined by game and time): when the "
         "money share and the bet share point opposite ways, or the line moves against the side most bets are on, does the side the money or the move backs cover more often, "
         "and does it agree with the model's flags. Say plainly how small the sample is; change nothing (market numbers stay out of the model).")
     # the season is over
