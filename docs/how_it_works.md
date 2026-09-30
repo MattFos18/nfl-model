@@ -2776,6 +2776,19 @@ Breakdown card's line chart now uses DraftKings' snapshots only (every book's li
 docs/todo.md). Its labels sit in their own rows above and below the plot, so none can land on the line, both line labels
 in the same weight, and a spread reads from the model's side, as the flag at the top of the card does.
 
-**Logos on the picks** (30 Sep 2026, Matt). The Bet Ranking and teaser tables show the team's logo beside a side pick; a
-total has none, and in the teaser a blank slot keeps the lines aligned. The Games table already carries logos and is
-unchanged.
+**Logos on the picks, tried and removed** (30 Sep 2026, Matt). The Bet Ranking and teaser tables tried team logos
+beside the picks; Matt preferred them plain, so the picks stay text. The Games table keeps its logos.
+**The Backtest's Game Picks page, simplified again** (30 Sep 2026, Matt: less clicking, clean, the fewest words).
+- The headline: our bets overall, how far our number misses the final margin (or total) against the closing line's,
+  and every game. The held-out and this-season tiles went; this season's live record is the Bets tab's.
+- The units chart sits right under the headline, with dashed dividers between the three periods instead of a grey band.
+- Every Edge Tested is one table with no switch: each rule's win % and units in the three periods and overall, the
+  seasons it finished up, then every season's units; our rule outlined in a dashed box.
+- Week by Week names what it counts (our bets) and leads with four figures: winning weeks, losing weeks, and the longest
+  win and losing streaks, bet by bet in kickoff order (records.appendix weekly streak_win / streak_loss).
+- Us against Vegas became one chart: each season, our miss minus the closing line's, points a game (below zero we were
+  closer); margins on Spreads, totals on Totals. The distance-from-the-line bars went (the edge table says the same).
+- Win Chances keeps the chart; the table under it said the same thing.
+- On the game cards, the logged-bet and still-flagged chips went (the flag at the top of the card stays), and the Live
+  tab's Model panel lost its Flag chip. The Scheme matchup's Fit and Past vs each have their own Edge column again, with
+  every header on one line.

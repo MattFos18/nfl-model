@@ -94,7 +94,16 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
             rows.append({"season": int(y), "weeks": {str(int(r.week)): {"w": int(r.w), "l": int(r.l), "p": int(r.p), "u": round(float(r.u), 2)} for r in gy.itertuples()},
                          "up": int((gy.u > 0).sum()), "down": int((gy.u < 0).sum()), "even": int((gy.u == 0).sum()),
                          "best": round(float(gy.u.max()), 2) if len(gy) else None, "worst": round(float(gy.u.min()), 2) if len(gy) else None})
-        wkly[mkt] = {"rows": rows, "last_week": LAST_BET_WEEK, "up": int((g.u > 0).sum()), "down": int((g.u < 0).sum()), "even": int((g.u == 0).sum())}
+        # the longest runs of straight wins and straight losses, bet by bet in kickoff order (30 Sep 2026, Matt); a push
+        # neither extends nor breaks a run
+        order = [c for c in ("season", "week", "gameday", "game_id") if c in x.columns]
+        best_w = best_l = run_w = run_l = 0
+        for w_, l_ in zip(x.sort_values(order).w, x.sort_values(order).l):
+            if w_: run_w, run_l = run_w + 1, 0
+            elif l_: run_w, run_l = 0, run_l + 1
+            best_w, best_l = max(best_w, run_w), max(best_l, run_l)
+        wkly[mkt] = {"rows": rows, "last_week": LAST_BET_WEEK, "up": int((g.u > 0).sum()), "down": int((g.u < 0).sum()), "even": int((g.u == 0).sum()),
+                     "streak_win": int(best_w), "streak_loss": int(best_l)}
     out["weekly"] = wkly
     # us against Vegas, every game: the straight-up winner, the miss of the margin and the total, how often our number
     # landed closer to the final than the closing line, and how far it sat from the line
