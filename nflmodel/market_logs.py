@@ -98,7 +98,7 @@ def parse_sao(html: str) -> list[dict]:
         m = re.match(r"(spread|total|moneyline)--", chunk)
         if not m:
             continue
-        sides = re.findall(r"<strong>\s*([A-Za-z]+)\s*(?:\(([^)]*)\))?\s*</strong>", chunk)[:2]
+        sides = re.findall(r"<strong>\s*([A-Za-z]+)\s*(?:<span>\s*)?(?:\(([^)]*)\))?\s*(?:</span>\s*)?</strong>", chunk)[:2]   # the total card wraps its line: Over <span>(o38.5)</span>
         pct = [int(x) for x in re.findall(r'class="percentage-[ab]"[^>]*>\s*(\d+)%', chunk)[:4]]
         teams = re.findall(r'class="team-flag"\s*([A-Z]{2,3})', chunk) or re.findall(r'teamlogos/nfl/\d+/([a-z]{2,3})\.png', chunk)
         ko = re.search(r'data-role="localtime" data-value="([^"]+)"', chunk)
