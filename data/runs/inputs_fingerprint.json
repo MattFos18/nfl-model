@@ -126,11 +126,6 @@
 ],
 [
 "CAR",
-"Jonathon Brooks",
-"Out"
-],
-[
-"CAR",
 "Mike Jackson",
 "Out"
 ],
@@ -1091,5 +1086,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 15:37 UTC"
+"written_at": "2026-09-30 16:15 UTC"
 }
