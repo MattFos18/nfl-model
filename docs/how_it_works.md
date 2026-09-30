@@ -2912,3 +2912,12 @@ owner) when the data is in: a drift alert, a tracked rule ahead of the live rule
 odds against live results), nine weeks of this season in the line log (test market signals), and the season's last
 regular-season game scored (re-test the rules and the out-of-the-race input). The issue says what to run; Matt pastes it
 into a Claude session. The four NFL routines were deleted.
+
+**More books and more splits, stored for study** (30 Sep 2026, Matt: "can we pull more than just DraftKings";
+nflmodel/market_logs.py). Every line watch now also stores Action Network's public scoreboard, every book it carries
+(DraftKings, FanDuel, BetMGM, BetRivers and others, plus the opening line and its consensus) with prices and the
+book's own change time, in data/lines/books_log.csv; and ScoresAndOdds' consensus splits (% of bets and % of money
+across its partner books, spread, total and moneyline) in data/lines/splits_consensus_log.csv. Rows are written only
+when a number changes. Neither feeds the model, the picks' line or the page. Tried and not usable: VSIN's DraftKings
+and Circa splits (subscriber-locked), Action Network's own splits (paid), SportsBettingDime (not in the page),
+Covers (404).
