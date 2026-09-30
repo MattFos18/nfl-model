@@ -73,10 +73,9 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
                  (f"{SPREAD_EDGE:g}+, weeks 1 to 13 only", sp_ok & (d.week <= 13) & (e.abs() >= SPREAD_EDGE), False)]
     tr_won = ((trees > 0) & (cm > 0)) | ((trees < 0) & (cm < 0))
     p_side = np.where(over, d.p_over_emp, 1 - d.p_over_emp)
-    t_rules = []
-    for pr in (0.52, 0.55, 0.58, 0.60):
-        t_rules += [(f"Unders, {round(100 * pr)}%+ chance", t_ok & wk & ~over & (p_side >= pr), pr == TOTAL_SHADOW["prob"]),
-                    (f"Overs, {round(100 * pr)}%+ chance", t_ok & wk & over & (p_side >= pr), False)]
+    # unders first, then overs (30 Sep 2026, Matt: the full picture, grouped, not interleaved)
+    t_rules = [(f"Unders, {round(100 * pr)}%+ chance", t_ok & wk & ~over & (p_side >= pr), pr == TOTAL_SHADOW["prob"]) for pr in (0.52, 0.55, 0.58, 0.60)]
+    t_rules += [(f"Overs, {round(100 * pr)}%+ chance", t_ok & wk & over & (p_side >= pr), False) for pr in (0.52, 0.55, 0.58, 0.60)]
     out = {"periods": [{"key": k, "from": a, "to": b} for k, a, b in per], "seasons": seasons,
            "edges": {"spread": [{"row": lab, "bet": bet, **block(sp_won, sp_push, m)} for lab, m, bet in sp_rules] +
                                [{"row": "Boosted trees alone, 5+ points", "bet": False, **block(tr_won, sp_push, sp_ok & wk & (trees.abs() >= 5))}],
@@ -117,6 +116,34 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
         ("Favorite", fav), ("Underdog", dog), ("Pick'em", pk),
         ("Home favorite", fav & home_side), ("Road favorite", fav & ~home_side),
         ("Home underdog", dog & home_side), ("Road underdog", dog & ~home_side))]
+    # the totals' full picture (30 Sep 2026, Matt: "I don't want to just see the unders"): every game's lean by how sure
+    # the model was, overs and unders side by side, weeks 1 to LAST_BET_WEEK; the bands inside our bets are marked
+    bands = [(0.50, 0.525, "50–52.5%"), (0.525, 0.55, "52.5–55%"), (0.55, 0.575, "55–57.5%"), (0.575, 0.60, "57.5–60%"), (0.60, 1.01, "60%+")]
+    ps = pd.Series(p_side, index=d.index)
+    out["ou_bands"] = [{"band": lab, "lo": lo, "bet_under": lo >= TOTAL_SHADOW["prob"] - 1e-9,
+                        "under": block(t_won, t_push, t_ok & wk & ~over & (ps >= lo) & (ps < hi)),
+                        "over": block(t_won, t_push, t_ok & wk & over & (ps >= lo) & (ps < hi))} for lo, hi, lab in bands]
+    # our bets by situation (30 Sep 2026, Matt: more on the spreads worth testing): the size of the line, division games,
+    # prime time, indoors or out, Thursday, and wind on the totals; the bets are the live rules, nothing re-chosen
+    try:
+        from .model import OUT as _O
+        gx = pd.read_parquet(_O / "games.parquet").set_index("game_id")
+        col = lambda c: d.game_id.map(gx[c]) if c in gx.columns else pd.Series(np.nan, index=d.index)
+        indoor = col("roof").isin(["dome", "closed"]); div = col("div_game").fillna(0).astype(float) > 0
+        prime = col("primetime").fillna(False).astype(bool); thu = col("weekday").eq("Thursday")
+        windy = (col("wind").astype(float) >= 15) & ~indoor
+        aline, tl = d.spread_line.abs(), d.total_line
+        common = [("When", "Prime time", prime), ("When", "Sunday daytime", ~prime & col("weekday").eq("Sunday")), ("When", "Thursday", thu),
+                  ("Game", "Division game", div), ("Game", "Not a division game", ~div), ("Where", "Indoors", indoor), ("Where", "Outdoors", ~indoor)]
+        t_bet = t_ok & wk & ~over & (p_side >= TOTAL_SHADOW["prob"])
+        out["situations"] = {
+            "spread": [{"group": gp, "row": lab, **block(sp_won, sp_push, bet & m)} for gp, lab, m in
+                       [("Line", "Under 3", aline < 3), ("Line", "3 to 6.5", (aline >= 3) & (aline < 7)), ("Line", "7 or more", aline >= 7)] + common],
+            "total": [{"group": gp, "row": lab, **block(t_won, t_push, t_bet & m)} for gp, lab, m in
+                      [("Total", "Under 42", tl < 42), ("Total", "42 to 46.5", (tl >= 42) & (tl < 47)), ("Total", "47 or more", tl >= 47)] + common +
+                      [("Where", "Outdoors, wind 15+ mph", windy)]]}
+    except Exception:  # noqa  (a display table; the page hides the card without it)
+        out["situations"] = {"spread": [], "total": []}
     # us against Vegas, every game: the straight-up winner, the miss of the margin and the total, how often our number
     # landed closer to the final than the closing line, and how far it sat from the line
     fav_m = np.sign(d.model_spread); fav_v = np.sign(d.spread_line); res = np.sign(d.home_score - d.away_score)
