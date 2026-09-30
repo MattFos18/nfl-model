@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.13 / 18.15 yards off on receiving, 17.68 / 16.96 on rushing and 56.57 / 56.11 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-30 19:29 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.13 / 18.15 yards off on receiving, 17.68 / 16.96 on rushing and 56.57 / 56.11 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-09-30 19:58 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -509,10 +509,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0032764  | Derrick Henry            | rush_attempts    |  20.9   |         20.9  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0032764  | Derrick Henry            | rush_rec_yards   |  90.3   |         20.9  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0032764  | Derrick Henry            | rush_longest     |  17.3   |         20.9  | live   |
-|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_yards       |  22.3   |          5.3  | live   |
+|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_yards       |  20.7   |          5.3  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_td          |   0.185 |          5.3  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_attempts    |   5.3   |          5.3  | live   |
-|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_rec_yards   |  22.3   |          5.3  | live   |
+|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_rec_yards   |  20.7   |          5.3  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | rush_longest     |   9.6   |          5.3  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0035993  | Tyler Huntley            | rush_yards       |  15.6   |          4.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0035993  | Tyler Huntley            | rush_td          |   0.134 |          4.1  | live   |
@@ -529,7 +529,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_int         |   0.62  |         30.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_attempts    |  27.1   |         30.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_completions |  17.7   |         30.1  | live   |
-|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_rush_yards  | 277.5   |         30.1  | live   |
+|     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_rush_yards  | 275.9   |         30.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034796  | Lamar Jackson            | pass_longest     |  33.1   |         30.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034874  | Roquan Smith             | def_tackles      |   7     |         57.7  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0034874  | Roquan Smith             | def_sacks        |   0.07  |         57.7  | live   |
@@ -738,19 +738,19 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NE_BUF  | BUF    | 00-0037288  | Christian Benford        | def_solo_tackles |   2.6   |         65.3  | live   |
 |     2026 |      4 | 2026_04_NE_BUF  | BUF    | 00-0036162  | Tyler Bass               | kick_points      |   7.6   |         25.88 | live   |
 |     2026 |      4 | 2026_04_NE_BUF  | BUF    | 00-0036162  | Tyler Bass               | field_goals      |   1.64  |         25.88 | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_yards        |  74.2   |         12.6  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_yards        |  74.3   |         12.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_catches      |   8.1   |         12.6  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_td           |   0.537 |         12.6  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_td           |   0.538 |         12.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_targets      |  12.6   |         12.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037740  | Garrett Wilson           | rec_longest      |  18.5   |         12.6  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_yards        |  29.5   |          5.5  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_yards        |  29.6   |          5.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_catches      |   3.8   |          5.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_td           |   0.24  |          5.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_targets      |   5.5   |          5.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_longest      |  17.4   |          5.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_yards        |  23     |          4.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_catches      |   3.3   |          4.8  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_td           |   0.156 |          4.8  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_td           |   0.157 |          4.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_targets      |   4.8   |          4.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039451  | Isaiah Williams          | rec_longest      |  11.6   |          4.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_yards        |  12.8   |          2.9  | live   |
@@ -775,16 +775,16 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036427  | Tyler Johnson            | rec_longest      |  11.6   |          2.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_yards        |   9     |          2.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_catches      |   1.5   |          2.2  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_td           |   0.047 |          2.2  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_td           |   0.048 |          2.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_targets      |   2.2   |          2.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rec_longest      |   8     |          2.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_yards       |  27     |          6.5  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_td          |   0.208 |          6.5  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_td          |   0.209 |          6.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_attempts    |   6.5   |          6.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_rec_yards   |  36     |          6.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039794  | Braelon Allen            | rush_longest     |   8.2   |          6.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_yards       |  25.1   |          6.1  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_td          |   0.163 |          6.1  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_td          |   0.164 |          6.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_attempts    |   6.1   |          6.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_rec_yards   |  25.1   |          6.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0036842  | Kene Nwangwu             | rush_longest     |   8.9   |          6.1  | live   |
@@ -794,16 +794,16 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039798  | Isaiah Davis             | rush_rec_yards   |  27.7   |          3.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039798  | Isaiah Davis             | rush_longest     |   8.6   |          3.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_yards       |  11.5   |          3.7  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_td          |   0.134 |          3.7  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_td          |   0.135 |          3.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_attempts    |   3.7   |          3.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_rec_yards   |  11.5   |          3.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_longest     |   6.9   |          3.7  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_yards       | 213.1   |         37    | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_td          |   1.376 |         37    | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_yards       | 213.2   |         37    | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_td          |   1.379 |         37    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_int         |   0.762 |         37    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_attempts    |  33.1   |         37    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_completions |  22.6   |         37    | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_rush_yards  | 224.6   |         37    | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_rush_yards  | 224.7   |         37    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_longest     |  31.6   |         37    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0029607  | Demario Davis            | def_tackles      |   8.3   |         71.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0029607  | Demario Davis            | def_sacks        |   0.12  |         71.2  | live   |
@@ -829,19 +829,19 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039789  | Qwan'tez Stiggers        | def_tackles      |   4.6   |         71.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039789  | Qwan'tez Stiggers        | def_sacks        |   0.08  |         71.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0039789  | Qwan'tez Stiggers        | def_solo_tackles |   2.9   |         71.2  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0038905  | Blake Grupe              | kick_points      |   6.7   |         20.59 | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0038905  | Blake Grupe              | field_goals      |   1.61  |         20.59 | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_yards        |  56.1   |          8.2  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0038905  | Blake Grupe              | kick_points      |   6.7   |         20.63 | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0038905  | Blake Grupe              | field_goals      |   1.62  |         20.63 | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_yards        |  56     |          8.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_catches      |   5.2   |          8.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_td           |   0.361 |          8.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_targets      |   8.2   |          8.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_longest      |  16.9   |          8.2  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_yards        |  52.6   |          6.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_catches      |   5     |          6.8  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.315 |          6.8  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.314 |          6.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_longest      |  15.6   |          6.8  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_yards        |  40.2   |          6.4  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_yards        |  40.1   |          6.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_catches      |   3.1   |          6.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_td           |   0.346 |          6.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_targets      |   6.4   |          6.4  | live   |
@@ -872,7 +872,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_targets      |   1.5   |          1.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_longest      |  12.2   |          1.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_yards       |  68.3   |         16.1  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.608 |         16.1  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.607 |         16.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_attempts    |  16.1   |         16.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_rec_yards   |  84.1   |         16.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_longest     |  14.1   |         16.1  | live   |
@@ -884,14 +884,14 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_yards       |   2.3   |          0.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_td          |   0.015 |          0.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_attempts    |   0.6   |          0.6  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_rec_yards   |  58.4   |          0.6  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_rec_yards   |  58.3   |          0.6  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rush_longest     |   6.2   |          0.6  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_yards       | 249.1   |         37.7  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_td          |   1.806 |         37.7  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_yards       | 249     |         37.7  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_td          |   1.802 |         37.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_int         |   0.777 |         37.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_attempts    |  37.7   |         37.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_completions |  24.8   |         37.7  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_rush_yards  | 249.1   |         37.7  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_rush_yards  | 249     |         37.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0028986  | Case Keenum              | pass_longest     |  36.3   |         37.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0041538  | Dillon Thieneman         | def_tackles      |   7.3   |         63    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0041538  | Dillon Thieneman         | def_sacks        |   0.09  |         63    | live   |
@@ -917,8 +917,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_tackles      |   3.5   |         63    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_sacks        |   0.1   |         63    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_solo_tackles |   1.9   |         63    | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | kick_points      |   7.9   |         26.53 | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | field_goals      |   1.73  |         26.53 | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | kick_points      |   7.9   |         26.48 | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | field_goals      |   1.73  |         26.48 | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_yards        |  72.4   |          9.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_catches      |   5.6   |          9.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.561 |          9.5  | live   |
@@ -2541,14 +2541,14 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0036563  | Deommodore Lenoir        | def_solo_tackles |   2.3   |         63.7  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0034173  | Eddy Pineiro             | kick_points      |   7.6   |         25.62 | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0034173  | Eddy Pineiro             | field_goals      |   1.65  |         25.62 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  79.1   |         12    | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  79     |         12    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_catches      |   7.3   |         12    | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.676 |         12    | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.675 |         12    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_targets      |  12     |         12    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_longest      |  21.9   |         12    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_yards        |  43.1   |          7.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_catches      |   5.2   |          7.1  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_td           |   0.316 |          7.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_td           |   0.315 |          7.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_targets      |   7.1   |          7.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_longest      |  14.3   |          7.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_yards        |  44     |          6.6  | live   |
@@ -2558,12 +2558,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_longest      |  18     |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_yards        |  46.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_catches      |   3.7   |          6.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.327 |          6.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.326 |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_targets      |   6.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_longest      |  19.2   |          6.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_yards        |  15.2   |          2.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_yards        |  15.1   |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_catches      |   1.7   |          2.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_td           |   0.195 |          2.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_td           |   0.194 |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_longest      |  13.2   |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036754  | Brock Wright             | rec_yards        |   8.3   |          2    | live   |
@@ -2586,12 +2586,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_attempts    |   2.5   |          2.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_rec_yards   |   6.8   |          2.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_longest     |   6.3   |          2.5  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 257.5   |         37.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.066 |         37.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 257.4   |         37.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.062 |         37.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_int         |   0.777 |         37.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_attempts    |  35.2   |         37.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_completions |  23.5   |         37.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 264.3   |         37.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 264.2   |         37.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_longest     |  35.5   |         37.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_tackles      |   7.2   |         60.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_sacks        |   0.21  |         60.8  | live   |
@@ -2617,52 +2617,52 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_tackles      |   3.1   |         60.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_sacks        |   0.73  |         60.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_solo_tackles |   2     |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8     |         27.11 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.71  |         27.11 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_yards        |  50.8   |          7.5  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8     |         27.07 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.71  |         27.07 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_yards        |  52     |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_catches      |   4.1   |          7.5  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_td           |   0.354 |          7.5  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_td           |   0.37  |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_targets      |   7.5   |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_longest      |  18.7   |          7.5  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_yards        |  41.7   |          6.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_yards        |  42.8   |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_catches      |   4.6   |          6.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_td           |   0.314 |          6.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_td           |   0.329 |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_longest      |  18.8   |          6.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_yards        |  25.3   |          4.6  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_yards        |  25.9   |          4.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_catches      |   2.9   |          4.6  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_td           |   0.299 |          4.6  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_td           |   0.313 |          4.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_targets      |   4.6   |          4.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_longest      |  14.1   |          4.6  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039342  | Xavier Legette           | rec_yards        |  15.6   |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039342  | Xavier Legette           | rec_catches      |   1.9   |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039342  | Xavier Legette           | rec_td           |   0.152 |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039342  | Xavier Legette           | rec_targets      |   3.8   |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039342  | Xavier Legette           | rec_longest      |  13.6   |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_yards        |  15     |          3.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_yards        |  15.4   |          3.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_catches      |   2.2   |          3.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_td           |   0.152 |          3.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_td           |   0.158 |          3.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_targets      |   3.7   |          3.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_longest      |  11.5   |          3.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_yards        |  14.5   |          3.2  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_yards        |  14.9   |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_catches      |   2     |          3.2  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_td           |   0.154 |          3.2  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_td           |   0.16  |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_targets      |   3.2   |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_longest      |  11     |          3.2  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_yards        |  14.3   |          2.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_yards        |  14.6   |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_catches      |   1.9   |          2.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_td           |   0.102 |          2.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_td           |   0.107 |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_longest      |  11.5   |          2.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_yards        |  11.4   |          2.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_yards        |  11.7   |          2.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_catches      |   1.9   |          2.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_td           |   0.119 |          2.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_td           |   0.124 |          2.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_longest      |   9.8   |          2.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038840  | Brycen Tremayne          | rec_yards        |  12.9   |          2.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038840  | Brycen Tremayne          | rec_catches      |   1.3   |          2.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038840  | Brycen Tremayne          | rec_td           |   0.076 |          2.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038840  | Brycen Tremayne          | rec_targets      |   2.1   |          2.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038840  | Brycen Tremayne          | rec_longest      |  12.3   |          2.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_yards       |  58.1   |         13.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_td          |   0.463 |         13.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_td          |   0.464 |         13.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_attempts    |  13.8   |         13.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_rec_yards   |  72.4   |         13.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_rec_yards   |  72.7   |         13.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rush_longest     |  10.1   |         13.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036265  | AJ Dillon                | rush_yards       |  16.3   |          4.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036265  | AJ Dillon                | rush_td          |   0.136 |          4.1  | live   |
@@ -2674,12 +2674,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_attempts    |   1.9   |          1.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_rec_yards   |   7.4   |          1.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_longest     |   7.6   |          1.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_yards       | 230.5   |         36.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.637 |         36.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_yards       | 230.6   |         36.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.64  |         36.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_int         |   0.76  |         36.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_attempts    |  34.8   |         36.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_completions |  21.9   |         36.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_rush_yards  | 237.9   |         36.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_rush_yards  | 238     |         36.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_longest     |  33.3   |         36.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0035687  | Bobby Okereke            | def_tackles      |   7.2   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0035687  | Bobby Okereke            | def_sacks        |   0.08  |         63.4  | live   |
@@ -2705,8 +2705,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040159  | Lathan Ransom            | def_tackles      |   3.5   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040159  | Lathan Ransom            | def_sacks        |   0.08  |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040159  | Lathan Ransom            | def_solo_tackles |   1.7   |         63.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.4   |         24.13 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.69  |         24.13 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.4   |         24.17 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.7   |         24.17 | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_yards        |  62.4   |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_catches      |   5     |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_td           |   0.432 |          8.7  | live   |

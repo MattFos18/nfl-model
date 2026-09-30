@@ -1,4 +1,4 @@
-# Calibration audit, 2026-09-30 19:34 UTC
+# Calibration audit, 2026-09-30 20:01 UTC
 
 Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
@@ -7,7 +7,7 @@ Every chance the model states against what happened, regular season, from the co
 - Over chance: the raw p_over_emp was too far from 50% on both sides, every window (said 63% over, the over came 50%: 2015-25 n 256, z -4.5; said 55%, came 50%: n 1119, z -2.8; said 46%, came 49%: n 1125, z +2.3; the same shape in each window). Cause: the chance is priced as if the model's total were the truth and the line carried nothing, while the line's miss is the model's (MAE 10.5 each). Shipped 27 Sep 2026, a mapping and not a model change: the cards, the takeaways and the report show p_over_cal = logistic(a + b x logit(p_over_emp)) (picks.over_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, refit every run (today a -0.040, b 0.389 on 2869 games: 63% raw reads 54%, 55% reads 51%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below), and the checked over table is now the calibrated one. The totals flag (unders at 55%+) stays on the raw chance, the same monotone mapping, so it is the same rule with the same records; the raw table stays below for the record.
 - Home win chance (p_home): the home side won less often than said when the model had it a slight underdog. Said 45%, won 39% in 2015-25 (n 556, z -3.0; 2023-25 alone n 180, 45% said, 34% won, z -3.0); said 35%, won 30% (n 327, z -2.0); the line was high in the same games but less (43% implied); overall 2019-22 said 56.0% home and 52.4% happened (z -2.5) while the fitted home coefficient was 2.2 and 1.9 points in 2019 and 2020 against a realised home margin near 0. Cause: one home-field term fit on 2013 on lags the fall in home advantage; a home term that follows recent seasons did not fix the 2023-25 bucket (31 variants, reports/home_field_recency.md), so the model stays. Shipped 27 Sep 2026, a mapping and not a model change: the cards, the friends' report and the picks file show p_home_cal = logistic(a + b x logit(p_home)) (picks.home_calibration), fit walk-forward on every regular-season game from 2015 to the season before the one priced, ties dropped, the identity under 500 games (two seasons: a one-season fit read worse than the raw chance), refit every run (today a -0.123, b 1.191 on 2885 games: 45% raw reads 41%, 35% reads 30%, 65% reads 65%). It scores a better log loss and Brier than the raw chance on 2016-18, 2019-22, 2020-22 and 2023-25 (table below; a richer form with an intercept shift for the home side being the model's underdog was worse than the raw chance on 2016-18 and is not adopted), and the checked home table is now the calibrated one. It does not cure the 2023-25 slight-underdog bucket: it moves a third of those games down into 0.3-0.4, where they sit within noise, and the 147 left say 45% and won 35% (z -2.5), three games under the check's 150-game floor; the stretch (b over 1) also reads the few 10-20% home sides low (2016-25 n 61, said 16%, won 31%, under the floor). The season simulation (season.py, the season file's chance per game) still reads the raw chance; the raw table stays below for the record.
 - Calibrated cover chance (the cards' cover odds, picks.calibration): honest within noise in every band, 2019-25. It is nearly flat (50% at a 0-point edge to 56% at 7) and conservative on the flags: 4-5 point edges said 54% and covered 64% (n 107, z +2.0) while 2-4 point edges covered 48% (n 546). The raw bell-curve chance (p_cover_home, picks file only) runs 8 to 15 points hot at every edge (3-4 points: said 61%, covered 47%, z -3.7), as documented.
-- Cover biases (2019-25, all games at the model's side): home or away side, favourite or underdog, primetime and divisional games are all within 2 SE in every window. One bucket is not: in 2023-25 the model's side covered 41% in the highest third of totals (n 201, z -3.0); 2019-22 was 54% and 2015-18 51% in the same third, so it is not a standing flaw.
+- Cover biases (2019-25, all games at the model's side): home or away side, favorite or underdog, primetime and divisional games are all within 2 SE in every window. One bucket is not: in 2023-25 the model's side covered 41% in the highest third of totals (n 201, z -3.0); 2019-22 was 54% and 2015-18 51% in the same third, so it is not a standing flaw.
 - Margin scale: the stated sigma (13.0 to 13.2) is a shade wide against the realised spread of result minus model spread (12.8 to 12.9): the 50% interval holds 53 to 55%, the 80% 80 to 82%, the 95% 94 to 95%.
 - Team points by tier: within noise except the top tier in 2023-25, where sides expected to score 27+ scored 30.7 against 28.6 said (n 172, z -2.9); 2015-18 and 2019-22 show no such gap.
 - Season odds (reports/season_calibration.csv): 2019-22 is within noise in every band; 2023-25 is overconfident at both ends (division chances said 1% came 4%, n 183, z +4.5; playoff chances said 77% came 59%, n 41, z -2.9), as the docs already say.
@@ -187,7 +187,7 @@ Calibrated cover chance = picks.calibration's logistic on |edge| capped at 7, fi
 | 2015-18 | away side | 451 | 0.516 | 0.523 | +0.3 | 51 | 0.745 |
 | 2015-18 | home side | 543 | 0.517 | 0.499 | -0.9 | 72 | 0.417 |
 | 2015-18 | underdog | 621 | 0.518 | 0.514 | -0.2 | 88 | 0.568 |
-| 2015-18 | favourite | 369 | 0.514 | 0.504 | -0.4 | 35 | 0.514 |
+| 2015-18 | favorite | 369 | 0.514 | 0.504 | -0.4 | 35 | 0.514 |
 | 2015-18 | high total | 294 | 0.516 | 0.514 | -0.1 | 32 | 0.500 |
 | 2015-18 | mid total | 326 | 0.516 | 0.528 | +0.4 | 39 | 0.538 |
 | 2015-18 | low total | 374 | 0.518 | 0.492 | -1.0 | 52 | 0.596 |
@@ -197,7 +197,7 @@ Calibrated cover chance = picks.calibration's logistic on |edge| capped at 7, fi
 | 2015-18 | divisional | 374 | 0.517 | 0.516 | -0.0 | 55 | 0.527 |
 | 2019-22 | home side | 579 | 0.519 | 0.503 | -0.8 | 78 | 0.577 |
 | 2019-22 | away side | 452 | 0.517 | 0.558 | +1.7 | 59 | 0.644 |
-| 2019-22 | favourite | 352 | 0.513 | 0.474 | -1.4 | 17 | 0.412 |
+| 2019-22 | favorite | 352 | 0.513 | 0.474 | -1.4 | 17 | 0.412 |
 | 2019-22 | underdog | 679 | 0.520 | 0.554 | +1.8 | 120 | 0.633 |
 | 2019-22 | mid total | 330 | 0.519 | 0.512 | -0.2 | 45 | 0.667 |
 | 2019-22 | high total | 377 | 0.515 | 0.541 | +1.0 | 36 | 0.611 |
@@ -208,7 +208,7 @@ Calibrated cover chance = picks.calibration's logistic on |edge| capped at 7, fi
 | 2019-22 | non-divisional | 655 | 0.517 | 0.519 | +0.1 | 83 | 0.627 |
 | 2023-25 | home side | 463 | 0.517 | 0.505 | -0.5 | 44 | 0.636 |
 | 2023-25 | away side | 334 | 0.515 | 0.503 | -0.4 | 26 | 0.615 |
-| 2023-25 | favourite | 298 | 0.514 | 0.527 | +0.4 | 15 | 0.667 |
+| 2023-25 | favorite | 298 | 0.514 | 0.527 | +0.4 | 15 | 0.667 |
 | 2023-25 | underdog | 499 | 0.517 | 0.491 | -1.2 | 55 | 0.618 |
 | 2023-25 | high total | 201 | 0.515 | 0.413 | -2.9 | 17 | 0.529 |
 | 2023-25 | low total | 379 | 0.517 | 0.528 | +0.4 | 44 | 0.614 |

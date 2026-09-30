@@ -117,7 +117,7 @@
 [
 "CAR",
 "Damien Lewis",
-"Doubtful"
+"Out"
 ],
 [
 "CAR",
@@ -130,9 +130,19 @@
 "Out"
 ],
 [
+"CAR",
+"Xavier Legette",
+"Doubtful"
+],
+[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
+],
+[
+"CHI",
+"Braxton Jones",
+"Doubtful"
 ],
 [
 "CHI",
@@ -162,6 +172,21 @@
 [
 "CIN",
 "Jalen Davis",
+"Out"
+],
+[
+"CLE",
+"Elgton Jenkins",
+"Out"
+],
+[
+"CLE",
+"Teven Jenkins",
+"Out"
+],
+[
+"CLE",
+"Tylan Wallace",
 "Out"
 ],
 [
@@ -510,6 +535,12 @@
 ],
 [
 "BAL",
+"Lamar Jackson",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Ronnie Stanley",
 "Questionable (ESPN)",
 ""
@@ -534,31 +565,19 @@
 ],
 [
 "CAR",
-"Devin Lloyd",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Jalen Coker",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CAR",
-"Nick Scott",
+"Monroe Freeling",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CAR",
-"Xavier Legette",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
-"Braxton Jones",
+"Princely Umanmielen",
 "Questionable (ESPN)",
 ""
 ],
@@ -582,33 +601,15 @@
 ],
 [
 "CLE",
-"Elgton Jenkins",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Grant Delpit",
 "",
 "Limited Participation in Practice"
 ],
 [
 "CLE",
-"Grant Delpit",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Teven Jenkins",
 "",
 "Limited Participation in Practice"
-],
-[
-"CLE",
-"Teven Jenkins",
-"Questionable (ESPN)",
-""
 ],
 [
 "CLE",
@@ -618,33 +619,15 @@
 ],
 [
 "CLE",
-"Tylan Wallace",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Tyson Campbell",
 "",
 "Limited Participation in Practice"
 ],
 [
 "CLE",
-"Tyson Campbell",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Tytus Howard",
 "",
 "Limited Participation in Practice"
-],
-[
-"CLE",
-"Tytus Howard",
-"Questionable (ESPN)",
-""
 ],
 [
 "DAL",
@@ -1143,5 +1126,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 19:32 UTC"
+"written_at": "2026-09-30 20:00 UTC"
 }
