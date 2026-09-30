@@ -1,0 +1,9 @@
+model,window,bets,close_moved_toward,moved_away,no_move,toward_pct_of_moves,mean_points_toward
+full model,2015-18,103,66,24,13,0.733,1.37
+full model,2019-21,115,93,12,10,0.886,2.76
+full model,2015-21,218,159,36,23,0.815,2.1
+Tuesday model,2015-18,90,51,29,10,0.637,1.08
+Tuesday model,2019-21,81,60,14,7,0.811,2.34
+Tuesday model,2015-21,171,111,43,17,0.721,1.68
+full model (every game),2015-21,1747,965,488,294,0.664,0.69
+Tuesday model (every game),2015-21,1747,917,536,294,0.631,0.61
