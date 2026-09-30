@@ -776,6 +776,17 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
     # stays on the card after the game); data/runs/injury_reports.json holds each game's last pre-score report
     cache_f = OUT.parent / "runs" / "injury_reports.json"
     cache = json.loads(cache_f.read_text()) if cache_f.exists() else {}
+    # his usual snap share (30 Sep 2026, Matt: last game's share reads 0 for anyone who missed it, which says nothing about his
+    # role): the larger of his offense and defense share, averaged over the last 4 games he played before this week, this
+    # season or last; last game's share stays on the row because the model's snaps-out inputs price that
+    usual = {}
+    sef = OUT / "snap_exposure.parquet"
+    if sef.exists() and cur_season is not None:
+        se = pd.read_parquet(sef, columns=["player_id", "season", "week", "off_pct", "def_pct"])
+        se = se.assign(pct=se[["off_pct", "def_pct"]].fillna(0).max(axis=1))
+        se = se[(se.pct > 0) & (se.season >= cur_season - 1) & ((se.season < cur_season) | (se.week < cur_week))].sort_values(["season", "week"])
+        for pid, g in se.groupby("player_id"):
+            t = g.tail(4); usual[pid] = (round(float(t.pct.mean()), 2), int(len(t)))
     for g in wk:
         co = (g.get("coefs") or {}).get("per_unit") or {}
         teams = [g["home_team"], g["away_team"]]
@@ -807,7 +818,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                 opp = (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * v) if priced else 0.0
                 row = {"name": p.name, "pos": p.position, "status": p.report or (PRACTICE.get(clean(p.practice), clean(p.practice)) or "No game status yet" if p.roster == "Active" else p.roster), "injury": clean(p.injury) or clean(p.why) or "",
                        "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
-                       "back": clean(p.back)}
+                       "back": clean(p.back), "usual": usual.get(p.player_id, (None, 0))[0], "usual_n": usual.get(p.player_id, (None, 0))[1]}
                 if qbr is not None and priced and p.position == "QB" and sd.get("qb_out") and sd.get("qb_rating") is not None and sd.get("qb_name") and p.name != sd.get("qb_name") and isinstance(p.player_id, str):
                     st = r[r.name == sd["qb_name"]]
                     if len(st) and isinstance(st.iloc[0].player_id, str):
@@ -819,6 +830,9 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
             # the ones that move the line, then the week's report (Out, Doubtful, Questionable), then no status yet, then the reserve lists
             grp = lambda x: 0 if x["priced"] and (abs(x["spread_pts"]) >= 0.005 or x.get("qb_pts")) else 1 + INJ_REPORT.index(x["status"]) if x["status"] in INJ_REPORT else 4 if not x["priced"] else 5
             sd["injuries"] = sorted(rows, key=lambda x: (grp(x), x["spread_pts"], x["name"]))
+            # whether the week's league report (practice or game status) is out for this team yet (30 Sep 2026, Matt: an empty
+            # list should say whether nobody is hurt or the report is not out)
+            sd["report_out"] = bool(((r.report.fillna("") != "") | (r.practice.fillna("") != "")).any())
             cache.setdefault(g["game_id"], {})[tm] = sd["injuries"]   # the last pre-score report, for the card after the game
     keep_ids = {g["game_id"] for g in wk}
     cache = {k: v for k, v in cache.items() if k in keep_ids}   # the week's games alone
