@@ -2827,3 +2827,5 @@ dogs, primetime unders. One candidate for a tracking-only rule: unders needing 5
 **Shorter labels on Game Picks** (30 Sep 2026, Matt: concise). The tiles read Our bets, Every game and Margin miss
 (Total miss on Totals); the chart is titled by its bet count; the Record panels read Our bets and Every game; the week
 grid is Week by Week. The rule itself is in the edge table's outlined row.
+The four figures under the tiles (drawdown, bets a season, average edge, chance it's luck) were removed the same day
+(Matt); records.bet_stats still computes them into meta.js, tied by the health check.
