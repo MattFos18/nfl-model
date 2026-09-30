@@ -2704,3 +2704,11 @@ card's Player props: the note ends with each factor that moved one of his lines 
 this game against his usual (for example receptions x 1.04 with teammates out at his position 22% of the group's usage
 against his usual 0%). Info → Player projections lists each stat's inputs and sizes on its rule card. props.py writes
 each input behind the factor (`sit_terms`: input, this game, his usual, size) beside the factor itself.
+
+**Backtest → Game Picks, one standard record** (30 Sep 2026, Matt: too much going on, different periods, want standard
+records). One Records table per market (`nflmodel/records.py`): the same five columns everywhere (2015-18, 2019-22,
+2023-25, this season, 2015 to now), each cell win-loss-push at the closing line, win % without pushes and units at -110.
+Spreads: every game beside our bets. Totals: every game over or under, then its overs and its unders apart, and the same
+three at the 55% bar, the unders being our bets. By Season shows the same rows season by season on the same definitions
+(its totals "every game" had counted only weeks 1-17 by the model's number against the line; it now matches Records).
+The six tiles that repeated the table are gone; Other rules and Is the edge real moved into Details. Nothing was removed.
