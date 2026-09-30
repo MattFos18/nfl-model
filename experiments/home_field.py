@@ -19,7 +19,7 @@ Residuals ("after the model") are the base walk-forward's own margin miss for 20
 home-minus-away margin minus model_spread), and before 2014 the plain as-of scoring rating of experiments/
 situational_feats.py (the same source round 3 used).
 
-    HF_SCRATCH=/path python -m experiments.home_field --stage base|build|facts|real|placebo|report [--jobs 4]
+    HF_SCRATCH=/path HF_SNAPSHOT=/path python -m experiments.home_field --stage base|build|facts|real|placebo|report [--jobs 4]
 Writes reports/home_field.csv and reports/home_field.md; everything else goes to HF_SCRATCH.
 """
 from __future__ import annotations
@@ -34,6 +34,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import HistGradientBoostingRegressor
 from nflmodel import model as M
+# One frozen copy of the model's input tables for the whole study (HF_SNAPSHOT, made by --stage snapshot): the live
+# pipeline rewrites data/processed during the day, and base, ideas and placebos must all read the same inputs. Set
+# before the round-3 module is imported, since it reads games.parquet and binds OUT at import. Make it first with
+#     mkdir -p $HF_SNAPSHOT && cp -p data/processed/{features_asof,trends_asof,player_injury,games,qb_games}.parquet $HF_SNAPSHOT/
+SNAP_FILES = ["features_asof.parquet", "trends_asof.parquet", "player_injury.parquet", "games.parquet", "qb_games.parquet"]
+if os.environ.get("HF_SNAPSHOT"):
+    M.OUT = Path(os.environ["HF_SNAPSHOT"])
 from nflmodel.model import OUT
 from experiments import situational_game as SG
 from experiments.situational_game import lean_walk_forward, finish, score, flat, game_frame, _p_home, WINDOWS, GAMES, BASE_FEATS, BASE_TOTAL
@@ -518,8 +525,8 @@ def placebo_summary(name, real, pl) -> dict:
 def stage_placebo(jobs, names=None, draws=N_PLACEBO, stop_at=STOP_AT):
     from joblib import Parallel, delayed
     real = pd.read_csv(SCR / "real.csv"); V = verdicts(real)
-    if names is None:
-        names = list(V[V.rule1_team_only & V.rule2].name)   # the rule's gate (team points miss, as round 3); margin reported
+    if names is None:   # the rule's gate is rules 1 and 2; run (at least as information) every idea passing the team-points reading of rule 1
+        names = list(V[V.rule1_team_only].name)
     I = {i["name"]: i for i in ideas()}
     path = SCR / "placebo.csv"
     b = real[real.name == "(base)"].iloc[0]
@@ -617,7 +624,7 @@ def stage_facts():
 
 
 # ------------------------------------------------------------------------------------------------------ report text
-HEADLINE = """**Headline: no.** None of the {n} team-, stadium-, visitor- or season-stage home edges beats the one league home-field number under the rule, so there is nothing to adopt and no code change to make. {n_r1} of {n} lower both the team points miss and the margin miss on all three windows (rule 1 as written for this study); {n_r1t} lower the team points miss alone on all three (the round-3 reading of rule 1), by 0.0002 to 0.009 points a window, and both cost spread wins or the win chance's calibration on some window (rule 2). Every idea moves the team points miss by less than a hundredth of a point on every window, the size of noise.
+HEADLINE = """**Headline: no.** None of the {n} team-, stadium-, visitor- or season-stage home edges beats the one league home-field number under the rule, so there is nothing to adopt and no code change to make. {n_r1} of {n} lower both the team points miss and the margin miss on all three windows (rule 1 as written for this study); {n_r1t} lower the team points miss alone on all three (the round-3 reading of rule 1), by 0.0002 to 0.009 points a window, and both cost spread wins or the win chance's calibration on some window (rule 2). Both also fail their placebo: shuffled within season, the travel-miles values matched or beat the real gain on some window in 8 of 12 draws and the time-zone values in 7 of 20 (the rule allows 5 of 50). Every idea moves the team points miss by less than a hundredth of a point on every window, the size of noise.
 
 **No team truly differs from the league once shrunk.** After the model, the spread of home edges between teams is estimated at zero: a team's home-minus-road residual varies from season to season *less* than its sampling noise alone would make it vary, it does not carry from one season to the next (correlation -0.05), and last seasons' edge does not predict this season's (-0.01). So every team's shrunk edge is 0.0 points with a standard error of 0.0 around the league value. Even unshrunk, pooling every season at the current stadium, no team sits two standard errors from the league (the largest are Washington -2.3 points, z -1.8, and the Jets +2.6, z +1.6); with 32 teams, one or two would be expected past two standard errors by chance alone. Arrowhead (KC +0.2), Lambeau (GB +1.4), Seattle (+0.7) and Denver's altitude (+1.4, z +1.0) are all inside noise."""
 
@@ -651,17 +658,13 @@ CAVEATS = """- **Changes are small either way:** the largest margin-miss move is
 - **Chance alone.** 21 ideas; about one in eight would pass the team-points reading of rule 1 by chance (2 to 3 expected); 2 did.
 - **Forced tau.** The data say tau is zero; the tau = 1 point and partial-pooling runs deliberately impose more team spread than the data support, to test the angle and not just the estimator. That they fail is the expected result given the variance components.
 - **Residual source.** Before 2014 the histories use round 3's plain scoring rating. With half-lives of 2 to 4 seasons its weight on 2017+ predictions is small; for 2015-16 it is most of the history.
-- **2020** had no crowds and the model's home residual was -1.8 points that season (-2.2 in 2019). Centring each season on its league mean removes the level; dropping 2020 from the histories changes nothing.
+- **2020** had no crowds and the model's home residual was -1.8 points that season (-2.2 in 2019). Centring each season on its league mean removes the level; dropping 2020 from the histories changes little.
 - **No new data source, no market input, no look-ahead** (rule 4): every input comes from the schedule (`games.parquet`) and round 3's static stadium table, and team values use prior seasons only. Capacity and attendance would need a new source and were not built.
 - **The neutral-site pricing** (full home edge for the listed home team) is not a rule-passing change either way: zeroing it helps 2015-18 and 2019-22 and costs 2023-25 (margin +0.017, 4 spread wins). It is recorded as a finding, not a recommendation.
 - Fresh trees on this machine move the base slightly from the live `pred_v3` (round 3 measured 0.008 points on average), so base and idea are compared like for like, not against the live file."""
 
 
 # ------------------------------------------------------------------------------------------------------------ report
-def _f(x, nd=3, sign=True):
-    return f"{x:+.{nd}f}" if sign else f"{x:.{nd}f}"
-
-
 def results_table() -> pd.DataFrame:
     real = pd.read_csv(SCR / "real.csv"); V = verdicts(real)
     pl = pd.read_csv(SCR / "placebo.csv") if (SCR / "placebo.csv").exists() else pd.DataFrame()
@@ -747,7 +750,7 @@ def write_report():
     A("| Team | Stadium | Seasons | Unshrunk (SE) | z | Shrunk, estimated (SE) | Shrunk, tau 1 pt, half-life 3 (SE) | Raw half home-minus-road |")
     A("|---|---|---|---|---|---|---|---|")
     for _, x in tab.iterrows():
-        A(f"| {x.team} | {x.stadium} | {int(x.seasons_all)} | {x.yhat_all:+.2f} ({np.sqrt(x.Vs_all):.2f}) | {x.z_raw_all:+.2f} | {x.u_all:+.2f} ({x.se_all:.2f}) | {x.u_t1:+.2f} ({x.se_t1:.2f}) | {x.raw_half_home_minus_road:+.2f} |")
+        A(f"| {x.team} | {x.stadium} | {int(x.seasons_all)} | {x.yhat_all:+.2f} ({np.sqrt(x.Vs_all):.2f}) | {x.z_raw_all:+.2f} | {x.u_all + 0.0:+.2f} ({x.se_all:.2f}) | {x.u_t1:+.2f} ({x.se_t1:.2f}) | {x.raw_half_home_minus_road:+.2f} |")
     A("")
     lg = facts["league_by_season"]
     A("The league's home margin each season, raw and after the model (actual minus the model's spread): "
@@ -770,7 +773,7 @@ def write_report():
         A("|---|---|---|---|---|---|---|---|---|")
         for _, r in R[R.angle == ang].iterrows():
             sp_txt = " / ".join("%+d" % int(r["d_spread_wl_" + w]) for w in WINDOWS)
-            pl = "not run" if not r.placebo_draws else (f"beaten by {r.placebo_beaten} of {r.placebo_draws}; pct " + " / ".join(f"{100 * r[f'placebo_pct_{w}']:.0f}" for w in WINDOWS))
+            pl = "not run" if not r.placebo_draws else (f"beaten by {int(r.placebo_beaten)} of {int(r.placebo_draws)}; pct " + " / ".join(f"{100 * r[f'placebo_pct_{w}']:.0f}" for w in WINDOWS))
             A(f"| {r.idea} | {_trip(r, 'd_team_miss', 4)} | {_trip(r, 'd_margin_miss', 4)} | {sp_txt} | "
               f"{_trip(r, 'd_logloss_cal_x1000', 2)} | {'yes' if r.rule1_team_and_margin else 'no'} ({'yes' if r.rule1_team_only else 'no'}) | {'yes' if r.rule2 else 'no'} | {pl} | {r.verdict} |")
         A("")
