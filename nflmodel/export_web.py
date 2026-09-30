@@ -354,7 +354,7 @@ def round3_tests() -> dict:
     every props idea that got past rule 1, with the tally of the rest (29 Sep 2026, Matt: every finding on the site)."""
     R = ROOT / "reports"; W = ["2015-18", "2019-22", "2023-25"]; PW = ["2017-18", "2019-22", "2023-25"]
     num = lambda v, k=4: None if pd.isna(v) else round(float(v), k)
-    out = {"game": [], "props": [], "props_tally": []}
+    out = {"game": [], "props": [], "props_tally": [], "weather": []}
     def short(v):   # the plain reason, first rule failed; the full text stays in the report
         v = str(v)
         if v.startswith("stays"): return "kept in the model"
@@ -380,6 +380,12 @@ def round3_tests() -> dict:
         for r in p[ok].to_dict("records"):
             out["props"].append({"family": r["family"], "idea": r["idea"], "variant": r["variant"], "stat": r["stat"],
                                  "miss": [num(r.get(f"diff_{w}")) for w in PW], "verdict": short(r["verdict"])})
+    if (R / "weather_forecast.csv").exists():   # the forecast-weather candidates (30 Sep 2026), scored on the seasons the archive covers
+        wf = pd.read_csv(R / "weather_forecast.csv", low_memory=False)
+        for r in wf[wf.section == "candidate"].to_dict("records"):
+            ok = lambda k: str(r.get(k)).lower() == "true"
+            v = "passes every rule" if ok("rule1") and ok("rule2") and ok("rule3") else ("no: not better on every season" if not ok("rule1") else ("no: costs bets or calibration" if not ok("rule2") else "no: shuffled input did as well"))
+            out["weather"].append({"idea": r["label"], "miss": [num(r.get(f"d_team_{y}")) for y in (2022, 2023, 2024, 2025)], "verdict": v})
     return out
 
 

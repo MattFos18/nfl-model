@@ -2685,3 +2685,16 @@ The study's cap on usage shares at one for the targets line was left out, since 
 the receptions and yards lines it feeds; without it the targets pieces still pass together (lean record 84-63 to 85-62).
 The weekly run now builds the by-season backtest before the week's props, since it writes each player's average of
 every input (`data/processed/props_sit_state.parquet`) that the live factor reads.
+
+**Forecast weather against the weather that happened, under the round-3 rule: nothing changed** (`experiments/weather_forecast.py`,
+`reports/weather_forecast.md`; 30 Sep 2026). The day-before Open-Meteo forecast (`data/weather/forecast_archive.csv`,
+2022-25; wind and rain only from 2024) misses kickoff temperature by 2.8F on average and wind by 2.3 mph; the cold flag
+flips in 3% of outdoor games, the wind level in a quarter, and the 1 mm rain call finds only 3 of the 18 games the
+play-by-play calls rain (2024-25). Priced with the forecast instead of the actuals, the fits unchanged, the walk-forward's
+team points miss moves +0.002 / -0.002 / +0.019 / -0.038 in 2022 / 2023 / 2024 / 2025 and the spread and totals flag
+records hold but for one totals flag in 2022: the forecast costs little, inside the noise. Six ways of treating a
+forecast input differently (shrinking each weather coefficient by the forecast's reliability, training on the forecasts,
+calibrated, probability and bias-corrected inputs, a lower rain threshold) were scored on the seasons the archive covers;
+none lowered the miss on every season without costing a flag, and with two to four seasons of about 180 outdoor games no
+result would have been strong enough anyway. The archive holds no chance of rain, so the live rule's 50% half is tested
+on the live forecast log once 2026 games are played.

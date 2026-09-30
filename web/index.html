@@ -2746,7 +2746,10 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     h += `<h3>Player props</h3><div class="tablewrap"><table><thead><tr><th class='l'>Family</th><th>Tests</th><th>Lower miss on every window</th><th>Pass every rule</th></tr></thead><tbody>
       ${R.props_tally.map(t => `<tr><td class="l">${esc(t.family)}</td><td class="mono">${t.tests}</td><td class="mono">${t.rule1}</td><td class="mono">${t.all}</td></tr>`).join("")}</tbody></table></div>
       <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>Fit</th><th class='l'>Stat</th><th>Miss, 2017-18</th><th>2019-22</th><th>2023-25</th><th class='l'>Verdict</th></tr></thead><tbody>
-      ${R.props.map(r => `<tr><td class="l">${esc(r.idea)}</td><td class="l">${esc(r.variant)}</td><td class="l">${esc(r.stat)}</td>${r.miss.map(v => `<td class="mono">${d(v, 4)}</td>`).join("")}<td class="l" style="white-space:normal;min-width:200px">${esc(r.verdict)}</td></tr>`).join("")}</tbody></table></div></details>`;
+      ${R.props.map(r => `<tr><td class="l">${esc(r.idea)}</td><td class="l">${esc(r.variant)}</td><td class="l">${esc(r.stat)}</td>${r.miss.map(v => `<td class="mono">${d(v, 4)}</td>`).join("")}<td class="l" style="white-space:normal;min-width:200px">${esc(r.verdict)}</td></tr>`).join("")}</tbody></table></div>`;
+    if ((R.weather || []).length) h += `<h3>Weather from the day-before forecast</h3><p class="note">Change in the team points miss against pricing with the forecast as the cards do; seasons the forecast archive covers.</p><div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th class='l'>Verdict</th></tr></thead><tbody>
+      ${R.weather.map(r => `<tr><td class="l">${esc(r.idea)}</td>${r.miss.map(v => `<td class="mono">${d(v, 4)}</td>`).join("")}<td class="l" style="white-space:normal;min-width:200px">${esc(r.verdict)}</td></tr>`).join("")}</tbody></table></div>`;
+    h += `</details>`;
     return h;
   }
   function lineupParts() {   // the seven models and the total model, each with its own backtest miss (29 Sep 2026, Matt: the tab showed only the one equation)
