@@ -2712,7 +2712,8 @@ Spreads: every game beside our bets. Totals: every game over or under, then its 
 three at the 55% bar, the unders being our bets. By Season shows the same rows season by season on the same definitions
 (its totals "every game" had counted only weeks 1-17 by the model's number against the line; it now matches Records).
 The six tiles that repeated the table are gone; Other rules and Is the edge real moved into Details. Nothing was removed.
-Same day (Matt: combine the two, no captions, fix the chart): Records and By Season are one Record table, the periods
-above every season, each row definition as W-L-P, win % and units side by side (our bets shaded, the totals bets
-right after the every-game columns). The units chart is titled with the rule it tests, draws at the width it shows at,
-and centres each year between that season's lines; dashed lines mark the three periods.
+Same day (Matt: cleaner, better organised, every year kept; a professional chart): the Record is two panels with the
+same rows, our bets beside every game, each showing W-L-P, win % and units (every game adds the model's and the line's
+miss); the periods on top, then every season. On totals one switch (over + under, overs, unders) scopes both panels.
+The units chart gives every season the same width with its full year centred under it, draws horizontal hairlines only,
+shades the tuning period, labels the end value and shows each bet on hover (week, game, result, running units).
