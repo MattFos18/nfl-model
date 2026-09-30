@@ -2848,3 +2848,10 @@ Nearly all of the profit is on underdogs (156-100-1, +46.0 units against the fav
 underdogs most of all (79-36, +39.4, up in 10 of 12 seasons). The Every game tile shows won, lost and push, not units
 (every game is not bet). Beating the closing line and the best number across books are parked in docs/todo.md until
 there is data.
+
+**Spread research: the hook, team bias, underdogs and matchups** (30 Sep 2026, Matt; reports/spread_research.md). The
+flag rarely loses to the hook (6 half-point losses and 1 push in 11 seasons); buying half a point on or off 3 at -120 or
+-125 gained a little on all three windows, about a tenth to a quarter of a unit a season, and buying anywhere else did
+not pay. The model's miss by team does not carry from one season to the next (correlation -0.01), every per-team
+correction made the margin miss worse, and the market misses the same teams the model does (BAL under-rated, NYJ and
+LV over-rated). No underdog, favourite or matchup filter beats the 4+ rule on every window.
