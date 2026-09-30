@@ -2698,3 +2698,9 @@ calibrated, probability and bias-corrected inputs, a lower rain threshold) were 
 none lowered the miss on every season without costing a flag, and with two to four seasons of about 180 outdoor games no
 result would have been strong enough anyway. The archive holds no chance of rain, so the live rule's 50% half is tested
 on the live forecast log once 2026 games are played.
+
+**Where the props' game-situation factors show** (30 Sep 2026, Matt: where do I see these). Hover a player's name in a
+card's Player props: the note ends with each factor that moved one of his lines by 0.5% or more and the inputs behind it,
+this game against his usual (for example receptions x 1.04 with teammates out at his position 22% of the group's usage
+against his usual 0%). Info → Player projections lists each stat's inputs and sizes on its rule card. props.py writes
+each input behind the factor (`sit_terms`: input, this game, his usual, size) beside the factor itself.

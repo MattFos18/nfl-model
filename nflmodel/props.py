@@ -821,6 +821,10 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
                 for st in stats:
                     for key in keys[st]: r[key] = round(r[key] * fac[st], 3 if key.endswith("_td") else 1)
                 r["sit_factor"] = {st: round(f_, 4) for st, f_ in fac.items()}
+                # each input behind the factor, for the card's calculation (30 Sep 2026, Matt: where do I see these): [input, this game, his usual, b]
+                r["sit_terms"] = {st: [[i, round(float(zr[i]), 6), round(float(qv), 6), b] for i, b in SIT[st]
+                                       for qv in [q_of(SIT_KIND[st], r["player_id"], st).get(i)]
+                                       if zr.get(i) is not None and qv is not None and not pd.isna(zr[i]) and not pd.isna(qv)] for st in stats}
         vol["sit"] = {k: (None if v is None or pd.isna(v) else round(float(v), 4)) for k, v in z.items()} | {"same_out_by_group": {k: round(v, 3) for k, v in same.items() if k in ("WR", "TE", "RB")}}
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
