@@ -53,53 +53,33 @@ def main():
     except Exception as e:  # noqa  (an alert must never fail the run it reports on)
         print("could not update the issue:", str(e)[:200])
     try:
-        _shadow_issue()
+        _ready_issues()
     except Exception as e:  # noqa
-        print("could not update the shadow issue:", str(e)[:200])
+        print("could not update the ready-check issues:", str(e)[:200])
 
 
-SHADOW_LABEL = "shadow-ready"
+READY_LABEL = "ready-check"
 
 
-def _shadow_issue():
-    """30 Sep 2026 (Matt: "if a shadow turns out good, alert me"): one issue labelled shadow-ready per rule that reports/
-    shadow_watch.csv marks READY, opened once (GitHub emails the owner); left open for Matt to close after the re-test."""
-    f = ROOT / "reports" / "shadow_watch.csv"
+def _ready_issues():
+    """30 Sep 2026 (Matt: "build it into the site and delete the routines"): one issue labelled ready-check per row that
+    reports/ready_checks.csv marks ready (a drift alert, a tracked rule ahead of the live rule, or a question whose live data
+    is in), opened once per title (GitHub emails the owner) and left open for Matt to close after the re-test."""
+    f = ROOT / "reports" / "ready_checks.csv"
     if not f.exists():
         return
-    ready = pd.read_csv(f).query("status == 'READY'")
+    ready = pd.read_csv(f).query("ready")
     if not len(ready):
         return
     try:
-        _gh("label", "create", SHADOW_LABEL, "--color", "0e8a16", "--description", "a tracked rule is beating the live rule on live games")
+        _gh("label", "create", READY_LABEL, "--color", "0e8a16", "--description", "live data is in for a question, or a tracked rule or number moved")
     except Exception:  # noqa  (the label exists)
         pass
-    have = {i["title"] for i in json.loads(_gh("issue", "list", "--label", SHADOW_LABEL, "--state", "all", "--json", "title", "--limit", "100") or "[]")}
+    have = {i["title"] for i in json.loads(_gh("issue", "list", "--label", READY_LABEL, "--state", "all", "--json", "title", "--limit", "200") or "[]")}
     for r in ready.itertuples():
-        title = f"Tracked rule worth a look: {r.label}"
-        if title in have:
+        if r.title in have:
             continue
-        body = (f"Live: {r.record} ({r.settled} settled, {r.units:+.2f} units, return {100 * r.roi:.1f}% a unit risked); {r.compared_with} over the same seasons: "
-                f"{r.base_record}. Chance of a record this good by luck at -110: {r.luck_p:.3f}.\n\nNothing changes on its own: re-test it under reports/round3_rule.md "
-                "before betting it. Details in reports/shadow_watch.md.")
-        _gh("issue", "create", "--title", title, "--label", SHADOW_LABEL, "--body", body); print("shadow issue opened:", r.rule)
-
-
-def _sync_issue(ok, problems, h):
-    try:
-        _gh("label", "create", LABEL, "--color", "d73a4a", "--description", "the site's tie and freshness checks")
-    except Exception:  # noqa  (the label exists)
-        pass
-    open_ = json.loads(_gh("issue", "list", "--label", LABEL, "--state", "open", "--json", "number", "--limit", "5") or "[]")
-    body = (f"Checked {h.get('checked', '?')} by the {h.get('source', '?')} ({h.get('passed', '?')} of {h.get('total', '?')} ties).\n\n"
-            + "\n".join(f"- {p}" for p in problems[:40]) + "\n\nThe page shows the same list under Model -> Health checks. This issue closes itself when every check passes.")
-    if not ok and not open_:
-        _gh("issue", "create", "--title", "Site checks failing", "--label", LABEL, "--body", body); print("issue opened")
-    elif not ok:
-        _gh("issue", "edit", str(open_[0]["number"]), "--body", body); print("issue updated")
-    elif open_:
-        for i in open_:
-            _gh("issue", "close", str(i["number"]), "--comment", f"Every check passes again ({h.get('passed')} of {h.get('total')}, {h.get('checked')})."); print("issue closed")
+        _gh("issue", "create", "--title", r.title, "--label", READY_LABEL, "--body", r.body); print("ready-check issue opened:", r.title)
 
 
 if __name__ == "__main__":

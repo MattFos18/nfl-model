@@ -3,7 +3,7 @@ Every weekly run: each shadow rule's live record (data/tracker/graded.csv, settl
 replace over the same seasons (the spread flag, or the totals flag for a totals rule; the totals flag itself against
 break-even). A shadow is READY when it has at least MIN_BETS settled, wins more often than break-even at -110 beyond
 luck (one-sided binomial p at or under P_LUCK) and earns at least ROI_GAP more per unit risked. READY opens a
-GitHub issue labelled shadow-ready (nflmodel/health_alert.py; GitHub emails the owner). Nothing changes on its own: a
+GitHub issue labelled ready-check (nflmodel/ready_checks.py, nflmodel/health_alert.py; GitHub emails the owner). Nothing changes on its own: a
 READY rule is re-tested under reports/round3_rule.md before it is bet. Writes reports/shadow_watch.{csv,md}.
 
     python -m nflmodel.shadow_watch
