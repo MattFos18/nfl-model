@@ -2884,3 +2884,12 @@ week's mean (it catches a slow drift one way before the z-score does). ALERT at 
 Alerts go to reports/drift.md (each naming the re-test to run) and to the health check as a warning, never a failure. A
 scheduled weekly Claude session reads the report every Wednesday and, on an alert, runs the named re-test under the
 round-3 rule and reports it; nothing changes in the model without Matt. On 30 Sep 2026: 11 measures, none past noise.
+
+**Why our favorite bets looked bad, and why the rule stays** (30 Sep 2026, Matt; reports/favorite_review.md). At the
+4-point flag the model's favorites went 33-29 against the dogs' 156-100, but they beat the closing line by as many points
+(+2.3 a bet against +2.5), and the win-rate gap is within chance for 62 bets (p 0.25). The pattern "worse as the edge
+grows" does not hold once the bands are looked at inside (the worst band is 3 to 4 points, the best 4 to 5). What is real
+applies to both sides: the flag's home sides do worse than its road sides, and bets the boosted trees do not back on their
+own go 8-15 (favorites) and 39-34 (dogs). Seventeen model fixes (shrinking big margins, capping injury and rating pulls,
+re-weighting the seven models, a home offset, early-season scaling) all fail the rule, and no bet rule beats 4+ on both
+sides on every window, so both stay.
