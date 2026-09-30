@@ -443,7 +443,8 @@ def reading(idea, fp, feats, ppc) -> str:
     m = make_pipeline(StandardScaler(), Ridge(alpha=M.RIDGE)).fit(tr[feats].values, tr.pf.values)
     coef = dict(zip(feats, m[-1].coef_ / m[0].scale_)); sd = dict(zip(feats, m[0].scale_))
     new = [c for c in feats if c not in BASE_FEATS]
-    s = "; ".join(f"{c}: {coef[c]:+.3f}/unit (margin {2 * coef[c]:+.3f}), {coef[c] * sd[c]:+.3f}/sd, nonzero {float((tr[c] != 0).mean()):.0%}" for c in new)
+    mult = {c: (1.0 if c == "home_nn" else 2.0) for c in new}   # signed columns move the margin by twice the weight; home_nn sits on the home row only
+    s = "; ".join(f"{c}: {coef[c]:+.3f}/unit (margin {mult[c] * coef[c]:+.3f}), {coef[c] * sd[c]:+.3f}/sd, nonzero {float((tr[c] != 0).mean()):.0%}" for c in new)
     if "home" in coef:
         s += f"; home: {coef['home']:+.3f}"
     return s
@@ -614,6 +615,48 @@ def stage_facts():
     print(tab.round(2).to_string(index=False))
 
 
+
+# ------------------------------------------------------------------------------------------------------ report text
+HEADLINE = """**Headline: no.** None of the {n} team-, stadium-, visitor- or season-stage home edges beats the one league home-field number under the rule, so there is nothing to adopt and no code change to make. {n_r1} of {n} lower both the team points miss and the margin miss on all three windows (rule 1 as written for this study); {n_r1t} lower the team points miss alone on all three (the round-3 reading of rule 1), by 0.0002 to 0.009 points a window, and both cost spread wins or the win chance's calibration on some window (rule 2). Every idea moves the team points miss by less than a hundredth of a point on every window, the size of noise.
+
+**No team truly differs from the league once shrunk.** After the model, the spread of home edges between teams is estimated at zero: a team's home-minus-road residual varies from season to season *less* than its sampling noise alone would make it vary, it does not carry from one season to the next (correlation -0.05), and last seasons' edge does not predict this season's (-0.01). So every team's shrunk edge is 0.0 points with a standard error of 0.0 around the league value. Even unshrunk, pooling every season at the current stadium, no team sits two standard errors from the league (the largest are Washington -2.3 points, z -1.8, and the Jets +2.6, z +1.6); with 32 teams, one or two would be expected past two standard errors by chance alone. Arrowhead (KC +0.2), Lambeau (GB +1.4), Seattle (+0.7) and Denver's altitude (+1.4, z +1.0) are all inside noise."""
+
+PREMISE = """**A correction to the brief.** The brief says the home-field term has followed recent seasons since 27 Sep. It has not. `experiments/home_field_recency.py` tested that change on 27 Sep and it was *not adopted* (decision log, 27 Sep: "one league home-field term fit on 2013 on stays"). `nflmodel/model.py` still carries one input, `home` (1 on the home team's row), in the ridge, the five blend ridges and the trees, fit every week on every played game since 2013. It is worth about 1.83 points of margin in the 2013-2025 fit. This study tests against that model as it runs.
+
+**Found on the way: the model gives the full home edge at neutral sites.** `neutral` is 1 on *both* rows of a neutral-site game, so its weight cancels out of the margin, while the designated home team keeps `home` = 1. London, Germany, Mexico City, Brazil, Dublin, Madrid and the Super Bowl are all priced with the full ~1.8-point home edge for the listed home team. The schedule's `stadium_id` for several 2025 international games is the home team's own stadium (KC-LAC in Brazil reads LAX01, MIN-PIT in Dublin reads PIT00), so only the `neutral` / `location` flag identifies them. Setting the home edge to zero there, or giving neutral sites their own term, is tested below (angle 2): the fit keeps about 1 point of edge for the listed home side (the own-term weight is -0.8 against the 1.8), and neither version passes."""
+
+HOW = """Round 3's harness, reused by import from `experiments/situational_game.py`: `lean_walk_forward` (the live walk-forward, refit before every regular-season week on every played game since 2013, the seven-model blend, trees refit fresh on this machine, the live trees' cache never read or written), `finish` (team points = (total +/- spread) / 2) and `score` (graded at the closing line; spread flag 4+ points off the line, weeks 1-17; totals flag under at 55%+; win chance calibrated the live way on each variant's own earlier seasons). Windows 2015-18 (never used to choose anything), 2019-22, 2023-25, regular season.
+
+Every idea is one *signed* home-edge column added to the live inputs: +v on the home team's row, -v on the visitor's, 0 at a neutral site. So its weight is half its margin effect, and it reaches the ridge, the five blend ridges and the trees as every live input does. Two ideas instead *replace* the live `home` column at neutral sites. Partial pooling (angle 5) puts one signed dummy per team-and-stadium into the six ridges with its own, heavier penalty (sigma^2 / (tau/2)^2, a random effect with prior sd tau). That needed one engine change, a scaler that leaves the live inputs untouched. With no dummies it reproduces `lean_walk_forward` to {spread_max:.1e} points on 2019. The trees get the live inputs only there.
+
+Team histories are walk-forward from **prior seasons only**. "Residual" is the game's margin against the model's own number (the base walk-forward's spread, 2014-2026; before 2014 the plain as-of scoring rating round 3 used). A team's home edge in a season is its home-minus-road margin residual (rating errors hit both and cancel), centred on that season's league mean (the league value is what `home` already carries), with sampling variance sigma^2 (1/n_home + 1/n_road). The empirical-Bayes value for season S weights earlier seasons by recency (half-life 2, 3 or 4 seasons, last season in full). It drops seasons at an earlier stadium, which resets LV 2020, LAC 2017 and 2020, LA 2016 and 2020, ATL 2017, MIN 2014 and 2016, and SF 2014. It is shrunk toward zero by tau^2 / (tau^2 + V), where the between-team variance tau^2 comes by moments from the 32 teams' estimates and V is the weighted estimate's own sampling variance. The estimate of tau^2 is zero in almost every season, which makes that input all but identically zero, i.e. the base. So each per-team idea is also run with tau *forced* to 1 point of margin, a generous spread, to test the angle rather than the estimator.
+
+Placebo (rule 3): per-team values have their team labels shuffled within season; game flags are shuffled across games within season (round 3's placebo). 50 draws, and the real gain must beat a draw's on every window in 45 of 50. The rule runs it only for ideas passing rules 1 and 2, and none does. It was still run in full, as information, on the two ideas that pass the team-points reading of rule 1, on the flagship per-team edge and on partial pooling."""
+
+FACTS = """- **Between-team spread of home edges, after the model: zero.** Over 2014-2025 (384 team-seasons with model residuals), the observed variance of a team's season home-minus-road residual is {single_var_obs:.1f} points squared, and its sampling noise alone is {single_var_noise:.1f} (residual sd {sigma_margin_resid:.1f} a game). Observed is below noise, so the variance-components estimate of true between-team variance is {single_tau2:.1f}. In the rating-era residuals before 2014 it is 49.0 against 46.9, about 1.4 points of sd, but that rating is cruder than the model.
+- **Persistence.** Consecutive seasons at the same stadium: correlation {consec_r:+.3f} ({consec_n} pairs; {consec_r_no2020:+.3f} with the pairs touching 2020 left out, {consec_n_no2020} pairs). Odd against even seasons 2014-2025, each team at its current stadium: {halves_r:+.2f} over {halves_teams} teams (standard error about 0.18). Last seasons' shrunk edge (half-life 3) against this season's residual: {pred_r_hl3:+.3f} ({pred_n} team-seasons); the unshrunk all-season mean: {pred_r_unshrunk_all:+.3f}. The decision log's 0.34 between halves (22 Sep) was on the raw margin, before the model. Some of a raw team home edge is team quality that differs home and away by schedule, which the model's ratings already carry.
+- **Which teams differ:** none (table). The raw column, before the model, spreads wider (MIA +4.0, GB +3.5, NYJ +3.1, DEN +3.1 at the top; LAC +0.1, ARI +0.2, NO +0.2 at the bottom, against a league of about +1.9). After the model that spread is no wider than noise. The Giants and Jets share one stadium and sit at -1.8 and +2.6 unshrunk: the building is not what differs."""
+
+ANGLE_TEXT = {
+    "1 Per-team home edge (empirical Bayes)": "With tau estimated, the input is zero for 82% of team-seasons and at most 0.14 points otherwise, so these three runs are the base plus noise from a handful of values; their fitted weights are meaningless. With tau forced to 1 point, every team gets an edge (sd 0.32 points). The live ridge then fits it a *negative* weight (-0.1 to -0.6 of margin per point): a team's past home edge slightly anti-predicts its next. Every forced version is worse on the 2015-18 team points miss and on the calibrated log loss in 2015-18 and 2019-22. Leaving 2020 (no crowds) out of the history changes little, and scaling the edge by the visitor's trip is worse on all three windows.",
+    "2 Stadium features": "Crowd size: skipped. No pulled source carries stadium capacity or attendance (the schedule has stadium, roof, surface, weather), and the brief said to skip rather than invent. Altitude uses round 3's static stadium table (elevation); travel and time zones use its coordinates and zones; both are fixed public facts round 3 used, not a data pull. Denver's home edge fits +1.9 points of margin, but 3% of games carry it and it loses on the 2015-18 margin. Travel and time zones interacted with the home edge both lower the team points miss on all three windows, and both fit the *wrong* sign for a travel story: the farther the visitor came, the *smaller* the home edge (-0.46 points of margin per 1,000 miles; -0.45 per time zone). The live home weight rises to 2.26 to compensate. So this is the short-trip and division games (angle 3) carrying more of the edge, not long trips wearing visitors down. Round 3 found the same: visitors flying 2,000+ miles beat the model's margin.",
+    "3 Home edge vs the visitor": "Division games fit a smaller home edge (-0.58 points of margin: familiarity), but the idea is worse on all three windows and loses 15 spread wins on 2019-25. The visitor's own road record: the differenced home-minus-road residual cannot tell 'strong at home' from 'weak on the road' (the same number), so this uses the visitor's shrunk road residual *level*, which carries some rating error with it. Its estimated tau is positive from 2020 on (0.5 to 1.2 points), but as an input it raises the margin miss on 2019-22 by 0.048 and loses spread wins.",
+    "4 Home edge by season stage": "Early (weeks 1-4) and late (week 13 on, playoffs included) home edges fit -0.05 and +0.19 points of margin: nearly flat. The pair helps 2015-18 only and loses 6 spread wins there. A cold-weather home team (not warm or dome) from December fits +0.15 points and is worse on every window.",
+    "5 Partial pooling in the ridge": "One signed dummy per team-and-stadium (41 active over 2013-2025) in the six ridges with a prior sd of 0.5 or 1 point of margin, in place of 32 free inputs. The variance-components estimate would set the prior sd at zero (an infinite penalty, the base), so it is set by hand. At 0.5 the fitted team edges run -0.39 to +0.28 points, barely move the misses and cost 3 spread wins on 2023-25; at 1 point, -1.14 to +0.82, worse on all three windows and 11 spread wins lost on 2023-25.",
+}
+
+CAVEATS = """- **Changes are small either way:** the largest margin-miss move is +0.048 (visitor road record, 2019-22); every team-points move is under 0.01.
+- **Rule 1 as the brief wrote it** (team points *and* margin lower on every window) is stricter than round 3's (team points only). Both readings are in the table and the CSV. No idea passes rules 1 and 2 under either.
+- **Placebo.** The rule's placebo gate (ideas passing 1 and 2) is empty. The four ideas run in full for information shuffle the team labels within season (per-team ideas) or the game flags within season (flags), 50 draws each.
+- **Chance alone.** 21 ideas; about one in eight would pass the team-points reading of rule 1 by chance (2 to 3 expected); 2 did.
+- **Forced tau.** The data say tau is zero; the tau = 1 point and partial-pooling runs deliberately impose more team spread than the data support, to test the angle and not just the estimator. That they fail is the expected result given the variance components.
+- **Residual source.** Before 2014 the histories use round 3's plain scoring rating. With half-lives of 2 to 4 seasons its weight on 2017+ predictions is small; for 2015-16 it is most of the history.
+- **2020** had no crowds and the model's home residual was -1.8 points that season (-2.2 in 2019). Centring each season on its league mean removes the level; dropping 2020 from the histories changes nothing.
+- **No new data source, no market input, no look-ahead** (rule 4): every input comes from the schedule (`games.parquet`) and round 3's static stadium table, and team values use prior seasons only. Capacity and attendance would need a new source and were not built.
+- **The neutral-site pricing** (full home edge for the listed home team) is not a rule-passing change either way: zeroing it helps 2015-18 and 2019-22 and costs 2023-25 (margin +0.017, 4 spread wins). It is recorded as a finding, not a recommendation.
+- Fresh trees on this machine move the base slightly from the live `pred_v3` (round 3 measured 0.008 points on average), so base and idea are compared like for like, not against the live file."""
+
+
 # ------------------------------------------------------------------------------------------------------------ report
 def _f(x, nd=3, sign=True):
     return f"{x:+.{nd}f}" if sign else f"{x:.{nd}f}"
@@ -647,15 +690,97 @@ def results_table() -> pd.DataFrame:
         if not fails and ps["draws"] and not ps["pass"]:
             fails.append(f"rule 3 ({ps['beaten']} of {ps['draws']} shuffles matched it)")
         r["verdict"] = "passes" if (not fails and ps["pass"]) else ("not adopted: " + "; ".join(fails) if fails else "not adopted: placebo not run")
-        r["effect"] = v["coefs"]
+        fp_, feats_, ppc_ = materialise(I[v["name"]])
+        r["effect"] = reading(I[v["name"]], fp_, feats_, ppc_)
         rows.append(r)
     return pd.DataFrame(rows)
+
+
+def _trip(r, key, nd=3, scale=1.0):
+    return " / ".join(f"{scale * r[f'{key}_{w}']:+.{nd}f}" for w in WINDOWS)
 
 
 def write_report():
     R = results_table()
     R.to_csv(REP / "home_field.csv", index=False)
     log("wrote", REP / "home_field.csv", R.shape)
+    real = pd.read_csv(SCR / "real.csv"); b = real[real.name == "(base)"].iloc[0]
+    facts = json.loads((SCR / "facts.json").read_text())
+    tab = pd.read_parquet(SCR / "facts_teams.parquet")
+    t1 = pd.read_parquet(SCR / "tv_eb_hl3_t1.parquet"); t1 = t1[t1.season == 2026][["team", "u", "se"]].rename(columns={"u": "u_t1", "se": "se_t1"})
+    tab = tab.merge(t1, on="team", how="left").sort_values("yhat_all", ascending=False)
+    chk = json.loads((SCR / "engine_check.json").read_text())
+    n_pass = int((R.verdict == "passes").sum())
+    r1 = R[R.rule1_team_and_margin]; r1t = R[R.rule1_team_only]
+    L = []
+    A = L.append
+    A("# Team- and stadium-specific home field, under the round-3 rule (30 Sep 2026)")
+    A("")
+    A("`experiments/home_field.py` (engine, ideas, facts, this page). Every number per idea: `reports/home_field.csv`.")
+    A("")
+    A(HEADLINE.format(n=len(R), n_pass=n_pass, n_r1=len(r1), n_r1t=len(r1t)))
+    A("")
+    A(PREMISE)
+    A("")
+    A("## How it was run")
+    A("")
+    A(HOW.format(spread_max=chk["pp_engine_vs_lean_2019_spread_max"]))
+    A("")
+    A("Base (fresh trees), 2015-18 / 2019-22 / 2023-25: team points miss " + " / ".join(f"{b[f'team_mae_{w}']:.4f}" for w in WINDOWS)
+      + ", margin miss " + " / ".join(f"{b[f'margin_mae_{w}']:.4f}" for w in WINDOWS)
+      + ", spread flag " + " / ".join(f"{int(b[f'sp_w_{w}'])}-{int(b[f'sp_l_{w}'])}" for w in WINDOWS)
+      + ", totals flag " + " / ".join(f"{int(b[f'to_w_{w}'])}-{int(b[f'to_l_{w}'])}" for w in WINDOWS)
+      + ", calibrated log loss " + " / ".join(f"{b[f'll_cal_{w}']:.4f}" for w in WINDOWS) + ".")
+    A("")
+    A("## The raw facts")
+    A("")
+    A(FACTS.format(**{k: v for k, v in facts.items() if not isinstance(v, dict)}))
+    A("")
+    A("Each team's home edge beyond the league's, in margin points, at its current stadium (seasons at an earlier stadium dropped), "
+      "as of the 2026 season from prior seasons only. 'Unshrunk' is the precision-weighted mean of the team's home-minus-road "
+      "residual over every season at this stadium (1999 on; model residuals from 2014), with its standard error; z is the two divided. "
+      "'Shrunk (estimated)' is the empirical-Bayes value with the between-team variance estimated from the data: zero for every team, "
+      "because that variance is estimated at zero. 'Shrunk (tau 1 pt, half-life 3)' is what a generous forced spread of 1 point would give. "
+      "The raw column is half the team's home-minus-road margin 2014-2025 at this stadium, before the model (the league's own home edge is in it, "
+      "about 1.9).")
+    A("")
+    A("| Team | Stadium | Seasons | Unshrunk (SE) | z | Shrunk, estimated (SE) | Shrunk, tau 1 pt, half-life 3 (SE) | Raw half home-minus-road |")
+    A("|---|---|---|---|---|---|---|---|")
+    for _, x in tab.iterrows():
+        A(f"| {x.team} | {x.stadium} | {int(x.seasons_all)} | {x.yhat_all:+.2f} ({np.sqrt(x.Vs_all):.2f}) | {x.z_raw_all:+.2f} | {x.u_all:+.2f} ({x.se_all:.2f}) | {x.u_t1:+.2f} ({x.se_t1:.2f}) | {x.raw_half_home_minus_road:+.2f} |")
+    A("")
+    lg = facts["league_by_season"]
+    A("The league's home margin each season, raw and after the model (actual minus the model's spread): "
+      + "; ".join(f"{s} {v['raw_home_margin']:+.1f} / {v['resid_home_margin']:+.1f}" for s, v in lg.items() if int(s) <= 2025)
+      + f" (2026 so far, {lg['2026']['n']} games: {lg['2026']['raw_home_margin']:+.1f} / {lg['2026']['resid_home_margin']:+.1f}).")
+    A("")
+    A("## Every idea, under the rule")
+    A("")
+    A("Changes are idea minus base, per window 2015-18 / 2019-22 / 2023-25. Misses in points (below zero is better); spread flag as the change "
+      "in wins minus losses (the totals flag cannot move: these are points-equation ideas and the total has its own equation); calibrated "
+      "log loss times 1000 (below zero is better). Rule 1 here needs both the team points miss and the margin miss lower on all three windows "
+      "(the brief); the round-3 page used the team points miss alone, and the column 'team only' shows that reading.")
+    A("")
+    for ang in dict.fromkeys(R.angle):
+        A(f"### {ang}")
+        A("")
+        A(ANGLE_TEXT.get(ang, ""))
+        A("")
+        A("| Idea | Team points miss | Margin miss | Spread flag W-L | Log loss x1000 | Rule 1 (team only) | Rule 2 | Placebo | Verdict |")
+        A("|---|---|---|---|---|---|---|---|---|")
+        for _, r in R[R.angle == ang].iterrows():
+            sp_txt = " / ".join("%+d" % int(r["d_spread_wl_" + w]) for w in WINDOWS)
+            pl = "not run" if not r.placebo_draws else (f"beaten by {r.placebo_beaten} of {r.placebo_draws}; pct " + " / ".join(f"{100 * r[f'placebo_pct_{w}']:.0f}" for w in WINDOWS))
+            A(f"| {r.idea} | {_trip(r, 'd_team_miss', 4)} | {_trip(r, 'd_margin_miss', 4)} | {sp_txt} | "
+              f"{_trip(r, 'd_logloss_cal_x1000', 2)} | {'yes' if r.rule1_team_and_margin else 'no'} ({'yes' if r.rule1_team_only else 'no'}) | {'yes' if r.rule2 else 'no'} | {pl} | {r.verdict} |")
+        A("")
+        A("Fitted weights (live ridge, every regular-season game 2013-2025): " + " | ".join(f"{r.idea}: {r.effect}" for _, r in R[R.angle == ang].iterrows()))
+        A("")
+    A("## Caveats")
+    A("")
+    A(CAVEATS)
+    (REP / "home_field.md").write_text("\n".join(L) + "\n")
+    log("wrote", REP / "home_field.md")
 
 
 if __name__ == "__main__":

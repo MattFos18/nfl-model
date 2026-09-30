@@ -348,6 +348,8 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
 | boosted trees alone, 5+ edge | 94-66 | 85-62 | 34-17 |
 | Under, 55%+ chance (the totals flag) | 135-127 | 175-128 | 71-59 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 165-116 | 65-53 |
+| 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -2855,3 +2857,9 @@ flag rarely loses to the hook (6 half-point losses and 1 push in 11 seasons); bu
 not pay. The model's miss by team does not carry from one season to the next (correlation -0.01), every per-team
 correction made the margin miss worse, and the market misses the same teams the model does (BAL under-rated, NYJ and
 LV over-rated). No underdog, favourite or matchup filter beats the 4+ rule on every window.
+
+**Two more tracking rules** (30 Sep 2026, Matt: "track everything, but I don't want the clutter"). Unders needing a 59%
+chance in weeks 1 to 3 and 55% after (reports/bet_rules_sweep.md: better than the totals flag on all three windows), and
+the flag's spread bought half a point on or off 3 at -125 when it sits on +2.5, +3, -3 or -3.5 (reports/spread_research.md),
+graded at the bought number and its price. Both are recorded before kickoff and graded like the other shadows
+(picks.SHADOWS, EARLY_UNDER, HOOK), never bet, and show only as rows in Bets -> Rules compared.
