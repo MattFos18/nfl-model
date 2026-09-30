@@ -620,6 +620,12 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
         tie("Backtest Records: our totals bets per window = the totals rule records", [_c(next((x for x in sr_.get("total", []) if x.get("bet")), {}).get("cells", {}).get(w)) for w in P.WINDOWS], [rrm.loc["shadowunder", w] for w in P.WINDOWS])
         from . import records as RC_
         _now = RC_.standard_records(d, int(g.season.max()))
+        ap_ = meta.get("appendix", {})
+        if ap_:
+            for mk_ in ("spread", "total"):
+                eb = next((x for x in ap_.get("edges", {}).get(mk_, []) if x.get("bet")), {}); sb = next((x for x in sr_.get(mk_, []) if x.get("bet")), {})
+                tie(f"Backtest appendix: our {mk_} bets in Every Edge Tested = the Record table, every period and season", [eb.get("cells"), eb.get("by_season")], [sb.get("cells"), sb.get("by_season")])
+            tie("Backtest appendix (meta.js appendix) = records.appendix on the prediction table", json.dumps(ap_, sort_keys=True), json.dumps(json.loads(json.dumps(RC_.appendix(d, int(g.season.max())), default=float)), sort_keys=True))
         tie("Backtest Records and By Season (meta.js standard) = records.standard_records on the prediction table", json.dumps(sr_, sort_keys=True), json.dumps(json.loads(json.dumps(_now, default=float)), sort_keys=True))
     # the Backtest tab grades the flag and the totals flag itself from backtest.js; its window records must be the rule records
     bk_ = _js("backtest.js"); b_ = pd.DataFrame(bk_["rows"], columns=bk_["cols"]); b_ = b_[(b_.game_type == "REG") & b_.home_score.notna() & (b_.week <= P.LAST_BET_WEEK)]

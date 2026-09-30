@@ -570,7 +570,7 @@ def main():
     from . import picks as P_, backtest as B_, records as R3_
     _bj = B_.join(pred, games.reset_index()); _bj = _bj[(_bj.game_type == "REG") & _bj.home_score.notna() & _bj.spread_line.notna()]
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "blend_label": M.BLEND_LABEL, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),
-            "picks": P_.page_rules(_bj), "standard": R3_.standard_records(_bj, int(games.season.max())), "model": model_constants(feats), "player_model": player_model_constants(), "data_from": data_from(),
+            "picks": P_.page_rules(_bj), "standard": R3_.standard_records(_bj, int(games.season.max())), "appendix": R3_.appendix(_bj, int(games.season.max())), "model": model_constants(feats), "player_model": player_model_constants(), "data_from": data_from(),
             "pull_log": pull.to_dict("records"), "verification": ver, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
             "code_sha": _code_sha()}   # the commit whose code built these files (nflmodel/publish_check.py)
     (WEB / "meta.js").write_text("window.META=" + json.dumps(meta, default=clean, separators=(",", ":")) + ";")

@@ -2717,3 +2717,14 @@ same rows, our bets beside every game, each showing W-L-P, win % and units (ever
 miss); the periods on top, then every season. On totals one switch (over + under, overs, unders) scopes both panels.
 The units chart gives every season the same width with its full year centred under it, draws horizontal hairlines only,
 shades the tuning period, labels the end value and shows each bet on hover (week, game, result, running units).
+
+**Backtest → Game Picks, headline and appendix** (30 Sep 2026, Matt: the record standing out at the top, the total
+obvious, an appendix that is not folded). A headline strip leads: our bets over every season (record, win %, units, ROI),
+the held-out period, this season and every game. In the Record the Total row is labelled and set apart, and the periods
+read 2015–2018, 2019–2022, 2023–2025. Below the chart an Appendix, always open, all from `records.appendix`: Every Edge
+Tested (each cutoff and rule, by period or by season, shaded by return); Week by Week (our bets' units each week of each
+season, with the count of winning and losing weeks); Us against Vegas (straight-up winners, the margin and total misses,
+how often our number landed closer than the line, how far it sat from the line, and our side's win rate by that
+distance as a chart); Win Chances against What Happened as a chart beside its table; By Week of the Season; Is the Edge
+Real, the cover-odds tables; and Every Game in a box that scrolls on its own, so the page ends where it ends. The old
+Other Rules, Every Cutoff, By Edge Size and Year by Year tables are covered by Every Edge Tested and the distance chart.
