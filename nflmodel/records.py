@@ -103,7 +103,11 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
             elif l_: run_w, run_l = 0, run_l + 1
             best_w, best_l = max(best_w, run_w), max(best_l, run_l)
         wkly[mkt] = {"rows": rows, "last_week": LAST_BET_WEEK, "up": int((g.u > 0).sum()), "down": int((g.u < 0).sum()), "even": int((g.u == 0).sum()),
-                     "streak_win": int(best_w), "streak_loss": int(best_l)}
+                     "streak_win": int(best_w), "streak_loss": int(best_l),
+                     # each week of the season across the seasons that had a bet that week (30 Sep 2026, Matt: "an average per week
+                     # so we see the best performing week"): its record, units and units a season
+                     "by_week": {str(int(wk_)): {"w": int(gw.w.sum()), "l": int(gw.l.sum()), "p": int(gw.p.sum()), "units": round(float(gw.u.sum()), 2),
+                                                 "seasons": int(len(gw)), "avg": round(float(gw.u.mean()), 2)} for wk_, gw in g.groupby("week")}}
     out["weekly"] = wkly
     # us against Vegas, every game: the straight-up winner, the miss of the margin and the total, how often our number
     # landed closer to the final than the closing line, and how far it sat from the line

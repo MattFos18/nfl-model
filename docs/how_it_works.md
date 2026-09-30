@@ -2792,3 +2792,10 @@ beside the picks; Matt preferred them plain, so the picks stay text. The Games t
 - On the game cards, the logged-bet and still-flagged chips went (the flag at the top of the card stays), and the Live
   tab's Model panel lost its Flag chip. The Scheme matchup's Fit and Past vs each have their own Edge column again, with
   every header on one line.
+
+**Game Picks, one more pass** (30 Sep 2026, Matt). The three headline tiles read alike (our bets, every game, then the
+miss against Vegas on the right). Every Edge Tested shows each period's record beside its win % and units. Week by Week
+ends with two rows across the weeks, every season together: the record and the average units a season, so the best and
+worst weeks stand out (records.appendix weekly by_week); it replaces the By Week of the Season table. The miss-against-
+Vegas chart and the win-chance chart went: neither read to a conclusion (the misses sit within a few tenths of a point
+every season; the win chances track Vegas's). Every card sits the same distance apart.
