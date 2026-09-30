@@ -2823,3 +2823,7 @@ timing of the bet). 283 rules on the three windows with a placebo (reports/bet_r
 the 4-point spread flag (edges of 4 to 6 carry it; 3 to 4 loses on every window; 6+ is thin), weeks 1 to 17, flat
 stakes (bigger edges did not earn bigger stakes), unders at 55%. Real but thin on 2023-25, watch only: the model's road
 dogs, primetime unders. One candidate for a tracking-only rule: unders needing 59%+ in weeks 1 to 3.
+
+**Shorter labels on Game Picks** (30 Sep 2026, Matt: concise). The tiles read Our bets, Every game and Margin miss
+(Total miss on Totals); the chart is titled by its bet count; the Record panels read Our bets and Every game; the week
+grid is Week by Week. The rule itself is in the edge table's outlined row.
