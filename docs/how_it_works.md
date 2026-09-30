@@ -2893,3 +2893,8 @@ applies to both sides: the flag's home sides do worse than its road sides, and b
 own go 8-15 (favorites) and 39-34 (dogs). Seventeen model fixes (shrinking big margins, capping injury and rating pulls,
 re-weighting the seven models, a home offset, early-season scaling) all fail the rule, and no bet rule beats 4+ on both
 sides on every window, so both stay.
+
+**Home sides at a higher cut, tested and not adopted** (30 Sep 2026, Matt; reports/home_side_rules.md). Twelve bet rules
+that ask more of the flag's home sides (home at 4.5, 5 or 6 points, no home sides, road sides at 3.5, or the model's home
+lean taken off every edge) against 4+ on both sides. The home-side weakness is 2015-18 only (29-40); since 2019 the home
+sides at 4+ win (65-42), so every rule that drops them loses units on 2019-22 and none beats 4+ on every window.

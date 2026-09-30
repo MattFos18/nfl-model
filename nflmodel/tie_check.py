@@ -1005,6 +1005,9 @@ def check_live(rows, wk) -> None:
         k_ = pd.to_datetime(g_.get("kickoff"), errors="coerce")
         if pd.isna(k_): continue
         d_ = (k_ - now_).total_seconds() / 86400
+        # 30 Sep 2026: DEN@SF was priced "far" at 4.0x days and checked minutes later at 4.0; a game that was past the
+        # window when priced has six hours to be re-priced by the next line watch
+        if w_.get("s") == "far" and d_ > WX.USE_WITHIN_DAYS - 0.25: continue   # "far" is set only past the window
         if -2 <= d_ <= WX.USE_WITHIN_DAYS and w_.get("s") != "forecast": nofc.append(f"{g_['game_id']} ({w_.get('s')}, kickoff {d_:+.1f} days)")
     tie(f"every unplayed outdoor game inside the forecast window (kickoff up to {WX.USE_WITHIN_DAYS} days ahead or 2 days back) is priced with a kickoff forecast", nofc, [])
     # the live results file (nflmodel/results.py): built this run, its scores the newest saved scoreboard's, its finals
