@@ -2864,3 +2864,12 @@ the flag's spread bought half a point on or off 3 at -125 when it sits on +2.5, 
 graded at the bought number and its price. Both are recorded before kickoff and graded like the other shadows
 (picks.SHADOWS, EARLY_UNDER, HOOK), never bet, and show only as rows in Bets -> Rules compared.
 (30 Sep 2026, Matt) The page and docs spell favorite the American way.
+
+**Home field by team and stadium, tested again and not adopted** (30 Sep 2026, Matt; reports/home_field.md). Twenty-one
+ideas on the current model: each team's own home edge shrunk toward the league (with recency and stadium moves), Denver,
+domes, the visitor's travel and time zones, neutral and international sites, division visitors, early and late season,
+December cold, and a pooled team-and-stadium term. Once the model's ratings are in, no team's home edge stands apart
+from the league's (no team is two standard errors out, and a team's edge one season does not predict the next). Travel
+distance and time zones lowered the points miss on every window but cost spread wins and failed the placebo. The model
+keeps one league home-field number (about 1.8 points, fit on every game since 2013). One finding on the record: the
+listed home team gets the full home edge at London, Germany, Mexico and Super Bowl games; zeroing it did not pass either.
