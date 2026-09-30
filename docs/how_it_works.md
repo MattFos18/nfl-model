@@ -2809,3 +2809,17 @@ many wins over the same bets; binomial). The line's move from open to close was 
 its bets by the gap to the closing line, which favours games where the line moved away from the model, so the share
 would say how the bets were chosen, not skill. "Is the Edge Real?" and the Every Game table went (every game stays in
 the data on GitHub); the edge table shows the record once, in its own column after Total.
+
+**Usual snaps for a starter out twice in a row, tested and not adopted** (30 Sep 2026, Matt). The snaps-out input uses
+last game's share, so a starter who also missed last game prices as nothing (this week Cosmi, Cross, Tunsil). Ten
+variants priced him by his usual share instead (reports/usual_snaps.md). Counting everyone by usual share is worse: it
+counts players on IR for months, already missing from the team's ratings. The best, his share over his last 4 games
+played but only if he played in one of the team's last 4, lowered the team-points miss on all three windows and beat its
+placebo, but raised the margin miss on 2019-22 and cost the spread flag on 2015-18 (59-50 against 68-54), so it fails the
+round-3 rule. The injury report's Usual snaps column shows the role; the line effect still prices last game's snaps.
+
+**Bet rules swept** (30 Sep 2026, Matt: thresholds, week timing, kinds of game, favourite or dog, bet type, sizing,
+timing of the bet). 283 rules on the three windows with a placebo (reports/bet_rules_sweep.md). The live rules stand:
+the 4-point spread flag (edges of 4 to 6 carry it; 3 to 4 loses on every window; 6+ is thin), weeks 1 to 17, flat
+stakes (bigger edges did not earn bigger stakes), unders at 55%. Real but thin on 2023-25, watch only: the model's road
+dogs, primetime unders. One candidate for a tracking-only rule: unders needing 59%+ in weeks 1 to 3.
