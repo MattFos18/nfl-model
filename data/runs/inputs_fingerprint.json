@@ -457,7 +457,12 @@
 [
 "WAS",
 "Nick Cross",
-"Doubtful"
+"Out"
+],
+[
+"WAS",
+"Sam Cosmi",
+"Out"
 ]
 ],
 "reports": [
@@ -596,6 +601,12 @@
 [
 "DAL",
 "Shavon Revel Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
+"Jaylen Waddle",
 "Questionable (ESPN)",
 ""
 ],
@@ -1009,17 +1020,17 @@
 ],
 [
 "WAS",
-"Sam Cosmi",
+"Percy Butler",
 "Questionable (ESPN)",
 ""
 ]
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 9.5,
+"wind": 10.2,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-29 21:47 UTC"
+"written_at": "2026-09-30 00:05 UTC"
 }
