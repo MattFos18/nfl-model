@@ -251,6 +251,11 @@
 ],
 [
 "HOU",
+"Azeez Al-Shaair",
+"Doubtful"
+],
+[
+"HOU",
 "Henry To'oTo'o",
 "Out"
 ],
@@ -277,11 +282,6 @@
 [
 "IND",
 "Micheal Clemons",
-"Out"
-],
-[
-"JAX",
-"B.J. Green II",
 "Out"
 ],
 [
@@ -546,6 +546,12 @@
 ""
 ],
 [
+"BAL",
+"Zay Flowers",
+"Questionable (ESPN)",
+""
+],
+[
 "BUF",
 "Ar'maj Reed-Adams",
 "Questionable (ESPN)",
@@ -590,6 +596,30 @@
 [
 "CIN",
 "B.J. Hill",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Bryan Cook",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Dalton Risner",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Jordan Battle",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Kyle Dugger",
 "Questionable (ESPN)",
 ""
 ],
@@ -666,6 +696,18 @@
 ""
 ],
 [
+"DET",
+"D.J. Reed",
+"Questionable (ESPN)",
+""
+],
+[
+"DET",
+"DJ Wonnum",
+"Questionable (ESPN)",
+""
+],
+[
 "GB",
 "Aaron Banks",
 "Questionable (ESPN)",
@@ -715,13 +757,61 @@
 ],
 [
 "IND",
+"Akeem Davis-Gaither",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Ashton Dulin",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Mo Alie-Cox",
 "Questionable (ESPN)",
 ""
 ],
 [
 "JAX",
 "Albert Regis",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Christian Braswell",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Cole Van Lanen",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"DaVon Hamilton",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Jakobi Meyers",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"LeQuint Allen Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Montaric Brown",
 "Questionable (ESPN)",
 ""
 ],
@@ -889,6 +979,12 @@
 ],
 [
 "NYG",
+"Andrew Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Deonte Banks",
 "Questionable (ESPN)",
 ""
@@ -896,6 +992,12 @@
 [
 "NYG",
 "Tyler Nubin",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Tyrone Tracy Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -1003,6 +1105,12 @@
 ],
 [
 "SF",
+"KhaDarel Hodge",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Mike Evans",
 "Questionable (ESPN)",
 ""
@@ -1033,6 +1141,12 @@
 ],
 [
 "TEN",
+"John Franklin-Myers",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "Tony Pollard",
 "Questionable (ESPN)",
 ""
@@ -1040,6 +1154,24 @@
 [
 "TEN",
 "Tyjae Spears",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Amik Robertson",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Ben Sinnott",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Charles Omenihu",
 "Questionable (ESPN)",
 ""
 ],
@@ -1057,7 +1189,25 @@
 ],
 [
 "WAS",
+"Javon Kinlaw",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Jayden Daniels",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Lucas Patrick",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Nick Allegretti",
 "Questionable (ESPN)",
 ""
 ],
@@ -1076,7 +1226,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 9.3,
+"wind": 11.2,
 "cold": false,
 "rain": false
 },
@@ -1124,7 +1274,12 @@
 "wind": 9.2,
 "cold": false,
 "rain": false
+},
+"2026_04_LAC_SEA": {
+"wind": 6.5,
+"cold": false,
+"rain": false
 }
 },
-"written_at": "2026-09-30 20:00 UTC"
+"written_at": "2026-09-30 20:45 UTC"
 }
