@@ -130,6 +130,11 @@
 "Out"
 ],
 [
+"CAR",
+"Mike Jackson",
+"Out"
+],
+[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
@@ -506,12 +511,6 @@
 [
 "CAR",
 "Jalen Coker",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
-"Mike Jackson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1072,11 +1071,17 @@
 "Percy Butler",
 "Questionable (ESPN)",
 ""
+],
+[
+"WAS",
+"Rachaad White",
+"Questionable (ESPN)",
+""
 ]
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.0,
+"wind": 9.3,
 "cold": false,
 "rain": false
 },
@@ -1086,5 +1091,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 14:04 UTC"
+"written_at": "2026-09-30 15:37 UTC"
 }
