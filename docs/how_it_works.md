@@ -2747,3 +2747,9 @@ ratings, so his line effect reads "none".
 player's record against each opponent (the Scheme matchup's "Past vs" and "Games vs", the player page's Against Each
 Team) counted regular-season plays only, so Lamar Jackson's two playoff games against Tennessee (2019 divisional, 2020
 wild card) were missing: 4 games, not 2. The look splits and his every-play average stay regular season.
+
+**The Live tab's Model panel: the edge as a band, the winner's edge in points of win chance** (30 Sep 2026, Matt: "show
+the edge bolder ... doesn't show the PIT % winner edge, just says PIT"). The Model and Vegas rows sit on an even grid;
+the Edge row is a tinted band with the model's side of each market in bold and its edge in a chip: points for the
+spread and total, and for the winner the model's win chance minus Vegas's in percentage points, on the displayed
+percentages as on the Breakdown card's Win block (PIT 60% against 57%: +3%).
