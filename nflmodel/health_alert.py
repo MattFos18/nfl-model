@@ -52,6 +52,37 @@ def main():
         _sync_issue(ok, problems, h)
     except Exception as e:  # noqa  (an alert must never fail the run it reports on)
         print("could not update the issue:", str(e)[:200])
+    try:
+        _shadow_issue()
+    except Exception as e:  # noqa
+        print("could not update the shadow issue:", str(e)[:200])
+
+
+SHADOW_LABEL = "shadow-ready"
+
+
+def _shadow_issue():
+    """30 Sep 2026 (Matt: "if a shadow turns out good, alert me"): one issue labelled shadow-ready per rule that reports/
+    shadow_watch.csv marks READY, opened once (GitHub emails the owner); left open for Matt to close after the re-test."""
+    f = ROOT / "reports" / "shadow_watch.csv"
+    if not f.exists():
+        return
+    ready = pd.read_csv(f).query("status == 'READY'")
+    if not len(ready):
+        return
+    try:
+        _gh("label", "create", SHADOW_LABEL, "--color", "0e8a16", "--description", "a tracked rule is beating the live rule on live games")
+    except Exception:  # noqa  (the label exists)
+        pass
+    have = {i["title"] for i in json.loads(_gh("issue", "list", "--label", SHADOW_LABEL, "--state", "all", "--json", "title", "--limit", "100") or "[]")}
+    for r in ready.itertuples():
+        title = f"Tracked rule worth a look: {r.label}"
+        if title in have:
+            continue
+        body = (f"Live: {r.record} ({r.settled} settled, {r.units:+.2f} units, return {100 * r.roi:.1f}% a unit risked); {r.compared_with} over the same seasons: "
+                f"{r.base_record}. Chance of a record this good by luck at -110: {r.luck_p:.3f}.\n\nNothing changes on its own: re-test it under reports/round3_rule.md "
+                "before betting it. Details in reports/shadow_watch.md.")
+        _gh("issue", "create", "--title", title, "--label", SHADOW_LABEL, "--body", body); print("shadow issue opened:", r.rule)
 
 
 def _sync_issue(ok, problems, h):

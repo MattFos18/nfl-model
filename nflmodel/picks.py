@@ -18,6 +18,7 @@ TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet
 TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
 EARLY_UNDER = {"weeks": 3, "prob": 0.59}   # 30 Sep 2026 (reports/bet_rules_sweep.md): unders needing 59%+ in weeks 1 to 3 (55% after) beat the totals flag on all three windows; tracked, not bet
 HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spread_research.md): the flag's bet bought half a point on or off 3 at -125; tracked, not bet
+HOME_SIDE_EDGE = 6.0   # 30 Sep 2026 (reports/home_side_rules.md): road sides at 4+, home sides at 6+ (neutral sites count as road); tracked, hidden, not bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
@@ -27,7 +28,12 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
            "shadowunder": (TOTAL_SHADOW["prob"], "under_prob", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance (the totals flag)"),
            "shadowunderearly": (TOTAL_SHADOW["prob"], "under_prob_early", f"Under, {100 * EARLY_UNDER['prob']:.0f}%+ chance in weeks 1 to {EARLY_UNDER['weeks']}, {100 * TOTAL_SHADOW['prob']:.0f}%+ after"),
-           "shadowhook": (SPREAD_EDGE, "hook", f"{SPREAD_EDGE:g}+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at {HOOK['odds']}")}
+           "shadowhook": (SPREAD_EDGE, "hook", f"{SPREAD_EDGE:g}+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at {HOOK['odds']}"),
+           "shadowroad6": (SPREAD_EDGE, "road6", f"{SPREAD_EDGE:g}+ edge on road sides, {HOME_SIDE_EDGE:g}+ on home sides"),
+           "shadowroad": (SPREAD_EDGE, "road", f"{SPREAD_EDGE:g}+ edge, road sides only")}
+# 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
+# nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
+HIDDEN_SHADOWS = {"shadowroad6", "shadowroad"}
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
 CAL_FROM, CAL_CAP = 2019, 7.0   # the cover calibration: regular-season games from this season on, the edge capped at this many points
@@ -169,7 +175,26 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
         m &= d.week <= EARLY_LAST_WEEK
     if side_rule == "hook":   # our side's number on 2.5, 3 or 3.5 either way, where half a point moves it on or off 3
         m &= pd.Series(np.where(e > 0, -d.spread_line, d.spread_line), index=d.index).isin(HOOK["on"])
+    if side_rule in ("road", "road6"):   # our side the home team at a home (not neutral) site
+        home = (e > 0) & ~_neutral(d)
+        m &= ~home if side_rule == "road" else (~home | (e.abs() >= HOME_SIDE_EDGE))
     return m
+
+
+_NEUTRAL: set | None = None
+
+
+def _neutral_ids() -> set:
+    """Games at a neutral site (games.parquet location), read once."""
+    global _NEUTRAL
+    if _NEUTRAL is None:
+        g = pd.read_parquet(OUT / "games.parquet", columns=["game_id", "location"])
+        _NEUTRAL = set(g.game_id[g.location.eq("Neutral")])
+    return _NEUTRAL
+
+
+def _neutral(d) -> pd.Series:
+    return d.game_id.isin(_neutral_ids()) if "game_id" in d.columns else pd.Series(False, index=d.index)
 
 
 def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
@@ -193,7 +218,7 @@ def rule_records(d: pd.DataFrame) -> pd.DataFrame:
     rules = [("model", SPREAD_EDGE, None, f"{SPREAD_EDGE:g}+ edge (the flag)")] + [(n, e, s, lab) for n, (e, s, lab) in SHADOWS.items()]
     rows = []
     for name, edge, sr, lab in rules:
-        r = {"rule": name, "label": lab, "edge": edge, "side_rule": sr}
+        r = {"rule": name, "label": lab, "edge": edge, "side_rule": sr, "hidden": name in HIDDEN_SHADOWS}
         for w, (a, b) in WINDOWS.items():
             x = d[d.season.between(a, b)]; wi, lo = record(x, rule_mask(x, edge, sr), sr); r[w] = f"{wi}-{lo}"
         rows.append(r)
@@ -245,6 +270,9 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(pe) and 1 - pe >= thr else ""
         if side_rule == "hook":
             return ""   # built from the flag's bet at the best number, below
+        if side_rule in ("road", "road6") and pd.notna(r.spread_edge) and r.spread_edge > 0 and r.game_id not in _neutral_ids():
+            if side_rule == "road" or abs(r.spread_edge) < HOME_SIDE_EDGE:
+                return ""   # our side is the home team: the road rule sits out, the road6 rule wants 6+
         se = r.tree_edge if side_rule == "trees" else r.spread_edge
         if pd.notna(r.spread_line) and pd.notna(se) and abs(se) >= spread_edge:
             side = r.home_team if se > 0 else r.away_team

@@ -350,6 +350,8 @@ tie check on every run; the live table carries the same columns):
 | Under, 55%+ chance (the totals flag) | 135-127 | 175-128 | 71-59 |
 | Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 165-116 | 65-53 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
+| 4+ edge on road sides, 6+ on home sides | 41-24 | 46-30 | 23-10 |
+| 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -2897,4 +2899,8 @@ sides on every window, so both stay.
 **Home sides at a higher cut, tested and not adopted** (30 Sep 2026, Matt; reports/home_side_rules.md). Twelve bet rules
 that ask more of the flag's home sides (home at 4.5, 5 or 6 points, no home sides, road sides at 3.5, or the model's home
 lean taken off every edge) against 4+ on both sides. The home-side weakness is 2015-18 only (29-40); since 2019 the home
-sides at 4+ win (65-42), so every rule that drops them loses units on 2019-22 and none beats 4+ on every window.
+sides at 4+ win (65-42), so every rule that drops them loses units on 2019-22 and none beats 4+ on every window. Two of them are
+tracked as hidden shadows (graded every run, kept off the page): road sides at 4+ with home sides at 6+, and road sides
+only. The shadow watch (nflmodel/shadow_watch.py, reports/shadow_watch.md) checks every shadow each weekly run and opens
+a GitHub issue labelled shadow-ready when one has 30+ settled live bets, a win rate past break-even beyond luck (p 0.10)
+and 5+ points more return per unit risked than the rule it would replace; it is then re-tested before it is bet.

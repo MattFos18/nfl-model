@@ -187,6 +187,7 @@ def main(full=False, skip_network=False):
         step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
     step("grade", lambda: tracker.main(), log)
     step("drift monitor", lambda: sh(["nflmodel.drift"]), log)   # 30 Sep 2026: has any number that moves the edge left its long-run level (reports/drift.md)
+    step("shadow watch", lambda: sh(["nflmodel.shadow_watch"]), log)   # 30 Sep 2026: a tracked rule pulling clear of the live rule opens a shadow-ready issue (reports/shadow_watch.md)
     step("tie check (sources)", lambda: tie_check.main(False) or (_ for _ in ()).throw(RuntimeError("numbers disagree: see reports/tie_check.md")), log)
     step("export data room", lambda: export_web.main(), log)
     step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
