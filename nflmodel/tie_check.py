@@ -612,6 +612,15 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
     rr = P.rule_records(d)
     tie("Bets tab: every rule's backtest record = picks.rule_records on the prediction table", [[r["rule"]] + [r[w] for w in P.WINDOWS] for r in pk.get("rules", [])], [[r["rule"]] + [r[w] for w in P.WINDOWS] for _, r in rr.iterrows()])
     tie("page flag threshold (meta.js) = week.js flag threshold", pk.get("spread_edge"), wk.get("spread_edge"))
+    # the Backtest tab's Records table (30 Sep 2026): its bets rows = the rule records, and it is the table records.py builds now
+    sr_ = meta.get("standard", {}); rrm = rr.set_index("rule")
+    _c = lambda c: f"{c['w']}-{c['l']}" if c else None
+    if sr_:   # absent only until the first weekly run after records.py lands (the table then shows nothing, never a wrong number)
+        tie("Backtest Records: our spread bets per window = the flag's rule records", [_c(next((x for x in sr_.get("spread", []) if x.get("bet")), {}).get("cells", {}).get(w)) for w in P.WINDOWS], [rrm.loc["model", w] for w in P.WINDOWS])
+        tie("Backtest Records: our totals bets per window = the totals rule records", [_c(next((x for x in sr_.get("total", []) if x.get("bet")), {}).get("cells", {}).get(w)) for w in P.WINDOWS], [rrm.loc["shadowunder", w] for w in P.WINDOWS])
+        from . import records as RC_
+        _now = RC_.standard_records(d, int(g.season.max()))
+        tie("Backtest Records and By Season (meta.js standard) = records.standard_records on the prediction table", json.dumps(sr_, sort_keys=True), json.dumps(json.loads(json.dumps(_now, default=float)), sort_keys=True))
     # the Backtest tab grades the flag and the totals flag itself from backtest.js; its window records must be the rule records
     bk_ = _js("backtest.js"); b_ = pd.DataFrame(bk_["rows"], columns=bk_["cols"]); b_ = b_[(b_.game_type == "REG") & b_.home_score.notna() & (b_.week <= P.LAST_BET_WEEK)]
     def _pg(x):
