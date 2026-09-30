@@ -26,10 +26,10 @@
    "data/processed/snap_exposure.parquet": "086340a0085a89fa",
    "data/processed/trends_asof.parquet": "eb8d71a6c7825f6d",
    "experiments/props_by_season.py": "4a9807dbaf89fc81",
-   "nflmodel/props.py": "f934c72e1e8b4054",
+   "nflmodel/props.py": "2e28d4f981905d5a",
    "nflmodel/props_sit.py": "082bc1c67725ecb2"
   },
-  "ran_at": "2026-09-30 00:58 UTC"
+  "ran_at": null
  },
  "season backtest": {
   "inputs": {
