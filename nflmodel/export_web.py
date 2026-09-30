@@ -748,6 +748,7 @@ def export_season() -> dict:
 
 
 INJ_REPORT = ("Out", "Doubtful", "Questionable")
+PRACTICE = {"Did Not Participate In Practice": "Did not practice", "Limited Participation in Practice": "Limited practice", "Full Participation in Practice": "Full practice"}   # the week's practice report, before a game status
 PRICED = ("Out", "Doubtful")   # the model counts Out and Doubtful on the report and the reserve lists; Questionable plays
 
 
@@ -792,14 +793,19 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
             r = rn[rn.team == tm]
             res = ~r.roster.isin(["Active", "Practice squad", "Cut", "Inactive"])
             played = (r.off_pct.fillna(0) > 0) | (r.def_pct.fillna(0) > 0)
-            keep = r[r.report.isin(INJ_REPORT) | (res & (played | (r.since == cur_week))) | r.name.isin(list(skill))]   # everyone the skill value counts, even off a reserve list
+            # the full report (30 Sep 2026, Matt: "they should show even if 0 injuries ... this should be the full report regardless";
+            # PIT's card was empty because its reserve players had not played last game and its injured starters had no status
+            # yet): every reserve list, and anyone with an injury listed even before the week's game status; pricing is unchanged,
+            # a reserve player who missed last game has no snaps to take and is already out of the ratings
+            hurt = (r.roster == "Active") & (r.injury.fillna("").astype(str).str.strip() != "")
+            keep = r[r.report.isin(INJ_REPORT) | (res & (played | (r.since == cur_week) | ~r.roster.isin(["Retired"]))) | hurt | r.name.isin(list(skill))]   # everyone the skill value counts, even off a reserve list
             rows = []
             for p in keep.itertuples():
                 priced = p.report in PRICED or (p.report not in INJ_REPORT and p.roster not in ("Active", "Practice squad", "Cut", "Inactive"))
                 off, dfn, v = float(p.off_pct or 0) if pd.notna(p.off_pct) else 0.0, float(p.def_pct or 0) if pd.notna(p.def_pct) else 0.0, float(skill.get(p.name, 0.0))
                 own = (co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * v) if priced else 0.0
                 opp = (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * v) if priced else 0.0
-                row = {"name": p.name, "pos": p.position, "status": p.report or p.roster, "injury": clean(p.injury) or clean(p.why) or "",
+                row = {"name": p.name, "pos": p.position, "status": p.report or (PRACTICE.get(clean(p.practice), clean(p.practice)) or "No game status yet" if p.roster == "Active" else p.roster), "injury": clean(p.injury) or clean(p.why) or "",
                        "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
                        "back": clean(p.back)}
                 if qbr is not None and priced and p.position == "QB" and sd.get("qb_out") and sd.get("qb_rating") is not None and sd.get("qb_name") and p.name != sd.get("qb_name") and isinstance(p.player_id, str):
@@ -810,7 +816,9 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                             row["qb_pts"] = round(co.get("qb_rating", 0) * (priced_r - his) + co.get("qb_out", 0) * float(sd.get("qb_out") or 0), 3)
                             row["qb_swap"] = {"to": sd["qb_name"], "his_rating": round(his, 4), "to_rating": round(priced_r, 4)}
                 rows.append(row)
-            sd["injuries"] = sorted(rows, key=lambda x: (not x["priced"], x["spread_pts"], x["name"]))
+            # the ones that move the line, then the week's report (Out, Doubtful, Questionable), then no status yet, then the reserve lists
+            grp = lambda x: 0 if x["priced"] and (abs(x["spread_pts"]) >= 0.005 or x.get("qb_pts")) else 1 + INJ_REPORT.index(x["status"]) if x["status"] in INJ_REPORT else 4 if not x["priced"] else 5
+            sd["injuries"] = sorted(rows, key=lambda x: (grp(x), x["spread_pts"], x["name"]))
             cache.setdefault(g["game_id"], {})[tm] = sd["injuries"]   # the last pre-score report, for the card after the game
     keep_ids = {g["game_id"] for g in wk}
     cache = {k: v for k, v in cache.items() if k in keep_ids}   # the week's games alone

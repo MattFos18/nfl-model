@@ -2733,3 +2733,17 @@ Other Rules, Every Cutoff, By Edge Size and Year by Year tables are covered by E
 column promised his EPA against that defense minus his EPA on every play but showed the raw EPA; it now shows the gap,
 like the look columns beside it (the hover keeps both numbers, and yards a play against his own), and "Games vs" names
 the opponent. The player page's Against Each Team table adds the same two gaps: EPA and yards a play against his average.
+
+**The full injury report on every card** (30 Sep 2026, Matt: "where is Pittsburgh? they should show even if 0 injuries").
+The card listed a reserve player only when he had played last game or went on the list that week, and an injured
+player only once the week's game status was out, so Pittsburgh's card was empty on a Wednesday. It now lists everyone
+on a reserve list (IR, IR with a return date, PUP, other reserve lists), everyone with an injury listed (with the
+week's practice status until the game status comes), and the week's report, in that order after the players who move
+the line. Each team sits under its own band with a count, even when nobody is listed, and a Back column gives the listed
+return. Pricing is unchanged: a reserve player who missed last game has no snaps to take and is already out of the
+ratings, so his line effect reads "none".
+
+**Games against a team include the playoffs** (30 Sep 2026, Matt: "Lamar has played Tennessee more than 2 times"). A
+player's record against each opponent (the Scheme matchup's "Past vs" and "Games vs", the player page's Against Each
+Team) counted regular-season plays only, so Lamar Jackson's two playoff games against Tennessee (2019 divisional, 2020
+wild card) were missing: 4 games, not 2. The look splits and his every-play average stay regular season.
