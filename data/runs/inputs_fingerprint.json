@@ -386,6 +386,11 @@
 ],
 [
 "NYJ",
+"Dylan Parham",
+"Doubtful"
+],
+[
+"NYJ",
 "Marcelino McCrary-Ball",
 "Out"
 ],
@@ -903,13 +908,13 @@
 ],
 [
 "NYJ",
-"Dylan Parham",
+"Kene Nwangwu",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NYJ",
-"Kene Nwangwu",
+"Kenyon Sadiq",
 "Questionable (ESPN)",
 ""
 ],
@@ -1040,6 +1045,18 @@
 ""
 ],
 [
+"TEN",
+"Tony Pollard",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Tyjae Spears",
+"Questionable (ESPN)",
+""
+],
+[
 "WAS",
 "Chig Okonkwo",
 "Questionable (ESPN)",
@@ -1080,7 +1097,47 @@
 "wind": 5.0,
 "cold": false,
 "rain": false
+},
+"2026_04_TEN_BAL": {
+"wind": 5.2,
+"cold": false,
+"rain": false
+},
+"2026_04_NE_BUF": {
+"wind": 7.6,
+"cold": false,
+"rain": false
+},
+"2026_04_NYJ_CHI": {
+"wind": 6.3,
+"cold": false,
+"rain": false
+},
+"2026_04_JAX_CIN": {
+"wind": 3.5,
+"cold": false,
+"rain": false
+},
+"2026_04_DAL_HOU": {
+"wind": 8.5,
+"cold": false,
+"rain": false
+},
+"2026_04_ARI_NYG": {
+"wind": 4.3,
+"cold": false,
+"rain": false
+},
+"2026_04_LA_PHI": {
+"wind": 4.2,
+"cold": false,
+"rain": false
+},
+"2026_04_GB_TB": {
+"wind": 8.1,
+"cold": false,
+"rain": false
 }
 },
-"written_at": "2026-09-30 16:49 UTC"
+"written_at": "2026-09-30 17:35 UTC"
 }
