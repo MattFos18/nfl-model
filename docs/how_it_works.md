@@ -2728,3 +2728,8 @@ how often our number landed closer than the line, how far it sat from the line, 
 distance as a chart); Win Chances against What Happened as a chart beside its table; By Week of the Season; Is the Edge
 Real, the cover-odds tables; and Every Game in a box that scrolls on its own, so the page ends where it ends. The old
 Other Rules, Every Cutoff, By Edge Size and Year by Year tables are covered by Every Edge Tested and the distance chart.
+
+**Past games against this opponent, against his own average** (30 Sep 2026, Matt). The Scheme matchup's "Past vs"
+column promised his EPA against that defense minus his EPA on every play but showed the raw EPA; it now shows the gap,
+like the look columns beside it (the hover keeps both numbers, and yards a play against his own), and "Games vs" names
+the opponent. The player page's Against Each Team table adds the same two gaps: EPA and yards a play against his average.
