@@ -1,0 +1,1296 @@
+family,rule,market,window,bets,w,l,p,win_pct,units,roi,staked,seasons_up,seasons_with_bets,p_luck,note,beats_live_units_all3,beats_live_pct_all3,beats_live_roi_pooled,positive_all3,min_bets_window,placebo_p,placebo_pool_mean_units
+live,"LIVE: spread 4+ edge, weeks 1-17",spread,2015-18,123,68,55,0,0.5528,7.5,0.0554,135.3,2,4,0.29,,,,,True,61.0,0.0,-2.31
+live,"LIVE: spread 4+ edge, weeks 1-17",spread,2019-22,131,80,51,0,0.6107,23.9,0.1659,144.1,3,4,0.028,,,,,True,61.0,0.0,-2.31
+live,"LIVE: spread 4+ edge, weeks 1-17",spread,2023-25,61,40,21,1,0.6557,16.9,0.2519,67.1,3,3,0.0257,,,,,True,61.0,0.0,-2.31
+live,"LIVE: spread 4+ edge, weeks 1-17",spread,2015-25,315,188,127,1,0.5968,48.3,0.1394,346.5,8,11,0.0054,,,,,True,61.0,0.0,-2.31
+live,"LIVE: spread 4+ edge, weeks 1-17",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,,,,True,61.0,0.0,-2.31
+thresholds,spread 2+ edge,spread,2015-18,387,206,181,7,0.5323,6.9,0.0162,425.7,3,4,0.3887,,False,False,False,False,286.0,0.215,-22.21
+thresholds,spread 2+ edge,spread,2019-22,422,221,201,5,0.5237,-0.1,-0.0002,464.2,3,4,0.5216,,False,False,False,False,286.0,0.215,-22.21
+thresholds,spread 2+ edge,spread,2023-25,286,145,141,6,0.507,-10.1,-0.0321,314.6,2,3,0.7354,,False,False,False,False,286.0,0.215,-22.21
+thresholds,spread 2+ edge,spread,2015-25,1095,572,523,18,0.5224,-3.3,-0.0027,1204.5,8,11,0.5501,,False,False,False,False,286.0,0.215,-22.21
+thresholds,spread 2+ edge,spread,2026,13,6,7,0,0.4615,-1.7,-0.1189,14.3,0,1,0.7663,,False,False,False,False,286.0,0.215,-22.21
+thresholds,spread 2.5+ edge,spread,2015-18,303,165,138,4,0.5446,13.2,0.0396,333.3,3,4,0.2531,,False,False,False,False,194.0,0.125,-13.75
+thresholds,spread 2.5+ edge,spread,2019-22,324,167,157,5,0.5154,-5.7,-0.016,356.4,3,4,0.6399,,False,False,False,False,194.0,0.125,-13.75
+thresholds,spread 2.5+ edge,spread,2023-25,194,107,87,6,0.5515,11.3,0.053,213.4,2,3,0.2417,,False,False,False,False,194.0,0.125,-13.75
+thresholds,spread 2.5+ edge,spread,2015-25,821,439,382,15,0.5347,18.8,0.0208,903.1,8,11,0.2775,,False,False,False,False,194.0,0.125,-13.75
+thresholds,spread 2.5+ edge,spread,2026,10,5,5,0,0.5,-0.5,-0.0455,11.0,0,1,0.6801,,False,False,False,False,194.0,0.125,-13.75
+thresholds,spread 3+ edge,spread,2015-18,237,120,117,3,0.5063,-8.7,-0.0334,260.7,1,4,0.7272,,False,False,False,False,137.0,0.17,-9.96
+thresholds,spread 3+ edge,spread,2019-22,248,132,116,2,0.5323,4.4,0.0161,272.8,3,4,0.42,,False,False,False,False,137.0,0.17,-9.96
+thresholds,spread 3+ edge,spread,2023-25,137,79,58,3,0.5766,15.2,0.1009,150.7,2,3,0.1244,,False,False,False,False,137.0,0.17,-9.96
+thresholds,spread 3+ edge,spread,2015-25,622,331,291,8,0.5322,10.9,0.0159,684.2,6,11,0.3535,,False,False,False,False,137.0,0.17,-9.96
+thresholds,spread 3+ edge,spread,2026,6,2,4,0,0.3333,-2.4,-0.3636,6.6,0,1,0.9114,,False,False,False,False,137.0,0.17,-9.96
+thresholds,spread 3.5+ edge,spread,2015-18,168,88,80,3,0.5238,-0.0,-0.0,184.8,2,4,0.5313,,False,False,False,False,94.0,0.025,-5.46
+thresholds,spread 3.5+ edge,spread,2019-22,186,106,80,1,0.5699,18.0,0.088,204.6,3,4,0.1179,,False,False,False,False,94.0,0.025,-5.46
+thresholds,spread 3.5+ edge,spread,2023-25,94,57,37,2,0.6064,16.3,0.1576,103.4,2,3,0.0664,,False,False,False,False,94.0,0.025,-5.46
+thresholds,spread 3.5+ edge,spread,2015-25,448,251,197,6,0.5603,34.3,0.0696,492.8,7,11,0.0669,,False,False,False,False,94.0,0.025,-5.46
+thresholds,spread 3.5+ edge,spread,2026,4,1,3,0,0.25,-2.3,-0.5227,4.4,0,1,0.9486,,False,False,False,False,94.0,0.025,-5.46
+thresholds,spread 4.5+ edge,spread,2015-18,79,43,36,0,0.5443,3.4,0.0391,86.9,2,4,0.4012,,False,False,False,True,40.0,0.88,32.23
+thresholds,spread 4.5+ edge,spread,2019-22,89,52,37,0,0.5843,11.3,0.1154,97.9,3,4,0.1501,,False,False,False,True,40.0,0.88,32.23
+thresholds,spread 4.5+ edge,spread,2023-25,40,25,15,1,0.625,8.5,0.1932,44.0,3,3,0.1304,,False,False,False,True,40.0,0.88,32.23
+thresholds,spread 4.5+ edge,spread,2015-25,208,120,88,1,0.5769,23.2,0.1014,228.8,8,11,0.0713,,False,False,False,True,40.0,0.88,32.23
+thresholds,spread 4.5+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,True,40.0,0.88,32.23
+thresholds,spread 5+ edge,spread,2015-18,53,29,24,0,0.5472,2.6,0.0446,58.3,2,4,0.4205,,False,False,False,True,22.0,0.52,17.72
+thresholds,spread 5+ edge,spread,2019-22,65,37,28,0,0.5692,6.2,0.0867,71.5,3,4,0.2718,,False,False,False,True,22.0,0.52,17.72
+thresholds,spread 5+ edge,spread,2023-25,22,16,6,1,0.7273,9.4,0.3884,24.2,3,3,0.043,,False,False,False,True,22.0,0.52,17.72
+thresholds,spread 5+ edge,spread,2015-25,140,82,58,1,0.5857,18.2,0.1182,154.0,8,11,0.0832,,False,False,False,True,22.0,0.52,17.72
+thresholds,spread 5+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,True,22.0,0.52,17.72
+thresholds,spread 5.5+ edge,spread,2015-18,35,17,18,0,0.4857,-2.8,-0.0727,38.5,1,4,0.7328,,False,False,False,False,15.0,0.77,11.06
+thresholds,spread 5.5+ edge,spread,2019-22,44,24,20,0,0.5455,2.0,0.0413,48.4,3,4,0.4467,,False,False,False,False,15.0,0.77,11.06
+thresholds,spread 5.5+ edge,spread,2023-25,15,11,4,1,0.7333,6.6,0.4,16.5,3,3,0.0843,,False,False,False,False,15.0,0.77,11.06
+thresholds,spread 5.5+ edge,spread,2015-25,94,52,42,1,0.5532,5.8,0.0561,103.4,7,11,0.3208,,False,False,False,False,15.0,0.77,11.06
+thresholds,spread 5.5+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,15.0,0.77,11.06
+thresholds,spread 6+ edge,spread,2015-18,18,7,11,0,0.3889,-5.1,-0.2576,19.8,1,4,0.9168,,False,False,False,False,11.0,0.745,4.71
+thresholds,spread 6+ edge,spread,2019-22,27,15,12,0,0.5556,1.8,0.0606,29.7,1,4,0.4467,,False,False,False,False,11.0,0.745,4.71
+thresholds,spread 6+ edge,spread,2023-25,11,8,3,0,0.7273,4.7,0.3884,12.1,3,3,0.147,,False,False,False,False,11.0,0.745,4.71
+thresholds,spread 6+ edge,spread,2015-25,56,30,26,0,0.5357,1.4,0.0227,61.6,5,11,0.4831,,False,False,False,False,11.0,0.745,4.71
+thresholds,spread 6+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,11.0,0.745,4.71
+thresholds,spread 6.5+ edge,spread,2015-18,12,4,8,0,0.3333,-4.8,-0.3636,13.2,1,4,0.9474,,False,False,False,False,5.0,0.94,2.35
+thresholds,spread 6.5+ edge,spread,2019-22,16,7,9,0,0.4375,-2.9,-0.1648,17.6,0,4,0.8267,,False,False,False,False,5.0,0.94,2.35
+thresholds,spread 6.5+ edge,spread,2023-25,5,4,1,0,0.8,2.9,0.5273,5.5,2,2,0.2187,,False,False,False,False,5.0,0.94,2.35
+thresholds,spread 6.5+ edge,spread,2015-25,33,15,18,0,0.4545,-4.8,-0.1322,36.3,3,10,0.8342,,False,False,False,False,5.0,0.94,2.35
+thresholds,spread 6.5+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,5.0,0.94,2.35
+thresholds,spread 7+ edge,spread,2015-18,7,1,6,0,0.1429,-5.6,-0.7273,7.7,1,4,0.9944,,False,False,False,False,4.0,0.895,2.32
+thresholds,spread 7+ edge,spread,2019-22,10,5,5,0,0.5,-0.5,-0.0455,11.0,1,4,0.6801,,False,False,False,False,4.0,0.895,2.32
+thresholds,spread 7+ edge,spread,2023-25,4,4,0,0,1.0,4.0,0.9091,4.4,2,2,0.0753,,False,False,False,False,4.0,0.895,2.32
+thresholds,spread 7+ edge,spread,2015-25,21,10,11,0,0.4762,-2.1,-0.0909,23.1,4,10,0.744,,False,False,False,False,4.0,0.895,2.32
+thresholds,spread 7+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,4.0,0.895,2.32
+thresholds,spread 7.5+ edge,spread,2015-18,7,1,6,0,0.1429,-5.6,-0.7273,7.7,1,4,0.9944,,False,False,False,False,4.0,0.915,1.64
+thresholds,spread 7.5+ edge,spread,2019-22,9,4,5,0,0.4444,-1.5,-0.1515,9.9,1,4,0.7907,,False,False,False,False,4.0,0.915,1.64
+thresholds,spread 7.5+ edge,spread,2023-25,4,4,0,0,1.0,4.0,0.9091,4.4,2,2,0.0753,,False,False,False,False,4.0,0.915,1.64
+thresholds,spread 7.5+ edge,spread,2015-25,20,9,11,0,0.45,-3.1,-0.1409,22.0,4,10,0.8118,,False,False,False,False,4.0,0.915,1.64
+thresholds,spread 7.5+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,4.0,0.915,1.64
+thresholds,spread 8+ edge,spread,2015-18,3,1,2,0,0.3333,-1.2,-0.3636,3.3,1,3,0.892,,False,False,False,False,3.0,0.75,3.01
+thresholds,spread 8+ edge,spread,2019-22,8,4,4,0,0.5,-0.4,-0.0455,8.8,1,3,0.6874,,False,False,False,False,3.0,0.75,3.01
+thresholds,spread 8+ edge,spread,2023-25,3,3,0,0,1.0,3.0,0.9091,3.3,2,2,0.1437,,False,False,False,False,3.0,0.75,3.01
+thresholds,spread 8+ edge,spread,2015-25,14,8,6,0,0.5714,1.4,0.0909,15.4,4,8,0.4664,,False,False,False,False,3.0,0.75,3.01
+thresholds,spread 8+ edge,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,3.0,0.75,3.01
+thresholds,spread edge band 0-2,spread,2015-18,607,301,306,23,0.4959,-35.6,-0.0533,667.7,1,4,0.9219,,False,False,False,False,463.0,0.69,-46.69
+thresholds,spread edge band 0-2,spread,2019-22,578,302,276,18,0.5225,-1.6,-0.0025,635.8,2,4,0.5421,,False,False,False,False,463.0,0.69,-46.69
+thresholds,spread edge band 0-2,spread,2023-25,463,230,233,13,0.4968,-26.3,-0.0516,509.3,0,3,0.8872,,False,False,False,False,463.0,0.69,-46.69
+thresholds,spread edge band 0-2,spread,2015-25,1648,833,815,54,0.5055,-63.5,-0.035,1812.8,3,11,0.9352,,False,False,False,False,463.0,0.69,-46.69
+thresholds,spread edge band 0-2,spread,2026,32,15,17,3,0.4688,-3.7,-0.1051,35.2,0,1,0.7884,,False,False,False,False,463.0,0.69,-46.69
+thresholds,spread edge band 2-3,spread,2015-18,150,86,64,4,0.5733,15.6,0.0945,165.0,3,4,0.1286,,False,False,False,False,149.0,0.525,-13.35
+thresholds,spread edge band 2-3,spread,2019-22,174,89,85,3,0.5115,-4.5,-0.0235,191.4,1,4,0.6562,,False,False,False,False,149.0,0.525,-13.35
+thresholds,spread edge band 2-3,spread,2023-25,149,66,83,3,0.443,-25.3,-0.1544,163.9,0,3,0.9802,,False,False,False,False,149.0,0.525,-13.35
+thresholds,spread edge band 2-3,spread,2015-25,473,241,232,10,0.5095,-14.2,-0.0273,520.3,4,11,0.7482,,False,False,False,False,149.0,0.525,-13.35
+thresholds,spread edge band 2-3,spread,2026,7,4,3,0,0.5714,0.7,0.0909,7.7,1,1,0.552,,False,False,False,False,149.0,0.525,-13.35
+thresholds,spread edge band 3-4,spread,2015-18,114,52,62,3,0.4561,-16.2,-0.1292,125.4,2,4,0.9382,,False,False,False,False,76.0,0.97,-4.14
+thresholds,spread edge band 3-4,spread,2019-22,117,52,65,2,0.4444,-19.5,-0.1515,128.7,0,4,0.9649,,False,False,False,False,76.0,0.97,-4.14
+thresholds,spread edge band 3-4,spread,2023-25,76,39,37,2,0.5132,-1.7,-0.0203,83.6,2,3,0.6187,,False,False,False,False,76.0,0.97,-4.14
+thresholds,spread edge band 3-4,spread,2015-25,307,143,164,7,0.4658,-37.4,-0.1107,337.7,4,11,0.9817,,False,False,False,False,76.0,0.97,-4.14
+thresholds,spread edge band 3-4,spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,False,False,76.0,0.97,-4.14
+thresholds,spread edge band 4-5,spread,2015-18,70,39,31,0,0.5571,4.9,0.0636,77.0,2,4,0.3311,,False,False,True,True,39.0,0.465,29.73
+thresholds,spread edge band 4-5,spread,2019-22,66,43,23,0,0.6515,17.7,0.2438,72.6,3,4,0.0246,,False,False,True,True,39.0,0.465,29.73
+thresholds,spread edge band 4-5,spread,2023-25,39,24,15,0,0.6154,7.5,0.1748,42.9,3,3,0.1624,,False,False,True,True,39.0,0.465,29.73
+thresholds,spread edge band 4-5,spread,2015-25,175,106,69,0,0.6057,30.1,0.1564,192.5,8,11,0.0178,,False,False,True,True,39.0,0.465,29.73
+thresholds,spread edge band 4-5,spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,39.0,0.465,29.73
+thresholds,spread edge band 5-6,spread,2015-18,35,22,13,0,0.6286,7.7,0.2,38.5,2,4,0.1418,,False,False,True,True,11.0,0.295,12.49
+thresholds,spread edge band 5-6,spread,2019-22,38,22,16,0,0.5789,4.4,0.1053,41.8,2,4,0.3032,,False,False,True,True,11.0,0.295,12.49
+thresholds,spread edge band 5-6,spread,2023-25,11,8,3,1,0.7273,4.7,0.3884,12.1,2,3,0.147,,False,False,True,True,11.0,0.295,12.49
+thresholds,spread edge band 5-6,spread,2015-25,84,52,32,1,0.619,16.8,0.1818,92.4,6,11,0.0501,,False,False,True,True,11.0,0.295,12.49
+thresholds,spread edge band 5-6,spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,11.0,0.295,12.49
+thresholds,spread edge band 6+,spread,2015-18,18,7,11,0,0.3889,-5.1,-0.2576,19.8,1,4,0.9168,,False,False,False,False,11.0,0.79,5.95
+thresholds,spread edge band 6+,spread,2019-22,27,15,12,0,0.5556,1.8,0.0606,29.7,1,4,0.4467,,False,False,False,False,11.0,0.79,5.95
+thresholds,spread edge band 6+,spread,2023-25,11,8,3,0,0.7273,4.7,0.3884,12.1,3,3,0.147,,False,False,False,False,11.0,0.79,5.95
+thresholds,spread edge band 6+,spread,2015-25,56,30,26,0,0.5357,1.4,0.0227,61.6,5,11,0.4831,,False,False,False,False,11.0,0.79,5.95
+thresholds,spread edge band 6+,spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,11.0,0.79,5.95
+thresholds,spread edge band 4-6,spread,2015-18,105,61,44,0,0.581,12.6,0.1091,115.5,2,4,0.1412,,False,False,True,True,50.0,0.36,43.31
+thresholds,spread edge band 4-6,spread,2019-22,104,65,39,0,0.625,22.1,0.1932,114.4,3,4,0.024,,False,False,True,True,50.0,0.36,43.31
+thresholds,spread edge band 4-6,spread,2023-25,50,32,18,1,0.64,12.2,0.2218,55.0,3,3,0.0656,,False,False,True,True,50.0,0.36,43.31
+thresholds,spread edge band 4-6,spread,2015-25,259,158,101,1,0.61,46.9,0.1646,284.9,8,11,0.0032,,False,False,True,True,50.0,0.36,43.31
+thresholds,spread edge band 4-6,spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,50.0,0.36,43.31
+timing,"4+ edge, weeks 1-4",spread,2015-18,35,23,12,0,0.6571,9.8,0.2545,38.5,2,4,0.0784,,False,True,True,True,24.0,0.01,11.39
+timing,"4+ edge, weeks 1-4",spread,2019-22,31,19,12,0,0.6129,5.8,0.1701,34.1,3,4,0.2085,,False,True,True,True,24.0,0.01,11.39
+timing,"4+ edge, weeks 1-4",spread,2023-25,24,19,5,0,0.7917,13.5,0.5114,26.4,2,3,0.0064,,False,True,True,True,24.0,0.01,11.39
+timing,"4+ edge, weeks 1-4",spread,2015-25,90,61,29,0,0.6778,29.1,0.2939,99.0,7,11,0.0022,,False,True,True,True,24.0,0.01,11.39
+timing,"4+ edge, weeks 1-4",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,24.0,0.01,11.39
+timing,"4+ edge, weeks 5-8",spread,2015-18,32,19,13,0,0.5938,4.7,0.1335,35.2,3,4,0.2702,,False,False,False,False,10.0,0.66,11.5
+timing,"4+ edge, weeks 5-8",spread,2019-22,33,22,11,0,0.6667,9.9,0.2727,36.3,3,4,0.0699,,False,False,False,False,10.0,0.66,11.5
+timing,"4+ edge, weeks 5-8",spread,2023-25,10,2,8,1,0.2,-6.8,-0.6182,11.0,0,3,0.9928,,False,False,False,False,10.0,0.66,11.5
+timing,"4+ edge, weeks 5-8",spread,2015-25,75,43,32,1,0.5733,7.8,0.0945,82.5,6,11,0.2291,,False,False,False,False,10.0,0.66,11.5
+timing,"4+ edge, weeks 5-8",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,10.0,0.66,11.5
+timing,"4+ edge, weeks 9-13",spread,2015-18,28,12,16,0,0.4286,-5.6,-0.1818,30.8,0,4,0.8846,,False,False,True,False,15.0,0.515,13.84
+timing,"4+ edge, weeks 9-13",spread,2019-22,41,27,14,0,0.6585,11.6,0.2572,45.1,3,4,0.0571,,False,False,True,False,15.0,0.515,13.84
+timing,"4+ edge, weeks 9-13",spread,2023-25,15,12,3,0,0.8,8.7,0.5273,16.5,3,3,0.0272,,False,False,True,False,15.0,0.515,13.84
+timing,"4+ edge, weeks 9-13",spread,2015-25,84,51,33,0,0.6071,14.7,0.1591,92.4,6,11,0.0773,,False,False,True,False,15.0,0.515,13.84
+timing,"4+ edge, weeks 9-13",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,15.0,0.515,13.84
+timing,"4+ edge, weeks 14-17",spread,2015-18,28,14,14,0,0.5,-1.4,-0.0455,30.8,2,4,0.671,,False,False,False,False,12.0,0.955,7.99
+timing,"4+ edge, weeks 14-17",spread,2019-22,26,12,14,0,0.4615,-3.4,-0.1189,28.6,2,4,0.7973,,False,False,False,False,12.0,0.955,7.99
+timing,"4+ edge, weeks 14-17",spread,2023-25,12,7,5,0,0.5833,1.5,0.1136,13.2,1,3,0.4529,,False,False,False,False,12.0,0.955,7.99
+timing,"4+ edge, weeks 14-17",spread,2015-25,66,33,33,0,0.5,-3.3,-0.0455,72.6,5,11,0.6955,,False,False,False,False,12.0,0.955,7.99
+timing,"4+ edge, weeks 14-17",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,12.0,0.955,7.99
+timing,"4+ edge, weeks 18-18",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,0.86,1.53
+timing,"4+ edge, weeks 18-18",spread,2019-22,6,3,3,0,0.5,-0.3,-0.0455,6.6,1,2,0.6998,,False,False,False,False,0.0,0.86,1.53
+timing,"4+ edge, weeks 18-18",spread,2023-25,9,4,5,0,0.4444,-1.5,-0.1515,9.9,1,3,0.7907,,False,False,False,False,0.0,0.86,1.53
+timing,"4+ edge, weeks 18-18",spread,2015-25,15,7,8,0,0.4667,-1.8,-0.1091,16.5,2,5,0.7585,,False,False,False,False,0.0,0.86,1.53
+timing,"4+ edge, weeks 18-18",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,0.86,1.53
+timing,"4+ edge, last bet week 10",spread,2015-18,77,48,29,0,0.6234,16.1,0.1901,84.7,2,4,0.0504,,False,True,True,True,42.0,0.0,32.0
+timing,"4+ edge, last bet week 10",spread,2019-22,83,57,26,0,0.6867,28.4,0.3111,91.3,3,4,0.0019,,False,True,True,True,42.0,0.0,32.0
+timing,"4+ edge, last bet week 10",spread,2023-25,42,28,14,1,0.6667,12.6,0.2727,46.2,3,3,0.0436,,False,True,True,True,42.0,0.0,32.0
+timing,"4+ edge, last bet week 10",spread,2015-25,202,133,69,1,0.6584,57.1,0.257,222.2,8,11,0.0001,,False,True,True,True,42.0,0.0,32.0
+timing,"4+ edge, last bet week 10",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,42.0,0.0,32.0
+timing,"4+ edge, last bet week 11",spread,2015-18,82,51,31,0,0.622,16.9,0.1874,90.2,2,4,0.047,,False,True,True,True,47.0,0.005,34.74
+timing,"4+ edge, last bet week 11",spread,2019-22,92,62,30,0,0.6739,29.0,0.2866,101.2,3,4,0.0025,,False,True,True,True,47.0,0.005,34.74
+timing,"4+ edge, last bet week 11",spread,2023-25,47,31,16,1,0.6596,13.4,0.2592,51.7,3,3,0.042,,False,True,True,True,47.0,0.005,34.74
+timing,"4+ edge, last bet week 11",spread,2015-25,221,144,77,1,0.6516,59.3,0.2439,243.1,8,11,0.0001,,False,True,True,True,47.0,0.005,34.74
+timing,"4+ edge, last bet week 11",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,47.0,0.005,34.74
+timing,"4+ edge, last bet week 12",spread,2015-18,91,53,38,0,0.5824,11.2,0.1119,100.1,2,4,0.1552,,False,True,True,True,48.0,0.02,37.55
+timing,"4+ edge, last bet week 12",spread,2019-22,99,65,34,0,0.6566,27.6,0.2534,108.9,3,4,0.0052,,False,True,True,True,48.0,0.02,37.55
+timing,"4+ edge, last bet week 12",spread,2023-25,48,32,16,1,0.6667,14.4,0.2727,52.8,3,3,0.0321,,False,True,True,True,48.0,0.02,37.55
+timing,"4+ edge, last bet week 12",spread,2015-25,238,150,88,1,0.6303,53.2,0.2032,261.8,8,11,0.0006,,False,True,True,True,48.0,0.02,37.55
+timing,"4+ edge, last bet week 12",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,48.0,0.02,37.55
+timing,"4+ edge, last bet week 13",spread,2015-18,95,54,41,0,0.5684,8.9,0.0852,104.5,2,4,0.2216,,False,True,True,True,49.0,0.065,38.96
+timing,"4+ edge, last bet week 13",spread,2019-22,105,68,37,0,0.6476,27.3,0.2364,115.5,3,4,0.0069,,False,True,True,True,49.0,0.065,38.96
+timing,"4+ edge, last bet week 13",spread,2023-25,49,33,16,1,0.6735,15.4,0.2857,53.9,3,3,0.0244,,False,True,True,True,49.0,0.065,38.96
+timing,"4+ edge, last bet week 13",spread,2015-25,249,155,94,1,0.6225,51.6,0.1884,273.9,8,11,0.0011,,False,True,True,True,49.0,0.065,38.96
+timing,"4+ edge, last bet week 13",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,49.0,0.065,38.96
+timing,"4+ edge, last bet week 14",spread,2015-18,99,56,43,0,0.5657,8.7,0.0799,108.9,2,4,0.2321,,False,True,True,True,49.0,0.055,39.48
+timing,"4+ edge, last bet week 14",spread,2019-22,112,71,41,0,0.6339,25.9,0.2102,123.2,3,4,0.0122,,False,True,True,True,49.0,0.055,39.48
+timing,"4+ edge, last bet week 14",spread,2023-25,49,33,16,1,0.6735,15.4,0.2857,53.9,3,3,0.0244,,False,True,True,True,49.0,0.055,39.48
+timing,"4+ edge, last bet week 14",spread,2015-25,260,160,100,1,0.6154,50.0,0.1748,286.0,8,11,0.0018,,False,True,True,True,49.0,0.055,39.48
+timing,"4+ edge, last bet week 14",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,49.0,0.055,39.48
+timing,"4+ edge, last bet week 15",spread,2015-18,105,59,46,0,0.5619,8.4,0.0727,115.5,2,4,0.2474,,True,True,True,True,52.0,0.035,41.2
+timing,"4+ edge, last bet week 15",spread,2019-22,115,73,42,0,0.6348,26.8,0.2119,126.5,3,4,0.0106,,True,True,True,True,52.0,0.035,41.2
+timing,"4+ edge, last bet week 15",spread,2023-25,52,36,16,1,0.6923,18.4,0.3217,57.2,3,3,0.0102,,True,True,True,True,52.0,0.035,41.2
+timing,"4+ edge, last bet week 15",spread,2015-25,272,168,104,1,0.6176,53.6,0.1791,299.2,8,11,0.0011,,True,True,True,True,52.0,0.035,41.2
+timing,"4+ edge, last bet week 15",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,True,True,True,True,52.0,0.035,41.2
+timing,"4+ edge, last bet week 16",spread,2015-18,109,61,48,0,0.5596,8.2,0.0684,119.9,2,4,0.2573,,False,False,True,True,58.0,0.33,45.54
+timing,"4+ edge, last bet week 16",spread,2019-22,123,76,47,0,0.6179,24.3,0.1796,135.3,3,4,0.0224,,False,False,True,True,58.0,0.33,45.54
+timing,"4+ edge, last bet week 16",spread,2023-25,58,38,20,1,0.6552,16.0,0.2508,63.8,3,3,0.0298,,False,False,True,True,58.0,0.33,45.54
+timing,"4+ edge, last bet week 16",spread,2015-25,290,175,115,1,0.6034,48.5,0.152,319.0,8,11,0.0038,,False,False,True,True,58.0,0.33,45.54
+timing,"4+ edge, last bet week 16",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,58.0,0.33,45.54
+timing,"4+ edge, last bet week 18",spread,2015-18,123,68,55,0,0.5528,7.5,0.0554,135.3,2,4,0.29,,False,False,False,True,70.0,1.0,46.5
+timing,"4+ edge, last bet week 18",spread,2019-22,137,83,54,0,0.6058,23.6,0.1566,150.7,3,4,0.0327,,False,False,False,True,70.0,1.0,46.5
+timing,"4+ edge, last bet week 18",spread,2023-25,70,44,26,1,0.6286,15.4,0.2,77.0,3,3,0.0503,,False,False,False,True,70.0,1.0,46.5
+timing,"4+ edge, last bet week 18",spread,2015-25,330,195,135,1,0.5909,46.5,0.1281,363.0,8,11,0.0084,,False,False,False,True,70.0,1.0,46.5
+timing,"4+ edge, last bet week 18",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,False,True,70.0,1.0,46.5
+timing,"4+ edge, skip weeks 1-2",spread,2015-18,106,58,48,0,0.5472,5.2,0.0446,116.6,2,4,0.351,,False,False,False,True,46.0,0.96,39.66
+timing,"4+ edge, skip weeks 1-2",spread,2019-22,112,68,44,0,0.6071,19.6,0.1591,123.2,3,4,0.0468,,False,False,False,True,46.0,0.96,39.66
+timing,"4+ edge, skip weeks 1-2",spread,2023-25,46,27,19,1,0.587,6.1,0.1206,50.6,2,3,0.2395,,False,False,False,True,46.0,0.96,39.66
+timing,"4+ edge, skip weeks 1-2",spread,2015-25,264,153,111,1,0.5795,30.9,0.1064,290.4,7,11,0.0396,,False,False,False,True,46.0,0.96,39.66
+timing,"4+ edge, skip weeks 1-2",spread,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,False,True,46.0,0.96,39.66
+timing,"4+ edge, skip weeks 1-3",spread,2015-18,95,49,46,0,0.5158,-1.6,-0.0153,104.5,2,4,0.6028,,False,False,False,False,42.0,0.94,38.14
+timing,"4+ edge, skip weeks 1-3",spread,2019-22,105,64,41,0,0.6095,18.9,0.1636,115.5,3,4,0.0479,,False,False,False,False,42.0,0.94,38.14
+timing,"4+ edge, skip weeks 1-3",spread,2023-25,42,26,16,1,0.619,8.4,0.1818,46.2,2,3,0.1396,,False,False,False,False,42.0,0.94,38.14
+timing,"4+ edge, skip weeks 1-3",spread,2015-25,242,139,103,1,0.5744,25.7,0.0965,266.2,7,11,0.0652,,False,False,False,False,42.0,0.94,38.14
+timing,"4+ edge, skip weeks 1-3",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,42.0,0.94,38.14
+timing,"weeks 1-3 need 5+, else 4+",spread,2015-18,106,56,50,0,0.5283,1.0,0.0086,116.6,2,4,0.5025,,False,False,False,True,50.0,0.93,42.83
+timing,"weeks 1-3 need 5+, else 4+",spread,2019-22,123,75,48,0,0.6098,22.2,0.1641,135.3,3,4,0.034,,False,False,False,True,50.0,0.93,42.83
+timing,"weeks 1-3 need 5+, else 4+",spread,2023-25,50,32,18,1,0.64,12.2,0.2218,55.0,3,3,0.0656,,False,False,False,True,50.0,0.93,42.83
+timing,"weeks 1-3 need 5+, else 4+",spread,2015-25,279,163,116,1,0.5842,35.4,0.1153,306.9,8,11,0.0247,,False,False,False,True,50.0,0.93,42.83
+timing,"weeks 1-3 need 5+, else 4+",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,True,50.0,0.93,42.83
+timing,"weeks 1-3 need 6+, else 4+",spread,2015-18,96,49,47,0,0.5104,-2.7,-0.0256,105.6,2,4,0.6428,,False,False,False,False,47.0,0.925,38.81
+timing,"weeks 1-3 need 6+, else 4+",spread,2019-22,113,69,44,0,0.6106,20.6,0.1657,124.3,3,4,0.0393,,False,False,False,False,47.0,0.925,38.81
+timing,"weeks 1-3 need 6+, else 4+",spread,2023-25,47,30,17,1,0.6383,11.3,0.2186,51.7,3,3,0.0763,,False,False,False,False,47.0,0.925,38.81
+timing,"weeks 1-3 need 6+, else 4+",spread,2015-25,256,148,108,1,0.5781,29.2,0.1037,281.6,8,11,0.0464,,False,False,False,False,47.0,0.925,38.81
+timing,"weeks 1-3 need 6+, else 4+",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,47.0,0.925,38.81
+timing,"4+ edge, weeks 1-13 (the early shadow)",spread,2015-18,95,54,41,0,0.5684,8.9,0.0852,104.5,2,4,0.2216,,False,True,True,True,49.0,0.055,38.35
+timing,"4+ edge, weeks 1-13 (the early shadow)",spread,2019-22,105,68,37,0,0.6476,27.3,0.2364,115.5,3,4,0.0069,,False,True,True,True,49.0,0.055,38.35
+timing,"4+ edge, weeks 1-13 (the early shadow)",spread,2023-25,49,33,16,1,0.6735,15.4,0.2857,53.9,3,3,0.0244,,False,True,True,True,49.0,0.055,38.35
+timing,"4+ edge, weeks 1-13 (the early shadow)",spread,2015-25,249,155,94,1,0.6225,51.6,0.1884,273.9,8,11,0.0011,,False,True,True,True,49.0,0.055,38.35
+timing,"4+ edge, weeks 1-13 (the early shadow)",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,49.0,0.055,38.35
+kinds of game,"4+ edge, division game",spread,2015-18,55,29,26,0,0.5273,0.4,0.0066,60.5,1,4,0.5341,,False,False,False,True,16.0,0.64,16.21
+kinds of game,"4+ edge, division game",spread,2019-22,48,28,20,0,0.5833,6.0,0.1136,52.8,3,4,0.2485,,False,False,False,True,16.0,0.64,16.21
+kinds of game,"4+ edge, division game",spread,2023-25,16,12,4,0,0.75,7.6,0.4318,17.6,3,3,0.0571,,False,False,False,True,16.0,0.64,16.21
+kinds of game,"4+ edge, division game",spread,2015-25,119,69,50,0,0.5798,14.0,0.107,130.9,7,11,0.1287,,False,False,False,True,16.0,0.64,16.21
+kinds of game,"4+ edge, division game",spread,2026,2,0,2,0,0.0,-2.2,-1.0,2.2,0,1,1.0,,False,False,False,True,16.0,0.64,16.21
+kinds of game,"4+ edge, non-division game",spread,2015-18,68,39,29,0,0.5735,7.1,0.0949,74.8,2,4,0.2426,,False,False,True,True,45.0,0.485,33.15
+kinds of game,"4+ edge, non-division game",spread,2019-22,83,52,31,0,0.6265,17.9,0.1961,91.3,3,4,0.0383,,False,False,True,True,45.0,0.485,33.15
+kinds of game,"4+ edge, non-division game",spread,2023-25,45,28,17,1,0.6222,9.3,0.1879,49.5,3,3,0.1201,,False,False,True,True,45.0,0.485,33.15
+kinds of game,"4+ edge, non-division game",spread,2015-25,196,119,77,1,0.6071,34.3,0.1591,215.6,8,11,0.0115,,False,False,True,True,45.0,0.485,33.15
+kinds of game,"4+ edge, non-division game",spread,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,True,True,45.0,0.485,33.15
+kinds of game,"4+ edge, primetime",spread,2015-18,30,17,13,0,0.5667,2.7,0.0818,33.0,2,4,0.3883,,False,False,False,False,13.0,0.765,8.66
+kinds of game,"4+ edge, primetime",spread,2019-22,24,12,12,0,0.5,-1.2,-0.0455,26.4,3,4,0.6698,,False,False,False,False,13.0,0.765,8.66
+kinds of game,"4+ edge, primetime",spread,2023-25,13,8,5,0,0.6154,2.5,0.1748,14.3,2,3,0.353,,False,False,False,False,13.0,0.765,8.66
+kinds of game,"4+ edge, primetime",spread,2015-25,67,37,30,0,0.5522,4.0,0.0543,73.7,7,11,0.3664,,False,False,False,False,13.0,0.765,8.66
+kinds of game,"4+ edge, primetime",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,13.0,0.765,8.66
+kinds of game,"4+ edge, not primetime",spread,2015-18,93,51,42,0,0.5484,4.8,0.0469,102.3,2,4,0.356,,False,False,True,True,48.0,0.315,39.9
+kinds of game,"4+ edge, not primetime",spread,2019-22,107,68,39,0,0.6355,25.1,0.2133,117.7,3,4,0.0129,,False,False,True,True,48.0,0.315,39.9
+kinds of game,"4+ edge, not primetime",spread,2023-25,48,32,16,1,0.6667,14.4,0.2727,52.8,3,3,0.0321,,False,False,True,True,48.0,0.315,39.9
+kinds of game,"4+ edge, not primetime",spread,2015-25,248,151,97,1,0.6089,44.3,0.1624,272.8,8,11,0.0043,,False,False,True,True,48.0,0.315,39.9
+kinds of game,"4+ edge, not primetime",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,48.0,0.315,39.9
+kinds of game,"4+ edge, Thursday night",spread,2015-18,8,5,3,0,0.625,1.7,0.1932,8.8,2,4,0.4165,,False,False,False,False,4.0,0.705,1.67
+kinds of game,"4+ edge, Thursday night",spread,2019-22,8,4,4,0,0.5,-0.4,-0.0455,8.8,1,4,0.6874,,False,False,False,False,4.0,0.705,1.67
+kinds of game,"4+ edge, Thursday night",spread,2023-25,4,2,2,0,0.5,-0.2,-0.0455,4.4,1,2,0.7223,,False,False,False,False,4.0,0.705,1.67
+kinds of game,"4+ edge, Thursday night",spread,2015-25,20,11,9,0,0.55,1.1,0.05,22.0,4,10,0.4972,,False,False,False,False,4.0,0.705,1.67
+kinds of game,"4+ edge, Thursday night",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,4.0,0.705,1.67
+kinds of game,"4+ edge, Sunday night",spread,2015-18,10,6,4,0,0.6,1.6,0.1455,11.0,1,3,0.4368,,False,False,True,True,4.0,0.29,2.64
+kinds of game,"4+ edge, Sunday night",spread,2019-22,7,4,3,0,0.5714,0.7,0.0909,7.7,1,4,0.552,,False,False,True,True,4.0,0.29,2.64
+kinds of game,"4+ edge, Sunday night",spread,2023-25,4,4,0,0,1.0,4.0,0.9091,4.4,3,3,0.0753,,False,False,True,True,4.0,0.29,2.64
+kinds of game,"4+ edge, Sunday night",spread,2015-25,21,14,7,0,0.6667,6.3,0.2727,23.1,5,10,0.1371,,False,False,True,True,4.0,0.29,2.64
+kinds of game,"4+ edge, Sunday night",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,4.0,0.29,2.64
+kinds of game,"4+ edge, Monday night",spread,2015-18,12,6,6,0,0.5,-0.6,-0.0455,13.2,2,4,0.6755,,False,False,False,False,5.0,0.945,4.44
+kinds of game,"4+ edge, Monday night",spread,2019-22,9,4,5,0,0.4444,-1.5,-0.1515,9.9,1,3,0.7907,,False,False,False,False,5.0,0.945,4.44
+kinds of game,"4+ edge, Monday night",spread,2023-25,5,2,3,0,0.4,-1.3,-0.2364,5.5,1,3,0.8408,,False,False,False,False,5.0,0.945,4.44
+kinds of game,"4+ edge, Monday night",spread,2015-25,26,12,14,0,0.4615,-3.4,-0.1189,28.6,4,10,0.7973,,False,False,False,False,5.0,0.945,4.44
+kinds of game,"4+ edge, Monday night",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,5.0,0.945,4.44
+kinds of game,"4+ edge, Sunday early (1pm ET)",spread,2015-18,59,32,27,0,0.5424,2.3,0.0354,64.9,2,4,0.4392,,False,False,True,True,36.0,0.38,27.77
+kinds of game,"4+ edge, Sunday early (1pm ET)",spread,2019-22,71,48,23,0,0.6761,22.7,0.2907,78.1,3,4,0.0067,,False,False,True,True,36.0,0.38,27.77
+kinds of game,"4+ edge, Sunday early (1pm ET)",spread,2023-25,36,22,14,1,0.6111,6.6,0.1667,39.6,1,3,0.1892,,False,False,True,True,36.0,0.38,27.77
+kinds of game,"4+ edge, Sunday early (1pm ET)",spread,2015-25,166,102,64,1,0.6145,31.6,0.1731,182.6,6,11,0.0116,,False,False,True,True,36.0,0.38,27.77
+kinds of game,"4+ edge, Sunday early (1pm ET)",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,36.0,0.38,27.77
+kinds of game,"4+ edge, Sunday late (4pm ET)",spread,2015-18,33,18,15,0,0.5455,1.5,0.0413,36.3,2,4,0.4714,,False,False,True,True,9.0,0.48,11.0
+kinds of game,"4+ edge, Sunday late (4pm ET)",spread,2019-22,33,19,14,0,0.5758,3.6,0.0992,36.3,2,4,0.3372,,False,False,True,True,9.0,0.48,11.0
+kinds of game,"4+ edge, Sunday late (4pm ET)",spread,2023-25,9,8,1,0,0.8889,6.9,0.697,9.9,3,3,0.0273,,False,False,True,True,9.0,0.48,11.0
+kinds of game,"4+ edge, Sunday late (4pm ET)",spread,2015-25,75,45,30,0,0.6,12.0,0.1455,82.5,7,11,0.1137,,False,False,True,True,9.0,0.48,11.0
+kinds of game,"4+ edge, Sunday late (4pm ET)",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,9.0,0.48,11.0
+kinds of game,"4+ edge, dome or closed roof",spread,2015-18,34,19,15,0,0.5588,2.5,0.0668,37.4,2,4,0.4075,,False,False,True,True,20.0,0.53,12.9
+kinds of game,"4+ edge, dome or closed roof",spread,2019-22,31,20,11,0,0.6452,7.9,0.2317,34.1,4,4,0.12,,False,False,True,True,20.0,0.53,12.9
+kinds of game,"4+ edge, dome or closed roof",spread,2023-25,20,12,8,0,0.6,3.2,0.1455,22.0,2,3,0.325,,False,False,True,True,20.0,0.53,12.9
+kinds of game,"4+ edge, dome or closed roof",spread,2015-25,85,51,34,0,0.6,13.6,0.1455,93.5,8,11,0.0968,,False,False,True,True,20.0,0.53,12.9
+kinds of game,"4+ edge, dome or closed roof",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,True,True,20.0,0.53,12.9
+kinds of game,"4+ edge, outdoor or open roof",spread,2015-18,89,49,40,0,0.5506,5.0,0.0511,97.9,2,4,0.3455,,False,False,False,True,41.0,0.615,36.42
+kinds of game,"4+ edge, outdoor or open roof",spread,2019-22,100,60,40,0,0.6,16.0,0.1455,110.0,3,4,0.0766,,False,False,False,True,41.0,0.615,36.42
+kinds of game,"4+ edge, outdoor or open roof",spread,2023-25,41,28,13,1,0.6829,13.7,0.3038,45.1,3,3,0.0287,,False,False,False,True,41.0,0.615,36.42
+kinds of game,"4+ edge, outdoor or open roof",spread,2015-25,230,137,93,1,0.5957,34.7,0.1372,253.0,8,11,0.0169,,False,False,False,True,41.0,0.615,36.42
+kinds of game,"4+ edge, outdoor or open roof",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,False,True,41.0,0.615,36.42
+kinds of game,"4+ edge, a team on short rest (<=5 days)",spread,2015-18,8,5,3,0,0.625,1.7,0.1932,8.8,2,4,0.4165,,False,False,False,False,4.0,0.65,1.73
+kinds of game,"4+ edge, a team on short rest (<=5 days)",spread,2019-22,8,4,4,0,0.5,-0.4,-0.0455,8.8,1,4,0.6874,,False,False,False,False,4.0,0.65,1.73
+kinds of game,"4+ edge, a team on short rest (<=5 days)",spread,2023-25,4,2,2,0,0.5,-0.2,-0.0455,4.4,1,2,0.7223,,False,False,False,False,4.0,0.65,1.73
+kinds of game,"4+ edge, a team on short rest (<=5 days)",spread,2015-25,20,11,9,0,0.55,1.1,0.05,22.0,4,10,0.4972,,False,False,False,False,4.0,0.65,1.73
+kinds of game,"4+ edge, a team on short rest (<=5 days)",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,4.0,0.65,1.73
+kinds of game,"4+ edge, no team on short rest",spread,2015-18,115,63,52,0,0.5478,5.8,0.0458,126.5,2,4,0.3369,,False,False,True,True,57.0,0.46,45.75
+kinds of game,"4+ edge, no team on short rest",spread,2019-22,123,76,47,0,0.6179,24.3,0.1796,135.3,3,4,0.0224,,False,False,True,True,57.0,0.46,45.75
+kinds of game,"4+ edge, no team on short rest",spread,2023-25,57,38,19,1,0.6667,17.1,0.2727,62.7,3,3,0.0205,,False,False,True,True,57.0,0.46,45.75
+kinds of game,"4+ edge, no team on short rest",spread,2015-25,295,177,118,1,0.6,47.2,0.1455,324.5,8,11,0.0051,,False,False,True,True,57.0,0.46,45.75
+kinds of game,"4+ edge, no team on short rest",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,57.0,0.46,45.75
+kinds of game,"4+ edge, our side off a bye (rest >= 12)",spread,2015-18,6,3,3,0,0.5,-0.3,-0.0455,6.6,2,4,0.6998,,False,False,True,False,1.0,0.11,2.07
+kinds of game,"4+ edge, our side off a bye (rest >= 12)",spread,2019-22,9,8,1,0,0.8889,6.9,0.697,9.9,3,4,0.0273,,False,False,True,False,1.0,0.11,2.07
+kinds of game,"4+ edge, our side off a bye (rest >= 12)",spread,2023-25,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,True,False,1.0,0.11,2.07
+kinds of game,"4+ edge, our side off a bye (rest >= 12)",spread,2015-25,16,12,4,0,0.75,7.6,0.4318,17.6,6,9,0.0571,,False,False,True,False,1.0,0.11,2.07
+kinds of game,"4+ edge, our side off a bye (rest >= 12)",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,1.0,0.11,2.07
+kinds of game,"4+ edge, opponent off a bye",spread,2015-18,15,7,8,0,0.4667,-1.8,-0.1091,16.5,1,4,0.7585,,False,False,True,False,5.0,0.23,4.11
+kinds of game,"4+ edge, opponent off a bye",spread,2019-22,11,9,2,0,0.8182,6.8,0.562,12.1,3,4,0.046,,False,False,True,False,5.0,0.23,4.11
+kinds of game,"4+ edge, opponent off a bye",spread,2023-25,5,4,1,1,0.8,2.9,0.5273,5.5,3,3,0.2187,,False,False,True,False,5.0,0.23,4.11
+kinds of game,"4+ edge, opponent off a bye",spread,2015-25,31,20,11,1,0.6452,7.9,0.2317,34.1,7,11,0.12,,False,False,True,False,5.0,0.23,4.11
+kinds of game,"4+ edge, opponent off a bye",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,5.0,0.23,4.11
+kinds of game,"4+ edge, our side 3+ more days rest",spread,2015-18,9,8,1,0,0.8889,6.9,0.697,9.9,2,2,0.0273,,False,False,True,False,0.0,0.09,3.37
+kinds of game,"4+ edge, our side 3+ more days rest",spread,2019-22,14,9,5,0,0.6429,3.5,0.2273,15.4,2,4,0.268,,False,False,True,False,0.0,0.09,3.37
+kinds of game,"4+ edge, our side 3+ more days rest",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.09,3.37
+kinds of game,"4+ edge, our side 3+ more days rest",spread,2015-25,23,17,6,0,0.7391,10.4,0.4111,25.3,4,6,0.0297,,False,False,True,False,0.0,0.09,3.37
+kinds of game,"4+ edge, our side 3+ more days rest",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.09,3.37
+kinds of game,"4+ edge, our side 3+ fewer days rest",spread,2015-18,21,11,10,0,0.5238,-0.0,-0.0,23.1,3,4,0.5874,,False,False,False,False,6.0,0.695,7.52
+kinds of game,"4+ edge, our side 3+ fewer days rest",spread,2019-22,14,9,5,0,0.6429,3.5,0.2273,15.4,2,4,0.268,,False,False,False,False,6.0,0.695,7.52
+kinds of game,"4+ edge, our side 3+ fewer days rest",spread,2023-25,6,4,2,1,0.6667,1.8,0.2727,6.6,2,3,0.3894,,False,False,False,False,6.0,0.695,7.52
+kinds of game,"4+ edge, our side 3+ fewer days rest",spread,2015-25,41,24,17,1,0.5854,5.3,0.1175,45.1,7,11,0.2642,,False,False,False,False,6.0,0.695,7.52
+kinds of game,"4+ edge, our side 3+ fewer days rest",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,6.0,0.695,7.52
+kinds of game,"4+ edge, equal rest",spread,2015-18,79,41,38,0,0.519,-0.8,-0.0092,86.9,2,4,0.5793,,False,False,False,False,44.0,0.93,30.56
+kinds of game,"4+ edge, equal rest",spread,2019-22,83,49,34,0,0.5904,11.6,0.1271,91.3,3,4,0.1346,,False,False,False,False,44.0,0.93,30.56
+kinds of game,"4+ edge, equal rest",spread,2023-25,44,27,17,0,0.6136,8.3,0.1715,48.4,2,3,0.1486,,False,False,False,False,44.0,0.93,30.56
+kinds of game,"4+ edge, equal rest",spread,2015-25,206,117,89,0,0.568,19.1,0.0843,226.6,7,11,0.1151,,False,False,False,False,44.0,0.93,30.56
+kinds of game,"4+ edge, equal rest",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,False,False,44.0,0.93,30.56
+kinds of game,"4+ edge, our side at home",spread,2015-18,72,30,42,0,0.4167,-16.2,-0.2045,79.2,1,4,0.9738,,False,False,False,False,39.0,1.0,29.58
+kinds of game,"4+ edge, our side at home",spread,2019-22,77,45,32,0,0.5844,9.8,0.1157,84.7,2,4,0.1709,,False,False,False,False,39.0,1.0,29.58
+kinds of game,"4+ edge, our side at home",spread,2023-25,39,25,14,1,0.641,9.6,0.2238,42.9,2,3,0.0952,,False,False,False,False,39.0,1.0,29.58
+kinds of game,"4+ edge, our side at home",spread,2015-25,188,100,88,1,0.5319,3.2,0.0155,206.8,5,11,0.4411,,False,False,False,False,39.0,1.0,29.58
+kinds of game,"4+ edge, our side at home",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,False,False,39.0,1.0,29.58
+kinds of game,"4+ edge, our side away",spread,2015-18,51,38,13,0,0.7451,23.7,0.4225,56.1,3,4,0.001,,False,True,True,True,22.0,0.0,19.56
+kinds of game,"4+ edge, our side away",spread,2019-22,54,35,19,0,0.6481,14.1,0.2374,59.4,3,4,0.0443,,False,True,True,True,22.0,0.0,19.56
+kinds of game,"4+ edge, our side away",spread,2023-25,22,15,7,0,0.6818,7.3,0.3017,24.2,3,3,0.1011,,False,True,True,True,22.0,0.0,19.56
+kinds of game,"4+ edge, our side away",spread,2015-25,127,88,39,0,0.6929,45.1,0.3228,139.7,9,11,0.0001,,False,True,True,True,22.0,0.0,19.56
+kinds of game,"4+ edge, our side away",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,True,True,True,22.0,0.0,19.56
+kinds of game,"4+ edge, big line |line| >= 7",spread,2015-18,41,22,19,0,0.5366,1.1,0.0244,45.1,2,4,0.498,,False,False,False,True,16.0,0.97,19.54
+kinds of game,"4+ edge, big line |line| >= 7",spread,2019-22,46,25,21,0,0.5435,1.9,0.0375,50.6,3,4,0.4535,,False,False,False,True,16.0,0.97,19.54
+kinds of game,"4+ edge, big line |line| >= 7",spread,2023-25,16,10,6,0,0.625,3.4,0.1932,17.6,2,3,0.2894,,False,False,False,True,16.0,0.97,19.54
+kinds of game,"4+ edge, big line |line| >= 7",spread,2015-25,103,57,46,0,0.5534,6.4,0.0565,113.3,7,11,0.3081,,False,False,False,True,16.0,0.97,19.54
+kinds of game,"4+ edge, big line |line| >= 7",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,True,16.0,0.97,19.54
+kinds of game,"4+ edge, small line |line| < 7",spread,2015-18,82,46,36,0,0.561,6.4,0.071,90.2,2,4,0.2872,,False,True,True,True,45.0,0.105,29.46
+kinds of game,"4+ edge, small line |line| < 7",spread,2019-22,85,55,30,0,0.6471,22.0,0.2353,93.5,3,4,0.0146,,False,True,True,True,45.0,0.105,29.46
+kinds of game,"4+ edge, small line |line| < 7",spread,2023-25,45,30,15,1,0.6667,13.5,0.2727,49.5,3,3,0.0374,,False,True,True,True,45.0,0.105,29.46
+kinds of game,"4+ edge, small line |line| < 7",spread,2015-25,212,131,81,1,0.6179,41.9,0.1797,233.2,8,11,0.0036,,False,True,True,True,45.0,0.105,29.46
+kinds of game,"4+ edge, small line |line| < 7",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,True,True,True,45.0,0.105,29.46
+kinds of game,"4+ edge, line within 3 (|line| <= 3)",spread,2015-18,41,27,14,0,0.6585,11.6,0.2572,45.1,3,4,0.0571,,False,False,True,True,28.0,0.14,16.47
+kinds of game,"4+ edge, line within 3 (|line| <= 3)",spread,2019-22,47,26,21,0,0.5532,2.9,0.0561,51.7,2,4,0.3995,,False,False,True,True,28.0,0.14,16.47
+kinds of game,"4+ edge, line within 3 (|line| <= 3)",spread,2023-25,28,20,8,1,0.7143,11.2,0.3636,30.8,3,3,0.0322,,False,False,True,True,28.0,0.14,16.47
+kinds of game,"4+ edge, line within 3 (|line| <= 3)",spread,2015-25,116,73,43,1,0.6293,25.7,0.2014,127.6,8,11,0.0141,,False,False,True,True,28.0,0.14,16.47
+kinds of game,"4+ edge, line within 3 (|line| <= 3)",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,28.0,0.14,16.47
+kinds of game,"4+ edge, line on 3 exactly",spread,2015-18,14,10,4,0,0.7143,5.6,0.3636,15.4,3,4,0.1225,,False,False,True,True,8.0,0.3,4.6
+kinds of game,"4+ edge, line on 3 exactly",spread,2019-22,18,10,8,0,0.5556,1.2,0.0606,19.8,1,4,0.4881,,False,False,True,True,8.0,0.3,4.6
+kinds of game,"4+ edge, line on 3 exactly",spread,2023-25,8,5,3,1,0.625,1.7,0.1932,8.8,2,3,0.4165,,False,False,True,True,8.0,0.3,4.6
+kinds of game,"4+ edge, line on 3 exactly",spread,2015-25,40,25,15,1,0.625,8.5,0.1932,44.0,6,11,0.1304,,False,False,True,True,8.0,0.3,4.6
+kinds of game,"4+ edge, line on 3 exactly",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,8.0,0.3,4.6
+kinds of game,"4+ edge, line on 7 exactly",spread,2015-18,4,3,1,0,0.75,1.9,0.4318,4.4,2,2,0.349,,False,False,False,False,2.0,0.93,3.99
+kinds of game,"4+ edge, line on 7 exactly",spread,2019-22,7,3,4,0,0.4286,-1.4,-0.1818,7.7,1,3,0.8106,,False,False,False,False,2.0,0.93,3.99
+kinds of game,"4+ edge, line on 7 exactly",spread,2023-25,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,False,False,2.0,0.93,3.99
+kinds of game,"4+ edge, line on 7 exactly",spread,2015-25,13,7,6,0,0.5385,0.4,0.028,14.3,4,7,0.5695,,False,False,False,False,2.0,0.93,3.99
+kinds of game,"4+ edge, line on 7 exactly",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,2.0,0.93,3.99
+kinds of game,"4+ edge, our number crosses 3",spread,2015-18,51,28,23,0,0.549,2.7,0.0481,56.1,2,4,0.4138,,False,False,True,True,31.0,0.595,26.33
+kinds of game,"4+ edge, our number crosses 3",spread,2019-22,62,42,20,0,0.6774,20.0,0.2933,68.2,4,4,0.0102,,False,False,True,True,31.0,0.595,26.33
+kinds of game,"4+ edge, our number crosses 3",spread,2023-25,31,17,14,0,0.5484,1.6,0.0469,34.1,2,3,0.4637,,False,False,True,True,31.0,0.595,26.33
+kinds of game,"4+ edge, our number crosses 3",spread,2015-25,144,87,57,0,0.6042,24.3,0.1534,158.4,8,11,0.0319,,False,False,True,True,31.0,0.595,26.33
+kinds of game,"4+ edge, our number crosses 3",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,True,True,31.0,0.595,26.33
+kinds of game,"4+ edge, our number crosses 7",spread,2015-18,44,24,20,0,0.5455,2.0,0.0413,48.4,2,4,0.4467,,False,False,False,True,14.0,0.835,13.9
+kinds of game,"4+ edge, our number crosses 7",spread,2019-22,35,19,16,0,0.5429,1.4,0.0364,38.5,3,4,0.4786,,False,False,False,True,14.0,0.835,13.9
+kinds of game,"4+ edge, our number crosses 7",spread,2023-25,14,9,5,0,0.6429,3.5,0.2273,15.4,3,3,0.268,,False,False,False,True,14.0,0.835,13.9
+kinds of game,"4+ edge, our number crosses 7",spread,2015-25,93,52,41,0,0.5591,6.9,0.0674,102.3,8,11,0.282,,False,False,False,True,14.0,0.835,13.9
+kinds of game,"4+ edge, our number crosses 7",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,True,14.0,0.835,13.9
+kinds of game,"4+ edge, crosses 3 or 7",spread,2015-18,87,47,40,0,0.5402,3.0,0.0313,95.7,2,4,0.4217,,False,False,False,True,41.0,0.505,31.61
+kinds of game,"4+ edge, crosses 3 or 7",spread,2019-22,89,57,32,0,0.6404,21.8,0.2227,97.9,3,4,0.0174,,False,False,False,True,41.0,0.505,31.61
+kinds of game,"4+ edge, crosses 3 or 7",spread,2023-25,41,25,16,0,0.6098,7.4,0.1641,45.1,3,3,0.1723,,False,False,False,True,41.0,0.505,31.61
+kinds of game,"4+ edge, crosses 3 or 7",spread,2015-25,217,129,88,0,0.5945,32.2,0.1349,238.7,8,11,0.0216,,False,False,False,True,41.0,0.505,31.61
+kinds of game,"4+ edge, crosses 3 or 7",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,True,41.0,0.505,31.61
+kinds of game,"4+ edge, crosses neither 3 nor 7",spread,2015-18,36,21,15,0,0.5833,4.5,0.1136,39.6,3,4,0.2927,,False,False,True,True,20.0,0.48,15.4
+kinds of game,"4+ edge, crosses neither 3 nor 7",spread,2019-22,42,23,19,0,0.5476,2.1,0.0455,46.2,2,4,0.4397,,False,False,True,True,20.0,0.48,15.4
+kinds of game,"4+ edge, crosses neither 3 nor 7",spread,2023-25,20,15,5,1,0.75,9.5,0.4318,22.0,3,3,0.0338,,False,False,True,True,20.0,0.48,15.4
+kinds of game,"4+ edge, crosses neither 3 nor 7",spread,2015-25,98,59,39,1,0.602,16.1,0.1494,107.8,8,11,0.0732,,False,False,True,True,20.0,0.48,15.4
+kinds of game,"4+ edge, crosses neither 3 nor 7",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,20.0,0.48,15.4
+kinds of game,"4+ edge, high total (>= 47)",spread,2015-18,34,18,16,0,0.5294,0.4,0.0107,37.4,2,4,0.5433,,False,False,False,True,18.0,0.955,21.15
+kinds of game,"4+ edge, high total (>= 47)",spread,2019-22,43,26,17,0,0.6047,7.3,0.1543,47.3,3,4,0.1819,,False,False,False,True,18.0,0.955,21.15
+kinds of game,"4+ edge, high total (>= 47)",spread,2023-25,18,10,8,0,0.5556,1.2,0.0606,19.8,2,3,0.4881,,False,False,False,True,18.0,0.955,21.15
+kinds of game,"4+ edge, high total (>= 47)",spread,2015-25,95,54,41,0,0.5684,8.9,0.0852,104.5,7,11,0.2216,,False,False,False,True,18.0,0.955,21.15
+kinds of game,"4+ edge, high total (>= 47)",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,True,18.0,0.955,21.15
+kinds of game,"4+ edge, low total (<= 40)",spread,2015-18,11,7,4,0,0.6364,2.6,0.2149,12.1,1,4,0.3305,,False,False,False,True,10.0,0.29,1.81
+kinds of game,"4+ edge, low total (<= 40)",spread,2019-22,16,9,7,0,0.5625,1.3,0.0739,17.6,2,4,0.478,,False,False,False,True,10.0,0.29,1.81
+kinds of game,"4+ edge, low total (<= 40)",spread,2023-25,10,6,4,1,0.6,1.6,0.1455,11.0,2,3,0.4368,,False,False,False,True,10.0,0.29,1.81
+kinds of game,"4+ edge, low total (<= 40)",spread,2015-25,37,22,15,1,0.5946,5.5,0.1351,40.7,5,11,0.2434,,False,False,False,True,10.0,0.29,1.81
+kinds of game,"4+ edge, low total (<= 40)",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,True,10.0,0.29,1.81
+kinds of game,"4+ edge, mid total (40.5-46.5)",spread,2015-18,78,43,35,0,0.5513,4.5,0.0524,85.8,2,4,0.3555,,False,False,True,True,33.0,0.17,24.69
+kinds of game,"4+ edge, mid total (40.5-46.5)",spread,2019-22,72,45,27,0,0.625,15.3,0.1932,79.2,3,4,0.054,,False,False,True,True,33.0,0.17,24.69
+kinds of game,"4+ edge, mid total (40.5-46.5)",spread,2023-25,33,24,9,0,0.7273,14.1,0.3884,36.3,3,3,0.014,,False,False,True,True,33.0,0.17,24.69
+kinds of game,"4+ edge, mid total (40.5-46.5)",spread,2015-25,183,112,71,0,0.612,33.9,0.1684,201.3,8,11,0.01,,False,False,True,True,33.0,0.17,24.69
+kinds of game,"4+ edge, mid total (40.5-46.5)",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,33.0,0.17,24.69
+favourite/dog,"3+ edge, our side the favourite",spread,2015-18,64,31,33,1,0.4844,-5.3,-0.0753,70.4,2,4,0.7755,,False,False,False,False,33.0,0.92,0.72
+favourite/dog,"3+ edge, our side the favourite",spread,2019-22,43,15,28,1,0.3488,-15.8,-0.334,47.3,0,4,0.9931,,False,False,False,False,33.0,0.92,0.72
+favourite/dog,"3+ edge, our side the favourite",spread,2023-25,33,20,13,1,0.6061,5.7,0.157,36.3,2,3,0.2207,,False,False,False,False,33.0,0.92,0.72
+favourite/dog,"3+ edge, our side the favourite",spread,2015-25,140,66,74,3,0.4714,-15.4,-0.1,154.0,4,11,0.9074,,False,False,False,False,33.0,0.92,0.72
+favourite/dog,"3+ edge, our side the favourite",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,33.0,0.92,0.72
+favourite/dog,"3+ edge, our side the underdog",spread,2015-18,172,88,84,2,0.5116,-4.4,-0.0233,189.2,2,4,0.6543,,False,False,False,False,104.0,0.07,9.23
+favourite/dog,"3+ edge, our side the underdog",spread,2019-22,205,117,88,1,0.5707,20.2,0.0896,225.5,3,4,0.1009,,False,False,False,False,104.0,0.07,9.23
+favourite/dog,"3+ edge, our side the underdog",spread,2023-25,104,59,45,2,0.5673,9.5,0.083,114.4,2,3,0.215,,False,False,False,False,104.0,0.07,9.23
+favourite/dog,"3+ edge, our side the underdog",spread,2015-25,481,264,217,5,0.5489,25.3,0.0478,529.1,7,11,0.1459,,False,False,False,False,104.0,0.07,9.23
+favourite/dog,"3+ edge, our side the underdog",spread,2026,5,2,3,0,0.4,-1.3,-0.2364,5.5,0,1,0.8408,,False,False,False,False,104.0,0.07,9.23
+favourite/dog,"3+ edge, pick'em",spread,2015-18,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,True,False,0.0,0.56,0.08
+favourite/dog,"3+ edge, pick'em",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.56,0.08
+favourite/dog,"3+ edge, pick'em",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.56,0.08
+favourite/dog,"3+ edge, pick'em",spread,2015-25,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,True,False,0.0,0.56,0.08
+favourite/dog,"3+ edge, pick'em",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.56,0.08
+favourite/dog,"3+ edge, underdog or pick'em (the dog shadow)",spread,2015-18,173,89,84,2,0.5145,-3.4,-0.0179,190.3,2,4,0.6269,,False,False,False,False,104.0,0.08,10.3
+favourite/dog,"3+ edge, underdog or pick'em (the dog shadow)",spread,2019-22,205,117,88,1,0.5707,20.2,0.0896,225.5,3,4,0.1009,,False,False,False,False,104.0,0.08,10.3
+favourite/dog,"3+ edge, underdog or pick'em (the dog shadow)",spread,2023-25,104,59,45,2,0.5673,9.5,0.083,114.4,2,3,0.215,,False,False,False,False,104.0,0.08,10.3
+favourite/dog,"3+ edge, underdog or pick'em (the dog shadow)",spread,2015-25,482,265,217,5,0.5498,26.3,0.0496,530.2,7,11,0.1364,,False,False,False,False,104.0,0.08,10.3
+favourite/dog,"3+ edge, underdog or pick'em (the dog shadow)",spread,2026,5,2,3,0,0.4,-1.3,-0.2364,5.5,0,1,0.8408,,False,False,False,False,104.0,0.08,10.3
+favourite/dog,"3+ edge, home dog",spread,2015-18,88,39,49,0,0.4432,-14.9,-0.1539,96.8,1,4,0.9475,,False,False,False,False,59.0,0.77,9.14
+favourite/dog,"3+ edge, home dog",spread,2019-22,119,67,52,0,0.563,9.8,0.0749,130.9,2,4,0.2225,,False,False,False,False,59.0,0.77,9.14
+favourite/dog,"3+ edge, home dog",spread,2023-25,59,33,26,1,0.5593,4.4,0.0678,64.9,1,3,0.3396,,False,False,False,False,59.0,0.77,9.14
+favourite/dog,"3+ edge, home dog",spread,2015-25,266,139,127,1,0.5226,-0.7,-0.0024,292.6,4,11,0.5411,,False,False,False,False,59.0,0.77,9.14
+favourite/dog,"3+ edge, home dog",spread,2026,4,2,2,0,0.5,-0.2,-0.0455,4.4,0,1,0.7223,,False,False,False,False,59.0,0.77,9.14
+favourite/dog,"3+ edge, road dog",spread,2015-18,84,49,35,2,0.5833,10.5,0.1136,92.4,2,4,0.1628,,False,False,False,True,45.0,0.01,1.16
+favourite/dog,"3+ edge, road dog",spread,2019-22,86,50,36,1,0.5814,10.4,0.1099,94.6,3,4,0.1683,,False,False,False,True,45.0,0.01,1.16
+favourite/dog,"3+ edge, road dog",spread,2023-25,45,26,19,1,0.5778,5.1,0.103,49.5,2,3,0.2832,,False,False,False,True,45.0,0.01,1.16
+favourite/dog,"3+ edge, road dog",spread,2015-25,215,125,90,4,0.5814,26.0,0.1099,236.5,7,11,0.0521,,False,False,False,True,45.0,0.01,1.16
+favourite/dog,"3+ edge, road dog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,True,45.0,0.01,1.16
+favourite/dog,"3+ edge, home favourite",spread,2015-18,51,22,29,0,0.4314,-9.9,-0.1765,56.1,2,4,0.9281,,False,False,False,False,30.0,0.975,1.12
+favourite/dog,"3+ edge, home favourite",spread,2019-22,38,13,25,1,0.3421,-14.5,-0.3469,41.8,0,4,0.9922,,False,False,False,False,30.0,0.975,1.12
+favourite/dog,"3+ edge, home favourite",spread,2023-25,30,19,11,1,0.6333,6.9,0.2091,33.0,2,3,0.1542,,False,False,False,False,30.0,0.975,1.12
+favourite/dog,"3+ edge, home favourite",spread,2015-25,119,54,65,2,0.4538,-17.5,-0.1337,130.9,4,11,0.9475,,False,False,False,False,30.0,0.975,1.12
+favourite/dog,"3+ edge, home favourite",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,30.0,0.975,1.12
+favourite/dog,"3+ edge, road favourite",spread,2015-18,13,9,4,1,0.6923,4.6,0.3217,14.3,2,2,0.1744,,False,False,False,False,3.0,0.29,-0.41
+favourite/dog,"3+ edge, road favourite",spread,2019-22,5,2,3,0,0.4,-1.3,-0.2364,5.5,1,3,0.8408,,False,False,False,False,3.0,0.29,-0.41
+favourite/dog,"3+ edge, road favourite",spread,2023-25,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,2,0.892,,False,False,False,False,3.0,0.29,-0.41
+favourite/dog,"3+ edge, road favourite",spread,2015-25,21,12,9,1,0.5714,2.1,0.0909,23.1,3,7,0.4152,,False,False,False,False,3.0,0.29,-0.41
+favourite/dog,"3+ edge, road favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,3.0,0.29,-0.41
+favourite/dog,"4+ edge, our side the favourite",spread,2015-18,35,18,17,0,0.5143,-0.7,-0.0182,38.5,2,4,0.6118,,False,False,False,False,11.0,0.895,8.59
+favourite/dog,"4+ edge, our side the favourite",spread,2019-22,16,7,9,0,0.4375,-2.9,-0.1648,17.6,3,4,0.8267,,False,False,False,False,11.0,0.895,8.59
+favourite/dog,"4+ edge, our side the favourite",spread,2023-25,11,8,3,0,0.7273,4.7,0.3884,12.1,3,3,0.147,,False,False,False,False,11.0,0.895,8.59
+favourite/dog,"4+ edge, our side the favourite",spread,2015-25,62,33,29,0,0.5323,1.1,0.0161,68.2,8,11,0.4984,,False,False,False,False,11.0,0.895,8.59
+favourite/dog,"4+ edge, our side the favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,11.0,0.895,8.59
+favourite/dog,"4+ edge, our side the underdog",spread,2015-18,88,50,38,0,0.5682,8.2,0.0847,96.8,2,4,0.234,,False,False,True,True,50.0,0.15,39.59
+favourite/dog,"4+ edge, our side the underdog",spread,2019-22,115,73,42,0,0.6348,26.8,0.2119,126.5,3,4,0.0106,,False,False,True,True,50.0,0.15,39.59
+favourite/dog,"4+ edge, our side the underdog",spread,2023-25,50,32,18,1,0.64,12.2,0.2218,55.0,3,3,0.0656,,False,False,True,True,50.0,0.15,39.59
+favourite/dog,"4+ edge, our side the underdog",spread,2015-25,253,155,98,1,0.6126,47.2,0.1696,278.3,8,11,0.0027,,False,False,True,True,50.0,0.15,39.59
+favourite/dog,"4+ edge, our side the underdog",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,50.0,0.15,39.59
+favourite/dog,"4+ edge, pick'em",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"4+ edge, pick'em",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"4+ edge, pick'em",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"4+ edge, pick'em",spread,2015-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"4+ edge, pick'em",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"4+ edge, underdog or pick'em (the dog shadow)",spread,2015-18,88,50,38,0,0.5682,8.2,0.0847,96.8,2,4,0.234,,False,False,True,True,50.0,0.14,39.24
+favourite/dog,"4+ edge, underdog or pick'em (the dog shadow)",spread,2019-22,115,73,42,0,0.6348,26.8,0.2119,126.5,3,4,0.0106,,False,False,True,True,50.0,0.14,39.24
+favourite/dog,"4+ edge, underdog or pick'em (the dog shadow)",spread,2023-25,50,32,18,1,0.64,12.2,0.2218,55.0,3,3,0.0656,,False,False,True,True,50.0,0.14,39.24
+favourite/dog,"4+ edge, underdog or pick'em (the dog shadow)",spread,2015-25,253,155,98,1,0.6126,47.2,0.1696,278.3,8,11,0.0027,,False,False,True,True,50.0,0.14,39.24
+favourite/dog,"4+ edge, underdog or pick'em (the dog shadow)",spread,2026,3,1,2,0,0.3333,-1.2,-0.3636,3.3,0,1,0.892,,False,False,True,True,50.0,0.14,39.24
+favourite/dog,"4+ edge, home dog",spread,2015-18,47,20,27,0,0.4255,-9.7,-0.1876,51.7,2,4,0.9326,,False,False,False,False,28.0,0.96,21.81
+favourite/dog,"4+ edge, home dog",spread,2019-22,64,39,25,0,0.6094,11.5,0.1634,70.4,2,4,0.1061,,False,False,False,False,28.0,0.96,21.81
+favourite/dog,"4+ edge, home dog",spread,2023-25,28,17,11,1,0.6071,4.9,0.1591,30.8,2,3,0.2448,,False,False,False,False,28.0,0.96,21.81
+favourite/dog,"4+ edge, home dog",spread,2015-25,139,76,63,1,0.5468,6.7,0.0438,152.9,6,11,0.3243,,False,False,False,False,28.0,0.96,21.81
+favourite/dog,"4+ edge, home dog",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,False,False,28.0,0.96,21.81
+favourite/dog,"4+ edge, road dog",spread,2015-18,41,30,11,0,0.7317,17.9,0.3969,45.1,3,4,0.0054,,False,True,True,True,22.0,0.01,16.37
+favourite/dog,"4+ edge, road dog",spread,2019-22,51,34,17,0,0.6667,15.3,0.2727,56.1,4,4,0.0276,,False,True,True,True,22.0,0.01,16.37
+favourite/dog,"4+ edge, road dog",spread,2023-25,22,15,7,0,0.6818,7.3,0.3017,24.2,3,3,0.1011,,False,True,True,True,22.0,0.01,16.37
+favourite/dog,"4+ edge, road dog",spread,2015-25,114,79,35,0,0.693,40.5,0.323,125.4,10,11,0.0002,,False,True,True,True,22.0,0.01,16.37
+favourite/dog,"4+ edge, road dog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,True,True,True,22.0,0.01,16.37
+favourite/dog,"4+ edge, home favourite",spread,2015-18,25,10,15,0,0.4,-6.5,-0.2364,27.5,0,4,0.9252,,False,False,False,False,11.0,0.95,5.91
+favourite/dog,"4+ edge, home favourite",spread,2019-22,13,6,7,0,0.4615,-1.7,-0.1189,14.3,2,4,0.7663,,False,False,False,False,11.0,0.95,5.91
+favourite/dog,"4+ edge, home favourite",spread,2023-25,11,8,3,0,0.7273,4.7,0.3884,12.1,3,3,0.147,,False,False,False,False,11.0,0.95,5.91
+favourite/dog,"4+ edge, home favourite",spread,2015-25,49,24,25,0,0.4898,-3.5,-0.0649,53.9,5,11,0.7325,,False,False,False,False,11.0,0.95,5.91
+favourite/dog,"4+ edge, home favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,11.0,0.95,5.91
+favourite/dog,"4+ edge, road favourite",spread,2015-18,10,8,2,0,0.8,5.8,0.5273,11.0,2,2,0.0735,,False,False,True,False,0.0,0.315,2.18
+favourite/dog,"4+ edge, road favourite",spread,2019-22,3,1,2,0,0.3333,-1.2,-0.3636,3.3,1,2,0.892,,False,False,True,False,0.0,0.315,2.18
+favourite/dog,"4+ edge, road favourite",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.315,2.18
+favourite/dog,"4+ edge, road favourite",spread,2015-25,13,9,4,0,0.6923,4.6,0.3217,14.3,3,4,0.1744,,False,False,True,False,0.0,0.315,2.18
+favourite/dog,"4+ edge, road favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.315,2.18
+favourite/dog,"5+ edge, our side the favourite",spread,2015-18,13,4,9,0,0.3077,-5.9,-0.4126,14.3,0,4,0.9683,,False,False,False,False,4.0,1.0,4.45
+favourite/dog,"5+ edge, our side the favourite",spread,2019-22,8,3,5,0,0.375,-2.5,-0.2841,8.8,2,4,0.8845,,False,False,False,False,4.0,1.0,4.45
+favourite/dog,"5+ edge, our side the favourite",spread,2023-25,4,2,2,0,0.5,-0.2,-0.0455,4.4,1,2,0.7223,,False,False,False,False,4.0,1.0,4.45
+favourite/dog,"5+ edge, our side the favourite",spread,2015-25,25,9,16,0,0.36,-8.6,-0.3127,27.5,3,10,0.9676,,False,False,False,False,4.0,1.0,4.45
+favourite/dog,"5+ edge, our side the favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,4.0,1.0,4.45
+favourite/dog,"5+ edge, our side the underdog",spread,2015-18,40,25,15,0,0.625,8.5,0.1932,44.0,2,4,0.1304,,False,False,True,True,18.0,0.0,14.31
+favourite/dog,"5+ edge, our side the underdog",spread,2019-22,57,34,23,0,0.5965,8.7,0.1388,62.7,3,4,0.1671,,False,False,True,True,18.0,0.0,14.31
+favourite/dog,"5+ edge, our side the underdog",spread,2023-25,18,14,4,1,0.7778,9.6,0.4848,19.8,3,3,0.0251,,False,False,True,True,18.0,0.0,14.31
+favourite/dog,"5+ edge, our side the underdog",spread,2015-25,115,73,42,1,0.6348,26.8,0.2119,126.5,8,11,0.0106,,False,False,True,True,18.0,0.0,14.31
+favourite/dog,"5+ edge, our side the underdog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,True,True,18.0,0.0,14.31
+favourite/dog,"5+ edge, pick'em",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, pick'em",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, pick'em",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, pick'em",spread,2015-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, pick'em",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, underdog or pick'em (the dog shadow)",spread,2015-18,40,25,15,0,0.625,8.5,0.1932,44.0,2,4,0.1304,,False,False,True,True,18.0,0.0,13.56
+favourite/dog,"5+ edge, underdog or pick'em (the dog shadow)",spread,2019-22,57,34,23,0,0.5965,8.7,0.1388,62.7,3,4,0.1671,,False,False,True,True,18.0,0.0,13.56
+favourite/dog,"5+ edge, underdog or pick'em (the dog shadow)",spread,2023-25,18,14,4,1,0.7778,9.6,0.4848,19.8,3,3,0.0251,,False,False,True,True,18.0,0.0,13.56
+favourite/dog,"5+ edge, underdog or pick'em (the dog shadow)",spread,2015-25,115,73,42,1,0.6348,26.8,0.2119,126.5,8,11,0.0106,,False,False,True,True,18.0,0.0,13.56
+favourite/dog,"5+ edge, underdog or pick'em (the dog shadow)",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,True,True,18.0,0.0,13.56
+favourite/dog,"5+ edge, home dog",spread,2015-18,20,9,11,0,0.45,-3.1,-0.1409,22.0,1,4,0.8118,,False,False,False,False,7.0,0.74,5.29
+favourite/dog,"5+ edge, home dog",spread,2019-22,30,17,13,0,0.5667,2.7,0.0818,33.0,2,4,0.3883,,False,False,False,False,7.0,0.74,5.29
+favourite/dog,"5+ edge, home dog",spread,2023-25,7,5,2,1,0.7143,2.8,0.3636,7.7,2,3,0.2675,,False,False,False,False,7.0,0.74,5.29
+favourite/dog,"5+ edge, home dog",spread,2015-25,57,31,26,1,0.5439,2.4,0.0383,62.7,5,11,0.4332,,False,False,False,False,7.0,0.74,5.29
+favourite/dog,"5+ edge, home dog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,7.0,0.74,5.29
+favourite/dog,"5+ edge, road dog",spread,2015-18,20,16,4,0,0.8,11.6,0.5273,22.0,3,4,0.0105,,False,True,True,True,11.0,0.005,7.8
+favourite/dog,"5+ edge, road dog",spread,2019-22,27,17,10,0,0.6296,6.0,0.202,29.7,3,4,0.1822,,False,True,True,True,11.0,0.005,7.8
+favourite/dog,"5+ edge, road dog",spread,2023-25,11,9,2,0,0.8182,6.8,0.562,12.1,3,3,0.046,,False,True,True,True,11.0,0.005,7.8
+favourite/dog,"5+ edge, road dog",spread,2015-25,58,42,16,0,0.7241,24.4,0.3824,63.8,9,11,0.0015,,False,True,True,True,11.0,0.005,7.8
+favourite/dog,"5+ edge, road dog",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,True,True,True,11.0,0.005,7.8
+favourite/dog,"5+ edge, home favourite",spread,2015-18,13,4,9,0,0.3077,-5.9,-0.4126,14.3,0,4,0.9683,,False,False,False,False,4.0,1.0,4.73
+favourite/dog,"5+ edge, home favourite",spread,2019-22,8,3,5,0,0.375,-2.5,-0.2841,8.8,2,4,0.8845,,False,False,False,False,4.0,1.0,4.73
+favourite/dog,"5+ edge, home favourite",spread,2023-25,4,2,2,0,0.5,-0.2,-0.0455,4.4,1,2,0.7223,,False,False,False,False,4.0,1.0,4.73
+favourite/dog,"5+ edge, home favourite",spread,2015-25,25,9,16,0,0.36,-8.6,-0.3127,27.5,3,10,0.9676,,False,False,False,False,4.0,1.0,4.73
+favourite/dog,"5+ edge, home favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,4.0,1.0,4.73
+favourite/dog,"5+ edge, road favourite",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, road favourite",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, road favourite",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, road favourite",spread,2015-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"5+ edge, road favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, our side the favourite",spread,2015-18,5,1,4,0,0.2,-3.4,-0.6182,5.5,0,4,0.9755,,False,False,False,False,2.0,0.96,0.3
+favourite/dog,"6+ edge, our side the favourite",spread,2019-22,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,False,False,2.0,0.96,0.3
+favourite/dog,"6+ edge, our side the favourite",spread,2023-25,3,2,1,0,0.6667,0.9,0.2727,3.3,1,1,0.5357,,False,False,False,False,2.0,0.96,0.3
+favourite/dog,"6+ edge, our side the favourite",spread,2015-25,10,4,6,0,0.4,-2.6,-0.2364,11.0,2,7,0.8644,,False,False,False,False,2.0,0.96,0.3
+favourite/dog,"6+ edge, our side the favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,2.0,0.96,0.3
+favourite/dog,"6+ edge, our side the underdog",spread,2015-18,13,6,7,0,0.4615,-1.7,-0.1189,14.3,2,4,0.7663,,False,False,False,False,8.0,0.28,1.56
+favourite/dog,"6+ edge, our side the underdog",spread,2019-22,25,14,11,0,0.56,1.9,0.0691,27.5,1,4,0.4371,,False,False,False,False,8.0,0.28,1.56
+favourite/dog,"6+ edge, our side the underdog",spread,2023-25,8,6,2,0,0.75,3.8,0.4318,8.8,2,2,0.178,,False,False,False,False,8.0,0.28,1.56
+favourite/dog,"6+ edge, our side the underdog",spread,2015-25,46,26,20,0,0.5652,4.0,0.0791,50.6,5,10,0.3401,,False,False,False,False,8.0,0.28,1.56
+favourite/dog,"6+ edge, our side the underdog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,8.0,0.28,1.56
+favourite/dog,"6+ edge, pick'em",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, pick'em",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, pick'em",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, pick'em",spread,2015-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, pick'em",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, underdog or pick'em (the dog shadow)",spread,2015-18,13,6,7,0,0.4615,-1.7,-0.1189,14.3,2,4,0.7663,,False,False,False,False,8.0,0.17,0.95
+favourite/dog,"6+ edge, underdog or pick'em (the dog shadow)",spread,2019-22,25,14,11,0,0.56,1.9,0.0691,27.5,1,4,0.4371,,False,False,False,False,8.0,0.17,0.95
+favourite/dog,"6+ edge, underdog or pick'em (the dog shadow)",spread,2023-25,8,6,2,0,0.75,3.8,0.4318,8.8,2,2,0.178,,False,False,False,False,8.0,0.17,0.95
+favourite/dog,"6+ edge, underdog or pick'em (the dog shadow)",spread,2015-25,46,26,20,0,0.5652,4.0,0.0791,50.6,5,10,0.3401,,False,False,False,False,8.0,0.17,0.95
+favourite/dog,"6+ edge, underdog or pick'em (the dog shadow)",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,8.0,0.17,0.95
+favourite/dog,"6+ edge, home dog",spread,2015-18,6,1,5,0,0.1667,-4.5,-0.6818,6.6,0,3,0.9883,,False,False,False,False,3.0,0.795,-0.17
+favourite/dog,"6+ edge, home dog",spread,2019-22,16,9,7,0,0.5625,1.3,0.0739,17.6,2,4,0.478,,False,False,False,False,3.0,0.795,-0.17
+favourite/dog,"6+ edge, home dog",spread,2023-25,3,2,1,0,0.6667,0.9,0.2727,3.3,1,1,0.5357,,False,False,False,False,3.0,0.795,-0.17
+favourite/dog,"6+ edge, home dog",spread,2015-25,25,12,13,0,0.48,-2.3,-0.0836,27.5,3,8,0.7387,,False,False,False,False,3.0,0.795,-0.17
+favourite/dog,"6+ edge, home dog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,3.0,0.795,-0.17
+favourite/dog,"6+ edge, road dog",spread,2015-18,7,5,2,0,0.7143,2.8,0.3636,7.7,3,4,0.2675,,False,False,True,True,5.0,0.12,0.79
+favourite/dog,"6+ edge, road dog",spread,2019-22,9,5,4,0,0.5556,0.6,0.0606,9.9,1,4,0.5584,,False,False,True,True,5.0,0.12,0.79
+favourite/dog,"6+ edge, road dog",spread,2023-25,5,4,1,0,0.8,2.9,0.5273,5.5,2,2,0.2187,,False,False,True,True,5.0,0.12,0.79
+favourite/dog,"6+ edge, road dog",spread,2015-25,21,14,7,0,0.6667,6.3,0.2727,23.1,6,10,0.1371,,False,False,True,True,5.0,0.12,0.79
+favourite/dog,"6+ edge, road dog",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,5.0,0.12,0.79
+favourite/dog,"6+ edge, home favourite",spread,2015-18,5,1,4,0,0.2,-3.4,-0.6182,5.5,0,4,0.9755,,False,False,False,False,2.0,0.95,0.02
+favourite/dog,"6+ edge, home favourite",spread,2019-22,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,False,False,2.0,0.95,0.02
+favourite/dog,"6+ edge, home favourite",spread,2023-25,3,2,1,0,0.6667,0.9,0.2727,3.3,1,1,0.5357,,False,False,False,False,2.0,0.95,0.02
+favourite/dog,"6+ edge, home favourite",spread,2015-25,10,4,6,0,0.4,-2.6,-0.2364,11.0,2,7,0.8644,,False,False,False,False,2.0,0.95,0.02
+favourite/dog,"6+ edge, home favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,2.0,0.95,0.02
+favourite/dog,"6+ edge, road favourite",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, road favourite",spread,2019-22,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, road favourite",spread,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, road favourite",spread,2015-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"6+ edge, road favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,0.0,,
+favourite/dog,"edge band 0-2, our side the favourite",spread,2015-18,264,129,135,12,0.4886,-19.5,-0.0671,290.4,1,4,0.886,,False,False,False,False,186.0,0.85,-25.73
+favourite/dog,"edge band 0-2, our side the favourite",spread,2019-22,247,121,126,6,0.4899,-17.6,-0.0648,271.7,0,4,0.871,,False,False,False,False,186.0,0.85,-25.73
+favourite/dog,"edge band 0-2, our side the favourite",spread,2023-25,186,93,93,6,0.5,-9.3,-0.0455,204.6,1,3,0.7655,,False,False,False,False,186.0,0.85,-25.73
+favourite/dog,"edge band 0-2, our side the favourite",spread,2015-25,697,343,354,24,0.4921,-46.4,-0.0605,766.7,2,11,0.9566,,False,False,False,False,186.0,0.85,-25.73
+favourite/dog,"edge band 0-2, our side the favourite",spread,2026,15,8,7,2,0.5333,0.3,0.0182,16.5,1,1,0.5744,,False,False,False,False,186.0,0.85,-25.73
+favourite/dog,"edge band 0-2, our side the underdog",spread,2015-18,340,171,169,11,0.5029,-14.9,-0.0398,374.0,1,4,0.7953,,False,False,False,False,277.0,0.2,-33.92
+favourite/dog,"edge band 0-2, our side the underdog",spread,2019-22,331,181,150,12,0.5468,16.0,0.0439,364.1,3,4,0.2168,,False,False,False,False,277.0,0.2,-33.92
+favourite/dog,"edge band 0-2, our side the underdog",spread,2023-25,277,137,140,7,0.4946,-17.0,-0.0558,304.7,0,3,0.8494,,False,False,False,False,277.0,0.2,-33.92
+favourite/dog,"edge band 0-2, our side the underdog",spread,2015-25,948,489,459,30,0.5158,-15.9,-0.0152,1042.8,4,11,0.7003,,False,False,False,False,277.0,0.2,-33.92
+favourite/dog,"edge band 0-2, our side the underdog",spread,2026,17,7,10,1,0.4118,-4.0,-0.2139,18.7,0,1,0.8786,,False,False,False,False,277.0,0.2,-33.92
+favourite/dog,"edge band 2-4, our side the favourite",spread,2015-18,70,39,31,2,0.5571,4.9,0.0636,77.0,4,4,0.3311,,False,False,False,False,70.0,0.295,-16.97
+favourite/dog,"edge band 2-4, our side the favourite",spread,2019-22,79,33,46,1,0.4177,-17.6,-0.2025,86.9,1,4,0.9773,,False,False,False,False,70.0,0.295,-16.97
+favourite/dog,"edge band 2-4, our side the favourite",spread,2023-25,80,44,36,1,0.55,4.4,0.05,88.0,2,3,0.3612,,False,False,False,False,70.0,0.295,-16.97
+favourite/dog,"edge band 2-4, our side the favourite",spread,2015-25,229,116,113,4,0.5066,-8.3,-0.0329,251.9,7,11,0.7223,,False,False,False,False,70.0,0.295,-16.97
+favourite/dog,"edge band 2-4, our side the favourite",spread,2026,2,0,2,0,0.0,-2.2,-1.0,2.2,0,1,1.0,,False,False,False,False,70.0,0.295,-16.97
+favourite/dog,"edge band 2-4, our side the underdog",spread,2015-18,193,98,95,5,0.5078,-6.5,-0.0306,212.3,2,4,0.6981,,False,False,False,False,145.0,0.77,-35.18
+favourite/dog,"edge band 2-4, our side the underdog",spread,2019-22,212,108,104,4,0.5094,-6.4,-0.0274,233.2,1,4,0.6874,,False,False,False,False,145.0,0.77,-35.18
+favourite/dog,"edge band 2-4, our side the underdog",spread,2023-25,145,61,84,4,0.4207,-31.4,-0.1969,159.5,0,3,0.9949,,False,False,False,False,145.0,0.77,-35.18
+favourite/dog,"edge band 2-4, our side the underdog",spread,2015-25,550,267,283,13,0.4855,-44.3,-0.0732,605.0,3,11,0.9673,,False,False,False,False,145.0,0.77,-35.18
+favourite/dog,"edge band 2-4, our side the underdog",spread,2026,8,5,3,0,0.625,1.7,0.1932,8.8,1,1,0.4165,,False,False,False,False,145.0,0.77,-35.18
+favourite/dog,"edge band 4-6, our side the favourite",spread,2015-18,30,17,13,0,0.5667,2.7,0.0818,33.0,2,4,0.3883,,False,False,False,False,8.0,0.81,8.09
+favourite/dog,"edge band 4-6, our side the favourite",spread,2019-22,14,6,8,0,0.4286,-2.8,-0.1818,15.4,2,3,0.8366,,False,False,False,False,8.0,0.81,8.09
+favourite/dog,"edge band 4-6, our side the favourite",spread,2023-25,8,6,2,0,0.75,3.8,0.4318,8.8,3,3,0.178,,False,False,False,False,8.0,0.81,8.09
+favourite/dog,"edge band 4-6, our side the favourite",spread,2015-25,52,29,23,0,0.5577,3.7,0.0647,57.2,7,10,0.3639,,False,False,False,False,8.0,0.81,8.09
+favourite/dog,"edge band 4-6, our side the favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,8.0,0.81,8.09
+favourite/dog,"edge band 4-6, our side the underdog",spread,2015-18,75,44,31,0,0.5867,9.9,0.12,82.5,2,4,0.165,,False,False,True,True,42.0,0.215,38.0
+favourite/dog,"edge band 4-6, our side the underdog",spread,2019-22,90,59,31,0,0.6556,24.9,0.2515,99.0,3,4,0.0078,,False,False,True,True,42.0,0.215,38.0
+favourite/dog,"edge band 4-6, our side the underdog",spread,2023-25,42,26,16,1,0.619,8.4,0.1818,46.2,2,3,0.1396,,False,False,True,True,42.0,0.215,38.0
+favourite/dog,"edge band 4-6, our side the underdog",spread,2015-25,207,129,78,1,0.6232,43.2,0.1897,227.7,7,11,0.0025,,False,False,True,True,42.0,0.215,38.0
+favourite/dog,"edge band 4-6, our side the underdog",spread,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,42.0,0.215,38.0
+favourite/dog,"edge band 6-+, our side the favourite",spread,2015-18,5,1,4,0,0.2,-3.4,-0.6182,5.5,0,4,0.9755,,False,False,False,False,2.0,0.975,0.23
+favourite/dog,"edge band 6-+, our side the favourite",spread,2019-22,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,False,False,2.0,0.975,0.23
+favourite/dog,"edge band 6-+, our side the favourite",spread,2023-25,3,2,1,0,0.6667,0.9,0.2727,3.3,1,1,0.5357,,False,False,False,False,2.0,0.975,0.23
+favourite/dog,"edge band 6-+, our side the favourite",spread,2015-25,10,4,6,0,0.4,-2.6,-0.2364,11.0,2,7,0.8644,,False,False,False,False,2.0,0.975,0.23
+favourite/dog,"edge band 6-+, our side the favourite",spread,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,2.0,0.975,0.23
+favourite/dog,"edge band 6-+, our side the underdog",spread,2015-18,13,6,7,0,0.4615,-1.7,-0.1189,14.3,2,4,0.7663,,False,False,False,False,8.0,0.28,1.29
+favourite/dog,"edge band 6-+, our side the underdog",spread,2019-22,25,14,11,0,0.56,1.9,0.0691,27.5,1,4,0.4371,,False,False,False,False,8.0,0.28,1.29
+favourite/dog,"edge band 6-+, our side the underdog",spread,2023-25,8,6,2,0,0.75,3.8,0.4318,8.8,2,2,0.178,,False,False,False,False,8.0,0.28,1.29
+favourite/dog,"edge band 6-+, our side the underdog",spread,2015-25,46,26,20,0,0.5652,4.0,0.0791,50.6,5,10,0.3401,,False,False,False,False,8.0,0.28,1.29
+favourite/dog,"edge band 6-+, our side the underdog",spread,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,8.0,0.28,1.29
+favourite/dog,"BLIND: every road dog ATS (no model), weeks 1-17",away,2015-18,643,331,312,21,0.5148,-12.2,-0.0172,707.3,2,4,0.691,,False,False,False,False,443.0,,
+favourite/dog,"BLIND: every road dog ATS (no model), weeks 1-17",away,2019-22,597,332,265,16,0.5561,40.5,0.0617,656.7,4,4,0.0617,,False,False,False,False,443.0,,
+favourite/dog,"BLIND: every road dog ATS (no model), weeks 1-17",away,2023-25,443,216,227,11,0.4876,-33.7,-0.0692,487.3,0,3,0.9422,,False,False,False,False,443.0,,
+favourite/dog,"BLIND: every road dog ATS (no model), weeks 1-17",away,2015-25,1683,879,804,48,0.5223,-5.4,-0.0029,1851.3,6,11,0.5597,,False,False,False,False,443.0,,
+favourite/dog,"BLIND: every road dog ATS (no model), weeks 1-17",away,2026,30,14,16,2,0.4667,-3.6,-0.1091,33.0,0,1,0.7909,,False,False,False,False,443.0,,
+favourite/dog,"BLIND: every home dog ATS (no model), weeks 1-17",home,2015-18,347,171,176,9,0.4928,-22.6,-0.0592,381.7,1,4,0.8869,,False,False,False,False,306.0,,
+favourite/dog,"BLIND: every home dog ATS (no model), weeks 1-17",home,2019-22,403,211,192,7,0.5236,-0.2,-0.0005,443.3,2,4,0.524,,False,False,False,False,306.0,,
+favourite/dog,"BLIND: every home dog ATS (no model), weeks 1-17",home,2023-25,306,146,160,8,0.4771,-30.0,-0.0891,336.6,0,3,0.9546,,False,False,False,False,306.0,,
+favourite/dog,"BLIND: every home dog ATS (no model), weeks 1-17",home,2015-25,1056,528,528,24,0.5,-52.8,-0.0455,1161.6,3,11,0.9429,,False,False,False,False,306.0,,
+favourite/dog,"BLIND: every home dog ATS (no model), weeks 1-17",home,2026,15,8,7,1,0.5333,0.3,0.0182,16.5,1,1,0.5744,,False,False,False,False,306.0,,
+favourite/dog,"BLIND: every road dog getting 3.5+ (no model), weeks 1-17",away,2015-18,445,233,212,7,0.5236,-0.2,-0.0004,489.5,2,4,0.5228,,False,False,False,False,293.0,,
+favourite/dog,"BLIND: every road dog getting 3.5+ (no model), weeks 1-17",away,2019-22,405,222,183,9,0.5481,20.7,0.0465,445.5,3,4,0.176,,False,False,False,False,293.0,,
+favourite/dog,"BLIND: every road dog getting 3.5+ (no model), weeks 1-17",away,2023-25,293,140,153,4,0.4778,-28.3,-0.0878,322.3,0,3,0.9489,,False,False,False,False,293.0,,
+favourite/dog,"BLIND: every road dog getting 3.5+ (no model), weeks 1-17",away,2015-25,1143,595,548,20,0.5206,-7.8,-0.0062,1257.3,5,11,0.5987,,False,False,False,False,293.0,,
+favourite/dog,"BLIND: every road dog getting 3.5+ (no model), weeks 1-17",away,2026,21,12,9,1,0.5714,2.1,0.0909,23.1,1,1,0.4152,,False,False,False,False,293.0,,
+favourite/dog,"model's side a road dog, any edge, weeks 1-17",spread,2015-18,362,189,173,11,0.5221,-1.3,-0.0033,398.2,2,4,0.5472,,False,False,False,False,242.0,0.02,-22.24
+favourite/dog,"model's side a road dog, any edge, weeks 1-17",spread,2019-22,345,199,146,11,0.5768,38.4,0.1012,379.5,4,4,0.0274,,False,False,False,False,242.0,0.02,-22.24
+favourite/dog,"model's side a road dog, any edge, weeks 1-17",spread,2023-25,242,124,118,7,0.5124,-5.8,-0.0218,266.2,1,3,0.663,,False,False,False,False,242.0,0.02,-22.24
+favourite/dog,"model's side a road dog, any edge, weeks 1-17",spread,2015-25,949,512,437,29,0.5395,31.3,0.03,1043.9,7,11,0.1746,,False,False,False,False,242.0,0.02,-22.24
+favourite/dog,"model's side a road dog, any edge, weeks 1-17",spread,2026,16,7,9,0,0.4375,-2.9,-0.1648,17.6,0,1,0.8267,,False,False,False,False,242.0,0.02,-22.24
+favourite/dog,"model's side a road dog, edge under 4, weeks 1-17",spread,2015-18,321,159,162,11,0.4953,-19.2,-0.0544,353.1,2,4,0.8594,,False,False,False,False,220.0,0.325,-21.2
+favourite/dog,"model's side a road dog, edge under 4, weeks 1-17",spread,2019-22,294,165,129,11,0.5612,23.1,0.0714,323.4,4,4,0.11,,False,False,False,False,220.0,0.325,-21.2
+favourite/dog,"model's side a road dog, edge under 4, weeks 1-17",spread,2023-25,220,109,111,7,0.4955,-13.1,-0.0541,242.0,1,3,0.8185,,False,False,False,False,220.0,0.325,-21.2
+favourite/dog,"model's side a road dog, edge under 4, weeks 1-17",spread,2015-25,835,433,402,29,0.5186,-9.2,-0.01,918.5,7,11,0.6326,,False,False,False,False,220.0,0.325,-21.2
+favourite/dog,"model's side a road dog, edge under 4, weeks 1-17",spread,2026,15,7,8,0,0.4667,-1.8,-0.1091,16.5,0,1,0.7585,,False,False,False,False,220.0,0.325,-21.2
+kinds of game,"BLIND: every away side ATS (no model), weeks 1-17",away,2015-18,994,508,486,30,0.5111,-26.6,-0.0243,1093.4,1,4,0.7985,,False,False,False,False,749.0,,
+kinds of game,"BLIND: every away side ATS (no model), weeks 1-17",away,2019-22,1000,524,476,23,0.524,0.4,0.0004,1100.0,1,4,0.508,,False,False,False,False,749.0,,
+kinds of game,"BLIND: every away side ATS (no model), weeks 1-17",away,2023-25,749,376,373,19,0.502,-34.3,-0.0416,823.9,0,3,0.8909,,False,False,False,False,749.0,,
+kinds of game,"BLIND: every away side ATS (no model), weeks 1-17",away,2015-25,2743,1408,1335,72,0.5133,-60.5,-0.0201,3017.3,2,11,0.8687,,False,False,False,False,749.0,,
+kinds of game,"BLIND: every away side ATS (no model), weeks 1-17",away,2026,45,21,24,3,0.4667,-5.4,-0.1091,49.5,0,1,0.8204,,False,False,False,False,749.0,,
+bet type,moneyline on the 3+ spread side,ml,2015-18,240,113,127,0,0.4708,35.38,0.1474,240.0,4,4,0.03,,False,False,False,False,140.0,,
+bet type,moneyline on the 3+ spread side,ml,2019-22,246,96,150,4,0.3902,-1.35,-0.0055,246.0,2,4,0.4,,False,False,False,False,140.0,,
+bet type,moneyline on the 3+ spread side,ml,2023-25,140,64,76,0,0.4571,-9.27,-0.0662,140.0,1,3,0.5687,,False,False,False,False,140.0,,
+bet type,moneyline on the 3+ spread side,ml,2015-25,626,273,353,4,0.4361,24.75,0.0395,626.0,7,11,0.1045,,False,False,False,False,140.0,,
+bet type,moneyline on the 3+ spread side,ml,2026,6,2,4,0,0.3333,-1.46,-0.2433,6.0,0,1,0.5978,,False,False,False,False,140.0,,
+bet type,moneyline on the 4+ spread side,ml,2015-18,123,63,60,0,0.5122,38.6,0.3138,123.0,3,4,0.0045,,False,False,True,True,62.0,,
+bet type,moneyline on the 4+ spread side,ml,2019-22,130,57,73,1,0.4385,21.3,0.1639,130.0,3,4,0.0835,,False,False,True,True,62.0,,
+bet type,moneyline on the 4+ spread side,ml,2023-25,62,32,30,0,0.5161,8.71,0.1405,62.0,2,3,0.1517,,False,False,True,True,62.0,,
+bet type,moneyline on the 4+ spread side,ml,2015-25,315,152,163,1,0.4825,68.62,0.2178,315.0,8,11,0.0032,,False,False,True,True,62.0,,
+bet type,moneyline on the 4+ spread side,ml,2026,3,1,2,0,0.3333,-0.86,-0.2867,3.0,0,1,0.6865,,False,False,True,True,62.0,,
+bet type,"moneyline on the 4+ spread side, our side the dog",ml,2015-18,88,37,51,0,0.4205,33.65,0.3824,88.0,3,4,0.0103,,False,False,True,True,51.0,,
+bet type,"moneyline on the 4+ spread side, our side the dog",ml,2019-22,114,49,65,1,0.4298,25.5,0.2237,114.0,3,4,0.047,,False,False,True,True,51.0,,
+bet type,"moneyline on the 4+ spread side, our side the dog",ml,2023-25,51,23,28,0,0.451,6.66,0.1305,51.0,2,3,0.1958,,False,False,True,True,51.0,,
+bet type,"moneyline on the 4+ spread side, our side the dog",ml,2015-25,253,109,144,1,0.4308,65.81,0.2601,253.0,8,11,0.0032,,False,False,True,True,51.0,,
+bet type,"moneyline on the 4+ spread side, our side the dog",ml,2026,3,1,2,0,0.3333,-0.86,-0.2867,3.0,0,1,0.6865,,False,False,True,True,51.0,,
+bet type,"moneyline on the 4+ spread side, our side the favourite",ml,2015-18,35,26,9,0,0.7429,4.95,0.1413,35.0,3,4,0.0935,,False,False,False,False,11.0,,
+bet type,"moneyline on the 4+ spread side, our side the favourite",ml,2019-22,16,8,8,0,0.5,-4.2,-0.2626,16.0,3,4,0.9035,,False,False,False,False,11.0,,
+bet type,"moneyline on the 4+ spread side, our side the favourite",ml,2023-25,11,9,2,0,0.8182,2.06,0.1869,11.0,3,3,0.1415,,False,False,False,False,11.0,,
+bet type,"moneyline on the 4+ spread side, our side the favourite",ml,2015-25,62,43,19,0,0.6935,2.8,0.0452,62.0,9,11,0.222,,False,False,False,False,11.0,,
+bet type,"moneyline on the 4+ spread side, our side the favourite",ml,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,11.0,,
+bet type,"moneyline on the 4+ spread side, price -200 or better",ml,2015-18,107,49,58,0,0.4579,35.14,0.3284,107.0,3,4,0.0105,,False,False,True,True,57.0,,
+bet type,"moneyline on the 4+ spread side, price -200 or better",ml,2019-22,126,54,72,1,0.4286,21.36,0.1695,126.0,3,4,0.0843,,False,False,True,True,57.0,,
+bet type,"moneyline on the 4+ spread side, price -200 or better",ml,2023-25,57,28,29,0,0.4912,8.7,0.1526,57.0,2,3,0.1427,,False,False,True,True,57.0,,
+bet type,"moneyline on the 4+ spread side, price -200 or better",ml,2015-25,290,131,159,1,0.4517,65.19,0.2248,290.0,8,11,0.0035,,False,False,True,True,57.0,,
+bet type,"moneyline on the 4+ spread side, price -200 or better",ml,2026,3,1,2,0,0.3333,-0.86,-0.2867,3.0,0,1,0.6865,,False,False,True,True,57.0,,
+bet type,moneyline on the 5+ spread side,ml,2015-18,53,26,27,0,0.4906,25.81,0.487,53.0,4,4,0.011,,False,False,True,True,23.0,,
+bet type,moneyline on the 5+ spread side,ml,2019-22,65,28,37,0,0.4308,7.32,0.1127,65.0,2,4,0.2392,,False,False,True,True,23.0,,
+bet type,moneyline on the 5+ spread side,ml,2023-25,23,11,12,0,0.4783,4.46,0.1938,23.0,2,3,0.2303,,False,False,True,True,23.0,,
+bet type,moneyline on the 5+ spread side,ml,2015-25,141,65,76,0,0.461,37.59,0.2666,141.0,8,11,0.0155,,False,False,True,True,23.0,,
+bet type,moneyline on the 5+ spread side,ml,2026,1,0,1,0,0.0,-1.0,-1.0,1.0,0,1,1.0,,False,False,True,True,23.0,,
+bet type,moneyline on the 6+ spread side,ml,2015-18,18,9,9,0,0.5,8.55,0.4751,18.0,3,4,0.0932,,False,False,False,False,11.0,,
+bet type,moneyline on the 6+ spread side,ml,2019-22,27,10,17,0,0.3704,-0.09,-0.0032,27.0,2,4,0.4445,,False,False,False,False,11.0,,
+bet type,moneyline on the 6+ spread side,ml,2023-25,11,5,6,0,0.4545,-1.23,-0.1122,11.0,1,3,0.48,,False,False,False,False,11.0,,
+bet type,moneyline on the 6+ spread side,ml,2015-25,56,24,32,0,0.4286,7.23,0.1291,56.0,6,11,0.2328,,False,False,False,False,11.0,,
+bet type,moneyline on the 6+ spread side,ml,2026,1,0,1,0,0.0,-1.0,-1.0,1.0,0,1,1.0,,False,False,False,False,11.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 3%",wc_cal,2015-18,664,304,360,2,0.4578,44.34,0.0668,664.0,3,4,0.0398,,False,False,False,False,500.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 3%",wc_cal,2019-22,692,320,372,4,0.4624,-33.02,-0.0477,692.0,2,4,0.6643,,False,False,False,False,500.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 3%",wc_cal,2023-25,500,227,273,0,0.454,-29.96,-0.0599,500.0,0,3,0.625,,False,False,False,False,500.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 3%",wc_cal,2015-25,1856,851,1005,6,0.4585,-18.64,-0.01,1856.0,5,11,0.2487,,False,False,False,False,500.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 3%",wc_cal,2026,31,17,14,0,0.5484,9.04,0.2916,31.0,1,1,0.082,,False,False,False,False,500.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, dogs only",wc_cal,2015-18,467,165,302,0,0.3533,24.54,0.0525,467.0,3,4,0.1308,,False,False,False,False,297.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, dogs only",wc_cal,2019-22,408,144,264,3,0.3529,-7.06,-0.0173,408.0,2,4,0.4303,,False,False,False,False,297.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, dogs only",wc_cal,2023-25,297,95,202,0,0.3199,-30.49,-0.1027,297.0,0,3,0.7692,,False,False,False,False,297.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, dogs only",wc_cal,2015-25,1172,404,768,3,0.3447,-13.01,-0.0111,1172.0,5,11,0.3342,,False,False,False,False,297.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, dogs only",wc_cal,2026,21,9,12,0,0.4286,5.53,0.2633,21.0,1,1,0.172,,False,False,False,False,297.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, favourites only",wc_cal,2015-18,197,139,58,2,0.7056,19.8,0.1005,197.0,4,4,0.0115,,False,False,False,False,197.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, favourites only",wc_cal,2019-22,284,176,108,1,0.6197,-25.96,-0.0914,284.0,1,4,0.9287,,False,False,False,False,197.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, favourites only",wc_cal,2023-25,203,132,71,0,0.6502,0.53,0.0026,203.0,2,3,0.2032,,False,False,False,False,197.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, favourites only",wc_cal,2015-25,684,447,237,3,0.6535,-5.63,-0.0082,684.0,7,11,0.214,,False,False,False,False,197.0,,
+bet type,"moneyline, win chance (cal) beats book by 3%, favourites only",wc_cal,2026,10,8,2,0,0.8,3.51,0.351,10.0,1,1,0.0573,,False,False,False,False,197.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 5%",wc_cal,2015-18,478,210,268,2,0.4393,36.05,0.0754,478.0,3,4,0.0607,,False,False,False,False,353.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 5%",wc_cal,2019-22,489,217,272,3,0.4438,-44.0,-0.09,489.0,2,4,0.878,,False,False,False,False,353.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 5%",wc_cal,2023-25,353,155,198,0,0.4391,-31.82,-0.0901,353.0,0,3,0.7702,,False,False,False,False,353.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 5%",wc_cal,2015-25,1320,582,738,5,0.4409,-39.77,-0.0301,1320.0,5,11,0.504,,False,False,False,False,353.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 5%",wc_cal,2026,24,13,11,0,0.5417,6.58,0.2742,24.0,1,1,0.1227,,False,False,False,False,353.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, dogs only",wc_cal,2015-18,359,126,233,0,0.351,20.97,0.0584,359.0,3,4,0.1507,,False,False,False,False,223.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, dogs only",wc_cal,2019-22,301,107,194,2,0.3555,-15.65,-0.052,301.0,2,4,0.6212,,False,False,False,False,223.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, dogs only",wc_cal,2023-25,223,70,153,0,0.3139,-34.89,-0.1565,223.0,0,3,0.8838,,False,False,False,False,223.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, dogs only",wc_cal,2015-25,883,303,580,2,0.3431,-29.57,-0.0335,883.0,5,11,0.5222,,False,False,False,False,223.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, dogs only",wc_cal,2026,18,7,11,0,0.3889,2.33,0.1294,18.0,1,1,0.3043,,False,False,False,False,223.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, favourites only",wc_cal,2015-18,119,84,35,2,0.7059,15.08,0.1267,119.0,3,4,0.0177,,False,False,False,False,119.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, favourites only",wc_cal,2019-22,188,110,78,1,0.5851,-28.35,-0.1508,188.0,0,4,0.989,,False,False,False,False,119.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, favourites only",wc_cal,2023-25,130,85,45,0,0.6538,3.07,0.0236,130.0,2,3,0.1658,,False,False,False,False,119.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, favourites only",wc_cal,2015-25,437,279,158,3,0.6384,-10.2,-0.0233,437.0,5,11,0.432,,False,False,False,False,119.0,,
+bet type,"moneyline, win chance (cal) beats book by 5%, favourites only",wc_cal,2026,6,6,0,0,1.0,4.25,0.7085,6.0,1,1,0.0343,,False,False,False,False,119.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 8%",wc_cal,2015-18,269,114,155,0,0.4238,31.75,0.118,269.0,3,4,0.0535,,False,False,False,False,181.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 8%",wc_cal,2019-22,268,124,144,2,0.4627,6.62,0.0247,268.0,2,4,0.2475,,False,False,False,False,181.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 8%",wc_cal,2023-25,181,75,106,0,0.4144,-16.04,-0.0886,181.0,0,3,0.6935,,False,False,False,False,181.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 8%",wc_cal,2015-25,718,313,405,2,0.4359,22.33,0.0311,718.0,5,11,0.1072,,False,False,False,False,181.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 8%",wc_cal,2026,12,5,7,0,0.4167,1.16,0.0966,12.0,1,1,0.3553,,False,False,False,False,181.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, dogs only",wc_cal,2015-18,212,79,133,0,0.3726,30.16,0.1423,212.0,3,4,0.0565,,False,False,False,False,124.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, dogs only",wc_cal,2019-22,186,78,108,1,0.4194,19.0,0.1022,186.0,4,4,0.1017,,False,False,False,False,124.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, dogs only",wc_cal,2023-25,124,39,85,0,0.3145,-17.61,-0.142,124.0,0,3,0.774,,False,False,False,False,124.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, dogs only",wc_cal,2015-25,522,196,326,1,0.3755,31.55,0.0604,522.0,7,11,0.0798,,False,False,False,False,124.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, dogs only",wc_cal,2026,11,4,7,0,0.3636,0.39,0.0355,11.0,1,1,0.4208,,False,False,False,False,124.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, favourites only",wc_cal,2015-18,57,35,22,0,0.614,1.59,0.0279,57.0,1,4,0.3205,,False,False,False,False,57.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, favourites only",wc_cal,2019-22,82,46,36,1,0.561,-12.38,-0.151,82.0,1,4,0.9195,,False,False,False,False,57.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, favourites only",wc_cal,2023-25,57,36,21,0,0.6316,1.57,0.0275,57.0,2,3,0.2585,,False,False,False,False,57.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, favourites only",wc_cal,2015-25,196,117,79,1,0.5969,-9.22,-0.047,196.0,4,11,0.6192,,False,False,False,False,57.0,,
+bet type,"moneyline, win chance (cal) beats book by 8%, favourites only",wc_cal,2026,1,1,0,0,1.0,0.77,0.7692,1.0,1,1,0.0,,False,False,False,False,57.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 10%",wc_cal,2015-18,187,86,101,0,0.4599,41.69,0.223,187.0,4,4,0.0075,,False,False,False,True,112.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 10%",wc_cal,2019-22,177,81,96,2,0.4576,15.38,0.0869,177.0,3,4,0.118,,False,False,False,True,112.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 10%",wc_cal,2023-25,112,48,64,0,0.4286,0.11,0.0009,112.0,2,3,0.3598,,False,False,False,True,112.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 10%",wc_cal,2015-25,476,215,261,2,0.4517,57.18,0.1201,476.0,9,11,0.009,,False,False,False,True,112.0,,
+bet type,"moneyline, model win chance (cal) beats no-vig book by 10%",wc_cal,2026,4,1,3,0,0.25,-1.2,-0.3,4.0,0,1,0.587,,False,False,False,True,112.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, dogs only",wc_cal,2015-18,145,61,84,0,0.4207,41.76,0.288,145.0,4,4,0.008,,False,False,True,False,81.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, dogs only",wc_cal,2019-22,134,60,74,1,0.4478,25.48,0.1901,134.0,4,4,0.0355,,False,False,True,False,81.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, dogs only",wc_cal,2023-25,81,29,52,0,0.358,-1.05,-0.013,81.0,1,3,0.4193,,False,False,True,False,81.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, dogs only",wc_cal,2015-25,360,150,210,1,0.4167,66.19,0.1839,360.0,9,11,0.0047,,False,False,True,False,81.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, dogs only",wc_cal,2026,4,1,3,0,0.25,-1.2,-0.3,4.0,0,1,0.587,,False,False,True,False,81.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, favourites only",wc_cal,2015-18,42,25,17,0,0.5952,-0.07,-0.0016,42.0,3,4,0.436,,False,False,False,False,31.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, favourites only",wc_cal,2019-22,43,21,22,1,0.4884,-10.1,-0.2348,43.0,1,4,0.9577,,False,False,False,False,31.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, favourites only",wc_cal,2023-25,31,19,12,0,0.6129,1.16,0.0373,31.0,2,3,0.2953,,False,False,False,False,31.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, favourites only",wc_cal,2015-25,116,65,51,1,0.5603,-9.01,-0.0777,116.0,6,11,0.734,,False,False,False,False,31.0,,
+bet type,"moneyline, win chance (cal) beats book by 10%, favourites only",wc_cal,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,31.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 3%",wc_raw,2015-18,689,290,399,1,0.4209,17.13,0.0249,689.0,2,4,0.1633,,False,False,False,False,529.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 3%",wc_raw,2019-22,688,256,432,5,0.3721,-54.83,-0.0797,688.0,1,4,0.837,,False,False,False,False,529.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 3%",wc_raw,2023-25,529,201,328,1,0.38,-40.7,-0.0769,529.0,0,3,0.7025,,False,False,False,False,529.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 3%",wc_raw,2015-25,1906,747,1159,7,0.3919,-78.4,-0.0411,1906.0,3,11,0.627,,False,False,False,False,529.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 3%",wc_raw,2026,32,16,16,0,0.5,12.12,0.3788,32.0,1,1,0.0465,,False,False,False,False,529.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 5%",wc_raw,2015-18,497,207,290,1,0.4165,31.91,0.0642,497.0,3,4,0.0788,,False,False,False,False,357.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 5%",wc_raw,2019-22,490,170,320,4,0.3469,-43.95,-0.0897,490.0,2,4,0.8275,,False,False,False,False,357.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 5%",wc_raw,2023-25,357,134,223,1,0.3754,-24.51,-0.0687,357.0,1,3,0.6322,,False,False,False,False,357.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 5%",wc_raw,2015-25,1344,511,833,6,0.3802,-36.55,-0.0272,1344.0,6,11,0.4677,,False,False,False,False,357.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 5%",wc_raw,2026,23,12,11,0,0.5217,8.4,0.3652,23.0,1,1,0.0892,,False,False,False,False,357.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 8%",wc_raw,2015-18,288,120,168,0,0.4167,45.53,0.1581,288.0,4,4,0.0177,,False,False,False,False,178.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 8%",wc_raw,2019-22,295,100,195,2,0.339,-33.02,-0.1119,295.0,1,4,0.8492,,False,False,False,False,178.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 8%",wc_raw,2023-25,178,66,112,0,0.3708,-13.49,-0.0758,178.0,1,3,0.618,,False,False,False,False,178.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 8%",wc_raw,2015-25,761,286,475,2,0.3758,-0.97,-0.0013,761.0,6,11,0.2777,,False,False,False,False,178.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 8%",wc_raw,2026,12,7,5,0,0.5833,7.86,0.6549,12.0,1,1,0.0663,,False,False,False,False,178.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 10%",wc_raw,2015-18,193,83,110,0,0.4301,37.16,0.1925,193.0,4,4,0.0222,,False,False,False,False,105.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 10%",wc_raw,2019-22,204,76,128,2,0.3725,0.68,0.0033,204.0,2,4,0.3695,,False,False,False,False,105.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 10%",wc_raw,2023-25,105,40,65,0,0.381,-6.29,-0.0599,105.0,1,3,0.535,,False,False,False,False,105.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 10%",wc_raw,2015-25,502,199,303,2,0.3964,31.55,0.0628,502.0,7,11,0.0777,,False,False,False,False,105.0,,
+bet type,"moneyline, model win chance (raw) beats no-vig book by 10%",wc_raw,2026,4,1,3,0,0.25,-1.6,-0.4,4.0,0,1,0.6088,,False,False,False,False,105.0,,
+live,"LIVE: under at 55%+ chance, weeks 1-17",under,2015-18,262,135,127,3,0.5153,-4.7,-0.0163,288.2,2,4,0.6329,,,,,False,130.0,0.0,-14.36
+live,"LIVE: under at 55%+ chance, weeks 1-17",under,2019-22,303,175,128,4,0.5776,34.2,0.1026,333.3,4,4,0.0345,,,,,False,130.0,0.0,-14.36
+live,"LIVE: under at 55%+ chance, weeks 1-17",under,2023-25,130,71,59,1,0.5462,6.1,0.0427,143.0,2,3,0.3369,,,,,False,130.0,0.0,-14.36
+live,"LIVE: under at 55%+ chance, weeks 1-17",under,2015-25,695,381,314,8,0.5482,35.6,0.0466,764.5,8,11,0.1057,,,,,False,130.0,0.0,-14.36
+live,"LIVE: under at 55%+ chance, weeks 1-17",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,,,,False,130.0,0.0,-14.36
+thresholds,under at 52%+ chance,under,2015-18,419,216,203,4,0.5155,-7.3,-0.0158,460.9,2,4,0.6516,,False,False,False,False,246.0,0.03,-26.91
+thresholds,under at 52%+ chance,under,2019-22,446,245,201,5,0.5493,23.9,0.0487,490.6,2,4,0.1511,,False,False,False,False,246.0,0.03,-26.91
+thresholds,under at 52%+ chance,under,2023-25,246,132,114,2,0.5366,6.6,0.0244,270.6,1,3,0.3683,,False,False,False,False,246.0,0.03,-26.91
+thresholds,under at 52%+ chance,under,2015-25,1111,593,518,11,0.5338,23.2,0.019,1222.1,5,11,0.2633,,False,False,False,False,246.0,0.03,-26.91
+thresholds,under at 52%+ chance,under,2026,18,10,8,0,0.5556,1.2,0.0606,19.8,1,1,0.4881,,False,False,False,False,246.0,0.03,-26.91
+thresholds,under at 53%+ chance,under,2015-18,365,189,176,3,0.5178,-4.6,-0.0115,401.5,3,4,0.6113,,False,False,False,False,216.0,0.06,-20.13
+thresholds,under at 53%+ chance,under,2019-22,409,222,187,4,0.5428,16.3,0.0362,449.9,2,4,0.2362,,False,False,False,False,216.0,0.06,-20.13
+thresholds,under at 53%+ chance,under,2023-25,216,116,100,2,0.537,6.0,0.0253,237.6,2,3,0.3745,,False,False,False,False,216.0,0.06,-20.13
+thresholds,under at 53%+ chance,under,2015-25,990,527,463,9,0.5323,17.7,0.0163,1089.0,7,11,0.3071,,False,False,False,False,216.0,0.06,-20.13
+thresholds,under at 53%+ chance,under,2026,15,9,6,0,0.6,2.4,0.1455,16.5,1,1,0.3719,,False,False,False,False,216.0,0.06,-20.13
+thresholds,under at 54%+ chance,under,2015-18,316,161,155,3,0.5095,-9.5,-0.0273,347.6,2,4,0.7144,,False,False,False,False,176.0,0.115,-19.21
+thresholds,under at 54%+ chance,under,2019-22,349,192,157,4,0.5501,19.3,0.0503,383.9,2,4,0.1759,,False,False,False,False,176.0,0.115,-19.21
+thresholds,under at 54%+ chance,under,2023-25,176,93,83,2,0.5284,1.7,0.0088,193.6,2,3,0.4819,,False,False,False,False,176.0,0.115,-19.21
+thresholds,under at 54%+ chance,under,2015-25,841,446,395,9,0.5303,11.5,0.0124,925.1,6,11,0.3658,,False,False,False,False,176.0,0.115,-19.21
+thresholds,under at 54%+ chance,under,2026,14,9,5,0,0.6429,3.5,0.2273,15.4,1,1,0.268,,False,False,False,False,176.0,0.115,-19.21
+thresholds,under at 56%+ chance,under,2015-18,218,115,103,2,0.5275,1.7,0.0071,239.8,3,4,0.4837,,False,False,False,False,104.0,0.685,33.63
+thresholds,under at 56%+ chance,under,2019-22,273,159,114,4,0.5824,33.6,0.1119,300.3,4,4,0.0299,,False,False,False,False,104.0,0.685,33.63
+thresholds,under at 56%+ chance,under,2023-25,104,52,52,0,0.5,-5.2,-0.0455,114.4,1,3,0.7207,,False,False,False,False,104.0,0.685,33.63
+thresholds,under at 56%+ chance,under,2015-25,595,326,269,6,0.5479,30.1,0.046,654.5,8,11,0.128,,False,False,False,False,104.0,0.685,33.63
+thresholds,under at 56%+ chance,under,2026,10,6,4,0,0.6,1.6,0.1455,11.0,1,1,0.4368,,False,False,False,False,104.0,0.685,33.63
+thresholds,under at 57%+ chance,under,2015-18,181,95,86,2,0.5249,0.4,0.002,199.1,2,4,0.5188,,False,False,True,False,80.0,0.45,30.64
+thresholds,under at 57%+ chance,under,2019-22,242,143,99,3,0.5909,34.1,0.1281,266.2,4,4,0.0211,,False,False,True,False,80.0,0.45,30.64
+thresholds,under at 57%+ chance,under,2023-25,80,41,39,0,0.5125,-1.9,-0.0216,88.0,2,3,0.6239,,False,False,True,False,80.0,0.45,30.64
+thresholds,under at 57%+ chance,under,2015-25,503,279,224,5,0.5547,32.6,0.0589,553.3,8,11,0.0898,,False,False,True,False,80.0,0.45,30.64
+thresholds,under at 57%+ chance,under,2026,9,6,3,0,0.6667,2.7,0.2727,9.9,1,1,0.3029,,False,False,True,False,80.0,0.45,30.64
+thresholds,under at 58%+ chance,under,2015-18,155,83,72,2,0.5355,3.8,0.0223,170.5,2,4,0.4171,,False,False,True,True,66.0,0.21,27.37
+thresholds,under at 58%+ chance,under,2019-22,209,125,84,3,0.5981,32.6,0.1418,229.9,4,4,0.0184,,False,False,True,True,66.0,0.21,27.37
+thresholds,under at 58%+ chance,under,2023-25,66,35,31,0,0.5303,0.9,0.0124,72.6,2,3,0.5078,,False,False,True,True,66.0,0.21,27.37
+thresholds,under at 58%+ chance,under,2015-25,430,243,187,5,0.5651,37.3,0.0789,473.0,8,11,0.0476,,False,False,True,True,66.0,0.21,27.37
+thresholds,under at 58%+ chance,under,2026,6,5,1,0,0.8333,3.9,0.5909,6.6,1,1,0.1333,,False,False,True,True,66.0,0.21,27.37
+thresholds,under at 59%+ chance,under,2015-18,135,73,62,1,0.5407,4.8,0.0323,148.5,2,4,0.3797,,False,False,True,False,62.0,0.105,23.11
+thresholds,under at 59%+ chance,under,2019-22,181,113,68,3,0.6243,38.2,0.1919,199.1,4,4,0.0041,,False,False,True,False,62.0,0.105,23.11
+thresholds,under at 59%+ chance,under,2023-25,62,31,31,0,0.5,-3.1,-0.0455,68.2,1,3,0.6927,,False,False,True,False,62.0,0.105,23.11
+thresholds,under at 59%+ chance,under,2015-25,378,217,161,4,0.5741,39.9,0.096,415.8,7,11,0.0282,,False,False,True,False,62.0,0.105,23.11
+thresholds,under at 59%+ chance,under,2026,5,4,1,0,0.8,2.9,0.5273,5.5,1,1,0.2187,,False,False,True,False,62.0,0.105,23.11
+thresholds,under at 60%+ chance,under,2015-18,117,64,53,1,0.547,5.7,0.0443,128.7,1,4,0.3415,,False,False,True,False,48.0,0.04,18.13
+thresholds,under at 60%+ chance,under,2019-22,160,102,58,1,0.6375,38.2,0.217,176.0,4,4,0.0024,,False,False,True,False,48.0,0.04,18.13
+thresholds,under at 60%+ chance,under,2023-25,48,24,24,0,0.5,-2.4,-0.0455,52.8,1,3,0.6829,,False,False,True,False,48.0,0.04,18.13
+thresholds,under at 60%+ chance,under,2015-25,325,190,135,2,0.5846,41.5,0.1161,357.5,6,11,0.016,,False,False,True,False,48.0,0.04,18.13
+thresholds,under at 60%+ chance,under,2026,3,2,1,0,0.6667,0.9,0.2727,3.3,1,1,0.5357,,False,False,True,False,48.0,0.04,18.13
+thresholds,under at 61%+ chance,under,2015-18,99,55,44,0,0.5556,6.6,0.0606,108.9,1,4,0.2979,,False,True,True,True,38.0,0.0,14.67
+thresholds,under at 61%+ chance,under,2019-22,134,91,43,1,0.6791,43.7,0.2965,147.4,4,4,0.0002,,False,True,True,True,38.0,0.0,14.67
+thresholds,under at 61%+ chance,under,2023-25,38,21,17,0,0.5526,2.3,0.055,41.8,2,3,0.4245,,False,True,True,True,38.0,0.0,14.67
+thresholds,under at 61%+ chance,under,2015-25,271,167,104,1,0.6162,52.6,0.1765,298.1,7,11,0.0013,,False,True,True,True,38.0,0.0,14.67
+thresholds,under at 61%+ chance,under,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,True,True,True,38.0,0.0,14.67
+thresholds,under at 62%+ chance,under,2015-18,74,45,29,0,0.6081,13.1,0.1609,81.4,2,4,0.0904,,False,True,True,True,33.0,0.0,12.39
+thresholds,under at 62%+ chance,under,2019-22,105,71,34,0,0.6762,33.6,0.2909,115.5,4,4,0.0011,,False,True,True,True,33.0,0.0,12.39
+thresholds,under at 62%+ chance,under,2023-25,33,20,13,0,0.6061,5.7,0.157,36.3,3,3,0.2207,,False,True,True,True,33.0,0.0,12.39
+thresholds,under at 62%+ chance,under,2015-25,212,136,76,0,0.6415,52.4,0.2247,233.2,9,11,0.0004,,False,True,True,True,33.0,0.0,12.39
+thresholds,under at 62%+ chance,under,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,True,True,True,33.0,0.0,12.39
+thresholds,under chance band 50%-53%,under,2015-18,159,83,76,2,0.522,-0.6,-0.0034,174.9,2,4,0.5501,,False,False,False,False,106.0,0.665,-11.99
+thresholds,under chance band 50%-53%,under,2019-22,137,68,69,3,0.4964,-7.9,-0.0524,150.7,1,4,0.7672,,False,False,False,False,106.0,0.665,-11.99
+thresholds,under chance band 50%-53%,under,2023-25,106,51,55,0,0.4811,-9.5,-0.0815,116.6,0,3,0.8357,,False,False,False,False,106.0,0.665,-11.99
+thresholds,under chance band 50%-53%,under,2015-25,402,202,200,5,0.5025,-18.0,-0.0407,442.2,3,11,0.8175,,False,False,False,False,106.0,0.665,-11.99
+thresholds,under chance band 50%-53%,under,2026,5,3,2,0,0.6,0.8,0.1455,5.5,1,1,0.5446,,False,False,False,False,106.0,0.665,-11.99
+thresholds,under chance band 53%-55%,under,2015-18,103,54,49,0,0.5243,0.1,0.0009,113.3,3,4,0.5361,,False,False,False,False,86.0,0.745,-10.15
+thresholds,under chance band 53%-55%,under,2019-22,106,47,59,0,0.4434,-17.9,-0.1535,116.6,0,4,0.9603,,False,False,False,False,86.0,0.745,-10.15
+thresholds,under chance band 53%-55%,under,2023-25,86,45,41,1,0.5233,-0.1,-0.0011,94.6,2,3,0.5477,,False,False,False,False,86.0,0.745,-10.15
+thresholds,under chance band 53%-55%,under,2015-25,295,146,149,1,0.4949,-17.9,-0.0552,324.5,5,11,0.8536,,False,False,False,False,86.0,0.745,-10.15
+thresholds,under chance band 53%-55%,under,2026,4,2,2,0,0.5,-0.2,-0.0455,4.4,0,1,0.7223,,False,False,False,False,86.0,0.745,-10.15
+thresholds,under chance band 55%-57%,under,2015-18,81,40,41,1,0.4938,-5.1,-0.0572,89.1,1,4,0.7429,,False,False,False,False,50.0,0.575,5.13
+thresholds,under chance band 55%-57%,under,2019-22,61,32,29,1,0.5246,0.1,0.0015,67.1,2,4,0.5469,,False,False,False,False,50.0,0.575,5.13
+thresholds,under chance band 55%-57%,under,2023-25,50,30,20,1,0.6,8.0,0.1455,55.0,2,3,0.1745,,False,False,False,False,50.0,0.575,5.13
+thresholds,under chance band 55%-57%,under,2015-25,192,102,90,3,0.5312,3.0,0.0142,211.2,5,11,0.4471,,False,False,False,False,50.0,0.575,5.13
+thresholds,under chance band 55%-57%,under,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,False,False,50.0,0.575,5.13
+thresholds,under chance band 57%-59%,under,2015-18,46,22,24,1,0.4783,-4.4,-0.087,50.6,2,4,0.7783,,False,False,False,False,18.0,0.93,7.55
+thresholds,under chance band 57%-59%,under,2019-22,61,30,31,0,0.4918,-4.1,-0.0611,67.1,2,4,0.7355,,False,False,False,False,18.0,0.93,7.55
+thresholds,under chance band 57%-59%,under,2023-25,18,10,8,0,0.5556,1.2,0.0606,19.8,1,3,0.4881,,False,False,False,False,18.0,0.93,7.55
+thresholds,under chance band 57%-59%,under,2015-25,125,62,63,1,0.496,-7.3,-0.0531,137.5,5,11,0.7619,,False,False,False,False,18.0,0.93,7.55
+thresholds,under chance band 57%-59%,under,2026,4,2,2,0,0.5,-0.2,-0.0455,4.4,0,1,0.7223,,False,False,False,False,18.0,0.93,7.55
+thresholds,under chance band 59%+,under,2015-18,135,73,62,1,0.5407,4.8,0.0323,148.5,2,4,0.3797,,False,False,True,False,62.0,0.09,20.11
+thresholds,under chance band 59%+,under,2019-22,181,113,68,3,0.6243,38.2,0.1919,199.1,4,4,0.0041,,False,False,True,False,62.0,0.09,20.11
+thresholds,under chance band 59%+,under,2023-25,62,31,31,0,0.5,-3.1,-0.0455,68.2,1,3,0.6927,,False,False,True,False,62.0,0.09,20.11
+thresholds,under chance band 59%+,under,2015-25,378,217,161,4,0.5741,39.9,0.096,415.8,7,11,0.0282,,False,False,True,False,62.0,0.09,20.11
+thresholds,under chance band 59%+,under,2026,5,4,1,0,0.8,2.9,0.5273,5.5,1,1,0.2187,,False,False,True,False,62.0,0.09,20.11
+thresholds,over at 52%+ chance,over,2015-18,392,193,199,3,0.4923,-25.9,-0.0601,431.2,1,4,0.9028,,False,False,False,False,343.0,0.17,-89.73
+thresholds,over at 52%+ chance,over,2019-22,343,165,178,3,0.481,-30.8,-0.0816,377.3,0,4,0.9494,,False,False,False,False,343.0,0.17,-89.73
+thresholds,over at 52%+ chance,over,2023-25,371,192,179,3,0.5175,-4.9,-0.012,408.1,2,3,0.6161,,False,False,False,False,343.0,0.17,-89.73
+thresholds,over at 52%+ chance,over,2015-25,1106,550,556,9,0.4973,-61.6,-0.0506,1216.6,3,11,0.9637,,False,False,False,False,343.0,0.17,-89.73
+thresholds,over at 52%+ chance,over,2026,24,13,11,0,0.5417,0.9,0.0341,26.4,1,1,0.5129,,False,False,False,False,343.0,0.17,-89.73
+thresholds,over at 53%+ chance,over,2015-18,340,164,176,3,0.4824,-29.6,-0.0791,374.0,0,4,0.9434,,False,False,False,False,307.0,0.19,-77.12
+thresholds,over at 53%+ chance,over,2019-22,307,150,157,3,0.4886,-22.7,-0.0672,337.7,0,4,0.9018,,False,False,False,False,307.0,0.19,-77.12
+thresholds,over at 53%+ chance,over,2023-25,324,169,155,3,0.5216,-1.5,-0.0042,356.4,1,3,0.5541,,False,False,False,False,307.0,0.19,-77.12
+thresholds,over at 53%+ chance,over,2015-25,971,483,488,9,0.4974,-53.8,-0.0504,1068.1,1,11,0.9533,,False,False,False,False,307.0,0.19,-77.12
+thresholds,over at 53%+ chance,over,2026,23,12,11,0,0.5217,-0.1,-0.004,25.3,0,1,0.5913,,False,False,False,False,307.0,0.19,-77.12
+thresholds,over at 54%+ chance,over,2015-18,281,141,140,2,0.5018,-13.0,-0.0421,309.1,1,4,0.788,,False,False,False,False,256.0,0.22,-63.65
+thresholds,over at 54%+ chance,over,2019-22,256,122,134,1,0.4766,-25.4,-0.0902,281.6,0,4,0.9424,,False,False,False,False,256.0,0.22,-63.65
+thresholds,over at 54%+ chance,over,2023-25,286,147,139,3,0.514,-5.9,-0.0188,314.6,2,3,0.6527,,False,False,False,False,256.0,0.22,-63.65
+thresholds,over at 54%+ chance,over,2015-25,823,410,413,6,0.4982,-44.3,-0.0489,905.3,3,11,0.9341,,False,False,False,False,256.0,0.22,-63.65
+thresholds,over at 54%+ chance,over,2026,22,11,11,0,0.5,-1.1,-0.0455,24.2,0,1,0.6695,,False,False,False,False,256.0,0.22,-63.65
+thresholds,over at 55%+ chance,over,2015-18,245,121,124,2,0.4939,-15.4,-0.0571,269.5,0,4,0.8418,,False,False,False,False,212.0,0.13,-59.38
+thresholds,over at 55%+ chance,over,2019-22,212,104,108,1,0.4906,-14.8,-0.0635,233.2,1,4,0.8503,,False,False,False,False,212.0,0.13,-59.38
+thresholds,over at 55%+ chance,over,2023-25,255,132,123,2,0.5176,-3.3,-0.0118,280.5,2,3,0.6028,,False,False,False,False,212.0,0.13,-59.38
+thresholds,over at 55%+ chance,over,2015-25,712,357,355,5,0.5014,-33.5,-0.0428,783.2,3,11,0.8915,,False,False,False,False,212.0,0.13,-59.38
+thresholds,over at 55%+ chance,over,2026,21,11,10,0,0.5238,-0.0,-0.0,23.1,0,1,0.5874,,False,False,False,False,212.0,0.13,-59.38
+thresholds,over at 56%+ chance,over,2015-18,200,100,100,2,0.5,-10.0,-0.0455,220.0,1,4,0.772,,False,False,False,False,186.0,0.22,-50.53
+thresholds,over at 56%+ chance,over,2019-22,186,92,94,0,0.4946,-11.4,-0.0557,204.6,2,4,0.808,,False,False,False,False,186.0,0.22,-50.53
+thresholds,over at 56%+ chance,over,2023-25,220,111,109,2,0.5045,-8.9,-0.0368,242.0,2,3,0.7389,,False,False,False,False,186.0,0.22,-50.53
+thresholds,over at 56%+ chance,over,2015-25,606,303,303,4,0.5,-30.3,-0.0455,666.6,5,11,0.8876,,False,False,False,False,186.0,0.22,-50.53
+thresholds,over at 56%+ chance,over,2026,17,7,10,0,0.4118,-4.0,-0.2139,18.7,0,1,0.8786,,False,False,False,False,186.0,0.22,-50.53
+thresholds,over at 57%+ chance,over,2015-18,163,81,82,2,0.4969,-9.2,-0.0513,179.3,2,4,0.7781,,False,False,False,False,163.0,0.275,-40.54
+thresholds,over at 57%+ chance,over,2019-22,164,81,83,0,0.4939,-10.3,-0.0571,180.4,1,4,0.801,,False,False,False,False,163.0,0.275,-40.54
+thresholds,over at 57%+ chance,over,2023-25,189,95,94,2,0.5026,-8.4,-0.0404,207.9,1,3,0.7441,,False,False,False,False,163.0,0.275,-40.54
+thresholds,over at 57%+ chance,over,2015-25,516,257,259,4,0.4981,-27.9,-0.0492,567.6,4,11,0.8878,,False,False,False,False,163.0,0.275,-40.54
+thresholds,over at 57%+ chance,over,2026,17,7,10,0,0.4118,-4.0,-0.2139,18.7,0,1,0.8786,,False,False,False,False,163.0,0.275,-40.54
+thresholds,over at 58%+ chance,over,2015-18,136,71,65,2,0.5221,-0.5,-0.0033,149.6,2,4,0.5509,,False,False,False,False,136.0,0.165,-36.43
+thresholds,over at 58%+ chance,over,2019-22,137,68,69,0,0.4964,-7.9,-0.0524,150.7,1,4,0.7672,,False,False,False,False,136.0,0.165,-36.43
+thresholds,over at 58%+ chance,over,2023-25,156,78,78,2,0.5,-7.8,-0.0455,171.6,1,3,0.7505,,False,False,False,False,136.0,0.165,-36.43
+thresholds,over at 58%+ chance,over,2015-25,429,217,212,4,0.5058,-16.2,-0.0343,471.9,4,11,0.7865,,False,False,False,False,136.0,0.165,-36.43
+thresholds,over at 58%+ chance,over,2026,13,5,8,0,0.3846,-3.8,-0.2657,14.3,0,1,0.9005,,False,False,False,False,136.0,0.165,-36.43
+thresholds,over at 59%+ chance,over,2015-18,118,63,55,2,0.5339,2.5,0.0193,129.8,2,4,0.45,,False,False,False,False,104.0,0.33,-31.78
+thresholds,over at 59%+ chance,over,2019-22,104,49,55,0,0.4712,-11.5,-0.1005,114.4,0,4,0.8796,,False,False,False,False,104.0,0.33,-31.78
+thresholds,over at 59%+ chance,over,2023-25,129,61,68,1,0.4729,-13.8,-0.0973,141.9,0,3,0.8937,,False,False,False,False,104.0,0.33,-31.78
+thresholds,over at 59%+ chance,over,2015-25,351,173,178,3,0.4929,-22.8,-0.0591,386.1,2,11,0.8875,,False,False,False,False,104.0,0.33,-31.78
+thresholds,over at 59%+ chance,over,2026,11,4,7,0,0.3636,-3.7,-0.3058,12.1,0,1,0.9146,,False,False,False,False,104.0,0.33,-31.78
+thresholds,over at 60%+ chance,over,2015-18,102,57,45,2,0.5588,7.5,0.0668,112.2,2,4,0.2717,,False,False,False,False,76.0,0.135,-22.87
+thresholds,over at 60%+ chance,over,2019-22,76,36,40,0,0.4737,-8.0,-0.0957,83.6,1,4,0.8389,,False,False,False,False,76.0,0.135,-22.87
+thresholds,over at 60%+ chance,over,2023-25,93,46,47,1,0.4946,-5.7,-0.0557,102.3,0,3,0.7479,,False,False,False,False,76.0,0.135,-22.87
+thresholds,over at 60%+ chance,over,2015-25,271,139,132,3,0.5129,-6.2,-0.0208,298.1,3,11,0.663,,False,False,False,False,76.0,0.135,-22.87
+thresholds,over at 60%+ chance,over,2026,10,4,6,0,0.4,-2.6,-0.2364,11.0,0,1,0.8644,,False,False,False,False,76.0,0.135,-22.87
+thresholds,over at 61%+ chance,over,2015-18,81,42,39,1,0.5185,-0.9,-0.0101,89.1,2,4,0.5824,,False,False,False,False,60.0,0.175,-18.74
+thresholds,over at 61%+ chance,over,2019-22,60,32,28,0,0.5333,1.2,0.0182,66.0,2,4,0.4935,,False,False,False,False,60.0,0.175,-18.74
+thresholds,over at 61%+ chance,over,2023-25,69,33,36,1,0.4783,-6.6,-0.087,75.9,0,3,0.8101,,False,False,False,False,60.0,0.175,-18.74
+thresholds,over at 61%+ chance,over,2015-25,210,107,103,2,0.5095,-6.3,-0.0273,231.0,4,11,0.6859,,False,False,False,False,60.0,0.175,-18.74
+thresholds,over at 61%+ chance,over,2026,9,3,6,0,0.3333,-3.6,-0.3636,9.9,0,1,0.9314,,False,False,False,False,60.0,0.175,-18.74
+thresholds,over at 62%+ chance,over,2015-18,60,31,29,1,0.5167,-0.9,-0.0136,66.0,2,4,0.5955,,False,False,False,False,41.0,0.215,-13.57
+thresholds,over at 62%+ chance,over,2019-22,41,20,21,0,0.4878,-3.1,-0.0687,45.1,1,4,0.7319,,False,False,False,False,41.0,0.215,-13.57
+thresholds,over at 62%+ chance,over,2023-25,42,22,20,0,0.5238,-0.0,-0.0,46.2,2,3,0.5622,,False,False,False,False,41.0,0.215,-13.57
+thresholds,over at 62%+ chance,over,2015-25,143,73,70,1,0.5105,-4.0,-0.0254,157.3,5,11,0.6567,,False,False,False,False,41.0,0.215,-13.57
+thresholds,over at 62%+ chance,over,2026,6,1,5,0,0.1667,-4.5,-0.6818,6.6,0,1,0.9883,,False,False,False,False,41.0,0.215,-13.57
+thresholds,under at a 1+ point total edge,under,2015-18,298,151,147,3,0.5067,-10.7,-0.0326,327.8,2,4,0.742,,False,False,False,False,148.0,0.08,-16.54
+thresholds,under at a 1+ point total edge,under,2019-22,361,200,161,4,0.554,22.9,0.0577,397.1,4,4,0.1364,,False,False,False,False,148.0,0.08,-16.54
+thresholds,under at a 1+ point total edge,under,2023-25,148,80,68,1,0.5405,5.2,0.0319,162.8,2,3,0.373,,False,False,False,False,148.0,0.08,-16.54
+thresholds,under at a 1+ point total edge,under,2015-25,807,431,376,8,0.5341,17.4,0.0196,887.7,8,11,0.2917,,False,False,False,False,148.0,0.08,-16.54
+thresholds,under at a 1+ point total edge,under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,148.0,0.08,-16.54
+thresholds,over at a 1+ point total edge,over,2015-18,422,208,214,3,0.4929,-27.4,-0.059,464.2,1,4,0.9066,,False,False,False,False,359.0,0.13,-92.34
+thresholds,over at a 1+ point total edge,over,2019-22,359,171,188,5,0.4763,-35.8,-0.0907,394.9,0,4,0.9681,,False,False,False,False,359.0,0.13,-92.34
+thresholds,over at a 1+ point total edge,over,2023-25,405,213,192,3,0.5259,1.8,0.004,445.5,2,3,0.4861,,False,False,False,False,359.0,0.13,-92.34
+thresholds,over at a 1+ point total edge,over,2015-25,1186,592,594,11,0.4992,-61.4,-0.0471,1304.6,3,11,0.958,,False,False,False,False,359.0,0.13,-92.34
+thresholds,over at a 1+ point total edge,over,2026,25,14,11,0,0.56,1.9,0.0691,27.5,1,1,0.4371,,False,False,False,False,359.0,0.13,-92.34
+thresholds,under at a 2+ point total edge,under,2015-18,178,95,83,2,0.5337,3.7,0.0189,195.8,2,4,0.4254,,False,False,True,False,72.0,0.005,-11.04
+thresholds,under at a 2+ point total edge,under,2019-22,236,140,96,3,0.5932,34.4,0.1325,259.6,4,4,0.019,,False,False,True,False,72.0,0.005,-11.04
+thresholds,under at a 2+ point total edge,under,2023-25,72,37,35,0,0.5139,-1.5,-0.0189,79.2,2,3,0.6133,,False,False,True,False,72.0,0.005,-11.04
+thresholds,under at a 2+ point total edge,under,2015-25,486,272,214,5,0.5597,36.6,0.0685,534.6,8,11,0.0619,,False,False,True,False,72.0,0.005,-11.04
+thresholds,under at a 2+ point total edge,under,2026,7,6,1,0,0.8571,4.9,0.6364,7.7,1,1,0.0797,,False,False,True,False,72.0,0.005,-11.04
+thresholds,over at a 2+ point total edge,over,2015-18,270,136,134,2,0.5037,-11.4,-0.0384,297.0,1,4,0.7651,,False,False,False,False,221.0,0.16,-60.87
+thresholds,over at a 2+ point total edge,over,2019-22,221,108,113,1,0.4887,-16.3,-0.0671,243.1,2,4,0.8671,,False,False,False,False,221.0,0.16,-60.87
+thresholds,over at a 2+ point total edge,over,2023-25,280,143,137,3,0.5107,-7.7,-0.025,308.0,2,3,0.6912,,False,False,False,False,221.0,0.16,-60.87
+thresholds,over at a 2+ point total edge,over,2015-25,771,387,384,6,0.5019,-35.4,-0.0417,848.1,5,11,0.8946,,False,False,False,False,221.0,0.16,-60.87
+thresholds,over at a 2+ point total edge,over,2026,22,11,11,0,0.5,-1.1,-0.0455,24.2,0,1,0.6695,,False,False,False,False,221.0,0.16,-60.87
+thresholds,under at a 3+ point total edge,under,2015-18,107,61,46,0,0.5701,10.4,0.0884,117.7,3,4,0.1945,,False,True,True,True,37.0,0.0,-6.97
+thresholds,under at a 3+ point total edge,under,2019-22,145,95,50,1,0.6552,40.0,0.2508,159.5,4,4,0.0009,,False,True,True,True,37.0,0.0,-6.97
+thresholds,under at a 3+ point total edge,under,2023-25,37,21,16,0,0.5676,3.4,0.0835,40.7,3,3,0.3574,,False,True,True,True,37.0,0.0,-6.97
+thresholds,under at a 3+ point total edge,under,2015-25,289,177,112,1,0.6125,53.8,0.1692,317.9,10,11,0.0015,,False,True,True,True,37.0,0.0,-6.97
+thresholds,under at a 3+ point total edge,under,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,True,True,True,37.0,0.0,-6.97
+thresholds,over at a 3+ point total edge,over,2015-18,136,70,66,2,0.5147,-2.6,-0.0174,149.6,2,4,0.6177,,False,False,False,False,126.0,0.25,-34.07
+thresholds,over at a 3+ point total edge,over,2019-22,126,61,65,0,0.4841,-10.5,-0.0758,138.6,1,4,0.8367,,False,False,False,False,126.0,0.25,-34.07
+thresholds,over at a 3+ point total edge,over,2023-25,171,86,85,2,0.5029,-7.5,-0.0399,188.1,1,3,0.7337,,False,False,False,False,126.0,0.25,-34.07
+thresholds,over at a 3+ point total edge,over,2015-25,433,217,216,4,0.5012,-20.6,-0.0433,476.3,4,11,0.8394,,False,False,False,False,126.0,0.25,-34.07
+thresholds,over at a 3+ point total edge,over,2026,14,6,8,0,0.4286,-2.8,-0.1818,15.4,0,1,0.8366,,False,False,False,False,126.0,0.25,-34.07
+thresholds,under at a 4+ point total edge,under,2015-18,54,31,23,0,0.5741,5.7,0.096,59.4,2,4,0.2738,,False,True,True,True,14.0,0.0,-2.99
+thresholds,under at a 4+ point total edge,under,2019-22,74,53,21,0,0.7162,29.9,0.3673,81.4,4,4,0.0006,,False,True,True,True,14.0,0.0,-2.99
+thresholds,under at a 4+ point total edge,under,2023-25,14,8,6,0,0.5714,1.4,0.0909,15.4,2,3,0.4664,,False,True,True,True,14.0,0.0,-2.99
+thresholds,under at a 4+ point total edge,under,2015-25,142,92,50,0,0.6479,37.0,0.2369,156.2,8,11,0.0019,,False,True,True,True,14.0,0.0,-2.99
+thresholds,under at a 4+ point total edge,under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,True,True,True,14.0,0.0,-2.99
+thresholds,over at a 4+ point total edge,over,2015-18,74,36,38,2,0.4865,-5.8,-0.0713,81.4,1,4,0.7763,,False,False,False,False,62.0,0.31,-17.91
+thresholds,over at a 4+ point total edge,over,2019-22,62,33,29,0,0.5323,1.1,0.0161,68.2,2,4,0.4984,,False,False,False,False,62.0,0.31,-17.91
+thresholds,over at a 4+ point total edge,over,2023-25,87,43,44,1,0.4943,-5.4,-0.0564,95.7,0,3,0.7454,,False,False,False,False,62.0,0.31,-17.91
+thresholds,over at a 4+ point total edge,over,2015-25,223,112,111,3,0.5022,-10.1,-0.0412,245.3,3,11,0.7619,,False,False,False,False,62.0,0.31,-17.91
+thresholds,over at a 4+ point total edge,over,2026,10,4,6,0,0.4,-2.6,-0.2364,11.0,0,1,0.8644,,False,False,False,False,62.0,0.31,-17.91
+thresholds,under at a 5+ point total edge,under,2015-18,28,20,8,0,0.7143,11.2,0.3636,30.8,3,4,0.0322,,False,True,True,True,8.0,0.005,-1.43
+thresholds,under at a 5+ point total edge,under,2019-22,38,26,12,0,0.6842,12.8,0.3062,41.8,2,3,0.0334,,False,True,True,True,8.0,0.005,-1.43
+thresholds,under at a 5+ point total edge,under,2023-25,8,5,3,0,0.625,1.7,0.1932,8.8,2,3,0.4165,,False,True,True,True,8.0,0.005,-1.43
+thresholds,under at a 5+ point total edge,under,2015-25,74,51,23,0,0.6892,25.7,0.3157,81.4,7,10,0.0028,,False,True,True,True,8.0,0.005,-1.43
+thresholds,under at a 5+ point total edge,under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,True,True,True,8.0,0.005,-1.43
+thresholds,over at a 5+ point total edge,over,2015-18,39,19,20,1,0.4872,-3.0,-0.0699,42.9,1,4,0.7321,,False,False,False,False,26.0,0.335,-8.56
+thresholds,over at a 5+ point total edge,over,2019-22,26,15,11,0,0.5769,2.9,0.1014,28.6,3,4,0.3661,,False,False,False,False,26.0,0.335,-8.56
+thresholds,over at a 5+ point total edge,over,2023-25,30,14,16,0,0.4667,-3.6,-0.1091,33.0,1,3,0.7909,,False,False,False,False,26.0,0.335,-8.56
+thresholds,over at a 5+ point total edge,over,2015-25,95,48,47,1,0.5053,-3.7,-0.0354,104.5,5,11,0.6793,,False,False,False,False,26.0,0.335,-8.56
+thresholds,over at a 5+ point total edge,over,2026,5,0,5,0,0.0,-5.5,-1.0,5.5,0,1,1.0,,False,False,False,False,26.0,0.335,-8.56
+thresholds,under at a 6+ point total edge,under,2015-18,14,10,4,0,0.7143,5.6,0.3636,15.4,2,4,0.1225,,False,False,True,False,2.0,0.005,-0.78
+thresholds,under at a 6+ point total edge,under,2019-22,19,14,5,0,0.7368,8.5,0.4067,20.9,2,3,0.0496,,False,False,True,False,2.0,0.005,-0.78
+thresholds,under at a 6+ point total edge,under,2023-25,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,True,False,2.0,0.005,-0.78
+thresholds,under at a 6+ point total edge,under,2015-25,35,25,10,0,0.7143,14.0,0.3636,38.5,5,9,0.0172,,False,False,True,False,2.0,0.005,-0.78
+thresholds,under at a 6+ point total edge,under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,2.0,0.005,-0.78
+thresholds,over at a 6+ point total edge,over,2015-18,19,11,8,0,0.5789,2.2,0.1053,20.9,3,4,0.4025,,False,False,True,True,11.0,0.05,-3.73
+thresholds,over at a 6+ point total edge,over,2019-22,13,9,4,0,0.6923,4.6,0.3217,14.3,3,4,0.1744,,False,False,True,True,11.0,0.05,-3.73
+thresholds,over at a 6+ point total edge,over,2023-25,11,6,5,0,0.5455,0.5,0.0413,12.1,1,3,0.5642,,False,False,True,True,11.0,0.05,-3.73
+thresholds,over at a 6+ point total edge,over,2015-25,43,26,17,0,0.6047,7.3,0.1543,47.3,7,11,0.1819,,False,False,True,True,11.0,0.05,-3.73
+thresholds,over at a 6+ point total edge,over,2026,3,0,3,0,0.0,-3.3,-1.0,3.3,0,1,1.0,,False,False,True,True,11.0,0.05,-3.73
+thresholds,under at a 7+ point total edge,under,2015-18,7,4,3,0,0.5714,0.7,0.0909,7.7,1,3,0.552,,False,False,True,False,0.0,0.125,-0.57
+thresholds,under at a 7+ point total edge,under,2019-22,6,5,1,0,0.8333,3.9,0.5909,6.6,1,2,0.1333,,False,False,True,False,0.0,0.125,-0.57
+thresholds,under at a 7+ point total edge,under,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.125,-0.57
+thresholds,under at a 7+ point total edge,under,2015-25,13,9,4,0,0.6923,4.6,0.3217,14.3,2,5,0.1744,,False,False,True,False,0.0,0.125,-0.57
+thresholds,under at a 7+ point total edge,under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.125,-0.57
+thresholds,over at a 7+ point total edge,over,2015-18,11,7,4,0,0.6364,2.6,0.2149,12.1,2,2,0.3305,,False,True,True,True,1.0,0.04,-1.64
+thresholds,over at a 7+ point total edge,over,2019-22,5,4,1,0,0.8,2.9,0.5273,5.5,1,2,0.2187,,False,True,True,True,1.0,0.04,-1.64
+thresholds,over at a 7+ point total edge,over,2023-25,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,True,True,True,1.0,0.04,-1.64
+thresholds,over at a 7+ point total edge,over,2015-25,17,12,5,0,0.7059,6.5,0.3476,18.7,4,5,0.1028,,False,True,True,True,1.0,0.04,-1.64
+thresholds,over at a 7+ point total edge,over,2026,2,0,2,0,0.0,-2.2,-1.0,2.2,0,1,1.0,,False,True,True,True,1.0,0.04,-1.64
+thresholds,under at a 8+ point total edge,under,2015-18,4,3,1,0,0.75,1.9,0.4318,4.4,1,2,0.349,,False,False,True,False,0.0,0.095,-0.12
+thresholds,under at a 8+ point total edge,under,2019-22,2,2,0,0,1.0,2.0,0.9091,2.2,1,1,0.2744,,False,False,True,False,0.0,0.095,-0.12
+thresholds,under at a 8+ point total edge,under,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.095,-0.12
+thresholds,under at a 8+ point total edge,under,2015-25,6,5,1,0,0.8333,3.9,0.5909,6.6,2,3,0.1333,,False,False,True,False,0.0,0.095,-0.12
+thresholds,under at a 8+ point total edge,under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.095,-0.12
+thresholds,over at a 8+ point total edge,over,2015-18,8,5,3,0,0.625,1.7,0.1932,8.8,2,2,0.4165,,False,False,True,False,0.0,0.36,-0.76
+thresholds,over at a 8+ point total edge,over,2019-22,2,1,1,0,0.5,-0.1,-0.0455,2.2,1,2,0.7732,,False,False,True,False,0.0,0.36,-0.76
+thresholds,over at a 8+ point total edge,over,2023-25,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.36,-0.76
+thresholds,over at a 8+ point total edge,over,2015-25,10,6,4,0,0.6,1.6,0.1455,11.0,3,4,0.4368,,False,False,True,False,0.0,0.36,-0.76
+thresholds,over at a 8+ point total edge,over,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.36,-0.76
+bet type,"every under (blind, weeks 1-17)",under,2015-18,1015,522,493,9,0.5143,-20.3,-0.0182,1116.5,2,4,0.7387,,False,False,False,False,763.0,1.0,-62.8
+bet type,"every under (blind, weeks 1-17)",under,2019-22,1011,531,480,12,0.5252,3.0,0.0027,1112.1,2,4,0.4769,,False,False,False,False,763.0,1.0,-62.8
+bet type,"every under (blind, weeks 1-17)",under,2023-25,763,378,385,5,0.4954,-45.5,-0.0542,839.3,1,3,0.9459,,False,False,False,False,763.0,1.0,-62.8
+bet type,"every under (blind, weeks 1-17)",under,2015-25,2789,1431,1358,26,0.5131,-62.8,-0.0205,3067.9,5,11,0.8755,,False,False,False,False,763.0,1.0,-62.8
+bet type,"every under (blind, weeks 1-17)",under,2026,48,25,23,0,0.5208,-0.3,-0.0057,52.8,0,1,0.5744,,False,False,False,False,763.0,1.0,-62.8
+bet type,"every over (blind, weeks 1-17)",over,2015-18,1015,493,522,9,0.4857,-81.2,-0.0727,1116.5,1,4,0.9931,,False,False,False,False,763.0,1.0,-216.1
+bet type,"every over (blind, weeks 1-17)",over,2019-22,1011,480,531,12,0.4748,-104.1,-0.0936,1112.1,0,4,0.9992,,False,False,False,False,763.0,1.0,-216.1
+bet type,"every over (blind, weeks 1-17)",over,2023-25,763,385,378,5,0.5046,-30.8,-0.0367,839.3,1,3,0.8642,,False,False,False,False,763.0,1.0,-216.1
+bet type,"every over (blind, weeks 1-17)",over,2015-25,2789,1358,1431,26,0.4869,-216.1,-0.0704,3067.9,2,11,1.0,,False,False,False,False,763.0,1.0,-216.1
+bet type,"every over (blind, weeks 1-17)",over,2026,48,23,25,0,0.4792,-4.5,-0.0852,52.8,0,1,0.7776,,False,False,False,False,763.0,1.0,-216.1
+timing,"under 55%+, weeks 1-4",under,2015-18,78,31,47,0,0.3974,-20.7,-0.2413,85.8,0,4,0.9906,,False,False,False,False,38.0,1.0,14.61
+timing,"under 55%+, weeks 1-4",under,2019-22,86,46,40,2,0.5349,2.0,0.0211,94.6,3,4,0.4618,,False,False,False,False,38.0,1.0,14.61
+timing,"under 55%+, weeks 1-4",under,2023-25,38,21,17,0,0.5526,2.3,0.055,41.8,2,3,0.4245,,False,False,False,False,38.0,1.0,14.61
+timing,"under 55%+, weeks 1-4",under,2015-25,202,98,104,2,0.4851,-16.4,-0.0738,222.2,5,11,0.8791,,False,False,False,False,38.0,1.0,14.61
+timing,"under 55%+, weeks 1-4",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,38.0,1.0,14.61
+timing,"under 55%+, weeks 5-8",under,2015-18,71,36,35,1,0.507,-2.5,-0.032,78.1,2,4,0.6565,,False,False,True,False,30.0,0.39,7.69
+timing,"under 55%+, weeks 5-8",under,2019-22,76,46,30,1,0.6053,13.0,0.1555,83.6,4,4,0.0952,,False,False,True,False,30.0,0.39,7.69
+timing,"under 55%+, weeks 5-8",under,2023-25,30,16,14,1,0.5333,0.6,0.0182,33.0,2,3,0.5323,,False,False,True,False,30.0,0.39,7.69
+timing,"under 55%+, weeks 5-8",under,2015-25,177,98,79,3,0.5537,11.1,0.057,194.7,8,11,0.2359,,False,False,True,False,30.0,0.39,7.69
+timing,"under 55%+, weeks 5-8",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,30.0,0.39,7.69
+timing,"under 55%+, weeks 9-13",under,2015-18,68,44,24,2,0.6471,17.6,0.2353,74.8,3,4,0.0271,,False,True,True,True,38.0,0.0,9.07
+timing,"under 55%+, weeks 9-13",under,2019-22,89,55,34,0,0.618,17.6,0.1798,97.9,3,4,0.0466,,False,True,True,True,38.0,0.0,9.07
+timing,"under 55%+, weeks 9-13",under,2023-25,38,24,14,0,0.6316,8.6,0.2057,41.8,3,3,0.1211,,False,True,True,True,38.0,0.0,9.07
+timing,"under 55%+, weeks 9-13",under,2015-25,195,123,72,2,0.6308,43.8,0.2042,214.5,9,11,0.0017,,False,True,True,True,38.0,0.0,9.07
+timing,"under 55%+, weeks 9-13",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,True,True,True,38.0,0.0,9.07
+timing,"under 55%+, weeks 14-17",under,2015-18,45,24,21,0,0.5333,0.9,0.0182,49.5,2,4,0.5094,,False,False,False,False,24.0,0.82,6.19
+timing,"under 55%+, weeks 14-17",under,2019-22,52,28,24,1,0.5385,1.6,0.028,57.2,2,4,0.4719,,False,False,False,False,24.0,0.82,6.19
+timing,"under 55%+, weeks 14-17",under,2023-25,24,10,14,0,0.4167,-5.4,-0.2045,26.4,1,3,0.8954,,False,False,False,False,24.0,0.82,6.19
+timing,"under 55%+, weeks 14-17",under,2015-25,121,62,59,1,0.5124,-2.9,-0.0218,133.1,5,11,0.6344,,False,False,False,False,24.0,0.82,6.19
+timing,"under 55%+, weeks 14-17",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,24.0,0.82,6.19
+timing,"under 55%+, weeks 18-18",under,2015-18,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.585,1.11
+timing,"under 55%+, weeks 18-18",under,2019-22,4,4,0,0,1.0,4.0,0.9091,4.4,2,2,0.0753,,False,False,True,False,0.0,0.585,1.11
+timing,"under 55%+, weeks 18-18",under,2023-25,8,3,5,0,0.375,-2.5,-0.2841,8.8,1,3,0.8845,,False,False,True,False,0.0,0.585,1.11
+timing,"under 55%+, weeks 18-18",under,2015-25,12,7,5,0,0.5833,1.5,0.1136,13.2,3,5,0.4529,,False,False,True,False,0.0,0.585,1.11
+timing,"under 55%+, weeks 18-18",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,False,0.0,0.585,1.11
+timing,"under 55%+, last bet week 10",under,2015-18,173,81,92,2,0.4682,-20.2,-0.1061,190.3,1,4,0.9382,,False,False,False,False,88.0,0.975,27.01
+timing,"under 55%+, last bet week 10",under,2019-22,204,114,90,3,0.5588,15.0,0.0668,224.4,3,4,0.1759,,False,False,False,False,88.0,0.975,27.01
+timing,"under 55%+, last bet week 10",under,2023-25,88,51,37,1,0.5795,10.3,0.1064,96.8,3,3,0.1736,,False,False,False,False,88.0,0.975,27.01
+timing,"under 55%+, last bet week 10",under,2015-25,465,246,219,6,0.529,5.1,0.01,511.5,7,11,0.4292,,False,False,False,False,88.0,0.975,27.01
+timing,"under 55%+, last bet week 10",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,88.0,0.975,27.01
+timing,"under 55%+, last bet week 11",under,2015-18,185,87,98,2,0.4703,-20.8,-0.1022,203.5,1,4,0.9371,,False,False,False,False,96.0,0.86,27.57
+timing,"under 55%+, last bet week 11",under,2019-22,222,127,95,3,0.5721,22.5,0.0921,244.2,3,4,0.0847,,False,False,False,False,96.0,0.86,27.57
+timing,"under 55%+, last bet week 11",under,2023-25,96,56,40,1,0.5833,12.0,0.1136,105.6,3,3,0.1432,,False,False,False,False,96.0,0.86,27.57
+timing,"under 55%+, last bet week 11",under,2015-25,503,270,233,6,0.5368,13.7,0.0248,553.3,7,11,0.2956,,False,False,False,False,96.0,0.86,27.57
+timing,"under 55%+, last bet week 11",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,96.0,0.86,27.57
+timing,"under 55%+, last bet week 12",under,2015-18,203,100,103,2,0.4926,-13.3,-0.0596,223.3,2,4,0.8316,,False,False,False,False,100.0,0.495,27.63
+timing,"under 55%+, last bet week 12",under,2019-22,234,137,97,3,0.5855,30.3,0.1177,257.4,4,4,0.0338,,False,False,False,False,100.0,0.495,27.63
+timing,"under 55%+, last bet week 12",under,2023-25,100,57,43,1,0.57,9.7,0.0882,110.0,2,3,0.205,,False,False,False,False,100.0,0.495,27.63
+timing,"under 55%+, last bet week 12",under,2015-25,537,294,243,6,0.5475,26.7,0.0452,590.7,8,11,0.1456,,False,False,False,False,100.0,0.495,27.63
+timing,"under 55%+, last bet week 12",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,100.0,0.495,27.63
+timing,"under 55%+, last bet week 13",under,2015-18,217,111,106,3,0.5115,-5.6,-0.0235,238.7,2,4,0.6668,,False,False,True,False,106.0,0.22,29.95
+timing,"under 55%+, last bet week 13",under,2019-22,251,147,104,3,0.5857,32.6,0.1181,276.1,4,4,0.0285,,False,False,True,False,106.0,0.22,29.95
+timing,"under 55%+, last bet week 13",under,2023-25,106,61,45,1,0.5755,11.5,0.0986,116.6,2,3,0.1666,,False,False,True,False,106.0,0.22,29.95
+timing,"under 55%+, last bet week 13",under,2015-25,574,319,255,7,0.5557,38.5,0.061,631.4,8,11,0.0679,,False,False,True,False,106.0,0.22,29.95
+timing,"under 55%+, last bet week 13",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,True,False,106.0,0.22,29.95
+timing,"under 55%+, last bet week 14",under,2015-18,228,118,110,3,0.5175,-3.0,-0.012,250.8,2,4,0.6013,,False,True,True,False,112.0,0.16,30.23
+timing,"under 55%+, last bet week 14",under,2019-22,267,156,111,3,0.5843,33.9,0.1154,293.7,4,4,0.0274,,False,True,True,False,112.0,0.16,30.23
+timing,"under 55%+, last bet week 14",under,2023-25,112,63,49,1,0.5625,9.1,0.0739,123.2,2,3,0.2344,,False,True,True,False,112.0,0.16,30.23
+timing,"under 55%+, last bet week 14",under,2015-25,607,337,270,7,0.5552,40.0,0.0599,667.7,8,11,0.0657,,False,True,True,False,112.0,0.16,30.23
+timing,"under 55%+, last bet week 14",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,True,True,False,112.0,0.16,30.23
+timing,"under 55%+, last bet week 15",under,2015-18,247,128,119,3,0.5182,-2.9,-0.0107,271.7,2,4,0.595,,False,False,False,False,117.0,0.735,33.47
+timing,"under 55%+, last bet week 15",under,2019-22,281,160,121,3,0.5694,26.9,0.087,309.1,4,4,0.0705,,False,False,False,False,117.0,0.735,33.47
+timing,"under 55%+, last bet week 15",under,2023-25,117,64,53,1,0.547,5.7,0.0443,128.7,2,3,0.3415,,False,False,False,False,117.0,0.735,33.47
+timing,"under 55%+, last bet week 15",under,2015-25,645,352,293,7,0.5457,29.7,0.0419,709.5,8,11,0.141,,False,False,False,False,117.0,0.735,33.47
+timing,"under 55%+, last bet week 15",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,117.0,0.735,33.47
+timing,"under 55%+, last bet week 16",under,2015-18,254,131,123,3,0.5157,-4.3,-0.0154,279.4,2,4,0.6258,,False,False,False,False,125.0,0.77,34.15
+timing,"under 55%+, last bet week 16",under,2019-22,291,167,124,4,0.5739,30.6,0.0956,320.1,4,4,0.0491,,False,False,False,False,125.0,0.77,34.15
+timing,"under 55%+, last bet week 16",under,2023-25,125,68,57,1,0.544,5.3,0.0385,137.5,2,3,0.3591,,False,False,False,False,125.0,0.77,34.15
+timing,"under 55%+, last bet week 16",under,2015-25,670,366,304,8,0.5463,31.6,0.0429,737.0,8,11,0.1302,,False,False,False,False,125.0,0.77,34.15
+timing,"under 55%+, last bet week 16",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,False,False,125.0,0.77,34.15
+timing,"under 55%+, last bet week 18",under,2015-18,262,135,127,3,0.5153,-4.7,-0.0163,288.2,2,4,0.6329,,False,False,True,False,138.0,1.0,37.1
+timing,"under 55%+, last bet week 18",under,2019-22,307,179,128,4,0.5831,38.2,0.1131,337.7,4,4,0.0214,,False,False,True,False,138.0,1.0,37.1
+timing,"under 55%+, last bet week 18",under,2023-25,138,74,64,1,0.5362,3.6,0.0237,151.8,2,3,0.4186,,False,False,True,False,138.0,1.0,37.1
+timing,"under 55%+, last bet week 18",under,2015-25,707,388,319,8,0.5488,37.1,0.0477,777.7,8,11,0.098,,False,False,True,False,138.0,1.0,37.1
+timing,"under 55%+, last bet week 18",under,2026,11,7,4,0,0.6364,2.6,0.2149,12.1,1,1,0.3305,,False,False,True,False,138.0,1.0,37.1
+timing,"under 55%+, skip weeks 1-2",under,2015-18,222,118,104,3,0.5315,3.6,0.0147,244.2,2,4,0.4356,,False,False,True,True,108.0,0.245,29.15
+timing,"under 55%+, skip weeks 1-2",under,2019-22,261,151,110,4,0.5785,30.0,0.1045,287.1,4,4,0.0435,,False,False,True,True,108.0,0.245,29.15
+timing,"under 55%+, skip weeks 1-2",under,2023-25,108,58,50,1,0.537,3.0,0.0253,118.8,2,3,0.4296,,False,False,True,True,108.0,0.245,29.15
+timing,"under 55%+, skip weeks 1-2",under,2015-25,591,327,264,8,0.5533,36.6,0.0563,650.1,8,11,0.0815,,False,False,True,True,108.0,0.245,29.15
+timing,"under 55%+, skip weeks 1-2",under,2026,3,3,0,0,1.0,3.0,0.9091,3.3,1,1,0.1437,,False,False,True,True,108.0,0.245,29.15
+timing,"under 55%+, skip weeks 1-3",under,2015-18,203,112,91,3,0.5517,11.9,0.0533,223.3,2,4,0.2341,,False,False,True,True,100.0,0.085,24.38
+timing,"under 55%+, skip weeks 1-3",under,2019-22,238,138,100,3,0.5798,28.0,0.107,261.8,4,4,0.0476,,False,False,True,True,100.0,0.085,24.38
+timing,"under 55%+, skip weeks 1-3",under,2023-25,100,53,47,1,0.53,1.3,0.0118,110.0,2,3,0.4911,,False,False,True,True,100.0,0.085,24.38
+timing,"under 55%+, skip weeks 1-3",under,2015-25,541,303,238,7,0.5601,41.2,0.0692,595.1,8,11,0.0497,,False,False,True,True,100.0,0.085,24.38
+timing,"under 55%+, skip weeks 1-3",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,True,True,100.0,0.085,24.38
+timing,"under: weeks 1-3 need 57%+, else 55%+",under,2015-18,242,128,114,3,0.5289,2.6,0.0098,266.2,2,4,0.4626,,True,True,True,True,124.0,0.035,34.23
+timing,"under: weeks 1-3 need 57%+, else 55%+",under,2019-22,296,173,123,4,0.5845,37.7,0.1158,325.6,4,4,0.0209,,True,True,True,True,124.0,0.035,34.23
+timing,"under: weeks 1-3 need 57%+, else 55%+",under,2023-25,124,68,56,1,0.5484,6.4,0.0469,136.4,2,3,0.3239,,True,True,True,True,124.0,0.035,34.23
+timing,"under: weeks 1-3 need 57%+, else 55%+",under,2015-25,662,369,293,8,0.5574,46.7,0.0641,728.2,8,11,0.0452,,True,True,True,True,124.0,0.035,34.23
+timing,"under: weeks 1-3 need 57%+, else 55%+",under,2026,9,6,3,0,0.6667,2.7,0.2727,9.9,1,1,0.3029,,True,True,True,True,124.0,0.035,34.23
+timing,"under: weeks 1-3 need 59%+, else 55%+",under,2015-18,230,124,106,3,0.5391,7.4,0.0292,253.0,3,4,0.3452,,True,True,True,True,118.0,0.0,31.21
+timing,"under: weeks 1-3 need 59%+, else 55%+",under,2019-22,281,165,116,4,0.5872,37.4,0.121,309.1,4,4,0.0191,,True,True,True,True,118.0,0.0,31.21
+timing,"under: weeks 1-3 need 59%+, else 55%+",under,2023-25,118,65,53,1,0.5508,6.7,0.0516,129.8,2,3,0.3105,,True,True,True,True,118.0,0.0,31.21
+timing,"under: weeks 1-3 need 59%+, else 55%+",under,2015-25,629,354,275,8,0.5628,51.5,0.0744,691.9,9,11,0.0274,,True,True,True,True,118.0,0.0,31.21
+timing,"under: weeks 1-3 need 59%+, else 55%+",under,2026,5,4,1,0,0.8,2.9,0.5273,5.5,1,1,0.2187,,True,True,True,True,118.0,0.0,31.21
+kinds of game,"BLIND: every primetime under (no model), weeks 1-17",under,2015-18,209,105,104,1,0.5024,-9.4,-0.0409,229.9,1,4,0.7548,,False,False,False,False,171.0,,
+kinds of game,"BLIND: every primetime under (no model), weeks 1-17",under,2019-22,204,122,82,4,0.598,31.8,0.1417,224.4,4,4,0.0197,,False,False,False,False,171.0,,
+kinds of game,"BLIND: every primetime under (no model), weeks 1-17",under,2023-25,171,89,82,2,0.5205,-1.2,-0.0064,188.1,1,3,0.5656,,False,False,False,False,171.0,,
+kinds of game,"BLIND: every primetime under (no model), weeks 1-17",under,2015-25,584,316,268,7,0.5411,21.2,0.033,642.4,6,11,0.2134,,False,False,False,False,171.0,,
+kinds of game,"BLIND: every primetime under (no model), weeks 1-17",under,2026,9,4,5,0,0.4444,-1.5,-0.1515,9.9,0,1,0.7907,,False,False,False,False,171.0,,
+kinds of game,"BLIND: every non-primetime under (no model), weeks 1-17",under,2015-18,806,417,389,8,0.5174,-10.9,-0.0123,886.6,2,4,0.6561,,False,False,False,False,592.0,,
+kinds of game,"BLIND: every non-primetime under (no model), weeks 1-17",under,2019-22,807,409,398,8,0.5068,-28.8,-0.0324,887.7,2,4,0.8418,,False,False,False,False,592.0,,
+kinds of game,"BLIND: every non-primetime under (no model), weeks 1-17",under,2023-25,592,289,303,3,0.4882,-44.3,-0.068,651.2,1,3,0.9622,,False,False,False,False,592.0,,
+kinds of game,"BLIND: every non-primetime under (no model), weeks 1-17",under,2015-25,2205,1115,1090,19,0.5057,-84.0,-0.0346,2425.5,5,11,0.9579,,False,False,False,False,592.0,,
+kinds of game,"BLIND: every non-primetime under (no model), weeks 1-17",under,2026,39,21,18,0,0.5385,1.2,0.028,42.9,1,1,0.4919,,False,False,False,False,592.0,,
+timing,BLIND: every under in weeks 9-13 (no model),under,2015-18,285,149,136,4,0.5228,-0.6,-0.0019,313.5,2,4,0.5375,,False,False,False,False,213.0,,
+timing,BLIND: every under in weeks 9-13 (no model),under,2019-22,284,152,132,4,0.5352,6.8,0.0218,312.4,2,4,0.3728,,False,False,False,False,213.0,,
+timing,BLIND: every under in weeks 9-13 (no model),under,2023-25,213,113,100,3,0.5305,3.0,0.0128,234.3,2,3,0.4498,,False,False,False,False,213.0,,
+timing,BLIND: every under in weeks 9-13 (no model),under,2015-25,782,414,368,11,0.5294,9.2,0.0107,860.2,6,11,0.3908,,False,False,False,False,213.0,,
+timing,BLIND: every under in weeks 9-13 (no model),under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,213.0,,
+kinds of game,"under 55%+, division game",under,2015-18,97,54,43,1,0.5567,6.7,0.0628,106.7,3,4,0.2927,,False,False,True,False,31.0,0.35,7.47
+kinds of game,"under 55%+, division game",under,2019-22,85,49,36,2,0.5765,9.4,0.1005,93.5,3,4,0.1941,,False,False,True,False,31.0,0.35,7.47
+kinds of game,"under 55%+, division game",under,2023-25,31,14,17,0,0.4516,-4.7,-0.1378,34.1,1,3,0.8376,,False,False,True,False,31.0,0.35,7.47
+kinds of game,"under 55%+, division game",under,2015-25,213,117,96,3,0.5493,11.4,0.0487,234.3,7,11,0.2497,,False,False,True,False,31.0,0.35,7.47
+kinds of game,"under 55%+, division game",under,2026,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,,False,False,True,False,31.0,0.35,7.47
+kinds of game,"under 55%+, non-division game",under,2015-18,165,81,84,2,0.4909,-11.4,-0.0628,181.5,0,4,0.8223,,False,False,False,False,99.0,0.64,27.12
+kinds of game,"under 55%+, non-division game",under,2019-22,218,126,92,2,0.578,24.8,0.1034,239.8,4,4,0.0623,,False,False,False,False,99.0,0.64,27.12
+kinds of game,"under 55%+, non-division game",under,2023-25,99,57,42,1,0.5758,10.8,0.0992,108.9,2,3,0.1752,,False,False,False,False,99.0,0.64,27.12
+kinds of game,"under 55%+, non-division game",under,2015-25,482,264,218,5,0.5477,24.2,0.0456,530.2,6,11,0.1574,,False,False,False,False,99.0,0.64,27.12
+kinds of game,"under 55%+, non-division game",under,2026,10,6,4,0,0.6,1.6,0.1455,11.0,1,1,0.4368,,False,False,False,False,99.0,0.64,27.12
+kinds of game,"under 55%+, primetime",under,2015-18,66,41,25,0,0.6212,13.5,0.186,72.6,3,4,0.0714,,False,True,True,True,32.0,0.0,6.34
+kinds of game,"under 55%+, primetime",under,2019-22,68,45,23,1,0.6618,19.7,0.2634,74.8,3,4,0.0149,,False,True,True,True,32.0,0.0,6.34
+kinds of game,"under 55%+, primetime",under,2023-25,32,19,13,0,0.5938,4.7,0.1335,35.2,2,3,0.2702,,False,True,True,True,32.0,0.0,6.34
+kinds of game,"under 55%+, primetime",under,2015-25,166,105,61,1,0.6325,37.9,0.2076,182.6,8,11,0.003,,False,True,True,True,32.0,0.0,6.34
+kinds of game,"under 55%+, primetime",under,2026,2,0,2,0,0.0,-2.2,-1.0,2.2,0,1,1.0,,False,True,True,True,32.0,0.0,6.34
+kinds of game,"under 55%+, not primetime",under,2015-18,196,94,102,3,0.4796,-18.2,-0.0844,215.6,1,4,0.905,,False,False,False,False,98.0,0.99,29.2
+kinds of game,"under 55%+, not primetime",under,2019-22,235,130,105,3,0.5532,14.5,0.0561,258.5,2,4,0.2015,,False,False,False,False,98.0,0.99,29.2
+kinds of game,"under 55%+, not primetime",under,2023-25,98,52,46,1,0.5306,1.4,0.013,107.8,1,3,0.4872,,False,False,False,False,98.0,0.99,29.2
+kinds of game,"under 55%+, not primetime",under,2015-25,529,276,253,7,0.5217,-2.3,-0.004,581.9,4,11,0.5555,,False,False,False,False,98.0,0.99,29.2
+kinds of game,"under 55%+, not primetime",under,2026,9,7,2,0,0.7778,4.8,0.4848,9.9,1,1,0.1156,,False,False,False,False,98.0,0.99,29.2
+kinds of game,"under 55%+, dome or closed roof",under,2015-18,38,22,16,0,0.5789,4.4,0.1053,41.8,3,4,0.3032,,False,False,False,False,31.0,0.705,9.25
+kinds of game,"under 55%+, dome or closed roof",under,2019-22,63,30,33,2,0.4762,-6.3,-0.0909,69.3,1,4,0.8114,,False,False,False,False,31.0,0.705,9.25
+kinds of game,"under 55%+, dome or closed roof",under,2023-25,31,19,12,0,0.6129,5.8,0.1701,34.1,3,3,0.2085,,False,False,False,False,31.0,0.705,9.25
+kinds of game,"under 55%+, dome or closed roof",under,2015-25,132,71,61,2,0.5379,3.9,0.0269,145.2,7,11,0.4071,,False,False,False,False,31.0,0.705,9.25
+kinds of game,"under 55%+, dome or closed roof",under,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,False,False,31.0,0.705,9.25
+kinds of game,"under 55%+, outdoor or open roof",under,2015-18,224,113,111,3,0.5045,-9.1,-0.0369,246.4,2,4,0.7412,,False,False,True,False,99.0,0.35,27.62
+kinds of game,"under 55%+, outdoor or open roof",under,2019-22,240,145,95,2,0.6042,40.5,0.1534,264.0,4,4,0.0074,,False,False,True,False,99.0,0.35,27.62
+kinds of game,"under 55%+, outdoor or open roof",under,2023-25,99,52,47,1,0.5253,0.3,0.0028,108.9,2,3,0.5293,,False,False,True,False,99.0,0.35,27.62
+kinds of game,"under 55%+, outdoor or open roof",under,2015-25,563,310,253,6,0.5506,31.7,0.0512,619.3,8,11,0.109,,False,False,True,False,99.0,0.35,27.62
+kinds of game,"under 55%+, outdoor or open roof",under,2026,10,7,3,0,0.7,3.7,0.3364,11.0,1,1,0.2137,,False,False,True,False,99.0,0.35,27.62
+kinds of game,"under 55%+, a team on short rest (<=5 days)",under,2015-18,13,9,4,0,0.6923,4.6,0.3217,14.3,3,4,0.1744,,False,False,True,True,13.0,0.06,1.46
+kinds of game,"under 55%+, a team on short rest (<=5 days)",under,2019-22,16,11,5,0,0.6875,5.5,0.3125,17.6,3,4,0.1442,,False,False,True,True,13.0,0.06,1.46
+kinds of game,"under 55%+, a team on short rest (<=5 days)",under,2023-25,13,7,6,0,0.5385,0.4,0.028,14.3,2,3,0.5695,,False,False,True,True,13.0,0.06,1.46
+kinds of game,"under 55%+, a team on short rest (<=5 days)",under,2015-25,42,27,15,0,0.6429,10.5,0.2273,46.2,8,11,0.0815,,False,False,True,True,13.0,0.06,1.46
+kinds of game,"under 55%+, a team on short rest (<=5 days)",under,2026,1,0,1,0,0.0,-1.1,-1.0,1.1,0,1,1.0,,False,False,True,True,13.0,0.06,1.46
+kinds of game,"under 55%+, a team off a bye",under,2015-18,26,12,14,0,0.4615,-3.4,-0.1189,28.6,1,4,0.7973,,False,False,False,False,18.0,0.545,4.23
+kinds of game,"under 55%+, a team off a bye",under,2019-22,39,25,14,0,0.641,9.6,0.2238,42.9,4,4,0.0952,,False,False,False,False,18.0,0.545,4.23
+kinds of game,"under 55%+, a team off a bye",under,2023-25,18,8,10,0,0.4444,-3.0,-0.1515,19.8,2,3,0.8185,,False,False,False,False,18.0,0.545,4.23
+kinds of game,"under 55%+, a team off a bye",under,2015-25,83,45,38,0,0.5422,3.2,0.035,91.3,7,11,0.4117,,False,False,False,False,18.0,0.545,4.23
+kinds of game,"under 55%+, a team off a bye",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,18.0,0.545,4.23
+kinds of game,"under 55%+, high total (>= 47)",under,2015-18,144,75,69,2,0.5208,-0.9,-0.0057,158.4,2,4,0.562,,False,False,False,False,66.0,0.79,21.68
+kinds of game,"under 55%+, high total (>= 47)",under,2019-22,191,105,86,4,0.5497,10.4,0.0495,210.1,3,4,0.2597,,False,False,False,False,66.0,0.79,21.68
+kinds of game,"under 55%+, high total (>= 47)",under,2023-25,66,36,30,1,0.5455,3.0,0.0413,72.6,2,3,0.4103,,False,False,False,False,66.0,0.79,21.68
+kinds of game,"under 55%+, high total (>= 47)",under,2015-25,401,216,185,7,0.5387,12.5,0.0283,441.1,7,11,0.293,,False,False,False,False,66.0,0.79,21.68
+kinds of game,"under 55%+, high total (>= 47)",under,2026,4,1,3,0,0.25,-2.3,-0.5227,4.4,0,1,0.9486,,False,False,False,False,66.0,0.79,21.68
+kinds of game,"under 55%+, low total (<= 40)",under,2015-18,14,7,7,0,0.5,-0.7,-0.0455,15.4,1,4,0.6726,,False,False,False,False,6.0,0.52,-0.3
+kinds of game,"under 55%+, low total (<= 40)",under,2019-22,7,4,3,0,0.5714,0.7,0.0909,7.7,2,3,0.552,,False,False,False,False,6.0,0.52,-0.3
+kinds of game,"under 55%+, low total (<= 40)",under,2023-25,6,3,3,0,0.5,-0.3,-0.0455,6.6,1,3,0.6998,,False,False,False,False,6.0,0.52,-0.3
+kinds of game,"under 55%+, low total (<= 40)",under,2015-25,27,14,13,0,0.5185,-0.3,-0.0101,29.7,4,10,0.5987,,False,False,False,False,6.0,0.52,-0.3
+kinds of game,"under 55%+, low total (<= 40)",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,6.0,0.52,-0.3
+kinds of game,"under 55%+, mid total (40.5-46.5)",under,2015-18,104,53,51,1,0.5096,-3.1,-0.0271,114.4,2,4,0.6514,,False,False,True,False,58.0,0.3,14.77
+kinds of game,"under 55%+, mid total (40.5-46.5)",under,2019-22,105,66,39,0,0.6286,23.1,0.2,115.5,4,4,0.0196,,False,False,True,False,58.0,0.3,14.77
+kinds of game,"under 55%+, mid total (40.5-46.5)",under,2023-25,58,32,26,0,0.5517,3.4,0.0533,63.8,2,3,0.3852,,False,False,True,False,58.0,0.3,14.77
+kinds of game,"under 55%+, mid total (40.5-46.5)",under,2015-25,267,151,116,1,0.5655,23.4,0.0797,293.7,8,11,0.0959,,False,False,True,False,58.0,0.3,14.77
+kinds of game,"under 55%+, mid total (40.5-46.5)",under,2026,7,6,1,0,0.8571,4.9,0.6364,7.7,1,1,0.0797,,False,False,True,False,58.0,0.3,14.77
+kinds of game,"under 55%+, big line |line| >= 7",under,2015-18,81,47,34,1,0.5802,9.6,0.1077,89.1,3,4,0.1827,,False,False,True,True,32.0,0.195,10.08
+kinds of game,"under 55%+, big line |line| >= 7",under,2019-22,92,53,39,1,0.5761,10.1,0.0998,101.2,3,4,0.1843,,False,False,True,True,32.0,0.195,10.08
+kinds of game,"under 55%+, big line |line| >= 7",under,2023-25,32,17,15,0,0.5312,0.5,0.0142,35.2,2,3,0.538,,False,False,True,True,32.0,0.195,10.08
+kinds of game,"under 55%+, big line |line| >= 7",under,2015-25,205,117,88,2,0.5707,20.2,0.0896,225.5,8,11,0.1009,,False,False,True,True,32.0,0.195,10.08
+kinds of game,"under 55%+, big line |line| >= 7",under,2026,2,1,1,0,0.5,-0.1,-0.0455,2.2,0,1,0.7732,,False,False,True,True,32.0,0.195,10.08
+kinds of game,"under 55%+, small line |line| < 7",under,2015-18,181,88,93,2,0.4862,-14.3,-0.0718,199.1,2,4,0.8616,,False,False,False,False,98.0,0.825,25.95
+kinds of game,"under 55%+, small line |line| < 7",under,2019-22,211,122,89,3,0.5782,24.1,0.1038,232.1,4,4,0.0649,,False,False,False,False,98.0,0.825,25.95
+kinds of game,"under 55%+, small line |line| < 7",under,2023-25,98,54,44,1,0.551,5.6,0.0519,107.8,2,3,0.3312,,False,False,False,False,98.0,0.825,25.95
+kinds of game,"under 55%+, small line |line| < 7",under,2015-25,490,264,226,6,0.5388,15.4,0.0286,539.0,8,11,0.2684,,False,False,False,False,98.0,0.825,25.95
+kinds of game,"under 55%+, small line |line| < 7",under,2026,9,6,3,0,0.6667,2.7,0.2727,9.9,1,1,0.3029,,False,False,False,False,98.0,0.825,25.95
+kinds of game,"under 55%+, wind 15+ mph outdoors",under,2015-18,37,20,17,1,0.5405,1.3,0.0319,40.7,2,4,0.4855,,False,False,False,False,18.0,0.565,3.08
+kinds of game,"under 55%+, wind 15+ mph outdoors",under,2019-22,48,26,22,0,0.5417,1.8,0.0341,52.8,3,4,0.4599,,False,False,False,False,18.0,0.565,3.08
+kinds of game,"under 55%+, wind 15+ mph outdoors",under,2023-25,18,9,9,0,0.5,-0.9,-0.0455,19.8,2,3,0.6699,,False,False,False,False,18.0,0.565,3.08
+kinds of game,"under 55%+, wind 15+ mph outdoors",under,2015-25,103,55,48,1,0.534,2.2,0.0194,113.3,7,11,0.4576,,False,False,False,False,18.0,0.565,3.08
+kinds of game,"under 55%+, wind 15+ mph outdoors",under,2026,0,0,0,0,,0.0,,0.0,0,0,,,False,False,False,False,18.0,0.565,3.08
+sizing,"4+ flag, tiered stakes (1u 4-5, 1.5u 5-6, 2u 6+)",spread,2015-18,123,68,55,0,0.5528,6.25,0.0358,174.35,2,4,0.29,,False,False,False,True,61.0,,
+sizing,"4+ flag, tiered stakes (1u 4-5, 1.5u 5-6, 2u 6+)",spread,2019-22,131,80,51,0,0.6107,27.9,0.1433,194.7,3,4,0.028,,False,False,False,True,61.0,,
+sizing,"4+ flag, tiered stakes (1u 4-5, 1.5u 5-6, 2u 6+)",spread,2023-25,61,40,21,1,0.6557,23.95,0.2809,85.25,3,3,0.0257,,False,False,False,True,61.0,,
+sizing,"4+ flag, tiered stakes (1u 4-5, 1.5u 5-6, 2u 6+)",spread,2015-25,315,188,127,1,0.5968,58.1,0.1279,454.3,8,11,0.0054,,False,False,False,True,61.0,,
+sizing,"4+ flag, tiered stakes (1u 4-5, 1.5u 5-6, 2u 6+)",spread,2026,3,1,2,0,0.3333,-2.3,-0.5227,4.4,0,1,0.892,,False,False,False,True,61.0,,
+sizing,"4+ flag, linear stakes (edge/4 units, capped at 2u)",spread,2015-18,123,68,55,0,0.5528,6.28,0.0364,172.49,2,4,0.29,,False,False,False,True,61.0,,
+sizing,"4+ flag, linear stakes (edge/4 units, capped at 2u)",spread,2019-22,131,80,51,0,0.6107,27.61,0.1458,189.36,3,4,0.028,,False,False,False,True,61.0,,
+sizing,"4+ flag, linear stakes (edge/4 units, capped at 2u)",spread,2023-25,61,40,21,1,0.6557,23.22,0.2729,85.08,3,3,0.0257,,False,False,False,True,61.0,,
+sizing,"4+ flag, linear stakes (edge/4 units, capped at 2u)",spread,2015-25,315,188,127,1,0.5968,57.1,0.1278,446.93,8,11,0.0054,,False,False,False,True,61.0,,
+sizing,"4+ flag, linear stakes (edge/4 units, capped at 2u)",spread,2026,3,1,2,0,0.3333,-2.42,-0.5313,4.55,0,1,0.892,,False,False,False,True,61.0,,
+sizing,"4+ flag, inverse tiers (2u 4-5, 1.5u 5-6, 1u 6+)",spread,2015-18,123,68,55,0,0.5528,16.25,0.0702,231.55,2,4,0.29,,True,False,True,True,61.0,,
+sizing,"4+ flag, inverse tiers (2u 4-5, 1.5u 5-6, 1u 6+)",spread,2019-22,131,80,51,0,0.6107,43.8,0.1843,237.6,3,4,0.028,,True,False,True,True,61.0,,
+sizing,"4+ flag, inverse tiers (2u 4-5, 1.5u 5-6, 1u 6+)",spread,2023-25,61,40,21,1,0.6557,26.75,0.2305,116.05,3,3,0.0257,,True,False,True,True,61.0,,
+sizing,"4+ flag, inverse tiers (2u 4-5, 1.5u 5-6, 1u 6+)",spread,2015-25,315,188,127,1,0.5968,86.8,0.1483,585.2,8,11,0.0054,,True,False,True,True,61.0,,
+sizing,"4+ flag, inverse tiers (2u 4-5, 1.5u 5-6, 1u 6+)",spread,2026,3,1,2,0,0.3333,-1.3,-0.2364,5.5,0,1,0.892,,True,False,True,True,61.0,,
+sizing,"under 55%+, tiered stakes (1u 55-57%, 1.5u 57-59%, 2u 59%+)",under,2015-18,262,135,127,3,0.5153,-2.1,-0.0045,462.0,2,4,0.6329,,False,False,True,False,130.0,,
+sizing,"under 55%+, tiered stakes (1u 55-57%, 1.5u 57-59%, 2u 59%+)",under,2019-22,303,175,128,4,0.5776,70.35,0.1243,565.95,4,4,0.0345,,False,False,True,False,130.0,,
+sizing,"under 55%+, tiered stakes (1u 55-57%, 1.5u 57-59%, 2u 59%+)",under,2023-25,130,71,59,1,0.5462,3.6,0.0163,221.1,2,3,0.3369,,False,False,True,False,130.0,,
+sizing,"under 55%+, tiered stakes (1u 55-57%, 1.5u 57-59%, 2u 59%+)",under,2015-25,695,381,314,8,0.5482,71.85,0.0575,1249.05,8,11,0.1057,,False,False,True,False,130.0,,
+sizing,"under 55%+, tiered stakes (1u 55-57%, 1.5u 57-59%, 2u 59%+)",under,2026,11,7,4,0,0.6364,5.4,0.2727,19.8,1,1,0.3305,,False,False,True,False,130.0,,
+sizing,"under 55%+, linear stakes (1u + (chance-55%)/4%, capped 2u)",under,2015-18,262,135,127,3,0.5153,-1.84,-0.0037,493.92,3,4,0.6329,,False,False,True,False,130.0,,
+sizing,"under 55%+, linear stakes (1u + (chance-55%)/4%, capped 2u)",under,2019-22,303,175,128,4,0.5776,68.6,0.1147,598.23,4,4,0.0345,,False,False,True,False,130.0,,
+sizing,"under 55%+, linear stakes (1u + (chance-55%)/4%, capped 2u)",under,2023-25,130,71,59,1,0.5462,5.19,0.0217,239.14,2,3,0.3369,,False,False,True,False,130.0,,
+sizing,"under 55%+, linear stakes (1u + (chance-55%)/4%, capped 2u)",under,2015-25,695,381,314,8,0.5482,71.95,0.054,1331.3,9,11,0.1057,,False,False,True,False,130.0,,
+sizing,"under 55%+, linear stakes (1u + (chance-55%)/4%, capped 2u)",under,2026,11,7,4,0,0.6364,5.19,0.2411,21.51,1,1,0.3305,,False,False,True,False,130.0,,
+line timing,"full model, 3+ edge vs opener, graded at opener",spread,2015-18,203,110,93,7,0.5419,7.7,0.0345,223.3,2,4,0.3285,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener",spread,2019-21,189,123,66,7,0.6508,50.4,0.2424,207.9,3,3,0.0003,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener",spread,2015-21,392,233,159,14,0.5944,58.1,0.1347,431.2,5,7,0.0029,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,116,63,53,3,0.5431,4.7,0.0368,127.6,2,4,0.3739,share of the rule's bets: 57%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,141,89,52,6,0.6312,31.8,0.205,155.1,3,3,0.0065,share of the rule's bets: 75%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,257,152,105,9,0.5914,36.5,0.1291,282.7,5,7,0.0172,share of the rule's bets: 66%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved away",spread,2015-18,56,30,26,2,0.5357,1.4,0.0227,61.6,1,4,0.4831,share of the rule's bets: 28%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved away",spread,2019-21,27,19,8,0,0.7037,10.2,0.3434,29.7,3,3,0.0451,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close moved away",spread,2015-21,83,49,34,2,0.5904,11.6,0.1271,91.3,4,7,0.1346,share of the rule's bets: 21%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close did not move",spread,2015-18,31,17,14,2,0.5484,1.6,0.0469,34.1,2,4,0.4637,share of the rule's bets: 16%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close did not move",spread,2019-21,21,15,6,1,0.7143,8.4,0.3636,23.1,3,3,0.0615,share of the rule's bets: 11%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at opener, close did not move",spread,2015-21,52,32,20,3,0.6154,10.0,0.1748,57.2,5,7,0.118,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close",spread,2015-18,206,103,103,4,0.5,-10.3,-0.0455,226.6,1,4,0.7747,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close",spread,2019-21,193,109,84,3,0.5648,16.6,0.0782,212.3,3,3,0.1429,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close",spread,2015-21,399,212,187,7,0.5313,6.3,0.0144,438.9,4,7,0.4014,,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,117,53,64,2,0.453,-17.4,-0.1352,128.7,1,4,0.948,share of the rule's bets: 57%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,145,75,70,2,0.5172,-2.0,-0.0125,159.5,1,3,0.5958,share of the rule's bets: 75%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,262,128,134,4,0.4885,-19.4,-0.0673,288.2,2,7,0.8858,share of the rule's bets: 66%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved away",spread,2015-18,58,33,25,0,0.569,5.5,0.0862,63.8,1,4,0.2894,share of the rule's bets: 28%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved away",spread,2019-21,27,19,8,0,0.7037,10.2,0.3434,29.7,3,3,0.0451,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close moved away",spread,2015-21,85,52,33,0,0.6118,15.7,0.1679,93.5,4,7,0.0643,share of the rule's bets: 21%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close did not move",spread,2015-18,31,17,14,2,0.5484,1.6,0.0469,34.1,2,4,0.4637,share of the rule's bets: 16%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close did not move",spread,2019-21,21,15,6,1,0.7143,8.4,0.3636,23.1,3,3,0.0615,share of the rule's bets: 11%,,,,,,,
+line timing,"full model, 3+ edge vs opener, graded at close, close did not move",spread,2015-21,52,32,20,3,0.6154,10.0,0.1748,57.2,5,7,0.118,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 3+ edge vs close, graded at close",spread,2015-18,228,115,113,3,0.5044,-9.3,-0.0371,250.8,1,4,0.7434,,,,,,,,
+line timing,"full model, 3+ edge vs close, graded at close",spread,2019-21,176,100,76,1,0.5682,16.4,0.0847,193.6,3,3,0.1349,,,,,,,,
+line timing,"full model, 3+ edge vs close, graded at close",spread,2015-21,404,215,189,4,0.5322,7.1,0.016,444.4,4,7,0.3874,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener",spread,2015-18,102,61,41,1,0.598,15.9,0.1417,112.2,2,4,0.0801,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener",spread,2019-21,112,74,38,3,0.6607,32.2,0.2614,123.2,3,3,0.0023,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener",spread,2015-21,214,135,79,4,0.6308,48.1,0.2043,235.4,5,7,0.001,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,65,36,29,1,0.5538,4.1,0.0573,71.5,4,4,0.36,share of the rule's bets: 64%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,90,55,35,3,0.6111,16.5,0.1667,99.0,3,3,0.0597,share of the rule's bets: 81%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,155,91,64,4,0.5871,20.6,0.1208,170.5,7,7,0.0668,share of the rule's bets: 73%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved away",spread,2015-18,24,16,8,0,0.6667,7.2,0.2727,26.4,2,4,0.1151,share of the rule's bets: 23%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved away",spread,2019-21,12,11,1,0,0.9167,9.9,0.75,13.2,3,3,0.0051,share of the rule's bets: 10%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close moved away",spread,2015-21,36,27,9,0,0.75,17.1,0.4318,39.6,5,7,0.0046,share of the rule's bets: 17%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close did not move",spread,2015-18,13,9,4,0,0.6923,4.6,0.3217,14.3,3,4,0.1744,share of the rule's bets: 13%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close did not move",spread,2019-21,10,8,2,0,0.8,5.8,0.5273,11.0,2,3,0.0735,share of the rule's bets: 9%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at opener, close did not move",spread,2015-21,23,17,6,0,0.7391,10.4,0.4111,25.3,5,7,0.0297,share of the rule's bets: 11%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close",spread,2015-18,103,55,48,0,0.534,2.2,0.0194,113.3,2,4,0.4576,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close",spread,2019-21,114,63,51,1,0.5526,6.9,0.055,125.4,3,3,0.3012,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close",spread,2015-21,217,118,99,1,0.5438,9.1,0.0381,238.7,5,7,0.3015,,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,66,30,36,0,0.4545,-9.6,-0.1322,72.6,1,4,0.8943,share of the rule's bets: 64%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,92,44,48,1,0.4783,-8.8,-0.087,101.2,0,3,0.8363,share of the rule's bets: 81%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,158,74,84,1,0.4684,-18.4,-0.1059,173.8,1,7,0.9299,share of the rule's bets: 73%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved away",spread,2015-18,24,16,8,0,0.6667,7.2,0.2727,26.4,2,4,0.1151,share of the rule's bets: 23%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved away",spread,2019-21,12,11,1,0,0.9167,9.9,0.75,13.2,3,3,0.0051,share of the rule's bets: 10%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close moved away",spread,2015-21,36,27,9,0,0.75,17.1,0.4318,39.6,5,7,0.0046,share of the rule's bets: 17%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close did not move",spread,2015-18,13,9,4,0,0.6923,4.6,0.3217,14.3,3,4,0.1744,share of the rule's bets: 13%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close did not move",spread,2019-21,10,8,2,0,0.8,5.8,0.5273,11.0,2,3,0.0735,share of the rule's bets: 9%,,,,,,,
+line timing,"full model, 4+ edge vs opener, graded at close, close did not move",spread,2015-21,23,17,6,0,0.7391,10.4,0.4111,25.3,5,7,0.0297,share of the rule's bets: 11%,,,,,,,
+line timing,"full model, 4+ edge vs close, graded at close",spread,2015-18,116,64,52,0,0.5517,6.8,0.0533,127.6,2,4,0.3058,,,,,,,,
+line timing,"full model, 4+ edge vs close, graded at close",spread,2019-21,90,61,29,0,0.6778,29.1,0.2939,99.0,3,3,0.0022,,,,,,,,
+line timing,"full model, 4+ edge vs close, graded at close",spread,2015-21,206,125,81,0,0.6068,35.9,0.1584,226.6,5,7,0.0101,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener",spread,2015-18,49,34,15,0,0.6939,17.5,0.3247,53.9,4,4,0.0117,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener",spread,2019-21,60,42,18,2,0.7,22.2,0.3364,66.0,3,3,0.0042,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener",spread,2015-21,109,76,33,2,0.6972,39.7,0.3311,119.9,7,7,0.0002,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,36,24,12,0,0.6667,10.8,0.2727,39.6,4,4,0.0596,share of the rule's bets: 73%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,50,33,17,2,0.66,14.3,0.26,55.0,3,3,0.0361,share of the rule's bets: 84%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,86,57,29,2,0.6628,25.1,0.2653,94.6,7,7,0.0063,share of the rule's bets: 79%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved away",spread,2015-18,10,7,3,0,0.7,3.7,0.3364,11.0,2,3,0.2137,share of the rule's bets: 20%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved away",spread,2019-21,6,6,0,0,1.0,6.0,0.9091,6.6,3,3,0.0207,share of the rule's bets: 10%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close moved away",spread,2015-21,16,13,3,0,0.8125,9.7,0.5511,17.6,5,6,0.0172,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close did not move",spread,2015-18,3,3,0,0,1.0,3.0,0.9091,3.3,3,3,0.1437,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close did not move",spread,2019-21,4,3,1,0,0.75,1.9,0.4318,4.4,2,3,0.349,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at opener, close did not move",spread,2015-21,7,6,1,0,0.8571,4.9,0.6364,7.7,5,6,0.0797,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close",spread,2015-18,49,31,18,0,0.6327,11.2,0.2078,53.9,3,4,0.0828,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close",spread,2019-21,62,35,27,0,0.5645,5.3,0.0777,68.2,2,3,0.3041,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close",spread,2015-21,111,66,45,0,0.5946,16.5,0.1351,122.1,5,7,0.0807,,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,36,21,15,0,0.5833,4.5,0.1136,39.6,3,4,0.2927,share of the rule's bets: 73%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,52,26,26,0,0.5,-2.6,-0.0455,57.2,1,3,0.6857,share of the rule's bets: 84%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,88,47,41,0,0.5341,1.9,0.0196,96.8,4,7,0.4663,share of the rule's bets: 79%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved away",spread,2015-18,10,7,3,0,0.7,3.7,0.3364,11.0,2,3,0.2137,share of the rule's bets: 20%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved away",spread,2019-21,6,6,0,0,1.0,6.0,0.9091,6.6,3,3,0.0207,share of the rule's bets: 10%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close moved away",spread,2015-21,16,13,3,0,0.8125,9.7,0.5511,17.6,5,6,0.0172,share of the rule's bets: 14%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close did not move",spread,2015-18,3,3,0,0,1.0,3.0,0.9091,3.3,3,3,0.1437,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close did not move",spread,2019-21,4,3,1,0,0.75,1.9,0.4318,4.4,2,3,0.349,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs opener, graded at close, close did not move",spread,2015-21,7,6,1,0,0.8571,4.9,0.6364,7.7,5,6,0.0797,share of the rule's bets: 6%,,,,,,,
+line timing,"full model, 5+ edge vs close, graded at close",spread,2015-18,51,28,23,0,0.549,2.7,0.0481,56.1,2,4,0.4138,,,,,,,,
+line timing,"full model, 5+ edge vs close, graded at close",spread,2019-21,45,29,16,0,0.6444,11.4,0.2303,49.5,3,3,0.0698,,,,,,,,
+line timing,"full model, 5+ edge vs close, graded at close",spread,2015-21,96,57,39,0,0.5938,14.1,0.1335,105.6,5,7,0.1018,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener",spread,2015-18,192,119,73,10,0.6198,38.7,0.1832,211.2,4,4,0.0046,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener",spread,2019-21,170,103,67,7,0.6059,29.3,0.1567,187.0,3,3,0.0191,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener",spread,2015-21,362,222,140,17,0.6133,68.0,0.1708,398.2,7,7,0.0004,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,108,64,44,6,0.5926,15.6,0.1313,118.8,4,4,0.0906,share of the rule's bets: 56%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,120,68,52,6,0.5667,10.8,0.0818,132.0,2,3,0.1982,share of the rule's bets: 71%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,228,132,96,12,0.5789,26.4,0.1053,250.8,6,7,0.0544,share of the rule's bets: 63%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved away",spread,2015-18,53,33,20,2,0.6226,11.0,0.1887,58.3,3,4,0.0958,share of the rule's bets: 27%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved away",spread,2019-21,35,23,12,0,0.6571,9.8,0.2545,38.5,3,3,0.0784,share of the rule's bets: 20%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close moved away",spread,2015-21,88,56,32,2,0.6364,20.8,0.2149,96.8,6,7,0.0218,share of the rule's bets: 24%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close did not move",spread,2015-18,31,22,9,2,0.7097,12.1,0.3548,34.1,4,4,0.0278,share of the rule's bets: 16%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close did not move",spread,2019-21,15,12,3,1,0.8,8.7,0.5273,16.5,3,3,0.0272,share of the rule's bets: 9%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at opener, close did not move",spread,2015-21,46,34,12,3,0.7391,20.8,0.4111,50.6,7,7,0.0023,share of the rule's bets: 13%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close",spread,2015-18,199,114,85,3,0.5729,20.5,0.0937,218.9,3,4,0.0941,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close",spread,2019-21,173,87,86,4,0.5029,-7.6,-0.0399,190.3,1,3,0.7349,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close",spread,2015-21,372,201,171,7,0.5403,12.9,0.0315,409.2,4,7,0.2792,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,113,56,57,1,0.4956,-6.7,-0.0539,124.3,1,4,0.7567,share of the rule's bets: 56%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,124,52,72,2,0.4194,-27.2,-0.1994,136.4,0,3,0.9922,share of the rule's bets: 71%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,237,108,129,3,0.4557,-33.9,-0.13,260.7,1,7,0.9848,share of the rule's bets: 63%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved away",spread,2015-18,55,36,19,0,0.6545,15.1,0.2496,60.5,3,4,0.0346,share of the rule's bets: 27%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved away",spread,2019-21,34,23,11,1,0.6765,10.9,0.2914,37.4,3,3,0.0524,share of the rule's bets: 20%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close moved away",spread,2015-21,89,59,30,1,0.6629,26.0,0.2656,97.9,6,7,0.0055,share of the rule's bets: 24%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close did not move",spread,2015-18,31,22,9,2,0.7097,12.1,0.3548,34.1,4,4,0.0278,share of the rule's bets: 16%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close did not move",spread,2019-21,15,12,3,1,0.8,8.7,0.5273,16.5,3,3,0.0272,share of the rule's bets: 9%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs opener, graded at close, close did not move",spread,2015-21,46,34,12,3,0.7391,20.8,0.4111,50.6,7,7,0.0023,share of the rule's bets: 13%,,,,,,,
+line timing,"Tuesday model, 3+ edge vs close, graded at close",spread,2015-18,214,124,90,3,0.5794,25.0,0.1062,235.4,4,4,0.059,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs close, graded at close",spread,2019-21,178,97,81,3,0.5449,7.9,0.0403,195.8,2,3,0.3126,,,,,,,,
+line timing,"Tuesday model, 3+ edge vs close, graded at close",spread,2015-21,392,221,171,6,0.5638,32.9,0.0763,431.2,6,7,0.0624,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener",spread,2015-18,88,49,39,2,0.5568,6.1,0.063,96.8,2,4,0.3044,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener",spread,2019-21,78,50,28,3,0.641,19.2,0.2238,85.8,3,3,0.0244,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener",spread,2015-21,166,99,67,5,0.5964,25.3,0.1386,182.6,5,7,0.036,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,50,24,26,1,0.48,-4.6,-0.0836,55.0,1,4,0.777,share of the rule's bets: 57%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,57,32,25,3,0.5614,4.5,0.0718,62.7,3,3,0.3323,share of the rule's bets: 74%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,107,56,51,4,0.5234,-0.1,-0.0008,117.7,4,7,0.5428,share of the rule's bets: 65%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved away",spread,2015-18,28,19,9,1,0.6786,9.1,0.2955,30.8,2,4,0.0723,share of the rule's bets: 32%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved away",spread,2019-21,14,12,2,0,0.8571,9.8,0.6364,15.4,3,3,0.0104,share of the rule's bets: 17%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close moved away",spread,2015-21,42,31,11,1,0.7381,18.9,0.4091,46.2,5,7,0.0037,share of the rule's bets: 25%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close did not move",spread,2015-18,10,6,4,0,0.6,1.6,0.1455,11.0,1,4,0.4368,share of the rule's bets: 11%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close did not move",spread,2019-21,7,6,1,0,0.8571,4.9,0.6364,7.7,3,3,0.0797,share of the rule's bets: 9%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at opener, close did not move",spread,2015-21,17,12,5,0,0.7059,6.5,0.3476,18.7,4,7,0.1028,share of the rule's bets: 10%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close",spread,2015-18,90,46,44,0,0.5111,-2.4,-0.0242,99.0,1,4,0.6361,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close",spread,2019-21,81,43,38,0,0.5309,1.2,0.0135,89.1,2,3,0.4944,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close",spread,2015-21,171,89,82,0,0.5205,-1.2,-0.0064,188.1,3,7,0.5656,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,51,20,31,0,0.3922,-14.1,-0.2513,56.1,0,4,0.9786,share of the rule's bets: 57%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,60,25,35,0,0.4167,-13.5,-0.2045,66.0,0,3,0.9634,share of the rule's bets: 74%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,111,45,66,0,0.4054,-27.6,-0.226,122.1,0,7,0.9953,share of the rule's bets: 65%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved away",spread,2015-18,29,20,9,0,0.6897,10.1,0.3166,31.9,2,4,0.0532,share of the rule's bets: 32%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved away",spread,2019-21,14,12,2,0,0.8571,9.8,0.6364,15.4,3,3,0.0104,share of the rule's bets: 17%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close moved away",spread,2015-21,43,32,11,0,0.7442,19.9,0.4207,47.3,5,7,0.0026,share of the rule's bets: 25%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close did not move",spread,2015-18,10,6,4,0,0.6,1.6,0.1455,11.0,1,4,0.4368,share of the rule's bets: 11%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close did not move",spread,2019-21,7,6,1,0,0.8571,4.9,0.6364,7.7,3,3,0.0797,share of the rule's bets: 9%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs opener, graded at close, close did not move",spread,2015-21,17,12,5,0,0.7059,6.5,0.3476,18.7,4,7,0.1028,share of the rule's bets: 10%,,,,,,,
+line timing,"Tuesday model, 4+ edge vs close, graded at close",spread,2015-18,109,62,47,0,0.5688,10.3,0.0859,119.9,2,4,0.1993,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs close, graded at close",spread,2019-21,95,56,39,2,0.5895,13.1,0.1254,104.5,3,3,0.119,,,,,,,,
+line timing,"Tuesday model, 4+ edge vs close, graded at close",spread,2015-21,204,118,86,2,0.5784,23.4,0.1043,224.4,5,7,0.0676,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener",spread,2015-18,37,24,13,0,0.6486,9.7,0.2383,40.7,3,4,0.0868,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener",spread,2019-21,36,25,11,2,0.6944,12.9,0.3258,39.6,3,3,0.0286,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener",spread,2015-21,73,49,24,2,0.6712,22.6,0.2814,80.3,6,7,0.0076,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2015-18,26,16,10,0,0.6154,5.0,0.1748,28.6,2,4,0.2309,share of the rule's bets: 70%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2019-21,30,19,11,2,0.6333,6.9,0.2091,33.0,3,3,0.1542,share of the rule's bets: 84%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved toward our side",spread,2015-21,56,35,21,2,0.625,11.9,0.1932,61.6,5,7,0.0828,share of the rule's bets: 77%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved away",spread,2015-18,11,8,3,0,0.7273,4.7,0.3884,12.1,2,3,0.147,share of the rule's bets: 30%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved away",spread,2019-21,5,5,0,0,1.0,5.0,0.9091,5.5,3,3,0.0394,share of the rule's bets: 13%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close moved away",spread,2015-21,16,13,3,0,0.8125,9.7,0.5511,17.6,5,6,0.0172,share of the rule's bets: 21%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close did not move",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,share of the rule's bets: 0%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close did not move",spread,2019-21,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,share of the rule's bets: 3%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at opener, close did not move",spread,2015-21,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,share of the rule's bets: 1%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close",spread,2015-18,37,22,15,0,0.5946,5.5,0.1351,40.7,3,4,0.2434,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close",spread,2019-21,38,20,18,0,0.5263,0.2,0.0048,41.8,2,3,0.5532,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close",spread,2015-21,75,42,33,0,0.56,5.7,0.0691,82.5,5,7,0.305,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2015-18,26,14,12,0,0.5385,0.8,0.028,28.6,2,4,0.5198,share of the rule's bets: 70%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2019-21,32,14,18,0,0.4375,-5.8,-0.1648,35.2,1,3,0.8759,share of the rule's bets: 84%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved toward our side",spread,2015-21,58,28,30,0,0.4828,-5.0,-0.0784,63.8,3,7,0.7757,share of the rule's bets: 77%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved away",spread,2015-18,11,8,3,0,0.7273,4.7,0.3884,12.1,2,3,0.147,share of the rule's bets: 30%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved away",spread,2019-21,5,5,0,0,1.0,5.0,0.9091,5.5,3,3,0.0394,share of the rule's bets: 13%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close moved away",spread,2015-21,16,13,3,0,0.8125,9.7,0.5511,17.6,5,6,0.0172,share of the rule's bets: 21%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close did not move",spread,2015-18,0,0,0,0,,0.0,,0.0,0,0,,share of the rule's bets: 0%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close did not move",spread,2019-21,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,share of the rule's bets: 3%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs opener, graded at close, close did not move",spread,2015-21,1,1,0,0,1.0,1.0,0.9091,1.1,1,1,0.5238,share of the rule's bets: 1%,,,,,,,
+line timing,"Tuesday model, 5+ edge vs close, graded at close",spread,2015-18,61,31,30,0,0.5082,-2.0,-0.0298,67.1,2,4,0.6457,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs close, graded at close",spread,2019-21,38,22,16,0,0.5789,4.4,0.1053,41.8,2,3,0.3032,,,,,,,,
+line timing,"Tuesday model, 5+ edge vs close, graded at close",spread,2015-21,99,53,46,0,0.5354,2.4,0.022,108.9,4,7,0.4492,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at opener",under,2015-18,134,82,52,5,0.6119,24.8,0.1682,147.4,4,4,0.0248,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at opener",under,2019-21,176,107,69,1,0.608,31.1,0.1606,193.6,3,3,0.0151,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at opener",under,2015-21,310,189,121,6,0.6097,55.9,0.1639,341.0,7,7,0.0014,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at close",under,2015-18,138,78,60,1,0.5652,12.0,0.0791,151.8,4,4,0.1872,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at close",under,2019-21,176,94,82,1,0.5341,3.8,0.0196,193.6,2,3,0.4221,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs opener, graded at close",under,2015-21,314,172,142,2,0.5478,15.8,0.0457,345.4,6,7,0.2138,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs close, graded at close",under,2015-18,106,60,46,0,0.566,9.4,0.0806,116.6,3,4,0.2199,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs close, graded at close",under,2019-21,128,80,48,1,0.625,27.2,0.1932,140.8,3,3,0.0134,,,,,,,,
+line timing,"full model, under at a 3+ point edge vs close, graded at close",under,2015-21,234,140,94,1,0.5983,36.6,0.1422,257.4,6,7,0.0131,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at opener",under,2015-18,125,75,50,3,0.6,20.0,0.1455,137.5,3,4,0.0526,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at opener",under,2019-21,178,103,75,1,0.5787,20.5,0.1047,195.8,2,3,0.082,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at opener",under,2015-21,303,178,125,4,0.5875,40.5,0.1215,333.3,5,7,0.0151,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at close",under,2015-18,127,74,53,1,0.5827,15.7,0.1124,139.7,4,4,0.1074,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at close",under,2019-21,179,92,87,0,0.514,-3.7,-0.0188,196.9,1,3,0.6329,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs opener, graded at close",under,2015-21,306,166,140,1,0.5425,12.0,0.0357,336.6,5,7,0.2755,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs close, graded at close",under,2015-18,91,52,39,0,0.5714,9.1,0.0909,100.1,2,4,0.2108,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs close, graded at close",under,2019-21,123,73,50,1,0.5935,18.0,0.133,135.3,3,3,0.0722,,,,,,,,
+line timing,"Tuesday model, under at a 3+ point edge vs close, graded at close",under,2015-21,214,125,89,1,0.5841,27.1,0.1151,235.4,5,7,0.0445,,,,,,,,
