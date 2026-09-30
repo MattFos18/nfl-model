@@ -16,6 +16,8 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 54-41 | 68-37 | 33-16 |
 | shadow: boosted trees alone, 5+ edge | 1 | 0 | nothing settled |  | +0.00 | 94-66 | 85-62 | 34-17 |
 | shadow: Under, 55%+ chance (the totals flag) | 7 | 3 | 2-1 (67%) | +0.82 | +0.14 | 135-127 | 175-128 | 71-59 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 4 | 0 | nothing settled |  | +0.00 | 124-106 | 165-116 | 65-53 |
+| shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 18-10 | 14-13 | 15-4 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.5% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
@@ -27,7 +29,7 @@ Every bet:
 
 |   season |   week | game_id         | bet      |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:---------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      4 | 2026_04_IND_WAS | WAS +3.5 |   -112 |     nan |   nan | pending  |     nan |
+|     2026 |      4 | 2026_04_IND_WAS | WAS +3.5 |   -108 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -112 |     nan |   nan | pending  |     nan |
 

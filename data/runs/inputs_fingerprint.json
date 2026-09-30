@@ -425,6 +425,16 @@
 "Out"
 ],
 [
+"PIT",
+"Joey Porter Jr.",
+"Out"
+],
+[
+"PIT",
+"Rico Dowdle",
+"Out"
+],
+[
 "SEA",
 "Anthony Bradford",
 "Out"
@@ -979,12 +989,6 @@
 "Did Not Participate In Practice"
 ],
 [
-"PIT",
-"Rico Dowdle",
-"Questionable (ESPN)",
-""
-],
-[
 "SEA",
 "Brandon Pili",
 "Questionable (ESPN)",
@@ -1139,5 +1143,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 18:59 UTC"
+"written_at": "2026-09-30 19:32 UTC"
 }
