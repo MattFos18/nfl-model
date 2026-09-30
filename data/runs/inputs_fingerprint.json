@@ -111,11 +111,6 @@
 ],
 [
 "CAR",
-"Claudin Cherelus",
-"Out"
-],
-[
-"CAR",
 "Damien Lewis",
 "Out"
 ],
@@ -727,12 +722,6 @@
 ""
 ],
 [
-"DEN",
-"Marvin Mims Jr.",
-"Questionable (ESPN)",
-""
-],
-[
 "DET",
 "Ben Bartch",
 "Questionable (ESPN)",
@@ -950,6 +939,12 @@
 ],
 [
 "LAC",
+"Derwin James Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Donte Jackson",
 "Questionable (ESPN)",
 ""
@@ -962,7 +957,25 @@
 ],
 [
 "LAC",
+"Justin Eboigbe",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Kayode Awosika",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Ladd McConkey",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Trey Lance",
 "Questionable (ESPN)",
 ""
 ],
@@ -1005,6 +1018,12 @@
 [
 "MIA",
 "Robert Beal Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Tucker Addington",
 "Questionable (ESPN)",
 ""
 ],
@@ -1226,7 +1245,7 @@
 ],
 [
 "SF",
-"Gracen Halton",
+"Keion White",
 "Questionable (ESPN)",
 ""
 ],
@@ -1455,5 +1474,5 @@
 "rain": false
 }
 },
-"written_at": "2026-09-30 22:35 UTC"
+"written_at": "2026-09-30 23:22 UTC"
 }
