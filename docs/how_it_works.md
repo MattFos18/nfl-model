@@ -2873,3 +2873,14 @@ from the league's (no team is two standard errors out, and a team's edge one sea
 distance and time zones lowered the points miss on every window but cost spread wins and failed the placebo. The model
 keeps one league home-field number (about 1.8 points, fit on every game since 2013). One finding on the record: the
 listed home team gets the full home edge at London, Germany, Mexico and Super Bowl games; zeroing it did not pass either.
+
+**The drift monitor** (30 Sep 2026, Matt: catch changes before Vegas does, automatically). Every weekly run,
+nflmodel/drift.py measures the numbers that move the edge on regular-season games with a line: the home margin and the
+home side's cover margin (neutral sites out), the cover margin of home and road favorites (the underdogs are their mirror),
+the final total against the closing total and the over rate, how often the margin lands on exactly 3 or 7, and the
+model's own miss against the line's, its home lean and the 4+ flag's win rate. Each is compared between the long run
+(2015 to two seasons ago) and the recent stretch (last season and this one): a z-score, and a one-sided CUSUM on each
+week's mean (it catches a slow drift one way before the z-score does). ALERT at |z| 2.5 or a CUSUM trip, WATCH at |z| 2.
+Alerts go to reports/drift.md (each naming the re-test to run) and to the health check as a warning, never a failure. A
+scheduled weekly Claude session reads the report every Wednesday and, on an alert, runs the named re-test under the
+round-3 rule and reports it; nothing changes in the model without Matt. On 30 Sep 2026: 11 measures, none past noise.

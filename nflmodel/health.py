@@ -149,6 +149,12 @@ def main() -> bool:
         add("OK" if rk.get("params", {}).get("qb_prior") == R.DEFAULT["qb_prior"] else "FAIL", "page rankings use the code's QB replacement level", f"page {rk.get('params', {}).get('qb_prior')}, code {R.DEFAULT['qb_prior']}")
     except Exception as e:  # noqa
         add("FAIL", "page settings check", str(e)[:120])
+    # the drift monitor (30 Sep 2026): an alert is a warning, never a failure (a real shift is news, not a broken run)
+    try:
+        dr = pd.read_csv(REP / "drift.csv"); al = dr[dr.level == "ALERT"]
+        add("WARN" if len(al) else "OK", "drift monitor: numbers that move the edge are at their long-run level", "; ".join(f"{r.measure} (z {r.z:+.1f}, CUSUM {r.cusum:.1f})" for r in al.itertuples()) if len(al) else f"{len(dr)} measures within noise; {int((dr.level == 'WATCH').sum())} to watch")
+    except Exception as e:  # noqa
+        add("WARN", "drift monitor", f"no reports/drift.csv yet ({str(e)[:60]})")
     fails = [r for r in rows if r[0] == "FAIL"]; warns = [r for r in rows if r[0] == "WARN"]
     L = [f"# Health check, {now:%Y-%m-%d %H:%M} UTC", "", f"**{'BROKEN' if fails else 'HEALTHY'}**: {len(fails)} failing, {len(warns)} warnings, {len(rows) - len(fails) - len(warns)} ok.", "",
          "| Level | Check | Detail |", "|---|---|---|"] + [f"| {lv} | {w} | {d} |" for lv, w, d in rows] + ["", f"Result: {'FAIL' if fails else 'PASS'}"]
