@@ -54,11 +54,13 @@ ALL_WINDOWS = list(SG.WINDOWS)
 SEASONS = range(2015, 2027)
 BASE_FEATS, BASE_TOTAL = list(M.FEATS), list(M.TOTAL_FEATS)
 N_PLACEBO = 50
-VARIANTS = ["current", "L3", "L4", "L8", "STD", "MAX_L4", "L4_G2", "L4_G4", "L4_G8"]
+VARIANTS = ["current", "L3", "L4", "L8", "STD", "MAX_L4", "L4_G2", "L4_G4", "L4_G8", "MAX_L4_G4", "STD_G4"]
 LABEL = {"current": "Live: last game's share", "L3": "1. Mean of last 3 games played", "L4": "2. Mean of last 4 games played",
          "L8": "3. Mean of last 8 games played", "STD": "4. Season to date (last season if none)", "MAX_L4": "5. max(last game, last 4 played)",
          "L4_G2": "6a. Last 4 played, only if he played in the team's last 2", "L4_G4": "6b. Last 4 played, only if he played in the team's last 4",
-         "L4_G8": "6c. Last 4 played, only if he played in the team's last 8"}
+         "L4_G8": "6c. Last 4 played, only if he played in the team's last 8",
+         "MAX_L4_G4": "6d. max(last game, last 4 played), the usual part only if he played in the team's last 4",
+         "STD_G4": "6e. Season to date, only if he played in the team's last 4"}
 COLS = ["off_snap_out", "def_snap_out", "ol_out", "off_starters_out", "def_starters_out"]
 FIX = {"OAK": "LV", "SD": "LAC", "STL": "LA"}
 
@@ -158,7 +160,8 @@ def build_inputs(seasons=range(2012, 2027)) -> tuple[pd.DataFrame, pd.DataFrame]
                 l4 = mean_k(4)
                 recent = lambda n: bool(len(pi) and pi[-1] > p - n)
                 sh[side] = {"current": last, "L3": mean_k(3), "L4": l4, "L8": mean_k(8), "STD": std, "MAX_L4": max(last, l4),
-                            "L4_G2": l4 if recent(2) else 0.0, "L4_G4": l4 if recent(4) else 0.0, "L4_G8": l4 if recent(8) else 0.0}
+                            "L4_G2": l4 if recent(2) else 0.0, "L4_G4": l4 if recent(4) else 0.0, "L4_G8": l4 if recent(8) else 0.0,
+                            "MAX_L4_G4": max(last, l4 if recent(4) else 0.0), "STD_G4": std if recent(4) else 0.0}
             for v in VARIANTS:
                 o, d = sh["off"][v], sh["def"][v]
                 acc[f"off_snap_out__{v}"] += o; acc[f"def_snap_out__{v}"] += d
@@ -173,11 +176,12 @@ def build_inputs(seasons=range(2012, 2027)) -> tuple[pd.DataFrame, pd.DataFrame]
 
 def stage_build():
     t0 = time.time()
-    SNAP.mkdir(exist_ok=True)
-    SG.GAMES = pd.read_parquet(OUT / "games.parquet"); SG.GAMES.to_parquet(SNAP / "games.parquet", index=False)
-    M.prep(M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))).to_parquet(SNAP / "fp.parquet", index=False)
-    pd.read_parquet(OUT / "trends_asof.parquet").to_parquet(SNAP / "trends_asof.parquet", index=False)
-    pd.read_parquet(OUT / "pred_v3.parquet").to_parquet(SNAP / "pred_v3.parquet", index=False)
+    if not (SNAP / "fp.parquet").exists():
+        SNAP.mkdir(exist_ok=True)
+        SG.GAMES = pd.read_parquet(OUT / "games.parquet"); SG.GAMES.to_parquet(SNAP / "games.parquet", index=False)
+        M.prep(M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))).to_parquet(SNAP / "fp.parquet", index=False)
+        pd.read_parquet(OUT / "trends_asof.parquet").to_parquet(SNAP / "trends_asof.parquet", index=False)
+        pd.read_parquet(OUT / "pred_v3.parquet").to_parquet(SNAP / "pred_v3.parquet", index=False)
     V, P = build_inputs()
     log("built", V.shape, P.shape, round(time.time() - t0), "s")
     # the live values reproduced?
@@ -212,7 +216,7 @@ def _load():
         assert len(x) == len(fp)
         for c in COLS:
             for v in VARIANTS:
-                x[f"{c}__{v}"] = x[f"{c}__{v}"].fillna(0.0)      # with_trends fills a missing injury input with 0
+                x[f"{c}__{v}"] = x[f"{c}__{v}"].fillna(0.0).round(9)   # with_trends fills a missing injury input with 0; rounded (see RND)
         _W["fp"], _W["X"] = fp, x
         _W["opp_ix"] = pd.MultiIndex.from_arrays([fp.game_id, fp.team])
         _W["G0"] = SG.game_frame(fp)
@@ -242,7 +246,7 @@ def variant_values(v, seed=None):
     for s in np.unique(seas):
         ix = np.where(seas == s)[0]; perm[ix] = rng.permutation(ix)
     do, dd = (o - cur_o)[perm], (d - cur_d)[perm]
-    return np.clip(cur_o + do, 0, None), np.clip(cur_d + dd, 0, None)
+    return np.round(np.clip(cur_o + do, 0, None), 9), np.round(np.clip(cur_d + dd, 0, None), 9)
 
 
 def run_variant(v, seed=None, keep_pred=False) -> dict:
@@ -287,9 +291,15 @@ def stage_real(jobs, names=None):
         log("done", r["name"], r["secs"], "s")
 
 
+# The rule's base is the "current" run: the live values rebuilt by this script's code and rounded to 9 decimals like
+# every variant, run through the same path. The "(base)" run (the live table's values as the model reads them) differs
+# from it only in last-digit float noise, which still moves the boosted trees' bins; it is kept as a reading of that noise.
+BASE = "current"
+
+
 def verdicts(real: pd.DataFrame) -> pd.DataFrame:
-    b = real[real.name == "(base)"].iloc[0]; rows = []
-    for _, r in real[real.name != "(base)"].iterrows():
+    b = real[real.name == BASE].iloc[0]; rows = []
+    for _, r in real[~real.name.isin(["(base)", BASE])].iterrows():
         v = {"name": r["name"]}
         for w in ALL_WINDOWS:
             v[f"d_team_{w}"] = r[f"team_mae_{w}"] - b[f"team_mae_{w}"]
@@ -319,7 +329,7 @@ def stage_placebo(jobs, names, draws=N_PLACEBO):
 
 
 def placebo_summary(v, real, pl) -> dict:
-    b = real[real.name == "(base)"].iloc[0]; r = real[real.name == v].iloc[0]
+    b = real[real.name == BASE].iloc[0]; r = real[real.name == v].iloc[0]
     x = pl[pl.name == v] if len(pl) else pl
     if not len(x):
         return {"draws": 0}
@@ -358,36 +368,201 @@ def _fmt_wl(w, l):
     return f"{int(w)}-{int(l)}"
 
 
+def sanity() -> dict:
+    """The readings the report quotes: this week's WAS game, 2025's missed 90%+ starters, the biggest movers."""
+    W = _load(); X, fp = W["X"], W["fp"]
+    Pl = pd.read_parquet(SCR / "players.parquet")
+    pr = {v: pd.read_parquet(SCR / "preds" / f"{v}.parquet").set_index("game_id") for v in VARIANTS if (SCR / "preds" / f"{v}.parquet").exists()}
+    out = {}
+    g = "2026_04_IND_WAS"
+    w = Pl[(Pl.game_id == g) & (Pl.team == "WAS")]
+    out["was_players"] = w[["player", "position", "games_since_played", "off_current", "off_L4", "off_L4_G4", "off_L4_G8", "def_current", "def_L4", "def_L4_G4", "def_L4_G8"]]
+    m = ((fp.game_id == g) & (fp.team == "WAS")).values
+    out["was_inputs"] = pd.DataFrame([{"variant": v, "WAS off_snap_out": float(X.loc[m, f"off_snap_out__{v}"].iloc[0]), "WAS def_snap_out": float(X.loc[m, f"def_snap_out__{v}"].iloc[0]),
+                                       "model spread (WAS)": float(pr[v].loc[g, "model_spread"]) if v in pr else np.nan} for v in VARIANTS])
+    x = Pl[(Pl.season == 2025) & (Pl.week <= 18) & (Pl.games_since_played >= 1)].copy()
+    x["usual"] = np.maximum(x.off_L4, x.def_L4); s_ = x[x.usual >= 0.9]
+    out["missed90"] = {"players": int(len(s_)), "team_games": int(s_[["game_id", "team"]].drop_duplicates().shape[0]),
+                       "missed_1": int((s_.games_since_played == 1).sum()), "missed_2_3": int(s_.games_since_played.between(2, 3).sum()),
+                       "missed_4_7": int(s_.games_since_played.between(4, 7).sum()), "missed_8plus": int((s_.games_since_played >= 8).sum()),
+                       **{f"counted_{v}": float((np.maximum(s_[f"off_{v}"], s_[f"def_{v}"]) > 0).mean()) for v in VARIANTS[1:]}}
+    out["missed90_examples"] = s_[s_.games_since_played <= 2].sort_values(["week", "team"]).head(12)[["game_id", "team", "player", "position", "games_since_played", "off_L4", "def_L4"]]
+    # biggest movers (2015-25 regular season): team-games whose inputs move most under the best gated variant
+    best = out["best"] = "L4_G4"
+    d = pd.DataFrame({"game_id": fp.game_id, "team": fp.team, "season": fp.season, "game_type": fp.game_type,
+                      "off_live": X["off_snap_out__current"], "off_var": X[f"off_snap_out__{best}"], "def_live": X["def_snap_out__current"], "def_var": X[f"def_snap_out__{best}"]})
+    d = d[d.season.between(2015, 2025) & (d.game_type == "REG")]
+    d["move"] = (d.off_var - d.off_live).abs() + (d.def_var - d.def_live).abs()
+    top = d.sort_values("move", ascending=False).head(10).copy()
+    def who(r):
+        q = Pl[(Pl.game_id == r.game_id) & (Pl.team == r.team)]
+        q = q.assign(add=(q[f"off_{best}"] - q.off_current).abs() + (q[f"def_{best}"] - q.def_current).abs()).sort_values("add", ascending=False)
+        return ", ".join(f"{a} ({max(o, e):.0%})" for a, o, e in zip(q.player.head(4), q[f"off_{best}"].head(4), q[f"def_{best}"].head(4)) if max(o, e) > 0)
+    top["players"] = [who(r) for r in top.itertuples()]
+    top["home_spread_move"] = [float(pr[best].loc[gid, "model_spread"] - pr["current"].loc[gid, "model_spread"]) if best in pr else np.nan for gid in top.game_id]
+    out["movers"] = top
+    sp = {}
+    for v in VARIANTS[1:]:
+        if v in pr:
+            dd = (pr[v].model_spread - pr["current"].model_spread)[pr["current"].season.between(2015, 2025)]
+            sp[v] = {"mean_abs": float(dd.abs().mean()), "moved_0.5+": int((dd.abs() >= 0.5).sum()), "games": int(len(dd))}
+    out["spread_moves"] = sp
+    return out
+
+
+def _md_table(df: pd.DataFrame) -> str:
+    cols = list(df.columns)
+    lines = ["| " + " | ".join(cols) + " |", "|" + "---|" * len(cols)]
+    for r in df.itertuples(index=False):
+        lines.append("| " + " | ".join(str(v) for v in r) + " |")
+    return "\n".join(lines)
+
+
 def write_report():
     real = pd.read_csv(SCR / "real.csv").drop_duplicates("name", keep="last")
     pl = pd.read_csv(SCR / "placebo.csv") if (SCR / "placebo.csv").exists() else pd.DataFrame()
     V = verdicts(real).set_index("name"); CC = change_counts()
-    b = real[real.name == "(base)"].iloc[0]
     PS = {v: placebo_summary(v, real, pl) for v in VARIANTS[1:] if v in set(real.name)}
+    have = [v for v in VARIANTS[1:] if v in set(real.name)]
     rows = []
-    for v in ["(base)"] + [v for v in VARIANTS[1:] if v in set(real.name)]:
+    for v in [BASE, "(base)"] + have:
         r = real[real.name == v].iloc[0]
         for w in ALL_WINDOWS:
-            o = {"variant": v, "label": LABEL.get(v, "Live inputs (base)") if v != "(base)" else "Live: last game's share (base)", "window": w,
+            o = {"variant": v, "label": ("Base: live last-game share, rebuilt (the rule's base)" if v == BASE else
+                                         "Reading: live table's own values (float-noise check)" if v == "(base)" else LABEL[v]), "window": w,
                  "games": int(r[f"n_{w}"]), "team_points_miss": round(r[f"team_mae_{w}"], 4), "margin_miss": round(r[f"margin_mae_{w}"], 4),
-                 "total_miss": round(r[f"total_mae_{w}"], 4), "spread_flag": _fmt_wl(r[f"sp_w_{w}"], r[f"sp_l_{w}"]),
-                 "totals_flag": _fmt_wl(r[f"to_w_{w}"], r[f"to_l_{w}"]), "log_loss_cal": round(r[f"ll_cal_{w}"], 5), "brier_cal": round(r[f"brier_cal_{w}"], 5)}
-            if v != "(base)":
-                d = V.loc[v]
+                 "total_miss": round(r[f"total_mae_{w}"], 4), "spread_flag_wl": _fmt_wl(r[f"sp_w_{w}"], r[f"sp_l_{w}"]),
+                 "totals_flag_wl": _fmt_wl(r[f"to_w_{w}"], r[f"to_l_{w}"]), "log_loss_cal": round(r[f"ll_cal_{w}"], 5), "brier_cal": round(r[f"brier_cal_{w}"], 5)}
+            if v in V.index:
+                d = V.loc[v]; c = CC[(CC.name == v) & (CC.window == w)].iloc[0]; p = PS.get(v, {})
                 o.update({"d_team_points_miss": round(d[f"d_team_{w}"], 4), "d_margin_miss": round(d[f"d_margin_{w}"], 4),
-                          "d_spread_wl": int(d[f"d_sp_{w}"]), "d_totals_wl": int(d[f"d_to_{w}"]), "d_log_loss": round(d[f"d_ll_{w}"], 5), "d_brier": round(d[f"d_brier_{w}"], 5)})
-                c = CC[(CC.name == v) & (CC.window == w)].iloc[0]
-                o.update({"team_games_changed": int(c.changed), "team_games_changed_by_0.5+": int(c["changed_by_0.5+"])})
-                p = PS.get(v, {})
-                o.update({"placebo_draws": p.get("draws", 0), "placebo_real_beats": p.get(f"real_beats_{w}", ""),
+                          "d_spread_w_minus_l": int(d[f"d_sp_{w}"]), "d_totals_w_minus_l": int(d[f"d_to_{w}"]),
+                          "d_log_loss": round(d[f"d_ll_{w}"], 5), "d_brier": round(d[f"d_brier_{w}"], 5),
+                          "team_games_changed": int(c.changed), "team_games_changed_by_0.5+": int(c["changed_by_0.5+"]),
+                          "placebo_draws": p.get("draws", 0), "placebo_real_beats_on_window": p.get(f"real_beats_{w}", ""),
                           "placebo_real_beats_all3": p.get("real_beats_all3", ""),
-                          "rule1_accuracy": bool(d.rule1), "rule2_no_bet_cost": bool(d.rule2), "rule3_placebo": p.get("pass", False) if p.get("draws") else "not run"})
+                          "rule1_accuracy": bool(d.rule1), "rule2_no_bet_cost": bool(d.rule2),
+                          "rule3_placebo": (bool(p["pass"]) if p.get("draws") else "not run")})
             rows.append(o)
-    T = pd.DataFrame(rows)
-    T.to_csv(REP / "usual_snaps.csv", index=False)
-    CC.to_csv(SCR / "change_counts.csv", index=False)
-    log("wrote reports/usual_snaps.csv", T.shape)
+    T = pd.DataFrame(rows); T.to_csv(REP / "usual_snaps.csv", index=False); log("wrote reports/usual_snaps.csv", T.shape)
+    S_ = sanity()
+    b = real[real.name == BASE].iloc[0]; b0 = real[real.name == "(base)"].iloc[0]
+    fmt3 = lambda d, k, nd=4: " / ".join(f"{d[f'{k}_{w}']:+.{nd}f}" for w in RULE_WINDOWS)
+    def fails(v):
+        d = V.loc[v]; f = []
+        bad1 = [w for w in RULE_WINDOWS if d[f"d_team_{w}"] >= 0]; badm = [w for w in RULE_WINDOWS if d[f"d_margin_{w}"] >= 0]
+        if bad1: f.append("1: team miss up " + ", ".join(bad1))
+        if badm: f.append("1: margin miss up " + ", ".join(badm))
+        bs = [w for w in RULE_WINDOWS if d[f"d_sp_{w}"] < 0]; bt = [w for w in RULE_WINDOWS if d[f"d_to_{w}"] < 0]
+        bl = [w for w in RULE_WINDOWS if d[f"d_ll_{w}"] > 1e-12 or d[f"d_brier_{w}"] > 1e-12]
+        if bs: f.append("2: spread flag down " + ", ".join(bs))
+        if bt: f.append("2: totals flag down " + ", ".join(bt))
+        if bl: f.append("2: log loss / Brier up " + ", ".join(bl))
+        p = PS.get(v, {})
+        if p.get("draws"):
+            f.append(f"3: beats the placebo on all three windows in {p['real_beats_all3']} of {p['draws']}" + (" (needs 45 of 50)" if not p["pass"] else ""))
+        return "; ".join(f) if f else "passes"
+    tab = []
+    for v in have:
+        d = V.loc[v]; p = PS.get(v, {})
+        tab.append({"variant": LABEL[v], "team points miss": fmt3(d, "d_team"), "margin miss": fmt3(d, "d_margin"),
+                    "spread flag W-L": " / ".join(f"{int(d[f'd_sp_{w}']):+d}" for w in RULE_WINDOWS),
+                    "totals flag W-L": " / ".join(f"{int(d[f'd_to_{w}']):+d}" for w in RULE_WINDOWS),
+                    "log loss x1000": " / ".join(f"{1000 * d[f'd_ll_{w}']:+.2f}" for w in RULE_WINDOWS),
+                    "Brier x1000": " / ".join(f"{1000 * d[f'd_brier_{w}']:+.2f}" for w in RULE_WINDOWS),
+                    "placebo (real beats, per window)": (" / ".join(str(p.get(f"real_beats_{w}")) for w in RULE_WINDOWS) + f" of {p['draws']}") if p.get("draws") else "not run",
+                    "2026 team miss": f"{d['d_team_2026']:+.4f}", "verdict": "ADOPT" if (d.rule1 and d.rule2 and p.get("pass")) else "no: " + fails(v)})
+    tab = pd.DataFrame(tab)
+    cc = CC[CC.window != "2026"].groupby("name")[["team_games", "changed", "changed_by_0.5+", "ol_out_changed", "off_starters_out_changed", "def_starters_out_changed"]].sum()
+    c25 = CC[CC.window == "2023-25"].set_index("name")
+    cct = pd.DataFrame([{"variant": v, "team-games changed (of %d)" % cc.loc[v, "team_games"]: int(cc.loc[v, "changed"]), "changed by 0.5+": int(cc.loc[v, "changed_by_0.5+"]),
+                         "mean off_snap_out 2023-25 (live %.2f)" % c25.loc[v, "mean_off_live"]: round(c25.loc[v, "mean_off_var"], 2),
+                         "mean |spread move|": round(S_["spread_moves"][v]["mean_abs"], 2), "games moved 0.5+": S_["spread_moves"][v]["moved_0.5+"],
+                         "ol_out changed": int(cc.loc[v, "ol_out_changed"]), "off starters changed": int(cc.loc[v, "off_starters_out_changed"]),
+                         "def starters changed": int(cc.loc[v, "def_starters_out_changed"])} for v in have])
+    base_tab = pd.DataFrame([{"window": w, "games": int(b[f"n_{w}"]), "team points miss": f"{b[f'team_mae_{w}']:.4f}", "margin miss": f"{b[f'margin_mae_{w}']:.4f}",
+                              "total miss": f"{b[f'total_mae_{w}']:.4f}", "spread flag": _fmt_wl(b[f"sp_w_{w}"], b[f"sp_l_{w}"]), "totals flag": _fmt_wl(b[f"to_w_{w}"], b[f"to_l_{w}"]),
+                              "log loss (cal)": f"{b[f'll_cal_{w}']:.4f}", "Brier (cal)": f"{b[f'brier_cal_{w}']:.4f}"} for w in ALL_WINDOWS])
+    m90 = S_["missed90"]
+    head = HEADLINE.format(**{k: v for k, v in globals().items() if k.isupper()}) if "{" in HEADLINE else HEADLINE
+    md = f"""# Usual snaps: pricing an out player by his usual role (30 Sep 2026)
+
+`experiments/usual_snaps.py`; every variant and window in `reports/usual_snaps.csv`. Rule: `reports/round3_rule.md`.
+
+{head}
+
+## The rule, variant by variant
+
+Each variant replaces the live last-game share in `off_snap_out` and `def_snap_out` (so also the opponent's
+`opp_def_snap_out`), the only snaps-out inputs the model reads. Changes against the base, per window 2015-18 / 2019-22 / 2023-25
+(misses in points, below zero is better; flag records as the change in wins minus losses; log loss and Brier of the calibrated
+win chance, times 1000, below zero is better). Rule 1 here needs both the team points miss and the margin miss lower on all three
+windows; rule 2 needs both flag records not worse and log loss and Brier not worse on all three. The totals flag never moves: the
+total equation has no snaps-out input. The placebo ran for the four variants that lower the team points miss on every window
+(50 draws for the best, 20 for the others, as a reading: none of them passes rule 2, which gates the placebo).
+
+{_md_table(tab)}
+
+Base (the live inputs rebuilt by the script, same code path as every variant, fresh trees):
+
+{_md_table(base_tab)}
+
+## How much each variant changes
+
+Regular and postseason team-games 2015-2025 (the model's rows). "Changed" means `off_snap_out` or `def_snap_out` differs from the live
+value. Spread move: the model spread against the base, 2015-25 regular season ({S_['spread_moves'][have[0]]['games']} games).
+
+{_md_table(cct)}
+
+The ungated usual shares (1 to 5) carry every player still on IR or PUP for as long as he stays there, including players hurt a
+season or more ago: the average team-game goes from 0.33 of a player's offensive snaps out to about 2. Those players are already out
+of the team's ratings (every game they missed is in its EPA and points), so the input double counts, and all five raise the margin
+miss on 2019-22 and lose spread wins on every window. Gating at the team's last 4 or 8 games removes most of that and lowers the
+team points miss on every window, but still raises the margin miss on 2019-22 and loses spread wins on 2015-18.
+
+## Sanity checks
+
+This week, WAS (home to IND). Out players with any share, and the WAS inputs and model spread (home margin) under each variant:
+
+{_md_table(S_['was_players'].round(2))}
+
+{_md_table(S_['was_inputs'].round(2))}
+
+2025 regular season: {m90['players']} times an out player whose usual share (last 4 games played) was 90%+ had also missed the previous
+game, on {m90['team_games']} team-games; the live input counted every one as 0. He had missed 1 game in {m90['missed_1']} of them, 2 to 3 in
+{m90['missed_2_3']}, 4 to 7 in {m90['missed_4_7']} and 8 or more in {m90['missed_8plus']}. Share still counted: last 4 gated at 2 games
+{m90['counted_L4_G2']:.0%}, at 4 {m90['counted_L4_G4']:.0%}, at 8 {m90['counted_L4_G8']:.0%}; ungated 100%. Examples (missed 1 or 2 games):
+
+{_md_table(S_['missed90_examples'].round(2))}
+
+Biggest movers under {LABEL[S_['best']]} (2015-25 regular season; the players added, at their usual share):
+
+{_md_table(S_['movers'][['game_id', 'team', 'off_live', 'off_var', 'def_live', 'def_var', 'home_spread_move', 'players']].round(2))}
+
+## Caveats
+
+- The rule's base is the live input rebuilt by this script (it matches `trends_asof.parquet` to 1e-15 on all 7,870 team-games) and
+  rounded to 9 decimals like every variant. Run straight from the live table, the base differs by last-digit float noise, which
+  moves the boosted trees' bins: team points miss {b0['team_mae_2015-18'] - b['team_mae_2015-18']:+.4f} / {b0['team_mae_2019-22'] - b['team_mae_2019-22']:+.4f} / {b0['team_mae_2023-25'] - b['team_mae_2023-25']:+.4f}. That is the noise floor of a single comparison; the gated variants' gains (about 0.004 to 0.02) sit above it
+  on 2015-18 and 2023-25 and near it on 2019-22.
+- Fresh trees on this machine for base and every variant (the live trees' cache holds GitHub runners' fits; fresh fits move the
+  base spread by 0.008 points on average). Weekly refit, 2013 on, as the live walk-forward.
+- A player's history counts only games for this team (a player traded in or signed counts 0 until he plays for it), and only games
+  with snap data (2012 on). The out set, snap source and id matching are the live ones; nothing new is pulled.
+- The gate counts the team's games, across the offseason: in Weeks 1 to 4 a player who last played in the final games of last
+  season still counts, including one since retired or released but still listed as unavailable (Aaron Donald, retired, counts
+  for LA in 2024 Week 4 above). The ungated variants carry such players all season.
+- `ol_out`, `off_starters_out` and `def_starters_out` are not model inputs (only readings on the page), so their changes, counted
+  above, cannot move a prediction. `qb_out` was left as it is.
+- 2026 is weeks 1 to 3 only ({int(b['n_2026'])} games): a reading, not part of the rule. The gated variants are worse there by 0.02 to 0.03.
+- Data snapshot: the weekly run rewrote `data/processed` at 16:23 while the study ran, so every run here reads one snapshot taken
+  after it (scratch folder), base and variants alike.
+"""
+    (REP / "usual_snaps.md").write_text(md); log("wrote reports/usual_snaps.md")
     return T, V, PS, CC
+
+
+HEADLINE = "(headline written after the runs)"
 
 
 if __name__ == "__main__":
