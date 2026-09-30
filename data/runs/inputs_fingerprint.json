@@ -548,8 +548,20 @@
 [
 "CLE",
 "Elgton Jenkins",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CLE",
+"Elgton Jenkins",
 "Questionable (ESPN)",
 ""
+],
+[
+"CLE",
+"Grant Delpit",
+"",
+"Limited Participation in Practice"
 ],
 [
 "CLE",
@@ -560,8 +572,20 @@
 [
 "CLE",
 "Teven Jenkins",
+"",
+"Limited Participation in Practice"
+],
+[
+"CLE",
+"Teven Jenkins",
 "Questionable (ESPN)",
 ""
+],
+[
+"CLE",
+"Tylan Wallace",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "CLE",
@@ -572,8 +596,20 @@
 [
 "CLE",
 "Tyson Campbell",
+"",
+"Limited Participation in Practice"
+],
+[
+"CLE",
+"Tyson Campbell",
 "Questionable (ESPN)",
 ""
+],
+[
+"CLE",
+"Tytus Howard",
+"",
+"Limited Participation in Practice"
 ],
 [
 "CLE",
@@ -914,14 +950,38 @@
 [
 "PIT",
 "Brandin Echols",
+"",
+"Limited Participation in Practice"
+],
+[
+"PIT",
+"Brandin Echols",
 "Questionable (ESPN)",
 ""
 ],
 [
 "PIT",
 "Jalen Ramsey",
+"",
+"Limited Participation in Practice"
+],
+[
+"PIT",
+"Jalen Ramsey",
 "Questionable (ESPN)",
 ""
+],
+[
+"PIT",
+"Joey Porter Jr.",
+"",
+"Full Participation in Practice"
+],
+[
+"PIT",
+"Rico Dowdle",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "PIT",
@@ -1016,10 +1076,10 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.1,
+"wind": 9.6,
 "cold": false,
 "rain": false
 }
 },
-"written_at": "2026-09-30 05:14 UTC"
+"written_at": "2026-09-30 07:25 UTC"
 }
