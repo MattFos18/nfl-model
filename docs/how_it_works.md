@@ -2215,7 +2215,7 @@ An audit of every projection path: the game model's inputs carry no line (model.
 player season totals carry none; the bet rules, the edge bands, the teaser calibration, the opener study and the
 tracker read lines only to grade and to pick bets. Two places did read the market:
 
-1. The player props' game script (the team's expected plays: favourites run more, high totals add pass plays) and
+1. The player props' game script (the team's expected plays: favorites run more, high totals add pass plays) and
    the kicker's implied total read the closing spread and total. They now read the game model's own margin and
    total (nflmodel/props.py; round 6 had found the model's margin in place of the line changed nothing).
 2. The total equation's referee input, ref_over, is the referee's over rate against the closing total in his
@@ -2304,7 +2304,7 @@ and 50% filled in the colour of whoever is ahead, the two teams at the top and b
 model's pregame chance as a hollow diamond at kickoff, the play text on hover; capped at 860px. The On-now tile's win
 bar shows both teams' shares in their colours with the model's pregame chance on its own line.
 Then (29 Sep 2026, Matt): the two-line chart came back (the ESPN-style one was harder to read), with the model's
-pregame chance as a dashed line in the favourite's colour and the play text on hover; the tile shows the pregame
+pregame chance as a dashed line in the favorite's colour and the play text on hover; the tile shows the pregame
 chance as a second bar in the same style. The field is ESPN's: a striped green field with 5-yard lines, hash marks
 and yard numbers, the end zones in the teams' colours, the current drive as a band from where it started to the
 ball, the line of scrimmage in blue, the line to gain in yellow, the ball with a possession arrow, and the down and
@@ -2569,7 +2569,7 @@ with these adopted constants; its own grid refit uses in-sample chances and is k
 under of 2015-25, decomposed from the play-by-play. For spread losses, turnovers, return and kick scores and garbage
 time explain about 40% and ordinary variance another 40%; for unders, 58% is ordinary variance. The model's side loses
 its quarterback mid-game far more often than the opponent (19 to 6; those bets 6-13), because it mostly backs underdogs,
-and nothing known before kickoff predicts it. Of 76 skip rules and caps tested on the three windows (skip favourites
+and nothing known before kickoff predicts it. Of 76 skip rules and caps tested on the three windows (skip favorites
 laying 7, Weeks 1-2, Week 17, edges that come only from injuries, and more), six pass by the letter, but dropping the same
 number of bets at random passes as often, so none is adopted. It also found a data error: the listed starting
 quarterback took no snap in 40 team-games of 2024-25 (under test separately).
@@ -2646,7 +2646,7 @@ test on past seasons waits for a bought history.
 `reports/situational_game.md`; 29 Sep 2026, Matt). 121 ideas (85 in the points equation, 36 in the total equation)
 and 13 live terms dropped one at a time, each through the full weekly walk-forward on 2015-18, 2019-22 and 2023-25:
 coach vs coach, coach and team at a stadium, travel miles, time-zone shifts, altitude, rest, turf vs grass, dome and
-outdoor teams, primetime and kickoff slot, holidays, referees (with teams, home and road, the model's favourite, flag
+outdoor teams, primetime and kickoff slot, holidays, referees (with teams, home and road, the model's favorite, flag
 rate, the ref's total against the model), weather and injuries crossed with the above, offense-vs-defense scheme
 matchups and offensive vs defensive coordinator. Every history is as of the week before and measured against the model's
 own expectation, never a line. Seven ideas lower the miss on every window (chance alone gives about fifteen); six of
@@ -2820,7 +2820,7 @@ played but only if he played in one of the team's last 4, lowered the team-point
 placebo, but raised the margin miss on 2019-22 and cost the spread flag on 2015-18 (59-50 against 68-54), so it fails the
 round-3 rule. The injury report's Usual snaps column shows the role; the line effect still prices last game's snaps.
 
-**Bet rules swept** (30 Sep 2026, Matt: thresholds, week timing, kinds of game, favourite or dog, bet type, sizing,
+**Bet rules swept** (30 Sep 2026, Matt: thresholds, week timing, kinds of game, favorite or dog, bet type, sizing,
 timing of the bet). 283 rules on the three windows with a placebo (reports/bet_rules_sweep.md). The live rules stand:
 the 4-point spread flag (edges of 4 to 6 carry it; 3 to 4 loses on every window; 6+ is thin), weeks 1 to 17, flat
 stakes (bigger edges did not earn bigger stakes), unders at 55%. Real but thin on 2023-25, watch only: the model's road
@@ -2845,8 +2845,8 @@ chance is honest to slightly generous, not conservative as the two-window view s
 Odds Learn from card went (every fit scored within 0.003 of the others; reports/calibration_start.csv keeps it).
 
 **Our bets by side** (30 Sep 2026, Matt). A table on Game Picks (Spreads) splits our 4+ spread bets by the side taken:
-the favourite, the underdog, and each by home or road (records.appendix favdog, the same cells as the edge table).
-Nearly all of the profit is on underdogs (156-100-1, +46.0 units against the favourites' 33-29, +1.1), and road
+the favorite, the underdog, and each by home or road (records.appendix favdog, the same cells as the edge table).
+Nearly all of the profit is on underdogs (156-100-1, +46.0 units against the favorites' 33-29, +1.1), and road
 underdogs most of all (79-36, +39.4, up in 10 of 12 seasons). The Every game tile shows won, lost and push, not units
 (every game is not bet). Beating the closing line and the best number across books are parked in docs/todo.md until
 there is data.
@@ -2856,10 +2856,11 @@ flag rarely loses to the hook (6 half-point losses and 1 push in 11 seasons); bu
 -125 gained a little on all three windows, about a tenth to a quarter of a unit a season, and buying anywhere else did
 not pay. The model's miss by team does not carry from one season to the next (correlation -0.01), every per-team
 correction made the margin miss worse, and the market misses the same teams the model does (BAL under-rated, NYJ and
-LV over-rated). No underdog, favourite or matchup filter beats the 4+ rule on every window.
+LV over-rated). No underdog, favorite or matchup filter beats the 4+ rule on every window.
 
 **Two more tracking rules** (30 Sep 2026, Matt: "track everything, but I don't want the clutter"). Unders needing a 59%
 chance in weeks 1 to 3 and 55% after (reports/bet_rules_sweep.md: better than the totals flag on all three windows), and
 the flag's spread bought half a point on or off 3 at -125 when it sits on +2.5, +3, -3 or -3.5 (reports/spread_research.md),
 graded at the bought number and its price. Both are recorded before kickoff and graded like the other shadows
 (picks.SHADOWS, EARLY_UNDER, HOOK), never bet, and show only as rows in Bets -> Rules compared.
+(30 Sep 2026, Matt) The page and docs spell favorite the American way.
