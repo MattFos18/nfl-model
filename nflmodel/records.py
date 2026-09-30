@@ -36,9 +36,9 @@ def standard_records(d: pd.DataFrame, season_now: int) -> dict:
                        (f"Our bets: {SPREAD_EDGE:g}+ edge", "", f"weeks 1 to {LAST_BET_WEEK}, the live rule", rule_mask(d, SPREAD_EDGE) & sp_ok)],
             "total": [("Over or under", "Every game", "the model's side of the total (its chance), every game with a line", t_ok),
                       ("Overs", "Every game", "the games it leaned over", t_ok & over), ("Unders", "Every game", "the games it leaned under", t_ok & ~over),
-                      ("Over or under", pc, f"weeks 1 to {LAST_BET_WEEK}", t_ok & wk & (p_side >= bar)),
+                      ("Our bets: unders", pc, f"weeks 1 to {LAST_BET_WEEK}, the live rule", t_ok & wk & ~over & (p_side >= bar)),
                       ("Overs (not bet)", pc, "the same bar on the over side", t_ok & wk & over & (p_side >= bar)),
-                      ("Our bets: unders", pc, f"weeks 1 to {LAST_BET_WEEK}, the live rule", t_ok & wk & ~over & (p_side >= bar))]}
+                      ("Over or under", pc, f"weeks 1 to {LAST_BET_WEEK}", t_ok & wk & (p_side >= bar))]}
     seasons = sorted(int(x) for x in d.season.unique())
     out = {"periods": periods, "seasons": seasons, "odds": DEFAULT_ODDS, "break_even": round(break_even(), 4)}
     for mkt, spec in rows.items():
