@@ -74,7 +74,7 @@ MED_TIER = {"rec": ("logistic", 0.690, 0.869, 32.6, 5.0), "pass": ("linear", 0.6
 K_CATCH, MED_CATCH = 25.0, 0.9                     # catch rate shrunk toward the league with 25 targets of weight (round 5); receptions line x 0.9, refit on 2017-18 in round 11 (was 0.88; reports/props_backtest11.csv, better on both windows)
 K_TD = {"rec": 200.0, "rush": 200.0, "pass": 400.0}  # touchdown rate per touch shrunk toward the league (round 5: best Poisson fit on 2016 to 2018, held on both windows)
 TD_MARGIN = {"rec": 0.020, "rush": 0.0, "pass": 0.020}   # touchdown rate x (1 + TD_MARGIN x expected margin): favourites score more; fitted on 2016 to 2018 (rushing: no gain on both windows, so 0)
-BACKTEST_COUNTS = {'rec_catches': [1.44, 1.37], 'rec_td_ll': [0.5108, 0.4877], 'rush_td_ll': [0.5823, 0.5521], 'pass_td_ll': [1.4664, 1.4201], 'pass_int_ll': [1.1455, 1.1034]}   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv). The by-season frame grades only player-games with a touch, so the round-14 touchdown rule reads worse there (0.5095 / 0.4857 and 0.5767 / 0.5482 before it), as does the round-17 share on receptions (1.43 / 1.35 before it; on every game a projected player played, 1.343 / 1.259 against 1.411 / 1.326): the number that counts for a score is BACKTEST_TD, on every game a projected player played
+BACKTEST_COUNTS = {'rec_catches': [1.44, 1.36], 'rec_td_ll': [0.5106, 0.4874], 'rush_td_ll': [0.5822, 0.5519], 'pass_td_ll': [1.4663, 1.4198], 'pass_int_ll': [1.1455, 1.1034]}   # (29 Sep 2026, round 3's situational factors SIT: receptions 1.44 / 1.37 -> 1.44 / 1.36, touchdowns 0.5108 / 0.4877 -> 0.5106 / 0.4874 receiving, 0.5823 / 0.5521 -> 0.5822 / 0.5519 rushing, 1.4664 / 1.4201 -> 1.4663 / 1.4198 passing)   # the same run: receptions mean absolute error, touchdown and interception Poisson log loss, 2019-22 / 2023-25 (reports/props_by_season.csv). The by-season frame grades only player-games with a touch, so the round-14 touchdown rule reads worse there (0.5095 / 0.4857 and 0.5767 / 0.5482 before it), as does the round-17 share on receptions (1.43 / 1.35 before it; on every game a projected player played, 1.343 / 1.259 against 1.411 / 1.326): the number that counts for a score is BACKTEST_TD, on every game a projected player played
 RECON_W = {"rec": {"yds": 0.25, "td": 0.5}, "rush": {"yds": 0.25, "td": 0.5}, "pass": {"yds": 0.5, "td": 1.0}}   # round 6: weight of the move toward the team's expected yards and touchdowns from the game model's expected points (best row on both windows per stat)
 TEAM_FIT = {"rec": {"td": (-0.2529, 0.07481), "yds": (86.16, 6.483)}, "rush": {"td": (-0.1856, 0.04091), "yds": (71.47, 1.388)}, "pass": {"td": (-0.2618, 0.079), "yds": (103.23, 6.268)}}   # team touchdowns and yards of each kind = intercept + slope x the game model's expected points, least squares on 2016 to 2018 (reports/props_backtest6.csv, *_team_fit rows)
 PROP_EDGE = None   # {"rec_yards": 7.5, ...}: the edge (projection minus book line, absolute) at which a prop is flagged, per stat; None until reports/props_vs_market_cuts.csv chooses one that holds on both windows (experiments/props_vs_market_backtest.py). No cut, no flags.
@@ -150,6 +150,55 @@ BACKTEST_TD = {"rec_td_ll": [0.4171, 0.3905], "rush_td_ll": [0.4195, 0.3768], "a
 # rounds 14 and 15 found the roster the card can know inflates the sum and the cap loses). Season totals (player_season.py)
 # still read the touch-games share, untested there.
 SHARE_A_W = {"rec": 0.75, "rush": 1.0}   # weight on the active-games share in the yards and receptions volume; the rest on the touch-games share
+# round 3 of the props (29 Sep 2026, experiments/situational_props.py, reports/situational_props.md, under reports/round3_rule.md):
+# the situational pieces that passed rules 1-3 alone and, per stat, rules 1-2 refitted together (rule 5). Each is a factor on
+# one stat's final line, after the injury/snap factor: exp(b x (z - q)), z the input for this game (as of before kickoff, no
+# market input; nflmodel/props_sit.py builds them) and q the player's own 0.85-decayed mean of z over his earlier projected
+# games (the by-season backtest's frame, from 2016; props_sit_state.parquet), each term clipped to +-SIT_CLIP. b is the
+# study's walk-forward refit with the stat's pieces fitted together in its order: SIT the last refit (on 2016-2025, the live
+# sizes), SIT_WALK each season's (fitted on the seasons before it, 2017 to 2025; the by-season backtest scores with these).
+# Inputs: same_out, the known-out starters' share at his own position group (the share the absorb step hands on: WR / TE
+# from the receiving table, RB from the rushing one); rb_out, the known-out RB starters' share; opp_cb_r, this week's
+# expected starting corners' rating (the top three by snap share over the defence's last three games, less the known-out;
+# the positions.py corner recipe); opp_cb_chg, that less the corners who played its last eight games; rest_days (4 to 14);
+# qb_rating (the game model's, this week's starter); rain (the game model's rain call, outdoors); cold (under 35 F
+# outdoors); wind_turf (mph of kickoff wind above 10 on an artificial surface). Live weather is the kickoff forecast in use.
+# The study's shares capped at one on the targets line is left out: it made the targets line disagree with the receptions
+# and yards lines it feeds (both worse with it); without it the targets pieces still pass rules 1-2 together (miss
+# -0.0021 / -0.0013 / -0.0027 targets per player-game on 2017-18 / 2019-22 / 2023-25, lean record 84-63 -> 85-62).
+SIT = {"rec_catches": [("same_out", 0.425443), ("opp_cb_r", -5.6261), ("rest_days", -0.0083227), ("rb_out", 0.0566034)],
+       "rec_targets": [("same_out", 0.319082), ("rest_days", -0.00416135)],
+       "rec_td": [("qb_rating", 0.942175), ("rain", -0.18611)],
+       "rush_yards": [("cold", 0.102587)], "rush_td": [("wind_turf", 0.0341646)], "pass_td": [("opp_cb_chg", -11.9516)]}
+SIT_WALK_FROM = 2017   # SIT_WALK's first season; 2016 (fitting rows only) carries no factor, 2026 on the live SIT
+SIT_WALK = {"rec_catches": {"same_out": (0.398853, 0.478623, 0.584984, 0.452033, 0.425443, 0.425443, 0.398853, 0.398853, 0.452033), "opp_cb_r": (0.0, 0.0, -4.01865, -3.21492, -4.01865, -3.21492, -2.41119, -4.82238, -4.82238),
+                            "rest_days": (-0.00624203, -0.00520169, -0.00728236, -0.0083227, -0.00728236, -0.0083227, -0.00728236, -0.00728236, -0.0083227), "rb_out": (0.141509, 0.0707543, 0.141509, 0.099056, 0.0707543, 0.0707543, 0.0566034, 0.0283017, 0.0566034)},
+            "rec_targets": {"same_out": (0.558394, 0.372263, 0.425443, 0.398853, 0.345673, 0.319082, 0.292492, 0.265902, 0.319082), "rest_days": (-0.00312101, -0.00312101, -0.00416135, -0.00312101, -0.00312101, -0.00416135, -0.00416135, -0.00416135, -0.00416135)},
+            "rec_td": {"qb_rating": (1.4357, 1.66002, 1.52543, 1.07677, 1.12164, 1.03191, 0.98704, 0.897309, 0.98704), "rain": (-0.0979526, -0.166519, -0.195905, -0.254677, -0.254677, -0.235086, -0.195905, -0.195905, -0.18611)},
+            "rush_yards": {"cold": (0.130565, 0.111913, 0.111913, 0.121239, 0.121239, 0.139892, 0.111913, 0.111913, 0.111913)},
+            "rush_td": {"wind_turf": (0.0109327, 0.0109327, 0.016399, 0.0136658, 0.0368978, 0.0204988, 0.032798, 0.0314314, 0.0314314)},
+            "pass_td": {"opp_cb_chg": (0.0, 0.0, -17.0737, -10.2442, -10.2442, -10.2442, -10.2442, -8.53686, -8.53686)}}
+SIT_KIND = {"rec_catches": "rec", "rec_targets": "rec", "rec_td": "rec", "rush_yards": "rush", "rush_td": "rush", "pass_td": "pass"}
+SIT_CLIP = 0.7
+
+
+def sit_b(stat: str, season: int | None = None) -> list:
+    """[(input, b)] for a stat: the live SIT, or for a backtest season SIT_WALK's (0 before SIT_WALK_FROM)."""
+    if season is None or season >= SIT_WALK_FROM + len(next(iter(SIT_WALK[stat].values()))):
+        return SIT.get(stat, [])
+    return [(i, (SIT_WALK[stat][i][season - SIT_WALK_FROM] if season >= SIT_WALK_FROM else 0.0)) for i, _ in SIT.get(stat, [])]
+
+
+def sit_factor(stat: str, z: dict, q: dict, season: int | None = None) -> float:
+    """exp(sum of b x (z - q)) over the stat's SIT inputs, each term clipped to +-SIT_CLIP; an input missing this week
+    (None or NaN) adds nothing."""
+    s = 0.0
+    for inp, b in sit_b(stat, season):
+        v = z.get(inp); qq = q.get(inp)
+        if v is None or qq is None or pd.isna(v) or pd.isna(qq):
+            continue
+        s += min(max(b * (float(v) - float(qq)), -SIT_CLIP), SIT_CLIP)
+    return float(np.exp(s))
 
 
 def td_prior(kind: str, pos: str | None, league: float) -> float:
@@ -222,7 +271,7 @@ def snap_trends(season: int, week: int) -> dict:
 WIND_FROM = 10.0   # mph at kickoff above which the wind cuts a yards line
 TARGETABLE = 0.97   # share of a team's pass plays that are targets (the rest are throwaways and spikes)
 WIND_C = {"rec": 0.0, "rush": 0.0, "pass": -0.005}   # yards line x (1 + WIND_C x mph of wind above WIND_FROM at kickoff), fitted on 2016 to 2018 (round 4: passing only)
-BACKTEST = {'rec_yards': [19.13, 18.15], 'rush_yards': [17.69, 16.97], 'pass_yards': [56.57, 56.11]}   # (28 Sep 2026: the game script reads the model's margin and total, never the line; passing moved 56.56 / 56.06 -> 56.55 / 56.05)   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend, round 15 median curve: receiving was 19.28 / 18.25 and passing 56.74 / 56.21 with the flat factors; round 17 active-games share: receiving was 19.17 / 18.16 and rushing 17.80 / 17.03 with the touch-games share on this frame, which grades only games with a touch; the gain is on the active frame, reports/props_backtest17.csv). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
+BACKTEST = {'rec_yards': [19.13, 18.15], 'rush_yards': [17.68, 16.96], 'pass_yards': [56.57, 56.11]}   # (29 Sep 2026: round 3's cold factor on rushing, SIT: 17.69 / 16.97 -> 17.68 / 16.96)   # (28 Sep 2026: the game script reads the model's margin and total, never the line; passing moved 56.56 / 56.06 -> 56.55 / 56.05)   # mean absolute error per player-game, 2019-22 / 2023-25, of the adopted rule run walk-forward with league averages as of each game (reports/props_by_season.csv; round 11 factors, round 13 injury report and snap trend, round 15 median curve: receiving was 19.28 / 18.25 and passing 56.74 / 56.21 with the flat factors; round 17 active-games share: receiving was 19.17 / 18.16 and rushing 17.80 / 17.03 with the touch-games share on this frame, which grades only games with a touch; the gain is on the active frame, reports/props_backtest17.csv). The rounds chose the constants with a league average over every season, a small look-ahead: removing it moves the errors by at most 0.05 yards (23 Sep 2026)
 TR, REP = ROOT / "data" / "tracker", ROOT / "reports"
 
 
@@ -298,10 +347,23 @@ def recent_players(active: pd.DataFrame | None, team: str, n: int = ABSORB_LOOKB
     return set(a[a.game_id.isin(last)].player_id)
 
 
+def _absorb_from(rows: list, kind: str, recent: set) -> list:
+    """The out starters whose share absorb hands on: out, a snap in one of the team's last games, share_yds at least ABSORB_THR."""
+    return [r for r in rows if r["out"] and r["player_id"] in recent and r["share_yds"] >= ABSORB_THR[kind] and ABSORB_GROUP.get(r["pos"], "") in ABSORB[kind]]
+
+
+def out_shares(rows: list, kind: str, recent: set) -> dict:
+    """{position group: the known-out starters' share_yds} (the same starters absorb hands on; round 3's same_out / rb_out)."""
+    out: dict = {}
+    for a in _absorb_from(rows, kind, recent):
+        out[ABSORB_GROUP[a["pos"]]] = out.get(ABSORB_GROUP[a["pos"]], 0.0) + a["share_yds"]
+    return out
+
+
 def absorb(rows: list, kind: str, recent: set) -> None:
     """Round 18: an out starter's share_yds, ABSORB of it, to his same-position teammates who play, in proportion to theirs.
     Only share_yds moves (the yards and receptions volume); the touchdown share stays as it was."""
-    for a in [r for r in rows if r["out"] and r["player_id"] in recent and r["share_yds"] >= ABSORB_THR[kind] and ABSORB_GROUP.get(r["pos"], "") in ABSORB[kind]]:
+    for a in _absorb_from(rows, kind, recent):
         grp = ABSORB_GROUP[a["pos"]]; to = [r for r in rows if not r["out"] and ABSORB_GROUP.get(r["pos"], "") == grp]; tot = sum(r["share_yds"] for r in to)
         if tot <= 0:
             continue
@@ -666,10 +728,12 @@ def reconcile(rows: list, kind: str, exp_pts: float | None, yds_key: str, td_key
     return out
 
 
-def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None, starter: str | None = None, SN: dict | None = None, recent: set | None = None, season: int | None = None) -> dict:
+def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: dict, L: dict, roster: pd.DataFrame, margin: float | None = None, total: float | None = None, wind: float | None = None, mk: pd.DataFrame | None = None, exp_pts: float | None = None, VS: dict | None = None, starter: str | None = None, SN: dict | None = None, recent: set | None = None, season: int | None = None, sit: dict | None = None, SQ: dict | None = None) -> dict:
     """One offense against one defense: every rostered receiver, rusher and QB with a profile, projected. margin is the
     team's expected margin from the closing spread (positive when favoured), total the closing total, wind the mph at
-    kickoff (None in a dome or before a usable forecast), exp_pts the game model's expected points for the team."""
+    kickoff (None in a dome or before a usable forecast), exp_pts the game model's expected points for the team. sit: this
+    game's situational inputs for the team (props_sit.week_inputs), SQ: each player's q (props_sit.load_state); without
+    either, no SIT factor."""
     dd = D.get(opp, {}); base = V.get(team, {}); ro = roster[roster.team == team].set_index("player_id") if len(roster) else pd.DataFrame()
     me = 0.0 if margin is None or pd.isna(margin) else float(margin)
     vol = dict(base); vol.update({"pass_plays": round(game_script("rec", base.get("pass_plays_pg", 0), margin, total, dd.get("pass_plays_pg")), 1), "runs": round(game_script("rush", base.get("runs_pg", 0), margin, total, dd.get("runs_pg")), 1), "dropbacks": round(game_script("pass", base.get("dropbacks_pg", 0), margin, total, dd.get("dropbacks_pg")), 1), "margin": (None if margin is None or pd.isna(margin) else float(margin)), "total": (None if total is None or pd.isna(total) else float(total)), "wind": (None if wind is None or pd.isna(wind) else float(wind)), "wind_factor_pass": round(wind_factor("pass", wind), 3)})
@@ -741,6 +805,23 @@ def project_game(team: str, opp: str, R: dict, RU: dict, Q: dict, D: dict, V: di
             r.update({"inj_group": grp, "inj_factor": INJ_F[kind].get(grp, 1.0), "snap_ratio": round(sr, 3), "r13_factor": round(fac, 3)})
             r[key] = round(r[key] * fac, 1); r[key + "_mean"] = round(r[key + "_mean"] * fac, 1)
             if kind in INJ_TD: r[f"proj_{kind}_td"] = round(r[f"proj_{kind}_td"] * INJ_F[kind].get(grp, 1.0), 3)   # round 14: the injury report on receiving touchdowns too (not the snap trend: worse at every weight)
+    # round 3 of the props (29 Sep 2026): the situational factors SIT on the receptions, targets, receiving and rushing
+    # touchdowns, rushing yards and passing touchdowns lines, after the injury/snap factor, as the by-season backtest orders them
+    if sit is not None and SQ is not None:
+        oo = {"rec": out_shares(rec, "rec", recent or set()), "rush": out_shares(rus, "rush", recent or set())}
+        same = {"WR": oo["rec"].get("WR", 0.0), "TE": oo["rec"].get("TE", 0.0), "RB": oo["rush"].get("RB", 0.0), "FB": oo["rush"].get("RB", 0.0), "HB": oo["rush"].get("RB", 0.0)}
+        z = dict(sit, same_out=0.0, rb_out=oo["rush"].get("RB", 0.0))
+        def q_of(kind, pid, stat):
+            return {i: (SQ[(kind, i)][0].get(pid, SQ[(kind, i)][1]) if (kind, i) in SQ else None) for i, _ in SIT[stat]}
+        for rows_, stats, keys in ((rec, ("rec_catches", "rec_targets", "rec_td"), {"rec_catches": ("proj_catches", "proj_catches_mean"), "rec_targets": ("proj_targets",), "rec_td": ("proj_rec_td",)}),
+                                   (rus, ("rush_yards", "rush_td"), {"rush_yards": ("proj_rush_yards", "proj_rush_yards_mean"), "rush_td": ("proj_rush_td",)}),
+                                   (qbs, ("pass_td",), {"pass_td": ("proj_pass_td",)})):
+            for r in rows_:
+                zr = dict(z, same_out=same.get(r.get("pos", ""), 0.0)); fac = {st: sit_factor(st, zr, q_of(SIT_KIND[st], r["player_id"], st)) for st in stats}
+                for st in stats:
+                    for key in keys[st]: r[key] = round(r[key] * fac[st], 3 if key.endswith("_td") else 1)
+                r["sit_factor"] = {st: round(f_, 4) for st, f_ in fac.items()}
+        vol["sit"] = {k: (None if v is None or pd.isna(v) else round(float(v), 4)) for k, v in z.items()} | {"same_out_by_group": {k: round(v, 3) for k, v in same.items() if k in ("WR", "TE", "RB")}}
     for r in rec: r["proj_td_any"] = round(1 - np.exp(-(r["proj_rec_td"] + next((u["proj_rush_td"] for u in rus if u["player_id"] == r["player_id"]), 0.0))), 3)
     for u in rus: u["proj_td_any"] = round(1 - np.exp(-(u["proj_rush_td"] + next((r["proj_rec_td"] for r in rec if r["player_id"] == u["player_id"]), 0.0))), 3)
     for q in qbs:
@@ -870,8 +951,15 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         # Tuesday nflverse line, 43.5 on ATL@GB against a live 42.5)
         lv = live_lines(wk[["game_id", "spread_line", "total_line"]], lines_log()).set_index("game_id")
         wk["spread_line"] = wk.game_id.map(lv.spread_line); wk["total_line"] = wk.game_id.map(lv.total_line); wk["line_ts"] = wk.game_id.map(lv.total_ts.fillna(lv.spread_ts))
+    from . import props_sit as PSI   # round 3 of the props: the situational inputs and each player's q (the by-season backtest's state)
+    SQ = PSI.load_state(); SIT_IN, sit_note = {}, ("applied" if SQ is not None else "no state file (experiments/props_by_season.py writes it): no factor")
+    if SQ is not None:
+        try:
+            SIT_IN = PSI.week_inputs(wk, season, week, roster, backfill)
+        except Exception as e:  # noqa: a failed input build leaves the lines without the factor, said so in props.json
+            SQ, sit_note = None, f"inputs failed ({type(e).__name__}: {str(e)[:120]}): no factor"; print("props: SIT", sit_note, flush=True)
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
-    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "med_tier": MED_TIER, "pace": PACE, "absorb": ABSORB, "absorb_thr": ABSORB_THR, "chance": {"stats": list(CHANCE), "min_line": CHANCE_MIN_LINE, "k": CHANCE_K, "rows": {k: int(len(v[0])) for k, v in load_reference(season).items()}}, "wind_c": WIND_C, "wind_from": WIND_FROM, "targetable": TARGETABLE, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "td_pos": TD_POS, "inj_td": list(INJ_TD), "share_a_w": SHARE_A_W, "backtest_td": BACKTEST_TD, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "league": L, "games": {},
+    out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "med_tier": MED_TIER, "pace": PACE, "absorb": ABSORB, "absorb_thr": ABSORB_THR, "chance": {"stats": list(CHANCE), "min_line": CHANCE_MIN_LINE, "k": CHANCE_K, "rows": {k: int(len(v[0])) for k, v in load_reference(season).items()}}, "wind_c": WIND_C, "wind_from": WIND_FROM, "targetable": TARGETABLE, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "td_pos": TD_POS, "inj_td": list(INJ_TD), "share_a_w": SHARE_A_W, "backtest_td": BACKTEST_TD, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "sit": {"b": SIT, "clip": SIT_CLIP, "status": sit_note}, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025, run walk-forward with league averages as of each game (reports/props_by_season.csv)")}
     rows = []
     for g in wk.itertuples():
@@ -884,7 +972,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         # the model has not priced counts as zero, as a missing line did in the backtest.
         sp = None if ha[0] is None else ha[0] - ha[1]; mt = None if ha[0] is None else ha[0] + ha[1]
         aq = g.away_qb_id if isinstance(g.away_qb_id, str) else None; hq = g.home_qb_id if isinstance(g.home_qb_id, str) else None   # nflverse names the starters for played games and the coming week
-        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, mt, wd, mk, ha[1], VS, aq, SN, recent_players(AG, g.away_team), season), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, mt, wd, mk, ha[0], VS, hq, SN, recent_players(AG, g.home_team), season)}
+        out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, mt, wd, mk, ha[1], VS, aq, SN, recent_players(AG, g.away_team), season, SIT_IN.get((g.game_id, g.away_team)), SQ), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, mt, wd, mk, ha[0], VS, hq, SN, recent_players(AG, g.home_team), season, SIT_IN.get((g.game_id, g.home_team)), SQ)}
         out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, mt, mk, VS)
         out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, mt, mk, VS)
         out["games"][g.game_id][g.away_team]["kicker"] = project_kicker(g.away_team, KK, roster, None if sp is None else -sp, mt, mk)

@@ -35,7 +35,7 @@ BACKTESTS = {
     "threshold sweep": ("experiments.threshold", [_P + "pred_v3.parquet", _P + "games.parquet", "experiments/threshold.py"]),
     "calibration start": ("experiments.calibration_start", [_P + "pred_v3.parquet", _P + "games.parquet", "nflmodel/picks.py", "experiments/calibration_start.py"]),
     "season backtest": ("experiments.season_backtest", [_P + "pred_v3.parquet", _P + "games.parquet", _P + "features_asof.parquet", "nflmodel/season.py", "nflmodel/model.py", "experiments/season_backtest.py"]),
-    "props by season": ("experiments.props_by_season", [_P + "pred_v3.parquet", _P + "games.parquet", _P + "scheme_plays.parquet", _P + "snap_exposure.parquet", _P + "features_asof.parquet", "nflmodel/props.py", "experiments/props_by_season.py"]),
+    "props by season": ("experiments.props_by_season", [_P + "pred_v3.parquet", _P + "games.parquet", _P + "scheme_plays.parquet", _P + "snap_exposure.parquet", _P + "features_asof.parquet", _P + "trends_asof.parquet", _P + "defender_games.parquet", "nflmodel/props.py", "nflmodel/props_sit.py", "experiments/props_by_season.py"]),
     "legitimacy tests": ("experiments.legitimacy", [_P + "pred_v3.parquet", _P + "games.parquet", "experiments/legitimacy.py"]),
 }
 STAMPS = REP / "backtest_inputs.json"
@@ -170,8 +170,9 @@ def main(full=False, skip_network=False):
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
     step("opener study", lambda: sh(["nflmodel.opener_study"]), log)   # the Tuesday model and the archive openers, for the Backtest tab (28 Sep 2026)
+    step("props by season", lambda: run_backtest("props by season"), log)   # before the props (29 Sep 2026): it writes each player's q for round 3's situational factors (props_sit_state.parquet) from every game played so far, last week's included
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)
-    for name in BACKTESTS:   # every backtest the pages quote, re-run on this model (sizing: 24 Sep 2026; the rest 26 Sep 2026); the legitimacy tests too, before the export that shows them (26 Sep 2026: they ran after it, so the page showed the run before's)
+    for name in [n for n in BACKTESTS if n != "props by season"]:   # every backtest the pages quote, re-run on this model (sizing: 24 Sep 2026; the rest 26 Sep 2026); the legitimacy tests too, before the export that shows them (26 Sep 2026: they ran after it, so the page showed the run before's)
         step(name, lambda n=name: run_backtest(n), log)
     step("audit reports", lambda: sh(["nflmodel.report"]), log)   # the README's results block and backtest_v3.md, before the tie check reads them (24 Sep 2026: it ran after, so the check compared a run-old README)
     from . import lines
