@@ -109,6 +109,14 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
                      "by_week": {str(int(wk_)): {"w": int(gw.w.sum()), "l": int(gw.l.sum()), "p": int(gw.p.sum()), "units": round(float(gw.u.sum()), 2),
                                                  "seasons": int(len(gw)), "avg": round(float(gw.u.mean()), 2)} for wk_, gw in g.groupby("week")}}
     out["weekly"] = wkly
+    # our spread bets by the side we took (30 Sep 2026, Matt): the favourite, the underdog or a pick'em, and home or road
+    home_side = e > 0; line = d.spread_line
+    fav = (home_side & (line > 0)) | (~home_side & (line < 0)); pk = line == 0; dog = ~fav & ~pk
+    bet = rule_mask(d, SPREAD_EDGE) & sp_ok
+    out["favdog"] = [{"row": lab, **block(sp_won, sp_push, bet & m)} for lab, m in (
+        ("Favourite", fav), ("Underdog", dog), ("Pick'em", pk),
+        ("Home favourite", fav & home_side), ("Road favourite", fav & ~home_side),
+        ("Home underdog", dog & home_side), ("Road underdog", dog & ~home_side))]
     # us against Vegas, every game: the straight-up winner, the miss of the margin and the total, how often our number
     # landed closer to the final than the closing line, and how far it sat from the line
     fav_m = np.sign(d.model_spread); fav_v = np.sign(d.spread_line); res = np.sign(d.home_score - d.away_score)

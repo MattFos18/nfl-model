@@ -22,6 +22,12 @@ Last updated 29 Sep 2026.
 - **Data:** every file is listed on the site under Info → Data with what it is, what writes it and where it shows. New this round: `data/lines/splits_log.csv` (betting splits every 10 minutes), `data/reference/coordinators.csv`, `data/weather/forecast_archive*.csv` (769 of 777 outdoor games of 2022-25).
 
 ## Ideas parked, to revisit
+- **Beating the closing line** (30 Sep 2026, Matt: "great, but we only have a week of data"). For each flagged bet, the
+  line when the flag went up against the closing line, from our own DraftKings log (every 10 minutes since this season's
+  line watch began). The best live proof an edge is real. Build once the log holds a season of flags (about 30 bets).
+- **Best number across books** (30 Sep 2026, Matt). Our bets at DraftKings against the best line the Odds API showed; the
+  worth of shopping (a half point on a spread is about 2 to 3% in win rate). Needs the Odds API's history (paid) or a
+  season of our own multi-book snapshots.
 - **Every book's line and betting splits** (30 Sep 2026, Matt). The Breakdown card's betting splits are DraftKings'
   (the only free feed), so its line chart now plots DraftKings' line too. With a paid feed of every book's lines and
   splits (for example the Odds API's historical odds plus a splits provider such as Action Network), the chart could

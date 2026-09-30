@@ -2841,3 +2841,10 @@ in 2016) and all seasons together; the page shows the total by chance range. Wit
 close to what was said and a little under it in the higher ranges (54-56%: 52.9% covered; 56-58%: 53.7%), so the stated
 chance is honest to slightly generous, not conservative as the two-window view suggested. The Which Seasons the Cover
 Odds Learn from card went (every fit scored within 0.003 of the others; reports/calibration_start.csv keeps it).
+
+**Our bets by side** (30 Sep 2026, Matt). A table on Game Picks (Spreads) splits our 4+ spread bets by the side taken:
+the favourite, the underdog, and each by home or road (records.appendix favdog, the same cells as the edge table).
+Nearly all of the profit is on underdogs (156-100-1, +46.0 units against the favourites' 33-29, +1.1), and road
+underdogs most of all (79-36, +39.4, up in 10 of 12 seasons). The Every game tile shows won, lost and push, not units
+(every game is not bet). Beating the closing line and the best number across books are parked in docs/todo.md until
+there is data.
