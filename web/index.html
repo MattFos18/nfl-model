@@ -505,8 +505,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div id="bkscore"></div>
     <div class="card viz-root"><h3 id="unitshead">Units won</h3><div id="unitschart" class="uchart"></div></div>
     <div class="card"><div class="bkhead"><h3>Record</h3><div class="seg" id="bkside"></div></div><div id="bkstd" class="bkpanels"></div></div>
-    <div class="card"><h3>Every Edge Tested</h3><div id="bkedges"></div></div>
     <div class="card"><h3 id="bkweeklyhead">Week by Week</h3><div id="bkweekly"></div></div>
+    <div class="card"><h3>Every Edge Tested</h3><div id="bkedges"></div></div>
       <div class="card" id="legitcalcard"><h3 title="every game with a line: the calibrated chance for the model's side in bands (walk-forward) and how often that side covered">Cover Odds against What Happened</h3><div class="tablewrap ro"><table id="legitcal" class="rgt"></table></div></div>
       <div class="card" id="legitstartcard"><h3>Which Seasons the Cover Odds Learn from</h3><div class="tablewrap ro"><table id="legitstart" class="rgt"></table></div></div>
     <div id="bksummary" hidden></div><select id="bkseason" hidden></select><table id="bktable" hidden></table>
@@ -1986,7 +1986,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const BS = (META.bet_stats || {})[TOT ? "total" : "spread"];
     const figs = BS ? `<div class="h2hband bkfigs"><div><span>Worst drawdown</span><b>${BS.drawdown != null ? "−" + BS.drawdown.toFixed(1) + " units" : "–"}</b></div><div><span>Bets a season</span><b>${BS.per_season ?? "–"}</b></div><div><span>Average edge</span><b>${BS.avg_edge != null ? BS.avg_edge.toFixed(1) + " pts" : "–"}</b></div><div title="the chance a coin that wins at break-even (${pct1(BE)}) does at least this well over the same number of bets"><span>Chance it's luck</span><b>${BS.luck == null ? "–" : BS.luck < 0.001 ? "under 0.1%" : (100 * BS.luck).toFixed(BS.luck < 0.01 ? 2 : 1) + "%"}</b></div></div>` : "";
     const APX0 = META.appendix || {}, VGA = ((APX0.vegas || {}).cells || {})[ALLK], mk = TOT ? ["total_model", "total_line"] : ["margin_model", "margin_line"];
-    const missT = VGA && VGA[mk[0]] != null ? `<div class="h"><div class="l">${TOT ? "Total" : "Margin"} miss</div><div class="vs"><div><span>Model</span><b>${(+VGA[mk[0]]).toFixed(1)}</b></div><i>vs</i><div><span>Vegas</span><b>${(+VGA[mk[1]]).toFixed(1)}</b></div></div><div class="sts">${(dm => stat(dm > 0 ? "Vegas closer by" : dm < 0 ? "Model closer by" : "Level", Math.abs(dm).toFixed(2) + " pts a game"))(+VGA[mk[0]] - +VGA[mk[1]])}</div></div>` : "";
+    const missT = VGA && VGA[mk[0]] != null ? `<div class="h"><div class="l">${TOT ? "Total" : "Margin"} miss</div><div class="vs"><div><span>Model</span><b>${(+VGA[mk[0]]).toFixed(2)}</b></div><i>vs</i><div><span>Vegas</span><b>${(+VGA[mk[1]]).toFixed(2)}</b></div></div><div class="sts">${(dm => stat(dm > 0 ? "Vegas closer by" : dm < 0 ? "Model closer by" : "Level", Math.abs(dm).toFixed(2) + " pts a game"))(+VGA[mk[0]] - +VGA[mk[1]])}</div></div>` : "";
     $("bkhero").innerHTML = betRow ? heroT("Our bets", betRow.cells[ALLK], true) +
       heroT("Every game", evRow ? evRow.cells[ALLK] : null, false) + missT : "";
     $("bkscore").innerHTML = "";   // the four figures went (30 Sep 2026, Matt); records.bet_stats stays in meta.js
