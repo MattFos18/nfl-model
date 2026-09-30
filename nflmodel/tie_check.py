@@ -626,6 +626,12 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
                 eb = next((x for x in ap_.get("edges", {}).get(mk_, []) if x.get("bet")), {}); sb = next((x for x in sr_.get(mk_, []) if x.get("bet")), {})
                 tie(f"Backtest appendix: our {mk_} bets in Every Edge Tested = the Record table, every period and season", [eb.get("cells"), eb.get("by_season")], [sb.get("cells"), sb.get("by_season")])
             tie("Backtest appendix (meta.js appendix) = records.appendix on the prediction table", json.dumps(ap_, sort_keys=True), json.dumps(json.loads(json.dumps(RC_.appendix(d, int(g.season.max())), default=float)), sort_keys=True))
+        bs_ = meta.get("bet_stats", {})
+        if bs_:   # absent only until the first weekly run after it lands
+            tie("Backtest figures (meta.js bet_stats: drawdown, bets a season, average edge) = records.bet_stats on the prediction table", json.dumps(bs_, sort_keys=True), json.dumps(json.loads(json.dumps(RC_.bet_stats(d, int(g.season.max())), default=float)), sort_keys=True))
+            for mk_ in ("spread", "total"):
+                sb = next((x for x in sr_.get(mk_, []) if x.get("bet")), {}).get("cells", {}).get("All") or {}
+                tie(f"Backtest figures: our {mk_} bets counted = the Record table's total", bs_.get(mk_, {}).get("bets"), sb.get("w", 0) + sb.get("l", 0) + sb.get("p", 0))
         tie("Backtest Records and By Season (meta.js standard) = records.standard_records on the prediction table", json.dumps(sr_, sort_keys=True), json.dumps(json.loads(json.dumps(_now, default=float)), sort_keys=True))
     # the Backtest tab grades the flag and the totals flag itself from backtest.js; its window records must be the rule records
     bk_ = _js("backtest.js"); b_ = pd.DataFrame(bk_["rows"], columns=bk_["cols"]); b_ = b_[(b_.game_type == "REG") & b_.home_score.notna() & (b_.week <= P.LAST_BET_WEEK)]
