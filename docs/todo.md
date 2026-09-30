@@ -10,11 +10,16 @@ Last updated 29 Sep 2026.
 - **Workflow file edits.** Claude's permissions block edits to `.github/workflows`. Changing the line watch schedule, or anything in a workflow, needs you to paste the change or allow it.
 
 ## Claude is working on
-- Game situation study: coaches, stadiums, travel, time zones, turf, primetime and kickoff time, referees, weather and injuries crossed with everything, coordinator and scheme matchups. Anything that passes the round-3 rule gets built in and retested together.
-- The 13 small player-prop gains that passed (cold rushing yards, teammates out, rest days, corners faced, touchdown chances): build in with the game study's passers.
-- Season totals wild-card fix: 2016-20 totals counted a playoff game. Retest the fitted settings on corrected totals.
-- Weather on forecasts: day-before forecasts exist from about 2022 on; retest the weather effects on what was knowable before kickoff.
-- Coordinators: 2013-2025 table from Wikipedia (2026 staff lists not up yet; play-callers are in no free source). Then test offensive against defensive coordinator.
+- The 13 small player-prop gains that passed (cold rushing yards, teammates out, rest days, corners faced, touchdown chances): being built in and retested together. The capped target shares are left out (they make the targets line disagree with receptions and yards).
+- Weather on forecasts: day-before forecasts from 2022 on. Weeks 1-6 of 2022-25 are stored; weeks 7 on are being fetched. Then retest the weather effects on what was knowable before kickoff.
+
+## Where every finding and every piece of data lives
+- **Findings:** each study's full table in `reports/` (CSV beside a Markdown write-up), a paragraph per study in `docs/how_it_works.md`, and on the site under Info → Game model → Tested and not used (Round 3 has its own section).
+  - Game situations (121 ideas, nothing adopted): `reports/situational_game.*`; every shuffle draw in `reports/situational_game_placebo.csv`.
+  - Player props (1,235 tests, 14 pass): `reports/situational_props.*`.
+  - Season totals linked to the team (nothing adopted): `reports/player_season_link2.*`.
+  - The rule every change is judged by: `reports/round3_rule.md`.
+- **Data:** every file is listed on the site under Info → Data with what it is, what writes it and where it shows. New this round: `data/lines/splits_log.csv` (betting splits every 10 minutes), `data/reference/coordinators.csv`, `data/weather/forecast_archive*.csv`.
 
 ## Ideas parked, to revisit
 - **A look of its own** (Matt, 29 Sep: keep the simple, easy-to-read layout, but it reads as Claude-made). The cream background, muted greens, rounded pale cards and the IBM Plex type are the tell. Options: a darker sports-data palette (near-black or navy with one team-agnostic accent), a sharper sans such as Inter or Barlow with condensed numerals, square-edged tiles, a proper header with a logo and name. Same layout, new skin; one pass, shown to Matt before it goes live.
@@ -24,6 +29,9 @@ Last updated 29 Sep 2026.
 - A listed starting QB on the injury report or a reserve list: flag it by eye.
 
 ## Done today
+- Season totals wild-card fix: 2016-20 totals had counted a playoff game. Corrected; the receiving availability share refit to 0.675 (better on every window).
+- Game situation study finished: 121 ideas, coach vs coach, stadiums, travel, turf, primetime, referees, weather, injuries, coordinators. None passed; the closest (turf) did no better than luck.
+- Every round-3 finding on the site (Info → Game model → Tested and not used → Round 3).
 - Health failures fixed (stale data copy), and the old cache entry deleted.
 - Model tab shows the seven models and the total model.
 - Win, loss and push marks removed from Picks and the cards.

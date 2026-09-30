@@ -349,6 +349,40 @@ def matchup_matrix(f2: pd.DataFrame, season: int, week: int, teams: dict) -> dic
 
 
 
+def round3_tests() -> dict:
+    """The round-3 studies (reports/round3_rule.md) for the Model tab's Tested and not used: every game-model idea, and
+    every props idea that got past rule 1, with the tally of the rest (29 Sep 2026, Matt: every finding on the site)."""
+    R = ROOT / "reports"; W = ["2015-18", "2019-22", "2023-25"]; PW = ["2017-18", "2019-22", "2023-25"]
+    num = lambda v, k=4: None if pd.isna(v) else round(float(v), k)
+    out = {"game": [], "props": [], "props_tally": []}
+    def short(v):   # the plain reason, first rule failed; the full text stays in the report
+        v = str(v)
+        if v.startswith("stays"): return "kept in the model"
+        if v.startswith("passes"): return "passes every rule"
+        rule = next((c for c in v if c in "12345"), "")
+        return {"1": "no: not better on every window", "2": "no: costs bets or calibration", "3": "no: shuffled input did as well",
+                "4": "no: data not available", "5": "no: fails when combined"}.get(rule, v)
+    if (R / "situational_game.csv").exists():
+        g = pd.read_csv(R / "situational_game.csv", low_memory=False)
+        for r in g.to_dict("records"):
+            tot = str(r["equation"]).startswith("total")
+            out["game"].append({"family": r["family"], "idea": r["idea"], "eq": r["equation"],
+                                "miss": [num(r.get(f"d_{'total' if tot else 'team'}_miss_{w}")) for w in W],
+                                "bets": [num(r.get(f"d_{'totals' if tot else 'spread'}_wl_{w}"), 0) for w in W],
+                                "placebo": None if pd.isna(r.get("placebo_draws")) or pd.isna(r.get("placebo_beaten")) else f"{int(r['placebo_beaten'])} of {int(r['placebo_draws'])}",
+                                "verdict": short(r["verdict"])})
+    if (R / "situational_props.csv").exists():
+        p = pd.read_csv(R / "situational_props.csv", low_memory=False)
+        p = p[p.family != "Together"]
+        ok = p.rule1.astype(str).str.lower() == "true"
+        out["props_tally"] = [{"family": f, "tests": int(len(d)), "rule1": int(ok[d.index].sum()), "all": int(d.verdict.astype(str).str.startswith("passes 1-3").sum())}
+                              for f, d in p.groupby("family", sort=False)]
+        for r in p[ok].to_dict("records"):
+            out["props"].append({"family": r["family"], "idea": r["idea"], "variant": r["variant"], "stat": r["stat"],
+                                 "miss": [num(r.get(f"diff_{w}")) for w in PW], "verdict": short(r["verdict"])})
+    return out
+
+
 def model_lineup(pred: pd.DataFrame, games: pd.DataFrame, f2: pd.DataFrame) -> dict:
     """Model tab, the seven models and the total model (29 Sep 2026, Matt: the tab showed only the one equation). Each
     model's own miss on every backtest window, read from the per-game predictions the walk-forward stored (pred_v3: every
@@ -526,6 +560,7 @@ def main():
                 "situation_facts": situation_facts(feats), "qb_overlap": M.qb_overlap(f2, max(int(k) for k in coefs)), "noise": noise_floor()}
     analysis["home_edges"] = team_home_edges(tg)
     analysis["lineup"] = model_lineup(pred, games, f2)
+    analysis["round3"] = round3_tests()
     from . import picks as P_, backtest as B_
     _bj = B_.join(pred, games.reset_index()); _bj = _bj[(_bj.game_type == "REG") & _bj.home_score.notna() & _bj.spread_line.notna()]
     meta = {"columns": cols, "dictionary": dictionary, "coefs": coefs, "feats": M.FEATS, "blend_label": M.BLEND_LABEL, "teams": teams, "analysis": analysis, "warm_or_dome": sorted(M.WARM_OR_DOME),

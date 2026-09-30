@@ -116,7 +116,7 @@ def team_volume_table(games, d) -> pd.DataFrame:
         dome_of = {}
         for r in reg.itertuples():
             dome_of[r.home_team] = float(r.dome) if pd.notna(r.dome) else dome_of.get(r.home_team, 0.0)
-        dp = d[(d.season == s - 1) & (d.week <= 18)]
+        dp = d[(d.season == s - 1) & d.season_type.eq("REG")]   # regular season: week 18 was the wild-card round through 2020 (29 Sep 2026)
         prev = {}
         for team, g in dp.groupby("posteam"):
             n = max(g.game_id.nunique(), 1)
@@ -155,7 +155,7 @@ def touches_left(R: pd.DataFrame, d: pd.DataFrame) -> pd.DataFrame:
     f = SCRATCH / "touches_left.csv"
     if f.exists():
         return pd.read_csv(f)
-    x = d[d.week <= 18]
+    x = d[d.season_type.eq("REG")]   # regular season: week 18 was the wild-card round through 2020 (29 Sep 2026)
     keys = ["season", "week", "game_id", "posteam"]
     mine = {"rec": x[x.pass_play & x.receiver_player_id.notna()].groupby(["receiver_player_id"] + keys).size().rename("n").reset_index().rename(columns={"receiver_player_id": "player_id"}),
             "rush": x[x.play_type.eq("run") & x.rusher_player_id.notna()].groupby(["rusher_player_id"] + keys).size().rename("n").reset_index().rename(columns={"rusher_player_id": "player_id"}),

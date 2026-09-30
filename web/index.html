@@ -2734,6 +2734,21 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     ["pace (plays per game)", "Pace", "Plays per game ratings for the offense and the defense faced."],
     ["opponent QB and other side of the ball", "Opponent QB, own defense, opponent offense", "The opponent's QB rating, the team's own defense rating and the opponent's offense rating as inputs to this team's points."]
   ];
+  function round3Parts() {   // every round-3 idea (reports/round3_rule.md) with its result, from the study CSVs via Python (29 Sep 2026, Matt: every finding on the site)
+    const R = (META.analysis || {}).round3; if (!R || !(R.game || []).length) return "";
+    const d = (v, k) => v == null ? "" : (v > 0 ? "+" : "") + Number(v).toFixed(k);
+    const fams = [...new Set(R.game.map(r => r.family))];
+    let h = `<details class="more"><summary>Round 3: ${R.game.length} game-model ideas and ${R.props_tally.reduce((a, t) => a + t.tests, 0).toLocaleString()} prop tests, 29 Sep 2026</summary>
+      <p class="note">An idea is kept only if it lowers the miss on every window, costs no bets, and beats the same input shuffled within season 45 times in 50. Miss change: below zero is better. Bets: change in flag wins minus losses.</p>`;
+    fams.forEach(f => { const rows = R.game.filter(r => r.family === f);
+      h += `<h3>${f}</h3><div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>Equation</th><th>Miss, 2015-18</th><th>2019-22</th><th>2023-25</th><th>Bets, 2015-18</th><th>2019-22</th><th>2023-25</th><th>Shuffles as good</th><th class='l'>Verdict</th></tr></thead><tbody>
+      ${rows.map(r => `<tr><td class="l">${esc(r.idea)}</td><td class="l">${esc(r.eq)}</td>${r.miss.map(v => `<td class="mono">${d(v, 3)}</td>`).join("")}${r.bets.map(v => `<td class="mono">${d(v, 0)}</td>`).join("")}<td class="mono">${r.placebo || ""}</td><td class="l" style="white-space:normal;min-width:220px">${esc(r.verdict)}</td></tr>`).join("")}</tbody></table></div>`; });
+    h += `<h3>Player props</h3><div class="tablewrap"><table><thead><tr><th class='l'>Family</th><th>Tests</th><th>Lower miss on every window</th><th>Pass every rule</th></tr></thead><tbody>
+      ${R.props_tally.map(t => `<tr><td class="l">${esc(t.family)}</td><td class="mono">${t.tests}</td><td class="mono">${t.rule1}</td><td class="mono">${t.all}</td></tr>`).join("")}</tbody></table></div>
+      <div class="tablewrap"><table><thead><tr><th class='l'>Idea</th><th class='l'>Fit</th><th class='l'>Stat</th><th>Miss, 2017-18</th><th>2019-22</th><th>2023-25</th><th class='l'>Verdict</th></tr></thead><tbody>
+      ${R.props.map(r => `<tr><td class="l">${esc(r.idea)}</td><td class="l">${esc(r.variant)}</td><td class="l">${esc(r.stat)}</td>${r.miss.map(v => `<td class="mono">${d(v, 4)}</td>`).join("")}<td class="l" style="white-space:normal;min-width:200px">${esc(r.verdict)}</td></tr>`).join("")}</tbody></table></div></details>`;
+    return h;
+  }
   function lineupParts() {   // the seven models and the total model, each with its own backtest miss (29 Sep 2026, Matt: the tab showed only the one equation)
     const L = (META.analysis || {}).lineup; if (!L || !L.models) return "";
     const W = L.windows || [], wl = w => /^\d{4}$/.test(w) ? `${w} so far` : w.replace("-", " to 20");
@@ -2878,6 +2893,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       ${lineupParts()}
       <h2>Tested and not used</h2>
       ${IP.tested}
+      ${round3Parts()}
       <details class="more"><summary>More tests: the untouched window, turnover luck, rest and surface, scheme, tempo</summary>${IP.more}${IP.legit}</details>
       <h2>Why it is built this way</h2>
       ${qa("Why every game starts at the league average", `The equation is additive: expected points = league average + Σ coefficient × (input − league-average input). A team with every input exactly average is expected to score the league average, so that is where every team starts, and each input then moves it up or down by its distance from average times what a unit of it has been worth since ${TF}. This is the same shape as "league average × offense strength × opponent defense strength": for deviations of the size teams actually have, multiplying and adding give nearly the same number. The differences that matter: the strengths are opponent-adjusted and time-decayed with a pull toward average early in the season, the points each strength is worth are fitted rather than chosen, and the regression sees the strengths at once so their overlap is accounted for.`)}

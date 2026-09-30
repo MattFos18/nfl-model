@@ -2,10 +2,10 @@
 Open-Meteo's previous-runs archive (29 Sep 2026, Matt: wire in the free historical forecasts). The live cards price
 weather from a forecast, while the backtest's weather inputs are the kickoff weather that happened; this archive lets
 the weather terms be scored on what was knowable before kickoff. The archive's forecasts start in 2022 (temperature)
-and about 2024 (wind and rain); earlier hours come back empty and are written as blanks. One request per stadium per
-season. Writes data/weather/forecast_archive.csv and prints it between CSV markers, so a probe run can hand it over from
+and about 2024 (wind and rain); earlier hours come back empty and are written as blanks. One request per game;
+--weeks splits a season so each piece fits a 15-minute probe run. Writes data/weather/forecast_archive.csv and prints it between CSV markers, so a probe run can hand it over from
 GitHub's network (this sandbox cannot reach api.open-meteo.com).
-Usage: python -m nflmodel.forecast_archive --seasons 2022-2026"""
+Usage: python -m nflmodel.forecast_archive --seasons 2022-2026 [--weeks 1-9]"""
 from __future__ import annotations
 import argparse, time
 import pandas as pd, requests
@@ -21,9 +21,9 @@ LEADS = [1, 2]
 
 def fetch(lat, lon, start, end, tz):
     hourly = ",".join(f"{v}_previous_day{d}" for v in VARS.values() for d in LEADS)
-    for attempt in range(4):
+    for attempt in range(6):   # the archive sometimes hangs a request: a short timeout and a retry beat a 60 s wait (29 Sep 2026)
         try:
-            r = requests.get(URL, timeout=60, params={"latitude": lat, "longitude": lon, "start_date": start, "end_date": end, "hourly": hourly,
+            r = requests.get(URL, timeout=12, params={"latitude": lat, "longitude": lon, "start_date": start, "end_date": end, "hourly": hourly,
                                                       "temperature_unit": "fahrenheit", "wind_speed_unit": "mph", "precipitation_unit": "inch", "timezone": tz})
             r.raise_for_status(); j = r.json()["hourly"]
             df = pd.DataFrame({"t": pd.to_datetime(j["time"])})
@@ -32,14 +32,16 @@ def fetch(lat, lon, start, end, tz):
                     df[f"{k}_d{d}"] = j.get(f"{v}_previous_day{d}", [None] * len(df))
             return df
         except Exception as e:  # noqa
-            if attempt == 3:
+            if attempt == 5:
                 print("failed", lat, lon, start, end, e, flush=True); return None
-            time.sleep(3 * (attempt + 1))
+            time.sleep(2 * (attempt + 1))
 
 
-def main(seasons):
+def main(seasons, weeks=None):
     g = pd.read_parquet(OUT / "games.parquet")
     g = g[g.season.isin(seasons) & g.kickoff_et.notna() & g.home_score.notna() & g.roof.fillna("outdoors").isin(["outdoors", "open"])].copy()
+    if weeks:
+        g = g[g.week.between(*weeks)]
     g["site"] = g.home_team
     intl = g.location.fillna("").str.contains("Neutral", case=False) & g.stadium.fillna("").str.contains("|".join(INTL), case=False)
     for name in INTL:
@@ -77,6 +79,8 @@ def main(seasons):
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2022-2026"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2022-2026"); ap.add_argument("--weeks", default="")
+    a = ap.parse_args()
     lo, hi = (a.seasons.split("-") + [None])[:2]
-    main(list(range(int(lo), int(hi or lo) + 1)))
+    wk = tuple(int(x) for x in (a.weeks.split("-") * 2)[:2]) if a.weeks else None
+    main(list(range(int(lo), int(hi or lo) + 1)), wk)

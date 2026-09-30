@@ -2652,3 +2652,18 @@ them cost spread or totals flags. The seventh, a plain turf flag in the points e
 was matched or beaten by its within-season shuffle on some window in 26 of 50 draws, so it fails the placebo. Coach vs
 coach predicts nothing (correlation -0.015 over 1,580 games). Every live weather and injury term was kept; cold and dome
 in the total equation and the QB-out flag in the points equation are marked for a re-check after the 2026 season.
+
+**Round 3 on the site** (29 Sep 2026, Matt: every finding on the site). Info → Game model → Tested and not used has a
+Round 3 section: every game-model idea with its miss change and bet change on each window, the shuffle result where one
+was run, and a short verdict; and the prop tests by family with every one that got past the first rule. The page reads
+them from `reports/situational_game.csv` and `reports/situational_props.csv` through `export_web.round3_tests()`.
+
+**Season-total actuals, regular season only: a correction, one constant refitted** (`nflmodel/player_season.py` `season_actuals`, `experiments/player_season_backtest.py`; 29 Sep 2026). The actual totals counted every game in week 18 and
+earlier, and through 2020 week 18 was the wild-card round, so 1,098 player-seasons in 2016-20 carried a playoff game in
+the total they were judged against (and 2017-21 in last season's total too); the rows were rebuilt on regular-season
+games only. With the live constants the season-total miss falls on the two windows the fix touches and is unchanged on
+2023-25: receiving 115.0 / 123.1 / 120.5 to 112.0 / 121.3 / 120.5, rushing 147.3 / 148.1 / 140.0 to 142.1 / 145.4 / 140.0,
+passing 507.8 / 575.8 / 602.9 to 486.2 / 571.3 / 602.9 (2016-18 / 2019-22 / 2023-25). Every availability constant was
+refitted on the corrected 2016-18 rows and judged by the round-3 rule: only the receiving share moves, 0.70 to 0.675,
+lower on every window (111.8 / 120.6 / 120.1); the rushing and passing shares, the blends and both availability logits
+refit to values that lose on a window and are kept.
