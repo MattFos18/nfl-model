@@ -137,7 +137,10 @@ def record_model_picks(picks: pd.DataFrame, run_at: str):
     for name in SHADOWS:
         col = f"{name}_bet"
         if col in picks.columns:
-            _record(picks.drop(columns=["bet"]).rename(columns={col: "bet"}), run_at, "bet", f"{name}_picks.csv")
+            x = picks.drop(columns=["bet"]).rename(columns={col: "bet"})
+            if f"{name}_odds" in x.columns:   # a rule graded at its own price (the hook at -125)
+                x = x.drop(columns=["bet_odds"], errors="ignore").rename(columns={f"{name}_odds": "bet_odds"})
+            _record(x, run_at, "bet", f"{name}_picks.csv")
     return out
 
 

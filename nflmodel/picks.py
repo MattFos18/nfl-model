@@ -16,6 +16,8 @@ LAST_BET_WEEK = 17   # no flags in Week 18: starters rest and the line knows it 
 EARLY_LAST_WEEK = 13   # the early-weeks shadow: weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
 TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet_wins.csv)
 TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
+EARLY_UNDER = {"weeks": 3, "prob": 0.59}   # 30 Sep 2026 (reports/bet_rules_sweep.md): unders needing 59%+ in weeks 1 to 3 (55% after) beat the totals flag on all three windows; tracked, not bet
+HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spread_research.md): the flag's bet bought half a point on or off 3 at -125; tracked, not bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
@@ -23,7 +25,9 @@ TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+
 SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
            "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
-           "shadowunder": (TOTAL_SHADOW["prob"], "under_prob", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance (the totals flag)")}
+           "shadowunder": (TOTAL_SHADOW["prob"], "under_prob", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance (the totals flag)"),
+           "shadowunderearly": (TOTAL_SHADOW["prob"], "under_prob_early", f"Under, {100 * EARLY_UNDER['prob']:.0f}%+ chance in weeks 1 to {EARLY_UNDER['weeks']}, {100 * TOTAL_SHADOW['prob']:.0f}%+ after"),
+           "shadowhook": (SPREAD_EDGE, "hook", f"{SPREAD_EDGE:g}+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at {HOOK['odds']}")}
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
 CAL_FROM, CAL_CAP = 2019, 7.0   # the cover calibration: regular-season games from this season on, the edge capped at this many points
@@ -152,21 +156,31 @@ def _spread(d, side_rule=None):
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
-    if side_rule == "under_prob":
-        return ((1 - d.p_over_emp) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna() if "p_over_emp" in d.columns else pd.Series(False, index=d.index)
+    if side_rule in ("under_prob", "under_prob_early"):
+        if "p_over_emp" not in d.columns:
+            return pd.Series(False, index=d.index)
+        thr = np.where(d.week <= EARLY_UNDER["weeks"], EARLY_UNDER["prob"], edge) if side_rule == "under_prob_early" else edge
+        return ((1 - d.p_over_emp) >= thr) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
     e = _spread(d, side_rule) - d.spread_line
     m = (e.abs() >= edge) & (d.week <= LAST_BET_WEEK) & d.spread_line.notna()
     if side_rule == "dog":
         m &= ~((np.sign(e) == np.sign(d.spread_line)) & (d.spread_line != 0))
     if side_rule == "wk13":
         m &= d.week <= EARLY_LAST_WEEK
+    if side_rule == "hook":   # our side's number on 2.5, 3 or 3.5 either way, where half a point moves it on or off 3
+        m &= pd.Series(np.where(e > 0, -d.spread_line, d.spread_line), index=d.index).isin(HOOK["on"])
     return m
 
 
 def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     """Wins and losses on the rule's side over the rows m (pushes dropped)."""
-    if side_rule == "under_prob":
+    if side_rule in ("under_prob", "under_prob_early"):
         cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
+        return w, int(f.sum()) - w
+    if side_rule == "hook":   # graded at the bought number: our side's line plus half a point
+        e = d.model_spread - d.spread_line; ours = np.where(e > 0, d.home_score - d.away_score, d.away_score - d.home_score)
+        cm = pd.Series(ours + np.where(e > 0, -d.spread_line, d.spread_line) + 0.5, index=d.index)
+        f = m & (cm != 0); w = int((cm > 0)[f].sum())
         return w, int(f.sum()) - w
     e = _spread(d, side_rule) - d.spread_line; cm = d.home_score - d.away_score - d.spread_line
     f = m & (cm != 0); w = int((((e > 0) & (cm > 0)) | ((e < 0) & (cm < 0)))[f].sum())
@@ -226,9 +240,11 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
         if side_rule == "wk13" and r.week > EARLY_LAST_WEEK:
             return ""   # the early-weeks rule sits out the late season
-        if side_rule == "under_prob":
-            pe = getattr(r, "p_over_emp", np.nan)
-            return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(pe) and 1 - pe >= spread_edge else ""
+        if side_rule in ("under_prob", "under_prob_early"):
+            pe = getattr(r, "p_over_emp", np.nan); thr = EARLY_UNDER["prob"] if side_rule == "under_prob_early" and r.week <= EARLY_UNDER["weeks"] else spread_edge
+            return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(pe) and 1 - pe >= thr else ""
+        if side_rule == "hook":
+            return ""   # built from the flag's bet at the best number, below
         se = r.tree_edge if side_rule == "trees" else r.spread_edge
         if pd.notna(r.spread_line) and pd.notna(se) and abs(se) >= spread_edge:
             side = r.home_team if se > 0 else r.away_team
@@ -287,6 +303,16 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
     for name in SHADOWS:
         p[f"{name}_bet"] = p.apply(lambda r, c=f"{name}_bet": at_best(r, c), axis=1)
     p["shadow_bet"] = p["shadow45_bet"]
+    # the hook: the flag's spread at the number it is bet at, bought half a point when that moves it on or off 3, at HOOK's price
+    def hook(b0):
+        for b in (b0 or "").split(", "):
+            if b and not b.startswith(("Over", "Under")):
+                side, ln = b.rsplit(" ", 1)
+                if float(ln) in HOOK["on"]:
+                    return f"{side} {float(ln) + 0.5:+g}"
+        return ""
+    p["shadowhook_bet"] = [hook(b) for b in p.bet]
+    p["shadowhook_odds"] = [HOOK["odds"] if b else np.nan for b in p.shadowhook_bet]
     # stake on a flagged spread: quarter Kelly from the calibrated cover odds for the model's side, at the best book's
     # price when it is logged, otherwise -110
     p["bet_p"] = [(pc if e > 0 else 1 - pc) if (b and pd.notna(pc)) else np.nan for b, e, pc in zip(p.bet, p.spread_edge.fillna(0), p.p_cover_cal_home)]
