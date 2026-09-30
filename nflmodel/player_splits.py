@@ -1,6 +1,6 @@
 """Player splits by matchup and scheme (24 Sep 2026). For every receiver, rusher and passer: how he has done against each
 look a defense shows (man or zone, each coverage family, blitz, pressure, box count), in each situation (down, red
-zone, formation, personnel, play action, motion) and against each opponent, this season, last season and since 2016.
+zone, formation, personnel, play action, motion) and against each opponent (playoffs included), this season, last season and since 2016.
 
 Source: data/processed/scheme_plays.parquet (every pass and run since 2016 with the participation data's coverage,
 pressure, box and personnel, FTN's motion, play action and blitzers; nflmodel/scheme.py). Coverage and pressure exist
@@ -84,9 +84,12 @@ def summarize(p: pd.DataFrame) -> list:
 
 
 def build(season: int) -> dict:
-    d = pd.read_parquet(OUT / "scheme_plays.parquet")
-    d = d[(d.season_type == "REG") | (d.season_type.isna())] if "season_type" in d.columns else d
+    d_all = pd.read_parquet(OUT / "scheme_plays.parquet")
+    d = d_all[(d_all.season_type == "REG") | (d_all.season_type.isna())] if "season_type" in d_all.columns else d_all
     roles = role_plays(d)
+    # his games against each team count the playoffs too (30 Sep 2026, Matt: "Lamar has played Tennessee more than 2 times":
+    # 2 regular-season games and 2 playoff games since 2016); the look splits and his every-play average stay regular season
+    roles_opp = {k: dict(tuple(v.groupby("pid"))) for k, v in role_plays(d_all).items()}
     recent = set()
     for k, p in roles.items():
         recent |= set(p[p.season >= season - 1].pid.dropna())
@@ -101,7 +104,7 @@ def build(season: int) -> dict:
                     r[w] = s_
             if r:
                 rows.setdefault(pid, {})[role] = r
-            o = g.groupby("defteam").agg(games=("game_id", "nunique"), n=("play_id", "size"), yds=("yds", "sum"), epa=("epa", "mean"), td=("td", "sum")).reset_index()
+            o = roles_opp[role].get(pid, g).groupby("defteam").agg(games=("game_id", "nunique"), n=("play_id", "size"), yds=("yds", "sum"), epa=("epa", "mean"), td=("td", "sum")).reset_index()
             o = o[o.n >= MIN_N]
             if len(o):
                 opp.setdefault(pid, {})[role] = [[t, int(gm), int(n), int(y), round(float(e), 3), int(td_)] for t, gm, n, y, e, td_ in o[["defteam", "games", "n", "yds", "epa", "td"]].itertuples(index=False)]
