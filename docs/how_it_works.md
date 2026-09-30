@@ -2667,3 +2667,21 @@ passing 507.8 / 575.8 / 602.9 to 486.2 / 571.3 / 602.9 (2016-18 / 2019-22 / 2023
 refitted on the corrected 2016-18 rows and judged by the round-3 rule: only the receiving share moves, 0.70 to 0.675,
 lower on every window (111.8 / 120.6 / 120.1); the rushing and passing shares, the blends and both availability logits
 refit to values that lose on a window and are kept.
+
+**Situational factors on the props, under the round-3 rule: adopted** (`experiments/situational_props.py`,
+`reports/situational_props.md`, `nflmodel/props_sit.py`; 30 Sep 2026). Eleven pieces passed every window, the chance and
+lean-record check and the within-season shuffle, and each stat's pieces passed again refitted together. Each multiplies
+one stat's final line, after the injury and snap factor, by exp(b x (this game's input less the player's own
+0.85-decayed average of it)): receptions by the known-out starters' share at his position, the opponent's expected
+starting corners, days of rest and the known-out running backs' share; targets by the first and third of those;
+receiving touchdowns by the starter's QB rating and rain; rushing yards by cold (under 35 F outdoors); rushing touchdowns
+by wind above 10 mph on turf; passing touchdowns by the change in the opponent's corners from its last eight games. The
+sizes are the study's walk-forward refit with each stat's pieces fitted together (live on 2016-25; the by-season
+backtest scores each season with the size fitted on the seasons before it); every input is known before kickoff, the
+weather from the kickoff forecast, and no market number enters. The miss per player-game falls by 0.0038 / 0.0008 /
+0.0034 receptions, 0.0021 / 0.0013 / 0.0027 targets, 0.010 / 0.009 / 0.004 rushing yards and under a thousandth of
+Poisson log loss on the touchdown lines (2017-18 / 2019-22 / 2023-25): real by the shuffle, too small to see on a card.
+The study's cap on usage shares at one for the targets line was left out, since it made the targets line disagree with
+the receptions and yards lines it feeds; without it the targets pieces still pass together (lean record 84-63 to 85-62).
+The weekly run now builds the by-season backtest before the week's props, since it writes each player's average of
+every input (`data/processed/props_sit_state.parquet`) that the live factor reads.

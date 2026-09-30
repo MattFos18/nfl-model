@@ -10,7 +10,6 @@ Last updated 29 Sep 2026.
 - **Workflow file edits.** Claude's permissions block edits to `.github/workflows`. Changing the line watch schedule, or anything in a workflow, needs you to paste the change or allow it.
 
 ## Claude is working on
-- The 13 small player-prop gains that passed (cold rushing yards, teammates out, rest days, corners faced, touchdown chances): being built in and retested together. The capped target shares are left out (they make the targets line disagree with receptions and yards).
 - Weather on forecasts: day-before forecasts from 2022 on. Weeks 1-6 of 2022-25 are stored; weeks 7 on are being fetched. Then retest the weather effects on what was knowable before kickoff.
 
 ## Where every finding and every piece of data lives
@@ -29,6 +28,7 @@ Last updated 29 Sep 2026.
 - A listed starting QB on the injury report or a reserve list: flag it by eye.
 
 ## Done today
+- The small player-prop gains that passed are built in (receptions, targets, rushing yards, touchdown lines): each stat a hair more accurate on every window; the capped target shares left out.
 - Season totals wild-card fix: 2016-20 totals had counted a playoff game. Corrected; the receiving availability share refit to 0.675 (better on every window).
 - Game situation study finished: 121 ideas, coach vs coach, stadiums, travel, turf, primetime, referees, weather, injuries, coordinators. None passed; the closest (turf) did no better than luck.
 - Every round-3 finding on the site (Info → Game model → Tested and not used → Round 3).

@@ -18,15 +18,18 @@
  },
  "props by season": {
   "inputs": {
+   "data/processed/defender_games.parquet": "fadc7c7e7d107fc4",
    "data/processed/features_asof.parquet": "4a4e1014a98001d2",
    "data/processed/games.parquet": "8a6523532725f3f7",
    "data/processed/pred_v3.parquet": "4a1553892245fb15",
    "data/processed/scheme_plays.parquet": "94e659f3b7a066ec",
    "data/processed/snap_exposure.parquet": "086340a0085a89fa",
-   "experiments/props_by_season.py": "75f95aced9e9eac3",
-   "nflmodel/props.py": "4752812fc4644413"
+   "data/processed/trends_asof.parquet": "eb8d71a6c7825f6d",
+   "experiments/props_by_season.py": "4a9807dbaf89fc81",
+   "nflmodel/props.py": "f934c72e1e8b4054",
+   "nflmodel/props_sit.py": "082bc1c67725ecb2"
   },
-  "ran_at": "2026-09-30 00:13 UTC"
+  "ran_at": null
  },
  "season backtest": {
   "inputs": {

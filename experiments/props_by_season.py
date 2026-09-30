@@ -95,6 +95,7 @@ def _known_out():
     ro = ro.groupby(["season", "week", "pid"]).act.max().reset_index(); ro = ro[ro.act == 0][["season", "week", "pid"]]
     return pd.concat([rep, ro]).drop_duplicates().assign(known_out=1)
 _KNOWN_OUT = _known_out()
+_ABS = {}   # kind -> the known-out starters absorb_shares found (round 3's same_out / rb_out inputs)
 def absorb_shares(kind, f, share_y, pg, vcol, sf, tf):
     """Round 18 (29 Sep 2026, experiments/props_gs_absorb.py): an out starter's share, props.ABSORB of it, to his same-position
     teammates in the frame in proportion to their shares. A starter: a snap at a skill position in one of the team's last
@@ -119,7 +120,7 @@ def absorb_shares(kind, f, share_y, pg, vcol, sf, tf):
         C = pd.merge_asof(C.sort_values("key"), post[name], on="key", by="pid", direction="backward", allow_exact_matches=False)
     C = C.dropna(subset=["s_touch"]); C["s_active"] = C.s_active.fillna(C.s_touch); C["share_abs"] = PR.share_blend(kind, C.s_touch, C.s_active)
     C["grp"] = C.position.map(PR.ABSORB_GROUP); C = C[(C.share_abs >= PR.ABSORB_THR[kind]) & C.grp.isin(PR.ABSORB[kind])]
-    S = C.groupby(["game_id", "posteam", "grp"]).share_abs.sum()
+    S = C.groupby(["game_id", "posteam", "grp"]).share_abs.sum(); _ABS[kind] = C[["game_id", "posteam", "grp", "share_abs"]].copy()
     grp = f.pid.map(pos_of).fillna("?").map(PR.ABSORB_GROUP).fillna("?"); key = list(zip(f.game_id, f.posteam, grp))
     own = np.array([S.get(k_, 0.0) * PR.ABSORB[kind].get(k_[2], 0.0) for k_ in key]); sy = np.asarray(share_y, dtype=float)
     sum_pos = pd.Series(sy).groupby(pd.Series(key)).transform("sum").values
@@ -158,7 +159,7 @@ def build(kind):
     if kind != "pass": f = f.merge(active_share(kind, pg, vcol, sf, tf)[["pid", "game_id", "n_85a", "team_n_85a"]], on=["pid", "game_id"], how="left")   # round 14: the touchdown volume's share
     f = f.merge(games, on="game_id").merge(d[["game_id", "posteam", "defteam"]].drop_duplicates(), on=["game_id", "posteam"]).merge(T17[["posteam", "game_id", vcol, "games_prev"]].rename(columns={vcol: "tv", "games_prev": "tgames"}), on=["posteam", "game_id"]).merge(D[["defteam", "game_id", "d_n", "d_yds"]], on=["defteam", "game_id"]).merge(ALW[["defteam", "game_id", "a_tp", "a_tr", "a_tdb", "agames"]], on=["defteam", "game_id"])
     f = f.merge(feat.rename(columns={"team": "posteam"})[["game_id", "posteam", "wind"]], on=["game_id", "posteam"], how="left"); f["wind"] = f.wind.fillna(0.0)
-    minv = MIN_VOL * (3 if kind == "pass" else 1); f = f[(f.n >= minv) & (f.games_prev >= 3) & (f.tgames >= 3) & (f.agames >= 3) & (f.season >= 2017)].copy()
+    minv = MIN_VOL * (3 if kind == "pass" else 1); f = f[(f.n >= minv) & (f.games_prev >= 3) & (f.tgames >= 3) & (f.agames >= 3) & (f.season >= 2016)].copy()   # 2016: history for round 3's situational factors only (a player's own mean of each input), dropped before scoring
     if kind == "pass": f = f[f.act_n >= 10]
     f = f.merge(pred, on="game_id", how="left")   # 29 Sep 2026: the game script reads the game model's expected points, as the live rule does; never the line
     f["me"] = pd.Series(np.where(f.posteam == f.home_team, f.home_exp - f.away_exp, f.away_exp - f.home_exp), index=f.index).astype(float).fillna(0.0); f["tc"] = (f.home_exp + f.away_exp - PR.GS_TOTAL).fillna(0.0)
@@ -200,6 +201,7 @@ def build(kind):
         inj = np.array([PR.INJ_F[kind].get(g_, 1.0) for g_ in grp]); fac = inj * np.array([1 + PR.SNAP_W[kind] * (PR.snap_ratio(a_, b_) - 1) for a_, b_ in zip(f.s3, f.s10)])
         f["yds_line"] = f.yds_line * fac
         if kind in PR.INJ_TD: f["td_line"] = f.td_line * inj   # round 14: the injury report on receiving touchdowns (the snap trend lost on touchdowns)
+    if kind == "rec": f["tgt_line"] = f.vol   # the targets line (round 3's targets factor goes on it; not scored in these tables)
     return f, ev
 def score(x, line, actual, count=False):
     e = x[line] - x[actual]; out = {"n": int(len(x)), "mae": round(float(e.abs().mean()), 3 if count else 2), "bias": round(float(e.mean()), 3 if count else 2), "mean_line": round(float(x[line].mean()), 3 if count else 1), "mean_actual": round(float(x[actual].mean()), 3 if count else 1)}
@@ -208,10 +210,46 @@ def score(x, line, actual, count=False):
     else:
         nz = x[x[actual] != x[line]]; out["over_rate"] = round(float((nz[actual] > nz[line]).mean()), 3)
     return out
+SIT_COL = {"rec_catches": "catch_line", "rec_targets": "tgt_line", "rec_td": "td_line", "rush_yards": "yds_line", "rush_td": "td_line", "pass_td": "td_line"}
+def apply_sit(frames):
+    """Round 3 of the props (29 Sep 2026, reports/situational_props.md): the situational factors props.SIT on the final
+    lines, exp(b x (z - q)) per input, each term clipped to +-props.SIT_CLIP, b the walk-forward size for the row's season
+    (props.SIT_WALK: fitted on the seasons before it; the live SIT from 2026), z the input as of before the game
+    (nflmodel/props_sit.py; the known-out shares from absorb_shares), q the player's 0.85-decayed mean of z over his
+    earlier rows of the kind's frame (from 2016). Writes each player's q for his next game (props_sit_state.parquet)."""
+    from nflmodel import props_sit as PS
+    G = PS.game_inputs().rename(columns={"team": "posteam"})
+    R_, roles = PS.cb_ratings(); E = PS.expected_corners(_KNOWN_OUT, R_, roles)[["game_id", "defteam", "cb_r", "cb_chg"]].rename(columns={"cb_r": "opp_cb_r", "cb_chg": "opp_cb_chg"})
+    outs = pd.concat([_ABS["rec"], _ABS["rush"]]).groupby(["game_id", "posteam", "grp"]).share_abs.sum().unstack(fill_value=0.0)
+    for c in ("WR", "TE", "RB"):
+        if c not in outs: outs[c] = 0.0
+    outs = outs.rename(columns={"WR": "wr_out", "TE": "te_out", "RB": "rb_out"})[["wr_out", "te_out", "rb_out"]].reset_index()
+    posmap = {"WR": "wr_out", "TE": "te_out", "RB": "rb_out", "FB": "rb_out", "HB": "rb_out"}; state = []
+    for kind, (f, ev) in frames.items():
+        x = f[["game_id", "posteam", "defteam", "pos"]].merge(G, on=["game_id", "posteam"], how="left").merge(outs, on=["game_id", "posteam"], how="left").merge(E, on=["game_id", "defteam"], how="left")
+        assert len(x) == len(f)
+        for c in ("wr_out", "te_out", "rb_out"): x[c] = x[c].fillna(0.0).values
+        x["same_out"] = [getattr(r, posmap[r.pos]) if r.pos in posmap else 0.0 for r in x.itertuples()]
+        zc = {}
+        for stat in [s_ for s_ in PR.SIT if PR.SIT_KIND[s_] == kind]:
+            lm = np.zeros(len(f)); bs = {s_: dict(PR.sit_b(stat, int(s_))) for s_ in np.unique(f.season)}
+            for inp, _ in PR.SIT[stat]:
+                if inp not in zc:
+                    zc[inp], nxt = PS.centred(f.pid.values, f.season.values, f.week.values, x[inp].values)
+                    state += [{"kind": kind, "input": inp, "pid": p_, "q": q_} for p_, q_ in nxt.items()] + [{"kind": kind, "input": inp, "pid": "", "q": float(np.nanmean(x[inp].values.astype(float)))}]
+                b = f.season.map(lambda s_: bs[s_][inp]).values
+                lm += np.clip(b * zc[inp], -PR.SIT_CLIP, PR.SIT_CLIP)
+            f[SIT_COL[stat]] = f[SIT_COL[stat]].values * np.exp(lm)
+            print(f"sit {stat}: {', '.join(i for i, _ in PR.SIT[stat])}; rows moved {int((np.abs(lm) > 0).sum())} of {len(f)}", flush=True)
+    PS.write_state(state)
+    return frames
+FRAMES = {kind: build(kind) for kind in ("rec", "rush", "pass")}
+if globals().get("SIT_ON", True): FRAMES = apply_sit(FRAMES)
+FRAMES = {k: (f[f.season >= 2017].copy(), ev) for k, (f, ev) in FRAMES.items()}   # 2016 was history for the situational inputs only
 by_season, by_pos, by_bucket = [], [], []
 _ref = []   # the chance's reference table (props.chance_over, 29 Sep 2026): every projected player-game's line and actual
 for kind, stat in [("rec", "rec"), ("rush", "rush"), ("pass", "pass")]:
-    f, ev = build(kind); print(stat, len(f), flush=True)
+    f, ev = FRAMES[kind]; print(stat, len(f), flush=True)
     _ref.append(f[["season", "week", "game_id", "pid"]].assign(kind=kind, line=f.yds_line.values, actual=f.act_yds.values))
     if kind == "rec": _ref.append(f[["season", "week", "game_id", "pid"]].assign(kind="rec_catch", line=f.catch_line.values, actual=f.act_catch.values))
     stats = [("yards", "yds_line", "yds_raw", "act_yds", False)] + [(k, f"{k}_line", f"{k}_raw", f"act_{k}", k != "catch") for k in ev]
