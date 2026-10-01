@@ -72,6 +72,7 @@ LOG_WHAT = {
     "weather/forecast_log.csv": ("every forecast pulled, by run", "weekly run", "the record"),
     "weather/archive_kickoff.csv": ("weather at kickoff for played games (Open-Meteo archive)", "weather archive workflow", "backtest inputs"),
     "weather/forecast_archive.csv": ("what the forecast said one and two days before each played outdoor game's kickoff hour, 2022 on (Open-Meteo previous runs; wind and rain from about 2024)", "probe runs (nflmodel/forecast_archive.py)", "weather study on forecasts"),
+    "weather/forecast_history.csv": ("the pre-kickoff wind and gust forecasts for every played outdoor game 2018-2025: NWS MOS at the stadium's airport (GFS wind; the National Blend's wind and gust from Nov 2018), the day before and the last run out before kickoff, and Japan's global model from Open-Meteo's previous runs", "the weekly run (nflmodel/forecast_history.py)", "wind study on forecasts"),
     "weather/forecast_archive_2026.csv": ("the same, 2026 games played so far", "probe runs (nflmodel/forecast_archive.py)", "weather study on forecasts"),
     "reference/coordinators.csv": ("every team's offensive and defensive coordinator by season, 2013 on (Wikipedia season pages; a status column marks the gaps)", "nflmodel/coordinators.py", "round-3 coordinator matchup test"),
     "tracker/model_picks.csv": ("every model flag with the line at the run, graded with closing line value", "weekly run", "Bets tab"),

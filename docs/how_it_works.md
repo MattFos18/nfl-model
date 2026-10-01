@@ -2932,6 +2932,14 @@ candidate hidden shadow, not a bet. (5) A points-per-drive rating, built like th
 points ratings already in (correlation 0.94 to 0.95); added or swapped in, it is never better on all three windows and
 costs flag wins.
 
+**Forecast history, 2018-2025** (1 Oct 2026, Matt: "go"; `nflmodel/forecast_history.py`, `data/weather/forecast_history.csv`).
+To test wind on what was knowable before kickoff rather than the weather that happened, the weekly run fills in, ten
+minutes a run until done, the forecasts for every played outdoor or open-roof game at a US stadium since 2018: the
+National Weather Service's MOS at the stadium's airport (GFS wind every season; the National Blend's wind and gust from
+November 2018), each from the 12Z run the day before and from the last run out at least five hours before kickoff, and
+Japan's global model from Open-Meteo's previous runs (one and two days before and the latest). Each value is the mean
+over the game's first three hours (the gust, the largest). Nothing reads it yet but the wind study.
+
 **Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
 nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude
 routines. Each weekly run now asks them itself and opens one GitHub issue labelled ready-check (GitHub emails the

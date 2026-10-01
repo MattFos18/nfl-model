@@ -16,6 +16,7 @@ fetched; --ingest reads those lines from a saved job log into data/weather/forec
 
     python -m nflmodel.forecast_history --seasons 2018 --weeks 1-9          (on the runner, through probe.yml)
     python -m nflmodel.forecast_history --ingest job_log.txt                (here)
+    python -m nflmodel.forecast_history --backfill                          (the weekly run: 10 minutes a run until 2018-2025 is in)
 """
 from __future__ import annotations
 import argparse, re, time
@@ -110,21 +111,69 @@ def games(seasons, weeks=None) -> pd.DataFrame:
     return g[~abroad & g.station.notna()].sort_values("kickoff_et")
 
 
+def one(r) -> dict:
+    """Every forecast for one game (a row of games())."""
+    ko = pd.Timestamp(r.kickoff_et).tz_localize("America/New_York").tz_convert("UTC")
+    d1 = (ko.tz_convert("America/New_York").normalize() - pd.Timedelta(days=1)).tz_convert("UTC").floor("D") + pd.Timedelta(hours=12)
+    d0 = last_run(ko)
+    row = {"game_id": r.game_id, "season": r.season, "week": r.week, "home_team": r.home_team, "station": r.station, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ")}
+    row["gfs_wind_d1"], _ = mos(r.station, "GFS", d1, ko)
+    row["gfs_wind_d0"], _ = mos(r.station, "GFS", d0, ko); row["gfs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
+    if ko >= NBS_FROM:
+        row["nbs_wind_d1"], row["nbs_gust_d1"] = mos(r.station, "NBS", d1, ko)
+        row["nbs_wind_d0"], row["nbs_gust_d0"] = mos(r.station, "NBS", d0, ko); row["nbs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
+    if r.latlon:
+        row["jma_wind_d2"], row["jma_wind_d1"], row["jma_wind_d0"] = jma(r.latlon[0], r.latlon[1], ko)
+    return row
+
+
+def _line(row) -> str:
+    return "ROW," + ",".join("" if row.get(c) is None or (isinstance(row.get(c), float) and np.isnan(row[c])) else str(row[c]) for c in COLS)
+
+
 def main(seasons, weeks=None):
     print("ROWHEAD," + ",".join(COLS), flush=True)
     for r in games(seasons, weeks).itertuples():
-        ko = pd.Timestamp(r.kickoff_et).tz_localize("America/New_York").tz_convert("UTC")
-        d1 = (ko.tz_convert("America/New_York").normalize() - pd.Timedelta(days=1)).tz_convert("UTC").floor("D") + pd.Timedelta(hours=12)
-        d0 = last_run(ko)
-        row = {"game_id": r.game_id, "season": r.season, "week": r.week, "home_team": r.home_team, "station": r.station, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ")}
-        row["gfs_wind_d1"], _ = mos(r.station, "GFS", d1, ko)
-        row["gfs_wind_d0"], _ = mos(r.station, "GFS", d0, ko); row["gfs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
-        if ko >= NBS_FROM:
-            row["nbs_wind_d1"], row["nbs_gust_d1"] = mos(r.station, "NBS", d1, ko)
-            row["nbs_wind_d0"], row["nbs_gust_d0"] = mos(r.station, "NBS", d0, ko); row["nbs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
-        if r.latlon:
-            row["jma_wind_d2"], row["jma_wind_d1"], row["jma_wind_d0"] = jma(r.latlon[0], r.latlon[1], ko)
-        print("ROW," + ",".join("" if row.get(c) is None or (isinstance(row.get(c), float) and np.isnan(row[c])) else str(row[c]) for c in COLS), flush=True)
+        print(_line(one(r)), flush=True)
+
+
+def backfill(seasons=range(2018, 2026), budget=600, threads=8) -> str:
+    """The weekly run's step: fetch the games the stored history lacks, several at a time, for at most budget seconds, and
+    store them; a no-op once every game is in. Never raises (a source being down only leaves games for next week)."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    try:
+        old = pd.read_csv(OUTF, dtype=str) if OUTF.exists() else pd.DataFrame(columns=COLS)
+        g = games(list(seasons)); g = g[~g.game_id.isin(set(old.game_id))]
+        if not len(g):
+            return f"complete: {len(old)} games stored"
+        t0, rows = time.time(), []
+        with ThreadPoolExecutor(threads) as ex:
+            futs = {}
+            it = iter(g.itertuples())
+            for r in it:   # keep `threads` games in flight; stop handing out new ones once the budget is spent
+                futs[ex.submit(one, r)] = r.game_id
+                if len(futs) >= threads:
+                    break
+            while futs:
+                done = next(as_completed(list(futs)))
+                futs.pop(done)
+                try:
+                    rows.append(done.result())
+                except Exception as e:  # noqa
+                    print("game failed", e, flush=True)
+                if time.time() - t0 < budget:
+                    nxt = next(it, None)
+                    if nxt is not None:
+                        futs[ex.submit(one, nxt)] = nxt.game_id
+        new = pd.DataFrame(rows, columns=COLS).astype(str).replace({"None": np.nan, "nan": np.nan})
+        vals = [c for c in COLS[6:] if "_run_" not in c]
+        if not new[vals].notna().any().any():
+            return f"no forecast came back for {len(new)} games (sources down?): nothing stored"   # kept for next week rather than stored blank
+        out = pd.concat([old, new]).drop_duplicates("game_id", keep="last").sort_values(["season", "kickoff_utc"])
+        WX.mkdir(parents=True, exist_ok=True); out.to_csv(OUTF, index=False)
+        return f"{len(new)} games fetched in {time.time() - t0:.0f}s, {len(out)} stored, {len(g) - len(new)} left"
+    except Exception as e:  # noqa
+        return f"skipped: {type(e).__name__}: {str(e)[:120]}"
 
 
 def ingest(path) -> pd.DataFrame:
@@ -148,8 +197,11 @@ def ingest(path) -> pd.DataFrame:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2018-2023"); ap.add_argument("--weeks", default=""); ap.add_argument("--ingest", nargs="*")
+    ap.add_argument("--backfill", action="store_true")
     a = ap.parse_args()
-    if a.ingest:
+    if a.backfill:
+        print(backfill())
+    elif a.ingest:
         ingest(a.ingest)
     else:
         lo, hi = (a.seasons.split("-") + [None])[:2]
