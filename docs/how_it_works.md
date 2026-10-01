@@ -2956,6 +2956,12 @@ A leg is graded as a single bet at -303, the price at which one leg of a two-tea
 against that break-even, and every shadow now at its own price (the hook at -125); the prime-time unders rule is now
 measured against the totals flag, as the other totals rules are.
 
+**ESPN fills injury statuses player by player** (1 Oct 2026, Matt asked about Elgton Jenkins). The league's injury file
+can carry a team's practice notes days before its game statuses; ESPN's page filled only teams with no league file at
+all, so on the Thursday of week 4 four starters ESPN listed Out (CLE's two Jenkinses and Tylan Wallace, PIT's Rico Dowdle)
+were not counted. ESPN's Out, Doubtful or Questionable now fills every player the league file has no game status for
+that week; where the league has one, it stands. Past seasons are untouched (the fill applies to the current week only).
+
 **Picks-final alert** (1 Oct 2026, Matt; `nflmodel/picks_final.py`). Teams post their last injury report, with game
 statuses, about 4pm ET two days before a game (the day before for a Thursday game). An hour after that report, once a
 line-watch check has read it and any re-price it asked for has run, the line watch opens one GitHub issue labelled
