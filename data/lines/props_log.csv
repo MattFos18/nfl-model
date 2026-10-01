@@ -62795,11 +62795,8 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Raheim Sanders,2.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Darnell Washington,2.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Aaron Rodgers,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Aaron Rodgers,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Deshaun Watson,1.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,INT,pass_int,Deshaun Watson,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,KC Concepcion Jr.,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-01T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Blake Whiteheart,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Marcus Mariota,241.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Daniel Jones,240.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Pass Yards,pass_yards,Daniel Jones,224.5,-119,-119.0
@@ -62856,7 +62853,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Dyami Brown,2.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Pass TDs,pass_td,Daniel Jones,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Darius Slayton,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Dyami Brown,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-04T09:30:00.000-04:00,prizepicks,INT,pass_int,Marcus Mariota,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Dak Prescott,284.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-04T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Dak Prescott,271.5,-119,-119.0
@@ -63051,11 +63047,9 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Dontayvion Wicks,3.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Makai Lemon,3.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,Pass TDs,pass_td,Matthew Stafford,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Blake Corum,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,FG Made,field_goals,Harrison Mevis,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,INT,pass_int,Matthew Stafford,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,INT,pass_int,Jalen Hurts,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-04T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Matthew Stafford,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Joe Burrow,281.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Trevor Lawrence,280.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Joe Burrow,267.5,-119,-119.0
@@ -63124,10 +63118,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Mike Gesicki,2.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,FG Made,field_goals,Cam Little,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Samaje Perine,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Travis Hunter,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Travis Hunter,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,INT,pass_int,Joe Burrow,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Travis Hunter,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jacoby Brissett,242.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-04T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jacoby Brissett,231.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jameis Winston,221.5,-119,-119.0
@@ -63327,9 +63318,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Bucky Irving,2.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Chris Brooks,2.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,FG Made,field_goals,Trey Smack,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Bo Melton,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Bo Melton,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-04T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Bo Melton,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Josh Allen,274.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-04T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Drake Maye,257.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-04T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Josh Allen,239.5,-119,-119.0
@@ -63686,14 +63674,9 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Receptions,rec_catches,Chuba Hubbard,3.0,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jared Goff,2.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Rec Targets,rec_targets,Isaac TeSlaa,2.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jared Goff,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Pass TDs,pass_td,Bryce Young,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Receptions,rec_catches,Isaac TeSlaa,1.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,FG Made,field_goals,Ryan Fitzgerald,1.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Receptions,rec_catches,AJ Dillon,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Sione Vaki,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Longest Reception,rec_longest,Sione Vaki,0.5,-119,-119.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-04T20:20:00.000-04:00,prizepicks,Receptions,rec_catches,Sione Vaki,0.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ATL_NO,NO,ATL,2026-10-05T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Tyler Shough,276.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ATL_NO,NO,ATL,2026-10-05T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Tyler Shough,254.5,-119,-119.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ATL_NO,NO,ATL,2026-10-05T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Michael Penix Jr.,235.5,-119,-119.0
@@ -63804,7 +63787,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Targets,rec_targets,Harold Fannin,6.5,106,-130.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass Yards,pass_yards,Aaron Rodgers,214.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass TDs,pass_td,Aaron Rodgers,1.5,158,-197.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Yards,rush_yards,Aaron Rodgers,0.5,-137,112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Attempts,rush_attempts,Aaron Rodgers,1.5,-106,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass + Rush Yards,pass_rush_yards,Aaron Rodgers,221.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Completions,pass_completions,Aaron Rodgers,20.5,111,-136.0
@@ -63817,14 +63799,9 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Longest Completion,pass_longest,Aaron Rodgers,34.5,-105,-118.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Targets,rec_targets,Darnell Washington,3.5,134,-164.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Receiving Yards,rec_yards,Blake Whiteheart,3.5,-105,-118.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Receptions,rec_catches,Blake Whiteheart,0.5,-125,102.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Longest Reception,rec_longest,Blake Whiteheart,0.5,-110,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Yards,rush_yards,Travis Homer,6.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush + Rec Yards,rush_rec_yards,Travis Homer,9.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Attempts,rush_attempts,Travis Homer,1.5,-159,133.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Receiving Yards,rec_yards,Travis Homer,0.5,149,-186.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Receptions,rec_catches,Travis Homer,0.5,124,-152.0
-2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Longest Reception,rec_longest,Travis Homer,0.5,145,-182.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Longest Rush,rush_longest,Travis Homer,4.5,-113,-109.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass Yards,pass_yards,Deshaun Watson,185.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass TDs,pass_td,Deshaun Watson,0.5,-200,162.0
@@ -63923,9 +63900,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush + Rec Yards,rush_rec_yards,Jacory Croskey-Merritt,64.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush Attempts,rush_attempts,Jacory Croskey-Merritt,15.5,-102,-121.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Jacory Croskey-Merritt,3.5,-109,-113.0
-2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Dyami Brown,1.5,-113,-109.0
-2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Dyami Brown,0.5,-127,104.0
-2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Jacory Croskey-Merritt,0.5,-213,166.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Reception,rec_longest,Jacory Croskey-Merritt,3.5,-110,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Reception,rec_longest,Dyami Brown,2.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Rush,rush_longest,Jacory Croskey-Merritt,13.5,-107,-115.0
@@ -63940,7 +63914,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Antonio Williams,17.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Treylon Burks,7.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Antonio Williams,1.5,-164,133.0
-2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Treylon Burks,0.5,-193,154.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Rush,rush_longest,Marcus Mariota,11.5,-122,100.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Completion,pass_longest,Marcus Mariota,36.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Reception,rec_longest,Antonio Williams,11.5,-108,-114.0
@@ -63982,11 +63955,8 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Yards,rush_yards,Tank Bigsby,10.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush + Rec Yards,rush_rec_yards,Tank Bigsby,10.5,-104,-118.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Attempts,rush_attempts,Tank Bigsby,2.5,106,-134.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Tank Bigsby,0.5,269,-358.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Davante Adams,67.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receptions,rec_catches,Tank Bigsby,0.5,225,-286.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receptions,rec_catches,Davante Adams,4.5,-143,116.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Reception,rec_longest,Tank Bigsby,0.5,266,-345.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Reception,rec_longest,Davante Adams,23.5,-113,-109.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Rush,rush_longest,Tank Bigsby,6.5,-106,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Targets,rec_targets,Davante Adams,7.5,105,-129.0
@@ -64004,17 +63974,14 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Yards,rush_yards,Blake Corum,40.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush + Rec Yards,rush_rec_yards,Blake Corum,48.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Attempts,rush_attempts,Blake Corum,9.5,-108,-114.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Reception,rec_longest,Blake Corum,1.5,-118,-105.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Rush,rush_longest,Blake Corum,12.5,-103,-121.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass Yards,pass_yards,Matthew Stafford,251.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass TDs,pass_td,Matthew Stafford,1.5,-125,102.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Yards,rush_yards,Matthew Stafford,1.5,111,-136.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Attempts,rush_attempts,Matthew Stafford,1.5,126,-150.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass + Rush Yards,pass_rush_yards,Matthew Stafford,251.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Completions,pass_completions,Matthew Stafford,21.5,-106,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass Attempts,pass_attempts,Matthew Stafford,34.5,-121,-103.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,INTs Thrown,pass_int,Matthew Stafford,0.5,-115,-106.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Rush,rush_longest,Matthew Stafford,0.5,121,-150.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Completion,pass_longest,Matthew Stafford,39.5,-107,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Johnny Mundt,7.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Makai Lemon,26.5,-112,-112.0
@@ -64191,7 +64158,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Ryan Flournoy,14.5,-117,-106.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,Ryan Flournoy,5.5,-110,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Brevyn Spann-Ford,3.5,-113,-109.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Brevyn Spann-Ford,0.5,-141,114.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Brevyn Spann-Ford,3.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Foster Moreau,9.5,-107,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Foster Moreau,1.5,142,-176.0
@@ -64224,9 +64190,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Jakobi Meyers,3.5,-129,105.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Jakobi Meyers,17.5,-115,-107.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Targets,rec_targets,Jakobi Meyers,6.5,100,-122.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Travis Hunter,1.5,-112,-110.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Travis Hunter,0.5,-122,100.0
-2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Travis Hunter,1.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Mike Gesicki,29.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Mike Gesicki,2.5,-125,102.0
 2026-10-01T17-26-59Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Mike Gesicki,15.5,-120,-104.0
@@ -64314,7 +64277,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush + Rec Yards,rush_rec_yards,Kaleb Johnson,36.5,-108,-114.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Attempts,rush_attempts,Kaleb Johnson,8.5,-104,-118.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Kaleb Johnson,3.5,-114,-108.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Kaleb Johnson,0.5,-213,170.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Kaleb Johnson,3.5,-115,-107.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Rush,rush_longest,Kaleb Johnson,9.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Jonnu Smith,8.5,-112,-112.0
@@ -64364,14 +64326,11 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Ted Hurst,18.5,-115,-107.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,MarShawn Lloyd,5.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Christian Watson,67.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Bo Melton,0.5,-106,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,MarShawn Lloyd,1.5,139,-173.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Skyy Moore,1.5,-197,157.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Chris Godwin,2.5,-125,102.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Christian Watson,4.5,-148,120.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Bo Melton,0.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Ted Hurst,1.5,-170,137.0
-2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Bo Melton,0.5,-106,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Skyy Moore,11.5,-120,-104.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Ted Hurst,12.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Completion,pass_longest,Jalon Daniels,29.5,-110,-112.0
@@ -64432,7 +64391,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Rush + Rec Yards,rush_rec_yards,Kyle Monangai,48.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Rush Attempts,rush_attempts,Kyle Monangai,9.5,101,-124.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Receiving Yards,rec_yards,Kyle Monangai,5.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Receptions,rec_catches,Kyle Monangai,0.5,-244,194.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Longest Rush,rush_longest,Kyle Monangai,12.5,102,-125.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Longest Reception,rec_longest,Kyle Monangai,4.5,-107,-114.0
 2026-10-01T17-26-59Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Receiving Yards,rec_yards,Cole Kmet,9.5,-115,-106.0
@@ -64564,7 +64522,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Rush + Rec Yards,rush_rec_yards,Najee Harris,33.5,-108,-114.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Rush Attempts,rush_attempts,Najee Harris,7.5,118,-145.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Receiving Yards,rec_yards,Najee Harris,3.5,-112,-110.0
-2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Receptions,rec_catches,Najee Harris,0.5,-197,157.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Longest Reception,rec_longest,Najee Harris,3.5,-112,-110.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Longest Rush,rush_longest,Najee Harris,9.5,104,-129.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Rush + Rec Yards,rush_rec_yards,Cam Skattebo,84.5,-110,-112.0
@@ -64665,7 +64622,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Rush + Rec Yards,rush_rec_yards,Jaylen Wright,30.5,-107,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Rush Attempts,rush_attempts,Jaylen Wright,7.5,115,-141.0
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Receiving Yards,rec_yards,Jaylen Wright,4.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Receptions,rec_catches,Jaylen Wright,0.5,-205,164.0
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Longest Rush,rush_longest,Jaylen Wright,9.5,102,-125.0
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Longest Reception,rec_longest,Jaylen Wright,4.5,-117,-106.0
 2026-10-01T17-26-59Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Pass Yards,pass_yards,Malik Willis,169.5,-112,-112.0
@@ -64752,7 +64708,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Pass TDs,pass_td,Kirk Cousins,1.5,123,-152.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush Yards,rush_yards,Emmett Johnson,17.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush Yards,rush_yards,Mike Washington,16.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush Yards,rush_yards,Kirk Cousins,0.5,101,-124.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush + Rec Yards,rush_rec_yards,Emmett Johnson,30.5,-107,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush + Rec Yards,rush_rec_yards,Mike Washington,17.5,-114,-108.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush Attempts,rush_attempts,Mike Washington,4.5,101,-124.0
@@ -64763,15 +64718,12 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Pass Attempts,pass_attempts,Kirk Cousins,33.5,-115,-106.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,INTs Thrown,pass_int,Kirk Cousins,0.5,-170,137.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Receiving Yards,rec_yards,Emmett Johnson,8.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Receiving Yards,rec_yards,Mike Washington,0.5,155,-193.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Receptions,rec_catches,Emmett Johnson,1.5,160,-200.0
-2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Receptions,rec_catches,Mike Washington,0.5,129,-159.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Rush,rush_longest,Emmett Johnson,7.5,-115,-107.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Rush,rush_longest,Kirk Cousins,3.5,-105,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Reception,rec_longest,Emmett Johnson,6.5,-104,-120.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Completion,pass_longest,Kirk Cousins,32.5,-113,-109.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Rush,rush_longest,Mike Washington,6.5,-132,107.0
-2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Longest Reception,rec_longest,Mike Washington,0.5,153,-189.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,FG Made,field_goals,Matt Gay,1.5,103,-125.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,FG Made,field_goals,Harrison Butker,1.5,-118,-105.0
 2026-10-01T17-26-59Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Kicking Points,kick_points,Matt Gay,6.5,-103,-121.0
@@ -64819,7 +64771,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Rush Attempts,rush_attempts,Emanuel Wilson,10.5,106,-130.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Receiving Yards,rec_yards,Emanuel Wilson,3.5,-109,-113.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Receiving Yards,rec_yards,AJ Barner,31.5,-112,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Receptions,rec_catches,Emanuel Wilson,0.5,-200,159.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Receptions,rec_catches,AJ Barner,3.5,124,-152.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Longest Reception,rec_longest,AJ Barner,15.5,-117,-106.0
 2026-10-01T17-26-59Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Longest Reception,rec_longest,Emanuel Wilson,3.5,-112,-112.0
@@ -64925,10 +64876,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Rush Yards,rush_yards,Kaelon Black,23.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Rush + Rec Yards,rush_rec_yards,Kaelon Black,28.5,-115,-107.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Rush Attempts,rush_attempts,Kaelon Black,6.5,-112,-110.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Receiving Yards,rec_yards,Kaelon Black,0.5,128,-157.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Receptions,rec_catches,Kaelon Black,0.5,109,-134.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Longest Rush,rush_longest,Kaelon Black,9.5,107,-127.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Longest Reception,rec_longest,Kaelon Black,0.5,126,-154.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,FG Made,field_goals,Wil Lutz,1.5,-103,-120.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,FG Made,field_goals,Eddy Pineiro,1.5,-110,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Kicking Points,kick_points,Eddy Pineiro,7.5,108,-132.0
@@ -64989,13 +64937,9 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Yards,rush_yards,AJ Dillon,13.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush + Rec Yards,rush_rec_yards,AJ Dillon,18.5,-114,-108.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Attempts,rush_attempts,AJ Dillon,3.5,-152,123.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receiving Yards,rec_yards,AJ Dillon,0.5,122,-148.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receptions,rec_catches,AJ Dillon,0.5,100,-122.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Longest Rush,rush_longest,AJ Dillon,7.5,101,-124.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Longest Reception,rec_longest,AJ Dillon,0.5,120,-145.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Pass Yards,pass_yards,Jared Goff,260.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Pass TDs,pass_td,Jared Goff,1.5,-173,139.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Yards,rush_yards,Jared Goff,1.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Attempts,rush_attempts,Jared Goff,2.5,134,-164.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Pass + Rush Yards,pass_rush_yards,Jared Goff,268.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Completions,pass_completions,Jared Goff,23.5,-120,-103.0
@@ -65006,11 +64950,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Yards,rush_yards,Sione Vaki,9.5,-112,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush + Rec Yards,rush_rec_yards,Sione Vaki,16.5,-110,-112.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Attempts,rush_attempts,Sione Vaki,3.5,123,-148.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receiving Yards,rec_yards,Sione Vaki,0.5,-102,-125.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receiving Yards,rec_yards,Brock Wright,5.5,-110,-112.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receptions,rec_catches,Brock Wright,0.5,-200,162.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receptions,rec_catches,Sione Vaki,0.5,-121,-102.0
-2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Longest Reception,rec_longest,Sione Vaki,0.5,-104,-122.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Longest Reception,rec_longest,Brock Wright,5.5,-103,-120.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Longest Rush,rush_longest,Sione Vaki,6.5,-106,-117.0
 2026-10-01T17-26-59Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,FG Made,field_goals,Jake Bates,1.5,-132,107.0
@@ -65073,3 +65013,403 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-01T17-26-59Z,2026,4,2026_04_ATL_NO,NO,ATL,,underdog,Longest Completion,pass_longest,Tyler Shough,36.5,-107,-115.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ATL_NO,NO,ATL,,underdog,Longest Rush,rush_longest,Tyler Shough,9.5,-108,-114.0
 2026-10-01T17-26-59Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Rush Yards,rush_yards,Cam Skattebo,62.5,-112,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jaylen Warren,,-105,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Quinshon Judkins,,130,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,DK Metcalf,,230,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Harold Fannin Jr.,,280,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Denzel Boston,,320,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,KC Concepcion,,340,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Michael Pittman Jr.,,370,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Pat Freiermuth,,390,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Deshaun Watson,,400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Roman Wilson,,475,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Cleveland Browns D/ST,,500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Pittsburgh Steelers D/ST,,500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Darnell Washington,,550,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Raheim Sanders,,700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Germie Bernard,,1000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jerry Jeudy,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Blake Whiteheart,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Ben Skowronek,,1300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Aaron Rodgers,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Travis Homer,,1600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jaleel McLaughlin,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Kaden Wetjen,,2200,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Isaiah Bond,,2500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Eli Heidenreich,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Malachi Corley,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Robert Tonyan,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Riley Nowakowski,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Carsen Ryan,,5000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_anytime_td,anytime_td,Michael Burton,,5000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_pass_yds,pass_yards,Aaron Rodgers,215.5,-113,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_pass_yds,pass_yards,Deshaun Watson,186.5,-112,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,DK Metcalf,46.5,-110,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Harold Fannin Jr.,40.5,-113,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Denzel Boston,37.5,-114,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,KC Concepcion,36.5,-109,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Michael Pittman Jr.,34.5,-109,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jaylen Warren,26.5,-112,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Pat Freiermuth,26.5,-111,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Roman Wilson,20.5,-108,-116.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Darnell Washington,15.5,-116,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jerry Jeudy,14.5,-113,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Raheim Sanders,11.5,-116,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Quinshon Judkins,11.5,-112,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Germie Bernard,9.5,-109,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_reception_yds,rec_yards,Blake Whiteheart,0.5,-101,-124.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-103,-124.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,KC Concepcion,3.5,-167,131.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,DK Metcalf,3.5,-139,109.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Jaylen Warren,3.5,-108,-118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Michael Pittman Jr.,3.5,112,-142.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Pat Freiermuth,3.5,133,-171.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Denzel Boston,2.5,-151,118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Roman Wilson,2.5,137,-175.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Quinshon Judkins,2.5,150,-193.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Darnell Washington,1.5,-163,127.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Raheim Sanders,1.5,-159,124.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Jerry Jeudy,1.5,123,-157.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Germie Bernard,1.5,150,-193.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_receptions,rec_catches,Blake Whiteheart,0.5,-116,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Jaylen Warren,76.5,-111,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Quinshon Judkins,55.5,-114,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Deshaun Watson,28.5,-116,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Travis Homer,6.5,-120,-104.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Raheim Sanders,5.5,-113,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,Aaron Rodgers,1.5,-121,-104.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_rush_yds,rush_yards,KC Concepcion,0.5,-108,-116.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Carson Schwesinger,8.5,-126,-103.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Patrick Queen,7.5,-131,101.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Quincy Williams,6.5,-152,117.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Jaquan Brisker,6.5,-121,-107.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Ronnie Hickman,6.5,-110,-118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Payton Wilson,6.5,-108,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Grant Delpit,4.5,-136,105.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Denzel Ward,3.5,-120,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jaylen Warren,,105,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Quinshon Judkins,,145,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,DK Metcalf,,230,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Denzel Boston,,270,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Harold Fannin Jr.,,290,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Michael Pittman Jr.,,350,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,KC Concepcion,,350,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Pat Freiermuth,,360,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Deshaun Watson,,420,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Roman Wilson,,490,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Darnell Washington,,600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Pittsburgh Steelers Defense,,700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Cleveland Browns Defense,,700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Raheim Sanders,,700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jerry Jeudy,,900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Germie Bernard,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Blake Whiteheart,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Ben Skowronek,,1200,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Aaron Rodgers,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Travis Homer,,1700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Isaiah Bond,,1800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Kaden Wetjen,,2000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jaleel McLaughlin,,2500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Eli Heidenreich,,2700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Riley Nowakowski,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Michael Burton,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Robert Tonyan,,3300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Malachi Corley,,4500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_anytime_td,anytime_td,Carsen Ryan,,6000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_pass_yds,pass_yards,Aaron Rodgers,214.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_pass_yds,pass_yards,Deshaun Watson,185.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Blake Whiteheart,3.5,114,-146.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Harold Fannin Jr.,40.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,KC Concepcion,35.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Denzel Boston,37.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Pat Freiermuth,27.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jerry Jeudy,14.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Darnell Washington,16.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,DK Metcalf,45.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Roman Wilson,19.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Quinshon Judkins,11.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Raheim Sanders,12.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jaylen Warren,25.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Michael Pittman Jr.,34.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_reception_yds,rec_yards,Germie Bernard,8.5,-104,-122.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,DK Metcalf,3.5,-144,108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Darnell Washington,1.5,-168,126.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,KC Concepcion,3.5,-158,118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Pat Freiermuth,3.5,124,-166.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-106,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Quinshon Judkins,2.5,140,-188.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Jerry Jeudy,1.5,114,-152.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Blake Whiteheart,0.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Denzel Boston,2.5,-158,118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Raheim Sanders,1.5,-200,148.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Michael Pittman Jr.,3.5,106,-140.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Roman Wilson,2.5,134,-180.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Germie Bernard,1.5,172,-235.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_receptions,rec_catches,Jaylen Warren,3.5,-108,-122.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Aaron Rodgers,0.5,-140,110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Travis Homer,6.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Raheim Sanders,5.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Deshaun Watson,28.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Quinshon Judkins,55.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,KC Concepcion,0.5,-120,-106.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,fanduel,player_rush_yds,rush_yards,Jaylen Warren,75.5,-113,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Darnell Washington,,450,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jerry Jeudy,,900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Roman Wilson,,450,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Ben Skowronek,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Pat Freiermuth,,350,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Blake Whiteheart,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Deshaun Watson,,400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,DK Metcalf,,220,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jaylen Warren,,-111,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Harold Fannin Jr.,,270,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Raheim Sanders,,650,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Aaron Rodgers,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Isaiah Bond,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Michael Burton,,2900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Quinshon Judkins,,120,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Malachi Corley,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Tylan Wallace,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Michael Pittman Jr.,,350,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Travis Homer,,1000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Denzel Boston,,270,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Carsen Ryan,,3400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Kaden Wetjen,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Germie Bernard,,900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Riley Nowakowski,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Robert Tonyan,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,KC Concepcion,,300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jaleel McLaughlin,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Eli Heidenreich,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Aaron Rodgers,214.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Deshaun Watson,185.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Harold Fannin Jr.,40.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Michael Pittman Jr.,33.5,-119,-109.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,KC Concepcion,35.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Raheim Sanders,11.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jerry Jeudy,14.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Darnell Washington,16.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Pat Freiermuth,26.5,-115,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,DK Metcalf,46.5,-120,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Quinshon Judkins,11.5,-108,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Roman Wilson,21.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Denzel Boston,38.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Germie Bernard,8.5,-115,-112.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jaylen Warren,26.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,DK Metcalf,3.5,-143,110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Pat Freiermuth,3.5,130,-169.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Denzel Boston,2.5,-149,115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-103,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Michael Pittman Jr.,3.5,103,-133.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Jaylen Warren,3.5,100,-130.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Darnell Washington,1.5,-156,120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Jerry Jeudy,1.5,112,-145.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Roman Wilson,2.5,140,-185.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Raheim Sanders,1.5,-156,120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Quinshon Judkins,2.5,144,-189.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,Germie Bernard,1.5,158,-208.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_receptions,rec_catches,KC Concepcion,4.5,120,-156.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Quinshon Judkins,55.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Raheim Sanders,5.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Jaylen Warren,75.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Deshaun Watson,28.5,-116,-111.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Travis Homer,6.5,-119,-109.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Payton Wilson,6.5,-114,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Quincy Williams,6.5,-135,105.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Jaquan Brisker,6.5,-120,-108.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Grant Delpit,4.5,-156,120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Denzel Ward,3.5,-105,-123.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Carson Schwesinger,8.5,-125,-103.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Ronnie Hickman,6.5,100,-130.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Patrick Queen,7.5,-103,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Germie Bernard,,650,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Blake Whiteheart,,1200,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Pat Freiermuth,,370,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Deshaun Watson,,400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Travis Homer,,800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jaylen Warren,,-110,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Kaden Wetjen,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Riley Nowakowski,,2000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Malachi Corley,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Carsen Ryan,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Ben Skowronek,,1700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Isaiah Bond,,2200,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Quinshon Judkins,,-104,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Roman Wilson,,510,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jaleel McLaughlin,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Aaron Rodgers,,1600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jerry Jeudy,,800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Michael Pittman Jr.,,390,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Robert Tonyan,,1700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Raheim Sanders,,650,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,DK Metcalf,,220,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,KC Concepcion,,310,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Eli Heidenreich,,1500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Darnell Washington,,575,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Denzel Boston,,320,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Harold Fannin Jr.,,295,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_anytime_td,anytime_td,Michael Burton,,3000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_pass_yds,pass_yards,Deshaun Watson,185.5,-114,-117.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_pass_yds,pass_yards,Aaron Rodgers,208.5,-117,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Jaylen Warren,24.5,-118,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,KC Concepcion,37.5,-113,-118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Germie Bernard,9.5,-114,-117.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Darnell Washington,16.5,-112,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Denzel Boston,36.5,-117,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Pat Freiermuth,27.5,-112,-118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Jerry Jeudy,13.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Michael Pittman Jr.,32.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Raheim Sanders,11.5,-109,-122.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Quinshon Judkins,11.5,-112,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Harold Fannin Jr.,40.5,-118,-113.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,DK Metcalf,45.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_reception_yds,rec_yards,Roman Wilson,19.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Denzel Boston,2.5,-155,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Pat Freiermuth,3.5,123,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-120,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Michael Pittman Jr.,3.5,106,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Germie Bernard,1.5,155,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,DK Metcalf,3.5,-141,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Jaylen Warren,3.5,-108,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Quinshon Judkins,2.5,133,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Roman Wilson,2.5,125,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Raheim Sanders,1.5,-186,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Jerry Jeudy,1.5,114,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,Darnell Washington,1.5,-182,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_receptions,rec_catches,KC Concepcion,3.5,-167,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_rush_yds,rush_yards,Raheim Sanders,5.5,-112,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_rush_yds,rush_yards,Quinshon Judkins,58.5,-113,-118.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_rush_yds,rush_yards,Deshaun Watson,28.5,-114,-117.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_rush_yds,rush_yards,Jaylen Warren,72.5,-117,-114.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_rush_yds,rush_yards,Travis Homer,6.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Denzel Ward,3.5,-137,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Ronnie Hickman,6.5,-108,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Carson Schwesinger,8.5,-125,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Jaquan Brisker,6.5,100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Grant Delpit,4.5,-125,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Quincy Williams,7.5,114,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Patrick Queen,8.5,100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Payton Wilson,6.5,104,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Riley Nowakowski,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Travis Homer,,1600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Eli Heidenreich,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Deshaun Watson,,400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Harold Fannin Jr.,,280,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Denzel Boston,,320,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Jerry Jeudy,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,KC Concepcion,,340,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Quinshon Judkins,,130,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Pittsburgh Steelers D/ST,,500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Cleveland Browns D/ST,,500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Darnell Washington,,525,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Aaron Rodgers,,1400,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Pat Freiermuth,,390,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Jaylen Warren,,-110,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Michael Pittman Jr.,,370,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,DK Metcalf,,230,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Roman Wilson,,460,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Germie Bernard,,1000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Kaden Wetjen,,2200,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Raheim Sanders,,700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Ben Skowronek,,1300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Blake Whiteheart,,1100,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Robert Tonyan,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Malachi Corley,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Isaiah Bond,,2500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Carsen Ryan,,5000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Jaleel McLaughlin,,1900,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_anytime_td,anytime_td,Michael Burton,,5000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_pass_yds,pass_yards,Aaron Rodgers,245.5,175,-240.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Blake Whiteheart,0.5,-105,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Darnell Washington,15.5,-120,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Denzel Boston,47.5,150,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,DK Metcalf,56.5,140,-185.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Germie Bernard,9.5,-110,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Harold Fannin Jr.,50.5,145,-190.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Jaylen Warren,26.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Jerry Jeudy,14.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,KC Concepcion,46.5,155,-210.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Michael Pittman Jr.,44.5,155,-210.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Pat Freiermuth,26.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Quinshon Judkins,11.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Raheim Sanders,11.5,-120,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_reception_yds,rec_yards,Roman Wilson,20.5,-125,-105.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Darnell Washington,1.5,-150,115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Denzel Boston,2.5,-150,115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,DK Metcalf,3.5,-145,110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Germie Bernard,1.5,150,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-105,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Jaylen Warren,3.5,-110,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Jerry Jeudy,1.5,120,-160.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,KC Concepcion,3.5,-170,130.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Michael Pittman Jr.,3.5,110,-145.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Pat Freiermuth,3.5,130,-170.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Quinshon Judkins,2.5,150,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Raheim Sanders,1.5,-165,125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_receptions,rec_catches,Roman Wilson,2.5,130,-170.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,Aaron Rodgers,1.5,-125,-105.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,Jaylen Warren,96.5,210,-290.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,KC Concepcion,0.5,-110,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,Quinshon Judkins,65.5,150,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,Raheim Sanders,5.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,bovada,player_rush_yds,rush_yards,Travis Homer,6.5,-125,-105.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Robert Tonyan,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Michael Pittman Jr.,,320,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Quinshon Judkins,,135,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Pat Freiermuth,,390,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Kaden Wetjen,,2800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Roman Wilson,,475,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Isaiah Bond,,1750,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Carsen Ryan,,3500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Raheim Sanders,,600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Ben Skowronek,,1700,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,KC Concepcion,,350,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Denzel Boston,,325,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Deshaun Watson,,300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Darnell Washington,,600,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,DK Metcalf,,230,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Germie Bernard,,800,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jaylen Warren,,-118,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Harold Fannin Jr.,,270,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Pittsburgh Steelers D/ST,,475,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Travis Homer,,850,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jerry Jeudy,,750,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Riley Nowakowski,,3500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jaleel McLaughlin,,2000,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Blake Whiteheart,,1300,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Malachi Corley,,2500,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Cleveland Browns D/ST,,575,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Aaron Rodgers,,1550,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_anytime_td,anytime_td,Lew Nichols,,825,
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_pass_yds,pass_yards,Deshaun Watson,189.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_pass_yds,pass_yards,Aaron Rodgers,215.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Harold Fannin Jr.,41.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jerry Jeudy,13.5,-135,100.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,DK Metcalf,45.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Quinshon Judkins,12.5,-111,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Michael Pittman Jr.,34.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Darnell Washington,16.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Roman Wilson,20.5,-111,-120.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Pat Freiermuth,28.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,KC Concepcion,37.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Raheim Sanders,11.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Denzel Boston,36.5,-135,100.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Germie Bernard,8.5,-120,-110.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jaylen Warren,25.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Quinshon Judkins,2.5,140,-190.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Raheim Sanders,1.5,-175,130.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Harold Fannin Jr.,4.5,-105,-125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Denzel Boston,2.5,-165,125.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Jerry Jeudy,1.5,115,-155.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,DK Metcalf,3.5,-155,115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Michael Pittman Jr.,3.5,100,-135.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Pat Freiermuth,3.5,125,-165.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Roman Wilson,2.5,130,-175.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Jaylen Warren,3.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Darnell Washington,2.5,145,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,KC Concepcion,4.5,125,-165.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_receptions,rec_catches,Germie Bernard,1.5,145,-200.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_rush_yds,rush_yards,Quinshon Judkins,55.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_rush_yds,rush_yards,Raheim Sanders,5.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_rush_yds,rush_yards,Jaylen Warren,73.5,-115,-115.0
+2026-10-01T20-08-02Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-02T00:15:00Z,betmgm,player_rush_yds,rush_yards,Deshaun Watson,30.5,100,-135.0
