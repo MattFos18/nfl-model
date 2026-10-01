@@ -4,7 +4,7 @@ drift,Drift alert,False,11 measures within noise,"11 measures within noise
 
 
 Paste this issue into a Claude session with the MattFos18/nfl-model repo and say ""look at this"". Nothing in the live model changes without Matt's yes."
-shadow,Tracked rule worth a look,False,"12 tracked rules, none ahead","12 tracked rules, none ahead
+shadow,Tracked rule worth a look,False,"13 tracked rules, none ahead","13 tracked rules, none ahead
 
 
 
