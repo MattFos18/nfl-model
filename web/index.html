@@ -928,8 +928,11 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="DraftKings line movement">`;
     if (yM != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${yM.toFixed(1)}" y2="${yM.toFixed(1)}" stroke="var(--model)" stroke-width="1.8" stroke-dasharray="6 5"/>`;
     svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="${x(0)}" cy="${yS.toFixed(1)}" r="4" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${yE.toFixed(1)}" r="4" fill="var(--vegas)"/>`;
-    svg += `<text x="${ml}" y="14" font-size="12.5" font-weight="600" fill="var(--vegas)">${lab(vals[0])}</text><text x="${W - mr}" y="14" text-anchor="end" font-size="12.5" font-weight="600" fill="var(--vegas)">${lab(vals[vals.length - 1])}</text>`;
-    if (yM != null) svg += `<text x="${W - mr}" y="${Hh - 6}" text-anchor="end" font-size="12.5" font-weight="600" fill="var(--model)">Model ${lab(modelVal)}</text>`;
+    // each label in the row on its own line's side (1 Oct 2026, Matt: "CLE +3 is on the wrong line"): the model's label in the
+    // row nearer its dashed line, the line's two labels in the other row
+    const modelTop = yM != null && yM < (yS + yE) / 2, rowV = modelTop ? Hh - 6 : 14, rowM = modelTop ? 14 : Hh - 6;
+    svg += `<text x="${ml}" y="${rowV}" font-size="12.5" font-weight="600" fill="var(--vegas)">${lab(vals[0])}</text><text x="${W - mr}" y="${rowV}" text-anchor="end" font-size="12.5" font-weight="600" fill="var(--vegas)">${lab(vals[vals.length - 1])}</text>`;
+    if (yM != null) svg += `<text x="${W - mr}" y="${rowM}" text-anchor="end" font-size="12.5" font-weight="600" fill="var(--model)">Model ${lab(modelVal)}</text>`;
     svg += `</svg>`;
     return svg;
   }
