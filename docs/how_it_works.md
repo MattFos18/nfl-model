@@ -2941,6 +2941,14 @@ November 2018), each from the 12Z run the day before and from the last run out a
 Japan's global model from Open-Meteo's previous runs (one and two days before and the latest). Each value is the mean
 over the game's first three hours (the gust, the largest). Nothing reads it yet but the wind study.
 
+**Wind unders on the forecast** (1 Oct 2026; `experiments/wind_forecast.py`, reports/wind_forecast.md). On the forecast
+history, blind unders in outdoor games forecast at 10+ mph by the GFS the day before went 37-27 (2018), 165-116 (2019-22)
+and 116-89 (2023-25): 57.8% and +62.8 units at -110 over 550 bets, against the closing total, and no shuffle of the
+forecast within season (200) did as well. The mean of the last forecasts before kickoff at 10+ went 262-167 (61.1%). The
+forecast does about as well as the wind that happened, so the edge is knowable before kickoff. Six of eight seasons won
+(2020 even, 2024 lost). The totals flag in those games went 101-62, outside them 126-110. Not bet yet: the live run reads
+Open-Meteo's forecast, not the GFS MOS the rule was measured on.
+
 **Teaser legs on small dogs, tracked** (1 Oct 2026, Matt: "go"). Every dog at +1.5 to +2.5 teased six points to +7.5 to
 +8.5 (`picks.TEASE_DOG`, shadow `shadowteasedog`), whatever the model says, logged and graded every run, kept off the page.
 A leg is graded as a single bet at -303, the price at which one leg of a two-team teaser at -130 breaks even (75.2%,
