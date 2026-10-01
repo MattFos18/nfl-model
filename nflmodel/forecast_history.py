@@ -92,10 +92,11 @@ def mos_all(station, model, run: pd.Timestamp, ko: pd.Timestamp) -> dict:
         return out
     t = pd.to_datetime(df.ftime, utc=True)
     num = lambda c, k=1.0: pd.to_numeric(df[c], errors="coerce") * k if c in df else pd.Series(np.nan, index=df.index)
-    # MOS writes 999 (temperature) and 99 (wind) for a missing hour (KTOA overnight, 2018); read as missing for the
-    # temperature and rain columns. Wind is left as first stored (the live wind reading); 2018_16_BAL_LAC is the one game hit
+    # MOS writes 999 (temperature) and 99 (wind, gust) for a missing hour (KTOA overnight, 2018): read as missing; the one stored
+    # game it had hit, 2018_16_BAL_LAC, was refetched (1 Oct 2026)
     tmp, pct = num("tmp").where(lambda x: x < 900), lambda c: num(c).where(lambda x: x <= 100)
-    out.update(wind=_window(t, num("wsp", KT), ko), gust=_window(t, num("gst", KT), ko, "max"), temp=_window(t, tmp, ko),
+    kn = lambda c: num(c).where(lambda x: x < 99) * KT
+    out.update(wind=_window(t, kn("wsp"), ko), gust=_window(t, kn("gst"), ko, "max"), temp=_window(t, tmp, ko),
                pop=_period_max(t, pct("p06"), ko, 6), pop12=_period_max(t, pct("p12"), ko, 12))
     return out
 

@@ -347,14 +347,14 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
 | boosted trees alone, 5+ edge | 94-66 | 85-62 | 34-17 |
-| Under, 55%+ chance (the totals flag) | 135-127 | 182-130 | 81-62 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 168-120 | 77-57 |
+| Under, 55%+ chance (the totals flag) | 135-127 | 182-129 | 81-62 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 169-118 | 77-57 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
 | 4+ edge on road sides, 6+ on home sides | 41-24 | 46-30 | 23-10 |
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
-| Under, 60%+ chance | 64-53 | 105-60 | 31-26 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 47-28 | 21-11 |
-| Under, forecast wind 10+ mph (outdoor games) | 24-19 | 143-89 | 83-52 |
+| Under, 60%+ chance | 64-53 | 104-58 | 31-25 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 48-28 | 21-11 |
+| Under, forecast wind 10+ mph (outdoor games) | 23-19 | 143-89 | 83-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 <!-- /auto:rules -->
 
@@ -2975,7 +2975,7 @@ does not count him.
 reading is the mean of two forecasts over the game's first three hours: the National Weather Service's GFS MOS at the
 stadium's airport (the newest run out at least 4 hours old and 5 hours before kickoff) and Japan's global model from
 Open-Meteo, pulled on every line watch for games within 66 hours; for 2018-2025 the stored forecast history gives the
-same reading. It went 24-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +75 units at -110, and the
+same reading. It went 23-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +73 units at -110, and the
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
 
@@ -2983,9 +2983,9 @@ and graded like the flags, and is in the picks-final alert; where the totals fla
 `model.wind_points`, experiments/wind_points.py). The model's total now carries the forecast wind: outdoor games whose
 forecast (the wind under's reading) sits in a band finish off the total by a band amount learned each season from the
 seasons before it only, each band's mean miss against all forecast games, shrunk by 50 games. Bands below 10, 10 to 15 and
-15+ mph; the 10-15 band is worth about -2.7 points (books already move big-wind totals, so 15+ is about zero). In the model
-(rerun 2015-2026) the total miss went 10.541 -> 10.508 (2019-22) and 10.177 -> 10.124 (2023-25), 2015-18 and the spread
-unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-130 and 71-59 -> 81-62. The card shows it beside the model total ("wind -2.7").
+15+ mph; the 10-15 band is worth about -2 points (-2.2 for 2026) (books already move big-wind totals, so 15+ is about zero). In the model
+(rerun 2015-2026) the total miss went 10.541 -> 10.509 (2019-22) and 10.177 -> 10.125 (2023-25), 2015-18 and the spread
+unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-129 and 71-59 -> 81-62. The card shows it beside the model total ("wind -2.2").
 
 **Rain, cold and gusts on the forecast** (1 Oct 2026; `experiments/weather_forecast_retest.py`, reports/weather_forecast_retest.md).
 The forecast history now also holds the GFS MOS temperature (mean over the first three hours) and chance of rain (the
@@ -2994,7 +2994,8 @@ points on the model's total the way wind went in. None passes the adoption rule:
 lose to their shuffles, cold bands miss worse on 2023-25, rain or cold with wind miss worse on 2019-22, and the
 National Blend's gust exists only from November 2018 to 2019, too few games to score. The closest, one band for rain
 chance 50+ or below 32 F (about -2 points), lowers the total miss on both windows and beats every shuffle, but costs
-the totals flag one net win on 2019-22. As a bet, blind unders at a rain chance of 50+ went 102-60 (63%, +36 units) with
+the totals flag five net wins on 2019-22. The GFS MOS writes 99 for a missing wind hour; one stored game (2018 BAL at LAC)
+had a 20 mph forecast built from it, now read as missing and refetched (5.5 mph), which moved the wind under's 2018 to 23-19. As a bet, blind unders at a rain chance of 50+ went 102-60 (63%, +36 units) with
 0.5% of shuffles as good, across all three windows; found on the backtest, so it is a candidate to track, not bet.
 
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
