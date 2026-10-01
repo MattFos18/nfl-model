@@ -2987,6 +2987,16 @@ seasons before it only, each band's mean miss against all forecast games, shrunk
 (rerun 2015-2026) the total miss went 10.541 -> 10.508 (2019-22) and 10.177 -> 10.124 (2023-25), 2015-18 and the spread
 unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-130 and 71-59 -> 81-62. The card shows it beside the model total ("wind -2.7").
 
+**Rain, cold and gusts on the forecast** (1 Oct 2026; `experiments/weather_forecast_retest.py`, reports/weather_forecast_retest.md).
+The forecast history now also holds the GFS MOS temperature (mean over the first three hours) and chance of rain (the
+largest 6-hour chance overlapping them) from the same two runs (`forecast_history.py --extend`). Each was tried as band
+points on the model's total the way wind went in. None passes the adoption rule: rain bands miss worse on 2019-22 and
+lose to their shuffles, cold bands miss worse on 2023-25, rain or cold with wind miss worse on 2019-22, and the
+National Blend's gust exists only from November 2018 to 2019, too few games to score. The closest, one band for rain
+chance 50+ or below 32 F (about -2 points), lowers the total miss on both windows and beats every shuffle, but costs
+the totals flag one net win on 2019-22. As a bet, blind unders at a rain chance of 50+ went 102-60 (63%, +36 units) with
+0.5% of shuffles as good, across all three windows; found on the backtest, so it is a candidate to track, not bet.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
