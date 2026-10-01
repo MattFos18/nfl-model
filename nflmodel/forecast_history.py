@@ -9,7 +9,8 @@ GitHub's network (this sandbox cannot reach them), for every played outdoor or o
   - Open-Meteo's previous-runs archive, Japan's global model (jma_gsm, the one model it keeps back to 2018, wind only):
     the forecast one and two days before (d1, d2) and the latest (d0).
 
-Each value is the mean over the first three hours from kickoff (gust: the largest), interpolated between forecast hours.
+Each value is the mean over the first three hours from kickoff (gust: the largest), interpolated between forecast hours
+(held flat past the run's first or last hour when that is within 2 hours).
 Every row is printed as it lands ("ROW," prefix) so a probe run cut off by its 15-minute limit still hands over what it
 fetched; --ingest reads those lines from a saved job log into data/weather/forecast_history.csv.
 
@@ -58,8 +59,8 @@ def _window(t: pd.Series, v: pd.Series, ko: pd.Timestamp, how="mean"):
     """The value over kickoff to kickoff + 3 h, interpolated between forecast hours (None when the forecast does not span it)."""
     ok = v.notna() & t.notna()
     t, v = t[ok], v[ok].astype(float)
-    if len(t) < 2 or t.min() > ko or t.max() < ko + pd.Timedelta(hours=3):
-        return None
+    if len(t) < 2 or t.min() > ko + pd.Timedelta(hours=2) or t.max() < ko + pd.Timedelta(hours=1):
+        return None   # a run whose first hour lands up to 2 h after kickoff (MOS starts 6 h after the run) is held flat back to kickoff
     x = (t - ko).dt.total_seconds().values / 3600; grid = np.arange(0, 3.01, 0.5)
     y = np.interp(grid, x, v.values)
     return round(float(y.max() if how == "max" else y.mean()), 1)
