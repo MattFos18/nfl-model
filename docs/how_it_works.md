@@ -2979,6 +2979,14 @@ same reading. It went 24-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% an
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
 
+**Wind points in the total** (1 Oct 2026, Matt: "have the wind impact the total score instead of just saying under";
+`model.wind_points`, experiments/wind_points.py). The model's total now carries the forecast wind: outdoor games whose
+forecast (the wind under's reading) sits in a band finish off the total by a band amount learned each season from the
+seasons before it only, each band's mean miss against all forecast games, shrunk by 50 games. Bands below 10, 10 to 15 and
+15+ mph; the 10-15 band is worth about -2.7 points (books already move big-wind totals, so 15+ is about zero). Total miss
+10.388 -> 10.341 (2019-22) and 10.167 -> 10.087 (2023-25), no shuffled forecast as good; the totals flag 175-128 -> 179-128
+and 71-59 -> 81-61, 2015-18 unchanged (forecasts start in 2018). The card shows it beside the model total ("wind -2.7").
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives

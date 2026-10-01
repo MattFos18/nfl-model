@@ -331,6 +331,34 @@ def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
     return pred.reindex(ids).values
 
 
+# Wind points (1 Oct 2026, Matt: "have the wind impact the total score instead of just saying under"; reports/wind_forecast.md,
+# experiments/wind_forecast.py): outdoor games whose forecast wind (GFS MOS and Japan's model, mean over the first three
+# hours; nflmodel/wind_live.readings) sits in a band finish off the model's total by a band amount, learned each season from
+# the seasons before it only: each band's mean miss against the mean miss of every forecast game, shrunk toward zero by
+# WIND_K games. Bands [0, 10), [10, 15), 15+ mph. Total miss 10.388 -> 10.341 (2019-22) and 10.167 -> 10.087 (2023-25), no
+# within-season shuffle of the forecast (50) as good; the totals flag 175-128 -> 179-128 and 71-59 -> 81-61, 2015-18 unchanged
+# (forecasts start in 2018).
+WIND_BANDS, WIND_K = [0.0, 10.0, 15.0, float("inf")], 50.0
+
+
+def _wind_readings() -> dict:
+    try:
+        from .wind_live import readings
+        return readings()
+    except Exception:  # noqa  (no forecast stored: no wind points)
+        return {}
+
+
+def wind_points(pool: list, fw) -> float:
+    """The band amount for a forecast wind fw from pool [(wind, miss), ...] of earlier seasons' forecast games."""
+    if fw is None or pd.isna(fw) or not pool:
+        return 0.0
+    w = np.array([x[0] for x in pool], dtype=float); r = np.array([x[1] for x in pool], dtype=float)
+    b = int(np.searchsorted(WIND_BANDS, fw, side="right") - 1); lo, hi = WIND_BANDS[b], WIND_BANDS[b + 1]
+    m = (w >= lo) & (w < hi)
+    return float((r[m].sum() - r.mean() * m.sum()) / (m.sum() + WIND_K))
+
+
 def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_season=TRAIN_FROM, verbose=False, refit="week") -> pd.DataFrame:
     """One row per game, priced with only earlier games. refit="week": the regression is refit before every week on every
     played game so far, this season's included (the model keeps learning as the season goes). refit="season": refit once per
@@ -339,6 +367,9 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
     f = prep(f)
     played = f[f.pf.notna()]
     out = []
+    wind = _wind_readings(); wpool = {}   # season -> [(forecast wind, actual total minus the model's total before wind points)]
+    _h, _a = played[played.home == 1].set_index("game_id"), played[played.home == 0].set_index("game_id")
+    actual_total = (_h.pf + _a.pf.reindex(_h.index)).dropna().to_dict()
     for s in test_seasons:
         test_all = f[f.season == s]
         weeks = sorted(test_all.week.unique()) if refit == "week" else [None]
@@ -376,6 +407,11 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
             # to the game total. Marginally more accurate than adding the two team scores on both backtest windows
             # (reports/totals_experiments.csv); the team scores above still drive the spread and the points shown.
             g["model_total"] = total_model(train, test)
+            g["model_total_raw"] = g.model_total
+            pool_ = [x for s_, v in wpool.items() if s_ < s for x in v]
+            g["wind_fc"] = g.game_id.map(wind).astype(float)
+            g["wind_pts"] = [wind_points(pool_, fw) for fw in g.wind_fc]
+            g["model_total"] = g.model_total + g.wind_pts
             # the two team scores add up to the game total (25 Sep 2026, Matt): the spread from the points equations (the
             # blend) and the total from its own equation are the two numbers bet and graded; each team's expected points
             # are the total shared out by the spread, home = (total + spread) / 2. The points equation's own number for
@@ -413,6 +449,9 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
                 g[f"coef_{k}"] = coefs[k]; g[f"mean_{k}"] = float(m[0].mean_[i])
             g["intercept"] = float(train.pf.mean())
             out.append(g)
+            for gid, fw, raw, gt in zip(g.game_id, g.wind_fc, g.model_total_raw, g.game_type):
+                if pd.notna(fw) and gt == "REG" and gid in actual_total:
+                    wpool.setdefault(s, []).append((float(fw), float(actual_total[gid]) - float(raw)))
             if verbose and (wk is None or wk == weeks[-1]):
                 print(f"season {s}: last fit on {len(train)} team-games, sigma margin {sigma_m:.2f}, total {sigma_t:.2f}, hfa {coefs['home']:.2f}", flush=True)
     save_trees_cache()
