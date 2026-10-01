@@ -347,13 +347,13 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
 | boosted trees alone, 5+ edge | 94-66 | 85-62 | 34-17 |
-| Under, 55%+ chance (the totals flag) | 135-127 | 175-128 | 71-59 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 165-116 | 65-53 |
+| Under, 55%+ chance (the totals flag) | 135-127 | 182-130 | 81-62 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 168-120 | 77-57 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
 | 4+ edge on road sides, 6+ on home sides | 41-24 | 46-30 | 23-10 |
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
-| Under, 60%+ chance | 64-53 | 102-58 | 24-24 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 45-23 | 19-13 |
+| Under, 60%+ chance | 64-53 | 105-60 | 31-26 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 47-28 | 21-11 |
 | Under, forecast wind 10+ mph (outdoor games) | 24-19 | 143-89 | 83-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 <!-- /auto:rules -->
@@ -2978,6 +2978,14 @@ Open-Meteo, pulled on every line watch for games within 66 hours; for 2018-2025 
 same reading. It went 24-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +75 units at -110, and the
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
+
+**Wind points in the total** (1 Oct 2026, Matt: "have the wind impact the total score instead of just saying under";
+`model.wind_points`, experiments/wind_points.py). The model's total now carries the forecast wind: outdoor games whose
+forecast (the wind under's reading) sits in a band finish off the total by a band amount learned each season from the
+seasons before it only, each band's mean miss against all forecast games, shrunk by 50 games. Bands below 10, 10 to 15 and
+15+ mph; the 10-15 band is worth about -2.7 points (books already move big-wind totals, so 15+ is about zero). In the model
+(rerun 2015-2026) the total miss went 10.541 -> 10.508 (2019-22) and 10.177 -> 10.124 (2023-25), 2015-18 and the spread
+unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-130 and 71-59 -> 81-62. The card shows it beside the model total ("wind -2.7").
 
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
