@@ -416,6 +416,11 @@
 ],
 [
 "PHI",
+"Chance Campbell",
+"Out"
+],
+[
+"PHI",
 "Dallas Goedert",
 "Doubtful"
 ],
@@ -523,6 +528,12 @@
 ],
 [
 "ARI",
+"Isaac Seumalo",
+"",
+"Did Not Participate In Practice"
+],
+[
+"ARI",
 "Josh Sweat",
 "",
 "Did Not Participate In Practice"
@@ -542,8 +553,20 @@
 [
 "ARI",
 "Roy Lopez",
+"",
+"Limited Participation in Practice"
+],
+[
+"ARI",
+"Roy Lopez",
 "Questionable (ESPN)",
 ""
+],
+[
+"ARI",
+"Walter Nolen",
+"",
+"Limited Participation in Practice"
 ],
 [
 "ARI",
@@ -859,9 +882,51 @@
 ],
 [
 "CHI",
+"Braxton Jones",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CHI",
+"Caleb Williams",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CHI",
+"Cam Lewis",
+"",
+"Limited Participation in Practice"
+],
+[
+"CHI",
 "Cam Lewis",
 "Questionable (ESPN)",
 ""
+],
+[
+"CHI",
+"Jonah Jackson",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CHI",
+"Kyler Gordon",
+"",
+"Full Participation in Practice"
+],
+[
+"CHI",
+"Noah Sewell",
+"",
+"Limited Participation in Practice"
+],
+[
+"CHI",
+"Shemar Turner",
+"",
+"Limited Participation in Practice"
 ],
 [
 "CIN",
@@ -1622,12 +1687,24 @@
 [
 "LAC",
 "Brenen Thompson",
+"",
+"Did Not Participate In Practice"
+],
+[
+"LAC",
+"Brenen Thompson",
 "Questionable (ESPN)",
 ""
 ],
 [
 "LAC",
 "Charlie Kolar",
+"",
+"Did Not Participate In Practice"
+],
+[
+"LAC",
+"Dalvin Tomlinson",
 "",
 "Did Not Participate In Practice"
 ],
@@ -1664,6 +1741,12 @@
 [
 "LAC",
 "Elijah Molden",
+"",
+"Limited Participation in Practice"
+],
+[
+"LAC",
+"Elijah Molden",
 "Questionable (ESPN)",
 ""
 ],
@@ -1694,14 +1777,38 @@
 [
 "LAC",
 "Keaton Mitchell",
+"",
+"Limited Participation in Practice"
+],
+[
+"LAC",
+"Keaton Mitchell",
 "Questionable (ESPN)",
 ""
+],
+[
+"LAC",
+"Khalil Mack",
+"",
+"Did Not Participate In Practice"
+],
+[
+"LAC",
+"Ladd McConkey",
+"",
+"Limited Participation in Practice"
 ],
 [
 "LAC",
 "Ladd McConkey",
 "Questionable (ESPN)",
 ""
+],
+[
+"LAC",
+"Trey Lance",
+"",
+"Limited Participation in Practice"
 ],
 [
 "LAC",
@@ -2221,9 +2328,39 @@
 ],
 [
 "PHI",
+"Byron Young",
+"",
+"Full Participation in Practice"
+],
+[
+"PHI",
+"Dallas Goedert",
+"",
+"Did Not Participate In Practice"
+],
+[
+"PHI",
+"Darius Cooper",
+"",
+"Full Participation in Practice"
+],
+[
+"PHI",
+"DeVonta Smith",
+"",
+"Did Not Participate In Practice"
+],
+[
+"PHI",
 "DeVonta Smith",
 "Questionable (ESPN)",
 ""
+],
+[
+"PHI",
+"Fred Johnson",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "PHI",
@@ -2239,9 +2376,45 @@
 ],
 [
 "PHI",
+"Jalen Carter",
+"",
+"Full Participation in Practice"
+],
+[
+"PHI",
+"Jihaad Campbell",
+"",
+"Limited Participation in Practice"
+],
+[
+"PHI",
 "Jihaad Campbell",
 "Questionable (ESPN)",
 ""
+],
+[
+"PHI",
+"Jonathan Greenard",
+"",
+"Full Participation in Practice"
+],
+[
+"PHI",
+"Jordan Davis",
+"",
+"Limited Participation in Practice"
+],
+[
+"PHI",
+"Marquise Brown",
+"",
+"Did Not Participate In Practice"
+],
+[
+"PHI",
+"Moro Ojomo",
+"",
+"Limited Participation in Practice"
 ],
 [
 "PHI",
@@ -2251,9 +2424,27 @@
 ],
 [
 "PHI",
+"Tank Bigsby",
+"",
+"Full Participation in Practice"
+],
+[
+"PHI",
+"Will Shipley",
+"",
+"Did Not Participate In Practice"
+],
+[
+"PHI",
 "Will Shipley",
 "Questionable (ESPN)",
 ""
+],
+[
+"PHI",
+"Zack Baun",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "PHI",
@@ -2300,8 +2491,20 @@
 [
 "SEA",
 "Brandon Pili",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Brandon Pili",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"George Holani",
+"",
+"Limited Participation in Practice"
 ],
 [
 "SEA",
@@ -2312,8 +2515,20 @@
 [
 "SEA",
 "Grey Zabel",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Grey Zabel",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"Jadarian Price",
+"",
+"Limited Participation in Practice"
 ],
 [
 "SEA",
@@ -2324,14 +2539,50 @@
 [
 "SEA",
 "Jarran Reed",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Jarran Reed",
 "Questionable (ESPN)",
 ""
 ],
 [
 "SEA",
 "Julian Love",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Julian Love",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"Leonard Williams",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Nick Emmanwori",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Rashid Shaheed",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Ty Okada",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "SEA",
@@ -2726,7 +2977,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 12.3,
+"wind": 10.5,
 "cold": false,
 "rain": false
 },
@@ -2791,5 +3042,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 14:00 UTC"
+"written_at": "2026-10-01 16:22 UTC"
 }
