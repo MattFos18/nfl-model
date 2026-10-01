@@ -325,6 +325,11 @@
 "Out"
 ],
 [
+"MIA",
+"Storm Duck",
+"Out"
+],
+[
 "MIN",
 "Charles Demmings",
 "Out"
@@ -1507,7 +1512,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 11.2,
+"wind": 8.1,
 "cold": false,
 "rain": false
 },
@@ -1572,5 +1577,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 01:28 UTC"
+"written_at": "2026-10-01 02:17 UTC"
 }
