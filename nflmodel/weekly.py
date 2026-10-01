@@ -154,6 +154,9 @@ def main(full=False, skip_network=False):
     if log[-1]["status"] == "error":
         _write(log, run_at, season, None, None, halted=True)
         return log
+    # 1 Oct 2026: the tables' shape (nflmodel/data_checks.py); a failure is a step error health.py raises as an issue, the run goes on
+    from . import data_checks
+    step("data checks", lambda: data_checks.main() or (_ for _ in ()).throw(RuntimeError("a table is the wrong shape: see reports/data_checks.md")), log)
     if not skip_network:
         step("weather", lambda: weather.run(), log)
         from . import wind_live

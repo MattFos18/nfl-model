@@ -25,6 +25,8 @@ rate and the most units.
   graded live, not bet. `nflmodel/shadow_watch.py` and `ready_checks.py` open a GitHub "ready-check" issue when one pulls clear.
 - Every study: a script in `experiments/`, a report in `reports/`, a row in `reports/decision_log.md` (newest first) and a
   paragraph in `docs/how_it_works.md`.
+- Score every new study through `nflmodel/study_gate.py` (`gate()` for parts 1 to 3 of the rule, its table in the report;
+  `python -m nflmodel.study_gate <name>` for the write-up).
 - Before asking Matt to adopt anything, run the `model-auditor` agent (`.claude/agents/model-auditor.md`) on the study;
   it tries to break the result (leaks, snooping, small samples) and its verdict goes in the report.
 
