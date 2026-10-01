@@ -2726,9 +2726,9 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 9.3,
+"wind": 12.3,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_04_IND_WAS": {
 "wind": 4.9,
@@ -2791,5 +2791,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 11:55 UTC"
+"written_at": "2026-10-01 14:00 UTC"
 }
