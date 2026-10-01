@@ -4,3 +4,7 @@ data/raw/**/*.csv
 __pycache__/
 *.pyc
 .venv/
+.env
+.env.*
+*.key
+data/private/
