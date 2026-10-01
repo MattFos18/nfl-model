@@ -2956,6 +2956,12 @@ A leg is graded as a single bet at -303, the price at which one leg of a two-tea
 against that break-even, and every shadow now at its own price (the hook at -125); the prime-time unders rule is now
 measured against the totals flag, as the other totals rules are.
 
+**Picks-final alert** (1 Oct 2026, Matt; `nflmodel/picks_final.py`). Teams post their last injury report, with game
+statuses, about 4pm ET two days before a game (the day before for a Thursday game). An hour after that report, once a
+line-watch check has read it and any re-price it asked for has run, the line watch opens one GitHub issue labelled
+picks-final for that slate, listing its bets and mentioning Matt, so the GitHub app pushes it to his phone; the previous
+slate's issue is closed.
+
 **Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
 nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude
 routines. Each weekly run now asks them itself and opens one GitHub issue labelled ready-check (GitHub emails the
