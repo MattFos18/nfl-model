@@ -202,6 +202,7 @@ details.psec{margin-top:6px;border:1px solid var(--rule-2);border-radius:6px;pad
 .seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin:4px 0 12px}
 .seg button{font:inherit;font-size:13.5px;padding:7px 16px;border:0;border-left:1px solid var(--rule);background:var(--panel);color:var(--ink-2);cursor:pointer}
 .seg button:first-child{border-left:0}
+.pbsegs{display:flex;flex-wrap:wrap;gap:8px 12px;margin:4px 0 12px}.pbsegs .seg{margin:0}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--ground);font-weight:600}
 details.more{margin-top:18px;border-top:1px solid var(--rule);padding-top:4px}
 details.qa{border-bottom:1px solid var(--rule)} details.qa>summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:13.5px;color:var(--ink)} details.qa>div{padding:0 0 12px;color:var(--ink-2);font-size:13px;line-height:1.5;max-width:100ch}
@@ -515,7 +516,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   </div>
   <div id="props" hidden>
     <p class="note" id="pbnote" hidden></p>
-    <div class="seg" id="pbstatseg" role="group" aria-label="Stat" style="margin:4px 0 12px"></div>
+    <div class="pbsegs"><div class="seg" id="pbgroupseg" role="group" aria-label="Group"></div><div class="seg" id="pbstatseg" role="group" aria-label="Stat"></div></div>
     <div id="pbhero" class="bkhero four"></div>
     <div id="pbscore" hidden></div>
     <div class="card" id="pbbookcard"><h3>Against the Book Lines, This Season</h3><div id="pbbook"></div></div>
@@ -525,17 +526,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       <div class="card"><h3>By Size of the Line</h3><div class="tablewrap ro"><table id="pbbucket" class="bkt"></table></div></div>
     </div>
     <div class="card"><h3>This Season, Week by Week</h3><p class="note" id="plivenote"></p><div class="tablewrap ro"><table id="pliveweek" class="bkt"></table></div></div>
-    <details class="more"><summary>Every graded projection this season</summary>
-      <div class="card"><h3>Every Stat</h3><div class="tablewrap"><table id="plivestat"></table></div></div>
-      <div class="card"><h3>Every Projection</h3>
-        <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
-          <label class="ctl">Week <select id="plweek"><option value="">All</option></select></label>
-          <label class="ctl">Team <select id="plteam2"><option value="">All</option></select></label>
-          <label class="ctl">Search <input id="plq2" type="search" placeholder="Player" style="width:160px"></label>
-        </div>
-        <div class="tablewrap"><table id="pliverows"></table></div></div>
-      <div hidden><p id="pbmarketnote"></p><table id="pbmarketbt"></table><table id="pbmarket"></table></div>
-    </details>
+    <div hidden><p id="pbmarketnote"></p><table id="pbmarketbt"></table><table id="pbmarket"></table></div>
   </div>
   <div id="seasonbt" hidden>
     <p class="note" id="seasonbtnote"></p>
@@ -3069,14 +3060,18 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   }
   const PB_STATS = [["rec_yards", "Receiving yards"], ["rush_yards", "Rushing yards"], ["pass_yards", "Passing yards"], ["rec_catches", "Receptions"], ["rec_td", "Receiving touchdowns"], ["rush_td", "Rushing touchdowns"], ["pass_td", "Passing touchdowns"], ["pass_int", "Interceptions"], ["rec_longest", "Longest reception"], ["rush_longest", "Longest rush"], ["pass_longest", "Longest completion"], ["kick_points", "Kicking points"], ["field_goals", "Field goals made"]];
   const PB_ALIAS = {rec_catches: ["rec_catch"], rec_yards: ["targets", "rec_volume", "rec_redistribution", "rec_fade"], rush_yards: ["rush_volume", "rush_redistribution", "rush_fade"], rec_td: ["rec_td_redzone"], rush_td: ["rush_td_redzone"], pass_td: ["pass_td_redzone"]};   // round tables filed under other names for the same stat
+  const PB_GROUPS = [["rec", "Receiving", [["rec_yards", "Yards"], ["rec_catches", "Receptions"], ["rec_td", "Touchdowns"], ["rec_longest", "Longest"]]], ["rush", "Rushing", [["rush_yards", "Yards"], ["rush_td", "Touchdowns"], ["rush_longest", "Longest"]]],
+    ["pass", "Passing", [["pass_yards", "Yards"], ["pass_td", "Touchdowns"], ["pass_int", "Interceptions"], ["pass_longest", "Longest"]]], ["kick", "Kicking", [["kick_points", "Points"], ["field_goals", "Field goals"]]]];   // the 13 stats as a group then a stat, so no button wraps alone (1 Oct 2026)
   let pbStat = "rec_yards";
   // Backtest -> Player Props (1 Oct 2026, Matt: "your best reformatting of the props backtest tab"): laid out like Game
   // Picks; the stat as buttons, four headline tiles, the record against the book lines, the miss by season, by position and
   // by line size, the season week by week; every number from Python (props_backtest.js, props_record.js)
   function renderPropsBacktest() {
     const B = window.PROPS_BT; if (!B) { $("pbhero").innerHTML = "<p class='note'>No player-projection backtest exported.</p>"; return; }
-    segPick("pbstatseg", PB_STATS, pbStat, k => { pbStat = k; renderPropsBacktest(); renderPropsLive(); });
-    const count = /td|int|field_goals/.test(pbStat), f2 = v => v == null || isNaN(v) ? "–" : (count ? (+v).toFixed(3) : (+v).toFixed(2)), pc = v => v == null ? "–" : (100 * v).toFixed(1) + "%";
+    const grp = PB_GROUPS.find(g => g[2].some(([k]) => k === pbStat)) || PB_GROUPS[0];
+    segPick("pbgroupseg", PB_GROUPS.map(g => [g[0], g[1]]), grp[0], k => { pbStat = PB_GROUPS.find(g => g[0] === k)[2][0][0]; renderPropsBacktest(); renderPropsLive(); });
+    segPick("pbstatseg", grp[2], pbStat, k => { pbStat = k; renderPropsBacktest(); renderPropsLive(); });
+    const count = /_td$|^pass_int$|^field_goals$/.test(pbStat), f2 = v => v == null || isNaN(v) ? "–" : (count ? (+v).toFixed(3) : (+v).toFixed(2)), pc = v => v == null ? "–" : (100 * v).toFixed(1) + "%";
     const sg = v => v == null || isNaN(v) ? "" : `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(count ? 3 : 2)}`;
     const bs = B.by_season.filter(r => r.stat === pbStat), byS = {}; bs.forEach(r => byS[r.season] = r);
     const yrs = bs.map(r => +r.season).filter(y => !isNaN(y)), first = yrs.length ? Math.min(...yrs) : null, last = yrs.length ? Math.max(...yrs.filter(y => y < CUR_SEASON)) : null;
@@ -3088,7 +3083,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     $("pbhero").innerHTML =
       tile(`Against the books · ${CUR_SEASON}`, mine && mine.wins + mine.losses ? `${mine.wins}-${mine.losses}${mine.pushes ? "-" + mine.pushes : ""}` : "—",
         mine && mine.wins + mine.losses ? st("Win %", pc(mine.pct), mine.pct >= BE ? "pos" : "neg") + st("Graded", mine.n) : st("Lines graded", "none yet"), true) +
-      tile(`${count ? "Fit, log loss" : "Off by a game"} · ${first ?? "–"}–${last ?? "–"}`, A ? (count ? (+A.ll).toFixed(3) : f2(A.mae)) : "—",
+      tile(`${count ? "Fit, log loss" : "Off by a game"}${first != null ? ` · ${first}–${last}` : ", past seasons"}`, A ? (count ? (+A.ll).toFixed(3) : f2(A.mae)) : "—",
         A ? (count ? st("Raw rule", (+A.raw_ll).toFixed(3)) + st("Lower is", "better") : st("Raw rule", f2(A.raw_mae)) + st("Better by", (better(A) >= 0 ? "" : "−") + Math.abs(better(A)) + "%", better(A) >= 0 ? "pos" : "neg")) : "") +
       tile(`Off by a game · ${CUR_SEASON}`, gm != null ? f2(gm) : "—", G.length ? st("Graded", G.length.toLocaleString()) : st("Graded", "none yet")) +
       (mine && mine.proj_mae != null ? `<div class="h"><div class="l">Miss against the book's</div><div class="vs"><div><span>Ours</span><b>${f2(mine.proj_mae)}</b></div><i>vs</i><div><span>Book</span><b>${f2(mine.line_mae)}</b></div></div><div class="sts">${st(mine.proj_mae <= mine.line_mae ? "We are closer by" : "Book closer by", f2(Math.abs(mine.proj_mae - mine.line_mae)))}</div></div>`
@@ -3368,11 +3363,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     renderSnapshots(S, sbKind);
   }
   // Backtest -> Player props, this season: every projection graded against what happened (data/tracker/props_graded.csv via props_record.js), for the stat picked above
-  const plF = {week: "", team: "", q: ""};
   function renderPropsLive() {
     const REC = window.PROPS_REC || {}; const G = REC.graded || []; const MK = REC.market || [];
     const lab = (window.PROPS && PROPS.market_labels) || {};
-    const statLab = st => lab[st] || ({rec_yards: "Rec yds", rec_catches: "Receptions", rec_td: "Rec TD", rec_targets: "Targets", rec_longest: "Longest catch", rush_yards: "Rush yds", rush_td: "Rush TD", rush_attempts: "Rush att", rush_rec_yards: "Rush + rec yds", rush_longest: "Longest rush", pass_yards: "Pass yds", pass_td: "Pass TD", pass_int: "INT thrown", pass_attempts: "Attempts", pass_completions: "Completions", pass_rush_yards: "Pass + rush yds", pass_longest: "Longest completion", def_tackles: "Tackles", def_sacks: "Sacks", def_solo_tackles: "Solo tackles", kick_points: "Kicking points", field_goals: "Field goals"})[st] || st;
     const mkKey = {}; MK.forEach(m => mkKey[`${m.game_id}|${m.player_id}|${m.stat}`] = m);
     const S = G.filter(r => r.stat === pbStat), live = S.filter(r => r.made !== "after the fact").length, weeksAfter = [...new Set(S.filter(r => r.made === "after the fact").map(r => r.week))].sort((a, b) => a - b);
     const P = window.PROPS_REC && window.PROPS_REC.projections || []; const firstLive = Math.min(...P.filter(r => r.made === "live").map(r => r.week));
@@ -3380,14 +3373,6 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const summ = (rows, keyf) => { const by = {}; rows.forEach(r => { const k = keyf(r); (by[k] = by[k] || []).push(r); }); return Object.entries(by).map(([k, rs]) => { const n = rs.length, mae = rs.reduce((a, r) => a + Math.abs(r.error), 0) / n, bias = rs.reduce((a, r) => a + r.error, 0) / n; const withLine = rs.map(r => mkKey[`${r.game_id}|${r.player_id}|${r.stat}`]).filter(Boolean); const w = withLine.filter(m => m.result === "win").length, l = withLine.filter(m => m.result === "loss").length; return {k, n, mae, bias, w, l, nl: withLine.length, after: rs.every(r => r.made === "after the fact")}; }); };
     const tbl = (id, head, items, sortf) => { const nl = items.some(x => x.nl); $(id).innerHTML = items.length ? `<thead><tr><th class="l">${head}</th><th>Graded</th><th title="mean absolute error">Off by</th><th title="mean of actual minus projection: above zero the projections ran low">Bias</th>${nl ? `<th title="the projection's side against the book line, where one was logged">vs book</th>` : ""}</tr></thead><tbody>` + items.sort(sortf).map(x => `<tr><td class="l">${x.lab}</td><td class="mono">${x.n}</td><td class="mono"><b>${x.mae.toFixed(2)}</b></td><td class="mono ${x.bias > 0 ? "pos" : x.bias < 0 ? "neg" : ""}">${x.bias > 0 ? "+" : ""}${x.bias.toFixed(2)}</td>${nl ? `<td class="mono">${x.nl ? `${x.w}-${x.l}` : ""}</td>` : ""}</tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded yet.</td></tr></tbody>`; };
     tbl("pliveweek", "Week", summ(S, r => r.week).map(x => Object.assign(x, {lab: `Week ${x.k}${x.after ? " <small>(after the fact)</small>" : ""}`})), (a, b) => a.k - b.k);
-    tbl("plivestat", "Stat", summ(G, r => r.stat).map(x => Object.assign(x, {lab: statLab(x.k)})), (a, b) => b.n - a.n);
-    const fill = (id, key, vals) => { const el = $(id); const have = new Set(Array.from(el.options).map(o => o.value)); vals.forEach(v => { if (!have.has(String(v))) { const o = document.createElement("option"); o.value = v; o.textContent = v; el.appendChild(o); } }); el.value = plF[key]; if (!el.dataset.bound) { el.dataset.bound = "1"; el.addEventListener("change", () => { plF[key] = el.value; renderPropsLive(); }); } };
-    fill("plweek", "week", [...new Set(G.map(r => r.week))].sort((a, b) => a - b)); fill("plteam2", "team", [...new Set(G.map(r => r.team))].sort());
-    const q = $("plq2"); if (!q.dataset.bound) { q.dataset.bound = "1"; q.addEventListener("input", () => { plF.q = q.value.trim().toLowerCase(); renderPropsLive(); }); }
-    const rows = S.filter(r => (!plF.week || String(r.week) === String(plF.week)) && (!plF.team || r.team === plF.team) && (!plF.q || String(r.name).toLowerCase().includes(plF.q)));
-    const shown = rows.slice().sort((a, b) => b.week - a.week || a.game_id.localeCompare(b.game_id) || Math.abs(b.error) - Math.abs(a.error)).slice(0, 2000);
-    $("pliverows").innerHTML = shown.length ? `<thead><tr><th>Week</th><th class="l">Game</th><th class="l">Player</th><th class="l">Team</th><th>Projected</th><th>Actual</th><th title="actual minus projection">Error</th><th title="the book line where one was logged, the side the projection took and the result">Book</th><th title="the chance of the side when it was graded, from past player-games with the closest line">Chance</th><th class="l" title="live: made before the game; after the fact: made later with the data as of that week">Made</th></tr></thead><tbody>` +
-      shown.map(r => { const m = mkKey[`${r.game_id}|${r.player_id}|${r.stat}`]; return `<tr><td class="mono">${r.week}</td><td class="l mono">${r.game_id.slice(8).replace("_", " @ ")}</td><td class="l"><b>${esc(r.name)}</b></td><td class="l">${r.team}</td><td class="mono">${r.proj}</td><td class="mono">${r.actual}</td><td class="mono ${r.error > 0 ? "pos" : r.error < 0 ? "neg" : ""}">${r.error > 0 ? "+" : ""}${Math.round(r.error * 10) / 10}</td><td class="mono">${m ? `${m.line} ${m.side} ${m.result}` : ""}</td><td class="mono">${m && m.chance != null ? Math.round(100 * (m.side === "under" ? 1 - m.chance : m.chance)) + "%" : ""}</td><td class="l">${r.made || "live"}</td></tr>`; }).join("") + (rows.length > 2000 ? `<tr><td class="l" colspan="10">${rows.length - 2000} more rows: narrow the filters.</td></tr>` : "") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded yet.</td></tr></tbody>`;
   }
   // Model -> Every data store (data/catalog.js, nflmodel/catalog.py: read from the files themselves)
   function renderCatalog() {
