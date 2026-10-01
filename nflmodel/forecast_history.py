@@ -199,9 +199,13 @@ def main(seasons, weeks=None):
         print(_line(one(r)), flush=True)
 
 
-def backfill(seasons=range(2018, 2026), budget=600, threads=8) -> str:
+def backfill(seasons=None, budget=600, threads=8) -> str:
     """The weekly run's step: fetch the games the stored history lacks, several at a time, for at most budget seconds, and
-    store them; a no-op once every game is in. Never raises (a source being down only leaves games for next week)."""
+    store them; a no-op once every game is in. Never raises (a source being down only leaves games for next week).
+    Seasons: 2018 through the current one (1 Oct 2026: the current season's played games too, so the totals equation's
+    rain input trains on the same last-run forecast for them as for 2018-2025)."""
+    if seasons is None:
+        seasons = range(2018, int(pd.read_parquet(OUT / "games.parquet").season.max()) + 1)
     from concurrent.futures import ThreadPoolExecutor, as_completed
     try:
         old = pd.read_csv(OUTF, dtype=str) if OUTF.exists() else pd.DataFrame(columns=COLS)

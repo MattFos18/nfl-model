@@ -347,13 +347,13 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 50-38 | 73-42 | 32-18 |
 | 4+ edge, weeks 1 to 13 only | 54-41 | 68-37 | 33-16 |
 | boosted trees alone, 5+ edge | 94-66 | 85-62 | 34-17 |
-| Under, 55%+ chance (the totals flag) | 135-127 | 182-129 | 81-62 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-106 | 169-118 | 77-57 |
+| Under, 55%+ chance (the totals flag) | 137-127 | 202-146 | 98-73 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 127-108 | 185-136 | 92-68 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
 | 4+ edge on road sides, 6+ on home sides | 41-24 | 46-30 | 23-10 |
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
-| Under, 60%+ chance | 64-53 | 104-58 | 31-25 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 48-28 | 21-11 |
+| Under, 60%+ chance | 69-58 | 117-73 | 33-29 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 40-27 | 48-27 | 24-14 |
 | Under, forecast wind 10+ mph (outdoor games) | 23-19 | 143-89 | 83-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 <!-- /auto:rules -->
@@ -3001,10 +3001,14 @@ had a 20 mph forecast built from it, now read as missing and refetched (5.5 mph)
 **Rain as points** (1 Oct 2026, Matt: "quantify the points"; `experiments/rain_points.py`, reports/rain_points.md). The totals
 equation learned rain from the weather that happened but prices an upcoming game on the forecast, so it under-counted
 rain: games with a 50%+ forecast chance finished 2.9 points under the line while the model had them 0.3 under. Learning
-rain from the same forecast it is priced on (the GFS MOS chance 50%+, 2018 on) puts about -2.9 points on those games and
+rain from the same forecast it is priced on (the GFS MOS chance 50%+, 2018 on) is worth about -4.2 points in the equation
+(the card's "rain -X"; those games' totals moved about -2.9 from the old model, which already took some rain off them) and
 lowers the total miss on all three windows (10.738 / 10.493 / 10.108), the totals flag gains net wins on all three, and
-it beat 20 of 20 shuffled forecasts. Nine other ways (bands, a straight line, the continuous chance) did worse. Not live
-until Matt says yes.
+it beat 20 of 20 shuffled forecasts. Nine other ways (bands, a straight line, the continuous chance) did worse. Live
+from 1 Oct 2026 (Matt's yes; `model.RAIN_FC`): the reading is the GFS MOS chance the wind forecast already pulls (the
+largest 6-hour chance over the first three hours), stored for every played game; the card shows "rain -X" beside the
+model total, and Backtest -> Totals has a "Weather in the Total" table (games, points, the total's miss with and without
+the weather, our bets and every under there, wind and rain apart).
 
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
