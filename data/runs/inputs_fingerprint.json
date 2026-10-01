@@ -171,6 +171,16 @@
 ],
 [
 "CLE",
+"Justin Jefferson",
+"Out"
+],
+[
+"CLE",
+"Taylen Green",
+"Out"
+],
+[
+"CLE",
 "Teven Jenkins",
 "Out"
 ],
@@ -411,12 +421,37 @@
 ],
 [
 "PIT",
+"Drew Allar",
+"Out"
+],
+[
+"PIT",
+"Eli Heidenreich",
+"Out"
+],
+[
+"PIT",
+"Gabriel Rubio",
+"Out"
+],
+[
+"PIT",
 "Gennings Dunker",
 "Out"
 ],
 [
 "PIT",
+"Kevin Jobity Jr.",
+"Out"
+],
+[
+"PIT",
 "Rico Dowdle",
+"Out"
+],
+[
+"PIT",
+"Will Howard",
 "Out"
 ],
 [
@@ -528,12 +563,6 @@
 "Mack Wilson",
 "",
 "Limited Participation in Practice"
-],
-[
-"ARI",
-"Mack Wilson Sr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "ARI",
@@ -2451,12 +2480,6 @@
 ],
 [
 "PIT",
-"Jalen Ramsey",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Joey Porter Jr.",
 "",
 "Full Participation in Practice"
@@ -2466,12 +2489,6 @@
 "Rico Dowdle",
 "",
 "Did Not Participate In Practice"
-],
-[
-"PIT",
-"Yahya Black",
-"Questionable (ESPN)",
-""
 ],
 [
 "SEA",
@@ -3003,5 +3020,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 23:07 UTC"
+"written_at": "2026-10-01 23:40 UTC"
 }
