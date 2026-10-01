@@ -890,7 +890,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return rowLabel ? `<div class="brow"${title ? ` title="${title}"` : ""}><span class="bl ${cls === "v" ? "v" : cls === "c" ? "c" : cls === "s" ? "s" : "m"}">${rowLabel}</span>${b}</div>` : b;
   }
   // betting splits (29 Sep 2026, Matt): the share of tickets (bets placed) and of handle (money wagered) on each side at
-  // DraftKings, read by Python every line watch. Its own section under each block's line chart, thin two-tone bars with the
+  // the consensus across books (DraftKings where a game has none; 1 Oct 2026), read by Python every line watch. Its own section under each block's line chart, thin two-tone bars with the
   // number at each end, so it never reads as one of the model's chance bars. Display only: no split is in the model.
   function splitBlock(g, mk, left, right, leftLab, rightLab) {
     const S = g.splits && g.splits[mk]; if (!S || !S[left] || !S[right]) return "";
@@ -911,6 +911,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     return null;
   }
   function normCdf(z) { const t = 1 / (1 + 0.2316419 * Math.abs(z)); const d = 0.3989423 * Math.exp(-z * z / 2); let p = d * t * (0.3193815 + t * (-0.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return z >= 0 ? 1 - p : p; }
+  // the consensus line from its open (1 Oct 2026, Matt: "just show consensus"); DraftKings' log for a game without one
+  function mkHist(g) { return g.consensus_history && g.consensus_history.length ? g.consensus_history : g.line_history; }
+  // the line moved from the open toward the side with fewer bets (export_web._add_consensus), the usual mark of sharper money
+  function moveChip(g, mk, H) {
+    const m = (g.moves || []).find(x => x.market === mk); if (!m) return "";
+    const t = mk === "total" ? `${m.open} to ${m.now}` : `${lineTxt(m.toward, m.toward === H ? -m.open : m.open)} to ${lineTxt(m.toward, m.toward === H ? -m.now : m.now)}`;
+    const side = mk === "total" ? `the ${m.toward}` : m.toward, pub = mk === "total" ? `the ${m.public}` : m.public;
+    return `<div class="mv"><span class="chip" title="The consensus line moved from its open toward the side with fewer bets: bigger bets on that side, usually sharper money. Shown only: not in the model">Moved toward ${side} (${t}) against ${m.bets}% of bets on ${pub}</span></div>`;
+  }
   function spark(hist, key, modelVal, H, edge) {
     // the DraftKings line over time (30 Sep 2026, Matt: the betting splits are DraftKings', so the line is too; every book's
     // line and splits wait on a paid feed, docs/todo.md), one point per snapshot, with the model's number dashed. Labels sit
@@ -925,7 +934,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
     const W = 600, Hh = 112, mt = 26, mb = 26, ml = 8, mr = 8; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => mt + (hi - v) / (hi - lo) * (Hh - mt - mb);
     const yS = y(vals[0]), yE = y(vals[vals.length - 1]), yM = modelVal != null ? y(modelVal) : null;
-    let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="DraftKings line movement">`;
+    let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="Line movement">`;
     if (yM != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${yM.toFixed(1)}" y2="${yM.toFixed(1)}" stroke="var(--model)" stroke-width="1.8" stroke-dasharray="6 5"/>`;
     svg += `<path d="${vals.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ")}" fill="none" stroke="var(--vegas)" stroke-width="2.4" stroke-linejoin="round"/><circle cx="${x(0)}" cy="${yS.toFixed(1)}" r="4" fill="var(--vegas)"/><circle cx="${x(vals.length - 1)}" cy="${yE.toFixed(1)}" r="4" fill="var(--vegas)"/>`;
     // each label in the row on its own line's side (1 Oct 2026, Matt: "CLE +3 is on the wrong line"): the model's label in the
@@ -1541,12 +1550,12 @@ body.solo nav.tabs,body.solo header .controls{display:none}
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${hasLine ? lineTxt(H, -g.spread_line) : "No line yet"}</b></div>
-            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(g.line_history, "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}${splitBlock(g, "spread", A, H, A, H)}` : ""}
+            ${hasLine ? `<div class="edge"><span>Edge</span><b class="${sFlag ? "flag" : ""}">${Math.abs(g.spread_edge).toFixed(1)} pts · ${sSide}${sFlag ? " ✓ flag" : ""}</b></div>${g.p_cover_home != null ? bar(H, g.p_cover_home, A, 1 - g.p_cover_home, "h", "Model", "The model's own cover chance: its bell curve on its number, as if the line carried nothing") : ""}${g.p_cover_cal_home != null ? bar(H, g.p_cover_cal_home, A, 1 - g.p_cover_cal_home, "c", "History", coverHist(g.spread_edge)) : ""}${g.spread_edge_best != null && Math.abs(g.spread_edge_best - g.spread_edge) >= 0.25 ? ` <span class="chip alt">Edge at best number ${Math.abs(g.spread_edge_best).toFixed(1)} · ${lineTxt(sSide, g.best_line)} at ${esc(g.best_book)}</span>` : ""}${spark(mkHist(g), "home_spread", g.model_spread, {home: H, away: A}, g.spread_edge)}${splitBlock(g, "spread", A, H, A, H)}${moveChip(g, "spread", H)}` : ""}
           </section>
           <section class="blk total"><div class="bh">Total</div>
             <div class="kv2"><span>Model</span><b class="m">${g.model_total.toFixed(1)}${g.wind_pts != null && Math.abs(g.wind_pts) >= 0.05 ? ` <small class="wpt" title="Forecast wind ${g.wind_fc != null ? g.wind_fc.toFixed(1) + " mph" : ""}: points the model's total carries for it, learned from earlier seasons' windy games">wind ${g.wind_pts > 0 ? "+" : "−"}${Math.abs(g.wind_pts).toFixed(1)}</small>` : ""}${g.rain_pts != null && Math.abs(g.rain_pts) >= 0.05 ? ` <small class="wpt" title="Forecast chance of rain 50%+: points the model's total carries for it, learned from earlier seasons' rain forecasts">rain ${g.rain_pts > 0 ? "+" : "−"}${Math.abs(g.rain_pts).toFixed(1)}</small>` : ""}</b></div>
             <div class="kv2"><span>Vegas</span><b class="v">${g.total_line != null ? g.total_line : "No line yet"}</b></div>
-            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model", "The model's own over chance, read off the real spread of game totals around its number, as if the line carried nothing") : ""}${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "c", "History", overHist(g)) : ""}${spark(g.line_history, "total", g.model_total, {home: H, away: A}, g.total_edge)}${splitBlock(g, "total", "over", "under", "Over", "Under")}` : ""}
+            ${g.total_line != null ? `<div class="edge"><span>Edge</span><b class="${tFlag ? "flag" : ""}">${Math.abs(g.total_edge).toFixed(1)} pts · ${tSide}${tFlag ? " ✓ flag" : ""}</b></div>${g.p_over_emp != null ? bar("Over", g.p_over_emp, "Under", 1 - g.p_over_emp, "o", "Model", "The model's own over chance, read off the real spread of game totals around its number, as if the line carried nothing") : ""}${g.p_over_cal != null ? bar("Over", g.p_over_cal, "Under", 1 - g.p_over_cal, "c", "History", overHist(g)) : ""}${spark(mkHist(g), "total", g.model_total, {home: H, away: A}, g.total_edge)}${splitBlock(g, "total", "over", "under", "Over", "Under")}${moveChip(g, "total", H)}` : ""}
           </section>
           <section class="blk points"><div class="bh">Points</div>
             <div class="ptab"><span></span><span class="hd">${A}</span><span class="hd">${H}</span>

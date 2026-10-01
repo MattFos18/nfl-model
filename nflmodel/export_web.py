@@ -474,6 +474,70 @@ def _add_splits(wk: list) -> None:
                 out[m] = {str(r.side): {"bets": int(r.bets_pct), "money": int(r.handle_pct), "line": clean(r.line), "odds": clean(r.odds)} for r in y.itertuples()}
         g["splits"] = out
 
+
+def _an_ts(x) -> str:
+    """An Action Network time ('2026-09-28T05:30:36.5+00:00') in the line logs' format ('2026-09-28T05-30-36Z')."""
+    return pd.to_datetime(x, utc=True).strftime("%Y-%m-%dT%H-%M-%SZ")
+
+
+def _add_consensus(wk: list) -> None:
+    """The market-wide picture on each card (1 Oct 2026, Matt: "just show consensus"), display only, never in the model:
+    - consensus_history: Action Network's consensus line from its opening line to now (data/lines/books_log.csv, the
+      line watch, a row whenever a book's number changes), home_spread in the schedule's sign (home favored > 0; Action
+      Network's own sign is the other way), carried to the newest pull for the game so the chart runs to now;
+    - splits: ScoresAndOdds' consensus bets and money shares (data/lines/splits_consensus_log.csv) replace DraftKings'
+      where the game has them (DraftKings' stay for a game without);
+    - moves: the line moved from the open toward the side with fewer bets (half a point or more), the usual mark of
+      bigger, sharper bets on the other side."""
+    lnd = ROOT / "data" / "lines"
+    fb, fs = lnd / "books_log.csv", lnd / "splits_consensus_log.csv"
+    b = pd.read_csv(fb) if fb.exists() else pd.DataFrame(columns=["game_id", "book"])
+    b = b[b.game_id.notna() & b.book.isin(["Consensus", "Open"])] if len(b) else b
+    s = pd.read_csv(fs) if fs.exists() else pd.DataFrame(columns=["game_id"])
+    s = s[s.game_id.notna()].sort_values("ts").drop_duplicates(["game_id", "market"], keep="last") if len(s) else s
+    allb = pd.read_csv(fb, usecols=["ts", "game_id"]) if fb.exists() else pd.DataFrame(columns=["ts", "game_id"])
+
+    def pt(t, src, r):
+        hs = None if pd.isna(r.home_spread) else -float(r.home_spread)
+        return {"ts": t, "source": src, "home_spread": clean(hs), "total": clean(r.total), "home_ml": clean(r.home_ml), "away_ml": clean(r.away_ml)}
+    for g in wk:
+        gid = g["game_id"]; x = b[b.game_id == gid].sort_values("ts") if len(b) else b
+        cons = x[x.book == "Consensus"] if len(x) else x
+        if len(cons):
+            hist = []
+            op = x[x.book == "Open"]
+            if len(op):
+                hist.append(pt(_an_ts(op.book_updated.iloc[-1]), "Open", op.iloc[-1]))
+            hist += [pt(r.ts, "Consensus", r) for r in cons.itertuples()]
+            newest = str(allb[allb.game_id == gid].ts.max())
+            if newest > hist[-1]["ts"]:
+                hist.append(dict(hist[-1], ts=newest))
+            g["consensus_history"] = hist
+        y = s[s.game_id == gid] if len(s) else s
+        if len(y):
+            out = {"ts": str(y.ts.max()), "source": "Consensus"}
+            for r in y.itertuples():
+                a, h = ("over", "under") if r.market == "total" else (str(r.away), str(r.home))
+                out[r.market] = {a: {"bets": int(r.bets_a), "money": int(r.money_a), "line": clean(r.line_a), "odds": None},
+                                 h: {"bets": int(r.bets_b), "money": int(r.money_b), "line": clean(r.line_b), "odds": None}}
+            g["splits"] = out
+        moves = []
+        hist = g.get("consensus_history") or []; sp = g.get("splits") or {}
+        if hist and hist[0]["source"] == "Open" and sp.get("source") == "Consensus":
+            o, n = hist[0], hist[-1]; H, A = g["home_team"], g["away_team"]
+            if o["home_spread"] is not None and n["home_spread"] is not None and "spread" in sp and H in sp["spread"] and A in sp["spread"]:
+                mv = n["home_spread"] - o["home_spread"]; pub = H if sp["spread"][H]["bets"] > 50 else (A if sp["spread"][A]["bets"] > 50 else None)
+                toward = H if mv > 0 else A
+                if pub and abs(mv) >= 0.5 and toward != pub:
+                    moves.append({"market": "spread", "toward": toward, "public": pub, "bets": sp["spread"][pub]["bets"], "open": o["home_spread"], "now": n["home_spread"]})
+            if o["total"] is not None and n["total"] is not None and "total" in sp:
+                mv = n["total"] - o["total"]; pub = "over" if sp["total"]["over"]["bets"] > 50 else ("under" if sp["total"]["under"]["bets"] > 50 else None)
+                toward = "over" if mv > 0 else "under"
+                if pub and abs(mv) >= 0.5 and toward != pub:
+                    moves.append({"market": "total", "toward": toward, "public": pub, "bets": sp["total"][pub]["bets"], "open": o["total"], "now": n["total"]})
+        g["moves"] = moves
+
+
 def _code_sha() -> str:
     """The commit this code is at: GITHUB_SHA on the runner, else git's HEAD."""
     import os, subprocess
@@ -950,6 +1014,7 @@ def export_week(feats=None, games=None, pred=None):
                                        for t, src, hs, tt, hm, am in zip(h.ts, h.source, h.home_spread, h.total, h.get("home_ml", pd.Series([None] * len(h))), h.get("away_ml", pd.Series([None] * len(h))))] if len(h) else []})
         _add_injuries(wk, cur_week, cur_season)
         _add_splits(wk)
+        _add_consensus(wk)
         cal_s, _ = P.calibration(pred, games.reset_index(), cur_season)   # the spread calibration the cover odds used (the tie check re-prices each card's edge with it)
         cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         cal_h = P.home_calibration(pred, games.reset_index(), cur_season)   # the home win calibration the cards' win chance used (27 Sep 2026; the tie check rebuilds each card's p_home_cal with it)
