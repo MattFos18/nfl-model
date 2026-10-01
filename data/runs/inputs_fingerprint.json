@@ -561,6 +561,12 @@
 ],
 [
 "ATL",
+"Divine Deablo",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Samson Ebukam",
 "Questionable (ESPN)",
 ""
@@ -1035,6 +1041,12 @@
 ],
 [
 "DAL",
+"Joey Porter Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "Malik Hooker",
 "",
 "Limited Participation in Practice"
@@ -1124,12 +1136,6 @@
 "Did Not Participate In Practice"
 ],
 [
-"DET",
-"DJ Wonnum",
-"Questionable (ESPN)",
-""
-],
-[
 "GB",
 "Aaron Banks",
 "",
@@ -1174,6 +1180,12 @@
 [
 "GB",
 "Jacob Monk",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Jager Burton",
 "Questionable (ESPN)",
 ""
 ],
@@ -1833,12 +1845,6 @@
 ],
 [
 "LV",
-"Treydan Stukes",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Tristin McCollum",
 "",
 "Full Participation in Practice"
@@ -1890,12 +1896,6 @@
 "Jaylen Wright",
 "",
 "Limited Participation in Practice"
-],
-[
-"MIA",
-"Jaylen Wright",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIA",
@@ -2127,13 +2127,25 @@
 ],
 [
 "NO",
+"Carl Granderson",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Christen Miller",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NO",
-"Martin Emerson Jr.",
+"Julian Blackmon",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Kaden Elliss",
 "Questionable (ESPN)",
 ""
 ],
@@ -2361,12 +2373,6 @@
 ],
 [
 "PHI",
-"Jihaad Campbell",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Jonathan Greenard",
 "",
 "Full Participation in Practice"
@@ -2376,6 +2382,12 @@
 "Jordan Davis",
 "",
 "Limited Participation in Practice"
+],
+[
+"PHI",
+"Marcus Epps",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -2607,12 +2619,6 @@
 ],
 [
 "SF",
-"KhaDarel Hodge",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Mike Evans",
 "",
 "Did Not Participate In Practice"
@@ -2667,6 +2673,12 @@
 ],
 [
 "TB",
+"Benjamin Morrison",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
 "Bucky Irving",
 "",
 "Limited Participation in Practice"
@@ -2694,12 +2706,6 @@
 "Josiah Trotter",
 "",
 "Limited Participation in Practice"
-],
-[
-"TB",
-"Josiah Trotter",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -2932,7 +2938,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.5,
+"wind": 9.4,
 "cold": false,
 "rain": false
 },
@@ -2997,5 +3003,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 21:39 UTC"
+"written_at": "2026-10-01 22:47 UTC"
 }
