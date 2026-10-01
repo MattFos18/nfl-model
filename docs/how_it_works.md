@@ -3010,6 +3010,22 @@ largest 6-hour chance over the first three hours), stored for every played game;
 model total, and Backtest -> Totals has a "Weather in the Total" table (games, points, the total's miss with and without
 the weather, our bets and every under there, wind and rain apart).
 
+**The rain under after rain went into the total** (1 Oct 2026; `experiments/rain_under_retest.py`,
+reports/rain_under_retest.md, audit in reports/audit_rain_under_retest_2026-10-01.md). With rain in the totals equation the
+flag now bets many rainy games itself; the under at a rain chance of 50%+ on games neither the totals flag nor the wind
+under bets went 22-9 (+12.1 units) on 2018-25, adding it helps every window, and 0.5% of 200 shuffles were as good. The
+audit: no look-ahead, but 2015-18 is only 2018 (4 bets), 50% is a sharp peak (45% earns +7.5 units, 40% +2.7), about 13
+cuts were tried across the two studies (corrected, the shuffle share is about 0.07), and on the day-before forecast it
+goes 22-18. A candidate hidden shadow at most (graded live, never bet), reading the last forecast run before kickoff.
+
+**Wind and cold learned from forecasts** (1 Oct 2026; `experiments/forecast_weather_inputs.py`,
+reports/forecast_weather_inputs.md). The rain fix's question asked of the other two weather inputs: wind_out and cold read
+the weather that happened for played games. Refit with the forecast wind (the wind points' reading) and the GFS kickoff
+temperature from 2018: wind is better on 2019-22 only (team points miss 7.3426 -> 7.3367) and worse on 2015-18 and
+2023-25, and costs the 2015-18 flags (spread 68-55 -> 68-57, totals 137-127 -> 133-128); cold is worse on every window;
+both together fail the same way. Not adopted: for these two the recorded weather trains better, and the forecast reaches
+the total through the wind points.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
