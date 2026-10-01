@@ -18,11 +18,13 @@ TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet
 TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
 EARLY_UNDER = {"weeks": 3, "prob": 0.59}   # 30 Sep 2026 (reports/bet_rules_sweep.md): unders needing 59%+ in weeks 1 to 3 (55% after) beat the totals flag on all three windows; tracked, not bet
 HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spread_research.md): the flag's bet bought half a point on or off 3 at -125; tracked, not bet
+UNDER_HIGH = 0.60   # 1 Oct 2026: the unders at a 60%+ raw chance (p_over_emp), tracked, hidden, not bet
 HOME_SIDE_EDGE = 6.0   # 30 Sep 2026 (reports/home_side_rules.md): road sides at 4+, home sides at 6+ (neutral sites count as road); tracked, hidden, not bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction, label)
+UNDER_RULES = ("under_prob", "under_prob_early", "under_prime")   # side rules graded as unders on the total
 SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
            "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
@@ -30,10 +32,14 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowunderearly": (TOTAL_SHADOW["prob"], "under_prob_early", f"Under, {100 * EARLY_UNDER['prob']:.0f}%+ chance in weeks 1 to {EARLY_UNDER['weeks']}, {100 * TOTAL_SHADOW['prob']:.0f}%+ after"),
            "shadowhook": (SPREAD_EDGE, "hook", f"{SPREAD_EDGE:g}+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at {HOOK['odds']}"),
            "shadowroad6": (SPREAD_EDGE, "road6", f"{SPREAD_EDGE:g}+ edge on road sides, {HOME_SIDE_EDGE:g}+ on home sides"),
-           "shadowroad": (SPREAD_EDGE, "road", f"{SPREAD_EDGE:g}+ edge, road sides only")}
+           "shadowroad": (SPREAD_EDGE, "road", f"{SPREAD_EDGE:g}+ edge, road sides only"),
+           "shadowunder60": (UNDER_HIGH, "under_prob", f"Under, {100 * UNDER_HIGH:.0f}%+ chance"),
+           "shadowunderprime": (TOTAL_SHADOW["prob"], "under_prime", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance, prime time (TNF, SNF, MNF) only")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
-HIDDEN_SHADOWS = {"shadowroad6", "shadowroad"}
+# 1 Oct 2026 (Matt: "yes", track them hidden): the unders at 60%+ (the band that holds most of the totals flag's units) and the
+# totals flag in prime-time games only; graded, kept off the page, watched by nflmodel/shadow_watch.py like the rest
+HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime"}
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
 CAL_FROM, CAL_CAP = 2019, 7.0   # the cover calibration: regular-season games from this season on, the edge capped at this many points
@@ -162,11 +168,12 @@ def _spread(d, side_rule=None):
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
-    if side_rule in ("under_prob", "under_prob_early"):
+    if side_rule in UNDER_RULES:
         if "p_over_emp" not in d.columns:
             return pd.Series(False, index=d.index)
         thr = np.where(d.week <= EARLY_UNDER["weeks"], EARLY_UNDER["prob"], edge) if side_rule == "under_prob_early" else edge
-        return ((1 - d.p_over_emp) >= thr) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
+        m = ((1 - d.p_over_emp) >= thr) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
+        return m & _prime(d) if side_rule == "under_prime" else m
     e = _spread(d, side_rule) - d.spread_line
     m = (e.abs() >= edge) & (d.week <= LAST_BET_WEEK) & d.spread_line.notna()
     if side_rule == "dog":
@@ -193,13 +200,29 @@ def _neutral_ids() -> set:
     return _NEUTRAL
 
 
+_PRIME: set | None = None
+
+
+def _prime_ids() -> set:
+    """Thursday, Sunday and Monday night games (games.parquet primetime), read once."""
+    global _PRIME
+    if _PRIME is None:
+        g = pd.read_parquet(OUT / "games.parquet", columns=["game_id", "primetime"])
+        _PRIME = set(g.game_id[g.primetime.fillna(False).astype(bool)])
+    return _PRIME
+
+
+def _prime(d) -> pd.Series:
+    return d.game_id.isin(_prime_ids()) if "game_id" in d.columns else pd.Series(False, index=d.index)
+
+
 def _neutral(d) -> pd.Series:
     return d.game_id.isin(_neutral_ids()) if "game_id" in d.columns else pd.Series(False, index=d.index)
 
 
 def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     """Wins and losses on the rule's side over the rows m (pushes dropped)."""
-    if side_rule in ("under_prob", "under_prob_early"):
+    if side_rule in UNDER_RULES:
         cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
         return w, int(f.sum()) - w
     if side_rule == "hook":   # graded at the bought number: our side's line plus half a point
@@ -265,8 +288,10 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
         if side_rule == "wk13" and r.week > EARLY_LAST_WEEK:
             return ""   # the early-weeks rule sits out the late season
-        if side_rule in ("under_prob", "under_prob_early"):
+        if side_rule in UNDER_RULES:
             pe = getattr(r, "p_over_emp", np.nan); thr = EARLY_UNDER["prob"] if side_rule == "under_prob_early" and r.week <= EARLY_UNDER["weeks"] else spread_edge
+            if side_rule == "under_prime" and r.game_id not in _prime_ids():
+                return ""   # the prime-time rule sits out Sunday-afternoon and other non-prime games
             return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(pe) and 1 - pe >= thr else ""
         if side_rule == "hook":
             return ""   # built from the flag's bet at the best number, below
