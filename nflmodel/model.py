@@ -40,6 +40,7 @@ CONT_FEATS = ["off_turnover_early", "opp_def_turnover_early"]   # offseason turn
 EARLY_WEEKS = 8
 LATE_FEATS = ["dead_late", "opp_dead_late"]   # out of the race (23 Sep 2026): from Week 12, a team whose win rate through the previous week is 40% or under, own and opponent
 LATE_WEEK, DEAD_PCT = 12, 0.40
+RAIN_FC = 50.0       # the totals equation's rain input: forecast chance of rain 50%+ (1 Oct 2026, see TOTAL_FEATS)
 COLD_F = 35.0        # the cold flag: kickoff temperature under this, outdoors
 RIDGE = 10.0         # the points regression's ridge penalty (reports/equation_checks.csv: 1 to 100 within 0.001)
 TRAIN_FROM = 2013    # the first season every fit trains on
@@ -119,6 +120,8 @@ def prep(f: pd.DataFrame) -> pd.DataFrame:
     f["cold"] = np.where(f.dome == 1, 0.0, (f.temp.fillna(60) < COLD_F).astype(float))
     f["warm_in_cold"] = f["cold"] * f.team.isin(WARM_OR_DOME).astype(float)   # warm-climate or dome team outdoors under 35F
     f["qb_form"] = qb_form(f)
+    pop = f.game_id.map(_rain_readings()).astype(float)   # the totals equation's rain: the GFS MOS chance 50%+ outdoors (see RAIN_FC)
+    f["rain_fc"] = np.where((f.dome.fillna(0) == 0) & (pop >= RAIN_FC), 1.0, 0.0)
     return f
 
 
@@ -279,7 +282,16 @@ def probs_from_margin(mu, sigma, K, line):
     return win, cover / (1 - push) if push < 1 else np.nan
 
 
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain", "cold", "dome", "ref_tot", "qb_form_sum"]   # ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
+# rain_fc (1 Oct 2026, Matt: "add rain to the model"; experiments/rain_points.py): the totals equation's rain was the weather
+# that happened (the play-by-play text), but an upcoming game is priced on the forecast, so the equation under-counted rain:
+# games with a GFS MOS chance of 50%+ finished 2.9 points under the line while the model had them 0.3 under. Learned from the
+# same forecast it is priced on (the stored last run, 2018 on; 0 before 2018, without a forecast and indoors; the live
+# reading from nflmodel/wind_live.py): total miss 10.744 -> 10.738 / 10.509 -> 10.493 / 10.125 -> 10.108, the totals flag
+# 135-127 -> 137-127 / 182-129 -> 202-146 / 81-62 -> 98-73; the input is worth about -4.2 points (rain_pts, the card's "rain
+# -X"), those games' totals moved about -2.9 from the old model (which took some rain off through the weather text); 20 of 20
+# shuffles beaten.
+# The points equations keep the weather text (spread untouched).
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain_fc", "cold", "dome", "ref_tot", "qb_form_sum"]   # ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
 QB_FORM_K = 100.0
 
 
@@ -314,7 +326,7 @@ def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
                          "off_sum": (h.loc[ids, "off_epa_play"] + a.loc[ids, "off_epa_play"]).values, "def_sum": (h.loc[ids, "def_epa_play"] + a.loc[ids, "def_epa_play"]).values,
                          "pf_sum": (h.loc[ids, "off_pf"] + a.loc[ids, "off_pf"]).values, "pa_sum": (h.loc[ids, "def_pf"] + a.loc[ids, "def_pf"]).values,
                          "qb_sum": (h.loc[ids, "qb_rating"] + a.loc[ids, "qb_rating"]).values, "qb_out_sum": (h.loc[ids, "qb_out"] + a.loc[ids, "qb_out"]).values,
-                         "qb_form_sum": ((h.loc[ids, "qb_form"] + a.loc[ids, "qb_form"]).values if "qb_form" in h.columns else np.zeros(len(ids))), "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "ref_tot": (h.loc[ids, "ref_tot"].values if "ref_tot" in h.columns else np.zeros(len(ids))), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
+                         "qb_form_sum": ((h.loc[ids, "qb_form"] + a.loc[ids, "qb_form"]).values if "qb_form" in h.columns else np.zeros(len(ids))), "ref_over": (h.loc[ids, "ref_over"].values if "ref_over" in h.columns else np.full(len(ids), 0.5)), "ref_tot": (h.loc[ids, "ref_tot"].values if "ref_tot" in h.columns else np.zeros(len(ids))), "wind_out": h.loc[ids, "wind_out"].values, "rain": h.loc[ids, "rain"].values, "rain_fc": (h.loc[ids, "rain_fc"].values if "rain_fc" in h.columns else np.zeros(len(ids))), "cold": h.loc[ids, "cold"].values, "dome": h.loc[ids, "dome"].values,
                          "div_game": h.loc[ids, "div_game"].values, "skill_out_sum": (h.loc[ids, "skill_out_value"] + a.loc[ids, "skill_out_value"]).values,
                          "snap_out_sum": (h.loc[ids, "off_snap_out"] + a.loc[ids, "off_snap_out"]).values,
                          "turnover_early_sum": (h.loc[ids, "off_turnover_early"] + a.loc[ids, "off_turnover_early"]).values}, index=ids)
@@ -339,6 +351,14 @@ def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
 # (2023-25), 2015-18 and the spread unchanged; no within-season shuffle of the forecast (50) as good (experiments/wind_points.py);
 # the totals flag 175-128 -> 182-129 and 71-59 -> 81-62 (forecasts start in 2018).
 WIND_BANDS, WIND_K = [0.0, 10.0, 15.0, float("inf")], 50.0
+
+
+def _rain_readings() -> dict:
+    try:
+        from .wind_live import rain_readings
+        return rain_readings()
+    except Exception:  # noqa  (no forecast stored: priced dry)
+        return {}
 
 
 def _wind_readings() -> dict:
@@ -407,6 +427,7 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
             # to the game total. Marginally more accurate than adding the two team scores on both backtest windows
             # (reports/totals_experiments.csv); the team scores above still drive the spread and the points shown.
             g["model_total"] = total_model(train, test)
+            g["rain_pts"] = g.model_total - total_model(train, test.assign(rain_fc=0.0))   # what the forecast rain put on the total (shown on the card)
             g["model_total_raw"] = g.model_total
             pool_ = [x for s_, v in wpool.items() if s_ < s for x in v]
             g["wind_fc"] = g.game_id.map(wind).astype(float)

@@ -441,7 +441,7 @@ def model_lineup(pred: pd.DataFrame, games: pd.DataFrame, f2: pd.DataFrame) -> d
     m = make_pipeline(StandardScaler(), Ridge(alpha=M.RIDGE)).fit(tr[M.TOTAL_FEATS].values, tr.total.values)
     lab = {"off_sum": "Both offenses' EPA ratings, added", "def_sum": "Both defenses' EPA ratings, added", "pf_sum": "Both offenses' points ratings, added",
            "pa_sum": "Both defenses' points ratings, added", "qb_sum": "Both starting QBs' ratings, added", "qb_out_sum": "Starting QBs out (0, 1 or 2)",
-           "wind_out": "Wind, mph (0 in a dome)", "rain": "Rain at kickoff (1 or 0)", "cold": f"Below {M.COLD_F:g}°F outdoors (1 or 0)", "dome": "Dome or closed roof (1 or 0)",
+           "wind_out": "Wind, mph (0 in a dome)", "rain": "Rain at kickoff (1 or 0)", "rain_fc": "Forecast chance of rain 50%+ outdoors (1 or 0)", "cold": f"Below {M.COLD_F:g}°F outdoors (1 or 0)", "dome": "Dome or closed roof (1 or 0)",
            "ref_tot": "The referee's past game totals against the league, shrunk", "qb_form_sum": "Both QBs' form this season against their career rating"}
     coefs = [{"input": c, "label": lab.get(c, c), "per_unit": round(float(pu), 4), "mean": round(float(mu), 4), "per_sd": round(float(ps), 3)}
              for c, pu, mu, ps in zip(M.TOTAL_FEATS, m[-1].coef_ / m[0].scale_, m[0].mean_, m[-1].coef_)]

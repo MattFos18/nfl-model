@@ -32,4 +32,5 @@ rate and the most units.
 ## Live rules (nflmodel/picks.py)
 - Spreads: flag at |edge| >= 4, weeks 1-17. Totals: unders at a 55%+ raw chance (`p_over_emp`); overs never.
 - Wind under (1 Oct 2026): the under in outdoor games with forecast wind 10+ mph (`picks.WIND_UNDER`, `nflmodel/wind_live.py`), weeks 1-17.
+- Model total weather: wind points (`model.wind_points`) and forecast rain 50%+ in the totals equation (`model.RAIN_FC`, 1 Oct 2026).
 - Data stores are listed in `nflmodel/catalog.py`; the weekly pipeline is `nflmodel/weekly.py`.

@@ -147,6 +147,27 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
                       [("Where", "Outdoors, wind 15+ mph", windy)]]}
     except Exception:  # noqa  (a display table; the page hides the card without it)
         out["situations"] = {"spread": [], "total": []}
+    # weather in the total (1 Oct 2026, Matt: the weather findings on their own table in the backtest): the games where the
+    # forecast wind (model.wind_points) or the forecast rain (the totals equation's rain_fc) moved the model's total, the
+    # average points, the total's miss on those games with and without them, our totals bets there and every under there
+    try:
+        tot_act = d.home_score + d.away_score; t_bet = t_ok & wk & ~over & (p_side >= TOTAL_SHADOW["prob"]); u_won = ct < 0
+        wx = []
+        fw = d.wind_fc.astype(float) if "wind_fc" in d.columns else pd.Series(np.nan, index=d.index)
+        for lab, col, sel in (("Wind under 10 mph", "wind_pts", fw < 10), ("Wind 10+ mph", "wind_pts", fw >= 10), ("Rain 50%+", "rain_pts", None)):
+            if col not in d.columns:
+                continue
+            pts = d[col].astype(float).fillna(0.0); m = (pts.abs() >= 0.05) & (sel if sel is not None else True)
+            fit = {}
+            for k, a, b in per:
+                mm = m & d.season.between(a, b) & tot_act.notna()
+                fit[k] = {"games": int(mm.sum()), "pts": round(float(pts[mm].mean()), 2) if mm.any() else None,
+                          "miss": round(float((d.model_total - tot_act)[mm].abs().mean()), 3) if mm.any() else None,
+                          "miss_without": round(float((d.model_total - pts - tot_act)[mm].abs().mean()), 3) if mm.any() else None}
+            wx.append({"row": lab, "fit": fit, **block(t_won, t_push, t_bet & m), "every": block(u_won, t_push, t_ok & wk & m)["cells"]})
+        out["weather"] = wx
+    except Exception:  # noqa  (a display table; the card hides without it)
+        out["weather"] = []
     # the totals' chance against what happened (1 Oct 2026, Matt: the spreads' Cover Odds table for the totals too): the
     # chance the cards show for the model's side (p_over_cal, each season on the fit made before it, as picks.table does),
     # in bands, against how often that side hit; every regular-season game with a total line, pushes out, seasons with a fit

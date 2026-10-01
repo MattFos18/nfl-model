@@ -2,8 +2,10 @@
 For every unplayed outdoor or open-roof game at a US stadium within the forecast range, the same two forecasts the rule
 was measured on: the NWS GFS MOS at the stadium's airport (the newest run out, issued at least 4 hours ago and at least 5
 hours before kickoff) and Japan's global model from Open-Meteo, each the mean over the game's first three hours; the
-reading is their mean (nflmodel/forecast_history.py does the same for 2018-2025). Run on every line watch and weekly run;
-a row is appended when a game's reading changes. Writes data/weather/wind_live.csv.
+reading is their mean (nflmodel/forecast_history.py does the same for 2018-2025). The same GFS MOS run also gives the
+chance of rain the totals equation reads (gfs_pop: the largest 6-hour chance overlapping the first three hours; 1 Oct
+2026, experiments/rain_points.py). Run on every line watch and weekly run; a row is appended when a game's reading
+changes. Writes data/weather/wind_live.csv.
 
     python -m nflmodel.wind_live
 """
@@ -13,7 +15,7 @@ import numpy as np, pandas as pd
 from . import forecast_history as FH
 
 F = FH.WX / "wind_live.csv"
-COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean"]
+COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean", "gfs_pop"]
 RANGE_H = 66   # GFS MOS (MAV) runs 72 hours out; a reading needs the game's first three hours inside it
 
 
@@ -28,19 +30,22 @@ def run() -> int:
         if ko <= now or ko > now + pd.Timedelta(hours=RANGE_H):
             continue
         run_ = min(FH.last_run(ko), issued)
-        gfs, _ = FH.mos(r.station, "GFS", run_, ko)
+        m = FH.mos_all(r.station, "GFS", run_, ko); gfs = m["wind"]
         jma = FH.jma(r.latlon[0], r.latlon[1], ko)[2] if r.latlon else None
         vals = [v for v in (gfs, jma) if v is not None]
         rows.append({"ts": ts, "game_id": r.game_id, "season": r.season, "week": r.week, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ"), "station": r.station,
-                     "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None})
+                     "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None, "gfs_pop": m["pop"]})
     df = pd.DataFrame(rows, columns=COLS)
     if not len(df):
         return 0
+    keys = ["gfs_wind", "jma_wind", "gfs_pop"]
     if F.exists():
         old = pd.read_csv(F)
-        last = old.sort_values("ts").drop_duplicates("game_id", keep="last").set_index("game_id")[["gfs_wind", "jma_wind"]]
+        if list(old.columns) != COLS:   # the log written before gfs_pop: rewritten once with the new column (empty for old rows)
+            old = old.reindex(columns=COLS); old.to_csv(F, index=False)
+        last = old.sort_values("ts").drop_duplicates("game_id", keep="last").set_index("game_id")[keys]
         prev = last.reindex(df.game_id)
-        cur = df.set_index("game_id")[["gfs_wind", "jma_wind"]]
+        cur = df.set_index("game_id")[keys]
         same = ((cur == prev) | (cur.isna() & prev.isna())).all(axis=1).values
         df = df[~same]
     if len(df):
@@ -60,6 +65,22 @@ def readings() -> dict:
     if F.exists():
         lv = pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last")
         out.update({gid: float(v) for gid, v in zip(lv.game_id, lv.wind_mean) if pd.notna(v)})
+    return out
+
+
+def rain_readings() -> dict:
+    """game_id -> the GFS MOS chance of rain (percent) the totals equation reads: the stored history's last run (the
+    day-before run where it is missing) for played games, the live log's newest for games still to play."""
+    out = {}
+    if FH.OUTF.exists():
+        h = pd.read_csv(FH.OUTF)
+        v = pd.to_numeric(h.get("gfs_pop_d0"), errors="coerce").fillna(pd.to_numeric(h.get("gfs_pop_d1"), errors="coerce"))
+        out.update({gid: float(x) for gid, x in zip(h.game_id, v) if pd.notna(x)})
+    if F.exists():
+        lv = pd.read_csv(F)
+        if "gfs_pop" in lv:
+            lv = lv[lv.gfs_pop.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
+            out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_pop) if gid not in out})
     return out
 
 
