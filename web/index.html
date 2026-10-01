@@ -514,27 +514,27 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div id="bksummary" hidden></div><select id="bkseason" hidden></select><table id="bktable" hidden></table>
   </div>
   <div id="props" hidden>
-    <p class="note" id="pbnote"></p>
-    <div class="row"><label class="ctl">Stat <select id="pbstat"></select></label></div>
-    <div id="pbscore"></div>
-    <div class="grid2e">
-      <div class="card"><h3>By Season</h3><div class="tablewrap" style=""><table id="pbseason"></table></div></div>
-      <div class="card"><h3>This Season, Graded Each Week</h3><p class="note" id="plivenote"></p><div class="tablewrap" style=""><table id="pliveweek"></table></div></div>
+    <p class="note" id="pbnote" hidden></p>
+    <div class="seg" id="pbstatseg" role="group" aria-label="Stat" style="margin:4px 0 12px"></div>
+    <div id="pbhero" class="bkhero four"></div>
+    <div id="pbscore" hidden></div>
+    <div class="card" id="pbbookcard"><h3>Against the Book Lines, This Season</h3><div id="pbbook"></div></div>
+    <div class="card" id="pbseasoncard"><h3>Miss by Season</h3><div class="tablewrap ro"><table id="pbseason" class="bkt"></table></div></div>
+    <div class="grid2e" id="pbsplitcards">
+      <div class="card"><h3>By Position</h3><div class="tablewrap ro"><table id="pbpos" class="bkt"></table></div></div>
+      <div class="card"><h3>By Size of the Line</h3><div class="tablewrap ro"><table id="pbbucket" class="bkt"></table></div></div>
     </div>
-    <details class="more"><summary>Details: by position, by size of the line, against the book lines, every graded projection</summary>
-      <div class="grid2e">
-        <div class="card"><h3>By Position</h3><div class="tablewrap" style=""><table id="pbpos"></table></div></div>
-        <div class="card"><h3>By Size of the Line</h3><div class="tablewrap" style=""><table id="pbbucket"></table></div></div>
-      </div>
-      <div class="card"><h3>Against the Book Lines</h3><p class="note" id="pbmarketnote"></p><div class="tablewrap" style=""><table id="pbmarketbt"></table></div><div class="tablewrap" style="margin-top:10px"><table id="pbmarket"></table></div></div>
-      <div class="card"><h3>This Season, Every Stat</h3><div class="tablewrap" style=""><table id="plivestat"></table></div></div>
-      <div class="card"><h3>This Season, Every Graded Projection</h3>
+    <div class="card"><h3>This Season, Week by Week</h3><p class="note" id="plivenote"></p><div class="tablewrap ro"><table id="pliveweek" class="bkt"></table></div></div>
+    <details class="more"><summary>Every graded projection this season</summary>
+      <div class="card"><h3>Every Stat</h3><div class="tablewrap"><table id="plivestat"></table></div></div>
+      <div class="card"><h3>Every Projection</h3>
         <div class="row" style="gap:8px 14px;flex-wrap:wrap;align-items:flex-end">
           <label class="ctl">Week <select id="plweek"><option value="">All</option></select></label>
           <label class="ctl">Team <select id="plteam2"><option value="">All</option></select></label>
           <label class="ctl">Search <input id="plq2" type="search" placeholder="Player" style="width:160px"></label>
         </div>
-        <div class="tablewrap" style=""><table id="pliverows"></table></div></div>
+        <div class="tablewrap"><table id="pliverows"></table></div></div>
+      <div hidden><p id="pbmarketnote"></p><table id="pbmarketbt"></table><table id="pbmarket"></table></div>
     </details>
   </div>
   <div id="seasonbt" hidden>
@@ -3070,39 +3070,47 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const PB_STATS = [["rec_yards", "Receiving yards"], ["rush_yards", "Rushing yards"], ["pass_yards", "Passing yards"], ["rec_catches", "Receptions"], ["rec_td", "Receiving touchdowns"], ["rush_td", "Rushing touchdowns"], ["pass_td", "Passing touchdowns"], ["pass_int", "Interceptions"], ["rec_longest", "Longest reception"], ["rush_longest", "Longest rush"], ["pass_longest", "Longest completion"], ["kick_points", "Kicking points"], ["field_goals", "Field goals made"]];
   const PB_ALIAS = {rec_catches: ["rec_catch"], rec_yards: ["targets", "rec_volume", "rec_redistribution", "rec_fade"], rush_yards: ["rush_volume", "rush_redistribution", "rush_fade"], rec_td: ["rec_td_redzone"], rush_td: ["rush_td_redzone"], pass_td: ["pass_td_redzone"]};   // round tables filed under other names for the same stat
   let pbStat = "rec_yards";
+  // Backtest -> Player Props (1 Oct 2026, Matt: "your best reformatting of the props backtest tab"): laid out like Game
+  // Picks; the stat as buttons, four headline tiles, the record against the book lines, the miss by season, by position and
+  // by line size, the season week by week; every number from Python (props_backtest.js, props_record.js)
   function renderPropsBacktest() {
-    const B = window.PROPS_BT; if (!B) { $("pbscore").innerHTML = "<p class='note'>No player-projection backtest exported.</p>"; return; }
-    const sel = $("pbstat"); if (!sel.options.length) { PB_STATS.forEach(([k, lab]) => { const o = document.createElement("option"); o.value = k; o.textContent = lab; sel.appendChild(o); }); sel.value = pbStat; sel.onchange = () => { pbStat = sel.value; renderPropsBacktest(); renderPropsLive(); }; }
-    const count = /td|int/.test(pbStat); const f2 = v => v == null ? "" : (count ? (+v).toFixed(3) : (+v).toFixed(2)); const pc = v => v == null ? "" : Math.round(100 * v) + "%";
-    const bs = B.by_season.filter(r => r.stat === pbStat); const win = r => isNaN(+r.season);
-    // the season under way is graded live below (what the page said before each game), so the backtest table keeps the finished seasons; its "all" row runs from the first season to the last finished one
-    const yrsB = B.by_season.map(r => +r.season).filter(y => !isNaN(y)), firstB = yrsB.length ? Math.min(...yrsB) : null;
-    const cs = CUR_SEASON, lastDone = Math.max(...bs.filter(r => !win(r) && +r.season < cs).map(r => +r.season)), allLab = `${nz(firstB)} to ${lastDone}`;
-    $("pbnote").innerHTML = "";   // no caption (28 Sep 2026, Matt)
-    const byS = {}; bs.forEach(r => byS[r.season] = r);
-    const G = ((window.PROPS_REC || {}).graded || []).filter(r => r.stat === pbStat && r.season === cs), gm = G.length ? G.reduce((a, r) => a + Math.abs(r.error), 0) / G.length : null;
-    // a window's miss against the raw rule (a count stat: its Poisson fit)
-    const missTile = (k, lab) => { const r = byS[k]; if (!r) return null;
-      if (count) return [lab, `${(+r.ll).toFixed(3)}<small>fit</small>`, `raw rule ${(+r.raw_ll).toFixed(3)} (Poisson log loss, lower is better) · ${r.n.toLocaleString()} player-games`, r.ll < r.raw_ll ? "good" : "bad"];
-      const d = Math.round(100 * (1 - r.mae / r.raw_mae)); return [lab, `${f2(r.mae)}<small>off a game</small>`, `raw rule ${f2(r.raw_mae)}: ${d >= 0 ? d + "% better" : -d + "% worse"} · ${r.n.toLocaleString()} player-games`, r.mae < r.raw_mae ? "good" : "bad"]; };
-    const A = byS.all;
-    $("pbscore").innerHTML = scoreCard([missTile(wk_(HELD), `${wk_(HELD)} · held out`), missTile(wk_(TUNE), `${wk_(TUNE)} · tuning`), G.length ? [`${cs} so far`, `${f2(gm)}<small>off a game</small>`, `${G.length.toLocaleString()} projections graded (below)`] : null,
-      A ? (count ? ["Anytime: said / happened", `${pc(A.anytime_pred)} / ${pc(A.anytime_actual)}`, `the predicted chance of at least one against how often one came, ${allLab}`]
-                 : ["Actual beat the line", pc(A.over_rate), `of player-games, ${allLab}. The line sits at his median, so near half is right`]) : null]);
-    $("pbseason").innerHTML = `<thead><tr><th class="l">Season</th><th>Player-games</th><th title="mean absolute error per player-game, the rule on the page">Off by</th><th title="the same for the raw rule the page started with">Raw rule</th>${count ? `<th title="Poisson log loss, the rule / the raw rule (lower is better)">Poisson fit, rule / raw</th>` : `<th title="share of player-games where the actual beat the line">Beat the line</th>`}</tr></thead><tbody>` +
-      bs.filter(r => win(r) || +r.season < cs).map(r => `<tr class="${win(r) ? "hl" : ""}"><td class="l">${win(r) ? "<b>" + (r.season === "all" ? allLab : r.season) + "</b>" : r.season}</td><td class="mono">${r.n.toLocaleString()}</td><td class="mono"><b>${f2(r.mae)}</b></td><td class="mono">${f2(r.raw_mae)}</td>${count ? `<td class="mono">${(+r.ll).toFixed(4)} / ${(+r.raw_ll).toFixed(4)}</td>` : `<td class="mono ${Math.abs(r.over_rate - 0.5) > 0.05 ? "neg" : ""}">${pc(r.over_rate)}</td>`}</tr>`).join("") + "</tbody>";
-    const bp = B.by_position.filter(r => r.stat === pbStat);
-    $("pbpos").innerHTML = bp.length ? `<thead><tr><th class="l">Window</th><th class="l">Position</th><th>Player-games</th><th>Off by</th><th>Bias</th>${count ? "<th>Poisson fit</th>" : "<th>Over rate</th>"}</tr></thead><tbody>` + bp.map(r => `<tr><td class="l">${r.window === "all" ? allLab : r.window}</td><td class="l">${r.position}</td><td class="mono">${r.n}</td><td class="mono">${f2(r.mae)}</td><td class="mono">${r.bias >= 0 ? "+" : ""}${f2(r.bias)}</td><td class="mono">${count ? (+r.ll).toFixed(4) : pc(r.over_rate)}</td></tr>`).join("") + "</tbody>" : "<tbody><tr><td class='l'>Quarterbacks only, or a count: no position split.</td></tr></tbody>";
-    const bb = B.by_bucket.filter(r => r.stat === pbStat);
-    $("pbbucket").innerHTML = bb.length ? `<thead><tr><th class="l">Window</th><th class="l">Line</th><th>Player-games</th><th>Off by</th><th>Bias</th><th>Over rate</th><th>Mean actual</th></tr></thead><tbody>` + bb.map(r => `<tr><td class="l">${r.window === "all" ? allLab : r.window}</td><td class="l">${r.line_from}${r.line_to == null ? "+" : " to " + r.line_to}</td><td class="mono">${r.n}</td><td class="mono">${f2(r.mae)}</td><td class="mono">${r.bias >= 0 ? "+" : ""}${f2(r.bias)}</td><td class="mono ${Math.abs(r.over_rate - 0.5) > 0.05 ? "neg" : ""}">${pc(r.over_rate)}</td><td class="mono">${r.mean_actual}</td></tr>`).join("") + "</tbody>" : "<tbody><tr><td class='l'>Counts are not bucketed.</td></tr></tbody>";
-    const MB = (B.market_backtest || []).filter(r => r.stat === pbStat || (pbStat === "rec_td" || pbStat === "rush_td") && /^anytime_td/.test(r.stat));
-    $("pbmarketbt").innerHTML = MB.length ? `<thead><tr><th class="l">Stat</th><th class="l">Window</th><th>Edge at least</th><th>Graded</th><th>Record</th><th>Win %</th><th title="the same side graded against the best line across the books at the close">Win % best line</th><th title="mean absolute error: the projection, the book line, and the projection moved half way to the book, on the same player-games">Off by: projection / book / blend</th></tr></thead><tbody>` + MB.map(x => `<tr><td class="l">${x.stat === "anytime_td_yes" ? "Anytime TD, yes side" : (x.stat === "anytime_td" ? "Anytime TD, both sides" : "")}</td><td class="l">${x.window}</td><td class="mono">${x.cut}</td><td class="mono">${x.n}</td><td class="mono">${x.wins}-${x.losses}${x.pushes ? "-" + x.pushes : ""}</td><td class="mono ${x.pct != null ? (x.pct >= BE ? "pos" : "neg") : ""}">${x.pct == null ? "" : Math.round(1000 * x.pct) / 10 + "%"}</td><td class="mono">${x.pct_best_line == null ? "" : Math.round(1000 * x.pct_best_line) / 10 + "%"}</td><td class="mono">${x.proj_mae != null ? `${x.proj_mae} / ${x.line_mae} / ${x.blend50_mae}` : ""}</td></tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">No historical prop lines pulled yet: The Odds API keeps them on paid plans only. The pull is ready (nflmodel/props_history.py, the "historical prop lines" workflow) and needs one paid month of the key.</td></tr></tbody>`;
-    const M = (window.PROPS_REC || {}).summary || []; const mlab = {rec_yards: "Receiving yards", rec_catches: "Receptions", rush_yards: "Rushing yards", pass_yards: "Passing yards", anytime_td: "Anytime touchdown"};
-    $("pbmarket").innerHTML = M.length ? `<thead><tr><th class="l">Stat</th><th class="l">Edge</th><th>Graded</th><th>Record</th><th>Win %</th><th title="the projection's absolute error against the book line's, on the same player-games">Off by: projection / book</th></tr></thead><tbody>` + M.map(x => `<tr><td class="l">${mlab[x.stat] || x.stat}</td><td class="l">${x.edge}</td><td class="mono">${x.n}</td><td class="mono">${x.wins}-${x.losses}${x.pushes ? "-" + x.pushes : ""}</td><td class="mono ${x.pct != null ? (x.pct >= BE ? "pos" : "neg") : ""}">${x.pct == null ? "" : Math.round(1000 * x.pct) / 10 + "%"}</td><td class="mono">${x.proj_mae != null ? x.proj_mae + " / " + x.line_mae : ""}</td></tr>`).join("") + "</tbody>" : `<tbody><tr><td class="l">Nothing graded against a book line yet${window.PROPS && PROPS.market_lines ? ` (${PROPS.market_lines} lines sit beside this week's projections on the cards)` : ""}.</td></tr></tbody>`;
-    // no lines graded yet: one short note instead of two empty tables
-    $("pbmarketnote").textContent = !MB.length && !M.length ? `Nothing graded against a book line yet. Live lines are logged every week${window.PROPS && PROPS.market_lines ? ` (${PROPS.market_lines} sit beside this week's projections on the cards)` : ""} and graded after each game; the history needs one paid month of The Odds API (the "historical prop lines" workflow is ready).`
-      : `The projection takes the over when it sits above the line and the under below. Break-even at ${oddsTxt(ODDS)} is ${pct1(BE)}.`;
-    if (!MB.length) $("pbmarketbt").innerHTML = ""; if (!M.length) $("pbmarket").innerHTML = "";
+    const B = window.PROPS_BT; if (!B) { $("pbhero").innerHTML = "<p class='note'>No player-projection backtest exported.</p>"; return; }
+    segPick("pbstatseg", PB_STATS, pbStat, k => { pbStat = k; renderPropsBacktest(); renderPropsLive(); });
+    const count = /td|int|field_goals/.test(pbStat), f2 = v => v == null || isNaN(v) ? "–" : (count ? (+v).toFixed(3) : (+v).toFixed(2)), pc = v => v == null ? "–" : (100 * v).toFixed(1) + "%";
+    const sg = v => v == null || isNaN(v) ? "" : `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toFixed(count ? 3 : 2)}`;
+    const bs = B.by_season.filter(r => r.stat === pbStat), byS = {}; bs.forEach(r => byS[r.season] = r);
+    const yrs = bs.map(r => +r.season).filter(y => !isNaN(y)), first = yrs.length ? Math.min(...yrs) : null, last = yrs.length ? Math.max(...yrs.filter(y => y < CUR_SEASON)) : null;
+    const G = ((window.PROPS_REC || {}).graded || []).filter(r => r.stat === pbStat && r.season === CUR_SEASON), gm = G.length ? G.reduce((a, r) => a + Math.abs(r.error), 0) / G.length : null;
+    const SUM = (window.PROPS_REC || {}).summary || [], mine = SUM.find(r => r.stat === pbStat && r.edge === "all");
+    const st = (lab, v, cls) => `<div class="st"><span>${lab}</span><b${cls ? ` class="${cls}"` : ""}>${v}</b></div>`;
+    const tile = (lab, v, sts, main) => `<div class="h${main ? " main" : ""}"><div class="l">${lab}</div><div class="v">${v}</div>${sts ? `<div class="sts">${sts}</div>` : ""}</div>`;
+    const A = byS.all, better = r => r && r.raw_mae ? Math.round(100 * (1 - r.mae / r.raw_mae)) : null;
+    $("pbhero").innerHTML =
+      tile(`Against the books · ${CUR_SEASON}`, mine && mine.wins + mine.losses ? `${mine.wins}-${mine.losses}${mine.pushes ? "-" + mine.pushes : ""}` : "—",
+        mine && mine.wins + mine.losses ? st("Win %", pc(mine.pct), mine.pct >= BE ? "pos" : "neg") + st("Graded", mine.n) : st("Lines graded", "none yet"), true) +
+      tile(`${count ? "Fit, log loss" : "Off by a game"} · ${first ?? "–"}–${last ?? "–"}`, A ? (count ? (+A.ll).toFixed(3) : f2(A.mae)) : "—",
+        A ? (count ? st("Raw rule", (+A.raw_ll).toFixed(3)) + st("Lower is", "better") : st("Raw rule", f2(A.raw_mae)) + st("Better by", (better(A) >= 0 ? "" : "−") + Math.abs(better(A)) + "%", better(A) >= 0 ? "pos" : "neg")) : "") +
+      tile(`Off by a game · ${CUR_SEASON}`, gm != null ? f2(gm) : "—", G.length ? st("Graded", G.length.toLocaleString()) : st("Graded", "none yet")) +
+      (mine && mine.proj_mae != null ? `<div class="h"><div class="l">Miss against the book's</div><div class="vs"><div><span>Ours</span><b>${f2(mine.proj_mae)}</b></div><i>vs</i><div><span>Book</span><b>${f2(mine.line_mae)}</b></div></div><div class="sts">${st(mine.proj_mae <= mine.line_mae ? "We are closer by" : "Book closer by", f2(Math.abs(mine.proj_mae - mine.line_mae)))}</div></div>`
+        : tile("Miss against the book's", "—", st("Lines graded", "none yet")));
+    // the record against the book lines this season, every stat, this one marked (props_record.js summary; the projection
+    // takes the over when it sits above the line, the under below)
+    const lab = Object.fromEntries(PB_STATS.concat([["anytime_td", "Anytime touchdown"], ["def_sacks", "Sacks"], ["def_tackles", "Tackles + assists"], ["pass_attempts", "Pass attempts"], ["pass_completions", "Completions"], ["pass_rush_yards", "Pass + rush yards"], ["rec_targets", "Targets"], ["rush_attempts", "Rush attempts"], ["rush_rec_yards", "Rush + rec yards"]]));
+    const heat = c => c.pct == null ? "" : c.pct - BE >= 0.04 ? "pos2" : c.pct >= BE ? "pos1" : BE - c.pct >= 0.04 ? "neg2" : "neg1";
+    const allRows = SUM.filter(r => r.edge === "all" && r.wins + r.losses).sort((a, b) => (b.stat === pbStat) - (a.stat === pbStat) || b.n - a.n);
+    $("pbbook").innerHTML = allRows.length ? `<div class="tablewrap ro"><table class="bkt heat edges"><thead><tr><th class="lbl">Stat</th><th class="c">Record</th><th class="c">Win %</th><th class="c" title="the projection's miss against the book line's, on the same player-games">Off by, ours / book</th><th class="c" title="the same at the widest edge logged for this stat">Bigger edges</th></tr></thead><tbody>` +
+      allRows.map(r => { const big = SUM.filter(x => x.stat === r.stat && x.edge !== "all").pop(); return `<tr${r.stat === pbStat ? ' class="bet"' : ""}><td class="lbl">${esc(lab[r.stat] || r.stat)}</td><td class="c nw">${r.wins}-${r.losses}${r.pushes ? "-" + r.pushes : ""}</td><td class="pc ${heat(r)}"><b>${pc(r.pct)}</b></td><td class="c nw">${r.proj_mae != null ? `${(+r.proj_mae).toFixed(2)} / ${(+r.line_mae).toFixed(2)}` : "–"}</td><td class="c nw">${big && big.wins + big.losses ? `${(v => v < 1 ? Math.round(100 * v) + "%+" : v + "+")(parseFloat(String(big.edge).replace(">=", "")))}: ${big.wins}-${big.losses}, ${pc(big.pct)}` : "–"}</td></tr>`; }).join("") + `</tbody></table></div>`
+      : `<p class="note">No book lines graded yet this season.</p>`;
+    // the miss by season: the total, the two windows, then every season (as Game Picks' Record)
+    const per = [["all", `Total <small>${first ?? ""}–${last ?? ""}</small>`, true], [wk_(TUNE), wk_(TUNE), true], [wk_(HELD), wk_(HELD), true]].concat(yrs.filter(y => y < CUR_SEASON).sort((a, b) => b - a).map(y => [String(y), String(y), false]));
+    $("pbseasoncard").hidden = !bs.length; $("pbsplitcards").hidden = !bs.length;
+    $("pbseason").innerHTML = bs.length ? `<thead><tr><th></th><th>Player-games</th><th>Off by</th><th>Raw rule</th><th>${count ? "Poisson fit" : "Better by"}</th><th title="${count ? "the predicted chance of at least one against how often one came" : "share of player-games that finished above the projection; near half means it sits at the median"}">${count ? "Anytime, said / came" : "Went over"}</th></tr></thead><tbody>` +
+      per.map(([k, l, bold], i) => { const r = byS[k]; if (!r) return ""; const bt = better(r); return `<tr class="${k === "all" ? "per tot" : bold ? "per" : ""}${bold && !(per[i + 1] || [])[2] ? " last" : ""}"><td>${bold ? `<b>${l}</b>` : l}</td><td>${r.n.toLocaleString()}</td><td><b>${f2(r.mae)}</b></td><td>${f2(r.raw_mae)}</td><td>${count ? `${(+r.ll).toFixed(3)} / ${(+r.raw_ll).toFixed(3)}` : `<span class="${bt >= 0 ? "pos" : "neg"}">${bt >= 0 ? "" : "−"}${Math.abs(bt)}%</span>`}</td><td>${count ? `${pc(r.anytime_pred)} / ${pc(r.anytime_actual)}` : pc(r.over_rate)}</td></tr>`; }).join("") + "</tbody>" : "";
+    // by position and by size of the line: the whole backtest, one row each
+    const split = (rows, labf) => rows.length ? `<thead><tr><th></th><th>Player-games</th><th>Off by</th><th title="actual minus projection, on average: above zero the projections ran low">Bias</th><th>${count ? "Poisson fit" : "Went over"}</th></tr></thead><tbody>` +
+      rows.map(r => `<tr><td>${labf(r)}</td><td>${r.n.toLocaleString()}</td><td><b>${f2(r.mae)}</b></td><td>${sg(r.bias)}</td><td>${count ? (r.ll != null ? (+r.ll).toFixed(3) : "–") : pc(r.over_rate)}</td></tr>`).join("") + "</tbody>" : "<tbody><tr><td>Not split for this stat.</td></tr></tbody>";
+    $("pbpos").innerHTML = split(B.by_position.filter(r => r.stat === pbStat && r.window === "all"), r => esc(r.position));
+    $("pbbucket").innerHTML = split(B.by_bucket.filter(r => r.stat === pbStat && r.window === "all"), r => `${r.line_from}${r.line_to == null ? "+" : "–" + r.line_to}`);
   }
   let pmStat = "rec_yards";
   function renderPlayerModel() {
