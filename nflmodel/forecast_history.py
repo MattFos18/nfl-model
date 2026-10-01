@@ -17,6 +17,7 @@ fetched; --ingest reads those lines from a saved job log into data/weather/forec
     python -m nflmodel.forecast_history --seasons 2018 --weeks 1-9          (on the runner, through probe.yml)
     python -m nflmodel.forecast_history --ingest job_log.txt                (here)
     python -m nflmodel.forecast_history --backfill                          (the weekly run: 10 minutes a run until 2018-2025 is in)
+    python -m nflmodel.forecast_history --extend                            (here, 1 Oct 2026: GFS temperature and rain chance for stored games)
 """
 from __future__ import annotations
 import argparse, re, time
@@ -40,6 +41,11 @@ OLD_SITE = {"Los Angeles Memorial Coliseum": ("KCQT", (34.0141, -118.2879)), "St
 COLS = ["game_id", "season", "week", "home_team", "station", "kickoff_utc",
         "gfs_wind_d1", "gfs_wind_d0", "gfs_run_d0", "nbs_wind_d1", "nbs_gust_d1", "nbs_wind_d0", "nbs_gust_d0", "nbs_run_d0",
         "jma_wind_d2", "jma_wind_d1", "jma_wind_d0"]
+# 1 Oct 2026 (experiments/weather_forecast_retest.py): the same two GFS MOS runs' temperature (deg F, mean over the first 3 h)
+# and chance of precipitation (percent, the largest 6-hour p06 / 12-hour p12 whose period overlaps the first 3 h)
+EXTRA = ["gfs_temp_d1", "gfs_pop_d1", "gfs_pop12_d1", "gfs_temp_d0", "gfs_pop_d0", "gfs_pop12_d0"]
+OLD_COLS = COLS[:]
+COLS = COLS + EXTRA
 
 
 def _get(url, params, tries=3):
@@ -67,18 +73,38 @@ def _window(t: pd.Series, v: pd.Series, ko: pd.Timestamp, how="mean"):
     return round(float(y.max() if how == "max" else y.mean()), 1)
 
 
-def mos(station, model, run: pd.Timestamp, ko: pd.Timestamp):
-    """Wind (mph, mean over the game's first 3 h) and gust (mph, largest) from one MOS run."""
+def _period_max(t: pd.Series, v: pd.Series, ko: pd.Timestamp, hours: int):
+    """The largest value whose period (the `hours` before its valid time, as MOS reports p06 / p12) overlaps kickoff to kickoff + 3 h."""
+    ok = v.notna() & t.notna() & (t > ko) & (t - pd.Timedelta(hours=hours) < ko + pd.Timedelta(hours=3))
+    return round(float(v[ok].max()), 1) if ok.any() else None
+
+
+def mos_all(station, model, run: pd.Timestamp, ko: pd.Timestamp) -> dict:
+    """One MOS run over the game's first 3 h: wind (mph, mean), gust (mph, largest), temperature (deg F, mean) and the chance
+    of precipitation (percent, the largest 6-hour and 12-hour chance whose period overlaps the game)."""
+    out = dict.fromkeys(["wind", "gust", "temp", "pop", "pop12"])
     j = _get(MOS, {"station": station, "model": model, "runtime": run.strftime("%Y-%m-%dT%H:%MZ")})
     rows = (j or {}).get("data") or []
     if not rows:
-        return None, None
+        return out
     df = pd.DataFrame(rows); df.columns = [c.lower() for c in df.columns]
     if "ftime" not in df:
-        return None, None
+        return out
     t = pd.to_datetime(df.ftime, utc=True)
-    num = lambda c: pd.to_numeric(df[c], errors="coerce") * KT if c in df else pd.Series(np.nan, index=df.index)
-    return _window(t, num("wsp"), ko), _window(t, num("gst"), ko, "max")
+    num = lambda c, k=1.0: pd.to_numeric(df[c], errors="coerce") * k if c in df else pd.Series(np.nan, index=df.index)
+    # MOS writes 999 (temperature) and 99 (wind, gust) for a missing hour (KTOA overnight, 2018): read as missing; the one stored
+    # game it had hit, 2018_16_BAL_LAC, was refetched (1 Oct 2026)
+    tmp, pct = num("tmp").where(lambda x: x < 900), lambda c: num(c).where(lambda x: x <= 100)
+    kn = lambda c: num(c).where(lambda x: x < 99) * KT
+    out.update(wind=_window(t, kn("wsp"), ko), gust=_window(t, kn("gst"), ko, "max"), temp=_window(t, tmp, ko),
+               pop=_period_max(t, pct("p06"), ko, 6), pop12=_period_max(t, pct("p12"), ko, 12))
+    return out
+
+
+def mos(station, model, run: pd.Timestamp, ko: pd.Timestamp):
+    """Wind (mph, mean over the game's first 3 h) and gust (mph, largest) from one MOS run."""
+    m = mos_all(station, model, run, ko)
+    return m["wind"], m["gust"]
 
 
 def last_run(ko: pd.Timestamp) -> pd.Timestamp:
@@ -114,17 +140,53 @@ def games(seasons, weeks=None, played=True) -> pd.DataFrame:
 def one(r) -> dict:
     """Every forecast for one game (a row of games())."""
     ko = pd.Timestamp(r.kickoff_et).tz_localize("America/New_York").tz_convert("UTC")
-    d1 = (ko.tz_convert("America/New_York").normalize() - pd.Timedelta(days=1)).tz_convert("UTC").floor("D") + pd.Timedelta(hours=12)
-    d0 = last_run(ko)
+    d1, d0 = _runs(ko)
     row = {"game_id": r.game_id, "season": r.season, "week": r.week, "home_team": r.home_team, "station": r.station, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ")}
-    row["gfs_wind_d1"], _ = mos(r.station, "GFS", d1, ko)
-    row["gfs_wind_d0"], _ = mos(r.station, "GFS", d0, ko); row["gfs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
+    row.update(_gfs(r.station, d1, d0, ko)); row["gfs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
     if ko >= NBS_FROM:
         row["nbs_wind_d1"], row["nbs_gust_d1"] = mos(r.station, "NBS", d1, ko)
         row["nbs_wind_d0"], row["nbs_gust_d0"] = mos(r.station, "NBS", d0, ko); row["nbs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
     if r.latlon:
         row["jma_wind_d2"], row["jma_wind_d1"], row["jma_wind_d0"] = jma(r.latlon[0], r.latlon[1], ko)
     return row
+
+
+def _runs(ko: pd.Timestamp):
+    """The two runs: 12Z the day before kickoff (Eastern date) and the last run out at least 5 hours before kickoff."""
+    d1 = (ko.tz_convert("America/New_York").normalize() - pd.Timedelta(days=1)).tz_convert("UTC").floor("D") + pd.Timedelta(hours=12)
+    return d1, last_run(ko)
+
+
+def _gfs(station, d1, d0, ko) -> dict:
+    row = {}
+    for tag, run in (("d1", d1), ("d0", d0)):
+        m = mos_all(station, "GFS", run, ko)
+        row.update({f"gfs_wind_{tag}": m["wind"], f"gfs_temp_{tag}": m["temp"], f"gfs_pop_{tag}": m["pop"], f"gfs_pop12_{tag}": m["pop12"]})
+    return row
+
+
+def extend(threads=8) -> str:
+    """Fill the GFS temperature and precipitation-chance columns (EXTRA) for stored games that lack them, `threads` games at
+    a time; wind already stored is kept as it was."""
+    from concurrent.futures import ThreadPoolExecutor
+    h = pd.read_csv(OUTF, dtype=str).astype(object)
+    for c in EXTRA:
+        h[c] = h[c] if c in h else None
+    todo = h.index[h[EXTRA].isna().all(axis=1)]
+
+    def job(i):
+        r = h.loc[i]; ko = pd.Timestamp(r.kickoff_utc)
+        d1, d0 = _runs(ko)
+        return i, {k: v for k, v in _gfs(r.station, d1, d0, ko).items() if k in EXTRA}
+    t0 = time.time()
+    with ThreadPoolExecutor(threads) as ex:
+        for n, (i, row) in enumerate(ex.map(job, todo), 1):
+            for k, v in row.items():
+                h.at[i, k] = None if v is None else str(v)
+            if n % 100 == 0:
+                print(n, "of", len(todo), f"{time.time() - t0:.0f}s", flush=True)
+    h[COLS].to_csv(OUTF, index=False)
+    return f"{len(todo)} games extended in {time.time() - t0:.0f}s; " + ", ".join(f"{c} {int(h[c].notna().sum())}" for c in EXTRA)
 
 
 def _line(row) -> str:
@@ -184,6 +246,8 @@ def ingest(path) -> pd.DataFrame:
             m = re.search(r"\bROW,(.*)$", line.rstrip("\n"))
             if m:
                 v = m.group(1).split(",")
+                if len(v) == len(OLD_COLS):   # a log from before the temperature and rain columns
+                    v = v + [""] * len(EXTRA)
                 if len(v) == len(COLS):
                     rows.append(v)
     new = pd.DataFrame(rows, columns=COLS).replace("", np.nan)
@@ -197,9 +261,11 @@ def ingest(path) -> pd.DataFrame:
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--seasons", default="2018-2023"); ap.add_argument("--weeks", default=""); ap.add_argument("--ingest", nargs="*")
-    ap.add_argument("--backfill", action="store_true")
+    ap.add_argument("--backfill", action="store_true"); ap.add_argument("--extend", action="store_true")
     a = ap.parse_args()
-    if a.backfill:
+    if a.extend:
+        print(extend())
+    elif a.backfill:
         print(backfill())
     elif a.ingest:
         ingest(a.ingest)

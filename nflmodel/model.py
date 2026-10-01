@@ -335,9 +335,9 @@ def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
 # experiments/wind_forecast.py): outdoor games whose forecast wind (GFS MOS and Japan's model, mean over the first three
 # hours; nflmodel/wind_live.readings) sits in a band finish off the model's total by a band amount, learned each season from
 # the seasons before it only: each band's mean miss against the mean miss of every forecast game, shrunk toward zero by
-# WIND_K games. Bands [0, 10), [10, 15), 15+ mph. Rerun 2015-2026: total miss 10.541 -> 10.508 (2019-22) and 10.177 -> 10.124
+# WIND_K games. Bands [0, 10), [10, 15), 15+ mph. Rerun 2015-2026: total miss 10.541 -> 10.509 (2019-22) and 10.177 -> 10.125
 # (2023-25), 2015-18 and the spread unchanged; no within-season shuffle of the forecast (50) as good (experiments/wind_points.py);
-# the totals flag 175-128 -> 182-130 and 71-59 -> 81-62 (forecasts start in 2018).
+# the totals flag 175-128 -> 182-129 and 71-59 -> 81-62 (forecasts start in 2018).
 WIND_BANDS, WIND_K = [0.0, 10.0, 15.0, float("inf")], 50.0
 
 

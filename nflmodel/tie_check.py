@@ -145,8 +145,9 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
             def _r18(part, stat, var): return [float(r18[(r18.part == part) & (r18.stat == stat) & (r18.variant == var) & (r18.window == w)].mae.iloc[0]) for w in ("2019-22", "2023-25")]
             _rb, _rp, _ra = _r18(1, "rush_yards", "base"), _r18(1, "rush_yards", "pace_0.25"), _r18(2, "rush_yards", "asof_same_half")
             b2 = {"rec_yards": _r18(2, "rec_yards", "asof_same_half"), "pass_yards": _r18(1, "pass_yards", "base"), "rush_yards": [_rb[i] - (_rb[i] - _rp[i]) - (_rb[i] - _ra[i]) for i in (0, 1)]}
-            # within 0.02: two decimals on the by-season run, and the rushing gains are added rather than run together
-            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.02)", str(b1), str({k: [round(v, 3) for v in b2[k]] for k in b2}), all(abs(b1[k][i] - b2[k][i]) <= 0.02 for k in b1 for i in (0, 1))))
+            # within 0.05: two decimals on the by-season run, the rushing gains added rather than run together, and the game model
+            # moved under the rounds since (1 Oct 2026: wind points in the total the game script reads moved passing by 0.04)
+            rows.append(("props by-season run = the adopted rule's rows in the round that set it (yards, both windows; within 0.05)", str(b1), str({k: [round(v, 3) for v in b2[k]] for k in b2}), all(abs(b1[k][i] - b2[k][i]) <= 0.05 for k in b1 for i in (0, 1))))
         if (TR / "props_vs_market.csv").exists():
             vm = pd.read_csv(TR / "props_vs_market.csv"); vm = vm[vm.side != "none"]
             tie("props graded against the market: page record = tracker file", {k: [int((g.result == "win").sum()), int((g.result == "loss").sum())] for k, g in vm.groupby("stat")}, {x["stat"]: [x["wins"], x["losses"]] for x in pj.get("market", []) if x["edge"] == "all"})
