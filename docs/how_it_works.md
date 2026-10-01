@@ -2962,6 +2962,13 @@ all, so on the Thursday of week 4 four starters ESPN listed Out (CLE's two Jenki
 were not counted. ESPN's Out, Doubtful or Questionable now fills every player the league file has no game status for
 that week; where the league has one, it stands. Past seasons are untouched (the fill applies to the current week only).
 
+**Inactives, logged** (1 Oct 2026, Matt; `nflmodel/inactives.py`, `data/lines/inactives_log.csv`). Teams name their
+inactives 90 minutes before kickoff, and ESPN's game roster marks them did-not-play. Before that the same flag already
+sits on some players (on the Thursday of week 4 it marked Joey Porter Jr., who practiced in full), so every line watch in
+the six hours before a kickoff logs the flags and nothing is priced on them until the log shows when they become the
+official list. A tie check now fails when ESPN lists a player Out or Doubtful for a game not yet started and his card
+does not count him.
+
 **Picks-final alert** (1 Oct 2026, Matt; `nflmodel/picks_final.py`). Teams post their last injury report, with game
 statuses, about 4pm ET two days before a game (the day before for a Thursday game). An hour after that report, once a
 line-watch check has read it and any re-price it asked for has run, the line watch opens one GitHub issue labelled
