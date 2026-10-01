@@ -136,10 +136,13 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
         common = [("When", "Prime time", prime), ("When", "Sunday daytime", ~prime & col("weekday").eq("Sunday")), ("When", "Thursday", thu),
                   ("Game", "Division game", div), ("Game", "Not a division game", ~div), ("Where", "Indoors", indoor), ("Where", "Outdoors", ~indoor)]
         t_bet = t_ok & wk & ~over & (p_side >= TOTAL_SHADOW["prob"])
+        # beside each row, every game in the same situation (1 Oct 2026, Matt: "excluding us, just what happens"): on the
+        # spreads the model's side on every game at any edge, on the totals every under whatever the model said
+        u_won = ct < 0
         out["situations"] = {
-            "spread": [{"group": gp, "row": lab, **block(sp_won, sp_push, bet & m)} for gp, lab, m in
+            "spread": [{"group": gp, "row": lab, **block(sp_won, sp_push, bet & m), "every": _cell(sp_won[sp_ok & wk & m], sp_push[sp_ok & wk & m])} for gp, lab, m in
                        [("Line", "Under 3", aline < 3), ("Line", "3 to 6.5", (aline >= 3) & (aline < 7)), ("Line", "7 or more", aline >= 7)] + common],
-            "total": [{"group": gp, "row": lab, **block(t_won, t_push, t_bet & m)} for gp, lab, m in
+            "total": [{"group": gp, "row": lab, **block(t_won, t_push, t_bet & m), "every": _cell(u_won[t_ok & wk & m], t_push[t_ok & wk & m])} for gp, lab, m in
                       [("Total", "Under 42", tl < 42), ("Total", "42 to 46.5", (tl >= 42) & (tl < 47)), ("Total", "47 or more", tl >= 47)] + common +
                       [("Where", "Outdoors, wind 15+ mph", windy)]]}
     except Exception:  # noqa  (a display table; the page hides the card without it)

@@ -2932,4 +2932,6 @@ Situation (records.appendix situations): the live rule's bets by the size of the
 daytime, Thursday, division games, indoors or out, and wind 15+ mph on totals. Display only; no rule changed. The Totals tab
 also has the spreads' odds-against-what-happened table (1 Oct 2026, Matt; records.appendix total_cal): the over or under
 chance the cards show for the model's side (each season on the fit made before it), in bands, against how often that side
-hit.
+hit. Our Bets by Situation gains a column for every game in the same situation (1 Oct 2026, Matt: "excluding us, just what
+happens"): on the totals every under whatever the model said, on the spreads the model's side at any edge. Futures' Team
+Odds and Player Totals rows no longer open a calculation card (the method is in Info -> Season Odds and Totals).
