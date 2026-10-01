@@ -186,6 +186,8 @@ def main(full=False, skip_network=False):
         from . import refresh
         step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
     step("grade", lambda: tracker.main(), log)
+    from . import forecast_history
+    step("forecast history", lambda: forecast_history.backfill(), log)   # 1 Oct 2026: 2018-2025 pre-kickoff wind and gust forecasts, ten minutes a run until stored, then a no-op
     step("drift monitor", lambda: sh(["nflmodel.drift"]), log)   # 30 Sep 2026: has any number that moves the edge left its long-run level (reports/drift.md)
     step("shadow watch", lambda: sh(["nflmodel.shadow_watch"]), log)   # 30 Sep 2026: a tracked rule pulling clear of the live rule feeds the ready checks below (reports/shadow_watch.md)
     step("ready checks", lambda: sh(["nflmodel.ready_checks"]), log)   # 30 Sep 2026: drift alerts, tracked rules ahead, questions whose live data is in; each READY row opens a ready-check issue
