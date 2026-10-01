@@ -10,3 +10,4 @@ __pycache__/
 data/private/
 # third-party ranking pages (PFF, FOX, SI, ESPN): kept locally, not republished; the derived list is data/reference/consensus_2026.csv
 data/reference/consensus/*.html
+.claude/settings.local.json
