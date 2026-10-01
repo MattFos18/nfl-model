@@ -14,7 +14,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4.5+ edge | 2 | 0 | nothing settled |  | +0.00 | 43-36 | 52-37 | 25-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 50-38 | 73-42 | 32-18 |
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 54-41 | 68-37 | 33-16 |
-| shadow: boosted trees alone, 5+ edge | 1 | 0 | nothing settled |  | +0.00 | 94-66 | 85-62 | 34-17 |
+| shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 94-66 | 85-62 | 34-17 |
 | shadow: Under, 55%+ chance (the totals flag) | 6 | 3 | 2-1 (67%) | +0.82 | +0.17 | 135-127 | 175-128 | 71-59 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 3 | 0 | nothing settled |  | +0.00 | 124-106 | 165-116 | 65-53 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 18-10 | 14-13 | 15-4 |

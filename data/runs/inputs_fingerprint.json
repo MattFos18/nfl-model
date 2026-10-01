@@ -146,6 +146,11 @@
 ],
 [
 "CHI",
+"Kyler Gordon",
+"Out"
+],
+[
+"CHI",
 "Noah Sewell",
 "Out"
 ],
@@ -406,33 +411,13 @@
 ],
 [
 "NYJ",
-"Marcelino McCrary-Ball",
-"Out"
-],
-[
-"NYJ",
 "Mason Taylor",
 "Doubtful"
 ],
 [
 "PHI",
-"AJ Epenesa",
-"Out"
-],
-[
-"PHI",
-"Cole Payton",
-"Out"
-],
-[
-"PHI",
 "Dallas Goedert",
 "Doubtful"
-],
-[
-"PHI",
-"Tanner McKee",
-"Out"
 ],
 [
 "PIT",
@@ -461,12 +446,12 @@
 ],
 [
 "SF",
-"Demarcus Robinson",
+"James Thompson Jr.",
 "Out"
 ],
 [
 "SF",
-"James Thompson Jr.",
+"Mykel Williams",
 "Out"
 ],
 [
@@ -514,6 +499,30 @@
 [
 "ARI",
 "Dadrion Taylor-Demerson",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Hjalte Froholdt",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Mack Wilson Sr.",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Roy Lopez",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Walter Nolen III",
 "Questionable (ESPN)",
 ""
 ],
@@ -753,6 +762,12 @@
 ],
 [
 "GB",
+"Edgerrin Cooper",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
 "Jacob Monk",
 "Questionable (ESPN)",
 ""
@@ -915,7 +930,19 @@
 ],
 [
 "LA",
+"Josh Wallace",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Kamren Kinchens",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Nate Landman",
 "Questionable (ESPN)",
 ""
 ],
@@ -964,6 +991,12 @@
 [
 "LAC",
 "Kayode Awosika",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Keaton Mitchell",
 "Questionable (ESPN)",
 ""
 ],
@@ -1149,7 +1182,7 @@
 ],
 [
 "NYJ",
-"Kene Nwangwu",
+"Jeremy Ruckert",
 "Questionable (ESPN)",
 ""
 ],
@@ -1167,7 +1200,19 @@
 ],
 [
 "NYJ",
+"Kingsley Enagbare",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Minkah Fitzpatrick",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"DeVonta Smith",
 "Questionable (ESPN)",
 ""
 ],
@@ -1180,6 +1225,30 @@
 [
 "PHI",
 "Hollywood Brown",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Jihaad Campbell",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Moro Ojomo",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Will Shipley",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Zack Baun",
 "Questionable (ESPN)",
 ""
 ],
@@ -1222,6 +1291,30 @@
 [
 "SEA",
 "Brandon Pili",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"George Holani",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Grey Zabel",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Jadarian Price",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Jarran Reed",
 "Questionable (ESPN)",
 ""
 ],
@@ -1419,60 +1512,65 @@
 "rain": false
 },
 "2026_04_IND_WAS": {
-"wind": 3.6,
+"wind": 3.9,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_04_TEN_BAL": {
-"wind": 1.6,
+"wind": 6.9,
 "cold": false,
 "rain": true
 },
 "2026_04_NE_BUF": {
-"wind": 9.8,
+"wind": 8.1,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 4.2,
+"wind": 5.1,
 "cold": false,
 "rain": false
 },
 "2026_04_JAX_CIN": {
-"wind": 3.4,
+"wind": 4.3,
 "cold": false,
 "rain": false
 },
 "2026_04_DAL_HOU": {
-"wind": 10.3,
+"wind": 10.4,
 "cold": false,
 "rain": false
 },
 "2026_04_ARI_NYG": {
-"wind": 7.8,
+"wind": 7.5,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 6.3,
+"wind": 9.0,
 "cold": false,
 "rain": false
 },
 "2026_04_GB_TB": {
-"wind": 9.2,
+"wind": 8.2,
 "cold": false,
 "rain": false
 },
 "2026_04_LAC_SEA": {
-"wind": 6.5,
+"wind": 6.0,
 "cold": false,
 "rain": false
 },
 "2026_04_DEN_SF": {
-"wind": 5.4,
+"wind": 4.0,
 "cold": false,
 "rain": false
+},
+"2026_04_DET_CAR": {
+"wind": 7.4,
+"cold": false,
+"rain": true
 }
 },
-"written_at": "2026-09-30 23:22 UTC"
+"written_at": "2026-10-01 00:43 UTC"
 }
