@@ -352,6 +352,8 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 14-13 | 15-4 |
 | 4+ edge on road sides, 6+ on home sides | 41-24 | 46-30 | 23-10 |
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
+| Under, 60%+ chance | 64-53 | 102-58 | 24-24 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 45-23 | 19-13 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -2905,6 +2907,12 @@ tracked as hidden shadows (graded every run, kept off the page): road sides at 4
 only. The shadow watch (nflmodel/shadow_watch.py, reports/shadow_watch.md) checks every shadow each weekly run and opens
 a ready-check issue (below) when one has 30+ settled live bets, a win rate past break-even beyond luck (p 0.10)
 and 5+ points more return per unit risked than the rule it would replace; it is then re-tested before it is bet.
+
+**Two more hidden totals shadows** (1 Oct 2026, Matt: "yes", after the totals situation tables). The unders at a 60%+ raw
+chance (`picks.UNDER_HIGH`, the band that holds most of the totals flag's units on the backtest, though 24-24 on 2023-25) and
+the totals flag in prime-time games only (Thursday, Sunday and Monday night, `games.primetime`). Both are graded every run
+against the totals flag over the same seasons and kept off the page; the shadow watch opens a ready-check issue if either
+pulls clear on live games. Found on the backtest, so neither is bet.
 
 **Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
 nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude
