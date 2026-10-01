@@ -99,9 +99,9 @@ def jma(lat, lon, ko: pd.Timestamp):
     return _window(t, s("wind_speed_10m_previous_day2"), ko), _window(t, s("wind_speed_10m_previous_day1"), ko), _window(t, s("wind_speed_10m"), ko)
 
 
-def games(seasons, weeks=None) -> pd.DataFrame:
+def games(seasons, weeks=None, played=True) -> pd.DataFrame:
     g = pd.read_parquet(OUT / "games.parquet")
-    g = g[g.season.isin(seasons) & g.kickoff_et.notna() & g.home_score.notna() & g.roof.fillna("outdoors").isin(["outdoors", "open"])].copy()
+    g = g[g.season.isin(seasons) & g.kickoff_et.notna() & (g.home_score.notna() if played else g.home_score.isna()) & g.roof.fillna("outdoors").isin(["outdoors", "open"])].copy()
     if weeks:
         g = g[g.week.between(*weeks)]
     st = g.stadium.fillna("")

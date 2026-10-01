@@ -156,6 +156,8 @@ def main(full=False, skip_network=False):
         return log
     if not skip_network:
         step("weather", lambda: weather.run(), log)
+        from . import wind_live
+        step("wind forecast", lambda: wind_live.run(), log)   # 1 Oct 2026: the wind-under rule's reading (nflmodel/wind_live.py)
     games = pd.read_parquet(OUT / "games.parquet")
     games = weather.apply_to_games(games)
     games.to_parquet(OUT / "games.parquet", index=False)

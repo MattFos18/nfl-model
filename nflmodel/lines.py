@@ -475,6 +475,11 @@ def run(season=None, week=None) -> pd.DataFrame:
     except Exception as e:  # noqa
         errors.append(f"market logs: {str(e)[:120]}")
     try:
+        from . import wind_live
+        wind_live.run()   # the forecast wind for the wind-under rule (1 Oct 2026): GFS MOS and Japan's model for games within 66 hours
+    except Exception as e:  # noqa
+        errors.append(f"wind: {str(e)[:120]}")
+    try:
         from . import inactives
         inactives.run()   # game-day inactives from ESPN's game rosters within six hours of kickoff (1 Oct 2026): logged, not priced yet
     except Exception as e:  # noqa

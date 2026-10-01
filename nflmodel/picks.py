@@ -21,13 +21,14 @@ HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spr
 TEASE_DOG = {"lines": (1.5, 2.5), "pair_odds": -130.0}   # 1 Oct 2026 (reports/friend_ideas.md): six-point teaser legs on dogs at +1.5 to +2.5, blind; tracked, hidden, not bet
 # one leg of a two-team teaser at pair_odds breaks even at sqrt(1 / pair payout + 1 share): graded as a single bet at the odds with that break-even
 TEASE_LEG_ODDS = -round(100 * (lambda q: q / (1 - q))((abs(TEASE_DOG["pair_odds"]) / (abs(TEASE_DOG["pair_odds"]) + 100)) ** 0.5))
+WIND_UNDER = {"mph": 10.0}   # 1 Oct 2026 (reports/wind_forecast.md, Matt: "build the best version"): the under in outdoor games whose forecast wind (GFS MOS and Japan's model, mean over the first three hours) is 10+ mph
 UNDER_HIGH = 0.60   # 1 Oct 2026: the unders at a 60%+ raw chance (p_over_emp), tracked, hidden, not bet
 HOME_SIDE_EDGE = 6.0   # 30 Sep 2026 (reports/home_side_rules.md): road sides at 4+, home sides at 6+ (neutral sites count as road); tracked, hidden, not bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction, label)
-UNDER_RULES = ("under_prob", "under_prob_early", "under_prime")   # side rules graded as unders on the total
+UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under")   # side rules graded as unders on the total
 SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
            "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
@@ -38,6 +39,7 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowroad": (SPREAD_EDGE, "road", f"{SPREAD_EDGE:g}+ edge, road sides only"),
            "shadowunder60": (UNDER_HIGH, "under_prob", f"Under, {100 * UNDER_HIGH:.0f}%+ chance"),
            "shadowunderprime": (TOTAL_SHADOW["prob"], "under_prime", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance, prime time (TNF, SNF, MNF) only"),
+           "windunder": (WIND_UNDER["mph"], "wind_under", f"Under, forecast wind {WIND_UNDER['mph']:g}+ mph (outdoor games)"),
            "shadowteasedog": (0.0, "tease_dog", f"6-point teaser leg on dogs at +{TEASE_DOG['lines'][0]:g} to +{TEASE_DOG['lines'][1]:g}, any game (a leg of a two-team teaser at {TEASE_DOG['pair_odds']:+g})")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
@@ -171,8 +173,22 @@ def _spread(d, side_rule=None):
     return d.model_spread
 
 
+_WIND: dict | None = None
+
+
+def _wind() -> dict:
+    """game_id -> forecast wind reading (nflmodel/wind_live.readings), read once per run."""
+    global _WIND
+    if _WIND is None:
+        from .wind_live import readings
+        _WIND = readings()
+    return _WIND
+
+
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
+    if side_rule == "wind_under":   # forecasts stored from 2018 (nflmodel/forecast_history.py), weeks 1 to LAST_BET_WEEK like every rule
+        return (d.game_id.map(_wind()).astype(float) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
     if side_rule in UNDER_RULES:
         if "p_over_emp" not in d.columns:
             return pd.Series(False, index=d.index)
@@ -299,6 +315,9 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return ""   # the model's side is the favourite: the dogs-only rule sits this one out
         if side_rule == "wk13" and r.week > EARLY_LAST_WEEK:
             return ""   # the early-weeks rule sits out the late season
+        if side_rule == "wind_under":
+            w = _wind().get(r.game_id)
+            return f"Under {r.total_line:g}" if pd.notna(r.total_line) and w is not None and w >= spread_edge else ""
         if side_rule in UNDER_RULES:
             pe = getattr(r, "p_over_emp", np.nan); thr = EARLY_UNDER["prob"] if side_rule == "under_prob_early" and r.week <= EARLY_UNDER["weeks"] else spread_edge
             if side_rule == "under_prime" and r.game_id not in _prime_ids():
