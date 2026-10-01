@@ -20,6 +20,8 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 18-10 | 14-13 | 15-4 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 2 | 0 | nothing settled |  | +0.00 | 41-24 | 46-30 | 23-10 |
 | shadow: 4+ edge, road sides only | 2 | 0 | nothing settled |  | +0.00 | 39-15 | 36-22 | 19-8 |
+| shadow: Under, 60%+ chance | 1 | 0 | nothing settled |  | +0.00 | 64-53 | 102-58 | 24-24 |
+| shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 41-25 | 45-23 | 19-13 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.5% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 

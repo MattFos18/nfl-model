@@ -13,3 +13,5 @@
 | shadowhook       | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | False    | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
 | shadowroad6      | 4+ edge on road sides, 6+ on home sides                                  | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
 | shadowroad       | 4+ edge, road sides only                                                 | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
+| shadowunder60    | Under, 60%+ chance                                                       | True     | 0-0      |         0 |    0    | nan     | shadowunder     | 2-1           |      0.256 |  nan     | tracking |
+| shadowunderprime | Under, 55%+ chance, prime time (TNF, SNF, MNF) only                      | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
