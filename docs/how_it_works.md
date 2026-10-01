@@ -2914,6 +2914,24 @@ the totals flag in prime-time games only (Thursday, Sunday and Monday night, `ga
 against the totals flag over the same seasons and kept off the page; the shadow watch opens a ready-check issue if either
 pulls clear on live games. Found on the backtest, so neither is bet.
 
+**Five ideas from a friend's model: nothing adopted** (1 Oct 2026; experiments/friend_ideas.py, reports/friend_ideas.md).
+(1) Unders in windy outdoor games: on the schedule's wind at 10+ mph they went 139-102, 141-96 and 78-59 (about 58%,
++75 units) and beat a within-season shuffle of the wind, and the model adds nothing inside those games (the under wins
+about as often whatever the model says). But that wind is the weather that happened; the day-before forecast exists only
+for 2024-25, where the same rule went 52-47, and no wind-plus-flag rule beats the totals flag on every window. Not bet; a
+candidate hidden shadow on the live forecast. (2) The kickoff gust in the total equation lowers the total miss by about
+0.005 points on every window, but a shuffled gust does as well (the gain is the roof split, not the gust) and it costs
+totals-flag wins, so it is out. (3) A forecast history back to 2018: Open-Meteo's previous-runs archive keeps wind and
+gusts from January 2024 (Japan's coarse global model, wind only, from 2018); its historical-forecast archive stitches each
+run's first hours, so it is close to what happened, not a forecast. The Iowa Mesonet keeps NWS airport forecasts (GFS
+guidance since 2003, gusts from the National Blend since November 2018). About 1,200 outdoor games would need fetching
+from GitHub's network (this sandbox cannot reach either host); the report lists the requests. (4) Six-point two-team
+teasers on the basic-strategy legs: dog legs at +1.5 to +2.5 won 77% on all three windows and paid even at -130; favorite
+legs at -7.5 to -8.5 fell to 62% on 2023-25; filtering legs by the model does not beat its placebo. Dog-leg teasers are a
+candidate hidden shadow, not a bet. (5) A points-per-drive rating, built like the live ratings, is close to the EPA and
+points ratings already in (correlation 0.94 to 0.95); added or swapped in, it is never better on all three windows and
+costs flag wins.
+
 **Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
 nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude
 routines. Each weekly run now asks them itself and opens one GitHub issue labelled ready-check (GitHub emails the
