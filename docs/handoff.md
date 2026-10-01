@@ -101,7 +101,9 @@ decisions waiting on Matt are `docs/todo.md`.
 - Windows on ARM. pyarrow has no Windows ARM build, so the repo runs in `.venv` made with Python 3.12 x64 (installed with
   winget; it runs under emulation). Use `.venv\Scripts\python.exe`. pytest is installed in the venv (not in
   requirements.txt). All 20 tests pass.
-- The repo is at `C:\Users\mfosc\nfl-model`. The empty folder `C:\Users\mfosc\NFL Model` is not the repo.
+- The repo is at `C:\Users\mfosc\NFL-Model`. Run with `PYTHONUTF8=1` (Windows reads files as cp1252 otherwise). The raw
+  player files are not on the laptop, so use `python -m nflmodel.export_web --week`; the tie check's "season file" and
+  "backtests re-run" rows fail locally for the same reason.
 - CLAUDE.md's Playwright path (`/opt/pw-browsers/chromium`) is the cloud container's; locally install a browser with
   `npx playwright install chromium` and drop the executablePath.
 - `ODDS_API_KEY` must be set as a user environment variable for live lines when run locally (GitHub Actions has it as a

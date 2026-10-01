@@ -880,7 +880,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     META.feats.forEach(f => { const v = inputs[f]; if (v == null) return; const c = SIT.has(f) ? co.per_unit[f] * v : co.per_unit[f] * (v - co.mean[f]); total += c; out.push({f, v, c, sit: SIT.has(f)}); });
     const eq = total; if (inputs.blend_adj != null) total += inputs.blend_adj;   // the blend: the other six models' average pull
     if (inputs.total_adj != null) total += inputs.total_adj;   // the share-out: the two team scores add up to the game total
-    return {items: out, total, eq, blend: inputs.blend_adj, tadj: inputs.total_adj, base, intercept: co.intercept};
+    return {items: out, total, eq, blend: inputs.blend_adj, tadj: inputs.total_adj, twind: inputs.total_wind, base, intercept: co.intercept};
   }
 
   // ---------- This week: cards ----------
@@ -1672,9 +1672,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const x = SF.flags && SF.flags[f]; if (!x) return "";
     return `Raw data ${SF.seasons}: with it ${x.on} points (${x.n_on.toLocaleString()} team-games), without ${x.off}, gap ${x.diff > 0 ? "+" : ""}${x.diff}. The fitted number differs because the ratings and the other inputs are held fixed.`;
   }
-  function rowHtml(x, co, maxc, inp) {
+  function rowHtml(x, co, maxc, inp, fc) {
     // the points only (28 Sep 2026, Matt): no "points per unit x value" column; the equation is in Info
-    return `<tr><td class="ind lbl">${FEAT_LABEL[x.f] || x.f}${x.f === "wind_out" && inp && !inp.dome && inp.temp == null ? " <span class='rk'>(typical; no usable forecast)</span>" : ""}</td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`;
+    return `<tr><td class="ind lbl">${x.f === "wind_out" && fc ? "Wind forecast at kickoff, mph" : (FEAT_LABEL[x.f] || x.f)}${x.f === "wind_out" && inp && !inp.dome && inp.temp == null ? " <span class='rk'>(typical; no usable forecast)</span>" : ""}</td><td class="n ${x.c > 0 ? "pos" : (x.c < 0 ? "neg" : "")}">${sgn(x.c, 2)}</td></tr>`;
   }
   function whyHtml(g, s, gIdx) {
     const cols = [g.home_team, g.away_team].map((t, ti) => {
@@ -1690,14 +1690,17 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         h += `<tr class="grp"><td><button class="open" data-open="${id}" aria-expanded="false">▸ ${gname}</button></td><td class="n">${sgn(gsum, 2)}</td></tr>`;
         let extra = "";
         // no player chips under the injury inputs (28 Sep 2026, Matt): the Injury report panel lists everyone with his points
-        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp)).join("")}</tbody></table>${extra}</td></tr>`;
+        h += `<tr class="sub" id="${id}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Input</th><th class="n">Points</th></tr></thead><tbody>${items.map(x => rowHtml(x, co, maxc, inp, g.home_score == null)).join("")}</tbody></table>${extra}</td></tr>`;
       });
       if (c.blend != null && inp.models) {
         const bid = `x${gIdx}_${ti}_blend`, L = META.blend_label || {}, ks = Object.keys(inp.models), avg = ks.reduce((a, k) => a + inp.models[k], 0) / ks.length;
         h += `<tr class="grp"><td><button class="open" data-open="${bid}" aria-expanded="false">▸ ${ks.length - 1} more models, averaged in</button></td><td class="n">${sgn(c.blend, 2)}</td></tr>`;
         h += `<tr class="sub" id="${bid}" hidden><td colspan="2"><table class="ctab"><thead><tr><th>Model</th><th class="n">Points</th></tr></thead><tbody>${ks.map(k => `<tr><td class="ind lbl">${L[k] || k}</td><td class="n">${inp.models[k].toFixed(2)}</td></tr>`).join("")}<tr class="tot"><td>Average of ${ks.length}</td><td class="n">${avg.toFixed(2)}</td></tr><tr><td class="ind lbl">Average − the equation shown (${c.eq.toFixed(2)})</td><td class="n">${sgn(c.blend, 2)}</td></tr></tbody></table></td></tr>`;
       }
-      if (c.tadj != null) h += `<tr class="grp"><td title="The two team scores above come from the points equation; the game total comes from its own equation, which is better at totals (it reads the weather, the referee and both QBs' form this season). The two scores are shifted by the same amount so they add up to that total; the spread is untouched. This row is that shift.">Matched to the total model (same shift both teams)</td><td class="n">${sgn(c.tadj, 2)}</td></tr>`;
+      // the wind points on the total, half to each team, as their own row (1 Oct 2026, Matt): the match row is the rest of the shift
+      const tw = c.tadj != null && c.twind != null && Math.abs(c.twind) >= 0.005 ? c.twind : 0;
+      if (tw) h += `<tr class="grp"><td>Wind forecast on the total (half each team)</td><td class="n ${tw < 0 ? "neg" : "pos"}">${sgn(tw, 2)}</td></tr>`;
+      if (c.tadj != null) h += `<tr class="grp"><td title="The two team scores above come from the points equation; the game total comes from its own equation, which is better at totals (it reads the weather, the referee and both QBs' form this season). The two scores are shifted by the same amount so they add up to that total; the spread is untouched. This row is that shift.">Matched to the total model (same shift both teams)</td><td class="n">${sgn(c.tadj - tw, 2)}</td></tr>`;
       h += `<tr class="tot"><td>Expected points</td><td class="n">${c.total.toFixed(1)}</td></tr></tbody></table></div>`;   // closes the team's block, so the two sit side by side (28 Sep 2026, Matt)
       return h;
     });
