@@ -2929,4 +2929,7 @@ units); the units chart draws both; a table splits every game's lean by how sure
 by side (records.appendix ou_bands): overs lose in every band, and the unders' profit sits almost all in the 60%+ band
 (192-136, +42.4; 55-60% is near even). Every Edge Tested lists the unders, then the overs. Both markets gain Our Bets by
 Situation (records.appendix situations): the live rule's bets by the size of the line or total, prime time, Sunday
-daytime, Thursday, division games, indoors or out, and wind 15+ mph on totals. Display only; no rule changed.
+daytime, Thursday, division games, indoors or out, and wind 15+ mph on totals. Display only; no rule changed. The Totals tab
+also has the spreads' odds-against-what-happened table (1 Oct 2026, Matt; records.appendix total_cal): the over or under
+chance the cards show for the model's side (each season on the fit made before it), in bands, against how often that side
+hit.

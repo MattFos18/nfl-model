@@ -144,6 +144,26 @@ def appendix(d: pd.DataFrame, season_now: int) -> dict:
                       [("Where", "Outdoors, wind 15+ mph", windy)]]}
     except Exception:  # noqa  (a display table; the page hides the card without it)
         out["situations"] = {"spread": [], "total": []}
+    # the totals' chance against what happened (1 Oct 2026, Matt: the spreads' Cover Odds table for the totals too): the
+    # chance the cards show for the model's side (p_over_cal, each season on the fit made before it, as picks.table does),
+    # in bands, against how often that side hit; every regular-season game with a total line, pushes out, seasons with a fit
+    try:
+        from .model import OUT as _O2
+        from .picks import over_calibrations, over_cal_p, OVER_CAL_MIN_N
+        cals = over_calibrations(pd.read_parquet(_O2 / "pred_v3.parquet"), pd.read_parquet(_O2 / "games.parquet"))
+        tt = d[t_ok & (ct != 0)].copy()
+        tt = tt[tt.season.map(lambda s_: cals.get(int(s_), (0, 1, 0))[2] >= OVER_CAL_MIN_N)]
+        pc = np.array([over_cal_p(cals[int(s_)], q) for s_, q in zip(tt.season, tt.p_over_emp)])
+        side_over = pc >= 0.5; said = np.where(side_over, pc, 1 - pc)
+        hit = np.where(side_over, ct[tt.index] > 0, ct[tt.index] < 0)
+        tc = []
+        for lo, hi in ((0.0, 0.5), (0.5, 0.52), (0.52, 0.54), (0.54, 0.56), (0.56, 0.58), (0.58, 0.6), (0.6, 0.63), (0.63, 1.01)):
+            m_ = (said >= lo) & (said < hi)
+            if m_.any():
+                tc.append({"band_from": lo, "band_to": min(hi, 1.0), "games": int(m_.sum()), "said": round(float(said[m_].mean()), 4), "covered": round(float(hit[m_].mean()), 4)})
+        out["total_cal"] = tc
+    except Exception:  # noqa  (a display table; the card hides without it)
+        out["total_cal"] = []
     # us against Vegas, every game: the straight-up winner, the miss of the margin and the total, how often our number
     # landed closer to the final than the closing line, and how far it sat from the line
     fav_m = np.sign(d.model_spread); fav_v = np.sign(d.spread_line); res = np.sign(d.home_score - d.away_score)

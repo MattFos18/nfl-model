@@ -510,7 +510,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="card"><h3>Every Edge Tested</h3><div id="bkedges"></div></div>
     <div class="card" id="bkfavcard"><h3>Our Bets by Side</h3><div id="bkfav"></div></div>
     <div class="card" id="bksitcard" hidden><h3>Our Bets by Situation</h3><div id="bksit"></div></div>
-      <div class="card" id="legitcalcard"><h3 title="every game with a line: the calibrated chance for the model's side in bands (walk-forward) and how often that side covered">Cover Odds against What Happened</h3><div class="tablewrap ro"><table id="legitcal" class="rgt"></table></div></div>
+      <div class="card" id="legitcalcard"><h3 id="legitcalhead" title="every game with a line: the calibrated chance for the model's side in bands (walk-forward) and how often that side covered">Cover Odds against What Happened</h3><div class="tablewrap ro"><table id="legitcal" class="rgt"></table></div></div>
     <div id="bksummary" hidden></div><select id="bkseason" hidden></select><table id="bktable" hidden></table>
   </div>
   <div id="props" hidden>
@@ -1946,7 +1946,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const terms = `Weeks 1–${nz(LASTWK)}, ${oddsTxt(ODDS)} (break-even ${pct1(BE)})`;
     $("bknote").innerHTML = "";   // no caption (28 Sep 2026, Matt)
     // spreads and totals kept apart (29 Sep 2026, Matt): the spread-only cards hide on Totals
-    ["bkweekcard", "bkwincard", "legitcalcard", "legitstartcard", "legitsizecard"].forEach(id => { const el = $(id); if (el) el.hidden = TOT; });
+    ["bkweekcard", "bkwincard", "legitstartcard", "legitsizecard"].forEach(id => { const el = $(id); if (el) el.hidden = TOT; });
     // the live record beside the backtest rate (28 Sep 2026, Matt): the same legs the Bets tab counts, this season, never re-run
     if (!window.REC_SEASON) renderRecord();
     const RSN = window.REC_SEASON, lc = RSN ? (TOT ? RSN.betsT : RSN.betsS) : null, lu = RSN ? (TOT ? RSN.unitsT : RSN.unitsS) : 0;
@@ -2009,6 +2009,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     { const FD = (APX.favdog || []).filter(r => r.cells.All && r.cells.All.w + r.cells.All.l), el = $("bkfav"), card = $("bkfavcard"); if (card) card.hidden = TOT || !FD.length;
       if (el && FD.length) el.innerHTML = `<div class="tablewrap ro"><table class="bkt heat edges"><thead><tr><th>Side</th>${perE.map(pr => `<th class="c">${pr.key === "All" ? "Total" : fullYr(pr.key)}</th>`).join("")}<th class="c">Record</th><th class="c">Seasons up</th></tr></thead><tbody>` +
         FD.map(r => `<tr${r.row === "Home favorite" ? ' class="sidegap"' : ""}><td>${esc(r.row)}</td>${perE.map(pr => pcell(r.cells[pr.key])).join("")}<td class="c nw">${(c => c && c.w + c.l ? `${c.w}-${c.l}${c.p ? "-" + c.p : ""}` : "—")(r.cells.All)}</td><td class="c">${upOf(r)}</td></tr>`).join("") + `</tbody></table></div>`; }
+    { const LC = $("legitcal"), card = $("legitcalcard"), CC = TOT ? (APX.total_cal || []) : ((window.LEGIT || {}).cover_cal || []);
+      if (card) card.hidden = !CC.length; if (LC && CC.length) LC.innerHTML = calTable(CC, TOT); if ($("legitcalhead")) $("legitcalhead").textContent = TOT ? "Over/Under Odds against What Happened" : "Cover Odds against What Happened"; }
     // overs and unders by the model's chance (30 Sep 2026, Matt: the full picture, not only the unders): every game's lean,
     // weeks 1 to the last bet week, both sides at each band; our bets are the unders from the bar up (records.appendix ou_bands)
     { const OB = APX.ou_bands || [], el = $("bkou"), card = $("bkoucard"); if (card) card.hidden = !TOT || !OB.length;
@@ -3136,6 +3138,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // the player values tried as game-model inputs (positions, special teams, line and defense, the player knobs): here, not on Game model (28 Sep 2026)
     const pt = inputsParts().playerTests; $("pmtests").innerHTML = pt ? `<details class="more"><summary>Player values as game-model inputs: every position, special teams, line and defense, the knobs</summary>${pt}</details>` : "";
   }
+  // the chance against what happened, in bands (spreads: sizing_backtest's cover_calibration; totals: records.appendix total_cal,
+  // 1 Oct 2026, Matt: "add this table for the totals as well")
+  function calTable(CC, tot) {
+    const allR = CC.filter(r => r.window === "All" || r.window == null), wins = allR.length ? ["All"] : [...new Set(CC.map(r => r.window))], bands = [...new Set(CC.map(r => r.band_from))].sort((x, y) => x - y);
+    const lab = f => { const r = CC.find(z => z.band_from === f); return f === 0 ? "Under 50%" : r.band_to >= 1 ? `${Math.round(100 * f)}%+` : `${Math.round(100 * f)}–${Math.round(100 * r.band_to)}%`; };
+    return `<thead><tr><th class="l">${tot ? "Model's chance, its side" : "Model's cover chance"}</th>${wins.map(w => `<th>${w === "All" ? "Games" : esc(w) + " games"}</th><th>Said</th><th>${tot ? "Hit" : "Covered"}</th>`).join("")}</tr></thead><tbody>` +
+      bands.map(f => `<tr><td class="l">${lab(f)}</td>${wins.map(w => { const r = CC.find(z => (z.window == null ? "All" : z.window) === w && z.band_from === f); return r ? `<td class="mono">${r.games.toLocaleString()}</td><td class="mono">${(100 * r.said).toFixed(1)}%</td><td class="mono"><b>${(100 * r.covered).toFixed(1)}%</b></td>` : `<td></td><td></td><td></td>`; }).join("")}</tr>`).join("") + "</tbody>";
+  }
   function renderLegit() {
     // the Is the Edge Real card went (30 Sep 2026, Matt); its luck chance is a figure under the headline; the cover-odds cards stay
     const L = window.LEGIT; if (!L || !L.sizing) { if ($("legitsize")) $("legitsize").innerHTML = ""; return; }
@@ -3146,10 +3156,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const rows = SW.map(w => { const f = flat(w), k = q(w); return `<tr><td class="l">${w}</td><td class="mono">${f.record || ""}</td><td class="mono">${f.win_pct != null ? (100 * f.win_pct).toFixed(1) + "%" : ""}</td><td class="mono">${f.units_flat != null ? (f.units_flat > 0 ? "+" : "") + f.units_flat.toFixed(1) : ""}</td><td class="mono">${f.roi_flat != null ? (100 * f.roi_flat).toFixed(1) + "%" : ""}</td><td class="mono">${f.max_drawdown != null ? f.max_drawdown.toFixed(1) : ""}</td><td class="mono">${f.longest_losing_streak ?? ""}</td><td class="mono">${k.growth_pct != null ? (k.growth_pct > 0 ? "+" : "") + k.growth_pct.toFixed(1) + "%" : ""}</td><td class="mono">${k.max_drawdown != null ? k.max_drawdown.toFixed(1) + "%" : ""}</td><td class="mono"><b>${pv(f.p_value_vs_break_even)}</b></td><td class="mono">${f.seasons_losing_flat || ""}</td></tr>`; }).join("");
     if ($("legitsize")) $("legitsize").innerHTML = `<thead><tr><th class="l">Window</th><th>Record</th><th>Win %</th><th title="one unit a bet">Units</th><th>ROI</th><th title="largest peak-to-trough fall, units">Drawdown</th><th title="longest run of losses">Losing run</th><th title="bankroll growth at a quarter Kelly">Quarter Kelly</th><th title="largest fall at a quarter Kelly, % of the peak">Its drawdown</th><th title="the chance of at least this record from a coin that wins 52.4%">By luck</th><th title="seasons that lost money at one unit a bet">Losing seasons</th></tr></thead><tbody>${rows}</tbody>`;
     // by chance range, every season together (30 Sep 2026, Matt: "group by the ranges"; "only the total really matters")
-    { const CC = L.cover_cal || [], tot = CC.filter(r => r.window === "All"), wins = tot.length ? ["All"] : [...new Set(CC.map(r => r.window))], bands = [...new Set(CC.map(r => r.band_from))].sort((x, y) => x - y);
-      const lab = f => { const r = CC.find(z => z.band_from === f); return f === 0 ? "Under 50%" : `${Math.round(100 * f)}–${Math.round(100 * Math.min(r.band_to, 1))}%`; };
-      $("legitcal").innerHTML = `<thead><tr><th class="l">Model's cover chance</th>${wins.map(w => `<th>${w === "All" ? "Games" : esc(w) + " games"}</th><th>Said</th><th>Covered</th>`).join("")}</tr></thead><tbody>` +
-        bands.map(f => `<tr><td class="l">${lab(f)}</td>${wins.map(w => { const r = CC.find(z => z.window === w && z.band_from === f); return r ? `<td class="mono">${r.games.toLocaleString()}</td><td class="mono">${(100 * r.said).toFixed(1)}%</td><td class="mono"><b>${(100 * r.covered).toFixed(1)}%</b></td>` : `<td></td><td></td><td></td>`; }).join("")}</tr>`).join("") + "</tbody>"; }
+    if (bkMkt !== "total") $("legitcal").innerHTML = calTable(L.cover_cal || [], false);   // the totals' version is drawn by renderBacktest
     const cs = L.cal_start || [];
     if ($("legitstart")) $("legitstart").innerHTML = cs.length ? `<thead><tr><th class="l">Fit on</th><th title="stated odds at an edge of 4 and 6, 2026">Odds at 4 / 6</th><th>Log loss, all games 2020-22</th><th>2023-25</th><th>Log loss, flags 2020-22</th><th>2023-25</th><th>Flags said / won 2023-25</th><th class="l">Verdict</th></tr></thead><tbody>` + cs.map(r => `<tr><td class="l">${esc(r.variant)}</td><td class="mono">${(100 * r.odds_at_4).toFixed(1)}% / ${(100 * r.odds_at_6).toFixed(1)}%</td><td class="mono">${r["logloss_all_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_all_2023-25"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2020-22"].toFixed(4)}</td><td class="mono">${r["logloss_flags_2023-25"].toFixed(4)}</td><td class="mono">${(100 * r["flags_said_2023-25"]).toFixed(0)}% / ${(100 * r["flags_won_2023-25"]).toFixed(0)}%</td><td class="l">${esc(r.verdict)}</td></tr>`).join("") + "</tbody>" : "";
   }
