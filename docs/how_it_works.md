@@ -354,6 +354,7 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
 | Under, 60%+ chance | 64-53 | 102-58 | 24-24 |
 | Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 45-23 | 19-13 |
+| Under, forecast wind 10+ mph (outdoor games) | 24-19 | 143-89 | 83-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 <!-- /auto:rules -->
 
@@ -2968,6 +2969,20 @@ sits on some players (on the Thursday of week 4 it marked Joey Porter Jr., who p
 the six hours before a kickoff logs the flags and nothing is priced on them until the log shows when they become the
 official list. A tie check now fails when ESPN lists a player Out or Doubtful for a game not yet started and his card
 does not count him.
+
+**The wind under, a bet** (1 Oct 2026, Matt: "build the best version"; `picks.WIND_UNDER`, rule `windunder`,
+`nflmodel/wind_live.py`). The under in every outdoor or open-roof game whose forecast wind is 10+ mph, weeks 1 to 17. The
+reading is the mean of two forecasts over the game's first three hours: the National Weather Service's GFS MOS at the
+stadium's airport (the newest run out at least 4 hours old and 5 hours before kickoff) and Japan's global model from
+Open-Meteo, pulled on every line watch for games within 66 hours; for 2018-2025 the stored forecast history gives the
+same reading. It went 24-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +75 units at -110, and the
+forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
+and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
+
+**If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
+player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
+terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
+the model's margin if every undecided player on one side sits, each way.
 
 **Picks-final alert** (1 Oct 2026, Matt; `nflmodel/picks_final.py`). Teams post their last injury report, with game
 statuses, about 4pm ET two days before a game (the day before for a Thursday game). An hour after that report, once a

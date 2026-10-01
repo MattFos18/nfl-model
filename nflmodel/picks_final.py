@@ -45,7 +45,7 @@ def slates(now_et: pd.Timestamp | None = None) -> list[dict]:
         ko = pd.Timestamp(g["kickoff"]); fr = final_report(ko)
         s = out.setdefault(fr, {"final_report": fr, "games": [], "first_kickoff": ko})
         s["first_kickoff"] = min(s["first_kickoff"], ko)
-        bets = [b for b in [g.get("bet") or "", g.get("shadowunder_bet") or ""] if b]
+        bets = list(dict.fromkeys(b for b in [g.get("bet") or "", g.get("shadowunder_bet") or "", g.get("windunder_bet") or ""] if b))   # the wind under once when the totals flag has it too
         s["games"].append({"game": f"{g['away_team']} @ {g['home_team']}", "kickoff": ko, "bets": bets})
     res = []
     for fr, s in sorted(out.items()):
