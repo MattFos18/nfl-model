@@ -2460,12 +2460,6 @@
 ],
 [
 "PIT",
-"Brandin Echols",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Jalen Ramsey",
 "",
 "Limited Participation in Practice"
@@ -2487,6 +2481,12 @@
 "Rico Dowdle",
 "",
 "Did Not Participate In Practice"
+],
+[
+"PIT",
+"Yahya Black",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
@@ -2977,7 +2977,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.5,
+"wind": 10.0,
 "cold": false,
 "rain": false
 },
@@ -3042,5 +3042,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 16:22 UTC"
+"written_at": "2026-10-01 16:56 UTC"
 }
