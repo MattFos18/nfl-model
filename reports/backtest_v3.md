@@ -8,7 +8,7 @@ Tuning window 2019 to 2022:
 
 | target      |   3.0 |   Vegas close |   games |
 |:------------|------:|--------------:|--------:|
-| team points |  7.33 |          7.29 |    1055 |
+| team points |  7.34 |          7.29 |    1055 |
 | margin      | 10.02 |          9.89 |    1055 |
 | total       | 10.51 |         10.54 |    1055 |
 
@@ -16,9 +16,9 @@ Held-out 2023 to 2025:
 
 | target      |   3.0 |   Vegas close |   games |
 |:------------|------:|--------------:|--------:|
-| team points |  7.24 |          7.21 |     816 |
+| team points |  7.25 |          7.21 |     816 |
 | margin      |  9.9  |          9.74 |     816 |
-| total       | 10.12 |         10.12 |     816 |
+| total       | 10.13 |         10.12 |     816 |
 
 Held-out, Week 5 on:
 
@@ -75,16 +75,16 @@ Brier score (lower is better): 3.0 0.2161, market moneyline 0.2102.
 
 |   edge |   bets |   wins |   losses |   pushes |   win_pct |   units |   roi |
 |-------:|-------:|-------:|---------:|---------:|----------:|--------:|------:|
-|      1 |    750 |    401 |      349 |       10 |     0.535 |    17.1 | 0.021 |
-|      2 |    491 |    270 |      221 |        3 |     0.55  |    26.9 | 0.05  |
-|      3 |    298 |    180 |      118 |        1 |     0.604 |    50.2 | 0.153 |
-|      4 |    157 |     99 |       58 |        0 |     0.631 |    35.2 | 0.204 |
-|      5 |     79 |     51 |       28 |        0 |     0.646 |    20.2 | 0.232 |
-|      6 |     40 |     30 |       10 |        0 |     0.75  |    19   | 0.432 |
+|      1 |    746 |    399 |      347 |       10 |     0.535 |    17.3 | 0.021 |
+|      2 |    485 |    267 |      218 |        4 |     0.551 |    27.2 | 0.051 |
+|      3 |    293 |    178 |      115 |        1 |     0.608 |    51.5 | 0.16  |
+|      4 |    157 |    100 |       57 |        0 |     0.637 |    37.3 | 0.216 |
+|      5 |     80 |     52 |       28 |        0 |     0.65  |    21.2 | 0.241 |
+|      6 |     39 |     29 |       10 |        0 |     0.744 |    18   | 0.42  |
 |      7 |     16 |     12 |        4 |        0 |     0.75  |     7.6 | 0.432 |
 |      8 |      6 |      5 |        1 |        0 |     0.833 |     3.9 | 0.591 |
 
-Best spread threshold with 100+ bets on the tuning window: 4 (ROI +0.157). Best total threshold: 4 (ROI +0.204). The held-out results below use the live spread flag (4; totals are not flagged, so they are graded at the tuned 4) and, separately, these.
+Best spread threshold with 100+ bets on the tuning window: 4 (ROI +0.157). Best total threshold: 4 (ROI +0.216). The held-out results below use the live spread flag (4; totals are not flagged, so they are graded at the tuned 4) and, separately, these.
 
 ## 5. Held-out 2023 to 2025, live flag (4 / 4)
 
@@ -163,16 +163,16 @@ Blend the model line with the closing line, pred = a x model + (1 - a) x line. B
 |   a (model share) |   margin MAE 2019-22 |   margin MAE 2023-25 |   total MAE 2023-25 |
 |------------------:|---------------------:|---------------------:|--------------------:|
 |               0   |                9.888 |                9.744 |              10.121 |
-|               0.1 |                9.879 |                9.739 |              10.101 |
+|               0.1 |                9.879 |                9.739 |              10.102 |
 |               0.2 |                9.872 |                9.739 |              10.087 |
-|               0.3 |                9.869 |                9.742 |              10.075 |
+|               0.3 |                9.869 |                9.742 |              10.076 |
 |               0.4 |                9.874 |                9.749 |              10.068 |
-|               0.5 |                9.885 |                9.761 |              10.064 |
-|               0.6 |                9.9   |                9.78  |              10.065 |
-|               0.7 |                9.921 |                9.804 |              10.071 |
-|               0.8 |                9.948 |                9.833 |              10.083 |
-|               0.9 |                9.98  |                9.867 |              10.101 |
-|               1   |               10.02  |                9.904 |              10.124 |
+|               0.5 |                9.885 |                9.761 |              10.065 |
+|               0.6 |                9.9   |                9.78  |              10.066 |
+|               0.7 |                9.921 |                9.804 |              10.072 |
+|               0.8 |                9.948 |                9.833 |              10.084 |
+|               0.9 |                9.98  |                9.867 |              10.102 |
+|               1   |               10.02  |                9.904 |              10.125 |
 
 Bet selection is unchanged by blending (the edge is scaled, not re-ordered), so this only improves the score and the probabilities.
 
