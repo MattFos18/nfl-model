@@ -2998,6 +2998,14 @@ the totals flag five net wins on 2019-22. The GFS MOS writes 99 for a missing wi
 had a 20 mph forecast built from it, now read as missing and refetched (5.5 mph), which moved the wind under's 2018 to 23-19. As a bet, blind unders at a rain chance of 50+ went 102-60 (63%, +36 units) with
 0.5% of shuffles as good, across all three windows; found on the backtest, so it is a candidate to track, not bet.
 
+**Rain as points** (1 Oct 2026, Matt: "quantify the points"; `experiments/rain_points.py`, reports/rain_points.md). The totals
+equation learned rain from the weather that happened but prices an upcoming game on the forecast, so it under-counted
+rain: games with a 50%+ forecast chance finished 2.9 points under the line while the model had them 0.3 under. Learning
+rain from the same forecast it is priced on (the GFS MOS chance 50%+, 2018 on) puts about -2.9 points on those games and
+lowers the total miss on all three windows (10.738 / 10.493 / 10.108), the totals flag gains net wins on all three, and
+it beat 20 of 20 shuffled forecasts. Nine other ways (bands, a straight line, the continuous chance) did worse. Not live
+until Matt says yes.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
