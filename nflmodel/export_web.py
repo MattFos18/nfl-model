@@ -763,6 +763,8 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
     if not rnf.exists():
         return
     rn = pd.read_parquet(rnf)
+    _pvf = OUT / "player_values.parquet"   # every skill player's value as of the coming week, for an undecided player's if-out
+    skill_val = dict(zip(*[pd.read_parquet(_pvf, columns=["player_id", "value_above_replacement"]).dropna()[c] for c in ("player_id", "value_above_replacement")])) if _pvf.exists() else {}
     # the starting QB listed Out is priced through the quarterback inputs, not the snaps-out line (28 Sep 2026, Matt: "how is
     # Caleb Williams only -0.2"): his row also carries the swap, the backup's rating minus his own times the rating's points
     # per unit, plus the QB-out term, from the same QB rater the features used (ratings.QBRatings, live settings); shown
@@ -804,6 +806,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
             if sd is None:
                 continue
             skill = {x["name"]: x["value"] for x in sd.get("skill_out_players", [])}
+            und = 0.0
             r = rn[rn.team == tm]
             res = ~r.roster.isin(["Active", "Practice squad", "Cut", "Inactive"])
             played = (r.off_pct.fillna(0) > 0) | (r.def_pct.fillna(0) > 0)
@@ -823,6 +826,13 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                        "off": round(off, 2), "def": round(dfn, 2), "priced": bool(priced), "own_pts": round(own, 3), "opp_pts": round(opp, 3), "spread_pts": round(own - opp, 3),
                        "back": clean(p.back), "usual": usual.get(p.player_id, (None, 0, None))[0], "usual_n": usual.get(p.player_id, (None, 0, None))[1],
                        "usual_season": usual.get(p.player_id, (None, 0, None))[2]}
+                # 1 Oct 2026 (Matt: "show me on the injury report the total move, worst case either way"): a player still undecided
+                # (Questionable, or no game status yet) is not counted; if_out is what the same terms would move the line if he sat,
+                # his last-game snaps and, for a skill player, his value (player_values.parquet)
+                if not priced and p.roster == "Active" and p.report not in PRICED:
+                    vs = float(skill_val.get(p.player_id, 0.0)) if isinstance(p.player_id, str) else 0.0
+                    row["if_out"] = round((co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * vs) - (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * vs), 3)
+                    und += row["if_out"]
                 if qbr is not None and priced and p.position == "QB" and sd.get("qb_out") and sd.get("qb_rating") is not None and sd.get("qb_name") and p.name != sd.get("qb_name") and isinstance(p.player_id, str):
                     st = r[r.name == sd["qb_name"]]
                     if len(st) and isinstance(st.iloc[0].player_id, str):
@@ -834,6 +844,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
             # the ones that move the line, then the week's report (Out, Doubtful, Questionable), then no status yet, then the reserve lists
             grp = lambda x: 0 if x["priced"] and (abs(x["spread_pts"]) >= 0.005 or x.get("qb_pts")) else 1 + INJ_REPORT.index(x["status"]) if x["status"] in INJ_REPORT else 4 if not x["priced"] else 5
             sd["injuries"] = sorted(rows, key=lambda x: (grp(x), x["spread_pts"], x["name"]))
+            sd["undecided_pts"] = round(und, 3)   # the team's margin if every undecided player sits
             # whether the week's league report (practice or game status) is out for this team yet (30 Sep 2026, Matt: an empty
             # list should say whether nobody is hurt or the report is not out)
             sd["report_out"] = bool(((r.report.fillna("") != "") | (r.practice.fillna("") != "")).any())

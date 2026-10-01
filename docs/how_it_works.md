@@ -2979,6 +2979,11 @@ same reading. It went 24-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% an
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
 
+**If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
+player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
+terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
+the model's margin if every undecided player on one side sits, each way.
+
 **Picks-final alert** (1 Oct 2026, Matt; `nflmodel/picks_final.py`). Teams post their last injury report, with game
 statuses, about 4pm ET two days before a game (the day before for a Thursday game). An hour after that report, once a
 line-watch check has read it and any re-price it asked for has run, the line watch opens one GitHub issue labelled
