@@ -3236,7 +3236,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const calc = t => { const L = LEFT[t.team] || [], sum = L.reduce((a, g) => a + g[3], 0), N = S.n_sims;
         const bk = (m) => { const b = Object.values(((BK.books || {})[m] || {})[t.team] || {}); if (!b.length || BK[m] == null || BK[m][t.team] == null) return "–"; return b.length > 1 ? `<span title="${b.length} books, ${pct(Math.min(...b))} to ${pct(Math.max(...b))}">${pct(BK[m][t.team])}</span>` : `<span title="DraftKings">${pct(BK[m][t.team])}</span>`; };
         const odds = [["Division", t.p_div, "div"], ["Playoffs", t.p_playoffs, null], ["First-round bye", t.p_bye, null], ["Conference", t.p_conf, "conf"], ["Super Bowl", t.p_sb, "sb"]];
-        const wins = dCard("Wins", n1(t.wins), [["Won so far", rec(t), n1(t.wins_now)], ["Games left", `${L.length} games, the win chances below added up`, `+${n2(sum)}`], ["Expected wins", "", n1(t.wins_now + sum), true]],
+        const wins = dCard("Wins", n1(t.wins), [["Won so far", rec(t), n1(t.wins_now)], [`Games left (${L.length})`, "", `+${n2(sum)}`], ["Expected wins", "", n1(t.wins_now + sum), true]],
           `<div class="gg">${L.map(g => `<span><i>Wk ${g[0]}</i> ${g[2] ? "" : "@"}${g[1]} <b>${Math.round(100 * g[3])}%</b></span>`).join("")}</div>`);
         const oc = `<div class="dc"><h4>Odds</h4><table><tr class="hd"><td class="dl"></td><td class="dr">Model</td><td class="dr">Books</td></tr>${odds.map(([lab, p, m]) => `<tr><td class="dl">${lab}</td><td class="dr"><b>${pct(p)}</b></td><td class="dr">${m ? bk(m) : "–"}</td></tr>`).join("")}</table></div>`;
         return `<tr class="tcalc" data-for="${t.team}" hidden><td colspan="10" class="dcell">${dPanel([wins, oc])}</td></tr>`; };
@@ -3271,16 +3271,16 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       $("bocards").innerHTML = flagged.length ? flagged.map(r => `<div class="bo" data-ps="${r.player_id}"><div class="bn">${LOGO(r.team)}${esc(r.name)} <span class="bt">${esc(r.pos)} · ${r.team}</span></div><div class="bv">${num(r.proj_yards)} <span class="bt">yds · #${r.rank}</span></div>` +
         `<div class="bw">${r.breakout ? `${f1(r.proj_pg)} vs ${f1(r.prev_pg)} a game <b class="pos">+${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}%</b>` : `${f1(r.proj_pg)} a game · <b>new</b>`}</div></div>`).join("") : `<p class="note">None this week.</p>`;
       const ok = b => b ? `<span class="pos">✓</span>` : `<span class="neg">✗</span>`;
-      const calc = r => { const left = r.team_games_left, av = r.avail, gp = r.team_games_played, VL = {rec: "targets", rush: "carries", pass: "dropbacks"}[r.kind], PER = {rec: "a target", rush: "a carry", pass: "a dropback"}[r.kind];
+      const calc = r => { const gp = r.team_games_played;
         const proj = dCard("Yards", `${num(r.proj_yards)} yds`, [
-          ["His rate a game", `${f2(r.volume_pg)} ${VL} × ${f2(r.rate)} yds ${PER}`, f1(r.yards_pg)],
-          ["His own total", `${num(r.yards_so_far)} so far + ${f1(r.yards_pg)} × ${left} games left × ${av}`, num(r.own_yards)],
-          ["His pace", gp > 0 ? `${f1(r.yards_so_far / gp)} a game so far × ${r.team_games} games` : "no games yet: last season's total", num(r.pace_yards)],
-          ["Projected", `${f2(1 - r.blend)} × own + ${f2(r.blend)} × pace`, num(r.proj_yards), true]]);
+          ["His rate a game", "", f1(r.yards_pg)],
+          ["His own total", "", num(r.own_yards)],
+          ["His pace", gp > 0 ? "" : "no games yet: last season's total", num(r.pace_yards)],
+          ["Projected", "", num(r.proj_yards), true]]);   // values only (1 Oct 2026, Matt): the formulas are in Info -> Season Odds and Totals
         const td = dCard(r.kind === "rec" ? "Touchdowns and catches" : "Touchdowns", null, [
-          ["Touchdowns", `${num(r.td_so_far)} so far + ${f2(r.td_pg)} a game × ${left} × ${av}`, f1(r.proj_td), true]].concat(r.kind === "rec" && r.proj_catches != null && !isNaN(r.proj_catches) ? [["Catches", `${num(r.catches_so_far)} so far + ${f2(r.catches_pg)} a game × ${left} × ${av}`, num(r.proj_catches), true]] : []));
+          ["Touchdowns", "", f1(r.proj_td), true]].concat(r.kind === "rec" && r.proj_catches != null && !isNaN(r.proj_catches) ? [["Catches", "", num(r.proj_catches), true]] : []));
         const brk = dCard("Breakout test", r.breakout ? "Yes" : r.new_top ? "New" : "No", r.prev_games ? [
-          ["Projected a game", `${num(r.proj_yards)} ÷ ${r.team_games}`, f1(r.proj_pg)], ["Last season a game", `${num(r.prev_yards)} ÷ ${r.prev_games}`, f1(r.prev_pg)],
+          ["Projected a game", "", f1(r.proj_pg)], ["Last season a game", "", f1(r.prev_pg)],
           ["Change", `needs +${UP}%`, `${r.proj_pg >= r.prev_pg ? "+" : ""}${Math.round(100 * (r.proj_pg / r.prev_pg - 1))}% ${ok(r.proj_pg >= BU * r.prev_pg)}`], ["Rank", `needs top ${TOP}`, `#${r.rank} ${ok(r.rank <= TOP)}`]]
           : [["Last season", "no NFL games", "–"], ["Rank", `needs top ${TOP}`, `#${r.rank} ${ok(r.rank <= TOP)}`]]);
         return `<tr class="pscalc" data-for="${r.player_id}" hidden><td colspan="9" class="dcell">${dPanel([proj, td, brk])}</td></tr>`; };
@@ -3485,17 +3485,24 @@ body.solo nav.tabs,body.solo header .controls{display:none}
 <li><b>Seed and play the bracket.</b> ${nDiv} division winners and ${S.format - nDiv} wild cards per conference. The higher seed hosts, the top seed has the bye, and the Super Bowl is on a neutral field. Playoff games use the same margins and spread.</li>
 <li><b>Count.</b> A team's division, playoff, bye, conference and Super Bowl odds are the share of the ${S.n_sims.toLocaleString()} runs in which it did that. Its wins are the average over the runs, with the range from the 10th to the 90th percentile of the runs.</li>
 </ol>
+<p><b>Expected wins</b> = wins so far + the win chances of the games left, added up.</p>
 <details class="qa"><summary>How it is tested</summary><div>The same odds were made as of Weeks ${X.tWeeks.join(", ") || MISSING} of every season from ${span}, seeing only the games before that week, and scored against what happened, beside simple baselines. Wins were off by ${f((W[T_] || {}).wins_mae, 2)} / ${f((W[H_] || {}).wins_mae, 2)} games per team (${T_} / ${H_}), against ${f((W[T_] || {}).pace_mae, 2)} / ${f((W[H_] || {}).pace_mae, 2)} for "current wins plus half the games left". The division favorite won ${pc((W[T_] || {}).div_hit)} / ${pc((W[H_] || {}).div_hit)} of divisions. A reliability table shows, band by band, how often a stated chance came true; ${X.knobs}.</div></details>
 <h3>Player Season Totals</h3>
 <ol>
 <li><b>Per-game mean.</b> The same volume and rate the weekly props use: his share of the team's targets, carries or dropbacks, weighted toward recent games, times the team's plays per game, times his yards per touch pulled toward the league average. There is no game script and no opponent, because a season total is a sum of ordinary games.</li>
 <li><b>Own projection.</b> Yards so far, plus the per-game mean times the games his team has left, times a fitted share of those games: receivers ${av.rec}, rushers ${av.rush}, passers ${av.pass}. The share sits below the share of games players actually play, because a player who gets hurt loses the rest of his season while one who stays healthy gains nothing, and the pace blend below carries part of the load.</li>
 <li><b>Blend with pace.</b> His own per-game rate so far, stretched over the whole schedule. Before Week 1, pace is last season's total. Pace gets a weight of ${bl.rec} for receivers, ${bl.rush} for rushers and ${bl.pass} for passers. Both the share and the weight were fitted on ${nz(X.fitW)} only.</li>
+<li><b>The formulas</b>, as each player's card shows them in Futures → Player Totals:<br>
+Rate a game = targets, carries or dropbacks a game × yards per one<br>
+Own total = yards so far + rate a game × games left × share (receivers ${av.rec}, rushers ${av.rush}, passers ${av.pass})<br>
+Pace = yards a game so far × the team's games (before Week 1, last season's total)<br>
+Projected = (1 − w) × own total + w × pace (w: receivers ${bl.rec}, rushers ${bl.rush}, passers ${bl.pass})<br>
+Touchdowns, catches = so far + per game × games left × share</li>
 <li><b>Who is projected.</b> Active on his team's roster, with at least ${mp.rec} targets, ${mp.rush} carries or ${mp.pass} dropbacks a game; one passer per team, the starter.</li>
 </ol>
 <details class="qa"><summary>How it is tested</summary><div>Made as of Weeks ${X.pWeeks.join(", ") || MISSING} of ${span} and scored by how far the projection landed from what he finished with, against pace and last season. Receiving: ${f(mae("rec", T_).mae, 0)} / ${f(mae("rec", H_).mae, 0)} yards off, against ${f(mae("rec", T_).pace_mae, 0)} / ${f(mae("rec", H_).pace_mae, 0)} for pace. Rushing: ${f(mae("rush", T_).mae, 0)} / ${f(mae("rush", H_).mae, 0)}, against ${f(mae("rush", T_).pace_mae, 0)} / ${f(mae("rush", H_).pace_mae, 0)}. Passing: ${f(mae("pass", T_).mae, 0)} / ${f(mae("pass", H_).mae, 0)}, against ${f(mae("pass", T_).pace_mae, 0)} / ${f(mae("pass", H_).pace_mae, 0)}. Early in the season the misses are largest and they shrink every week (by week on the Backtest tab).</div></details>
 <h3>Breakout Watch</h3>
-<p><b>Breakout, the cutoff</b>: a projection inside the top ${tn.rec} of all receiving players (wide receivers, tight ends and backs ranked together), the top ${tn.rush} rushers or the top ${tn.pass} passers, at a per-game rate at least ${P.break_up} times his per-game rate last season. Using the per-game rate means a player coming back from a short injury season is not called a breakout. <b>New to the top</b>: a top projection with no previous season, such as a rookie.</p>
+<p><b>Projected a game</b> = projected yards ÷ the team's games; <b>last season a game</b> = last season's yards ÷ his games. <b>Breakout, the cutoff</b>: a projection inside the top ${tn.rec} of all receiving players (wide receivers, tight ends and backs ranked together), the top ${tn.rush} rushers or the top ${tn.pass} passers, at a per-game rate at least ${P.break_up} times his per-game rate last season. Using the per-game rate means a player coming back from a short injury season is not called a breakout. <b>New to the top</b>: a top projection with no previous season, such as a rookie.</p>
 <details class="qa"><summary>How it is tested</summary><div>The same test is run on what he actually finished with: did he end inside the top group at ${P.break_up} times last season's rate? Flagged receivers did ${pc(brk("rec", T_).value)} / ${pc(brk("rec", H_).value)} of the time, against ${pc(brk("rec", T_).base_rate)} / ${pc(brk("rec", H_).base_rate)} for any top-${tn.rec} projection. Rushers: ${pc(brk("rush", T_).value)} / ${pc(brk("rush", H_).value)}, against ${pc(brk("rush", T_).base_rate)} / ${pc(brk("rush", H_).base_rate)}. Passers: ${pc(brk("pass", T_).value)} / ${pc(brk("pass", H_).value)}, against ${pc(brk("pass", T_).base_rate)} / ${pc(brk("pass", H_).base_rate)}, on only ${brk("pass", T_).n} and ${brk("pass", H_).n} flags.</div></details>
 <details class="more"><summary>Is this the standard way, and what about the books?</summary>
 <p><b>Team odds.</b> Pricing every game and playing the season out thousands of times is how the public forecasts do it (FiveThirtyEight's NFL model, ESPN's Football Power Index, the DVOA playoff odds). Sportsbooks' win totals are different in kind: a number set before the season and moved by bettors' money, not a published model. ${S.vegas ? `Against the books' preseason win totals (${S.vegas.source}): ${S.vegas.summary}` : "The books' preseason win totals are being added for the comparison (a free archive exists for team win totals)."}</p>
