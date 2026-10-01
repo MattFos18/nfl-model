@@ -920,6 +920,7 @@ def export_week(feats=None, games=None, pred=None):
                         sd_ = "home" if tm == r.home_team else "away"; prw = pv_coef.loc[r.game_id]
                         sides[tm]["blend_adj"] = round(float(prw[f"{sd_}_blend_adj"]), 6)
                         if f"{sd_}_total_adj" in prw.index: sides[tm]["total_adj"] = round(float(prw[f"{sd_}_total_adj"]), 6)   # the share-out to the game total
+                        if "wind_pts" in prw.index and pd.notna(prw["wind_pts"]): sides[tm]["total_wind"] = round(float(prw["wind_pts"]) / 2, 6)   # each team's half of the wind points, part of the share-out (shown as its own row, 1 Oct 2026, Matt)
                         sides[tm]["models"] = {k: round(float(prw[f"{sd_}_m_{k}"]), 3) for k in M.BLEND_LABEL}
                     if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
                         sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
