@@ -1,0 +1,13 @@
+# Gitleaks settings (1 Oct 2026): the standard rules, plus allowlists for known false alarms.
+# The pre-commit hook (tools/hooks/pre-commit) runs it on staged changes; enable with: git config core.hooksPath tools/hooks
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Placeholder keys in saved public API docs (e.g. YOUR_API_KEY)"
+regexTarget = "line"
+regexes = ['''YOUR_API_KEY''']
+
+[[allowlists]]
+description = "Public browser keys inside saved third-party pages and ESPN game files (the sites' own front-end keys, not ours)"
+paths = ['''^data/reference/consensus/.*\.html$''', '''^data/results/dev_summary/.*\.json$''']

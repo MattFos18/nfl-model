@@ -1,0 +1,15 @@
+#!/bin/sh
+# Blocks a commit if it contains a key, token or password (Gitleaks). The repo is public: a committed key is a stolen key.
+# Installed by: git config core.hooksPath tools/hooks
+GL=$(command -v gitleaks 2>/dev/null)
+[ -z "$GL" ] && GL=$(ls "$LOCALAPPDATA"/Microsoft/WinGet/Packages/Gitleaks.Gitleaks_*/gitleaks.exe 2>/dev/null | head -1)
+if [ -z "$GL" ]; then
+  echo "pre-commit: gitleaks not found; install it (winget install Gitleaks.Gitleaks). Commit blocked to be safe."
+  exit 1
+fi
+"$GL" git --pre-commit --staged --redact --no-banner
+status=$?
+if [ $status -ne 0 ]; then
+  echo "pre-commit: Gitleaks found what looks like a secret in the staged changes. Remove it (keys go in .env or GitHub secrets) and commit again."
+fi
+exit $status
