@@ -2935,3 +2935,10 @@ chance the cards show for the model's side (each season on the fit made before i
 hit. Our Bets by Situation gains a column for every game in the same situation (1 Oct 2026, Matt: "excluding us, just what
 happens"): on the totals every under whatever the model said, on the spreads the model's side at any edge. Futures' Team
 Odds and Player Totals rows no longer open a calculation card (the method is in Info -> Season Odds and Totals).
+
+**The Player Props backtest, laid out like Game Picks** (1 Oct 2026, Matt). The stat is a row of buttons; four tiles
+lead (this season's record against the book lines, the miss over the whole backtest against the raw rule, this season's
+miss, and our miss against the book line's); the record against the book lines for every stat sits next, this stat
+outlined; then the miss by season (the total and the two windows first), by position and by size of the line over the
+whole backtest, and this season week by week. Every graded projection is in the fold at the bottom. The same numbers as
+before, from props_backtest.js and props_record.js.
