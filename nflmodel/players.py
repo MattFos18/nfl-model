@@ -264,8 +264,14 @@ def load_injuries(seasons) -> pd.DataFrame:
             from .lines import current_week
             g = pd.read_parquet(OUT / "games.parquet"); season, week = current_week(g)
             if season in list(seasons):
-                have = set(inj[(inj.season == season) & (inj.week == week)].team)
-                es = pd.read_csv(ef); es = es[~es.team.isin(have) & es.status.isin(ESPN_STATUS)]
+                # by player, not by team (1 Oct 2026): a team's league report can be in with practice notes only while its game
+                # statuses lag (PIT and CLE before Thursday night: four starters Out on ESPN, none counted); ESPN fills every player
+                # the league file has no game status for this week, and the league's own status wins where it has one
+                wk_ = (inj.season == season) & (inj.week == week)
+                st_ = inj.report_status.fillna("").astype(str).str.strip()
+                official = set(zip(inj.team[wk_ & (st_ != "")], inj.gsis_id[wk_ & (st_ != "")]))
+                have = set(inj[wk_].team)
+                es = pd.read_csv(ef); es = es[es.status.isin(ESPN_STATUS)]
                 # only a page fetched this week fills in: an older file would carry last week's report as this week's
                 age_d = (pd.Timestamp.utcnow().tz_localize(None) - pd.to_datetime(es.fetched_at, errors="coerce")).dt.total_seconds() / 86400 if len(es) else pd.Series(dtype=float)
                 es = es[age_d <= ESPN_MAX_AGE_DAYS]
@@ -280,11 +286,20 @@ def load_injuries(seasons) -> pd.DataFrame:
                     by_id = es[es.espn_id.str.len() > 0].drop(columns=["position"]).merge(ro[["espn_id", "gsis_id", "full_name", "position"]], on="espn_id", how="inner")
                     by_nm = es[~es.index.isin(es[es.espn_id.str.len() > 0].index) | ~es.espn_id.isin(by_id.espn_id)].drop(columns=["position", "espn_id"]).merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")
                     m = pd.concat([by_id, by_nm], ignore_index=True).drop_duplicates(["team", "gsis_id"])
+                    m = m[[(t, g) not in official for t, g in zip(m.team, m.gsis_id)]]
+                    # a player already on this week's league file (practice notes, no status): his row takes ESPN's status
+                    row_ix = {(t, g): i for i, t, g in zip(inj.index[wk_], inj.team[wk_], inj.gsis_id[wk_])}
+                    upd = [(row_ix[(t, g)], ESPN_STATUS[st], dt) for t, g, st, dt in zip(m.team, m.gsis_id, m.status, m.detail) if (t, g) in row_ix]
+                    for i, st, dt in upd:
+                        inj.at[i, "report_status"] = st
+                        if not isinstance(inj.at[i, "report_primary_injury"], str) or not inj.at[i, "report_primary_injury"]:
+                            inj.at[i, "report_primary_injury"] = dt if isinstance(dt, str) else None
+                    m = m[[(t, g) not in row_ix for t, g in zip(m.team, m.gsis_id)]]
                     add = pd.DataFrame({"season": season, "season_type": "REG", "game_type": "REG", "team": m.team, "week": week, "gsis_id": m.gsis_id, "position": m.position, "full_name": m.full_name,
                                         "first_name": m.full_name.str.split(" ").str[0], "last_name": m.full_name.str.split(" ").str[-1], "report_primary_injury": m.detail, "report_secondary_injury": None,
                                         "report_status": m.status.map(ESPN_STATUS), "practice_primary_injury": None, "practice_secondary_injury": None, "practice_status": None, "date_modified": m.fetched_at})
                     inj = pd.concat([inj, add.reindex(columns=inj.columns)], ignore_index=True)
-                    print(f"espn injuries filled week {week}: {len(add)} players on {add.team.nunique()} teams (league reports in for {len(have)} teams)", flush=True)
+                    print(f"espn injuries filled week {week}: {len(add)} players added, {len(upd)} game statuses set on league rows (league reports in for {len(have)} teams)", flush=True)
         except Exception as e:  # noqa
             print(f"espn injuries not merged: {str(e)[:120]}", flush=True)
     return inj
