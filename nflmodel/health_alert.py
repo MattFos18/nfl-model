@@ -56,6 +56,11 @@ def main():
         _ready_issues()
     except Exception as e:  # noqa
         print("could not update the ready-check issues:", str(e)[:200])
+    try:
+        from .picks_final import notify
+        notify(_gh)   # 1 Oct 2026: one issue per slate once its final injury report is in and priced (nflmodel/picks_final.py)
+    except Exception as e:  # noqa
+        print("could not update the picks-final issues:", str(e)[:200])
 
 
 READY_LABEL = "ready-check"
