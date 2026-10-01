@@ -846,6 +846,12 @@
 ],
 [
 "CAR",
+"Lee Hunter",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Monroe Freeling",
 "",
 "Did Not Participate In Practice"
@@ -867,12 +873,6 @@
 "Princely Umanmielen",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CAR",
-"Princely Umanmielen",
-"Questionable (ESPN)",
-""
 ],
 [
 "CAR",
@@ -1374,21 +1374,9 @@
 ],
 [
 "IND",
-"Akeem Davis-Gaither",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Ashton Dulin",
 "",
 "Did Not Participate In Practice"
-],
-[
-"IND",
-"Ashton Dulin",
-"Questionable (ESPN)",
-""
 ],
 [
 "IND",
@@ -1407,6 +1395,12 @@
 "Keenan Allen",
 "",
 "Limited Participation in Practice"
+],
+[
+"IND",
+"Keenan Allen",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
@@ -2977,7 +2971,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 8.6,
+"wind": 9.5,
 "cold": false,
 "rain": false
 },
@@ -3042,5 +3036,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-01 18:57 UTC"
+"written_at": "2026-10-01 20:24 UTC"
 }

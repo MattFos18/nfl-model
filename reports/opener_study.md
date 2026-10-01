@@ -6,22 +6,22 @@ The full model (the one that prices the week, injuries and weather in) and a Tue
 
 | Model | Line | Window | Games | ATS every game | % | Units | Flag | % | Units | Totals every game | % | Units |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Full model (Sunday: injuries and weather in) | close | 2015-18 | 1008 | 498-480-30 | 50.9 | -27.3 | 64-52-0 | 55.2 | 6.2 | 498-501-9 | 49.8 | -48.3 |
-| Full model (Sunday: injuries and weather in) | close | 2019-21 | 778 | 401-363-14 | 52.5 | 1.5 | 66-33-0 | 66.7 | 27.0 | 412-357-9 | 53.6 | 17.5 |
-| Tuesday model (no injury report, no weather) | close | 2015-18 | 1008 | 494-484-30 | 50.5 | -34.9 | 62-47-0 | 56.9 | 9.4 | 509-490-9 | 51.0 | -27.3 |
-| Tuesday model (no injury report, no weather) | close | 2019-21 | 778 | 399-365-14 | 52.2 | -2.3 | 62-43-2 | 59.0 | 13.4 | 412-357-9 | 53.6 | 17.5 |
+| Full model (Sunday: injuries and weather in) | close | 2015-18 | 1008 | 498-480-30 | 50.9 | -27.3 | 64-52-0 | 55.2 | 6.2 | 503-496-9 | 50.4 | -38.7 |
+| Full model (Sunday: injuries and weather in) | close | 2019-21 | 778 | 401-363-14 | 52.5 | 1.5 | 66-33-0 | 66.7 | 27.0 | 414-355-9 | 53.8 | 21.4 |
+| Tuesday model (no injury report, no weather) | close | 2015-18 | 1008 | 494-484-30 | 50.5 | -34.9 | 62-47-0 | 56.9 | 9.4 | 511-488-9 | 51.2 | -23.5 |
+| Tuesday model (no injury report, no weather) | close | 2019-21 | 778 | 399-365-14 | 52.2 | -2.3 | 62-43-2 | 59.0 | 13.4 | 416-353-9 | 54.1 | 25.2 |
 | Tuesday model (no injury report, no weather) | open | 2015-18 | 1008 | 505-467-36 | 52.0 | -7.9 | 50-41-2 | 54.9 | 4.5 | 548-442-18 | 55.4 | 56.2 |
-| Tuesday model (no injury report, no weather) | open | 2019-21 | 778 | 430-328-20 | 56.7 | 62.9 | 64-33-3 | 66.0 | 25.2 | 411-351-16 | 53.9 | 22.6 |
-| Full model (Sunday: injuries and weather in) | open | 2015-18 | 1008 | 505-467-36 | 52.0 | -7.9 | 62-43-1 | 59.0 | 13.4 | 533-457-18 | 53.8 | 27.5 |
-| Full model (Sunday: injuries and weather in) | open | 2019-21 | 778 | 420-338-20 | 55.4 | 43.8 | 87-42-3 | 67.4 | 37.1 | 417-345-16 | 54.7 | 34.1 |
+| Tuesday model (no injury report, no weather) | open | 2019-21 | 778 | 430-328-20 | 56.7 | 62.9 | 64-33-3 | 66.0 | 25.2 | 420-342-16 | 55.1 | 39.8 |
+| Full model (Sunday: injuries and weather in) | open | 2015-18 | 1008 | 505-467-36 | 52.0 | -7.9 | 62-43-1 | 59.0 | 13.4 | 537-453-18 | 54.2 | 35.2 |
+| Full model (Sunday: injuries and weather in) | open | 2019-21 | 778 | 420-338-20 | 55.4 | 43.8 | 87-42-3 | 67.4 | 37.1 | 426-336-16 | 55.9 | 51.3 |
 
 ## At the close, the backtest's windows
 
 | Model | Window | Games | ATS every game | % | Units | Flag | % | Units | Totals every game | % | Units |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Full model (Sunday: injuries and weather in) | 2015-18 | 1024 | 507-487-30 | 51.0 | -26.1 | 68-55-0 | 55.3 | 6.8 | 508-507-9 | 50.0 | -45.2 |
-| Full model (Sunday: injuries and weather in) | 2019-22 | 1055 | 543-488-24 | 52.7 | 5.6 | 83-54-0 | 60.6 | 21.5 | 554-489-12 | 53.1 | 14.6 |
-| Full model (Sunday: injuries and weather in) | 2023-25 | 816 | 402-395-19 | 50.4 | -29.5 | 44-26-1 | 62.9 | 14.0 | 441-370-5 | 54.4 | 30.9 |
-| Tuesday model (no injury report, no weather) | 2015-18 | 1024 | 503-491-30 | 50.6 | -33.7 | 64-48-0 | 57.1 | 10.2 | 520-495-9 | 51.2 | -22.3 |
-| Tuesday model (no injury report, no weather) | 2019-22 | 1055 | 528-503-24 | 51.2 | -23.0 | 81-62-3 | 56.6 | 11.6 | 552-491-12 | 52.9 | 10.8 |
-| Tuesday model (no injury report, no weather) | 2023-25 | 816 | 405-392-19 | 50.8 | -23.8 | 42-34-1 | 55.3 | 4.2 | 428-383-5 | 52.8 | 6.1 |
+| Full model (Sunday: injuries and weather in) | 2015-18 | 1024 | 507-487-30 | 51.0 | -26.1 | 68-55-0 | 55.3 | 6.8 | 512-503-9 | 50.4 | -37.5 |
+| Full model (Sunday: injuries and weather in) | 2019-22 | 1055 | 543-488-24 | 52.7 | 5.6 | 83-54-0 | 60.6 | 21.5 | 557-486-12 | 53.4 | 20.4 |
+| Full model (Sunday: injuries and weather in) | 2023-25 | 816 | 402-395-19 | 50.4 | -29.5 | 44-26-1 | 62.9 | 14.0 | 442-369-5 | 54.5 | 32.8 |
+| Tuesday model (no injury report, no weather) | 2015-18 | 1024 | 503-491-30 | 50.6 | -33.7 | 64-48-0 | 57.1 | 10.2 | 522-493-9 | 51.4 | -18.5 |
+| Tuesday model (no injury report, no weather) | 2019-22 | 1055 | 528-503-24 | 51.2 | -23.0 | 81-62-3 | 56.6 | 11.6 | 557-486-12 | 53.4 | 20.4 |
+| Tuesday model (no injury report, no weather) | 2023-25 | 816 | 405-392-19 | 50.8 | -23.8 | 42-34-1 | 55.3 | 4.2 | 436-375-5 | 53.8 | 21.4 |
