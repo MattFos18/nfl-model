@@ -9,7 +9,7 @@ READY rule is re-tested under reports/round3_rule.md before it is bet. Writes re
     python -m nflmodel.shadow_watch
 """
 from __future__ import annotations
-import pandas as pd
+import numpy as np, pandas as pd
 from pathlib import Path
 from scipy.stats import binom
 
@@ -21,23 +21,25 @@ MIN_BETS, P_LUCK, ROI_GAP = 30, 0.10, 0.05
 def _rec(x: pd.DataFrame) -> dict:
     st = x[x.result.isin(["win", "loss", "push"])]
     w, l = int((st.result == "win").sum()), int((st.result == "loss").sum())
-    risked = float(st.units.where(st.units < 0, 0).abs().sum() + (st.result == "win").sum() * 1.1) if len(st) else 0.0
+    od = pd.to_numeric(st["odds"], errors="coerce").fillna(-110.0) if "odds" in st else pd.Series(-110.0, index=st.index)
+    risked = float(np.where(od < 0, od.abs() / 100, 1.0)[st.result.ne("push").values].sum()) if len(st) else 0.0   # at each bet's own price (a teaser leg risks about 3 to win 1)
     u = float(st.units.sum()) if len(st) else 0.0
     return {"w": w, "l": l, "n": w + l, "units": round(u, 2), "roi": (u / risked) if risked else float("nan")}
 
 
 def run() -> pd.DataFrame:
-    from .picks import SHADOWS, HIDDEN_SHADOWS, break_even
+    from .picks import SHADOWS, HIDDEN_SHADOWS, SHADOW_ODDS, DEFAULT_ODDS, break_even
     f = TR / "graded.csv"
     g = pd.read_csv(f) if f.exists() else pd.DataFrame(columns=["who", "result", "units", "season"])
-    be = break_even(); rows = []
+    rows = []
     for name, (_, sr, lab) in SHADOWS.items():
+        be = break_even(SHADOW_ODDS.get(name, DEFAULT_ODDS))   # the hook at its -125, a teaser leg at its two-team price
         x = g[g.who == name]; r = _rec(x)
         luck = float(binom.sf(r["w"] - 1, r["n"], be)) if r["n"] else float("nan")
         seasons = set(x.season.dropna().astype(int)) if len(x) else set()
         # the rule it would replace, over the same seasons: the totals flag (the unders at 55%) for a totals rule, the spread
         # flag otherwise; the totals flag itself is measured against break-even alone
-        base = None if name == "shadowunder" else ("shadowunder" if str(sr).startswith("under_prob") else "model")
+        base = None if name in ("shadowunder", "shadowteasedog") else ("shadowunder" if str(sr).startswith("under_") else "model")   # teaser legs, like the totals flag, against break-even alone
         fl = _rec(g[(g.who == base) & g.season.isin(seasons)]) if base else {"w": 0, "l": 0, "n": 0, "roi": 0.0}
         ready = r["n"] >= MIN_BETS and luck <= P_LUCK and r["roi"] - (fl["roi"] if fl["n"] else 0.0) >= ROI_GAP
         rows.append({"rule": name, "label": lab, "hidden": name in HIDDEN_SHADOWS, "record": f"{r['w']}-{r['l']}", "settled": r["n"], "units": r["units"],

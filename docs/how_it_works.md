@@ -354,6 +354,7 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, road sides only | 39-15 | 36-22 | 19-8 |
 | Under, 60%+ chance | 64-53 | 102-58 | 24-24 |
 | Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 41-25 | 45-23 | 19-13 |
+| 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -2939,6 +2940,13 @@ National Weather Service's MOS at the stadium's airport (GFS wind every season; 
 November 2018), each from the 12Z run the day before and from the last run out at least five hours before kickoff, and
 Japan's global model from Open-Meteo's previous runs (one and two days before and the latest). Each value is the mean
 over the game's first three hours (the gust, the largest). Nothing reads it yet but the wind study.
+
+**Teaser legs on small dogs, tracked** (1 Oct 2026, Matt: "go"). Every dog at +1.5 to +2.5 teased six points to +7.5 to
++8.5 (`picks.TEASE_DOG`, shadow `shadowteasedog`), whatever the model says, logged and graded every run, kept off the page.
+A leg is graded as a single bet at -303, the price at which one leg of a two-team teaser at -130 breaks even (75.2%,
+`picks.TEASE_LEG_ODDS`), so its record and units read the same as the teasers it stands for. The shadow watch measures it
+against that break-even, and every shadow now at its own price (the hook at -125); the prime-time unders rule is now
+measured against the totals flag, as the other totals rules are.
 
 **Ready checks instead of routines** (30 Sep 2026, Matt: "build it into the site and delete the routines";
 nflmodel/ready_checks.py, reports/ready_checks.md). The questions that wait on live data used to be dated Claude

@@ -18,6 +18,9 @@ TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet
 TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
 EARLY_UNDER = {"weeks": 3, "prob": 0.59}   # 30 Sep 2026 (reports/bet_rules_sweep.md): unders needing 59%+ in weeks 1 to 3 (55% after) beat the totals flag on all three windows; tracked, not bet
 HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spread_research.md): the flag's bet bought half a point on or off 3 at -125; tracked, not bet
+TEASE_DOG = {"lines": (1.5, 2.5), "pair_odds": -130.0}   # 1 Oct 2026 (reports/friend_ideas.md): six-point teaser legs on dogs at +1.5 to +2.5, blind; tracked, hidden, not bet
+# one leg of a two-team teaser at pair_odds breaks even at sqrt(1 / pair payout + 1 share): graded as a single bet at the odds with that break-even
+TEASE_LEG_ODDS = -round(100 * (lambda q: q / (1 - q))((abs(TEASE_DOG["pair_odds"]) / (abs(TEASE_DOG["pair_odds"]) + 100)) ** 0.5))
 UNDER_HIGH = 0.60   # 1 Oct 2026: the unders at a 60%+ raw chance (p_over_emp), tracked, hidden, not bet
 HOME_SIDE_EDGE = 6.0   # 30 Sep 2026 (reports/home_side_rules.md): road sides at 4+, home sides at 6+ (neutral sites count as road); tracked, hidden, not bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
@@ -34,12 +37,14 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowroad6": (SPREAD_EDGE, "road6", f"{SPREAD_EDGE:g}+ edge on road sides, {HOME_SIDE_EDGE:g}+ on home sides"),
            "shadowroad": (SPREAD_EDGE, "road", f"{SPREAD_EDGE:g}+ edge, road sides only"),
            "shadowunder60": (UNDER_HIGH, "under_prob", f"Under, {100 * UNDER_HIGH:.0f}%+ chance"),
-           "shadowunderprime": (TOTAL_SHADOW["prob"], "under_prime", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance, prime time (TNF, SNF, MNF) only")}
+           "shadowunderprime": (TOTAL_SHADOW["prob"], "under_prime", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance, prime time (TNF, SNF, MNF) only"),
+           "shadowteasedog": (0.0, "tease_dog", f"6-point teaser leg on dogs at +{TEASE_DOG['lines'][0]:g} to +{TEASE_DOG['lines'][1]:g}, any game (a leg of a two-team teaser at {TEASE_DOG['pair_odds']:+g})")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
 # 1 Oct 2026 (Matt: "yes", track them hidden): the unders at 60%+ (the band that holds most of the totals flag's units) and the
 # totals flag in prime-time games only; graded, kept off the page, watched by nflmodel/shadow_watch.py like the rest
-HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime"}
+HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime", "shadowteasedog"}
+SHADOW_ODDS = {"shadowhook": HOOK["odds"], "shadowteasedog": TEASE_LEG_ODDS}   # rules graded at their own price; the rest at DEFAULT_ODDS
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
 CAL_FROM, CAL_CAP = 2019, 7.0   # the cover calibration: regular-season games from this season on, the edge capped at this many points
@@ -174,6 +179,8 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
         thr = np.where(d.week <= EARLY_UNDER["weeks"], EARLY_UNDER["prob"], edge) if side_rule == "under_prob_early" else edge
         m = ((1 - d.p_over_emp) >= thr) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
         return m & _prime(d) if side_rule == "under_prime" else m
+    if side_rule == "tease_dog":   # the dog's own line +1.5 to +2.5 (nflverse spread_line is the home side's points given)
+        return d.spread_line.abs().between(*TEASE_DOG["lines"]) & (d.week <= LAST_BET_WEEK)
     e = _spread(d, side_rule) - d.spread_line
     m = (e.abs() >= edge) & (d.week <= LAST_BET_WEEK) & d.spread_line.notna()
     if side_rule == "dog":
@@ -224,6 +231,10 @@ def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     """Wins and losses on the rule's side over the rows m (pushes dropped)."""
     if side_rule in UNDER_RULES:
         cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
+        return w, int(f.sum()) - w
+    if side_rule == "tease_dog":   # graded at the teased line: the dog's margin plus its line plus the six points
+        mg = d.home_score - d.away_score; cm = pd.Series(np.where(d.spread_line < 0, mg, -mg), index=d.index) + d.spread_line.abs() + TEASE_PTS
+        f = m & (cm != 0); w = int((cm > 0)[f].sum())
         return w, int(f.sum()) - w
     if side_rule == "hook":   # graded at the bought number: our side's line plus half a point
         e = d.model_spread - d.spread_line; ours = np.where(e > 0, d.home_score - d.away_score, d.away_score - d.home_score)
@@ -295,6 +306,10 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
             return f"Under {r.total_line:g}" if pd.notna(r.total_line) and pd.notna(pe) and 1 - pe >= thr else ""
         if side_rule == "hook":
             return ""   # built from the flag's bet at the best number, below
+        if side_rule == "tease_dog":   # the dog's side at its line plus six, any game in range (the model's edge plays no part)
+            if pd.isna(r.spread_line) or not TEASE_DOG["lines"][0] <= abs(r.spread_line) <= TEASE_DOG["lines"][1]:
+                return ""
+            return f"{r.home_team if r.spread_line < 0 else r.away_team} +{abs(r.spread_line) + TEASE_PTS:g}"
         if side_rule in ("road", "road6") and pd.notna(r.spread_edge) and r.spread_edge > 0 and r.game_id not in _neutral_ids():
             if side_rule == "road" or abs(r.spread_edge) < HOME_SIDE_EDGE:
                 return ""   # our side is the home team: the road rule sits out, the road6 rule wants 6+
@@ -366,6 +381,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
         return ""
     p["shadowhook_bet"] = [hook(b) for b in p.bet]
     p["shadowhook_odds"] = [HOOK["odds"] if b else np.nan for b in p.shadowhook_bet]
+    p["shadowteasedog_odds"] = [TEASE_LEG_ODDS if b else np.nan for b in p.shadowteasedog_bet]
     # stake on a flagged spread: quarter Kelly from the calibrated cover odds for the model's side, at the best book's
     # price when it is logged, otherwise -110
     p["bet_p"] = [(pc if e > 0 else 1 - pc) if (b and pd.notna(pc)) else np.nan for b, e, pc in zip(p.bet, p.spread_edge.fillna(0), p.p_cover_cal_home)]
