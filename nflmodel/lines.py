@@ -474,6 +474,11 @@ def run(season=None, week=None) -> pd.DataFrame:
         errors += market_logs.run(sorted({w_ for _, w_ in weeks}))["errors"]   # every book's number and the consensus splits (30 Sep 2026): stored for study, never priced on
     except Exception as e:  # noqa
         errors.append(f"market logs: {str(e)[:120]}")
+    try:
+        from . import inactives
+        inactives.run()   # game-day inactives from ESPN's game rosters within six hours of kickoff (1 Oct 2026): logged, not priced yet
+    except Exception as e:  # noqa
+        errors.append(f"inactives: {str(e)[:120]}")
     status = {"ts": ts, "season": season, "week": week, "rows": len(df), "errors": "; ".join(errors)}
     pd.DataFrame([status]).to_csv(LN / "watch_log.csv", mode="a", header=not (LN / "watch_log.csv").exists(), index=False)
     print(status)

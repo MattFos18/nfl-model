@@ -923,6 +923,22 @@ def check_live(rows, wk) -> None:
     from . import lines as LN, model as M_
     def tie(what, a, b): rows.append((what, str(a), str(b), str(a) == str(b)))
     G = wk["games"]; log = LN.load_log()
+    # 1 Oct 2026 (Matt: "won't happen again?"): every player ESPN lists Out or Doubtful for a game not yet kicked off, and the
+    # card lists, is counted (four Thursday-night starters were shown but not priced while the league file lagged)
+    ef = ROOT / "data" / "raw" / "injuries" / "espn_injuries.csv"
+    if ef.exists():
+        from . import players as PL_
+        e = pd.read_csv(ef); age = (pd.Timestamp.now("UTC").tz_localize(None) - pd.to_datetime(e.fetched_at, errors="coerce")).dt.total_seconds() / 86400
+        e = e[(age <= PL_.ESPN_MAX_AGE_DAYS) & e.status.map(PL_.ESPN_STATUS).isin(["Out", "Doubtful"])]
+        key = lambda n: "".join(ch for ch in re.sub(r"\b(jr|sr|ii|iii|iv|v)\b\.?", "", str(n).lower()) if ch.isalpha())
+        out = {(t, key(n)) for t, n in zip(e.team, e.name)}
+        now_et = pd.Timestamp.now(tz="America/New_York").tz_localize(None); missed = []
+        for g_ in G:
+            if g_.get("home_score") is not None or not g_.get("kickoff") or pd.Timestamp(g_["kickoff"]) <= now_et:
+                continue
+            for tm in (g_["home_team"], g_["away_team"]):
+                missed += [f"{tm} {p['name']}" for p in (g_.get("sides", {}).get(tm, {}).get("injuries") or []) if (tm, key(p["name"])) in out and not p.get("priced")]
+        tie("every player ESPN lists Out or Doubtful for a game not yet started is counted on its card", sorted(missed), [])
     want = {}
     for g_ in G:
         h = log[log.game_id == g_["game_id"]]; sl, _ = LN.latest(h, "home_spread"); tl, _ = LN.latest(h, "total")
