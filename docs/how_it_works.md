@@ -3064,6 +3064,15 @@ defenders' value out on the current recipes (D1) each fail a window and cost a s
 better on all three windows but cost the spread flag on 2019-22 and 2023-25. Nothing adopted; no placebo was run since
 no variant passed the first two parts of the rule.
 
+**Questionable players in the total only** (2 Oct 2026; `experiments/questionable_totals.py`, reports/questionable_totals.md,
+study questionable_totals). Because Q2 above helped the totals flag but cost the spread, the same input went into the totals
+equation alone, the points equations untouched: the Questionable players' skill value, offensive and defensive snaps out,
+times the chance each sits, summed over both teams (T1), and with the starting QB's chance to sit in the QB-out input too
+(T2). The idea was picked after seeing that result, so it carries a snooping caveat. Both lower the total miss on
+2019-22 and 2023-25 (T2 10.5161 -> 10.4877, 10.1029 -> 10.0883) and add totals-flag wins, but both are worse on 2015-18
+(T2 10.7507 -> 10.7999; worse in 2015, 2016 and 2017, when the fits learn the input from the seasons that still had
+"Probable"). Not adopted; no placebo run.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
