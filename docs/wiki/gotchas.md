@@ -42,6 +42,12 @@ add it here (newest at the top of its group) with the file and the date, and a l
   `wind_out`, cold and the points equations' rain still read it (a small look-ahead in the backtest only); the totals'
   rain (`model.RAIN_FC`) and the wind points (`model.wind_points`) use forecasts (`docs/handoff.md`). A new weather
   input must be learned from the forecast it will be priced on (decision log 1 Oct 2026, rain points).
+- **A prior built from team-game rows can count the same game.** `trends._prior_mean` walked rows in order, so the home
+  row's referee prior counted the away row of the same game, that game's own total. Fixed 2 Oct 2026 (#384): a prior
+  counts only games that kicked off strictly before this one (`reports/leak_fix_rescore.md`).
+- **Japan's newest model run is after kickoff for a played game.** `jma_wind_d0` for 2018-2025 is a run issued at or
+  after kickoff; the backtest reads the day-before run (`jma_wind_d1`, `forecast_history.PRE_KICKOFF_WIND`). Fixed
+  2 Oct 2026 (#384).
 - **A game kept its forecast only until kickoff.** On 27 Sep 2026 the 1pm games were re-priced as typical weather
   after kickoff ("Weather TBD"). Fixed: `weather.py` reaches back a day and carries the last good reading
   (`status = carried`).
@@ -74,7 +80,7 @@ add it here (newest at the top of its group) with the file and the date, and a l
   one thread and a cache of every fit keyed by its inputs (`model.trees_key`, `data/processed/trees_cache.parquet`;
   decision log 27-28 Sep 2026). A tie fails when past seasons' numbers move with no code change.
 - **The line watch runs every 30 minutes, not 10.** `lines.yml` cron is `*/30` (GitHub never started a `*/10`), backed
-  by `heartbeat.yml` and an hourly push to the `kick` branch. `catalog.LOG_WHAT` still says "every 10 minutes".
+  by `heartbeat.yml` and an hourly push to the `kick` branch (`catalog.LOG_WHAT` said "every 10 minutes" until 2 Oct 2026).
 - **Generated files fight merges.** Weekly runs commit `data/`, `web/data/` and reports; never commit them from a
   branch (`git checkout -q -- reports/ web/data/ data/`). The workflows rebase with `-X theirs` (decision log
   23 Sep 2026).

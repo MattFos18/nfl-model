@@ -67,6 +67,7 @@ def readme_block(new: pd.DataFrame) -> str:
     vp = lambda x: ((x.home_implied - x.home_score).abs().mean() + (x.away_implied - x.away_score).abs().mean()) / 2
     br = bt.brier(v)
     se = P.SPREAD_EDGE
+    tflag = f"not a rule; the totals flag is the {P.TOTAL_SHADOW['side']} at a {100 * P.TOTAL_SHADOW['prob']:.0f}%+ chance"
     f5v, f5a = v[v.edge.abs() >= se], a[a.edge.abs() >= se]
     f5n = f5a[f5a.week < 18]
     f3v = v[v.edge.abs() >= 3]
@@ -79,9 +80,9 @@ def readme_block(new: pd.DataFrame) -> str:
          f"| Brier (win odds) | {br['brier_model']:.3f} | {br['brier_market']:.3f} |",
          f"| Spreads at 3+ pt edge | {rec(f3v, f3v.edge, f3v.margin - f3v.spread_line)} | |",
          f"| Spreads at {se:g}+ pt edge (the flag) | {rec(f5v, f5v.edge, f5v.margin - f5v.spread_line)} (2019 to 2025: {rec(f5a, f5a.edge, f5a.margin - f5a.spread_line)}; {rec(f5n, f5n.edge, f5n.margin - f5n.spread_line)} outside Week 18) | |",
-         f"| Totals at 4+ pt edge ({'the flag' if P.TOTAL_EDGE is not None else 'not flagged: no total cutoff wins in both windows'}) | {rec(t4v, t4v.tedge, t4v.total - t4v.total_line)} (2019 to 2025: {rec(t4a, t4a.tedge, t4a.total - t4a.total_line)}) | |", "",
+         f"| Totals at 4+ pt edge ({'the flag' if P.TOTAL_EDGE is not None else tflag}) | {rec(t4v, t4v.tedge, t4v.total - t4v.total_line)} (2019 to 2025: {rec(t4a, t4a.tedge, t4a.total - t4a.total_line)}) | |", "",
          "These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. "
-         "Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test."]
+         "Ridge strength and thresholds were tuned on 2019 to 2022 only; new inputs and the rating decay are accepted only under the round-3 rule (better on every window, no bet cost, beats its placebo), so 2015 to 2018 and 2023 to 2025 are test windows for those, and the live season is the only fully unseen test."]
     return "\n".join(L)
 
 

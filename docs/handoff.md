@@ -47,14 +47,16 @@ decisions waiting on Matt are `docs/todo.md`.
 ## Done on 1 Oct 2026 (the last day of the cloud session)
 
 - #360 ESPN injuries filled per player (four Thursday-night starters listed Out were not counted).
-- #362 Wind under as a live bet (forecast wind 10+ mph, outdoor, weeks 1-17; GFS MOS plus Japan's model; 249-160 on
-  2018-25); injury report shows each undecided player's "if out" effect and the worst-case swing bar.
-- #363 Wind points in the model's total (about -2 points at 10-15 mph).
+- #362 Wind under as a live bet (forecast wind 10+ mph, outdoor, weeks 1-17; GFS MOS plus Japan's model; 242-160 on
+  2018-25, leak-fixed, reports/leak_fix_rescore.md); injury report shows each undecided player's "if out" effect and the worst-case swing bar.
+- #363 Wind points in the model's total (about -2 points at 10-15 mph). Its gain was measured before the leak fix; being
+  rescored (forecast_weather_backtest).
 - #365 Weather retest (rain, cold, gusts as total points: all rejected) and a data fix: the MOS writes 99 for a missing
   wind hour; one 2018 game had a 20 mph forecast from it; masked and refetched.
 - #366 Forecast rain in the totals equation (Matt's yes): it learned rain from the weather that happened but priced on
-  the forecast; now it learns from the GFS MOS chance 50%+. Total miss better on all three windows, totals flag
-  137-127 / 202-146 / 98-73, worth about -4.2 points on the card ("rain -X"). Backtest -> Totals has a "Weather in the
+  the forecast; now it learns from the GFS MOS chance 50%+. Its gain (total miss better on all three windows, more
+  totals-flag wins) was measured before the leak fix; being rescored (forecast_weather_backtest). The live model's totals
+  flag, leak-fixed: 138-126 / 182-142 / 75-57 (reports/leak_fix_rescore.md). Worth about -4.2 points on the card ("rain -X"). Backtest -> Totals has a "Weather in the
   Total" table. The weekly run after it passed every check (206 of 206).
 - New today and logging, not priced: `nflmodel/inactives.py` (ESPN game-day inactive flags), `nflmodel/wind_live.py`
   (live wind and rain chance each line watch), `nflmodel/picks_final.py` (the picks-final alert).
@@ -66,9 +68,8 @@ decisions waiting on Matt are `docs/todo.md`.
    401872964, kickoff 8:15pm ET): compare the flags logged before 6:45pm ET in `data/lines/inactives_log.csv` with the
    official inactives. Price inactives only if the early flags prove reliable over a few game days; otherwise keep logging.
    The cloud session had this scheduled at 7:05pm ET; if that session is gone, do it here.
-2. **Rain under as a hidden shadow** (blind under at a GFS rain chance 50%+, 102-60 on 2018-25). Superseded in part:
-   rain is now points in the total, so the totals flag picks up most of those games (74-46 there). Recommended next step:
-   re-test the blind rain under on top of the new model before asking Matt to add it as a shadow.
+2. **Rain under as a hidden shadow.** Done: re-tested on top of the new model 1 Oct (reports/rain_under_retest.md) and
+   tracked as the hidden shadow `shadowrain` from 2 Oct (#379).
 3. **Gusts.** The only gust forecast archive found so far is Open-Meteo's historical forecasts (about 2021 on); too
    short for the every-window rule, but worth one test. Matt wants to try his new tools first for more data.
 4. **Snow and sleet.** About 16 games 2018-25 with a freezing forecast and a real precipitation chance: too few to prove
@@ -100,7 +101,7 @@ decisions waiting on Matt are `docs/todo.md`.
 
 - Windows on ARM. pyarrow has no Windows ARM build, so the repo runs in `.venv` made with Python 3.12 x64 (installed with
   winget; it runs under emulation). Use `.venv\Scripts\python.exe`. pytest is installed in the venv (not in
-  requirements.txt). All 20 tests pass.
+  requirements.txt). pytest: all tests pass.
 - The repo is at `C:\Users\mfosc\NFL-Model`. Run with `PYTHONUTF8=1` (Windows reads files as cp1252 otherwise). The raw
   player files are not on the laptop, so use `python -m nflmodel.export_web --week`; the tie check's "season file" and
   "backtests re-run" rows fail locally for the same reason.

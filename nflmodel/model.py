@@ -318,7 +318,7 @@ def qb_form(f: pd.DataFrame) -> pd.Series:
 # no referee input 10.761 / 10.566 / 10.200; ref_tot 10.744 / 10.541 / 10.177; ref_over 10.707 / 10.528 / 10.182.
 # ref_tot beats no input on all three windows and is adopted; ref_over stays a trend reading (shown, not used).
 # 2 Oct 2026: those numbers carried a same-game leak (the home row's prior counted this game's own total; trends._prior_mean
-# fixed). Rescored clean, ref_tot fails the round-3 rule (experiments/leak_fix_rescore.py); it stays in until Matt decides.
+# fixed). Rescored clean, ref_tot fails the round-3 rule (experiments/leak_fix_rescore.py); dropped from TOTAL_FEATS the same day (#387).
 
 
 def _game_frame(f: pd.DataFrame) -> pd.DataFrame:
