@@ -174,7 +174,10 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
         if b5.exists():
             r5 = pd.read_csv(b5); r6b = pd.read_csv(REP / "props_backtest6.csv"); pick5 = {"rec_catches": (r5, "rec_catch", "catch_K25_med", "mae"), "rec_td_ll": (r6b, "rec_td", "td_recon50", "ll"), "rush_td_ll": (r6b, "rush_td", "td_recon50", "ll"), "pass_td_ll": (r6b, "pass_td", "td_recon100", "ll"), "pass_int_ll": (r5, "pass_int", "int_league", "ll")}
             _bs2 = pd.read_csv(REP / "props_by_season.csv").set_index(["stat", "season"]); _cm = {"rec_catches": ("rec_catches", "mae"), "rec_td_ll": ("rec_td", "ll"), "rush_td_ll": ("rush_td", "ll"), "pass_td_ll": ("pass_td", "ll"), "pass_int_ll": ("pass_int", "ll")}
-            tie("props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game)", {k: [float(_bs2.loc[(st, "2019-22"), c]), float(_bs2.loc[(st, "2023-25"), c])] for k, (st, c) in _cm.items()}, {k: [float(v[0]), float(v[1])] for k, v in pj["backtest_counts"].items()})
+            # within 0.0002 (2 Oct 2026): the by-season run's fourth decimal moves between runs (a stored tree fit refit) with no
+            # change to the rule, which flipped this row run to run (pass_td_ll 1.4652 / 1.4653)
+            _want = {k: [float(_bs2.loc[(st, "2019-22"), c]), float(_bs2.loc[(st, "2023-25"), c])] for k, (st, c) in _cm.items()}; _have = {k: [float(v[0]), float(v[1])] for k, v in pj["backtest_counts"].items()}
+            rows.append(("props count backtests on the page = props_by_season.csv (the adopted rule, walk-forward, league averages as of each game; within 0.0002)", str(_have), str(_want), set(_want) == set(_have) and all(abs(_want[k][i] - _have[k][i]) <= 2e-4 for k in _want for i in (0, 1))))
             fitted5 = {st: r5[r5.stat == st].fitted.dropna().iloc[0] for st in ["rec_catch", "rec_td", "pass_td"]}
             fitted5["rec_catch"] = fitted5["rec_catch"].split(", median factor")[0]   # the catch K is round five's; its factor was refit in round eleven (tied above)
             tie("props count constants = props_backtest5.csv", fitted5, {"rec_catch": f"K {pj['k_catch']:.0f}", "rec_td": f"K {pj['k_td']['rec']:.0f}, margin coefficient {pj['td_margin']['rec']:.3f} per point", "pass_td": f"K {pj['k_td']['pass']:.0f}, margin coefficient {pj['td_margin']['pass']:.3f} per point"})
