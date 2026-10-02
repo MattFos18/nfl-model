@@ -1,3 +1,3 @@
 run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,p_cover
-2026-10-02 11:57 UTC,2026,4,2026_04_IND_WAS,WAS +4,-110,1.0,1.34,betmgm,5.46,1.1,0.688
-2026-10-02 11:57 UTC,2026,4,2026_04_JAX_CIN,JAX +3,-120,1.0,0.0,bovada,-4.47,-0.71,0.61
+2026-10-02 14:36 UTC,2026,4,2026_04_IND_WAS,WAS +3.5,-105,1.0,1.27,DraftKings,4.13,0.83,0.647
+2026-10-02 14:36 UTC,2026,4,2026_04_JAX_CIN,JAX +2.5,-105,1.0,1.43,DraftKings,-4.47,-0.71,0.61
