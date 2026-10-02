@@ -280,11 +280,14 @@ def qt_isolated(season: int | None = None, week: int | None = None) -> list:
         bad.append("the live totals equation moved when the shadow ran")
     if list(M.TOTAL_FEATS) != feats0 or M._game_frame is not gf0:
         bad.append("model.TOTAL_FEATS or model._game_frame replaced")
-    gap = float((mt - pw.model_total).abs().max()) if len(pw) else float("nan")
-    if not len(pw) or not gap <= 1e-9 or not np.allclose(pe.values, pw.p_over_emp.values, atol=1e-12, rtol=0, equal_nan=True):
-        bad.append(f"recomputed model_total / p_over_emp differ from pred_v3 (largest total gap {gap:.3g})")
     bad += [f"pred_v3 column {c}" for c in pred.columns if c.startswith("qt_")]
-    return [_row("FAIL", f"live model_total and p_over_emp the same with and without the qtotals shadow ({season} Week {week})", bad, len(pw))]
+    out = [_row("FAIL", f"live model_total and p_over_emp the same with and without the qtotals shadow ({season} Week {week})", bad, len(pw))]
+    # 2 Oct 2026: recomputing a played week from today's stored tables can drift from the pred_v3 that priced it (the tables
+    # move after the week: forecast history extended, weather readings refreshed); that is not the shadow, so it warns apart
+    gap = float((mt - pw.model_total).abs().max()) if len(pw) else float("nan")
+    drift = [] if (len(pw) and gap <= 1e-9 and np.allclose(pe.values, pw.p_over_emp.values, atol=1e-12, rtol=0, equal_nan=True)) else [f"recomputed model_total / p_over_emp differ from pred_v3 (largest total gap {gap:.3g})"]
+    out.append(_row("WARN", f"the stored tables still reproduce pred_v3's totals ({season} Week {week})", drift, len(pw)))
+    return out
 
 
 # ---- logs (2 Oct 2026: rule_history appended by position) ----

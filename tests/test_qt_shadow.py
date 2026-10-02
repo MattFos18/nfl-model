@@ -157,7 +157,7 @@ def test_standing_check_catches_the_shadow_on_the_page_or_writing_the_live_table
 
 def test_isolation_check_on_the_stored_tables(monkeypatch):
     """standing_checks.qt_isolated on the committed tables: OK as stored, FAIL when the shadow's fit replaces a live object."""
-    assert [r[0] for r in SC.qt_isolated()] == ["OK"]
+    assert [r[0] for r in SC.qt_isolated()][0] == "OK"   # the drift row next to it may warn
     def leaky(train, test, cols=None):   # a shadow that swaps the live game frame for one that drops the roof
         monkeypatch.setattr(M, "_game_frame", lambda f, _g=M._game_frame: _g(f).assign(dome=0.0))
     monkeypatch.setattr(QT, "fit_week", leaky)
