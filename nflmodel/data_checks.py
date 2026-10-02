@@ -2,7 +2,9 @@
 
 verify.py checks the numbers against published sources; health.py checks that runs happened and are fresh. This checks
 the tables themselves: columns present, one row per game, every team's full schedule, scores and lines in range, the
-two team rows of a game mirroring each other, predictions for every graded game. A failure is a step error in the
+two team rows of a game mirroring each other, predictions for every graded game; and (2 Oct 2026, data audit) the inputs
+nflverse got wrong before: a played game's listed starting QB who took no dropback, a game abroad or at a neutral site
+listed at a home stadium or under a dome it does not have, a kickoff wind no game reaches. A failure is a step error in the
 weekly run (data/runs/run_log.csv), which health.py turns into a site-health issue; the run itself carries on.
 
 Usage: python -m nflmodel.data_checks   (writes reports/data_checks.md, exits 1 if any check fails)
@@ -82,10 +84,38 @@ def check(games: pd.DataFrame, team_games: pd.DataFrame, pred: pd.DataFrame | No
     return rows
 
 
+WIND_MAX = 40.0   # mph (build.WIND_MAX): the windiest real kickoff in the data is 35 mph (2020_08_LV_CLE, forecast 36.8)
+
+
+def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None) -> list[tuple[str, bool, str]]:
+    """The schedule inputs the 2 Oct 2026 audit found wrong, after build.py's fixes (build.fix_starters, venues.fix_venues,
+    build.fix_wind)."""
+    from .venues import venue_problems
+    rows = []
+    def add(what, ok, detail): rows.append((what, bool(ok), detail))
+    g = games[games.season >= FIRST]
+    if qb is not None:
+        played = g[g.home_score.notna()]
+        have = set(zip(qb.game_id, qb.team)); dropped = set(zip(qb.game_id, qb.team, qb.qb_id))
+        bad = []
+        for side in ("home", "away"):
+            for gid, t, q in zip(played.game_id, played[f"{side}_team"], played[f"{side}_qb_id"]):
+                if (gid, t) in have and (gid, t, q) not in dropped:
+                    bad.append(f"{gid} {t}")
+        add("games: every played game's starting QB dropped back in it", not bad, f"{len(bad)} team-games" + (f": {', '.join(bad[:6])}" if bad else ""))
+    vp = venue_problems(g)
+    add("games: neutral-site and overseas games at their real stadium and roof (venues.py)", not vp, f"{len(vp)} games" + (f": {', '.join(vp[:6])}" if vp else ""))
+    w = pd.to_numeric(g.wind, errors="coerce")
+    hi = g.game_id[w > WIND_MAX].tolist()
+    add(f"games: kickoff wind {WIND_MAX:g} mph or under", not hi, f"{len(hi)} games" + (f": {', '.join(hi[:6])}" if hi else ""))
+    return rows
+
+
 def main() -> bool:
     games = pd.read_parquet(OUT / "games.parquet"); tg = pd.read_parquet(OUT / "team_games.parquet")
     pf = OUT / "pred_v3.parquet"; pred = pd.read_parquet(pf) if pf.exists() else None
-    rows = check(games, tg, pred); ok = all(r[1] for r in rows)
+    qf = OUT / "qb_games.parquet"; qb = pd.read_parquet(qf, columns=["game_id", "team", "qb_id"]) if qf.exists() else None
+    rows = check(games, tg, pred) + check_inputs(games, qb); ok = all(r[1] for r in rows)
     L = ["# Data checks", "", "The tables the model reads, checked for shape before pricing (nflmodel/data_checks.py).", "",
          "| Check | Passes | Detail |", "|---|---|---|"] + [f"| {w} | {'yes' if o else 'NO'} | {d} |" for w, o, d in rows]
     L += ["", f"Result: {'PASS' if ok else 'FAIL'} ({sum(r[1] for r in rows)} of {len(rows)})"]

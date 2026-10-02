@@ -251,7 +251,11 @@ def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataF
             continue
         t = pq.read_table(f, columns=["game_id", "weather"]).to_pandas()
         wx.update(t.groupby("game_id").weather.first().to_dict())
+    from .venues import site as venue_site
     def venue(g):
+        s_ = venue_site(getattr(g, "stadium_id", None), g.home_team)
+        if s_["abroad"]:   # 2 Oct 2026: every stadium abroad by its id (Dublin, Berlin, Madrid, Sao Paulo, Melbourne, Paris had no match below)
+            return (s_["lat"], s_["lon"])
         for k, v in INTL.items():
             if isinstance(g.stadium, str) and k.lower() in g.stadium.lower():
                 return v

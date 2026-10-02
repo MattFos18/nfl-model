@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- Data fixes: the starting QB who played, games abroad at their real site, recorded wind checked against the archive, the line before kickoff; new data checks (reports/data_fixes.md).
 - Project wiki (`docs/wiki/`), `study` and `ship` skills, and the data-checker, site-fact-checker and pr-reviewer agents added.
 - Cards show only real bets; reverse line move chip (#377).
 - A QB ruled out this week is priced at his replacement, not the named starter: `ratings.qbs_out_now` (#376).

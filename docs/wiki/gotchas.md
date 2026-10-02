@@ -35,7 +35,8 @@ add it here (newest at the top of its group) with the file and the date, and a l
 - **ESPN's inactives flag shows up before the official list and can be wrong** (Joey Porter Jr., 1 Oct 2026, practiced
   in full). `inactives.py` logs it; nothing prices it yet (`docs/handoff.md`).
 - **The lines log keeps pulling after kickoff (live lines).** Any closing line, CLV or "line at bet time" must take the
-  last snapshot strictly before kickoff, as `clv.py` does. Log timestamps are UTC (`2026-10-02T14-20-00Z`); `kickoff_et`
+  last snapshot strictly before kickoff, as `clv.py` does and `lines.live_lines` does through `lines.before_kickoff` (2 Oct 2026:
+  a snapshot 1m41s after kickoff had become 2026_03_LA_DEN's line). Log timestamps are UTC (`2026-10-02T14-20-00Z`); `kickoff_et`
   in `games.parquet` is Eastern with no zone. Convert before comparing.
 - **Recorded weather is not a forecast.** The schedule's `temp` and `wind` are the weather that happened. The backtest's
   `wind_out`, cold and the points equations' rain still read it (a small look-ahead in the backtest only); the totals'
@@ -54,14 +55,9 @@ add it here (newest at the top of its group) with the file and the date, and a l
 - **NWS MOS writes 99 for a missing wind or gust hour (999 for temperature).** 2018_16_BAL_LAC had a 20 mph forecast
   built from it; masked in `forecast_history.py` (~line 95) and refetched (7.4 / 5.5 mph). Every number quoted from
   before the fix was redone (decision log 1 Oct 2026). Check any new weather feed for sentinel values.
-- **International games: the schedule's venue and roof can be wrong.** In `data/processed/games.parquet` (read 2 Oct
-  2026) the 2025 games played abroad list the home team's own stadium (2025_01_KC_LAC "SoFi Stadium" dome,
-  2025_04_MIN_PIT "Acrisure Stadium", 2025_05_MIN_CLE "FirstEnergy Stadium", 2025_10_ATL_IND "Lucas Oil Stadium"
-  closed, and others), and 2026 rows carry doubtful roofs ("Melbourne Cricket Ground" dome, "Stade de France" dome,
-  "FC Bayern Munich Stadium" dome, "Bernabeu" missing). The venue lookup matches on the stadium name
-  (`weather.INTL`, `trends.venue`) and silently falls back to the home team's stadium; `wind_live.py` and
-  `forecast_history.py` cover US stadiums only; a "dome" or "closed" roof skips weather entirely. Check every neutral
-  game's venue and roof by hand before trusting its weather or travel numbers.
+- **The schedule's venue and roof can be wrong, and stadium names never carry the city.** The 2025 games abroad were listed at the home team's US stadium (2025_01_KC_LAC "SoFi Stadium" dome, 2025_10_ATL_IND "Lucas Oil" closed, London at TIAA Bank, Madrid at Hard Rock) and 2026 Melbourne, Paris and Munich as domes; the old lookup matched city names ("London") against stadium names ("Wembley") and fell back to the home team's stadium, so London games and Oakland's and San Diego's read the wrong place. Fixed 2 Oct 2026: `nflmodel/venues.py` places games by `stadium_id` with a `GAME_VENUE` override table, every weather reader uses `venues.site`, and `data_checks` fails a neutral game at a home stadium or an open-air stadium abroad marked dome. A new game abroad needs its stadium in `venues.VENUE`.
+- **nflverse's listed starting QB can be a QB who never played** (44 team-games 2022-2025: Mariota for WAS Weeks 9-13 2024, Hurts in 2024_17_DAL_PHI). Fixed 2 Oct 2026 in `build.fix_starters` (played games only; the id nflverse gave is `*_qb_id_listed`); `data_checks` fails a played game's starter with no dropback.
+- **The schedule's recorded wind has typos** (71 mph at Pittsburgh, 44 at Philadelphia). `build.fix_wind` checks it against the Open-Meteo archive and the GFS forecast (2 Oct 2026); the schedule's figure is `wind_listed`.
 - **The listed home team gets the full home edge at neutral and international sites** (decision log 30 Sep 2026,
   `experiments/home_field.py`); zeroing it helped 2015-22 and hurt 2023-25, so it stays.
 - **Defenders who changed teams had a snap share of 0** (divided by the new team's snaps in games he did not play;

@@ -8,7 +8,7 @@ from __future__ import annotations
 import argparse, sys, time
 import pandas as pd, requests
 from .features import OUT, ROOT
-from .weather import STADIUM, INTL
+from . import venues as V
 WX = ROOT / "data" / "weather"; OUTF = WX / "archive_kickoff.csv"
 URL = "https://archive-api.open-meteo.com/v1/archive"
 
@@ -30,16 +30,19 @@ def fetch(lat, lon, start, end, tz="auto"):
 def main(seasons):
     g = pd.read_parquet(OUT / "games.parquet")
     g = g[g.season.isin(seasons) & g.kickoff_et.notna() & (g.roof.fillna("outdoors").isin(["outdoors", "open"]))].copy()
-    g["site"] = g.home_team
-    intl = g.location.fillna("").str.contains("Neutral", case=False) & g.stadium.fillna("").str.contains("|".join(INTL), case=False)
-    for name in INTL:
-        g.loc[intl & g.stadium.fillna("").str.contains(name, case=False), "site"] = name
-    done = pd.read_csv(OUTF) if OUTF.exists() else pd.DataFrame(columns=["game_id"])
+    # 2 Oct 2026: each game's real site (nflmodel/venues.py). The old city-name match sent London and Mexico City games, and
+    # Oakland's and San Diego's, to the home team's current stadium; a stored row fetched at the wrong site is fetched again.
+    st = V.sites(g)
+    g["site"], g["lat"], g["lon"], g["tz"] = st.site, st.lat, st.lon, st.tz
+    done = pd.read_csv(OUTF) if OUTF.exists() else pd.DataFrame(columns=["game_id", "site"])
+    if len(done):
+        want = dict(zip(g.game_id, g.site))
+        done = done[[want.get(i, s_) == s_ for i, s_ in zip(done.game_id, done.site)]]
     g = g[~g.game_id.isin(done.game_id)]
     rows = []
     for (site, season), x in g.groupby(["site", "season"]):
-        lat, lon = STADIUM.get(site) or INTL.get(site) or (None, None)
-        if lat is None:
+        lat, lon, tz = x.lat.iloc[0], x.lon.iloc[0], x.tz.iloc[0]
+        if lat is None or pd.isna(lat):
             continue
         days = pd.to_datetime(x.kickoff_et)
         h = fetch(lat, lon, (days.min() - pd.Timedelta(days=1)).strftime("%Y-%m-%d"), (days.max() + pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
@@ -50,7 +53,7 @@ def main(seasons):
             k = pd.Timestamp(r.kickoff_et).floor("h")
             # local-time difference: use the API's own timezone by matching the nearest hour after converting Eastern to the site's zone
             try:
-                local = k.tz_localize("America/New_York").tz_convert(_tz(site)).tz_localize(None)
+                local = k.tz_localize("America/New_York").tz_convert(tz).tz_localize(None)
             except Exception:  # noqa
                 local = k
             m = h[h.t == local]
@@ -65,10 +68,12 @@ def main(seasons):
     print("wrote", len(pd.read_csv(OUTF)) if OUTF.exists() else 0, "rows", flush=True)
 
 
-_TZ = {"ARI": "America/Phoenix", "DEN": "America/Denver", "KC": "America/Chicago", "DAL": "America/Chicago", "HOU": "America/Chicago", "CHI": "America/Chicago", "GB": "America/Chicago",
-       "MIN": "America/Chicago", "NO": "America/Chicago", "TEN": "America/Chicago", "LV": "America/Los_Angeles", "LAC": "America/Los_Angeles", "LA": "America/Los_Angeles", "SF": "America/Los_Angeles", "SEA": "America/Los_Angeles",
-       "London": "Europe/London", "Dublin": "Europe/Dublin", "Munich": "Europe/Berlin", "Frankfurt": "Europe/Berlin", "Madrid": "Europe/Madrid", "Mexico City": "America/Mexico_City", "Sao Paulo": "America/Sao_Paulo", "Melbourne": "Australia/Melbourne"}
-def _tz(site): return _TZ.get(site, "America/New_York")
+def _tz(site):
+    """A site key's time zone (venues.py)."""
+    for v in V.VENUE.values():
+        if v[0] == site:
+            return v[3]
+    return V.TEAM_TZ.get(site, "America/New_York")
 
 
 if __name__ == "__main__":

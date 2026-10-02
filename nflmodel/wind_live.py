@@ -54,13 +54,23 @@ def run() -> int:
     return len(df)
 
 
+def _history() -> pd.DataFrame:
+    """The stored 2018-2025 forecasts, less games played abroad (2 Oct 2026: the 2025 London and Madrid games had been
+    read at Jacksonville's and Miami's airports because the schedule listed them at those stadiums)."""
+    h = pd.read_csv(FH.OUTF)
+    try:
+        return h[~h.game_id.isin(FH.abroad_ids())]
+    except Exception:  # noqa  (no games table: the history as stored)
+        return h
+
+
 def readings() -> dict:
     """game_id -> the wind reading the rule uses: the live log's newest for games still to play, the stored history for
     2018-2025 (the mean of the last-run forecasts there, as the study measured)."""
     out = {}
     hf = FH.OUTF
     if hf.exists():
-        h = pd.read_csv(hf)
+        h = _history()
         m = h[[c for c in ["gfs_wind_d0", "nbs_wind_d0", "jma_wind_d0"] if c in h]].apply(pd.to_numeric, errors="coerce").mean(axis=1)
         out.update({gid: float(v) for gid, v in zip(h.game_id, m) if pd.notna(v)})
     if F.exists():
@@ -74,7 +84,7 @@ def rain_readings() -> dict:
     day-before run where it is missing) for played games, the live log's newest for games still to play."""
     out = {}
     if FH.OUTF.exists():
-        h = pd.read_csv(FH.OUTF)
+        h = _history()
         v = pd.to_numeric(h.get("gfs_pop_d0"), errors="coerce").fillna(pd.to_numeric(h.get("gfs_pop_d1"), errors="coerce"))
         out.update({gid: float(x) for gid, x in zip(h.game_id, v) if pd.notna(x)})
     if F.exists():
@@ -91,7 +101,7 @@ def temp_readings() -> dict:
     log's newest for games still to play (logged from 2 Oct 2026), the same order as rain_readings."""
     out = {}
     if FH.OUTF.exists():
-        h = pd.read_csv(FH.OUTF)
+        h = _history()
         v = pd.to_numeric(h.get("gfs_temp_d0"), errors="coerce").fillna(pd.to_numeric(h.get("gfs_temp_d1"), errors="coerce"))
         out.update({gid: float(x) for gid, x in zip(h.game_id, v) if pd.notna(x)})
     if F.exists():
