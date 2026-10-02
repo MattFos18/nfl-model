@@ -3,6 +3,13 @@
 Read first in every session. Matt runs an NFL betting model and its site from this repo; the goal is the highest win
 rate and the most units.
 
+## Start of every session
+- Read `docs/wiki/index.md` and `docs/wiki/gotchas.md`; `docs/wiki/data_sources.md` when touching a source. Add new
+  traps to gotchas and a line to `docs/wiki/log.md` for each merged change.
+- Skills: `study` (any model or bet-rule study), `ship` (any change, branch to weekly run).
+- Agents (read-only): `model-auditor` (before asking Matt to adopt), `data-checker` (tables and pipelines),
+  `site-fact-checker` (page text and docs), `pr-reviewer` (silent failures and test gaps before merge).
+
 ## Talking to Matt
 - Very concise answers. Plain words, American spelling. Recommend one option; don't list ones you won't take.
 - When something is blocked (network, permissions, a setting), say so and name the setting; don't quietly work around it.
