@@ -12,7 +12,8 @@ What counts as a change:
   reports      a player's Questionable listing or practice status changed (the props count both: props.INJ_F; 26 Sep
                2026, before this only Out and Doubtful were watched). Re-prices at most once every two hours, as weather.
   weather      inside the forecast window the model uses: wind moved 2 mph or more, or the cold (under 35F) or
-               rain call flipped. Weather-only changes re-price at most once every two hours.
+               rain call flipped, or a game's weather source changed (Open-Meteo to the GFS MOS reading, or back).
+               Weather-only changes re-price at most once every two hours.
 
 python -m nflmodel.refresh --check   pull, compare, print the reasons, and write reprice=1|0 to $GITHUB_OUTPUT
 python -m nflmodel.refresh --write   write the fingerprint of what is on disk now (the weekly run, at its end)
@@ -67,13 +68,13 @@ def fingerprint() -> dict:
     try:
         # the weather each game is priced on now (weather.live_source, 2 Oct 2026): the GFS MOS reading where wind_live has
         # one, else Open-Meteo; a game with neither is priced as typical weather and has no entry
-        from .model import RAIN_FC, COLD_F
+        from .model import COLD_F
         for gid, d in WX.live_source(wk).items():
             if d["wind_src"] is None and d["temp_src"] is None and d["rain_src"] is None:
                 continue
-            rain = (d["pop"] >= RAIN_FC) if d["rain_src"] == "mos" else bool((d["precip"] or 0) > 0)
+            # the rain call as trends makes it (weather.rain_call; until 2 Oct 2026 any Open-Meteo precipitation above 0)
             fp["weather"][gid] = {"wind": None if d["wind"] is None else round(d["wind"], 1), "cold": bool(d["temp"] is not None and d["temp"] < COLD_F),
-                                  "rain": bool(rain), "src": d["wind_src"]}
+                                  "rain": WX.rain_call(d), "src": d["wind_src"], "temp_src": d["temp_src"], "rain_src": d["rain_src"]}
     except Exception as e:  # noqa
         from .warnlog import warn
         warn("refresh", f"weather fingerprint failed ({type(e).__name__}: {str(e)[:100]}): weather changes will not start a re-price")
@@ -116,6 +117,12 @@ def diff(old: dict, new: dict) -> list[tuple[str, str]]:
             out.append(("weather", f"{gid}: wind {o['wind']:.0f} to {w['wind']:.0f} mph"))
         if w["cold"] != o.get("cold") or w["rain"] != o.get("rain"):
             out.append(("weather", f"{gid}: cold or rain call changed"))
+        # 2 Oct 2026 (review of #399): a game moving from Open-Meteo to the MOS reading (or back) is priced on different
+        # numbers even when the wind moves under 2 mph and the calls hold; a fingerprint written before the temperature
+        # and rain sources were kept compares the wind source only
+        moved = [k for k in ("src", "temp_src", "rain_src") if k in o and w.get(k) != o.get(k)]
+        if moved:
+            out.append(("weather", f"{gid}: weather source changed ({', '.join(f'{k}: {o.get(k)} to {w.get(k)}' for k in moved)})"))
     return out
 
 

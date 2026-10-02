@@ -21,19 +21,34 @@ from .warnlog import warn
 F = FH.WX / "wind_live.csv"
 COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean", "gfs_pop", "gfs_temp"]
 RANGE_H = 66   # GFS MOS (MAV) runs 72 hours out; a reading needs the game's first three hours inside it
+# 2 Oct 2026 (review of #399): by DUE_H hours before kickoff every run wind_live may read (issued 4 to 10 hours before now)
+# reaches the game's first three hours (72 - 3 - 10 = 59); from RANGE_H to DUE_H the newest run may not reach it yet
+# (the log has GFS blanks 63 to 66 hours out), so a game there with no MOS reading is expected, not a failure
+DUE_H = 59
+# 2 Oct 2026 (review of #399): a live reading for a game still to play counts only while its GFS run is at most one run
+# (6 hours) behind the newest run wind_live would read for that game now (newest_run). One run of slack covers a late
+# NWS posting or a skipped line watch; older than that, the pulls are failing and the reading is dropped (the game falls
+# back to Open-Meteo, logged, and health.py fails it inside DUE_H)
+MAX_RUN_LAG_H = 6
+
+
+def newest_run(ko: pd.Timestamp, now: pd.Timestamp) -> pd.Timestamp:
+    """The GFS MOS run wind_live reads for a game kicking off at `ko` (UTC): the newest 00/06/12/18Z run issued at least
+    4 hours ago (so it is out) and at least 5 hours before kickoff (FH.last_run)."""
+    return min(FH.last_run(ko), (now - pd.Timedelta(hours=4)).floor("6h"))
 
 
 def run() -> int:
     from .lines import current_week
     g0 = pd.read_parquet(FH.OUT / "games.parquet"); season, week = current_week(g0)
     g = FH.games([season], (week, week + 1), played=False)
-    now = pd.Timestamp.now(tz="UTC"); issued = (now - pd.Timedelta(hours=4)).floor("6h")
+    now = pd.Timestamp.now(tz="UTC")
     ts = dt.datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%SZ"); rows = []
     for r in g.itertuples():
         ko = pd.Timestamp(r.kickoff_et).tz_localize("America/New_York").tz_convert("UTC")
         if ko <= now or ko > now + pd.Timedelta(hours=RANGE_H):
             continue
-        run_ = min(FH.last_run(ko), issued)
+        run_ = newest_run(ko, now)
         m = FH.mos_all(r.station, "GFS", run_, ko); gfs = m["wind"]
         # Japan's model under the stored rule (2 Oct 2026): the day-before value, never a run newer than the GFS cutoff
         jma = FH.jma_pre_kickoff(*FH.jma(r.latlon[0], r.latlon[1], ko)[1:], ko, now) if r.latlon else None
@@ -49,7 +64,23 @@ def run() -> int:
     df = pd.DataFrame(rows, columns=COLS)
     if not len(df):
         return 0
-    keys = ["gfs_wind", "jma_wind", "gfs_pop", "gfs_temp"]
+    # 2 Oct 2026 (review of #399): the GFS pull fails without raising (a network error comes back empty), so a full outage
+    # logged Japan-only readings and the line watch saw no error. Every game inside DUE_H coming back empty raises after
+    # the rows are written: the line watch's errors (health.wind_pull_row) and the weekly step show it
+    ko_ = pd.to_datetime(df.kickoff_utc.str.replace("Z", "")).dt.tz_localize("UTC")
+    inside = df[ko_ <= now + pd.Timedelta(hours=DUE_H)]
+    outage = len(inside) > 0 and bool(inside[["gfs_wind", "gfs_pop", "gfs_temp"]].isna().values.all())
+    n = _append(df)
+    if outage:
+        raise RuntimeError(f"GFS MOS gave nothing for any of the {len(inside)} games within {DUE_H} hours of kickoff")
+    return n
+
+
+def _append(df: pd.DataFrame) -> int:
+    """Append the rows whose reading or GFS run changed; returns how many."""
+    # gfs_run too (2 Oct 2026, review of #399): a new run with the same values logs a row, so the log's run is the newest
+    # one read and the age limit (_fresh) can tell a current reading from a stale one
+    keys = ["gfs_run", "gfs_wind", "jma_wind", "gfs_pop", "gfs_temp"]
     if F.exists():
         old = pd.read_csv(F)
         if list(old.columns) != COLS:   # a log written before gfs_pop or gfs_temp: rewritten once with the new columns (empty for old rows)
@@ -62,6 +93,27 @@ def run() -> int:
     if len(df):
         FH.WX.mkdir(parents=True, exist_ok=True); df.to_csv(F, mode="a", header=not F.exists(), index=False)
     return len(df)
+
+
+def due(now: pd.Timestamp | None = None, games: pd.DataFrame | None = None) -> set:
+    """Games that must have a MOS reading now: unplayed, outdoor or open roof, at a US stadium with an airport station (the
+    games run() reads; games abroad never get one) and kicking off within DUE_H hours. health.py fails such a game
+    priced on Open-Meteo (2 Oct 2026, review of #399)."""
+    now = pd.Timestamp.now(tz="UTC") if now is None else now
+    if games is None:
+        g0 = pd.read_parquet(FH.OUT / "games.parquet", columns=["season"])
+        games = FH.games(sorted(int(x) for x in g0.season.unique()), played=False)
+    ko = pd.to_datetime(games.kickoff_et).dt.tz_localize("America/New_York").dt.tz_convert("UTC")
+    return set(games.game_id[(ko > now) & (ko <= now + pd.Timedelta(hours=DUE_H))])
+
+
+def gfs_missing() -> set:
+    """Games whose newest live row has no GFS MOS wind: the wind reading is Japan's model alone (the GFS pull came back
+    empty; expected only further out than DUE_H). health.py fails such a game inside DUE_H (2 Oct 2026, review of #399)."""
+    if not F.exists():
+        return set()
+    lv = pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last")
+    return set(lv.game_id[lv.gfs_wind.isna()])
 
 
 def _history() -> pd.DataFrame:
@@ -86,6 +138,27 @@ def _roofed() -> set:
         return set()
 
 
+def _fresh(lv: pd.DataFrame, now: pd.Timestamp | None = None) -> pd.DataFrame:
+    """Live rows less those of games still to play whose GFS run is more than MAX_RUN_LAG_H behind the newest run for that
+    game (newest_run); each dropped game warns. Games that have kicked off keep their last reading (the one they were
+    priced on). 2 Oct 2026 (review of #399): readings had no age limit, so a failing pull kept pricing an old run."""
+    now = pd.Timestamp.now(tz="UTC") if now is None else now
+    if not len(lv):
+        return lv
+    ko = pd.to_datetime(lv.kickoff_utc.astype(str).str.replace("Z", ""), errors="coerce").dt.tz_localize("UTC")
+    run = pd.to_datetime(lv.get("gfs_run", pd.Series(None, index=lv.index, dtype=object)).astype(str).str.replace("Z", ""), format="%Y-%m-%dT%H", errors="coerce").dt.tz_localize("UTC")
+    keep = []
+    for gid, k, r_, ts in zip(lv.game_id, ko, run, lv.ts):
+        if pd.isna(k) or k <= now:
+            keep.append(True); continue
+        due = newest_run(k, now)
+        ok = pd.notna(r_) and r_ >= due - pd.Timedelta(hours=MAX_RUN_LAG_H)
+        if not ok:
+            warn("wind_live", f"{gid}: reading from GFS run {'unknown' if pd.isna(r_) else f'{r_:%Y-%m-%dT%HZ}'} (logged {ts}) is more than {MAX_RUN_LAG_H} hours behind the newest run ({due:%Y-%m-%dT%HZ}); not used")
+        keep.append(bool(ok))
+    return lv[keep]
+
+
 def _live_latest(lv: pd.DataFrame, col: str, what: str) -> pd.DataFrame:
     """Each game's newest live row with a value in `col`. Where the newest pull had none, the older value stands (as
     before) and a warning says so (2 Oct 2026, code review: a failed MOS pull quietly kept an older reading)."""
@@ -97,12 +170,12 @@ def _live_latest(lv: pd.DataFrame, col: str, what: str) -> pd.DataFrame:
         old = have[have.game_id == gid]
         if len(old):
             warn("wind_live", f"{gid}: newest pull ({ts}) has no {what}; using the {old.ts.iloc[0]} reading")
-    return have
+    return _fresh(have)
 
 
 def readings() -> dict:
-    """game_id -> the wind reading the rule uses: the live log's newest for games still to play, the stored history for
-    2018-2025 (the mean of the pre-kickoff forecasts there: GFS and NBS last run, Japan's day-before run)."""
+    """game_id -> the wind reading the rule uses: the live log's newest for games still to play (dropped when its GFS run
+    is stale: _fresh), the stored history for 2018-2025 (the mean of the pre-kickoff forecasts there: GFS and NBS last run, Japan's day-before run)."""
     out = {}
     hf = FH.OUTF
     if hf.exists():
@@ -111,7 +184,7 @@ def readings() -> dict:
         m = h[[c for c in FH.PRE_KICKOFF_WIND if c in h]].apply(pd.to_numeric, errors="coerce").mean(axis=1)
         out.update({gid: float(v) for gid, v in zip(h.game_id, m) if pd.notna(v)})
     if F.exists():
-        lv = pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last")
+        lv = _fresh(pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last"))
         out.update({gid: float(v) for gid, v in zip(lv.game_id, lv.wind_mean) if pd.notna(v)})
     r = _roofed()
     return {k: v for k, v in out.items() if k not in r}

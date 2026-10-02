@@ -77,8 +77,9 @@ def test_forecast_gaps_are_counted_as_warnings():
 
 # (d) wind_live's fallbacks
 def test_live_rain_from_an_older_pull_is_warned(tmp_path, monkeypatch):
-    f = tmp_path / "wind_live.csv"; ko = (pd.Timestamp.now("UTC") + pd.Timedelta(days=1)).strftime("%Y-%m-%dT%H:%MZ")
-    pd.DataFrame({"ts": ["2026-10-02T10-00-00Z", "2026-10-02T12-00-00Z"], "game_id": "g1", "kickoff_utc": ko, "wind_mean": [9.0, 9.5],
+    f = tmp_path / "wind_live.csv"; now = pd.Timestamp.now("UTC"); ko = (now + pd.Timedelta(days=1)).strftime("%Y-%m-%dT%H:%MZ")
+    run = WL.newest_run(now + pd.Timedelta(days=1), now).strftime("%Y-%m-%dT%HZ")   # a current run (stale runs are dropped: wind_live._fresh)
+    pd.DataFrame({"ts": ["2026-10-02T10-00-00Z", "2026-10-02T12-00-00Z"], "game_id": "g1", "kickoff_utc": ko, "gfs_run": run, "wind_mean": [9.0, 9.5],
                   "gfs_pop": [40.0, None], "gfs_temp": [50.0, None]}).to_csv(f, index=False)
     monkeypatch.setattr(WL, "F", f); monkeypatch.setattr(FH, "OUTF", tmp_path / "none.csv")
     assert WL.rain_readings() == {"g1": 40.0} and WL.temp_readings() == {"g1": 50.0}   # the reading is unchanged

@@ -14,6 +14,39 @@ REP = ROOT / "reports"; DATA = ROOT / "data"; WEB = ROOT / "web" / "data"
 IN_SEASON = (9, 10, 11, 12, 1, 2)   # months the checks about lines and picks apply to
 
 
+def weather_source_rows(src: dict, due: set, gfs_missing: set = frozenset()) -> list[tuple]:
+    """Health rows for the weather unplayed games are priced on (weather.live_source). 2 Oct 2026 (review of #399): one
+    WARN covered both the expected Open-Meteo fallbacks and real MOS failures. A game wind_live must have read by now
+    (`due`: wind_live.due, a US outdoor game within DUE_H hours of kickoff) whose wind, temperature or rain is not on
+    MOS, or whose newest wind reading has no GFS part (`gfs_missing`: wind_live.gfs_missing, Japan's model alone), FAILS;
+    an expected fallback (further out, or a game abroad, which never has a MOS reading) stays a WARN."""
+    srcs = lambda d: (d["wind_src"], d["temp_src"], d["rain_src"])
+    missing = sorted(gid for gid in due if gid in src and (any(x != "mos" for x in srcs(src[gid])) or gid in gfs_missing))
+    fell = sorted(gid for gid, d in src.items() if "open-meteo" in srcs(d) and gid not in missing)
+    n_mos = sum(d["wind_src"] == "mos" for d in src.values())
+    from .wind_live import DUE_H
+    return [("FAIL" if missing else "OK", f"GFS MOS reading for every US outdoor game within {DUE_H} hours of kickoff",
+             f"{len(due) - len(missing)} of {len(due)} games have one" + (f"; missing (wind, temperature or rain not on MOS, or no GFS wind): {', '.join(missing)}" if missing else "")),
+            ("WARN" if fell else "OK", "live weather priced on GFS MOS (the backtest's source)",
+             f"{n_mos} of {len(src)} games on GFS MOS; {len(fell)} on the expected Open-Meteo fallback (more than {DUE_H} hours out, or abroad)" + (f": {', '.join(fell)}" if fell else ""))]
+
+
+def wind_pull_row(w: pd.DataFrame, now: pd.Timestamp) -> tuple:
+    """Health row for the line watch's live forecast pull (wind_live.run; until 2 Oct 2026, review of #399, its failure
+    was only in watch_log's errors). FAIL when the two newest snapshots both failed it, WARN when any in the last day did."""
+    what = "live forecast pull (wind_live) ok in the line watch"
+    w = w.sort_values("t")
+    err = (w["errors"] if "errors" in w else pd.Series("", index=w.index)).fillna("").astype(str)
+    bad = err.str.contains(r"(?:^|; )wind: ")
+    msg = lambda i: err.loc[i].split("wind: ", 1)[1].split("; ")[0][:100]
+    last2, day = bad.tail(2), bad[w.t > now - pd.Timedelta(days=1)]
+    if len(last2) and last2.all():
+        return ("FAIL", what, f"the {len(last2)} newest snapshots failed it: {msg(last2.index[-1])}")
+    if day.any():
+        return ("WARN", what, f"{int(day.sum())} of {len(day)} snapshots in the last day failed it; newest failure: {msg(day[day].index[-1])}")
+    return ("OK", what, f"no failure in the {len(day)} snapshots of the last day")
+
+
 def main() -> bool:
     now = pd.Timestamp.now("UTC").tz_localize(None); rows = []
     def add(level, what, detail): rows.append((level, what, detail))
@@ -59,6 +92,7 @@ def main() -> bool:
             add("FAIL" if age_h > 24 else ("WARN" if age_h > 3 else "OK"), "line watch is logging", f"last snapshot {age_h:.1f} hours ago, {n7} in the last seven days (every 30 minutes when GitHub's cron fires)")
             zero = w[w.t > now - pd.Timedelta(days=2)]; z = int((zero.rows == 0).sum())
             add("WARN" if len(zero) and z == len(zero) else "OK", "line watch returns rows", f"{z} of {len(zero)} snapshots in the last two days logged no lines")
+            rows.append(wind_pull_row(w, now))
         else:
             add("FAIL", "line watch log", "data/lines/watch_log.csv missing")
         # 4. forecasts
@@ -76,10 +110,15 @@ def main() -> bool:
                 add("FAIL" if miss else "OK", "kickoff forecast for every outdoor game inside the window", f"{len(g_) - len(miss)} of {len(g_)} games have a reading" + (f"; missing: {', '.join(miss)}" if miss else ""))
                 # 2 Oct 2026 (re-audit item 3): the weather is priced on the GFS MOS reading (the backtest's source); a game
                 # on Open-Meteo has no MOS reading yet (66 to 96 hours out) or its pull failed, and is counted here
-                src_ = WX.live_source(g_)
-                fell = sorted(gid for gid, d in src_.items() if "open-meteo" in (d["wind_src"], d["temp_src"], d["rain_src"]))
-                n_mos = sum(d["wind_src"] == "mos" for d in src_.values())
-                add("WARN" if fell else "OK", "live weather priced on GFS MOS (the backtest's source)", f"{n_mos} of {len(src_)} games on GFS MOS; {len(fell)} on the Open-Meteo fallback" + (f": {', '.join(fell)}" if fell else ""))
+                from . import wind_live as WLV
+                checked_ = True
+                try:
+                    due_, gm_ = WLV.due(), WLV.gfs_missing()
+                except Exception as e:  # noqa  (a FAIL of its own, not the block's single WARN)
+                    add("FAIL", f"GFS MOS reading for every US outdoor game within {WLV.DUE_H} hours of kickoff", f"could not check: {type(e).__name__}: {str(e)[:100]}")
+                    due_, gm_, checked_ = set(), set(), False
+                ws_ = weather_source_rows(WX.live_source(g_), due_, gm_)
+                rows.extend(ws_ if checked_ else ws_[1:])
             except Exception as e:  # noqa
                 add("WARN", "kickoff forecast coverage", str(e)[:80])
         else:

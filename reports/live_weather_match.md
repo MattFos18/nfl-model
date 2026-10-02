@@ -35,8 +35,8 @@ difference 0.0). The backtest is unchanged, as it should be: only unplayed games
 
 Week 4 of 2026 (the weekly run's Open-Meteo values -> MOS): NE@BUF wind 7.6 -> 9.2 mph, GB@TB 10.2 -> 7.2, DEN@SF
 4.8 -> 8.2, NYJ@CHI 7.6 -> 9.1, LA@PHI 10.3 -> 8.4; ARI@NYG 64 -> 59 F; rain called by MOS (50%+) at TEN@BAL (78%),
-LA@PHI (70%), ARI@NYG (58%) and DET@CAR (78%) where Open-Meteo had 67%, 33%, 5% and 81%. IND@WAS (Monday) has no MOS
-reading yet and stays on Open-Meteo. DAL@HOU is roofed (#391) and gets no reading.
+LA@PHI (70%), ARI@NYG (58%) and DET@CAR (78%) where Open-Meteo had 67%, 33%, 5% and 81%. IND@WAS is in London (Tottenham), where
+there is no MOS station, so it stays on Open-Meteo. DAL@HOU is roofed (#391) and gets no reading.
 
 ## 2. Centring on the weeks before (item 5)
 `players.league_mean_before` replaces the full-season mean: the season's team-games before the week, the season before's

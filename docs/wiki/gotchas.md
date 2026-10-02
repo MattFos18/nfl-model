@@ -62,7 +62,10 @@ each one again is in `checks.md`.
   cold and points-equation rain came from Open-Meteo (`weather.apply_to_games`, trends rain) while the backtest priced on
   GFS MOS / Japan (DAL@HOU 9.9 against 11.4 mph). Now `weather.live_source` gives both the MOS reading wind_live keeps,
   Open-Meteo only where none exists yet (66 to 96 hours out, or a failed pull: a `live weather` warning and a health
-  row). The props still read Open-Meteo (`apply_to_games(mos=False)`).
+  row). The props still read Open-Meteo (`apply_to_games(mos=False)`). Follow-ups the same day: a reading whose GFS run
+  is more than one run behind the newest for that game is dropped (`wind_live._fresh`, `MAX_RUN_LAG_H`); health fails a
+  US outdoor game within `wind_live.DUE_H` (59) hours with no MOS reading (from 66 to 59 hours out the newest run may
+  not reach the game yet); a source change re-prices (`refresh.diff`).
 - **The forecast history skips games by the roof as it was on game day** (unverified size; audit of 2 Oct 2026,
   reports/audit_forecast_weather_backtest_2026-10-02.md): 295 closed-roof games at ARI, ATL, DAL, HOU and IND have no
   stored forecast, while a live run sees their roof as unknown and prices them as outdoor, so the weather backtests skip games live bets could
