@@ -688,7 +688,7 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
                      "Our score": f"{r.away_team} {r.away_exp:.1f}, {r.home_team} {r.home_exp:.1f}",
                      "Our line": our_line, "Vegas": vegas, "Edge (spread / total)": edge,
                      "Win": f"{r.home_team} {ph:.0%} / {r.away_team} {1 - ph:.0%}", "Cover the spread": cover, "Total": over, "Flag": r.bet,
-                     "Stake": f"{r.stake_pct:g}% at {r.bet_odds:+g}" if "stake_pct" in p.columns and pd.notna(r.stake_pct) else "",
+                     "Stake": f"1 unit at {r.bet_odds:+g}" if pd.notna(getattr(r, "bet_odds", np.nan)) else ("1 unit" if r.bet else ""),   # one unit a bet (2 Oct 2026, Matt)
                      **{f"Shadow: {lab}": (getattr(r, f"{name}_bet", "") if isinstance(getattr(r, f"{name}_bet", ""), str) else "") for name, (_, _, lab) in SHADOWS.items()}})
     df = pd.DataFrame(rows)
     # the flag's backtest records, computed from the prediction table every time (never typed in, so never stale)
