@@ -142,12 +142,17 @@
 [
 "CHI",
 "Braxton Jones",
-"Doubtful"
+"Out"
 ],
 [
 "CHI",
 "Caleb Williams",
 "Out"
+],
+[
+"CHI",
+"Cam Lewis",
+"Doubtful"
 ],
 [
 "CHI",
@@ -305,6 +310,11 @@
 "Out"
 ],
 [
+"KC",
+"Josh Simmons",
+"Out"
+],
+[
 "LA",
 "Aaron Donald",
 "Out"
@@ -367,6 +377,11 @@
 [
 "MIA",
 "Storm Duck",
+"Out"
+],
+[
+"MIN",
+"Brett Thorson",
 "Out"
 ],
 [
@@ -824,12 +839,6 @@
 ],
 [
 "BUF",
-"DJ Moore",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Damar Hamlin",
 "",
 "Limited Participation in Practice"
@@ -869,12 +878,6 @@
 "Keon Coleman",
 "",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Keon Coleman",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1022,21 +1025,9 @@
 ],
 [
 "CHI",
-"Cam Lewis",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "D'Andre Swift",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CHI",
-"D'Andre Swift",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -1718,21 +1709,9 @@
 ],
 [
 "KC",
-"Josh Simmons",
-"Questionable (ESPN)",
-""
-],
-[
-"KC",
 "L'Jarius Sneed",
 "",
 "Limited Participation in Practice"
-],
-[
-"KC",
-"L'Jarius Sneed",
-"Questionable (ESPN)",
-""
 ],
 [
 "KC",
@@ -2132,21 +2111,9 @@
 ],
 [
 "MIN",
-"Blake Cashman",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
 "Brett Thorson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"MIN",
-"Brett Thorson",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIN",
@@ -3141,5 +3108,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 19:09 UTC"
+"written_at": "2026-10-02 19:46 UTC"
 }
