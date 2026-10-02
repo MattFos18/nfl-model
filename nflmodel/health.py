@@ -149,6 +149,38 @@ def main() -> bool:
         add("OK" if rk.get("params", {}).get("qb_prior") == R.DEFAULT["qb_prior"] else "FAIL", "page rankings use the code's QB replacement level", f"page {rk.get('params', {}).get('qb_prior')}, code {R.DEFAULT['qb_prior']}")
     except Exception as e:  # noqa
         add("FAIL", "page settings check", str(e)[:120])
+    # the QB-out check (2 Oct 2026, code review): ratings.qbs_out_now's injury load, and the week's swaps (starter ruled out ->
+    # QB priced, and which source chose him); a failed load used to price every named starter silently
+    sw_f = DATA / "runs" / "qb_swaps.json"
+    if sw_f.exists():
+        try:
+            sw = json.loads(sw_f.read_text()); swaps = sw.get("swaps", [])
+            lst = "; ".join(f"{x['team']} {x.get('from_name') or x['from']} -> {x.get('to_name') or x.get('to') or 'replacement-level prior'} ({x.get('source')})" for x in swaps)
+            from . import lines as _LQ
+            cur = list(_LQ.current_week(pd.read_parquet(OUT / "games.parquet")))
+            st_ = sw.get("status")
+            add("FAIL" if st_ == "error" else ("WARN" if st_ != "ok" or [sw.get("season"), sw.get("week")] != cur else "OK"), f"QB-out check loaded the injury reports (week {sw.get('week')})",
+                f"{st_}{': ' + sw['detail'] if sw.get('detail') else ''}" + ("" if [sw.get("season"), sw.get("week")] == cur else f"; written for {sw.get('season')} week {sw.get('week')}, the picks week is {cur[0]} week {cur[1]}"))
+            weak = [x for x in swaps if not x.get("to") or "no weekly roster" in str(x.get("source"))]   # priced at the prior, or a QB no roster could confirm
+            add("WARN" if weak else "OK", f"QB swaps priced this week (week {sw.get('week')})", lst or "no named starter ruled out")
+            um = sw.get("espn_unmatched") or []
+            add("WARN" if um else "OK", "ESPN Out/Doubtful players all matched to a roster player", f"{len(um)} unmatched: {', '.join(um[:8])}" if um else "all matched")
+        except Exception as e:  # noqa
+            add("FAIL", "QB-out check", f"data/runs/qb_swaps.json unreadable: {str(e)[:100]}")
+    else:
+        add("WARN", "QB-out check", "data/runs/qb_swaps.json missing (written by the ratings step)")
+    # warnings a step raised without failing (2 Oct 2026, code review; nflmodel/warnlog.py): a forecast that fell back to an
+    # older pull or one model, a weather reader that priced games calm, a data check's forecast gaps
+    try:
+        from . import warnlog as WL_
+        ws = WL_.recent()
+        for src in sorted({w["source"] for w in ws}):
+            m_ = [w["message"] for w in ws if w["source"] == src]
+            add("WARN", f"warnings from {src} (last {WL_.WINDOW_H} hours)", f"{len(m_)}: " + "; ".join(m_[:4]))
+        if not ws:
+            add("OK", f"no step raised a warning in the last {WL_.WINDOW_H} hours", "data/weather/warnings.json")
+    except Exception as e:  # noqa
+        add("WARN", "step warnings", f"data/weather/warnings.json unreadable: {str(e)[:100]}")
     # the drift monitor (30 Sep 2026): an alert is a warning, never a failure (a real shift is news, not a broken run)
     try:
         dr = pd.read_csv(REP / "drift.csv"); al = dr[dr.level == "ALERT"]

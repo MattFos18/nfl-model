@@ -126,37 +126,129 @@ class QBRatings:
 SITUATION = ["home", "rest", "dome", "temp", "wind", "div_game", "primetime"]
 
 
-def qbs_out_now(games: pd.DataFrame) -> tuple[tuple, dict]:
+SWAPS = ROOT / "data" / "runs" / "qb_swaps.json"   # the week's QB-out check: status, and every swap with the source that chose the QB (health, tie check)
+
+
+def qbs_out_now(games: pd.DataFrame, status: dict | None = None) -> tuple[tuple, dict]:
     """(season, week), {team: set of QB ids who cannot play} for the week being priced: Out or Doubtful on the league's
     report or ESPN's same-day page (players.load_injuries), or off the active roster. 2 Oct 2026 (Matt: the WAS card
     priced Jayden Daniels after ESPN ruled him Out): the schedule names the coming week's starter before the injury news,
-    and the backtest priced every game at the QB who actually started, so an upcoming game must swap in the replacement."""
+    and the backtest priced every game at the QB who actually started, so an upcoming game must swap in the replacement.
+
+    `status` (a dict, filled in): "ok"; "no injury file" (the season's league report is not on this machine, the one
+    expected gap: only the roster lists count); or "error" with the reason. 2 Oct 2026 (code review): every exception
+    used to return "nobody out" silently, so a broken injury load priced ruled-out starters with no sign; an error now
+    prints a warning, and ratings' main writes it to SWAPS and fails its weekly step (run log, health, tie check)."""
+    import sys
+    from .lines import current_week
+    from .features import RAW
+    from . import players as PL
+    st = {} if status is None else status
+    st.update(status="ok", detail="", season=None, week=None, espn_unmatched=[])
+    def fail(what, e):
+        st.update(status="error", detail=(st["detail"] + "; " if st["detail"] else "") + f"{what}: {type(e).__name__}: {str(e)[:200]}")
     try:
-        from .lines import current_week
-        from .players import load_injuries, unavailable_by_week
         season, week = current_week(games)
-        inj = load_injuries([season])
-        inj = inj[(inj.week == week) & inj.report_status.isin(["Out", "Doubtful"])]
-        out = {t: set(g.gsis_id) for t, g in inj.groupby("team")}
-        for (s_, w_, t), ids in unavailable_by_week([season]).items():
+        st.update(season=int(season), week=int(week))
+    except Exception as e:  # noqa  (no week to price: nothing to swap, and say so loudly)
+        fail("current week", e)
+        print(f"WARNING qbs_out_now: the QB-out check failed, named starters priced as listed: {st['detail']}", file=sys.stderr, flush=True)
+        return (None, None), {}
+    out = {}
+    try:
+        if (RAW / "injuries" / f"injuries_{season}.parquet").exists():
+            inj = PL.load_injuries([season])
+            if PL.ESPN_MERGE["error"]:   # the league's report loaded, ESPN's same-day page did not: price what loaded, flag it
+                st.update(status="error", detail=f"ESPN injury page not merged: {PL.ESPN_MERGE['error']}")
+            st["espn_unmatched"] = list(PL.ESPN_MERGE.get("unmatched") or [])
+            inj = inj[(inj.season == season) & (inj.week == week) & inj.report_status.isin(["Out", "Doubtful"])]
+            out = {t: set(g.gsis_id.dropna()) for t, g in inj.groupby("team")}
+        else:
+            st.update(status="no injury file", detail=f"injuries_{season}.parquet not on this machine: only the roster lists (IR and the like) count")
+    except Exception as e:  # noqa  (anything else: the injury report is not counted, and say so loudly)
+        fail("injury report", e)
+    try:   # the roster lists (IR, PUP, suspended) count even when the injury report failed
+        for (s_, w_, t), ids in PL.unavailable_by_week([season]).items():
             if s_ == season and w_ == week:
                 out.setdefault(t, set()).update(ids)
-        return (season, week), out
-    except Exception:  # noqa  (no injury data: price the named starter, as before)
-        return (None, None), {}
+    except Exception as e:  # noqa
+        fail("roster lists", e)
+    if st["status"] == "error":
+        print(f"WARNING qbs_out_now: the QB-out check failed, starters it could not see are priced as listed: {st['detail']}", file=sys.stderr, flush=True)
+    return (season, week), out
 
 
-def replacement_qb(team: str, out: set, season: int, qb: pd.DataFrame) -> str | None:
-    """The QB who starts when the named starter cannot: the next QB on the current depth chart (roster_now) not out,
-    else the team's QB with the most dropbacks this season not out, else None (the rating's prior)."""
+def active_qbs(team: str, season: int, week: int | None = None) -> set | None:
+    """Player ids with status ACT on the team's weekly roster (nflverse) for the priced week, or its latest week before
+    it; None when there is no weekly roster for the season (nothing to check against)."""
+    from .features import RAW
+    f = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    if not f.exists():
+        return None
+    r = pd.read_parquet(f, columns=["team", "gsis_id", "status", "week"])
+    r = r[r.gsis_id.notna()]
+    wks = r.week[r.week <= week] if week is not None else r.week
+    if not len(wks):
+        return None
+    r = r[(r.week == wks.max()) & (r.team == team)]
+    return set(r[r.status == "ACT"].gsis_id)
+
+
+def replacement_qb(team: str, out: set, season: int, qb: pd.DataFrame, week: int | None = None) -> tuple[str | None, str]:
+    """(QB id, the source that chose him) for a starter who cannot play: the next QB on the depth chart (roster_now) not
+    out, else the team's QB with the most dropbacks this season not out, else None (the rating's prior). Either way he
+    must be ACT on the team's current weekly roster (2 Oct 2026, code review: roster_now is the previous run's, since
+    ratings runs before positions, so a backup released or made inactive since would have been priced)."""
+    act = active_qbs(team, season, week)
+    ok = lambda pid: act is None or pid in act
+    note = "" if act is not None else " (no weekly roster to check)"
+    skipped = []
     f = OUT / "roster_now.parquet"
     if f.exists():
         r = pd.read_parquet(f, columns=["team", "player_id", "position", "depth"])
         r = r[(r.team == team) & (r.position == "QB") & r.depth.notna() & ~r.player_id.isin(out)].sort_values("depth")
-        if len(r):
-            return str(r.player_id.iloc[0])
-    d = qb[(qb.season == season) & (qb.team == team) & ~qb.qb_id.isin(out)].groupby("qb_id").dropbacks.sum()
-    return str(d.idxmax()) if len(d) else None
+        for pid in r.player_id:
+            if ok(pid):
+                return str(pid), "depth chart" + note
+            skipped.append(str(pid))
+    d = qb[(qb.season == season) & (qb.team == team) & ~qb.qb_id.isin(out)].groupby("qb_id").dropbacks.sum().sort_values(ascending=False)
+    why = f"; depth chart's {', '.join(skipped)} not ACT on the weekly roster" if skipped else ""
+    for pid in d.index:
+        if ok(pid):
+            return str(pid), "most dropbacks this season" + note + why
+    return None, "none: the replacement-level prior" + why
+
+
+def qb_names(season: int | None = None) -> dict:
+    """QB id -> name: the schedule's starters, the season's weekly roster, then the current depth chart."""
+    from .features import RAW
+    names = {}
+    f = OUT / "roster_now.parquet"
+    if f.exists():
+        r = pd.read_parquet(f, columns=["player_id", "name"]); names.update(zip(r.player_id, r.name))
+    rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
+    if season is not None and rf.exists():
+        r = pd.read_parquet(rf, columns=["gsis_id", "full_name"]).dropna(); names.update(zip(r.gsis_id, r.full_name))
+    gf = OUT / "games.parquet"
+    if gf.exists():
+        g = pd.read_parquet(gf, columns=["home_qb_id", "home_qb_name", "away_qb_id", "away_qb_name"])
+        for s in ("home", "away"):
+            names.update(zip(g[f"{s}_qb_id"], g[f"{s}_qb_name"]))
+    return {k: v for k, v in names.items() if isinstance(k, str) and isinstance(v, str)}
+
+
+def write_swaps(f: pd.DataFrame) -> dict:
+    """data/runs/qb_swaps.json: the QB-out check's status and the week's swaps (the starter ruled out, the QB priced and
+    the source that chose him), for health.py and the tie check."""
+    import json
+    st = dict(f.attrs.get("qb_out_status", {})); s, w = st.get("season"), st.get("week")
+    nm = qb_names(s)
+    sw = f[f.qb_swap_from.notna()] if "qb_swap_from" in f.columns else f.iloc[0:0]
+    src = f.attrs.get("qb_swap_source", {})
+    st["swaps"] = [{"game_id": r.game_id, "team": r.team, "from": r.qb_swap_from, "from_name": nm.get(r.qb_swap_from), "to": r.qb_id if isinstance(r.qb_id, str) else None,
+                    "to_name": nm.get(r.qb_id) if isinstance(r.qb_id, str) else None, "source": src.get(r.team, "")} for r in sw.itertuples()]
+    SWAPS.parent.mkdir(parents=True, exist_ok=True); SWAPS.write_text(json.dumps(st, indent=1))
+    return st
 
 
 def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=None, qb=None, verbose=False) -> pd.DataFrame:
@@ -168,8 +260,17 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12), p.get("qb_season_fade", 1.0))
     # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
     named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
-    (cs, cw), qout = qbs_out_now(games)   # the week being priced: QBs ruled out, swapped for their replacement below
-    swap = lambda team, qid_: (replacement_qb(team, qout[team], cs, qb) if isinstance(qid_, str) and qid_ in qout.get(team, set()) else qid_)
+    qstat = {}
+    (cs, cw), qout = qbs_out_now(games, status=qstat)   # the week being priced: QBs ruled out, swapped for their replacement below
+    chosen = {}   # team -> (QB priced, source that chose him), once per team
+    def swap(team, qid_):
+        """(QB to price, the ruled-out starter's id or None)."""
+        if not (isinstance(qid_, str) and qid_ in qout.get(team, set())):
+            return qid_, None
+        if team not in chosen:
+            chosen[team] = replacement_qb(team, qout[team], cs, qb, week=cw)
+            print(f"qb swap {cs} week {cw} {team}: {qid_} ruled out, priced {chosen[team][0]} ({chosen[team][1]})", flush=True)
+        return chosen[team][0], qid_
     last_qb = {}
     feats = []
     for s in seasons:
@@ -207,23 +308,42 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
                     qid = getattr(g, f"{side}_qb_id")
                     if not isinstance(qid, str) and pd.isna(getattr(g, f"{side}_score")):
                         qid = last_qb.get(t)
+                    swapped = None
                     if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
-                        qid = swap(t, qid)
+                        qid, swapped = swap(t, qid)
                     row["qb_id"] = qid
+                    row["qb_swap_from"] = swapped   # the ruled-out starter's id when the QB priced is his replacement (2 Oct 2026)
                     row["qb_rating"] = qbr.rating(qid, s, wk) if isinstance(qid, str) else qbr.prior
                     oqid = getattr(g, f"{opp}_qb_id")
                     if not isinstance(oqid, str) and pd.isna(getattr(g, f"{side}_score")):
                         oqid = last_qb.get(o)
                     if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
-                        oqid = swap(o, oqid)
+                        oqid, _ = swap(o, oqid)
                     row["opp_qb_rating"] = qbr.rating(oqid, s, wk) if isinstance(oqid, str) else qbr.prior
                     feats.append(row)
         if verbose:
             print("features", s, len(feats), flush=True)
-    return pd.DataFrame(feats)
+    out = pd.DataFrame(feats)
+    if "qb_swap_from" in out.columns:
+        out["qb_swap_from"] = out.qb_swap_from.astype(object).where(out.qb_swap_from.notna(), None)
+    out.attrs["qb_out_status"] = qstat; out.attrs["qb_swap_source"] = {t: v[1] for t, v in chosen.items()}
+    return out
+
+
+def main() -> int:
+    """The weekly step: write features_asof and qb_swaps.json; 1 when the QB-out check failed (the features are still
+    written, named starters priced, and the step fails so the run log and health show it)."""
+    import sys
+    f = build_features(verbose=True)
+    f.to_parquet(OUT / "features_asof.parquet", index=False)
+    st = write_swaps(f)
+    print(f.shape, f"QB-out check: {st.get('status')}; swaps: " + ("; ".join(f"{x['team']} {x['from_name']} -> {x['to_name']} ({x['source']})" for x in st["swaps"]) or "none"))
+    if st.get("status") == "error":
+        print(f"QB-out check failed: {st.get('detail')}", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    f = build_features(verbose=True)
-    f.to_parquet(OUT / "features_asof.parquet", index=False)
-    print(f.shape)
+    import sys
+    sys.exit(main())

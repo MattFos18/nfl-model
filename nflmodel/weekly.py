@@ -76,6 +76,39 @@ def step(name, fn, log):
     return out
 
 
+def skip(name, why, log):
+    """A step not run, logged as status "skipped" with the reason (health counts anything but ok as a failure)."""
+    row = {"step": name, "status": "skipped", "detail": why[:200], "seconds": 0.0}
+    print(f"[SKIPPED] {name}: {why}", flush=True)
+    log.append(row)
+    if _RUN_AT["run_at"]:
+        RUNS.mkdir(parents=True, exist_ok=True); f = RUNS / "run_log.csv"
+        pd.DataFrame([row]).assign(run_at=_RUN_AT["run_at"]).to_csv(f, mode="a", header=not f.exists(), index=False)
+
+
+PICK_STEPS = ("picks", "log run", "record picks", "inputs fingerprint")
+
+
+def pick_week(log, cur_season, cur_week, run_at):
+    """The week's picks, the run log of them, the tracker's recorded bets and the inputs fingerprint. 2 Oct 2026 (code
+    review): with the model step failed this run, picks.table priced on the previous run's predictions and the tracker
+    recorded bets from them; now none of the four runs and each is logged "skipped" with the reason."""
+    from . import picks as P, tracker
+    if not any(r["step"] == "model" and r["status"] == "ok" for r in log):
+        for name in PICK_STEPS:
+            skip(name, "the model step failed this run: no picks or bets from the previous run's predictions", log)
+        return None
+    pk = step("picks", lambda: P.table(cur_season, cur_week), log)
+    if pk is not None:
+        (REP / f"picks_{cur_season}_wk{cur_week}.md").write_text(P.markdown(pk, cur_season, cur_week))
+        pk.to_csv(REP / f"picks_{cur_season}_wk{cur_week}.csv", index=False)
+        step("log run", lambda: P.log_run(pk, run_at), log)
+        step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
+        from . import refresh
+        step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
+    return pk
+
+
 def sh(cmd):
     r = subprocess.run([sys.executable, "-m"] + cmd, cwd=ROOT, capture_output=True, text=True)
     if r.returncode != 0:
@@ -182,14 +215,7 @@ def main(full=False, skip_network=False):
     step("audit reports", lambda: sh(["nflmodel.report"]), log)   # the README's results block and backtest_v3.md, before the tie check reads them (24 Sep 2026: it ran after, so the check compared a run-old README)
     from . import lines
     cur_season, cur_week = lines.current_week(games)
-    pk = step("picks", lambda: P.table(cur_season, cur_week), log)
-    if pk is not None:
-        (REP / f"picks_{cur_season}_wk{cur_week}.md").write_text(P.markdown(pk, cur_season, cur_week))
-        pk.to_csv(REP / f"picks_{cur_season}_wk{cur_week}.csv", index=False)
-        step("log run", lambda: P.log_run(pk, run_at), log)
-        step("record picks", lambda: tracker.record_model_picks(pk, run_at), log)
-        from . import refresh
-        step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
+    pk = pick_week(log, cur_season, cur_week, run_at)
     step("grade", lambda: tracker.main(), log)
     from . import clv
     step("closing line value", lambda: clv.main(), log)   # 1 Oct 2026: each live bet's number against the last consensus line before kickoff (reports/clv.md); grading only, a failure is a step error and the run goes on

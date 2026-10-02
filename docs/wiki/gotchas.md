@@ -24,13 +24,25 @@ add it here (newest at the top of its group) with the file and the date, and a l
 - **nflverse names the coming week's starting QB before the injury news.** The WAS card priced Jayden Daniels after
   ESPN ruled him Out and flagged WAS +3.5 on his rating. Fixed 2 Oct 2026 (#376): `ratings.qbs_out_now` swaps a named
   starter who is Out, Doubtful or off the active roster for `ratings.replacement_qb` (next on the depth chart, else the
-  most-used QB this season); `tests/test_qb_out_swap.py`. Note `qbs_out_now` returns "nobody out" on any exception, so
-  missing injury data silently prices the named starter.
+  most-used QB this season); `tests/test_qb_out_swap.py`.
+- **A failed injury load priced every ruled-out starter silently.** `ratings.qbs_out_now` returned "nobody out" on any
+  exception. Fixed 2 Oct 2026: only a missing league injury file is quiet; any other error (or ESPN's page not merging,
+  `players.ESPN_MERGE`) warns, goes to `data/runs/qb_swaps.json` and fails the ratings step and a health row.
+- **ESPN and the roster disagree on suffixes** ("Travis Etienne Jr." against "Travis Etienne"): four Out players went
+  uncounted. Match names with `players.name_key` (suffixes and punctuation dropped); nicknames (Rob/Robert) still miss
+  and show as a health warning (2 Oct 2026).
+- **A failed model step still picked and recorded bets** from the previous run's predictions. `weekly.pick_week` skips
+  picks, log run, record picks and the fingerprint when the model step failed (2 Oct 2026).
+- **`roster_now` is the previous run's depth chart** (ratings runs before positions in `weekly.py`). A backup released or
+  inactive since could have been priced; `ratings.replacement_qb` now requires ACT on the weekly roster (2 Oct 2026).
+- **After a QB swap the card showed the starter ruled out**: the backup has no schedule name and the schedule's starter
+  overrode the blank. `export_web.card_qb` names the QB priced from `qb_swap_from`; the tie check compares (2 Oct 2026).
 - **Starters are named only for played games and the coming week.** Later weeks fell to the replacement-level QB prior
   and dragged every team's power down; the last starter is carried forward (decision log 22 Sep 2026).
 - **ESPN's injury statuses lead the league report (nflverse) by hours to a day.** `players.load_injuries` fills, player
   by player, every player the league file has no game status for this week; the league's status wins where it has one;
-  ESPN pages older than 4 days are ignored. Before 1 Oct 2026 (#360) it filled only teams with no league file at all,
+  ESPN pages older than 4 days, or fetched before the week before's last kickoff, are ignored (`players.espn_fresh`;
+  until 2 Oct 2026 the age limit alone let last Sunday's statuses count for the new week at the Tuesday week change). Before 1 Oct 2026 (#360) it filled only teams with no league file at all,
   so four PIT and CLE starters listed Out on ESPN were not counted.
 - **ESPN's inactives flag shows up before the official list and can be wrong** (Joey Porter Jr., 1 Oct 2026, practiced
   in full). `inactives.py` logs it; nothing prices it yet (`docs/handoff.md`).
@@ -60,6 +72,10 @@ add it here (newest at the top of its group) with the file and the date, and a l
 - **A game kept its forecast only until kickoff.** On 27 Sep 2026 the 1pm games were re-priced as typical weather
   after kickoff ("Weather TBD"). Fixed: `weather.py` reaches back a day and carries the last good reading
   (`status = carried`).
+- **Weather fallbacks were silent.** A MOS pull with no rain or temperature kept an older reading, the wind mean became
+  one model, a games-table failure let games abroad back into the stored forecasts, and `model.py`'s readers priced
+  games calm on any error. Each still falls back but calls `warnlog.warn` (stderr plus a health warning,
+  `data/weather/warnings.json`); use it for any new fallback (2 Oct 2026).
 - **The live wind and rain readings start about 66 hours before kickoff** (`wind_live.RANGE_H`): Sunday games get them
   from Friday evening; until then they are priced without weather points.
 - **Old injury reasons leaked onto the page.** Reserve-list players showed last season's reason ("Teeth"); reasons now
@@ -84,6 +100,10 @@ add it here (newest at the top of its group) with the file and the date, and a l
   1 Oct 2026, injury retest). Do not pool injury rates across 2016.
 
 ## Runs and machines
+
+- **Log csvs appended by position.** `data/runs/rule_history.csv` wrote its header once, so a new or dropped `*_bet`
+  rule column would have shifted every later row. Appends now go through `picks.append_csv` (by column name; a new
+  column widens the header). Use it for any new appended log (2 Oct 2026).
 
 - **The boosted trees gave different numbers on different runners** (thread order and hardware rounding). Fixed by
   one thread and a cache of every fit keyed by its inputs (`model.trees_key`, `data/processed/trees_cache.parquet`;

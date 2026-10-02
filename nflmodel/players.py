@@ -250,6 +250,42 @@ def unavailable_by_week(seasons) -> dict:
 
 ESPN_MAX_AGE_DAYS = 4
 ESPN_STATUS = {"Out": "Out", "Doubtful": "Doubtful", "Questionable": "Questionable", "Injured Reserve": "Out", "Suspension": "Out", "Physically Unable to Perform": "Out", "Non-Football Injury": "Out", "Day-To-Day": "Questionable"}
+ESPN_MERGE = {"error": None, "unmatched": []}   # the last load_injuries call's ESPN merge error and its Out/Doubtful rows matching no roster player, read by ratings.qbs_out_now (run-log and health signals)
+
+
+def name_key(n) -> str:
+    """A name as matched across sources: lower case, letters only, suffixes (Jr., Sr., II, III, IV, V) dropped. The tie
+    check's key; load_injuries used letters only, so 2 Oct 2026 four ESPN Out players with a suffix on one side
+    only (Travis Etienne Jr., Mario Edwards Jr., Trey Pipkins III, Anthony Johnson Jr.) matched no roster player."""
+    import re
+    return "".join(ch for ch in re.sub(r"\b(jr|sr|ii|iii|iv|v)\b\.?", "", str(n).lower()) if ch.isalpha())
+
+
+def week_cutoff_utc(games: pd.DataFrame, season: int, week: int):
+    """The last kickoff before the priced week (the week before's final game, or last season's), in UTC with no zone:
+    an ESPN page fetched before it is about an earlier week. None when there is no earlier game."""
+    k = pd.to_datetime(games.kickoff_et, errors="coerce")
+    before = k[((games.season < season) | ((games.season == season) & (games.week < week))).values]
+    if not before.notna().any():
+        return None
+    return before.max().tz_localize("America/New_York").tz_convert("UTC").tz_localize(None)
+
+
+def espn_fresh(es: pd.DataFrame, games: pd.DataFrame | None = None, now=None) -> pd.Series:
+    """Which rows of ESPN's injury page count for the week being priced: fetched within ESPN_MAX_AGE_DAYS and after the
+    week before's last kickoff (fetched_at is UTC, kickoff_et Eastern). 2 Oct 2026: the age limit alone let last Sunday's
+    statuses count for the new week at the Tuesday/Wednesday week change (ESPN keeps a status until it is updated)."""
+    if not len(es):
+        return pd.Series(dtype=bool, index=es.index)
+    now = pd.Timestamp.now("UTC").tz_localize(None) if now is None else now
+    ft = pd.to_datetime(es.fetched_at, errors="coerce")
+    ok = (now - ft).dt.total_seconds() / 86400 <= ESPN_MAX_AGE_DAYS
+    games = pd.read_parquet(OUT / "games.parquet") if games is None else games
+    from .lines import current_week
+    cut = week_cutoff_utc(games, *current_week(games))
+    if cut is not None:
+        ok &= ft > cut
+    return ok.fillna(False).astype(bool)
 
 
 def load_injuries(seasons) -> pd.DataFrame:
@@ -259,6 +295,7 @@ def load_injuries(seasons) -> pd.DataFrame:
     inj = pd.concat([pd.read_parquet(RAW / "injuries" / f"injuries_{s}.parquet") for s in seasons if (RAW / "injuries" / f"injuries_{s}.parquet").exists()], ignore_index=True)
     inj["team"] = inj.team.replace({"OAK": "LV", "SD": "LAC", "STL": "LA"})
     ef = RAW / "injuries" / "espn_injuries.csv"
+    ESPN_MERGE["error"] = None; ESPN_MERGE["unmatched"] = []
     if ef.exists() and len(inj):
         try:
             from .lines import current_week
@@ -272,20 +309,23 @@ def load_injuries(seasons) -> pd.DataFrame:
                 official = set(zip(inj.team[wk_ & (st_ != "")], inj.gsis_id[wk_ & (st_ != "")]))
                 have = set(inj[wk_].team)
                 es = pd.read_csv(ef); es = es[es.status.isin(ESPN_STATUS)]
-                # only a page fetched this week fills in: an older file would carry last week's report as this week's
-                age_d = (pd.Timestamp.utcnow().tz_localize(None) - pd.to_datetime(es.fetched_at, errors="coerce")).dt.total_seconds() / 86400 if len(es) else pd.Series(dtype=float)
-                es = es[age_d <= ESPN_MAX_AGE_DAYS]
+                # only a page fetched this week fills in (after the week before's last kickoff, within the age limit: espn_fresh)
+                es = es[espn_fresh(es, g)]
                 rf = RAW / "rosters" / f"roster_weekly_{season}.parquet"
                 if len(es) and rf.exists():
                     ro = pd.read_parquet(rf, columns=["team", "gsis_id", "espn_id", "full_name", "position", "week"]).dropna(subset=["gsis_id"]); ro = ro[ro.week == ro.week.max()]
-                    key = lambda n: "".join(ch for ch in str(n).lower() if ch.isalpha())
-                    ro["k"] = ro.full_name.map(key); es["k"] = es.name.map(key)
+                    ro["k"] = ro.full_name.map(name_key); es["k"] = es.name.map(name_key)   # suffixes dropped (2 Oct 2026: "Travis Etienne Jr." on ESPN, "Travis Etienne" on the roster)
                     ro["espn_id"] = ro.espn_id.astype(str).str.replace(r"\.0$", "", regex=True)
                     # ESPN's athlete id against the roster's espn_id (24 Sep 2026); the name inside the team only when the page had no id
                     es["espn_id"] = es.espn_id.astype(str).str.replace(r"\.0$", "", regex=True) if "espn_id" in es.columns else ""
                     by_id = es[es.espn_id.str.len() > 0].drop(columns=["position"]).merge(ro[["espn_id", "gsis_id", "full_name", "position"]], on="espn_id", how="inner")
                     by_nm = es[~es.index.isin(es[es.espn_id.str.len() > 0].index) | ~es.espn_id.isin(by_id.espn_id)].drop(columns=["position", "espn_id"]).merge(ro[["team", "k", "gsis_id", "full_name", "position"]], on=["team", "k"], how="inner")
                     m = pd.concat([by_id, by_nm], ignore_index=True).drop_duplicates(["team", "gsis_id"])
+                    # 2 Oct 2026 (review): an Out or Doubtful row that matches no roster player was dropped with no message; listed
+                    # here for the health check (the matching itself is unchanged)
+                    hit = set(zip(by_nm.team, by_nm.k)) | set(zip(es.team[es.espn_id.isin(by_id.espn_id)], es.k[es.espn_id.isin(by_id.espn_id)]))
+                    um = es[es.status.map(ESPN_STATUS).isin(["Out", "Doubtful"]).values & [(t, k) not in hit for t, k in zip(es.team, es.k)]]
+                    ESPN_MERGE["unmatched"] = sorted(f"{t} {n}" for t, n in zip(um.team, um.name))
                     m = m[[(t, g) not in official for t, g in zip(m.team, m.gsis_id)]]
                     # a player already on this week's league file (practice notes, no status): his row takes ESPN's status
                     row_ix = {(t, g): i for i, t, g in zip(inj.index[wk_], inj.team[wk_], inj.gsis_id[wk_])}
@@ -301,7 +341,8 @@ def load_injuries(seasons) -> pd.DataFrame:
                     inj = pd.concat([inj, add.reindex(columns=inj.columns)], ignore_index=True)
                     print(f"espn injuries filled week {week}: {len(add)} players added, {len(upd)} game statuses set on league rows (league reports in for {len(have)} teams)", flush=True)
         except Exception as e:  # noqa
-            print(f"espn injuries not merged: {str(e)[:120]}", flush=True)
+            ESPN_MERGE["error"] = f"{type(e).__name__}: {str(e)[:160]}"   # 2 Oct 2026: was a print only; qbs_out_now makes it a run-log and health failure
+            print(f"WARNING espn injuries not merged: {ESPN_MERGE['error']}", flush=True)
     return inj
 
 

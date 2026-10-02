@@ -959,6 +959,8 @@ def export_week(feats=None, games=None, pred=None):
         # the coming week's starters are carried forward by id (ratings.py); give the card the name
         gq = games.reset_index()
         qb_names = {**dict(zip(gq.home_qb_id, gq.home_qb_name)), **dict(zip(gq.away_qb_id, gq.away_qb_name))}
+        from .ratings import qb_names as _qb_names
+        all_qb_names = _qb_names(cur_season)   # a backup who has never started is on the rosters only
         # what was actually logged: the tracker's flagged pick for each game (recorded at the weekly run that flagged it),
         # shown beside the live flag state, which follows the line
         rec = _recorded(cur_season, cur_week)
@@ -987,12 +989,7 @@ def export_week(feats=None, games=None, pred=None):
                         if f"{sd_}_total_adj" in prw.index: sides[tm]["total_adj"] = round(float(prw[f"{sd_}_total_adj"]), 6)   # the share-out to the game total
                         if "wind_pts" in prw.index and pd.notna(prw["wind_pts"]): sides[tm]["total_wind"] = round(float(prw["wind_pts"]) / 2, 6)   # each team's half of the wind points, part of the share-out (shown as its own row, 1 Oct 2026, Matt)
                         sides[tm]["models"] = {k: round(float(prw[f"{sd_}_m_{k}"]), 3) for k in M.BLEND_LABEL}
-                    if not sides[tm].get("qb_name") and "qb_id" in row.index and isinstance(row["qb_id"], str):
-                        sides[tm]["qb_name"] = qb_names.get(row["qb_id"])
-                        sides[tm]["qb_carried"] = True
-                    now_qb = sched.get(r.game_id, {}).get("home_qb" if tm == r.home_team else "away_qb")
-                    if now_qb and now_qb != sides[tm].get("qb_name"):   # a new named starter: shown now, priced by the re-price it starts
-                        sides[tm]["qb_priced"] = sides[tm].get("qb_name"); sides[tm]["qb_name"] = now_qb; sides[tm].pop("qb_carried", None)
+                    card_qb(sides[tm], row, sched.get(r.game_id, {}).get("home_qb" if tm == r.home_team else "away_qb"), qb_names, all_qb_names)
                     if r.home_score is None or pd.isna(r.home_score):   # unplayed: the forecast in use now (blank = typical weather)
                         f_ = fc_now.loc[r.game_id] if r.game_id in fc_now.index and not sides[tm].get("dome") else None
                         sides[tm]["temp"] = None if f_ is None or pd.isna(f_.temp) else round(float(f_.temp), 1)
@@ -1035,6 +1032,25 @@ def export_week(feats=None, games=None, pred=None):
     except Exception as e:  # noqa
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"error": str(e)[:200]}) + ";")
         raise   # a failed export fails its step (and the line watch), never a silent stale page
+
+
+def card_qb(side: dict, row, now_qb, sched_names: dict, all_names: dict) -> dict:
+    """The card's QB for one side, in place. row: the side's feature row (qb_id, qb_swap_from); now_qb: the schedule's
+    named starter now; sched_names: id -> name from the schedule; all_names: ratings.qb_names (rosters too).
+    2 Oct 2026 (code review): when ratings swapped a ruled-out starter for his replacement, the card showed the starter
+    (the backup has no schedule name, and the schedule's starter then overrode the blank); it names the QB priced now,
+    with the starter in qb_swap_from."""
+    qid = row.get("qb_id") if hasattr(row, "get") else None
+    swap_from = row.get("qb_swap_from") if hasattr(row, "get") else None
+    if isinstance(swap_from, str) and isinstance(qid, str):
+        side["qb_name"] = all_names.get(qid, qid)
+        side["qb_swap_from"] = all_names.get(swap_from, swap_from)
+    if not side.get("qb_name") and isinstance(qid, str):
+        side["qb_name"] = sched_names.get(qid)
+        side["qb_carried"] = True
+    if now_qb and now_qb != side.get("qb_name") and now_qb != side.get("qb_swap_from"):   # a new named starter: shown now, priced by the re-price it starts
+        side["qb_priced"] = side.get("qb_name"); side["qb_name"] = now_qb; side.pop("qb_carried", None)
+    return side
 
 
 def _schedule_now(season: int, week: int) -> dict:
