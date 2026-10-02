@@ -431,11 +431,6 @@
 ],
 [
 "PIT",
-"Gennings Dunker",
-"Out"
-],
-[
-"PIT",
 "Kevin Jobity Jr.",
 "Out"
 ],
@@ -2469,9 +2464,21 @@
 ],
 [
 "PIT",
+"Derrick Harmon",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "Jalen Ramsey",
 "",
 "Limited Participation in Practice"
+],
+[
+"PIT",
+"Jamel Dean",
+"Questionable (ESPN)",
+""
 ],
 [
 "PIT",
@@ -2932,7 +2939,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 11.9,
+"wind": 11.0,
 "cold": false,
 "rain": false
 },
@@ -2997,5 +3004,5 @@
 "rain": false
 }
 },
-"written_at": "2026-10-02 01:52 UTC"
+"written_at": "2026-10-02 02:29 UTC"
 }
