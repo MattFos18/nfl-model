@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- The backtest prices played games (2018 on) on the stored pre-kickoff forecast, not the weather that happened: `model.priced_weather`; QB form re-passes, wind points and the totals' rain fail the pre-registered bar (one and two checks), left for Matt; no wind curve beats the bands (reports/forecast_weather_backtest.md).
 - Referee input (`ref_tot`) dropped from the totals equation: with the same-game leak fixed it fails the rule (#387).
 - Two backtest leaks fixed: the referee prior counted the same game; Japan's wind used its post-kickoff run (now the day-before run); rescored in reports/leak_fix_rescore.md (#384).
 - One unit a bet; quarter-Kelly retired from the page (#385).

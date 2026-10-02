@@ -222,7 +222,8 @@ mechanical, not a matter of care:
   code that builds them has not changed.
 - **Situation.** Rest, division, primetime, roof and the kickoff forecast are known before kickoff; weather for played
   games is the recorded game-time weather (nflverse posts it days after the score; until then the game keeps the kickoff
-  reading it was priced with, 27 Sep 2026).
+  reading it was priced with, 27 Sep 2026). The fits train on it, but since 2 Oct 2026 the backtest prices a played game
+  from 2018 on with its stored pre-kickoff forecast (`model.priced_weather`, section 49).
 - **Forecasts are used only within 4 days of kickoff.** Open-Meteo gives a 10-day hourly forecast, but five days out
   the wind and rain numbers are too loose to move a line on, and they change by the day. So `weather.apply_to_games`
   and the rain flag take a forecast only when it was fetched within `USE_WITHIN_DAYS = 4` of kickoff; any other
@@ -3168,3 +3169,23 @@ day (below). The leak checks now plant both leaks back in and prove they are cau
 (tests/test_same_game_leak.py).
 
 **The referee input dropped** (2 Oct 2026; `experiments/leak_fix_rescore.py`, reports/leak_fix_rescore.md). An audit found the referee priors counted each game's own final total among the referee's "previous games" (trends._prior_mean), which flattered the totals backtest. With the leak fixed the referee input fails the adoption rule (total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, beats its placebo only 25 / 31 / 29 times in 50), so it left the totals equation; the reading is still computed. Live bets were never affected (an unplayed game has no total to leak).
+
+## 49. The backtest priced on the forecast (2 Oct 2026)
+
+Matt approved making the backtest "100% accurate, no cheating" (`experiments/forecast_weather_backtest.py`,
+reports/forecast_weather_backtest.md). An upcoming game is priced on a forecast, but the backtest priced every played
+game with the weather that happened: the schedule's wind and temperature (wind_out, cold, warm_in_cold) and the
+play-by-play's rain in the points equations. `model.priced_weather` now prices, not trains, every played game from 2018
+on with a stored pre-kickoff forecast: wind_out from the reading the wind points and the wind under use, cold from the GFS
+MOS kickoff temperature under 35 F, the points equations' rain from the totals' rain reading (`RAIN_FC`). The fits still
+train on the recorded weather, as a live fit does. 2015-17 and games abroad have no stored forecast and keep the recorded
+weather. On the honest backtest (2015-18 / 2019-22 / 2023-25) the spread flag is 69-55 / 76-48 / 37-19 (69-56 / 79-51 /
+37-18 with recorded weather), the totals flag 132-117 / 190-146 / 82-59 (130-117 / 185-149 / 70-57), the wind under
+24-20 / 143-88 / 77-52 (unchanged), team points miss 7.4046 / 7.3645 / 7.2343 and total miss 10.7507 / 10.5161 /
+10.1029. Re-scored on it, QB form in the total passes the study gate on team points and total miss with 50 of 50
+shuffles beaten on every window. Wind points pass on total miss but beat only 37 of 50 team-points shuffles on 2019-22;
+the totals' rain passes on team points but its total miss is worse on 2015-18 (2018's games only). Both are left in for
+Matt to decide (dropping either costs totals-flag wins). A smooth wind curve (isotonic) and bands with the 10 mph cliff
+split at 8 did not beat the three bands (worse on 2019-22 and 2023-25 respectively). At the latest fit the total moves
+-1.37 points at 5 mph, -2.73 at 9, -4.58 at 10, -5.94 at 14, -4.70 at 15 and -6.40 at 20 mph (equation plus wind points);
+games forecast at 8-10 mph finish 1.0 point over the model's total.

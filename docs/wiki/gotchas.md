@@ -38,10 +38,19 @@ add it here (newest at the top of its group) with the file and the date, and a l
   last snapshot strictly before kickoff, as `clv.py` does and `lines.live_lines` does through `lines.before_kickoff` (2 Oct 2026:
   a snapshot 1m41s after kickoff had become 2026_03_LA_DEN's line). Log timestamps are UTC (`2026-10-02T14-20-00Z`); `kickoff_et`
   in `games.parquet` is Eastern with no zone. Convert before comparing.
-- **Recorded weather is not a forecast.** The schedule's `temp` and `wind` are the weather that happened. The backtest's
-  `wind_out`, cold and the points equations' rain still read it (a small look-ahead in the backtest only); the totals'
-  rain (`model.RAIN_FC`) and the wind points (`model.wind_points`) use forecasts (`docs/handoff.md`). A new weather
-  input must be learned from the forecast it will be priced on (decision log 1 Oct 2026, rain points).
+- **Recorded weather is not a forecast.** The schedule's `temp` and `wind` and the play-by-play's rain are the weather
+  that happened. Until 2 Oct 2026 the backtest priced played games with them (a look-ahead the live run never has).
+  Fixed: `model.priced_weather` (called by `walk_forward` and by `export_web` for the inputs the page shows) prices a
+  played game with a stored forecast (2018 on) on that forecast: `wind_out` from `wind_live.readings`, cold from
+  `gfs_temp`, the points equations' rain from the `RAIN_FC` reading. Training rows keep the recorded weather, as a live
+  fit does; 2015-17 and games abroad have no stored forecast and keep it (reports/forecast_weather_backtest.md). Still
+  different: an unplayed game's points-equation wind, cold and rain come from Open-Meteo's kickoff hour
+  (`weather.apply_to_games`, trends rain), which is not stored for 2018-25. A new weather input must be learned from the
+  forecast it will be priced on, and priced through `priced_weather`.
+- **The forecast history skips games by the roof as it was on game day** (unverified size; audit of 2 Oct 2026,
+  reports/audit_forecast_weather_backtest_2026-10-02.md): 295 closed-roof games at ARI, ATL, DAL, HOU and IND have no
+  stored forecast, while a live run sees their roof as unknown and prices them as outdoor, so the weather backtests skip games live bets could
+  include.
 - **A prior built from team-game rows can count the same game.** `trends._prior_mean` walked rows in order, so the home
   row's referee prior counted the away row of the same game, that game's own total. Fixed 2 Oct 2026 (#384): a prior
   counts only games that kicked off strictly before this one (`reports/leak_fix_rescore.md`).
