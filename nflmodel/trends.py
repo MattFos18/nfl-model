@@ -243,7 +243,11 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
         ol_out = float(len(set(ol.key) & out))
         off_snap_out = float(before[before.key.isin(out)].offense_pct.clip(0, 1).sum())
         def_snap_out = float(before[before.key.isin(out)].defense_pct.clip(0, 1).sum())
-        qo = float(len(qb & out) > 0 or named_.get((r.game_id, r.team)) in qout_.get(r.team, set()))
+        # the named starter ruled out counts only when he was last game's QB too (or the snap rows have no QB yet): the
+        # backtest's qb_out means "last game's starter is out", so a starter already replaced last game reads 0 (2 Oct 2026:
+        # WAS named Daniels, ruled Out, but Mariota had started week 3)
+        nm_ = named_.get((r.game_id, r.team))
+        qo = float(len(qb & out) > 0 or (nm_ in qout_.get(r.team, set()) and (nm_ in qb or not qb)))
         rows.append({"game_id": r.game_id, "team": r.team, "ol_out": ol_out, "off_snap_out": off_snap_out, "def_snap_out": def_snap_out, "off_starters_out": float(len(starters_off & out)),
                      "def_starters_out": float(len(starters_def & out)), "qb_out": qo})
     return pd.DataFrame(rows)
