@@ -256,7 +256,7 @@
 ],
 [
 "HOU",
-"Jake Hummel",
+"M.J. Stewart",
 "Out"
 ],
 [
@@ -408,11 +408,6 @@
 "NYJ",
 "Mason Taylor",
 "Doubtful"
-],
-[
-"PHI",
-"Chance Campbell",
-"Out"
 ],
 [
 "PHI",
@@ -1019,6 +1014,12 @@
 "Grant Delpit",
 "",
 "Limited Participation in Practice"
+],
+[
+"CLE",
+"Mason Graham",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
@@ -2996,5 +2997,5 @@
 "rain": false
 }
 },
-"written_at": "2026-10-02 01:06 UTC"
+"written_at": "2026-10-02 01:52 UTC"
 }
