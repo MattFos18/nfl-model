@@ -9,6 +9,7 @@ from __future__ import annotations
 import logging
 import numpy as np, pandas as pd
 from pathlib import Path
+RETRACTABLE_HOME = {"ATL", "DAL", "HOU", "IND", "ARI"}   # home stadiums with a retractable roof (Mercedes-Benz, AT&T, NRG, Lucas Oil, State Farm)
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW, OUT = ROOT / "data" / "raw", ROOT / "data" / "processed"
@@ -31,6 +32,12 @@ def build_games() -> pd.DataFrame:
          g.weekday.eq("Sunday") & g.hour_et.ge(16), g.weekday.eq("Sunday"), g.weekday.eq("Saturday")],
         ["TNF", "MNF", "SNF", "SUN_LATE", "SUN_EARLY", "SAT"], "OTHER")
     g["primetime"] = g.slot.isin(["TNF", "MNF", "SNF"])
+    # 2 Oct 2026 (roof audit, reports in docs/wiki/gotchas.md): a retractable roof is set near kickoff, so an unplayed game
+    # there has no roof in the schedule and read as outdoors; those roofs were closed 88% of the time 2018-25 (Houston 68 of
+    # 71), and the wind under fired on 2026_04_DAL_HOU. Unplayed games at these stadiums with no roof listed count as closed;
+    # played games keep the roof that was used
+    retract = ((g.home_team.isin(RETRACTABLE_HOME) & ~g.location.eq("Neutral")) | (g.stadium_id.eq("MAD01") if "stadium_id" in g else False)) & g.home_score.isna() & (g.roof.isna() | g.roof.astype(str).str.strip().eq(""))
+    g.loc[retract, "roof"] = "closed"
     g["dome"] = g.roof.isin(["dome", "closed"])
     g["neutral"] = g.location.eq("Neutral")
     # Vegas implied team totals from closing spread and total
