@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- Calibrations rechecked on the honest backtest: cover, over and home win still beat raw on every window; the teaser legs lose one window each, left for Matt; spread cut table report only (reports/calibration_recheck.md).
 - The backtest prices played games (2018 on) on the stored pre-kickoff forecast, not the weather that happened: `model.priced_weather`; QB form re-passes, wind points and the totals' rain fail the pre-registered bar (one and two checks), left for Matt; no wind curve beats the bands (reports/forecast_weather_backtest.md).
 - Follow-ups: ESPN names match with suffixes dropped (`players.name_key`); a failed model step records no bets; weather fallbacks and forecast gaps are health warnings (`nflmodel/warnlog.py`).
 - Live failures made loud: QB-out check errors fail the ratings step and health (`data/runs/qb_swaps.json`), replacement QB must be ACT, card names the QB priced, ESPN statuses only after last week's final kickoff, rule_history appends by column.
