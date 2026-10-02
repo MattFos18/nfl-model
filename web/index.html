@@ -1100,11 +1100,16 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // calls graded in Python at the close; the page displays them. Nothing here until the line watch has run with a game under way.
   function liveOf(g) { return ((window.LIVE || {}).games || {})[g.game_id] || null; }
   const resMark = r => "";   // no win/loss/push marks beside a pick (29 Sep 2026, Matt: they read as a glitch); the flagged-bets record line stays
+  // the page's own ESPN answer laid over the line watch's copy (2 Oct 2026, Matt: a card read "1:00 4th" long after the final,
+  // because live.js only moves when the line watch runs); the badge sits in a data-live span that liveTick refreshes in place
   function liveHtml(g, lv) {
+    const f = liveNow ? liveNow[`${g.away_team}@${g.home_team}`] : null;
+    if (f && f.status) lv = Object.assign({}, lv || {}, f);
     if (!lv || lv.status === "scheduled" || g.home_score != null) return "";
     const sc = `${lv.away_team} ${lv.away_score}, ${lv.home_team} ${lv.home_score}`, L = window.LIVE || {};
-    if (lv.status !== "final") return `<span class="badge live" title="live from the ESPN scoreboard, as of ${esc(L.checked || "")}">${esc(lv.detail || "In progress")} · ${sc}</span>`;
-    return `<span class="badge" title="final, from the ESPN scoreboard as of ${esc(L.checked || "")}; nflverse's score replaces it on the weekly run">Final · ${sc}</span>`;   // the calls and their results sit in the blocks below, not repeated as chips (29 Sep 2026, Matt)
+    const asOf = f && liveAt ? liveAt.toLocaleTimeString("en-US", {timeZone: "America/New_York", hour: "numeric", minute: "2-digit"}) + " ET" : (L.checked || "");
+    if (lv.status !== "final") return `<span class="badge live" title="live from the ESPN scoreboard, as of ${esc(asOf)}">${esc(lv.detail || "In progress")} · ${sc}</span>`;
+    return `<span class="badge" title="final, from the ESPN scoreboard as of ${esc(asOf)}; nflverse's score replaces it on the weekly run">Final · ${sc}</span>`;   // the calls and their results sit in the blocks below, not repeated as chips (29 Sep 2026, Matt)
   }
   function liveTile() {
     const R = (window.LIVE || {}).record; if (!R || !R.finals) return "";
@@ -1136,6 +1141,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   const ESPN_AB = {WSH: "WAS", JAC: "JAX", LAR: "LA"};
   const abOf = t => t && t.abbreviation ? (ESPN_AB[t.abbreviation] || t.abbreviation) : null;
   let liveNow = null, liveAt = null, liveTimer = null, liveFetchDead = false, liveFails = 0, liveFirst = true, liveOpen = null, livePlays = {}, liveSub = "plays", liveDrives = {};
+  // start the scoreboard at load (2 Oct 2026), not only on the Live tab, so the cards' badges keep up during a game
+  setTimeout(() => { if (!liveTimer && Object.keys((window.LIVE || {}).games || {}).length) liveTick(); }, 1500);
   function parseScoreboard(j) {   // the same fields nflmodel/results.parse reads, keyed AWAY@HOME
     const out = {};
     (j.events || []).forEach(ev => { const c = (ev.competitions || [])[0] || {}; const st = c.status || ev.status || {}, ty = st.type || {}; const ids = {}, lines = {}, recs = {}; let H, A, hs, as_;
@@ -1276,6 +1283,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     liveFirst = false;
     if (liveOpen) { const x = liveGames().find(g => g.gid === liveOpen); const P = playsOf(liveOpen); if (x && x.v.status !== "scheduled" && (x.v.status === "in_progress" || !P || (P.status !== "final"))) { const s = await fetchSummary(x.v.espn_id || x.lv.espn_id); if (s) livePlays[liveOpen] = s; } }
     if (tab === "live") renderLive();
+    document.querySelectorAll("[data-live]").forEach(el => { const g = weekCard(el.dataset.live); if (g) el.innerHTML = liveHtml(g, liveOf(g)); });
     const on = liveGames().some(x => x.v.status === "in_progress");
     if (liveTimer) clearTimeout(liveTimer); liveTimer = setTimeout(liveTick, liveFetchDead ? (on ? 60000 : 600000) : on ? 15000 : 600000);   // 15 s while a game is on (the browser asks ESPN directly, nothing to pay), 10 min otherwise
   }
@@ -1546,7 +1554,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
       const actualMargin = played ? HS - AS : null;
       const wBet = g.windunder_bet && g.windunder_bet !== g.shadowunder_bet ? g.windunder_bet : "";   // the wind under (1 Oct 2026), shown once when the totals flag already has the same under
       h += `<article class="gcard ${g.bet || g.shadowunder_bet || g.windunder_bet ? "flagged" : ""}" id="card${i}">
-        <div class="top"><b>${LOGO(A, 24)}${A} <span class="at">@</span> ${LOGO(H, 24)}${H}</b><span class="when">${whenTxt(g)} · ${wx}</span>${liveHtml(g, lv)}${g.bet ? `<span class="badge flag" title="Flagged on the current consensus line: the edge clears ${W.spread_edge} points">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an ${TS.side} at a ${underPct}%+ model chance">${esc(g.shadowunder_bet)}</span>` : ""}${wBet ? `<span class="badge flag" title="Wind under: forecast wind ${W.wind_mph}+ mph over the first three hours">${esc(wBet)} · wind</span>` : ""}</div>
+        <div class="top"><b>${LOGO(A, 24)}${A} <span class="at">@</span> ${LOGO(H, 24)}${H}</b><span class="when">${whenTxt(g)} · ${wx}</span><span data-live="${g.game_id}">${liveHtml(g, lv)}</span>${g.bet ? `<span class="badge flag" title="Flagged on the current consensus line: the edge clears ${W.spread_edge} points">${g.bet}</span>` : ""}${g.shadowunder_bet ? `<span class="badge flag" title="The totals flag: an ${TS.side} at a ${underPct}%+ model chance">${esc(g.shadowunder_bet)}</span>` : ""}${wBet ? `<span class="badge flag" title="Wind under: forecast wind ${W.wind_mph}+ mph over the first three hours">${esc(wBet)} · wind</span>` : ""}</div>
         <div class="blocks">
           <section class="blk spread"><div class="bh">Spread</div>
             <div class="kv2"><span>Model</span><b class="m">${lineTxt(H, -g.model_spread)}</b></div>
