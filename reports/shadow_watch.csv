@@ -25,3 +25,4 @@ shadowwk4,"4+ edge, weeks 1 to 4 only",True,0-0,0,0.0,,model,0-0,,,tracking
 shadowwk15,"4+ edge, weeks 1 to 15 only",True,0-0,0,0.0,,model,0-0,,,tracking
 shadow6,6+ edge,True,0-0,0,0.0,,model,0-0,,,tracking
 shadowoverlow,"Over, total 41 or lower and a 55%+ chance",True,0-0,0,0.0,,shadowunder,2-1,0.248,,tracking
+shadowqtotals,"Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow)",True,0-0,0,0.0,,shadowunder,2-1,0.248,,tracking

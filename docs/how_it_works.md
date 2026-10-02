@@ -76,28 +76,28 @@ coefficients the cards break down:
 <!-- auto:effects -->
 | Input | Points per unit | Points per SD | Raw points, 2013 to 2025 |
 |---|---|---|---|
-| Starting QB rating | +17.450 | +1.69 |  |
-| Own offense points rating | +0.858 | +1.24 |  |
+| Starting QB rating | +17.451 | +1.69 |  |
+| Own offense points rating | +0.860 | +1.24 |  |
 | Opponent defense points rating | -0.978 | -1.10 |  |
-| Opponent's offseason turnover, defense | +4.615 | +1.06 |  |
+| Opponent's offseason turnover, defense | +4.609 | +1.06 |  |
 | Home | +1.871 | +0.94 | 23.77 with it (3,407 team-games), 21.87 without |
-| Offseason turnover, offense | -4.219 | -0.91 |  |
-| Wind (outdoor), per mph | -0.165 | -0.88 | 23.82 points in calm air, 21.39 at 11 to 15 mph |
+| Offseason turnover, offense | -4.215 | -0.91 |  |
+| Wind (outdoor), per mph | -0.158 | -0.85 | 23.82 points in calm air, 21.4 at 11 to 15 mph |
 | Opponent out of the race | +1.300 | +0.43 |  |
-| Rain at kickoff | -1.910 | -0.42 | 20.47 with it (356 team-games), 22.95 without |
-| Opponent's defensive snaps out | +0.631 | +0.41 |  |
-| Skill players out: value lost | -31.036 | -0.41 |  |
-| Opponent defense EPA per play | -13.643 | -0.33 |  |
-| Division game | -0.652 | -0.31 | 22.33 with it (2,496 team-games), 23.11 without |
-| Opponent's skill players out: value lost | +20.396 | +0.27 |  |
-| Warm-climate or dome team outdoors in the cold | -1.810 | -0.23 | 19.68 with it (95 team-games), 22.87 without |
-| Last game's QB listed out | -0.903 | -0.15 | 19.05 with it (214 team-games), 22.95 without |
-| Out of the race | -0.431 | -0.14 |  |
-| Offensive snaps out | -0.200 | -0.13 |  |
-| Dome | -0.247 | -0.11 | 23.88 with it (1,900 team-games), 22.42 without |
-| Own offense EPA per play | +2.996 | +0.09 |  |
-| Cold | +0.325 | +0.08 | 22.29 with it (374 team-games), 22.85 without |
-| Neutral site | -0.531 | -0.07 | 22.03 with it (112 team-games), 22.84 without |
+| Rain at kickoff | -1.922 | -0.42 | 20.47 with it (356 team-games), 22.95 without |
+| Opponent's defensive snaps out | +0.634 | +0.41 |  |
+| Skill players out: value lost | -31.065 | -0.41 |  |
+| Opponent defense EPA per play | -13.576 | -0.33 |  |
+| Division game | -0.645 | -0.31 | 22.33 with it (2,496 team-games), 23.11 without |
+| Opponent's skill players out: value lost | +20.390 | +0.27 |  |
+| Warm-climate or dome team outdoors in the cold | -1.806 | -0.23 | 19.68 with it (95 team-games), 22.87 without |
+| Last game's QB listed out | -0.902 | -0.15 | 19.05 with it (214 team-games), 22.95 without |
+| Out of the race | -0.433 | -0.14 |  |
+| Offensive snaps out | -0.198 | -0.13 |  |
+| Own offense EPA per play | +2.934 | +0.09 |  |
+| Dome | -0.194 | -0.09 | 23.88 with it (1,900 team-games), 22.42 without |
+| Cold | +0.308 | +0.08 | 22.29 with it (374 team-games), 22.85 without |
+| Neutral site | -0.530 | -0.07 | 22.03 with it (112 team-games), 22.84 without |
 
 The fit that priced Week 4 of 2026: 7,220 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
 <!-- /auto:effects -->
@@ -280,9 +280,9 @@ after every change of the day (`experiments/threshold.py`, `reports/threshold_sw
 <!-- auto:threshold -->
 | Cut | 2019-22 | 2023-25 | 2015-18 (untouched) | 2019 | 2020 | 2021 | 2022 | 2023 | 2024 | 2025 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 4 | 76-47, 61.8% | 37-20, 64.9% | 67-55, 54.9% | 66.7% | 71.0% | 66.7% | 43.8% (14-18) | 66.7% | 64.3% | 65.0% |
-| 4.5 | 53-39, 57.6% | 24-15, 61.5% | 42-37, 53.2% | 57.7% | 68.2% | 66.7% | 42.3% (11-15) | 66.7% | 64.7% | 56.2% |
-| 5 | 36-29, 55.4% | 13-5, 72.2% | 29-22, 56.9% | 60.0% | 62.5% | 64.3% | 40.0% (8-12) | 100.0% (2-0) | 80.0% | 63.6% |
+| 4 | 78-49, 61.4% | 37-19, 66.1% | 68-58, 54.0% | 65.7% | 71.0% | 66.7% | 44.1% (15-19) | 66.7% | 66.7% | 65.0% |
+| 4.5 | 53-38, 58.2% | 24-14, 63.2% | 42-35, 54.5% | 57.7% | 68.2% | 66.7% | 44.0% (11-14) | 66.7% | 64.7% | 60.0% |
+| 5 | 38-27, 58.5% | 13-5, 72.2% | 29-24, 54.7% | 64.7% | 66.7% | 64.3% | 42.1% (8-11) | 100.0% (2-0) | 80.0% | 63.6% |
 <!-- /auto:threshold -->
 
 **24 Sep 2026, after the QB rating began counting scrambles and designed runs and fading 0.8 per season:** the flag stays at 4. Across 2019 to 2025 it is 123-78 (61.2%). 4.5 is 83-50 (62.4%): a little better on both windows (60.4% and 66.7% against 59.1% and 66.1%) at two thirds of the volume, and worse on the untouched 2015 to 2018 (39-40 against 61-59). The cut was set on 22 Sep and moves only on live results, not on a backtest this close; the 4.5 shadow rule logs it live. Counting scrambles and designed runs alone made every window's flag record a little worse (docs section 25); the season fade then made it better on both windows.
@@ -343,33 +343,34 @@ tie check on every run; the live table carries the same columns):
 <!-- auto:rules -->
 | Rule | 2015 to 2018 (untouched) | 2019 to 2022 (tuning) | 2023 to 2025 (held out) |
 |---|---|---|---|
-| 4+ edge (the flag) | 67-55 | 76-47 | 37-20 |
-| 4.5+ edge | 42-37 | 53-39 | 24-15 |
-| 4+ edge, model's side the underdog or pick'em | 50-37 | 69-38 | 29-17 |
-| 4+ edge, weeks 1 to 13 only | 53-41 | 66-35 | 30-17 |
-| boosted trees alone, 5+ edge | 94-66 | 80-58 | 33-16 |
-| Under, 55%+ chance (the totals flag) | 132-117 | 190-146 | 82-59 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 122-104 | 169-135 | 73-53 |
-| 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-10 | 13-13 | 15-4 |
-| 4+ edge on road sides, 6+ on home sides | 40-23 | 43-27 | 21-10 |
-| 4+ edge, road sides only | 38-15 | 34-19 | 17-8 |
-| Under, 60%+ chance | 58-44 | 112-73 | 33-25 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 33-27 | 44-27 | 18-11 |
-| Under, forecast wind 10+ mph (outdoor games) | 24-20 | 143-88 | 77-52 |
+| 4+ edge (the flag) | 68-58 | 78-49 | 37-19 |
+| 4.5+ edge | 42-35 | 53-38 | 24-14 |
+| 4+ edge, model's side the underdog or pick'em | 51-39 | 71-40 | 29-16 |
+| 4+ edge, weeks 1 to 13 only | 53-42 | 68-37 | 30-16 |
+| boosted trees alone, 5+ edge | 96-69 | 80-64 | 34-17 |
+| Under, 55%+ chance (the totals flag) | 130-113 | 177-141 | 76-53 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-99 | 160-131 | 69-47 |
+| 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-11 | 14-14 | 15-4 |
+| 4+ edge on road sides, 6+ on home sides | 40-24 | 46-29 | 20-9 |
+| 4+ edge, road sides only | 39-15 | 36-21 | 17-7 |
+| Under, 60%+ chance | 61-46 | 93-68 | 31-21 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-28 | 41-24 | 18-10 |
+| Under, forecast wind 10+ mph (outdoor games) | 112-97 | 143-88 | 77-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
-| Under, forecast rain chance 50%+ (outdoor games) | 11-9 | 55-30 | 36-21 |
-| Under, forecast temperature below 32 F (outdoor games) | 4-2 | 21-15 | 11-10 |
-| Under, model total 3+ points below the line | 54-46 | 106-70 | 26-20 |
-| Under, 55%+ chance and forecast wind 10+ mph | 18-10 | 85-51 | 43-25 |
-| Total, boosted trees' own total 9.5%+ of the line off it, either side | 157-110 | 104-90 | 93-60 |
+| Under, forecast rain chance 50%+ (outdoor games) | 44-31 | 55-30 | 36-21 |
+| Under, forecast temperature below 32 F (outdoor games) | 20-12 | 21-15 | 11-10 |
+| Under, model total 3+ points below the line | 60-45 | 94-68 | 26-19 |
+| Under, 55%+ chance and forecast wind 10+ mph | 47-42 | 78-51 | 41-20 |
+| Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-117 | 108-83 | 96-63 |
 | West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 |
-| 4+ edge, model's side the road underdog | 30-11 | 32-14 | 14-7 |
-| 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 22-14 | 19-6 |
-| 3.5+ edge on dogs, 4+ on every other side | 85-70 | 102-71 | 50-28 |
-| 4+ edge, weeks 1 to 4 only | 23-13 | 16-12 | 19-5 |
-| 4+ edge, weeks 1 to 15 only | 58-46 | 69-38 | 33-17 |
-| 6+ edge | 8-10 | 14-12 | 7-2 |
-| Over, total 41 or lower and a 55%+ chance | 42-35 | 29-25 | 56-37 |
+| 4+ edge, model's side the road underdog | 31-12 | 34-16 | 14-6 |
+| 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 23-15 | 19-6 |
+| 3.5+ edge on dogs, 4+ on every other side | 85-70 | 99-72 | 51-28 |
+| 4+ edge, weeks 1 to 4 only | 23-14 | 18-13 | 19-5 |
+| 4+ edge, weeks 1 to 15 only | 58-48 | 71-40 | 33-16 |
+| 6+ edge | 8-11 | 15-12 | 6-2 |
+| Over, total 41 or lower and a 55%+ chance | 41-35 | 30-28 | 57-37 |
+| Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 152-119 | 195-155 | 80-55 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -660,15 +661,15 @@ the every-game cover rate on the model's side, and the 4-point flag:
 <!-- auto:byweek -->
 | Weeks | Games | Gap to the line | Every game ATS | Flags at 4 |
 |---|---|---|---|---|
-| 1 | 175 | -0.01 | 52% | 16-9 (64%) |
-| 2 | 176 | -0.14 | 58% | 16-7 (70%) |
-| 3 | 176 | +0.09 | 52% | 14-9 (61%) |
-| 4 | 171 | +0.22 | 51% | 12-5 (71%) |
-| 5 to 8 | 632 | +0.16 | 51% | 40-29 (58%) |
-| 9 to 13 | 793 | +0.15 | 49% | 51-34 (60%) |
-| 14 to 17 | 692 | +0.19 | 51% | 31-29 (52%) |
+| 1 | 175 | -0.02 | 53% | 17-11 (61%) |
+| 2 | 176 | -0.14 | 58% | 17-7 (71%) |
+| 3 | 176 | +0.10 | 53% | 14-9 (61%) |
+| 4 | 171 | +0.23 | 51% | 12-5 (71%) |
+| 5 to 8 | 632 | +0.16 | 51% | 40-31 (56%) |
+| 9 to 13 | 793 | +0.15 | 48% | 51-32 (61%) |
+| 14 to 17 | 692 | +0.19 | 52% | 32-31 (51%) |
 | 18 | 80 | +0.44 | 58% | 7-8 (47%) |
-| Playoffs | 133 | +0.26 | 45% | 6-5 (55%) |
+| Playoffs | 133 | +0.26 | 46% | 6-5 (55%) |
 <!-- /auto:byweek -->
 
 The intuition that the early weeks are the weak spot is wrong: Weeks 1 to 3 are where the model is closest to the
@@ -1509,9 +1510,9 @@ closing line and -110:
 <!-- auto:sizing -->
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 38-38 | -3.5 | 11.6 | -23.2% | 70% |
-| 2019-22 (the threshold was chosen here) | 76-47 | +22.1 | 9.4 | +28.3% | 2.2% |
-| 2023-25 (held out) | 37-20 | +13.6 | 5.1 | +18.9% | 3.8% |
+| 2016-18 (never used to choose) | 39-42 | -6.5 | 13.6 | -28.8% | 81% |
+| 2019-22 (the threshold was chosen here) | 78-49 | +21.9 | 9.4 | +28.4% | 2.5% |
+| 2023-25 (held out) | 37-19 | +14.6 | 5.0 | +20.3% | 2.7% |
 <!-- /auto:sizing -->
 
 The table is rewritten from `reports/sizing_backtest.csv` on every run. The held-out and tuning records are

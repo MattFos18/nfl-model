@@ -401,6 +401,11 @@
 ],
 [
 "LV",
+"Dont'e Thornton Jr.",
+"Out"
+],
+[
+"LV",
 "Jack Bech",
 "Out"
 ],
@@ -2555,6 +2560,12 @@
 ],
 [
 "SF",
+"Jaden Dugger",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "James Thompson Jr.",
 "",
 "Did Not Participate In Practice"
@@ -2609,21 +2620,9 @@
 ],
 [
 "SF",
-"Romello Height",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Trent Williams",
 "",
 "Did Not Participate In Practice"
-],
-[
-"SF",
-"Trent Williams",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -2846,23 +2845,23 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 7.1,
+"wind": 4.7,
 "cold": false,
 "rain": true,
-"src": "open-meteo",
+"src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 7.2,
+"wind": 7.7,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
+"src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_04_NYJ_CHI": {
-"wind": 8.1,
+"wind": 8.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2870,7 +2869,7 @@
 "rain_src": "mos"
 },
 "2026_04_JAX_CIN": {
-"wind": 2.2,
+"wind": 3.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2878,7 +2877,7 @@
 "rain_src": "mos"
 },
 "2026_04_ARI_NYG": {
-"wind": 9.6,
+"wind": 9.1,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2886,7 +2885,7 @@
 "rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 8.1,
+"wind": 8.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2894,7 +2893,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 5.1,
+"wind": 7.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2902,7 +2901,7 @@
 "rain_src": "mos"
 },
 "2026_04_LAC_SEA": {
-"wind": 5.8,
+"wind": 5.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2910,7 +2909,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 8.6,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2918,7 +2917,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 0.6,
+"wind": 2.0,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2926,5 +2925,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-02 22:13 UTC"
+"written_at": "2026-10-02 22:46 UTC"
 }

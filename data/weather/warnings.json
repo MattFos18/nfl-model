@@ -1,4 +1,18 @@
 {
+ "data checks|games inside the forecast window without every live reading: 2026_04_NE_BUF (no wind), 2026_04_TEN_BAL (no wind)": {
+  "count": 1,
+  "first": "2026-10-02 22:31 UTC",
+  "last": "2026-10-02 22:31 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_04_NE_BUF (no wind), 2026_04_TEN_BAL (no wind)",
+  "source": "data checks"
+ },
+ "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 43 missing": {
+  "count": 1,
+  "first": "2026-10-02 22:31 UTC",
+  "last": "2026-10-02 22:31 UTC",
+  "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 43 missing",
+  "source": "data checks"
+ },
  "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 598 missing": {
   "count": 1,
   "first": "2026-10-02 21:59 UTC",
@@ -7,9 +21,9 @@
   "source": "data checks"
  },
  "live weather|2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-02 21:00 UTC",
-  "last": "2026-10-02 22:00 UTC",
+  "last": "2026-10-02 22:33 UTC",
   "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -21,16 +35,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_ARI_NYG: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_ARI_NYG: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_ARI_NYG: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_ARI_NYG: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -49,16 +63,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DEN_SF: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_DEN_SF: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_DEN_SF: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_DEN_SF: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -77,16 +91,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DET_CAR: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_DET_CAR: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_DET_CAR: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_DET_CAR: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -112,16 +126,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_GB_TB: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_GB_TB: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_GB_TB: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_GB_TB: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -147,16 +161,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_JAX_CIN: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_JAX_CIN: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_JAX_CIN: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_JAX_CIN: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -175,16 +189,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_LAC_SEA: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_LAC_SEA: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_LAC_SEA: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_LAC_SEA: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -210,16 +224,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_LA_PHI: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_LA_PHI: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_LA_PHI: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_LA_PHI: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -245,16 +259,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_NE_BUF: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-59-58Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_NE_BUF: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-59-58Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_NE_BUF: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-59-58Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_NE_BUF: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-59-58Z reading",
   "source": "wind_live"
  },
@@ -273,16 +287,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_NYJ_CHI: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_NYJ_CHI: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_NYJ_CHI: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_NYJ_CHI: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-36-13Z reading",
   "source": "wind_live"
  },
@@ -301,23 +315,23 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-59-58Z reading": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_TEN_BAL: newest pull (2026-10-02T22-00-09Z) has no rain chance; using the 2026-10-02T21-59-58Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-59-58Z reading": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-02 22:03 UTC",
-  "last": "2026-10-02 22:13 UTC",
+  "last": "2026-10-02 22:31 UTC",
   "message": "2026_04_TEN_BAL: newest pull (2026-10-02T22-00-09Z) has no temperature; using the 2026-10-02T21-59-58Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 4,
+  "count": 5,
   "first": "2026-10-02 18:15 UTC",
-  "last": "2026-10-02 21:37 UTC",
+  "last": "2026-10-02 22:34 UTC",
   "message": "2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
