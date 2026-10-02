@@ -369,6 +369,7 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, weeks 1 to 4 only | 23-13 | 16-12 | 19-5 |
 | 4+ edge, weeks 1 to 15 only | 58-46 | 69-38 | 33-17 |
 | 6+ edge | 8-10 | 14-12 | 7-2 |
+| Over, total 41 or lower and a 55%+ chance | 42-35 | 29-25 | 56-37 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -3233,3 +3234,21 @@ weather reader in `model.py` failing so games price dry, windless or not cold. T
 data check counts played outdoor US games since 2018 with a partial or missing forecast reading and games inside the
 live window without wind, temperature and rain (warnings, not failures; on 2 Oct 2026: 1,566 played games all complete,
 11 games in the window all complete). Tests: tests/test_live_followups.py.
+
+## 51. Overs, in depth (2 Oct 2026)
+
+Matt asked for an in-depth look at the overs on the honest backtest (`experiments/overs_deep.py`, study `overs_deep`,
+reports/overs_deep.md, pre-registered). Blind overs lose (48.6% / 47.5% / 50.5% on 2015-18 / 2019-22 / 2023-25) because
+finals are right-skewed: in 2015-22 the median game landed under the line while the mean landed on or over it (in
+2023-25 the median landed 0.5 over and overs lost only to the vig). The model's overs at a
+55%+ raw chance are now near break-even (382-348, 52.3%, against 52.4% needed), and its raw over chance is too sure of
+itself (said 65%, came 48-53%); the calibrated chance on the cards is honest but seldom says more than 53%. Overs lose
+hardest in forecast wind of 10-15 mph and rain of 50%+, which the model's over calls already avoid; domes, pace, QB form,
+week, favourite size and prime time flip from window to window. Of 14 pre-registered over rules, one passed: the over when
+the total is 41 or lower and the raw chance 55%+ (on the study's honest walk-forward 42-35 / 29-25 / 56-37, +18.5 units).
+It is not evidence of an edge (the model-auditor: holds with caveats): no window is clear of break-even, it fails a
+per-window placebo on 2015-18 and 2019-22, and it is the best of 14 here and about 330 over rules tried before on the
+same games (family-wise 3.3% here; with the earlier ones its luck chance is high). It is tracked as a hidden shadow
+(`shadowoverlow`, `picks.OVER_LOW`), never bet and off the page. Two line-free corrections of
+the model's total (a linear recalibration and band amounts, learned from earlier seasons' misses) were worse on 2019-22
+and 2023-25 and failed their placebos, so the model is unchanged.

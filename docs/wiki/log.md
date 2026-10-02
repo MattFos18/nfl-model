@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- Overs studied in depth (reports/overs_deep.md): no over bet, no model change; the over at totals of 41 or lower with a 55%+ raw chance tracked as hidden shadow `shadowoverlow`.
 - Questionable players in the totals equation only (questionable_totals): not adopted, total miss worse on 2015-18.
 - Calibrations rechecked on the honest backtest: cover, over and home win still beat raw on every window; the teaser legs lose one window each, left for Matt; spread cut table report only (reports/calibration_recheck.md).
 - The backtest prices played games (2018 on) on the stored pre-kickoff forecast, not the weather that happened: `model.priced_weather`; QB form re-passes, wind points and the totals' rain fail the pre-registered bar (one and two checks), left for Matt; no wind curve beats the bands (reports/forecast_weather_backtest.md).
