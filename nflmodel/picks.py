@@ -548,6 +548,13 @@ def log_run(p: pd.DataFrame, run_at: str | None = None) -> pd.DataFrame:
     # showed a model number that no row of its run history held; runs[] must always hold the run that priced the card)
     f = RUNS / "pred_history.csv"
     rows.round(3).to_csv(f, mode="a", header=not f.exists(), index=False)
+    # 1 Oct 2026: the live under rules' bet each run (the totals flag, the wind under), so closing line value is measured
+    # from the first flag (nflmodel/clv.py); logging only, nothing reads it to decide a pick
+    uc = [c for c in ("shadowunder_bet", "windunder_bet") if c in p.columns]
+    if uc:
+        ur = p[["season", "week", "game_id", "total_line"] + uc].copy(); ur.insert(0, "run_at", run_at)
+        fu = RUNS / "rule_history.csv"
+        ur.to_csv(fu, mode="a", header=not fu.exists(), index=False)
     return rows
 
 

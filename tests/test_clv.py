@@ -105,3 +105,44 @@ def test_novig_probability_clv():
     # the number itself moved: probability left blank, the points carry it
     h2 = log(snap("2026-10-04T12-05-00Z", 3.0, 45.5), snap("2026-10-04T16-30-00Z", 3.0, 44.5))
     assert np.isnan(g("Under 45.5", h2)["clv_prob"]) and g("Under 45.5", h2)["clv_pts"] == pytest.approx(1.0)
+
+
+def _grade_one(rule, bet, run_at, hist_rows, lines):
+    games = pd.DataFrame([{"game_id": "2026_05_A_B", "home_team": HOME, "away_team": AWAY, "kickoff_et": KICK}])
+    bets = pd.DataFrame([{"rule": rule, "run_at": run_at, "season": 2026, "week": 5, "game_id": "2026_05_A_B", "bet": bet, "odds": -110}])
+    history = {r: pd.DataFrame(hist_rows if r == rule else [], columns=["run_at", "game_id", "bet", "line"]) for r in C.HIST}
+    return C.grade(bets, games, lines, NOW, {}, history).iloc[0]
+
+
+def test_first_flag_line_is_the_line_taken():
+    # LAC flagged at +4.5 on Sunday (consensus home_spread 4.5), then +3.5; the tracker row is the last run's LAC +3.5 at the best
+    # book. The close is LAC +3: CLV is from the first flag's consensus +4.5 (+1.5), not the tracker's +3.5 (+0.5)
+    hist = [{"run_at": "2026-09-27 20:12 UTC", "game_id": "2026_05_A_B", "bet": "LAC +4.5", "line": 4.5},
+            {"run_at": "2026-10-03 20:00 UTC", "game_id": "2026_05_A_B", "bet": "LAC +3.5", "line": 3.5}]
+    r = _grade_one("model", "LAC +3.5", "2026-10-04 15:00 UTC", hist, log(snap("2026-10-04T16-30-00Z", 3.0, 44.5)))
+    assert r.taken_from == "first flag" and r.taken_at == "2026-09-27 20:12 UTC"
+    assert r.line == 4.5 and r.line_best == 3.5 and r.clv_pts == pytest.approx(1.5)
+
+
+def test_first_flag_survives_unflag_and_reflag_and_uses_consensus_not_best_book():
+    # flagged BUF at consensus -2.5 (bet at the best book's -2), unflagged, flagged again at -3: the first flag counts, at -2.5
+    hist = [{"run_at": "2026-09-28 12:00 UTC", "game_id": "2026_05_A_B", "bet": "BUF -2", "line": 2.5},
+            {"run_at": "2026-09-29 12:00 UTC", "game_id": "2026_05_A_B", "bet": np.nan, "line": 3.0},
+            {"run_at": "2026-09-30 12:00 UTC", "game_id": "2026_05_A_B", "bet": "BUF -3", "line": 3.0}]
+    r = _grade_one("model", "BUF -3", "2026-09-30 12:00 UTC", hist, log(snap("2026-10-04T16-30-00Z", 3.5, 44.5)))
+    assert r.taken_at == "2026-09-28 12:00 UTC" and r.line == -2.5 and r.clv_pts == pytest.approx(1.0)
+
+
+def test_flag_after_kickoff_is_not_a_first_flag():
+    hist = [{"run_at": "2026-10-04 17:30 UTC", "game_id": "2026_05_A_B", "bet": "BUF -1", "line": 1.0}]   # 13:30 ET, after kickoff
+    r = _grade_one("model", "BUF -3", "2026-10-04 15:00 UTC", hist, log(snap("2026-10-04T16-30-00Z", 3.0, 44.5)))
+    assert r.taken_from == "tracker row" and r.line == -3.0 and r.clv_pts == 0
+
+
+def test_unders_first_flag_and_fallback_marked():
+    hist = [{"run_at": "2026-09-30 12:00 UTC", "game_id": "2026_05_A_B", "bet": "Under 46.5", "line": 46.5}]
+    lines = log(snap("2026-10-04T16-30-00Z", 3.0, 44.5))
+    r = _grade_one("shadowunder", "Under 44.5", "2026-10-04 15:00 UTC", hist, lines)
+    assert r.taken_from == "first flag" and r.line == 46.5 and r.clv_pts == pytest.approx(2.0)
+    r = _grade_one("windunder", "Under 44.5", "2026-10-04 15:00 UTC", [], lines)   # no run history: the tracker row, marked
+    assert r.taken_from == "tracker row" and r.taken_at == "2026-10-04 15:00 UTC" and r.clv_pts == 0

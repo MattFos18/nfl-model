@@ -7,9 +7,17 @@ The bets: every bet the live rules recorded (nflmodel/tracker.py record_model_pi
   model        data/tracker/model_picks.csv        the spread flag (picks.SPREAD_EDGE), bet at the best number
   shadowunder  data/tracker/shadowunder_picks.csv  the totals flag (unders at a picks.TOTAL_SHADOW chance)
   windunder    data/tracker/windunder_picks.csv    the wind under (picks.WIND_UNDER)
-The tracker keeps one row per game: the flag at the last weekly run before kickoff (an earlier run's row is replaced or
-dropped, tracker._record). So "the line taken" is the number in that row's bet (e.g. "WAS +3.5", "Under 38.5"), as
-recorded at that run, and CLV here is measured from the last run before kickoff, not from the first time a game flagged.
+The line taken is the line when the game FIRST flagged for that side (when the bet would have been placed), not the
+tracker row: the tracker keeps the flag from the last run before kickoff (tracker._record replaces earlier rows), whose
+line is nearly the close, so CLV from it is about 0 by construction. Every run's numbers are in the run history:
+  spread flag  data/runs/pred_history.csv (picks.log_run): run_at, spread_line (the consensus the run priced on), bet
+  unders       data/runs/rule_history.csv (picks.log_run, from 1 Oct 2026): run_at, total_line, shadowunder_bet,
+               windunder_bet
+The first flag is the earliest run before kickoff whose bet names this side (a game that flagged, unflagged and flagged
+again counts from the first flag). The line taken is that run's CONSENSUS line, so the spread flag's CLV is not inflated
+by line shopping; the best-book number the bet was recorded at is kept separately (line_best). A bet with no run
+history (the unders before rule_history.csv existed) falls back to the tracker row's line and time, marked
+taken_from = "tracker row".
 
 The closing line: the consensus (lines.consensus: the median across sources, to the half point) of the last lines-log
 snapshot (data/lines/lines_log.csv) taken strictly before kickoff (games.parquet kickoff_et, Eastern) that has the
@@ -24,8 +32,8 @@ CLV in points, from the bet's side (positive = we beat the close):
 A bet taken on the closing number has CLV 0 and does not count as beating the close.
 
 CLV in probability, where both prices are logged: the no-vig chance of our side at the close minus the no-vig chance at
-the time the bet was recorded, both at the consensus number (each source's two prices with the vig removed, averaged
-over the sources posting the consensus number). The "taken" snapshot is the one the recording run priced on: the run's
+the first flag, both at the consensus number (each source's two prices with the vig removed, averaged
+over the sources posting the consensus number). The "taken" snapshot is the one the flagging run priced on: the run's
 own line pull (its "lines" step in data/runs/run_log.csv names the snapshot), else the last snapshot no later than
 RUN_WINDOW after run_at (the weekly run stamps run_at as it starts and pulls its lines about five minutes in); always
 before kickoff.
@@ -42,6 +50,43 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT, TR, REP = ROOT / "data" / "processed", ROOT / "data" / "tracker", ROOT / "reports"
 RUN_WINDOW = pd.Timedelta(minutes=15)   # when the run log has no line pull for a run: how long after run_at its pull lands (grading only)
 RULE_FILES = {"model": "model_picks.csv", "shadowunder": "shadowunder_picks.csv", "windunder": "windunder_picks.csv"}
+RUNS = ROOT / "data" / "runs"
+HIST = {"model": ("pred_history.csv", "bet", "spread_line"), "shadowunder": ("rule_history.csv", "shadowunder_bet", "total_line"),
+        "windunder": ("rule_history.csv", "windunder_bet", "total_line")}   # rule -> (run history file, its bet column, its consensus line)
+
+
+def load_history() -> dict:
+    """rule -> that rule's run history (run_at, game_id, bet, line), every run of every week; empty where none is logged."""
+    out = {}
+    for rule, (f, bc, lc) in HIST.items():
+        p = RUNS / f
+        d = pd.read_csv(p) if p.exists() else pd.DataFrame()
+        if len(d) and bc in d.columns and lc in d.columns:
+            out[rule] = d[["run_at", "game_id", bc, lc]].rename(columns={bc: "bet", lc: "line"})
+        else:
+            out[rule] = pd.DataFrame(columns=["run_at", "game_id", "bet", "line"])
+    return out
+
+
+def first_flag(hist: pd.DataFrame, kind: str, side: str, home: str, kickoff_et):
+    """(run_at, consensus line from the side's view) of the earliest run before kickoff whose bet names this side;
+    (None, None) when no run in the history flagged it. `hist` is one rule's run history for one game."""
+    if hist is None or not len(hist) or kickoff_et is None or pd.isna(kickoff_et):
+        return None, None
+    from .tracker import parse_bet
+    ko = kickoff_utc(kickoff_et)
+    h = hist[hist.bet.notna()].copy()
+    h = h[h.bet.astype(str).str.len() > 0]
+    if not len(h):
+        return None, None
+    h["_t"] = [run_ts(x) for x in h.run_at]
+    h = h[h._t < ko].sort_values("_t", kind="stable")
+    for r in h.itertuples():
+        for b in str(r.bet).split(", "):
+            k, sd, _ = parse_bet(b, home, "")
+            if k == kind and sd == side and pd.notna(r.line):
+                return r.run_at, (side_handicap(float(r.line), side, home) if kind == "spread" else float(r.line))
+    return None, None
 
 
 def rule_labels() -> dict:
@@ -140,11 +185,13 @@ def run_lines_ts() -> dict:
     return out
 
 
-def grade_bet(bet: str, run_at, home: str, away: str, kickoff_et, hist: pd.DataFrame, now: pd.Timestamp, taken_through=None) -> dict:
-    """One recorded bet against the closing line. `hist` is that game's lines-log rows; `now` is UTC; `taken_through`
-    is the recording run's own snapshot time (default: run_at + RUN_WINDOW)."""
+def grade_bet(bet: str, run_at, home: str, away: str, kickoff_et, hist: pd.DataFrame, now: pd.Timestamp, taken_through=None, line=None) -> dict:
+    """One bet against the closing line. `hist` is that game's lines-log rows; `now` is UTC; `run_at` is when the bet
+    was taken (the first flag); `line` the line taken from the side's view (default: the number in `bet`);
+    `taken_through` is the taking run's own snapshot time (default: run_at + RUN_WINDOW)."""
     from .tracker import parse_bet
-    kind, side, line = parse_bet(bet, home, away)
+    kind, side, bet_line = parse_bet(bet, home, away)
+    line = bet_line if line is None else line
     out = {"kind": kind, "side": side, "line": line, "close": np.nan, "close_ts": None, "clv_pts": np.nan, "beat": np.nan,
            "p_taken": np.nan, "p_close": np.nan, "clv_prob": np.nan, "status": "pending"}
     if kind not in ("spread", "total") or kickoff_et is None or pd.isna(kickoff_et):
@@ -169,23 +216,30 @@ def grade_bet(bet: str, run_at, home: str, away: str, kickoff_et, hist: pd.DataF
     return out
 
 
-def grade(bets: pd.DataFrame, games: pd.DataFrame, log: pd.DataFrame, now: pd.Timestamp, run_lines: dict | None = None) -> pd.DataFrame:
+def grade(bets: pd.DataFrame, games: pd.DataFrame, log: pd.DataFrame, now: pd.Timestamp, run_lines: dict | None = None, history: dict | None = None) -> pd.DataFrame:
     """Every recorded bet (columns rule, run_at, season, week, game_id, bet, odds) graded against the closing line;
-    `run_lines` maps a run_at to the snapshot that run pulled (run_lines_ts)."""
+    `run_lines` maps a run_at to the snapshot that run pulled (run_lines_ts); `history` is load_history() (default: read it)."""
     run_lines = run_lines or {}
     g = games.set_index("game_id")
     log = log.copy()
     log["_t"] = log_ts(log.ts)
     by = {k: v for k, v in log.groupby("game_id")}
+    from .tracker import parse_bet
+    history = load_history() if history is None else history
+    hb = {rule: {k: v for k, v in h.groupby("game_id")} for rule, h in history.items()}
     rows = []
     for r in bets.itertuples():
         if r.game_id not in g.index:
             continue
         x = g.loc[r.game_id]
-        res = grade_bet(r.bet, r.run_at, x.home_team, x.away_team, x.kickoff_et, by.get(r.game_id), now, run_lines.get(r.run_at))
+        kind, side, rec_line = parse_bet(r.bet, x.home_team, x.away_team)
+        f_at, f_line = first_flag(hb.get(r.rule, {}).get(r.game_id), kind, side, x.home_team, x.kickoff_et)
+        taken_at, taken_from = (f_at, "first flag") if f_at is not None else (r.run_at, "tracker row")
+        res = grade_bet(r.bet, taken_at, x.home_team, x.away_team, x.kickoff_et, by.get(r.game_id), now, run_lines.get(taken_at), f_line)
         rows.append({"rule": r.rule, "season": int(r.season), "week": int(r.week), "game_id": r.game_id, "bet": r.bet,
-                     "odds": getattr(r, "odds", np.nan), "run_at": r.run_at, "kickoff_et": str(x.kickoff_et)[:16], **res})
-    cols = ["rule", "season", "week", "game_id", "bet", "odds", "run_at", "kickoff_et", "kind", "side", "line", "close", "close_ts",
+                     "odds": getattr(r, "odds", np.nan), "run_at": r.run_at, "taken_at": taken_at, "taken_from": taken_from,
+                     "line_best": rec_line if kind == "spread" else np.nan, "kickoff_et": str(x.kickoff_et)[:16], **res})
+    cols = ["rule", "season", "week", "game_id", "bet", "odds", "run_at", "taken_at", "taken_from", "line_best", "kickoff_et", "kind", "side", "line", "close", "close_ts",
             "clv_pts", "beat", "p_taken", "p_close", "clv_prob", "status"]
     return pd.DataFrame(rows, columns=cols)
 
@@ -246,7 +300,7 @@ def page_payload(season: int | None = None, now: pd.Timestamp | None = None) -> 
     rules = [{"rule": r.rule, "label": r.label, "bets": r.bets, "avg_clv_pts": _r(r.avg_clv_pts, 2), "beat_share": _r(r.beat_share, 3),
               "beat": r.beat, "pending": r.pending, "prob_bets": r.prob_bets, "avg_clv_prob": _r(r.avg_clv_prob, 4)} for r in sm.itertuples()]
     c = gr[gr.status == "closed"]
-    bets = [{"rule": r.rule, "week": r.week, "game_id": r.game_id, "bet": r.bet, "line": _r(r.line, 1), "close": _r(r.close, 1),
+    bets = [{"rule": r.rule, "week": r.week, "game_id": r.game_id, "bet": r.bet, "taken_at": r.taken_at, "taken_from": r.taken_from, "line": _r(r.line, 1), "line_best": _r(r.line_best, 1), "close": _r(r.close, 1),
              "clv_pts": _r(r.clv_pts, 1), "clv_prob": _r(r.clv_prob, 4), "close_ts": r.close_ts} for r in c.itertuples()]
     return {"season": season, "as_of": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "rules": rules, "bets": bets}
 
@@ -254,15 +308,16 @@ def page_payload(season: int | None = None, now: pd.Timestamp | None = None) -> 
 def markdown(gr: pd.DataFrame, sm: pd.DataFrame, season: int) -> str:
     fmt = lambda v, f: "" if v is None or (isinstance(v, float) and np.isnan(v)) else f.format(v)
     L = [f"# Closing line value, {season}", "",
-         "The number each live bet was recorded at against the consensus line at the last lines-log snapshot before kickoff "
-         "(nflmodel/clv.py). Positive CLV means the bet beat the close. Grading only: nothing here changes a rule or a pick.", "",
+         "Each live bet's consensus line when the game first flagged for that side (the tracker row where no run history "
+         "exists, marked) against the consensus at the last lines-log snapshot before kickoff (nflmodel/clv.py). line_best is "
+         "the best-book number the spread flag was recorded at, shown apart; CLV uses the consensus line. Positive CLV means the bet beat the close. Grading only: nothing here changes a rule or a pick.", "",
          "| Rule | Closed bets | Avg CLV (pts) | Beat the close | Same | Worse | Pending | Avg CLV (no-vig prob) |", "|---|---|---|---|---|---|---|---|"]
     for r in sm.itertuples():
         L.append(f"| {r.label} | {r.bets} | {fmt(r.avg_clv_pts, '{:+.2f}')} | {fmt(r.beat_share, '{:.0%}')} | {r.same} | {r.worse} | {r.pending} | "
                  f"{fmt(r.avg_clv_prob, '{:+.1%}')}{f' ({r.prob_bets})' if r.prob_bets else ''} |")
     L += ["", "## Every bet", ""]
     if len(gr):
-        t = gr[["rule", "week", "game_id", "bet", "line", "close", "clv_pts", "clv_prob", "close_ts", "status"]].copy()
+        t = gr[["rule", "week", "game_id", "bet", "taken_at", "taken_from", "line", "line_best", "close", "clv_pts", "clv_prob", "close_ts", "status"]].copy()
         t["clv_prob"] = t.clv_prob.map(lambda v: fmt(v, "{:+.1%}"))
         L.append(t.to_markdown(index=False))
     else:

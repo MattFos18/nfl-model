@@ -87,6 +87,7 @@ LOG_WHAT = {
     "tracker/props_vs_market.csv": ("every graded projection with a closing book line: side, result, both errors", "weekly run", "Backtest -> Player projections"),
     "runs/run_log.csv": ("every weekly run: each step's status and seconds", "weekly run", "health"),
     "runs/pred_history.csv": ("every run's prediction for every game of the week (the model's own line history)", "weekly run", "cards: how the model's number moved"),
+    "runs/rule_history.csv": ("every run's totals-flag and wind-under bet for every game of the week (from 1 Oct 2026)", "weekly run", "Bets -> Closing Line Value"),
     "raw/pull_log.csv": ("every raw download with its size and hash", "pull", "Model -> Data pulls"),
     "raw/injuries/espn_injuries.csv": ("ESPN's injury page, every team, as pulled", "pull", "players.load_injuries fill"),
 }
