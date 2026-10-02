@@ -137,7 +137,7 @@
 [
 "CHI",
 "Caleb Williams",
-"Doubtful"
+"Out"
 ],
 [
 "CHI",
@@ -162,6 +162,11 @@
 [
 "CIN",
 "Jalen Davis",
+"Out"
+],
+[
+"CIN",
+"Kyle Dugger",
 "Out"
 ],
 [
@@ -557,6 +562,11 @@
 [
 "WAS",
 "Nick Cross",
+"Out"
+],
+[
+"WAS",
+"Rachaad White",
 "Out"
 ],
 [
@@ -1117,12 +1127,6 @@
 "Kyle Dugger",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CIN",
-"Kyle Dugger",
-"Questionable (ESPN)",
-""
 ],
 [
 "CIN",
@@ -3016,12 +3020,6 @@
 ],
 [
 "WAS",
-"Ben Sinnott",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Charles Omenihu",
 "",
 "Limited Participation in Practice"
@@ -3037,12 +3035,6 @@
 "Chig Okonkwo",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Chig Okonkwo",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3118,7 +3110,7 @@
 ],
 [
 "WAS",
-"Rachaad White",
+"Terry McLaurin",
 "Questionable (ESPN)",
 ""
 ]
@@ -3185,5 +3177,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 17:15 UTC"
+"written_at": "2026-10-02 17:39 UTC"
 }

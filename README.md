@@ -40,9 +40,9 @@ The site: https://mattfos18.github.io/nfl-model/ (Breakdown, Picks, Bets, Backte
 | Brier (win odds) | 0.216 | 0.210 |
 | Spreads at 3+ pt edge | 83-64 | |
 | Spreads at 4+ pt edge (the flag) | 41-23 (2019 to 2025: 123-77; 116-69 outside Week 18) | |
-| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 72-53 (2019 to 2025: 173-124) | |
+| Totals at 4+ pt edge (not a rule; the totals flag is the under at a 55%+ chance) | 72-53 (2019 to 2025: 173-124) | |
 
-These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test.
+These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. Ridge strength and thresholds were tuned on 2019 to 2022 only; new inputs and the rating decay are accepted only under the round-3 rule (better on every window, no bet cost, beats its placebo), so 2015 to 2018 and 2023 to 2025 are test windows for those, and the live season is the only fully unseen test.
 <!-- results:end -->
 
 3.0 is close to the closing line on points, and the closing line is still the more accurate of the two. Small
