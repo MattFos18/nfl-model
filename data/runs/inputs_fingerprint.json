@@ -1070,12 +1070,6 @@
 ],
 [
 "DAL",
-"Joey Porter Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "Malik Hooker",
 "",
 "Limited Participation in Practice"
@@ -2937,7 +2931,7 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.7,
+"wind": 11.9,
 "cold": false,
 "rain": false
 },
@@ -3002,5 +2996,5 @@
 "rain": false
 }
 },
-"written_at": "2026-10-02 00:26 UTC"
+"written_at": "2026-10-02 01:06 UTC"
 }
