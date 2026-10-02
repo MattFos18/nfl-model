@@ -2845,7 +2845,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 3.9,
+"wind": 4.7,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2853,7 +2853,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 7.7,
+"wind": 8.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2885,7 +2885,7 @@
 "rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 8.7,
+"wind": 8.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2925,5 +2925,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-02 23:30 UTC"
+"written_at": "2026-10-02 23:55 UTC"
 }
