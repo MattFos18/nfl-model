@@ -4,7 +4,8 @@ was measured on: the NWS GFS MOS at the stadium's airport (the newest run out, i
 hours before kickoff) and Japan's global model from Open-Meteo, each the mean over the game's first three hours; the
 reading is their mean (nflmodel/forecast_history.py does the same for 2018-2025). The same GFS MOS run also gives the
 chance of rain the totals equation reads (gfs_pop: the largest 6-hour chance overlapping the first three hours; 1 Oct
-2026, experiments/rain_points.py). Run on every line watch and weekly run; a row is appended when a game's reading
+2026, experiments/rain_points.py) and the temperature the cold-under shadow reads (gfs_temp, mean over the first three hours;
+2 Oct 2026, picks.COLD_UNDER). Run on every line watch and weekly run; a row is appended when a game's reading
 changes. Writes data/weather/wind_live.csv.
 
     python -m nflmodel.wind_live
@@ -15,7 +16,7 @@ import numpy as np, pandas as pd
 from . import forecast_history as FH
 
 F = FH.WX / "wind_live.csv"
-COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean", "gfs_pop"]
+COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean", "gfs_pop", "gfs_temp"]
 RANGE_H = 66   # GFS MOS (MAV) runs 72 hours out; a reading needs the game's first three hours inside it
 
 
@@ -34,14 +35,14 @@ def run() -> int:
         jma = FH.jma(r.latlon[0], r.latlon[1], ko)[2] if r.latlon else None
         vals = [v for v in (gfs, jma) if v is not None]
         rows.append({"ts": ts, "game_id": r.game_id, "season": r.season, "week": r.week, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ"), "station": r.station,
-                     "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None, "gfs_pop": m["pop"]})
+                     "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None, "gfs_pop": m["pop"], "gfs_temp": m["temp"]})
     df = pd.DataFrame(rows, columns=COLS)
     if not len(df):
         return 0
-    keys = ["gfs_wind", "jma_wind", "gfs_pop"]
+    keys = ["gfs_wind", "jma_wind", "gfs_pop", "gfs_temp"]
     if F.exists():
         old = pd.read_csv(F)
-        if list(old.columns) != COLS:   # the log written before gfs_pop: rewritten once with the new column (empty for old rows)
+        if list(old.columns) != COLS:   # a log written before gfs_pop or gfs_temp: rewritten once with the new columns (empty for old rows)
             old = old.reindex(columns=COLS); old.to_csv(F, index=False)
         last = old.sort_values("ts").drop_duplicates("game_id", keep="last").set_index("game_id")[keys]
         prev = last.reindex(df.game_id)
@@ -81,6 +82,23 @@ def rain_readings() -> dict:
         if "gfs_pop" in lv:
             lv = lv[lv.gfs_pop.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
             out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_pop) if gid not in out})
+    return out
+
+
+def temp_readings() -> dict:
+    """game_id -> the GFS MOS temperature (deg F, mean over the first three hours) the cold-under shadow reads (2 Oct 2026,
+    picks.COLD_UNDER): the stored history's last run (the day-before run where it is missing) for played games, the live
+    log's newest for games still to play (logged from 2 Oct 2026), the same order as rain_readings."""
+    out = {}
+    if FH.OUTF.exists():
+        h = pd.read_csv(FH.OUTF)
+        v = pd.to_numeric(h.get("gfs_temp_d0"), errors="coerce").fillna(pd.to_numeric(h.get("gfs_temp_d1"), errors="coerce"))
+        out.update({gid: float(x) for gid, x in zip(h.game_id, v) if pd.notna(x)})
+    if F.exists():
+        lv = pd.read_csv(F)
+        if "gfs_temp" in lv:
+            lv = lv[lv.gfs_temp.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
+            out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_temp) if gid not in out})
     return out
 
 

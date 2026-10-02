@@ -28,7 +28,7 @@ def _rec(x: pd.DataFrame) -> dict:
 
 
 def run() -> pd.DataFrame:
-    from .picks import SHADOWS, HIDDEN_SHADOWS, SHADOW_ODDS, DEFAULT_ODDS, break_even
+    from .picks import SHADOWS, HIDDEN_SHADOWS, SHADOW_ODDS, DEFAULT_ODDS, BLIND_RULES, TOTAL_RULES, break_even
     f = TR / "graded.csv"
     g = pd.read_csv(f) if f.exists() else pd.DataFrame(columns=["who", "result", "units", "season"])
     rows = []
@@ -39,7 +39,8 @@ def run() -> pd.DataFrame:
         seasons = set(x.season.dropna().astype(int)) if len(x) else set()
         # the rule it would replace, over the same seasons: the totals flag (the unders at 55%) for a totals rule, the spread
         # flag otherwise; the totals flag itself is measured against break-even alone
-        base = None if name in ("shadowunder", "shadowteasedog", "windunder") else ("shadowunder" if str(sr).startswith("under_") else "model")   # teaser legs, like the totals flag, against break-even alone
+        # rules that ignore the model (the wind, rain and cold unders, teaser legs, the West Coast road team), like the totals flag, against break-even alone
+        base = None if name == "shadowunder" or sr in BLIND_RULES else ("shadowunder" if sr in TOTAL_RULES else "model")
         fl = _rec(g[(g.who == base) & g.season.isin(seasons)]) if base else {"w": 0, "l": 0, "n": 0, "roi": 0.0}
         ready = r["n"] >= MIN_BETS and luck <= P_LUCK and r["roi"] - (fl["roi"] if fl["n"] else 0.0) >= ROI_GAP
         rows.append({"rule": name, "label": lab, "hidden": name in HIDDEN_SHADOWS, "record": f"{r['w']}-{r['l']}", "settled": r["n"], "units": r["units"],
