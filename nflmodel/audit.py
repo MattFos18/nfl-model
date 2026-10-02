@@ -3,7 +3,8 @@
 1. Leakage: corrupt every game from Week 10 of 2024 onward (flip EPA, add 20 points, change results), rebuild
    the ratings for 2024 Weeks 1 to 9, and check they are identical to the real ones. Then fit the 2024 model
    on corrupted 2024 to 2026 data and check the 2024 predictions are unchanged (the regression must only see
-   seasons before 2024).
+   seasons before 2024). Then corrupt each 2024 Week 9 game's own score, rebuild the trend priors, and check those
+   games' own team points, model total and chance of the under do not move (own_game_shift, 2 Oct 2026).
 2. Coverage: same games graded for 3.0 and the old model; no duplicates; closing lines used only for grading.
 3. Decision confidence: for every rejected input, the change in team points miss on 2019 to 2022 and on
    2023 to 2025, with a paired bootstrap 90% interval, and the ATS record at a 5 point edge with it added.
@@ -56,8 +57,56 @@ def leakage_test():
     p1 = M.walk_forward(f, [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
     p2 = M.walk_forward(fbad, [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
     pdiff = float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
+    own = own_game_shift()   # the game's own score: 2024 Week 9
     return {"rating_rows_compared": len(real), "max_rating_change_after_corrupting_future": float(diff),
-            "max_prediction_change_after_corrupting_targets": pdiff}
+            "max_prediction_change_after_corrupting_targets": pdiff, "max_prediction_change_after_corrupting_own_game": own}
+
+
+def trends_from(games: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
+    """The stored trends_asof table with every column trends.trend_table builds (the referee, coach, QB, head-to-head and
+    team priors) rebuilt from the given games and team_games: what the model would read if those were the data."""
+    from . import trends as TR
+    stored = pd.read_parquet(OUT / "trends_asof.parquet")
+    tt = TR.trend_table(games, tg)
+    keep = [c for c in stored.columns if c not in tt.columns or c in ("game_id", "team")]
+    return stored[keep].merge(tt, on=["game_id", "team"], how="right")
+
+
+def own_game_shift(season=2024, week=9) -> float:
+    """Corrupt the final score of every game of (season, week) (home +30, away 0) in the games table, team_games and the
+    feature table, rebuild the trend priors from the corrupted tables, and return the largest change in those games' own
+    predictions: home and away expected points, model_total and the chance of the under. A game's own result is not known
+    when it is priced, so this must be 0 (tests/test_same_game_leak.py plants the old referee leak and sees it move).
+    (2 Oct 2026: the earlier check corrupted only future weeks' points and compared only team points, so a same-game leak
+    in a precomputed table, ref_tot's, passed; reports/leak_fix_rescore.md.)"""
+    tg = pd.read_parquet(OUT / "team_games.parquet")
+    games = pd.read_parquet(OUT / "games.parquet")
+    feats = pd.read_parquet(OUT / "features_asof.parquet")
+    gm = (games.season == season) & (games.week == week) & games.home_score.notna()
+    ids = set(games.loc[gm, "game_id"])
+    gbad = games.copy(); gbad.loc[gm, "home_score"] += 30; gbad.loc[gm, "away_score"] = 0
+    gbad.loc[gm, "total"] = gbad.loc[gm, "home_score"] + gbad.loc[gm, "away_score"]
+    gbad.loc[gm, "result"] = gbad.loc[gm, "home_score"] - gbad.loc[gm, "away_score"]
+
+    def score(x):   # the same corruption in a team-game table: the home side +30, the away side 0
+        x = x.copy(); m = x.game_id.isin(ids); hm = m & (x.home == 1); aw = m & (x.home == 0)
+        x.loc[hm, "pf"] += 30; x.loc[aw, "pf"] = 0
+        x.loc[hm, "pa"] = 0; x.loc[aw, "pa"] += 30
+        if "margin" in x.columns:
+            x.loc[m, "margin"] = x.loc[m, "pf"] - x.loc[m, "pa"]
+        return x
+    tbad, fbad = score(tg), score(feats)
+    upto = lambda f: f[(f.season < season) | ((f.season == season) & (f.week <= week))]
+    f1 = upto(M.with_trends(feats, trends=trends_from(games, tg), games=games))
+    f2 = upto(M.with_trends(fbad, trends=trends_from(gbad, tbad), games=gbad))
+    save, M.save_trees_cache = M.save_trees_cache, (lambda: None)   # a check never rewrites the stored fits
+    try:
+        p1 = M.walk_forward(f1, [season]); p2 = M.walk_forward(f2, [season])
+    finally:
+        M.save_trees_cache = save
+    p1 = p1[p1.game_id.isin(ids)].set_index("game_id").sort_index(); p2 = p2[p2.game_id.isin(ids)].set_index("game_id").sort_index()
+    cols = ["home_exp", "away_exp", "model_total", "p_over_emp"]
+    return float((p1[cols] - p2[cols]).abs().max().max())
 
 
 def coverage():
@@ -202,7 +251,8 @@ if __name__ == "__main__":
          "Every game from Week 10 of 2024 onward was corrupted (EPA flipped, 20 points added, QB EPA set to -50, results changed) and the ratings "
          "for 2024 Weeks 1 to 9 rebuilt. Then the 2024 regression was refit with 2024-onward targets corrupted.", "",
          f"- Rating rows compared: {lk['rating_rows_compared']}; largest change in any rating: {lk['max_rating_change_after_corrupting_future']:.6f}",
-         f"- Largest change in any 2024 prediction: {lk['max_prediction_change_after_corrupting_targets']:.6f}", "",
+         f"- Largest change in any 2024 prediction: {lk['max_prediction_change_after_corrupting_targets']:.6f}",
+         f"- Largest change in a 2024 Week 9 game's own prediction (team points, model total, chance of the under) after corrupting that game's own score and rebuilding the trend priors: {lk['max_prediction_change_after_corrupting_own_game']:.6f}", "",
          "A zero means nothing after a game reaches the numbers used to predict it.", "",
          "## 2. Coverage", "", pd.Series(cv).to_frame("value").to_markdown(), "",
          "## 3. How sure the keep/drop decisions are", "",

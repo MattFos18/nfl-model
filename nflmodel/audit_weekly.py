@@ -38,8 +38,9 @@ def run_tie():
 
 def run_leak():
     from .audit import leakage_test
-    r = leakage_test(); ok = r["max_rating_change_after_corrupting_future"] == 0 and r["max_prediction_change_after_corrupting_targets"] == 0
-    return ok, f"rating change {r['max_rating_change_after_corrupting_future']}, prediction change {r['max_prediction_change_after_corrupting_targets']} after corrupting every future game"
+    r = leakage_test(); ok = r["max_rating_change_after_corrupting_future"] == 0 and r["max_prediction_change_after_corrupting_targets"] == 0 and r["max_prediction_change_after_corrupting_own_game"] == 0
+    return ok, (f"rating change {r['max_rating_change_after_corrupting_future']}, prediction change {r['max_prediction_change_after_corrupting_targets']} after corrupting every future game; "
+                f"own-game change {r['max_prediction_change_after_corrupting_own_game']} after corrupting each game's own score")
 
 
 def run_js():

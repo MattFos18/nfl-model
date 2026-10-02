@@ -56,9 +56,10 @@ TREND_FEATS = ["team_home_edge", "h2h_cover", "coach_ats", "qb_ats", "off_loss",
                "rain", "snow", "travel_miles", "tz_shift", "ol_out", "off_snap_out", "def_snap_out", "off_continuity", "def_continuity"]
 
 
-def with_trends(f: pd.DataFrame) -> pd.DataFrame:
-    """Merge the as-of trend and injury table (trends.py) onto the feature table; missing values become 0 / league."""
-    t = pd.read_parquet(OUT / "trends_asof.parquet")
+def with_trends(f: pd.DataFrame, trends: pd.DataFrame | None = None, games: pd.DataFrame | None = None) -> pd.DataFrame:
+    """Merge the as-of trend and injury table (trends.py) onto the feature table; missing values become 0 / league.
+    trends / games stand in for the stored trends_asof and games tables (the leak checks pass corrupted copies)."""
+    t = pd.read_parquet(OUT / "trends_asof.parquet") if trends is None else trends
     t = t[["game_id", "team"] + [c for c in TREND_FEATS if c in t.columns]]   # a column the table predates is filled below (28 Sep 2026: ref_tot)
     f = f.merge(t, on=["game_id", "team"], how="left")
     fill = {"ref_over": 0.5, "ref_home_cover": 0.5, "off_continuity": 0.83, "def_continuity": 0.83}   # continuity: league-typical share when unknown
@@ -81,7 +82,7 @@ def with_trends(f: pd.DataFrame) -> pd.DataFrame:
     for c in INJ_FEATS:
         f[c] = f[c].fillna(0.0) if c in f.columns else 0.0
     # record through the previous week, from the played regular-season games (for the out-of-the-race inputs)
-    rec = record_before(pd.read_parquet(OUT / "games.parquet"))
+    rec = record_before(pd.read_parquet(OUT / "games.parquet") if games is None else games)
     f["pct_before"] = [rec.get((k, t), 0.5) for k, t in zip(f.game_id, f.team)]
     f["opp_pct_before"] = [rec.get((k, t), 0.5) for k, t in zip(f.game_id, f.opp)]
     return f
@@ -316,6 +317,8 @@ def qb_form(f: pd.DataFrame) -> pd.Series:
 # trends.py). experiments/ref_noline.py, reports/ref_noline.csv, total miss on 2015-18 / 2019-22 / 2023-25:
 # no referee input 10.761 / 10.566 / 10.200; ref_tot 10.744 / 10.541 / 10.177; ref_over 10.707 / 10.528 / 10.182.
 # ref_tot beats no input on all three windows and is adopted; ref_over stays a trend reading (shown, not used).
+# 2 Oct 2026: those numbers carried a same-game leak (the home row's prior counted this game's own total; trends._prior_mean
+# fixed). Rescored clean, ref_tot fails the round-3 rule (experiments/leak_fix_rescore.py); it stays in until Matt decides.
 
 
 def _game_frame(f: pd.DataFrame) -> pd.DataFrame:

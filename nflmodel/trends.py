@@ -59,23 +59,33 @@ def long_games(games: pd.DataFrame) -> pd.DataFrame:
 
 
 def _prior_mean(d: pd.DataFrame, key: str, val: str, k: float, prior: float, window_seasons=None) -> pd.Series:
-    """For each row, mean of `val` over earlier rows with the same `key`, shrunk. Rows ordered by `order`."""
+    """For each row, mean of `val` over rows with the same `key` from games that kicked off strictly before this one,
+    shrunk. 2 Oct 2026 (reports/leak_fix_rescore.md): it was every earlier row in `order`, and `order` puts a game's away
+    row before its home row, so a key both rows share (the referee) counted the away row, this game's own result, among
+    the home row's previous games; the totals equation reads ref_tot from the home row. Rows at the same kickoff time
+    (the other row of the same game, or a second game listed at the same time) never count."""
     res = pd.Series(np.nan, index=d.index)
     d = d.sort_values("order")
+    when = d["kickoff_et"] if "kickoff_et" in d.columns else pd.Series(pd.NaT, index=d.index)
+    when = pd.to_datetime(when).fillna(pd.to_datetime(d["gameday"]))
+    d = d.assign(_when=when.values).sort_values(["_when", "order"], kind="stable")
     for key_val, g in d.groupby(key, sort=False):
         v = g[val].values.astype(float)
         s = g.season.values
+        t = g["_when"].values
         ok = ~np.isnan(v)
         vv = np.where(ok, v, 0.0)
-        cs = np.cumsum(vv)
-        cn = np.cumsum(ok.astype(float))
-        prev_s = np.concatenate([[0.0], cs[:-1]])
-        prev_n = np.concatenate([[0.0], cn[:-1]])
+        cs = np.concatenate([[0.0], np.cumsum(vv)])
+        cn = np.concatenate([[0.0], np.cumsum(ok.astype(float))])
+        before = np.searchsorted(t, t, side="left")   # rows of this key that kicked off strictly earlier
+        prev_s = cs[before]
+        prev_n = cn[before]
         if window_seasons:
             for i in range(len(g)):
-                old = (s[:i] < s[i] - window_seasons)
-                prev_s[i] -= vv[:i][old].sum()
-                prev_n[i] -= ok[:i][old].sum()
+                j = before[i]
+                old = (s[:j] < s[i] - window_seasons)
+                prev_s[i] -= vv[:j][old].sum()
+                prev_n[i] -= ok[:j][old].sum()
         res.loc[g.index] = shrink(prev_s, prev_n, k, prior)
     return res
 
@@ -116,8 +126,9 @@ def trend_table(games: pd.DataFrame, tg: pd.DataFrame) -> pd.DataFrame:
     box = pd.read_parquet(OUT / "team_box.parquet")[["game_id", "team", "off_penalties"]]
     d = d.merge(box, on=["game_id", "team"], how="left")
     d["game_pen"] = d.groupby("game_id").off_penalties.transform("sum")
-    league_pen = d[played].groupby("season").game_pen.transform("mean")
-    d["pen_rel"] = np.where(played, d.game_pen - league_pen, np.nan)
+    # centred on the previous season's league mean (2 Oct 2026; it was this season's, games still to come included)
+    lp = d[played].groupby("season").game_pen.mean(); league_pen = d.season.map({s_ + 1: v for s_, v in lp.items()})
+    d["pen_rel"] = np.where(played & league_pen.notna(), d.game_pen - league_pen, np.nan)
     d["ref_pen"] = _prior_mean(d, "referee", "pen_rel", 60, 0.0)
     # --- slots and body clock
     d["sun_late"] = (d.slot == "SUN_LATE").astype(float)

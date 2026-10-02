@@ -387,8 +387,10 @@ on the Results tab, is the only fully unseen test.
 
 - **No leakage.** Every game from Week 10 of 2024 onward was corrupted (EPA flipped, 20 points added, QB EPA
   set to -50, results changed) and the ratings for Weeks 1 to 9 rebuilt: not one number changed. The 2024
-  regression was refit with 2024-onward targets corrupted: not one prediction changed. Nothing after a game
-  reaches the numbers used to predict it.
+  regression was refit with 2024-onward targets corrupted: not one prediction changed. Since 2 Oct 2026 it also
+  corrupts each 2024 Week 9 game's own score, rebuilds the trend priors, and requires that game's team points, model
+  total and chance of the under not to move (`audit.own_game_shift`; the earlier check missed a same-game leak in the
+  referee input, section 48). Nothing after a game reaches the numbers used to predict it.
 - **Same games.** 3.0 and the old model are graded on the identical 1,871 regular-season games, no
   duplicates, every one with a closing line.
 - **How sure each keep/drop call is.** Each rejected input was added back to the locked model and the change
@@ -2988,7 +2990,7 @@ does not count him.
 `nflmodel/wind_live.py`). The under in every outdoor or open-roof game whose forecast wind is 10+ mph, weeks 1 to 17. The
 reading is the mean of two forecasts over the game's first three hours: the National Weather Service's GFS MOS at the
 stadium's airport (the newest run out at least 4 hours old and 5 hours before kickoff) and Japan's global model from
-Open-Meteo, pulled on every line watch for games within 66 hours; for 2018-2025 the stored forecast history gives the
+Open-Meteo (its day-before run since 2 Oct 2026, section 48), pulled on every line watch for games within 66 hours; for 2018-2025 the stored forecast history gives the
 same reading. It went 23-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +73 units at -110, and the
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
@@ -3135,3 +3137,24 @@ that ignore the model against break-even, the totals ones against the totals fla
 a ready-check issue opens if one pulls clear. Not added, with the reason, in the report: rain 70%+ and unders at 4+ (subsets),
 blind prime-time unders and favourite teaser legs (lose), the walk-forward wind chance and the Blend gust (no live reading),
 the moneyline, opener and splits rules (market inputs), and the weather points (model changes, all rejected).
+
+## 48. Two backtest leaks fixed (2 Oct 2026)
+
+Matt approved fixing the leaks a backtest audit found (`experiments/leak_fix_rescore.py`, reports/leak_fix_rescore.md).
+(1) The referee input in the totals equation, ref_tot, averaged the referee's previous games in a row order that put a
+game's away row before its home row, so the home row, the one the equation reads, counted this game's own final total
+among his "previous" games. `trends._prior_mean` now counts only games that kicked off strictly before this one (the same
+game and anything at the same kickoff never count); ref_over and ref_pen, shown but not used, had the same leak, and
+ref_pen is now centred on the previous season's league mean, not this season's. Every other prior built from team-game
+rows was checked and is keyed one row per team per game (team, coach, QB, head-to-head) or filtered on earlier weeks
+(ratings, QB rating and form, injuries, continuity, record before, wind points): none moved. (2) The wind reading's
+Japan-model value was Open-Meteo's newest run, which for a played game was issued at or after kickoff. Open-Meteo keeps
+no single runs of that model for 2018-2025, so the 5-hours-before run the GFS reading uses cannot be refetched; the
+stored and live readings now use its day-before run (`forecast_history.PRE_KICKOFF_WIND`, `jma_pre_kickoff`).
+Rescored walk-forward 2015-2025 (2015-18 / 2019-22 / 2023-25): the spread flag is unchanged (68-55 / 80-51 / 40-21);
+the totals flag goes from 137-127 / 202-146 / 98-73 to 133-122 / 183-141 / 75-62 with the clean ref_tot and 138-126 /
+182-142 / 75-57 without it; the wind under from 23-19 / 143-89 / 83-52 to 24-20 / 141-88 / 77-52; the total miss from
+10.738 / 10.493 / 10.108 to 10.768 / 10.533 / 10.141. Clean, ref_tot fails the round-3 rule (worse total miss on 2015-18
+and 2019-22, fewer totals-flag wins on 2015-18 and 2023-25, beats its shuffles 25 / 31 / 29 times in 50); it stays in the
+model until Matt decides. The leak checks now plant both leaks back in and prove they are caught
+(tests/test_same_game_leak.py).
