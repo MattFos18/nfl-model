@@ -3026,6 +3026,17 @@ temperature from 2018: wind is better on 2019-22 only (team points miss 7.3426 -
 both together fail the same way. Not adopted: for these two the recorded weather trains better, and the forecast reaches
 the total through the wind points.
 
+**Injuries re-tested** (1 Oct 2026, Matt: Questionable players, linemen, anyone else who raises a flag;
+`experiments/injury_retest.py`, reports/injury_retest.md, study injury_retest). Instead of guessed weights, a Questionable
+player counted as out times the chance he sits, measured from earlier seasons' reports (the share who then took no
+snap, by position group and the week's last practice): 26-36% of Questionable players sat from 2016 on, about half to
+three quarters after no practice. Applied to skill players only (Q1) it helps 2019-22 alone; at every position with
+qb_out (Q2) it lowers the team points miss on all three windows and helps the totals flag, but the spread flag loses
+net wins on every window (80-51 -> 67-46 on 2019-22). The linemen's value out on the fixed ids (L1) and the opponent
+defenders' value out on the current recipes (D1) each fail a window and cost a spread record; Q2 and D1 together are
+better on all three windows but cost the spread flag on 2019-22 and 2023-25. Nothing adopted; no placebo was run since
+no variant passed the first two parts of the rule.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
