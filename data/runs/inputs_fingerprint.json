@@ -251,6 +251,11 @@
 ],
 [
 "DET",
+"Ben Bartch",
+"Out"
+],
+[
+"DET",
 "Brian Branch",
 "Out"
 ],
@@ -545,6 +550,26 @@
 "Out"
 ],
 [
+"PHI",
+"Fred Johnson",
+"Out"
+],
+[
+"PHI",
+"Hollywood Brown",
+"Out"
+],
+[
+"PHI",
+"Marcus Epps",
+"Out"
+],
+[
+"PHI",
+"Zack Baun",
+"Out"
+],
+[
 "PIT",
 "Drew Allar",
 "Out"
@@ -592,6 +617,11 @@
 [
 "SEA",
 "Zach Charbonnet",
+"Out"
+],
+[
+"SF",
+"Christian Kirk",
 "Out"
 ],
 [
@@ -752,6 +782,12 @@
 [
 "ATL",
 "Divine Deablo",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Kendal Daniels",
 "Questionable (ESPN)",
 ""
 ],
@@ -1300,12 +1336,6 @@
 "Ben Bartch",
 "",
 "Did Not Participate In Practice"
-],
-[
-"DET",
-"Ben Bartch",
-"Questionable (ESPN)",
-""
 ],
 [
 "DET",
@@ -2257,21 +2287,9 @@
 ],
 [
 "NYG",
-"Andrew Thomas",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Deonte Banks",
 "",
 "Limited Participation in Practice"
-],
-[
-"NYG",
-"Deonte Banks",
-"Questionable (ESPN)",
-""
 ],
 [
 "NYG",
@@ -2299,21 +2317,9 @@
 ],
 [
 "NYG",
-"Tyler Nubin",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Tyrone Tracy Jr.",
 "",
 "Limited Participation in Practice"
-],
-[
-"NYG",
-"Tyrone Tracy Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "NYJ",
@@ -2419,18 +2425,6 @@
 ],
 [
 "PHI",
-"Fred Johnson",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
-"Hollywood Brown",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Jalen Carter",
 "",
 "Full Participation in Practice"
@@ -2461,12 +2455,6 @@
 ],
 [
 "PHI",
-"Marcus Epps",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Marquise Brown",
 "",
 "Did Not Participate In Practice"
@@ -2476,12 +2464,6 @@
 "Moro Ojomo",
 "",
 "Limited Participation in Practice"
-],
-[
-"PHI",
-"Moro Ojomo",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -2497,21 +2479,9 @@
 ],
 [
 "PHI",
-"Will Shipley",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Zack Baun",
 "",
 "Did Not Participate In Practice"
-],
-[
-"PHI",
-"Zack Baun",
-"Questionable (ESPN)",
-""
 ],
 [
 "PIT",
@@ -2767,12 +2737,6 @@
 ],
 [
 "TB",
-"Keionte Scott",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Ko Kieft",
 "",
 "Did Not Participate In Practice"
@@ -2812,12 +2776,6 @@
 "Yaya Diaby",
 "",
 "Limited Participation in Practice"
-],
-[
-"TB",
-"Yaya Diaby",
-"Questionable (ESPN)",
-""
 ],
 [
 "TEN",
@@ -2939,68 +2897,90 @@
 "wind": 6.3,
 "cold": false,
 "rain": false,
-"src": "open-meteo"
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
 "wind": 5.0,
 "cold": false,
 "rain": true,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_NE_BUF": {
 "wind": 9.4,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_NYJ_CHI": {
 "wind": 9.1,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_JAX_CIN": {
-"wind": 3.5,
+"wind": 3.6,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_ARI_NYG": {
-"wind": 10.4,
+"wind": 9.7,
 "cold": false,
 "rain": true,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 8.4,
+"wind": 8.6,
 "cold": false,
 "rain": true,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 7.2,
+"wind": 7.7,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_LAC_SEA": {
-"wind": 5.2,
+"wind": 5.3,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 8.2,
+"wind": 8.1,
 "cold": false,
 "rain": false,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 2.5,
+"wind": 2.0,
 "cold": false,
 "rain": true,
-"src": "mos"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 }
 },
-"written_at": "2026-10-02 21:16 UTC"
+"written_at": "2026-10-02 21:52 UTC"
 }
