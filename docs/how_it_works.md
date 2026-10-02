@@ -3158,3 +3158,5 @@ the totals flag goes from 137-127 / 202-146 / 98-73 to 133-122 / 183-141 / 75-62
 and 2019-22, fewer totals-flag wins on 2015-18 and 2023-25, beats its shuffles 25 / 31 / 29 times in 50); it stays in the
 model until Matt decides. The leak checks now plant both leaks back in and prove they are caught
 (tests/test_same_game_leak.py).
+
+**The referee input dropped** (2 Oct 2026; `experiments/leak_fix_rescore.py`, reports/leak_fix_rescore.md). An audit found the referee priors counted each game's own final total among the referee's "previous games" (trends._prior_mean), which flattered the totals backtest. With the leak fixed the referee input fails the adoption rule (total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, beats its placebo only 25 / 31 / 29 times in 50), so it left the totals equation; the reading is still computed. Live bets were never affected (an unplayed game has no total to leak).

@@ -292,7 +292,7 @@ def probs_from_margin(mu, sigma, K, line):
 # -X"), those games' totals moved about -2.9 from the old model (which took some rain off through the weather text); 20 of 20
 # shuffles beaten.
 # The points equations keep the weather text (spread untouched).
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain_fc", "cold", "dome", "ref_tot", "qb_form_sum"]   # ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
+TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain_fc", "cold", "dome", "qb_form_sum"]   # ref_tot dropped 2 Oct 2026: with the same-game leak fixed it fails the round-3 rule (reports/leak_fix_rescore.md: total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, placebo 25/31/29 of 50; Matt's standing yes to drop what fails). Was: ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
 QB_FORM_K = 100.0
 
 
