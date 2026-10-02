@@ -242,16 +242,13 @@ def leaks(season: int | None = None, week: int | None = None) -> list:
     """audit.leakage_test (2024: future weeks corrupted, the 2024 Week 9 games' own scores corrupted) and audit.own_game_shift
     on the newest played week of the current season. Every change must be 0. The stored tree fits are never rewritten."""
     from . import audit as A, model as M, lines as LN
-    save, M.save_trees_cache = M.save_trees_cache, (lambda: None)
-    try:
+    with M.trees_cache_read_only():
         lk = A.leakage_test()
         if season is None:
             g = pd.read_parquet(OUT / "games.parquet"); s, w = LN.current_week(g)
             played = g[(g.season == s) & (g.week < w) & (g.game_type == "REG") & g.home_score.notna()]
             season, week = (s, int(played.week.max())) if len(played) else (None, None)
         own = A.own_game_shift(season, week) if season is not None else None
-    finally:
-        M.save_trees_cache = save
     rows = []
     for k, what in (("max_rating_change_after_corrupting_future", "ratings for 2024 Weeks 1-9 unchanged when later games are corrupted"),
                     ("max_prediction_change_after_corrupting_targets", "2024 Weeks 1-9 predictions unchanged when later targets are corrupted"),
