@@ -1019,8 +1019,13 @@ def export_week(feats=None, games=None, pred=None):
         cal_o = P.over_calibration(pred, games.reset_index(), cur_season)   # the over calibration the cards' total chance used (27 Sep 2026; the tie check rebuilds each card's p_over_cal with it)
         cal_h = P.home_calibration(pred, games.reset_index(), cur_season)   # the home win calibration the cards' win chance used (27 Sep 2026; the tie check rebuilds each card's p_home_cal with it)
         cal_t = P.tease_calibration(pred, games.reset_index(), cur_season)   # the 6-point teaser legs' calibration (28 Sep 2026; the tie check rebuilds each card's tease_*_cal with it)
+        from . import clv as CLV
+        try:   # closing line value on the live bets (Bets tab, 1 Oct 2026): grading only; a failure blanks the table, never the cards
+            clv_js = CLV.page_payload()
+        except Exception as e:  # noqa
+            clv_js = {"error": f"{type(e).__name__}: {str(e)[:160]}"}
         (WEB / "week.js").write_text("window.WEEK=" + json.dumps({"season": cur_season, "week": cur_week, "games": wk, "spread_edge": P.SPREAD_EDGE, "total_edge": P.TOTAL_EDGE, "total_shadow": P.TOTAL_SHADOW, "wind_mph": P.WIND_UNDER["mph"],
-                                                                  "rule_records": _rule_records_js(), "report_records": _report_records_js(), "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
+                                                                  "rule_records": _rule_records_js(), "report_records": _report_records_js(), "clv": clv_js, "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"),
                                                                   "cal": {"spread": [round(cal_s[0], 6), round(cal_s[1], 6)], "cap": P.CAL_CAP, "from": P.CAL_FROM, "before": cur_season,
                                                                           "over": {"a": round(cal_o[0], 6), "b": round(cal_o[1], 6), "from": P.OVER_CAL_FROM, "before": cur_season, "n": cal_o[2], "clip": P.OVER_CAL_CLIP},
                                                                           "home": {"a": round(cal_h[0], 6), "b": round(cal_h[1], 6), "from": P.HOME_CAL_FROM, "before": cur_season, "n": cal_h[2], "clip": P.HOME_CAL_CLIP},

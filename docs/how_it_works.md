@@ -3073,3 +3073,19 @@ miss, and our miss against the book line's); the record against the book lines f
 outlined; then the miss by season (the total and the two windows first), by position and by size of the line over the
 whole backtest, and this season week by week. Every graded projection is in the fold at the bottom. The same numbers as
 before, from props_backtest.js and props_record.js.
+
+## 47. Closing line value on the live bets (1 Oct 2026)
+
+Matt approved tracking closing line value (CLV) on the bets the live rules make: the spread flag, the totals flag
+(unders at 55%+) and the wind under. `nflmodel/clv.py` takes each recorded bet (data/tracker: the flag at the last weekly run
+before kickoff, as the tracker keeps it) and compares its number with the closing line: the consensus (median across
+sources, to the half point, the same one the picks are priced on) at the last lines-log snapshot taken strictly before
+kickoff; a snapshot at or after kickoff (live in-game lines) is never used. CLV in points is from the bet's side, positive
+when the number beat the close (spreads: the side's handicap taken minus its closing handicap; unders: the line minus the
+close; overs: the close minus the line); a bet on the closing number has CLV 0 and does not count as beating it. Where
+both prices are logged and the number did not move, it also gives the change in our side's no-vig chance from the
+snapshot the recording run priced on to the close. The weekly run writes reports/clv.csv and reports/clv.md after
+grading (a failure is a step error; the run goes on), and Bets -> Closing Line Value shows each rule's closed bets, average
+CLV in points and the share that beat the close this season (week.js clv; the tie check rebuilds it). Grading only: no
+model input, rule or flag reads it. The spread flag is bet at the best number, so its CLV includes line shopping; and
+because the tracker replaces a game's pick at each run, CLV is measured from the last run before kickoff, not the first flag.

@@ -191,6 +191,8 @@ def main(full=False, skip_network=False):
         from . import refresh
         step("inputs fingerprint", lambda: refresh.write(), log)   # what this run priced with; the line watch re-prices when it changes
     step("grade", lambda: tracker.main(), log)
+    from . import clv
+    step("closing line value", lambda: clv.main(), log)   # 1 Oct 2026: each live bet's number against the last consensus line before kickoff (reports/clv.md); grading only, a failure is a step error and the run goes on
     from . import forecast_history
     step("forecast history", lambda: forecast_history.backfill(), log)   # 1 Oct 2026: 2018-2025 pre-kickoff wind and gust forecasts, ten minutes a run until stored, then a no-op
     step("drift monitor", lambda: sh(["nflmodel.drift"]), log)   # 30 Sep 2026: has any number that moves the edge left its long-run level (reports/drift.md)
