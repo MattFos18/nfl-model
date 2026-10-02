@@ -1,7 +1,8 @@
 """The live wind forecast for the wind-under rule (1 Oct 2026, Matt: "build the best version"; experiments/wind_forecast.py).
 For every unplayed outdoor or open-roof game at a US stadium within the forecast range, the same two forecasts the rule
 was measured on: the NWS GFS MOS at the stadium's airport (the newest run out, issued at least 4 hours ago and at least 5
-hours before kickoff) and Japan's global model from Open-Meteo, each the mean over the game's first three hours; the
+hours before kickoff) and Japan's global model from Open-Meteo (its day-before forecast, FH.jma_pre_kickoff), each the
+mean over the game's first three hours; the
 reading is their mean (nflmodel/forecast_history.py does the same for 2018-2025). The same GFS MOS run also gives the
 chance of rain the totals equation reads (gfs_pop: the largest 6-hour chance overlapping the first three hours; 1 Oct
 2026, experiments/rain_points.py) and the temperature the cold-under shadow reads (gfs_temp, mean over the first three hours;
@@ -32,7 +33,8 @@ def run() -> int:
             continue
         run_ = min(FH.last_run(ko), issued)
         m = FH.mos_all(r.station, "GFS", run_, ko); gfs = m["wind"]
-        jma = FH.jma(r.latlon[0], r.latlon[1], ko)[2] if r.latlon else None
+        # Japan's model under the stored rule (2 Oct 2026): the day-before value, never a run newer than the GFS cutoff
+        jma = FH.jma_pre_kickoff(*FH.jma(r.latlon[0], r.latlon[1], ko)[1:], ko, now) if r.latlon else None
         vals = [v for v in (gfs, jma) if v is not None]
         rows.append({"ts": ts, "game_id": r.game_id, "season": r.season, "week": r.week, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ"), "station": r.station,
                      "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None, "gfs_pop": m["pop"], "gfs_temp": m["temp"]})
@@ -66,12 +68,13 @@ def _history() -> pd.DataFrame:
 
 def readings() -> dict:
     """game_id -> the wind reading the rule uses: the live log's newest for games still to play, the stored history for
-    2018-2025 (the mean of the last-run forecasts there, as the study measured)."""
+    2018-2025 (the mean of the pre-kickoff forecasts there: GFS and NBS last run, Japan's day-before run)."""
     out = {}
     hf = FH.OUTF
     if hf.exists():
         h = _history()
-        m = h[[c for c in ["gfs_wind_d0", "nbs_wind_d0", "jma_wind_d0"] if c in h]].apply(pd.to_numeric, errors="coerce").mean(axis=1)
+        # runs issued before kickoff only (FH.PRE_KICKOFF_WIND; 2 Oct 2026: Japan's d1, its d0 was issued at or after kickoff)
+        m = h[[c for c in FH.PRE_KICKOFF_WIND if c in h]].apply(pd.to_numeric, errors="coerce").mean(axis=1)
         out.update({gid: float(v) for gid, v in zip(h.game_id, m) if pd.notna(v)})
     if F.exists():
         lv = pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last")

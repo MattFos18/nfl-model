@@ -7,7 +7,8 @@ GitHub's network (this sandbox cannot reach them), for every played outdoor or o
     at two runs: the 12Z run the day before kickoff (d1) and the last run out before kickoff (d0: the newest 00/06/12/18Z
     run issued at least 5 hours before kickoff, about 4 to publish and 1 to bet). Knots converted to mph.
   - Open-Meteo's previous-runs archive, Japan's global model (jma_gsm, the one model it keeps back to 2018, wind only):
-    the forecast one and two days before (d1, d2) and the latest (d0).
+    the forecast one and two days before (d1, d2) and the latest (d0). d0 is the newest run for each hour, so for a
+    played game it was issued at or after kickoff: kept for reference, never read (PRE_KICKOFF_WIND; 2 Oct 2026).
 
 Each value is the mean over the first three hours from kickoff (gust: the largest), interpolated between forecast hours
 (held flat past the run's first or last hour when that is within 2 hours).
@@ -105,6 +106,29 @@ def last_run(ko: pd.Timestamp) -> pd.Timestamp:
     """The newest 00/06/12/18Z run issued at least 5 hours before kickoff."""
     r = (ko - pd.Timedelta(hours=5)).floor("6h")
     return r
+
+
+# The columns a reading may use: each is a run issued before kickoff. GFS and NBS d0 are the last run out at least 5 hours
+# before kickoff (last_run). Japan's d0 is NOT: Open-Meteo's plain wind_speed_10m is the newest run for each hour, so for a
+# played game it comes from runs started at or after kickoff (2 Oct 2026, reports/leak_fix_rescore.md). Its d1 (lead time
+# 24 to 47 hours, so issued at least 21 hours before the game's third hour) is the Japan reading; Open-Meteo keeps no
+# single runs of jma_gsm before late 2026 (checked 2 Oct 2026), so the 5-hour run cannot be refetched for 2018-2025.
+PRE_KICKOFF_WIND = ["gfs_wind_d0", "nbs_wind_d0", "jma_wind_d1"]
+POST_KICKOFF = ["jma_wind_d0"]   # stored for reference only; never read by a reading
+
+
+def run_ok(run: pd.Timestamp, ko: pd.Timestamp) -> bool:
+    """True when a forecast run was issued no later than the run the GFS reading uses (last_run: 5+ hours before kickoff)."""
+    return pd.Timestamp(run) <= last_run(pd.Timestamp(ko))
+
+
+def jma_pre_kickoff(d1, d0, ko: pd.Timestamp, now: pd.Timestamp):
+    """The live Japan reading under the stored rule: the d1 value (Open-Meteo fills a future hour's d1 with the newest
+    run, so it is never newer than now nor than 24 hours before the hour); the newest run (d0) only when d1 is missing and
+    the newest run cannot be later than the GFS cutoff (now at or before last_run(ko))."""
+    if d1 is not None and not (isinstance(d1, float) and np.isnan(d1)):
+        return d1
+    return d0 if run_ok(now, ko) else None
 
 
 def jma(lat, lon, ko: pd.Timestamp):
