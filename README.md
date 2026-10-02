@@ -1,56 +1,33 @@
-# NFL Model 3.0
+# NFL Model
 
-Points-for / points-against prediction and betting model, built on free nflverse play-by-play data and
-backtested walk-forward. Plan: "NFL Model 3.0 Plan" doc in the NFL Model project.
+An NFL betting model and its site: team ratings from nflverse play-by-play, a points equation and a totals equation
+refit every week, weather and injuries, backtested walk-forward on 2015-2025, and live bet rules graded every week.
+The site: https://mattfos18.github.io/nfl-model/ (Breakdown, Picks, Bets, Backtest, Info).
 
-## Where things stand
+## Start here
 
-| Phase | Status |
+| If you want | Read |
 |---|---|
-| 1. Setup: repo, data pulls 2012 to 2026, games and team-game tables | Done 21 Sep |
-| 2. Baseline: the spreadsheet model rebuilt in Python and backtested 2019 to 2025 | Done 21 Sep, `reports/baseline_backtest.md` (kept in the repo for the record; no longer on the page) |
-| 3. Build 3.0: EPA ratings, preseason prior, fitted adjustments, margin distribution, QB rating | Done 21 Sep; 22 Sep: twelve inputs, weekly refit, rain, a totals equation, every idea tested (`reports/backtest_v3.md`, `reports/decision_log.md`) |
-| 4. Go / no-go: tuned on 2019 to 2022, judged on 2023 to 2025 | Numbers are in `reports/backtest_v3.md`; the decision is Matt's |
-| 5. Automate + dashboard | Built 21 Sep: weekly run (Tue/Sat), 10-minute line watch, kickoff forecasts, bet tracker with CLV, data room with This-week and Track-record tabs. Merged to `main` 22 Sep; both GitHub Actions workflows are live (first runs: the weekly pipeline passed pull, build and features; the line feeds answered 403 from GitHub's runners, fallbacks added) |
-| 6. Extras (player model, splits, sizing, timing tests on the logged lines) | After a few weeks of logs |
+| The rules every change follows | `CLAUDE.md` |
+| How the model works, input by input | `docs/how_it_works.md` |
+| Every data source, and the known traps | `docs/wiki/index.md`, `docs/wiki/gotchas.md` |
+| Every decision and the test behind it (newest first) | `reports/decision_log.md` |
+| What is next, and what waits on Matt | `docs/todo.md`, `docs/ideas.md` |
 
-## Layout
+## Folders
 
-- `nflmodel/pull.py`      download raw nflverse data (schedules, play-by-play, injuries, snap counts, depth charts, rosters, FTN). Logs every pull to `data/raw/pull_log.csv`.
-- `nflmodel/build.py`     `data/processed/games.parquet` (one row per game, 1999 to now, closing lines and situation) and `team_games.parquet` (one row per team per game, 2012 to now, 140 EPA-style stats).
-- `nflmodel/features.py`  `team_box.parquet` (box-score counts per team per game: completions, sacks, red zone trips, penalties, drive starts, kickoff yards) and `qb_games.parquet` (dropbacks and EPA per passer per game).
-- `nflmodel/baseline.py`  the spreadsheet model, formula for formula (see the docstring for the mapping), run walk-forward. Writes `pred_baseline.parquet`.
-- `nflmodel/ratings.py`   opponent-adjusted, time-decayed ratings (weighted ridge on team-game stats), QB rating, and the as-of feature table `features_asof.parquet`.
-- `nflmodel/model.py`     3.0: ridge regression from ratings and situation to team points, refit per season on all prior seasons; key-number margin distribution; win, cover and over probabilities. Writes `pred_v3.parquet`.
-- `nflmodel/backtest.py`  grades any prediction table: points miss vs Vegas, Brier and calibration, ATS and totals record and ROI at -110, by season and edge size, threshold sweeps.
-- `nflmodel/tune.py`      parameter grid and feature ablation on 2019 to 2022 only.
-- `nflmodel/report.py`    assembles `reports/backtest_v3.md` (3.0 vs Vegas, tuning vs held-out windows, market blend).
-- `nflmodel/picks.py`     weekly picks table with our score, line, edge, win / cover / over odds for both sides, and the flag.
-- `nflmodel/trends.py`    situational trends and injuries as-of each game (team home edge, head-to-head, coach and QB ATS, referee rates, slots, cold/wind edges, starters out, QB out) plus the persistence test.
-- `nflmodel/season.py`    season simulation (win totals, divisions, seeds, the Super Bowl) from the game model's equation; `nflmodel/player_season.py` player season totals and the breakout watch; backtests in `experiments/season_backtest.py` and `experiments/player_season_backtest.py`.
-- `nflmodel/weekly.py`    the weekly run: pull, build, verify, weather, ratings, trends, model, grade, picks, export, recap (`reports/weekly_latest.md`, `data/runs/run_log.csv`).
-- `nflmodel/lines.py`     line watch every 10 minutes to `data/lines/lines_log.csv`: ESPN scoreboard (DraftKings-provider line, with fallbacks), The Odds API every eight hours, player prop lines Thursday and Sunday; two hours when the `ODDS_API_KEY` secret is set (free tier, ten US books), DraftKings direct (refused from GitHub's servers); raw JSON kept; splits hook pending a source.
-- `nflmodel/weather.py`   Open-Meteo kickoff forecasts for unplayed outdoor games, applied before pricing, logged.
-- `nflmodel/tracker.py`   model picks and Matt's bets (`data/tracker/my_bets.csv`) graded with closing line value (`reports/track_record.md`).
-- `nflmodel/audit.py`     backtest audit: leakage test, coverage, bootstrap intervals on every rejected input, rejected ideas as standalone bets (`reports/audit.md`).
-- `.github/workflows/`    `weekly.yml` (Tue 06:00, Thu 14:00, Sat 10:00 and Sun 09:00 ET) and `lines.yml` (every 10 minutes; The Odds API every eight hours, player prop lines Thursday and Sunday, when the key is set); both commit their outputs.
-- `nflmodel/export_web.py` exports every stat, rating, trend and model input per team to `web/data/` for the data room page (`web/index.html`, published at https://claude.ai/artifact/YMKPCSDvPLUZHnd81zBMfz). `--rankings` also writes the per-week rankings and the full backtest table. The page's tabs:
-  - **This week**: one card per game, model vs Vegas vs actual, win / cover / over odds for both sides, the flag, and "Why these numbers" (every input's contribution to each team's expected points).
-  - **Season**: win totals, division, playoff and Super Bowl odds from playing the season out 10,000 times on the model's numbers; player season totals with a breakout watch; both backtested on both windows (docs section 19).
-  - **Rankings**: every team on every rating as of any week, sortable with ranks, offense-vs-defense plot and power bars, plus the old sheet's indexes.
-  - **History**: every priced game since 2015 (2015 to 2018 were never used to choose anything), model expected vs Vegas implied vs actual, by-season record, cumulative units on the flags.
-  - **Team**: the raw game log (box score, EPA, ratings into the game, trends, injuries), ratings by week, how a rating is built (every game and weight, summed and checked), and the game deep dive (every coefficient times input).
-  - **Model**: what kind of model it is and the full fitted equation, the stat analysis (predictive vs same-season correlations, reliability, ablation, additions, persistence, tuning), methods compared, every column's definition and source, data pulls and verification, decision log and audit.
-  - **Track record**: model picks and Matt's bets graded with closing line value.
-- `nflmodel/verify.py`    accuracy checks against Pro-Football-Reference (`data/reference/`) and the schedule; fails the build on a mismatch.
-- `data/raw/`             raw downloads (git-ignored, rebuilt by `pull.py`)
-- `data/processed/`       built tables (committed so the dashboard and backtest can read them)
-- `reports/`              backtest reports, tuning results, decision log, weekly picks:
-  - `backtest_v3.md` the go / no-go numbers: 3.0 vs Vegas, tuning window vs held-out, thresholds, market blend; `learning_experiments.csv` weekly refit and residual-learning tests; `input_set_experiments.csv` the input-set test; `additions.csv` every idea (injuries, referees, primetime, head-to-head, division, travel, time zones, rain, snow, rest) added and tested
-  - `baseline_backtest.md` the old model's full record; `v3_backtest_full.md` the same tables for 3.0 over 2019 to 2026
-  - `decision_log.md` every claim tested, the result, and what was decided
-  - `lab.md` stat correlations (predictive vs same-season) and reliability; `ablation.csv`, `tuning_ratings.csv`, `v3_coefficients.txt`
-  - `picks_2026_wk3.md`, `picks_2026_wk4.md` the weekly picks tables (Week 4 fills in once lines post)
+| Folder | What is in it |
+|---|---|
+| `nflmodel/` | The model and the pipeline: pulls (`pull.py`, `lines.py`, `weather.py`, `wind_live.py`), tables (`build.py`, `features.py`, `ratings.py`, `trends.py`, `players.py`), the model (`model.py`), bet rules (`picks.py`), grading (`backtest.py`, `tracker.py`, `clv.py`), checks (`verify.py`, `data_checks.py`, `tie_check.py`, `health.py`), the weekly run (`weekly.py`) and the site export (`export_web.py`). `catalog.py` lists every data store. |
+| `experiments/` | One script per study (about 150), each with its report in `reports/`. |
+| `reports/` | Study results (`.md` and `.csv`), the decision log, and the reports the weekly run rewrites. |
+| `docs/` | The method (`how_it_works.md`), the wiki, the handoff note, the to-do and parked ideas. |
+| `data/` | `processed/` tables the model reads, `lines/` line and splits logs, `tracker/` graded bets, `weather/` forecasts, `runs/` run logs. `raw/` is downloaded and not in git. |
+| `web/` | The site: one page (`index.html`) and the data it shows (`data/*.js`, written by Python). |
+| `tests/` | `python -m pytest -q`. |
+| `tools/hooks/` | The Gitleaks hook that blocks commits holding a key. |
+| `.claude/` | Claude's reviewer agents and the study and ship skills. |
+| `.github/workflows/` | The weekly run, the 30-minute line watch, the site deploy and the checks. |
 
 <!-- results:start -->
 ## Headline results (held-out 2023 to 2025, 816 games)
