@@ -1,8 +1,8 @@
 {
  "wind_live|2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-02 18:14 UTC",
-  "last": "2026-10-02 19:32 UTC",
+  "last": "2026-10-02 19:56 UTC",
   "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
