@@ -24,11 +24,24 @@ TEASE_LEG_ODDS = -round(100 * (lambda q: q / (1 - q))((abs(TEASE_DOG["pair_odds"
 WIND_UNDER = {"mph": 10.0}   # 1 Oct 2026 (reports/wind_forecast.md, Matt: "build the best version"): the under in outdoor games whose forecast wind (GFS MOS and Japan's model, mean over the first three hours) is 10+ mph
 UNDER_HIGH = 0.60   # 1 Oct 2026: the unders at a 60%+ raw chance (p_over_emp), tracked, hidden, not bet
 HOME_SIDE_EDGE = 6.0   # 30 Sep 2026 (reports/home_side_rules.md): road sides at 4+, home sides at 6+ (neutral sites count as road); tracked, hidden, not bet
+# 2 Oct 2026 (Matt: "everything we can think of that's possible should be shadow tracked"; reports/more_shadows.md): every rule a study
+# found promising but did not adopt, tracked hidden, graded live, never bet, watched by nflmodel/shadow_watch.py like the rest
+RAIN_UNDER = {"pop": 50.0}   # reports/rain_under_retest.md: the under in outdoor games whose GFS MOS rain chance (the reading model.RAIN_FC uses) is 50%+
+COLD_UNDER = {"temp": 32.0}   # reports/weather_forecast_retest.md: the under in outdoor games whose GFS MOS temperature (mean over the first three hours) is below 32 F
+UNDER_EDGE = 3.0   # 25 Sep 2026 (decision log, reports/bet_wins.csv): the under when the model's total is 3+ points below the line
+TREES_TOTAL = 0.095   # reports/ml_compare.md: the boosted trees' own summed total, either side, when it is 9.5%+ of the line off the line
+SMALL_DOG = 3.0   # reports/spread_research.md: 4+ edge, the model's side a dog getting +0.5 to +3
+DOG_EDGE = 3.5   # reports/favorite_review.md: dogs at 3.5+, every other side at 4+
+WEEKS_EARLY, WEEKS_LATE = 4, 15   # reports/bet_rules_sweep.md: 4+ edge in weeks 1 to 4 only; 4+ edge with the last bet week 15
+BIG_EDGE = 6.0   # 21 Sep 2026 (decision log): the 6+ edge, a lead to track live
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
 # shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction, label)
-UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under")   # side rules graded as unders on the total
+UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under", "rain_under", "cold_under", "under_edge", "under_wind")   # side rules graded as unders on the total
+MASK_RULES = ("rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
+BLIND_RULES = ("wind_under", "rain_under", "cold_under", "tease_dog", "westcoast")   # rules that ignore the model: the shadow watch measures them against break-even alone
+TOTAL_RULES = UNDER_RULES + ("trees_total",)   # rules on the total: the shadow watch measures them against the totals flag
 SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
            "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
@@ -40,12 +53,26 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowunder60": (UNDER_HIGH, "under_prob", f"Under, {100 * UNDER_HIGH:.0f}%+ chance"),
            "shadowunderprime": (TOTAL_SHADOW["prob"], "under_prime", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance, prime time (TNF, SNF, MNF) only"),
            "windunder": (WIND_UNDER["mph"], "wind_under", f"Under, forecast wind {WIND_UNDER['mph']:g}+ mph (outdoor games)"),
-           "shadowteasedog": (0.0, "tease_dog", f"6-point teaser leg on dogs at +{TEASE_DOG['lines'][0]:g} to +{TEASE_DOG['lines'][1]:g}, any game (a leg of a two-team teaser at {TEASE_DOG['pair_odds']:+g})")}
+           "shadowteasedog": (0.0, "tease_dog", f"6-point teaser leg on dogs at +{TEASE_DOG['lines'][0]:g} to +{TEASE_DOG['lines'][1]:g}, any game (a leg of a two-team teaser at {TEASE_DOG['pair_odds']:+g})"),
+           "shadowrain": (RAIN_UNDER["pop"], "rain_under", f"Under, forecast rain chance {RAIN_UNDER['pop']:g}%+ (outdoor games)"),
+           "shadowcold": (COLD_UNDER["temp"], "cold_under", f"Under, forecast temperature below {COLD_UNDER['temp']:g} F (outdoor games)"),
+           "shadowunder3": (UNDER_EDGE, "under_edge", f"Under, model total {UNDER_EDGE:g}+ points below the line"),
+           "shadowunderwind": (TOTAL_SHADOW["prob"], "under_wind", f"Under, {100 * TOTAL_SHADOW['prob']:.0f}%+ chance and forecast wind {WIND_UNDER['mph']:g}+ mph"),
+           "shadowtreestotal": (TREES_TOTAL, "trees_total", f"Total, boosted trees' own total {100 * TREES_TOTAL:g}%+ of the line off it, either side"),
+           "shadowwestcoast": (0.0, "westcoast", "West Coast or Mountain team on the road at 1pm ET, any game"),
+           "shadowroaddog": (SPREAD_EDGE, "roaddog", f"{SPREAD_EDGE:g}+ edge, model's side the road underdog"),
+           "shadowsmalldog": (SPREAD_EDGE, "smalldog", f"{SPREAD_EDGE:g}+ edge, model's side a dog at +0.5 to +{SMALL_DOG:g}"),
+           "shadowdog35": (DOG_EDGE, "dog35", f"{DOG_EDGE:g}+ edge on dogs, {SPREAD_EDGE:g}+ on every other side"),
+           "shadowwk4": (SPREAD_EDGE, "wk4", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_EARLY} only"),
+           "shadowwk15": (SPREAD_EDGE, "wk15", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_LATE} only"),
+           "shadow6": (BIG_EDGE, "big", f"{BIG_EDGE:g}+ edge")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
 # 1 Oct 2026 (Matt: "yes", track them hidden): the unders at 60%+ (the band that holds most of the totals flag's units) and the
 # totals flag in prime-time games only; graded, kept off the page, watched by nflmodel/shadow_watch.py like the rest
-HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime", "shadowteasedog"}
+HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime", "shadowteasedog",
+                  "shadowrain", "shadowcold", "shadowunder3", "shadowunderwind", "shadowtreestotal", "shadowwestcoast",
+                  "shadowroaddog", "shadowsmalldog", "shadowdog35", "shadowwk4", "shadowwk15", "shadow6"}
 SHADOW_ODDS = {"shadowhook": HOOK["odds"], "shadowteasedog": TEASE_LEG_ODDS}   # rules graded at their own price; the rest at DEFAULT_ODDS
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
@@ -189,6 +216,24 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
     if side_rule == "wind_under":   # forecasts stored from 2018 (nflmodel/forecast_history.py), weeks 1 to LAST_BET_WEEK like every rule
         return (d.game_id.map(_wind()).astype(float) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
+    wk = d.week <= LAST_BET_WEEK
+    if side_rule == "rain_under":   # the GFS MOS rain chance model.RAIN_FC reads; readings exist for outdoor and open-roof games only
+        return (d.game_id.map(_rain()).astype(float) >= edge) & wk & d.total_line.notna()
+    if side_rule == "cold_under":   # strictly below the cut
+        return (d.game_id.map(_cold()).astype(float) < edge) & wk & d.total_line.notna()
+    if side_rule == "under_edge":   # the model's total at least edge points under the line
+        return ((d.model_total - d.total_line) <= -edge) & wk & d.total_line.notna()
+    if side_rule == "under_wind":   # the totals flag in games with forecast wind at the wind under's cut
+        if "p_over_emp" not in d.columns:
+            return pd.Series(False, index=d.index)
+        return ((1 - d.p_over_emp) >= edge) & (d.game_id.map(_wind()).astype(float) >= WIND_UNDER["mph"]) & wk & d.total_line.notna()
+    if side_rule == "trees_total":   # either side: |trees' total - line| at least edge times the line
+        if "home_m_trees" not in d.columns:
+            return pd.Series(False, index=d.index)
+        e = d.home_m_trees + d.away_m_trees - d.total_line
+        return (e.abs() >= edge * d.total_line.abs()) & (e != 0) & wk & d.total_line.notna()
+    if side_rule == "westcoast":   # trends.body_clock_early: the road team based in the Pacific or Mountain zone, a 1pm ET kickoff
+        return d.game_id.isin(_westcoast_ids()) & wk & d.spread_line.notna()
     if side_rule in UNDER_RULES:
         if "p_over_emp" not in d.columns:
             return pd.Series(False, index=d.index)
@@ -208,7 +253,70 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     if side_rule in ("road", "road6"):   # our side the home team at a home (not neutral) site
         home = (e > 0) & ~_neutral(d)
         m &= ~home if side_rule == "road" else (~home | (e.abs() >= HOME_SIDE_EDGE))
+    get = pd.Series(np.where(e > 0, -d.spread_line, d.spread_line), index=d.index)   # the points our side gets (+ = the dog)
+    if side_rule == "roaddog":   # our side the away team, getting points (bet_rules_sweep: a dog, not the home side)
+        m &= (e < 0) & (get > 0)
+    if side_rule == "smalldog":
+        m &= (get > 0) & (get <= SMALL_DOG)
+    if side_rule == "dog35":   # edge is DOG_EDGE: a dog at that, every other side at SPREAD_EDGE
+        m &= (get > 0) | (e.abs() >= SPREAD_EDGE)
+    if side_rule == "wk4":
+        m &= d.week <= WEEKS_EARLY
+    if side_rule == "wk15":
+        m &= d.week <= WEEKS_LATE
     return m
+
+
+_RAIN: dict | None = None
+_COLD: dict | None = None
+_WEST: set | None = None
+
+
+def _rain() -> dict:
+    """game_id -> forecast rain chance, percent (nflmodel/wind_live.rain_readings, the reading model.RAIN_FC uses), read once per run."""
+    global _RAIN
+    if _RAIN is None:
+        from .wind_live import rain_readings
+        _RAIN = rain_readings()
+    return _RAIN
+
+
+def _cold() -> dict:
+    """game_id -> forecast temperature, deg F (nflmodel/wind_live.temp_readings), read once per run."""
+    global _COLD
+    if _COLD is None:
+        from .wind_live import temp_readings
+        _COLD = temp_readings()
+    return _COLD
+
+
+def _westcoast_ids() -> set:
+    """Games whose road team is based in the Pacific or Mountain zone and that kick off at 1pm ET (trends.body_clock_early), read once."""
+    global _WEST
+    if _WEST is None:
+        from .trends import TZ_WEST
+        g = pd.read_parquet(OUT / "games.parquet", columns=["game_id", "away_team", "hour_et"])
+        _WEST = set(g.game_id[g.away_team.isin(TZ_WEST) & (g.hour_et == 13)])
+    return _WEST
+
+
+def _mask_bets(p: pd.DataFrame, edge: float, side_rule: str) -> list:
+    """The live bet of a rule read off rule_mask: the under, the trees' side of the total, the road team for the West
+    Coast rule, the model's side of the spread otherwise."""
+    m = rule_mask(p, edge, side_rule).fillna(False).astype(bool)
+    out = []
+    for ok, r in zip(m, p.itertuples()):
+        if not ok:
+            out.append("")
+        elif side_rule in UNDER_RULES:
+            out.append(f"Under {r.total_line:g}")
+        elif side_rule == "trees_total":
+            out.append(("Over " if r.home_m_trees + r.away_m_trees > r.total_line else "Under ") + f"{r.total_line:g}")
+        elif side_rule == "westcoast":
+            out.append(f"{r.away_team} {r.spread_line:+g}")
+        else:
+            out.append(f"{r.home_team} {-r.spread_line:+g}" if r.model_spread - r.spread_line > 0 else f"{r.away_team} {r.spread_line:+g}")
+    return out
 
 
 _NEUTRAL: set | None = None
@@ -251,6 +359,13 @@ def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     if side_rule == "tease_dog":   # graded at the teased line: the dog's margin plus its line plus the six points
         mg = d.home_score - d.away_score; cm = pd.Series(np.where(d.spread_line < 0, mg, -mg), index=d.index) + d.spread_line.abs() + TEASE_PTS
         f = m & (cm != 0); w = int((cm > 0)[f].sum())
+        return w, int(f.sum()) - w
+    if side_rule == "trees_total":   # the trees' side of the total
+        e = d.home_m_trees + d.away_m_trees - d.total_line; cm = d.home_score + d.away_score - d.total_line
+        f = m & (cm != 0); w = int((np.sign(e) == np.sign(cm))[f].sum())
+        return w, int(f.sum()) - w
+    if side_rule == "westcoast":   # the road team's side
+        cm = d.home_score - d.away_score - d.spread_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
         return w, int(f.sum()) - w
     if side_rule == "hook":   # graded at the bought number: our side's line plus half a point
         e = d.model_spread - d.spread_line; ours = np.where(e > 0, d.home_score - d.away_score, d.away_score - d.home_score)
@@ -342,7 +457,7 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
         return ", ".join(out) if out else ""
     p["bet"] = p.apply(bet, axis=1)
     for name, (edge, side_rule, _) in SHADOWS.items():   # the shadow rules: recorded, graded, never bet
-        p[f"{name}_bet"] = p.apply(lambda r, e=edge, sr=side_rule: bet(r, e, None, sr), axis=1)
+        p[f"{name}_bet"] = _mask_bets(p, edge, side_rule) if side_rule in MASK_RULES else p.apply(lambda r, e=edge, sr=side_rule: bet(r, e, None, sr), axis=1)
     p["shadow_bet"] = p["shadow45_bet"]
     # calibrated cover odds: what spread edges of this size have actually converted to, fitted on every graded
     # backtest game before this season (the model's own cover odds run about 10 points hot: the line carries
@@ -387,8 +502,9 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
                 parts.append(f"{b.split()[0]} {r.best_line:+g}")
         return ", ".join(parts)
     p["bet"] = p.apply(at_best, axis=1)
-    for name in SHADOWS:
-        p[f"{name}_bet"] = p.apply(lambda r, c=f"{name}_bet": at_best(r, c), axis=1)
+    for name, (_, side_rule, _) in SHADOWS.items():
+        if side_rule != "westcoast":   # the best number is for the model's side; the West Coast rule's side is the road team's, so it stays at the consensus
+            p[f"{name}_bet"] = p.apply(lambda r, c=f"{name}_bet": at_best(r, c), axis=1)
     p["shadow_bet"] = p["shadow45_bet"]
     # the hook: the flag's spread at the number it is bet at, bought half a point when that moves it on or off 3, at HOOK's price
     def hook(b0):

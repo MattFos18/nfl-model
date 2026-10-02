@@ -356,6 +356,18 @@ tie check on every run; the live table carries the same columns):
 | Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 40-27 | 48-27 | 24-14 |
 | Under, forecast wind 10+ mph (outdoor games) | 23-19 | 143-89 | 83-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
+| Under, forecast rain chance 50%+ (outdoor games) | 11-9 | 55-30 | 36-21 |
+| Under, forecast temperature below 32 F (outdoor games) | 4-2 | 21-15 | 11-10 |
+| Under, model total 3+ points below the line | 64-48 | 113-63 | 28-23 |
+| Under, 55%+ chance and forecast wind 10+ mph | 10-9 | 81-49 | 46-27 |
+| Total, boosted trees' own total 9.5%+ of the line off it, either side | 139-99 | 114-88 | 96-63 |
+| West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 |
+| 4+ edge, model's side the road underdog | 30-11 | 34-17 | 15-7 |
+| 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 24-15 | 19-6 |
+| 3.5+ edge on dogs, 4+ on every other side | 85-68 | 100-72 | 55-31 |
+| 4+ edge, weeks 1 to 4 only | 23-12 | 19-12 | 19-5 |
+| 4+ edge, weeks 1 to 15 only | 59-46 | 73-42 | 36-16 |
+| 6+ edge | 7-11 | 15-12 | 8-3 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -3105,3 +3117,19 @@ snapshot the flagging run priced on to the close. The weekly run writes reports/
 grading (a failure is a step error; the run goes on), and Bets -> Closing Line Value shows each rule's closed bets, average
 CLV in points and the share that beat the close this season (week.js clv; the tie check rebuilds it). Grading only: no
 model input, rule or flag reads it.
+
+**Every promising rule, tracked hidden** (2 Oct 2026, Matt: track the rain under, and "everything we can think of that's
+possible should be shadow tracked"; `experiments/more_shadows.py`, reports/more_shadows.md). Each rule a study found
+promising but did not adopt was checked for whether it can run live as a `picks.rule_mask` side rule (a reading known before
+kickoff, no market input beyond the closing line it is graded at). Twelve can, and are now hidden shadows (`picks.SHADOWS`,
+`HIDDEN_SHADOWS`): the under at a GFS MOS rain chance of 50%+ (`shadowrain`, the reading `model.RAIN_FC` uses) and below
+32 F (`shadowcold`; `wind_live` now logs the GFS temperature too), the under when the model total is 3+ under the line
+(`shadowunder3`), the totals flag in games forecast at 10+ mph (`shadowunderwind`), the boosted trees' own summed total at
+9.5%+ of the line, either side (`shadowtreestotal`), the West Coast or Mountain road team at 1pm ET, blind
+(`shadowwestcoast`), and on spreads the road dogs at 4+ (`shadowroaddog`), dogs at +0.5 to +3 at 4+ (`shadowsmalldog`),
+dogs at 3.5+ with everything else at 4+ (`shadowdog35`), 4+ in weeks 1 to 4 (`shadowwk4`) and weeks 1 to 15 (`shadowwk15`),
+and 6+ (`shadow6`). Each is graded every run at -110, never bet and kept off the page; the shadow watch measures the ones
+that ignore the model against break-even, the totals ones against the totals flag and the rest against the spread flag, and
+a ready-check issue opens if one pulls clear. Not added, with the reason, in the report: rain 70%+ and unders at 4+ (subsets),
+blind prime-time unders and favourite teaser legs (lose), the walk-forward wind chance and the Blend gust (no live reading),
+the moneyline, opener and splits rules (market inputs), and the weather points (model changes, all rejected).

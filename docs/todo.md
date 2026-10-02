@@ -35,8 +35,8 @@ Last updated 29 Sep 2026.
   once there is history. Parked until it is worth paying for.
 - **A look of its own** (Matt, 29 Sep: keep the simple, easy-to-read layout, but it reads as Claude-made). The cream background, muted greens, rounded pale cards and the IBM Plex type are the tell. Options: a darker sports-data palette (near-black or navy with one team-agnostic accent), a sharper sans such as Inter or Barlow with condensed numerals, square-edged tiles, a proper header with a logo and name. Same layout, new skin; one pass, shown to Matt before it goes live.
 - Expected return (EV %) column on the Bet ranking, and the median total on each card.
-- Track the Under 3+ totals rule live before using it.
-- The boosted trees' own summed total as a totals lead (60.9% / 58.1% / 53.8%, one of about 45 rows tried; watch, not an edge).
+- Track the Under 3+ totals rule live before using it. Tracked as hidden shadow `shadowunder3` from 2 Oct 2026.
+- The boosted trees' own summed total as a totals lead (60.9% / 58.1% / 53.8%, one of about 45 rows tried; watch, not an edge). Tracked as hidden shadow `shadowtreestotal` from 2 Oct 2026.
 - A listed starting QB on the injury report or a reserve list: flag it by eye.
 
 ## Done today
