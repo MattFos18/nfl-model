@@ -3275,3 +3275,13 @@ within 59 hours of kickoff (when every MOS run reaches it) with no MOS reading o
 warning for the expected fallbacks (further out, or abroad, as IND@WAS in London), and has a row for the line watch's
 live forecast pull, which now raises when every game inside 59 hours comes back empty from the GFS.
 No rule, threshold or model input changed.
+
+**Forecast history back to 2015** (2 Oct 2026, Matt: price the backtest exactly as live; `experiments/forecast_history_2015.py`,
+reports/forecast_history_2015.md). The stored pre-kickoff forecasts began in 2018, so 2015-2017 games were still priced on the
+weather that happened. The same archives reach back partly: the GFS MOS archive has every 2015-2017 run, Japan's model starts
+1 January 2016 and the National Blend November 2018. The wind reading is the mean of the forecasts that exist, as live: GFS
+alone for the 2015 regular season, GFS and Japan for 2016-2017. 598 games, every run out at least five hours before kickoff.
+Rerun 2015-2025, before -> after: spread flag 69-55 -> 69-56 / 77-48 / 37-20; totals flag 132-117 -> 128-113 / 190-146 ->
+176-142 / 82-59 -> 78-54; wind under 24-20 -> 118-94 / 143-88 / 77-52; total miss 10.751 -> 10.747 / 10.516 -> 10.530 / 10.103
+-> 10.103. The later windows move because the forecasts also train the rain input and the wind points, so this changes the
+live total; Matt approved it (2 Oct 2026).

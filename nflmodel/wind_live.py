@@ -3,7 +3,7 @@ For every unplayed outdoor or open-roof game at a US stadium within the forecast
 was measured on: the NWS GFS MOS at the stadium's airport (the newest run out, issued at least 4 hours ago and at least 5
 hours before kickoff) and Japan's global model from Open-Meteo (its day-before forecast, FH.jma_pre_kickoff), each the
 mean over the game's first three hours; the
-reading is their mean (nflmodel/forecast_history.py does the same for 2018-2025). The same GFS MOS run also gives the
+reading is their mean (nflmodel/forecast_history.py does the same for 2015-2025: the mean of the forecasts that exist). The same GFS MOS run also gives the
 chance of rain the totals equation reads (gfs_pop: the largest 6-hour chance overlapping the first three hours; 1 Oct
 2026, experiments/rain_points.py) and the temperature the cold-under shadow reads (gfs_temp, mean over the first three hours;
 2 Oct 2026, picks.COLD_UNDER). Run on every line watch and weekly run; a row is appended when a game's reading
@@ -117,7 +117,7 @@ def gfs_missing() -> set:
 
 
 def _history() -> pd.DataFrame:
-    """The stored 2018-2025 forecasts, less games played abroad (2 Oct 2026: the 2025 London and Madrid games had been
+    """The stored 2015-2025 forecasts, less games played abroad (2 Oct 2026: the 2025 London and Madrid games had been
     read at Jacksonville's and Miami's airports because the schedule listed them at those stadiums)."""
     h = pd.read_csv(FH.OUTF)
     try:
@@ -175,7 +175,9 @@ def _live_latest(lv: pd.DataFrame, col: str, what: str) -> pd.DataFrame:
 
 def readings() -> dict:
     """game_id -> the wind reading the rule uses: the live log's newest for games still to play (dropped when its GFS run
-    is stale: _fresh), the stored history for 2018-2025 (the mean of the pre-kickoff forecasts there: GFS and NBS last run, Japan's day-before run)."""
+    is stale: _fresh), the stored history for 2015-2025 (the mean of the pre-kickoff forecasts there that exist: GFS and
+    NBS last run, Japan's day-before run; GFS alone in 2015, GFS and Japan in 2016 to Nov 2018, as live when a source is
+    missing)."""
     out = {}
     hf = FH.OUTF
     if hf.exists():

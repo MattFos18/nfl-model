@@ -122,12 +122,12 @@ def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None, now: pd.Ti
     return rows
 
 
-FORECAST_FIRST = 2018   # the first season with stored pre-kickoff forecasts (forecast_history.py)
+FORECAST_FIRST = 2015   # the first season with stored pre-kickoff forecasts (forecast_history.FIRST; 2018 before 2 Oct 2026)
 
 
 def check_forecasts(played: pd.DataFrame, upcoming: pd.DataFrame, wind: dict, temp: dict, rain: dict, now: pd.Timestamp | None = None) -> list[tuple[str, bool, str]]:
     """2 Oct 2026 (code review): the forecast readings games are priced on (wind_live.readings, temp_readings,
-    rain_readings). played: outdoor US games played from 2018 on; upcoming: unplayed outdoor US games (kickoff_et, Eastern).
+    rain_readings). played: outdoor US games played from FORECAST_FIRST on; upcoming: unplayed outdoor US games (kickoff_et, Eastern).
     A played game with one or two of the three readings is partial, with none missing; an upcoming game inside the live
     window (wind_live.RANGE_H) needs all three (2026_04_PIT_CLE had no live temperature). Warnings, never failures: a
     reading can be missing for a real reason (a station down), and the priced game falls back as a live game would."""

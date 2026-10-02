@@ -303,7 +303,7 @@ def probs_from_margin(mu, sigma, K, line):
 # rain_fc (1 Oct 2026, Matt: "add rain to the model"; experiments/rain_points.py): the totals equation's rain was the weather
 # that happened (the play-by-play text), but an upcoming game is priced on the forecast, so the equation under-counted rain:
 # games with a GFS MOS chance of 50%+ finished 2.9 points under the line while the model had them 0.3 under. Learned from the
-# same forecast it is priced on (the stored last run, 2018 on; 0 before 2018, without a forecast and indoors; the live
+# same forecast it is priced on (the stored last run, 2015 on since 2 Oct 2026, 2018 on before; 0 without a forecast and indoors; the live
 # reading from nflmodel/wind_live.py): total miss 10.744 -> 10.738 / 10.509 -> 10.493 / 10.125 -> 10.108, the totals flag
 # 135-127 -> 137-127 / 182-129 -> 202-146 / 81-62 -> 98-73; the input is worth about -4.2 points (rain_pts, the card's "rain
 # -X"), those games' totals moved about -2.9 from the old model (which took some rain off through the weather text); 20 of 20
@@ -409,11 +409,13 @@ def _temp_readings() -> dict:
 # Live-style weather in the backtest (2 Oct 2026, Matt: "100% accurate, no cheating"; experiments/forecast_weather_backtest.py).
 # An upcoming game is priced on a forecast, but the backtest priced every played game with the weather that happened (the
 # schedule's wind and temperature, the play-by-play's rain), a small look-ahead. Now a played game with a stored pre-kickoff
-# forecast (2018 on: data/weather/forecast_history.csv, and the live log) is priced, not trained, on it: wind_out = the wind
+# forecast (2015 on since 2 Oct 2026, 2018 on before: data/weather/forecast_history.csv, and the live log) is priced, not trained, on it: wind_out = the wind
 # reading the wind points and the wind under use, cold (and warm_in_cold) = the GFS MOS kickoff temperature under COLD_F,
 # the points equations' rain = the totals' rain reading (RAIN_FC). Training rows keep the recorded weather, as a live fit
-# does. A missing reading prices as a live game with no forecast (league-median wind, not cold, dry). Before 2018, and for
-# games abroad, no forecast is stored and the recorded weather stays. An unplayed game gets the same readings upstream
+# does. A missing reading prices as a live game with no forecast (league-median wind, not cold, dry). For games abroad no
+# forecast is stored and the recorded weather stays (before 2015 too: nothing is backtested there). 2015 has GFS MOS only,
+# 2016-2017 GFS and Japan's model (reports/forecast_history_2015.md).
+# An unplayed game gets the same readings upstream
 # (2 Oct 2026, re-audit item 3): weather.apply_to_games sets its wind and temperature from wind_live's GFS MOS / Japan
 # reading and trends.situation_extras its rain from the MOS chance, Open-Meteo only where no reading exists yet (logged).
 FORECAST_WEATHER = True
