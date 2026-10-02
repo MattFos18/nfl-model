@@ -22,17 +22,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT, WX = ROOT / "data" / "processed", ROOT / "data" / "weather"
 
-# home stadium coordinates (lat, lon); dome/closed-roof teams are skipped by the roof field anyway
-STADIUM = {"ARI": (33.5276, -112.2626), "ATL": (33.7554, -84.4010), "BAL": (39.2780, -76.6227), "BUF": (42.7738, -78.7870),
-           "CAR": (35.2258, -80.8528), "CHI": (41.8623, -87.6167), "CIN": (39.0955, -84.5161), "CLE": (41.5061, -81.6995),
-           "DAL": (32.7473, -97.0945), "DEN": (39.7439, -105.0201), "DET": (42.3400, -83.0456), "GB": (44.5013, -88.0622),
-           "HOU": (29.6847, -95.4107), "IND": (39.7601, -86.1639), "JAX": (30.3240, -81.6373), "KC": (39.0489, -94.4839),
-           "LV": (36.0909, -115.1833), "LAC": (33.9535, -118.3392), "LA": (33.9535, -118.3392), "MIA": (25.9580, -80.2389),
-           "MIN": (44.9736, -93.2575), "NE": (42.0909, -71.2643), "NO": (29.9511, -90.0812), "NYG": (40.8135, -74.0745),
-           "NYJ": (40.8135, -74.0745), "PHI": (39.9008, -75.1675), "PIT": (40.4468, -80.0158), "SF": (37.4032, -121.9698),
-           "SEA": (47.5952, -122.3316), "TB": (27.9759, -82.5033), "TEN": (36.1665, -86.7713), "WAS": (38.9076, -76.8645)}
-INTL = {"London": (51.5560, -0.2795), "Munich": (48.2188, 11.6247), "Frankfurt": (50.0686, 8.6455), "Mexico City": (19.3029, -99.1505),
-        "Sao Paulo": (-23.5453, -46.4742), "Madrid": (40.4361, -3.5886), "Dublin": (53.3607, -6.2512), "Melbourne": (-37.8200, 144.9834)}
+# stadium coordinates and every game's site (stadiums left behind, stadiums abroad, games the schedule lists at the wrong
+# place) live in nflmodel/venues.py (2 Oct 2026); STADIUM is re-exported for older readers
+from .venues import STADIUM, INTL, site as venue_site
 
 
 WEATHER_BUDGET_S = 240.0   # the whole step's ceiling on fetching (23 Sep 2026): a dropped API once stalled a weekly run for forty minutes
@@ -81,11 +73,8 @@ def run(days_ahead=10) -> pd.DataFrame:
     for g in up.itertuples():
         if g.roof in ("dome", "closed"):
             continue
-        loc = STADIUM.get(g.home_team)
-        if g.location == "Neutral":
-            for city, ll in INTL.items():
-                if isinstance(g.stadium, str) and city.split()[0].lower() in g.stadium.lower():
-                    loc = ll
+        st = venue_site(getattr(g, "stadium_id", None), g.home_team)   # 2 Oct 2026: the old city-name match never found Wembley or Azteca, so those games read the home team's US stadium
+        loc = (st["lat"], st["lon"]) if st["lat"] is not None else None
         if loc is None:
             continue
         try:

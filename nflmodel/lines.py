@@ -508,6 +508,36 @@ def consensus(values) -> float | None:
     return float(np.floor(med * 2 + 0.5) / 2)
 
 
+def _kickoff_utc(kickoff_et):
+    """games.parquet kickoff_et (naive Eastern) -> UTC; None when missing."""
+    if kickoff_et is None or (not isinstance(kickoff_et, str) and pd.isna(kickoff_et)):
+        return None
+    k = pd.Timestamp(kickoff_et)
+    return (k.tz_localize("America/New_York") if k.tzinfo is None else k).tz_convert("UTC")
+
+
+def before_kickoff(hist: pd.DataFrame, kickoff_et) -> pd.DataFrame:
+    """One game's log rows taken strictly before kickoff (2 Oct 2026, data audit: the log keeps pulling once a game starts,
+    and a snapshot 1m41s after kickoff had become 2026_03_LA_DEN's "latest"). Before kickoff nothing is cut; after it,
+    the line a card, a bet or the closing line reads is the last pre-game snapshot. No kickoff known: unchanged."""
+    ko = _kickoff_utc(kickoff_et)
+    if ko is None or hist is None or not len(hist):
+        return hist
+    t = pd.to_datetime(hist.ts.astype(str).str.replace("Z", ""), format="%Y-%m-%dT%H-%M-%S", errors="coerce").dt.tz_localize("UTC")
+    return hist[(t < ko).values]
+
+
+def _kickoffs(games: pd.DataFrame) -> dict:
+    """game_id -> kickoff_et, from `games` when it carries kickoff_et, else from games.parquet."""
+    if "kickoff_et" in games.columns:
+        return dict(zip(games.game_id, games.kickoff_et))
+    f = OUT / "games.parquet"
+    if not f.exists():
+        return {}
+    g = pd.read_parquet(f, columns=["game_id", "kickoff_et"])
+    return dict(zip(g.game_id, g.kickoff_et))
+
+
 def latest(hist: pd.DataFrame, key: str) -> tuple[float | None, str | None]:
     """(consensus, ts) of `key` (home_spread or total) at the newest snapshot of one game's log that has it: the line
     this week's picks, edges, cover and over odds and the props game script are priced against."""
@@ -543,13 +573,14 @@ def vegas_win(hist: pd.DataFrame) -> tuple[float | None, str | None, int]:
 
 def live_lines(games: pd.DataFrame, log: pd.DataFrame | None = None) -> pd.DataFrame:
     """For each game in `games` (game_id, spread_line, total_line): the current consensus spread and total from the
-    newest lines-log snapshot (lines.latest), falling back to the schedule's line only where the log has none, and the
+    newest lines-log snapshot before kickoff (lines.latest on lines.before_kickoff), falling back to the schedule's line only where the log has none, and the
     Vegas win chance (lines.vegas_win). Columns: game_id, spread_line, total_line, spread_ts, total_ts, line_source,
     vegas_win, vegas_win_ts, vegas_win_books."""
     log = load_log() if log is None else log
+    ko = _kickoffs(games)
     rows = []
     for r in games.itertuples():
-        h = log[log.game_id == r.game_id]
+        h = before_kickoff(log[log.game_id == r.game_id], ko.get(r.game_id))   # once a game starts: its last pre-game snapshot
         sl, sts = latest(h, "home_spread"); tl, tts = latest(h, "total"); vw, vts, vn = vegas_win(h)
         rows.append({"game_id": r.game_id, "spread_line": sl if sl is not None else (float(r.spread_line) if pd.notna(r.spread_line) else np.nan),
                      "total_line": tl if tl is not None else (float(r.total_line) if pd.notna(r.total_line) else np.nan),

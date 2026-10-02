@@ -952,9 +952,9 @@ def check_live(rows, wk) -> None:
         tie("every player ESPN lists Out or Doubtful for a game not yet started is counted on its card", sorted(missed), [])
     want = {}
     for g_ in G:
-        h = log[log.game_id == g_["game_id"]]; sl, _ = LN.latest(h, "home_spread"); tl, _ = LN.latest(h, "total")
+        h = LN.before_kickoff(log[log.game_id == g_["game_id"]], g_.get("kickoff")); sl, _ = LN.latest(h, "home_spread"); tl, _ = LN.latest(h, "total")
         want[g_["game_id"]] = [sl, tl]
-    tie("card line = the lines log's consensus now (newest snapshot per game, median across sources, to the half point)", {k: [g_["spread_line"], g_["total_line"]] for g_ in G for k in [g_["game_id"]] if want[k] != [None, None]}, {k: v for k, v in want.items() if v != [None, None]})
+    tie("card line = the lines log's consensus now (newest snapshot per game before kickoff, median across sources, to the half point)", {k: [g_["spread_line"], g_["total_line"]] for g_ in G for k in [g_["game_id"]] if want[k] != [None, None]}, {k: v for k, v in want.items() if v != [None, None]})
     worst = max([abs(g_["model_spread"] - g_["spread_line"] - g_["spread_edge"]) for g_ in G if g_.get("spread_line") is not None] + [abs(g_["model_total"] - g_["total_line"] - g_["total_edge"]) for g_ in G if g_.get("total_line") is not None] or [0.0])
     rows.append(("card edges = model minus the card's line (spread and total, worst gap)", round(worst, 4), "0.002 or under", worst <= 0.002))
     dist = M_.load_dist(wk["season"], wk["week"])

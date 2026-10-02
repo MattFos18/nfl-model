@@ -23,21 +23,15 @@ from __future__ import annotations
 import argparse, re, time
 import numpy as np, pandas as pd, requests
 from .features import OUT, ROOT
-from .weather import STADIUM
+from .venues import STADIUM, STATION, sites as venue_sites
 
 WX = ROOT / "data" / "weather"; OUTF = WX / "forecast_history.csv"
 MOS = "https://mesonet.agron.iastate.edu/api/1/mos.json"
 OM = "https://previous-runs-api.open-meteo.com/v1/forecast"
 KT = 1.15078
 NBS_FROM = pd.Timestamp("2018-11-07", tz="UTC")
-# the stadium's nearest MOS airport; stadiums a team has left are keyed by stadium name (checked against the airport list)
-STATION = {"BUF": "KBUF", "GB": "KGRB", "CHI": "KMDW", "NE": "KOWD", "NYG": "KTEB", "NYJ": "KTEB", "PHI": "KPHL", "PIT": "KPIT",
-           "CLE": "KBKL", "BAL": "KBWI", "WAS": "KDCA", "CIN": "KLUK", "KC": "KMCI", "DEN": "KDEN", "SEA": "KBFI", "SF": "KSJC",
-           "TEN": "KBNA", "JAX": "KJAX", "MIA": "KMIA", "TB": "KTPA", "CAR": "KCLT", "ARI": "KPHX", "ATL": "KATL", "NO": "KMSY",
-           "IND": "KIND", "DET": "KDTW", "MIN": "KMSP", "HOU": "KHOU", "DAL": "KDFW", "LAC": "KSNA", "LA": "KCQT"}
-OLD_SITE = {"Los Angeles Memorial Coliseum": ("KCQT", (34.0141, -118.2879)), "StubHub Center": ("KTOA", (33.8644, -118.2611)),
-            "Oakland-Alameda County Coliseum": ("KOAK", (37.7516, -122.2005)), "Hard Rock Stadium": ("KMIA", STADIUM.get("MIA")),
-            "TIAA Bank Stadium": ("KJAX", STADIUM.get("JAX"))}
+# each game's MOS airport and coordinates come from nflmodel/venues.py (2 Oct 2026: stadiums left behind, stadiums abroad,
+# and the 2025 games abroad that the schedule listed at US stadiums, which had read Jacksonville's and Miami's airports)
 COLS = ["game_id", "season", "week", "home_team", "station", "kickoff_utc",
         "gfs_wind_d1", "gfs_wind_d0", "gfs_run_d0", "nbs_wind_d1", "nbs_gust_d1", "nbs_wind_d0", "nbs_gust_d0", "nbs_run_d0",
         "jma_wind_d2", "jma_wind_d1", "jma_wind_d0"]
@@ -130,11 +124,18 @@ def games(seasons, weeks=None, played=True) -> pd.DataFrame:
     g = g[g.season.isin(seasons) & g.kickoff_et.notna() & (g.home_score.notna() if played else g.home_score.isna()) & g.roof.fillna("outdoors").isin(["outdoors", "open"])].copy()
     if weeks:
         g = g[g.week.between(*weeks)]
-    st = g.stadium.fillna("")
-    g["station"] = [OLD_SITE[s][0] if s in OLD_SITE else STATION.get(t) for s, t in zip(st, g.home_team)]
-    g["latlon"] = [OLD_SITE[s][1] if s in OLD_SITE else STADIUM.get(t) for s, t in zip(st, g.home_team)]
-    abroad = g.location.eq("Neutral") & ~st.isin(list(OLD_SITE))   # London, Munich, Frankfurt, Mexico City: no US airport forecast
+    st = venue_sites(g)
+    g["station"] = st.station.values
+    g["latlon"] = [(a, b) if a is not None and pd.notna(a) else None for a, b in zip(st.lat, st.lon)]
+    abroad = st.abroad.astype(bool).values   # stadiums abroad: no US airport forecast
     return g[~abroad & g.station.notna()].sort_values("kickoff_et")
+
+
+def abroad_ids() -> set:
+    """Games at a stadium abroad: a stored forecast row for one (fetched at a US airport before 2 Oct 2026, when the
+    schedule listed the game at a US stadium) is not a reading of that game."""
+    g = pd.read_parquet(OUT / "games.parquet", columns=["game_id", "home_team", "stadium_id"])
+    return set(g.game_id[venue_sites(g).abroad.astype(bool).values])
 
 
 def one(r) -> dict:

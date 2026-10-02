@@ -10,8 +10,7 @@ from __future__ import annotations
 import argparse, time
 import pandas as pd, requests
 from .features import OUT, ROOT
-from .weather import STADIUM, INTL
-from .weather_archive import _tz
+from . import venues as V
 
 WX = ROOT / "data" / "weather"; OUTF = WX / "forecast_archive.csv"
 URL = "https://previous-runs-api.open-meteo.com/v1/forecast"
@@ -46,24 +45,21 @@ def main(seasons, weeks=None, missing=False):
     if missing:   # only the games the stored archive lacks or holds blank (a run cut off by the time limit, a hung request)
         have = set(old.loc[old[[c for c in old.columns if c.endswith(("_d1", "_d2"))]].notna().any(axis=1), "game_id"])
         g = g[~g.game_id.isin(have)]
-    g["site"] = g.home_team
-    intl = g.location.fillna("").str.contains("Neutral", case=False) & g.stadium.fillna("").str.contains("|".join(INTL), case=False)
-    for name in INTL:
-        g.loc[intl & g.stadium.fillna("").str.contains(name, case=False), "site"] = name
+    st = V.sites(g); g["site"], g["lat"], g["lon"], g["tz"] = st.site, st.lat, st.lon, st.tz   # the real site (venues.py, 2 Oct 2026)
     rows, cols = [], None
     # one request per game day (a season-long range was too slow for a 15-minute probe, 29 Sep 2026); every row is printed
     # as it lands ("ROW," prefix) so a run cut off by its time limit still hands over what it fetched
     for r in g.sort_values("kickoff_et").itertuples():
-        lat, lon = STADIUM.get(r.site) or INTL.get(r.site) or (None, None)
-        if lat is None:
+        lat, lon = r.lat, r.lon
+        if lat is None or pd.isna(lat):
             continue
         k = pd.Timestamp(r.kickoff_et).floor("h")
         try:
-            local = k.tz_localize("America/New_York").tz_convert(_tz(r.site)).tz_localize(None)
+            local = k.tz_localize("America/New_York").tz_convert(r.tz).tz_localize(None)
         except Exception:  # noqa
             local = k
         day = local.strftime("%Y-%m-%d")
-        h = fetch(lat, lon, day, day, _tz(r.site))
+        h = fetch(lat, lon, day, day, r.tz)
         if h is None:
             continue
         m = h[h.t == local]
