@@ -80,6 +80,9 @@ def test_own_game_score_never_moves_its_prediction_and_the_planted_referee_leak_
     from nflmodel import audit as A
     assert A.own_game_shift(2024, 9) == 0.0
     monkeypatch.setattr(T, "_prior_mean", _prior_mean_by_order)   # put the old referee prior back
+    from nflmodel import model as M_
+    if "ref_tot" not in M_.TOTAL_FEATS:   # ref_tot left the totals equation on 2 Oct 2026; plant it back with its old leak
+        monkeypatch.setattr(M_, "TOTAL_FEATS", M_.TOTAL_FEATS + ["ref_tot"])
     assert A.own_game_shift(2024, 9) > 0.05
 
 
