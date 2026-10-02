@@ -347,19 +347,19 @@ tie check on every run; the live table carries the same columns):
 | 4+ edge, model's side the underdog or pick'em | 51-37 | 72-42 | 29-15 |
 | 4+ edge, weeks 1 to 13 only | 55-42 | 68-37 | 31-15 |
 | boosted trees alone, 5+ edge | 93-64 | 82-60 | 31-16 |
-| Under, 55%+ chance (the totals flag) | 138-121 | 210-153 | 99-72 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 128-104 | 194-141 | 95-66 |
+| Under, 55%+ chance (the totals flag) | 130-117 | 185-149 | 70-57 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 122-103 | 167-138 | 59-54 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-11 | 14-14 | 14-4 |
 | 4+ edge on road sides, 6+ on home sides | 42-23 | 44-30 | 20-9 |
 | 4+ edge, road sides only | 40-15 | 35-22 | 16-7 |
-| Under, 60%+ chance | 74-59 | 121-77 | 33-26 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 36-25 | 48-26 | 25-15 |
-| Under, forecast wind 10+ mph (outdoor games) | 23-19 | 143-89 | 83-52 |
+| Under, 60%+ chance | 56-46 | 112-77 | 34-23 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 33-27 | 45-26 | 18-10 |
+| Under, forecast wind 10+ mph (outdoor games) | 24-20 | 143-88 | 77-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
 | Under, forecast rain chance 50%+ (outdoor games) | 11-9 | 55-30 | 36-21 |
 | Under, forecast temperature below 32 F (outdoor games) | 4-2 | 21-15 | 11-10 |
-| Under, model total 3+ points below the line | 68-49 | 115-73 | 27-20 |
-| Under, 55%+ chance and forecast wind 10+ mph | 13-9 | 83-55 | 48-27 |
+| Under, model total 3+ points below the line | 55-46 | 105-72 | 25-22 |
+| Under, 55%+ chance and forecast wind 10+ mph | 16-9 | 80-53 | 36-25 |
 | Total, boosted trees' own total 9.5%+ of the line off it, either side | 153-109 | 114-85 | 92-63 |
 | West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 |
 | 4+ edge, model's side the road underdog | 31-11 | 33-17 | 13-6 |

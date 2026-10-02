@@ -1,66 +1,67 @@
-# Weekly run, 2026-10-02 15:39 UTC
+# Weekly run, 2026-10-02 16:24 UTC
 
 ## Steps
 
 | step                | status   | detail                                                                                                                                                                                                   |   seconds |
 |:--------------------|:---------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------:|
-| pull                | ok       | [('2026-10-02T15:39:50', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2182452, 'bfec0b65e9bd'), ('2026-10-02T15:39:50', 'players', 'all' |       3.3 |
-| pull player history | ok       | [('2026-10-02T15:39:53', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'cached', 149299, ''), ('2026-10-02T15:39:53', |       0   |
-| build               | ok       | team_games (8202, 142)                                                                                                                                                                                   |     191.4 |
+| pull                | ok       | [('2026-10-02T16:24:22', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2182452, '3c5d7659583a'), ('2026-10-02T16:24:22', 'players', 'all' |       3.8 |
+| pull player history | ok       | [('2026-10-02T16:24:25', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'cached', 149299, ''), ('2026-10-02T16:24:25', |       0   |
+| build               | ok       | team_games (8202, 142)                                                                                                                                                                                   |     192.7 |
 | features            | ok       | [40 rows x 8 columns]                                                                                                                                                                                    |      19   |
-| snap exposure       | ok       | snap exposure (329121, 10) seasons 2013 to 2026                                                                                                                                                          |       1.4 |
+| snap exposure       | ok       | snap exposure (329121, 10) seasons 2013 to 2026                                                                                                                                                          |       1.3 |
 | verify              | ok       | Result: PASS                                                                                                                                                                                             |       0.5 |
-| data checks         | ok       | True                                                                                                                                                                                                     |       0.4 |
-| weather             | ok       | game_id          kickoff_et  ... precip        fetched_at                                                                                                                                                |       2.1 |
-|                     |          | 0   2026_04_IND_WAS 2026-10-04 09:30:00  ...    0.0  2026-10-02 11:43                                                                                                                                    |           |
-|                     |          | 1   2026_04_TEN_BAL 2026-10-04 13:00:00  ...    0.1  2026-10                                                                                                                                             |           |
-| wind forecast       | ok       | 11                                                                                                                                                                                                       |      58.4 |
-| lines               | ok       | {'ts': '2026-10-02T15-44-27Z', 'season': 2026, 'week': 4, 'rows': 15, 'errors': ''}                                                                                                                      |      80.2 |
-| live results        | ok       | live results: week 4, 1 final of 16, 0 in progress; spread 1-0, total 0-1, winner 0-1; play-by-play for 1 games                                                                                          |       4   |
-| ratings             | ok       | (7668, 49)                                                                                                                                                                                               |      32.4 |
-| trends              | ok       | head-to-head cover margin      96                 0.355         7.079            2.793                                                                                                                   |      81.9 |
-| players             | ok       | max           0.104589         1.360481    14.000000                                                                                                                                                     |     166.2 |
-| positions           | ok       | Skill     541.0  0.007945  0.00250  0.0816                                                                                                                                                               |      31.5 |
+| data checks         | ok       | True                                                                                                                                                                                                     |       0.3 |
+| weather             | ok       | game_id           kickoff_et  ... precip        fetched_at                                                                                                                                               |     130.3 |
+|                     |          | 0   2026_04_IND_WAS  2026-10-04 09:30:00  ...    0.0  2026-10-02 12:27                                                                                                                                   |           |
+|                     |          | 1   2026_04_TEN_BAL  2026-10-04 13:00:00  ...    0.1  2026                                                                                                                                               |           |
+| wind forecast       | ok       | 11                                                                                                                                                                                                       |       7.4 |
+| lines               | ok       | {'ts': '2026-10-02T16-30-18Z', 'season': 2026, 'week': 4, 'rows': 15, 'errors': ''}                                                                                                                      |     130.3 |
+| live results        | ok       | live results: week 4, 1 final of 16, 0 in progress; spread 1-0, total 0-1, winner 0-1; play-by-play for 1 games                                                                                          |       3.5 |
+| ratings             | ok       | (7668, 49)                                                                                                                                                                                               |      32.1 |
+| trends              | ok       | head-to-head cover margin      96                 0.355         7.079            2.793                                                                                                                   |      81.6 |
+| players             | ok       | max           0.104589         1.360481    14.000000                                                                                                                                                     |     162.5 |
+| positions           | ok       | Skill     541.0  0.007945  0.00250  0.0816                                                                                                                                                               |      31.9 |
 | scheme              | ok       | scheme_plays (354592, 83) profiles for 32 teams as of 2026 4                                                                                                                                             |       7.9 |
-| player splits       | ok       | player_splits.js 1.61 MB                                                                                                                                                                                 |     120.6 |
-| model               | ok       | neutral            0.054       0.133          0.007                                                                                                                                                      |     155.3 |
-| opener study        | ok       | opener study written                                                                                                                                                                                     |     156.7 |
-| props by season     | ok       | DONE                                                                                                                                                                                                     |      32.1 |
-| props               | ok       | props 2879 projections for week 4 graded rows 0 market lines on the cards 300 graded against the market 1833                                                                                             |      34.4 |
-| sizing backtest     | ok       | 2025   13-7    0.650        4.82                                                                                                                                                                         |       6.8 |
-| threshold sweep     | ok       | DONE                                                                                                                                                                                                     |       1.7 |
+| player splits       | ok       | player_splits.js 1.61 MB                                                                                                                                                                                 |     121   |
+| model               | ok       | neutral            0.054       0.133          0.007                                                                                                                                                      |      73.1 |
+| opener study        | ok       | opener study written                                                                                                                                                                                     |      73.4 |
+| props by season     | ok       | DONE                                                                                                                                                                                                     |      32   |
+| props               | ok       | props 2879 projections for week 4 graded rows 0 market lines on the cards 300 graded against the market 1833                                                                                             |      34.5 |
+| sizing backtest     | ok       | 2025   13-7    0.650        4.82                                                                                                                                                                         |       6.9 |
+| threshold sweep     | ok       | DONE                                                                                                                                                                                                     |       1.8 |
 | calibration start   | ok       | last 5 seasons     0.5254     0.5311     0.5368              0.69384            0.25034                0.68419              0.5610             0.5895             95              0.69219                |       1.8 |
-| season backtest     | ok       | {'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad |     107.4 |
-| legitimacy tests    | ok       | Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the |      21   |
-| audit reports       | ok       | Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).                                       |       3   |
+| season backtest     | ok       | {'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad |     110.9 |
+| legitimacy tests    | ok       | Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the |      22.4 |
+| audit reports       | ok       | Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).                                       |       3.1 |
 | picks               | ok       | game_id  season  week  ...     bet_p bet_odds stake_pct                                                                                                                                                  |       1.1 |
 |                     |          | 3076  2026_04_PIT_CLE    2026     4  ...       NaN      NaN       NaN                                                                                                                                    |           |
-|                     |          | 3077  2026_04_IND_WAS    2026     4  ...       NaN      NaN                                                                                                                                              |           |
+|                     |          | 3077  2026_04_IND_WAS    2026     4  ...  0.541380   -105.0                                                                                                                                              |           |
 | log run             | ok       | run_at  season  week  ... spread_line  total_line       bet                                                                                                                                              |       0   |
-|                     |          | 3076  2026-10-02 15:39 UTC    2026     4  ...        -2.5        38.5                                                                                                                                    |           |
-|                     |          | 3077  2026-10-02 15:39 UTC    2026     4                                                                                                                                                                 |           |
-| record picks        | ok       | run_at  season  week  ... spread_edge total_edge  p_cover                                                                                                                                                |       0.6 |
-|                     |          | 0  2026-10-02 15:39 UTC    2026     4  ...       -4.46      -0.62    0.610                                                                                                                               |           |
-|                     |          | 1  2026-10-02 15:39 UTC    2026     4  ...                                                                                                                                                               |           |
-| inputs fingerprint  | ok       | {'season': 2026, 'week': 4, 'starters': {'2026_04_PIT_CLE': ['00-0033537', '00-0023459', '2026-10-01 20:15'], '2026_04_IND_WAS': ['00-0039910', '00-0035710', '2026-10-04 09:30'], '2026_04_TEN_BAL': [' |       0.3 |
-| grade               | ok       |                                                                                                                                                                                                          |       2.9 |
-| closing line value  | ok       | CLV 2026: 4 closed, 6 pending, avg +0.25 pts, 25% beat the close                                                                                                                                         |       0.3 |
-| forecast history    | ok       | 9 games fetched in 3s, 1568 stored, 0 left                                                                                                                                                               |       2.9 |
-| drift monitor       | ok       | **0 alerts, 0 to watch.** Long run = 2015 to 2024; recent = 2025 and 2026 so far. ALERT at |z| >= 2.5 or a CUSUM trip (h 5); WATCH at |z| >= 2.0.                                                        |       0.5 |
-| shadow watch        | ok       | **0 rules ready for a look.** READY = 30+ settled live bets, a win rate past break-even beyond luck (p <= 0.1) and 5+ points more return per unit risked than the rule it would replace over the same se |       1.2 |
-| ready checks        | ok       | **0 ready.** Each READY row opens a GitHub issue labelled ready-check (once per title).                                                                                                                  |       0.4 |
-| tie check (sources) | error    | RuntimeError: numbers disagree: see reports/tie_check.md                                                                                                                                                 |       4.5 |
-| export data room    | ok       |                                                                                                                                                                                                          |     135.5 |
-| tie check (page)    | error    | RuntimeError: page files disagree with the sources: see reports/tie_check.md                                                                                                                             |       9.2 |
+|                     |          | 3076  2026-10-02 16:24 UTC    2026     4  ...        -2.5        38.5                                                                                                                                    |           |
+|                     |          | 3077  2026-10-02 16:24 UTC    2026     4                                                                                                                                                                 |           |
+| record picks        | ok       | run_at  season  week  ... spread_edge total_edge  p_cover                                                                                                                                                |       0.7 |
+|                     |          | 0  2026-10-02 16:24 UTC    2026     4  ...        4.24       1.22    0.650                                                                                                                               |           |
+|                     |          | 1  2026-10-02 16:24 UTC    2026     4  ...       -                                                                                                                                                       |           |
+| inputs fingerprint  | ok       | {'season': 2026, 'week': 4, 'starters': {'2026_04_PIT_CLE': ['00-0033537', '00-0023459', '2026-10-01 20:15'], '2026_04_IND_WAS': ['00-0032268', '00-0035710', '2026-10-04 09:30'], '2026_04_TEN_BAL': [' |       0.4 |
+| grade               | ok       |                                                                                                                                                                                                          |       3.2 |
+| closing line value  | ok       | CLV 2026: 4 closed, 9 pending, avg +0.25 pts, 25% beat the close                                                                                                                                         |       0.3 |
+| forecast history    | ok       | complete: 1568 games stored                                                                                                                                                                              |       0   |
+| drift monitor       | ok       | **0 alerts, 0 to watch.** Long run = 2015 to 2024; recent = 2025 and 2026 so far. ALERT at |z| >= 2.5 or a CUSUM trip (h 5); WATCH at |z| >= 2.0.                                                        |       0.6 |
+| shadow watch        | ok       | **0 rules ready for a look.** READY = 30+ settled live bets, a win rate past break-even beyond luck (p <= 0.1) and 5+ points more return per unit risked than the rule it would replace over the same se |       1.3 |
+| ready checks        | ok       | **0 ready.** Each READY row opens a GitHub issue labelled ready-check (once per title).                                                                                                                  |       0.5 |
+| tie check (sources) | error    | RuntimeError: numbers disagree: see reports/tie_check.md                                                                                                                                                 |       4.6 |
+| export data room    | ok       |                                                                                                                                                                                                          |     137.9 |
+| tie check (page)    | error    | RuntimeError: page files disagree with the sources: see reports/tie_check.md                                                                                                                             |       9.4 |
 
 **Failed steps above were skipped, not filled with stale data.**
 
-## Week 4, 2026: 2 flagged of 16 games
+## Week 4, 2026: 3 flagged of 16 games
 
 | away_team   | home_team   |   away_exp |   home_exp |   spread_line |   total_line |   spread_edge |   total_edge | bet      |   stake_pct |
 |:------------|:------------|-----------:|-----------:|--------------:|-------------:|--------------:|-------------:|:---------|------------:|
-| JAX         | CIN         |      26.42 |      24.46 |           2.5 |         51.5 |         -4.46 |        -0.62 | JAX +2.5 |        1.62 |
-| ARI         | NYG         |      20.92 |      23.3  |          -2.5 |         44.5 |          4.88 |        -0.28 | NYG +2.5 |        1.53 |
+| IND         | WAS         |      24.49 |      25.23 |          -3.5 |         48.5 |          4.24 |         1.22 | WAS +3.5 |        1.5  |
+| JAX         | CIN         |      26.41 |      24.45 |           2.5 |         51.5 |         -4.46 |        -0.64 | JAX +2.5 |        1.62 |
+| ARI         | NYG         |      17.83 |      20.22 |          -2.5 |         44.5 |          4.88 |        -6.45 | NYG +2.5 |        1.53 |
 
 Full table: reports/picks_2026_wk4.md
 
@@ -74,9 +75,9 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 2 | 0 | nothing settled |  | +0.00 | 69-56 | 79-51 | 37-18 |
+| 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 69-56 | 79-51 | 37-18 |
 | shadow: 4.5+ edge | 1 | 0 | nothing settled |  | +0.00 | 42-37 | 53-38 | 24-15 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 2 | 0 | nothing settled |  | +0.00 | 51-37 | 72-42 | 29-15 |
-| shadow: 4+ edge, weeks 1 to 13 only | 2 | 0 | nothing settled |  | +0.00 | 55-42 | 68-37 | 31-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 51-37 | 72-42 | 29-15 |
+| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 55-42 | 68-37 | 31-15 |
 
 Full record: reports/track_record.md

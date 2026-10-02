@@ -8,7 +8,7 @@
 "2026-10-01 20:15"
 ],
 "2026_04_IND_WAS": [
-"00-0039910",
+"00-0032268",
 "00-0035710",
 "2026-10-04 09:30"
 ],
@@ -256,6 +256,11 @@
 ],
 [
 "HOU",
+"British Brooks",
+"Out"
+],
+[
+"HOU",
 "M.J. Stewart",
 "Out"
 ],
@@ -317,6 +322,11 @@
 [
 "MIA",
 "De'Von Achane",
+"Out"
+],
+[
+"MIA",
+"Kenneth Grant",
 "Out"
 ],
 [
@@ -1346,12 +1356,6 @@
 "British Brooks",
 "",
 "Did Not Participate In Practice"
-],
-[
-"HOU",
-"British Brooks",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -3114,7 +3118,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 4.9,
+"wind": 5.8,
 "cold": false,
 "rain": false
 },
@@ -3174,5 +3178,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 16:01 UTC"
+"written_at": "2026-10-02 16:45 UTC"
 }

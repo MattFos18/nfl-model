@@ -36,11 +36,11 @@ The site: https://mattfos18.github.io/nfl-model/ (Breakdown, Picks, Bets, Backte
 |---|---|---|
 | Team points miss | 7.24 | 7.21 |
 | Margin miss | 9.90 | 9.74 |
-| Total miss | 10.09 | 10.12 |
+| Total miss | 10.12 | 10.12 |
 | Brier (win odds) | 0.216 | 0.210 |
 | Spreads at 3+ pt edge | 83-64 | |
 | Spreads at 4+ pt edge (the flag) | 41-23 (2019 to 2025: 123-77; 116-69 outside Week 18) | |
-| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 71-57 (2019 to 2025: 191-126) | |
+| Totals at 4+ pt edge (not flagged: no total cutoff wins in both windows) | 72-53 (2019 to 2025: 173-124) | |
 
 These rows are written by `report.py` from the same prediction table as the page and the reports, on every run. Ridge strength and thresholds were tuned on 2019 to 2022 only; since 22 Sep 2026 new inputs and the rating decay are accepted only when they help on both windows, so 2023 to 2025 is a second test window for those, and the live season is the only fully unseen test.
 <!-- results:end -->
