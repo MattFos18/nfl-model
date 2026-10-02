@@ -202,10 +202,18 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
     prev_lookup = {}
     for (season, team), g in snaps.groupby(["season", "team"]):
         prev_lookup[(season, team)] = g
+    # 2 Oct 2026 (WAS: Jayden Daniels ruled Out on ESPN, qb_out stayed 0 because last game's snap rows lag): in the week
+    # being priced, the schedule's named starter ruled out counts too, the same test ratings.qbs_out_now uses for the swap
+    from .ratings import qbs_out_now
+    (cs_, cw_), qout_ = qbs_out_now(games)
+    named_ = {}
+    for g_ in games[(games.season == cs_) & (games.week == cw_) & games.home_score.isna()].itertuples():
+        named_[(g_.game_id, g_.home_team)] = g_.home_qb_id; named_[(g_.game_id, g_.away_team)] = g_.away_qb_id
     for r in long.itertuples():
         g = prev_lookup.get((r.season, r.team))
         if g is None:
-            rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": np.nan, "def_starters_out": np.nan, "qb_out": np.nan, "ol_out": np.nan, "off_snap_out": np.nan, "def_snap_out": np.nan})
+            rows.append({"game_id": r.game_id, "team": r.team, "off_starters_out": np.nan, "def_starters_out": np.nan, "ol_out": np.nan, "off_snap_out": np.nan, "def_snap_out": np.nan,
+                         "qb_out": 1.0 if named_.get((r.game_id, r.team)) in qout_.get(r.team, set()) else np.nan})
             continue
         before = g[g.week < r.week]
         if len(before) == 0:
@@ -224,8 +232,9 @@ def injury_table(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataFrame
         ol_out = float(len(set(ol.key) & out))
         off_snap_out = float(before[before.key.isin(out)].offense_pct.clip(0, 1).sum())
         def_snap_out = float(before[before.key.isin(out)].defense_pct.clip(0, 1).sum())
+        qo = float(len(qb & out) > 0 or named_.get((r.game_id, r.team)) in qout_.get(r.team, set()))
         rows.append({"game_id": r.game_id, "team": r.team, "ol_out": ol_out, "off_snap_out": off_snap_out, "def_snap_out": def_snap_out, "off_starters_out": float(len(starters_off & out)),
-                     "def_starters_out": float(len(starters_def & out)), "qb_out": float(len(qb & out) > 0)})
+                     "def_starters_out": float(len(starters_def & out)), "qb_out": qo})
     return pd.DataFrame(rows)
 
 
