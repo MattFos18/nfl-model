@@ -783,6 +783,14 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     if _rr and _rp:
         _sum = lambda k: [sum(int(v.split("-")[0]) for v in _rr[k].values()), sum(int(v.split("-")[1]) for v in _rr[k].values())]
         tie("report records: spread flag and totals flag = the rule records' three windows added up", [_rp["spread"]["flag"], _rp["total"]["flag"]], [_sum("model"), _sum("shadowunder")])
+    # Bets tab -> Closing Line Value (1 Oct 2026): week.js clv = nflmodel.clv rebuilt from the tracker and the lines log at the export's moment
+    from . import clv as _CLV
+    _cv = wk.get("clv") or {}
+    if "error" in _cv or "as_of" not in _cv:
+        tie("Bets tab closing line value (week.js clv) = nflmodel.clv.page_payload", _cv.get("error", "missing"), "built")
+    else:
+        _cb = _CLV.page_payload(_cv.get("season"), pd.Timestamp(_cv["as_of"]))
+        tie("Bets tab closing line value (week.js clv) = nflmodel.clv.page_payload", json.dumps([_cv["rules"], _cv["bets"]], sort_keys=True), json.dumps([_cb["rules"], _cb["bets"]], sort_keys=True))
     # the report's injury lines: each unplayed game's priced players add up to the model's injury inputs on the spread
     # (skill value and offensive snaps on the player's side, defensive snaps in the opponent's equation)
     _ig = []

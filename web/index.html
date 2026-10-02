@@ -571,6 +571,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     <div class="card"><h3>By Week</h3><div class="tablewrap ro"><table id="recweeks" class="rgt"></table></div></div>
     <div class="card"><h3>By Season</h3><div class="tablewrap ro"><table id="recseasons" class="rgt"></table></div></div>
     <div class="card" style="grid-column:1 / -1"><h3>Rules Compared</h3><div id="trackrules"></div></div>
+    <div class="card" style="grid-column:1 / -1"><h3>Closing Line Value</h3><div id="trackclv"></div></div>
   </div>
   </div>
 </section>
@@ -3235,6 +3236,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // the live season only; each rule's backtest record is on Backtest -> Rules compared (28 Sep 2026, Matt)
     $("trackrules").innerHTML = RR.length ? `<div class="tablewrap ro"><table class="rgt"><thead><tr><th class='l'>Rule</th><th>Bets</th><th>Record</th><th>Units</th></tr></thead><tbody>${RR.map(ruleRow).join("")}</tbody></table></div>`
       : `<p class="note">The rules are ${MISSING} in meta.js.</p>`;
+    // closing line value on the live bets (week.js clv, nflmodel/clv.py): each bet's number against the last consensus line before kickoff
+    const CV = (window.WEEK || {}).clv;
+    $("trackclv").innerHTML = !CV || CV.error || !CV.rules ? `<p class="note">Closing line value is ${MISSING} in week.js.</p>` : (() => {
+      const all = CV.rules.find(r => r.rule === "all") || {bets: 0};
+      const row = r => `<tr${r.rule === "all" ? ' class="sum"' : ""}><td class="l" style="white-space:normal">${esc(r.label)}${r.rule === "all" ? `, ${CV.season} so far` : ""}</td><td class="mono">${r.bets}</td><td class="mono ${r.avg_clv_pts > 0 ? "pos" : (r.avg_clv_pts < 0 ? "neg" : "")}">${r.bets ? sgn(r.avg_clv_pts, 2) : "–"}</td><td class="mono">${r.bets ? Math.round(100 * r.beat_share) + "%" : "–"}</td></tr>`;
+      return `<div class="tablewrap ro"><table class="rgt"><thead><tr><th class='l'>Rule</th><th>Bets</th><th>Avg pts</th><th>Beat close</th></tr></thead><tbody>${CV.rules.map(row).join("")}</tbody></table></div>` + (all.bets ? "" : `<p class="note">No bet has closed yet this season.</p>`);
+    })();
     let h = "<thead><tr><th class='l'>Who</th><th>Season</th><th>Wk</th><th class='l'>Game</th><th class='l'>Bet</th><th class='l'>Book</th><th>Odds</th><th>Stake</th><th>Close</th><th>CLV</th><th class='l'>Result</th><th>Units</th><th class='l'>Note</th><th class='l'>Recorded</th></tr></thead><tbody>";
     T.filter(r => r.who === "model" || r.who === "matt").slice().reverse().forEach(r => { const ok = v => v != null && !isNaN(v); h += `<tr><td class="l">${r.who === "matt" ? "You" : "Model"}</td><td>${r.season ?? ""}</td><td>${r.week ?? ""}</td><td class="l mono">${r.game_id}</td><td class="l"><b>${esc(r.bet)}</b></td><td class="l">${esc(r.book || "")}</td><td class="mono">${r.odds ?? ""}</td><td class="mono">${ok(r.stake_pct) ? Number(r.stake_pct).toFixed(1) + "%" : ""}</td><td class="mono">${ok(r.close) ? r.close : ""}</td><td class="mono ${ok(r.clv) ? (r.clv > 0 ? "pos" : (r.clv < 0 ? "neg" : "")) : ""}">${ok(r.clv) ? (r.clv > 0 ? "+" : "") + Number(r.clv).toFixed(1) : (ok(r.clv_now) ? `<span class="rk" title="against the latest logged line; the close is known once the game kicks off">${(r.clv_now > 0 ? "+" : "") + Number(r.clv_now).toFixed(1)} so far</span>` : "")}</td><td class="l">${esc(r.result || "")}</td><td class="mono ${ok(r.units) ? (r.units > 0 ? "pos" : (r.units < 0 ? "neg" : "")) : ""}">${ok(r.units) ? Number(r.units).toFixed(2) : ""}</td><td class="l" style="white-space:normal;max-width:320px">${esc(r.note || "")}</td><td class="l rk">${esc(r.run_at || "")}</td></tr>`; });
     if ($("tracktable")) $("tracktable").innerHTML = h + "</tbody>";   // no log table on the page (28 Sep 2026, Matt)
