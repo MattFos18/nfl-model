@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- Standing checks: every bug class fixed 1-2 Oct re-checked on every run (`nflmodel/standing_checks.py`, `docs/wiki/checks.md`); leak tests in the weekly step "standing checks"; stake code #385 left in unused page code removed.
 - Live games priced on the backtest's weather: GFS MOS / Japan reading for wind, temperature and rain (`weather.live_source`), Open-Meteo only as a logged fallback; opponent strength centred as of the week; leak checks no longer rewrite the trees cache (reports/live_weather_match.md).
 - Overs studied in depth (reports/overs_deep.md): no over bet, no model change; the over at totals of 41 or lower with a 55%+ raw chance tracked as hidden shadow `shadowoverlow`.
 - Questionable players in the totals equation only (questionable_totals): not adopted, total miss worse on 2015-18.

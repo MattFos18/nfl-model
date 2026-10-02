@@ -1,7 +1,8 @@
 # Gotchas
 
 Traps this repo has already hit, each with where it lives. Read at the start of every session. When a new one bites,
-add it here (newest at the top of its group) with the file and the date, and a line in `log.md`.
+add it here (newest at the top of its group) with the file and the date, and a line in `log.md`. The check that catches
+each one again is in `checks.md`.
 
 ## Signs and ids
 

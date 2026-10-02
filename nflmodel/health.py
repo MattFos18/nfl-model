@@ -25,7 +25,7 @@ def main() -> bool:
         add("FAIL" if age_h > 72 else "OK", "weekly run is fresh", f"last run {log.t.max():%Y-%m-%d %H:%M} UTC, {age_h:.0f} hours ago (limit 72)")
         bad = last[last.status != "ok"]
         add("FAIL" if len(bad) else "OK", "every step of the latest run ok", ", ".join(f"{r.step}: {r.status}" for r in bad.itertuples()) if len(bad) else f"{len(last)} steps ok")
-        for step in ["verify", "tie check (sources)", "tie check (page)", "export data room", "record picks"]:
+        for step in ["verify", "tie check (sources)", "tie check (page)", "export data room", "record picks", "standing checks"]:
             add("OK" if step in set(last.step) else "FAIL", f"latest run has the step: {step}", "present" if step in set(last.step) else "missing")
         # the picks week holds until the week before is in every source (28 Sep 2026); a source more than 36 hours late fails
         try:
