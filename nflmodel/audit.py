@@ -54,8 +54,9 @@ def leakage_test():
     fbad = f.copy()
     fm = (fbad.season > 2024) | ((fbad.season == 2024) & (fbad.week >= 10))
     fbad.loc[fm, "pf"] = fbad.loc[fm, "pf"] + 20
-    p1 = M.walk_forward(f, [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
-    p2 = M.walk_forward(fbad, [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
+    with M.trees_cache_read_only():   # a check never rewrites the stored fits (2 Oct 2026, re-audit item 6)
+        p1 = M.walk_forward(f, [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
+        p2 = M.walk_forward(fbad, [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
     pdiff = float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
     own = own_game_shift()   # the game's own score: 2024 Week 9
     return {"rating_rows_compared": len(real), "max_rating_change_after_corrupting_future": float(diff),
@@ -99,11 +100,8 @@ def own_game_shift(season=2024, week=9) -> float:
     upto = lambda f: f[(f.season < season) | ((f.season == season) & (f.week <= week))]
     f1 = upto(M.with_trends(feats, trends=trends_from(games, tg), games=games))
     f2 = upto(M.with_trends(fbad, trends=trends_from(gbad, tbad), games=gbad))
-    save, M.save_trees_cache = M.save_trees_cache, (lambda: None)   # a check never rewrites the stored fits
-    try:
+    with M.trees_cache_read_only():   # a check never rewrites the stored fits
         p1 = M.walk_forward(f1, [season]); p2 = M.walk_forward(f2, [season])
-    finally:
-        M.save_trees_cache = save
     p1 = p1[p1.game_id.isin(ids)].set_index("game_id").sort_index(); p2 = p2[p2.game_id.isin(ids)].set_index("game_id").sort_index()
     cols = ["home_exp", "away_exp", "model_total", "p_over_emp"]
     return float((p1[cols] - p2[cols]).abs().max().max())
@@ -136,6 +134,12 @@ def team_errors(pred: pd.DataFrame, seasons):
 
 
 def decision_confidence():
+    """The refits with extra inputs never replace the stored fits (2 Oct 2026, re-audit item 6)."""
+    with M.trees_cache_read_only():
+        return _decision_confidence()
+
+
+def _decision_confidence():
     f = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
     base_feats = M.FEATS.copy()
     base_pred = M.walk_forward(f, range(2019, 2026), 10.0)

@@ -55,14 +55,20 @@ add it here (newest at the top of its group) with the file and the date, and a l
   Fixed: `model.priced_weather` (called by `walk_forward` and by `export_web` for the inputs the page shows) prices a
   played game with a stored forecast (2018 on) on that forecast: `wind_out` from `wind_live.readings`, cold from
   `gfs_temp`, the points equations' rain from the `RAIN_FC` reading. Training rows keep the recorded weather, as a live
-  fit does; 2015-17 and games abroad have no stored forecast and keep it (reports/forecast_weather_backtest.md). Still
-  different: an unplayed game's points-equation wind, cold and rain come from Open-Meteo's kickoff hour
-  (`weather.apply_to_games`, trends rain), which is not stored for 2018-25. A new weather input must be learned from the
-  forecast it will be priced on, and priced through `priced_weather`.
+  fit does; 2015-17 and games abroad have no stored forecast and keep it (reports/forecast_weather_backtest.md). A new
+  weather input must be learned from the forecast it will be priced on, and priced through `priced_weather`.
+- **Live games were priced on a different forecast than the backtest.** Until 2 Oct 2026 an unplayed game's wind_out,
+  cold and points-equation rain came from Open-Meteo (`weather.apply_to_games`, trends rain) while the backtest priced on
+  GFS MOS / Japan (DAL@HOU 9.9 against 11.4 mph). Now `weather.live_source` gives both the MOS reading wind_live keeps,
+  Open-Meteo only where none exists yet (66 to 96 hours out, or a failed pull: a `live weather` warning and a health
+  row). The props still read Open-Meteo (`apply_to_games(mos=False)`).
 - **The forecast history skips games by the roof as it was on game day** (unverified size; audit of 2 Oct 2026,
   reports/audit_forecast_weather_backtest_2026-10-02.md): 295 closed-roof games at ARI, ATL, DAL, HOU and IND have no
   stored forecast, while a live run sees their roof as unknown and prices them as outdoor, so the weather backtests skip games live bets could
   include.
+- **A season's league average includes its later weeks.** `players.opponent_strength` centred each defense on the
+  full season's mean (later weeks in). Now `players.league_mean_before` (weeks before; week 1 uses the season before).
+  It feeds only the Players tab's EPA against an average defense, not the game model or the props (2 Oct 2026).
 - **A prior built from team-game rows can count the same game.** `trends._prior_mean` walked rows in order, so the home
   row's referee prior counted the away row of the same game, that game's own total. Fixed 2 Oct 2026 (#384): a prior
   counts only games that kicked off strictly before this one (`reports/leak_fix_rescore.md`).
@@ -107,7 +113,9 @@ add it here (newest at the top of its group) with the file and the date, and a l
 
 - **The boosted trees gave different numbers on different runners** (thread order and hardware rounding). Fixed by
   one thread and a cache of every fit keyed by its inputs (`model.trees_key`, `data/processed/trees_cache.parquet`;
-  decision log 27-28 Sep 2026). A tie fails when past seasons' numbers move with no code change.
+  decision log 27-28 Sep 2026). A tie fails when past seasons' numbers move with no code change. Any check, test or
+  experiment that calls `walk_forward` must run inside `with M.trees_cache_read_only():` (until 2 Oct 2026 the leak
+  checks and the planted-leak test rewrote the tracked cache to 2024's 71 keys).
 - **The line watch runs every 30 minutes, not 10.** `lines.yml` cron is `*/30` (GitHub never started a `*/10`), backed
   by `heartbeat.yml` and an hourly push to the `kick` branch (`catalog.LOG_WHAT` said "every 10 minutes" until 2 Oct 2026).
 - **Generated files fight merges.** Weekly runs commit `data/`, `web/data/` and reports; never commit them from a

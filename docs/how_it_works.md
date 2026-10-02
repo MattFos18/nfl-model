@@ -3252,3 +3252,17 @@ same games (family-wise 3.3% here; with the earlier ones its luck chance is high
 (`shadowoverlow`, `picks.OVER_LOW`), never bet and off the page. Two line-free corrections of
 the model's total (a linear recalibration and band amounts, learned from earlier seasons' misses) were worse on 2019-22
 and 2023-25 and failed their placebos, so the model is unchanged.
+
+## 52. Live games priced on the backtest's weather (2 Oct 2026)
+
+The backtest prices a played game (2018 on) on the GFS MOS and Japan model readings (section 49), but an upcoming game
+took its wind, cold call and points-equation rain from Open-Meteo's kickoff hour, so the backtest checked a forecast the
+live model did not use (DAL@HOU: 9.9 mph against 11.4). `weather.live_source` now gives every unplayed outdoor game the
+same readings: wind from the wind-under reading, temperature from the GFS MOS, rain from the GFS MOS chance at 50%+.
+Open-Meteo stands in only where no reading exists yet (66 to 96 hours before kickoff, or a failed pull); each such game
+is a warning and is counted in the health check. Roofed games get no reading. The card's weather and the re-price check
+follow the same readings; the props keep Open-Meteo. The walk-forward 2015-2025 is identical to the last number
+(`experiments/live_weather_match.py`, reports/live_weather_match.md): spread flag 67-55 / 76-47 / 37-20, totals flag
+132-117 / 190-146 / 82-59, wind under 24-20 / 143-88 / 77-52. The same change centres the Players tab's "EPA against an
+average defense" on the league average before each week instead of the whole season's (it feeds neither the game model
+nor the props), and the leak checks now read the stored tree fits without rewriting them.

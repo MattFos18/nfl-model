@@ -953,6 +953,12 @@ def export_week(feats=None, games=None, pred=None):
         # (26 Sep 2026: the status said "forecast" while temp and wind held the weekly run's blank); the model's own
         # weather inputs stay as priced, and a forecast change inside the window starts a re-price (nflmodel/refresh.py)
         fc_now = WX.usable_forecast()
+        # the weather each unplayed game is priced on now (weather.live_source, 2 Oct 2026): the GFS MOS / Japan reading where
+        # wind_live has one (the backtest's source), else Open-Meteo; the card's temperature, wind and status follow it
+        wx_now = WX.live_source(games.reset_index(), fc_now)
+        for gid_, d_ in wx_now.items():
+            if gid_ in wxs and d_["wind_src"] is not None:
+                wxs[gid_] = {**wxs[gid_], "src": d_["wind_src"]} | ({"s": "forecast"} if d_["wind_src"] == "mos" else {})
         # the named starters and kickoff times from the schedule the line watch pulls every run (nflmodel/refresh.py),
         # so a flexed kickoff or a new starter shows before the re-price it starts has finished
         sched = _schedule_now(cur_season, cur_week)
@@ -991,9 +997,9 @@ def export_week(feats=None, games=None, pred=None):
                         sides[tm]["models"] = {k: round(float(prw[f"{sd_}_m_{k}"]), 3) for k in M.BLEND_LABEL}
                     card_qb(sides[tm], row, sched.get(r.game_id, {}).get("home_qb" if tm == r.home_team else "away_qb"), qb_names, all_qb_names)
                     if r.home_score is None or pd.isna(r.home_score):   # unplayed: the forecast in use now (blank = typical weather)
-                        f_ = fc_now.loc[r.game_id] if r.game_id in fc_now.index and not sides[tm].get("dome") else None
-                        sides[tm]["temp"] = None if f_ is None or pd.isna(f_.temp) else round(float(f_.temp), 1)
-                        sides[tm]["wind"] = None if f_ is None or pd.isna(f_.wind) else round(float(f_.wind), 1)
+                        f_ = wx_now.get(r.game_id) if not sides[tm].get("dome") else None
+                        sides[tm]["temp"] = None if f_ is None or f_["temp"] is None else round(float(f_["temp"]), 1)
+                        sides[tm]["wind"] = None if f_ is None or f_["wind"] is None else round(float(f_["wind"]), 1)
             gmeta = games.loc[r.game_id] if r.game_id in games.index else None
             pr_ = pv_coef.loc[r.game_id] if r.game_id in pv_coef.index else None   # the fit that priced this game: coefficient, training mean, intercept
             _p6 = lambda v: None if v is None or (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)   # full precision: three decimals on the means and coefficients moved a card's rebuilt points by up to 0.02 once the QB coefficient passed 17

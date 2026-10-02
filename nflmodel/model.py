@@ -180,6 +180,23 @@ def save_trees_cache() -> None:
     out.to_parquet(TREES_CACHE, index=False); _TC["df"] = out; _TC["new"] = []
 
 
+class trees_cache_read_only:
+    """`with M.trees_cache_read_only(): M.walk_forward(...)`: a check or test reads the stored fits but never rewrites
+    data/processed/trees_cache.parquet, and the fits it made are dropped when it ends, so a later real run in the same
+    process saves only its own (2 Oct 2026, re-audit item 6: the leak checks left the file holding 2024's 71 keys)."""
+    def __enter__(self):
+        global save_trees_cache
+        self._save, self._tc = save_trees_cache, {"used": set(_TC["used"]), "new": list(_TC["new"])}
+        save_trees_cache = lambda: None
+        return self
+
+    def __exit__(self, *exc):
+        global save_trees_cache
+        save_trees_cache = self._save
+        _TC["used"], _TC["new"] = self._tc["used"], self._tc["new"]
+        return False
+
+
 def fit_blend(train: pd.DataFrame, ridge_model=None, alpha: float = 10.0, test: pd.DataFrame | None = None) -> dict:
     """The seven fitted models; ridge_model is the live equation if already fitted. With `test` (the rows the fit will
     price, carrying game_id and team), the trees' predictions come from the cache when this fit was made before."""
@@ -396,7 +413,9 @@ def _temp_readings() -> dict:
 # reading the wind points and the wind under use, cold (and warm_in_cold) = the GFS MOS kickoff temperature under COLD_F,
 # the points equations' rain = the totals' rain reading (RAIN_FC). Training rows keep the recorded weather, as a live fit
 # does. A missing reading prices as a live game with no forecast (league-median wind, not cold, dry). Before 2018, and for
-# games abroad, no forecast is stored and the recorded weather stays.
+# games abroad, no forecast is stored and the recorded weather stays. An unplayed game gets the same readings upstream
+# (2 Oct 2026, re-audit item 3): weather.apply_to_games sets its wind and temperature from wind_live's GFS MOS / Japan
+# reading and trends.situation_extras its rain from the MOS chance, Open-Meteo only where no reading exists yet (logged).
 FORECAST_WEATHER = True
 
 

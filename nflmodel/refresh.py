@@ -65,14 +65,18 @@ def fingerprint() -> dict:
     fp["injuries"] = sorted([list(x) for x in inj])
     fp["reports"] = sorted([list(x) for x in rep])
     try:
-        fc = WX.usable_forecast()
-        for gid in wk.game_id:
-            if gid in fc.index:
-                r = fc.loc[gid]
-                fp["weather"][gid] = {"wind": round(float(r.wind), 1) if pd.notna(r.wind) else None, "cold": bool(pd.notna(r.temp) and r.temp < 35),
-                                      "rain": bool(pd.notna(r.get("precip", None)) and float(r.get("precip", 0) or 0) > 0)}
-    except Exception:  # noqa
-        pass
+        # the weather each game is priced on now (weather.live_source, 2 Oct 2026): the GFS MOS reading where wind_live has
+        # one, else Open-Meteo; a game with neither is priced as typical weather and has no entry
+        from .model import RAIN_FC, COLD_F
+        for gid, d in WX.live_source(wk).items():
+            if d["wind_src"] is None and d["temp_src"] is None and d["rain_src"] is None:
+                continue
+            rain = (d["pop"] >= RAIN_FC) if d["rain_src"] == "mos" else bool((d["precip"] or 0) > 0)
+            fp["weather"][gid] = {"wind": None if d["wind"] is None else round(d["wind"], 1), "cold": bool(d["temp"] is not None and d["temp"] < COLD_F),
+                                  "rain": bool(rain), "src": d["wind_src"]}
+    except Exception as e:  # noqa
+        from .warnlog import warn
+        warn("refresh", f"weather fingerprint failed ({type(e).__name__}: {str(e)[:100]}): weather changes will not start a re-price")
     return fp
 
 
@@ -170,7 +174,7 @@ def check() -> bool:
     reprice = bool(kinds - slow) or (bool(kinds & slow) and (last_run is None or last_run >= WEATHER_GAP_H))
     now = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     status = {"checked": now, "season": new["season"], "week": new["week"], "reprice": reprice, "changes": [w for _, w in changes][:40], "errors": errors,
-              "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (Open-Meteo)"],
+              "sources": ["lines and props (books, PrizePicks, Underdog)", "named starters and kickoffs (nflverse schedule)", "injury reports (league and ESPN)", "kickoff forecasts (GFS MOS and Japan model; Open-Meteo until those start)"],
               "pulls": _pulls(now, errors), "late_h": _late_h()}
     WEB.mkdir(parents=True, exist_ok=True); (WEB / "fresh.js").write_text("window.FRESH=" + json.dumps(status) + ";")
     (RUNS / "refresh_log.csv").parent.mkdir(parents=True, exist_ok=True)

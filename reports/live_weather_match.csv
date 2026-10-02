@@ -1,0 +1,17 @@
+window,spread_flag,totals_flag,wind_under,team_miss,total_miss,part,game_id,open_meteo_wind,open_meteo_temp,wind,temp,mos_rain_chance,open_meteo_rain_chance,source,column,mean_abs_shift,p90,max
+2015-18,67-55,132-117,24-20,7.4046,10.7507,A,,,,,,,,,,,,
+2019-22,76-47,190-146,143-88,7.3643,10.5161,A,,,,,,,,,,,,
+2023-25,37-20,82-59,77-52,7.2344,10.1029,A,,,,,,,,,,,,
+,,,,,,B,2026_04_IND_WAS,5.8,67.0,6.3,68.2,,0.0,open-meteo/open-meteo/open-meteo,,,,
+,,,,,,B,2026_04_TEN_BAL,6.6,63.7,4.5,63.6,78.0,67.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_NE_BUF,7.6,62.4,9.2,64.8,13.0,0.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_NYJ_CHI,7.6,69.7,9.1,69.9,2.0,0.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_JAX_CIN,4.2,72.0,3.5,74.5,10.0,1.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_ARI_NYG,10.9,64.0,10.4,59.1,58.0,5.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_LA_PHI,10.3,62.9,8.4,62.9,70.0,33.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_GB_TB,10.2,90.4,7.2,88.5,41.0,1.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_LAC_SEA,5.0,73.0,5.2,70.4,2.0,0.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_DEN_SF,4.8,90.2,8.2,92.7,0.0,0.0,mos/mos/mos,,,,
+,,,,,,B,2026_04_DET_CAR,1.4,64.4,3.5,66.4,78.0,81.0,mos/mos/mos,,,,
+,,,,,,C,,,,,,,,,def_pass_epa,0.0166,0.0418,0.1101
+,,,,,,C,,,,,,,,,def_rush_epa,0.0107,0.0246,0.1233

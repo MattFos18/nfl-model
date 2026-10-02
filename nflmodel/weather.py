@@ -164,10 +164,65 @@ def status_by_game(games: pd.DataFrame) -> dict:
     return out
 
 
-def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
-    """Fill temp/wind for unplayed outdoor games from the latest usable forecast (within USE_WITHIN_DAYS of kickoff);
-    everything else unplayed is left blank so the model uses the league-typical weather. A played game whose game-time
-    weather nflverse has not posted yet keeps the kickoff reading it was priced with."""
+def mos_readings() -> tuple[dict, dict, dict]:
+    """(wind, temperature, rain chance) by game_id from nflmodel/wind_live.py: the GFS MOS and Japan model readings the
+    backtest prices played games on (model.priced_weather), roofed games left out. A reader that fails gives {} and a
+    warning (every game then falls back to Open-Meteo, each one logged)."""
+    from . import wind_live as WL
+    from .warnlog import warn
+    out = []
+    for name, fn in (("wind", WL.readings), ("temperature", WL.temp_readings), ("rain", WL.rain_readings)):
+        try:
+            out.append(fn())
+        except Exception as e:  # noqa
+            warn("live weather", f"GFS MOS {name} readings failed ({type(e).__name__}: {str(e)[:100]}): unplayed games priced on Open-Meteo")
+            out.append({})
+    return tuple(out)
+
+
+def live_source(games: pd.DataFrame, fc: pd.DataFrame | None = None, mos: tuple | None = None) -> dict:
+    """game_id -> what each unplayed outdoor game's weather is priced on now: {"wind", "temp", "pop" (MOS chance of rain,
+    %), "precip_prob", "precip" (Open-Meteo's), and "wind_src", "temp_src", "rain_src"}, each source "mos" (the
+    wind_live reading, the one the backtest prices on), "open-meteo" (the fallback: no MOS reading yet, as 66 to 96
+    hours out) or None (typical weather). Domes and closed roofs are left out. One rule for the model's inputs
+    (apply_to_games, trends' rain), the card and the re-price fingerprint (2 Oct 2026, re-audit item 3)."""
+    fc = usable_forecast() if fc is None else fc
+    wind, temp, pop = mos_readings() if mos is None else mos
+    out = {}
+    for r in games[games.home_score.isna() & ~games.roof.isin(["dome", "closed"])].itertuples():
+        gid = r.game_id; o = fc.loc[gid] if gid in fc.index else None
+        om = lambda c: None if o is None or c not in o.index or pd.isna(o[c]) else float(o[c])
+        d = {"precip_prob": om("precip_prob"), "precip": om("precip")}
+        for k, rd in (("wind", wind), ("temp", temp)):
+            d[k], d[f"{k}_src"] = (float(rd[gid]), "mos") if gid in rd else ((om(k), "open-meteo") if om(k) is not None else (None, None))
+        d["pop"] = float(pop[gid]) if gid in pop else None
+        d["rain_src"] = "mos" if gid in pop else ("open-meteo" if o is not None else None)
+        out[gid] = d
+    return out
+
+
+def log_fallbacks(src: dict) -> list:
+    """Warn (stderr and a health warning, nflmodel/warnlog.py) for every unplayed game priced on Open-Meteo because no
+    MOS reading exists; returns those game ids."""
+    from .warnlog import warn
+    fell = []
+    for gid, d in sorted(src.items()):
+        parts = [k for k in ("wind", "temp", "rain") if d[f"{k}_src"] == "open-meteo"]
+        if parts:
+            fell.append(gid)
+            warn("live weather", f"{gid}: no GFS MOS reading for {', '.join(parts)}; priced on Open-Meteo")
+    return fell
+
+
+def apply_to_games(games: pd.DataFrame, mos: bool = True) -> pd.DataFrame:
+    """Fill temp/wind for unplayed outdoor games with the weather they are priced on (live_source): the GFS MOS / Japan
+    reading wind_live keeps (the same readings the backtest prices played games on, model.priced_weather), else the
+    latest usable Open-Meteo forecast (within USE_WITHIN_DAYS of kickoff; each such fallback logged); everything else
+    unplayed is left blank so the model uses the league-typical weather. mos=False: Open-Meteo only (the props, whose
+    passing-wind factor reads it). A played game whose game-time weather nflverse has not posted yet keeps the kickoff
+    reading it was priced with.
+    2 Oct 2026 (re-audit item 3): unplayed games took wind and temperature from Open-Meteo while the backtest prices on
+    GFS MOS; for 2026_04_DAL_HOU that was 9.9 against 11.4 mph."""
     fc = usable_forecast()
     g = games.copy()
     un = g.home_score.isna()
@@ -176,6 +231,13 @@ def apply_to_games(games: pd.DataFrame) -> pd.DataFrame:
     m = g.game_id.isin(fc.index) & un
     g.loc[m, "temp"] = g.loc[m, "game_id"].map(fc.temp)
     g.loc[m, "wind"] = g.loc[m, "game_id"].map(fc.wind)
+    if mos:
+        src = live_source(g, fc)
+        log_fallbacks(src)
+        for k in ("wind", "temp"):
+            ids = {gid for gid, d in src.items() if d[f"{k}_src"] == "mos"}
+            mm = un & g.game_id.isin(ids)
+            g.loc[mm, k] = g.loc[mm, "game_id"].map({gid: src[gid][k] for gid in ids})
     # a played game nflverse has not given its game-time weather yet (the schedule posts scores within hours and the
     # weather days later: Week 3 of 2026 had 1 of 8 outdoor games filled the Sunday evening) keeps the kickoff reading
     # it was priced with, from the last good fetch; nflverse's reading replaces it when it lands (27 Sep 2026)
