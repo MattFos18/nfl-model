@@ -3266,3 +3266,12 @@ follow the same readings; the props keep Open-Meteo. The walk-forward 2015-2025 
 132-117 / 190-146 / 82-59, wind under 24-20 / 143-88 / 77-52. The same change centres the Players tab's "EPA against an
 average defense" on the league average before each week instead of the whole season's (it feeds neither the game model
 nor the props), and the leak checks now read the stored tree fits without rewriting them.
+
+Follow-ups the same day (review of #399): a game whose weather source changes (Open-Meteo to the GFS MOS reading, or
+back) is re-priced even when the wind moves under 2 mph; the re-price check calls Open-Meteo rain as the model does (a
+50%+ chance or 1 mm+); a live reading counts only while its GFS run is at most one run (6 hours) behind the newest run
+for that game, otherwise the game falls back to Open-Meteo with a warning; the health check fails a US outdoor game
+within 59 hours of kickoff (when every MOS run reaches it) with no MOS reading or with Japan's wind alone, keeps a
+warning for the expected fallbacks (further out, or abroad, as IND@WAS in London), and has a row for the line watch's
+live forecast pull, which now raises when every game inside 59 hours comes back empty from the GFS.
+No rule, threshold or model input changed.

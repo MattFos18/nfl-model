@@ -201,6 +201,19 @@ def live_source(games: pd.DataFrame, fc: pd.DataFrame | None = None, mos: tuple 
     return out
 
 
+def rain_call(d: dict) -> bool:
+    """The rain call the model makes from one live_source entry, as trends.py makes it: the MOS chance at model.RAIN_FC
+    (50%+), else Open-Meteo's chance at trends.RAIN_PROB (50%+) or trends.RAIN_MM (1 mm+) in the kickoff hour. 2 Oct
+    2026 (review of #399): the re-price fingerprint called any Open-Meteo precipitation above 0 rain."""
+    from .model import RAIN_FC
+    from .trends import RAIN_PROB, RAIN_MM
+    if d.get("rain_src") == "mos":
+        return bool(d["pop"] is not None and d["pop"] >= RAIN_FC)
+    if d.get("rain_src") == "open-meteo":
+        return bool((d.get("precip_prob") or 0.0) >= RAIN_PROB or (d.get("precip") or 0.0) >= RAIN_MM)
+    return False
+
+
 def log_fallbacks(src: dict) -> list:
     """Warn (stderr and a health warning, nflmodel/warnlog.py) for every unplayed game priced on Open-Meteo because no
     MOS reading exists; returns those game ids."""
