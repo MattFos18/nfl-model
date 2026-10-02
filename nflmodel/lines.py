@@ -16,7 +16,7 @@ This sandbox cannot reach the hosts (egress policy); the GitHub Actions workflow
 Usage: python -m nflmodel.lines [--season 2026 --week 3]
 """
 from __future__ import annotations
-import argparse, json, re, datetime as dt
+import argparse, json, logging, re, datetime as dt
 import numpy as np, pandas as pd, requests
 from pathlib import Path
 
@@ -524,7 +524,25 @@ def before_kickoff(hist: pd.DataFrame, kickoff_et) -> pd.DataFrame:
     if ko is None or hist is None or not len(hist):
         return hist
     t = pd.to_datetime(hist.ts.astype(str).str.replace("Z", ""), format="%Y-%m-%dT%H-%M-%S", errors="coerce").dt.tz_localize("UTC")
+    bad = int(t.isna().sum())
+    if bad == len(t):   # nothing parses: the cut would silently hand the card the schedule's line
+        raise ValueError(f"lines log: none of {len(t)} timestamps parse for {hist.game_id.iloc[0] if 'game_id' in hist else 'a game'} (e.g. {hist.ts.iloc[0]!r})")
+    if bad:
+        BAD_TS[0] += bad
+        logging.warning("lines log: %d of %d timestamps do not parse for %s; those rows are dropped", bad, len(t), hist.game_id.iloc[0] if "game_id" in hist else "a game")
     return hist[(t < ko).values]
+
+
+BAD_TS = [0]   # lines-log rows before_kickoff dropped for a timestamp that does not parse, this process
+
+
+def schedule_fallbacks(live: pd.DataFrame, log: pd.DataFrame) -> list[str]:
+    """Games live_lines priced on the schedule's line although the lines log has rows for them (2 Oct 2026, review of
+    #381: a log whose rows all drop out would fall back to the schedule unnoticed)."""
+    if live is None or not len(live) or "line_source" not in live.columns:
+        return []
+    logged = set(log.game_id.dropna()) if log is not None and "game_id" in log.columns else set()
+    return sorted(live.game_id[(live.line_source == "schedule") & live.game_id.isin(logged)])
 
 
 def _kickoffs(games: pd.DataFrame) -> dict:

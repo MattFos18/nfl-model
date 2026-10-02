@@ -125,13 +125,17 @@ def sites(g: pd.DataFrame) -> pd.DataFrame:
 
 
 def venue_problems(g: pd.DataFrame) -> list[str]:
-    """Games whose place is wrong: a neutral-site game (not a Super Bowl) listed at the home team's own stadium, a
+    """Games whose place is wrong: a neutral-site game (not a Super Bowl) at a stadium id this module does not know or
+    listed at the home team's own stadium, a
     stadium whose name is a venue abroad resolved to a US site, or an open-air stadium abroad marked dome or closed."""
     out = []
     sid = g["stadium_id"] if "stadium_id" in g.columns else pd.Series(None, index=g.index)
+    known = set(VENUE) | set(HOME_IDS)
     st = sites(g)
     for i, gid, loc, gt, s, home, name, roof in zip(g.index, g.game_id, g.location, g.game_type, sid, g.home_team, g.stadium.fillna(""), g.roof):
-        if loc == "Neutral" and gt != "SB" and home in HOME_IDS.get(s, ()) and s not in VENUE:
+        if loc == "Neutral" and gt != "SB" and s not in known:   # a stadium venues.py does not know: site() would fall back to the home team's (review of #381)
+            out.append(gid)
+        elif loc == "Neutral" and gt != "SB" and home in HOME_IDS.get(s, ()) and s not in VENUE:
             out.append(gid)
         elif any(w.lower() in name.lower() for w in ABROAD_WORDS) and not st.at[i, "abroad"]:
             out.append(gid)
