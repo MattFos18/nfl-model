@@ -289,15 +289,21 @@ def situation_extras(games: pd.DataFrame, seasons=range(2012, 2027)) -> pd.DataF
         return 3958.8 * 2 * np.arcsin(np.sqrt(h))
     # unplayed games: the latest kickoff forecast (weather.py) stands in for the weather text
     # (only forecasts within weather.USE_WITHIN_DAYS of kickoff; further out the game is priced as dry)
-    from .weather import usable_forecast
+    from .weather import usable_forecast, mos_readings
     d = usable_forecast().reset_index()
     fc = {r.game_id: (float(r.precip_prob) if pd.notna(r.precip_prob) else 0.0, float(r.precip) if pd.notna(r.precip) else 0.0) for r in d.itertuples()}
+    # 2 Oct 2026 (re-audit item 3): an unplayed game's rain is the GFS MOS chance (50%+, model.RAIN_FC), the reading the
+    # backtest prices played games on (model.priced_weather); Open-Meteo only where wind_live has no reading yet
+    from .model import RAIN_FC
+    pops = mos_readings()[2]
     rows = []
     for g in games.itertuples():
         w = str(wx.get(g.game_id, "") or "").lower()
         outdoor = g.roof in ("outdoors", "open") if isinstance(g.roof, str) else True
         rain = float(outdoor and any(k in w for k in ["rain", "shower", "drizzle", "storm"]))
-        if not w and g.game_id in fc and outdoor:
+        if not w and outdoor and pd.isna(getattr(g, "home_score", np.nan)) and g.game_id in pops:
+            rain = float(pops[g.game_id] >= RAIN_FC)
+        elif not w and g.game_id in fc and outdoor:
             # Open-Meteo gives precipitation in millimetres: rain when the hour's chance is 50%+ or 1 mm+ is forecast
             rain = float(fc[g.game_id][0] >= RAIN_PROB or fc[g.game_id][1] >= RAIN_MM)
         snow = float(outdoor and any(k in w for k in ["snow", "flurr", "sleet"]))

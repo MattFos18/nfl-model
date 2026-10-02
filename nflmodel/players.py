@@ -59,9 +59,23 @@ def player_box(p: pd.DataFrame) -> pd.DataFrame:
 OPP_ADJUST = False   # 24 Sep 2026 (experiments/opp_adjust.py): each game's EPA less the opponent defense's strength coming in
 
 
+def league_mean_before(tg: pd.DataFrame, col: str) -> pd.Series:
+    """Each row's league average of `col` over the season's team-games before its week; in a season's first week, the
+    season before's average (0 with none). 2 Oct 2026 (re-audit item 5): opponent_strength centred on the whole
+    season's average, later weeks included."""
+    by = tg.groupby(["season", "week"])[col].agg(["sum", "count"]).sort_index()
+    before = by.groupby(level=0).cumsum() - by   # this season, weeks before
+    season_mean = (lambda s: s["sum"] / s["count"])(by.groupby(level=0).sum()).shift(1)
+    m = (before["sum"] / before["count"].where(before["count"] > 0))
+    m = m.fillna(pd.Series(m.index.get_level_values(0).map(season_mean), index=m.index)).fillna(0.0)
+    return pd.Series(pd.MultiIndex.from_arrays([tg.season, tg.week]).map(m), index=tg.index).astype(float)
+
+
 def opponent_strength() -> pd.DataFrame:
     """Per (game_id, team): the opponent defense's EPA allowed per pass play and per run before this game (0.94 a game,
-    last season at 0.8, shrunk by 3 games), minus that season's league average. Plus is a soft defense."""
+    last season at 0.8, shrunk by 3 games), minus the league average before that week (league_mean_before). Plus is a
+    soft defense. Feeds the Players tab's EPA against an average defense (positions.all_values) only: the game model and
+    the props read the raw values (OPP_ADJUST off)."""
     tg = pd.read_parquet(OUT / "team_games.parquet", columns=["game_id", "season", "week", "team", "opp", "def_pass_epa", "def_rush_epa"])
     tg = tg.sort_values(["season", "week"]).reset_index(drop=True)
     for col in ["def_pass_epa", "def_rush_epa"]:
@@ -75,7 +89,7 @@ def opponent_strength() -> pd.DataFrame:
                 if pd.notna(v):
                     num = num * 0.94 + v; den = den * 0.94 + 1.0
                 last = s_
-        tg[f"pri_{col}"] = pri - tg.groupby("season")[col].transform("mean")
+        tg[f"pri_{col}"] = pri - league_mean_before(tg, col)
     o = tg[["game_id", "team", "pri_def_pass_epa", "pri_def_rush_epa"]].rename(columns={"team": "opp", "pri_def_pass_epa": "opp_pass", "pri_def_rush_epa": "opp_rush"})
     return tg[["game_id", "team", "opp"]].merge(o, on=["game_id", "opp"], how="left")[["game_id", "team", "opp_pass", "opp_rush"]]
 

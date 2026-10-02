@@ -4,6 +4,7 @@ The check corrupts 2024 Week 10 on and requires the Week 1 to 9 predictions not 
 nothing, so this test plants a real leak (each team's points rating replaced by its NEXT game's points, data from the
 future) and requires the same check to see it. The clean model must still move by exactly zero.
 """
+import hashlib
 from pathlib import Path
 
 import pandas as pd
@@ -34,13 +35,20 @@ def _week1_9_shift(f):
     return float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
 
 
+def _sha(p):
+    return hashlib.sha1(p.read_bytes()).hexdigest() if p.exists() else None
+
+
 @pytest.mark.skipif(not F.exists(), reason="features_asof.parquet not present")
 def test_clean_model_has_no_lookahead_and_a_planted_leak_is_caught():
+    before = _sha(M.TREES_CACHE)
     f = M.with_trends(pd.read_parquet(F))
-    assert _week1_9_shift(f) == 0.0
-    # the plant reads the corrupted future, so it must be applied after corrupting: rebuild it inside the check
-    def shift_planted(f):
-        p1 = M.walk_forward(_plant_next_game_points(f), [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
-        p2 = M.walk_forward(_plant_next_game_points(_corrupt_future(f)), [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
-        return float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
-    assert shift_planted(f) > 0.5
+    with M.trees_cache_read_only():   # 2 Oct 2026 (re-audit item 6): the test used to rewrite the tracked trees cache
+        assert _week1_9_shift(f) == 0.0
+        # the plant reads the corrupted future, so it must be applied after corrupting: rebuild it inside the check
+        def shift_planted(f):
+            p1 = M.walk_forward(_plant_next_game_points(f), [2024]); p1 = p1[p1.week <= 9].reset_index(drop=True)
+            p2 = M.walk_forward(_plant_next_game_points(_corrupt_future(f)), [2024]); p2 = p2[p2.week <= 9].reset_index(drop=True)
+            return float((p1.home_exp - p2.home_exp).abs().max() + (p1.away_exp - p2.away_exp).abs().max())
+        assert shift_planted(f) > 0.5
+    assert _sha(M.TREES_CACHE) == before   # data/processed/trees_cache.parquet untouched

@@ -935,7 +935,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
     if season is None or week is None:
         season, week = current_week(games)
     if not backfill:
-        games = WX.apply_to_games(games)   # the kickoff forecast in use now (the line watch pulls it every run)
+        games = WX.apply_to_games(games, mos=False)   # the Open-Meteo kickoff forecast in use now (the line watch pulls it every run); the props keep it (2 Oct 2026: the game model moved to the GFS MOS reading)
     run_at = pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC")
     d = official(pd.read_parquet(OUT / "scheme_plays.parquet"))
     graded = None if (backfill or live) else grade(d, season, week, run_at)

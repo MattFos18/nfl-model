@@ -995,7 +995,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const w = g.wx || {}; const days = w.days == null ? "" : `${Math.round(w.days)} days out`;
     if (sh.dome || w.s === "dome") return "Dome";
     if (played) return obs || "Weather not recorded";
-    if (w.s === "forecast") return `<span title="kickoff forecast, fetched ${Math.max(1, Math.round(w.days))} days out">${obs}</span>`;
+    if (w.s === "forecast") return `<span title="${w.src === "mos" ? "kickoff forecast: GFS MOS and Japan model" : `kickoff forecast: Open-Meteo, fetched ${Math.max(1, Math.round(w.days))} days out`}">${obs}</span>`;
     if (w.s === "far") return `<span title="a kickoff forecast is used once it is within ${w.use_within} days; until then the model assumes typical weather">Weather TBD</span>`;
     if (w.s === "failed" || w.s === "range") return `<span title="no usable forecast; the model assumes typical weather">Weather TBD</span>`;
     return obs || `<span title="no forecast yet; the model assumes typical weather">Weather TBD</span>`;

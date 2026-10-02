@@ -74,6 +74,12 @@ def main() -> bool:
                 g_ = g_[g_.home_score.isna() & (g_.game_type == "REG") & ~g_.roof.isin(["dome", "closed"]) & (g_.kickoff_et >= nowet - pd.Timedelta(days=2)) & (g_.kickoff_et <= nowet + pd.Timedelta(days=WX.USE_WITHIN_DAYS))]
                 have = set(f[f.status.isin(["ok", "carried"])].game_id); miss = sorted(set(g_.game_id) - have)
                 add("FAIL" if miss else "OK", "kickoff forecast for every outdoor game inside the window", f"{len(g_) - len(miss)} of {len(g_)} games have a reading" + (f"; missing: {', '.join(miss)}" if miss else ""))
+                # 2 Oct 2026 (re-audit item 3): the weather is priced on the GFS MOS reading (the backtest's source); a game
+                # on Open-Meteo has no MOS reading yet (66 to 96 hours out) or its pull failed, and is counted here
+                src_ = WX.live_source(g_)
+                fell = sorted(gid for gid, d in src_.items() if "open-meteo" in (d["wind_src"], d["temp_src"], d["rain_src"]))
+                n_mos = sum(d["wind_src"] == "mos" for d in src_.values())
+                add("WARN" if fell else "OK", "live weather priced on GFS MOS (the backtest's source)", f"{n_mos} of {len(src_)} games on GFS MOS; {len(fell)} on the Open-Meteo fallback" + (f": {', '.join(fell)}" if fell else ""))
             except Exception as e:  # noqa
                 add("WARN", "kickoff forecast coverage", str(e)[:80])
         else:

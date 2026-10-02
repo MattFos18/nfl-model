@@ -1020,11 +1020,12 @@ def check_live(rows, wk) -> None:
         rows.append(("season file against the week", str(e)[:80], "", False))
     from . import weather as WX
     fc = WX.usable_forecast(); bad = []
+    src_ = WX.live_source(pd.read_parquet(OUT / "games.parquet"), fc)   # the card's wind is the reading the game is priced on (GFS MOS, else Open-Meteo; 2 Oct 2026)
     for g_ in G:
         if g_.get("home_score") is not None: continue
         for t, sd in (g_.get("sides") or {}).items():
-            f_ = fc.loc[g_["game_id"]] if g_["game_id"] in fc.index and not sd.get("dome") else None
-            w_ = None if f_ is None or pd.isna(f_.wind) else round(float(f_.wind), 1)
+            f_ = src_.get(g_["game_id"]) if not sd.get("dome") else None
+            w_ = None if f_ is None or f_["wind"] is None else round(float(f_["wind"]), 1)
             if sd.get("wind") != w_: bad.append(f"{g_['game_id']} {t}")
     if (OUT / "props.json").exists():   # the props' passing-wind factor reads the same forecast
         pj_ = json.loads((OUT / "props.json").read_text())
@@ -1036,7 +1037,7 @@ def check_live(rows, wk) -> None:
             for t, sd in pj_["games"][g_["game_id"]].items():
                 v = sd.get("volume", {}).get("wind")
                 if (v is None) != (w_ is None) or (v is not None and abs(v - w_) > 1e-9): bad.append(f"{g_['game_id']} {t} props")
-    tie("card and props wind (unplayed games) = the kickoff forecast in use now", bad, [])
+    tie("card wind (unplayed games) = the reading it is priced on now (GFS MOS, else Open-Meteo); props wind = the Open-Meteo forecast in use now", bad, [])
     # 27 Sep 2026: the forecast file dropped a game at kickoff, so six re-prices that Sunday priced the early games as typical
     # weather and the cards said "Weather TBD" for games played in 13 mph wind. Every unplayed outdoor game inside the window
     # (kickoff within USE_WITHIN_DAYS ahead, or up to two days back and not yet scored) must carry a forecast; a fetch failure
