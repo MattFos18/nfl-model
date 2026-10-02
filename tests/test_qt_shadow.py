@@ -94,20 +94,51 @@ def test_listings_count_like_injury_retest():
 
 def test_live_reprices_at_the_live_line_or_blanks(tmp_path, monkeypatch):
     monkeypatch.setattr(QT, "PRED", tmp_path / "qt_pred.parquet"); monkeypatch.setattr(QT, "DIST", tmp_path / "qt_dist.json")
+    monkeypatch.setattr("nflmodel.warnlog.F", tmp_path / "warnings.json")
     pd.DataFrame({"game_id": ["g1", "g2"], "season": 2026, "week": 4, "total_line": [44.0, 47.0], "qt_model_total": [42.0, 49.0],
                   "qt_p_over_emp": [0.40, 0.58]}).to_parquet(QT.PRED, index=False)
     p = pd.DataFrame({"game_id": ["g1", "g2"], "total_line": [44.0, 48.0]})
+    sha = QT._sha(QT.OUT / "pred_v3.parquet")   # the live table the shadow ran beside
+    QT.DIST.write_text(json.dumps({"season": 2026, "weeks": {}, "pred_v3_sha_after": sha}))
     no_fit = QT.live(p, 2026, 4)   # no stored fit: the stored chance where the line held, blank where it moved
     assert no_fit.qt_p_over_emp.iloc[0] == 0.40 and np.isnan(no_fit.qt_p_over_emp.iloc[1]) and list(no_fit.qt_model_total) == [42.0, 49.0]
     tres = [-10.0, -3.0, 0.0, 4.0, 9.0]
-    QT.DIST.write_text(json.dumps({"season": 2026, "weeks": {"4": tres}}))
+    QT.DIST.write_text(json.dumps({"season": 2026, "weeks": {"4": tres}, "pred_v3_sha_after": sha}))
     fit = QT.live(p, 2026, 4)
     assert list(fit.qt_p_over_emp) == [QT.p_over_emp(42.0, 44.0, tres), QT.p_over_emp(49.0, 48.0, tres)]
+    QT.DIST.write_text(json.dumps({"season": 2026, "weeks": {"4": tres}, "pred_v3_sha_after": "an older run"}))
+    stale = QT.live(p, 2026, 4)   # the model re-ran without the shadow: nothing priced on the old totals
+    assert stale.isna().all().all()
 
 
-def test_cards_drop_the_shadow_columns():
+def test_cards_and_catalog_drop_the_shadow_columns(tmp_path, monkeypatch):
     assert all(k.startswith(EW.QT_KEYS) for k in ("qt_model_total", "qt_p_over_emp", "shadowqtotals_bet"))
     assert not any(k.startswith(EW.QT_KEYS) for k in ("model_total", "p_over_emp", "shadowunder_bet", "windunder_bet"))
+    from nflmodel import catalog as C
+    rep = tmp_path / "reports"; rep.mkdir()
+    pd.DataFrame({"game_id": ["g1"], "model_total": [44.0], "qt_model_total": [43.0], "qt_p_over_emp": [0.4], "shadowqtotals_bet": ["Under 44"]}).to_csv(rep / "picks_2026_wk4.csv", index=False)
+    monkeypatch.setattr(C, "REP", rep)
+    cols = [r for r in C.build()["reports"] if r["name"] == "picks_2026_wk4.csv"][0]["columns"]
+    assert cols == ["game_id", "model_total"]
+
+
+def test_missing_raw_files_fail_the_step(tmp_path, monkeypatch):
+    monkeypatch.setattr(QT, "RAW", tmp_path)   # no raw files at all: never priced on fewer seasons with no sign
+    g = pd.DataFrame({"game_id": ["2026_01_A_H"], "season": 2026, "week": 1, "game_type": "REG", "home_team": "H", "away_team": "A", "home_score": [20.0]})
+    with pytest.raises(FileNotFoundError, match="injuries/injuries_2013"):
+        QT.pieces(2026, g)
+
+
+def test_cache_key_follows_past_inputs_only():
+    inj = pd.DataFrame({"season": [2025, 2026], "week": 1, "team": "PIT", "gsis_id": ["a", "b"], "report_status": "Questionable", "position": "WR", "practice_status": None})
+    sn = pd.DataFrame({"season": [2025, 2026], "week": 1, "team": "PIT", "key": ["a", "b"], "position": "WR", "offense_pct": [0.5, 0.6], "defense_pct": 0.0})
+    pg = pd.DataFrame({"season": [2025, 2026], "player_id": ["a", "b"], "epa": [0.1, 0.2]})
+    reg = pd.DataFrame({"game_id": ["x", "y"], "season": [2025, 2026], "week": 1, "home_team": "PIT", "away_team": "CLE", "home_score": [20.0, np.nan]})
+    k = QT.inputs_key(2026, inj, sn, {(2025, 1, "PIT"): {"c"}}, pg, reg)
+    assert k == QT.inputs_key(2026, inj, sn.assign(offense_pct=[0.5, 0.9]), {(2025, 1, "PIT"): {"c"}, (2026, 1, "PIT"): {"d"}}, pg, reg)   # this season: rebuilt anyway
+    assert k != QT.inputs_key(2026, inj, sn.assign(offense_pct=[0.4, 0.6]), {(2025, 1, "PIT"): {"c"}}, pg, reg)   # a past snap share
+    assert k != QT.inputs_key(2026, inj, sn, {(2025, 1, "PIT"): {"e"}}, pg, reg)   # a past player ruled out
+    assert k != QT.inputs_key(2026, inj, sn, {(2025, 1, "PIT"): {"c"}}, pg.assign(epa=[0.3, 0.2]), reg)   # a past player-game
 
 
 def test_standing_check_catches_the_shadow_on_the_page_or_writing_the_live_table():

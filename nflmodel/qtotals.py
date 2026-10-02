@@ -103,18 +103,40 @@ def chance(rates: dict, season: int, group: str, prac: str) -> float:
     return r.get((group, prac), r["_prac"].get(prac, r["_all"]))
 
 
-def pieces(last_season: int | None = None, games: pd.DataFrame | None = None, only=None) -> pd.DataFrame:
-    """One row per regular-season team-game, FIRST_SEASON to last_season (or the seasons in `only`; the rates always learn
-    from every earlier season): q1_skill (Questionable RB / WR / TE skill value out times the chance he sits), q2_off /
-    q2_def (every Questionable player's last-game offensive / defensive snap share times the chance), q2_qb (the chance
-    when last game's starting QB is Questionable), n_q (listings counted)."""
+def inputs_key(last_season: int, inj: pd.DataFrame, sn: pd.DataFrame, out_by: dict, pg: pd.DataFrame, reg: pd.DataFrame) -> str:
+    """Everything the seasons before last_season's pieces are built from, as loaded: the code (this file, players.py,
+    ids.py), the injury listings, the snap counts after the id mapping, the players ruled out, player_games and the
+    schedule of those seasons. Any change rebuilds every season (cached_pieces)."""
+    from pathlib import Path
+    from . import players as PL
+    h = hashlib.sha1()
+    for f in (Path(__file__), Path(__file__).with_name("players.py"), Path(__file__).with_name("ids.py")):
+        h.update(f.read_bytes())
+    h.update(json.dumps(PL.DEFAULT, sort_keys=True, default=str).encode())
+    past = lambda d, cols: d.loc[d.season < last_season, cols].sort_values(cols, kind="stable").astype(str)
+    for d, cols in ((inj, ["season", "week", "team", "gsis_id", "report_status", "position", "practice_status"]),
+                    (sn, ["season", "week", "team", "key", "position", "offense_pct", "defense_pct"]),
+                    (pg, list(pg.columns)), (reg, ["game_id", "season", "week", "home_team", "away_team", "home_score"])):
+        h.update(pd.util.hash_pandas_object(past(d, cols), index=False).values.tobytes())
+    h.update(json.dumps(sorted((list(map(str, k)), sorted(map(str, v))) for k, v in out_by.items() if k[0] < last_season)).encode())
+    return h.hexdigest()[:16]
+
+
+def pieces(last_season: int | None = None, games: pd.DataFrame | None = None, cached: tuple | None = None) -> tuple[pd.DataFrame, str]:
+    """One row per regular-season team-game, FIRST_SEASON to last_season: q1_skill (Questionable RB / WR / TE skill value
+    out times the chance he sits), q2_off / q2_def (every Questionable player's last-game offensive / defensive snap share
+    times the chance), q2_qb (the chance when last game's starting QB is Questionable), n_q (listings counted). Returns
+    (pieces, inputs_key). cached = (earlier pieces, their key): when the key still matches, the seasons before
+    last_season are taken from it and only last_season is rebuilt (the rates always learn from every earlier season)."""
     from . import players as PL
     games = pd.read_parquet(OUT / "games.parquet") if games is None else games
     last_season = int(games.season.max()) if last_season is None else int(last_season)
     seasons = range(FIRST_SEASON, last_season + 1)
-    gone = [f"{d}/{n}_{s}.parquet" for s in range(FIRST_SEASON, last_season) for d, n in (("injuries", "injuries"), ("snap_counts", "snap_counts"), ("rosters", "roster_weekly"))
-            if not (RAW / d / f"{n}_{s}.parquet").exists()]
-    if gone:   # a past season missing would price the shadow on fewer rates and listings with no sign: fail the step instead
+    reg = games[games.season.isin(seasons) & games.game_type.eq("REG")]
+    started = bool(reg[reg.season == last_season].home_score.notna().any())   # the current season's files must exist once a game is played
+    need = [(d, n, s_) for s_ in seasons for d, n in (("injuries", "injuries"), ("snap_counts", "snap_counts"), ("rosters", "roster_weekly")) if s_ < last_season or started]
+    gone = [f"{d}/{n}_{s_}.parquet" for d, n, s_ in need if not (RAW / d / f"{n}_{s_}.parquet").exists()]
+    if gone:   # a missing season would price the shadow on fewer rates and listings with no sign: fail the step instead
         raise FileNotFoundError(f"raw files missing for the Questionable pieces: {', '.join(gone[:6])}" + (f" and {len(gone) - 6} more" if len(gone) > 6 else ""))
     inj = PL.load_injuries(seasons); inj = inj[inj.game_type == "REG"].copy()
     inj["season"] = inj.season.astype(int); inj["week"] = inj.week.astype(int)
@@ -123,19 +145,20 @@ def pieces(last_season: int | None = None, games: pd.DataFrame | None = None, on
     for k, ids in PL.unavailable_by_week(seasons).items():
         out_by[k] = out_by.get(k, set()) | ids
     sn = _snaps(seasons)
-    reg = games[games.season.isin(seasons) & games.game_type.eq("REG")]
     up = reg[reg.home_score.isna()]
     unplayed = {(int(s), int(w), t) for s, w, h, a in zip(up.season, up.week, up.home_team, up.away_team) for t in (h, a)}
     graded, priced = listings(inj, sn, out_by, unplayed)
     rates = sit_rates(graded, range(FIRST_SEASON + 1, last_season + 1))
     q_by = {k: g for k, g in priced.groupby(["season", "week", "team"])}
     pg = pd.read_parquet(OUT / "player_games.parquet"); p = PL.DEFAULT
+    key = inputs_key(last_season, inj, sn, out_by, pg, reg)
+    reuse = cached is not None and cached[1] == key
     pv = PL.PlayerValues(pg, p["decay"], p["k"], p.get("pct", 25)); _, by_player, by_team = PL._usage_frames(pg)
     prev = {k: g.sort_values("week") for k, g in sn.groupby(["season", "team"])}
     long = pd.concat([reg[["game_id", "season", "week", "home_team"]].rename(columns={"home_team": "team"}),
                       reg[["game_id", "season", "week", "away_team"]].rename(columns={"away_team": "team"})]).sort_values(["season", "week"])
-    if only is not None:
-        long = long[long.season.isin(list(only))]
+    if reuse:
+        long = long[long.season == last_season]
     rows = []
     for r in long.itertuples():
         s, w, t = int(r.season), int(r.week), r.team
@@ -160,7 +183,10 @@ def pieces(last_season: int | None = None, games: pd.DataFrame | None = None, on
                 if x.gsis_id in qb_start:
                     row["q2_qb"] = max(row["q2_qb"], c)
         rows.append(row)
-    return pd.DataFrame(rows)
+    X = pd.DataFrame(rows, columns=["game_id", "team", "season", "week", "q1_skill", "q2_off", "q2_def", "q2_qb", "n_q"])
+    if reuse:
+        X = pd.concat([cached[0][cached[0].season < last_season], X], ignore_index=True)
+    return X, key
 
 
 # ---- the shadow total (model.walk_forward's totals path, with the T2 input) ----
@@ -244,28 +270,12 @@ def _sha(p) -> str:
     return hashlib.sha1(p.read_bytes()).hexdigest()[:16] if p.exists() else "missing"
 
 
-def inputs_key(season: int) -> str:
-    """What the past seasons' pieces are built from: this file and players.py, the raw injury, snap count and roster files
-    of the seasons before `season`, and player_games' rows before it. A change to any rebuilds every season."""
-    from pathlib import Path
-    h = hashlib.sha1()
-    for f in [Path(__file__), Path(__file__).with_name("players.py"), Path(__file__).with_name("ids.py")] + [RAW / d / f"{n}_{s}.parquet" for s in range(FIRST_SEASON, season)
-                                                                          for d, n in (("injuries", "injuries"), ("snap_counts", "snap_counts"), ("rosters", "roster_weekly"))]:
-        h.update(f.name.encode()); h.update(f.read_bytes() if f.exists() else b"missing")
-    pg = pd.read_parquet(OUT / "player_games.parquet")
-    h.update(pd.util.hash_pandas_object(pg[pg.season < season], index=False).values.tobytes())
-    return h.hexdigest()[:16]
-
-
 def cached_pieces(season: int, games: pd.DataFrame) -> pd.DataFrame:
-    """The pieces with the seasons before `season` read from INPUTS when its key still matches (they cannot change once
-    played; about three minutes to rebuild), the current season rebuilt every run. Writes INPUTS and its key."""
-    key = inputs_key(season); kf = INPUTS.with_suffix(".key")
-    if INPUTS.exists() and kf.exists() and kf.read_text().strip() == key:
-        old = pd.read_parquet(INPUTS); old = old[old.season < season]
-        X = pd.concat([old, pieces(season, games, only=[season])], ignore_index=True)
-    else:
-        X = pieces(season, games)
+    """The pieces, the seasons before `season` read from INPUTS when the inputs they were built from are unchanged (they
+    cannot change once played; about two minutes to rebuild), the current season rebuilt every run. Writes INPUTS and its key."""
+    kf = INPUTS.with_suffix(".key")
+    cached = (pd.read_parquet(INPUTS), kf.read_text().strip()) if INPUTS.exists() and kf.exists() else None
+    X, key = pieces(season, games, cached)
     SHADOW_DIR.mkdir(parents=True, exist_ok=True); X.to_parquet(INPUTS, index=False); kf.write_text(key + "\n")
     return X
 
@@ -279,13 +289,14 @@ def run(first: int = 2015) -> pd.DataFrame:
     X = cached_pieces(season, games)
     f = attach(M.with_trends(pd.read_parquet(OUT / "features_asof.parquet")), X)
     pred, dist = walk(f, range(first, season + 1))
-    SHADOW_DIR.mkdir(parents=True, exist_ok=True); pred.to_parquet(PRED, index=False)
     after = _sha(OUT / "pred_v3.parquet")
-    DIST.write_text(json.dumps({"season": season, "weeks": {str(w): [float(v) for v in d] for (s, w), d in dist.items() if s == season},
-                                "feats": feats(), "pred_v3_sha_before": before, "pred_v3_sha_after": after,
-                                "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"), "seconds": round(time.time() - t0, 1)}, separators=(",", ":")))
     if before != after:
         raise RuntimeError("pred_v3.parquet changed while the shadow ran: the shadow must never write the live table")
+    SHADOW_DIR.mkdir(parents=True, exist_ok=True); pred.to_parquet(PRED, index=False)
+    n_q = X[X.season == season].groupby("week").n_q.sum()
+    DIST.write_text(json.dumps({"season": season, "weeks": {str(w): [float(v) for v in d] for (s, w), d in dist.items() if s == season},
+                                "feats": feats(), "pred_v3_sha_before": before, "pred_v3_sha_after": after, "listings_by_week": {str(int(k)): int(v) for k, v in n_q.items()},
+                                "built": pd.Timestamp.now("UTC").strftime("%Y-%m-%d %H:%M UTC"), "seconds": round(time.time() - t0, 1)}, separators=(",", ":")))
     print(f"qt shadow: {len(pred)} games, {int(X.n_q.sum())} Questionable listings priced, {time.time() - t0:.0f}s", flush=True)
     return pred
 
@@ -301,16 +312,16 @@ def live(p: pd.DataFrame, season: int, week: int) -> pd.DataFrame:
     """The shadow's total and over chance for the picks table's games (p: game_id, total_line = the live line): the chance
     re-priced at the live line with the shadow's own fit for the week (qt_dist.json); without that fit, the stored chance
     where the line is the one it was priced at, blank where it moved (the live table's stale-chance rule)."""
+    from .warnlog import warn
     q = stored().set_index("game_id")
+    meta = json.loads(DIST.read_text()) if DIST.exists() else {}
+    if len(q) and meta.get("pred_v3_sha_after") != _sha(OUT / "pred_v3.parquet"):   # the model re-ran without the shadow (its step failed): never price on the old totals
+        warn("qt shadow", f"shadow total stale (priced beside pred_v3 {meta.get('pred_v3_sha_after')}, pred_v3 now {_sha(OUT / 'pred_v3.parquet')}): shadowqtotals bets nothing")
+        q = q.iloc[:0]
     if not p.game_id.isin(q.index).any():
-        from .warnlog import warn
-        warn("qt shadow", f"no shadow total stored for {season} week {week} ({PRED.name} {'has none' if PRED.exists() else 'missing'}): shadowqtotals bets nothing")
+        warn("qt shadow", f"no shadow total for {season} week {week} ({PRED.name} {'has none' if PRED.exists() else 'missing'}): shadowqtotals bets nothing")
     tot = p.game_id.map(q.qt_model_total).astype(float) if len(q) else pd.Series(np.nan, index=p.index)
-    tres = None
-    if DIST.exists():
-        j = json.loads(DIST.read_text())
-        if int(j.get("season", -1)) == int(season):
-            tres = j.get("weeks", {}).get(str(int(week)))
+    tres = meta.get("weeks", {}).get(str(int(week))) if int(meta.get("season", -1)) == int(season) else None
     if tres is not None:
         ch = [p_over_emp(t, tl, tres) if pd.notna(t) else np.nan for t, tl in zip(tot, p.total_line)]
     else:
