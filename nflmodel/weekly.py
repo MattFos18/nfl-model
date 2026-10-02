@@ -227,6 +227,10 @@ def main(full=False, skip_network=False):
     step("tie check (sources)", lambda: tie_check.main(False) or (_ for _ in ()).throw(RuntimeError("numbers disagree: see reports/tie_check.md")), log)
     step("export data room", lambda: export_web.main(), log)
     step("tie check (page)", lambda: tie_check.main(True) or (_ for _ in ()).throw(RuntimeError("page files disagree with the sources: see reports/tie_check.md")), log)
+    # 2 Oct 2026: every bug class fixed on 1-2 Oct checked again, the backtest leak tests included (about a minute; the cheap
+    # ones also run inside the tie check, every line watch); docs/wiki/checks.md lists them
+    from . import standing_checks
+    step("standing checks", lambda: standing_checks.main() or (_ for _ in ()).throw(RuntimeError("a fixed bug is back: see reports/standing_checks.md")), log)
     _write(log, run_at, cur_season, cur_week, pk)
     st = write_state()
     print(f"picks week {st['season']} week {st['week']}: " + ("complete" if st["complete"] else ("waiting on " + "; ".join(st["missing"]) if st["pending"] else "in play")), flush=True)

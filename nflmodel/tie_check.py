@@ -926,6 +926,13 @@ def check_page() -> list[tuple[str, str, str, bool]]:
             tie("player season backtest on the page = reports/player_season_backtest.csv (rows)", len(sj["player_backtest"]), len(pb))
     except Exception as e:  # noqa
         rows.append(("season tab files", str(e)[:80], "", False))
+    # 2 Oct 2026: the standing checks (nflmodel/standing_checks.py, docs/wiki/checks.md): every bug class fixed on 1-2 Oct
+    # checked again on every weekly run and line watch; the leak tests run in the weekly step "standing checks"
+    try:
+        from . import standing_checks as SC
+        SC.tie_rows(rows)
+    except Exception as e:  # noqa
+        rows.append(("standing checks ran", f"{type(e).__name__}: {str(e)[:80]}", "ran", False))
     return rows
 
 

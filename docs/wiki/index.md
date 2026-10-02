@@ -9,6 +9,7 @@ nobody has checked.
 | [gotchas.md](gotchas.md) | Traps this repo has hit (signs, ids, timing, look-ahead, bad values, machines), each with its file |
 | [data_sources.md](data_sources.md) | Every outside source: what we use, where in code, timing and lag, terms, quirks |
 | [log.md](log.md) | Dated one-liners of what changed, newest first |
+| [checks.md](checks.md) | Standing checks: every fixed bug class, the check that catches it again, and where it runs |
 
 ## Where everything else lives
 
@@ -36,6 +37,6 @@ nobody has checked.
 
 ## Keeping it current
 
-- A new trap: a line in `gotchas.md` with its file. A new source or a change in one: its section in `data_sources.md`.
+- A new trap: a line in `gotchas.md` with its file, and a row in `checks.md` naming the check that catches it again. A new source or a change in one: its section in `data_sources.md`.
 - Every merged change to the model, rules, sources or workflow: one line in `log.md`.
 - Nothing personal here: the repo is public (`CLAUDE.md`).
