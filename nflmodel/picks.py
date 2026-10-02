@@ -432,6 +432,14 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
         pr = [M.price_at(r.model_spread, r.model_total, r.spread_line, r.total_line, dist) for r in p.itertuples()]
         for k in ("p_home", "p_cover_home", "p_over", "p_over_emp"):
             p[k] = [x[k] for x in pr]
+    else:   # 2 Oct 2026 (overs study review): without the fit the chances stay at the schedule's line while the rules read the
+        # live one; clear them where the live line moved, so no chance-based rule fires on a number it was not priced at
+        sched_t, sched_s = p.game_id.map(g.total_line), p.game_id.map(g.spread_line)
+        moved_t = p.total_line.ne(sched_t) & p.total_line.notna()
+        moved_s = p.spread_line.ne(sched_s) & p.spread_line.notna()
+        p.loc[moved_t, ["p_over", "p_over_emp"]] = np.nan
+        p.loc[moved_s, ["p_home", "p_cover_home"]] = np.nan
+        print(f"picks: no stored fit for {season} week {week}; chances cleared on {int(moved_t.sum())} totals and {int(moved_s.sum())} spreads whose live line moved", flush=True)
     p["priced_live"] = dist is not None
 
     def bet(r, spread_edge=spread_edge, total_edge=total_edge, side_rule=None):
