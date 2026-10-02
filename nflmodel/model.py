@@ -291,7 +291,7 @@ def probs_from_margin(mu, sigma, K, line):
 # 135-127 -> 137-127 / 182-129 -> 202-146 / 81-62 -> 98-73; the input is worth about -4.2 points (rain_pts, the card's "rain
 # -X"), those games' totals moved about -2.9 from the old model (which took some rain off through the weather text); 20 of 20
 # shuffles beaten.
-# The points equations keep the weather text (spread untouched).
+# The points equations keep the weather text in training; a played game is priced on the forecast (priced_weather, 2 Oct 2026).
 TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain_fc", "cold", "dome", "qb_form_sum"]   # ref_tot dropped 2 Oct 2026: with the same-game leak fixed it fails the round-3 rule (reports/leak_fix_rescore.md: total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, placebo 25/31/29 of 50; Matt's standing yes to drop what fails). Was: ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
 QB_FORM_K = 100.0
 
@@ -372,6 +372,44 @@ def _wind_readings() -> dict:
         return {}
 
 
+def _temp_readings() -> dict:
+    try:
+        from .wind_live import temp_readings
+        return temp_readings()
+    except Exception:  # noqa  (no forecast stored: recorded weather stays)
+        return {}
+
+
+# Live-style weather in the backtest (2 Oct 2026, Matt: "100% accurate, no cheating"; experiments/forecast_weather_backtest.py).
+# An upcoming game is priced on a forecast, but the backtest priced every played game with the weather that happened (the
+# schedule's wind and temperature, the play-by-play's rain), a small look-ahead. Now a played game with a stored pre-kickoff
+# forecast (2018 on: data/weather/forecast_history.csv, and the live log) is priced, not trained, on it: wind_out = the wind
+# reading the wind points and the wind under use, cold (and warm_in_cold) = the GFS MOS kickoff temperature under COLD_F,
+# the points equations' rain = the totals' rain reading (RAIN_FC). Training rows keep the recorded weather, as a live fit
+# does. A missing reading prices as a live game with no forecast (league-median wind, not cold, dry). Before 2018, and for
+# games abroad, no forecast is stored and the recorded weather stays.
+FORECAST_WEATHER = True
+
+
+def priced_weather(f: pd.DataFrame) -> pd.DataFrame:
+    """prep()'d rows with the weather a played game is priced on: the stored forecast where there is one (see above)."""
+    if not FORECAST_WEATHER or "pf" not in f.columns:
+        return f
+    wind, temp, pop = _wind_readings(), _temp_readings(), _rain_readings()
+    from .forecast_history import OUTF
+    if OUTF.exists() and not (wind and temp and pop):   # a reader failed: never fall back quietly to the weather that happened
+        raise RuntimeError(f"forecast readings incomplete (wind {len(wind)}, temperature {len(temp)}, rain {len(pop)}) though {OUTF.name} exists")
+    m = (f.pf.notna() & f.game_id.isin(set(wind) | set(temp) | set(pop)) & (f.dome.fillna(0) != 1)).values
+    if not m.any():
+        return f
+    f = f.copy(); g = f.game_id[m]
+    f.loc[m, "wind_out"] = g.map(wind).astype(float).fillna(float(f.wind.median())).values
+    f.loc[m, "cold"] = (g.map(temp).astype(float).fillna(60.0) < COLD_F).astype(float).values
+    f.loc[m, "warm_in_cold"] = f.loc[m, "cold"].values * f.team[m].isin(WARM_OR_DOME).astype(float).values
+    f.loc[m, "rain"] = (g.map(pop).astype(float) >= RAIN_FC).astype(float).values
+    return f
+
+
 def wind_points(pool: list, fw) -> float:
     """The band amount for a forecast wind fw from pool [(wind, miss), ...] of earlier seasons' forecast games."""
     if fw is None or pd.isna(fw) or not pool:
@@ -388,13 +426,14 @@ def walk_forward(f: pd.DataFrame, test_seasons, ridge_alpha=RIDGE, min_train_sea
     season on prior seasons only (the original 3.0 rule; same accuracy, kept for comparison). The ratings inside f are as-of
     each game already (ratings.build_features), so nothing from a game's own week or later reaches its prediction."""
     f = prep(f)
-    played = f[f.pf.notna()]
+    played = f[f.pf.notna()]   # trained on the weather that happened
+    fpr = priced_weather(f)    # priced on the forecast where one is stored (FORECAST_WEATHER)
     out = []
     wind = _wind_readings(); wpool = {}   # season -> [(forecast wind, actual total minus the model's total before wind points)]
     _h, _a = played[played.home == 1].set_index("game_id"), played[played.home == 0].set_index("game_id")
     actual_total = (_h.pf + _a.pf.reindex(_h.index)).dropna().to_dict()
     for s in test_seasons:
-        test_all = f[f.season == s]
+        test_all = fpr[fpr.season == s]
         weeks = sorted(test_all.week.unique()) if refit == "week" else [None]
         for wk in weeks:
             if wk is None:

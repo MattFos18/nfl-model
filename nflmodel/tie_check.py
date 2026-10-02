@@ -590,7 +590,7 @@ def check_season_equation(rows) -> None:
     games = pd.read_parquet(OUT / "games.parquet"); pred = pd.read_parquet(OUT / "pred_v3.parquet")
     s_, w_ = LN.current_week(games)
     f = SE._frame(); P = SE.profiles(f, s_, w_); fit = SE.fit_asof(pred, s_, w_)
-    fw = f[(f.season == s_) & (f.week == w_)]; pw = pred[(pred.season == s_) & (pred.week == w_)].set_index("game_id")
+    fw = M.priced_weather(f[(f.season == s_) & (f.week == w_)]); pw = pred[(pred.season == s_) & (pred.week == w_)].set_index("game_id")
     sit = M.SIT_FEATS + ["qb_out"] + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS
     worst, n = 0.0, 0
     for r in fw.itertuples():

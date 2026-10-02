@@ -567,7 +567,8 @@ def main():
     d = d.merge(fe, on=["game_id", "team"], how="left")
     # the exact inputs the points regression saw for this team-game (model.prep on the as-of features), as mf_<input>: the game
     # deep dive reads them first, so its sum is the model's expected points to the cent; the game log shows them under Model inputs
-    pf_ = M.prep(feats); mf = pf_[["game_id", "team"] + [f for f in M.FEATS if f in pf_.columns]].rename(columns={f: "mf_" + f for f in M.FEATS})
+    # (a played game's weather as priced: the stored forecast, model.priced_weather, 2 Oct 2026)
+    pf_ = M.priced_weather(M.prep(feats)); mf = pf_[["game_id", "team"] + [f for f in M.FEATS if f in pf_.columns]].rename(columns={f: "mf_" + f for f in M.FEATS})
     d = d.merge(mf, on=["game_id", "team"], how="left")
     # model prediction from this team's view
     pv = pred.set_index("game_id")
@@ -945,7 +946,7 @@ def export_week(feats=None, games=None, pred=None):
     refresh_books()   # the books' season-long markets on the Season tab follow the daily futures pull (line watch)
     try:
         pk = P.table(cur_season, cur_week)   # priced against the newest line snapshot: the card only displays these numbers
-        fp = M.prep(feats).set_index(["game_id", "team"])
+        fp = M.priced_weather(M.prep(feats)).set_index(["game_id", "team"])   # a played game's weather as priced (model.priced_weather)
         from . import weather as WX
         wxs = WX.status_by_game(games.reset_index())
         # the kickoff forecast in use now (the line watch pulls it every run): the card's temperature and wind follow it
@@ -1239,7 +1240,7 @@ def export_backtest_js(games=None, feats=None):
     bk["gameday"] = bk.game_id.map(gd)
     ml = games.set_index("game_id"); bk["home_ml"] = bk.game_id.map(ml.home_moneyline); bk["away_ml"] = bk.game_id.map(ml.away_moneyline)   # closing moneylines, for the win-probability check
     # situational readings for the "when we were wrong" section: both sides' QB-out flag and starters out, weather, the slot
-    fx = M.prep(feats).set_index(["game_id", "team"])
+    fx = M.priced_weather(M.prep(feats)).set_index(["game_id", "team"])   # the weather each game was priced on (model.priced_weather)
     def side_val(col, which):
         out = []
         for g, h, a in zip(bk.game_id, bk.home_team, bk.away_team):
