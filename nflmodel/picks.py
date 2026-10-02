@@ -34,13 +34,14 @@ SMALL_DOG = 3.0   # reports/spread_research.md: 4+ edge, the model's side a dog 
 DOG_EDGE = 3.5   # reports/favorite_review.md: dogs at 3.5+, every other side at 4+
 WEEKS_EARLY, WEEKS_LATE = 4, 15   # reports/bet_rules_sweep.md: 4+ edge in weeks 1 to 4 only; 4+ edge with the last bet week 15
 BIG_EDGE = 6.0   # 21 Sep 2026 (decision log): the 6+ edge, a lead to track live
+QT_UNDER = {"prob": 0.55}   # 2 Oct 2026 (Matt: track it hidden; reports/questionable_totals.md variant T2, failed the gate on 2015-18): the under at a 55%+ raw chance from the Questionable-in-totals shadow total (nflmodel/qtotals.py, qt_p_over_emp); tracked, hidden, never bet
 OVER_LOW = {"line": 41.0, "prob": 0.55}   # 2 Oct 2026 (reports/overs_deep.md, rule O9): the over when the total is 41 or lower and the raw chance (p_over_emp) is 55%+; tracked, hidden, never bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
 # shadow rules: recorded and graded next to the flag, never bet (except shadowunder, the totals flag, and windunder: both live bets). name -> (spread edge, side restriction, label)
-UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under", "rain_under", "cold_under", "under_edge", "under_wind")   # side rules graded as unders on the total
-MASK_RULES = ("rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "over_low", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
+UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under", "rain_under", "cold_under", "under_edge", "under_wind", "qt_under")   # side rules graded as unders on the total
+MASK_RULES = ("qt_under", "rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "over_low", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
 BLIND_RULES = ("wind_under", "rain_under", "cold_under", "tease_dog", "westcoast")   # rules that ignore the model: the shadow watch measures them against break-even alone
 OVER_RULES = ("over_low",)   # side rules graded as overs on the total
 TOTAL_RULES = UNDER_RULES + ("trees_total",) + OVER_RULES   # rules on the total: the shadow watch measures them against the totals flag
@@ -68,14 +69,15 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowwk4": (SPREAD_EDGE, "wk4", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_EARLY} only"),
            "shadowwk15": (SPREAD_EDGE, "wk15", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_LATE} only"),
            "shadow6": (BIG_EDGE, "big", f"{BIG_EDGE:g}+ edge"),
-           "shadowoverlow": (OVER_LOW["prob"], "over_low", f"Over, total {OVER_LOW['line']:g} or lower and a {100 * OVER_LOW['prob']:.0f}%+ chance")}
+           "shadowoverlow": (OVER_LOW["prob"], "over_low", f"Over, total {OVER_LOW['line']:g} or lower and a {100 * OVER_LOW['prob']:.0f}%+ chance"),
+           "shadowqtotals": (QT_UNDER["prob"], "qt_under", f"Under, {100 * QT_UNDER['prob']:.0f}%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow)")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
 # 1 Oct 2026 (Matt: "yes", track them hidden): the unders at 60%+ (the band that holds most of the totals flag's units) and the
 # totals flag in prime-time games only; graded, kept off the page, watched by nflmodel/shadow_watch.py like the rest
 HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime", "shadowteasedog",
                   "shadowrain", "shadowcold", "shadowunder3", "shadowunderwind", "shadowtreestotal", "shadowwestcoast",
-                  "shadowroaddog", "shadowsmalldog", "shadowdog35", "shadowwk4", "shadowwk15", "shadow6", "shadowoverlow"}
+                  "shadowroaddog", "shadowsmalldog", "shadowdog35", "shadowwk4", "shadowwk15", "shadow6", "shadowoverlow", "shadowqtotals"}
 SHADOW_ODDS = {"shadowhook": HOOK["odds"], "shadowteasedog": TEASE_LEG_ODDS}   # rules graded at their own price; the rest at DEFAULT_ODDS
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
@@ -220,6 +222,9 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     if side_rule == "wind_under":   # forecasts stored from 2015 (nflmodel/forecast_history.py; 2018 before 2 Oct 2026), weeks 1 to LAST_BET_WEEK like every rule
         return (d.game_id.map(_wind()).astype(float) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
     wk = d.week <= LAST_BET_WEEK
+    if side_rule == "qt_under":   # the shadow total's own chance (qtotals.py): the table's column where the picks priced it at the live line, else the stored one
+        q = d.qt_p_over_emp.astype(float) if "qt_p_over_emp" in d.columns else d.game_id.map(_qt()).astype(float)
+        return ((1 - q) >= edge) & wk & d.total_line.notna()
     if side_rule == "rain_under":   # the GFS MOS rain chance model.RAIN_FC reads; readings exist for outdoor and open-roof games only
         return (d.game_id.map(_rain()).astype(float) >= edge) & wk & d.total_line.notna()
     if side_rule == "cold_under":   # strictly below the cut
@@ -276,6 +281,16 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
 
 _RAIN: dict | None = None
 _COLD: dict | None = None
+_QT: dict | None = None
+
+
+def _qt() -> dict:
+    """game_id -> the Questionable-in-totals shadow's over chance at the line it was priced at (qtotals.stored), read once per run."""
+    global _QT
+    if _QT is None:
+        from .qtotals import stored
+        q = stored(); _QT = dict(zip(q.game_id, q.qt_p_over_emp.astype(float)))
+    return _QT
 _WEST: set | None = None
 
 
@@ -441,6 +456,15 @@ def table(season: int, week: int, spread_edge=SPREAD_EDGE, total_edge=TOTAL_EDGE
         p.loc[moved_s, ["p_home", "p_cover_home"]] = np.nan
         print(f"picks: no stored fit for {season} week {week}; chances cleared on {int(moved_t.sum())} totals and {int(moved_s.sum())} spreads whose live line moved", flush=True)
     p["priced_live"] = dist is not None
+    # the Questionable-in-totals shadow (hidden, never bet; nflmodel/qtotals.py): its own total and chance at the live line, read only
+    # by its shadow rule. A failure blanks them (the shadow bets nothing) and warns; it never touches the live numbers
+    try:
+        from .qtotals import live as _qt_live
+        q_ = _qt_live(p, season, week); p["qt_model_total"], p["qt_p_over_emp"] = q_.qt_model_total.values, q_.qt_p_over_emp.values
+    except Exception as e:  # noqa
+        from .warnlog import warn
+        warn("qt shadow", f"shadow total not priced ({type(e).__name__}: {str(e)[:120]}): shadowqtotals bets nothing this run")
+        p["qt_model_total"], p["qt_p_over_emp"] = np.nan, np.nan
 
     def bet(r, spread_edge=spread_edge, total_edge=total_edge, side_rule=None):
         out = []

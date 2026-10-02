@@ -158,6 +158,7 @@ def build() -> dict:
     for f in sorted(REP.iterdir()):
         if f.is_file():
             rows, cols = _csv_meta(f) if f.suffix == ".csv" else (-1, [])
+            cols = [c for c in cols if not str(c).startswith(("qt_", "shadowqtotals_"))]   # 2 Oct 2026: the hidden Questionable-in-totals shadow's columns in the picks csv stay off the page (standing_checks.qt_stays_off)
             out["reports"].append({"name": f.name, "rows": rows, "columns": cols, "mb": _mb(f.stat().st_size), "built": _mtime(f)})
     for f in sorted(WEB.iterdir()):
         if f.is_file():

@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 2 Oct 2026
+- Questionable-in-totals (questionable_totals T2) tracked as hidden shadow `shadowqtotals`: its own total each weekly run (`nflmodel/qtotals.py`, step "qt shadow"), the under at 55%+, never bet; the live model unchanged (standing checks `qt_isolated`, `qt_stays_off`).
 - Forecast history extended to 2015 (`forecast_history.FIRST`): GFS MOS from 2015, Japan from Jan 2016, no NBS; 2015-17 backtest priced on the forecast; moves the live total through the rain input and wind pool (reports/forecast_history_2015.md; Matt approved).
 - Live weather follow-ups (review of #399): a weather source change re-prices; stale MOS readings (2+ runs behind) are dropped; health fails a US outdoor game within 59 hours with no MOS reading and shows the live forecast pull; the re-price rain call matches trends'.
 - Standing checks: every bug class fixed 1-2 Oct re-checked on every run (`nflmodel/standing_checks.py`, `docs/wiki/checks.md`); leak tests in the weekly step "standing checks"; stake code #385 left in unused page code removed.
