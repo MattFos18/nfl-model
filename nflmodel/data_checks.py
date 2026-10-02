@@ -122,11 +122,57 @@ def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None, now: pd.Ti
     return rows
 
 
+FORECAST_FIRST = 2018   # the first season with stored pre-kickoff forecasts (forecast_history.py)
+
+
+def check_forecasts(played: pd.DataFrame, upcoming: pd.DataFrame, wind: dict, temp: dict, rain: dict, now: pd.Timestamp | None = None) -> list[tuple[str, bool, str]]:
+    """2 Oct 2026 (code review): the forecast readings games are priced on (wind_live.readings, temp_readings,
+    rain_readings). played: outdoor US games played from 2018 on; upcoming: unplayed outdoor US games (kickoff_et, Eastern).
+    A played game with one or two of the three readings is partial, with none missing; an upcoming game inside the live
+    window (wind_live.RANGE_H) needs all three (2026_04_PIT_CLE had no live temperature). Warnings, never failures: a
+    reading can be missing for a real reason (a station down), and the priced game falls back as a live game would."""
+    from .warnlog import warn
+    from .wind_live import RANGE_H
+    rows = []
+    kinds = (("wind", wind), ("temperature", temp), ("rain", rain))
+    have = {gid: [k for k, d in kinds if gid in d] for gid in played.game_id}
+    partial = sorted(g for g, h in have.items() if 0 < len(h) < 3); missing = sorted(g for g, h in have.items() if not h)
+    by = {k: sum(1 for g in partial if k not in have[g]) for k, _ in kinds}
+    det = f"{len(played)} games: {len(partial)} partial" + (f" (no {', '.join(f'{k} {n}' for k, n in by.items() if n)})" if partial else "") + f", {len(missing)} missing"
+    if partial or missing:
+        det += " (warning)" + (f"; partial: {', '.join(partial[-4:])}" if partial else "") + (f"; missing: {', '.join(missing[-4:])}" if missing else "")
+        warn("data checks", f"played outdoor games since {FORECAST_FIRST} without every forecast reading: {len(partial)} partial, {len(missing)} missing")
+    rows.append((f"forecasts: every played outdoor US game since {FORECAST_FIRST} has its wind, temperature and rain readings", True, det))
+    now = pd.Timestamp.now(tz="America/New_York").tz_localize(None) if now is None else now
+    k = pd.to_datetime(upcoming.kickoff_et)
+    win = upcoming[(k > now) & (k <= now + pd.Timedelta(hours=RANGE_H))]
+    short = sorted(f"{g} (no {', '.join(n for n, d in kinds if g not in d)})" for g in win.game_id if any(g not in d for _, d in kinds))
+    if short:
+        warn("data checks", f"games inside the forecast window without every live reading: {', '.join(short)}")
+    rows.append((f"forecasts: every unplayed outdoor game inside the live window ({RANGE_H} h) has wind, temperature and rain", True,
+                 f"{len(win)} games" + (f"; {len(short)} short (warning): {', '.join(short[:6])}" if short else "")))
+    return rows
+
+
+def forecast_rows() -> list[tuple[str, bool, str]]:
+    from . import forecast_history as FH, wind_live as WL
+    g = pd.read_parquet(OUT / "games.parquet"); s = int(g.season.max())
+    played = FH.games(range(FORECAST_FIRST, s + 1), played=True)
+    upcoming = FH.games([s], played=False)
+    return check_forecasts(played, upcoming, WL.readings(), WL.temp_readings(), WL.rain_readings())
+
+
 def main() -> bool:
     games = pd.read_parquet(OUT / "games.parquet"); tg = pd.read_parquet(OUT / "team_games.parquet")
     pf = OUT / "pred_v3.parquet"; pred = pd.read_parquet(pf) if pf.exists() else None
     qf = OUT / "qb_games.parquet"; qb = pd.read_parquet(qf, columns=["game_id", "team", "qb_id"]) if qf.exists() else None
-    rows = check(games, tg, pred) + check_inputs(games, qb); ok = all(r[1] for r in rows)
+    try:
+        fr = forecast_rows()
+    except Exception as e:  # noqa  (the forecast check is a warning; a failure to run it is said, not raised)
+        from .warnlog import warn
+        warn("data checks", f"forecast coverage check did not run: {type(e).__name__}: {str(e)[:100]}")
+        fr = [("forecasts: coverage check ran", True, f"did not run (warning): {str(e)[:100]}")]
+    rows = check(games, tg, pred) + check_inputs(games, qb) + fr; ok = all(r[1] for r in rows)
     L = ["# Data checks", "", "The tables the model reads, checked for shape before pricing (nflmodel/data_checks.py).", "",
          "| Check | Passes | Detail |", "|---|---|---|"] + [f"| {w} | {'yes' if o else 'NO'} | {d} |" for w, o, d in rows]
     L += ["", f"Result: {'PASS' if ok else 'FAIL'} ({sum(r[1] for r in rows)} of {len(rows)})"]

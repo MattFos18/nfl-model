@@ -1287,7 +1287,7 @@ picks it up on its Tuesday, Thursday, Saturday and Sunday schedule. The first ru
 from ESPN's main host, so the page is now fetched the way the line watch fetches the scoreboard (browser headers,
 `site.api` then `site.web.api` then `cdn`, the first to answer wins); when every host refuses, the previous file is
 kept and the pull says so rather than failing. The fill is used only when the file was fetched within four days
-(`players.ESPN_MAX_AGE_DAYS`), so an old page can never stand in as this week's report, and the health check counts
+(`players.ESPN_MAX_AGE_DAYS`) and after the week before's last kickoff (`players.espn_fresh`, 2 Oct 2026), so an old page can never stand in as this week's report, and the health check counts
 the teams with a report for the week being priced (league plus fill) against the time to kickoff. A `probe`
 workflow runs one command on the runner and prints what it wrote, for testing a source from GitHub's network.
 
@@ -3189,3 +3189,36 @@ Matt to decide (dropping either costs totals-flag wins). A smooth wind curve (is
 split at 8 did not beat the three bands (worse on 2019-22 and 2023-25 respectively). At the latest fit the total moves
 -1.37 points at 5 mph, -2.73 at 9, -4.58 at 10, -5.94 at 14, -4.70 at 15 and -6.40 at 20 mph (equation plus wind points);
 games forecast at 8-10 mph finish 1.0 point over the model's total.
+## 50. Live failures made loud (2 Oct 2026)
+
+A code review of the day's merges found five places where the live pipeline could go wrong without a sign, all fixed
+with no change to the model, its inputs or the bet rules. (1) `ratings.qbs_out_now`, which decides whether the week's
+named starter is ruled out and swapped for his replacement, returned "nobody out" on any error, so a broken injury load
+would have priced every ruled-out starter as if he played. Only the expected gap stays quiet (no league injury file on
+the machine: the roster lists still count); any other error, or ESPN's page failing to merge, prints a warning, is
+written to `data/runs/qb_swaps.json` and fails the ratings step, so the run log, the health check and the tie check all
+show it. The swapped feature rows carry `qb_swap_from` (the starter ruled out), and the health check and the tie check
+list the week's swaps with the source that chose each QB; the health check warns when the file is for another week, when a
+swap fell to the prior or had no roster to check, and when an ESPN Out or Doubtful player matches no roster player
+(seven on 2 Oct 2026; the four with a Jr. or III on one side only now match, see below, and three nicknames remain). (2) The replacement comes from the depth chart the previous
+run saved; he must now be ACT on the team's weekly roster for the week, else the QB with the most dropbacks this season
+who is, else the replacement-level prior. (3) After a swap the card named the starter ruled out (the schedule's name);
+it now names the QB priced (`export_web.card_qb`), and the tie check compares the two. (4) ESPN's injury page counted for
+four days, so at the Tuesday week change last Sunday's statuses counted for the new week; a page now counts only when
+fetched after the week before's last kickoff (`players.espn_fresh`, also used by the re-price trigger and the tie
+check). (5) The rule-history log wrote its header once and appended by position; rows now go in by column name, and a
+new rule column widens the header (`picks.append_csv`). Tests: tests/test_live_hardening.py.
+
+Follow-ups, the same day (bug fixes that restore the existing rules; no rule, threshold or input changed). ESPN's injury
+names are matched to the roster with suffixes and punctuation dropped (`players.name_key`, the tie check's key), so
+Travis Etienne Jr., Mario Edwards Jr., Trey Pipkins III and Anthony Johnson Jr. now count; a name that still matches no
+one (a nickname: Rob/Robert Beal) stays a health warning. When the model step fails, the weekly run no longer prices
+picks from the previous run's predictions or records bets from them: picks, log run, record picks and the inputs
+fingerprint are logged "skipped" with the reason (`weekly.pick_week`). Every quiet weather fallback now says so on
+stderr and as a health warning (`nflmodel/warnlog.py`, `data/weather/warnings.json`): a GFS MOS pull with no wind, rain
+or temperature, a wind reading from one model instead of the two-model mean, a game whose newest pull lost its rain or
+temperature and kept an older one, the games table failing to load so games abroad stay in the stored forecasts, and a
+weather reader in `model.py` failing so games price dry, windless or not cold. The readings themselves are unchanged. A
+data check counts played outdoor US games since 2018 with a partial or missing forecast reading and games inside the
+live window without wind, temperature and rain (warnings, not failures; on 2 Oct 2026: 1,566 played games all complete,
+11 games in the window all complete). Tests: tests/test_live_followups.py.

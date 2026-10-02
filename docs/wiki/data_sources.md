@@ -40,7 +40,8 @@ When you add a source: add a section here (same headings), a row in `catalog.py`
 - **Hosts:** `site.api.espn.com`, `site.web.api.espn.com`, `cdn.espn.com`, `sports.core.api.espn.com`, tried in turn
   with browser headers (`lines._get_json`, `lines.H`).
 - **Timing:** statuses post the same day as the team's report, ahead of nflverse; the fill is used only when the page
-  was fetched within 4 days (`players.ESPN_MAX_AGE_DAYS`) and only for players the league file has no status for.
+  was fetched within 4 days (`players.ESPN_MAX_AGE_DAYS`) and after the week before's last kickoff (`players.espn_fresh`),
+  and only for players the league file has no status for.
   Inactives flags appear before the official list (90 minutes before kickoff) and have been wrong (Joey Porter Jr.,
   1 Oct 2026; `inactives.py` docstring, `docs/handoff.md`).
 - **Terms:** undocumented, unofficial endpoints; ESPN's terms of use: unverified.

@@ -663,15 +663,31 @@ def log_run(p: pd.DataFrame, run_at: str | None = None) -> pd.DataFrame:
     # every game of the week, played or not (26 Sep 2026: played games were left out, so a card re-priced after its game
     # showed a model number that no row of its run history held; runs[] must always hold the run that priced the card)
     f = RUNS / "pred_history.csv"
-    rows.round(3).to_csv(f, mode="a", header=not f.exists(), index=False)
+    append_csv(rows.round(3), f)
     # 1 Oct 2026: the live under rules' bet each run (the totals flag, the wind under), so closing line value is measured
     # from the first flag (nflmodel/clv.py); logging only, nothing reads it to decide a pick
     uc = [c for c in ("shadowunder_bet", "windunder_bet") if c in p.columns]
     if uc:
         ur = p[["season", "week", "game_id", "total_line"] + uc].copy(); ur.insert(0, "run_at", run_at)
         fu = RUNS / "rule_history.csv"
-        ur.to_csv(fu, mode="a", header=not fu.exists(), index=False)
+        append_csv(ur, fu)
     return rows
+
+
+def append_csv(rows: pd.DataFrame, f: Path) -> None:
+    """Append rows to a log csv under its own header. 2 Oct 2026 (code review): the header was written once and later
+    rows appended by position, so a rule added or dropped (a new *_bet column) would have shifted every later row into
+    the wrong column. Rows whose columns the header holds are reindexed to it (a missing one left blank); a new column
+    rewrites the file once with the header widened, the old rows blank in it."""
+    if not f.exists():
+        rows.to_csv(f, index=False)
+        return
+    head = list(pd.read_csv(f, nrows=0).columns)
+    if set(rows.columns) <= set(head):
+        rows.reindex(columns=head).to_csv(f, mode="a", header=False, index=False)
+    else:
+        cols = head + [c for c in rows.columns if c not in head]
+        pd.concat([pd.read_csv(f, dtype=str, keep_default_na=False), rows], ignore_index=True).reindex(columns=cols).to_csv(f, index=False)
 
 
 def markdown(p: pd.DataFrame, season: int, week: int) -> str:

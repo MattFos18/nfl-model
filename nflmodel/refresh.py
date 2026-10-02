@@ -57,8 +57,7 @@ def fingerprint() -> dict:
     if ef.exists():
         e = pd.read_csv(ef)
         if len(e):
-            age = (pd.Timestamp.now("UTC").tz_localize(None) - pd.to_datetime(e.fetched_at, errors="coerce")).dt.total_seconds() / 86400
-            e = e[(age <= PL.ESPN_MAX_AGE_DAYS) & e.team.isin(teams)]
+            e = e[PL.espn_fresh(e, games) & e.team.isin(teams)]   # the same rows the model counts (players.espn_fresh)
             e = e.assign(st=e.status.map(PL.ESPN_STATUS))
             rep |= {(t, str(nm), "Questionable (ESPN)", "") for t, nm, st in zip(e.team, e.name, e.st) if st == "Questionable"}
             e = e[e.st.isin(out_like)]

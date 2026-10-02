@@ -941,9 +941,9 @@ def check_live(rows, wk) -> None:
     ef = ROOT / "data" / "raw" / "injuries" / "espn_injuries.csv"
     if ef.exists():
         from . import players as PL_
-        e = pd.read_csv(ef); age = (pd.Timestamp.now("UTC").tz_localize(None) - pd.to_datetime(e.fetched_at, errors="coerce")).dt.total_seconds() / 86400
-        e = e[(age <= PL_.ESPN_MAX_AGE_DAYS) & e.status.map(PL_.ESPN_STATUS).isin(["Out", "Doubtful"])]
-        key = lambda n: "".join(ch for ch in re.sub(r"\b(jr|sr|ii|iii|iv|v)\b\.?", "", str(n).lower()) if ch.isalpha())
+        e = pd.read_csv(ef)
+        e = e[PL_.espn_fresh(e) & e.status.map(PL_.ESPN_STATUS).isin(["Out", "Doubtful"])]   # the rows the model counts (fetched this week)
+        key = PL_.name_key   # the key load_injuries matches with
         out = {(t, key(n)) for t, n in zip(e.team, e.name)}
         now_et = pd.Timestamp.now(tz="America/New_York").tz_localize(None); missed = []
         for g_ in G:
@@ -952,6 +952,16 @@ def check_live(rows, wk) -> None:
             for tm in (g_["home_team"], g_["away_team"]):
                 missed += [f"{tm} {p['name']}" for p in (g_.get("sides", {}).get(tm, {}).get("injuries") or []) if (tm, key(p["name"])) in out and not p.get("priced")]
         tie("every player ESPN lists Out or Doubtful for a game not yet started is counted on its card", sorted(missed), [])
+    # 2 Oct 2026 (code review): the QB-out check behind the swaps loaded without an error, and each swapped side's card names
+    # the QB priced and the starter ruled out (data/runs/qb_swaps.json, written by ratings.py)
+    sw_f = ROOT / "data" / "runs" / "qb_swaps.json"
+    if sw_f.exists():
+        sw = json.loads(sw_f.read_text())
+        rows.append(("QB-out check: the injury load behind the QB swaps ran without an error", f"{sw.get('status')} {sw.get('detail') or ''}".strip(), "ok", sw.get("status") != "error"))
+        if [sw.get("season"), sw.get("week")] == [wk["season"], wk["week"]]:
+            want_sw = sorted(f"{x['game_id']} {x['team']}: {x.get('from_name') or x['from']} -> {x.get('to_name') or x.get('to')}" for x in sw.get("swaps", []))
+            have_sw = sorted(f"{g_['game_id']} {tm}: {sd.get('qb_swap_from')} -> {sd.get('qb_name')}" for g_ in G for tm, sd in (g_.get("sides") or {}).items() if sd.get("qb_swap_from"))
+            tie("this week's QB swaps (starter ruled out -> QB priced) = the cards' QB names", have_sw, want_sw)
     want = {}
     for g_ in G:
         h = LN.before_kickoff(log[log.game_id == g_["game_id"]], g_.get("kickoff")); sl, _ = LN.latest(h, "home_spread"); tl, _ = LN.latest(h, "total")

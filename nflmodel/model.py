@@ -356,28 +356,37 @@ def total_model(train: pd.DataFrame, test: pd.DataFrame, ridge_alpha=10.0):
 WIND_BANDS, WIND_K = [0.0, 10.0, 15.0, float("inf")], 50.0
 
 
+def _reader_failed(what: str, priced: str, e: Exception) -> dict:
+    """2 Oct 2026 (code review): a reader that raised used to price every game calm with no sign; it still does (no
+    reading = no forecast), but says so on stderr and as a health warning (nflmodel/warnlog.py). A store that does not
+    exist is not an error: the readers return {} for it."""
+    from .warnlog import warn
+    warn("model weather", f"{what} readings failed ({type(e).__name__}: {str(e)[:120]}): games {priced}")
+    return {}
+
+
 def _rain_readings() -> dict:
     try:
         from .wind_live import rain_readings
         return rain_readings()
-    except Exception:  # noqa  (no forecast stored: priced dry)
-        return {}
+    except Exception as e:  # noqa
+        return _reader_failed("rain", "priced dry", e)
 
 
 def _wind_readings() -> dict:
     try:
         from .wind_live import readings
         return readings()
-    except Exception:  # noqa  (no forecast stored: no wind points)
-        return {}
+    except Exception as e:  # noqa
+        return _reader_failed("wind", "priced with no wind points", e)
 
 
 def _temp_readings() -> dict:
     try:
         from .wind_live import temp_readings
         return temp_readings()
-    except Exception:  # noqa  (no forecast stored: recorded weather stays)
-        return {}
+    except Exception as e:  # noqa
+        return _reader_failed("temperature", "priced on the recorded temperature or not cold", e)
 
 
 # Live-style weather in the backtest (2 Oct 2026, Matt: "100% accurate, no cheating"; experiments/forecast_weather_backtest.py).

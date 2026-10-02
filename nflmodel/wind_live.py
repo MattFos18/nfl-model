@@ -16,6 +16,7 @@ import datetime as dt
 import numpy as np, pandas as pd
 from pathlib import Path
 from . import forecast_history as FH
+from .warnlog import warn
 
 F = FH.WX / "wind_live.csv"
 COLS = ["ts", "game_id", "season", "week", "kickoff_utc", "station", "gfs_run", "gfs_wind", "jma_wind", "wind_mean", "gfs_pop", "gfs_temp"]
@@ -37,6 +38,12 @@ def run() -> int:
         # Japan's model under the stored rule (2 Oct 2026): the day-before value, never a run newer than the GFS cutoff
         jma = FH.jma_pre_kickoff(*FH.jma(r.latlon[0], r.latlon[1], ko)[1:], ko, now) if r.latlon else None
         vals = [v for v in (gfs, jma) if v is not None]
+        # 2 Oct 2026 (code review): a pull that came back empty, and a two-model mean that became one model, were silent
+        gone = [k for k, v in (("wind", gfs), ("rain chance", m["pop"]), ("temperature", m["temp"])) if v is None]
+        if gone:
+            warn("wind_live", f"{r.game_id}: GFS MOS run {run_:%Y-%m-%dT%HZ} at {r.station} gave no {', '.join(gone)}")
+        if len(vals) == 1:
+            warn("wind_live", f"{r.game_id}: wind reading from {'GFS MOS' if gfs is not None else 'the Japan model'} alone (the other forecast is missing), not the two-model mean")
         rows.append({"ts": ts, "game_id": r.game_id, "season": r.season, "week": r.week, "kickoff_utc": ko.strftime("%Y-%m-%dT%H:%MZ"), "station": r.station,
                      "gfs_run": run_.strftime("%Y-%m-%dT%HZ"), "gfs_wind": gfs, "jma_wind": jma, "wind_mean": round(float(np.mean(vals)), 1) if vals else None, "gfs_pop": m["pop"], "gfs_temp": m["temp"]})
     df = pd.DataFrame(rows, columns=COLS)
@@ -63,7 +70,8 @@ def _history() -> pd.DataFrame:
     h = pd.read_csv(FH.OUTF)
     try:
         return h[~h.game_id.isin(FH.abroad_ids())]
-    except Exception:  # noqa  (no games table: the history as stored)
+    except Exception as e:  # noqa  (no games table: the history as stored, and say so: games abroad are back in)
+        warn("wind_live", f"games table not read ({type(e).__name__}: {str(e)[:100]}): the stored forecasts keep the games abroad")
         return h
 
 
@@ -74,8 +82,22 @@ def _roofed() -> set:
         g = pd.read_parquet(Path(__file__).resolve().parent.parent / "data" / "processed" / "games.parquet", columns=["game_id", "roof"])
         return set(g.game_id[g.roof.isin(["dome", "closed"])])
     except Exception as e:  # noqa
-        print(f"wind_live: could not read roofs ({type(e).__name__}: {e}); readings not filtered by roof", flush=True)
+        warn("wind_live", f"could not read roofs ({type(e).__name__}: {str(e)[:100]}); readings not filtered by roof")
         return set()
+
+
+def _live_latest(lv: pd.DataFrame, col: str, what: str) -> pd.DataFrame:
+    """Each game's newest live row with a value in `col`. Where the newest pull had none, the older value stands (as
+    before) and a warning says so (2 Oct 2026, code review: a failed MOS pull quietly kept an older reading)."""
+    newest = lv.sort_values("ts").drop_duplicates("game_id", keep="last")
+    have = lv[lv[col].notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
+    ko = pd.to_datetime(newest.kickoff_utc.str.replace("Z", ""), errors="coerce") if "kickoff_utc" in newest else pd.Series(pd.NaT, index=newest.index)
+    live = newest[col].isna() & ~(ko < pd.Timestamp.now("UTC").tz_localize(None) - pd.Timedelta(days=2))   # games still to play or just played
+    for gid, ts in zip(newest.game_id[live], newest.ts[live]):
+        old = have[have.game_id == gid]
+        if len(old):
+            warn("wind_live", f"{gid}: newest pull ({ts}) has no {what}; using the {old.ts.iloc[0]} reading")
+    return have
 
 
 def readings() -> dict:
@@ -106,7 +128,7 @@ def rain_readings() -> dict:
     if F.exists():
         lv = pd.read_csv(F)
         if "gfs_pop" in lv:
-            lv = lv[lv.gfs_pop.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
+            lv = _live_latest(lv, "gfs_pop", "rain chance")
             out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_pop) if gid not in out})
     r = _roofed()
     return {k: v for k, v in out.items() if k not in r}
@@ -124,7 +146,7 @@ def temp_readings() -> dict:
     if F.exists():
         lv = pd.read_csv(F)
         if "gfs_temp" in lv:
-            lv = lv[lv.gfs_temp.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
+            lv = _live_latest(lv, "gfs_temp", "temperature")
             out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_temp) if gid not in out})
     r = _roofed()
     return {k: v for k, v in out.items() if k not in r}
