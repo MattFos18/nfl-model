@@ -678,8 +678,10 @@ def check_page_facts(rows, meta: dict, wk: dict) -> None:
     for g_ in wk.get("games", []):
         for kind, edge, sig in [("spread", g_.get("spread_edge"), g_.get("sigma_margin")), ("total", g_.get("total_edge"), g_.get("sigma_total"))]:
             raw, cal = g_.get(f"tease_{kind}_raw"), g_.get(f"tease_{kind}_cal")
-            if edge is None or edge == 0 or sig is None:
+            if edge is None or sig is None:
                 worst_t = max(worst_t, 1.0 if raw is not None or cal is not None else 0.0); continue
+            if abs(edge) < 5e-4:   # 2 Oct 2026: an edge under half a thousandth rounds to 0 on the page but still has a side in
+                continue           # Python (2026_04_DET_CAR, -0.0003): its legs cannot be rebuilt from the rounded edge
             r_ = P.tease_raw(edge, sig)
             worst_t = max(worst_t, abs(r_ - (raw if raw is not None else 9)), abs(P.tease_cal_p(ct_[kind], r_) - (cal if cal is not None else 9)))
     rows.append(("every card's teased chances (tease_spread_raw/cal, tease_total_raw/cal) rebuild from its edge, its fit's sigma and the week's calibration (worst gap; blank exactly when there is no line or no edge)", round(worst_t, 7), "0.0001 or under", worst_t <= 1e-4))
