@@ -2938,71 +2938,66 @@
 ]
 ],
 "weather": {
-"2026_04_PIT_CLE": {
-"wind": 11.0,
-"cold": false,
-"rain": false
-},
 "2026_04_IND_WAS": {
-"wind": 2.7,
+"wind": 2.5,
 "cold": false,
 "rain": true
 },
 "2026_04_TEN_BAL": {
-"wind": 4.7,
+"wind": 5.0,
 "cold": false,
 "rain": true
 },
 "2026_04_NE_BUF": {
-"wind": 6.7,
+"wind": 8.6,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 5.2,
+"wind": 5.1,
 "cold": false,
 "rain": false
 },
 "2026_04_JAX_CIN": {
-"wind": 3.4,
+"wind": 3.1,
 "cold": false,
 "rain": false
 },
 "2026_04_DAL_HOU": {
-"wind": 7.9,
+"wind": 10.4,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_04_ARI_NYG": {
-"wind": 11.0,
+"wind": 10.8,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 8.3,
+"wind": 8.4,
 "cold": false,
-"rain": false
+"rain": true
 },
 "2026_04_GB_TB": {
-"wind": 10.1,
+"wind": 10.5,
 "cold": false,
 "rain": false
 },
 "2026_04_LAC_SEA": {
-"wind": 5.8,
+"wind": 5.1,
 "cold": false,
 "rain": false
 },
 "2026_04_DEN_SF": {
-"wind": 4.8,
+"wind": 4.4,
 "cold": false,
 "rain": false
 },
 "2026_04_DET_CAR": {
-"wind": 3.3,
+"wind": 2.4,
 "cold": false,
-"rain": false
+"rain": true
 }
 },
-"written_at": "2026-10-02 02:29 UTC"
+"written_at": "2026-10-02 05:54 UTC"
 }

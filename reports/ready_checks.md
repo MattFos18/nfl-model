@@ -8,4 +8,4 @@
 | shadow      | Tracked rule worth a look                                                | False   | 13 tracked rules, none ahead                  |
 | calibration | Ready: check the cover odds against 50 live flags                        | False   | 0 settled live flags (ready at 50).           |
 | market      | Ready: test market signals on the 2026 line log                          | False   | 3 weeks of 2026 in the line log (ready at 9). |
-| season      | Ready: 2026 season over, re-test the rules and the out-of-the-race input | False   | 224 regular-season games of 2026 left.        |
+| season      | Ready: 2026 season over, re-test the rules and the out-of-the-race input | False   | 223 regular-season games of 2026 left.        |

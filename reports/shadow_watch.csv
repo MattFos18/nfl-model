@@ -10,5 +10,5 @@ shadowroad6,"4+ edge on road sides, 6+ on home sides",True,0-0,0,0.0,,model,0-0,
 shadowroad,"4+ edge, road sides only",True,0-0,0,0.0,,model,0-0,,,tracking
 shadowunder60,"Under, 60%+ chance",True,0-0,0,0.0,,shadowunder,2-1,0.248,,tracking
 shadowunderprime,"Under, 55%+ chance, prime time (TNF, SNF, MNF) only",True,0-0,0,0.0,,shadowunder,0-0,,,tracking
-windunder,"Under, forecast wind 10+ mph (outdoor games)",False,0-0,0,0.0,,break-even,0-0,,,tracking
-shadowteasedog,"6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130)",True,0-0,0,0.0,,break-even,0-0,,,tracking
+windunder,"Under, forecast wind 10+ mph (outdoor games)",False,0-1,1,-1.0,-0.909,break-even,0-0,,1.0,tracking
+shadowteasedog,"6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130)",True,1-0,1,0.33,0.109,break-even,0-0,,0.752,tracking

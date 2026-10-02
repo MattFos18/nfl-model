@@ -8,7 +8,7 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | games: one row per game | yes | 0 duplicate game ids |
 | games: every team's full regular season (finished seasons) | yes | 11 seasons, 2015 to 2025 |
 | games: no team twice in one week | yes | 0 repeats in 2026 |
-| games: scores whole numbers from 0 to 80 | yes | 2943 played games |
+| games: scores whole numbers from 0 to 80 | yes | 2944 played games |
 | games: result and total add up from the scores | yes | 0 games off |
 | games: closing spread and total for every played game | yes | 0 missing |
 | games: lines in range (spread within 30, total 25 to 70) | yes | 0 out of range |
