@@ -126,6 +126,39 @@ class QBRatings:
 SITUATION = ["home", "rest", "dome", "temp", "wind", "div_game", "primetime"]
 
 
+def qbs_out_now(games: pd.DataFrame) -> tuple[tuple, dict]:
+    """(season, week), {team: set of QB ids who cannot play} for the week being priced: Out or Doubtful on the league's
+    report or ESPN's same-day page (players.load_injuries), or off the active roster. 2 Oct 2026 (Matt: the WAS card
+    priced Jayden Daniels after ESPN ruled him Out): the schedule names the coming week's starter before the injury news,
+    and the backtest priced every game at the QB who actually started, so an upcoming game must swap in the replacement."""
+    try:
+        from .lines import current_week
+        from .players import load_injuries, unavailable_by_week
+        season, week = current_week(games)
+        inj = load_injuries([season])
+        inj = inj[(inj.week == week) & inj.report_status.isin(["Out", "Doubtful"])]
+        out = {t: set(g.gsis_id) for t, g in inj.groupby("team")}
+        for (s_, w_, t), ids in unavailable_by_week([season]).items():
+            if s_ == season and w_ == week:
+                out.setdefault(t, set()).update(ids)
+        return (season, week), out
+    except Exception:  # noqa  (no injury data: price the named starter, as before)
+        return (None, None), {}
+
+
+def replacement_qb(team: str, out: set, season: int, qb: pd.DataFrame) -> str | None:
+    """The QB who starts when the named starter cannot: the next QB on the current depth chart (roster_now) not out,
+    else the team's QB with the most dropbacks this season not out, else None (the rating's prior)."""
+    f = OUT / "roster_now.parquet"
+    if f.exists():
+        r = pd.read_parquet(f, columns=["team", "player_id", "position", "depth"])
+        r = r[(r.team == team) & (r.position == "QB") & r.depth.notna() & ~r.player_id.isin(out)].sort_values("depth")
+        if len(r):
+            return str(r.player_id.iloc[0])
+    d = qb[(qb.season == season) & (qb.team == team) & ~qb.qb_id.isin(out)].groupby("qb_id").dropbacks.sum()
+    return str(d.idxmax()) if len(d) else None
+
+
 def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=None, qb=None, verbose=False) -> pd.DataFrame:
     tg = pd.read_parquet(OUT / "team_games.parquet") if tg is None else tg
     games = pd.read_parquet(OUT / "games.parquet") if games is None else games
@@ -135,6 +168,8 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12), p.get("qb_season_fade", 1.0))
     # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
     named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
+    (cs, cw), qout = qbs_out_now(games)   # the week being priced: QBs ruled out, swapped for their replacement below
+    swap = lambda team, qid_: (replacement_qb(team, qout[team], cs, qb) if isinstance(qid_, str) and qid_ in qout.get(team, set()) else qid_)
     last_qb = {}
     feats = []
     for s in seasons:
@@ -172,11 +207,15 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
                     qid = getattr(g, f"{side}_qb_id")
                     if not isinstance(qid, str) and pd.isna(getattr(g, f"{side}_score")):
                         qid = last_qb.get(t)
+                    if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
+                        qid = swap(t, qid)
                     row["qb_id"] = qid
                     row["qb_rating"] = qbr.rating(qid, s, wk) if isinstance(qid, str) else qbr.prior
                     oqid = getattr(g, f"{opp}_qb_id")
                     if not isinstance(oqid, str) and pd.isna(getattr(g, f"{side}_score")):
                         oqid = last_qb.get(o)
+                    if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
+                        oqid = swap(o, oqid)
                     row["opp_qb_rating"] = qbr.rating(oqid, s, wk) if isinstance(oqid, str) else qbr.prior
                     feats.append(row)
         if verbose:
