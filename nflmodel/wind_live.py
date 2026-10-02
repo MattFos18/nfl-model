@@ -49,7 +49,13 @@ def run() -> int:
         if ko <= now or ko > now + pd.Timedelta(hours=RANGE_H):
             continue
         run_ = newest_run(ko, now)
-        m = FH.mos_all(r.station, "GFS", run_, ko); gfs = m["wind"]
+        m = FH.mos_all(r.station, "GFS", run_, ko)
+        if all(v is None for v in (m["wind"], m["pop"], m["temp"])):
+            # 2 Oct 2026: a run is published about 4.5 hours after its time, so at the 4-hour edge the newest run is not out
+            # yet and came back empty (22:00Z asked for 18Z); the run before it is the newest one actually issued
+            run_ = run_ - pd.Timedelta(hours=6)
+            m = FH.mos_all(r.station, "GFS", run_, ko)
+        gfs = m["wind"]
         # Japan's model under the stored rule (2 Oct 2026): the day-before value, never a run newer than the GFS cutoff
         jma = FH.jma_pre_kickoff(*FH.jma(r.latlon[0], r.latlon[1], ko)[1:], ko, now) if r.latlon else None
         vals = [v for v in (gfs, jma) if v is not None]
