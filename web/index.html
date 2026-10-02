@@ -919,7 +919,9 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const m = (g.moves || []).find(x => x.market === mk); if (!m) return "";
     const t = mk === "total" ? `${m.open} to ${m.now}` : `${lineTxt(m.toward, m.toward === H ? -m.open : m.open)} to ${lineTxt(m.toward, m.toward === H ? -m.now : m.now)}`;
     const side = mk === "total" ? `the ${m.toward}` : m.toward, pub = mk === "total" ? `the ${m.public}` : m.public;
-    return `<div class="mv"><span class="chip" title="The consensus line moved from its open toward the side with fewer bets: bigger bets on that side, usually sharper money. Shown only: not in the model">Moved toward ${side} (${t}) against ${m.bets}% of bets on ${pub}</span></div>`;
+    // short (2 Oct 2026, Matt: "say reverse line movement and what it favors"); the detail in the tooltip
+    const fav = mk === "total" ? m.toward.charAt(0).toUpperCase() + m.toward.slice(1) : m.toward;
+    return `<div class="mv"><span class="chip" title="Reverse line move: the consensus line moved ${t} toward ${side} against ${m.bets}% of bets on ${pub}, usually sharper money. Shown only: not in the model">Reverse line move · ${fav}</span></div>`;
   }
   function spark(hist, key, modelVal, H, edge) {
     // the DraftKings line over time (30 Sep 2026, Matt: the betting splits are DraftKings', so the line is too; every book's
@@ -1375,7 +1377,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if (C.spread || C.total || C.winner) rows.push(["e", "Edge", C.spread ? `<b>${lineTxt(C.spread.side, C.spread.line)}</b>${eg(C.spread.edge)}${r(C.spread)}` : "–", C.total ? `<b>${C.total.side} ${C.total.line}</b>${eg(C.total.edge)}${r(C.total)}` : "–", C.winner ? `<b>${C.winner.side}</b>${wEdge(C.winner.side)}${r(C.winner)}` : "–"]);
     const grid = rows.length ? `<div class="lv-mgw"><table class="lv-mg"><colgroup><col class="c0"><col><col><col></colgroup><thead><tr><th></th><th>Spread</th><th>Total</th><th>Winner</th></tr></thead><tbody>${rows.map(([k, lab, sp, tt, wn]) => `<tr class="lv-${k}"><th><i></i>${lab}</th><td>${sp}</td><td>${tt}</td><td>${wn}</td></tr>`).join("")}</tbody></table></div>` : "";
     const sides = [];
-    (lv.bets || []).forEach(b => sides.push(`<div class="lv-side lv-bet"><span class="lv-sl">${b.who === "matt" ? "Your bet" : b.who === "model" ? "Bet" : esc(b.who)}</span><b>${esc(b.bet)}</b>${b.odds != null ? `<span class="rk">${b.odds}</span>` : ""}${r(b)}${b.units != null && b.result ? `<span class="rk">${sgn(b.units, 2)} u</span>` : ""}</div>`));
+    // only real bets on the game card (2 Oct 2026, Matt: remove the shadow tiles): the model's flag, the wind under, yours
+    (lv.bets || []).filter(b => ["model", "matt", "windunder"].includes(b.who)).forEach(b => sides.push(`<div class="lv-side lv-bet"><span class="lv-sl">${b.who === "matt" ? "Your bet" : b.who === "windunder" ? "Bet · wind" : "Bet"}</span><b>${esc(b.bet)}</b>${b.odds != null ? `<span class="rk">${b.odds}</span>` : ""}${r(b)}${b.units != null && b.result ? `<span class="rk">${sgn(b.units, 2)} u</span>` : ""}</div>`));
     if (!grid && !sides.length) return "<p class='note'>No model numbers for this game.</p>";
     return `${grid}${sides.length ? `<div class="lv-sides">${sides.join("")}</div>` : ""}`;
   }
