@@ -110,6 +110,11 @@
 "Out"
 ],
 [
+"BUF",
+"T.J. Sanders",
+"Doubtful"
+],
+[
 "CAR",
 "Damien Lewis",
 "Out"
@@ -301,8 +306,13 @@
 ],
 [
 "LA",
+"Aaron Donald",
+"Out"
+],
+[
+"LA",
 "Jaylen Watson",
-"Doubtful"
+"Out"
 ],
 [
 "LA",
@@ -317,7 +327,7 @@
 [
 "LA",
 "Terrance Ferguson",
-"Doubtful"
+"Out"
 ],
 [
 "LAC",
@@ -367,6 +377,11 @@
 [
 "MIN",
 "Josh Oliver",
+"Out"
+],
+[
+"MIN",
+"Justin Jefferson",
 "Out"
 ],
 [
@@ -869,6 +884,12 @@
 ],
 [
 "BUF",
+"Ray Davis",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Sam Franklin Jr.",
 "",
 "Did Not Participate In Practice"
@@ -884,12 +905,6 @@
 "T.J. Sanders",
 "",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"T.J. Sanders",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1739,12 +1754,6 @@
 ],
 [
 "LA",
-"Aaron Donald",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Colby Parkinson",
 "",
 "Did Not Participate In Practice"
@@ -1808,12 +1817,6 @@
 "Puka Nacua",
 "",
 "Limited Participation in Practice"
-],
-[
-"LA",
-"Puka Nacua",
-"Questionable (ESPN)",
-""
 ],
 [
 "LA",
@@ -2156,12 +2159,6 @@
 "Justin Jefferson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"MIN",
-"Justin Jefferson",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -3144,5 +3141,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 18:29 UTC"
+"written_at": "2026-10-02 19:09 UTC"
 }

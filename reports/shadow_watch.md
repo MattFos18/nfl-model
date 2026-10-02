@@ -29,3 +29,4 @@
 | shadowwk4        | 4+ edge, weeks 1 to 4 only                                                                | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
 | shadowwk15       | 4+ edge, weeks 1 to 15 only                                                               | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
 | shadow6          | 6+ edge                                                                                   | True     | 0-0      |         0 |    0    | nan     | model           | 0-0           |    nan     |  nan     | tracking |
+| shadowoverlow    | Over, total 41 or lower and a 55%+ chance                                                 | True     | 0-0      |         0 |    0    | nan     | shadowunder     | 2-1           |      0.248 |  nan     | tracking |

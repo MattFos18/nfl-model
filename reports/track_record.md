@@ -10,16 +10,16 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 2 | 0 | nothing settled |  | +0.00 | 67-55 | 76-47 | 37-20 |
-| shadow: 4.5+ edge | 2 | 0 | nothing settled |  | +0.00 | 42-37 | 53-39 | 24-15 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 2 | 0 | nothing settled |  | +0.00 | 50-37 | 69-38 | 29-17 |
-| shadow: 4+ edge, weeks 1 to 13 only | 2 | 0 | nothing settled |  | +0.00 | 53-41 | 66-35 | 30-17 |
+| 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 67-55 | 76-47 | 37-20 |
+| shadow: 4.5+ edge | 3 | 0 | nothing settled |  | +0.00 | 42-37 | 53-39 | 24-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 50-37 | 69-38 | 29-17 |
+| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 53-41 | 66-35 | 30-17 |
 | shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 94-66 | 80-58 | 33-16 |
 | shadow: Under, 55%+ chance (the totals flag) | 8 | 3 | 2-1 (67%) | +0.82 | +0.12 | 132-117 | 190-146 | 82-59 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 5 | 0 | nothing settled |  | +0.00 | 122-104 | 169-135 | 73-53 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 18-10 | 13-13 | 15-4 |
-| shadow: 4+ edge on road sides, 6+ on home sides | 1 | 0 | nothing settled |  | +0.00 | 40-23 | 43-27 | 21-10 |
-| shadow: 4+ edge, road sides only | 1 | 0 | nothing settled |  | +0.00 | 38-15 | 34-19 | 17-8 |
+| shadow: 4+ edge on road sides, 6+ on home sides | 2 | 0 | nothing settled |  | +0.00 | 40-23 | 43-27 | 21-10 |
+| shadow: 4+ edge, road sides only | 2 | 0 | nothing settled |  | +0.00 | 38-15 | 34-19 | 17-8 |
 | shadow: Under, 60%+ chance | 1 | 0 | nothing settled |  | +0.00 | 58-44 | 112-73 | 33-25 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 33-27 | 44-27 | 18-11 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 24-20 | 143-88 | 77-52 |
@@ -33,20 +33,22 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the road underdog | 1 | 0 | nothing settled |  | +0.00 | 30-11 | 32-14 | 14-7 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 2 | 0 | nothing settled |  | +0.00 | 20-11 | 22-14 | 19-6 |
 | shadow: 3.5+ edge on dogs, 4+ on every other side | 3 | 0 | nothing settled |  | +0.00 | 85-70 | 102-71 | 50-28 |
-| shadow: 4+ edge, weeks 1 to 4 only | 2 | 0 | nothing settled |  | +0.00 | 23-13 | 16-12 | 19-5 |
-| shadow: 4+ edge, weeks 1 to 15 only | 2 | 0 | nothing settled |  | +0.00 | 58-46 | 69-38 | 33-17 |
+| shadow: 4+ edge, weeks 1 to 4 only | 3 | 0 | nothing settled |  | +0.00 | 23-13 | 16-12 | 19-5 |
+| shadow: 4+ edge, weeks 1 to 15 only | 3 | 0 | nothing settled |  | +0.00 | 58-46 | 69-38 | 33-17 |
 | shadow: 6+ edge | 0 | 0 | | | | 8-10 | 14-12 | 7-2 |
+| shadow: Over, total 41 or lower and a 55%+ chance | 1 | 0 | nothing settled |  | +0.00 | 42-35 | 29-25 | 56-37 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.8% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 
-2 recorded, 0 settled, 2 pending.
+3 recorded, 0 settled, 3 pending.
 
 Every bet:
 
 |   season |   week | game_id         | bet      |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:---------|-------:|--------:|------:|:---------|--------:|
+|     2026 |      4 | 2026_04_IND_WAS | WAS +4.5 |   -115 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     nan |   nan | pending  |     nan |
 
