@@ -100,6 +100,11 @@
 "Out"
 ],
 [
+"BAL",
+"Trey Hendrickson",
+"Out"
+],
+[
 "BUF",
 "Jordan Hancock",
 "Out"
@@ -372,6 +377,16 @@
 [
 "NE",
 "A.J. Brown",
+"Out"
+],
+[
+"NE",
+"Christian Barmore",
+"Out"
+],
+[
+"NE",
+"Christian Gonzalez",
 "Out"
 ],
 [
@@ -755,12 +770,6 @@
 "Trey Hendrickson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"BAL",
-"Trey Hendrickson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -2180,12 +2189,6 @@
 ],
 [
 "NE",
-"Christian Barmore",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Christian Elliss",
 "",
 "Limited Participation in Practice"
@@ -2201,12 +2204,6 @@
 "Christian Gonzalez",
 "",
 "Did Not Participate In Practice"
-],
-[
-"NE",
-"Christian Gonzalez",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -3026,12 +3023,6 @@
 ],
 [
 "WAS",
-"Charles Omenihu",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Chig Okonkwo",
 "",
 "Limited Participation in Practice"
@@ -3044,21 +3035,9 @@
 ],
 [
 "WAS",
-"Frankie Luvu",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Javon Kinlaw",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Javon Kinlaw",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3074,21 +3053,9 @@
 ],
 [
 "WAS",
-"Lucas Patrick",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Nick Allegretti",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Nick Allegretti",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3122,22 +3089,22 @@
 "rain": false
 },
 "2026_04_TEN_BAL": {
-"wind": 6.5,
+"wind": 6.6,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_04_NE_BUF": {
-"wind": 11.2,
+"wind": 7.6,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 6.3,
+"wind": 7.6,
 "cold": false,
 "rain": false
 },
 "2026_04_JAX_CIN": {
-"wind": 3.2,
+"wind": 4.2,
 "cold": false,
 "rain": false
 },
@@ -3147,17 +3114,17 @@
 "rain": false
 },
 "2026_04_ARI_NYG": {
-"wind": 11.1,
+"wind": 10.9,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 7.5,
+"wind": 10.3,
 "cold": false,
 "rain": true
 },
 "2026_04_GB_TB": {
-"wind": 10.7,
+"wind": 10.2,
 "cold": false,
 "rain": false
 },
@@ -3167,15 +3134,15 @@
 "rain": false
 },
 "2026_04_DEN_SF": {
-"wind": 4.7,
+"wind": 4.8,
 "cold": false,
 "rain": false
 },
 "2026_04_DET_CAR": {
-"wind": 2.2,
+"wind": 1.4,
 "cold": false,
 "rain": true
 }
 },
-"written_at": "2026-10-02 17:39 UTC"
+"written_at": "2026-10-02 18:29 UTC"
 }
