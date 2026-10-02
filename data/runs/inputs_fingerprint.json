@@ -3118,22 +3118,22 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 4.8,
+"wind": 6.5,
 "cold": false,
-"rain": true
+"rain": false
 },
 "2026_04_TEN_BAL": {
-"wind": 5.9,
+"wind": 6.5,
 "cold": false,
 "rain": true
 },
 "2026_04_NE_BUF": {
-"wind": 10.4,
+"wind": 11.2,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 6.8,
+"wind": 6.3,
 "cold": false,
 "rain": false
 },
@@ -3143,22 +3143,22 @@
 "rain": false
 },
 "2026_04_DAL_HOU": {
-"wind": 10.1,
+"wind": 9.9,
 "cold": false,
 "rain": false
 },
 "2026_04_ARI_NYG": {
-"wind": 11.5,
+"wind": 11.1,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 7.1,
+"wind": 7.5,
 "cold": false,
 "rain": true
 },
 "2026_04_GB_TB": {
-"wind": 10.5,
+"wind": 10.7,
 "cold": false,
 "rain": false
 },
@@ -3168,15 +3168,15 @@
 "rain": false
 },
 "2026_04_DEN_SF": {
-"wind": 3.4,
+"wind": 4.7,
 "cold": false,
 "rain": false
 },
 "2026_04_DET_CAR": {
-"wind": 2.5,
+"wind": 2.2,
 "cold": false,
 "rain": true
 }
 },
-"written_at": "2026-10-02 06:48 UTC"
+"written_at": "2026-10-02 12:10 UTC"
 }
