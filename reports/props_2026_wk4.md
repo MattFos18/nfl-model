@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.48 / 55.99 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-01 23:37 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.48 / 55.99 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-02 00:01 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -59,12 +59,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_attempts    |   1.1   |          1.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_rec_yards   |   3.1   |          1.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_longest     |   5.8   |          1.1  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 198.7   |         35    | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 198.5   |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_td          |   1.297 |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_int         |   0.721 |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_attempts    |  33     |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_completions |  21     |         35    | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 205.5   |         35    | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 205.3   |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_longest     |  32.3   |         35    | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0038135  | Jaquan Brisker           | def_tackles      |   6.6   |         60.7  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0038135  | Jaquan Brisker           | def_sacks        |   0.12  |         60.7  | live   |
@@ -152,12 +152,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040668  | Shedeur Sanders          | rush_attempts    |   1.4   |          1.4  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040668  | Shedeur Sanders          | rush_rec_yards   |   6.5   |          1.4  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040668  | Shedeur Sanders          | rush_longest     |   8.7   |          1.4  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_yards       | 204.6   |         34.9  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_yards       | 204.4   |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_td          |   1.183 |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_int         |   0.719 |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_attempts    |  31.4   |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_completions |  20.8   |         34.9  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 236.5   |         34.9  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 236.3   |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_longest     |  33     |         34.9  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040579  | Carson Schwesinger       | def_tackles      |   8.5   |         60.4  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040579  | Carson Schwesinger       | def_sacks        |   0.15  |         60.4  | live   |
@@ -1327,31 +1327,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0039041  | Elijah Higgins           | rec_targets      |   2.3   |          2.3  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0039041  | Elijah Higgins           | rec_longest      |  10.6   |          2.3  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_yards       |  46.4   |         12.5  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_td          |   0.343 |         12.5  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_td          |   0.355 |         12.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_attempts    |  12.5   |         12.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_rec_yards   |  66.1   |         12.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0041027  | Jeremiyah Love           | rush_longest     |  11.5   |         12.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_yards       |  22.8   |          6.4  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_td          |   0.226 |          6.4  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_td          |   0.234 |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_attempts    |   6.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_rec_yards   |  35.3   |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037263  | Tyler Allgeier           | rush_longest     |   8.9   |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_yards       |   9.1   |          3.2  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_td          |   0.103 |          3.2  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_td          |   0.107 |          3.2  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_attempts    |   3.2   |          3.2  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_rec_yards   |  17.6   |          3.2  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037157  | Bam Knight               | rush_longest     |   8.9   |          3.2  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_yards       |  11.7   |          3.1  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_td          |   0.118 |          3.1  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_td          |   0.122 |          3.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_attempts    |   3.1   |          3.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_rec_yards   |  11.7   |          3.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_longest     |   7.5   |          3.1  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 234.9   |         42.1  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 234.2   |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.448 |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_int         |   0.867 |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_attempts    |  39     |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_completions |  25.7   |         42.1  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 246.6   |         42.1  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 245.9   |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_longest     |  32.6   |         42.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0040645  | Cody Simon               | def_tackles      |   7.6   |         65.7  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0040645  | Cody Simon               | def_sacks        |   0.09  |         65.7  | live   |
@@ -1420,31 +1420,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0038938  | Jalin Hyatt              | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0038938  | Jalin Hyatt              | rec_longest      |   7.7   |          2.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_yards       |  54.3   |         16.5  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_td          |   0.485 |         16.5  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_td          |   0.502 |         16.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_attempts    |  16.5   |         16.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_rec_yards   |  75.8   |         16.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0040715  | Cam Skattebo             | rush_longest     |  11.7   |         16.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_yards       |  22.7   |          7.5  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_td          |   0.175 |          7.5  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_td          |   0.181 |          7.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_attempts    |   7.5   |          7.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_rec_yards   |  22.7   |          7.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0036893  | Najee Harris             | rush_longest     |   8.4   |          7.5  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_yards       |  18.4   |          6.4  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_td          |   0.178 |          6.4  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_td          |   0.184 |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_attempts    |   6.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_rec_yards   |  28.6   |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0035250  | Devin Singletary         | rush_longest     |   9     |          6.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_yards       |  12.1   |          4.6  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_td          |   0.08  |          4.6  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_td          |   0.083 |          4.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_attempts    |   4.6   |          4.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_rec_yards   |  21     |          4.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_longest     |  10.9   |          4.6  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 226     |         33.8  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 225.4   |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_td          |   1.64  |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_int         |   0.696 |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_attempts    |  31.6   |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_completions |  18.5   |         33.8  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 232.7   |         33.8  | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 232.1   |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0031503  | Jameis Winston           | pass_longest     |  28.2   |         33.8  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0041509  | Arvell Reese             | def_tackles      |   9.7   |         66    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0041509  | Arvell Reese             | def_sacks        |   0.1   |         66    | live   |
