@@ -311,6 +311,11 @@
 ],
 [
 "MIA",
+"Caleb Douglas",
+"Out"
+],
+[
+"MIA",
 "De'Von Achane",
 "Out"
 ],
@@ -382,7 +387,7 @@
 [
 "NYJ",
 "Adonai Mitchell",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -392,7 +397,7 @@
 [
 "NYJ",
 "Breece Hall",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -402,7 +407,12 @@
 [
 "NYJ",
 "Dylan Parham",
-"Doubtful"
+"Out"
+],
+[
+"NYJ",
+"Kiko Mauigoa",
+"Out"
 ],
 [
 "NYJ",
@@ -1988,12 +1998,6 @@
 ],
 [
 "MIA",
-"Caleb Douglas",
-"Questionable (ESPN)",
-""
-],
-[
-"MIA",
 "Chris Bell",
 "",
 "Limited Participation in Practice"
@@ -2457,12 +2461,6 @@
 [
 "NYJ",
 "Kenyon Sadiq",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Kiko Mauigoa",
 "Questionable (ESPN)",
 ""
 ],
@@ -3177,5 +3175,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 14:56 UTC"
+"written_at": "2026-10-02 15:30 UTC"
 }
