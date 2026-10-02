@@ -92,7 +92,7 @@ BASE = {
     "ref_over": ("Trends (shown, not used)", "Referee's over rate before this game, shrunk to 0.5. Noise", "trends.py", False, True),
     "ref_home_cover": ("Trends (shown, not used)", "Referee's home cover rate, shrunk. Noise", "trends.py", False, True),
     "ref_pen": ("Trends (shown, not used)", "Referee's penalties per game vs league, shrunk", "trends.py", False, True),
-    "ref_tot": ("Totals", "Referee's game totals against the league's mean total of the season before, previous games, shrunk (the total equation; no line)", "trends.py", False, True),
+    "ref_tot": ("Totals", "Referee's game totals against the league's mean total of the season before, previous games, shrunk (a reading; out of the total equation since 2 Oct 2026)", "trends.py", False, True),
     "sun_late": ("Trends (shown, not used)", "Sunday late window", "trends.py", False, True), "body_clock_early": ("Trends (shown, not used)", "West Coast team at 1pm ET on the road", "trends.py", False, True),
     "cold_edge": ("Trends (shown, not used)", "Team's cold-game margin edge, applied when cold", "trends.py", False, True),
     "rain": ("Situation", "Rain, showers or a storm at kickoff (play-by-play weather text; the forecast for unplayed games)", "play-by-play / Open-Meteo", True, False),

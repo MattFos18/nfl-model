@@ -22,7 +22,7 @@ Updated 23 Sep 2026. The model has twenty-two inputs (section 4); everything bel
 | Rest, short week, bye, primetime | Tested and not in: none lowered the miss on both windows once the ratings were in | `experiments/` |
 | Referees, head-to-head, coach and QB against-the-spread records, off a loss, travel, time zones, snow, special teams, sack rates, pace, new coach | Tested and not in (section 14 and the decision log). Head-to-head, coaches and QBs are shown on each card as reference | `experiments/` |
 | Line movement, splits, sharp money | Not in. Nothing to backtest with until the line log has a season behind it. The best available number across books is used for the flagged bet and shown on the card | `lines.py`, `picks.py` |
-| Bet flag | A spread edge of 4 points or more (5 until 23 Sep 2026), no flags in Week 18, totals not flagged (an under at a 55%+ raw chance is tracked, not bet). Cover odds and the total chance on the cards are calibrated on the backtest | `picks.py` |
+| Bet flag | A spread edge of 4 points or more (5 until 23 Sep 2026), no flags in Week 18. Totals: the under at a 55%+ raw chance (the totals flag) and the under in outdoor games with forecast wind 10+ mph (the wind under, from 1 Oct 2026) are bets; overs never. Cover odds and the total chance on the cards are calibrated on the backtest | `picks.py` |
 
 ## 2. The data
 
@@ -379,8 +379,9 @@ between the rules is made on the live record, with a reminder set for January 20
 
 **What is still held out, honestly.** The ridge strength and the bet thresholds were chosen on 2019 to 2022 and
 2023 to 2025 never touched them. Since 22 Sep 2026 every candidate input, and the rating decay and last-season
-weight, has been accepted only when it helps on both windows. That is a stricter filter than tuning on one window,
-but it means 2023 to 2025 is a second test window for those choices, not an untouched one. The live season, graded
+weight, has been accepted only when it helps on every window (now the round-3 rule: 2015-18, 2019-22 and 2023-25,
+no bet cost, beats its placebo; `reports/round3_rule.md`). That is a stricter filter than tuning on one window,
+but it means 2015 to 2018 and 2023 to 2025 are test windows for those choices, not untouched ones. The live season, graded
 on the Results tab, is the only fully unseen test.
 
 `nflmodel/audit.py` (`reports/audit.md`) checks the backtest itself:
@@ -420,12 +421,13 @@ are fixed.
 
 ## 12. The weekly loop (Phase 5)
 
-Two GitHub Actions workflows run from `main`. **Tuesday 06:00 ET and Saturday 10:00 ET** (`weekly.yml`):
+Two GitHub Actions workflows run from `main`. **Tuesday 06:00 ET, Thursday 14:00 ET, Saturday 10:00 ET and
+Sunday 09:00 ET** (`weekly.yml`, with retries Tuesday and Wednesday while a source is late):
 pull the season's play-by-play, schedules, injuries and snap counts; rebuild every table; run the
 verification (the run halts if scores or mirrors break, and says so); fetch kickoff forecasts for unplayed
 outdoor games and put them in the wind and temperature fields the model reads; rebuild ratings, trends and
 the model; grade last week's flagged picks and your bets; write this week's picks with the flags; export the
-data room; write `reports/weekly_latest.md` with every step's status. **Every 10 minutes** (`lines.yml`):
+data room; write `reports/weekly_latest.md` with every step's status. **Every 30 minutes** (`lines.yml`):
 log the spread, total and moneyline from the ESPN scoreboard (whose provider is DraftKings) and the
 DraftKings feed to `data/lines/lines_log.csv`, raw responses kept. Picks are recorded with the line at the
 time and never on a game that has kicked off; when the game is graded, closing line value is the recorded
@@ -576,7 +578,7 @@ record so far (+0.008 / -0.006), and the ridge penalty at 3, 30 and 100 against 
 helps on both windows. The dead-team flag is the one honest maybe: a clear held-out gain the tuning window does
 not show, so it is parked and gets re-checked once 2026 is in the books.
 
-**Stake** (23 Sep 2026, `picks.kelly_stake`). Each flagged spread now carries a stake: a quarter of the Kelly
+**Stake** (23 Sep 2026, `picks.kelly_stake`; retired 2 Oct 2026: one unit a bet, #385). Each flagged spread now carries a stake: a quarter of the Kelly
 fraction, (p x b - (1 - p)) / b with p the calibrated cover odds for the model's side and b the payout at the best
 book's price (-110 when no price is logged), as a share of the bankroll. A 4-point edge at 53% supports about 0.4%,
 at 54% about 0.8%; the calibrated odds are refit every run, so the same edge can carry a different stake week to week. Quarter Kelly because the cover odds are an estimate from a fitted curve, and full
@@ -2107,7 +2109,8 @@ The Picks tab is the week picker and the PDF button, the picks table (the friend
 panels under it, every one open: the bet order, a 6-point teaser builder and a parlay builder. A bankroll box at the top
 right is kept on the device alone (localStorage); with one set, every stake on the tab is `picks.kelly_stake`'s arithmetic
 (a quarter of the Kelly fraction) on the calibrated chance at the price shown, in dollars, blank when the chance does not
-clear the price. Nothing on the tab reaches the PDF, which stays the one-page table.
+clear the price (retired 2 Oct 2026: one unit a bet, no bankroll box, #385). Nothing on the tab reaches the PDF, which
+stays the one-page table.
 
 **The bet order** ranks every spread side and total side still to play by the edge, with the calibrated chance, the model's
 own, the stake at the default price (`picks.DEFAULT_ODDS`) and the flag.
@@ -2244,7 +2247,7 @@ tracker read lines only to grade and to pick bets. Two places did read the marke
    referee input at all (`experiments/ref_noline.py`, reports/ref_noline.csv). Total miss, 2015-18 / 2019-22 / 2023-25:
    no referee input 10.761 / 10.566 / 10.200; ref_tot 10.744 / 10.541 / 10.177; ref_over 10.707 / 10.528 / 10.182.
    The line-free reading beats no input on all three windows (the line-based one was a touch better on two, and is
-   out by the rule); ref_tot is the total equation's referee input from 28 Sep 2026, ref_over stays a trend reading.
+   out by the rule); ref_tot is the total equation's referee input from 28 Sep 2026 until 2 Oct 2026 (section 48), ref_over stays a trend reading.
 
 **The starting QB on the injury report.** A starter listed Out showed only his snaps-out points (Caleb Williams
 -0.2) while the swap to the backup sat in Score projection's Quarterback line. His row now carries the swap too:
@@ -2956,7 +2959,8 @@ minutes a run until done, the forecasts for every played outdoor or open-roof ga
 National Weather Service's MOS at the stadium's airport (GFS wind every season; the National Blend's wind and gust from
 November 2018), each from the 12Z run the day before and from the last run out at least five hours before kickoff, and
 Japan's global model from Open-Meteo's previous runs (one and two days before and the latest). Each value is the mean
-over the game's first three hours (the gust, the largest). Nothing reads it yet but the wind study.
+over the game's first three hours (the gust, the largest). At first only the wind study read it; since 1 Oct 2026 the
+wind under, the wind points and the rain input (`model.RAIN_FC`) read it for 2018-2025.
 
 **Wind unders on the forecast** (1 Oct 2026; `experiments/wind_forecast.py`, reports/wind_forecast.md). On the forecast
 history, blind unders in outdoor games forecast at 10+ mph by the GFS the day before went 37-27 (2018), 165-116 (2019-22)
@@ -2964,7 +2968,7 @@ and 116-89 (2023-25): 57.8% and +62.8 units at -110 over 550 bets, against the c
 forecast within season (200) did as well. The mean of the last forecasts before kickoff at 10+ went 262-167 (61.1%). The
 forecast does about as well as the wind that happened, so the edge is knowable before kickoff. Six of eight seasons won
 (2020 even, 2024 lost). The totals flag in those games went 101-62, outside them 126-110. Not bet yet: the live run reads
-Open-Meteo's forecast, not the GFS MOS the rule was measured on.
+Open-Meteo's forecast, not the GFS MOS the rule was measured on (a bet from 1 Oct 2026 on the GFS MOS reading, below).
 
 **Teaser legs on small dogs, tracked** (1 Oct 2026, Matt: "go"). Every dog at +1.5 to +2.5 teased six points to +7.5 to
 +8.5 (`picks.TEASE_DOG`, shadow `shadowteasedog`), whatever the model says, logged and graded every run, kept off the page.
@@ -2991,7 +2995,8 @@ does not count him.
 reading is the mean of two forecasts over the game's first three hours: the National Weather Service's GFS MOS at the
 stadium's airport (the newest run out at least 4 hours old and 5 hours before kickoff) and Japan's global model from
 Open-Meteo (its day-before run since 2 Oct 2026, section 48), pulled on every line watch for games within 66 hours; for 2018-2025 the stored forecast history gives the
-same reading. It went 23-19 (2018), 143-89 (2019-22) and 83-52 (2023-25), 61% and about +73 units at -110, and the
+same reading. Leak-fixed (2 Oct 2026, reports/leak_fix_rescore.md) it went 24-20 (2018), 141-88 (2019-22) and 77-52
+(2023-25), 242-160, 60% and about +60 units at -110, and the
 forecast beat 200 within-season shuffles (reports/wind_forecast.md). It shows on the card as "Under N · wind", is recorded
 and graded like the flags, and is in the picks-final alert; where the totals flag already has the same under it shows once.
 
@@ -3001,7 +3006,8 @@ forecast (the wind under's reading) sits in a band finish off the total by a ban
 seasons before it only, each band's mean miss against all forecast games, shrunk by 50 games. Bands below 10, 10 to 15 and
 15+ mph; the 10-15 band is worth about -2 points (-2.2 for 2026) (books already move big-wind totals, so 15+ is about zero). In the model
 (rerun 2015-2026) the total miss went 10.541 -> 10.509 (2019-22) and 10.177 -> 10.125 (2023-25), 2015-18 and the spread
-unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-129 and 71-59 -> 81-62. The card shows it beside the model total ("wind -2.2").
+unchanged, no shuffled forecast as good in the study; the totals flag 175-128 -> 182-129 and 71-59 -> 81-62 (measured
+before the leak fix; being rescored (forecast_weather_backtest)). The card shows it beside the model total ("wind -2.2").
 
 **Rain, cold and gusts on the forecast** (1 Oct 2026; `experiments/weather_forecast_retest.py`, reports/weather_forecast_retest.md).
 The forecast history now also holds the GFS MOS temperature (mean over the first three hours) and chance of rain (the
@@ -3012,7 +3018,8 @@ National Blend's gust exists only from November 2018 to 2019, too few games to s
 chance 50+ or below 32 F (about -2 points), lowers the total miss on both windows and beats every shuffle, but costs
 the totals flag five net wins on 2019-22. The GFS MOS writes 99 for a missing wind hour; one stored game (2018 BAL at LAC)
 had a 20 mph forecast built from it, now read as missing and refetched (5.5 mph), which moved the wind under's 2018 to 23-19. As a bet, blind unders at a rain chance of 50+ went 102-60 (63%, +36 units) with
-0.5% of shuffles as good, across all three windows; found on the backtest, so it is a candidate to track, not bet.
+0.5% of shuffles as good, across all three windows; found on the backtest, so it is a candidate to track, not bet
+(tracked as the hidden shadow `shadowrain` since 2 Oct 2026, #379).
 
 **Rain as points** (1 Oct 2026, Matt: "quantify the points"; `experiments/rain_points.py`, reports/rain_points.md). The totals
 equation learned rain from the weather that happened but prices an upcoming game on the forecast, so it under-counted
@@ -3020,7 +3027,7 @@ rain: games with a 50%+ forecast chance finished 2.9 points under the line while
 rain from the same forecast it is priced on (the GFS MOS chance 50%+, 2018 on) is worth about -4.2 points in the equation
 (the card's "rain -X"; those games' totals moved about -2.9 from the old model, which already took some rain off them) and
 lowers the total miss on all three windows (10.738 / 10.493 / 10.108), the totals flag gains net wins on all three, and
-it beat 20 of 20 shuffled forecasts. Nine other ways (bands, a straight line, the continuous chance) did worse. Live
+it beat 20 of 20 shuffled forecasts (measured before the leak fix; being rescored (forecast_weather_backtest)). Nine other ways (bands, a straight line, the continuous chance) did worse. Live
 from 1 Oct 2026 (Matt's yes; `model.RAIN_FC`): the reading is the GFS MOS chance the wind forecast already pulls (the
 largest 6-hour chance over the first three hours), stored for every played game; the card shows "rain -X" beside the
 model total, and Backtest -> Totals has a "Weather in the Total" table (games, points, the total's miss with and without
@@ -3033,6 +3040,7 @@ under bets went 22-9 (+12.1 units) on 2018-25, adding it helps every window, and
 audit: no look-ahead, but 2015-18 is only 2018 (4 bets), 50% is a sharp peak (45% earns +7.5 units, 40% +2.7), about 13
 cuts were tried across the two studies (corrected, the shuffle share is about 0.07), and on the day-before forecast it
 goes 22-18. A candidate hidden shadow at most (graded live, never bet), reading the last forecast run before kickoff.
+Tracked as the hidden shadow `shadowrain` since 2 Oct 2026 (#379).
 
 **Wind and cold learned from forecasts** (1 Oct 2026; `experiments/forecast_weather_inputs.py`,
 reports/forecast_weather_inputs.md). The rain fix's question asked of the other two weather inputs: wind_out and cold read
@@ -3155,8 +3163,8 @@ Rescored walk-forward 2015-2025 (2015-18 / 2019-22 / 2023-25): the spread flag i
 the totals flag goes from 137-127 / 202-146 / 98-73 to 133-122 / 183-141 / 75-62 with the clean ref_tot and 138-126 /
 182-142 / 75-57 without it; the wind under from 23-19 / 143-89 / 83-52 to 24-20 / 141-88 / 77-52; the total miss from
 10.738 / 10.493 / 10.108 to 10.768 / 10.533 / 10.141. Clean, ref_tot fails the round-3 rule (worse total miss on 2015-18
-and 2019-22, fewer totals-flag wins on 2015-18 and 2023-25, beats its shuffles 25 / 31 / 29 times in 50); it stays in the
-model until Matt decides. The leak checks now plant both leaks back in and prove they are caught
+and 2019-22, fewer totals-flag wins on 2015-18 and 2023-25, beats its shuffles 25 / 31 / 29 times in 50); it was dropped the same
+day (below). The leak checks now plant both leaks back in and prove they are caught
 (tests/test_same_game_leak.py).
 
 **The referee input dropped** (2 Oct 2026; `experiments/leak_fix_rescore.py`, reports/leak_fix_rescore.md). An audit found the referee priors counted each game's own final total among the referee's "previous games" (trends._prior_mean), which flattered the totals backtest. With the leak fixed the referee input fails the adoption rule (total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, beats its placebo only 25 / 31 / 29 times in 50), so it left the totals equation; the reading is still computed. Live bets were never affected (an unplayed game has no total to leak).

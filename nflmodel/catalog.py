@@ -57,7 +57,7 @@ PROCESSED_WHAT = {
     "props_profiles.json": ("every player's last-17 profile with splits, every defense and the league", "props", "Players tab"),
 }
 LOG_WHAT = {
-    "lines/lines_log.csv": ("every game line snapshot from the line watch (ESPN scoreboard provider line, DraftKings when reachable, The Odds API books): spread, total, moneylines, timestamp", "line watch (every 10 minutes)", "cards: Vegas line, line history, best number"),
+    "lines/lines_log.csv": ("every game line snapshot from the line watch (ESPN scoreboard provider line, DraftKings when reachable, The Odds API books): spread, total, moneylines, timestamp", "line watch (every 30 minutes)", "cards: Vegas line, line history, best number"),
     "lines/splits_log.csv": ("every betting-splits read from DraftKings Network's public page, each line watch: per game and market, each side's line, odds, share of tickets and share of handle, timestamp", "line watch", "card Betting splits (display only, not in the model); kept for a split study"),
     "lines/books_log.csv": ("every book Action Network carries (DraftKings, FanDuel, BetMGM, BetRivers, Caesars, bet365 and others, plus the opening line and a consensus): spread, total and moneyline with prices, a row each time a book's number changes", "line watch", "not shown; kept for a line-movement study"),
     "lines/splits_consensus_log.csv": ("ScoresAndOdds' consensus betting splits (bets across its partner books, not DraftKings alone): % of bets and % of money per side of the spread, total and moneyline, a row each time a split changes", "line watch", "not shown; kept for a split study"),

@@ -15,7 +15,7 @@ SHADOW_EDGE = 4.5   # 23 Sep 2026: logged alongside the flag, never bet, to deci
 LAST_BET_WEEK = 17   # no flags in Week 18: starters rest and the line knows it before the ratings do
 EARLY_LAST_WEEK = 13   # the early-weeks shadow: weeks 14 to 17 are the one stretch where the flag sits under break-even (docs section 14)
 TREES_EDGE = 5.0   # 25 Sep 2026: the blend's tree model on its own (reports/bet_wins.csv)
-TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). Graded live, not bet
+TOTAL_SHADOW = {"prob": 0.55, "side": "under"}   # 25 Sep 2026: unders at a 55%+ chance (the skewed spread of real totals, model.p_over_emp); overs lose every way tried (experiments/totals_fix.py). The totals flag: a live bet
 EARLY_UNDER = {"weeks": 3, "prob": 0.59}   # 30 Sep 2026 (reports/bet_rules_sweep.md): unders needing 59%+ in weeks 1 to 3 (55% after) beat the totals flag on all three windows; tracked, not bet
 HOOK = {"on": (2.5, 3.0, -3.0, -3.5), "odds": -125}   # 30 Sep 2026 (reports/spread_research.md): the flag's bet bought half a point on or off 3 at -125; tracked, not bet
 TEASE_DOG = {"lines": (1.5, 2.5), "pair_odds": -130.0}   # 1 Oct 2026 (reports/friend_ideas.md): six-point teaser legs on dogs at +1.5 to +2.5, blind; tracked, hidden, not bet
@@ -37,7 +37,7 @@ BIG_EDGE = 6.0   # 21 Sep 2026 (decision log): the 6+ edge, a lead to track live
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
-# shadow rules: recorded and graded next to the flag, never bet. name -> (spread edge, side restriction, label)
+# shadow rules: recorded and graded next to the flag, never bet (except shadowunder, the totals flag, and windunder: both live bets). name -> (spread edge, side restriction, label)
 UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under", "rain_under", "cold_under", "under_edge", "under_wind")   # side rules graded as unders on the total
 MASK_RULES = ("rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
 BLIND_RULES = ("wind_under", "rain_under", "cold_under", "tease_dog", "westcoast")   # rules that ignore the model: the shadow watch measures them against break-even alone
@@ -704,10 +704,10 @@ def markdown(p: pd.DataFrame, season: int, week: int) -> str:
     hdr = [f"# Week {week}, {season}: model picks", "",
            "Our line is home spread / total. Edge = model minus Vegas (spread: positive favours the home side; total: positive favours the over). "
            f"Win, cover and total are the model's chances for each side at the current line (the win and total chances calibrated on the backtest, picks.home_calibration and picks.over_calibration, 27 Sep 2026; the raw p_home stays in the csv, and the totals flag reads the raw p_over_emp there); {100 * break_even():.1f}% is break-even at {DEFAULT_ODDS:+g}.",
-           f"Bet flag: spread when the edge is {SPREAD_EDGE:g}+ points. On the current model that cut is {rec_txt}. Totals are not flagged: no total "
-           "threshold wins in both windows. No flags in Week 18, where resting starters make the line smarter than the ratings. The full sweep is on the Results tab of the page. "
-           "Stake is a quarter of the Kelly fraction from the calibrated cover odds at the book's price, as a share of the bankroll. "
-           f"Shadow columns are rules logged and graded but never bet ({'; '.join(lab for _, _, lab in SHADOWS.values())}), to decide the rule on live games.", ""]
+           f"Bets: the spread when the edge is {SPREAD_EDGE:g}+ points (on the current model that cut is {rec_txt}); the {TOTAL_SHADOW['side']} at a {100 * TOTAL_SHADOW['prob']:.0f}%+ raw chance (the totals flag); "
+           f"the under in outdoor games with forecast wind {WIND_UNDER['mph']:g}+ mph (the wind under). Overs are never bet. No bets in Week 18, where resting starters make the line smarter than the ratings. "
+           "Stake: one unit a bet. "
+           f"The other shadow columns are rules logged and graded but never bet ({'; '.join(lab for k, (_, _, lab) in SHADOWS.items() if k not in ('shadowunder', 'windunder'))}), to decide the rule on live games.", ""]
     return "\n".join(hdr + [df.to_markdown(index=False), ""])
 
 
