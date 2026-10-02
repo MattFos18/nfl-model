@@ -6,6 +6,7 @@ Outputs (data/processed/):
   drives.parquet     one row per drive
 """
 from __future__ import annotations
+import logging
 import numpy as np, pandas as pd
 from pathlib import Path
 
@@ -60,6 +61,8 @@ def fix_wind(g: pd.DataFrame, archive: pd.DataFrame | None = None, forecast: pd.
     g = g.copy(); g["wind_listed"] = g["wind"]
     if archive is None:
         f = WX / "archive_kickoff.csv"; archive = pd.read_csv(f) if f.exists() else pd.DataFrame(columns=["game_id", "site", "wind"])
+        if not f.exists():
+            logging.warning("build.fix_wind: %s is missing; the schedule's wind is only checked against WIND_MAX", f)
     if forecast is None:
         f = WX / "forecast_history.csv"; forecast = pd.read_csv(f, usecols=["game_id", "gfs_wind_d0"]) if f.exists() else pd.DataFrame(columns=["game_id", "gfs_wind_d0"])
     st = sites(g)
@@ -73,7 +76,10 @@ def fix_wind(g: pd.DataFrame, archive: pd.DataFrame | None = None, forecast: pd.
     sides_with_archive = fc.isna() | ((fc - arch).abs() < (fc - w).abs())
     rep = off & sides_with_archive
     g.loc[rep, "wind"] = arch[rep].round(1)
-    g.loc[outdoor & (g.wind.astype(float) > WIND_MAX), "wind"] = np.nan
+    hi = outdoor & (g.wind.astype(float) > WIND_MAX)
+    g.loc[hi, "wind"] = np.nan
+    print(f"fix_wind: {int(rep.sum())} schedule winds replaced by the archive, {int(hi.sum())} above {WIND_MAX:g} mph blanked"
+          + (f" ({', '.join(g.game_id[hi].head(5))})" if hi.any() else ""), flush=True)
     return g
 
 
@@ -98,7 +104,9 @@ def fix_starters(g: pd.DataFrame, p: pd.DataFrame) -> pd.DataFrame:
     in 2024: Mariota for Washington in Weeks 9-13, Hurts in 2024_17_DAL_PHI where Pickett started, Dalton for Carolina,
     Flacco for Indianapolis). A listed QB who dropped back at all keeps his game (a starter hurt in the first quarter
     started). Unplayed games keep the announced starter. nflverse's ids are kept as *_qb_id_listed."""
-    if not {"passer_id", "qb_dropback"} <= set(p.columns):
+    need = {"passer_id", "qb_dropback", "posteam", "game_id"}
+    if not need <= set(p.columns):   # loud (review of #381): without these the listed starters stand unchecked
+        logging.warning("build.fix_starters did not run: the play-by-play lacks %s; nflverse's listed starters stand", sorted(need - set(p.columns)))
         return g
     start, n = observed_starters(p)
     st = start.set_index(["game_id", "team"]); db = n.set_index(["game_id", "team", "qb_id"]).db

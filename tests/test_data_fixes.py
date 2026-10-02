@@ -81,6 +81,8 @@ def test_starter_who_took_no_dropback_is_replaced():
 def test_input_checks_catch_planted_rows():
     p = pbp()
     qb = p.groupby(["game_id", "posteam", "passer_id"]).size().reset_index().rename(columns={"posteam": "team", "passer_id": "qb_id"})
+    qb = pd.concat([qb, pd.DataFrame({"game_id": ["2016_13_NYG_PIT", "2016_13_NYG_PIT", "2025_07_LA_JAX", "2025_07_LA_JAX"],
+                                      "team": ["PIT", "NYG", "JAX", "LA"], "qb_id": ["Q_PIT", "Q_NYG", "Q_JAX", "Q_LA"]})])   # the listed QBs played
     clean = B.fix_wind(V.fix_venues(games()), pd.DataFrame({"game_id": ["2016_13_NYG_PIT"], "site": ["PIT"], "wind": [6.4]}), pd.DataFrame(columns=["game_id", "gfs_wind_d0"]))
     clean = B.fix_starters(clean, p)
     assert failed(DC.check_inputs(clean, qb)) == []
@@ -99,3 +101,53 @@ def test_line_after_kickoff_is_not_the_line():
     early = g.assign(kickoff_et=pd.Timestamp("2026-09-27 18:00"))
     assert LN.live_lines(early, log).iloc[0].spread_line == 7.5   # before kickoff every snapshot counts
     assert len(LN.before_kickoff(log, None)) == 2
+
+
+# hardening after the review of #381: each gap fails loudly
+
+def test_unparseable_line_timestamps_are_loud():
+    import pytest
+    log = pd.DataFrame({"ts": ["garbage", "2026-09-27T20-00-00Z"], "game_id": "G", "home_spread": [9.0, 3.0], "total": [40.0, 44.5]})
+    n0 = LN.BAD_TS[0]
+    assert len(LN.before_kickoff(log, pd.Timestamp("2026-09-27 16:25"))) == 1 and LN.BAD_TS[0] == n0 + 1
+    with pytest.raises(ValueError):
+        LN.before_kickoff(log.iloc[:1], pd.Timestamp("2026-09-27 16:25"))
+
+
+def test_schedule_fallback_with_log_rows_is_reported():
+    live = pd.DataFrame({"game_id": ["G", "H", "I"], "line_source": ["schedule", "log", "schedule"]})
+    log = pd.DataFrame({"game_id": ["G", "H"], "ts": "2026-09-27T20-00-00Z"})
+    assert LN.schedule_fallbacks(live, log) == ["G"]   # I has no log rows: the schedule is all there is
+
+
+def test_unknown_stadium_at_a_neutral_site_fails():
+    g = V.fix_venues(games())
+    assert V.venue_problems(g) == []
+    j = g.game_id == "2025_07_LA_JAX"
+    bad = g.assign(stadium_id=g.stadium_id.where(~j, "XYZ99"), stadium=g.stadium.where(~j, "New Stadium"))
+    assert V.venue_problems(bad) == ["2025_07_LA_JAX"]
+    assert V.venue_problems(bad.assign(game_type=np.where(j, "SB", "REG"))) == []   # a Super Bowl is exempt
+
+
+def test_played_game_without_play_by_play_warns_then_fails():
+    p = pbp()
+    qb = p.groupby(["game_id", "posteam", "passer_id"]).size().reset_index().rename(columns={"posteam": "team", "passer_id": "qb_id"})
+    g = B.fix_starters(V.fix_venues(games()), p).assign(wind=8.0, kickoff_et=pd.Timestamp("2024-12-29 13:00"))
+    g = g[g.game_id.isin(["2024_17_DAL_PHI", "2024_15_IND_DEN", "2025_07_LA_JAX"])]   # 2025_07_LA_JAX has no play-by-play here
+    row = lambda now: [r for r in DC.check_inputs(g, qb, now=now) if "play-by-play" in r[0]][0]
+    soon = row(pd.Timestamp("2024-12-30 12:00"))
+    assert soon[1] and "within it (warning): 2025_07_LA_JAX" in soon[2]
+    late = row(pd.Timestamp("2025-01-02 12:00"))
+    assert not late[1] and "2025_07_LA_JAX" in late[2]
+
+
+def test_fix_starters_says_when_it_cannot_run(caplog):
+    g = games()
+    with caplog.at_level("WARNING"):
+        out = B.fix_starters(g, pbp().drop(columns=["passer_id"]))
+    assert out.equals(g) and "fix_starters did not run" in caplog.text
+
+
+def test_fix_wind_counts_and_warns(capsys):
+    B.fix_wind(games(), pd.DataFrame(columns=["game_id", "site", "wind"]), pd.DataFrame(columns=["game_id", "gfs_wind_d0"]))
+    assert "1 above 40 mph blanked (2016_13_NYG_PIT)" in capsys.readouterr().out

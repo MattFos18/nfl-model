@@ -87,7 +87,10 @@ def check(games: pd.DataFrame, team_games: pd.DataFrame, pred: pd.DataFrame | No
 WIND_MAX = 40.0   # mph (build.WIND_MAX): the windiest real kickoff in the data is 35 mph (2020_08_LV_CLE, forecast 36.8)
 
 
-def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None) -> list[tuple[str, bool, str]]:
+NO_PBP_GRACE_H = 36   # hours after kickoff a played game may lack play-by-play before the check fails (nflverse posts it within a day)
+
+
+def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None, now: pd.Timestamp | None = None) -> list[tuple[str, bool, str]]:
     """The schedule inputs the 2 Oct 2026 audit found wrong, after build.py's fixes (build.fix_starters, venues.fix_venues,
     build.fix_wind)."""
     from .venues import venue_problems
@@ -103,6 +106,14 @@ def check_inputs(games: pd.DataFrame, qb: pd.DataFrame | None = None) -> list[tu
                 if (gid, t) in have and (gid, t, q) not in dropped:
                     bad.append(f"{gid} {t}")
         add("games: every played game's starting QB dropped back in it", not bad, f"{len(bad)} team-games" + (f": {', '.join(bad[:6])}" if bad else ""))
+        # a played game with no play-by-play is not checked above (review of #381): warn inside the grace period, fail after
+        now = pd.Timestamp.now(tz="America/New_York").tz_localize(None) if now is None else now
+        gids = set(qb.game_id)
+        miss = played[~played.game_id.isin(gids)]
+        age_h = (now - pd.to_datetime(miss.kickoff_et)).dt.total_seconds() / 3600 if "kickoff_et" in miss.columns else pd.Series(np.inf, index=miss.index)
+        late = miss.game_id[(age_h > NO_PBP_GRACE_H) | age_h.isna()].tolist(); recent = miss.game_id[age_h <= NO_PBP_GRACE_H].tolist()
+        add(f"games: every played game has play-by-play ({NO_PBP_GRACE_H} h grace after kickoff)", not late,
+            f"{len(late)} past the grace" + (f": {', '.join(late[:6])}" if late else "") + (f"; {len(recent)} within it (warning): {', '.join(recent[:6])}" if recent else ""))
     vp = venue_problems(g)
     add("games: neutral-site and overseas games at their real stadium and roof (venues.py)", not vp, f"{len(vp)} games" + (f": {', '.join(vp[:6])}" if vp else ""))
     w = pd.to_numeric(g.wind, errors="coerce")
