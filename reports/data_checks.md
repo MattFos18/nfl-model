@@ -18,5 +18,9 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | predictions: one row per game | yes | 0 duplicates |
 | predictions: every played regular-season game priced | yes | 0 missing |
 | predictions: finite and in range (total 20 to 75, spread within 35) | yes | 3167 games |
+| games: every played game's starting QB dropped back in it | yes | 0 team-games |
+| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace |
+| games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
+| games: kickoff wind 40 mph or under | yes | 0 games |
 
-Result: PASS (14 of 14)
+Result: PASS (18 of 18)

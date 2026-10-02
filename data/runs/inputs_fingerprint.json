@@ -321,6 +321,11 @@
 ],
 [
 "MIA",
+"Robert Beal Jr.",
+"Out"
+],
+[
+"MIA",
 "Storm Duck",
 "Out"
 ],
@@ -417,7 +422,7 @@
 [
 "NYJ",
 "Mason Taylor",
-"Doubtful"
+"Out"
 ],
 [
 "PHI",
@@ -2040,12 +2045,6 @@
 ],
 [
 "MIA",
-"Robert Beal Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"MIA",
 "Seydou Traore",
 "",
 "Full Participation in Practice"
@@ -3115,7 +3114,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.5,
+"wind": 4.9,
 "cold": false,
 "rain": false
 },
@@ -3175,5 +3174,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 15:30 UTC"
+"written_at": "2026-10-02 16:01 UTC"
 }
