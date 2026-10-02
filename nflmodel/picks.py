@@ -34,14 +34,16 @@ SMALL_DOG = 3.0   # reports/spread_research.md: 4+ edge, the model's side a dog 
 DOG_EDGE = 3.5   # reports/favorite_review.md: dogs at 3.5+, every other side at 4+
 WEEKS_EARLY, WEEKS_LATE = 4, 15   # reports/bet_rules_sweep.md: 4+ edge in weeks 1 to 4 only; 4+ edge with the last bet week 15
 BIG_EDGE = 6.0   # 21 Sep 2026 (decision log): the 6+ edge, a lead to track live
+OVER_LOW = {"line": 41.0, "prob": 0.55}   # 2 Oct 2026 (reports/overs_deep.md, rule O9): the over when the total is 41 or lower and the raw chance (p_over_emp) is 55%+; tracked, hidden, never bet
 # 27 Sep 2026: the 55% cut is on the RAW chance p_over_emp (rule_mask, bet(), the Backtest tab, report_records: the rule and every record it
 # has stay as they were). The chance the cards DISPLAY is the calibrated one, p_over_cal (over_calibration below): the same monotone
 # mapping for every game, so a threshold on one is a threshold on the other (a 55% under raw reads about 53% calibrated on today's fit)
 # shadow rules: recorded and graded next to the flag, never bet (except shadowunder, the totals flag, and windunder: both live bets). name -> (spread edge, side restriction, label)
 UNDER_RULES = ("under_prob", "under_prob_early", "under_prime", "wind_under", "rain_under", "cold_under", "under_edge", "under_wind")   # side rules graded as unders on the total
-MASK_RULES = ("rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
+MASK_RULES = ("rain_under", "cold_under", "under_edge", "under_wind", "trees_total", "over_low", "westcoast", "roaddog", "smalldog", "dog35", "wk4", "wk15", "big")   # side rules whose live bet is read off rule_mask (_mask_bets)
 BLIND_RULES = ("wind_under", "rain_under", "cold_under", "tease_dog", "westcoast")   # rules that ignore the model: the shadow watch measures them against break-even alone
-TOTAL_RULES = UNDER_RULES + ("trees_total",)   # rules on the total: the shadow watch measures them against the totals flag
+OVER_RULES = ("over_low",)   # side rules graded as overs on the total
+TOTAL_RULES = UNDER_RULES + ("trees_total",) + OVER_RULES   # rules on the total: the shadow watch measures them against the totals flag
 SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog": (SPREAD_EDGE, "dog", f"{SPREAD_EDGE:g}+ edge, model's side the underdog or pick'em"),
            "shadowearly": (SPREAD_EDGE, "wk13", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {EARLY_LAST_WEEK} only"),
            "shadowtrees": (TREES_EDGE, "trees", f"boosted trees alone, {TREES_EDGE:g}+ edge"),
@@ -65,14 +67,15 @@ SHADOWS = {"shadow45": (SHADOW_EDGE, None, f"{SHADOW_EDGE:g}+ edge"), "shadowdog
            "shadowdog35": (DOG_EDGE, "dog35", f"{DOG_EDGE:g}+ edge on dogs, {SPREAD_EDGE:g}+ on every other side"),
            "shadowwk4": (SPREAD_EDGE, "wk4", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_EARLY} only"),
            "shadowwk15": (SPREAD_EDGE, "wk15", f"{SPREAD_EDGE:g}+ edge, weeks 1 to {WEEKS_LATE} only"),
-           "shadow6": (BIG_EDGE, "big", f"{BIG_EDGE:g}+ edge")}
+           "shadow6": (BIG_EDGE, "big", f"{BIG_EDGE:g}+ edge"),
+           "shadowoverlow": (OVER_LOW["prob"], "over_low", f"Over, total {OVER_LOW['line']:g} or lower and a {100 * OVER_LOW['prob']:.0f}%+ chance")}
 # 30 Sep 2026 (reports/home_side_rules.md, Matt: "track as shadows, I don't want to see it"): graded every run, left off the page;
 # nflmodel/shadow_watch.py opens a GitHub issue if one of them (or any shadow) pulls clear of the flag on live games
 # 1 Oct 2026 (Matt: "yes", track them hidden): the unders at 60%+ (the band that holds most of the totals flag's units) and the
 # totals flag in prime-time games only; graded, kept off the page, watched by nflmodel/shadow_watch.py like the rest
 HIDDEN_SHADOWS = {"shadowroad6", "shadowroad", "shadowunder60", "shadowunderprime", "shadowteasedog",
                   "shadowrain", "shadowcold", "shadowunder3", "shadowunderwind", "shadowtreestotal", "shadowwestcoast",
-                  "shadowroaddog", "shadowsmalldog", "shadowdog35", "shadowwk4", "shadowwk15", "shadow6"}
+                  "shadowroaddog", "shadowsmalldog", "shadowdog35", "shadowwk4", "shadowwk15", "shadow6", "shadowoverlow"}
 SHADOW_ODDS = {"shadowhook": HOOK["odds"], "shadowteasedog": TEASE_LEG_ODDS}   # rules graded at their own price; the rest at DEFAULT_ODDS
 WINDOWS = {"2015-18": (2015, 2018), "2019-22": (2019, 2022), "2023-25": (2023, 2025)}
 WINDOW_LABEL = {"2015-18": "untouched", "2019-22": "tuning", "2023-25": "held out"}   # the words reports/backtest_v3.md and docs section 9 use
@@ -227,6 +230,10 @@ def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
         if "p_over_emp" not in d.columns:
             return pd.Series(False, index=d.index)
         return ((1 - d.p_over_emp) >= edge) & (d.game_id.map(_wind()).astype(float) >= WIND_UNDER["mph"]) & wk & d.total_line.notna()
+    if side_rule == "over_low":   # the over: the total at or under OVER_LOW's line and the raw chance at edge or more
+        if "p_over_emp" not in d.columns:
+            return pd.Series(False, index=d.index)
+        return (d.p_over_emp >= edge) & (d.total_line <= OVER_LOW["line"]) & wk & d.total_line.notna()
     if side_rule == "trees_total":   # either side: |trees' total - line| at least edge times the line
         if "home_m_trees" not in d.columns:
             return pd.Series(False, index=d.index)
@@ -310,6 +317,8 @@ def _mask_bets(p: pd.DataFrame, edge: float, side_rule: str) -> list:
             out.append("")
         elif side_rule in UNDER_RULES:
             out.append(f"Under {r.total_line:g}")
+        elif side_rule in OVER_RULES:
+            out.append(f"Over {r.total_line:g}")
         elif side_rule == "trees_total":
             out.append(("Over " if r.home_m_trees + r.away_m_trees > r.total_line else "Under ") + f"{r.total_line:g}")
         elif side_rule == "westcoast":
@@ -355,6 +364,9 @@ def record(d: pd.DataFrame, m: pd.Series, side_rule=None) -> tuple[int, int]:
     """Wins and losses on the rule's side over the rows m (pushes dropped)."""
     if side_rule in UNDER_RULES:
         cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm < 0)[f].sum())
+        return w, int(f.sum()) - w
+    if side_rule in OVER_RULES:
+        cm = d.home_score + d.away_score - d.total_line; f = m & (cm != 0); w = int((cm > 0)[f].sum())
         return w, int(f.sum()) - w
     if side_rule == "tease_dog":   # graded at the teased line: the dog's margin plus its line plus the six points
         mg = d.home_score - d.away_score; cm = pd.Series(np.where(d.spread_line < 0, mg, -mg), index=d.index) + d.spread_line.abs() + TEASE_PTS
