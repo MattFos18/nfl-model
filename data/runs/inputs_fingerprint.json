@@ -256,12 +256,12 @@
 ],
 [
 "HOU",
-"Mario Edwards Jr.",
+"Jake Hummel",
 "Out"
 ],
 [
 "HOU",
-"Noah Whittington",
+"Mario Edwards Jr.",
 "Out"
 ],
 [
@@ -2498,12 +2498,6 @@
 ],
 [
 "SEA",
-"Brandon Pili",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "George Holani",
 "",
 "Limited Participation in Practice"
@@ -2522,12 +2516,6 @@
 ],
 [
 "SEA",
-"Grey Zabel",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Jadarian Price",
 "",
 "Limited Participation in Practice"
@@ -2543,12 +2531,6 @@
 "Jarran Reed",
 "",
 "Limited Participation in Practice"
-],
-[
-"SEA",
-"Jarran Reed",
-"Questionable (ESPN)",
-""
 ],
 [
 "SEA",
@@ -2955,27 +2937,27 @@
 ],
 "weather": {
 "2026_04_PIT_CLE": {
-"wind": 10.3,
+"wind": 10.7,
 "cold": false,
 "rain": false
 },
 "2026_04_IND_WAS": {
-"wind": 5.4,
+"wind": 2.7,
 "cold": false,
 "rain": true
 },
 "2026_04_TEN_BAL": {
-"wind": 6.5,
+"wind": 4.7,
 "cold": false,
 "rain": true
 },
 "2026_04_NE_BUF": {
-"wind": 5.1,
+"wind": 6.7,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 4.6,
+"wind": 5.2,
 "cold": false,
 "rain": false
 },
@@ -2985,40 +2967,40 @@
 "rain": false
 },
 "2026_04_DAL_HOU": {
-"wind": 9.4,
+"wind": 7.9,
 "cold": false,
-"rain": false
+"rain": true
 },
 "2026_04_ARI_NYG": {
-"wind": 7.8,
+"wind": 11.0,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 6.9,
+"wind": 8.3,
 "cold": false,
 "rain": false
 },
 "2026_04_GB_TB": {
-"wind": 9.9,
+"wind": 10.1,
 "cold": false,
 "rain": false
 },
 "2026_04_LAC_SEA": {
-"wind": 6.2,
+"wind": 5.8,
 "cold": false,
 "rain": false
 },
 "2026_04_DEN_SF": {
-"wind": 4.1,
+"wind": 4.8,
 "cold": false,
 "rain": false
 },
 "2026_04_DET_CAR": {
-"wind": 3.2,
+"wind": 3.3,
 "cold": false,
-"rain": true
+"rain": false
 }
 },
-"written_at": "2026-10-01 23:40 UTC"
+"written_at": "2026-10-02 00:26 UTC"
 }
