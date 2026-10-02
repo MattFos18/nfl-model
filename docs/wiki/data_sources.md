@@ -99,7 +99,7 @@ When you add a source: add a section here (same headings), a row in `catalog.py`
 - **What we use:** (1) the kickoff-hour forecast for every unplayed outdoor game in the next 10 days (`weather.py` ->
   `data/weather/forecast_latest.csv`, `forecast_log.csv`); (2) the historical weather archive at kickoff
   (`weather_archive.py`, `weather_archive.yml`); (3) the previous-runs archive (`forecast_archive.py`); (4) Japan's
-  global model (`jma_gsm`, the one it keeps back to 2018, wind only) for the wind under, both history
+  global model (`jma_gsm`, wind only; its previous-runs archive starts 1 Jan 2016, an earlier start date is refused) for the wind under, both history
   (`forecast_history.py`) and live (`wind_live.py`).
 - **Timing:** live forecasts within 10 days; the wind-under reading only within 66 hours (`wind_live.RANGE_H`).
 - **Terms:** the free API is non-commercial only, under 10,000 calls a day, data CC-BY 4.0
@@ -112,7 +112,7 @@ When you add a source: add a section here (same headings), a row in `catalog.py`
 
 - **What we use:** model output statistics at the stadium's airport: GFS MOS wind, temperature and 6/12-hour rain
   chance, and the National Blend (NBS) wind and gust from 7 Nov 2018 (`forecast_history.py`, `MOS` =
-  `mesonet.agron.iastate.edu/api/1/mos.json`). History 2018-2025 in `data/weather/forecast_history.csv`; live readings
+  `mesonet.agron.iastate.edu/api/1/mos.json`). History 2015 on in `data/weather/forecast_history.csv` (`FIRST = 2015`; the archive has GFS MOS for 2015, checked 2 Oct 2026; 2015's regular season is GFS only, 2016-2017 GFS and Japan); live readings
   in `data/weather/wind_live.csv` (`wind_live.py`). Feeds the wind under (`picks.WIND_UNDER`), the wind points
   (`model.wind_points`) and the rain input of the totals equation (`model.RAIN_FC`).
 - **Timing:** GFS MOS runs out 72 hours; the live reading uses the newest run issued at least 4 hours ago and at least

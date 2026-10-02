@@ -10,6 +10,10 @@ GitHub's network (this sandbox cannot reach them), for every played outdoor or o
     the forecast one and two days before (d1, d2) and the latest (d0). d0 is the newest run for each hour, so for a
     played game it was issued at or after kickoff: kept for reference, never read (PRE_KICKOFF_WIND; 2 Oct 2026).
 
+2 Oct 2026 (Matt: price the backtest exactly as live): extended back to 2015 (FIRST). GFS MOS reaches 2015; Open-Meteo's
+previous runs start 1 Jan 2016 (JMA_FROM), so 2015's regular season is GFS only and 2016-2017 GFS and Japan (no NBS). The
+wind reading is the mean of the pre-kickoff forecasts that exist, live and stored alike (reports/forecast_history_2015.md).
+
 Each value is the mean over the first three hours from kickoff (gust: the largest), interpolated between forecast hours
 (held flat past the run's first or last hour when that is within 2 hours).
 Every row is printed as it lands ("ROW," prefix) so a probe run cut off by its 15-minute limit still hands over what it
@@ -31,6 +35,10 @@ MOS = "https://mesonet.agron.iastate.edu/api/1/mos.json"
 OM = "https://previous-runs-api.open-meteo.com/v1/forecast"
 KT = 1.15078
 NBS_FROM = pd.Timestamp("2018-11-07", tz="UTC")
+# 2 Oct 2026 (history extended to 2015): Open-Meteo's previous-runs archive starts 1 Jan 2016 (a start_date before it is
+# refused), so 2015's regular season has GFS MOS only; the 2015 postseason and 2016-2017 have GFS and Japan's model, no NBS.
+JMA_FROM = pd.Timestamp("2016-01-01", tz="UTC")
+FIRST = 2015   # the first season stored (GFS MOS reaches it; checked 2 Oct 2026)
 # each game's MOS airport and coordinates come from nflmodel/venues.py (2 Oct 2026: stadiums left behind, stadiums abroad,
 # and the 2025 games abroad that the schedule listed at US stadiums, which had read Jacksonville's and Miami's airports)
 COLS = ["game_id", "season", "week", "home_team", "station", "kickoff_utc",
@@ -171,7 +179,7 @@ def one(r) -> dict:
     if ko >= NBS_FROM:
         row["nbs_wind_d1"], row["nbs_gust_d1"] = mos(r.station, "NBS", d1, ko)
         row["nbs_wind_d0"], row["nbs_gust_d0"] = mos(r.station, "NBS", d0, ko); row["nbs_run_d0"] = d0.strftime("%Y-%m-%dT%HZ")
-    if r.latlon:
+    if r.latlon and ko >= JMA_FROM:
         row["jma_wind_d2"], row["jma_wind_d1"], row["jma_wind_d0"] = jma(r.latlon[0], r.latlon[1], ko)
     return row
 
@@ -227,10 +235,10 @@ def main(seasons, weeks=None):
 def backfill(seasons=None, budget=600, threads=8) -> str:
     """The weekly run's step: fetch the games the stored history lacks, several at a time, for at most budget seconds, and
     store them; a no-op once every game is in. Never raises (a source being down only leaves games for next week).
-    Seasons: 2018 through the current one (1 Oct 2026: the current season's played games too, so the totals equation's
-    rain input trains on the same last-run forecast for them as for 2018-2025)."""
+    Seasons: FIRST (2015; 2018 before 2 Oct 2026) through the current one (1 Oct 2026: the current season's played games
+    too, so the totals equation's rain input trains on the same last-run forecast for them as for 2018-2025)."""
     if seasons is None:
-        seasons = range(2018, int(pd.read_parquet(OUT / "games.parquet").season.max()) + 1)
+        seasons = range(FIRST, int(pd.read_parquet(OUT / "games.parquet").season.max()) + 1)
     from concurrent.futures import ThreadPoolExecutor, as_completed
     try:
         old = pd.read_csv(OUTF, dtype=str) if OUTF.exists() else pd.DataFrame(columns=COLS)

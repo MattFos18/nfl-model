@@ -217,7 +217,7 @@ def _wind() -> dict:
 
 def rule_mask(d: pd.DataFrame, edge: float, side_rule=None) -> pd.Series:
     """The games a rule bets on, from a joined prediction table (same tests as bet() below): regular season, weeks 1 to LAST_BET_WEEK."""
-    if side_rule == "wind_under":   # forecasts stored from 2018 (nflmodel/forecast_history.py), weeks 1 to LAST_BET_WEEK like every rule
+    if side_rule == "wind_under":   # forecasts stored from 2015 (nflmodel/forecast_history.py; 2018 before 2 Oct 2026), weeks 1 to LAST_BET_WEEK like every rule
         return (d.game_id.map(_wind()).astype(float) >= edge) & (d.week <= LAST_BET_WEEK) & d.total_line.notna()
     wk = d.week <= LAST_BET_WEEK
     if side_rule == "rain_under":   # the GFS MOS rain chance model.RAIN_FC reads; readings exist for outdoor and open-roof games only

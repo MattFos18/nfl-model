@@ -56,7 +56,7 @@ each one again is in `checks.md`.
   Fixed: `model.priced_weather` (called by `walk_forward` and by `export_web` for the inputs the page shows) prices a
   played game with a stored forecast (2018 on) on that forecast: `wind_out` from `wind_live.readings`, cold from
   `gfs_temp`, the points equations' rain from the `RAIN_FC` reading. Training rows keep the recorded weather, as a live
-  fit does; 2015-17 and games abroad have no stored forecast and keep it (reports/forecast_weather_backtest.md). A new
+  fit does; games abroad have no stored forecast and keep it (2015-17 too until 2 Oct 2026, reports/forecast_history_2015.md) (reports/forecast_weather_backtest.md). A new
   weather input must be learned from the forecast it will be priced on, and priced through `priced_weather`.
 - **Live games were priced on a different forecast than the backtest.** Until 2 Oct 2026 an unplayed game's wind_out,
   cold and points-equation rain came from Open-Meteo (`weather.apply_to_games`, trends rain) while the backtest priced on
@@ -66,6 +66,7 @@ each one again is in `checks.md`.
   is more than one run behind the newest for that game is dropped (`wind_live._fresh`, `MAX_RUN_LAG_H`); health fails a
   US outdoor game within `wind_live.DUE_H` (59) hours with no MOS reading (from 66 to 59 hours out the newest run may
   not reach the game yet); a source change re-prices (`refresh.diff`).
+- **Before Nov 2018 the wind reading is fewer models.** The stored reading is the mean of the pre-kickoff forecasts that exist (`forecast_history.PRE_KICKOFF_WIND`): GFS alone for 2015's regular season (Open-Meteo's Japan archive starts 1 Jan 2016), GFS and Japan for 2016 to Nov 2018 (NBS starts 7 Nov 2018), all three after. Live does the same when a source is missing. The stored forecasts also train the rain input and the wind points' pool, so extending the history moves the live total (reports/forecast_history_2015.md).
 - **The forecast history skips games by the roof as it was on game day** (unverified size; audit of 2 Oct 2026,
   reports/audit_forecast_weather_backtest_2026-10-02.md): 295 closed-roof games at ARI, ATL, DAL, HOU and IND have no
   stored forecast, while a live run sees their roof as unknown and prices them as outdoor, so the weather backtests skip games live bets could
