@@ -6,7 +6,8 @@ Steps, each logged to data/runs/run_log.csv with its status; a failed pull is re
   3. verify    the accuracy checks; the run stops if scores or mirrors break
   4. weather   kickoff forecasts for the next 10 days (Open-Meteo), applied to unplayed outdoor games
   5. ratings   as-of feature table, trends and injuries
-  6. model     3.0 walk-forward through the current season; old model too for the comparison column
+  6. model     3.0 walk-forward through the current season; old model too for the comparison column; then the
+               Questionable-in-totals shadow total (nflmodel/qtotals.py, a hidden shadow's input, never bet)
   7. grade     last week's flagged picks and Matt's bets (tracker), closing line value where a line was logged;
                the live results (ESPN's scores, the model's pre-kickoff calls graded) right after the lines
   8. picks     this week's table and flags; export the data room
@@ -207,6 +208,7 @@ def main(full=False, skip_network=False):
     step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
     step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
+    step("qt shadow", lambda: sh(["nflmodel.qtotals"]), log)   # 2 Oct 2026: the Questionable-in-totals shadow total (hidden shadow shadowqtotals, never bet); writes data/processed/shadow/ only, never pred_v3
     step("opener study", lambda: sh(["nflmodel.opener_study"]), log)   # the Tuesday model and the archive openers, for the Backtest tab (28 Sep 2026)
     step("props by season", lambda: run_backtest("props by season"), log)   # before the props (29 Sep 2026): it writes each player's q for round 3's situational factors (props_sit_state.parquet) from every game played so far, last week's included
     step("props", lambda: sh(["nflmodel.props"]), log)     # player-against-scheme projections for the week, and last week's graded; after the model, whose expected points they scale to (26 Sep 2026: before it, they carried the previous run's)

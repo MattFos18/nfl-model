@@ -7,7 +7,8 @@ Two groups:
            (tie_check.check_page); a FAIL fails the tie check, a WARN goes to the health page (warnlog).
   leaks()  the backtest leak tests (about a minute): audit.leakage_test (future weeks corrupted, Week 1-9 2024 ratings and
            predictions unchanged, a 2024 Week 9 game's own score corrupted) and audit.own_game_shift on the newest played
-           week of the current season. Weekly run only (step "standing checks").
+           week of the current season; and qt_isolated (the live total and chance the same with and without the
+           Questionable-in-totals shadow). Weekly run only (step "standing checks").
 
 Each check is a pure function of the tables it reads (tests/test_standing_checks.py plants a bad row in each) and
 returns rows of (level, check, detail), level OK, WARN or FAIL.
@@ -16,7 +17,7 @@ Usage: python -m nflmodel.standing_checks [--no-leaks]   (writes reports/standin
 """
 from __future__ import annotations
 import csv, json, re, sys
-import pandas as pd
+import numpy as np, pandas as pd
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -216,6 +217,76 @@ def one_unit(html: str, picks_md: str | None = None) -> list:
     return [_row("FAIL", "one unit a bet: no Kelly stake or stake_pct on the page or in the picks file", bad)]
 
 
+# ---- the Questionable-in-totals shadow (2 Oct 2026: hidden shadow shadowqtotals, nflmodel/qtotals.py) ----
+
+QT_NAMES = ("qt_model_total", "qt_p_over_emp", "qt_model_total_raw", "shadowqtotals_bet", "qt_pred", "qt_dist")   # the shadow's columns, bet and files: never page data
+
+
+def qt_stays_off(html: str, web: dict, cards: list | None, meta: dict | None, pred_sha: str) -> list:
+    """The shadow never reaches the page or the bets, and never writes the live table: no page file (index.html, web/data)
+    names its columns or its bet, no card carries a qt_ or shadowqtotals_ key, it is a hidden shadow and no live bet file;
+    the shadow's last run left pred_v3.parquet as it found it (qt_dist.json's hashes before and after), and the live table
+    now is the one it ran beside (WARN otherwise: the model re-ran without the shadow)."""
+    from .picks import HIDDEN_SHADOWS, SHADOWS
+    named = sorted(f"{n} in {f}" for f, txt in [("index.html", html)] + sorted(web.items()) for n in QT_NAMES if n in txt)
+    keys = sorted({f"{c.get('game_id')} {k}" for c in (cards or []) for k in c if k.startswith(("qt_", "shadowqtotals_"))})
+    rule = [] if "shadowqtotals" in SHADOWS and "shadowqtotals" in HIDDEN_SHADOWS and "shadowqtotals" not in LIVE_BETS else ["shadowqtotals not a hidden, unbet shadow"]
+    rows = [_row("FAIL", "qtotals shadow: no page file names its columns or bet, no card carries them, hidden and never a live bet", named + keys + rule)]
+    if meta is None:
+        rows.append(("WARN", "qtotals shadow: its last run left the live table (pred_v3) unchanged", "qt_dist.json missing: the shadow has not run on this machine"))
+        return rows
+    b, a = meta.get("pred_v3_sha_before"), meta.get("pred_v3_sha_after")
+    rows.append(_row("FAIL", "qtotals shadow: its last run left the live table (pred_v3) unchanged", [f"before {b}, after {a}"] if b != a or not b else []))
+    rows.append(_row("WARN", "qtotals shadow: priced beside the live table there now (pred_v3 not re-run since)", [f"shadow ran beside {a}, pred_v3 now {pred_sha}"] if a != pred_sha else []))
+    return rows
+
+
+def qt_isolated(season: int | None = None, week: int | None = None) -> list:
+    """The live total and chance are the same with and without the shadow: for the newest week of the current season with
+    every game played (else the newest priced week), the live totals equation's numbers (model.total_model, and the
+    in-sample training misses that price p_over_emp) recomputed from the stored tables before the shadow's fit for that
+    week, after it, and on the table carrying the shadow's columns, all equal, and equal to pred_v3's model_total and
+    p_over_emp; model.TOTAL_FEATS and model._game_frame untouched; pred_v3 holds no qt_ column."""
+    from . import model as M, qtotals as QT, lines as LN
+    pred = pd.read_parquet(OUT / "pred_v3.parquet"); g = pd.read_parquet(OUT / "games.parquet")
+    if season is None:
+        s, w = LN.current_week(g); reg = g[(g.season == s) & (g.game_type == "REG")]
+        done = [k for k, x in reg.groupby("week") if x.home_score.notna().all()]
+        season, week = (s, int(max(done))) if done else (s, int(pred[pred.season == s].week.max()))
+    feats0, gf0 = list(M.TOTAL_FEATS), M._game_frame
+    f0 = M.with_trends(pd.read_parquet(OUT / "features_asof.parquet"))
+    X = pd.read_parquet(QT.INPUTS) if QT.INPUTS.exists() else pd.DataFrame(columns=["game_id", "team"] + list(QT.PIECES.values()))
+    fq = QT.attach(f0, X)
+
+    def live(f):
+        fp = M.prep(f); played = fp[fp.pf.notna()]; fpr = M.priced_weather(fp)
+        train = played[(played.season >= M.TRAIN_FROM) & ((played.season < season) | ((played.season == season) & (played.week < week)))]
+        test = fpr[(fpr.season == season) & (fpr.week == week)]
+        th, ta = train[train.home == 1].set_index("game_id"), train[train.home == 0].set_index("game_id"); tid = th.index.intersection(ta.index)
+        tres = (th.loc[tid, "pf"] + ta.loc[tid, "pf"]).values - M.total_model(train, train)
+        ids = test[test.home == 1].set_index("game_id").index.intersection(test[test.home == 0].set_index("game_id").index)
+        return train, test, pd.Series(M.total_model(train, test), index=ids), tres
+
+    _, _, before, tres0 = live(f0)
+    trq, teq, with_cols, tres1 = live(fq)
+    QT.fit_week(trq, teq)   # the shadow's own fit for the week, between two live fits
+    _, _, after, tres2 = live(f0)
+    pw = pred[(pred.season == season) & (pred.week == week)].set_index("game_id")
+    mt = before.reindex(pw.index) + pw.wind_pts.fillna(0.0)
+    pe = pd.Series([QT.p_over_emp(m_, tl, tres0) for m_, tl in zip(mt, pw.total_line)], index=pw.index)
+    same = lambda a, b: len(a) == len(b) and bool(np.array_equal(np.asarray(a, float), np.asarray(b, float), equal_nan=True))
+    bad = []
+    if not (same(before, after) and same(before, with_cols) and same(tres0, tres1) and same(tres0, tres2)):
+        bad.append("the live totals equation moved when the shadow ran")
+    if list(M.TOTAL_FEATS) != feats0 or M._game_frame is not gf0:
+        bad.append("model.TOTAL_FEATS or model._game_frame replaced")
+    gap = float((mt - pw.model_total).abs().max()) if len(pw) else float("nan")
+    if not len(pw) or not gap <= 1e-9 or not np.allclose(pe.values, pw.p_over_emp.values, atol=1e-12, rtol=0, equal_nan=True):
+        bad.append(f"recomputed model_total / p_over_emp differ from pred_v3 (largest total gap {gap:.3g})")
+    bad += [f"pred_v3 column {c}" for c in pred.columns if c.startswith("qt_")]
+    return [_row("FAIL", f"live model_total and p_over_emp the same with and without the qtotals shadow ({season} Week {week})", bad, len(pw))]
+
+
 # ---- logs (2 Oct 2026: rule_history appended by position) ----
 
 def logs_by_column(paths: list) -> list:
@@ -297,6 +368,9 @@ def cheap() -> list:
     from .clv import RULE_FILES
     meta = _js(WEB / "meta.js") if (WEB / "meta.js").exists() else {}
     run("shadows", lambda: shadows_stay_off(html, (meta.get("picks") or {}).get("rules", []), RULE_FILES))
+    from .qtotals import DIST as QT_DIST, _sha as qt_sha
+    web = {f.name: f.read_text(encoding="utf-8") for f in sorted(WEB.glob("*.js"))}
+    run("qt shadow", lambda: qt_stays_off(html, web, cards, json.loads(QT_DIST.read_text()) if QT_DIST.exists() else None, qt_sha(OUT / "pred_v3.parquet")))
     pm = REP / f"picks_{season}_wk{week}.md"
     run("one unit", lambda: one_unit(html, pm.read_text(encoding="utf-8") if pm.exists() else None))
     run("logs", lambda: logs_by_column([RUNS / "rule_history.csv", RUNS / "pred_history.csv"] + [TR / f for f in LIVE_BETS.values()]))
@@ -315,6 +389,11 @@ def tie_rows(rows: list) -> None:
 
 def main(with_leaks: bool = True) -> bool:
     rows = cheap() + (leaks() if with_leaks else [])
+    if with_leaks:   # the weekly run's standing step: the live totals recomputed with and without the shadow (seconds)
+        try:
+            rows += qt_isolated()
+        except Exception as e:  # noqa  (a check that cannot run is a failure, never a pass)
+            rows.append(("FAIL", "qt isolated: check ran", f"{type(e).__name__}: {str(e)[:120]}"))
     from .warnlog import warn
     for lv, what, det in rows:
         if lv == "WARN":

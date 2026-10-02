@@ -3074,6 +3074,18 @@ times the chance each sits, summed over both teams (T1), and with the starting Q
 (T2 10.7507 -> 10.7999; worse in 2015, 2016 and 2017, when the fits learn the input from the seasons that still had
 "Probable"). Not adopted; no placebo run.
 
+**The Questionable-in-totals shadow** (2 Oct 2026, Matt: track T2 hidden; `nflmodel/qtotals.py`, hidden shadow
+`shadowqtotals`). T2 failed the rule but added totals-flag wins on every window, so it is graded live and never bet. Each
+weekly run builds a second game total after the model step: the live totals equation, refit before every week on every
+played game so far, with T2's input added (the Questionable pieces built as the study built them, the rates from earlier
+seasons only, last game's snaps), its own wind points and its own over chance read off its training games' misses at the
+line. The shadow rule takes the under at a 55%+ chance from it, weeks 1-17. Its total and chance are kept in their own
+columns and files that no live number, rule, bet or card reads. On today's data it goes 155-137 /
+218-158 / 89-60 on 2015-18 / 2019-22 / 2023-25 against the totals flag's 132-117 / 190-146 / 82-59, game for game the
+study's T2 rerun on today's data (the study's 157-126 / 213-158 / 89-60 came from inputs built on its own raw files).
+Two standing checks keep it apart: the live total and chance are recomputed with and without it and must match pred_v3
+exactly, and its columns and bet never appear in the page files or the live bet files.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives

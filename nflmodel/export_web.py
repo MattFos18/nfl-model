@@ -1033,7 +1033,7 @@ def export_week(feats=None, games=None, pred=None):
             _p6 = lambda v: None if v is None or (isinstance(v, float) and np.isnan(v)) else round(float(v), 6)   # full precision: three decimals on the means and coefficients moved a card's rebuilt points by up to 0.02 once the QB coefficient passed 17
             coefs_g = None if pr_ is None or f"coef_{M.FEATS[0]}" not in pr_.index else {"per_unit": {f: _p6(pr_[f"coef_{f}"]) for f in M.FEATS}, "mean": {f: _p6(pr_[f"mean_{f}"]) for f in M.FEATS}, "intercept": _p6(pr_["intercept"])}
             kick = sched.get(r.game_id, {}).get("kickoff") or (str(gmeta.kickoff_et)[:16] if gmeta is not None else None)
-            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index"} | {"season": cur_season, "week": cur_week, "sides": sides, "coefs": coefs_g,
+            wk.append({k: clean(v) for k, v in r._asdict().items() if k != "Index" and not k.startswith(QT_KEYS)} | {"season": cur_season, "week": cur_week, "sides": sides, "coefs": coefs_g,
                        "p_over_cal": _p6(getattr(r, "p_over_cal", None)),   # six decimals (27 Sep 2026): the tie check rebuilds it from the card's three-decimal p_over_emp, whose rounding alone is worth 0.0002
                        "p_home_cal": _p6(getattr(r, "p_home_cal", None)),   # the calibrated win chance the card shows (27 Sep 2026, picks.home_calibration); p_home stays the raw one the season file is tied to
                        "p_home": _p6(getattr(r, "p_home", None)),   # six decimals too: the mapping's slope (1.19) stretches three-decimal rounding to the tie check's whole 0.0006 allowance
@@ -1113,6 +1113,9 @@ def _recorded(season: int, week: int) -> dict:
             out[key].setdefault(x.game_id, []).append({"bet": x.bet, "line": clean(float(num)) if num not in (None, "") else None, "odds": clean(x.odds), "book": x.book if isinstance(x.book, str) else None,
                                                        "stake_pct": clean(x.stake_pct), "spread_edge": clean(x.spread_edge), "total_edge": clean(x.total_edge), "run_at": x.run_at})
     return out
+
+
+QT_KEYS = ("qt_", "shadowqtotals_")   # 2 Oct 2026: the Questionable-in-totals shadow's columns (nflmodel/qtotals.py) never reach the cards (standing_checks.qt_stays_off)
 
 
 def _rule_records_js() -> dict:
