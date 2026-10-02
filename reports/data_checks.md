@@ -22,7 +22,7 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace |
 | games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
 | games: kickoff wind 40 mph or under | yes | 0 games |
-| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2164 games: 0 partial, 43 missing (warning); missing: 2017_19_JAX_PIT, 2017_19_TEN_NE, 2017_20_JAX_NE, 2017_20_MIN_PHI |
-| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 10 games; 2 short (warning): 2026_04_NE_BUF (no wind), 2026_04_TEN_BAL (no wind) |
+| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2164 games: 0 partial, 0 missing |
+| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 10 games |
 
 Result: PASS (20 of 20)

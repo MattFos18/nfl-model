@@ -1,4 +1,4 @@
-# Calibration audit, 2026-10-02 22:48 UTC
+# Calibration audit, 2026-10-02 23:08 UTC
 
 Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
@@ -15,13 +15,13 @@ Every chance the model states against what happened, regular season, from the co
 
 ## Game winner: calibrated home win chance (p_home_cal, the cards' figure) by decile
 
-p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on every regular-season game from 2015 to the season before the one priced, ties dropped (walk-forward; each season below is scored with the fit in force for it, the identity under 500 games, so 2017 is the first season scored). Today's fit on 2015 to 2025: a -0.122, b 1.188 on 2885 games (b = 1 and a = 0 would be p_home itself): 35% raw reads 29.8%, 45% raw reads 41.1%, 55% raw reads 52.9%, 65% raw reads 64.9%, 75% raw reads 76.6%. Ties count half. The season simulation (season.py) still reads the raw chance.
+p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on every regular-season game from 2015 to the season before the one priced, ties dropped (walk-forward; each season below is scored with the fit in force for it, the identity under 500 games, so 2017 is the first season scored). Today's fit on 2015 to 2025: a -0.123, b 1.189 on 2885 games (b = 1 and a = 0 would be p_home itself): 35% raw reads 29.8%, 45% raw reads 41.1%, 55% raw reads 52.9%, 65% raw reads 64.9%, 75% raw reads 76.6%. Ties count half. The season simulation (season.py) still reads the raw chance.
 
 **2015-18** (2017 to 2018 scored): 512 games, said 0.566 home, happened 0.584. Against the moneyline (511 games): Brier model 0.2078, line 0.2048; log loss model 0.6051, line 0.5993.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.2, 0.3) | 33 | 0.261 | 0.212 | -0.6 |
+| [0.2, 0.3) | 33 | 0.262 | 0.212 | -0.6 |
 | [0.3, 0.4) | 58 | 0.355 | 0.319 | -0.6 |
 | [0.4, 0.5) | 82 | 0.454 | 0.470 | +0.3 |
 | [0.5, 0.6) | 112 | 0.556 | 0.589 | +0.7 |
@@ -39,8 +39,8 @@ p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on eve
 | [0.4, 0.5) | 178 | 0.450 | 0.402 | -1.3 |
 | [0.5, 0.6) | 189 | 0.551 | 0.524 | -0.7 |
 | [0.6, 0.7) | 168 | 0.653 | 0.631 | -0.6 |
-| [0.7, 0.8) | 161 | 0.750 | 0.714 | -1.0 |
-| [0.8, 0.9) | 72 | 0.836 | 0.847 | +0.2 |
+| [0.7, 0.8) | 160 | 0.750 | 0.713 | -1.1 |
+| [0.8, 0.9) | 73 | 0.836 | 0.849 | +0.3 |
 
 **2023-25** (2023 to 2025 scored): 816 games, said 0.536 home, happened 0.542. Against the moneyline (816 games): Brier model 0.2153, line 0.2101; log loss model 0.6207, line 0.6083.
 
@@ -58,23 +58,23 @@ p_home_cal = logistic(a + b x logit(p_home)), picks.home_calibration: fit on eve
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.1, 0.2) | 64 | 0.159 | 0.297 | +3.0 |
+| [0.1, 0.2) | 64 | 0.158 | 0.297 | +3.0 |
 | [0.2, 0.3) | 177 | 0.256 | 0.249 | -0.2 |
 | [0.3, 0.4) | 322 | 0.354 | 0.351 | -0.1 |
-| [0.4, 0.5) | 406 | 0.452 | 0.397 | -2.2 |
+| [0.4, 0.5) | 406 | 0.451 | 0.397 | -2.2 |
 | [0.5, 0.6) | 454 | 0.553 | 0.557 | +0.2 |
 | [0.6, 0.7) | 415 | 0.651 | 0.684 | +1.4 |
-| [0.7, 0.8) | 338 | 0.748 | 0.734 | -0.6 |
-| [0.8, 0.9) | 163 | 0.841 | 0.822 | -0.7 |
+| [0.7, 0.8) | 337 | 0.748 | 0.733 | -0.6 |
+| [0.8, 0.9) | 164 | 0.841 | 0.823 | -0.6 |
 | [0.9, 1.0) | 39 | 0.924 | 0.949 | +0.6 |
 
 ### The mapping against the raw chance: log loss and Brier (lower is better), and the mapped 0.4-0.5 and 0.3-0.4 buckets
 
 | Window | Games | Log loss p_home | Log loss p_home_cal | Brier p_home | Brier p_home_cal | Mapped 0.4-0.5 said / happened | Mapped 0.3-0.4 said / happened |
 |---|---|---|---|---|---|---|---|
-| 2016-18 (2017 to 2018 scored) | 512 | 0.60705 | 0.60447 | 0.20852 | 0.20751 | 0.454 / 0.470 (n 82) | 0.355 / 0.319 (n 58) |
+| 2016-18 (2017 to 2018 scored) | 512 | 0.60701 | 0.60442 | 0.20850 | 0.20749 | 0.454 / 0.470 (n 82) | 0.355 / 0.319 (n 58) |
 | 2019-22 (2019 to 2022 scored) | 1055 | 0.62646 | 0.62504 | 0.21741 | 0.21635 | 0.450 / 0.402 (n 178) | 0.349 / 0.335 (n 142) |
-| 2020-22 (2020 to 2022 scored) | 799 | 0.62808 | 0.62691 | 0.21796 | 0.21682 | 0.450 / 0.412 (n 137) | 0.350 / 0.335 (n 112) |
+| 2020-22 (2020 to 2022 scored) | 799 | 0.62808 | 0.62692 | 0.21796 | 0.21682 | 0.450 / 0.412 (n 137) | 0.350 / 0.335 (n 112) |
 | 2023-25 (2023 to 2025 scored) | 816 | 0.62197 | 0.62074 | 0.21608 | 0.21529 | 0.452 / 0.349 (n 146) | 0.359 / 0.385 (n 122) |
 
 ### Raw home win chance (p_home, the season simulation's chance) by decile: the record, not a check
@@ -172,9 +172,9 @@ Calibrated cover chance = picks.calibration's logistic on |edge| capped at 7, fi
 
 | Edge | Games | Said (calibrated) | Said (raw) | Covered | z (calibrated) | z (raw) |
 |---|---|---|---|---|---|---|
-| 0-1 | 338 | 0.498 | 0.517 | 0.476 | -0.8 | -1.5 |
-| 1-2 | 266 | 0.509 | 0.548 | 0.511 | +0.1 | -1.2 |
-| 2-3 | 152 | 0.520 | 0.580 | 0.566 | +1.1 | -0.4 |
+| 0-1 | 337 | 0.498 | 0.517 | 0.478 | -0.7 | -1.4 |
+| 1-2 | 267 | 0.509 | 0.548 | 0.509 | +0.0 | -1.3 |
+| 2-3 | 152 | 0.520 | 0.580 | 0.566 | +1.1 | -0.3 |
 | 3-4 | 112 | 0.532 | 0.608 | 0.473 | -1.2 | -2.9 |
 | 4-5 | 73 | 0.543 | 0.632 | 0.534 | -0.1 | -1.7 |
 | 5-6 | 34 | 0.555 | 0.675 | 0.618 | +0.7 | -0.7 |
@@ -220,44 +220,44 @@ Calibrated cover chance = picks.calibration's logistic on |edge| capped at 7, fi
 
 ## Totals: calibrated over chance (p_over_cal, the cards' figure) by decile
 
-p_over_cal = logistic(a + b x logit(p_over_emp)), picks.over_calibration: fit on every regular-season game from 2015 to the season before the one priced (walk-forward; each season below is scored with the fit in force for it, so 2016 is the first season scored). Today's fit on 2015 to 2025: a -0.045, b 0.385 on 2869 games (b = 1 and a = 0 would be p_over_emp itself): 35% raw reads 43.0%, 45% raw reads 46.9%, 55% raw reads 50.8%, 65% raw reads 54.8%. Pushes dropped. The totals flag (an under at 55%+) stays on the raw chance.
+p_over_cal = logistic(a + b x logit(p_over_emp)), picks.over_calibration: fit on every regular-season game from 2015 to the season before the one priced (walk-forward; each season below is scored with the fit in force for it, so 2016 is the first season scored). Today's fit on 2015 to 2025: a -0.045, b 0.392 on 2869 games (b = 1 and a = 0 would be p_over_emp itself): 35% raw reads 42.9%, 45% raw reads 46.9%, 55% raw reads 50.8%, 65% raw reads 54.9%. Pushes dropped. The totals flag (an under at 55%+) stays on the raw chance.
 
 **2015-18** (2016 to 2018 scored): 764 games, said 0.490 over, happened 0.488.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.4, 0.5) | 523 | 0.482 | 0.497 | +0.7 |
-| [0.5, 0.6) | 241 | 0.507 | 0.469 | -1.2 |
+| [0.4, 0.5) | 516 | 0.482 | 0.496 | +0.6 |
+| [0.5, 0.6) | 248 | 0.507 | 0.472 | -1.1 |
 
 **2019-22** (2019 to 2022 scored): 1043 games, said 0.487 over, happened 0.477.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.4, 0.5) | 837 | 0.481 | 0.460 | -1.2 |
-| [0.5, 0.6) | 206 | 0.512 | 0.549 | +1.0 |
+| [0.4, 0.5) | 830 | 0.481 | 0.458 | -1.3 |
+| [0.5, 0.6) | 213 | 0.512 | 0.554 | +1.2 |
 
 **2023-25** (2023 to 2025 scored): 811 games, said 0.488 over, happened 0.507.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.4, 0.5) | 547 | 0.476 | 0.494 | +0.8 |
-| [0.5, 0.6) | 263 | 0.515 | 0.536 | +0.7 |
+| [0.4, 0.5) | 540 | 0.475 | 0.496 | +1.0 |
+| [0.5, 0.6) | 270 | 0.515 | 0.530 | +0.5 |
 
 **2015-25** (2016 to 2025 scored): 2618 games, said 0.488 over, happened 0.490.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.4, 0.5) | 1907 | 0.480 | 0.480 | -0.0 |
-| [0.5, 0.6) | 710 | 0.511 | 0.517 | +0.3 |
+| [0.4, 0.5) | 1886 | 0.479 | 0.479 | -0.0 |
+| [0.5, 0.6) | 731 | 0.512 | 0.517 | +0.3 |
 
 ### The mapping against the raw chance: log loss and Brier (lower is better), and the mapped 0.5-0.6 and 0.4-0.5 buckets
 
 | Window | Games | Log loss p_over_emp | Log loss p_over_cal | Brier p_over_emp | Brier p_over_cal | Mapped 0.5-0.6 said / happened | Mapped 0.4-0.5 said / happened |
 |---|---|---|---|---|---|---|---|
-| 2016-18 | 764 | 0.70620 | 0.69468 | 0.25625 | 0.25077 | 0.507 / 0.469 (n 241) | 0.482 / 0.497 (n 523) |
-| 2019-22 | 1043 | 0.69241 | 0.69040 | 0.24953 | 0.24863 | 0.512 / 0.549 (n 206) | 0.481 / 0.460 (n 837) |
-| 2020-22 | 788 | 0.69400 | 0.68968 | 0.25026 | 0.24827 | 0.512 / 0.549 (n 206) | 0.479 / 0.442 (n 582) |
-| 2023-25 | 811 | 0.69019 | 0.69024 | 0.24853 | 0.24855 | 0.515 / 0.536 (n 263) | 0.476 / 0.494 (n 547) |
+| 2016-18 | 764 | 0.70571 | 0.69463 | 0.25599 | 0.25074 | 0.507 / 0.472 (n 248) | 0.482 / 0.496 (n 516) |
+| 2019-22 | 1043 | 0.69255 | 0.69029 | 0.24959 | 0.24857 | 0.512 / 0.554 (n 213) | 0.481 / 0.458 (n 830) |
+| 2020-22 | 788 | 0.69426 | 0.68962 | 0.25038 | 0.24824 | 0.513 / 0.552 (n 212) | 0.478 / 0.439 (n 576) |
+| 2023-25 | 811 | 0.69000 | 0.69007 | 0.24843 | 0.24847 | 0.515 / 0.530 (n 270) | 0.475 / 0.496 (n 540) |
 
 ### Raw over chance (p_over_emp, the totals flag's chance) by decile: the record, not a check
 
@@ -267,52 +267,52 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.3, 0.4) | 96 | 0.361 | 0.427 | +1.3 |
-| [0.4, 0.5) | 373 | 0.458 | 0.499 | +1.6 |
-| [0.5, 0.6) | 443 | 0.544 | 0.494 | -2.1 |
-| [0.6, 0.7) | 83 | 0.631 | 0.446 | -3.5 |
+| [0.3, 0.4) | 98 | 0.361 | 0.429 | +1.4 |
+| [0.4, 0.5) | 373 | 0.459 | 0.493 | +1.3 |
+| [0.5, 0.6) | 442 | 0.544 | 0.500 | -1.9 |
+| [0.6, 0.7) | 83 | 0.631 | 0.434 | -3.7 |
 
-**2019-22**: 1043 games, said 0.486 over (normal curve 0.496), happened 0.477.
-
-| Bucket | Games | Said | Happened | z |
-|---|---|---|---|---|
-| [0.3, 0.4) | 139 | 0.358 | 0.424 | +1.6 |
-| [0.4, 0.5) | 399 | 0.457 | 0.466 | +0.4 |
-| [0.5, 0.6) | 409 | 0.544 | 0.516 | -1.1 |
-| [0.6, 0.7) | 72 | 0.629 | 0.458 | -3.0 |
-
-**2023-25**: 811 games, said 0.516 over (normal curve 0.533), happened 0.507.
+**2019-22**: 1043 games, said 0.486 over (normal curve 0.497), happened 0.477.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.3, 0.4) | 51 | 0.364 | 0.431 | +1.0 |
-| [0.4, 0.5) | 263 | 0.461 | 0.464 | +0.1 |
-| [0.5, 0.6) | 391 | 0.546 | 0.535 | -0.5 |
-| [0.6, 0.7) | 100 | 0.635 | 0.560 | -1.5 |
+| [0.3, 0.4) | 132 | 0.355 | 0.409 | +1.3 |
+| [0.4, 0.5) | 398 | 0.456 | 0.462 | +0.2 |
+| [0.5, 0.6) | 410 | 0.543 | 0.517 | -1.1 |
+| [0.6, 0.7) | 78 | 0.629 | 0.474 | -2.8 |
 
-**2015-25**: 2869 games, said 0.500 over (normal curve 0.512), happened 0.489.
+**2023-25**: 811 games, said 0.517 over (normal curve 0.534), happened 0.507.
 
 | Bucket | Games | Said | Happened | z |
 |---|---|---|---|---|
-| [0.2, 0.3) | 39 | 0.269 | 0.385 | +1.6 |
-| [0.3, 0.4) | 286 | 0.360 | 0.427 | +2.3 |
-| [0.4, 0.5) | 1035 | 0.459 | 0.477 | +1.2 |
-| [0.5, 0.6) | 1243 | 0.545 | 0.514 | -2.2 |
-| [0.6, 0.7) | 255 | 0.632 | 0.494 | -4.6 |
+| [0.3, 0.4) | 53 | 0.364 | 0.434 | +1.1 |
+| [0.4, 0.5) | 263 | 0.462 | 0.464 | +0.1 |
+| [0.5, 0.6) | 383 | 0.546 | 0.533 | -0.5 |
+| [0.6, 0.7) | 105 | 0.633 | 0.562 | -1.5 |
+
+**2015-25**: 2869 games, said 0.500 over (normal curve 0.513), happened 0.489.
+
+| Bucket | Games | Said | Happened | z |
+|---|---|---|---|---|
+| [0.2, 0.3) | 39 | 0.268 | 0.436 | +2.4 |
+| [0.3, 0.4) | 283 | 0.359 | 0.420 | +2.2 |
+| [0.4, 0.5) | 1034 | 0.459 | 0.474 | +1.0 |
+| [0.5, 0.6) | 1235 | 0.545 | 0.516 | -2.0 |
+| [0.6, 0.7) | 266 | 0.631 | 0.496 | -4.6 |
 
 ### Model total against the actual total, by third of the line (bias = said minus happened)
 
 | Window | Third | Games | Line | Model | Actual | Bias model | Bias line | MAE model | MAE line |
 |---|---|---|---|---|---|---|---|---|---|
-| 2015-18 | low | 384 | 41.3 | 42.8 | 41.5 | +1.32 | -0.17 | 10.56 | 10.46 |
-| 2015-18 | mid | 336 | 45.4 | 45.7 | 44.6 | +1.09 | +0.77 | 10.44 | 10.12 |
-| 2015-18 | high | 304 | 50.3 | 49.5 | 51.0 | -1.44 | -0.64 | 11.36 | 11.14 |
-| 2019-22 | low | 335 | 41.1 | 42.2 | 41.0 | +1.13 | +0.07 | 10.03 | 10.10 |
-| 2019-22 | mid | 337 | 45.5 | 45.6 | 46.2 | -0.60 | -0.76 | 10.95 | 11.01 |
-| 2019-22 | high | 383 | 50.5 | 49.1 | 50.7 | -1.58 | -0.14 | 10.60 | 10.52 |
-| 2023-25 | low | 391 | 40.5 | 42.3 | 41.9 | +0.38 | -1.41 | 9.97 | 10.13 |
-| 2023-25 | mid | 221 | 45.4 | 46.6 | 46.0 | +0.57 | -0.67 | 9.84 | 9.71 |
-| 2023-25 | high | 204 | 49.4 | 49.2 | 50.3 | -1.11 | -0.87 | 10.65 | 10.55 |
+| 2015-18 | low | 384 | 41.3 | 42.8 | 41.5 | +1.30 | -0.17 | 10.54 | 10.46 |
+| 2015-18 | mid | 336 | 45.4 | 45.8 | 44.6 | +1.12 | +0.77 | 10.42 | 10.12 |
+| 2015-18 | high | 304 | 50.3 | 49.5 | 51.0 | -1.43 | -0.64 | 11.37 | 11.14 |
+| 2019-22 | low | 335 | 41.1 | 42.2 | 41.0 | +1.14 | +0.07 | 10.02 | 10.10 |
+| 2019-22 | mid | 337 | 45.5 | 45.6 | 46.2 | -0.59 | -0.76 | 10.96 | 11.01 |
+| 2019-22 | high | 383 | 50.5 | 49.1 | 50.7 | -1.56 | -0.14 | 10.61 | 10.52 |
+| 2023-25 | low | 391 | 40.5 | 42.3 | 41.9 | +0.39 | -1.41 | 9.97 | 10.13 |
+| 2023-25 | mid | 221 | 45.4 | 46.6 | 46.0 | +0.59 | -0.67 | 9.84 | 9.71 |
+| 2023-25 | high | 204 | 49.4 | 49.2 | 50.3 | -1.10 | -0.87 | 10.65 | 10.55 |
 
 ## Margin scale: stated sigma against the realised miss, and how much of it the 50 / 80 / 95% intervals hold
 
@@ -326,21 +326,21 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 
 | Window | Tier | Sides | Said | Scored | Bias | z |
 |---|---|---|---|---|---|---|
-| 2015-18 | under 18 | 167 | 16.30 | 17.04 | -0.74 | -1.1 |
-| 2015-18 | 18-21 | 444 | 19.64 | 19.12 | +0.52 | +1.2 |
-| 2015-18 | 21-24 | 628 | 22.50 | 22.63 | -0.12 | -0.3 |
-| 2015-18 | 24-27 | 570 | 25.32 | 24.83 | +0.49 | +1.2 |
-| 2015-18 | 27+ | 239 | 28.64 | 28.09 | +0.55 | +0.9 |
-| 2019-22 | under 18 | 212 | 16.18 | 16.46 | -0.28 | -0.5 |
-| 2019-22 | 18-21 | 426 | 19.64 | 20.25 | -0.61 | -1.4 |
-| 2019-22 | 21-24 | 629 | 22.59 | 22.28 | +0.31 | +0.8 |
-| 2019-22 | 24-27 | 562 | 25.35 | 25.68 | -0.33 | -0.8 |
-| 2019-22 | 27+ | 281 | 28.66 | 29.07 | -0.42 | -0.8 |
-| 2023-25 | under 18 | 193 | 16.26 | 15.98 | +0.28 | +0.4 |
-| 2023-25 | 18-21 | 336 | 19.71 | 19.67 | +0.04 | +0.1 |
-| 2023-25 | 21-24 | 519 | 22.55 | 22.03 | +0.52 | +1.3 |
-| 2023-25 | 24-27 | 405 | 25.36 | 25.36 | -0.00 | -0.0 |
-| 2023-25 | 27+ | 179 | 28.72 | 30.34 | -1.62 | -2.2 |
+| 2015-18 | under 18 | 169 | 16.29 | 17.17 | -0.88 | -1.3 |
+| 2015-18 | 18-21 | 440 | 19.64 | 19.22 | +0.42 | +1.0 |
+| 2015-18 | 21-24 | 630 | 22.50 | 22.45 | +0.06 | +0.2 |
+| 2015-18 | 24-27 | 574 | 25.33 | 24.91 | +0.43 | +1.1 |
+| 2015-18 | 27+ | 235 | 28.68 | 28.16 | +0.52 | +0.8 |
+| 2019-22 | under 18 | 214 | 16.18 | 16.52 | -0.34 | -0.6 |
+| 2019-22 | 18-21 | 418 | 19.63 | 20.11 | -0.48 | -1.1 |
+| 2019-22 | 21-24 | 634 | 22.58 | 22.39 | +0.19 | +0.5 |
+| 2019-22 | 24-27 | 562 | 25.36 | 25.64 | -0.28 | -0.7 |
+| 2019-22 | 27+ | 282 | 28.66 | 29.02 | -0.36 | -0.7 |
+| 2023-25 | under 18 | 194 | 16.27 | 15.94 | +0.33 | +0.5 |
+| 2023-25 | 18-21 | 335 | 19.71 | 19.75 | -0.04 | -0.1 |
+| 2023-25 | 21-24 | 517 | 22.55 | 21.98 | +0.57 | +1.4 |
+| 2023-25 | 24-27 | 405 | 25.35 | 25.36 | -0.00 | -0.0 |
+| 2023-25 | 27+ | 181 | 28.71 | 30.29 | -1.58 | -2.2 |
 
 ## Season odds (reports/season_calibration.csv): bands of 30+ teams more than 2 SE out
 

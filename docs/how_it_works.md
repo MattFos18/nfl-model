@@ -347,30 +347,30 @@ tie check on every run; the live table carries the same columns):
 | 4.5+ edge | 42-35 | 53-38 | 24-14 |
 | 4+ edge, model's side the underdog or pick'em | 51-39 | 71-40 | 29-16 |
 | 4+ edge, weeks 1 to 13 only | 53-42 | 68-37 | 30-16 |
-| boosted trees alone, 5+ edge | 96-69 | 80-64 | 34-17 |
-| Under, 55%+ chance (the totals flag) | 130-113 | 177-141 | 76-53 |
-| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-99 | 160-131 | 69-47 |
+| boosted trees alone, 5+ edge | 95-68 | 80-64 | 34-17 |
+| Under, 55%+ chance (the totals flag) | 132-111 | 175-140 | 76-55 |
+| Under, 59%+ chance in weeks 1 to 3, 55%+ after | 126-99 | 155-132 | 69-47 |
 | 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-11 | 14-14 | 15-4 |
 | 4+ edge on road sides, 6+ on home sides | 40-24 | 46-29 | 20-9 |
 | 4+ edge, road sides only | 39-15 | 36-21 | 17-7 |
-| Under, 60%+ chance | 61-46 | 93-68 | 31-21 |
-| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-28 | 41-24 | 18-10 |
-| Under, forecast wind 10+ mph (outdoor games) | 112-97 | 143-88 | 77-52 |
+| Under, 60%+ chance | 61-47 | 91-65 | 32-22 |
+| Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-27 | 40-24 | 18-10 |
+| Under, forecast wind 10+ mph (outdoor games) | 119-97 | 143-88 | 77-52 |
 | 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 |
-| Under, forecast rain chance 50%+ (outdoor games) | 44-31 | 55-30 | 36-21 |
-| Under, forecast temperature below 32 F (outdoor games) | 20-12 | 21-15 | 11-10 |
-| Under, model total 3+ points below the line | 60-45 | 94-68 | 26-19 |
-| Under, 55%+ chance and forecast wind 10+ mph | 47-42 | 78-51 | 41-20 |
-| Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-117 | 108-83 | 96-63 |
+| Under, forecast rain chance 50%+ (outdoor games) | 46-32 | 55-30 | 36-21 |
+| Under, forecast temperature below 32 F (outdoor games) | 28-16 | 21-15 | 11-10 |
+| Under, model total 3+ points below the line | 61-46 | 91-67 | 28-19 |
+| Under, 55%+ chance and forecast wind 10+ mph | 49-42 | 79-53 | 42-22 |
+| Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-116 | 108-83 | 96-63 |
 | West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 |
 | 4+ edge, model's side the road underdog | 31-12 | 34-16 | 14-6 |
 | 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 23-15 | 19-6 |
-| 3.5+ edge on dogs, 4+ on every other side | 85-70 | 99-72 | 51-28 |
+| 3.5+ edge on dogs, 4+ on every other side | 85-69 | 99-72 | 51-28 |
 | 4+ edge, weeks 1 to 4 only | 23-14 | 18-13 | 19-5 |
 | 4+ edge, weeks 1 to 15 only | 58-48 | 71-40 | 33-16 |
 | 6+ edge | 8-11 | 15-12 | 6-2 |
-| Over, total 41 or lower and a 55%+ chance | 41-35 | 30-28 | 57-37 |
-| Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 152-119 | 195-155 | 80-55 |
+| Over, total 41 or lower and a 55%+ chance | 43-34 | 30-30 | 57-37 |
+| Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 150-120 | 197-156 | 82-55 |
 <!-- /auto:rules -->
 
 The underdog rule came from looking at where the flag's record lives: when the model's side is the favorite the
@@ -1510,8 +1510,8 @@ closing line and -110:
 <!-- auto:sizing -->
 | Window | Record | Units | Drawdown (units) | Quarter Kelly | Chance of this by luck |
 |---|---|---|---|---|---|
-| 2016-18 (never used to choose) | 39-42 | -6.5 | 13.6 | -28.8% | 81% |
-| 2019-22 (the threshold was chosen here) | 78-49 | +21.9 | 9.4 | +28.4% | 2.5% |
+| 2016-18 (never used to choose) | 39-42 | -6.5 | 13.6 | -28.6% | 81% |
+| 2019-22 (the threshold was chosen here) | 78-49 | +21.9 | 9.4 | +28.7% | 2.5% |
 | 2023-25 (held out) | 37-19 | +14.6 | 5.0 | +20.3% | 2.7% |
 <!-- /auto:sizing -->
 

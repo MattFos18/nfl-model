@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-10-02 22:48 UTC
+# Tie-out (sources and page), 2026-10-02 23:08 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -24,54 +24,54 @@ The same number must read the same everywhere it appears. Each row: what was com
 | track record backtest columns: 4+ edge, model's side the underdog or pick'em | 51-39 | 71-40 | 29-16 | 51-39 | 71-40 | 29-16 | yes |
 | docs section 9 rule table: 4+ edge, weeks 1 to 13 only | 53-42 | 68-37 | 30-16 | 53-42 | 68-37 | 30-16 | yes |
 | track record backtest columns: 4+ edge, weeks 1 to 13 only | 53-42 | 68-37 | 30-16 | 53-42 | 68-37 | 30-16 | yes |
-| docs section 9 rule table: boosted trees alone, 5+ edge | 96-69 | 80-64 | 34-17 | 96-69 | 80-64 | 34-17 | yes |
-| track record backtest columns: boosted trees alone, 5+ edge | 96-69 | 80-64 | 34-17 | 96-69 | 80-64 | 34-17 | yes |
-| docs section 9 rule table: Under, 55%+ chance (the totals flag) | 130-113 | 177-141 | 76-53 | 130-113 | 177-141 | 76-53 | yes |
-| track record backtest columns: Under, 55%+ chance (the totals flag) | 130-113 | 177-141 | 76-53 | 130-113 | 177-141 | 76-53 | yes |
-| docs section 9 rule table: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-99 | 160-131 | 69-47 | 124-99 | 160-131 | 69-47 | yes |
-| track record backtest columns: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 124-99 | 160-131 | 69-47 | 124-99 | 160-131 | 69-47 | yes |
+| docs section 9 rule table: boosted trees alone, 5+ edge | 95-68 | 80-64 | 34-17 | 95-68 | 80-64 | 34-17 | yes |
+| track record backtest columns: boosted trees alone, 5+ edge | 95-68 | 80-64 | 34-17 | 95-68 | 80-64 | 34-17 | yes |
+| docs section 9 rule table: Under, 55%+ chance (the totals flag) | 132-111 | 175-140 | 76-55 | 132-111 | 175-140 | 76-55 | yes |
+| track record backtest columns: Under, 55%+ chance (the totals flag) | 132-111 | 175-140 | 76-55 | 132-111 | 175-140 | 76-55 | yes |
+| docs section 9 rule table: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 126-99 | 155-132 | 69-47 | 126-99 | 155-132 | 69-47 | yes |
+| track record backtest columns: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 126-99 | 155-132 | 69-47 | 126-99 | 155-132 | 69-47 | yes |
 | docs section 9 rule table: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-11 | 14-14 | 15-4 | 18-11 | 14-14 | 15-4 | yes |
 | track record backtest columns: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 18-11 | 14-14 | 15-4 | 18-11 | 14-14 | 15-4 | yes |
 | docs section 9 rule table: 4+ edge on road sides, 6+ on home sides | 40-24 | 46-29 | 20-9 | 40-24 | 46-29 | 20-9 | yes |
 | track record backtest columns: 4+ edge on road sides, 6+ on home sides | 40-24 | 46-29 | 20-9 | 40-24 | 46-29 | 20-9 | yes |
 | docs section 9 rule table: 4+ edge, road sides only | 39-15 | 36-21 | 17-7 | 39-15 | 36-21 | 17-7 | yes |
 | track record backtest columns: 4+ edge, road sides only | 39-15 | 36-21 | 17-7 | 39-15 | 36-21 | 17-7 | yes |
-| docs section 9 rule table: Under, 60%+ chance | 61-46 | 93-68 | 31-21 | 61-46 | 93-68 | 31-21 | yes |
-| track record backtest columns: Under, 60%+ chance | 61-46 | 93-68 | 31-21 | 61-46 | 93-68 | 31-21 | yes |
-| docs section 9 rule table: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-28 | 41-24 | 18-10 | 35-28 | 41-24 | 18-10 | yes |
-| track record backtest columns: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-28 | 41-24 | 18-10 | 35-28 | 41-24 | 18-10 | yes |
-| docs section 9 rule table: Under, forecast wind 10+ mph (outdoor games) | 112-97 | 143-88 | 77-52 | 112-97 | 143-88 | 77-52 | yes |
-| track record backtest columns: Under, forecast wind 10+ mph (outdoor games) | 112-97 | 143-88 | 77-52 | 112-97 | 143-88 | 77-52 | yes |
+| docs section 9 rule table: Under, 60%+ chance | 61-47 | 91-65 | 32-22 | 61-47 | 91-65 | 32-22 | yes |
+| track record backtest columns: Under, 60%+ chance | 61-47 | 91-65 | 32-22 | 61-47 | 91-65 | 32-22 | yes |
+| docs section 9 rule table: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-27 | 40-24 | 18-10 | 35-27 | 40-24 | 18-10 | yes |
+| track record backtest columns: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 35-27 | 40-24 | 18-10 | 35-27 | 40-24 | 18-10 | yes |
+| docs section 9 rule table: Under, forecast wind 10+ mph (outdoor games) | 119-97 | 143-88 | 77-52 | 119-97 | 143-88 | 77-52 | yes |
+| track record backtest columns: Under, forecast wind 10+ mph (outdoor games) | 119-97 | 143-88 | 77-52 | 119-97 | 143-88 | 77-52 | yes |
 | docs section 9 rule table: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 | 117-35 | 101-29 | 129-38 | yes |
 | track record backtest columns: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 117-35 | 101-29 | 129-38 | 117-35 | 101-29 | 129-38 | yes |
-| docs section 9 rule table: Under, forecast rain chance 50%+ (outdoor games) | 44-31 | 55-30 | 36-21 | 44-31 | 55-30 | 36-21 | yes |
-| track record backtest columns: Under, forecast rain chance 50%+ (outdoor games) | 44-31 | 55-30 | 36-21 | 44-31 | 55-30 | 36-21 | yes |
-| docs section 9 rule table: Under, forecast temperature below 32 F (outdoor games) | 20-12 | 21-15 | 11-10 | 20-12 | 21-15 | 11-10 | yes |
-| track record backtest columns: Under, forecast temperature below 32 F (outdoor games) | 20-12 | 21-15 | 11-10 | 20-12 | 21-15 | 11-10 | yes |
-| docs section 9 rule table: Under, model total 3+ points below the line | 60-45 | 94-68 | 26-19 | 60-45 | 94-68 | 26-19 | yes |
-| track record backtest columns: Under, model total 3+ points below the line | 60-45 | 94-68 | 26-19 | 60-45 | 94-68 | 26-19 | yes |
-| docs section 9 rule table: Under, 55%+ chance and forecast wind 10+ mph | 47-42 | 78-51 | 41-20 | 47-42 | 78-51 | 41-20 | yes |
-| track record backtest columns: Under, 55%+ chance and forecast wind 10+ mph | 47-42 | 78-51 | 41-20 | 47-42 | 78-51 | 41-20 | yes |
-| docs section 9 rule table: Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-117 | 108-83 | 96-63 | 142-117 | 108-83 | 96-63 | yes |
-| track record backtest columns: Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-117 | 108-83 | 96-63 | 142-117 | 108-83 | 96-63 | yes |
+| docs section 9 rule table: Under, forecast rain chance 50%+ (outdoor games) | 46-32 | 55-30 | 36-21 | 46-32 | 55-30 | 36-21 | yes |
+| track record backtest columns: Under, forecast rain chance 50%+ (outdoor games) | 46-32 | 55-30 | 36-21 | 46-32 | 55-30 | 36-21 | yes |
+| docs section 9 rule table: Under, forecast temperature below 32 F (outdoor games) | 28-16 | 21-15 | 11-10 | 28-16 | 21-15 | 11-10 | yes |
+| track record backtest columns: Under, forecast temperature below 32 F (outdoor games) | 28-16 | 21-15 | 11-10 | 28-16 | 21-15 | 11-10 | yes |
+| docs section 9 rule table: Under, model total 3+ points below the line | 61-46 | 91-67 | 28-19 | 61-46 | 91-67 | 28-19 | yes |
+| track record backtest columns: Under, model total 3+ points below the line | 61-46 | 91-67 | 28-19 | 61-46 | 91-67 | 28-19 | yes |
+| docs section 9 rule table: Under, 55%+ chance and forecast wind 10+ mph | 49-42 | 79-53 | 42-22 | 49-42 | 79-53 | 42-22 | yes |
+| track record backtest columns: Under, 55%+ chance and forecast wind 10+ mph | 49-42 | 79-53 | 42-22 | 49-42 | 79-53 | 42-22 | yes |
+| docs section 9 rule table: Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-116 | 108-83 | 96-63 | 142-116 | 108-83 | 96-63 | yes |
+| track record backtest columns: Total, boosted trees' own total 9.5%+ of the line off it, either side | 142-116 | 108-83 | 96-63 | 142-116 | 108-83 | 96-63 | yes |
 | docs section 9 rule table: West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 | 42-58 | 57-43 | 48-38 | yes |
 | track record backtest columns: West Coast or Mountain team on the road at 1pm ET, any game | 42-58 | 57-43 | 48-38 | 42-58 | 57-43 | 48-38 | yes |
 | docs section 9 rule table: 4+ edge, model's side the road underdog | 31-12 | 34-16 | 14-6 | 31-12 | 34-16 | 14-6 | yes |
 | track record backtest columns: 4+ edge, model's side the road underdog | 31-12 | 34-16 | 14-6 | 31-12 | 34-16 | 14-6 | yes |
 | docs section 9 rule table: 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 23-15 | 19-6 | 20-11 | 23-15 | 19-6 | yes |
 | track record backtest columns: 4+ edge, model's side a dog at +0.5 to +3 | 20-11 | 23-15 | 19-6 | 20-11 | 23-15 | 19-6 | yes |
-| docs section 9 rule table: 3.5+ edge on dogs, 4+ on every other side | 85-70 | 99-72 | 51-28 | 85-70 | 99-72 | 51-28 | yes |
-| track record backtest columns: 3.5+ edge on dogs, 4+ on every other side | 85-70 | 99-72 | 51-28 | 85-70 | 99-72 | 51-28 | yes |
+| docs section 9 rule table: 3.5+ edge on dogs, 4+ on every other side | 85-69 | 99-72 | 51-28 | 85-69 | 99-72 | 51-28 | yes |
+| track record backtest columns: 3.5+ edge on dogs, 4+ on every other side | 85-69 | 99-72 | 51-28 | 85-69 | 99-72 | 51-28 | yes |
 | docs section 9 rule table: 4+ edge, weeks 1 to 4 only | 23-14 | 18-13 | 19-5 | 23-14 | 18-13 | 19-5 | yes |
 | track record backtest columns: 4+ edge, weeks 1 to 4 only | 23-14 | 18-13 | 19-5 | 23-14 | 18-13 | 19-5 | yes |
 | docs section 9 rule table: 4+ edge, weeks 1 to 15 only | 58-48 | 71-40 | 33-16 | 58-48 | 71-40 | 33-16 | yes |
 | track record backtest columns: 4+ edge, weeks 1 to 15 only | 58-48 | 71-40 | 33-16 | 58-48 | 71-40 | 33-16 | yes |
 | docs section 9 rule table: 6+ edge | 8-11 | 15-12 | 6-2 | 8-11 | 15-12 | 6-2 | yes |
 | track record backtest columns: 6+ edge | 8-11 | 15-12 | 6-2 | 8-11 | 15-12 | 6-2 | yes |
-| docs section 9 rule table: Over, total 41 or lower and a 55%+ chance | 41-35 | 30-28 | 57-37 | 41-35 | 30-28 | 57-37 | yes |
-| track record backtest columns: Over, total 41 or lower and a 55%+ chance | 41-35 | 30-28 | 57-37 | 41-35 | 30-28 | 57-37 | yes |
-| docs section 9 rule table: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 152-119 | 195-155 | 80-55 | 152-119 | 195-155 | 80-55 | yes |
-| track record backtest columns: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 152-119 | 195-155 | 80-55 | 152-119 | 195-155 | 80-55 | yes |
+| docs section 9 rule table: Over, total 41 or lower and a 55%+ chance | 43-34 | 30-30 | 57-37 | 43-34 | 30-30 | 57-37 | yes |
+| track record backtest columns: Over, total 41 or lower and a 55%+ chance | 43-34 | 30-30 | 57-37 | 43-34 | 30-30 | 57-37 | yes |
+| docs section 9 rule table: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 150-120 | 197-156 | 82-55 | 150-120 | 197-156 | 82-55 | yes |
+| track record backtest columns: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 150-120 | 197-156 | 82-55 | 150-120 | 197-156 | 82-55 | yes |
 | docs by-week row: weeks 1 | 175 -0.02 53 17-11 61 | 175 -0.02 53 17-11 61 | yes |
 | docs by-week row: weeks 2 | 176 -0.14 58 17-7 71 | 176 -0.14 58 17-7 71 | yes |
 | docs by-week row: weeks 3 | 176 +0.10 53 14-9 61 | 176 +0.10 53 14-9 61 | yes |
@@ -125,12 +125,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.1% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-02T22:33Z', 'oddsapi': '2026-10-02T12:02Z', 'props': '2026-10- | {'espn': '2026-10-02T22:33Z', 'oddsapi': '2026-10-02T12:02Z', 'props': '2026-10- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-02T22:54Z', 'oddsapi': '2026-10-02T12:02Z', 'props': '2026-10- | {'espn': '2026-10-02T22:54Z', 'oddsapi': '2026-10-02T12:02Z', 'props': '2026-10- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-10-02 22:28 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
+| every step of the newest weekly run finished (2026-10-02 22:49 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
 | the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
@@ -148,15 +148,15 @@ The same number must read the same everywhere it appears. Each row: what was com
 | page backtest file: model total equals the prediction table | 0.0 | 0.0 | yes |
 | page inputs = model inputs | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | ['off_epa_play', 'def_epa_play', 'off_pf', 'def_pf', 'qb_rating', 'home', 'neutr | yes |
 | page flag threshold = picks threshold | 4.0 | 4.0 | yes |
-| report records: spread flag and totals flag = the rule records' three windows added up | [[183, 126], [383, 307]] | [[183, 126], [383, 307]] | yes |
+| report records: spread flag and totals flag = the rule records' three windows added up | [[183, 126], [383, 306]] | [[183, 126], [383, 306]] | yes |
 | Bets tab closing line value (week.js clv) = nflmodel.clv.page_payload | [[{"avg_clv_prob": null, "avg_clv_pts": null, "beat": 0, "beat_share": null, "be | [[{"avg_clv_prob": null, "avg_clv_pts": null, "beat": 0, "beat_share": null, "be | yes |
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
 | card breakdowns rebuild the expected points from the page's files (32 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-02T22-33-29Z | 2026-10-02T22-33-29Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-02T22-33-29Z | 2026-10-02T22-33-29Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-02T22-54-37Z | 2026-10-02T22-54-37Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-02T22-54-37Z | 2026-10-02T22-54-37Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.00047 | 0.0006 or under | yes |
-| card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00016 | 0.0006 or under | yes |
+| card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00019 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
 | page week = picks file (games) | ['2026_04_ARI_NYG', '2026_04_ATL_NO', '2026_04_DAL_HOU', '2026_04_DEN_SF', '2026 | ['2026_04_ARI_NYG', '2026_04_ATL_NO', '2026_04_DAL_HOU', '2026_04_DEN_SF', '2026 | yes |
 | page week = picks file (model spread) | 0.0 | 0.0 | yes |
@@ -199,22 +199,22 @@ The same number must read the same everywhere it appears. Each row: what was com
 | Bets tab: every rule's backtest record = picks.rule_records on the prediction table | [['model', '68-58', '78-49', '37-19'], ['shadow45', '42-35', '53-38', '24-14'],  | [['model', '68-58', '78-49', '37-19'], ['shadow45', '42-35', '53-38', '24-14'],  | yes |
 | page flag threshold (meta.js) = week.js flag threshold | 4.0 | 4.0 | yes |
 | Backtest Records: our spread bets per window = the flag's rule records | ['68-58', '78-49', '37-19'] | ['68-58', '78-49', '37-19'] | yes |
-| Backtest Records: our totals bets per window = the totals rule records | ['130-113', '177-141', '76-53'] | ['130-113', '177-141', '76-53'] | yes |
+| Backtest Records: our totals bets per window = the totals rule records | ['132-111', '175-140', '76-55'] | ['132-111', '175-140', '76-55'] | yes |
 | Backtest appendix: our spread bets in Every Edge Tested = the Record table, every period and season | [{'2015-18': {'w': 68, 'l': 58, 'p': 0, 'pct': 0.5397, 'units': 4.2, 'roi': 0.03 | [{'2015-18': {'w': 68, 'l': 58, 'p': 0, 'pct': 0.5397, 'units': 4.2, 'roi': 0.03 | yes |
-| Backtest appendix: our total bets in Every Edge Tested = the Record table, every period and season | [{'2015-18': {'w': 130, 'l': 113, 'p': 1, 'pct': 0.535, 'units': 5.7, 'roi': 0.0 | [{'2015-18': {'w': 130, 'l': 113, 'p': 1, 'pct': 0.535, 'units': 5.7, 'roi': 0.0 | yes |
+| Backtest appendix: our total bets in Every Edge Tested = the Record table, every period and season | [{'2015-18': {'w': 132, 'l': 111, 'p': 1, 'pct': 0.5432, 'units': 9.9, 'roi': 0. | [{'2015-18': {'w': 132, 'l': 111, 'p': 1, 'pct': 0.5432, 'units': 9.9, 'roi': 0. | yes |
 | Backtest appendix (meta.js appendix) = records.appendix on the prediction table | {"edges": {"spread": [{"bet": false, "by_season": {"2015": {"l": 86, "p": 6, "pc | {"edges": {"spread": [{"bet": false, "by_season": {"2015": {"l": 86, "p": 6, "pc | yes |
 | Backtest figures (meta.js bet_stats: drawdown, bets a season, average edge) = records.bet_stats on the prediction table | {"spread": {"avg_edge": 5.24, "bets": 313, "drawdown": 16.5, "luck": 0.01126, "p | {"spread": {"avg_edge": 5.24, "bets": 313, "drawdown": 16.5, "luck": 0.01126, "p | yes |
 | Backtest figures: our spread bets counted = the Record table's total | 313 | 313 | yes |
-| Backtest figures: our total bets counted = the Record table's total | 713 | 713 | yes |
+| Backtest figures: our total bets counted = the Record table's total | 711 | 711 | yes |
 | Backtest Records and By Season (meta.js standard) = records.standard_records on the prediction table | {"break_even": 0.5238, "odds": -110.0, "periods": [{"from": 2015, "key": "2015-1 | {"break_even": 0.5238, "odds": -110.0, "periods": [{"from": 2015, "key": "2015-1 | yes |
-| Backtest tab's flag and totals-flag records (from backtest.js) = picks.rule_records, every window | [['68-58', '130-113'], ['78-49', '177-141'], ['37-19', '76-53']] | [['68-58', '130-113'], ['78-49', '177-141'], ['37-19', '76-53']] | yes |
+| Backtest tab's flag and totals-flag records (from backtest.js) = picks.rule_records, every window | [['68-58', '132-111'], ['78-49', '175-140'], ['37-19', '76-55']] | [['68-58', '132-111'], ['78-49', '175-140'], ['37-19', '76-55']] | yes |
 | week.js fit (points if out, points a game, the inputs table) = pred_v3's fit for the week (intercept, QB, skill out) | [22.862881, 17.451378, -31.065372, 12.962406] | [22.862881, 17.451378, -31.065372, 12.962406] | yes |
 | every card's fit = the week's one fit | [True] | [True] | yes |
 | week.js calibration window = picks.CAL_FROM, CAL_CAP | [2019, 7.0] | [2019, 7.0] | yes |
-| week.js over calibration (cal.over) = picks.over_calibration for the week (a, b, from, before, n, clip) | [-0.044858, 0.385267, 2015, 2026, 2869, 0.02] | [-0.044858, 0.385267, 2015, 2026, 2869, 0.02] | yes |
+| week.js over calibration (cal.over) = picks.over_calibration for the week (a, b, from, before, n, clip) | [-0.04535, 0.391909, 2015, 2026, 2869, 0.02] | [-0.04535, 0.391909, 2015, 2026, 2869, 0.02] | yes |
 | backtest.js calibrated over chance = picks.over_calibrations as of each season, on the file's own raw chance (worst gap) | 5e-07 | 0.00001 or under | yes |
-| week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip) | [-0.122496, 1.188431, 2015, 2026, 2885, 0.02] | [-0.122496, 1.188431, 2015, 2026, 2885, 0.02] | yes |
-| week.js teaser calibration (cal.tease) = picks.tease_calibration for the week (spread a, b, n; total a, b, n; pts, from, before, clip) | [-0.097281, 1.0, 2867, 0.618226, 0.218757, 2855, 6.0, 2015, 2026, 0.02] | [-0.097281, 1.0, 2867, 0.618226, 0.218757, 2855, 6.0, 2015, 2026, 0.02] | yes |
+| week.js home win calibration (cal.home) = picks.home_calibration for the week (a, b, from, before, n, clip) | [-0.122547, 1.188611, 2015, 2026, 2885, 0.02] | [-0.122547, 1.188611, 2015, 2026, 2885, 0.02] | yes |
+| week.js teaser calibration (cal.tease) = picks.tease_calibration for the week (spread a, b, n; total a, b, n; pts, from, before, clip) | [-0.097263, 1.0, 2867, 0.605488, 0.234158, 2855, 6.0, 2015, 2026, 0.02] | [-0.097263, 1.0, 2867, 0.605488, 0.234158, 2855, 6.0, 2015, 2026, 0.02] | yes |
 | every card's teased chances (tease_spread_raw/cal, tease_total_raw/cal) rebuild from its edge, its fit's sigma and the week's calibration (worst gap; blank exactly when there is no line or no edge) | 1.0 | 0.0001 or under | NO |
 | backtest.js calibrated home win chance = picks.home_calibrations as of each season, on the file's own raw chance (worst gap) | 0.0 | 0.00001 or under | yes |
 | QB rating and offense rating overlap on the page = model.qb_overlap (the fit) | {'seasons': '2013 to 2025', 'n': 7124, 'corr': 0.751, 'qb_per_sd': 1.671, 'off_p | {'seasons': '2013 to 2025', 'n': 7124, 'corr': 0.751, 'qb_per_sd': 1.671, 'off_p | yes |
