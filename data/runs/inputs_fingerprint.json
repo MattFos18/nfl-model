@@ -122,7 +122,7 @@
 [
 "CAR",
 "Xavier Legette",
-"Doubtful"
+"Out"
 ],
 [
 "CHI",
@@ -192,7 +192,12 @@
 [
 "DAL",
 "Cobie Durant",
-"Doubtful"
+"Out"
+],
+[
+"DAL",
+"DeMarvion Overshown",
+"Out"
 ],
 [
 "DAL",
@@ -222,6 +227,11 @@
 [
 "DET",
 "Avonte Maddox",
+"Out"
+],
+[
+"DET",
+"Brian Branch",
 "Out"
 ],
 [
@@ -506,7 +516,22 @@
 ],
 [
 "TB",
+"Benjamin Morrison",
+"Out"
+],
+[
+"TB",
 "Jalen McMillan",
+"Out"
+],
+[
+"TB",
+"Ko Kieft",
+"Out"
+],
+[
+"TB",
+"Rueben Bain Jr.",
 "Out"
 ],
 [
@@ -861,6 +886,12 @@
 ],
 [
 "CAR",
+"Cam Jackson",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Chuba Hubbard",
 "",
 "Full Participation in Practice"
@@ -1140,12 +1171,6 @@
 "DeMarvion Overshown",
 "",
 "Did Not Participate In Practice"
-],
-[
-"DAL",
-"DeMarvion Overshown",
-"Questionable (ESPN)",
-""
 ],
 [
 "DAL",
@@ -2847,12 +2872,6 @@
 ],
 [
 "TB",
-"Benjamin Morrison",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Bucky Irving",
 "",
 "Limited Participation in Practice"
@@ -2907,12 +2926,6 @@
 ],
 [
 "TB",
-"Ko Kieft",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Rakeem Nunez-Roches",
 "",
 "Did Not Participate In Practice"
@@ -2928,12 +2941,6 @@
 "Rueben Bain Jr.",
 "",
 "Did Not Participate In Practice"
-],
-[
-"TB",
-"Rueben Bain Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -3178,5 +3185,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 16:45 UTC"
+"written_at": "2026-10-02 17:15 UTC"
 }
