@@ -22,7 +22,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, road sides only | 2 | 0 | nothing settled |  | +0.00 | 38-15 | 34-19 | 17-8 |
 | shadow: Under, 60%+ chance | 1 | 0 | nothing settled |  | +0.00 | 58-44 | 112-73 | 33-25 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 33-27 | 44-27 | 18-11 |
-| shadow: Under, forecast wind 10+ mph (outdoor games) | 3 | 1 | 0-1 (0%) | -1.00 | +0.00 | 24-20 | 143-88 | 77-52 |
+| shadow: Under, forecast wind 10+ mph (outdoor games) | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 24-20 | 143-88 | 77-52 |
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 4 | 1 | 1-0 (100%) | +0.33 | +0.00 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 4 | 0 | nothing settled |  | +0.00 | 11-9 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 4-2 | 21-15 | 11-10 |
@@ -36,7 +36,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 0 | nothing settled |  | +0.00 | 23-13 | 16-12 | 19-5 |
 | shadow: 4+ edge, weeks 1 to 15 only | 3 | 0 | nothing settled |  | +0.00 | 58-46 | 69-38 | 33-17 |
 | shadow: 6+ edge | 0 | 0 | | | | 8-10 | 14-12 | 7-2 |
-| shadow: Over, total 41 or lower and a 55%+ chance | 1 | 0 | nothing settled |  | +0.00 | 42-35 | 29-25 | 56-37 |
+| shadow: Over, total 41 or lower and a 55%+ chance | 2 | 0 | nothing settled |  | +0.00 | 42-35 | 29-25 | 56-37 |
 
 Live against the backtest: nothing settled yet; the flag's backtest rate is 62.8% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 

@@ -266,12 +266,32 @@
 ],
 [
 "GB",
+"Aaron Banks",
+"Out"
+],
+[
+"GB",
+"Anthony Campbell",
+"Out"
+],
+[
+"GB",
+"Jacob Monk",
+"Out"
+],
+[
+"GB",
 "Jayden Reed",
 "Out"
 ],
 [
 "GB",
 "Micah Parsons",
+"Out"
+],
+[
+"GB",
+"Warren Brinson",
 "Out"
 ],
 [
@@ -845,12 +865,6 @@
 ],
 [
 "BUF",
-"Damar Hamlin",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Deone Walker",
 "",
 "Full Participation in Practice"
@@ -866,12 +880,6 @@
 "Joe Andreessen",
 "",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Joe Andreessen",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1301,21 +1309,9 @@
 ],
 [
 "GB",
-"Aaron Banks",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Anthony Campbell",
 "",
 "Did Not Participate In Practice"
-],
-[
-"GB",
-"Anthony Campbell",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1337,12 +1333,6 @@
 ],
 [
 "GB",
-"Jacob Monk",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Jager Burton",
 "",
 "Limited Participation in Practice"
@@ -1361,33 +1351,15 @@
 ],
 [
 "GB",
-"Karl Brooks",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Lukas Van Ness",
 "",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Lukas Van Ness",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
 "Warren Brinson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"GB",
-"Warren Brinson",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -2843,12 +2815,6 @@
 ],
 [
 "TB",
-"Bucky Irving",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Chris Godwin Jr.",
 "",
 "Full Participation in Practice"
@@ -3048,27 +3014,27 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 5.8,
+"wind": 6.3,
 "cold": false,
 "rain": false
 },
 "2026_04_TEN_BAL": {
-"wind": 6.6,
+"wind": 7.1,
 "cold": false,
 "rain": false
 },
 "2026_04_NE_BUF": {
-"wind": 7.6,
+"wind": 7.2,
 "cold": false,
 "rain": false
 },
 "2026_04_NYJ_CHI": {
-"wind": 7.6,
+"wind": 7.9,
 "cold": false,
 "rain": false
 },
 "2026_04_JAX_CIN": {
-"wind": 4.2,
+"wind": 4.1,
 "cold": false,
 "rain": false
 },
@@ -3078,17 +3044,17 @@
 "rain": false
 },
 "2026_04_ARI_NYG": {
-"wind": 10.9,
+"wind": 8.1,
 "cold": false,
 "rain": false
 },
 "2026_04_LA_PHI": {
-"wind": 10.3,
+"wind": 9.5,
 "cold": false,
 "rain": true
 },
 "2026_04_GB_TB": {
-"wind": 10.2,
+"wind": 8.1,
 "cold": false,
 "rain": false
 },
@@ -3108,5 +3074,5 @@
 "rain": true
 }
 },
-"written_at": "2026-10-02 19:46 UTC"
+"written_at": "2026-10-02 20:21 UTC"
 }

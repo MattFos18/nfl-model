@@ -6,8 +6,8 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 |---|---|---|---|---|---|---|---|
 | Spreads, 4+ edge | 0 |  |  | 0 | 0 | 3 |  |
 | Unders, 55%+ chance | 3 | +0.33 | 33% | 2 | 0 | 5 | +0.0% (2) |
-| Wind unders, 10+ mph | 1 | +0.00 | 0% | 1 | 0 | 2 | +0.0% (1) |
-| All live bets | 4 | +0.25 | 25% | 3 | 0 | 10 | +0.0% (3) |
+| Wind unders, 10+ mph | 1 | +0.00 | 0% | 1 | 0 | 1 | +0.0% (1) |
+| All live bets | 4 | +0.25 | 25% | 3 | 0 | 9 | +0.0% (3) |
 
 ## Every bet
 
@@ -26,4 +26,3 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | shadowunder |      4 | 2026_04_DET_CAR | Under 50.5 | 2026-10-02 11:57 UTC | first flag   |   51   |       nan   |   nan   |       nan |            | nan                  | pending  |
 | windunder   |      4 | 2026_04_PIT_CLE | Under 38.5 | 2026-10-01 23:22 UTC | tracker row  |   38.5 |       nan   |    38.5 |         0 | +0.0%      | 2026-10-02 00:12 UTC | closed   |
 | windunder   |      4 | 2026_04_ARI_NYG | Under 44.5 | 2026-10-02 11:57 UTC | first flag   |   44   |       nan   |   nan   |       nan |            | nan                  | pending  |
-| windunder   |      4 | 2026_04_GB_TB   | Under 39.5 | 2026-10-02 19:24 UTC | first flag   |   39.5 |       nan   |   nan   |       nan |            | nan                  | pending  |
