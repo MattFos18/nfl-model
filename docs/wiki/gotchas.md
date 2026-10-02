@@ -98,3 +98,4 @@ add it here (newest at the top of its group) with the file and the date, and a l
   "backtests re-run" rows fail locally for that reason (`docs/handoff.md`).
 - **The raw-data cache had one fixed key** and kept restoring an old copy without the players table (decision log
   26 Sep 2026); each weekly run now saves its own copy.
+- **Retractable roofs are blank until game day.** The schedule leaves an unplayed retractable-roof game's roof empty; it read as outdoors and the wind under fired on 2026_04_DAL_HOU. Unplayed games at ATL, DAL, HOU, IND, ARI (and the Bernabeu) with no roof count as closed (`nflmodel/build.py` RETRACTABLE_HOME; `wind_live._roofed`).

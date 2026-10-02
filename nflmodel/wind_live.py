@@ -14,6 +14,7 @@ changes. Writes data/weather/wind_live.csv.
 from __future__ import annotations
 import datetime as dt
 import numpy as np, pandas as pd
+from pathlib import Path
 from . import forecast_history as FH
 
 F = FH.WX / "wind_live.csv"
@@ -66,6 +67,17 @@ def _history() -> pd.DataFrame:
         return h
 
 
+def _roofed() -> set:
+    """Games now known or assumed to be under a roof (games.parquet roof dome or closed): no weather reading applies to
+    them, even one logged before the roof was known (2 Oct 2026: 2026_04_DAL_HOU at Houston fired the wind under)."""
+    try:
+        g = pd.read_parquet(Path(__file__).resolve().parent.parent / "data" / "processed" / "games.parquet", columns=["game_id", "roof"])
+        return set(g.game_id[g.roof.isin(["dome", "closed"])])
+    except Exception as e:  # noqa
+        print(f"wind_live: could not read roofs ({type(e).__name__}: {e}); readings not filtered by roof", flush=True)
+        return set()
+
+
 def readings() -> dict:
     """game_id -> the wind reading the rule uses: the live log's newest for games still to play, the stored history for
     2018-2025 (the mean of the pre-kickoff forecasts there: GFS and NBS last run, Japan's day-before run)."""
@@ -79,7 +91,8 @@ def readings() -> dict:
     if F.exists():
         lv = pd.read_csv(F).sort_values("ts").drop_duplicates("game_id", keep="last")
         out.update({gid: float(v) for gid, v in zip(lv.game_id, lv.wind_mean) if pd.notna(v)})
-    return out
+    r = _roofed()
+    return {k: v for k, v in out.items() if k not in r}
 
 
 def rain_readings() -> dict:
@@ -95,7 +108,8 @@ def rain_readings() -> dict:
         if "gfs_pop" in lv:
             lv = lv[lv.gfs_pop.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
             out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_pop) if gid not in out})
-    return out
+    r = _roofed()
+    return {k: v for k, v in out.items() if k not in r}
 
 
 def temp_readings() -> dict:
@@ -112,7 +126,8 @@ def temp_readings() -> dict:
         if "gfs_temp" in lv:
             lv = lv[lv.gfs_temp.notna()].sort_values("ts").drop_duplicates("game_id", keep="last")
             out.update({gid: float(x) for gid, x in zip(lv.game_id, lv.gfs_temp) if gid not in out})
-    return out
+    r = _roofed()
+    return {k: v for k, v in out.items() if k not in r}
 
 
 if __name__ == "__main__":
