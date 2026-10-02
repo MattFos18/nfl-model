@@ -480,6 +480,20 @@ def _an_ts(x) -> str:
     return pd.to_datetime(x, utc=True).strftime("%Y-%m-%dT%H-%M-%SZ")
 
 
+# a moneyline reverse move: the no-vig win chance moved this many percentage points from the open (2 Oct 2026, Matt:
+# "track moneyline movement like we do for the total and the spread"); a 10-cent price change (-150 to -160) moves it
+# about 1.5 to 2 points, so 3 marks a real move, not a price tweak. Display only
+ML_MOVE_PTS = 3.0
+
+
+def _novig_home(hml, aml):
+    """The home side's win chance in percent (one decimal) from the two moneylines with the vig removed; None without both."""
+    def imp(m):
+        return None if m is None else (-m / (-m + 100) if m < 0 else 100 / (m + 100))
+    a, b = imp(hml), imp(aml)
+    return None if a is None or b is None or a + b <= 0 else round(100 * a / (a + b), 1)
+
+
 def _add_consensus(wk: list) -> None:
     """The market-wide picture on each card (1 Oct 2026, Matt: "just show consensus"), display only, never in the model:
     - consensus_history: Action Network's consensus line from its opening line to now (data/lines/books_log.csv, the
@@ -487,8 +501,10 @@ def _add_consensus(wk: list) -> None:
       Network's own sign is the other way), carried to the newest pull for the game so the chart runs to now;
     - splits: ScoresAndOdds' consensus bets and money shares (data/lines/splits_consensus_log.csv) replace DraftKings'
       where the game has them (DraftKings' stay for a game without);
-    - moves: the line moved from the open toward the side with fewer bets (half a point or more), the usual mark of
-      bigger, sharper bets on the other side."""
+      Each point also carries home_win, the home side's no-vig win chance from its two moneylines (the Win block's chart);
+    - moves: the line moved from the open toward the side with fewer bets (half a point or more on the spread and total;
+      ML_MOVE_PTS percentage points of no-vig win chance on the moneyline), the usual mark of bigger, sharper bets on the
+      other side."""
     lnd = ROOT / "data" / "lines"
     fb, fs = lnd / "books_log.csv", lnd / "splits_consensus_log.csv"
     b = pd.read_csv(fb) if fb.exists() else pd.DataFrame(columns=["game_id", "book"])
@@ -499,7 +515,8 @@ def _add_consensus(wk: list) -> None:
 
     def pt(t, src, r):
         hs = None if pd.isna(r.home_spread) else -float(r.home_spread)
-        return {"ts": t, "source": src, "home_spread": clean(hs), "total": clean(r.total), "home_ml": clean(r.home_ml), "away_ml": clean(r.away_ml)}
+        hm, am = clean(r.home_ml), clean(r.away_ml)
+        return {"ts": t, "source": src, "home_spread": clean(hs), "total": clean(r.total), "home_ml": hm, "away_ml": am, "home_win": _novig_home(hm, am)}
     for g in wk:
         gid = g["game_id"]; x = b[b.game_id == gid].sort_values("ts") if len(b) else b
         cons = x[x.book == "Consensus"] if len(x) else x
@@ -535,6 +552,14 @@ def _add_consensus(wk: list) -> None:
                 toward = "over" if mv > 0 else "under"
                 if pub and abs(mv) >= 0.5 and toward != pub:
                     moves.append({"market": "total", "toward": toward, "public": pub, "bets": sp["total"][pub]["bets"], "open": o["total"], "now": n["total"]})
+            if o.get("home_win") is not None and n.get("home_win") is not None and "ml" in sp and H in sp["ml"] and A in sp["ml"]:
+                mv = n["home_win"] - o["home_win"]; pub = H if sp["ml"][H]["bets"] > 50 else (A if sp["ml"][A]["bets"] > 50 else None)
+                toward = H if mv > 0 else A
+                if pub and abs(mv) >= ML_MOVE_PTS and toward != pub:
+                    # open and now: the side moved toward's no-vig win chance (percent) and its moneyline
+                    sd = (lambda p: p) if toward == H else (lambda p: round(100 - p, 1)); k = "home_ml" if toward == H else "away_ml"
+                    moves.append({"market": "ml", "toward": toward, "public": pub, "bets": sp["ml"][pub]["bets"], "open": sd(o["home_win"]), "now": sd(n["home_win"]),
+                                  "open_ml": o[k], "now_ml": n[k]})
         g["moves"] = moves
 
 

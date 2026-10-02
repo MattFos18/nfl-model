@@ -917,11 +917,13 @@ body.solo nav.tabs,body.solo header .controls{display:none}
   // the line moved from the open toward the side with fewer bets (export_web._add_consensus), the usual mark of sharper money
   function moveChip(g, mk, H) {
     const m = (g.moves || []).find(x => x.market === mk); if (!m) return "";
-    const t = mk === "total" ? `${m.open} to ${m.now}` : `${lineTxt(m.toward, m.toward === H ? -m.open : m.open)} to ${lineTxt(m.toward, m.toward === H ? -m.now : m.now)}`;
+    // the moneyline (2 Oct 2026): open and now are the side moved toward's no-vig win chance (percent) and price
+    const ml = p => p == null ? "" : ` (${p > 0 ? "+" : ""}${p})`;
+    const t = mk === "total" ? `${m.open} to ${m.now}` : mk === "ml" ? `${m.toward} ${Math.round(m.open)}%${ml(m.open_ml)} to ${Math.round(m.now)}%${ml(m.now_ml)}` : `${lineTxt(m.toward, m.toward === H ? -m.open : m.open)} to ${lineTxt(m.toward, m.toward === H ? -m.now : m.now)}`;
     const side = mk === "total" ? `the ${m.toward}` : m.toward, pub = mk === "total" ? `the ${m.public}` : m.public;
     // short (2 Oct 2026, Matt: "say reverse line movement and what it favors"); the detail in the tooltip
     const fav = mk === "total" ? m.toward.charAt(0).toUpperCase() + m.toward.slice(1) : m.toward;
-    return `<div class="mv"><span class="chip" title="Reverse line move: the consensus line moved ${t} toward ${side} against ${m.bets}% of bets on ${pub}, usually sharper money. Shown only: not in the model">Reverse line move · ${fav}</span></div>`;
+    return `<div class="mv"><span class="chip" title="Reverse line move: the consensus ${mk === "ml" ? "moneyline" : "line"} moved ${t} toward ${side} against ${m.bets}% of bets on ${pub}, usually sharper money. Shown only: not in the model">Reverse line move · ${fav}</span></div>`;
   }
   function spark(hist, key, modelVal, H, edge) {
     // the DraftKings line over time (30 Sep 2026, Matt: the betting splits are DraftKings', so the line is too; every book's
@@ -930,11 +932,14 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     // line labels in the same weight, and a spread reads from the model's side, as the flag at the top of the card does
     const dk = (hist || []).filter(r => /draft\s*kings/i.test(r.source || "")), rows = dk.length ? dk : (hist || []);
     const byTs = {}; rows.forEach(r => { if (r[key] == null) return; (byTs[r.ts] = byTs[r.ts] || []).push(r[key]); });
-    const ts = Object.keys(byTs).sort(); const vals = ts.map(t => consensusLine(byTs[t]));
-    const S = key === "home_spread" ? ((edge ?? 0) > 0 ? H.home : H.away) : null;
-    const lab = v => key === "home_spread" ? lineTxt(S, S === H.home ? -v : v) : (Number.isInteger(v) ? String(v) : v.toFixed(1));
+    // home_win (2 Oct 2026, Matt: "track moneyline movement"): the home side's no-vig win chance in percent, from Python
+    // (export_web._add_consensus), read from the model's side as the spread is
+    const win = key === "home_win";
+    const ts = Object.keys(byTs).sort(); const vals = ts.map(t => win ? byTs[t][byTs[t].length - 1] : consensusLine(byTs[t]));
+    const S = key === "home_spread" || win ? ((edge ?? 0) > 0 ? H.home : H.away) : null;
+    const lab = v => win ? `${S} ${Math.round(S === H.home ? v : 100 - v)}%` : key === "home_spread" ? lineTxt(S, S === H.home ? -v : v) : (Number.isInteger(v) ? String(v) : v.toFixed(1));
     if (vals.length < 2) return `<div class="mv"><span class="chip">Open ${vals.length ? lab(vals[0]) : "–"}</span><span class="chip mute">${vals.length ? "1 snapshot" : "No snapshots yet"}</span></div>`;
-    const all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1) { const c = (hi + lo) / 2; lo = c - 0.5; hi = c + 0.5; }
+    const span = win ? 4 : 1, all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < span) { const c = (hi + lo) / 2; lo = c - span / 2; hi = c + span / 2; }
     const W = 600, Hh = 112, mt = 26, mb = 26, ml = 8, mr = 8; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => mt + (hi - v) / (hi - lo) * (Hh - mt - mb);
     const yS = y(vals[0]), yE = y(vals[vals.length - 1]), yM = modelVal != null ? y(modelVal) : null;
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="Line movement">`;
@@ -1580,7 +1585,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
             ${g.p_home != null ? bar(H, g.p_home, A, 1 - g.p_home, "h", "Model", "The model's own win chance: its bell curve on its number, reshaped so 3 and 7 get their true share") : ""}
             ${g.p_home_cal != null ? bar(H, g.p_home_cal, A, 1 - g.p_home_cal, "c", "History", winTitle(g)) : ""}
             ${vw == null ? `<small class="note" style="font-size:11px">No moneyline yet</small>` : bar(H, vw, A, 1 - vw, "v", "Vegas")}
-            ${splitBlock(g, "ml", A, H, A, H)}
+            ${(g.consensus_history || []).some(r => r.home_win != null) ? spark(g.consensus_history, "home_win", winP(g) != null ? 100 * winP(g) : null, {home: H, away: A}, winP(g) != null ? winP(g) - (vw ?? 0.5) : 0) : ""}
+            ${splitBlock(g, "ml", A, H, A, H)}${moveChip(g, "ml", H)}
           </section>
         </div>
         ${(window.TRACK || []).filter(r => r.who === "matt" && r.game_id === g.game_id).map(r => `<div class="mv"><span class="chip alt">Your bet: ${esc(r.bet)}${r.odds ? " at " + r.odds : ""}</span>${r.note ? `<span class="chip mute">${esc(r.note)}</span>` : ""}</div>`).join("")}

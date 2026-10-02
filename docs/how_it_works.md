@@ -3102,6 +3102,17 @@ when a number changes. Neither feeds the model, the picks' line or the page. Tri
 and Circa splits (subscriber-locked), Action Network's own splits (paid), SportsBettingDime (not in the page),
 Covers (404).
 
+**Moneyline movement on the cards** (2 Oct 2026, Matt: "why don't we also track moneyline movement like we do for the
+total and the spread?"). The Win block now has the same chart as the Spread and Total blocks: the consensus moneyline
+from Action Network's opener to now, plotted as one number, the home side's win chance with the vig removed (each
+side's implied chance from its price, divided by the two added), labelled from the model's side, with the model's win
+chance (the calibrated one the Win edge uses) as the dashed line. Every point is computed in Python
+(`export_web._add_consensus`, `home_win` on each consensus point). A "Reverse line move" chip shows when that chance
+moved `export_web.ML_MOVE_PTS` (3) percentage points or more from the open toward the side with fewer consensus
+moneyline bets; a 10-cent price change moves it about 1.5 to 2 points, so 3 is a real move, not a price tweak. The
+tie check proves the chart's open and newest points equal the consensus log's opening and newest moneylines. Display
+only: nothing reaches the model or the bet rules.
+
 **The Totals backtest shows both sides** (30 Sep 2026, Matt: "I don't want to just see the unders"). The headline says
 the rule (our bets: unders at a 55%+ chance) with the overs at the same bar beside it, never bet (368-365-5, -33.5
 units); the units chart draws both; a table splits every game's lean by how sure the model was, overs and unders side
