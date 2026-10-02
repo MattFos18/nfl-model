@@ -487,9 +487,10 @@ ML_MOVE_PTS = 3.0
 
 
 def _novig_home(hml, aml):
-    """The home side's win chance in percent (one decimal) from the two moneylines with the vig removed; None without both."""
+    """The home side's win chance in percent (one decimal) from the two moneylines with the vig removed; None without both
+    or for an impossible price (between -100 and +100)."""
     def imp(m):
-        return None if m is None else (-m / (-m + 100) if m < 0 else 100 / (m + 100))
+        return None if m is None or -100 < m < 100 else (-m / (-m + 100) if m < 0 else 100 / (m + 100))
     a, b = imp(hml), imp(aml)
     return None if a is None or b is None or a + b <= 0 else round(100 * a / (a + b), 1)
 
@@ -552,7 +553,9 @@ def _add_consensus(wk: list) -> None:
                 toward = "over" if mv > 0 else "under"
                 if pub and abs(mv) >= 0.5 and toward != pub:
                     moves.append({"market": "total", "toward": toward, "public": pub, "bets": sp["total"][pub]["bets"], "open": o["total"], "now": n["total"]})
-            if o.get("home_win") is not None and n.get("home_win") is not None and "ml" in sp and H in sp["ml"] and A in sp["ml"]:
+            # the moneyline from the oldest to the newest point that has one, as the Win block's chart reads it
+            wp = [p for p in hist if p.get("home_win") is not None]; o, n = (wp[0], wp[-1]) if wp else (o, n)
+            if wp and "ml" in sp and H in sp["ml"] and A in sp["ml"]:
                 mv = n["home_win"] - o["home_win"]; pub = H if sp["ml"][H]["bets"] > 50 else (A if sp["ml"][A]["bets"] > 50 else None)
                 toward = H if mv > 0 else A
                 if pub and abs(mv) >= ML_MOVE_PTS and toward != pub:

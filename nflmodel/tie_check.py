@@ -936,6 +936,45 @@ def check_page() -> list[tuple[str, str, str, bool]]:
     return rows
 
 
+def _nv(h, a):
+    """The home side's no-vig win chance in percent from two moneylines (tie check's own copy); None for a missing or
+    impossible price."""
+    if pd.isna(h) or pd.isna(a) or -100 < h < 100 or -100 < a < 100:
+        return None
+    h, a = float(h), float(a)
+    p = lambda m: -m / (-m + 100) if m < 0 else 100 / (m + 100)
+    return round(100 * p(h) / (p(h) + p(a)), 1)
+
+
+def ml_chart_ends(G: list, books: pd.DataFrame) -> tuple[dict, dict]:
+    """The Win block's moneyline chart ends, read as the page reads them (the last point per time with a win chance, at
+    the oldest and newest time), against data/lines/books_log.csv's opening moneyline (the Open row; the first consensus
+    one when the Open has none) and newest consensus one: [home ML, away ML, home no-vig %] at each end per game. Every card
+    with a chart or with log rows is listed, so a chart missing, or drawn without log rows, fails the tie."""
+    bl = books[books.game_id.notna() & books.book.isin(["Open", "Consensus"])]
+    have, want = {}, {}
+    for g in G:
+        byts = {}
+        for r in g.get("consensus_history") or []:
+            if r.get("home_win") is not None:
+                byts[r["ts"]] = r
+        x = bl[bl.game_id == g["game_id"]].sort_values("ts"); op = x[x.book == "Open"]
+        ok = x[x.book == "Consensus"]
+        ok = ok[[_nv(h, a) is not None for h, a in zip(ok.home_ml, ok.away_ml)]]
+        if not byts and not len(ok):
+            continue
+        gid = g["game_id"]
+        have[gid] = None
+        if byts:
+            a, b = byts[min(byts)], byts[max(byts)]
+            have[gid] = [int(a["home_ml"]), int(a["away_ml"]), a["home_win"], int(b["home_ml"]), int(b["away_ml"]), b["home_win"]]
+        want[gid] = None
+        if len(ok):
+            o = op.iloc[-1] if len(op) and _nv(op.iloc[-1].home_ml, op.iloc[-1].away_ml) is not None else ok.iloc[0]; n = ok.iloc[-1]
+            want[gid] = [int(o.home_ml), int(o.away_ml), _nv(o.home_ml, o.away_ml), int(n.home_ml), int(n.away_ml), _nv(n.home_ml, n.away_ml)]
+    return have, want
+
+
 def check_live(rows, wk) -> None:
     """The cards display what Python priced (26 Sep 2026: the page re-priced the line itself, so no check could see
     it). week.js's line is the lines log's consensus now; the edges, chances, flags and stake follow from it; the
@@ -969,34 +1008,10 @@ def check_live(rows, wk) -> None:
             want_sw = sorted(f"{x['game_id']} {x['team']}: {x.get('from_name') or x['from']} -> {x.get('to_name') or x.get('to')}" for x in sw.get("swaps", []))
             have_sw = sorted(f"{g_['game_id']} {tm}: {sd.get('qb_swap_from')} -> {sd.get('qb_name')}" for g_ in G for tm, sd in (g_.get("sides") or {}).items() if sd.get("qb_swap_from"))
             tie("this week's QB swaps (starter ruled out -> QB priced) = the cards' QB names", have_sw, want_sw)
-    # 2 Oct 2026 (Matt: "track moneyline movement"): the Win block's chart endpoints, read as the page reads them (the last
-    # point per time, oldest and newest time), are the consensus log's opening and newest moneylines and their no-vig chance
+    # 2 Oct 2026 (Matt: "track moneyline movement"): the Win block's chart ends = the consensus log's moneylines (ml_chart_ends)
     bf = ROOT / "data" / "lines" / "books_log.csv"
     if bf.exists():
-        bl = pd.read_csv(bf); bl = bl[bl.game_id.notna() & bl.book.isin(["Open", "Consensus"])]
-        def nv(h, a):
-            if pd.isna(h) or pd.isna(a): return None
-            p = lambda m: -m / (-m + 100) if m < 0 else 100 / (m + 100)
-            h, a = float(h), float(a)
-            return round(100 * p(h) / (p(h) + p(a)), 1)
-        have_ml, want_ml = {}, {}
-        for g_ in G:
-            hist = g_.get("consensus_history") or []
-            if not hist:
-                continue
-            byts = {}
-            for r in hist:
-                if r.get("home_win") is not None: byts[r["ts"]] = r
-            x = bl[bl.game_id == g_["game_id"]].sort_values("ts"); op, co = x[x.book == "Open"], x[x.book == "Consensus"]
-            if not byts or not len(co):
-                continue
-            a, b = byts[min(byts)], byts[max(byts)]
-            have_ml[g_["game_id"]] = [int(a["home_ml"]), int(a["away_ml"]), a["home_win"], int(b["home_ml"]), int(b["away_ml"]), b["home_win"]]
-            ok = co[co.home_ml.notna() & co.away_ml.notna()]
-            if not len(ok):
-                continue
-            o = op.iloc[-1] if len(op) and pd.notna(op.iloc[-1].home_ml) and pd.notna(op.iloc[-1].away_ml) else ok.iloc[0]; n = ok.iloc[-1]
-            want_ml[g_["game_id"]] = [int(o.home_ml), int(o.away_ml), nv(o.home_ml, o.away_ml), int(n.home_ml), int(n.away_ml), nv(n.home_ml, n.away_ml)]
+        have_ml, want_ml = ml_chart_ends(G, pd.read_csv(bf))
         tie("card ML chart open and newest (home ML, away ML, home no-vig %) = the consensus log's opening and newest moneylines", have_ml, want_ml)
     want = {}
     for g_ in G:

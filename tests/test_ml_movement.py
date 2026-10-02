@@ -76,3 +76,43 @@ def test_no_ml_move_under_the_threshold(tmp_path, monkeypatch):
     o, n = g["consensus_history"][0]["home_win"], g["consensus_history"][-1]["home_win"]
     assert abs(n - o) < E.ML_MOVE_PTS
     assert not [x for x in g["moves"] if x["market"] == "ml"]
+
+
+def test_impossible_prices_give_no_chance():
+    assert E._novig_home(0, -150) is None and E._novig_home(-150, 50) is None
+
+
+def test_open_without_ml_starts_at_the_first_consensus_moneyline(tmp_path, monkeypatch):
+    b = _books((124, -149), (150, -180)); b[0][5] = b[0][6] = None
+    g = _card(tmp_path, monkeypatch, b, ml_bets=(21, 79))
+    h = g["consensus_history"]
+    assert h[0]["source"] == "Open" and h[0]["home_win"] is None
+    m = [x for x in g["moves"] if x["market"] == "ml"][0]
+    assert (m["open_ml"], m["now_ml"]) == (-149, -180)   # the first consensus moneyline, not the empty open
+
+
+def test_newest_without_ml_reads_the_last_point_that_has_one(tmp_path, monkeypatch):
+    b = _books((124, -149), (150, -180)) + [["2026-10-01T12-00-00Z", GID, "Consensus", 2.5, 38.5, None, None, "2026-10-01T12:00:00+00:00"]]
+    g = _card(tmp_path, monkeypatch, b, ml_bets=(21, 79))
+    m = [x for x in g["moves"] if x["market"] == "ml"][0]
+    assert m["now_ml"] == -180
+
+
+def test_no_ml_move_at_even_bets(tmp_path, monkeypatch):
+    g = _card(tmp_path, monkeypatch, _books((124, -149), (150, -180)), ml_bets=(50, 50))
+    assert not [x for x in g["moves"] if x["market"] == "ml"]
+
+
+def test_tie_check_ml_chart_ends(tmp_path, monkeypatch):
+    from nflmodel import tie_check as T
+    b = _books((124, -149), (150, -180))
+    g = _card(tmp_path, monkeypatch, b)
+    books = pd.DataFrame(b, columns=BOOK_COLS)
+    have, want = T.ml_chart_ends([g], books)
+    assert have == want == {GID: [124, -149, E._novig_home(124, -149), 150, -180, E._novig_home(150, -180)]}
+    # a chart that goes missing, or ends on a different price, fails the tie
+    have, want = T.ml_chart_ends([dict(g, consensus_history=[])], books)
+    assert have != want
+    h = [dict(p) for p in g["consensus_history"]]; h[-1].update(home_ml=200, home_win=E._novig_home(200, h[-1]["away_ml"]))
+    have, want = T.ml_chart_ends([dict(g, consensus_history=h)], books)
+    assert have != want
