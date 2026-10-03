@@ -3329,3 +3329,22 @@ Rerun 2015-2025, before -> after: spread flag 69-55 -> 69-56 / 77-48 / 37-20; to
 176-142 / 82-59 -> 78-54; wind under 24-20 -> 118-94 / 143-88 / 77-52; total miss 10.751 -> 10.747 / 10.516 -> 10.530 / 10.103
 -> 10.103. The later windows move because the forecasts also train the rain input and the wind points, so this changes the
 live total; Matt approved it (2 Oct 2026).
+
+## 53. Old ideas retested on the honest backtest (3 Oct 2026)
+
+Matt asked to test old ideas again "from everything we have learned" (`experiments/old_ideas_retest.py`, study
+`old_ideas_retest`, reports/old_ideas_retest.md, pre-registered and committed before any rerun). Every model-input and
+bet-rule idea not adopted in the decision log and round 3 was listed with its original margin and flagged when it had
+failed narrowly or had been tested on the flawed data fixed on 1-2 Oct (wrong starting QBs, linemen by name, the referee
+leak, recorded weather, games abroad, wind typos). The 13 best by both were rerun exactly as first specified on main's
+backtest, with fresh trees for base and variant alike: dropping QB out, cold or dome from an equation (four variants),
+QB form in the points equation, temperature bands on the day-before forecast and a wet-or-cold band on the total,
+opponent defenders' value out, usual snaps out, wind learned from the forecast, the home edge times the visitor's travel
+or time-zone change, and no home edge at neutral sites. None passes the rule, so nothing changes. The near misses are the
+same as before the fixes: dropping QB out (team miss and spread flag better on every window; the calibrated win chance
+0.0005 worse in log loss on 2019-22), dropping cold from the total (total miss better on every window: 10.748 -> 10.680 /
+10.534 -> 10.531 / 10.104 -> 10.099; one totals-flag game worse on 2019-22) and dropping dome from the points equation
+(log loss 0.0001 worse on 2023-25); all three are for the re-check after 2026. Usual snaps out lowers the team points miss
+the most (7.399 -> 7.379 / 7.374 -> 7.366 / 7.236 -> 7.219, beating all 50 within-season shuffles on every window in an informational placebo run after the results) but costs the spread
+flag on 2015-18 (68-58 -> 54-53) and on 2023-25 (37-19 -> 38-21). No bet rule was re-picked: every candidate is already
+a shadow.
