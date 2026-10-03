@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.53 / 55.98 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-03 14:48 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.53 / 55.98 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-03 15:04 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2161,7 +2161,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0035269  | Matt Gay                 | field_goals      |   1.66  |         22.07 | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_yards        |  43.6   |          7.2  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_catches      |   3.8   |          7.2  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_td           |   0.321 |          7.2  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_td           |   0.32  |          7.2  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_targets      |   7.2   |          7.2  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038544  | Quentin Johnston         | rec_longest      |  16.8   |          7.2  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0039915  | Ladd McConkey            | rec_yards        |  33.9   |          6.4  | live   |
@@ -2176,7 +2176,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040727  | Tre Harris               | rec_longest      |  14.9   |          5.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_yards        |  20.2   |          3.8  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_catches      |   2.4   |          3.8  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_td           |   0.169 |          3.8  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_td           |   0.168 |          3.8  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_targets      |   3.8   |          3.8  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0040189  | Oronde Gadsden II        | rec_longest      |  14.5   |          3.8  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_yards        |  11.7   |          2.9  | live   |
@@ -2219,12 +2219,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | rush_attempts    |   4.5   |          4.5  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | rush_rec_yards   |  20.1   |          4.5  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | rush_longest     |   9.8   |          4.5  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 200     |         38.4  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_td          |   1.183 |         38.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 199.9   |         38.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_td          |   1.179 |         38.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_int         |   0.791 |         38.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_attempts    |  34.6   |         38.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_completions |  22.4   |         38.4  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 220.1   |         38.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 220     |         38.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036355  | Justin Herbert           | pass_longest     |  33.3   |         38.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038553  | Daiyan Henley            | def_tackles      |   6.6   |         62.1  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0038553  | Daiyan Henley            | def_sacks        |   0.13  |         62.1  | live   |
@@ -2250,34 +2250,34 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036338  | Troy Dye                 | def_tackles      |   3.1   |         62.1  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036338  | Troy Dye                 | def_sacks        |   0.1   |         62.1  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0036338  | Troy Dye                 | def_solo_tackles |   1.5   |         62.1  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0037224  | Cameron Dicker           | kick_points      |   6.3   |         18.01 | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0037224  | Cameron Dicker           | field_goals      |   1.58  |         18.01 | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_yards        |  88.8   |         10.7  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0037224  | Cameron Dicker           | kick_points      |   6.3   |         17.96 | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | LAC    | 00-0037224  | Cameron Dicker           | field_goals      |   1.58  |         17.96 | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_yards        |  88.6   |         10.7  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_catches      |   7     |         10.7  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_td           |   0.744 |         10.7  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_td           |   0.743 |         10.7  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_targets      |  10.7   |         10.7  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_longest      |  26.9   |         10.7  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_yards        |  25     |          4.3  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_yards        |  24.9   |          4.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_catches      |   2.7   |          4.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_td           |   0.226 |          4.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_targets      |   4.3   |          4.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033908  | Cooper Kupp              | rec_longest      |  15.3   |          4.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_yards        |  22.3   |          4    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_catches      |   2.7   |          4    | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_td           |   0.24  |          4    | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_td           |   0.239 |          4    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_targets      |   4     |          4    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039793  | AJ Barner                | rec_longest      |  14.1   |          4    | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_yards        |  18.7   |          3.6  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_yards        |  18.6   |          3.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_catches      |   2     |          3.6  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_td           |   0.141 |          3.6  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_td           |   0.14  |          3.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037545  | Rashid Shaheed           | rec_longest      |  13     |          3.6  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_yards        |  11.9   |          2.3  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_yards        |  11.8   |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_catches      |   1.5   |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_td           |   0.146 |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_targets      |   2.3   |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040648  | Tory Horton              | rec_longest      |  12.5   |          2.3  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rec_yards        |  10.5   |          2.3  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rec_yards        |  10.4   |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rec_catches      |   1.6   |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rec_td           |   0.058 |          2.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rec_targets      |   2.3   |          2.3  | live   |
@@ -2287,20 +2287,20 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040739  | Elijah Arroyo            | rec_td           |   0.046 |          1.1  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040739  | Elijah Arroyo            | rec_targets      |   1.1   |          1.1  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0040739  | Elijah Arroyo            | rec_longest      |   9.9   |          1.1  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_yards        |   4.1   |          1    | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_yards        |   4.2   |          1    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_catches      |   0.6   |          1    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_td           |   0.052 |          1    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_targets      |   1     |          1    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0033576  | Eric Saubert             | rec_longest      |   7.8   |          1    | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_yards       |  43.5   |         12.9  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_td          |   0.358 |         12.9  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_td          |   0.357 |         12.9  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_attempts    |  12.9   |         12.9  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_rec_yards   |  46.7   |         12.9  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0038797  | Emanuel Wilson           | rush_longest     |   9.2   |         12.9  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_yards       |  19.9   |          5.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_td          |   0.169 |          5.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_attempts    |   5.4   |          5.4  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_rec_yards   |  30.4   |          5.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_rec_yards   |  30.3   |          5.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039299  | George Holani            | rush_longest     |   7.5   |          5.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037745  | Velus Jones Jr.          | rush_yards       |  12.5   |          3.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0037745  | Velus Jones Jr.          | rush_td          |   0.103 |          3.3  | live   |
@@ -2312,12 +2312,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0034869  | Sam Darnold              | rush_attempts    |   1.6   |          1.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0034869  | Sam Darnold              | rush_rec_yards   |   4.6   |          1.6  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0034869  | Sam Darnold              | rush_longest     |   7     |          1.6  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_yards       | 228.3   |         31.4  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_td          |   1.684 |         31.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_yards       | 228.2   |         31.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_td          |   1.68  |         31.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_int         |   0.647 |         31.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_attempts    |  30.2   |         31.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_completions |  20.2   |         31.4  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_rush_yards  | 231.4   |         31.4  | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_rush_yards  | 231.3   |         31.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0035704  | Drew Lock                | pass_longest     |  32.7   |         31.4  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0036994  | Ernest Jones             | def_tackles      |   8.8   |         66.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0036994  | Ernest Jones             | def_sacks        |   0.03  |         66.3  | live   |
@@ -2343,8 +2343,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039309  | Byron Murphy II          | def_tackles      |   3.6   |         66.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039309  | Byron Murphy II          | def_sacks        |   0.36  |         66.3  | live   |
 |     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0039309  | Byron Murphy II          | def_solo_tackles |   1.4   |         66.3  | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0031492  | Jason Myers              | kick_points      |   7.9   |         24.72 | live   |
-|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0031492  | Jason Myers              | field_goals      |   1.77  |         24.72 | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0031492  | Jason Myers              | kick_points      |   7.9   |         24.67 | live   |
+|     2026 |      4 | 2026_04_LAC_SEA | SEA    | 00-0031492  | Jason Myers              | field_goals      |   1.77  |         24.67 | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | DEN    | 00-0036613  | Jaylen Waddle            | rec_yards        |  58.3   |          8.9  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | DEN    | 00-0036613  | Jaylen Waddle            | rec_catches      |   4.9   |          8.9  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | DEN    | 00-0036613  | Jaylen Waddle            | rec_td           |   0.38  |          8.9  | live   |
