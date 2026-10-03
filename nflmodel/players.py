@@ -340,7 +340,12 @@ def load_injuries(seasons) -> pd.DataFrame:
                     hit = set(zip(by_nm.team, by_nm.k)) | set(zip(es.team[es.espn_id.isin(by_id.espn_id)], es.k[es.espn_id.isin(by_id.espn_id)]))
                     um = es[es.status.map(ESPN_STATUS).isin(["Out", "Doubtful"]).values & [(t, k) not in hit for t, k in zip(es.team, es.k)]]
                     ESPN_MERGE["unmatched"] = sorted(f"{t} {n}" for t, n in zip(um.team, um.name))
-                    m = m[[(t, g) not in official for t, g in zip(m.team, m.gsis_id)]]
+                    # 3 Oct 2026: a league status wins, except a downgrade: ESPN Out or Doubtful over a league Questionable (or any
+                    # status short of Out/Doubtful) is the newer news (IND Keenan Allen, WAS Terry McLaurin: Questionable on the Friday
+                    # report, Out / Doubtful on Saturday). ESPN can only make a player more out, never less
+                    off_st = {(t, g): st for t, g, st in zip(inj.team[wk_], inj.gsis_id[wk_], st_[wk_])}
+                    worse = lambda t, g, st: ESPN_STATUS.get(st) in ("Out", "Doubtful") and off_st.get((t, g)) not in ("Out", "Doubtful")
+                    m = m[[(t, g) not in official or worse(t, g, st) for t, g, st in zip(m.team, m.gsis_id, m.status)]]
                     # a player already on this week's league file (practice notes, no status): his row takes ESPN's status
                     row_ix = {(t, g): i for i, t, g in zip(inj.index[wk_], inj.team[wk_], inj.gsis_id[wk_])}
                     upd = [(row_ix[(t, g)], ESPN_STATUS[st], dt) for t, g, st, dt in zip(m.team, m.gsis_id, m.status, m.detail) if (t, g) in row_ix]
