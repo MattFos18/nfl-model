@@ -3099,6 +3099,14 @@ two parts of the rule. The explosive-play rate lowers the total miss on all thre
 2023-25, likely because the league slowed (28.9-29.8 seconds per snap a season in 2015-22, 29.9-30.5 in 2023-25, slowest in
 2024-25). Nothing adopted.
 
+**Relative pace** (3 Oct 2026; `experiments/relative_pace.py`, reports/relative_pace.md, study relative_pace,
+pre-registered; chosen after seeing the study above, so counted on top of its nine). If the league-wide slowdown broke the
+pace input, pace measured against the league's own average as of that week should not drift. Three tries in the totals
+equation: each team's seconds per snap minus this season's league average so far (shrunk toward last season's relative
+value early on), the same plus neutral-situation pace, and a decayed version over the ratings' window. The relative inputs
+do stay near 0 every season, but the first and the decayed one still help only 2015-22 (the one with neutral pace is worse on 2015-18), and all three fail the held-out 2023-25 (total miss 10.1040 against
+10.1503 / 10.1542 / 10.1526, and fewer net totals-flag wins), so the slowdown was not the reason. Nothing adopted.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
