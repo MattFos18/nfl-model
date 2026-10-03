@@ -247,6 +247,7 @@ def write_swaps(f: pd.DataFrame) -> dict:
     src = f.attrs.get("qb_swap_source", {})
     st["swaps"] = [{"game_id": r.game_id, "team": r.team, "from": r.qb_swap_from, "from_name": nm.get(r.qb_swap_from), "to": r.qb_id if isinstance(r.qb_id, str) else None,
                     "to_name": nm.get(r.qb_id) if isinstance(r.qb_id, str) else None, "source": src.get(r.team, "")} for r in sw.itertuples()]
+    st["conflicts"] = [c | {"named_name": nm.get(c["named"]), "priced_name": nm.get(c["priced"])} for c in f.attrs.get("qb_conflicts", [])]
     SWAPS.parent.mkdir(parents=True, exist_ok=True); SWAPS.write_text(json.dumps(st, indent=1))
     return st
 
@@ -257,6 +258,7 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
     qb = pd.read_parquet(OUT / "qb_games.parquet") if qb is None else qb
     played = tg[tg.pf.notna()].copy()
     played["plays"] = played.plays.fillna(played.plays.mean())
+    from .features import RAW
     qbr = QBRatings(qb, p["qb_k"], p["qb_decay"], p.get("qb_prior", -0.12), p.get("qb_season_fade", 1.0))
     # each team's most recent named starter, in schedule order (played games and the coming week carry ids)
     named = games[games.home_qb_id.notna() | games.away_qb_id.notna()].sort_values(["season", "week"])
@@ -272,6 +274,32 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
             print(f"qb swap {cs} week {cw} {team}: {qid_} ruled out, priced {chosen[team][0]} ({chosen[team][1]})", flush=True)
         return chosen[team][0], qid_
     last_qb = {}
+    played_qb = {}   # team -> the regular starter this season (a fill-in for a ruled-out starter does not replace him)
+    conflicts = {}   # (game_id, team) -> named QB overridden by the regular starter
+    ruled = set()    # (week, team, gsis_id) listed Out or Doubtful on the league's report, the season being priced
+    if cs is not None and (RAW / "injuries" / f"injuries_{cs}.parquet").exists():
+        try:
+            ij = pd.read_parquet(RAW / "injuries" / f"injuries_{cs}.parquet", columns=["week", "team", "gsis_id", "report_status"])
+            ij = ij[ij.report_status.isin(["Out", "Doubtful"])]
+            ruled = set(zip(ij.week.astype(int), ij.team, ij.gsis_id))
+        except Exception as e:  # noqa  (no report: every start counts as a regular start, and say so)
+            print(f"WARNING qb starter: could not read the {cs} injury report ({type(e).__name__}): fill-ins not recognized", flush=True)
+    def note_start(team, qid_, s_, wk_):
+        reg = played_qb.get(team)
+        if s_ == cs and isinstance(reg, str) and reg != qid_ and (int(wk_), team, reg) in ruled:
+            return   # a fill-in while the regular was ruled out
+        played_qb[team] = qid_
+    def check_named(game_id, team, qid_):
+        """3 Oct 2026 (Matt: the SEA card priced Drew Lock, who filled in for Sam Darnold in week 2; Darnold started week 3,
+        is healthy and starts week 4): the schedule's named starter for an unplayed game can be stale. When it is not the
+        team's regular starter and the regular is not ruled out now, price the regular and say so."""
+        reg = played_qb.get(team)
+        if isinstance(reg, str) and isinstance(qid_, str) and qid_ != reg and reg not in qout.get(team, set()):
+            if (game_id, team) not in conflicts:
+                print(f"WARNING qb starter: {game_id} {team} schedule names {qid_}, regular starter {reg} is not ruled out: priced {reg}", flush=True)
+            conflicts[(game_id, team)] = qid_
+            return reg
+        return qid_
     feats = []
     for s in seasons:
         weeks = sorted(games[games.season == s].week.unique())
@@ -284,6 +312,14 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
                     last_qb[g.home_team] = g.home_qb_id
                 if isinstance(g.away_qb_id, str):
                     last_qb[g.away_team] = g.away_qb_id
+            if s != (played_qb.get("_season") or s):
+                played_qb.clear()
+            played_qb["_season"] = s
+            for g in gw[gw.home_score.notna()].itertuples():
+                if isinstance(g.home_qb_id, str):
+                    note_start(g.home_team, g.home_qb_id, s, wk)
+                if isinstance(g.away_qb_id, str):
+                    note_start(g.away_team, g.away_qb_id, s, wk)
             R = team_ratings(played, s, wk, p)
             hfa = R.attrs.get("hfa_pf", 0.0)
             for g in gw.itertuples():
@@ -308,15 +344,21 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
                     qid = getattr(g, f"{side}_qb_id")
                     if not isinstance(qid, str) and pd.isna(getattr(g, f"{side}_score")):
                         qid = last_qb.get(t)
+                    named_q = qid
+                    if pd.isna(getattr(g, f"{side}_score")) and cs is not None and (s, wk) >= (cs, cw):
+                        qid = check_named(g.game_id, t, qid)
                     swapped = None
                     if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
                         qid, swapped = swap(t, qid)
                     row["qb_id"] = qid
                     row["qb_swap_from"] = swapped   # the ruled-out starter's id when the QB priced is his replacement (2 Oct 2026)
+                    row["qb_named_over"] = named_q if named_q != qid and swapped is None else None   # the schedule's stale starter, overridden (3 Oct 2026)
                     row["qb_rating"] = qbr.rating(qid, s, wk) if isinstance(qid, str) else qbr.prior
                     oqid = getattr(g, f"{opp}_qb_id")
                     if not isinstance(oqid, str) and pd.isna(getattr(g, f"{side}_score")):
                         oqid = last_qb.get(o)
+                    if pd.isna(getattr(g, f"{side}_score")) and cs is not None and (s, wk) >= (cs, cw):
+                        oqid = check_named(g.game_id, o, oqid)
                     if pd.isna(getattr(g, f"{side}_score")) and (s, wk) == (cs, cw):
                         oqid, _ = swap(o, oqid)
                     row["opp_qb_rating"] = qbr.rating(oqid, s, wk) if isinstance(oqid, str) else qbr.prior
@@ -324,9 +366,11 @@ def build_features(p: dict = DEFAULT, seasons=range(2013, 2027), tg=None, games=
         if verbose:
             print("features", s, len(feats), flush=True)
     out = pd.DataFrame(feats)
-    if "qb_swap_from" in out.columns:
-        out["qb_swap_from"] = out.qb_swap_from.astype(object).where(out.qb_swap_from.notna(), None)
+    for c in ("qb_swap_from", "qb_named_over"):
+        if c in out.columns:
+            out[c] = out[c].astype(object).where(out[c].notna(), None)
     out.attrs["qb_out_status"] = qstat; out.attrs["qb_swap_source"] = {t: v[1] for t, v in chosen.items()}
+    out.attrs["qb_conflicts"] = [{"game_id": k[0], "team": k[1], "named": v, "priced": played_qb.get(k[1])} for k, v in conflicts.items()]
     return out
 
 

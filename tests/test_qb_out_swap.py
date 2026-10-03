@@ -17,7 +17,9 @@ def test_unplayed_starter_out_is_swapped_and_played_games_are_not(monkeypatch):
     if not len(up):
         pytest.skip("no unplayed game with a named starter")
     g = up.iloc[0]; s, w, team, starter = int(g.season), int(g.week), g.home_team, g.home_qb_id
-    monkeypatch.setattr(R, "qbs_out_now", lambda games_, status=None: ((s, w), {team: {starter}}))
+    played_ = games[(games.season == s) & games.home_score.notna()]   # rule out every QB the team has started this season too,
+    out_ = {starter} | set(played_.loc[played_.home_team == team, "home_qb_id"].dropna()) | set(played_.loc[played_.away_team == team, "away_qb_id"].dropna())
+    monkeypatch.setattr(R, "qbs_out_now", lambda games_, status=None: ((s, w), {team: out_}))   # so the regular-starter check (3 Oct) stays out of it
     monkeypatch.setattr(R, "replacement_qb", lambda t, out, season, qb, week=None: ("BACKUP-ID", "test") if t == team else (None, "test"))
     f = R.build_features(R.DEFAULT, seasons=[s])
     row = f[(f.game_id == g.game_id) & (f.team == team)].iloc[0]
