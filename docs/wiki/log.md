@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 3 Oct 2026
+- Props follow the QB the game model priced: `props.main` took the schedule's named starter, so SEA's props still showed Drew Lock after the starter check; it now uses `features_asof.qb_id` wherever ratings overrode a stale named starter (`qb_named_over`).
 - QB starter check (`ratings.build_features`): the schedule named Drew Lock for SEA week 4 (a week-2 fill-in) though Sam Darnold started week 3 and is healthy. For unplayed games, a named QB who is not the team's regular starter is overridden by the regular when the regular is not ruled out; a start while the regular was Out/Doubtful counts as a fill-in. Overrides print a warning and go to `data/runs/qb_swaps.json` (`conflicts`); the card shows the QB priced. Only SEA's unplayed games changed; no bet changed.
 - Site-health alert fixed: #343 had deleted `health_alert._sync_issue` while `main()` still called it inside a try/except, so no failing check opened or closed the `site-health` issue from 30 Sep to 3 Oct; restored, with `tests/test_health_alert_sync.py` calling `main()`.
 - `tools/scrape.py` (#420): saves public pages as clean text for research; robots.txt respected, blocks never bypassed, output and log in gitignored `data/private/research/`.
