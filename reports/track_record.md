@@ -10,36 +10,36 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 68-58 | 78-49 | 37-19 |
-| shadow: 4.5+ edge | 3 | 0 | nothing settled |  | +0.00 | 42-35 | 53-38 | 24-14 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 51-39 | 71-40 | 29-16 |
-| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 53-42 | 68-37 | 30-16 |
-| shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 95-68 | 80-64 | 34-17 |
-| shadow: Under, 55%+ chance (the totals flag) | 5 | 3 | 2-1 (67%) | +0.82 | +0.20 | 132-111 | 175-140 | 76-55 |
-| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 2 | 0 | nothing settled |  | +0.00 | 126-99 | 155-132 | 69-47 |
-| shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 18-11 | 14-14 | 15-4 |
-| shadow: 4+ edge on road sides, 6+ on home sides | 2 | 0 | nothing settled |  | +0.00 | 40-24 | 46-29 | 20-9 |
-| shadow: 4+ edge, road sides only | 2 | 0 | nothing settled |  | +0.00 | 39-15 | 36-21 | 17-7 |
-| shadow: Under, 60%+ chance | 0 | 0 | | | | 61-47 | 91-65 | 32-22 |
-| shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 35-27 | 40-24 | 18-10 |
+| 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 67-54 | 80-52 | 38-17 |
+| shadow: 4.5+ edge | 3 | 0 | nothing settled |  | +0.00 | 46-36 | 55-39 | 23-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 52-37 | 72-43 | 30-14 |
+| shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 50-41 | 69-38 | 30-14 |
+| shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 94-78 | 91-67 | 36-18 |
+| shadow: Under, 55%+ chance (the totals flag) | 6 | 3 | 2-1 (67%) | +0.82 | +0.17 | 142-117 | 183-134 | 86-61 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 3 | 0 | nothing settled |  | +0.00 | 135-96 | 167-123 | 80-57 |
+| shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 0 | nothing settled |  | +0.50 | 19-10 | 16-14 | 15-3 |
+| shadow: 4+ edge on road sides, 6+ on home sides | 2 | 0 | nothing settled |  | +0.00 | 43-25 | 48-32 | 21-8 |
+| shadow: 4+ edge, road sides only | 2 | 0 | nothing settled |  | +0.00 | 40-14 | 37-22 | 17-6 |
+| shadow: Under, 60%+ chance | 0 | 0 | | | | 69-51 | 97-71 | 37-27 |
+| shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 1 | 1 | 0-1 (0%) | -1.00 | +0.00 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 4 | 1 | 1-0 (100%) | +0.33 | +0.00 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 4 | 1 | 1-0 (100%) | +0.33 | -1.25 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 2 | 0 | nothing settled |  | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
-| shadow: Under, model total 3+ points below the line | 0 | 0 | | | | 61-46 | 91-67 | 28-19 |
-| shadow: Under, 55%+ chance and forecast wind 10+ mph | 0 | 0 | | | | 49-42 | 79-53 | 42-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 4 | 0 | nothing settled |  | +0.00 | 142-116 | 108-83 | 96-63 |
+| shadow: Under, model total 3+ points below the line | 0 | 0 | | | | 63-46 | 96-71 | 27-18 |
+| shadow: Under, 55%+ chance and forecast wind 10+ mph | 0 | 0 | | | | 57-40 | 82-48 | 43-22 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 2 | 0 | nothing settled |  | +0.00 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 2 | 0 | nothing settled |  | +0.00 | 42-58 | 57-43 | 48-38 |
-| shadow: 4+ edge, model's side the road underdog | 1 | 0 | nothing settled |  | +0.00 | 31-12 | 34-16 | 14-6 |
-| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 2 | 0 | nothing settled |  | +0.00 | 20-11 | 23-15 | 19-6 |
-| shadow: 3.5+ edge on dogs, 4+ on every other side | 3 | 0 | nothing settled |  | +0.00 | 85-69 | 99-72 | 51-28 |
-| shadow: 4+ edge, weeks 1 to 4 only | 3 | 0 | nothing settled |  | +0.00 | 23-14 | 18-13 | 19-5 |
-| shadow: 4+ edge, weeks 1 to 15 only | 3 | 0 | nothing settled |  | +0.00 | 58-48 | 71-40 | 33-16 |
-| shadow: 6+ edge | 0 | 0 | | | | 8-11 | 15-12 | 6-2 |
-| shadow: Over, total 41 or lower and a 55%+ chance | 2 | 0 | nothing settled |  | +0.00 | 43-34 | 30-30 | 57-37 |
-| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 2 | 0 | nothing settled |  | +0.00 | 150-120 | 197-156 | 82-55 |
+| shadow: 4+ edge, model's side the road underdog | 1 | 0 | nothing settled |  | +0.00 | 33-12 | 35-17 | 14-5 |
+| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 2 | 0 | nothing settled |  | +0.00 | 20-12 | 23-16 | 19-5 |
+| shadow: 3.5+ edge on dogs, 4+ on every other side | 3 | 0 | nothing settled |  | +0.00 | 83-69 | 102-73 | 53-29 |
+| shadow: 4+ edge, weeks 1 to 4 only | 3 | 0 | nothing settled |  | +0.00 | 22-14 | 19-12 | 19-4 |
+| shadow: 4+ edge, weeks 1 to 15 only | 3 | 0 | nothing settled |  | +0.00 | 57-46 | 72-43 | 33-14 |
+| shadow: 6+ edge | 0 | 0 | | | | 9-13 | 16-13 | 8-3 |
+| shadow: Over, total 41 or lower and a 55%+ chance | 2 | 0 | nothing settled |  | +0.00 | 50-37 | 30-25 | 55-35 |
+| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 2 | 0 | nothing settled |  | +0.00 | 156-131 | 201-149 | 80-57 |
 
-Live against the backtest: nothing settled yet; the flag's backtest rate is 62.8% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
+Live against the backtest: nothing settled yet; the flag's backtest rate is 63.1% (2019 to 2025), so about 6 of every 10 flags should win over a season, with runs of losses expected along the way.
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 

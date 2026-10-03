@@ -2613,7 +2613,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 8.4,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2685,5 +2685,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 15:07 UTC"
+"written_at": "2026-10-03 15:33 UTC"
 }
