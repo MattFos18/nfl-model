@@ -965,6 +965,13 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
     pv = OUT / "pred_v3.parquet"; xp = pd.read_parquet(pv, columns=["game_id", "home_exp", "away_exp"]).set_index("game_id") if pv.exists() else pd.DataFrame(columns=["home_exp", "away_exp"])   # the game model's expected points, priced before the game
     out = {"season": season, "week": week, "built": run_at, "window_games": WINDOW, "min_split": MIN_SPLIT, "k": K, "w": W, "decay": DECAY, "gs": GS, "gs_total": GS_TOTAL, "med": MED, "med_tier": MED_TIER, "pace": PACE, "absorb": ABSORB, "absorb_thr": ABSORB_THR, "chance": {"stats": list(CHANCE), "min_line": CHANCE_MIN_LINE, "k": CHANCE_K, "rows": {k: int(len(v[0])) for k, v in load_reference(season).items()}}, "wind_c": WIND_C, "wind_from": WIND_FROM, "targetable": TARGETABLE, "prop_edge": PROP_EDGE, "recon_w": RECON_W, "team_fit": TEAM_FIT, "k_catch": K_CATCH, "med_catch": MED_CATCH, "k_td": K_TD, "td_margin": TD_MARGIN, "td_pos": TD_POS, "inj_td": list(INJ_TD), "share_a_w": SHARE_A_W, "backtest_td": BACKTEST_TD, "backtest_counts": BACKTEST_COUNTS, "backtest_def": BACKTEST_DEF, "longest": LONGEST, "backtest_longest": BACKTEST_LONGEST, "fade": FADE, "kick": KICK, "backtest_kick": BACKTEST_KICK, "market_labels": MARKET_LABEL, "def_decay": DEF_DECAY, "def_med": DEF_MED, "k_sack": K_SACK, "sit": {"b": SIT, "clip": SIT_CLIP, "status": sit_note}, "league": L, "games": {},
            "backtest": dict(BACKTEST, note="mean absolute error in yards per player-game with this rule, 2019 to 2022 and 2023 to 2025, run walk-forward with league averages as of each game (reports/props_by_season.csv)")}
+    fa = OUT / "features_asof.parquet"   # 3 Oct 2026 (Matt: the SEA props named Drew Lock): when ratings overrode a stale schedule starter, project the QB the game model priced
+    over = {}
+    if fa.exists():
+        fx = pd.read_parquet(fa)
+        if "qb_named_over" in fx.columns:
+            fx = fx[fx.qb_named_over.notna() & fx.qb_id.notna()]
+            over = {(r.game_id, r.team): r.qb_id for r in fx.itertuples()}
     rows = []
     for g in wk.itertuples():
         wd = None if (bool(g.dome) or pd.isna(g.wind)) else float(g.wind)   # kickoff forecast once one is usable (weather.apply_to_games), else unknown
@@ -976,6 +983,7 @@ def main(season: int | None = None, week: int | None = None, backfill: bool = Fa
         # the model has not priced counts as zero, as a missing line did in the backtest.
         sp = None if ha[0] is None else ha[0] - ha[1]; mt = None if ha[0] is None else ha[0] + ha[1]
         aq = g.away_qb_id if isinstance(g.away_qb_id, str) else None; hq = g.home_qb_id if isinstance(g.home_qb_id, str) else None   # nflverse names the starters for played games and the coming week
+        aq = over.get((g.game_id, g.away_team), aq); hq = over.get((g.game_id, g.home_team), hq)
         out["games"][g.game_id] = {g.away_team: project_game(g.away_team, g.home_team, R, RU, Q, D, V, L, roster, None if sp is None else -sp, mt, wd, mk, ha[1], VS, aq, SN, recent_players(AG, g.away_team), season, SIT_IN.get((g.game_id, g.away_team)), SQ), g.home_team: project_game(g.home_team, g.away_team, R, RU, Q, D, V, L, roster, sp, mt, wd, mk, ha[0], VS, hq, SN, recent_players(AG, g.home_team), season, SIT_IN.get((g.game_id, g.home_team)), SQ)}
         out["games"][g.game_id][g.away_team]["defenders"] = project_defense(g.away_team, g.home_team, DF, V, roster, None if sp is None else -sp, mt, mk, VS)
         out["games"][g.game_id][g.home_team]["defenders"] = project_defense(g.home_team, g.away_team, DF, V, roster, sp, mt, mk, VS)
