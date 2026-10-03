@@ -2,8 +2,8 @@
 injury report and the weather?"): the full model and a Tuesday model, graded at the closing line and at the opening line.
 
 The Tuesday model is the same fits, walk-forward, with the inputs a Tuesday does not have at their typical values: the injury
-report (skill_out_value, opp_skill_out_value, off_snap_out, opp_def_snap_out, qb_out) and the kickoff weather (wind_out, cold,
-rain, warm_in_cold) all zero. It keeps its own trees cache (trees_cache_tuesday.parquet) so the live model's is untouched.
+report (skill_out_value, opp_skill_out_value, off_snap_out, opp_def_snap_out) and the kickoff weather (wind_out, cold,
+warm_in_cold) all zero (qb_out and rain too until they left the model, 3 Oct 2026). It keeps its own trees cache (trees_cache_tuesday.parquet) so the live model's is untouched.
 
 Opening lines are the archive at data/archive/openers_2015_2021.csv (sportsbookreviewsonline's season pages, 2015 to
 2021, 1,786 of 1,808 regular-season games matched; its close is within a point of nflverse's on 96% of them). Closing lines
@@ -20,7 +20,7 @@ WEB_DATA = ROOT / "web" / "data"
 
 RAW_OPENERS = ROOT / "data" / "archive" / "openers_2015_2021.csv"
 PRED_TUE = OUT / "pred_tuesday.parquet"
-TUESDAY_ZERO = ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out", "qb_out", "wind_out", "cold", "rain", "warm_in_cold"]
+TUESDAY_ZERO = ["skill_out_value", "opp_skill_out_value", "off_snap_out", "opp_def_snap_out", "wind_out", "cold", "warm_in_cold"]   # qb_out and rain left the model 3 Oct 2026
 from .picks import SPREAD_EDGE
 CUTS = [float(SPREAD_EDGE)]   # the study's flag: the site's own spread flag (the model's side SPREAD_EDGE or more points from the line); totals are every game only, the totals flag being a chance rule that needs a re-price at the opener
 PRICE = -110.0

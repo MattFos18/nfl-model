@@ -47,7 +47,11 @@ ALPHA = 10.0   # model.total_model's ridge penalty
 def feats() -> list[str]:
     """The shadow's totals inputs: the live equation's, with qb_out_sum replaced by qb_out_t_sum, plus the three sums."""
     from . import model as M
-    return [("qb_out_t_sum" if c == "qb_out_sum" else c) for c in M.TOTAL_FEATS] + ["q_skill_sum", "q_off_sum", "q_def_sum"]
+    # qb_out_sum left the live equation on 3 Oct 2026 (reports/drop_seven_inputs.md); the shadow keeps its own QB term
+    # (max of qb_out and the chance last game's starter sits), so it still tests the idea it was registered with
+    live = list(M.TOTAL_FEATS)
+    base = [("qb_out_t_sum" if c == "qb_out_sum" else c) for c in live] if "qb_out_sum" in live else live + ["qb_out_t_sum"]
+    return base + ["q_skill_sum", "q_off_sum", "q_def_sum"]
 
 
 # ---- the Questionable pieces (experiments/injury_retest.build, Q2's part) ----

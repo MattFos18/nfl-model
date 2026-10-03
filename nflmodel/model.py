@@ -31,7 +31,9 @@ OUT, REP = ROOT / "data" / "processed", ROOT / "reports"
 # test showed the same accuracy without them (reports/input_set_experiments.csv); several of them could not be read on their own
 # (the rest pair only ever appeared together; pass and rush EPA overlap EPA per play).
 RATING_FEATS = [f"{s}_{st}" for st in ["epa_play", "pf"] for s in ["off", "def"]]
-SIT_FEATS = ["home", "neutral", "dome", "wind_out", "cold", "rain", "warm_in_cold", "div_game"]   # rain, warm_in_cold and div_game added 22 Sep 2026 (each lowered the miss on both windows)
+SIT_FEATS = ["home", "wind_out", "cold", "warm_in_cold"]   # warm_in_cold added 22 Sep 2026. neutral, dome, rain and div_game dropped 3 Oct 2026
+# (Matt's yes; reports/input_ablation.md, reports/drop_seven_inputs.md): each failed drop-one with no flag cost; the readings
+# stay computed (dome feeds the totals equation and the cards, rain the cards, neutral and div_game the cards and the season sims)
 INJ_FEATS = ["skill_out_value", "opp_skill_out_value",   # player model, phase 2 (22 Sep 2026): value lost to RB/WR/TE listed out, own and opponent
              "off_snap_out", "opp_def_snap_out"]          # phase 3 (22 Sep 2026): share of last game's offensive snaps now out; the opponent's defensive snaps out
 # teams whose home is warm or indoors, for the "warm or dome team playing in the cold" flag (static; a team's climate does not change)
@@ -44,7 +46,10 @@ RAIN_FC = 50.0       # the totals equation's rain input: forecast chance of rain
 COLD_F = 35.0        # the cold flag: kickoff temperature under this, outdoors
 RIDGE = 10.0         # the points regression's ridge penalty (reports/equation_checks.csv: 1 to 100 within 0.001)
 TRAIN_FROM = 2013    # the first season every fit trains on
-FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + ["qb_out"] + INJ_FEATS + CONT_FEATS + LATE_FEATS
+# qb_out (last game's starter ruled out) left the points equations on 3 Oct 2026 with the four situations above: the QB a team
+# will start is priced through qb_rating (ratings.qbs_out_now swaps a ruled-out starter for his replacement), and qb_out
+# stays a reading (cards, checks). Seventeen inputs.
+FEATS = RATING_FEATS + ["qb_rating"] + SIT_FEATS + INJ_FEATS + CONT_FEATS + LATE_FEATS
 # the wider set the model carried before, kept for the ablation and the experiments
 FEATS_WIDE = [f"{s}_{st}" for st in ["epa_play", "pass_epa", "rush_epa", "pf", "plays"] for s in ["off", "def"]] + ["qb_rating", "opp_qb_rating", "opp_off_epa_play", "own_def_epa_play", "opp_off_plays"] + \
              ["home", "neutral", "rest_short", "rest_long", "opp_rest_short", "opp_rest_long", "dome", "wind_out", "cold", "div_game", "primetime", "qb_out"]
@@ -309,7 +314,9 @@ def probs_from_margin(mu, sigma, K, line):
 # -X"), those games' totals moved about -2.9 from the old model (which took some rain off through the weather text); 20 of 20
 # shuffles beaten.
 # The points equations keep the weather text in training; a played game is priced on the forecast (priced_weather, 2 Oct 2026).
-TOTAL_FEATS = ["off_sum", "def_sum", "pf_sum", "pa_sum", "qb_sum", "qb_out_sum", "wind_out", "rain_fc", "cold", "dome", "qb_form_sum"]   # ref_tot dropped 2 Oct 2026: with the same-game leak fixed it fails the round-3 rule (reports/leak_fix_rescore.md: total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, placebo 25/31/29 of 50; Matt's standing yes to drop what fails). Was: ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
+# pf_sum (both offenses' points ratings) and qb_out_sum (QBs out) dropped 3 Oct 2026 (Matt's yes; reports/input_ablation.md,
+# reports/drop_seven_inputs.md): each failed drop-one with no flag cost. Nine inputs.
+TOTAL_FEATS = ["off_sum", "def_sum", "pa_sum", "qb_sum", "wind_out", "rain_fc", "cold", "dome", "qb_form_sum"]   # ref_tot dropped 2 Oct 2026: with the same-game leak fixed it fails the round-3 rule (reports/leak_fix_rescore.md: total miss worse on 2015-18 and 2019-22, totals flag worse on 2015-18 and 2023-25, placebo 25/31/29 of 50; Matt's standing yes to drop what fails). Was: ref_tot (28 Sep 2026): the referee read without the market, see below;   # qb_form_sum (both starters' this-season form, 25 Sep 2026): total miss 10.71 / 10.53 / 10.18 against 10.77 / 10.58 / 10.25 (reports/qb_form_totals.csv); not in the points equation, where it hurt the spread on 2019-22 (reports/qb_form.csv)
 QB_FORM_K = 100.0
 
 

@@ -112,6 +112,13 @@ each one again is in `checks.md`.
 
 ## Runs and machines
 
+- **Fresh tree fits differ run to run on one machine too.** A new input set has no stored fits, so the trees are fit
+  fresh: the same seven-input drop run twice locally (input_ablation's combined run, drop_seven_inputs) moved 1,016 games' trees by up to
+  1.0 point (one spread-flag bet on 2015-18); the ridge members and the total were identical. Compare a change only against a baseline
+  from the same run, and expect GitHub's first refit to move the published records a bet or so (3 Oct 2026, reports/drop_seven_inputs.md).
+- **qb_out, dome, rain, neutral and div_game are readings, not points-equation inputs, since 3 Oct 2026.** Code that reads
+  `coef_qb_out` (or any of them) from pred_v3 gets nothing for new rows; read `model.FEATS`, never a fixed list (`export_web`, `tie_check`).
+
 - **Log csvs appended by position.** `data/runs/rule_history.csv` wrote its header once, so a new or dropped `*_bet`
   rule column would have shifted every later row. Appends now go through `picks.append_csv` (by column name; a new
   column widens the header). Use it for any new appended log (2 Oct 2026).

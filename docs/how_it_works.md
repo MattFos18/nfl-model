@@ -5,20 +5,20 @@ files in `nflmodel/`; every number below comes from `reports/`.
 
 ## 1. What is built in today, and what is not
 
-Updated 23 Sep 2026. The model has twenty-two inputs (section 4); everything below says whether a thing is one of them.
+Updated 3 Oct 2026. The model has seventeen inputs (section 4); everything below says whether a thing is one of them.
 
 | Thing | Status | Where |
 |---|---|---|
 | Recent form vs whole season | Built in. Every game is weighted by age: 0.94 per week (0.90 until 22 Sep 2026), so a game 8 weeks old counts 61% of last week's | `ratings.py` |
 | Last season | Built in. Last season's games count at 0.8 weight (0.5 until 22 Sep 2026) and keep decaying; this season takes over by about Week 7 | `ratings.py` |
 | Opponent strength | Built in. Ratings are solved jointly, so an offense that scored on bad defenses is marked down | `ratings.py` |
-| Starting QB | Built in. The schedule names each starter; his own EPA per dropback (decayed, shrunk) is the single biggest input. When last game's starter is out and the replacement has no rating yet, a QB-out flag (about -1.7 points) applies | `ratings.py`, `model.py` |
+| Starting QB | Built in. The schedule names each starter; his own EPA per dropback (decayed, shrunk) is the single biggest input. When the starter is ruled out, his replacement is priced on his own rating (`ratings.qbs_out_now`); the QB-out flag left the model on 3 Oct 2026 (it stays on the cards as a reading) | `ratings.py`, `model.py` |
 | Offseason turnover | Built in since 23 Sep 2026 for weeks 1 to 8: the share of last season's snaps that left the roster, for the team's offense and the defense it faces | `trends.py` |
 | Out of the race | Built in since 23 Sep 2026 for Week 12 on: a flag when the team's (or the opponent's) win rate through the previous week is 40% or under; the model had been overrating such teams late | `model.py` (`record_before`) |
 | Injuries beyond the QB | Built in since 22 Sep 2026: the value lost to RB, WR and TE listed Out or Doubtful or on IR (own and opponent), and the share of last game's snaps now out on offense and on the defense faced. Every other position is valued on the Players tab but none of those values beat the snap shares as inputs | `players.py`, `positions.py`, `trends.py` |
 | Home field | Built in as one fitted league number, about 1.9 points. Team-specific home edges were tested and made the miss worse; they are shown, not used | `model.py` |
-| Dome, wind, cold, rain, warm team in the cold | Built in. Wind about -0.13 points per mph outdoors; cold under 35F; rain; a warm-climate or dome team outdoors under 35F. Forecasts are used only within 4 days of kickoff | `model.py`, `weather.py` |
-| Division game | Built in since 22 Sep 2026 (about -0.7 points for each team) | `model.py` |
+| Wind, cold, warm team in the cold | Built in. Wind about -0.13 points per mph outdoors; cold under 35F; a warm-climate or dome team outdoors under 35F. Forecasts are used only within 4 days of kickoff | `model.py`, `weather.py` |
+| Dome, rain, neutral site, division game | Out of the points equations since 3 Oct 2026 (no value on the honest backtest, `reports/drop_seven_inputs.md`); the dome and the forecast rain stay in the game total's own equation | `model.py` |
 | Rest, short week, bye, primetime | Tested and not in: none lowered the miss on both windows once the ratings were in | `experiments/` |
 | Referees, head-to-head, coach and QB against-the-spread records, off a loss, travel, time zones, snow, special teams, sack rates, pace, new coach | Tested and not in (section 14 and the decision log). Head-to-head, coaches and QBs are shown on each card as reference | `experiments/` |
 | Line movement, splits, sharp money | Not in. Nothing to backtest with until the line log has a season behind it. The best available number across books is used for the flagged bet and shown on the card | `lines.py`, `picks.py` |
@@ -69,8 +69,8 @@ history starts at replacement level. Ablation: dropping it costs more than dropp
 ## 4. From ratings to points: the regression
 
 `model.py` fits a ridge regression (inputs standardised) from the ratings and situation each team carried into a game to
-the points it scored, refit before every week on every game played before it. Since 23 Sep 2026 the model has twenty-two
-inputs, each with one plain meaning. The table is rewritten from the live fit on every run (`nflmodel/report.py`), the same
+the points it scored, refit before every week on every game played before it. Since 3 Oct 2026 the model has seventeen
+inputs (twenty-two from 23 Sep 2026), each with one plain meaning. The table is rewritten from the live fit on every run (`nflmodel/report.py`), the same
 coefficients the cards break down:
 
 <!-- auto:effects -->
@@ -114,7 +114,7 @@ primetime. A walk-forward test of the sets (`reports/input_set_experiments.csv`)
 | Input set | Team points miss 2019-22 | 2023-25 | Margin miss 2019-22 | 2023-25 |
 |---|---|---|---|---|
 | Full, 26 inputs | 7.453 | 7.346 | 10.159 | 10.152 |
-| Eleven inputs (now) | 7.453 | 7.373 | 10.160 | 10.131 |
+| Eleven inputs (then) | 7.453 | 7.373 | 10.160 | 10.131 |
 | Eleven plus the other side of the ball | 7.446 | 7.360 | 10.145 | 10.141 |
 | Eleven plus the rest pair | 7.455 | 7.373 | 10.164 | 10.131 |
 
@@ -503,6 +503,8 @@ on every graded regular-season game before the current season and refit every ru
 **Calibrations rechecked on the honest backtest** (2 Oct 2026, `experiments/calibration_recheck.py`, `reports/calibration_recheck.md`, study calibration_recheck). After the leak fixes and the forecast-priced weather, the model was rerun walk-forward 2015 to 2025 and each calibration scored with the fit that would have been in force. The cover, over and home win calibrations still beat their raw chances by log loss and Brier on 2016-18, 2019-22 and 2023-25 (cover 0.6932 / 0.6946 / 0.6929 against raw 0.7067 / 0.7002 / 0.6986; the cover odds stay flat and conservative, 4-5 point edges said 54-55% and covered 62-67%). The 6-point teaser legs no longer win every window: the spread legs' shift loses to raw on 2016-18 (0.6041 against 0.6036) and the total legs' fit on 2023-25 (0.5914 against 0.5901); the other form loses 2023-25 for each, and the raw chance is worse than today's calibration on the other two windows and pooled, so the teaser calibration is left as it is for Matt to decide. The spread flag's record by cut (3 to 5) was reported, not used to choose: 4 has the most units on 2015-18 and 2019-22; `SPREAD_EDGE` stays 4.
 
 **Does every piece earn its spot?** (3 Oct 2026, `experiments/input_ablation.py`, `reports/input_ablation.md`, study input_ablation). Matt asked that everything in the predictions earn its place on the honest backtest. Every live piece (the 22 inputs of the points equations, the 11 of the totals equation, the seven models of the blend, wind points, the share-out of the total and the five calibrations) was taken out one at a time, the model refit walk-forward 2015 to 2025, and scored through the round-3 gate with 50 within-season shuffles each. Three pieces pass every test: the defense points rating, the QB rating and the forecast rain in the total. Twenty-four are thin (short of the full bar, but not failing by the pre-registered definition) and twenty fail. Seven of the failures cost no flag wins when dropped (neutral site, dome, rain, division game and QB out in the points equations; both offenses' points ratings and QBs out in the totals equation), but dropped together they cost the spread flag one net win on 2019-22 and the total 0.0003 of miss on 2019-22 while gaining 22 net totals-flag wins over the three windows, so under the pre-registered rule nothing was dropped and the set is Matt's call; the model-auditor found every one of those gains and costs inside the noise. The share-out also fails with no bet cost; it is a display piece and stays for Matt. Twelve more fail but cost flag wins if dropped (among them cold in the totals equation and wind points) and stay.
+
+**The seven failing inputs dropped** (3 Oct 2026, `experiments/drop_seven_inputs.py`, `reports/drop_seven_inputs.md`, study drop_seven_inputs). Matt approved dropping the seven inputs above that fail with no flag cost, on one condition: the margin (spread) miss must not be worse on any window. The live model and the model without them were refit walk-forward 2015 to 2025: the margin miss is lower without them on every window (9.947 to 9.943, 10.012 to 10.004, 9.907 to 9.900), and so is the team points miss; the total miss is 0.0003 worse on 2019-22, the spread flag one net win worse on 2019-22 and three better on the other two, the totals flag 4, 14 and 4 net wins better, the wind under unchanged. So since 3 Oct 2026 the points equations have seventeen inputs (no neutral site, dome, rain, division game or QB out) and the game total's equation nine (no offenses' points ratings or QBs out). The readings are still computed: the dome and the forecast rain stay in the total's equation, and QB out stays on the cards and in the checks; a ruled-out starter is priced through his replacement's own rating.
 
 **Bet at the best number** (22 Sep 2026, `picks.best_number`). The flag is decided on the consensus line, but
 a flagged spread is written at the best available number for the model's side across the books in the latest

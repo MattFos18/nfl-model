@@ -59,8 +59,8 @@ def check_sources() -> list[tuple[str, str, str, bool]]:
     doc = (ROOT / "docs" / "how_it_works.md").read_text()
     tie("docs: live cut named in section 9", f"the flag is {se:g}" in doc, True)
     tie("docs: QB replacement level", f"shrunk toward {R.DEFAULT['qb_prior']:g}" in doc, True)
-    tie("model inputs counted", len(M.FEATS), 22)
-    tie("docs: input count", "twenty-two inputs" in doc or "Twenty-two inputs" in doc, True)
+    tie("model inputs counted", len(M.FEATS), 17)   # 22 until 3 Oct 2026 (reports/drop_seven_inputs.md)
+    tie("docs: input count", "seventeen inputs" in doc or "Seventeen inputs" in doc, True)
     # the rule table (flag and shadows on the three windows) in docs section 9 and in the track record
     rr = P.rule_records(d).set_index("rule")
     tr = (REP / "track_record.md").read_text() if (REP / "track_record.md").exists() else ""
@@ -594,7 +594,7 @@ def check_season_equation(rows) -> None:
     s_, w_ = LN.current_week(games)
     f = SE._frame(); P = SE.profiles(f, s_, w_); fit = SE.fit_asof(pred, s_, w_)
     fw = M.priced_weather(f[(f.season == s_) & (f.week == w_)]); pw = pred[(pred.season == s_) & (pred.week == w_)].set_index("game_id")
-    sit = M.SIT_FEATS + ["qb_out"] + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS
+    sit = M.SIT_FEATS + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS
     worst, n = 0.0, 0
     for r in fw.itertuples():
         if r.game_id not in pw.index or r.opp not in P:
@@ -815,7 +815,7 @@ def check_page() -> list[tuple[str, str, str, bool]]:
                 _ig.append(f"{g['game_id']} {t}: inputs {eff:.2f}, players {lst:.2f}")
     tie("report injury lines add up to the model's injury inputs (every unplayed game, within 0.05)", _ig, [])
     # the card and deep-dive breakdowns: intercept + sum of coefficient x (input - training mean) from the page's own files = the model's expected points
-    SIT = set(M.SIT_FEATS) | {"qb_out"} | set(M.INJ_FEATS) | set(M.CONT_FEATS) | set(M.LATE_FEATS)
+    SIT = set(M.SIT_FEATS) | set(M.INJ_FEATS) | set(M.CONT_FEATS) | set(M.LATE_FEATS)
     def rebuild(co, inputs):
         tot = co["intercept"]
         for f in M.FEATS:
