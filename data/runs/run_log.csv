@@ -8628,3 +8628,53 @@ tie check (sources),ok,True,4.8,2026-10-03 04:27 UTC
 export data room,ok,,136.7,2026-10-03 04:27 UTC
 tie check (page),ok,True,10.8,2026-10-03 04:27 UTC
 standing checks,ok,True,52.0,2026-10-03 04:27 UTC
+pull,ok,"[('2026-10-03T06:30:40', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2182448, '7186a4340934'), ('2026-10-03T06:30:40', 'players', 'all'",5.2,2026-10-03 06:30 UTC
+pull player history,ok,"[('2026-10-03T06:30:45', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'cached', 149299, ''), ('2026-10-03T06:30:45',",0.0,2026-10-03 06:30 UTC
+build,ok,"team_games (8202, 142)",93.7,2026-10-03 06:30 UTC
+features,ok,[40 rows x 8 columns],8.4,2026-10-03 06:30 UTC
+snap exposure,ok,"snap exposure (329121, 10) seasons 2013 to 2026",0.8,2026-10-03 06:30 UTC
+verify,ok,Result: PASS,0.3,2026-10-03 06:30 UTC
+data checks,ok,True,0.3,2026-10-03 06:30 UTC
+weather,ok,"            game_id           kickoff_et  ... precip        fetched_at
+0   2026_04_IND_WAS  2026-10-04 09:30:00  ...   0.00  2026-10-03 02:32
+1   2026_04_TEN_BAL  2026-10-04 13:00:00  ...   0.00  2026",226.7,2026-10-03 06:30 UTC
+wind forecast,ok,1,60.0,2026-10-03 06:30 UTC
+lines,ok,"{'ts': '2026-10-03T06-37-16Z', 'season': 2026, 'week': 4, 'rows': 15, 'errors': ''}",87.1,2026-10-03 06:30 UTC
+live results,ok,"live results: week 4, 1 final of 16, 0 in progress; spread 1-0, total 0-1, winner 0-1; play-by-play for 1 games",2.4,2026-10-03 06:30 UTC
+ratings,ok,"(7668, 50) QB-out check: ok; swaps: none",15.3,2026-10-03 06:30 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,34.5,2026-10-03 06:30 UTC
+players,ok,max           0.104589         1.360481    14.000000,79.1,2026-10-03 06:30 UTC
+positions,ok,Skill     541.0  0.007945  0.00250  0.0816,16.9,2026-10-03 06:30 UTC
+scheme,ok,"scheme_plays (354592, 83) profiles for 32 teams as of 2026 4",3.5,2026-10-03 06:30 UTC
+player splits,ok,player_splits.js 1.61 MB,44.3,2026-10-03 06:30 UTC
+model,ok,               neutral            0.054       0.133          0.007,39.9,2026-10-03 06:30 UTC
+qt shadow,ok,"qt shadow: 3300 games, 16123 Questionable listings priced, 39s",40.2,2026-10-03 06:30 UTC
+opener study,ok,opener study written,40.2,2026-10-03 06:30 UTC
+props by season,ok,DONE,15.8,2026-10-03 06:30 UTC
+props,ok,props 2869 projections for week 4 graded rows 0 market lines on the cards 315 graded against the market 1833,15.0,2026-10-03 06:30 UTC
+sizing backtest,ok,   2025   13-7    0.650        4.82,3.2,2026-10-03 06:30 UTC
+threshold sweep,ok,DONE,1.0,2026-10-03 06:30 UTC
+calibration start,ok,   last 5 seasons     0.5250     0.5309     0.5368              0.69317            0.25001                0.68229              0.5588             0.5978             92              0.69252            ,1.1,2026-10-03 06:30 UTC
+season backtest,ok,"{'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad",59.8,2026-10-03 06:30 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",9.3,2026-10-03 06:30 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",1.7,2026-10-03 06:30 UTC
+picks,ok,"              game_id  season  week  ...     bet_p bet_odds stake_pct
+3076  2026_04_PIT_CLE    2026     4  ...       NaN      NaN       NaN
+3077  2026_04_IND_WAS    2026     4  ...  0.546585   -115.0 ",0.6,2026-10-03 06:30 UTC
+log run,ok,"                    run_at  season  week  ... spread_line  total_line       bet
+3076  2026-10-03 06:30 UTC    2026     4  ...        -2.5        38.5          
+3077  2026-10-03 06:30 UTC    2026     4",0.0,2026-10-03 06:30 UTC
+record picks,ok,"                 run_at  season  week  ... spread_edge total_edge  p_cover
+0  2026-10-03 06:30 UTC    2026     4  ...        4.73       2.75    0.664
+1  2026-10-03 06:30 UTC    2026     4  ...       -",0.4,2026-10-03 06:30 UTC
+inputs fingerprint,ok,"{'season': 2026, 'week': 4, 'starters': {'2026_04_PIT_CLE': ['00-0033537', '00-0023459', '2026-10-01 20:15'], '2026_04_IND_WAS': ['00-0032268', '00-0035710', '2026-10-04 09:30'], '2026_04_TEN_BAL': ['",0.3,2026-10-03 06:30 UTC
+grade,ok,,1.5,2026-10-03 06:30 UTC
+closing line value,ok,"CLV 2026: 4 closed, 7 pending, avg +0.25 pts, 25% beat the close",0.2,2026-10-03 06:30 UTC
+forecast history,ok,complete: 2166 games stored,0.0,2026-10-03 06:30 UTC
+drift monitor,ok,"**0 alerts, 0 to watch.** Long run = 2015 to 2024; recent = 2025 and 2026 so far. ALERT at |z| >= 2.5 or a CUSUM trip (h 5); WATCH at |z| >= 2.0.",0.3,2026-10-03 06:30 UTC
+shadow watch,ok,"**0 rules ready for a look.** READY = 30+ settled live bets, a win rate past break-even beyond luck (p <= 0.1) and 5+ points more return per unit risked than the rule it would replace over the same se",0.7,2026-10-03 06:30 UTC
+ready checks,ok,**0 ready.** Each READY row opens a GitHub issue labelled ready-check (once per title).,0.3,2026-10-03 06:30 UTC
+tie check (sources),ok,True,2.4,2026-10-03 06:30 UTC
+export data room,ok,,64.1,2026-10-03 06:30 UTC
+tie check (page),ok,True,6.2,2026-10-03 06:30 UTC
+standing checks,ok,True,28.1,2026-10-03 06:30 UTC
