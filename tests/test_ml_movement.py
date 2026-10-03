@@ -128,3 +128,9 @@ def test_ml_splits_carry_each_sides_newest_consensus_price(tmp_path, monkeypatch
 def test_ml_splits_have_no_price_without_a_consensus_moneyline(tmp_path, monkeypatch):
     ml = _card(tmp_path, monkeypatch, _books((None, None), (None, None)))["splits"]["ml"]
     assert ml["CLE"]["odds"] is None and ml["PIT"]["odds"] is None
+
+
+def test_ml_splits_skip_an_impossible_price(tmp_path, monkeypatch):
+    b = _books((124, -149), (150, -180)) + [["2026-10-01T12-00-00Z", GID, "Consensus", 2.5, 38.5, 50, -180, "2026-10-01T12:00:00+00:00"]]
+    ml = _card(tmp_path, monkeypatch, b)["splits"]["ml"]
+    assert (ml["CLE"]["odds"], ml["PIT"]["odds"]) == (150, -180)
