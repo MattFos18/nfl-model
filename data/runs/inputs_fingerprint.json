@@ -2577,7 +2577,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 5.0,
+"wind": 3.9,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2625,7 +2625,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 8.9,
+"wind": 6.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2649,7 +2649,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 2.2,
+"wind": 3.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2657,5 +2657,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 21:45 UTC"
+"written_at": "2026-10-03 22:23 UTC"
 }
