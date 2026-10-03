@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.53 / 55.98 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-03 02:25 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.53 / 55.98 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-03 02:55 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -1479,42 +1479,42 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0041145  | Dominic Zvada            | field_goals      |   1.68  |         21.55 | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_yards        |  80.6   |         11.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_catches      |   7.2   |         11.6  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_td           |   0.449 |         11.6  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_td           |   0.541 |         11.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_targets      |  11.6   |         11.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rec_longest      |  25.7   |         11.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_yards        |  56.6   |          8.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_catches      |   4.4   |          8.9  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_td           |   0.479 |          8.9  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_td           |   0.577 |          8.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_targets      |   8.9   |          8.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0031381  | Davante Adams            | rec_longest      |  21.7   |          8.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_yards        |  20.9   |          4.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_catches      |   2.7   |          4.2  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_td           |   0.179 |          4.2  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_td           |   0.215 |          4.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_targets      |   4.2   |          4.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0033110  | Tyler Higbee             | rec_longest      |  14     |          4.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_yards        |  16.4   |          3.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_catches      |   2.5   |          3.7  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_td           |   0.1   |          3.7  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_td           |   0.12  |          3.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_targets      |   3.7   |          3.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rec_longest      |  11.6   |          3.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_yards        |  14     |          3.1  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_catches      |   1.4   |          3.1  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_td           |   0.115 |          3.1  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_td           |   0.138 |          3.1  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_targets      |   3.1   |          3.1  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0040590  | Konata Mumpfield         | rec_longest      |  11     |          3.1  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_yards        |  12.4   |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_catches      |   1.9   |          3    | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_td           |   0.145 |          3    | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_td           |   0.175 |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_targets      |   3     |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036244  | Colby Parkinson          | rec_longest      |  13.8   |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_yards        |   7.4   |          1.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_catches      |   0.7   |          1.6  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_td           |   0.056 |          1.6  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_td           |   0.068 |          1.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_targets      |   1.6   |          1.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0036849  | Tutu Atwell              | rec_longest      |  13.9   |          1.6  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_yards        |   6.7   |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_catches      |   1.1   |          1.7  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_td           |   0.062 |          1.7  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_td           |   0.075 |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_targets      |   1.7   |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039074  | Davis Allen              | rec_longest      |  10.2   |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0037840  | Kyren Williams           | rush_yards       |  60.2   |         15    | live   |
@@ -1572,37 +1572,37 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039498  | Harrison Mevis           | field_goals      |   1.66  |         22.57 | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_yards        |  52.4   |          6.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_catches      |   4.1   |          6.9  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.229 |          6.9  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.275 |          6.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_targets      |   6.9   |          6.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0038393  | Dontayvion Wicks         | rec_longest      |  15.3   |          6.9  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_yards        |  35.1   |          6.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_catches      |   3.7   |          6.2  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.257 |          6.2  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.31  |          6.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_targets      |   6.2   |          6.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0030061  | Zach Ertz                | rec_longest      |  14.2   |          6.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_yards        |  22.3   |          4.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_catches      |   3     |          4.7  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.163 |          4.7  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.196 |          4.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_targets      |   4.7   |          4.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040867  | Makai Lemon              | rec_longest      |  10.8   |          4.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_yards        |  13.1   |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_catches      |   1.8   |          3    | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_td           |   0.082 |          3    | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_td           |   0.099 |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_targets      |   3     |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rec_longest      |   9.7   |          3    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_yards        |   9.4   |          2    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_catches      |   1.4   |          2    | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.059 |          2    | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.072 |          2    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_targets      |   2     |          2    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0040024  | Darius Cooper            | rec_longest      |  11.7   |          2    | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_yards        |   9.4   |          1.8  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_catches      |   0.9   |          1.8  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_td           |   0.067 |          1.8  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_td           |   0.081 |          1.8  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_targets      |   1.8   |          1.8  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033246  | Johnny Mundt             | rec_longest      |   9.3   |          1.8  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_yards        |   9     |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_catches      |   1.1   |          1.7  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_td           |   0.038 |          1.7  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_td           |   0.046 |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_targets      |   1.7   |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0039746  | Will Shipley             | rec_longest      |   8.8   |          1.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0034844  | Saquon Barkley           | rush_yards       |  46.1   |         13.8  | live   |
