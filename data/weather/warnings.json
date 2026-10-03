@@ -203,9 +203,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-02 19:31 UTC",
-  "last": "2026-10-02 23:17 UTC",
+  "last": "2026-10-03 00:22 UTC",
   "message": "2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
