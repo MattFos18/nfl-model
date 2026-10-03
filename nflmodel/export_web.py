@@ -484,6 +484,7 @@ def _an_ts(x) -> str:
 # "track moneyline movement like we do for the total and the spread"); a 10-cent price change (-150 to -160) moves it
 # about 1.5 to 2 points, so 3 marks a real move, not a price tweak. Display only
 ML_MOVE_PTS = 3.0
+RLM_PUBLIC = 70   # 3 Oct 2026 (Matt): a reverse line move needs 70%+ of bets on one side; at 59% there is no public side to move against
 
 
 def _novig_home(hml, aml):
@@ -544,19 +545,19 @@ def _add_consensus(wk: list) -> None:
         if hist and hist[0]["source"] == "Open" and sp.get("source") == "Consensus":
             o, n = hist[0], hist[-1]; H, A = g["home_team"], g["away_team"]
             if o["home_spread"] is not None and n["home_spread"] is not None and "spread" in sp and H in sp["spread"] and A in sp["spread"]:
-                mv = n["home_spread"] - o["home_spread"]; pub = H if sp["spread"][H]["bets"] > 50 else (A if sp["spread"][A]["bets"] > 50 else None)
+                mv = n["home_spread"] - o["home_spread"]; pub = H if sp["spread"][H]["bets"] >= RLM_PUBLIC else (A if sp["spread"][A]["bets"] >= RLM_PUBLIC else None)
                 toward = H if mv > 0 else A
                 if pub and abs(mv) >= 0.5 and toward != pub:
                     moves.append({"market": "spread", "toward": toward, "public": pub, "bets": sp["spread"][pub]["bets"], "open": o["home_spread"], "now": n["home_spread"]})
             if o["total"] is not None and n["total"] is not None and "total" in sp:
-                mv = n["total"] - o["total"]; pub = "over" if sp["total"]["over"]["bets"] > 50 else ("under" if sp["total"]["under"]["bets"] > 50 else None)
+                mv = n["total"] - o["total"]; pub = "over" if sp["total"]["over"]["bets"] >= RLM_PUBLIC else ("under" if sp["total"]["under"]["bets"] >= RLM_PUBLIC else None)
                 toward = "over" if mv > 0 else "under"
                 if pub and abs(mv) >= 0.5 and toward != pub:
                     moves.append({"market": "total", "toward": toward, "public": pub, "bets": sp["total"][pub]["bets"], "open": o["total"], "now": n["total"]})
             # the moneyline from the oldest to the newest point that has one, as the Win block's chart reads it
             wp = [p for p in hist if p.get("home_win") is not None]; o, n = (wp[0], wp[-1]) if wp else (o, n)
             if wp and "ml" in sp and H in sp["ml"] and A in sp["ml"]:
-                mv = n["home_win"] - o["home_win"]; pub = H if sp["ml"][H]["bets"] > 50 else (A if sp["ml"][A]["bets"] > 50 else None)
+                mv = n["home_win"] - o["home_win"]; pub = H if sp["ml"][H]["bets"] >= RLM_PUBLIC else (A if sp["ml"][A]["bets"] >= RLM_PUBLIC else None)
                 toward = H if mv > 0 else A
                 if pub and abs(mv) >= ML_MOVE_PTS and toward != pub:
                     # open and now: the side moved toward's no-vig win chance (percent) and its moneyline
