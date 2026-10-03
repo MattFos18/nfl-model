@@ -3,6 +3,9 @@
 One dated line per change to the model, the bet rules, the data sources or the way we work. Newest first. The full
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
+## 3 Oct 2026
+- New totals ideas studied (reports/totals_new_ideas.md): pace, neutral pace, red-zone TD rate, explosive plays, kicker, turf, altitude, and two over-chance constructions; none passes, nothing changed.
+
 ## 2 Oct 2026
 - Questionable-in-totals (questionable_totals T2) tracked as hidden shadow `shadowqtotals`: its own total each weekly run (`nflmodel/qtotals.py`, step "qt shadow"), the under at 55%+, never bet; the live model unchanged (standing checks `qt_isolated`, `qt_stays_off`).
 - Forecast history extended to 2015 (`forecast_history.FIRST`): GFS MOS from 2015, Japan from Jan 2016, no NBS; 2015-17 backtest priced on the forecast; moves the live total through the rain input and wind pool (reports/forecast_history_2015.md; Matt approved).
