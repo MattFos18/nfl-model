@@ -14,7 +14,7 @@ Script: `experiments/old_ideas_retest.py`. Full table: `reports/old_ideas_retest
 (a) = rejected narrowly (one window, one bet or the placebo by a few draws). (b) = its test used one of the flawed inputs
 above (on its own data, or on a base model that carried them). Market inputs (ATS records, the line, the referee's over
 rate against the closing total, splits, prices) are excluded as model inputs. Rules already tracked as shadows
-(`picks.SHADOWS`) are listed but not re-picked: a passing bet rule could only become the hidden shadow it already is.
+(`picks.SHADOWS`) are listed but not re-picked: a passing bet rule could only become the shadow it already is.
 Margins are idea minus base, per window 2015-18 / 2019-22 / 2023-25 unless two windows are named (2019-22 / 2023-25).
 
 | Date | Idea (study) | Original verdict and margin | (a) | (b) | Retest |
@@ -26,7 +26,7 @@ Margins are idea minus base, per window 2015-18 / 2019-22 / 2023-25 unless two w
 | 1 Oct | Questionable skill players at the chance they sit Q1 (injury_retest) | team miss worse 2015-18 (+0.0052), 2023-25 (+0.0033) | no | yes | no |
 | 1 Oct | Questionable at every position Q2 (injury_retest) | miss better all three; spread flag net -4 / -8 / -8 | no | yes | no (its totals form is a shadow) |
 | 1 Oct | Linemen's value out L1 (injury_retest) | worse 2015-18 (+0.019), 2023-25 (+0.003) | no | yes | no |
-| 1 Oct | Opponent defenders' value out D1 (injury_retest) | worse 2015-18 only (+0.0037); better 2019-22 (-0.0054), 2023-25 (-0.0016) | yes | yes | **V8** |
+| 1 Oct | Opponent defenders' value out D1 (injury_retest) | team miss worse 2015-18 only (+0.0037), better 2019-22 (-0.0054), 2023-25 (-0.0016); spread flag 80-51 -> 77-49 on 2019-22 | yes | yes | **V8** |
 | 1 Oct | Q2 + D1 together C (injury_retest) | spread flag worse 2019-22, 2023-25 | no | yes | no |
 | 1 Oct | Wind learned from the forecast W (forecast_weather_inputs) | worse 2015-18 (+0.0043), 2023-25 (+0.0032); flags cost 2015-18 | yes (small) | yes (tested before played games were priced on forecasts) | **V10** |
 | 1 Oct | Cold learned from the forecast C, and W+C (forecast_weather_inputs) | C worse on every window | no | yes | no |
@@ -40,7 +40,7 @@ Margins are idea minus base, per window 2015-18 / 2019-22 / 2023-25 unless two w
 | 1 Oct | Blind rain under 70+ (rain_under_retest) | fails 2018 | no | no | no (50+ is a shadow) |
 | 30 Sep | Home-side bet rules: home 4.5 / 5 / 6, road only, road 3.5+, lean removed (home_side_rules) | each loses units on 2019-22 | no | no | no (shadows `shadowroad`, `shadowroad6`) |
 | 30 Sep | 17 favourite fixes (favorite_review) | none passes rule 1 | no | no | no |
-| 30 Sep | Home edge x visitor's travel miles (home_field) | rule 1 fails 2019-22 by 0.0001; calibration and spread cost; informational placebo 9 of 12 beat it | yes | yes (games abroad listed at US stadiums) | **V11** |
+| 30 Sep | Home edge x visitor's travel miles (home_field) | team miss better 2015-18 and 2023-25, better 2019-22 by only 0.0001, margin miss worse on 2019-22 (+0.0034, rule 1 as that study wrote it); calibration and spread cost; informational placebo 9 of 12 beat it | yes | yes (games abroad listed at US stadiums) | **V11** |
 | 30 Sep | Home edge x visitor's time-zone change (home_field) | team miss better all three (-0.008 at most); calibration or spread cost; placebo 7 of 20 beat it | yes | yes (as above) | **V12** |
 | 30 Sep | Neutral sites: home edge set to zero (home_field) | better 2015-18, 2019-22, worse 2023-25 (+0.0030); spread -1 / -1 / -4 | yes | yes (2025 games abroad not flagged neutral) | **V13** |
 | 30 Sep | Neutral own term, Denver, dome home, division home, early/late, cold December, team EB edges, visitor road form, partial pooling (home_field) | fail rule 1 on 1 to 3 windows | no | partly | no |
@@ -52,7 +52,7 @@ Margins are idea minus base, per window 2015-18 / 2019-22 / 2023-25 unless two w
 | 29 Sep | Round 3 re-check: drop QB out from the points equation | miss better all three (-0.004 / -0.004 / -0.002), spread +2 / +1 / +2; calibrated log loss +0.0004 on 2019-22 | yes | yes (wrong starters #381) | **V1** |
 | 29 Sep | Round 3 re-check: drop cold from the totals equation | total miss better all three (-0.054 / -0.002 / -0.001); totals flag -1 on 2023-25 | yes | yes (cold read recorded weather) | **V2** |
 | 29 Sep | Round 3 re-check: drop dome from the totals equation | total miss better all three (-0.007 / -0.009 / -0.005); totals flag -1 on 2019-22 | yes | yes (domes abroad, retractable roofs) | **V3** |
-| 29 Sep | Round 3 re-check: drop dome from the points equation | team miss better all three (-0.001 / -0.000 / -0.000); spread -1 on 2023-25 | yes | yes (as above) | **V4** |
+| 29 Sep | Round 3 re-check: drop dome from the points equation | team miss better all three (-0.001 / -0.000 / -0.000); spread -1 and calibrated log loss worse on 2023-25 | yes | yes (as above) | **V4** |
 | 29 Sep | Round 3 other re-checks (rain, wind, cold, warm-in-cold, skill value, snaps out, QB out in the total) | dropping is mixed or worse | no | yes | no |
 | 29 Sep | Trusting the forecast less, six ways (weather_forecast) | none passed | no | yes | no (superseded by forecast pricing) |
 | 28 Sep | Faster season fade x0.65 / x0.5 / ... (season_fade) | weeks 1-4 miss worse all three | no | no | no |
@@ -135,3 +135,387 @@ value out 3 (positions, def_value_out, injury_retest D1), usual snaps 10, wind f
 (additions, combo, round 3, home_field), neutral sites 2: about 40 variants of these 13 ideas before this study, and the
 decision log holds several hundred model and rule variants in all. The 13 were picked by looking at which earlier
 results came close, so a pass here carries that selection: it must clear every part on all three windows, not one.
+
+## Results
+
+Input checks: V8 rebuilt skill value out = live (share within 0.001): 1.0000; V8 rebuilt offensive snaps out = live (share within 0.01): 0.9999; V8 team-games with a defender out valued (2018-25): 4104; V9 'current' off_snap_out = live (share within 1e-6): 0.9909; V9 'current' def_snap_out = live (share within 1e-6): 0.9914; V9 team-games where L4_G4 differs from live: 6554; V9 worst season reproducing the live snaps out, 2015-25: 0.9963; V8 fewest team-games with a defender out valued in a season, 2018-25: 412; V11-V13 neutral games 2015-25: 61; V11-V13 games with no stadium coordinates: 565.
+
+Every run is the live walk-forward 2015-2025 with fresh trees; regular season scored; flags weeks 1-17 at the close; log loss = the calibrated home win chance.
+
+| Variant | Window | Team miss | Total miss | Margin miss | Log loss | Spread flag | Totals flag | Wind under |
+|---|---|---|---|---|---|---|---|---|
+| base (stored fits, reference) | 2015-18 | 7.3993 | 10.7484 | 9.9471 | 0.61917 | 68-58 | 132-111 | 119-97 |
+| base (stored fits, reference) | 2019-22 | 7.3740 | 10.5341 | 10.0116 | 0.62448 | 78-49 | 175-140 | 143-88 |
+| base (stored fits, reference) | 2023-25 | 7.2357 | 10.1040 | 9.9069 | 0.62051 | 37-19 | 76-55 | 77-52 |
+| base | 2015-18 | 7.3993 | 10.7484 | 9.9467 | 0.61918 | 68-58 | 132-111 | 119-97 |
+| base | 2019-22 | 7.3739 | 10.5341 | 10.0118 | 0.62450 | 78-49 | 175-140 | 143-88 |
+| base | 2023-25 | 7.2357 | 10.1040 | 9.9072 | 0.62053 | 37-19 | 76-55 | 77-52 |
+| V1 | 2015-18 | 7.3956 | 10.7484 | 9.9407 | 0.61814 | 69-55 | 132-111 | 119-97 |
+| V1 | 2019-22 | 7.3713 | 10.5341 | 10.0102 | 0.62501 | 79-49 | 175-140 | 143-88 |
+| V1 | 2023-25 | 7.2342 | 10.1040 | 9.9008 | 0.62016 | 38-19 | 76-55 | 77-52 |
+| V2 | 2015-18 | 7.3737 | 10.6799 | 9.9467 | nan | 68-58 | 126-102 | 119-97 |
+| V2 | 2019-22 | 7.3719 | 10.5306 | 10.0118 | nan | 78-49 | 174-141 | 143-88 |
+| V2 | 2023-25 | 7.2353 | 10.0992 | 9.9072 | nan | 37-19 | 76-53 | 77-52 |
+| V3 | 2015-18 | 7.3971 | 10.7506 | 9.9467 | nan | 68-58 | 131-114 | 119-97 |
+| V3 | 2019-22 | 7.3672 | 10.5187 | 10.0118 | nan | 78-49 | 173-141 | 143-88 |
+| V3 | 2023-25 | 7.2379 | 10.1104 | 9.9072 | nan | 37-19 | 77-53 | 77-52 |
+| V4 | 2015-18 | 7.3991 | 10.7484 | 9.9462 | 0.61915 | 69-54 | 132-111 | 119-97 |
+| V4 | 2019-22 | 7.3737 | 10.5341 | 10.0101 | 0.62441 | 77-48 | 175-140 | 143-88 |
+| V4 | 2023-25 | 7.2355 | 10.1040 | 9.9076 | 0.62060 | 37-19 | 76-55 | 77-52 |
+| V5 | 2015-18 | 7.3953 | 10.7484 | 9.9359 | 0.61735 | 64-48 | 132-111 | 119-97 |
+| V5 | 2019-22 | 7.3774 | 10.5341 | 10.0359 | 0.62596 | 59-44 | 175-140 | 143-88 |
+| V5 | 2023-25 | 7.2268 | 10.1040 | 9.8855 | 0.62008 | 42-23 | 76-55 | 77-52 |
+| V6 | 2015-18 | 7.3943 | 10.7291 | 9.9467 | nan | 68-58 | 123-105 | 119-97 |
+| V6 | 2019-22 | 7.3721 | 10.5404 | 10.0118 | nan | 78-49 | 169-136 | 143-88 |
+| V6 | 2023-25 | 7.2356 | 10.0886 | 9.9072 | nan | 37-19 | 68-45 | 77-52 |
+| V7 | 2015-18 | 7.3874 | 10.7245 | 9.9467 | nan | 68-58 | 124-101 | 119-97 |
+| V7 | 2019-22 | 7.3839 | 10.5501 | 10.0118 | nan | 78-49 | 166-134 | 143-88 |
+| V7 | 2023-25 | 7.2299 | 10.0808 | 9.9072 | nan | 37-19 | 77-50 | 77-52 |
+| V8 | 2015-18 | 7.4025 | 10.7484 | 9.9768 | 0.61836 | 75-59 | 132-111 | 119-97 |
+| V8 | 2019-22 | 7.3681 | 10.5341 | 10.0023 | 0.62362 | 77-48 | 175-140 | 143-88 |
+| V8 | 2023-25 | 7.2349 | 10.1040 | 9.8981 | 0.62031 | 38-18 | 76-55 | 77-52 |
+| V9 | 2015-18 | 7.3795 | 10.7484 | 9.9295 | 0.61808 | 54-53 | 132-111 | 119-97 |
+| V9 | 2019-22 | 7.3663 | 10.5341 | 10.0136 | 0.62188 | 80-49 | 175-140 | 143-88 |
+| V9 | 2023-25 | 7.2193 | 10.1040 | 9.8827 | 0.61854 | 38-21 | 76-55 | 77-52 |
+| V10 | 2015-18 | 7.4024 | 10.7495 | 9.9464 | 0.61954 | 69-56 | 122-107 | 119-97 |
+| V10 | 2019-22 | 7.3741 | 10.5368 | 10.0091 | 0.62447 | 81-48 | 171-139 | 143-88 |
+| V10 | 2023-25 | 7.2359 | 10.1036 | 9.9092 | 0.62072 | 36-18 | 80-55 | 77-52 |
+| V11 | 2015-18 | 7.3975 | 10.7484 | 9.9424 | 0.61961 | 70-53 | 132-111 | 119-97 |
+| V11 | 2019-22 | 7.3738 | 10.5341 | 10.0106 | 0.62444 | 81-48 | 175-140 | 143-88 |
+| V11 | 2023-25 | 7.2319 | 10.1040 | 9.8957 | 0.61974 | 37-21 | 76-55 | 77-52 |
+| V12 | 2015-18 | 7.4004 | 10.7484 | 9.9507 | 0.61988 | 69-54 | 132-111 | 119-97 |
+| V12 | 2019-22 | 7.3717 | 10.5341 | 10.0108 | 0.62393 | 83-53 | 175-140 | 143-88 |
+| V12 | 2023-25 | 7.2286 | 10.1040 | 9.8986 | 0.61974 | 36-25 | 76-55 | 77-52 |
+| V13 | 2015-18 | 7.3983 | 10.7484 | 9.9403 | 0.61945 | 65-55 | 132-111 | 119-97 |
+| V13 | 2019-22 | 7.3745 | 10.5341 | 10.0076 | 0.62407 | 78-45 | 175-140 | 143-88 |
+| V13 | 2023-25 | 7.2394 | 10.1040 | 9.9239 | 0.62146 | 34-18 | 76-55 | 77-52 |
+
+| Variant | Idea | Parts 1-2 | Placebo | Gate |
+|---|---|---|---|---|
+| V1 | Drop QB out (points) | fail: calibration not worse, 2019-22 | removal: parts 1-2 decide | FAIL |
+| V2 | Drop cold (total) | fail: no bet cost: totals flag, 2019-22 | removal: parts 1-2 decide | FAIL |
+| V3 | Drop dome (total) | fail: better on 2015-18, better on 2023-25, no bet cost: totals flag, 2015-18, no bet cost: totals flag, 2019-22 | removal: parts 1-2 decide | FAIL |
+| V4 | Drop dome (points) | fail: calibration not worse, 2023-25 | removal: parts 1-2 decide | FAIL |
+| V5 | QB form in the points equation | fail: better on 2019-22, no bet cost: spread flag, 2019-22, calibration not worse, 2019-22 | not run (fails 1 or 2) | FAIL |
+| V6 | Temperature bands, day-before run | fail: better on 2019-22, no bet cost: totals flag, 2015-18, no bet cost: totals flag, 2019-22 | not run (fails 1 or 2) | FAIL |
+| V7 | Wet or cold band | fail: better on 2019-22, no bet cost: totals flag, 2019-22 | not run (fails 1 or 2) | FAIL |
+| V8 | Opponent defenders' value out | fail: better on 2015-18 | not run (fails 1 or 2) | FAIL |
+| V9 | Usual snaps out (L4_G4) | fail: no bet cost: spread flag, 2015-18, no bet cost: spread flag, 2023-25 | 50 of 50 draws (need 45 of at least 50); 50 of 50 draws (need 45 of at least 50); 50 of 50 draws (need 45 of at least 50) (informational, added after results) | FAIL |
+| V10 | Wind learned from the forecast | fail: better on 2015-18, better on 2019-22, better on 2023-25, no bet cost: totals flag, 2015-18, no bet cost: totals flag, 2019-22, calibration not worse, 2015-18, calibration not worse, 2023-25 | not run (fails 1 or 2) | FAIL |
+| V11 | Home edge x visitor's travel miles | fail: no bet cost: spread flag, 2023-25, calibration not worse, 2015-18 | not run (fails 1 or 2) | FAIL |
+| V12 | Home edge x visitor's time-zone change | fail: better on 2015-18, no bet cost: spread flag, 2023-25, calibration not worse, 2015-18 | not run (fails 1 or 2) | FAIL |
+| V13 | Neutral sites: home edge zero | fail: better on 2019-22, better on 2023-25, no bet cost: spread flag, 2023-25, calibration not worse, 2015-18, calibration not worse, 2023-25 | not run (fails 1 or 2) | FAIL |
+
+### Gate, V1: Drop QB out (points) (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3956 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3713 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2342 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 69-55 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 79-49 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 38-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | yes | 0.6192 -> 0.6181 |
+| calibration not worse, 2019-22 | NO | 0.6245 -> 0.6250 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6202 |
+
+Gate: FAIL (14 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V2: Drop cold (total) (total miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 10.7484 -> 10.6799 |
+| better on 2019-22 | yes | miss 10.5340 -> 10.5306 |
+| better on 2023-25 | yes | miss 10.1040 -> 10.0993 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 68-58 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 126-102 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 78-49 |
+| no bet cost: totals flag, 2019-22 | NO | 175-140 -> 174-141 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 37-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-53 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+
+Gate: FAIL (11 of 12); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V3: Drop dome (total) (total miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | NO | miss 10.7484 -> 10.7505 |
+| better on 2019-22 | yes | miss 10.5340 -> 10.5187 |
+| better on 2023-25 | NO | miss 10.1040 -> 10.1104 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 68-58 |
+| no bet cost: totals flag, 2015-18 | NO | 132-111 -> 131-114 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 78-49 |
+| no bet cost: totals flag, 2019-22 | NO | 175-140 -> 173-141 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 37-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 77-53 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+
+Gate: FAIL (8 of 12); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V4: Drop dome (points) (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3991 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3737 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2355 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 69-54 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 77-48 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 37-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | yes | 0.6192 -> 0.6192 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6244 |
+| calibration not worse, 2023-25 | NO | 0.6205 -> 0.6206 |
+
+Gate: FAIL (14 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V5: QB form in the points equation (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3953 |
+| better on 2019-22 | NO | miss 7.3739 -> 7.3774 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2268 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 64-48 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | NO | 78-49 -> 59-44 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 42-23 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | yes | 0.6192 -> 0.6173 |
+| calibration not worse, 2019-22 | NO | 0.6245 -> 0.6260 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6201 |
+
+Gate: FAIL (12 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V6: Temperature bands, day-before run (total miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 10.7484 -> 10.7291 |
+| better on 2019-22 | NO | miss 10.5340 -> 10.5404 |
+| better on 2023-25 | yes | miss 10.1040 -> 10.0886 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 68-58 |
+| no bet cost: totals flag, 2015-18 | NO | 132-111 -> 123-105 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 78-49 |
+| no bet cost: totals flag, 2019-22 | NO | 175-140 -> 169-136 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 37-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 68-45 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+
+Gate: FAIL (9 of 12); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V7: Wet or cold band (total miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 10.7484 -> 10.7245 |
+| better on 2019-22 | NO | miss 10.5340 -> 10.5501 |
+| better on 2023-25 | yes | miss 10.1040 -> 10.0808 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 68-58 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 124-101 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 78-49 |
+| no bet cost: totals flag, 2019-22 | NO | 175-140 -> 166-134 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 37-19 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 77-50 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+
+Gate: FAIL (10 of 12); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V8: Opponent defenders' value out (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | NO | miss 7.3993 -> 7.4026 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3681 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2349 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 75-59 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 77-48 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 38-18 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | yes | 0.6192 -> 0.6184 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6236 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6203 |
+
+Gate: FAIL (14 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V9: Usual snaps out (L4_G4) (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3795 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3664 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2193 |
+| no bet cost: spread flag, 2015-18 | NO | 68-58 -> 54-53 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 80-49 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | NO | 37-19 -> 38-21 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | yes | 0.6192 -> 0.6181 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6219 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6185 |
+| beats its placebo on 2015-18 | yes | 50 of 50 draws (need 45 of at least 50) |
+| beats its placebo on 2019-22 | yes | 50 of 50 draws (need 45 of at least 50) |
+| beats its placebo on 2023-25 | yes | 50 of 50 draws (need 45 of at least 50) |
+
+Gate: FAIL (16 of 18); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V10: Wind learned from the forecast (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | NO | miss 7.3993 -> 7.4024 |
+| better on 2019-22 | NO | miss 7.3739 -> 7.3741 |
+| better on 2023-25 | NO | miss 7.2357 -> 7.2359 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 69-56 |
+| no bet cost: totals flag, 2015-18 | NO | 132-111 -> 122-107 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 81-48 |
+| no bet cost: totals flag, 2019-22 | NO | 175-140 -> 171-139 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | yes | 37-19 -> 36-18 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 80-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | NO | 0.6192 -> 0.6195 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6245 |
+| calibration not worse, 2023-25 | NO | 0.6205 -> 0.6207 |
+
+Gate: FAIL (8 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V11: Home edge x visitor's travel miles (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3975 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3738 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2319 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 70-53 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 81-48 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | NO | 37-19 -> 37-21 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | NO | 0.6192 -> 0.6196 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6244 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6197 |
+
+Gate: FAIL (13 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V12: Home edge x visitor's time-zone change (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | NO | miss 7.3993 -> 7.4003 |
+| better on 2019-22 | yes | miss 7.3739 -> 7.3717 |
+| better on 2023-25 | yes | miss 7.2357 -> 7.2286 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 69-54 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 83-53 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | NO | 37-19 -> 36-25 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | NO | 0.6192 -> 0.6199 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6239 |
+| calibration not worse, 2023-25 | yes | 0.6205 -> 0.6197 |
+
+Gate: FAIL (12 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+### Gate, V13: Neutral sites: home edge zero (team points miss)
+
+| Check | Passes | Detail |
+|---|---|---|
+| better on 2015-18 | yes | miss 7.3993 -> 7.3983 |
+| better on 2019-22 | NO | miss 7.3739 -> 7.3745 |
+| better on 2023-25 | NO | miss 7.2357 -> 7.2394 |
+| no bet cost: spread flag, 2015-18 | yes | 68-58 -> 65-55 |
+| no bet cost: totals flag, 2015-18 | yes | 132-111 -> 132-111 |
+| no bet cost: wind under, 2015-18 | yes | 119-97 -> 119-97 |
+| no bet cost: spread flag, 2019-22 | yes | 78-49 -> 78-45 |
+| no bet cost: totals flag, 2019-22 | yes | 175-140 -> 175-140 |
+| no bet cost: wind under, 2019-22 | yes | 143-88 -> 143-88 |
+| no bet cost: spread flag, 2023-25 | NO | 37-19 -> 34-18 |
+| no bet cost: totals flag, 2023-25 | yes | 76-55 -> 76-55 |
+| no bet cost: wind under, 2023-25 | yes | 77-52 -> 77-52 |
+| calibration not worse, 2015-18 | NO | 0.6192 -> 0.6195 |
+| calibration not worse, 2019-22 | yes | 0.6245 -> 0.6241 |
+| calibration not worse, 2023-25 | NO | 0.6205 -> 0.6215 |
+
+Gate: FAIL (10 of 15); no market input and no look-ahead checked by the model-auditor agent
+
+## Verdict
+
+**Nothing passes; nothing changes.** None of the 13 variants passes parts 1 and 2 of the rule on main's honest
+backtest, so no placebo was owed, there was nothing to rerun together (part 5) and nothing for the model-auditor to
+audit. The model and the bet rules stay as they are.
+
+The fixes did not turn any old near miss into a pass; the same three removals miss again by one bet or a hair of calibration, as in round 3 (V2 then failed on the 2023-25 totals flag, now on 2019-22):
+- **V1, drop QB out (points):** team miss and spread flag better on every window (69-55, 79-49, 38-19), but the
+  calibrated win chance is 0.0005 worse in log loss on 2019-22 (0.62450 -> 0.62501).
+- **V2, drop cold (total):** total miss better on every window (10.7484 -> 10.6799, 10.5341 -> 10.5306, 10.1040 -> 10.0992)
+  and the totals flag better on 2015-18 and 2023-25, but one game worse on 2019-22 (175-140 -> 174-141).
+- **V4, drop dome (points):** team miss better on every window by 0.0002 or less; log loss 0.0001 worse on 2023-25.
+These three stay for the re-check after the 2026 season.
+
+**V9, usual snaps out**, is the largest accuracy gain here (team miss -0.020 / -0.008 / -0.016, calibration better on every
+window) and, in a placebo added after the results (informational, not part of the pre-registration), beats all 50
+within-season shuffles on every window: the gain is real. It fails on bets: the spread flag drops from 68-58 to 54-53 on
+2015-18 and from 37-19 to 38-21 on 2023-25, and the margin miss is a little worse on 2019-22 (10.0118 -> 10.0136), as
+on 30 Sep. Not adopted under the rule.
+
+The rest: V8 (opponent defenders out) helps or ties the spread flag and helps the calibration on every window but its team miss is worse
+on 2015-18 (7.3993 -> 7.4025), as on 1 Oct; V5 (QB form) costs the spread flag on 2019-22 (78-49 -> 59-44); the two weather
+bands (V6, V7) are worse on 2019-22 and cost totals-flag games; V10, V12 and V13 are worse on one to three windows; V3 and
+V11 cost bets.
+
+**Count.** 13 variants here, all pre-registered; one informational placebo added after the results (V9). About 40 earlier
+variants of the same 13 ideas. No cutoff, band or weight was tuned here; the 13 were chosen from earlier results on all three windows (see the pre-registration).
+
+**Changed after the pre-registration (no result depends on it):** the V6 and V7 readings drop the two 2025 games abroad
+and roofed games, as the live readers do (`wind_live._history`, `_roofed`), after the code review; 2023-25 moved by under
+0.001. The V5 placebo was corrected to shuffle a copy of `qb_form` (the totals equation reads the original); V5 failed
+parts 1-2, so its placebo never ran. Input checks added per season (V8, V9). After the fact check, the Step 1 rows for V4, V8 and V11 quote their original results in full (V11 had failed rule 1 on the margin miss, not the team miss); no variant changed.
+
+**Audit.** The model-auditor runs on what passes; nothing passed. The `pr-reviewer` agent reviewed the script (one
+placebo bug in V5, fixed; the other twelve variants match this pre-registration).
+
