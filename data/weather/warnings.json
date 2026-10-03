@@ -55,6 +55,13 @@
   "message": "2026_04_ARI_NYG: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
+ "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T00Z); not used": {
+  "count": 3,
+  "first": "2026-10-03 04:25 UTC",
+  "last": "2026-10-03 04:26 UTC",
+  "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T00Z); not used",
+  "source": "wind_live"
+ },
  "wind_live|2026_04_DEN_SF: GFS MOS run 2026-10-02T18Z at KSJC gave no wind, rain chance, temperature": {
   "count": 1,
   "first": "2026-10-02 22:02 UTC",
