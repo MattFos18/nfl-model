@@ -172,3 +172,10 @@ def test_rule_history_appends_by_column_name(tmp_path):
         {"run_at": "r1", "game_id": "g1", "shadowunder_bet": "Under 40", "windunder_bet": "", "rainunder_bet": ""},
         {"run_at": "r2", "game_id": "g2", "shadowunder_bet": "", "windunder_bet": "Under 41", "rainunder_bet": ""},
         {"run_at": "r3", "game_id": "g3", "shadowunder_bet": "", "windunder_bet": "", "rainunder_bet": "Under 39"}]
+
+
+def test_card_names_last_starter_when_schedule_is_stale():
+    """3 Oct 2026: the schedule named Drew Lock for SEA week 4; Sam Darnold started week 3 and was healthy."""
+    side = EW.card_qb({}, pd.Series({"qb_id": "DAR", "qb_swap_from": None, "qb_named_over": "LOCK"}), "Drew Lock",
+                      {"DAR": "Sam Darnold", "LOCK": "Drew Lock"}, {"DAR": "Sam Darnold", "LOCK": "Drew Lock"})
+    assert side["qb_name"] == "Sam Darnold" and side["qb_named_over"] == "Drew Lock" and "qb_priced" not in side

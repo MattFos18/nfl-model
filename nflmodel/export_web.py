@@ -1085,6 +1085,13 @@ def card_qb(side: dict, row, now_qb, sched_names: dict, all_names: dict) -> dict
     if isinstance(swap_from, str) and isinstance(qid, str):
         side["qb_name"] = all_names.get(qid, qid)
         side["qb_swap_from"] = all_names.get(swap_from, swap_from)
+    named_over = row.get("qb_named_over") if hasattr(row, "get") else None
+    if isinstance(named_over, str) and isinstance(qid, str):   # 3 Oct 2026: the schedule named a stale starter; the last starter is priced
+        side["qb_name"] = all_names.get(qid, sched_names.get(qid, qid))
+        stale = all_names.get(named_over, sched_names.get(named_over, named_over))
+        side["qb_named_over"] = stale
+        if now_qb == stale:
+            now_qb = None
     if not side.get("qb_name") and isinstance(qid, str):
         side["qb_name"] = sched_names.get(qid)
         side["qb_carried"] = True
