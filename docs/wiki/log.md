@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 3 Oct 2026
+- Input ablation (reports/input_ablation.md): all 47 live pieces drop-one with placebos; 3 earn their spot, 24 thin, 20 fail; the seven failing inputs with no flag cost, dropped together, cost one net spread-flag win and 0.0003 of total miss on 2019-22, so nothing changes; left for Matt.
 - Spread: eight new ways to build the team ratings (spread_new_ideas): none passes, each misses the margin worse on 2015-18; no change.
 - Old ideas retested on the honest backtest (reports/old_ideas_retest.md): 13 near misses from before the 1-2 Oct fixes rerun as first specified; none passes, nothing changes (near misses: drop QB out, drop cold from the total, drop dome from the points equation).
 - Relative pace studied (reports/relative_pace.md): pace against the league's own average, three forms; all still fail 2023-25, so the league slowdown was not why pace failed; nothing changed.
