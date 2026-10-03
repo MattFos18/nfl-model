@@ -486,6 +486,11 @@
 ],
 [
 "NE",
+"Channing Canada",
+"Out"
+],
+[
+"NE",
 "Christian Barmore",
 "Out"
 ],
@@ -1903,12 +1908,6 @@
 ],
 [
 "NE",
-"Channing Canada",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Christian Elliss",
 "Questionable",
 "Limited Participation in Practice"
@@ -2586,7 +2585,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 8.8,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2602,7 +2601,7 @@
 "rain_src": "mos"
 },
 "2026_04_JAX_CIN": {
-"wind": 4.0,
+"wind": 3.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2618,7 +2617,7 @@
 "rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 8.5,
+"wind": 8.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2626,7 +2625,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 6.8,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2642,7 +2641,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 7.8,
+"wind": 7.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2650,7 +2649,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 1.9,
+"wind": 2.2,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2658,5 +2657,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 21:07 UTC"
+"written_at": "2026-10-03 21:45 UTC"
 }
