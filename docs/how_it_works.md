@@ -3360,3 +3360,5 @@ None passes the round-3 rule: every one misses the margin worse on 2015-18 (9.94
 eight help 2023-25, consistent with a change that fits recent seasons. The closest, games weighted by plays, kept a spread-flag
 record no worse on any window (69-55 / 78-47 / 38-20 against 68-57 / 78-49 / 37-19) but missed worse on 2015-18; early-down EPA
 lowered the team points miss on every window but had a worse spread-flag record on every window. The live ratings stay as they are.
+
+**Bet sizing compared** (3 Oct 2026; `experiments/bet_sizing.py`, reports/bet_sizing.md). Every live bet 2015-25 replayed in date order from a bankroll of 100: flat one unit ended at 222.5, 1% of the current bankroll 320.2, 2% 908.4 with twice the worst fall, quarter and half Kelly 259.1 and 368.9 but losing money on 2015-18. Kelly staked nothing on 410 bets that won 58.3%, because the calibrated chances barely separate good bets from bad. With the win rate 2.5 points lower every strategy loses on 2015-18. A backtest, not a promise; the live rule stays one unit a bet.
