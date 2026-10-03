@@ -3348,3 +3348,16 @@ same as before the fixes: dropping QB out (team miss and spread flag better on e
 the most (7.399 -> 7.379 / 7.374 -> 7.366 / 7.236 -> 7.219, beating all 50 within-season shuffles on every window in an informational placebo run after the results) but costs the spread
 flag on 2015-18 (68-58 -> 54-53) and on 2023-25 (37-19 -> 38-21). No bet rule was re-picked: every candidate is already
 a shadow.
+
+## 54. Spread: new ways to build the ratings (3 Oct 2026)
+
+Matt asked for new ideas to improve spread accuracy and the spread flag. `spread_new_ideas` (`experiments/spread_new_ideas.py`,
+reports/spread_new_ideas.md) pre-registered eight changes to how the team ratings are built that no earlier study had put in the model, each
+rebuilt from 2013 and priced walk-forward 2015-2025 with the live pipeline: last season's games weighted by how much of each unit
+came back (roster continuity), past games with a different starting QB at half weight, the defense ratings shrunk twice as hard,
+the defense ratings carrying less of last season (x0.5), games weighted by their play count, early-down EPA as the EPA rating,
+garbage-time plays (win chance under 10% or over 90%) at half weight, and a longer memory (0.96 a week) for the per-play stats.
+None passes the round-3 rule: every one misses the margin worse on 2015-18 (9.9495 to 9.9609 against 9.9469), though seven of
+eight help 2023-25, consistent with a change that fits recent seasons. The closest, games weighted by plays, kept a spread-flag
+record no worse on any window (69-55 / 78-47 / 38-20 against 68-57 / 78-49 / 37-19) but missed worse on 2015-18; early-down EPA
+lowered the team points miss on every window but had a worse spread-flag record on every window. The live ratings stay as they are.
