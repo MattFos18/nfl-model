@@ -1,0 +1,28 @@
+window,measure,live,without,change
+2015-18,margin miss,9.94713,9.94294,-0.00419
+2015-18,team points miss,7.39929,7.38892,-0.01037
+2015-18,total miss,10.74841,10.72376,-0.02466
+2015-18,"Brier, raw win chance",0.21585,0.21551,-0.00034
+2015-18,"Brier, calibrated win chance",0.21532,0.21499,-0.00033
+2015-18,calibration error,0.03502,0.03644,0.00142
+2015-18,spread flag,68-58,66-53,3.0
+2015-18,totals flag,132-111,142-117,4.0
+2015-18,wind under,119-97,119-97,0.0
+2019-22,margin miss,10.01165,10.00395,-0.0077
+2019-22,team points miss,7.37398,7.36809,-0.00589
+2019-22,total miss,10.53405,10.53432,0.00027
+2019-22,"Brier, raw win chance",0.21837,0.21849,0.00012
+2019-22,"Brier, calibrated win chance",0.21727,0.21744,0.00017
+2019-22,calibration error,0.02665,0.03103,0.00438
+2019-22,spread flag,78-49,81-53,-1.0
+2019-22,totals flag,175-140,183-134,14.0
+2019-22,wind under,143-88,143-88,0.0
+2023-25,margin miss,9.90687,9.89967,-0.0072
+2023-25,team points miss,7.23567,7.22845,-0.00721
+2023-25,total miss,10.104,10.10365,-0.00035
+2023-25,"Brier, raw win chance",0.21631,0.2161,-0.00021
+2023-25,"Brier, calibrated win chance",0.21549,0.21523,-0.00026
+2023-25,calibration error,0.06096,0.04875,-0.01221
+2023-25,spread flag,37-19,38-17,3.0
+2023-25,totals flag,76-55,86-61,4.0
+2023-25,wind under,77-52,77-52,0.0

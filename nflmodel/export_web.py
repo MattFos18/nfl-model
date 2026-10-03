@@ -129,7 +129,7 @@ def used_by_v3(col: str):
     if col.startswith("r_"):
         return col[2:] in F
     raw = {"pf": True, "pa": True, "home": True, "epa_play": True, "def_epa_play": True, "qb_name": True, "qb_rating": True, "qb_out": "qb_out" in F,
-           "dome": "dome" in F, "wind": "wind_out" in F, "rain": "rain" in F, "snow": "snow" in F, "warm_in_cold": "warm_in_cold" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
+           "dome": "dome" in F or "dome" in M.TOTAL_FEATS, "wind": "wind_out" in F, "rain": "rain" in F, "snow": "snow" in F, "warm_in_cold": "warm_in_cold" in F, "temp": "cold" in F, "rest": "rest_short" in F or "rest_long" in F,
            "opp_rest": "opp_rest_short" in F or "opp_rest_long" in F, "div_game": "div_game" in F, "primetime": "primetime" in F,
            "pass_epa": "off_pass_epa" in F, "def_pass_epa": "def_pass_epa" in F, "rush_epa": "off_rush_epa" in F, "def_rush_epa": "def_rush_epa" in F,
            "plays": "off_plays" in F, "def_plays": "def_plays" in F, "opp_qb_rating": "opp_qb_rating" in F, "success": "off_success" in F, "def_success": "def_success" in F}
@@ -209,7 +209,7 @@ def situation_facts(feats: pd.DataFrame) -> dict:
         last -= 1   # the season in progress is not a full season
     f = f[f.pf.notna() & (f.season >= 2013) & (f.season <= last) & (f.game_type == "REG")]
     out = {"seasons": f"2013 to {last}", "team_games": int(len(f)), "flags": {}, "wind": []}
-    for k in M.SIT_FEATS + ["qb_out"]:
+    for k in M.SIT_FEATS:
         if k == "wind_out" or k not in f.columns:
             continue
         on, off = f[f[k] == 1], f[f[k] == 0]
@@ -219,7 +219,7 @@ def situation_facts(feats: pd.DataFrame) -> dict:
         out["wind"].append({"bucket": lab, "n": int(len(x)), "pf": round(float(x.pf.mean()), 2)})
     # the tested-and-not-used situations, raw: points scored and the margin against the closing spread with the flag on vs off
     out["tested"] = {}
-    for k in ["snow", "primetime", "div_game", "rest_short", "rest_long", "body_clock_early"]:
+    for k in ["neutral", "dome", "rain", "div_game", "qb_out", "snow", "primetime", "rest_short", "rest_long", "body_clock_early"]:   # neutral, dome, rain, div_game, qb_out left the model 3 Oct 2026
         if k not in f.columns:
             continue
         on, off = f[f[k] == 1], f[f[k] == 0]
@@ -289,7 +289,7 @@ def model_constants(feats: pd.DataFrame) -> dict:
     from . import weather as WX, trends as TR, season as SE
     return {"ridge": M.RIDGE, "train_from": M.TRAIN_FROM, "early_weeks": M.EARLY_WEEKS, "late_week": M.LATE_WEEK, "dead_pct": M.DEAD_PCT, "cold_f": M.COLD_F,
             "wind_fill": round(float(feats.wind.median()), 2),   # model.prep's stand-in for an unknown wind (the median wind in the features)
-            "use_within_days": WX.USE_WITHIN_DAYS, "rain_prob": TR.RAIN_PROB, "rain_mm": TR.RAIN_MM, "zero_feats": M.SIT_FEATS + ["qb_out"] + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS}   # the inputs a breakdown measures from zero, not from the league average
+            "use_within_days": WX.USE_WITHIN_DAYS, "rain_prob": TR.RAIN_PROB, "rain_mm": TR.RAIN_MM, "zero_feats": M.SIT_FEATS + M.INJ_FEATS + M.CONT_FEATS + M.LATE_FEATS}   # the inputs a breakdown measures from zero, not from the league average
 
 
 def player_model_constants() -> dict:
@@ -860,7 +860,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
     skill_val = dict(zip(*[pd.read_parquet(_pvf, columns=["player_id", "value_above_replacement"]).dropna()[c] for c in ("player_id", "value_above_replacement")])) if _pvf.exists() else {}
     # the starting QB listed Out is priced through the quarterback inputs, not the snaps-out line (28 Sep 2026, Matt: "how is
     # Caleb Williams only -0.2"): his row also carries the swap, the backup's rating minus his own times the rating's points
-    # per unit, plus the QB-out term, from the same QB rater the features used (ratings.QBRatings, live settings); shown
+    # per unit, plus the QB-out term (none since qb_out left the model, 3 Oct 2026), from the same QB rater the features used (ratings.QBRatings, live settings); shown
     # only when the rater reproduces the priced starter's rating to 1e-4, so the card's number is the equation's
     qbr = None
     qbg = OUT / "qb_games.parquet"
@@ -1015,7 +1015,7 @@ def export_week(feats=None, games=None, pred=None):
             for tm in [r.home_team, r.away_team]:
                 if (r.game_id, tm) in fp.index:
                     row = fp.loc[(r.game_id, tm)]
-                    sides[tm] = {c: ((None if pd.isna(row[c]) else round(float(row[c]), 6)) if c in M.FEATS and isinstance(row[c], (float, np.floating)) else clean(row[c])) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome"] + M.TREND_FEATS if c in row.index}
+                    sides[tm] = {c: ((None if pd.isna(row[c]) else round(float(row[c]), 6)) if c in M.FEATS and isinstance(row[c], (float, np.floating)) else clean(row[c])) for c in M.FEATS + ["qb_name", "rest", "temp", "wind", "dome", "qb_out"] + M.TREND_FEATS if c in row.index}   # qb_out: a reading since 3 Oct 2026 (chip, QB swap row)
                     sides[tm]["skill_out_players"] = out_detail(r.game_id, tm)
                     if r.game_id in pv_coef.index and "home_blend_adj" in pv_coef.columns:   # the blend: the other six models' pull and each model's number
                         sd_ = "home" if tm == r.home_team else "away"; prw = pv_coef.loc[r.game_id]
