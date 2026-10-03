@@ -2613,7 +2613,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 8.9,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2621,7 +2621,7 @@
 "rain_src": "mos"
 },
 "2026_04_NYJ_CHI": {
-"wind": 9.0,
+"wind": 9.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2629,7 +2629,7 @@
 "rain_src": "mos"
 },
 "2026_04_JAX_CIN": {
-"wind": 3.9,
+"wind": 3.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2637,7 +2637,7 @@
 "rain_src": "mos"
 },
 "2026_04_ARI_NYG": {
-"wind": 7.8,
+"wind": 8.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2645,7 +2645,7 @@
 "rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 7.8,
+"wind": 8.0,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2653,7 +2653,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 7.1,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2661,7 +2661,7 @@
 "rain_src": "mos"
 },
 "2026_04_LAC_SEA": {
-"wind": 5.2,
+"wind": 5.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2669,7 +2669,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 8.2,
+"wind": 7.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2685,5 +2685,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 15:33 UTC"
+"written_at": "2026-10-03 16:10 UTC"
 }

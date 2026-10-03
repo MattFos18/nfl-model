@@ -21,9 +21,9 @@
   "source": "data checks"
  },
  "live weather|2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 12,
+  "count": 13,
   "first": "2026-10-02 21:00 UTC",
-  "last": "2026-10-03 15:20 UTC",
+  "last": "2026-10-03 15:52 UTC",
   "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -63,10 +63,17 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T06Z); not used": {
-  "count": 51,
+  "count": 53,
   "first": "2026-10-03 10:00 UTC",
-  "last": "2026-10-03 15:33 UTC",
+  "last": "2026-10-03 15:57 UTC",
   "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T06Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T12Z); not used": {
+  "count": 6,
+  "first": "2026-10-03 16:03 UTC",
+  "last": "2026-10-03 16:10 UTC",
+  "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T12Z); not used",
   "source": "wind_live"
  },
  "wind_live|2026_04_DEN_SF: GFS MOS run 2026-10-02T18Z at KSJC gave no wind, rain chance, temperature": {
@@ -91,9 +98,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-03 10:29 UTC",
-  "last": "2026-10-03 14:02 UTC",
+  "last": "2026-10-03 15:55 UTC",
   "message": "2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -126,9 +133,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 20,
+  "count": 21,
   "first": "2026-10-02 18:14 UTC",
-  "last": "2026-10-03 14:56 UTC",
+  "last": "2026-10-03 15:52 UTC",
   "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -161,9 +168,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_GB_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-02 19:34 UTC",
-  "last": "2026-10-02 19:34 UTC",
+  "last": "2026-10-03 15:54 UTC",
   "message": "2026_04_GB_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -350,9 +357,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 10,
+  "count": 11,
   "first": "2026-10-02 18:15 UTC",
-  "last": "2026-10-03 15:21 UTC",
+  "last": "2026-10-03 15:53 UTC",
   "message": "2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
