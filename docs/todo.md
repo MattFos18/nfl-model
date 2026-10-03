@@ -22,6 +22,10 @@ Last updated 29 Sep 2026.
 - **Data:** every file is listed on the site under Info → Data with what it is, what writes it and where it shows. New this round: `data/lines/splits_log.csv` (betting splits every 10 minutes), `data/reference/coordinators.csv`, `data/weather/forecast_archive*.csv` (769 of 777 outdoor games of 2022-25).
 
 ## Ideas parked, to revisit
+- **Parked by Matt, 3 Oct 2026 (later date):** (1) a different ratings engine (game-by-game team strength with
+  uncertainty); (2) points from drives (TD and FG rates per drive), for totals; (3) re-weight the 7-model blend;
+  (4) bet timing: opening and early-week lines against the close (needs weeks of logs and the CLV tracker); (5) line
+  shopping: the best book's number against one book. No model input built from the Vegas line.
 - **Beating the closing line** (30 Sep 2026, Matt: "great, but we only have a week of data"). For each flagged bet, the
   line when the flag went up against the closing line, from our own DraftKings log (every 10 minutes since this season's
   line watch began). The best live proof an edge is real. Build once the log holds a season of flags (about 30 bets).
