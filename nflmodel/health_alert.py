@@ -63,6 +63,23 @@ def main():
         print("could not update the picks-final issues:", str(e)[:200])
 
 
+def _sync_issue(ok, problems, h):
+    try:
+        _gh("label", "create", LABEL, "--color", "d73a4a", "--description", "the site's tie and freshness checks")
+    except Exception:  # noqa  (the label exists)
+        pass
+    open_ = json.loads(_gh("issue", "list", "--label", LABEL, "--state", "open", "--json", "number", "--limit", "5") or "[]")
+    body = (f"Checked {h.get('checked', '?')} by the {h.get('source', '?')} ({h.get('passed', '?')} of {h.get('total', '?')} ties).\n\n"
+            + "\n".join(f"- {p}" for p in problems[:40]) + "\n\nThe page shows the same list under Model -> Health checks. This issue closes itself when every check passes.")
+    if not ok and not open_:
+        _gh("issue", "create", "--title", "Site checks failing", "--label", LABEL, "--body", body); print("issue opened")
+    elif not ok:
+        _gh("issue", "edit", str(open_[0]["number"]), "--body", body); print("issue updated")
+    elif open_:
+        for i in open_:
+            _gh("issue", "close", str(i["number"]), "--comment", f"Every check passes again ({h.get('passed')} of {h.get('total')}, {h.get('checked')})."); print("issue closed")
+
+
 READY_LABEL = "ready-check"
 
 

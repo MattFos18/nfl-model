@@ -139,3 +139,4 @@ each one again is in `checks.md`.
 - **The raw-data cache had one fixed key** and kept restoring an old copy without the players table (decision log
   26 Sep 2026); each weekly run now saves its own copy.
 - **Retractable roofs are blank until game day.** The schedule leaves an unplayed retractable-roof game's roof empty; it read as outdoors and the wind under fired on 2026_04_DAL_HOU. Unplayed games at ATL, DAL, HOU, IND, ARI (and the Bernabeu) with no roof count as closed (`nflmodel/build.py` RETRACTABLE_HOME; `wind_live._roofed`).
+- **A try/except around an alert hides a NameError.** `health_alert.main()` wraps each alert in `except Exception` so it never fails the run; when #343 deleted `_sync_issue`, the call raised NameError, got printed and swallowed, and alerts were dead for three days. Any function called inside such a guard needs a test that calls `main()` (`tests/test_health_alert_sync.py`).

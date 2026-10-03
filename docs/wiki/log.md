@@ -4,6 +4,8 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 3 Oct 2026
+- Site-health alert fixed: #343 had deleted `health_alert._sync_issue` while `main()` still called it inside a try/except, so no failing check opened or closed the `site-health` issue from 30 Sep to 3 Oct; restored, with `tests/test_health_alert_sync.py` calling `main()`.
+- `tools/scrape.py` (#420): saves public pages as clean text for research; robots.txt respected, blocks never bypassed, output and log in gitignored `data/private/research/`.
 - Breakdown cards (page only): expected points as a banner at the top; Spread, Total and Win in three equal columns with rows lined up (CSS subgrid), stacked on phones; line charts drawn at their shown size, label rows chosen to keep clear of the other line; moneyline splits show each side's price (`export_web._add_consensus` fills the consensus ml odds from the newest consensus moneylines).
 - Seven inputs dropped (Matt's yes; reports/drop_seven_inputs.md): neutral, dome, rain, div_game, qb_out out of `model.FEATS` (22 -> 17), pf_sum and qb_out_sum out of `model.TOTAL_FEATS` (11 -> 9); margin miss better on every window; readings kept for cards and checks; props_by_season constants drift after the weekly run.
 - Input ablation (reports/input_ablation.md): all 47 live pieces drop-one with placebos; 3 earn their spot, 24 thin, 20 fail; the seven failing inputs with no flag cost, dropped together, cost one net spread-flag win and 0.0003 of total miss on 2019-22, so nothing changes; left for Matt.
