@@ -900,6 +900,11 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                 if sd is not None and tm in (cache.get(g["game_id"]) or {}):
                     sd["injuries"] = cache[g["game_id"]][tm]
             continue
+        try:   # whether this game's final injury report (game statuses) is out yet (picks_final.final_report)
+            from .picks_final import final_report
+            final_out = pd.Timestamp.now(tz="America/New_York").tz_localize(None) >= final_report(pd.Timestamp(g["kickoff"]))
+        except Exception:  # noqa  (no kickoff: treat a blank status as undecided, the cautious side)
+            final_out = False
         for tm in teams:
             sd = (g.get("sides") or {}).get(tm)
             if sd is None:
@@ -928,7 +933,9 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                 # 1 Oct 2026 (Matt: "show me on the injury report the total move, worst case either way"): a player still undecided
                 # (Questionable, or no game status yet) is not counted; if_out is what the same terms would move the line if he sat,
                 # his last-game snaps and, for a skill player, his value (player_values.parquet)
-                if not priced and p.roster == "Active" and p.report not in PRICED:
+                # 3 Oct 2026 (Matt's injury-risk marker): once the game's final report is out, a player with no game status is
+                # playing (a practice note alone, e.g. "Full practice", is not a game status), so only Questionable stays undecided
+                if not priced and p.roster == "Active" and p.report not in PRICED and (p.report == "Questionable" or (not p.report and not final_out)):
                     vs = float(skill_val.get(p.player_id, 0.0)) if isinstance(p.player_id, str) else 0.0
                     row["if_out"] = round((co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * vs) - (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * vs), 3)
                     und += row["if_out"]
