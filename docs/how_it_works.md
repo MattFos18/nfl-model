@@ -3087,6 +3087,18 @@ study's T2 rerun on today's data (the study's 157-126 / 213-158 / 89-60 came fro
 Two standing checks keep it apart: the live total and chance are recomputed with and without it and must match pred_v3
 exactly, and its columns and bet never appear in the page files or the live bet files.
 
+**New totals ideas** (3 Oct 2026, Matt: improve the totals with new ideas from every angle; `experiments/totals_new_ideas.py`,
+reports/totals_new_ideas.md, study totals_new_ideas, pre-registered). Nine variants, each refit walk-forward 2015-2025 with
+the totals side rebuilt exactly as the live walk-forward. Seven added one input to the totals equation: four decayed means
+of the teams' earlier games (both offenses plus both defenses): seconds per snap, the same in neutral situations, red-zone
+TD rate and explosive-play rate; both teams' as-of kicker value; and two facts of the game, artificial turf and Denver home
+games. Two changed only the over chance: the
+training misses scaled with the size of the total, and a whole-number total with key-total weights. None passes the first
+two parts of the rule. The explosive-play rate lowers the total miss on all three windows (10.7484 -> 10.7477 / 10.5340 ->
+10.5270 / 10.1040 -> 10.0744) but costs totals-flag wins on 2015-18 and 2023-25. Pace helps 2015-22 and fails the held-out
+2023-25, likely because the league slowed (28.9-29.8 seconds per snap a season in 2015-22, 29.9-30.5 in 2023-25, slowest in
+2024-25). Nothing adopted.
+
 **If the undecided sit** (1 Oct 2026, Matt: "show me on the injury report the total move, worst case either way"). A
 player still undecided (Questionable, or no game status yet) is not counted; his row shows "if out" with what the same
 terms (his last-game snaps, and a skill player's value) would move the line if he sat, and the report's last line gives
