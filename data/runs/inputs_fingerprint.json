@@ -1087,12 +1087,6 @@
 ],
 [
 "CAR",
-"Monroe Freeling",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Nick Scott",
 "",
 "Full Participation in Practice"
@@ -1765,12 +1759,6 @@
 ],
 [
 "LV",
-"Aidan O'Connell",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Ashton Jeanty",
 "",
 "Full Participation in Practice"
@@ -2011,12 +1999,6 @@
 ],
 [
 "NO",
-"Barion Brown",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Carl Granderson",
 "",
 "Did Not Participate In Practice"
@@ -2026,12 +2008,6 @@
 "Christen Miller",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Christen Miller",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2594,7 +2570,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.3,
+"wind": 6.5,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2610,7 +2586,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 9.2,
+"wind": 8.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2682,5 +2658,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 18:56 UTC"
+"written_at": "2026-10-03 21:07 UTC"
 }

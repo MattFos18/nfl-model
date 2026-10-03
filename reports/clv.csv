@@ -1,11 +1,11 @@
 rule,season,week,game_id,bet,odds,run_at,taken_at,taken_from,line_best,kickoff_et,kind,side,line,close,close_ts,clv_pts,beat,p_taken,p_close,clv_prob,status
-model,2026,4,2026_04_IND_WAS,WAS +4.5,-115,2026-10-03 18:33 UTC,2026-09-27 20:12 UTC,first flag,4.5,2026-10-04 09:30,spread,WAS,4.5,,,,,,,,pending
-model,2026,4,2026_04_JAX_CIN,JAX +2.5,-105,2026-10-03 18:33 UTC,2026-09-27 20:41 UTC,first flag,2.5,2026-10-04 13:00,spread,JAX,3.0,,,,,,,,pending
-model,2026,4,2026_04_ARI_NYG,NYG +2.5,-108,2026-10-03 18:33 UTC,2026-09-29 14:19 UTC,first flag,2.5,2026-10-04 13:00,spread,NYG,1.5,,,,,,,,pending
+model,2026,4,2026_04_IND_WAS,WAS +4.5,-115,2026-10-03 20:51 UTC,2026-09-27 20:12 UTC,first flag,4.5,2026-10-04 09:30,spread,WAS,4.5,,,,,,,,pending
+model,2026,4,2026_04_JAX_CIN,JAX +2.5,-105,2026-10-03 20:51 UTC,2026-09-27 20:41 UTC,first flag,2.5,2026-10-04 13:00,spread,JAX,3.0,,,,,,,,pending
+model,2026,4,2026_04_ARI_NYG,NYG +2.5,-108,2026-10-03 20:51 UTC,2026-09-29 14:19 UTC,first flag,2.5,2026-10-04 13:00,spread,NYG,1.5,,,,,,,,pending
 shadowunder,2026,3,2026_03_LAC_BUF,Under 50.5,-110,2026-09-27 16:15 UTC,2026-09-27 16:15 UTC,tracker row,,2026-09-27 13:00,total,under,50.5,50.5,2026-09-27 16:21 UTC,0.0,False,0.5108342361863489,0.5108342361863489,0.0,closed
 shadowunder,2026,3,2026_03_NE_JAX,Under 46.5,-110,2026-09-27 16:15 UTC,2026-09-27 16:15 UTC,tracker row,,2026-09-27 13:00,total,under,46.5,46.5,2026-09-27 16:21 UTC,0.0,False,0.5,0.5,0.0,closed
 shadowunder,2026,3,2026_03_LA_DEN,Under 44.5,-110,2026-09-27 23:16 UTC,2026-09-27 23:16 UTC,tracker row,,2026-09-27 20:20,total,under,44.5,43.5,2026-09-28 00:12 UTC,1.0,True,,,,closed
-shadowunder,2026,4,2026_04_NE_BUF,Under 49.5,-110,2026-10-03 18:33 UTC,2026-10-02 05:35 UTC,first flag,,2026-10-04 13:00,total,under,48.5,,,,,,,,pending
-shadowunder,2026,4,2026_04_JAX_CIN,Under 51.5,-105,2026-10-03 18:33 UTC,2026-10-02 18:08 UTC,first flag,,2026-10-04 13:00,total,under,51.5,,,,,,,,pending
-shadowunder,2026,4,2026_04_DET_CAR,Under 50.5,-110,2026-10-03 18:33 UTC,2026-10-02 11:57 UTC,first flag,,2026-10-04 20:20,total,under,51.0,,,,,,,,pending
+shadowunder,2026,4,2026_04_NE_BUF,Under 49.5,-110,2026-10-03 20:51 UTC,2026-10-02 05:35 UTC,first flag,,2026-10-04 13:00,total,under,48.5,,,,,,,,pending
+shadowunder,2026,4,2026_04_JAX_CIN,Under 51.5,-105,2026-10-03 20:51 UTC,2026-10-02 18:08 UTC,first flag,,2026-10-04 13:00,total,under,51.5,,,,,,,,pending
+shadowunder,2026,4,2026_04_DET_CAR,Under 50.5,-110,2026-10-03 20:51 UTC,2026-10-02 11:57 UTC,first flag,,2026-10-04 20:20,total,under,51.0,,,,,,,,pending
 windunder,2026,4,2026_04_PIT_CLE,Under 38.5,-110,2026-10-01 23:22 UTC,2026-10-01 23:22 UTC,tracker row,,2026-10-01 20:15,total,under,38.5,38.5,2026-10-02 00:12 UTC,0.0,False,0.5108342361863489,0.5108342361863489,0.0,closed

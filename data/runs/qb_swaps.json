@@ -9,5 +9,119 @@
   "PHI Hollywood Brown",
   "PIT Gabriel Rubio"
  ],
- "swaps": []
+ "swaps": [],
+ "conflicts": [
+  {
+   "game_id": "2026_04_LAC_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_05_SF_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_06_SEA_DEN",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_07_KC_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_08_CHI_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_09_ARI_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_10_SEA_LV",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_12_SEA_SF",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_13_DAL_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_14_NYG_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_15_SEA_PHI",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_16_LA_SEA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_17_SEA_CAR",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_18_SEA_LA",
+   "team": "SEA",
+   "named": "00-0035704",
+   "priced": "00-0034869",
+   "named_name": "Drew Lock",
+   "priced_name": "Sam Darnold"
+  }
+ ]
 }
