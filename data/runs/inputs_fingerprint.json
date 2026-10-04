@@ -191,7 +191,32 @@
 ],
 [
 "CAR",
+"Albert Reese IV",
+"Out"
+],
+[
+"CAR",
+"Cam Jackson",
+"Out"
+],
+[
+"CAR",
 "Damien Lewis",
+"Out"
+],
+[
+"CAR",
+"Haynes King",
+"Out"
+],
+[
+"CAR",
+"Ja'Tavion Sanders",
+"Out"
+],
+[
+"CAR",
+"Jalen Coker",
 "Out"
 ],
 [
@@ -411,12 +436,27 @@
 ],
 [
 "DEN",
+"Pat Surtain II",
+"Out"
+],
+[
+"DEN",
+"Riley Moss",
+"Out"
+],
+[
+"DEN",
 "Sam Ehlinger",
 "Out"
 ],
 [
 "DEN",
 "Tyler Onyedim",
+"Out"
+],
+[
+"DET",
+"Ahmed Hassanein",
 "Out"
 ],
 [
@@ -431,6 +471,11 @@
 ],
 [
 "DET",
+"Bishop Fitzgerald",
+"Out"
+],
+[
+"DET",
 "Brian Branch",
 "Out"
 ],
@@ -441,7 +486,22 @@
 ],
 [
 "DET",
+"Devin White",
+"Out"
+],
+[
+"DET",
+"Mekhi Wingo",
+"Out"
+],
+[
+"DET",
 "Thomas Harper",
+"Out"
+],
+[
+"DET",
+"Tyler Conklin",
 "Out"
 ],
 [
@@ -707,6 +767,11 @@
 [
 "LAC",
 "Kayode Awosika",
+"Out"
+],
+[
+"LAC",
+"Ladd McConkey",
 "Out"
 ],
 [
@@ -1176,6 +1241,11 @@
 ],
 [
 "SF",
+"Kyle Juszczyk",
+"Out"
+],
+[
+"SF",
 "Mykel Williams",
 "Out"
 ],
@@ -1630,12 +1700,6 @@
 ],
 [
 "CAR",
-"Cam Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Chuba Hubbard",
 "",
 "Full Participation in Practice"
@@ -1660,21 +1724,9 @@
 ],
 [
 "CAR",
-"Jalen Coker",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Lee Hunter",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"CAR",
-"Lee Hunter",
-"Questionable (ESPN)",
-""
 ],
 [
 "CAR",
@@ -1852,7 +1904,7 @@
 ],
 [
 "DEN",
-"Pat Surtain II",
+"Pat Bryant",
 "Questionable (ESPN)",
 ""
 ],
@@ -1867,12 +1919,6 @@
 "D.J. Reed",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"DET",
-"D.J. Reed",
-"Questionable (ESPN)",
-""
 ],
 [
 "DET",
@@ -2314,6 +2360,12 @@
 ],
 [
 "LAC",
+"Trevor Penning",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Trey Lance",
 "Questionable",
 "Limited Participation in Practice"
@@ -2485,6 +2537,12 @@
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
+],
+[
+"MIN",
+"Christian Darrisaw",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIN",
@@ -3149,5 +3207,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 22:25 UTC"
+"written_at": "2026-10-04 23:34 UTC"
 }
