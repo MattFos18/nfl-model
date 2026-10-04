@@ -1111,6 +1111,11 @@
 ],
 [
 "WAS",
+"Jaylin Lane",
+"Doubtful"
+],
+[
+"WAS",
 "Luke McCaffrey",
 "Out"
 ],
@@ -1141,6 +1146,12 @@
 ]
 ],
 "reports": [
+[
+"ARI",
+"Andrew Wingard",
+"Questionable (ESPN)",
+""
+],
 [
 "ARI",
 "Budda Baker",
@@ -1284,6 +1295,12 @@
 "Marlon Humphrey",
 "",
 "Full Participation in Practice"
+],
+[
+"BAL",
+"Marlon Humphrey",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1503,6 +1520,12 @@
 ],
 [
 "CIN",
+"Ja'Marr Chase",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
 "Jonathan Allen",
 "",
 "Full Participation in Practice"
@@ -1608,6 +1631,12 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
+],
+[
+"GB",
+"Chris Brooks",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -1752,6 +1781,12 @@
 "Albert Regis",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"JAX",
+"Caleb Ransaw",
+"Questionable (ESPN)",
+""
 ],
 [
 "JAX",
@@ -2202,6 +2237,12 @@
 "Reggie Gilliam",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NE",
+"Reggie Gilliam",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2709,12 +2750,6 @@
 ],
 [
 "WAS",
-"Jaylin Lane",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Jeremy Reaves",
 "Questionable (ESPN)",
 ""
@@ -2838,5 +2873,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 17:48 UTC"
+"written_at": "2026-10-04 18:21 UTC"
 }
