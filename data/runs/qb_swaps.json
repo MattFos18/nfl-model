@@ -12,17 +12,7 @@
   "PHI Hollywood Brown",
   "PIT Gabriel Rubio"
  ],
- "swaps": [
-  {
-   "game_id": "2026_04_IND_WAS",
-   "team": "WAS",
-   "from": "00-0032268",
-   "from_name": "Marcus Mariota",
-   "to": "00-0041117",
-   "to_name": "Athan Kaliakmanis",
-   "source": "depth chart"
-  }
- ],
+ "swaps": [],
  "conflicts": [
   {
    "game_id": "2026_04_LAC_SEA",
