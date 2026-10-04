@@ -838,6 +838,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     document.querySelectorAll("section.tab").forEach(s => s.hidden = s.id !== tab);
     ["teamsec", "model", "results", "seasonsec", "playersec"].forEach(sec => { const cur = sub[sec] || (sec === "rank" ? "teams" : sec === "seasonsec" ? "odds" : sub[sec]); document.querySelectorAll(`#${sec} > nav.sub button`).forEach(b => b.setAttribute("aria-selected", b.dataset.sub === cur ? "true" : "false"));
       document.querySelectorAll(`#${sec} > div[id]`).forEach(d => d.hidden = d.id !== cur); });
+    setTimeout(() => { try { drawSparks(); } catch (e) { /* the charts are not set up yet on the first call */ } }, 0);   // a chart drawn while its tab was hidden gets its real width
   }
   groups.forEach(g => { const b = document.createElement("button"); b.className = "chip"; b.textContent = g; b.setAttribute("aria-pressed", on.has(g) ? "true" : "false");
     b.addEventListener("click", () => { on.has(g) ? on.delete(g) : on.add(g); b.setAttribute("aria-pressed", on.has(g) ? "true" : "false"); save(); renderGames(); }); $("groupchips").appendChild(b); });
@@ -899,7 +900,8 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const row = (lab, a, b) => `<span class="sl">${lab}</span><span class="sp${a > b ? " on" : ""}">${a}%</span><span class="sb"><i class="${a >= b ? "big" : ""}" style="width:${a}%"></i><i class="${b > a ? "big" : ""}" style="width:${b}%"></i></span><span class="sp r${b > a ? " on" : ""}">${b}%</span>`;
     // the moneyline's price beside each side (3 Oct 2026, Matt: "74% of tickets" reads against "-148"), from Python (export_web)
     const px = s => mk === "ml" && S[s].odds != null ? `<i>${S[s].odds > 0 ? "+" : ""}${S[s].odds}</i>` : "";
-    return `<div class="spl" title="Tickets: share of bets placed on each side. Handle: share of money wagered. ${g.splits.source}, read ${t}. Shown only: not in the model"><div class="splh"><span>Betting splits</span><span class="src">${g.splits.source}</span></div>
+    const src = (g.splits.filled && g.splits.filled[mk]) || g.splits.source;   // a market the consensus feed lacked comes from DraftKings (export_web, 4 Oct 2026)
+    return `<div class="spl" title="Tickets: share of bets placed on each side. Handle: share of money wagered. ${src}, read ${t}. Shown only: not in the model"><div class="splh"><span>Betting splits</span><span class="src">${src}</span></div>
       <div class="splg"><span></span><span class="sp side">${leftLab}${px(left)}</span><span></span><span class="sp r side">${rightLab}${px(right)}</span>${row("Tickets", S[left].bets, S[right].bets)}${row("Handle", S[left].money, S[right].money)}</div></div>`;
   }
   // a card section's ten rows (3 Oct 2026, Matt: the three sections line up row for row): header, model, Vegas, edge, the
@@ -930,7 +932,15 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const fav = mk === "total" ? m.toward.charAt(0).toUpperCase() + m.toward.slice(1) : m.toward;
     return `<div class="mv"><span class="chip" title="Reverse line move: the consensus ${mk === "ml" ? "moneyline" : "line"} moved ${t} toward ${side} against ${m.bets}% of bets on ${pub}, usually sharper money. Shown only: not in the model">Reverse line move · ${fav}</span></div>`;
   }
-  function spark(hist, key, modelVal, H, edge) {
+  // 4 Oct 2026 (Matt: the line charts "increased in a weird size"): a 360-wide drawing scaled to a 540-wide column blew the labels up
+  // 1.5x; each chart is now redrawn at its column's real width after the cards render (drawSparks), and again on a resize
+  const SPARKS = [];
+  function drawSparks(root) {
+    (root || document).querySelectorAll(".sparkslot").forEach(el => { const a = SPARKS[+el.dataset.sp], w = Math.round(el.clientWidth);
+      if (a && w > 0 && w !== +el.dataset.w) { el.dataset.w = w; el.innerHTML = spark(a[0], a[1], a[2], a[3], a[4], Math.max(220, w)); } });
+  }
+  let sparkT = null; window.addEventListener("resize", () => { clearTimeout(sparkT); sparkT = setTimeout(() => drawSparks(), 150); });
+  function spark(hist, key, modelVal, H, edge, Wd) {
     // the DraftKings line over time (30 Sep 2026, Matt: the betting splits are DraftKings', so the line is too; every book's
     // line and splits wait on a paid feed, docs/todo.md), one point per snapshot, with the model's number dashed. Labels sit
     // in their own rows above and below the plot, so no label can land on the line (Matt: "IND -4.5 is on the line"), both
@@ -947,7 +957,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     const span = win ? 4 : 1, all = vals.concat([modelVal]).filter(v => v != null); let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < span) { const c = (hi + lo) / 2; lo = c - span / 2; hi = c + span / 2; }
     // drawn near its shown size (3 Oct 2026: a 600-wide drawing in a third of the card shrank the labels to 7 px), so the
     // three charts on a card read alike at desktop and on a phone
-    const W = 360, Hh = 96, mt = 26, mb = 26, ml = 6, mr = 6, fs = 12; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => mt + (hi - v) / (hi - lo) * (Hh - mt - mb);
+    const W = Wd || 360, Hh = 96, mt = 26, mb = 26, ml = 6, mr = 6, fs = 12; const x = i => ml + i / (vals.length - 1) * (W - ml - mr), y = v => mt + (hi - v) / (hi - lo) * (Hh - mt - mb);
     const yS = y(vals[0]), yE = y(vals[vals.length - 1]), yM = modelVal != null ? y(modelVal) : null;
     let svg = `<svg viewBox="0 0 ${W} ${Hh}" class="spark" role="img" aria-label="Line movement">`;
     if (yM != null) svg += `<line x1="${ml}" x2="${W - mr}" y1="${yM.toFixed(1)}" y2="${yM.toFixed(1)}" stroke="var(--model)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
@@ -968,7 +978,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     svg += `<text x="${ml}" y="${rowV}" font-size="${fs}" font-weight="600" fill="var(--vegas)">${sLab}</text><text x="${W - mr}" y="${rowV}" text-anchor="end" font-size="${fs}" font-weight="600" fill="var(--vegas)">${eLab}</text>`;
     if (yM != null) svg += `<text x="${W - mr}" y="${rowM}" text-anchor="end" font-size="${fs}" font-weight="600" fill="var(--model)">${mLab}</text>`;
     svg += `</svg>`;
-    return svg;
+    return Wd ? svg : `<div class="sparkslot" data-sp="${SPARKS.push([hist, key, modelVal, H, edge]) - 1}">${svg}</div>`;
   }
   function flagReason(g) {
     // the three inputs that do most to set the model's line (home minus away contribution), for a flagged card
@@ -1563,7 +1573,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
     if ($("thr")) $("thr").textContent = W.total_edge == null ? `a spread edge of ${W.spread_edge}+ points; totals: an ${TS.side} at a ${underPct}%+ raw chance, or forecast wind ${W.wind_mph}+ mph outdoors` : `a spread edge of ${W.spread_edge}+ points or a total edge of ${W.total_edge}+`;
     const withLine = W.games.filter(g => g.spread_line != null);
     const RR = W.rule_records || {}, rec3 = k => RR[k] ? `${RR[k]["2015-18"]}, ${RR[k]["2019-22"]} and ${RR[k]["2023-25"]} on 2015-18, 2019-22 and 2023-25` : "on the Bets tab";
-    let h = "";
+    let h = ""; SPARKS.length = 0;
     W.games.forEach((g, i) => {
       // every number on the card is Python's (picks.table on the newest line snapshot, export_web --week): the page displays them
       // the score from the ESPN scoreboard (web/data/live.js, nflmodel/results.py) stands in until nflverse posts it; a live final counts as played
@@ -1619,7 +1629,7 @@ body.solo nav.tabs,body.solo header .controls{display:none}
         <div class="whybox" id="box${i}" hidden data-k=""></div>
       </article>`;
     });
-    $("cards").innerHTML = h; $("jump").hidden = false;
+    $("cards").innerHTML = h; $("jump").hidden = false; drawSparks($("cards"));
     let lastDay = ""; $("jump").innerHTML = W.games.map((g, i) => { const k = g.kickoff || g.gameday || ""; const m = k.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/); const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; const dayLab = d ? ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][d.getDay()] + " " + (d.getMonth() + 1) + "/" + d.getDate() : ""; const tm = m && m[4] ? `${((+m[4] + 11) % 12) + 1}:${m[5]} ${+m[4] >= 12 ? "PM" : "AM"}` : ""; const head = dayLab && dayLab !== lastDay ? `<span class="day">${dayLab}</span>` : ""; lastDay = dayLab;
       return `${head}<a href="#card${i}" data-i="${i}" class="${g.bet || g.shadowunder_bet || g.windunder_bet ? "flag" : ""}" title="${whenTxt(g).replace(/<[^>]+>/g, "")}">${g.away_team} @ ${g.home_team}<small>${tm}</small></a>`; }).join("");   // the bar marks both flags, the spread's and the totals' (28 Sep 2026, Matt)
     // the highlighted game: the one clicked, until the next scroll; after that, the card at the top of the screen (under the sticky bar on phones).

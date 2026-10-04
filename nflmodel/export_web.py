@@ -534,6 +534,7 @@ def _add_consensus(wk: list) -> None:
             g["consensus_history"] = hist
         y = s[s.game_id == gid] if len(s) else s
         if len(y):
+            dk = g.get("splits") or {}   # DraftKings' (_add_splits), kept for a market the consensus feed never posted
             out = {"ts": str(y.ts.max()), "source": "Consensus"}
             for r in y.itertuples():
                 a, h = ("over", "under") if r.market == "total" else (str(r.away), str(r.home))
@@ -541,6 +542,11 @@ def _add_consensus(wk: list) -> None:
                                  h: {"bets": int(r.bets_b), "money": int(r.money_b), "line": clean(r.line_b), "odds": None}}
             # the moneyline splits read against each side's price (3 Oct 2026, Matt): the newest consensus point with both
             # moneylines; none when the history has none
+            # 4 Oct 2026 (Matt: the splits disappeared on some cards): ScoresAndOdds posted no moneyline split for NE-BUF, TEN-BAL,
+            # MIA-MIN and LAC-SEA, so the Win block lost its splits and its chart stretched; DraftKings' fills a missing market
+            for mk in ("spread", "total", "ml"):
+                if mk not in out and isinstance(dk.get(mk), dict):
+                    out[mk] = dk[mk]; out.setdefault("filled", {})[mk] = dk.get("source", "DraftKings")
             mlp = [p for p in g.get("consensus_history") or [] if p.get("home_win") is not None]   # both prices, both possible
             if "ml" in out and mlp and str(g["home_team"]) in out["ml"] and str(g["away_team"]) in out["ml"]:
                 out["ml"][str(g["home_team"])]["odds"] = mlp[-1]["home_ml"]; out["ml"][str(g["away_team"])]["odds"] = mlp[-1]["away_ml"]

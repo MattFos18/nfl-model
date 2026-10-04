@@ -51,8 +51,11 @@ def _ko_utc(kickoff_et) -> pd.Series:
 def qb_priced_not_out(feats: pd.DataFrame, games: pd.DataFrame, out: dict, season: int, week: int) -> list:
     """No side of an unplayed picks-week game is priced at a QB ruled out (Out, Doubtful or off the active roster): the WAS
     card priced Jayden Daniels after ESPN ruled him Out (#376)."""
-    up = set(games[(games.season == season) & (games.week == week) & games.home_score.isna()].game_id)
-    f = feats[feats.game_id.isin(up)]
+    up = games[(games.season == season) & (games.week == week) & games.home_score.isna()]
+    if "kickoff_et" in up.columns:   # 4 Oct 2026: Mariota, ruled out during the London game, failed this until the final score; a game under way is not repriced
+        ko = _ko_utc(up.kickoff_et.values)
+        up = up[(ko.isna() | (ko > pd.Timestamp.now("UTC"))).values]
+    f = feats[feats.game_id.isin(set(up.game_id))]
     bad = [f"{r.game_id} {r.team} {r.qb_id}" for r in f.itertuples() if isinstance(r.qb_id, str) and r.qb_id in out.get(r.team, set())]
     return [_row("FAIL", "QB priced on every unplayed picks-week side is not ruled out (Out, Doubtful, off the active roster)", bad, len(f))]
 
