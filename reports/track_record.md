@@ -49,7 +49,7 @@ Every bet:
 
 |   season |   week | game_id         | bet      |   odds |   close |   clv | result   |   units |
 |---------:|-------:|:----------------|:---------|-------:|--------:|------:|:---------|--------:|
-|     2026 |      4 | 2026_04_IND_WAS | WAS +4.5 |   -110 |     nan |   nan | pending  |     nan |
+|     2026 |      4 | 2026_04_IND_WAS | WAS +4.5 |   -102 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     nan |   nan | pending  |     nan |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     nan |   nan | pending  |     nan |
 

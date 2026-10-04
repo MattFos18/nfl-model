@@ -21,9 +21,9 @@
   "source": "data checks"
  },
  "live weather|2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 25,
+  "count": 26,
   "first": "2026-10-02 21:00 UTC",
-  "last": "2026-10-04 10:43 UTC",
+  "last": "2026-10-04 12:41 UTC",
   "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -98,9 +98,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T06Z); not used": {
-  "count": 22,
+  "count": 29,
   "first": "2026-10-04 10:03 UTC",
-  "last": "2026-10-04 12:36 UTC",
+  "last": "2026-10-04 12:58 UTC",
   "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T06Z); not used",
   "source": "wind_live"
  },
@@ -336,9 +336,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_NE_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 8,
+  "count": 9,
   "first": "2026-10-02 21:02 UTC",
-  "last": "2026-10-03 23:57 UTC",
+  "last": "2026-10-04 12:42 UTC",
   "message": "2026_04_NE_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -399,9 +399,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 19,
+  "count": 20,
   "first": "2026-10-02 18:15 UTC",
-  "last": "2026-10-04 10:44 UTC",
+  "last": "2026-10-04 12:42 UTC",
   "message": "2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }

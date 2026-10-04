@@ -341,12 +341,37 @@
 ],
 [
 "IND",
+"DJ Giddens",
+"Out"
+],
+[
+"IND",
+"Dalton Tucker",
+"Out"
+],
+[
+"IND",
+"Darius Slayton",
+"Out"
+],
+[
+"IND",
+"George Gumbs Jr.",
+"Out"
+],
+[
+"IND",
 "Keenan Allen",
 "Out"
 ],
 [
 "IND",
 "Micheal Clemons",
+"Out"
+],
+[
+"IND",
+"Riley Leonard",
 "Out"
 ],
 [
@@ -726,12 +751,22 @@
 ],
 [
 "WAS",
+"Javontae Jean-Baptiste",
+"Out"
+],
+[
+"WAS",
 "Jayden Daniels",
 "Out"
 ],
 [
 "WAS",
 "Leo Chenal",
+"Out"
+],
+[
+"WAS",
+"Luke McCaffrey",
 "Out"
 ],
 [
@@ -747,6 +782,11 @@
 [
 "WAS",
 "Sam Cosmi",
+"Out"
+],
+[
+"WAS",
+"Terry McLaurin",
 "Out"
 ]
 ],
@@ -1416,12 +1456,6 @@
 "Ashton Dulin",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"IND",
-"Ashton Dulin",
-"Questionable (ESPN)",
-""
 ],
 [
 "IND",
@@ -2553,12 +2587,6 @@
 ],
 [
 "WAS",
-"Percy Butler",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Quan Martin",
 "",
 "Full Participation in Practice"
@@ -2568,12 +2596,6 @@
 "Terry McLaurin",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Terry McLaurin",
-"Questionable (ESPN)",
-""
 ]
 ],
 "weather": {
@@ -2594,7 +2616,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 10.1,
+"wind": 12.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2658,7 +2680,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 2.7,
+"wind": 1.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2666,5 +2688,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 10:59 UTC"
+"written_at": "2026-10-04 12:58 UTC"
 }
