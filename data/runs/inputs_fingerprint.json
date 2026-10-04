@@ -286,6 +286,11 @@
 ],
 [
 "CIN",
+"Ja'Marr Chase",
+"Out"
+],
+[
+"CIN",
 "Jalen Davis",
 "Out"
 ],
@@ -671,7 +676,22 @@
 ],
 [
 "MIA",
+"Brady Cook",
+"Out"
+],
+[
+"MIA",
 "Caleb Douglas",
+"Out"
+],
+[
+"MIA",
+"Chukwuebuka Godrick",
+"Out"
+],
+[
+"MIA",
+"DJ Campbell",
 "Out"
 ],
 [
@@ -681,7 +701,17 @@
 ],
 [
 "MIA",
+"Justin Joly",
+"Out"
+],
+[
+"MIA",
 "Kenneth Grant",
+"Out"
+],
+[
+"MIA",
+"Marcellas Dial Jr.",
 "Out"
 ],
 [
@@ -711,12 +741,27 @@
 ],
 [
 "MIN",
+"Elijah Williams",
+"Out"
+],
+[
+"MIN",
+"Jakobe Thomas",
+"Out"
+],
+[
+"MIN",
 "Josh Oliver",
 "Out"
 ],
 [
 "MIN",
 "Justin Jefferson",
+"Out"
+],
+[
+"MIN",
+"Max Brosmer",
 "Out"
 ],
 [
@@ -1177,6 +1222,12 @@
 ],
 [
 "ARI",
+"Isaiah Adams",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
 "Josh Sweat",
 "Questionable",
 "Limited Participation in Practice"
@@ -1291,6 +1342,12 @@
 ],
 [
 "BAL",
+"Lamar Jackson",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Mark Andrews",
 "",
 "Full Participation in Practice"
@@ -1390,6 +1447,12 @@
 "Sam Franklin Jr.",
 "",
 "Did Not Participate In Practice"
+],
+[
+"BUF",
+"Te'Cory Couch",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -1528,12 +1591,6 @@
 "Dexter Lawrence",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CIN",
-"Ja'Marr Chase",
-"Questionable (ESPN)",
-""
 ],
 [
 "CIN",
@@ -1957,6 +2014,12 @@
 ],
 [
 "LA",
+"Konata Mumpfield",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Nate Landman",
 "",
 "Full Participation in Practice"
@@ -2341,6 +2404,12 @@
 ],
 [
 "NYG",
+"Braxton Berrios",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Deonte Banks",
 "",
 "Full Participation in Practice"
@@ -2350,6 +2419,12 @@
 "Elijah Campbell",
 "",
 "Full Participation in Practice"
+],
+[
+"NYG",
+"Jason Pinnock",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -2689,6 +2764,12 @@
 ],
 [
 "TB",
+"SirVocea Dennis",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
 "Yaya Diaby",
 "",
 "Full Participation in Practice"
@@ -2884,5 +2965,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 18:49 UTC"
+"written_at": "2026-10-04 19:20 UTC"
 }
