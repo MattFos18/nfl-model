@@ -115,11 +115,6 @@
 "Out"
 ],
 [
-"ARI",
-"Will Johnson",
-"Out"
-],
-[
 "BAL",
 "Aeneas Peebles",
 "Out"
@@ -127,6 +122,11 @@
 [
 "BAL",
 "Chris Moore",
+"Out"
+],
+[
+"BAL",
+"Durham Smythe",
 "Out"
 ],
 [
@@ -896,11 +896,6 @@
 ],
 [
 "NE",
-"Quintayvious Hutchins",
-"Out"
-],
-[
-"NE",
 "Tanner Arkin",
 "Out"
 ],
@@ -1356,6 +1351,12 @@
 ],
 [
 "ARI",
+"Hunter Long",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
 "Isaac Seumalo",
 "",
 "Full Participation in Practice"
@@ -1473,12 +1474,6 @@
 "Durham Smythe",
 "",
 "Full Participation in Practice"
-],
-[
-"BAL",
-"Durham Smythe",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -1794,12 +1789,6 @@
 ],
 [
 "DAL",
-"Alijah Clark",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "James Houston",
 "",
 "Full Participation in Practice"
@@ -1863,6 +1852,12 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
+],
+[
+"GB",
+"Brandon Cisse",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -1945,6 +1940,12 @@
 [
 "HOU",
 "Jaylin Smith",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Kenneth Murray Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -2424,6 +2425,12 @@
 ],
 [
 "NE",
+"Charles Woods",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Christian Elliss",
 "Questionable",
 "Limited Participation in Practice"
@@ -2454,6 +2461,12 @@
 ],
 [
 "NE",
+"Eli Raridon",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Mack Hollins",
 "Questionable (ESPN)",
 ""
@@ -2469,12 +2482,6 @@
 "Reggie Gilliam",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Reggie Gilliam",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2724,6 +2731,12 @@
 ],
 [
 "PHI",
+"Tank Bigsby",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Will Shipley",
 "",
 "Full Participation in Practice"
@@ -2859,6 +2872,12 @@
 "A'Shawn Robinson",
 "",
 "Full Participation in Practice"
+],
+[
+"TB",
+"Antoine Winfield Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "TB",
@@ -3030,24 +3049,8 @@
 ]
 ],
 "weather": {
-"2026_04_TEN_BAL": {
-"wind": 5.0,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_04_NE_BUF": {
 "wind": 10.6,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_04_NYJ_CHI": {
-"wind": 9.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3078,14 +3081,6 @@
 "temp_src": "mos",
 "rain_src": "mos"
 },
-"2026_04_GB_TB": {
-"wind": 5.8,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_04_LAC_SEA": {
 "wind": 5.0,
 "cold": false,
@@ -3111,5 +3106,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 19:52 UTC"
+"written_at": "2026-10-04 20:26 UTC"
 }
