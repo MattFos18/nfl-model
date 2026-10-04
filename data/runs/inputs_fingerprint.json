@@ -781,6 +781,11 @@
 ],
 [
 "WAS",
+"Marcus Mariota",
+"Out"
+],
+[
+"WAS",
 "Nick Cross",
 "Out"
 ],
@@ -2231,6 +2236,12 @@
 ],
 [
 "PHI",
+"Lane Johnson",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Moro Ojomo",
 "",
 "Full Participation in Practice"
@@ -2549,6 +2560,12 @@
 ],
 [
 "WAS",
+"Charles Omenihu",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Chig Okonkwo",
 "",
 "Limited Participation in Practice"
@@ -2598,7 +2615,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.3,
+"wind": 5.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2606,7 +2623,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 4.7,
+"wind": 6.0,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2678,7 +2695,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 2.7,
+"wind": 1.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2686,5 +2703,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 14:03 UTC"
+"written_at": "2026-10-04 15:47 UTC"
 }
