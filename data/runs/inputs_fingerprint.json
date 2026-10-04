@@ -748,11 +748,6 @@
 "WAS",
 "Sam Cosmi",
 "Out"
-],
-[
-"WAS",
-"Terry McLaurin",
-"Doubtful"
 ]
 ],
 "reports": [
@@ -1013,12 +1008,6 @@
 "Sam Franklin Jr.",
 "",
 "Did Not Participate In Practice"
-],
-[
-"BUF",
-"Sam Franklin Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1430,6 +1419,12 @@
 ],
 [
 "IND",
+"Ashton Dulin",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Charvarius Ward",
 "",
 "Full Participation in Practice"
@@ -1457,12 +1452,6 @@
 "Mo Alie-Cox",
 "",
 "Full Participation in Practice"
-],
-[
-"IND",
-"Mo Alie-Cox",
-"Questionable (ESPN)",
-""
 ],
 [
 "IND",
@@ -1637,6 +1626,12 @@
 "Josaiah Stewart",
 "Questionable",
 "Did Not Participate In Practice"
+],
+[
+"LA",
+"Josaiah Stewart",
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
@@ -2414,6 +2409,12 @@
 ],
 [
 "TB",
+"Jacob Parrish",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
 "Josiah Trotter",
 "",
 "Full Participation in Practice"
@@ -2567,11 +2568,17 @@
 "Terry McLaurin",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"WAS",
+"Terry McLaurin",
+"Questionable (ESPN)",
+""
 ]
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.0,
+"wind": 6.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2579,7 +2586,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 4.8,
+"wind": 6.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2627,7 +2634,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 6.3,
+"wind": 7.8,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2643,7 +2650,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 7.4,
+"wind": 6.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2651,7 +2658,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 2.3,
+"wind": 1.2,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2659,5 +2666,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 06:38 UTC"
+"written_at": "2026-10-04 08:56 UTC"
 }
