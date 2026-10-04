@@ -11,7 +11,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
 | 4+ edge (the flag, bet) | 3 | 0 | nothing settled |  | +0.00 | 67-54 | 80-52 | 38-17 |
-| shadow: 4.5+ edge | 3 | 0 | nothing settled |  | +0.00 | 46-36 | 55-39 | 23-15 |
+| shadow: 4.5+ edge | 2 | 0 | nothing settled |  | +0.00 | 46-36 | 55-39 | 23-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 3 | 0 | nothing settled |  | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 0 | nothing settled |  | +0.00 | 50-41 | 69-38 | 30-14 |
 | shadow: boosted trees alone, 5+ edge | 2 | 0 | nothing settled |  | +0.00 | 94-78 | 91-67 | 36-18 |
