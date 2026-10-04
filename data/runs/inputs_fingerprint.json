@@ -651,6 +651,11 @@
 ],
 [
 "PIT",
+"Derrick Harmon",
+"Doubtful"
+],
+[
+"PIT",
 "Drew Allar",
 "Out"
 ],
@@ -663,6 +668,11 @@
 "PIT",
 "Gabriel Rubio",
 "Out"
+],
+[
+"PIT",
+"Jamel Dean",
+"Doubtful"
 ],
 [
 "PIT",
@@ -2245,21 +2255,9 @@
 ],
 [
 "PIT",
-"Derrick Harmon",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Jalen Ramsey",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"PIT",
-"Jamel Dean",
-"Questionable (ESPN)",
-""
 ],
 [
 "PIT",
@@ -2600,7 +2598,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.0,
+"wind": 6.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2608,7 +2606,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 6.0,
+"wind": 4.7,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2616,7 +2614,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 12.0,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2680,7 +2678,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 1.5,
+"wind": 2.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2688,5 +2686,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 12:58 UTC"
+"written_at": "2026-10-04 14:03 UTC"
 }
