@@ -1,4 +1,4 @@
-# Calibration audit, 2026-10-04 20:28 UTC
+# Calibration audit, 2026-10-04 20:55 UTC
 
 Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
@@ -305,14 +305,14 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 
 | Window | Third | Games | Line | Model | Actual | Bias model | Bias line | MAE model | MAE line |
 |---|---|---|---|---|---|---|---|---|---|
-| 2015-18 | low | 336 | 41.0 | 42.6 | 41.1 | +1.47 | -0.18 | 10.45 | 10.32 |
-| 2015-18 | mid | 384 | 45.2 | 45.6 | 44.5 | +1.07 | +0.66 | 10.43 | 10.29 |
+| 2015-18 | low | 384 | 41.3 | 42.9 | 41.5 | +1.42 | -0.17 | 10.56 | 10.46 |
+| 2015-18 | mid | 336 | 45.4 | 45.7 | 44.6 | +1.06 | +0.77 | 10.31 | 10.12 |
 | 2015-18 | high | 304 | 50.3 | 49.3 | 51.0 | -1.71 | -0.64 | 11.39 | 11.14 |
-| 2019-22 | low | 300 | 40.8 | 42.1 | 40.9 | +1.18 | -0.07 | 10.19 | 10.19 |
-| 2019-22 | mid | 372 | 45.3 | 45.5 | 45.9 | -0.38 | -0.56 | 10.74 | 10.85 |
+| 2019-22 | low | 335 | 41.1 | 42.3 | 41.0 | +1.23 | +0.07 | 10.03 | 10.10 |
+| 2019-22 | mid | 337 | 45.5 | 45.7 | 46.2 | -0.59 | -0.76 | 10.95 | 11.01 |
 | 2019-22 | high | 383 | 50.5 | 49.1 | 50.7 | -1.55 | -0.14 | 10.61 | 10.52 |
-| 2023-25 | low | 328 | 39.9 | 41.9 | 41.7 | +0.23 | -1.72 | 9.93 | 10.15 |
-| 2023-25 | mid | 284 | 44.9 | 46.2 | 45.4 | +0.74 | -0.47 | 9.91 | 9.78 |
+| 2023-25 | low | 391 | 40.5 | 42.3 | 41.9 | +0.41 | -1.41 | 9.94 | 10.13 |
+| 2023-25 | mid | 221 | 45.4 | 46.6 | 46.0 | +0.57 | -0.67 | 9.88 | 9.71 |
 | 2023-25 | high | 204 | 49.4 | 49.0 | 50.3 | -1.24 | -0.87 | 10.66 | 10.55 |
 
 ## Margin scale: stated sigma against the realised miss, and how much of it the 50 / 80 / 95% intervals hold

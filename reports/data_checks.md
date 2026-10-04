@@ -8,7 +8,7 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | games: one row per game | yes | 0 duplicate game ids |
 | games: every team's full regular season (finished seasons) | yes | 11 seasons, 2015 to 2025 |
 | games: no team twice in one week | yes | 0 repeats in 2026 |
-| games: scores whole numbers from 0 to 80 | yes | 2948 played games |
+| games: scores whole numbers from 0 to 80 | yes | 2953 played games |
 | games: result and total add up from the scores | yes | 0 games off |
 | games: closing spread and total for every played game | yes | 0 missing |
 | games: lines in range (spread within 30, total 25 to 70) | yes | 0 out of range |
@@ -19,10 +19,10 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | predictions: every played regular-season game priced | yes | 0 missing |
 | predictions: finite and in range (total 20 to 75, spread within 35) | yes | 3167 games |
 | games: every played game's starting QB dropped back in it | yes | 0 team-games |
-| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace; 4 within it (warning): 2026_04_IND_WAS, 2026_04_TEN_BAL, 2026_04_NYJ_CHI, 2026_04_GB_TB |
+| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace; 9 within it (warning): 2026_04_IND_WAS, 2026_04_TEN_BAL, 2026_04_NE_BUF, 2026_04_NYJ_CHI, 2026_04_JAX_CIN, 2026_04_DAL_HOU |
 | games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
 | games: kickoff wind 40 mph or under | yes | 0 games |
-| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2167 games: 0 partial, 0 missing |
-| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 3 games |
+| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2171 games: 0 partial, 0 missing |
+| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 1 games |
 
 Result: PASS (20 of 20)

@@ -291,11 +291,6 @@
 ],
 [
 "CIN",
-"Ja'Marr Chase",
-"Out"
-],
-[
-"CIN",
 "Jalen Davis",
 "Out"
 ],
@@ -1001,6 +996,11 @@
 ],
 [
 "NYJ",
+"Jarvis Brownlee Jr.",
+"Out"
+],
+[
+"NYJ",
 "Kiko Mauigoa",
 "Out"
 ],
@@ -1046,6 +1046,11 @@
 ],
 [
 "PHI",
+"Jonathan Greenard",
+"Out"
+],
+[
+"PHI",
 "Lane Johnson",
 "Out"
 ],
@@ -1057,11 +1062,6 @@
 [
 "PHI",
 "Marquise Brown",
-"Out"
-],
-[
-"PHI",
-"Saquon Barkley",
 "Out"
 ],
 [
@@ -1378,6 +1378,12 @@
 "Mack Wilson",
 "",
 "Full Participation in Practice"
+],
+[
+"ARI",
+"Paris Johnson Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "ARI",
@@ -1716,6 +1722,12 @@
 "Full Participation in Practice"
 ],
 [
+"CHI",
+"Kyle Monangai",
+"Questionable (ESPN)",
+""
+],
+[
 "CIN",
 "B.J. Hill",
 "Questionable",
@@ -1747,6 +1759,12 @@
 ],
 [
 "CIN",
+"Ja'Marr Chase",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
 "Jonathan Allen",
 "",
 "Full Participation in Practice"
@@ -1762,6 +1780,12 @@
 "Swayze Bozeman",
 "Questionable",
 "Did Not Participate In Practice"
+],
+[
+"CIN",
+"Tee Higgins",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
@@ -2359,6 +2383,12 @@
 ],
 [
 "MIA",
+"Jackson Woodard",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Jaylen Wright",
 "",
 "Full Participation in Practice"
@@ -2629,12 +2659,6 @@
 ],
 [
 "NYJ",
-"Jarvis Brownlee Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
 "Jeremy Ruckert",
 "",
 "Full Participation in Practice"
@@ -2695,12 +2719,6 @@
 ],
 [
 "PHI",
-"Jonathan Greenard",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Jonathan Jones",
 "",
 "Full Participation in Practice"
@@ -2720,6 +2738,12 @@
 [
 "PHI",
 "Quinyon Mitchell",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Saquon Barkley",
 "Questionable (ESPN)",
 ""
 ],
@@ -3049,38 +3073,6 @@
 ]
 ],
 "weather": {
-"2026_04_NE_BUF": {
-"wind": 10.6,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_04_JAX_CIN": {
-"wind": 3.9,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_04_ARI_NYG": {
-"wind": 7.8,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_04_LA_PHI": {
-"wind": 8.6,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_04_LAC_SEA": {
 "wind": 5.0,
 "cold": false,
@@ -3106,5 +3098,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 20:26 UTC"
+"written_at": "2026-10-04 20:54 UTC"
 }
