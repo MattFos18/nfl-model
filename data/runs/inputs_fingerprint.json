@@ -2578,7 +2578,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 6.3,
+"wind": 6.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2586,15 +2586,15 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 6.2,
+"wind": 6.0,
 "cold": false,
-"rain": false,
+"rain": true,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 10.0,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2618,15 +2618,15 @@
 "rain_src": "mos"
 },
 "2026_04_ARI_NYG": {
-"wind": 7.4,
+"wind": 7.2,
 "cold": false,
-"rain": true,
+"rain": false,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_04_LA_PHI": {
-"wind": 8.7,
+"wind": 8.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2634,7 +2634,7 @@
 "rain_src": "mos"
 },
 "2026_04_GB_TB": {
-"wind": 7.8,
+"wind": 5.9,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2642,7 +2642,7 @@
 "rain_src": "mos"
 },
 "2026_04_LAC_SEA": {
-"wind": 5.1,
+"wind": 4.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2650,7 +2650,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 6.7,
+"wind": 7.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2658,13 +2658,13 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 1.2,
+"wind": 2.7,
 "cold": false,
-"rain": true,
+"rain": false,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 08:56 UTC"
+"written_at": "2026-10-04 10:59 UTC"
 }
