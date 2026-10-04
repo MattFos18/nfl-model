@@ -941,6 +941,11 @@
 ],
 [
 "PHI",
+"Saquon Barkley",
+"Out"
+],
+[
+"PHI",
 "Zack Baun",
 "Out"
 ],
@@ -1340,6 +1345,12 @@
 ],
 [
 "BUF",
+"DJ Moore",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Damar Hamlin",
 "",
 "Limited Participation in Practice"
@@ -1697,6 +1708,12 @@
 "Jake Hansen",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"HOU",
+"Jaylin Smith",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -2444,12 +2461,6 @@
 ],
 [
 "PHI",
-"Saquon Barkley",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Tank Bigsby",
 "",
 "Full Participation in Practice"
@@ -2857,7 +2868,7 @@
 "rain_src": "mos"
 },
 "2026_04_DEN_SF": {
-"wind": 6.7,
+"wind": 7.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2873,5 +2884,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 18:21 UTC"
+"written_at": "2026-10-04 18:49 UTC"
 }
