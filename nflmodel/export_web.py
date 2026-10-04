@@ -8,7 +8,7 @@ the box score counts (features.py), the EPA stats (build.py), the ratings the te
 Usage: python -m nflmodel.export_web
 """
 from __future__ import annotations
-import json
+import json, re
 import numpy as np, pandas as pd
 from pathlib import Path
 from . import model as M
@@ -857,6 +857,48 @@ PRACTICE = {"Did Not Participate In Practice": "Did not practice", "Limited Part
 PRICED = ("Out", "Doubtful")   # the model counts Out and Doubtful on the report and the reserve lists; Questionable plays
 
 
+def _short_match(short: str, full: str) -> bool:
+    """ESPN's game-roster name ("Dr. Jones", "B.J. Hill", "Regis") against a report name ("Dre'Mont Jones"): the same last
+    name, and the first name starting with the initial when one is given."""
+    sfx = lambda n: re.sub(r"\s+(Jr\.?|Sr\.?|II|III|IV|V)$", "", str(n).strip())
+    a, b = sfx(short).split(), sfx(full).split()
+    if not a or not b or a[-1].lower() != b[-1].lower():
+        return False
+    if len(a) == 1:
+        return True
+    ini = a[0].rstrip(".").lower().replace("'", "")
+    return b[0].lower().replace("'", "").startswith(ini)
+
+
+def _game_day(wk: list) -> dict:
+    """4 Oct 2026 (Matt: "the website still shows Questionable players for 1pm games"): game_id -> {team: [(name, did_not_play)]}
+    from the inactives log (nflmodel/inactives.py), for games whose list is out: 90 minutes before kickoff has passed and a
+    line watch has checked the game rosters since (data/lines/watch_log.csv). The newest flag per player. Display only:
+    an inactive Questionable player is shown Inactive and leaves the undecided swing, but is not priced (the model prices
+    the league's and ESPN's Out and Doubtful; pricing inactives waits on Matt)."""
+    lnd = ROOT / "data" / "lines"; fi, fw = lnd / "inactives_log.csv", lnd / "watch_log.csv"
+    if not fi.exists() or not fw.exists():
+        return {}
+    try:
+        il = pd.read_csv(fi); wl = pd.read_csv(fw, usecols=["ts"])
+        last_watch = pd.to_datetime(wl.ts.iloc[-1], format="%Y-%m-%dT%H-%M-%SZ", utc=True)
+    except Exception as e:  # noqa  (no game-day statuses: the report shows as is)
+        print("game-day inactives not read:", str(e)[:120]); return {}
+    now = pd.Timestamp.now("UTC"); out = {}
+    il["t"] = pd.to_datetime(il.ts, format="%Y-%m-%dT%H-%M-%SZ", utc=True, errors="coerce")
+    for g in wk:
+        try:
+            ko = pd.Timestamp(g.get("kickoff")).tz_localize("America/New_York").tz_convert("UTC")
+        except Exception:  # noqa
+            continue
+        listed = ko - pd.Timedelta(minutes=90)
+        if now < listed or last_watch < listed:
+            continue
+        x = il[(il.game_id == g["game_id"]) & (il.t <= now)].sort_values("t").drop_duplicates(["team", "espn_player_id"], keep="last")
+        out[g["game_id"]] = {tm: list(zip(y.name, y.did_not_play.astype(bool))) for tm, y in x.groupby("team")}
+    return out
+
+
 def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> None:
     """Each side's injury report for the week (26 Sep 2026, for the weekly report): everyone Out, Doubtful or Questionable
     on the league's report, and anyone on a reserve list who played last game or went on it this week, with his share of
@@ -868,6 +910,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
     if not rnf.exists():
         return
     rn = pd.read_parquet(rnf)
+    gday = _game_day(wk)
     _pvf = OUT / "player_values.parquet"   # every skill player's value as of the coming week, for an undecided player's if-out
     skill_val = dict(zip(*[pd.read_parquet(_pvf, columns=["player_id", "value_above_replacement"]).dropna()[c] for c in ("player_id", "value_above_replacement")])) if _pvf.exists() else {}
     # the starting QB listed Out is priced through the quarterback inputs, not the snaps-out line (28 Sep 2026, Matt: "how is
@@ -911,6 +954,7 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
             final_out = pd.Timestamp.now(tz="America/New_York").tz_localize(None) >= final_report(pd.Timestamp(g["kickoff"]))
         except Exception:  # noqa  (no kickoff: treat a blank status as undecided, the cautious side)
             final_out = False
+        gd = gday.get(g["game_id"])   # the game-day list, once it is out
         for tm in teams:
             sd = (g.get("sides") or {}).get(tm)
             if sd is None:
@@ -941,7 +985,20 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
                 # his last-game snaps and, for a skill player, his value (player_values.parquet)
                 # 3 Oct 2026 (Matt's injury-risk marker): once the game's final report is out, a player with no game status is
                 # playing (a practice note alone, e.g. "Full practice", is not a game status), so only Questionable stays undecided
-                if not priced and p.roster == "Active" and p.report not in PRICED and (p.report == "Questionable" or (not p.report and not final_out)):
+                if gd is not None and p.report == "Questionable" and not priced:
+                    hits = [d for n, d in gd.get(tm, []) if _short_match(n, p.name)]
+                    if len(set(hits)) <= 1:   # one flag (or none: on the game roster, active); conflicting matches stay Questionable
+                        dnp = bool(hits and hits[0])
+                        row["status"] = "Inactive" if dnp else "Active"; row["was"] = "Questionable"
+                        if dnp:
+                            vs = float(skill_val.get(p.player_id, 0.0)) if isinstance(p.player_id, str) else 0.0
+                            row["if_out"] = round((co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * vs) - (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * vs), 3)
+                        decided = True
+                    else:
+                        decided = False
+                else:
+                    decided = False
+                if not decided and not priced and p.roster == "Active" and p.report not in PRICED and (p.report == "Questionable" or (not p.report and not final_out)):
                     vs = float(skill_val.get(p.player_id, 0.0)) if isinstance(p.player_id, str) else 0.0
                     row["if_out"] = round((co.get("off_snap_out", 0) * off + co.get("skill_out_value", 0) * vs) - (co.get("opp_def_snap_out", 0) * dfn + co.get("opp_skill_out_value", 0) * vs), 3)
                     und += row["if_out"]
