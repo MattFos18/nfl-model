@@ -91,9 +91,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T00Z); not used": {
-  "count": 19,
+  "count": 22,
   "first": "2026-10-04 04:16 UTC",
-  "last": "2026-10-04 05:50 UTC",
+  "last": "2026-10-04 06:11 UTC",
   "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T00Z); not used",
   "source": "wind_live"
  },
@@ -154,9 +154,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 39,
+  "count": 40,
   "first": "2026-10-02 18:14 UTC",
-  "last": "2026-10-04 05:47 UTC",
+  "last": "2026-10-04 06:08 UTC",
   "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
