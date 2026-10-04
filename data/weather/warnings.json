@@ -27,6 +27,13 @@
   "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
+ "standing checks|last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 30: 2026_04_IND_WAS WAS": {
+  "count": 1,
+  "first": "2026-10-04 15:30 UTC",
+  "last": "2026-10-04 15:30 UTC",
+  "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 30: 2026_04_IND_WAS WAS",
+  "source": "standing checks"
+ },
  "wind_live|2026_04_ARI_NYG: GFS MOS run 2026-10-02T18Z at KTEB gave no wind, rain chance, temperature": {
   "count": 1,
   "first": "2026-10-02 22:02 UTC",
@@ -98,9 +105,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T06Z); not used": {
-  "count": 48,
+  "count": 51,
   "first": "2026-10-04 10:03 UTC",
-  "last": "2026-10-04 15:07 UTC",
+  "last": "2026-10-04 15:30 UTC",
   "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T06Z); not used",
   "source": "wind_live"
  },
@@ -161,9 +168,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 52,
+  "count": 53,
   "first": "2026-10-02 18:14 UTC",
-  "last": "2026-10-04 13:48 UTC",
+  "last": "2026-10-04 15:27 UTC",
   "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -266,9 +273,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 27,
+  "count": 28,
   "first": "2026-10-02 19:31 UTC",
-  "last": "2026-10-04 14:36 UTC",
+  "last": "2026-10-04 15:26 UTC",
   "message": "2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
