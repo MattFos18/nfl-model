@@ -807,7 +807,7 @@
 [
 "ATL",
 "Divine Deablo",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -818,27 +818,39 @@
 ],
 [
 "ATL",
-"Jawaan Taylor",
+"Jake Matthews",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "ATL",
+"Jawaan Taylor",
+"",
+"Full Participation in Practice"
+],
+[
+"ATL",
 "Kendal Daniels",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "ATL",
 "Samson Ebukam",
-"",
-"Limited Participation in Practice"
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "ATL",
 "Samson Ebukam",
 "Questionable (ESPN)",
 ""
+],
+[
+"ATL",
+"Yasir Abdullah",
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "ATL",
@@ -850,7 +862,7 @@
 "ATL",
 "Za'Darius Smith",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "BAL",
@@ -1976,33 +1988,27 @@
 ],
 [
 "NO",
-"Anfernee Jennings",
-"",
-"Did Not Participate In Practice"
-],
-[
-"NO",
 "Barion Brown",
 "",
-"Limited Participation in Practice"
-],
-[
-"NO",
-"Carl Granderson",
-"",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "NO",
 "Christen Miller",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "NO",
 "Davon Godchaux",
 "",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
+],
+[
+"NO",
+"Jayden Price",
+"",
+"Limited Participation in Practice"
 ],
 [
 "NO",
@@ -2012,20 +2018,20 @@
 ],
 [
 "NO",
-"Kaden Elliss",
-"",
-"Did Not Participate In Practice"
-],
-[
-"NO",
 "Martin Emerson",
 "",
 "Full Participation in Practice"
 ],
 [
 "NO",
-"Noah Fant",
+"Nathan Shepherd",
 "",
+"Did Not Participate In Practice"
+],
+[
+"NO",
+"Noah Fant",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -2037,7 +2043,7 @@
 [
 "NO",
 "Pete Werner",
-"",
+"Questionable",
 "Did Not Participate In Practice"
 ],
 [
@@ -2045,6 +2051,12 @@
 "Pete Werner",
 "Questionable (ESPN)",
 ""
+],
+[
+"NO",
+"Treyton Welch",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "NYG",
@@ -2559,7 +2571,7 @@
 ],
 "weather": {
 "2026_04_IND_WAS": {
-"wind": 5.4,
+"wind": 6.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2567,7 +2579,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 6.2,
+"wind": 4.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2599,7 +2611,7 @@
 "rain_src": "mos"
 },
 "2026_04_ARI_NYG": {
-"wind": 7.0,
+"wind": 7.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2639,7 +2651,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 1.2,
+"wind": 2.3,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2647,5 +2659,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 04:35 UTC"
+"written_at": "2026-10-04 06:38 UTC"
 }
