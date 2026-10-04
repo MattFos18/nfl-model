@@ -3,6 +3,10 @@
 One dated line per change to the model, the bet rules, the data sources or the way we work. Newest first. The full
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
+## 4 Oct 2026
+- Card line charts drawn at their column's real width (`drawSparks`, redrawn on resize and when a tab opens): a 360-wide drawing scaled to a 540-wide column had blown the labels up 1.5x. Betting splits: a market the consensus feed never posted (moneyline on NE-BUF, TEN-BAL, MIA-MIN, LAC-SEA) is filled from DraftKings and labeled so (`export_web._add_consensus`, `splits.filled`).
+- Standing check `qb_priced_not_out` skips games already under way (Mariota, ruled out during the London game, failed it until the final score).
+
 ## 3 Oct 2026
 - Injury badge on spread bets (card header): "Injury-proof" when every undecided player on either team sitting still leaves the edge at the cut or more on the same side, else "Injury risk" (details on hover). Undecided fixed in `export_web._add_injuries`: after a game's final report only Questionable counts; a practice note alone (e.g. "Full practice") had counted, inflating the swing bar (WAS -3.0 -> -0.1).
 - Props follow the QB the game model priced: `props.main` took the schedule's named starter, so SEA's props still showed Drew Lock after the starter check; it now uses `features_asof.qb_id` wherever ratings overrode a stale named starter (`qb_named_over`).
