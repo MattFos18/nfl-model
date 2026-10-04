@@ -371,11 +371,6 @@
 ],
 [
 "LA",
-"Ronnie Rivers",
-"Out"
-],
-[
-"LA",
 "Terrance Ferguson",
 "Out"
 ],
@@ -2572,7 +2567,7 @@
 "rain_src": "open-meteo"
 },
 "2026_04_TEN_BAL": {
-"wind": 5.8,
+"wind": 4.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2580,7 +2575,7 @@
 "rain_src": "mos"
 },
 "2026_04_NE_BUF": {
-"wind": 11.2,
+"wind": 9.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2652,5 +2647,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-03 23:14 UTC"
+"written_at": "2026-10-04 00:24 UTC"
 }
