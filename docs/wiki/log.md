@@ -4,6 +4,7 @@ One dated line per change to the model, the bet rules, the data sources or the w
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
 ## 4 Oct 2026
+- Game-day statuses on the injury report (`export_web._game_day`, display only): once a game's inactives are out (90 minutes before kickoff, and a line watch has read the game rosters since), each Questionable player shows Inactive or Active ("playing") from `data/lines/inactives_log.csv` and leaves the undecided swing. Inactives are still not priced; that waits on Matt.
 - Card line charts drawn at their column's real width (`drawSparks`, redrawn on resize and when a tab opens): a 360-wide drawing scaled to a 540-wide column had blown the labels up 1.5x. Betting splits: a market the consensus feed never posted (moneyline on NE-BUF, TEN-BAL, MIA-MIN, LAC-SEA) is filled from DraftKings and labeled so (`export_web._add_consensus`, `splits.filled`).
 - Standing check `qb_priced_not_out` skips games already under way (Mariota, ruled out during the London game, failed it until the final score).
 
