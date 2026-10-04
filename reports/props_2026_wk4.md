@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-04 22:14 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-04 22:23 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2086,9 +2086,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0039066  | Michael Mayer            | rec_td           |   0.226 |          4.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0039066  | Michael Mayer            | rec_targets      |   4.9   |          4.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0039066  | Michael Mayer            | rec_longest      |  12.8   |          4.9  | live   |
-|     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_yards        |  20.6   |          3.9  | live   |
+|     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_yards        |  18.7   |          3.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_catches      |   2     |          3.9  | live   |
-|     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_td           |   0.21  |          3.9  | live   |
+|     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_td           |   0.191 |          3.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0037291  | Jalen Nailor             | rec_longest      |  12.1   |          3.9  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | LV     | 00-0035891  | Cody White               | rec_yards        |   8.4   |          2    | live   |
@@ -2521,24 +2521,24 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0040152  | Upton Stout              | def_solo_tackles |   1.8   |         63.7  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0034173  | Eddy Pineiro             | kick_points      |   7.7   |         26.18 | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0034173  | Eddy Pineiro             | field_goals      |   1.66  |         26.18 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  80.1   |         12.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  80.2   |         12.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_catches      |   7.4   |         12.1  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.702 |         12.1  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.704 |         12.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_targets      |  12.1   |         12.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_longest      |  21.9   |         12.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_yards        |  43.8   |          7.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_catches      |   5.2   |          7.2  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_td           |   0.328 |          7.2  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_td           |   0.329 |          7.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_targets      |   7.2   |          7.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rec_longest      |  14.3   |          7.2  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_yards        |  44.6   |          6.6  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_yards        |  44.7   |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_catches      |   4.7   |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_td           |   0.385 |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_targets      |   6.6   |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_longest      |  18     |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_yards        |  47.2   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_catches      |   3.8   |          6.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.339 |          6.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.34  |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_targets      |   6.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_longest      |  19.2   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_yards        |  15.4   |          3    | live   |
@@ -2552,7 +2552,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036754  | Brock Wright             | rec_targets      |   2.1   |          2.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036754  | Brock Wright             | rec_longest      |   9.5   |          2.1  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_yards       |  82     |         18.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_td          |   0.814 |         18.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_td          |   0.816 |         18.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_attempts    |  18.7   |         18.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_rec_yards   | 125.8   |         18.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039139  | Jahmyr Gibbs             | rush_longest     |  14.8   |         18.7  | live   |
@@ -2566,39 +2566,39 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_attempts    |   2.4   |          2.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_rec_yards   |   6.8   |          2.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_longest     |   6.3   |          2.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 262.6   |         37.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.182 |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 262.8   |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.189 |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_int         |   0.781 |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_attempts    |  35.4   |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_completions |  23.6   |         37.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 269.4   |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 269.6   |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_longest     |  35.5   |         37.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_tackles      |   7.2   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_sacks        |   0.21  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_solo_tackles |   3.5   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_tackles      |   6.8   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_sacks        |   0.14  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_solo_tackles |   3.4   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_tackles      |   5.1   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_sacks        |   0.06  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_solo_tackles |   3.2   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_tackles      |   4.8   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_sacks        |   0.03  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_solo_tackles |   3.4   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_tackles      |   4.3   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_sacks        |   0.08  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_solo_tackles |   2.2   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_tackles      |   4     |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_sacks        |   0.25  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_solo_tackles |   2.3   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_tackles      |   3.5   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_sacks        |   0.03  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_solo_tackles |   2.2   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_tackles      |   3.1   |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_sacks        |   0.73  |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_solo_tackles |   2     |         60.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.2   |         28.45 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.73  |         28.45 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_tackles      |   7.2   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_sacks        |   0.21  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_solo_tackles |   3.5   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_tackles      |   6.8   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_sacks        |   0.14  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035707  | Devin White              | def_solo_tackles |   3.4   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_tackles      |   5.1   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_sacks        |   0.06  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0038820  | Christian Izien          | def_solo_tackles |   3.2   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_tackles      |   4.8   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_sacks        |   0.03  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0034384  | D.J. Reed                | def_solo_tackles |   3.4   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_tackles      |   4.3   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_sacks        |   0.08  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033294  | Chuck Clark              | def_solo_tackles |   2.2   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_tackles      |   4     |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_sacks        |   0.25  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0036964  | Derrick Barnes           | def_solo_tackles |   2.3   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_tackles      |   3.5   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_sacks        |   0.03  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0035637  | Rock Ya-Sin              | def_solo_tackles |   2.2   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_tackles      |   3.1   |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_sacks        |   0.73  |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_solo_tackles |   2     |         60.7  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.2   |         28.53 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.73  |         28.53 | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_yards        |  52.5   |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_catches      |   4.1   |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_td           |   0.37  |          7.5  | live   |
@@ -2606,7 +2606,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_longest      |  18.7   |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_yards        |  43.2   |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_catches      |   4.6   |          6.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_td           |   0.33  |          6.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_td           |   0.329 |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039491  | Jalen Coker              | rec_longest      |  18.8   |          6.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_yards        |  26.3   |          4.6  | live   |
@@ -2616,7 +2616,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0031610  | Darren Waller            | rec_longest      |  14.1   |          4.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_yards        |  15.5   |          3.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_catches      |   2.3   |          3.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_td           |   0.164 |          3.8  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_td           |   0.165 |          3.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_targets      |   3.8   |          3.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_longest      |  11.5   |          3.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_yards        |  15     |          3.2  | live   |
@@ -2626,7 +2626,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_longest      |  11     |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_yards        |  14.8   |          3    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_catches      |   1.9   |          3    | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_td           |   0.107 |          3    | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_td           |   0.106 |          3    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_targets      |   3     |          3    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_longest      |  11.5   |          3    | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039356  | Ja'Tavion Sanders        | rec_yards        |  11.8   |          2.7  | live   |
@@ -2655,7 +2655,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_rec_yards   |   7.3   |          1.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_longest     |   7.6   |          1.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_yards       | 233.4   |         37.3  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.672 |         37.3  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.673 |         37.3  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_int         |   0.768 |         37.3  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_attempts    |  35.2   |         37.3  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_completions |  22.2   |         37.3  | live   |
@@ -2675,7 +2675,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0035669  | Nick Scott               | def_solo_tackles |   3.4   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038493  | Claudin Cherelus         | def_tackles      |   5.3   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038493  | Claudin Cherelus         | def_sacks        |   0.06  |         63.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038493  | Claudin Cherelus         | def_solo_tackles |   2.2   |         63.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0038493  | Claudin Cherelus         | def_solo_tackles |   2.3   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036962  | Tre'von Moehrig          | def_tackles      |   4.5   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036962  | Tre'von Moehrig          | def_sacks        |   0.17  |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036962  | Tre'von Moehrig          | def_solo_tackles |   2.4   |         63.4  | live   |
@@ -2685,8 +2685,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_tackles      |   4.1   |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_sacks        |   0.09  |         63.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_solo_tackles |   2.8   |         63.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.5   |         24.58 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.7   |         24.58 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.5   |         24.59 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.7   |         24.59 | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_yards        |  63     |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_catches      |   5     |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_td           |   0.464 |          8.7  | live   |

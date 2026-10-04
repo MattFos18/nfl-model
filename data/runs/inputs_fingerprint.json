@@ -710,11 +710,6 @@
 "Out"
 ],
 [
-"LAC",
-"Trey Pipkins III",
-"Out"
-],
-[
 "LV",
 "Aidan O'Connell",
 "Out"
@@ -1857,6 +1852,12 @@
 ],
 [
 "DEN",
+"Pat Surtain II",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
 "Zach Allen",
 "",
 "Full Participation in Practice"
@@ -2283,6 +2284,12 @@
 ],
 [
 "LAC",
+"Joe Alt",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Justin Eboigbe",
 "",
 "Full Participation in Practice"
@@ -2352,6 +2359,12 @@
 "Isaiah Pola-Mao",
 "",
 "Full Participation in Practice"
+],
+[
+"LV",
+"Jalen Nailor",
+"Questionable (ESPN)",
+""
 ],
 [
 "LV",
@@ -2433,6 +2446,12 @@
 ],
 [
 "MIA",
+"Reese Taylor",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Seydou Traore",
 "",
 "Full Participation in Practice"
@@ -2466,12 +2485,6 @@
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
-],
-[
-"MIN",
-"Christian Darrisaw",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIN",
@@ -3128,7 +3141,7 @@
 "rain_src": "mos"
 },
 "2026_04_DET_CAR": {
-"wind": 1.7,
+"wind": 1.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3136,5 +3149,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 22:02 UTC"
+"written_at": "2026-10-04 22:25 UTC"
 }
