@@ -161,11 +161,6 @@
 ],
 [
 "BUF",
-"DJ Moore",
-"Doubtful"
-],
-[
-"BUF",
 "Jalon Kilgore",
 "Out"
 ],
@@ -1525,6 +1520,12 @@
 ],
 [
 "BAL",
+"Ronnie Stanley",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Zay Flowers",
 "Questionable",
 "Limited Participation in Practice"
@@ -1552,6 +1553,12 @@
 "DJ Moore",
 "",
 "Limited Participation in Practice"
+],
+[
+"BUF",
+"DJ Moore",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -2178,6 +2185,12 @@
 "Full Participation in Practice"
 ],
 [
+"KC",
+"Rashee Rice",
+"Questionable (ESPN)",
+""
+],
+[
 "LA",
 "Alaric Jackson",
 "",
@@ -2347,6 +2360,12 @@
 ],
 [
 "LV",
+"Trey Zuhn III",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Treydan Stukes",
 "",
 "Full Participation in Practice"
@@ -2380,6 +2399,12 @@
 "Dante Trader Jr.",
 "",
 "Full Participation in Practice"
+],
+[
+"MIA",
+"Dante Trader Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
@@ -2440,6 +2465,12 @@
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
+],
+[
+"MIN",
+"Donovan Jackson",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIN",
@@ -3098,5 +3129,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 20:54 UTC"
+"written_at": "2026-10-04 21:34 UTC"
 }

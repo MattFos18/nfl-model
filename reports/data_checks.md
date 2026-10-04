@@ -19,7 +19,7 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | predictions: every played regular-season game priced | yes | 0 missing |
 | predictions: finite and in range (total 20 to 75, spread within 35) | yes | 3167 games |
 | games: every played game's starting QB dropped back in it | yes | 0 team-games |
-| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace; 9 within it (warning): 2026_04_IND_WAS, 2026_04_TEN_BAL, 2026_04_NE_BUF, 2026_04_NYJ_CHI, 2026_04_JAX_CIN, 2026_04_DAL_HOU |
+| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace |
 | games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
 | games: kickoff wind 40 mph or under | yes | 0 games |
 | forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2171 games: 0 partial, 0 missing |
