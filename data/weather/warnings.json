@@ -21,9 +21,9 @@
   "source": "data checks"
  },
  "live weather|2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 29,
+  "count": 30,
   "first": "2026-10-02 21:00 UTC",
-  "last": "2026-10-04 16:07 UTC",
+  "last": "2026-10-04 17:08 UTC",
   "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -140,9 +140,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 14,
+  "count": 15,
   "first": "2026-10-03 10:29 UTC",
-  "last": "2026-10-04 16:06 UTC",
+  "last": "2026-10-04 17:08 UTC",
   "message": "2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
