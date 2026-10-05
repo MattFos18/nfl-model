@@ -1,6 +1,6 @@
 # Week 4, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-05 18:25 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-05 18:39 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -64,12 +64,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_attempts    |   1.1   |          1.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_rec_yards   |   2.7   |          1.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0034771  | Mason Rudolph            | rush_longest     |   5.8   |          1.1  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 199.9   |         35.2  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_td          |   1.323 |         35.2  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 199.8   |         35.2  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_td          |   1.322 |         35.2  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_int         |   0.725 |         35.2  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_attempts    |  33.2   |         35.2  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_completions |  21.2   |         35.2  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 206.2   |         35.2  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 206.1   |         35.2  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0023459  | Aaron Rodgers            | pass_longest     |  32.3   |         35.2  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0038135  | Jaquan Brisker           | def_tackles      |   6.6   |         60.7  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0038135  | Jaquan Brisker           | def_sacks        |   0.12  |         60.7  | live   |
@@ -95,9 +95,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0039110  | Keeanu Benton            | def_tackles      |   3.1   |         60.7  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0039110  | Keeanu Benton            | def_sacks        |   0.31  |         60.7  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0039110  | Keeanu Benton            | def_solo_tackles |   1.4   |         60.7  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0031136  | Chris Boswell            | kick_points      |   6.8   |         20.35 | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0031136  | Chris Boswell            | field_goals      |   1.64  |         20.35 | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0041547  | KC Concepcion            | rec_yards        |  42.9   |          8.3  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0031136  | Chris Boswell            | kick_points      |   6.8   |         20.34 | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | PIT    | 00-0031136  | Chris Boswell            | field_goals      |   1.64  |         20.34 | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0041547  | KC Concepcion            | rec_yards        |  43     |          8.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0041547  | KC Concepcion            | rec_catches      |   4.8   |          8.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0041547  | KC Concepcion            | rec_td           |   0.324 |          8.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0041547  | KC Concepcion            | rec_targets      |   8.3   |          8.3  | live   |
@@ -158,7 +158,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040668  | Shedeur Sanders          | rush_rec_yards   |   6.5   |          1.4  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040668  | Shedeur Sanders          | rush_longest     |   8.7   |          1.4  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_yards       | 208.2   |         35.1  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_td          |   1.286 |         35.1  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_td          |   1.287 |         35.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_int         |   0.723 |         35.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_attempts    |  31.6   |         35.1  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_completions |  20.9   |         35.1  | live   |
@@ -176,7 +176,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036282  | Grant Delpit             | def_tackles      |   4.3   |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036282  | Grant Delpit             | def_sacks        |   0.21  |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036282  | Grant Delpit             | def_solo_tackles |   2.4   |         60.3  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036974  | Tyson Campbell           | def_tackles      |   4.3   |         60.3  | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036974  | Tyson Campbell           | def_tackles      |   4.2   |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036974  | Tyson Campbell           | def_sacks        |   0.03  |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036974  | Tyson Campbell           | def_solo_tackles |   2.6   |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0040685  | Mason Graham             | def_tackles      |   3.6   |         60.3  | live   |
@@ -188,11 +188,11 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036287  | Noah Igbinoghene         | def_tackles      |   3     |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036287  | Noah Igbinoghene         | def_sacks        |   0.1   |         60.3  | live   |
 |     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0036287  | Noah Igbinoghene         | def_solo_tackles |   2     |         60.3  | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0038428  | Andre Szmyt              | kick_points      |   6.6   |         19.44 | live   |
-|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0038428  | Andre Szmyt              | field_goals      |   1.63  |         19.44 | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0038428  | Andre Szmyt              | kick_points      |   6.6   |         19.45 | live   |
+|     2026 |      4 | 2026_04_PIT_CLE | CLE    | 00-0038428  | Andre Szmyt              | field_goals      |   1.63  |         19.45 | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_yards        |  51.4   |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_catches      |   5.2   |          8    | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_td           |   0.474 |          8    | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_td           |   0.475 |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_targets      |   8     |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rec_longest      |  14.3   |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0038997  | Josh Downs               | rec_yards        |  53.9   |          7.8  | live   |
@@ -200,17 +200,17 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0038997  | Josh Downs               | rec_td           |   0.4   |          7.8  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0038997  | Josh Downs               | rec_targets      |   7.8   |          7.8  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0038997  | Josh Downs               | rec_longest      |  15.6   |          7.8  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_yards        |  47.7   |          7.6  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_catches      |   4.5   |          7.6  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_td           |   0.311 |          7.6  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_targets      |   7.6   |          7.6  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_longest      |  14.1   |          7.6  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_yards        |  20.5   |          3.9  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_yards        |  47.8   |          7.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_catches      |   4.5   |          7.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_td           |   0.311 |          7.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_targets      |   7.7   |          7.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0030279  | Keenan Allen             | rec_longest      |  14.1   |          7.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_yards        |  20.4   |          3.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_catches      |   2.8   |          3.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_td           |   0.117 |          3.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rec_longest      |  11.7   |          3.9  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0033217  | Mo Alie-Cox              | rec_yards        |   6.5   |          1.3  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0033217  | Mo Alie-Cox              | rec_yards        |   6.6   |          1.3  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0033217  | Mo Alie-Cox              | rec_catches      |   0.8   |          1.3  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0033217  | Mo Alie-Cox              | rec_td           |   0.067 |          1.3  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0033217  | Mo Alie-Cox              | rec_targets      |   1.3   |          1.3  | live   |
@@ -228,7 +228,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_yards       |  80.5   |         19.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_td          |   0.803 |         19.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_attempts    |  19.7   |         19.7  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_rec_yards   | 101     |         19.7  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_rec_yards   | 100.9   |         19.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036223  | Jonathan Taylor          | rush_longest     |  15.7   |         19.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040179  | DJ Giddens               | rush_yards       |   9.6   |          2.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040179  | DJ Giddens               | rush_td          |   0.066 |          2.7  | live   |
@@ -245,12 +245,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rush_attempts    |   0.5   |          0.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rush_rec_yards   |  53.1   |          0.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0040128  | Tyler Warren             | rush_longest     |   5.8   |          0.5  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_yards       | 254.4   |         36.2  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_td          |   1.65  |         36.2  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_yards       | 254.3   |         36.2  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_td          |   1.649 |         36.2  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_int         |   0.746 |         36.2  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_attempts    |  34.2   |         36.2  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_completions |  23     |         36.2  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_rush_yards  | 262.5   |         36.2  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_rush_yards  | 262.4   |         36.2  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0035710  | Daniel Jones             | pass_longest     |  33.7   |         36.2  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036298  | Akeem Davis-Gaither      | def_tackles      |   6.7   |         62.4  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0036298  | Akeem Davis-Gaither      | def_sacks        |   0.03  |         62.4  | live   |
@@ -276,11 +276,11 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0041518  | Bryce Boettcher          | def_tackles      |   3.3   |         62.4  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0041518  | Bryce Boettcher          | def_sacks        |   0.09  |         62.4  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0041518  | Bryce Boettcher          | def_solo_tackles |   0.8   |         62.4  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0039576  | Spencer Shrader          | kick_points      |   7.8   |         24.19 | live   |
-|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0039576  | Spencer Shrader          | field_goals      |   1.8   |         24.19 | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0039576  | Spencer Shrader          | kick_points      |   7.8   |         24.17 | live   |
+|     2026 |      4 | 2026_04_IND_WAS | IND    | 00-0039576  | Spencer Shrader          | field_goals      |   1.8   |         24.17 | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_yards        |  51.3   |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_catches      |   4.5   |          8    | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_td           |   0.333 |          8    | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_td           |   0.334 |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_targets      |   8     |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_longest      |  19.3   |          8    | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0031588  | Stefon Diggs             | rec_yards        |  48.3   |          7.1  | live   |
@@ -300,7 +300,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_longest      |  14.1   |          3.7  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_yards        |  13     |          2.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_catches      |   2.2   |          2.9  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_td           |   0.078 |          2.9  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_td           |   0.079 |          2.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0037256  | Rachaad White            | rec_longest      |   9.8   |          2.9  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_yards        |  15.1   |          2.7  | live   |
@@ -319,7 +319,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039355  | Luke McCaffrey           | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039355  | Luke McCaffrey           | rec_longest      |  15.6   |          2.4  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_yards       |  44.9   |         13.1  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_td          |   0.365 |         13.1  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_td          |   0.366 |         13.1  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_attempts    |  13.1   |         13.1  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_rec_yards   |  49.4   |         13.1  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_longest     |  11.6   |         13.1  | live   |
@@ -339,7 +339,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | rush_rec_yards   |  23.5   |          6.1  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | rush_longest     |  10.8   |          6.1  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_yards       | 222.5   |         35.5  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_td          |   1.719 |         35.5  | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_td          |   1.721 |         35.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_int         |   0.731 |         35.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_attempts    |  32.9   |         35.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_completions |  20.2   |         35.5  | live   |
@@ -369,8 +369,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0033551  | Rasul Douglas            | def_tackles      |   3.3   |         60.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0033551  | Rasul Douglas            | def_sacks        |   0.08  |         60.5  | live   |
 |     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0033551  | Rasul Douglas            | def_solo_tackles |   1.8   |         60.5  | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0041182  | Drew Stevens             | kick_points      |   7.4   |         24.47 | live   |
-|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0041182  | Drew Stevens             | field_goals      |   1.69  |         24.47 | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0041182  | Drew Stevens             | kick_points      |   7.4   |         24.49 | live   |
+|     2026 |      4 | 2026_04_IND_WAS | WAS    | 00-0041182  | Drew Stevens             | field_goals      |   1.69  |         24.49 | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_yards        |  50     |          9.6  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_catches      |   5.5   |          9.6  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_td           |   0.261 |          9.6  | live   |
@@ -462,8 +462,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0040201  | Marcus Harris            | def_tackles      |   4.3   |         61.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0040201  | Marcus Harris            | def_sacks        |   0.04  |         61.1  | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0040201  | Marcus Harris            | def_solo_tackles |   2.7   |         61.1  | live   |
-|     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0035192  | Joey Slye                | kick_points      |   6.2   |         18.18 | live   |
-|     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0035192  | Joey Slye                | field_goals      |   1.52  |         18.18 | live   |
+|     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0035192  | Joey Slye                | kick_points      |   6.2   |         18.17 | live   |
+|     2026 |      4 | 2026_04_TEN_BAL | TEN    | 00-0035192  | Joey Slye                | field_goals      |   1.52  |         18.17 | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0039064  | Zay Flowers              | rec_yards        |  63.3   |          8    | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0039064  | Zay Flowers              | rec_catches      |   5.3   |          8    | live   |
 |     2026 |      4 | 2026_04_TEN_BAL | BAL    | 00-0039064  | Zay Flowers              | rec_td           |   0.508 |          8    | live   |
@@ -775,7 +775,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_longest      |   9.7   |          2.9  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_yards        |  10.8   |          2.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_catches      |   1.5   |          2.4  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_td           |   0.077 |          2.4  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_td           |   0.076 |          2.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0032385  | Sterling Shepard         | rec_longest      |  11.6   |          2.4  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0038120  | Breece Hall              | rush_yards       |  51.6   |         15.8  | live   |
@@ -799,7 +799,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_rec_yards   |  10.2   |          3.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | rush_longest     |   6.9   |          3.8  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_yards       | 207.9   |         36.5  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_td          |   1.286 |         36.5  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_td          |   1.285 |         36.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_int         |   0.752 |         36.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_attempts    |  32.7   |         36.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | NYJ    | 00-0030565  | Geno Smith               | pass_completions |  22.3   |         36.5  | live   |
@@ -838,7 +838,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040735  | Luther Burden III        | rec_longest      |  16.9   |          8.1  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_yards        |  51.3   |          6.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_catches      |   4.8   |          6.7  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.293 |          6.7  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.294 |          6.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_targets      |   6.7   |          6.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0032464  | Kalif Raymond            | rec_longest      |  15.6   |          6.7  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0039919  | Rome Odunze              | rec_yards        |  39.2   |          6.3  | live   |
@@ -872,7 +872,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_targets      |   1.5   |          1.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0040277  | Jahdae Walker            | rec_longest      |  12.2   |          1.5  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_yards       |  65.4   |         16.3  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.525 |         16.3  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.526 |         16.3  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_attempts    |  16.3   |         16.3  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_rec_yards   |  80.8   |         16.3  | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0036275  | D'Andre Swift            | rush_longest     |  14.1   |         16.3  | live   |
@@ -922,8 +922,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_tackles      |   3.5   |         63    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_sacks        |   0.1   |         63    | live   |
 |     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0033579  | Xavier Woods             | def_solo_tackles |   1.9   |         63    | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | kick_points      |   7.6   |         24.6  | live   |
-|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | field_goals      |   1.7   |         24.6  | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | kick_points      |   7.6   |         24.61 | live   |
+|     2026 |      4 | 2026_04_NYJ_CHI | CHI    | 00-0031203  | Cairo Santos             | field_goals      |   1.7   |         24.61 | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_yards        |  72.2   |          9.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_catches      |   5.5   |          9.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.561 |          9.5  | live   |
@@ -984,12 +984,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0032104  | Ameer Abdullah           | rush_attempts    |   2.9   |          2.9  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0032104  | Ameer Abdullah           | rush_rec_yards   |  17.4   |          2.9  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0032104  | Ameer Abdullah           | rush_longest     |   7     |          2.9  | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_yards       | 252     |         36.5  | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_yards       | 252.1   |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_td          |   1.81  |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_int         |   0.752 |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_attempts    |  33.7   |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_completions |  21.2   |         36.5  | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_rush_yards  | 266     |         36.5  | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_rush_yards  | 266.1   |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0036971  | Trevor Lawrence          | pass_longest     |  33.4   |         36.5  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0034413  | Foyesade Oluokun         | def_tackles      |   6.9   |         63.2  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0034413  | Foyesade Oluokun         | def_sacks        |   0.03  |         63.2  | live   |
@@ -1015,8 +1015,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0033928  | Jourdan Lewis            | def_tackles      |   2.9   |         63.2  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0033928  | Jourdan Lewis            | def_sacks        |   0.04  |         63.2  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0033928  | Jourdan Lewis            | def_solo_tackles |   1.6   |         63.2  | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0039409  | Cam Little               | kick_points      |   7.8   |         25.98 | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0039409  | Cam Little               | field_goals      |   1.69  |         25.98 | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0039409  | Cam Little               | kick_points      |   7.8   |         25.99 | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | JAX    | 00-0039409  | Cam Little               | field_goals      |   1.69  |         25.99 | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036900  | Ja'Marr Chase            | rec_yards        |  64.9   |         11.3  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036900  | Ja'Marr Chase            | rec_catches      |   6.7   |         11.3  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036900  | Ja'Marr Chase            | rec_td           |   0.472 |         11.3  | live   |
@@ -1044,7 +1044,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0033526  | Samaje Perine            | rec_longest      |   9.3   |          2.4  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_yards        |   8.6   |          2    | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_catches      |   1     |          2    | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_td           |   0.078 |          2    | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_td           |   0.077 |          2    | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_targets      |   2     |          2    | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0038839  | Mitchell Tinsley         | rec_longest      |  10.7   |          2    | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0034613  | Tanner Hudson            | rec_yards        |   8.2   |          1.9  | live   |
@@ -1108,8 +1108,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0033523  | Jonathan Allen           | def_tackles      |   3.4   |         64.3  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0033523  | Jonathan Allen           | def_sacks        |   0.3   |         64.3  | live   |
 |     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0033523  | Jonathan Allen           | def_solo_tackles |   1.4   |         64.3  | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036854  | Evan McPherson           | kick_points      |   7.6   |         23.7  | live   |
-|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036854  | Evan McPherson           | field_goals      |   1.72  |         23.7  | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036854  | Evan McPherson           | kick_points      |   7.6   |         23.69 | live   |
+|     2026 |      4 | 2026_04_JAX_CIN | CIN    | 00-0036854  | Evan McPherson           | field_goals      |   1.72  |         23.69 | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037247  | George Pickens           | rec_yards        |  67.9   |          9.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037247  | George Pickens           | rec_catches      |   5.3   |          9.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037247  | George Pickens           | rec_td           |   0.415 |          9.1  | live   |
@@ -1117,7 +1117,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037247  | George Pickens           | rec_longest      |  20.7   |          9.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_yards        |  66.2   |          9    | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_catches      |   5.1   |          9    | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_td           |   0.39  |          9    | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_td           |   0.389 |          9    | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_targets      |   9     |          9    | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036358  | CeeDee Lamb              | rec_longest      |  24     |          9    | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0039410  | Ryan Flournoy            | rec_yards        |  36.7   |          6.2  | live   |
@@ -1132,7 +1132,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0038041  | Jake Ferguson            | rec_longest      |  12.3   |          4.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_yards        |  13.7   |          3.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_catches      |   2.2   |          3.6  | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_td           |   0.122 |          3.6  | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_td           |   0.121 |          3.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0036997  | Javonte Williams         | rec_longest      |   8.9   |          3.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037801  | KaVontae Turpin          | rec_yards        |   8.1   |          1.8  | live   |
@@ -1171,7 +1171,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | rush_rec_yards   |  10.7   |          3.3  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | rush_longest     |   7.4   |          3.3  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_yards       | 250     |         39.1  | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_td          |   1.641 |         39.1  | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_td          |   1.64  |         39.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_int         |   0.805 |         39.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_attempts    |  37.2   |         39.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0033077  | Dak Prescott             | pass_completions |  24.8   |         39.1  | live   |
@@ -1201,8 +1201,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037561  | Markquese Bell           | def_tackles      |   4.2   |         67.9  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037561  | Markquese Bell           | def_sacks        |   0.05  |         67.9  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037561  | Markquese Bell           | def_solo_tackles |   2.5   |         67.9  | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037692  | Brandon Aubrey           | kick_points      |   7.8   |         24.53 | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037692  | Brandon Aubrey           | field_goals      |   1.78  |         24.53 | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037692  | Brandon Aubrey           | kick_points      |   7.8   |         24.52 | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | DAL    | 00-0037692  | Brandon Aubrey           | field_goals      |   1.78  |         24.52 | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0036554  | Nico Collins             | rec_yards        |  65.7   |          9.8  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0036554  | Nico Collins             | rec_catches      |   5.3   |          9.8  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0036554  | Nico Collins             | rec_td           |   0.464 |          9.8  | live   |
@@ -1264,7 +1264,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | rush_rec_yards   |   9.8   |          2.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | rush_longest     |   7.5   |          2.6  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_yards       | 257.2   |         40.1  | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_td          |   1.801 |         40.1  | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_td          |   1.802 |         40.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_int         |   0.826 |         40.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_attempts    |  37.9   |         40.1  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0039163  | C.J. Stroud              | pass_completions |  23.8   |         40.1  | live   |
@@ -1294,8 +1294,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0031364  | Jadeveon Clowney         | def_tackles      |   3.6   |         65.7  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0031364  | Jadeveon Clowney         | def_sacks        |   0.62  |         65.7  | live   |
 |     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0031364  | Jadeveon Clowney         | def_solo_tackles |   1.9   |         65.7  | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0032726  | Ka'imi Fairbairn         | kick_points      |   8.1   |         26.72 | live   |
-|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0032726  | Ka'imi Fairbairn         | field_goals      |   1.83  |         26.72 | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0032726  | Ka'imi Fairbairn         | kick_points      |   8.1   |         26.73 | live   |
+|     2026 |      4 | 2026_04_DAL_HOU | HOU    | 00-0032726  | Ka'imi Fairbairn         | field_goals      |   1.83  |         26.73 | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037744  | Trey McBride             | rec_yards        |  70.4   |         12.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037744  | Trey McBride             | rec_catches      |   8.3   |         12.4  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0037744  | Trey McBride             | rec_td           |   0.614 |         12.4  | live   |
@@ -1356,12 +1356,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_attempts    |   3.1   |          3.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_rec_yards   |  11.7   |          3.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | rush_longest     |   7.5   |          3.1  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 235     |         42    | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 235.1   |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.458 |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_int         |   0.865 |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_attempts    |  38.9   |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_completions |  25.6   |         42    | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 246.7   |         42    | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 246.8   |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0033119  | Jacoby Brissett          | pass_longest     |  32.6   |         42    | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0040645  | Cody Simon               | def_tackles      |   7.6   |         65.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0040645  | Cody Simon               | def_sacks        |   0.09  |         65.6  | live   |
@@ -1387,8 +1387,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0039807  | Max Melton               | def_tackles      |   3.5   |         65.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0039807  | Max Melton               | def_sacks        |   0.05  |         65.6  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0039807  | Max Melton               | def_solo_tackles |   2.2   |         65.6  | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0038567  | Chad Ryland              | kick_points      |   7.1   |         21.72 | live   |
-|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0038567  | Chad Ryland              | field_goals      |   1.66  |         21.72 | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0038567  | Chad Ryland              | kick_points      |   7.1   |         21.73 | live   |
+|     2026 |      4 | 2026_04_ARI_NYG | ARI    | 00-0038567  | Chad Ryland              | field_goals      |   1.66  |         21.73 | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0037838  | Isaiah Likely            | rec_yards        |  52.2   |          8.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0037838  | Isaiah Likely            | rec_catches      |   5.1   |          8.1  | live   |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG    | 00-0037838  | Isaiah Likely            | rec_td           |   0.405 |          8.1  | live   |
@@ -1543,7 +1543,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rush_rec_yards   |  94.5   |          0.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0039075  | Puka Nacua               | rush_longest     |   7.6   |          0.7  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_yards       | 250.8   |         37.2  | live   |
-|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_td          |   1.716 |         37.2  | live   |
+|     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_td          |   1.717 |         37.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_int         |   0.766 |         37.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_attempts    |  35.9   |         37.2  | live   |
 |     2026 |      4 | 2026_04_LA_PHI  | LA     | 00-0026498  | Matthew Stafford         | pass_completions |  22.4   |         37.2  | live   |
@@ -1670,7 +1670,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_LA_PHI  | PHI    | 00-0033787  | Jake Elliott             | field_goals      |   1.53  |         20.73 | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_yards        |  61.3   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_catches      |   4.1   |          7.5  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_td           |   0.52  |          7.5  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_td           |   0.521 |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_targets      |   7.5   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0038124  | Christian Watson         | rec_longest      |  22.6   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0040667  | Matthew Golden           | rec_yards        |  53.9   |          6.7  | live   |
@@ -1723,12 +1723,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | rush_attempts    |   1.6   |          1.6  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | rush_rec_yards   |   6.2   |          1.6  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | rush_longest     |   7.3   |          1.6  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_yards       | 223.9   |         34.5  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_td          |   1.353 |         34.5  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_yards       | 224     |         34.5  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_td          |   1.354 |         34.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_int         |   0.711 |         34.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_attempts    |  32.8   |         34.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_completions |  20.5   |         34.5  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 230.1   |         34.5  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 230.2   |         34.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0036264  | Jordan Love              | pass_longest     |  35.1   |         34.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0034431  | Zaire Franklin           | def_tackles      |   7     |         64.2  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0034431  | Zaire Franklin           | def_sacks        |   0.12  |         64.2  | live   |
@@ -1754,8 +1754,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0041470  | Brandon Cisse            | def_tackles      |   3.7   |         64.2  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0041470  | Brandon Cisse            | def_sacks        |   0.15  |         64.2  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0041470  | Brandon Cisse            | def_solo_tackles |   2.5   |         64.2  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0040899  | Trey Smack               | kick_points      |   6.7   |         20.38 | live   |
-|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0040899  | Trey Smack               | field_goals      |   1.58  |         20.38 | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0040899  | Trey Smack               | kick_points      |   6.7   |         20.39 | live   |
+|     2026 |      4 | 2026_04_GB_TB   | GB     | 00-0040899  | Trey Smack               | field_goals      |   1.58  |         20.39 | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040129  | Emeka Egbuka             | rec_yards        |  46.6   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040129  | Emeka Egbuka             | rec_catches      |   3.5   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040129  | Emeka Egbuka             | rec_td           |   0.261 |          7.5  | live   |
@@ -1763,7 +1763,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040129  | Emeka Egbuka             | rec_longest      |  16.9   |          7.5  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_yards        |  37.6   |          6.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_catches      |   4.2   |          6.3  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_td           |   0.214 |          6.3  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_td           |   0.213 |          6.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_targets      |   6.3   |          6.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038129  | Cade Otton               | rec_longest      |  15.2   |          6.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0033921  | Chris Godwin Jr.         | rec_yards        |  27.2   |          4.9  | live   |
@@ -1802,7 +1802,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0039361  | Bucky Irving             | rush_rec_yards   |  78.9   |         17.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0039361  | Bucky Irving             | rush_longest     |  12.7   |         17.3  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_yards       |  17     |          4.8  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_td          |   0.143 |          4.8  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_td          |   0.142 |          4.8  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_attempts    |   4.8   |          4.8  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_rec_yards   |  36.8   |          4.8  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0036919  | Kenny Gainwell           | rush_longest     |   9.6   |          4.8  | live   |
@@ -1817,7 +1817,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038951  | Sean Tucker              | rush_rec_yards   |  12     |          3.4  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0038951  | Sean Tucker              | rush_longest     |   8.5   |          3.4  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_yards       | 211.6   |         36.1  | live   |
-|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_td          |   1.391 |         36.1  | live   |
+|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_td          |   1.39  |         36.1  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_int         |   0.744 |         36.1  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_attempts    |  33.4   |         36.1  | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0034855  | Baker Mayfield           | pass_completions |  21.3   |         36.1  | live   |
@@ -1847,8 +1847,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040143  | Jacob Parrish            | def_tackles      |   3.8   |         61    | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040143  | Jacob Parrish            | def_sacks        |   0.13  |         61    | live   |
 |     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0040143  | Jacob Parrish            | def_solo_tackles |   2.7   |         61    | live   |
-|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0035358  | Chase McLaughlin         | kick_points      |   7.1   |         20.45 | live   |
-|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0035358  | Chase McLaughlin         | field_goals      |   1.75  |         20.45 | live   |
+|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0035358  | Chase McLaughlin         | kick_points      |   7.1   |         20.44 | live   |
+|     2026 |      4 | 2026_04_GB_TB   | TB     | 00-0035358  | Chase McLaughlin         | field_goals      |   1.75  |         20.44 | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rec_yards        |  38.6   |          6.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rec_catches      |   3.9   |          6.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rec_td           |   0.259 |          6.4  | live   |
@@ -1856,7 +1856,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rec_longest      |  13.7   |          6.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_yards        |  36.2   |          5.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_catches      |   3.6   |          5.7  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_td           |   0.236 |          5.7  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_td           |   0.237 |          5.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_targets      |   5.7   |          5.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0041523  | Caleb Douglas            | rec_longest      |  17.5   |          5.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0037252  | Greg Dulcich             | rec_yards        |  30.6   |          4.5  | live   |
@@ -1905,7 +1905,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rush_rec_yards   |  43.8   |          1.1  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0039880  | Malik Washington         | rush_longest     |   7.1   |          1.1  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_yards       | 200.5   |         31.3  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_td          |   1.048 |         31.3  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_td          |   1.049 |         31.3  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_int         |   0.645 |         31.3  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_attempts    |  28.5   |         31.3  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0038128  | Malik Willis             | pass_completions |  18.4   |         31.3  | live   |
@@ -1935,8 +1935,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0040178  | Jason Marshall Jr.       | def_tackles      |   2.8   |         58.8  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0040178  | Jason Marshall Jr.       | def_sacks        |   0.04  |         58.8  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0040178  | Jason Marshall Jr.       | def_solo_tackles |   1.7   |         58.8  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0036816  | Riley Patterson          | kick_points      |   6.1   |         16.59 | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0036816  | Riley Patterson          | field_goals      |   1.56  |         16.59 | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0036816  | Riley Patterson          | kick_points      |   6.1   |         16.6  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIA    | 00-0036816  | Riley Patterson          | field_goals      |   1.56  |         16.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036322  | Justin Jefferson         | rec_yards        |  57.9   |          8.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036322  | Justin Jefferson         | rec_catches      |   5     |          8.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036322  | Justin Jefferson         | rec_td           |   0.482 |          8.6  | live   |
@@ -1949,7 +1949,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0038994  | Jordan Addison           | rec_longest      |  16     |          6.8  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_yards        |  32.9   |          5.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_catches      |   3.7   |          5.4  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_td           |   0.428 |          5.4  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_td           |   0.427 |          5.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_targets      |   5.4   |          5.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035229  | T.J. Hockenson           | rec_longest      |  12.8   |          5.4  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0033293  | Aaron Jones              | rec_yards        |  19.8   |          4.7  | live   |
@@ -1959,7 +1959,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0033293  | Aaron Jones              | rec_longest      |  10.1   |          4.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_yards        |  19.4   |          3.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_catches      |   2.1   |          3.6  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_td           |   0.268 |          3.6  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_td           |   0.267 |          3.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0036259  | Jauan Jennings           | rec_longest      |  14.5   |          3.6  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0033293  | Aaron Jones              | rush_yards       |  69.7   |         18    | live   |
@@ -1977,12 +1977,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | rush_attempts    |   2.5   |          2.5  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | rush_rec_yards   |  11.2   |          2.5  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | rush_longest     |   9.8   |          2.5  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_yards       | 210.5   |         32.7  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_td          |   1.867 |         32.7  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_yards       | 210.4   |         32.7  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_td          |   1.866 |         32.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_int         |   0.674 |         32.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_attempts    |  29.8   |         32.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_completions |  19.4   |         32.7  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_rush_yards  | 221.7   |         32.7  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_rush_yards  | 221.6   |         32.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035228  | Kyler Murray             | pass_longest     |  28.9   |         32.7  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035276  | Blake Cashman            | def_tackles      |   8.9   |         57.2  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0035276  | Blake Cashman            | def_sacks        |   0.23  |         57.2  | live   |
@@ -2008,8 +2008,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0038578  | Jay Ward                 | def_tackles      |   2.9   |         57.2  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0038578  | Jay Ward                 | def_sacks        |   0.05  |         57.2  | live   |
 |     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0038578  | Jay Ward                 | def_solo_tackles |   1.3   |         57.2  | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0039404  | Will Reichard            | kick_points      |   8     |         26.21 | live   |
-|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0039404  | Will Reichard            | field_goals      |   1.83  |         26.21 | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0039404  | Will Reichard            | kick_points      |   8     |         26.2  | live   |
+|     2026 |      4 | 2026_04_MIA_MIN | MIN    | 00-0039404  | Will Reichard            | field_goals      |   1.83  |         26.2  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0039067  | Rashee Rice              | rec_yards        |  54.4   |          9.1  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0039067  | Rashee Rice              | rec_catches      |   5.6   |          9.1  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0039067  | Rashee Rice              | rec_td           |   0.491 |          9.1  | live   |
@@ -2060,12 +2060,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0040078  | Brashard Smith           | rush_attempts    |   2     |          2    | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0040078  | Brashard Smith           | rush_rec_yards   |  20.2   |          2    | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0040078  | Brashard Smith           | rush_longest     |   7.4   |          2    | live   |
-|     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_yards       | 247.4   |         38.3  | live   |
+|     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_yards       | 247.3   |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_td          |   1.786 |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_int         |   0.789 |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_attempts    |  36     |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_completions |  23     |         38.3  | live   |
-|     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_rush_yards  | 261.8   |         38.3  | live   |
+|     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_rush_yards  | 261.7   |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0033873  | Patrick Mahomes          | pass_longest     |  36.8   |         38.3  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0036621  | Nick Bolton              | def_tackles      |   8.2   |         56.4  | live   |
 |     2026 |      4 | 2026_04_KC_LV   | KC     | 00-0036621  | Nick Bolton              | def_sacks        |   0.07  |         56.4  | live   |
@@ -2511,7 +2511,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | rush_rec_yards   |  14.8   |          3.6  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | rush_longest     |   9.4   |          3.6  | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_yards       | 242.2   |         36    | live   |
-|     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_td          |   1.892 |         36    | live   |
+|     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_td          |   1.893 |         36    | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_int         |   0.742 |         36    | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_attempts    |  34.8   |         36    | live   |
 |     2026 |      4 | 2026_04_DEN_SF  | SF     | 00-0037834  | Brock Purdy              | pass_completions |  23.5   |         36    | live   |
@@ -2560,7 +2560,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039065  | Sam LaPorta              | rec_longest      |  18     |          6.6  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_yards        |  47.3   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_catches      |   3.8   |          6.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.351 |          6.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_td           |   0.35  |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_targets      |   6.4   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037240  | Jameson Williams         | rec_longest      |  19.2   |          6.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0040669  | Isaac TeSlaa             | rec_yards        |  15.5   |          3    | live   |
@@ -2588,12 +2588,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_attempts    |   2.5   |          2.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_rec_yards   |   6.8   |          2.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | rush_longest     |   6.3   |          2.5  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 265.5   |         37.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.229 |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_yards       | 265.4   |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.228 |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_int         |   0.781 |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_attempts    |  35.4   |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_completions |  23.6   |         37.9  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 272.3   |         37.9  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_rush_yards  | 272.2   |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0033106  | Jared Goff               | pass_longest     |  35.5   |         37.9  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_tackles      |   7.2   |         60.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039018  | Jack Campbell            | def_sacks        |   0.21  |         60.7  | live   |
@@ -2619,8 +2619,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_tackles      |   3.1   |         60.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_sacks        |   0.73  |         60.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0037236  | Aidan Hutchinson         | def_solo_tackles |   2     |         60.7  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.3   |         29.37 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.74  |         29.37 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.3   |         29.35 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.74  |         29.35 | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_yards        |  52.2   |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_catches      |   4     |          7.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040124  | Tetairoa McMillan        | rec_td           |   0.353 |          7.5  | live   |
@@ -2643,7 +2643,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037614  | John Metchie III         | rec_longest      |  11.5   |          3.7  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_yards        |  14.9   |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_catches      |   2     |          3.2  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_td           |   0.153 |          3.2  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_td           |   0.154 |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_targets      |   3.2   |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0037005  | Tommy Tremble            | rec_longest      |  11     |          3.2  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0036555  | Chuba Hubbard            | rec_yards        |  14.7   |          3    | live   |
@@ -2676,12 +2676,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_attempts    |   1.8   |          1.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_rec_yards   |   7.2   |          1.8  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | rush_longest     |   7.6   |          1.8  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_yards       | 231.1   |         37.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.609 |         37.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_yards       | 231.2   |         37.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_td          |   1.61  |         37.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_int         |   0.77  |         37.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_attempts    |  35.3   |         37.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_completions |  22.2   |         37.4  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_rush_yards  | 238.3   |         37.4  | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_rush_yards  | 238.4   |         37.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0039150  | Bryce Young              | pass_longest     |  33.3   |         37.4  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0035687  | Bobby Okereke            | def_tackles      |   7.2   |         63.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0035687  | Bobby Okereke            | def_sacks        |   0.08  |         63.5  | live   |
@@ -2707,8 +2707,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_tackles      |   4.1   |         63.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_sacks        |   0.09  |         63.5  | live   |
 |     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0041063  | Will Lee III             | def_solo_tackles |   2.8   |         63.5  | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.4   |         23.76 | live   |
-|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.69  |         23.76 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | kick_points      |   7.4   |         23.77 | live   |
+|     2026 |      4 | 2026_04_DET_CAR | CAR    | 00-0040279  | Ryan Fitzgerald          | field_goals      |   1.69  |         23.77 | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_yards        |  63     |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_catches      |   5     |          8.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0037238  | Drake London             | rec_td           |   0.464 |          8.7  | live   |
@@ -2765,7 +2765,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | rush_rec_yards   |   5     |          1.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | rush_longest     |   6.6   |          1.7  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_yards       | 218.6   |         33.2  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_td          |   1.582 |         33.2  | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_td          |   1.581 |         33.2  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_int         |   0.684 |         33.2  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_attempts    |  31.8   |         33.2  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0039917  | Michael Penix Jr.        | pass_completions |  19.7   |         33.2  | live   |
@@ -2795,8 +2795,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0040156  | Billy Bowman Jr.         | def_tackles      |   3.5   |         65.6  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0040156  | Billy Bowman Jr.         | def_sacks        |   0.2   |         65.6  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0040156  | Billy Bowman Jr.         | def_solo_tackles |   2.1   |         65.6  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0025565  | Nick Folk                | kick_points      |   7.3   |         23.02 | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0025565  | Nick Folk                | field_goals      |   1.72  |         23.02 | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0025565  | Nick Folk                | kick_points      |   7.3   |         23    | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | ATL    | 00-0025565  | Nick Folk                | field_goals      |   1.72  |         23    | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0037239  | Chris Olave              | rec_yards        |  80.1   |         11.6  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0037239  | Chris Olave              | rec_catches      |   7.2   |         11.6  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0037239  | Chris Olave              | rec_td           |   0.631 |         11.6  | live   |
@@ -2857,12 +2857,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0039376  | Spencer Rattler          | rush_attempts    |   3.3   |          3.3  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0039376  | Spencer Rattler          | rush_rec_yards   |  12.8   |          3.3  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0039376  | Spencer Rattler          | rush_longest     |   8.4   |          3.3  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_yards       | 243.1   |         39.9  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_td          |   1.718 |         39.9  | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_yards       | 243.2   |         39.9  | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_td          |   1.719 |         39.9  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_int         |   0.822 |         39.9  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_attempts    |  36.6   |         39.9  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_completions |  24.8   |         39.9  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_rush_yards  | 259.8   |         39.9  | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_rush_yards  | 259.9   |         39.9  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040743  | Tyler Shough             | pass_longest     |  32.5   |         39.9  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040643  | Jonas Sanker             | def_tackles      |   4.5   |         61.3  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0040643  | Jonas Sanker             | def_sacks        |   0.03  |         61.3  | live   |
@@ -2888,5 +2888,5 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0027962  | Cameron Jordan           | def_tackles      |   2.8   |         61.3  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0027962  | Cameron Jordan           | def_sacks        |   0.45  |         61.3  | live   |
 |     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0027962  | Cameron Jordan           | def_solo_tackles |   1.7   |         61.3  | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0034161  | Daniel Carlson           | kick_points      |   7.4   |         24.35 | live   |
-|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0034161  | Daniel Carlson           | field_goals      |   1.68  |         24.35 | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0034161  | Daniel Carlson           | kick_points      |   7.4   |         24.37 | live   |
+|     2026 |      4 | 2026_04_ATL_NO  | NO     | 00-0034161  | Daniel Carlson           | field_goals      |   1.68  |         24.37 | live   |

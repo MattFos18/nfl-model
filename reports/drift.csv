@@ -7,6 +7,6 @@ total,Final total minus the closing total,0.3223,2623,1.106,335,0.9127,63,1.02,2
 total,Over rate,0.4852,2597,0.5164,335,0.4921,63,1.08,2.99,ok,
 key,Margin exactly 3,0.146,2623,0.1522,335,0.1587,63,0.3,2.48,ok,
 key,Margin exactly 7,0.0858,2623,0.0955,335,0.0952,63,0.6,2.56,ok,
-model,Model miss minus the line's miss,0.13,2623,0.1574,335,0.0613,63,0.2,1.4,ok,
-model,Model home lean (model margin minus real),0.3946,2581,0.0162,325,0.607,60,-0.5,3.01,ok,
+model,Model miss minus the line's miss,0.13,2623,0.1572,335,0.06,63,0.19,1.4,ok,
+model,Model home lean (model margin minus real),0.3946,2581,0.0163,325,0.6073,60,-0.5,3.01,ok,
 model,4+ flag win rate,0.5938,288,0.68,25,0.6,5,0.84,2.33,ok,
