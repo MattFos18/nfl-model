@@ -690,6 +690,11 @@
 "Out"
 ],
 [
+"KC",
+"Tyquan Thornton",
+"Out"
+],
+[
 "LA",
 "Aaron Donald",
 "Out"
@@ -2360,6 +2365,12 @@
 ],
 [
 "LAC",
+"Rashawn Slater",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Trevor Penning",
 "Questionable (ESPN)",
 ""
@@ -2936,6 +2947,12 @@
 ],
 [
 "SEA",
+"Leonard Williams",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Nick Emmanwori",
 "",
 "Full Participation in Practice"
@@ -3190,14 +3207,6 @@
 "temp_src": "mos",
 "rain_src": "mos"
 },
-"2026_04_DEN_SF": {
-"wind": 6.7,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_04_DET_CAR": {
 "wind": 1.4,
 "cold": false,
@@ -3207,5 +3216,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-04 23:34 UTC"
+"written_at": "2026-10-05 00:01 UTC"
 }

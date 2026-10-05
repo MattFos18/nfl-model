@@ -5,14 +5,14 @@
 
 | group   | measure                                                   |   long_run |   long_run_n |   recent |   recent_n |   this_season |   this_season_n |     z |   cusum | level   |
 |:--------|:----------------------------------------------------------|-----------:|-------------:|---------:|-----------:|--------------:|----------------:|------:|--------:|:--------|
-| home    | Home margin (points)                                      |     1.7203 |         2581 |   2.0623 |        321 |        1.4821 |              56 |  0.41 |    2.67 | ok      |
-| home    | Home cover margin vs the line                             |    -0.1019 |         2581 |   0.3614 |        321 |       -0.8036 |              56 |  0.61 |    3.1  | ok      |
-| side    | Home favorite cover margin (road dog: the same, reversed) |    -0.1792 |         1624 |   0.4668 |        196 |       -1.4737 |              38 |  0.68 |    3.17 | ok      |
+| home    | Home margin (points)                                      |     1.7203 |         2581 |   2.087  |        322 |        1.6316 |              57 |  0.44 |    2.67 | ok      |
+| home    | Home cover margin vs the line                             |    -0.1019 |         2581 |   0.382  |        322 |       -0.6667 |              57 |  0.64 |    3.1  | ok      |
+| side    | Home favorite cover margin (road dog: the same, reversed) |    -0.1792 |         1624 |   0.5    |        197 |       -1.2564 |              39 |  0.72 |    3.17 | ok      |
 | side    | Road favorite cover margin (home dog: the same, reversed) |    -0.0362 |          995 |   0.1259 |        135 |        1.1905 |              21 |  0.14 |    2.15 | ok      |
-| total   | Final total minus the closing total                       |     0.3223 |         2623 |   1.074  |        331 |        0.7203 |              59 |  0.98 |    2.68 | ok      |
-| total   | Over rate                                                 |     0.4852 |         2597 |   0.5136 |        331 |        0.4746 |              59 |  0.97 |    2.99 | ok      |
-| key     | Margin exactly 3                                          |     0.146  |         2623 |   0.1511 |        331 |        0.1525 |              59 |  0.24 |    2.48 | ok      |
-| key     | Margin exactly 7                                          |     0.0858 |         2623 |   0.0937 |        331 |        0.0847 |              59 |  0.48 |    2.56 | ok      |
-| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.145  |        331 |       -0.0148 |              59 |  0.11 |    1.4  | ok      |
-| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.0779 |        321 |        1.0029 |              56 | -0.42 |    3.01 | ok      |
+| total   | Final total minus the closing total                       |     0.3223 |         2623 |   1.0392 |        332 |        0.5333 |              60 |  0.93 |    2.68 | ok      |
+| total   | Over rate                                                 |     0.4852 |         2597 |   0.512  |        332 |        0.4667 |              60 |  0.92 |    2.99 | ok      |
+| key     | Margin exactly 3                                          |     0.146  |         2623 |   0.1506 |        332 |        0.15   |              60 |  0.22 |    2.48 | ok      |
+| key     | Margin exactly 7                                          |     0.0858 |         2623 |   0.0934 |        332 |        0.0833 |              60 |  0.47 |    2.56 | ok      |
+| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.1447 |        332 |       -0.0139 |              60 |  0.1  |    1.4  | ok      |
+| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.0553 |        322 |        0.8587 |              57 | -0.45 |    3.01 | ok      |
 | model   | 4+ flag win rate                                          |     0.5938 |          288 |   0.68   |         25 |        0.6    |               5 |  0.84 |    2.33 | ok      |
