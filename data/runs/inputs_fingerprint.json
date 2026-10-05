@@ -770,6 +770,11 @@
 "Out"
 ],
 [
+"LAC",
+"Rashawn Slater",
+"Doubtful"
+],
+[
 "LV",
 "Aidan O'Connell",
 "Out"
@@ -1017,6 +1022,11 @@
 [
 "NYJ",
 "Arian Smith",
+"Out"
+],
+[
+"NYJ",
+"Braiden McGregor",
 "Out"
 ],
 [
@@ -2364,12 +2374,6 @@
 ],
 [
 "LAC",
-"Rashawn Slater",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Trevor Penning",
 "Questionable (ESPN)",
 ""
@@ -2769,12 +2773,6 @@
 "Tyrone Tracy Jr.",
 "",
 "Full Participation in Practice"
-],
-[
-"NYJ",
-"Braiden McGregor",
-"Questionable (ESPN)",
-""
 ],
 [
 "NYJ",
@@ -3216,5 +3214,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 16:44 UTC"
+"written_at": "2026-10-05 17:14 UTC"
 }
