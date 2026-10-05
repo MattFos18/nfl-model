@@ -5,14 +5,14 @@
 
 | group   | measure                                                   |   long_run |   long_run_n |   recent |   recent_n |   this_season |   this_season_n |     z |   cusum | level   |
 |:--------|:----------------------------------------------------------|-----------:|-------------:|---------:|-----------:|--------------:|----------------:|------:|--------:|:--------|
-| home    | Home margin (points)                                      |     1.7203 |         2581 |   2.087  |        322 |        1.6316 |              57 |  0.44 |    2.67 | ok      |
-| home    | Home cover margin vs the line                             |    -0.1019 |         2581 |   0.382  |        322 |       -0.6667 |              57 |  0.64 |    3.1  | ok      |
-| side    | Home favorite cover margin (road dog: the same, reversed) |    -0.1792 |         1624 |   0.5    |        197 |       -1.2564 |              39 |  0.72 |    3.17 | ok      |
-| side    | Road favorite cover margin (home dog: the same, reversed) |    -0.0362 |          995 |   0.1259 |        135 |        1.1905 |              21 |  0.14 |    2.15 | ok      |
-| total   | Final total minus the closing total                       |     0.3223 |         2623 |   1.0392 |        332 |        0.5333 |              60 |  0.93 |    2.68 | ok      |
-| total   | Over rate                                                 |     0.4852 |         2597 |   0.512  |        332 |        0.4667 |              60 |  0.92 |    2.99 | ok      |
-| key     | Margin exactly 3                                          |     0.146  |         2623 |   0.1506 |        332 |        0.15   |              60 |  0.22 |    2.48 | ok      |
-| key     | Margin exactly 7                                          |     0.0858 |         2623 |   0.0934 |        332 |        0.0833 |              60 |  0.47 |    2.56 | ok      |
-| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.1447 |        332 |       -0.0139 |              60 |  0.1  |    1.4  | ok      |
-| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.0553 |        322 |        0.8587 |              57 | -0.45 |    3.01 | ok      |
+| home    | Home margin (points)                                      |     1.7203 |         2581 |   2.0864 |        324 |        1.6441 |              59 |  0.44 |    2.67 | ok      |
+| home    | Home cover margin vs the line                             |    -0.1019 |         2581 |   0.3843 |        324 |       -0.6186 |              59 |  0.65 |    3.1  | ok      |
+| side    | Home favorite cover margin (road dog: the same, reversed) |    -0.1792 |         1624 |   0.4975 |        198 |       -1.225  |              40 |  0.71 |    3.17 | ok      |
+| side    | Road favorite cover margin (home dog: the same, reversed) |    -0.0362 |          995 |   0.114  |        136 |        1.0682 |              22 |  0.13 |    2.15 | ok      |
+| total   | Final total minus the closing total                       |     0.3223 |         2623 |   1.0928 |        334 |        0.8387 |              62 |  1.01 |    2.68 | ok      |
+| total   | Over rate                                                 |     0.4852 |         2597 |   0.515  |        334 |        0.4839 |              62 |  1.03 |    2.99 | ok      |
+| key     | Margin exactly 3                                          |     0.146  |         2623 |   0.1527 |        334 |        0.1613 |              62 |  0.33 |    2.48 | ok      |
+| key     | Margin exactly 7                                          |     0.0858 |         2623 |   0.0958 |        334 |        0.0968 |              62 |  0.62 |    2.56 | ok      |
+| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.1506 |        334 |        0.0228 |              62 |  0.15 |    1.4  | ok      |
+| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.0588 |        324 |        0.8509 |              59 | -0.44 |    3.01 | ok      |
 | model   | 4+ flag win rate                                          |     0.5938 |          288 |   0.68   |         25 |        0.6    |               5 |  0.84 |    2.33 | ok      |

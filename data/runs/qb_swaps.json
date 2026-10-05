@@ -15,14 +15,6 @@
  "swaps": [],
  "conflicts": [
   {
-   "game_id": "2026_04_LAC_SEA",
-   "team": "SEA",
-   "named": "00-0035704",
-   "priced": "00-0034869",
-   "named_name": "Drew Lock",
-   "priced_name": "Sam Darnold"
-  },
-  {
    "game_id": "2026_05_SF_SEA",
    "team": "SEA",
    "named": "00-0035704",

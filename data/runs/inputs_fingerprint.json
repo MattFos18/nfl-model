@@ -991,11 +991,6 @@
 ],
 [
 "NYG",
-"Brian Burns",
-"Out"
-],
-[
-"NYG",
 "Devin Singletary",
 "Out"
 ],
@@ -3001,6 +2996,12 @@
 ],
 [
 "SF",
+"Marques Sigle",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Mike Evans",
 "Questionable",
 "Limited Participation in Practice"
@@ -3199,14 +3200,6 @@
 ]
 ],
 "weather": {
-"2026_04_LAC_SEA": {
-"wind": 5.0,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_04_DET_CAR": {
 "wind": 1.4,
 "cold": false,
@@ -3216,5 +3209,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-05 00:01 UTC"
+"written_at": "2026-10-05 00:38 UTC"
 }
