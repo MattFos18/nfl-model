@@ -27423,3 +27423,15 @@ ts,source,away,home,kickoff_text,market,side_label,side,line,odds,handle_pct,bet
 2026-10-05T00-53-30Z,dknetwork,TB,DAL,"10/8, 08:15PM",spread,TB Buccaneers +10,TB,10.0,-110,39,64,2026_05_TB_DAL
 2026-10-05T00-53-30Z,dknetwork,TB,DAL,"10/8, 08:15PM",total,Over 47.5,over,47.5,-110,98,50,2026_05_TB_DAL
 2026-10-05T00-53-30Z,dknetwork,TB,DAL,"10/8, 08:15PM",total,Under 47.5,under,47.5,-110,2,50,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",ml,NO Saints,NO,,-130,46,59,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",ml,ATL Falcons,ATL,,110,54,41,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",spread,NO Saints -1.5,NO,-1.5,-115,66,61,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",spread,ATL Falcons +1.5,ATL,1.5,-105,34,39,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",total,Over 47.5,over,47.5,-115,84,70,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,ATL,NO,"10/5, 08:15PM",total,Under 47.5,under,47.5,-105,16,30,2026_04_ATL_NO
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",ml,DAL Cowboys,DAL,,-550,51,75,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",ml,TB Buccaneers,TB,,410,49,25,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",spread,DAL Cowboys -10,DAL,-10.0,-110,62,50,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",spread,TB Buccaneers +10,TB,10.0,-110,38,50,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",total,Over 47.5,over,47.5,-110,37,20,2026_05_TB_DAL
+2026-10-05T01-18-10Z,dknetwork,TB,DAL,"10/8, 08:15PM",total,Under 47.5,under,47.5,-110,63,80,2026_05_TB_DAL
