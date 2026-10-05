@@ -86,37 +86,7 @@
 "injuries": [
 [
 "ARI",
-"Cameron Robertson",
-"Out"
-],
-[
-"ARI",
-"Carson Beck",
-"Out"
-],
-[
-"ARI",
 "Dadrion Taylor-Demerson",
-"Out"
-],
-[
-"ARI",
-"Josh Fryar",
-"Out"
-],
-[
-"ARI",
-"Reggie Virgil",
-"Out"
-],
-[
-"ARI",
-"Starling Thomas V",
-"Out"
-],
-[
-"BAL",
-"Aeneas Peebles",
 "Out"
 ],
 [
@@ -131,11 +101,6 @@
 ],
 [
 "BAL",
-"Joe Fagnano",
-"Out"
-],
-[
-"BAL",
 "Jovaughn Gwyn",
 "Out"
 ],
@@ -146,32 +111,7 @@
 ],
 [
 "BUF",
-"Ar'maj Reed-Adams",
-"Out"
-],
-[
-"BUF",
 "Christian Benford",
-"Out"
-],
-[
-"BUF",
-"Jalon Kilgore",
-"Out"
-],
-[
-"BUF",
-"Jude Bowry",
-"Out"
-],
-[
-"BUF",
-"Mike Danna",
-"Out"
-],
-[
-"BUF",
-"Skyler Bell",
 "Out"
 ],
 [
@@ -186,27 +126,12 @@
 ],
 [
 "CAR",
-"Albert Reese IV",
-"Out"
-],
-[
-"CAR",
 "Cam Jackson",
 "Out"
 ],
 [
 "CAR",
 "Damien Lewis",
-"Out"
-],
-[
-"CAR",
-"Haynes King",
-"Out"
-],
-[
-"CAR",
-"Ja'Tavion Sanders",
 "Out"
 ],
 [
@@ -256,32 +181,12 @@
 ],
 [
 "CHI",
-"James Lynch",
-"Out"
-],
-[
-"CHI",
-"Jamree Kromah",
-"Out"
-],
-[
-"CHI",
-"Jayden Loving",
-"Out"
-],
-[
-"CHI",
 "Kyler Gordon",
 "Out"
 ],
 [
 "CHI",
 "Noah Sewell",
-"Out"
-],
-[
-"CHI",
-"Ozzy Trapilo",
 "Out"
 ],
 [
@@ -316,32 +221,12 @@
 ],
 [
 "CIN",
-"Landon Robinson",
-"Out"
-],
-[
-"CIN",
-"Myles Hinton",
-"Out"
-],
-[
-"CIN",
 "Swayze Bozeman",
 "Out"
 ],
 [
 "CLE",
 "Elgton Jenkins",
-"Out"
-],
-[
-"CLE",
-"Justin Jefferson",
-"Out"
-],
-[
-"CLE",
-"Taylen Green",
 "Out"
 ],
 [
@@ -356,21 +241,6 @@
 ],
 [
 "DAL",
-"Ajani Cornelius",
-"Out"
-],
-[
-"DAL",
-"Caelen Carson",
-"Out"
-],
-[
-"DAL",
-"Camden Brown",
-"Out"
-],
-[
-"DAL",
 "Cobie Durant",
 "Out"
 ],
@@ -381,17 +251,7 @@
 ],
 [
 "DAL",
-"Emari Demercado",
-"Out"
-],
-[
-"DAL",
 "Jalen Thompson",
-"Out"
-],
-[
-"DAL",
-"James Houston",
 "Out"
 ],
 [
@@ -411,22 +271,12 @@
 ],
 [
 "DEN",
-"Dallen Bentley",
-"Out"
-],
-[
-"DEN",
 "Dondrea Tillman",
 "Out"
 ],
 [
 "DEN",
 "Jonah Coleman",
-"Out"
-],
-[
-"DEN",
-"Kage Casey",
 "Out"
 ],
 [
@@ -440,28 +290,8 @@
 "Doubtful"
 ],
 [
-"DEN",
-"Sam Ehlinger",
-"Out"
-],
-[
-"DEN",
-"Tyler Onyedim",
-"Out"
-],
-[
-"DET",
-"Ahmed Hassanein",
-"Out"
-],
-[
 "DET",
 "Ben Bartch",
-"Out"
-],
-[
-"DET",
-"Bishop Fitzgerald",
 "Out"
 ],
 [
@@ -476,22 +306,7 @@
 ],
 [
 "DET",
-"Devin White",
-"Out"
-],
-[
-"DET",
-"Mekhi Wingo",
-"Out"
-],
-[
-"DET",
 "Thomas Harper",
-"Out"
-],
-[
-"DET",
-"Tyler Conklin",
 "Out"
 ],
 [
@@ -521,11 +336,6 @@
 ],
 [
 "GB",
-"Kevin Zeitler",
-"Out"
-],
-[
-"GB",
 "Micah Parsons",
 "Out"
 ],
@@ -551,27 +361,7 @@
 ],
 [
 "HOU",
-"Chris Braswell",
-"Out"
-],
-[
-"HOU",
-"Febechi Nwaiwu",
-"Out"
-],
-[
-"HOU",
 "M.J. Stewart",
-"Out"
-],
-[
-"HOU",
-"Marlin Klein",
-"Out"
-],
-[
-"HOU",
-"Nate Thomas",
 "Out"
 ],
 [
@@ -656,31 +446,6 @@
 ],
 [
 "KC",
-"Diego Pounds",
-"Out"
-],
-[
-"KC",
-"Garrett Nussmeier",
-"Out"
-],
-[
-"KC",
-"Jack Pyburn",
-"Out"
-],
-[
-"KC",
-"Jadon Canady",
-"Out"
-],
-[
-"KC",
-"Jared Wiley",
-"Out"
-],
-[
-"KC",
 "Josh Simmons",
 "Out"
 ],
@@ -751,11 +516,6 @@
 ],
 [
 "LAC",
-"DJ Uiagalelei",
-"Out"
-],
-[
-"LAC",
 "Dalvin Tomlinson",
 "Out"
 ],
@@ -773,11 +533,6 @@
 "LAC",
 "Rashawn Slater",
 "Doubtful"
-],
-[
-"LV",
-"Aidan O'Connell",
-"Out"
 ],
 [
 "LV",
@@ -872,6 +627,11 @@
 [
 "MIN",
 "Charles Demmings",
+"Out"
+],
+[
+"MIN",
+"Donovan Jackson",
 "Out"
 ],
 [
@@ -1252,6 +1012,11 @@
 [
 "SF",
 "Tatum Bethune",
+"Out"
+],
+[
+"TB",
+"Antoine Winfield Jr.",
 "Out"
 ],
 [
@@ -2565,12 +2330,6 @@
 ],
 [
 "MIN",
-"Donovan Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
 "Harrison Smith",
 "",
 "Limited Participation in Practice"
@@ -3039,12 +2798,6 @@
 ],
 [
 "TB",
-"Antoine Winfield Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Bucky Irving",
 "",
 "Full Participation in Practice"
@@ -3213,5 +2966,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 18:41 UTC"
+"written_at": "2026-10-05 19:16 UTC"
 }
