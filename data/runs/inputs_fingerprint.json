@@ -431,6 +431,11 @@
 ],
 [
 "DEN",
+"Pat Bryant",
+"Doubtful"
+],
+[
+"DEN",
 "Pat Surtain II",
 "Doubtful"
 ],
@@ -1897,12 +1902,6 @@
 ],
 [
 "DEN",
-"Pat Bryant",
-"Questionable (ESPN)",
-""
-],
-[
-"DEN",
 "Riley Moss",
 "Questionable (ESPN)",
 ""
@@ -3217,5 +3216,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 16:08 UTC"
+"written_at": "2026-10-05 16:44 UTC"
 }
