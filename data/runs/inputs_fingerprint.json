@@ -95,6 +95,36 @@
 "Out"
 ],
 [
+"ATL",
+"Cooper Rush",
+"Out"
+],
+[
+"ATL",
+"Ethan Onianwa",
+"Out"
+],
+[
+"ATL",
+"Jack Strand",
+"Out"
+],
+[
+"ATL",
+"Jared Ivey",
+"Out"
+],
+[
+"ATL",
+"Malcolm DeWalt IV",
+"Out"
+],
+[
+"ATL",
+"Robert Longerbeam",
+"Out"
+],
+[
 "BAL",
 "Chris Moore",
 "Out"
@@ -381,6 +411,11 @@
 ],
 [
 "IND",
+"Arden Key",
+"Out"
+],
+[
+"IND",
 "Keenan Allen",
 "Out"
 ],
@@ -581,6 +616,16 @@
 ],
 [
 "NO",
+"Christen Miller",
+"Out"
+],
+[
+"NO",
+"Decamerion Richardson",
+"Out"
+],
+[
+"NO",
 "Jordyn Tyson",
 "Out"
 ],
@@ -596,7 +641,17 @@
 ],
 [
 "NO",
+"Noah Fant",
+"Out"
+],
+[
+"NO",
 "Travis Etienne Jr.",
+"Out"
+],
+[
+"NO",
+"Zach Wilson",
 "Out"
 ],
 [
@@ -920,12 +975,6 @@
 ],
 [
 "ATL",
-"Divine Deablo",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
 "Jake Matthews",
 "",
 "Did Not Participate In Practice"
@@ -950,21 +999,9 @@
 ],
 [
 "ATL",
-"Samson Ebukam",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
 "Yasir Abdullah",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"ATL",
-"Yasir Abdullah",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -2150,21 +2187,9 @@
 ],
 [
 "NO",
-"Noah Fant",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Pete Werner",
 "Questionable",
 "Did Not Participate In Practice"
-],
-[
-"NO",
-"Pete Werner",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2660,5 +2685,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 23:00 UTC"
+"written_at": "2026-10-05 23:29 UTC"
 }
