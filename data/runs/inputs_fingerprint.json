@@ -121,7 +121,7 @@
 ],
 [
 "BAL",
-"Durham Smythe",
+"Chris Moore",
 "Out"
 ],
 [
@@ -431,16 +431,6 @@
 ],
 [
 "DEN",
-"Pat Surtain II",
-"Out"
-],
-[
-"DEN",
-"Riley Moss",
-"Out"
-],
-[
-"DEN",
 "Sam Ehlinger",
 "Out"
 ],
@@ -486,6 +476,11 @@
 ],
 [
 "DET",
+"Rock Ya-Sin",
+"Out"
+],
+[
+"DET",
 "Thomas Harper",
 "Out"
 ],
@@ -503,6 +498,11 @@
 "GB",
 "Anthony Campbell",
 "Out"
+],
+[
+"GB",
+"Edgerrin Cooper",
+"Doubtful"
 ],
 [
 "GB",
@@ -1518,6 +1518,12 @@
 ],
 [
 "BAL",
+"Durham Smythe",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "John Simpson",
 "",
 "Full Participation in Practice"
@@ -1716,6 +1722,12 @@
 ],
 [
 "CAR",
+"Monroe Freeling",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Nick Scott",
 "",
 "Full Participation in Practice"
@@ -1890,6 +1902,18 @@
 ],
 [
 "DEN",
+"Pat Surtain II",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
+"Riley Moss",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
 "Zach Allen",
 "",
 "Full Participation in Practice"
@@ -1905,12 +1929,6 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
-],
-[
-"DET",
-"Rock Ya-Sin",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1929,12 +1947,6 @@
 "Edgerrin Cooper",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"GB",
-"Edgerrin Cooper",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -3207,5 +3219,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-05 03:09 UTC"
+"written_at": "2026-10-05 03:39 UTC"
 }
