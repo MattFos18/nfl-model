@@ -4,12 +4,12 @@
  "complete": false,
  "missing": [
   "nflverse score: 2026_04_ATL_NO",
-  "play-by-play: 2026_04_DET_CAR, 2026_04_ATL_NO",
-  "player stats: 2026_04_DET_CAR, 2026_04_ATL_NO",
+  "play-by-play: 2026_04_ATL_NO",
+  "player stats: 2026_04_ATL_NO",
   "snap counts: 2026_04_IND_WAS, 2026_04_TEN_BAL, 2026_04_NE_BUF, 2026_04_NYJ_CHI, 2026_04_JAX_CIN, 2026_04_DAL_HOU, 2026_04_ARI_NYG, 2026_04_LA_PHI, 2026_04_GB_TB, 2026_04_MIA_MIN, 2026_04_KC_LV, 2026_04_LAC_SEA, 2026_04_DEN_SF, 2026_04_DET_CAR, 2026_04_ATL_NO",
-  "charting (participation, FTN): 2026_04_DET_CAR, 2026_04_ATL_NO"
+  "charting (participation, FTN): 2026_04_ATL_NO"
  ],
  "all_kicked_off": false,
  "pending": false,
- "checked": "2026-10-05 04:10 UTC"
+ "checked": "2026-10-05 05:32 UTC"
 }
