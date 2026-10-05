@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-10-05 19:50 UTC
+# Tie-out (sources and page), 2026-10-05 21:15 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -121,27 +121,21 @@ The same number must read the same everywhere it appears. Each row: what was com
 | docs section 4: QB and offense rating correlation = model.qb_overlap | 0.75 | 0.75 | yes |
 | defenders with 15+ snaps a game in the last two seasons all have a snap share | none zero | none zero | yes |
 | rostered defenders with 300+ snaps in 2025 all have a value | all valued | all valued | yes |
-| defender table holds 97%+ of 2025's defensive snaps | 100.0% | 97% or more | yes |
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
-| snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.0% (2026 DL) | 99% or more | yes |
 | This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-05T19:35Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | {'espn': '2026-10-05T19:35Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-10-05 19:32 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
+| every step of the newest weekly run finished (2026-10-05 19:32 UTC, 42 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md; t | all ok | NO |
 | the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
-| the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line (16 games, worst gap) | 0.00e+00 | 1e-9 or under | yes |
+| the live re-price (model.price_at on pred_v3_dist.json) rebuilds the model run's win, cover and over chances at the schedule's line (16 games, worst gap) | 5.55e-17 | 1e-9 or under | yes |
 | the page has no duplicate element ids (a duplicate points a control at the wrong element) | [] | [] | yes |
 | player profiles on the page = props_profiles.json (receivers, rushers, passers, defenses; week) | [375, 213, 67, 32, 2026, 4] | [375, 213, 67, 32, 2026, 4] | yes |
 | props record on the page = every projection file, graded rows and market rows | [11191, 8394, 1833] | [11191, 8394, 1833] | yes |
-| player game logs on the page = nflverse's official player stats, 2025 (targets, catches, rec TD, carries, rush yards, rush TD, completions, pass TD, INT, sacks taken) | [17490.0, 11749.0, 854.0, 15315.0, 66506.0, 526.0, 11749.0, 854.0, 406.0, 1352.0 | [17490.0, 11749.0, 854.0, 15315.0, 66506.0, 526.0, 11749.0, 854.0, 406.0, 1352.0 | yes |
-| player game logs: defenders' tackles, solo, sacks, INT, passes defended = official game by game, 2025 (numbers off; official defensive games missing) | [0, 0] | [0, 0] | yes |
-| player game logs: passing yards, receiving yards and attempts against official, 2025 (worst gap; laterals and a rare passer the play-by-play leaves unnamed) | 17 | 0.05% of the season or under | yes |
-| props graded on the official box score, 2025 regular season (targets, carries, rush yards, attempts, completions: worst gap; passing yards gap) | 2; 17 | 0.05% of each or under | yes |
 | career totals on the page = the season's game logs, 2025 (targets) | 17490 | 17490 | yes |
 | page backtest file: games | 3091 | 3091 | yes |
 | page backtest file: model spread equals the prediction table | 0.0 | 0.0 | yes |
@@ -177,7 +171,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | card Vegas win chance = the newest moneyline snapshot, vig removed per book, averaged (worst gap; games missing one side) | 0.0005; 0 | 0.0006 or under; 0 | yes |
 | each card's run history ends with the run that priced it (model spread and total) | all | all | yes |
 | season file's chance in each game of the week = the card's raw model win chance, p_home (one function, three decimals; the card displays it calibrated) | all equal | all equal | yes |
-| season file's books = the newest futures pull | True | True | yes |
+| season file against the week | [Errno 2] No such file or directory: '/home/runner/work/nfl-model/nfl-model/data |  | NO |
 | card wind (unplayed games) = the reading it is priced on now (GFS MOS, else Open-Meteo); props wind = the Open-Meteo forecast in use now | [] | [] | yes |
 | every unplayed outdoor game inside the forecast window (kickoff up to 4 days ahead or 2 days back) is priced with a kickoff forecast | [] | [] | yes |
 | opener_study.js (Backtest -> Opener study) = opener_study.study() recomputed from pred_v3, pred_tuesday and the archive (every row) | same | same | yes |
@@ -245,7 +239,6 @@ The same number must read the same everywhere it appears. Each row: what was com
 | player season backtest on the page = reports/player_season_backtest.csv (rows) | 66 | 66 | yes |
 | standing check: QB priced on every unplayed picks-week side is not ruled out (Out, Doubtful, off the active roster) | ok | ok | yes |
 | standing check: qb_out = 1 only when last game's starting QB is ruled out (picks week) | ok | ok | yes |
-| standing check: last game's starting QB ruled out and qb_out = 1 (picks week) | ok | ok | yes |
 | standing check: unplayed games at retractable-roof stadiums have a roof (blank counts as closed: build.RETRACTABLE_HOME) | ok | ok | yes |
 | standing check: cards price unplayed retractable-roof games (roof not announced open) as roofed, not outdoors | ok | ok | yes |
 | standing check: no wind, rain or temperature reading for a game under a roof (wind_live readings) | ok | ok | yes |
@@ -265,4 +258,4 @@ The same number must read the same everywhere it appears. Each row: what was com
 | standing check: one unit a bet: no Kelly stake or stake_pct on the page or in the picks file | ok | ok | yes |
 | standing check: appended logs: every row has the header's fields (rule_history, pred_history, the bet trackers) | ok | ok | yes |
 
-Result: FAIL (258 of 260 tie)
+Result: FAIL (250 of 253 tie)
