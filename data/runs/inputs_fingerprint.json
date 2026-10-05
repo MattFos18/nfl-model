@@ -692,7 +692,7 @@
 [
 "KC",
 "Tyquan Thornton",
-"Out"
+"Doubtful"
 ],
 [
 "LA",
@@ -772,11 +772,6 @@
 [
 "LAC",
 "Kayode Awosika",
-"Out"
-],
-[
-"LAC",
-"Ladd McConkey",
 "Out"
 ],
 [
@@ -1237,11 +1232,6 @@
 [
 "SF",
 "Kurtis Rourke",
-"Out"
-],
-[
-"SF",
-"Kyle Juszczyk",
 "Out"
 ],
 [
@@ -2360,6 +2350,12 @@
 ],
 [
 "LAC",
+"Ladd McConkey",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Rashawn Slater",
 "Questionable (ESPN)",
 ""
@@ -2996,6 +2992,12 @@
 ],
 [
 "SF",
+"Kyle Juszczyk",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Marques Sigle",
 "Questionable (ESPN)",
 ""
@@ -3209,5 +3211,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-05 00:38 UTC"
+"written_at": "2026-10-05 01:08 UTC"
 }
