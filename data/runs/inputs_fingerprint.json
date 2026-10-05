@@ -431,6 +431,11 @@
 ],
 [
 "DEN",
+"Pat Surtain II",
+"Doubtful"
+],
+[
+"DEN",
 "Sam Ehlinger",
 "Out"
 ],
@@ -1211,6 +1216,11 @@
 ],
 [
 "SF",
+"Kyle Juszczyk",
+"Doubtful"
+],
+[
+"SF",
 "Mykel Williams",
 "Out"
 ],
@@ -1888,12 +1898,6 @@
 [
 "DEN",
 "Pat Bryant",
-"Questionable (ESPN)",
-""
-],
-[
-"DEN",
-"Pat Surtain II",
 "Questionable (ESPN)",
 ""
 ],
@@ -3009,12 +3013,6 @@
 ],
 [
 "SF",
-"Kyle Juszczyk",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Marques Sigle",
 "Questionable (ESPN)",
 ""
@@ -3219,5 +3217,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 05:30 UTC"
+"written_at": "2026-10-05 14:15 UTC"
 }
