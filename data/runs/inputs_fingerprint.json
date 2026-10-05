@@ -121,11 +121,6 @@
 ],
 [
 "BAL",
-"Chris Moore",
-"Out"
-],
-[
-"BAL",
 "Durham Smythe",
 "Out"
 ],
@@ -461,11 +456,6 @@
 ],
 [
 "DET",
-"Avonte Maddox",
-"Out"
-],
-[
-"DET",
 "Ben Bartch",
 "Out"
 ],
@@ -692,7 +682,7 @@
 [
 "KC",
 "Tyquan Thornton",
-"Doubtful"
+"Out"
 ],
 [
 "LA",
@@ -1915,6 +1905,12 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
+],
+[
+"DET",
+"Rock Ya-Sin",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -3211,5 +3207,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-05 01:08 UTC"
+"written_at": "2026-10-05 03:09 UTC"
 }
