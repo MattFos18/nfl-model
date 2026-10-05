@@ -1031,11 +1031,6 @@
 ],
 [
 "NYJ",
-"Jarvis Brownlee Jr.",
-"Out"
-],
-[
-"NYJ",
 "Kiko Mauigoa",
 "Out"
 ],
@@ -1077,11 +1072,6 @@
 [
 "PHI",
 "Hollywood Brown",
-"Out"
-],
-[
-"PHI",
-"Jonathan Greenard",
 "Out"
 ],
 [
@@ -1701,6 +1691,12 @@
 "Devin Lloyd",
 "",
 "Full Participation in Practice"
+],
+[
+"CAR",
+"Jaelan Phillips",
+"Questionable (ESPN)",
+""
 ],
 [
 "CAR",
@@ -2778,6 +2774,12 @@
 ],
 [
 "NYJ",
+"Jarvis Brownlee Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Jeremy Ruckert",
 "",
 "Full Participation in Practice"
@@ -2835,6 +2837,12 @@
 "Jonathan Greenard",
 "",
 "Full Participation in Practice"
+],
+[
+"PHI",
+"Jonathan Greenard",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -3209,15 +3217,6 @@
 ""
 ]
 ],
-"weather": {
-"2026_04_DET_CAR": {
-"wind": 1.4,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-}
-},
-"written_at": "2026-10-05 03:39 UTC"
+"weather": {},
+"written_at": "2026-10-05 04:07 UTC"
 }
