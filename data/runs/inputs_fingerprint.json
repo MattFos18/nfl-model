@@ -90,6 +90,11 @@
 "Out"
 ],
 [
+"ARI",
+"Paris Johnson Jr.",
+"Out"
+],
+[
 "BAL",
 "Chris Moore",
 "Out"
@@ -261,11 +266,6 @@
 ],
 [
 "DAL",
-"P.J. Locke",
-"Out"
-],
-[
-"DAL",
 "Tyler Smith",
 "Out"
 ],
@@ -303,6 +303,11 @@
 "DET",
 "Cade Mays",
 "Out"
+],
+[
+"DET",
+"Rock Ya-Sin",
+"Doubtful"
 ],
 [
 "DET",
@@ -457,7 +462,7 @@
 [
 "LAC",
 "Rashawn Slater",
-"Doubtful"
+"Out"
 ],
 [
 "LV",
@@ -487,6 +492,11 @@
 [
 "MIA",
 "Kenneth Grant",
+"Out"
+],
+[
+"MIA",
+"Reese Taylor",
 "Out"
 ],
 [
@@ -592,7 +602,7 @@
 [
 "NYG",
 "Braxton Berrios",
-"Out"
+"Doubtful"
 ],
 [
 "NYG",
@@ -681,6 +691,11 @@
 ],
 [
 "PHI",
+"Tank Bigsby",
+"Out"
+],
+[
+"PHI",
 "Zack Baun",
 "Out"
 ],
@@ -737,6 +752,11 @@
 [
 "SF",
 "Kyle Juszczyk",
+"Doubtful"
+],
+[
+"SF",
+"Marques Sigle",
 "Doubtful"
 ],
 [
@@ -864,6 +884,12 @@
 ],
 [
 "ARI",
+"Jeremiyah Love",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
 "Josh Sweat",
 "Questionable",
 "Limited Participation in Practice"
@@ -873,12 +899,6 @@
 "Mack Wilson",
 "",
 "Full Participation in Practice"
-],
-[
-"ARI",
-"Paris Johnson Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "ARI",
@@ -1320,6 +1340,12 @@
 ],
 [
 "DAL",
+"Drew Shelton",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "James Houston",
 "",
 "Full Participation in Practice"
@@ -1383,12 +1409,6 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
-],
-[
-"DET",
-"Rock Ya-Sin",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1734,6 +1754,12 @@
 ],
 [
 "LA",
+"Konata Mumpfield",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Nate Landman",
 "",
 "Full Participation in Practice"
@@ -1959,12 +1985,6 @@
 "Julius Brents",
 "",
 "Full Participation in Practice"
-],
-[
-"MIA",
-"Reese Taylor",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIA",
@@ -2322,12 +2342,6 @@
 ],
 [
 "PHI",
-"Tank Bigsby",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Will Shipley",
 "",
 "Full Participation in Practice"
@@ -2448,12 +2462,6 @@
 ],
 [
 "SF",
-"Marques Sigle",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Mike Evans",
 "Questionable",
 "Limited Participation in Practice"
@@ -2505,6 +2513,12 @@
 "Josiah Trotter",
 "",
 "Full Participation in Practice"
+],
+[
+"TB",
+"Josiah Trotter",
+"Questionable (ESPN)",
+""
 ],
 [
 "TB",
@@ -2646,5 +2660,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-05 19:48 UTC"
+"written_at": "2026-10-05 23:00 UTC"
 }
