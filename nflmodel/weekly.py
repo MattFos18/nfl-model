@@ -77,6 +77,20 @@ def step(name, fn, log):
     return out
 
 
+def rerun_if_week_moved(run_steps, week_fn, log):
+    """Run the week's input steps; if the picks week moved while they ran, run them again for the new week.
+    6 Oct 2026: the picks week advances once last week's games are in player_games and scheme_plays, which the players and
+    scheme steps write; ratings and trends ran first, still on week 4, so week 5 was priced with no injuries and the
+    ruled-out QBs (Mayfield, the WAS starter) counted as playing."""
+    before = week_fn()
+    run_steps()
+    after = week_fn()
+    if after != before:
+        step("week moved mid-run", lambda: f"{before} -> {after}: input steps run again", log)
+        run_steps(f" (again, week {after[1]})")
+    return before, after
+
+
 def skip(name, why, log):
     """A step not run, logged as status "skipped" with the reason (health counts anything but ok as a failure)."""
     row = {"step": name, "status": "skipped", "detail": why[:200], "seconds": 0.0}
@@ -201,12 +215,16 @@ def main(full=False, skip_network=False):
     if not skip_network:
         step("lines", lambda: sh(["nflmodel.lines"]), log)   # every live number from the same moment: the lines are pulled with the starters, injuries and forecast above
     step("live results", lambda: sh(["nflmodel.results"] + (["--no-fetch"] if skip_network else [])), log)   # the ESPN scoreboard's scores and the pre-kickoff calls graded (27 Sep 2026; web/data/live.js)
-    step("ratings", lambda: sh(["nflmodel.ratings"]), log)
-    step("trends", lambda: sh(["nflmodel.trends"]), log)
-    step("players", lambda: sh(["nflmodel.players"]), log)
-    step("positions", lambda: sh(["nflmodel.positions"]), log)
-    step("scheme", lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
-    step("player splits", lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
+    from . import lines as _lines
+
+    def week_inputs(suffix=""):
+        step("ratings" + suffix, lambda: sh(["nflmodel.ratings"]), log)
+        step("trends" + suffix, lambda: sh(["nflmodel.trends"]), log)
+        step("players" + suffix, lambda: sh(["nflmodel.players"]), log)
+        step("positions" + suffix, lambda: sh(["nflmodel.positions"]), log)
+        step("scheme" + suffix, lambda: sh(["nflmodel.scheme"]), log)   # scheme and play-calling profiles (readings; participation and FTN charting)
+        step("player splits" + suffix, lambda: sh(["nflmodel.player_splits"]), log)   # every player by look, situation and opponent (Players -> Matchups and schemes)
+    rerun_if_week_moved(week_inputs, lambda: _lines.current_week(games), log)
     step("model", lambda: sh(["nflmodel.model", "--seasons", f"2015-{season}"]), log)
     step("qt shadow", lambda: sh(["nflmodel.qtotals"]), log)   # 2 Oct 2026: the Questionable-in-totals shadow total (hidden shadow shadowqtotals, never bet); writes data/processed/shadow/ only, never pred_v3
     step("opener study", lambda: sh(["nflmodel.opener_study"]), log)   # the Tuesday model and the archive openers, for the Backtest tab (28 Sep 2026)
