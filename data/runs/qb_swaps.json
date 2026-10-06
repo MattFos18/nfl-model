@@ -2,7 +2,7 @@
  "status": "ok",
  "detail": "",
  "season": 2026,
- "week": 4,
+ "week": 5,
  "espn_unmatched": [
   "CAR Cam Jackson",
   "CAR Damien Lewis",
@@ -17,7 +17,17 @@
   "NYJ Kiko Mauigoa",
   "PHI Hollywood Brown"
  ],
- "swaps": [],
+ "swaps": [
+  {
+   "game_id": "2026_05_NYG_WAS",
+   "team": "WAS",
+   "from": "00-0039910",
+   "from_name": "Jayden Daniels",
+   "to": "00-0041117",
+   "to_name": "Athan Kaliakmanis",
+   "source": "depth chart"
+  }
+ ],
  "conflicts": [
   {
    "game_id": "2026_05_SF_SEA",
