@@ -70,7 +70,7 @@ Every bet:
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG +3.5 |   -115 |   nan   |   nan | pending  |  nan    |
 |     2026 |      5 | 2026_05_CHI_GB  | GB +3    |   -118 |   nan   |   nan | pending  |  nan    |
-|     2026 |      5 | 2026_05_BAL_ATL | BAL +3   |   -105 |   nan   |   nan | pending  |  nan    |
+|     2026 |      5 | 2026_05_BAL_ATL | BAL +3   |   -102 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
