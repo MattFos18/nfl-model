@@ -81,47 +81,7 @@
 "injuries": [
 [
 "ARI",
-"Dadrion Taylor-Demerson",
-"Out"
-],
-[
-"ARI",
 "Paris Johnson Jr.",
-"Out"
-],
-[
-"ATL",
-"Cooper Rush",
-"Out"
-],
-[
-"ATL",
-"Ethan Onianwa",
-"Out"
-],
-[
-"ATL",
-"Jack Strand",
-"Out"
-],
-[
-"ATL",
-"Jared Ivey",
-"Out"
-],
-[
-"ATL",
-"Malcolm DeWalt IV",
-"Out"
-],
-[
-"ATL",
-"Robert Longerbeam",
-"Out"
-],
-[
-"BAL",
-"Chris Moore",
 "Out"
 ],
 [
@@ -137,21 +97,6 @@
 [
 "BAL",
 "Jovaughn Gwyn",
-"Out"
-],
-[
-"BAL",
-"Trey Hendrickson",
-"Out"
-],
-[
-"BUF",
-"Christian Benford",
-"Out"
-],
-[
-"BUF",
-"T.J. Sanders",
 "Out"
 ],
 [
@@ -171,11 +116,6 @@
 ],
 [
 "CHI",
-"Cam Lewis",
-"Out"
-],
-[
-"CHI",
 "Kyler Gordon",
 "Out"
 ],
@@ -191,58 +131,23 @@
 ],
 [
 "CIN",
-"B.J. Hill",
-"Out"
-],
-[
-"CIN",
-"Bryan Cook",
-"Out"
-],
-[
-"CIN",
-"Colbie Young",
-"Out"
-],
-[
-"CIN",
 "Jalen Davis",
-"Out"
-],
-[
-"CIN",
-"Kyle Dugger",
-"Out"
-],
-[
-"CIN",
-"Swayze Bozeman",
-"Out"
-],
-[
-"CLE",
-"Elgton Jenkins",
-"Out"
-],
-[
-"CLE",
-"Teven Jenkins",
-"Out"
-],
-[
-"CLE",
-"Tylan Wallace",
 "Out"
 ],
 [
 "DAL",
 "Cobie Durant",
-"Out"
+"Doubtful"
 ],
 [
 "DAL",
 "DeMarvion Overshown",
-"Out"
+"Doubtful"
+],
+[
+"DAL",
+"Drew Shelton",
+"Doubtful"
 ],
 [
 "DAL",
@@ -261,11 +166,6 @@
 ],
 [
 "DEN",
-"Dondrea Tillman",
-"Out"
-],
-[
-"DEN",
 "Jonah Coleman",
 "Out"
 ],
@@ -278,11 +178,6 @@
 "DEN",
 "Pat Surtain II",
 "Doubtful"
-],
-[
-"DET",
-"Ben Bartch",
-"Out"
 ],
 [
 "DET",
@@ -306,22 +201,7 @@
 ],
 [
 "GB",
-"Aaron Banks",
-"Out"
-],
-[
-"GB",
-"Anthony Campbell",
-"Out"
-],
-[
-"GB",
 "Edgerrin Cooper",
-"Out"
-],
-[
-"GB",
-"Jacob Monk",
 "Out"
 ],
 [
@@ -346,11 +226,6 @@
 ],
 [
 "HOU",
-"Azeez Al-Shaair",
-"Out"
-],
-[
-"HOU",
 "British Brooks",
 "Out"
 ],
@@ -371,37 +246,7 @@
 ],
 [
 "IND",
-"Keenan Allen",
-"Out"
-],
-[
-"IND",
 "Micheal Clemons",
-"Out"
-],
-[
-"JAX",
-"Christian Braswell",
-"Out"
-],
-[
-"JAX",
-"Montaric Brown",
-"Out"
-],
-[
-"LA",
-"Aaron Donald",
-"Out"
-],
-[
-"LA",
-"Colby Parkinson",
-"Out"
-],
-[
-"LA",
-"Jaylen Watson",
 "Out"
 ],
 [
@@ -412,31 +257,6 @@
 [
 "LA",
 "Terrance Ferguson",
-"Out"
-],
-[
-"LAC",
-"Brenen Thompson",
-"Out"
-],
-[
-"LAC",
-"Charlie Kolar",
-"Out"
-],
-[
-"LAC",
-"Dalvin Tomlinson",
-"Out"
-],
-[
-"LAC",
-"Derwin James Jr.",
-"Out"
-],
-[
-"LAC",
-"Kayode Awosika",
 "Out"
 ],
 [
@@ -460,16 +280,6 @@
 "Out"
 ],
 [
-"LV",
-"Jackson Powers-Johnson",
-"Out"
-],
-[
-"MIA",
-"Caleb Douglas",
-"Out"
-],
-[
 "MIA",
 "De'Von Achane",
 "Out"
@@ -486,22 +296,7 @@
 ],
 [
 "MIA",
-"Robert Beal Jr.",
-"Out"
-],
-[
-"MIA",
 "Storm Duck",
-"Out"
-],
-[
-"MIN",
-"Brett Thorson",
-"Out"
-],
-[
-"MIN",
-"Charles Demmings",
 "Out"
 ],
 [
@@ -515,28 +310,8 @@
 "Out"
 ],
 [
-"MIN",
-"Justin Jefferson",
-"Out"
-],
-[
 "NE",
 "A.J. Brown",
-"Out"
-],
-[
-"NE",
-"Channing Canada",
-"Out"
-],
-[
-"NE",
-"Christian Barmore",
-"Out"
-],
-[
-"NE",
-"Christian Gonzalez",
 "Out"
 ],
 [
@@ -546,47 +321,12 @@
 ],
 [
 "NO",
-"Anfernee Jennings",
-"Out"
-],
-[
-"NO",
-"Carl Granderson",
-"Out"
-],
-[
-"NO",
-"Christen Miller",
-"Out"
-],
-[
-"NO",
-"Decamerion Richardson",
-"Out"
-],
-[
-"NO",
 "Jordyn Tyson",
 "Out"
 ],
 [
 "NO",
-"Kaden Elliss",
-"Out"
-],
-[
-"NO",
-"Noah Fant",
-"Out"
-],
-[
-"NO",
 "Travis Etienne Jr.",
-"Out"
-],
-[
-"NO",
-"Zach Wilson",
 "Out"
 ],
 [
@@ -597,7 +337,7 @@
 [
 "NYJ",
 "Adonai Mitchell",
-"Out"
+"Doubtful"
 ],
 [
 "NYJ",
@@ -612,7 +352,7 @@
 [
 "NYJ",
 "Breece Hall",
-"Out"
+"Doubtful"
 ],
 [
 "NYJ",
@@ -621,62 +361,17 @@
 ],
 [
 "NYJ",
-"Dylan Parham",
-"Out"
-],
-[
-"NYJ",
-"Kiko Mauigoa",
-"Out"
-],
-[
-"NYJ",
-"Kingsley Enagbare",
-"Out"
-],
-[
-"NYJ",
 "Mason Taylor",
-"Out"
+"Doubtful"
 ],
 [
 "PHI",
 "Dallas Goedert",
-"Out"
-],
-[
-"PHI",
-"DeVonta Smith",
-"Out"
-],
-[
-"PHI",
-"Fred Johnson",
-"Out"
-],
-[
-"PHI",
-"Hollywood Brown",
-"Out"
-],
-[
-"PHI",
-"Lane Johnson",
-"Out"
-],
-[
-"PHI",
-"Marcus Epps",
-"Out"
+"Doubtful"
 ],
 [
 "PHI",
 "Tank Bigsby",
-"Out"
-],
-[
-"PHI",
-"Zack Baun",
 "Out"
 ],
 [
@@ -690,23 +385,8 @@
 "Doubtful"
 ],
 [
-"PIT",
-"Rico Dowdle",
-"Out"
-],
-[
-"SEA",
-"Chazz Surratt",
-"Out"
-],
-[
 "SEA",
 "Jadarian Price",
-"Out"
-],
-[
-"SEA",
-"Ty Okada",
 "Out"
 ],
 [
@@ -722,7 +402,7 @@
 [
 "SF",
 "James Thompson Jr.",
-"Out"
+"Doubtful"
 ],
 [
 "SF",
@@ -737,7 +417,7 @@
 [
 "SF",
 "Nick Bosa",
-"Out"
+"Doubtful"
 ],
 [
 "TB",
@@ -747,16 +427,6 @@
 [
 "TB",
 "Baker Mayfield",
-"Out"
-],
-[
-"TB",
-"Benjamin Morrison",
-"Out"
-],
-[
-"TB",
-"Ko Kieft",
 "Out"
 ],
 [
@@ -771,11 +441,6 @@
 ],
 [
 "WAS",
-"Jayden Daniels",
-"Out"
-],
-[
-"WAS",
 "Jaylin Lane",
 "Out"
 ],
@@ -783,32 +448,18 @@
 "WAS",
 "Marcus Mariota",
 "Doubtful"
-],
-[
-"WAS",
-"Nick Cross",
-"Out"
-],
-[
-"WAS",
-"Rachaad White",
-"Out"
-],
-[
-"WAS",
-"Sam Cosmi",
-"Out"
-],
-[
-"WAS",
-"Terry McLaurin",
-"Out"
 ]
 ],
 "reports": [
 [
 "ARI",
 "Andrew Wingard",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Dadrion Taylor-Demerson",
 "Questionable (ESPN)",
 ""
 ],
@@ -850,6 +501,12 @@
 ],
 [
 "BAL",
+"Chris Moore",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Lamar Jackson",
 "Questionable (ESPN)",
 ""
@@ -863,6 +520,18 @@
 [
 "BAL",
 "Ronnie Stanley",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Trey Hendrickson",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
+"Christian Benford",
 "Questionable (ESPN)",
 ""
 ],
@@ -886,7 +555,19 @@
 ],
 [
 "BUF",
+"T.J. Sanders",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Te'Cory Couch",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
+"Cam Lewis",
 "Questionable (ESPN)",
 ""
 ],
@@ -898,7 +579,37 @@
 ],
 [
 "CIN",
+"B.J. Hill",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Bryan Cook",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Colbie Young",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
 "Ja'Marr Chase",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Kyle Dugger",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Swayze Bozeman",
 "Questionable (ESPN)",
 ""
 ],
@@ -910,19 +621,55 @@
 ],
 [
 "CLE",
+"Elgton Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Mason Graham",
 "Questionable (ESPN)",
 ""
 ],
 [
-"DAL",
-"Drew Shelton",
+"CLE",
+"Teven Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Tylan Wallace",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
+"Dondrea Tillman",
 "Questionable (ESPN)",
 ""
 ],
 [
 "DEN",
 "Riley Moss",
+"Questionable (ESPN)",
+""
+],
+[
+"DET",
+"Ben Bartch",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Aaron Banks",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Anthony Campbell",
 "Questionable (ESPN)",
 ""
 ],
@@ -935,6 +682,18 @@
 [
 "GB",
 "Chris Brooks",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Jacob Monk",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Azeez Al-Shaair",
 "Questionable (ESPN)",
 ""
 ],
@@ -957,8 +716,20 @@
 ""
 ],
 [
+"IND",
+"Keenan Allen",
+"Questionable (ESPN)",
+""
+],
+[
 "JAX",
 "Caleb Ransaw",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Christian Braswell",
 "Questionable (ESPN)",
 ""
 ],
@@ -969,8 +740,56 @@
 ""
 ],
 [
+"JAX",
+"Montaric Brown",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Aaron Donald",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Colby Parkinson",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Jaylen Watson",
+"Questionable (ESPN)",
+""
+],
+[
 "LA",
 "Konata Mumpfield",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Brenen Thompson",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Charlie Kolar",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Dalvin Tomlinson",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Derwin James Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -988,6 +807,12 @@
 ],
 [
 "LAC",
+"Kayode Awosika",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Ladd McConkey",
 "Questionable (ESPN)",
 ""
@@ -995,6 +820,12 @@
 [
 "LAC",
 "Trevor Penning",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Jackson Powers-Johnson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1012,6 +843,12 @@
 ],
 [
 "MIA",
+"Caleb Douglas",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Dante Trader Jr.",
 "Questionable (ESPN)",
 ""
@@ -1023,14 +860,56 @@
 ""
 ],
 [
+"MIA",
+"Robert Beal Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Brett Thorson",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Charles Demmings",
+"Questionable (ESPN)",
+""
+],
+[
 "MIN",
 "Christian Darrisaw",
 "Questionable (ESPN)",
 ""
 ],
 [
+"MIN",
+"Justin Jefferson",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Channing Canada",
+"Questionable (ESPN)",
+""
+],
+[
 "NE",
 "Charles Woods",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Christian Barmore",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Christian Gonzalez",
 "Questionable (ESPN)",
 ""
 ],
@@ -1048,7 +927,31 @@
 ],
 [
 "NO",
+"Anfernee Jennings",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Carl Granderson",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Davon Godchaux",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Kaden Elliss",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Noah Fant",
 "Questionable (ESPN)",
 ""
 ],
@@ -1066,7 +969,25 @@
 ],
 [
 "NYJ",
+"Dylan Parham",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Jarvis Brownlee Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
+"Kiko Mauigoa",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
+"Kingsley Enagbare",
 "Questionable (ESPN)",
 ""
 ],
@@ -1078,7 +999,37 @@
 ],
 [
 "PHI",
+"DeVonta Smith",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Fred Johnson",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Hollywood Brown",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Jonathan Greenard",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Lane Johnson",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Marcus Epps",
 "Questionable (ESPN)",
 ""
 ],
@@ -1095,14 +1046,50 @@
 ""
 ],
 [
+"PHI",
+"Zack Baun",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Rico Dowdle",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Chazz Surratt",
+"Questionable (ESPN)",
+""
+],
+[
 "SEA",
 "Leonard Williams",
 "Questionable (ESPN)",
 ""
 ],
 [
+"SEA",
+"Ty Okada",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Benjamin Morrison",
+"Questionable (ESPN)",
+""
+],
+[
 "TB",
 "Josiah Trotter",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Ko Kieft",
 "Questionable (ESPN)",
 ""
 ],
@@ -1120,7 +1107,37 @@
 ],
 [
 "WAS",
+"Jayden Daniels",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Jeremy Reaves",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Nick Cross",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Rachaad White",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Sam Cosmi",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Terry McLaurin",
 "Questionable (ESPN)",
 ""
 ],
@@ -1132,5 +1149,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-06 18:40 UTC"
+"written_at": "2026-10-06 19:07 UTC"
 }
