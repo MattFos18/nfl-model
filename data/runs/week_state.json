@@ -9,7 +9,7 @@
   "snap counts: 2026_04_ATL_NO",
   "charting (participation, FTN): 2026_04_ATL_NO"
  ],
- "all_kicked_off": false,
- "pending": false,
- "checked": "2026-10-06 00:08 UTC"
+ "all_kicked_off": true,
+ "pending": true,
+ "checked": "2026-10-06 00:29 UTC"
 }
