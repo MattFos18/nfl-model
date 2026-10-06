@@ -22,8 +22,9 @@ def games(**kw):
 
 def test_qb_priced_not_out_catches_a_ruled_out_starter():
     f = pd.DataFrame({"game_id": ["2026_04_IND_WAS"] * 2, "team": ["WAS", "IND"], "qb_id": ["daniels", "jones"]})
-    assert lv(SC.qb_priced_not_out(f, games(), {"WAS": {"mariota"}}, 2026, 4)) == ["OK"]
-    assert lv(SC.qb_priced_not_out(f, games(), {"WAS": {"daniels"}}, 2026, 4)) == ["FAIL"]   # #376: Daniels Out, still priced
+    g = games(kickoff_et=pd.to_datetime(["2099-01-01 13:00"] * 3))   # unplayed: a past kickoff is skipped as under way
+    assert lv(SC.qb_priced_not_out(f, g, {"WAS": {"mariota"}}, 2026, 4)) == ["OK"]
+    assert lv(SC.qb_priced_not_out(f, g, {"WAS": {"daniels"}}, 2026, 4)) == ["FAIL"]   # #376: Daniels Out, still priced
 
 
 def test_qb_out_only_when_last_games_starter_is_out():
