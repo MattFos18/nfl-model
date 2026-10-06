@@ -112,6 +112,10 @@ each one again is in `checks.md`.
 
 ## Runs and machines
 
+- **The picks week can move partway through a weekly run (6 Oct 2026).** `lines.current_week` advances only once last
+  week's games are in `player_games` and `scheme_plays`, written by the players and scheme steps; ratings and trends ran
+  before them on the old week, so week 5 was priced with no injuries and ruled-out QBs counted as playing.
+  `weekly.rerun_if_week_moved` runs the input steps again when the week moves.
 - **Fresh tree fits differ run to run on one machine too.** A new input set has no stored fits, so the trees are fit
   fresh: the same seven-input drop run twice locally (input_ablation's combined run, drop_seven_inputs) moved 1,016 games' trees by up to
   1.0 point (one spread-flag bet on 2015-18); the ridge members and the total were identical. Compare a change only against a baseline
