@@ -3,7 +3,6 @@
  "week": 4,
  "complete": false,
  "missing": [
-  "nflverse score: 2026_04_ATL_NO",
   "play-by-play: 2026_04_ATL_NO",
   "player stats: 2026_04_ATL_NO",
   "snap counts: 2026_04_ATL_NO",
@@ -11,5 +10,5 @@
  ],
  "all_kicked_off": true,
  "pending": true,
- "checked": "2026-10-06 03:09 UTC"
+ "checked": "2026-10-06 04:10 UTC"
 }

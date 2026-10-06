@@ -181,11 +181,6 @@
 ],
 [
 "CAR",
-"Jaycee Horn",
-"Out"
-],
-[
-"CAR",
 "Mike Jackson",
 "Out"
 ],
@@ -652,11 +647,6 @@
 [
 "NO",
 "Kaden Elliss",
-"Out"
-],
-[
-"NO",
-"Kelvin Banks Jr.",
 "Out"
 ],
 [
@@ -2171,12 +2161,6 @@
 ],
 [
 "NO",
-"Alvin Kamara",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Barion Brown",
 "",
 "Full Participation in Practice"
@@ -2192,6 +2176,12 @@
 "Davon Godchaux",
 "",
 "Full Participation in Practice"
+],
+[
+"NO",
+"Davon Godchaux",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2729,5 +2719,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-06 03:05 UTC"
+"written_at": "2026-10-06 04:07 UTC"
 }
