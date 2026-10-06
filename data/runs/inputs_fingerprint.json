@@ -81,6 +81,11 @@
 "injuries": [
 [
 "ARI",
+"Hunter Long",
+"Out"
+],
+[
+"ARI",
 "Paris Johnson Jr.",
 "Out"
 ],
@@ -132,6 +137,11 @@
 [
 "CIN",
 "Jalen Davis",
+"Out"
+],
+[
+"CLE",
+"Dillon Gabriel",
 "Out"
 ],
 [
@@ -247,6 +257,11 @@
 [
 "IND",
 "Micheal Clemons",
+"Out"
+],
+[
+"JAX",
+"Caleb Ransaw",
 "Out"
 ],
 [
@@ -386,6 +401,11 @@
 ],
 [
 "SEA",
+"Jacardia Wright",
+"Out"
+],
+[
+"SEA",
 "Jadarian Price",
 "Out"
 ],
@@ -460,12 +480,6 @@
 [
 "ARI",
 "Dadrion Taylor-Demerson",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
-"Hunter Long",
 "Questionable (ESPN)",
 ""
 ],
@@ -718,12 +732,6 @@
 [
 "IND",
 "Keenan Allen",
-"Questionable (ESPN)",
-""
-],
-[
-"JAX",
-"Caleb Ransaw",
 "Questionable (ESPN)",
 ""
 ],
@@ -1023,12 +1031,6 @@
 ],
 [
 "PHI",
-"Lane Johnson",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Marcus Epps",
 "Questionable (ESPN)",
 ""
@@ -1077,13 +1079,19 @@
 ],
 [
 "TB",
+"Anthony Nelson",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
 "Benjamin Morrison",
 "Questionable (ESPN)",
 ""
 ],
 [
 "TB",
-"Josiah Trotter",
+"Chase McLaughlin",
 "Questionable (ESPN)",
 ""
 ],
@@ -1149,5 +1157,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-06 19:07 UTC"
+"written_at": "2026-10-06 21:17 UTC"
 }
