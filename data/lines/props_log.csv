@@ -99352,7 +99352,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-06T04-46-21Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Drake Maye,24.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Ashton Jeanty,22.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-11T13:00:00.000-04:00,prizepicks,Pass TDs,pass_td,Drake Maye,1.5,-119,-119.0
-2026-10-06T04-46-21Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kirk Cousins,0.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Kyler Murray,219.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Aaron Jones Sr.,62.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kyler Murray,19.5,-119,-119.0
@@ -99458,7 +99457,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-06T04-46-21Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jahmyr Gibbs,36.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Marvin Harrison Jr.,32.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jacoby Brissett,7.5,-119,-119.0
-2026-10-06T04-46-21Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jared Goff,0.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Brock Purdy,248.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Sam Darnold,227.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Brock Purdy,225.5,-119,-119.0
@@ -99503,7 +99501,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-06T04-46-21Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Davante Adams,7.0,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Kyren Williams,3.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Josh Allen,1.5,-119,-119.0
-2026-10-06T04-46-21Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Matthew Stafford,0.5,-119,-119.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Yards,rush_yards,Javonte Williams,73.5,-112,-112.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,Javonte Williams,92.5,-110,-112.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Attempts,rush_attempts,Javonte Williams,17.5,105,-129.0
@@ -99559,7 +99556,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Tyler Goodson,2.5,-109,-113.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Chris Godwin,27.5,-112,-112.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Ted Hurst,1.5,-200,160.0
-2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Tyler Goodson,0.5,-162,130.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Chris Godwin,3.5,129,-159.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Completion,pass_longest,Jalon Daniels,32.5,-107,-115.0
 2026-10-06T04-46-21Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Rush,rush_longest,Tyler Goodson,7.5,-120,-105.0
@@ -99732,3 +99728,506 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Ted Hurst,15.5,-108,-114.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Ted Hurst,3.5,125,-154.0
 2026-10-06T04-46-21Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Chris Godwin,5.5,118,-145.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Dak Prescott,273.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Dak Prescott,263.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jalon Daniels,227.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jalon Daniels,179.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Javonte Williams,91.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,CeeDee Lamb,81.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Bucky Irving,75.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Javonte Williams,73.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,George Pickens,61.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Bucky Irving,57.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jalon Daniels,41.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Dak Prescott,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Dak Prescott,33.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Ryan Flournoy,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Jalon Daniels,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Emeka Egbuka,30.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Cade Otton,28.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Jalon Daniels,28.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Chris Godwin Jr.,27.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jake Ferguson,26.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,CeeDee Lamb,24.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Dak Prescott,23.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,George Pickens,22.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Ted Hurst III,22.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Kenny Gainwell,21.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Jalon Daniels,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Tyler Goodson,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Javonte Williams,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Ryan Flournoy,16.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Javonte Williams,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Chris Godwin Jr.,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Emeka Egbuka,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Ted Hurst III,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Javonte Williams,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jalon Daniels,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Bucky Irving,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Jake Ferguson,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Bucky Irving,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Bucky Irving,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Cade Otton,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tez Johnson,10.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Dak Prescott,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Javonte Williams,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kenny Gainwell,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Tez Johnson,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,CeeDee Lamb,9.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Kenny Gainwell,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Kenny Gainwell,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Dak Prescott,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Jalon Daniels,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Tyler Goodson,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,George Pickens,7.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,CeeDee Lamb,6.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Kenny Gainwell,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Cade Otton,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,George Pickens,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Jake Ferguson,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Ryan Flournoy,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Chris Godwin Jr.,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Emeka Egbuka,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Jake Ferguson,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Dak Prescott,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Javonte Williams,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Ted Hurst III,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Bucky Irving,3.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Javonte Williams,2.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Tyler Goodson,2.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tyler Goodson,2.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Kenny Gainwell,2.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Tez Johnson,2.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-08T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Dak Prescott,2.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-08T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Jalon Daniels,1.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Trevor Lawrence,241.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Yards,pass_yards,Trevor Lawrence,229.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jalen Hurts,229.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jalen Hurts,193.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Bhayshul Tuten,72.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Parker Washington,60.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rush Yards,rush_yards,Bhayshul Tuten,57.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jakobi Meyers,43.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Completion,pass_longest,Trevor Lawrence,37.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Brenton Strange,35.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Completion,pass_longest,Jalen Hurts,32.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Jalen Hurts,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Trevor Lawrence,30.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jalen Hurts,26.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Parker Washington,23.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Brian Thomas Jr.,22.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Completions,pass_completions,Trevor Lawrence,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Pass Completions,pass_completions,Jalen Hurts,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Jakobi Meyers,18.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Brenton Strange,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Bhayshul Tuten,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Brian Thomas Jr.,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Rush,rush_longest,Bhayshul Tuten,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jalen Hurts,13.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Josh Cameron,12.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Bhayshul Tuten,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Reception,rec_longest,Bhayshul Tuten,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rush Yards,rush_yards,Trevor Lawrence,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rec Targets,rec_targets,Parker Washington,7.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Longest Rush,rush_longest,Trevor Lawrence,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Jalen Hurts,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rec Targets,rec_targets,Brenton Strange,5.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rec Targets,rec_targets,Jakobi Meyers,5.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Parker Washington,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Brenton Strange,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Jakobi Meyers,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rec Targets,rec_targets,Brian Thomas Jr.,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Brian Thomas Jr.,2.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Rec Targets,rec_targets,Bhayshul Tuten,2.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Receptions,rec_catches,Bhayshul Tuten,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,Pass TDs,pass_td,Trevor Lawrence,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,Pass TDs,pass_td,Jalen Hurts,1.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-11T09:30:00.000-04:00,prizepicks,INT,pass_int,Jalen Hurts,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T09:30:00.000-04:00,prizepicks,INT,pass_int,Trevor Lawrence,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Drake Maye,228.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Kirk Cousins,222.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Brock Bowers,71.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Ashton Jeanty,58.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tre Tucker,40.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Drake Maye,24.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Ashton Jeanty,22.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-11T13:00:00.000-04:00,prizepicks,Pass TDs,pass_td,Drake Maye,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kirk Cousins,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Kyler Murray,219.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Aaron Jones Sr.,62.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kyler Murray,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Joe Burrow,250.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Malik Willis,172.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Chase Brown,64.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Malik Washington,41.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Ollie Gordon II,37.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Malik Willis,30.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Chase Brown,18.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Joe Burrow,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Malik Washington,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jordan Love,229.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Tyson Bagent,216.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Christian Watson,68.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Matthew Golden,58.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Rome Odunze,43.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Luther Burden III,42.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Colston Loveland,37.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jordan Love,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jameis Winston,211.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Cam Skattebo,63.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Malik Nabers,63.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Isaiah Likely,44.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Geno Smith,219.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Deshaun Watson,189.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Garrett Wilson,72.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Quinshon Judkins,58.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Denzel Boston,43.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Harold Fannin Jr.,41.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Geno Smith,10.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,C.J. Stroud,232.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Cam Ward,214.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Cam Ward,185.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Nico Collins,72.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Tony Pollard,48.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,David Montgomery,44.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Carnell Tate,44.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Dalton Schultz,37.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Wan'Dale Robinson,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Cam Ward,33.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Completion,pass_longest,Cam Ward,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Completions,pass_completions,Cam Ward,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Elic Ayomanor,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Carnell Tate,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Wan'Dale Robinson,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Gunnar Helm,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Elic Ayomanor,12.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Tony Pollard,12.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,C.J. Stroud,11.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Cam Ward,11.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tyjae Spears,11.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Tyjae Spears,11.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Tony Pollard,11.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tony Pollard,10.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Calvin Ridley,10.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Gunnar Helm,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Tony Pollard,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Tyjae Spears,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Calvin Ridley,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Cam Ward,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Tyjae Spears,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Kicking Points,kick_points,Joey Slye,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Carnell Tate,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Wan'Dale Robinson,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Tyjae Spears,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T13:00:00.000-04:00,prizepicks,INT,pass_int,Cam Ward,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Daniel Jones,228.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Aaron Rodgers,220.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Daniel Jones,212.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jonathan Taylor,88.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Tyler Warren,50.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,DK Metcalf,49.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Completion,pass_longest,Daniel Jones,34.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Daniel Jones,30.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Jonathan Taylor,21.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Pass Completions,pass_completions,Daniel Jones,20.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jonathan Taylor,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Tyler Warren,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jonathan Taylor,15.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Reception,rec_longest,Jonathan Taylor,10.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Daniel Jones,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Daniel Jones,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Kicking Points,kick_points,Spencer Shrader,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,2026-10-11T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Tyler Warren,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,2026-10-11T13:00:00.000-04:00,prizepicks,Pass TDs,pass_td,Aaron Rodgers,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:05:00.000-04:00,prizepicks,Pass Yards,pass_yards,Bo Nix,214.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:05:00.000-04:00,prizepicks,Pass Yards,pass_yards,Justin Herbert,199.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:05:00.000-04:00,prizepicks,Rush Yards,rush_yards,J.K. Dobbins,59.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:05:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jaylen Waddle,54.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:05:00.000-04:00,prizepicks,Rush Yards,rush_yards,Omarion Hampton,42.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:05:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Courtland Sutton,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:05:00.000-04:00,prizepicks,Rush Yards,rush_yards,Justin Herbert,20.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:05:00.000-04:00,prizepicks,Rush Yards,rush_yards,Bo Nix,12.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jared Goff,259.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jacoby Brissett,234.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jahmyr Gibbs,94.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Amon-Ra St. Brown,77.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Trey McBride,67.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jeremiyah Love,62.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Michael Wilson,61.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jameson Williams,56.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Sam LaPorta,47.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jahmyr Gibbs,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Marvin Harrison Jr.,32.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jacoby Brissett,7.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jared Goff,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Brock Purdy,248.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Sam Darnold,227.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Brock Purdy,225.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Christian McCaffrey,94.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jaxon Smith-Njigba,93.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,George Kittle,57.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Christian McCaffrey,55.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Mike Evans,47.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Christian McCaffrey,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Deebo Samuel Sr.,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,AJ Barner,24.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Cooper Kupp,23.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Brock Purdy,18.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Rashid Shaheed,17.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kaelon Black,14.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receptions,rec_catches,Jaxon Smith-Njigba,6.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Sam Darnold,5.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receptions,rec_catches,Christian McCaffrey,4.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Receptions,rec_catches,Deebo Samuel Sr.,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Receptions,rec_catches,Cooper Kupp,2.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,2026-10-11T16:25:00.000-04:00,prizepicks,Pass TDs,pass_td,Brock Purdy,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,2026-10-11T16:25:00.000-04:00,prizepicks,Pass TDs,pass_td,Sam Darnold,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T20:20:00.000-04:00,prizepicks,Rush Yards,rush_yards,Derrick Henry,94.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T20:20:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Zay Flowers,68.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,2026-10-11T20:20:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Mark Andrews,35.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Josh Allen,288.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Matthew Stafford,280.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Josh Allen,245.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Puka Nacua,92.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Kyren Williams,92.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,James Cook III,75.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kyren Williams,69.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Davante Adams,62.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Dalton Kincaid,44.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Josh Allen,36.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Blake Corum,31.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Kyren Williams,19.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Puka Nacua,9.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,James Cook III,8.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Davante Adams,7.0,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Kyren Williams,3.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,2026-10-12T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Josh Allen,1.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,2026-10-12T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Matthew Stafford,0.5,-119,-119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Yards,rush_yards,Javonte Williams,73.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,Javonte Williams,92.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Attempts,rush_attempts,Javonte Williams,17.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Javonte Williams,14.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Javonte Williams,2.5,-121,-102.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Rush,rush_longest,Javonte Williams,16.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Yards,rush_yards,Bucky Irving,56.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush + Rec Yards,rush_rec_yards,Bucky Irving,74.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Bucky Irving,13.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Bucky Irving,2.5,106,-130.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,CeeDee Lamb,81.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,CeeDee Lamb,6.5,116,-141.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Emeka Egbuka,30.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Emeka Egbuka,2.5,-152,123.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,George Pickens,61.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,George Pickens,4.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,George Pickens,22.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Jake Ferguson,26.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Jake Ferguson,3.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Yards,rush_yards,Kenny Gainwell,9.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush + Rec Yards,rush_rec_yards,Kenny Gainwell,21.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Attempts,rush_attempts,Kenny Gainwell,3.5,123,-152.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Kenny Gainwell,8.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Kenny Gainwell,1.5,-125,102.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Rush,rush_longest,Kenny Gainwell,5.5,-117,-105.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Cade Otton,27.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Cade Otton,3.5,112,-137.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Pass Yards,pass_yards,Dak Prescott,263.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Pass TDs,pass_td,Dak Prescott,1.5,-223,178.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Yards,rush_yards,Dak Prescott,9.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Attempts,rush_attempts,Dak Prescott,3.5,-103,-121.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Completions,pass_completions,Dak Prescott,22.5,-124,101.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Pass + Rush Yards,pass_rush_yards,Dak Prescott,276.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Pass Attempts,pass_attempts,Dak Prescott,33.5,-118,-105.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Rush,rush_longest,Dak Prescott,7.5,102,-125.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Completion,pass_longest,Dak Prescott,38.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Tez Johnson,11.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Tez Johnson,1.5,167,-209.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Tez Johnson,10.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Ryan Flournoy,31.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Ryan Flournoy,3.5,124,-154.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Pass Yards,pass_yards,Jalon Daniels,178.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Pass TDs,pass_td,Jalon Daniels,0.5,-239,188.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Yards,rush_yards,Jalon Daniels,43.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Yards,rush_yards,Tyler Goodson,18.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,Tyler Goodson,21.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Attempts,rush_attempts,Tyler Goodson,3.5,-136,113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Rush Attempts,rush_attempts,Jalon Daniels,7.5,-108,-114.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Completions,pass_completions,Jalon Daniels,17.5,-102,-121.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Pass + Rush Yards,pass_rush_yards,Jalon Daniels,227.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Pass Attempts,pass_attempts,Jalon Daniels,27.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Tyler Goodson,2.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Chris Godwin,27.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Ted Hurst,22.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receptions,rec_catches,Tyler Goodson,0.5,-162,130.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Ted Hurst,1.5,-200,160.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receptions,rec_catches,Chris Godwin,3.5,129,-159.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Rush,rush_longest,Jalon Daniels,14.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Completion,pass_longest,Jalon Daniels,31.5,-108,-114.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Rush,rush_longest,Tyler Goodson,7.5,-120,-102.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass Yards,pass_yards,Jalen Hurts,195.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass TDs,pass_td,Jalen Hurts,0.5,-209,168.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Yards,rush_yards,Jalen Hurts,26.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Attempts,rush_attempts,Jalen Hurts,6.5,-102,-122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Completions,pass_completions,Jalen Hurts,19.5,-105,-117.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass + Rush Yards,pass_rush_yards,Jalen Hurts,229.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass Attempts,pass_attempts,Jalen Hurts,31.5,102,-124.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,INTs Thrown,pass_int,Jalen Hurts,0.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Rush,rush_longest,Jalen Hurts,13.5,100,-122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Longest Completion,pass_longest,Jalen Hurts,32.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Brian Thomas,23.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Brian Thomas,2.5,149,-186.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Brian Thomas,14.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Jakobi Meyers,42.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Jakobi Meyers,3.5,-132,108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Jakobi Meyers,18.5,-105,-118.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Pass Yards,pass_yards,Trevor Lawrence,229.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Pass TDs,pass_td,Trevor Lawrence,1.5,-105,-121.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Rush Yards,rush_yards,Trevor Lawrence,7.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Rush Attempts,rush_attempts,Trevor Lawrence,2.5,-162,131.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Pass + Rush Yards,pass_rush_yards,Trevor Lawrence,241.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Completions,pass_completions,Trevor Lawrence,19.5,-122,100.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Pass Attempts,pass_attempts,Trevor Lawrence,30.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,INTs Thrown,pass_int,Trevor Lawrence,0.5,-115,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Rush,rush_longest,Trevor Lawrence,6.5,-105,-117.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Completion,pass_longest,Trevor Lawrence,37.5,-106,-117.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Brenton Strange,38.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Brenton Strange,3.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Brenton Strange,15.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Rush Yards,rush_yards,Bhayshul Tuten,58.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Rush + Rec Yards,rush_rec_yards,Bhayshul Tuten,71.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Rush Attempts,rush_attempts,Bhayshul Tuten,14.5,-118,-104.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Bhayshul Tuten,9.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Bhayshul Tuten,1.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Bhayshul Tuten,7.5,100,-122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Rush,rush_longest,Bhayshul Tuten,14.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receiving Yards,rec_yards,Parker Washington,60.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Receptions,rec_catches,Parker Washington,4.5,-125,102.0
+2026-10-06T11-02-10Z,2026,4,2026_04_JAX_CIN,CIN,JAX,,underdog,Longest Reception,rec_longest,Parker Washington,23.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Matthew Golden,58.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Pass Yards,pass_yards,Jordan Love,233.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Pass Yards,pass_yards,Tyson Bagent,219.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Receiving Yards,rec_yards,Christian Watson,68.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Rush Yards,rush_yards,Ashton Jeanty,61.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Receiving Yards,rec_yards,Brock Bowers,75.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,,underdog,Pass Yards,pass_yards,Drake Maye,227.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_KC_LV,LV,KC,,underdog,Pass Yards,pass_yards,Kirk Cousins,225.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush Yards,rush_yards,Jonathan Taylor,89.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush + Rec Yards,rush_rec_yards,Jonathan Taylor,109.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush Attempts,rush_attempts,Jonathan Taylor,21.5,-102,-122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Jonathan Taylor,17.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Jonathan Taylor,2.5,-145,119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Rush,rush_longest,Jonathan Taylor,15.5,-121,-103.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Reception,rec_longest,Jonathan Taylor,10.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Yards,rush_yards,Jaylen Warren,76.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Pass Yards,pass_yards,Daniel Jones,209.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Pass TDs,pass_td,Daniel Jones,1.5,177,-213.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush Yards,rush_yards,Daniel Jones,10.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Rush Attempts,rush_attempts,Daniel Jones,3.5,115,-141.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Pass + Rush Yards,pass_rush_yards,Daniel Jones,228.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Completions,pass_completions,Daniel Jones,20.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Pass Attempts,pass_attempts,Daniel Jones,30.5,-122,100.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,INTs Thrown,pass_int,Daniel Jones,0.5,102,-125.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Completion,pass_longest,Daniel Jones,34.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Rush,rush_longest,Daniel Jones,8.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Tyler Warren,49.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receptions,rec_catches,Tyler Warren,5.5,-102,-121.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Longest Reception,rec_longest,Tyler Warren,17.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Receiving Yards,rec_yards,Josh Downs,59.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass Yards,pass_yards,Aaron Rodgers,223.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass TDs,pass_td,Aaron Rodgers,1.5,-121,-103.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,FG Made,field_goals,Spencer Shrader,1.5,102,-125.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Kicking Points,kick_points,Spencer Shrader,6.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Pass Yards,pass_yards,Geno Smith,222.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Rush Yards,rush_yards,Quinshon Judkins,57.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Receiving Yards,rec_yards,Garrett Wilson,76.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NYJ_CHI,CHI,NYJ,,underdog,Rush Yards,rush_yards,Braelon Allen,58.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_PIT_CLE,CLE,PIT,,underdog,Pass Yards,pass_yards,Deshaun Watson,194.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Receiving Yards,rec_yards,Malik Nabers,63.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_IND_WAS,WAS,IND,,underdog,Pass TDs,pass_td,Jayden Daniels,1.5,141,-176.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Rush Yards,rush_yards,Cam Skattebo,62.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Pass Yards,pass_yards,Jameis Winston,212.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_MIA_MIN,MIN,MIA,,underdog,Pass Yards,pass_yards,Malik Willis,176.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Yards,rush_yards,Tony Pollard,44.5,-114,-108.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Rush Yards,rush_yards,David Montgomery,44.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush + Rec Yards,rush_rec_yards,Tony Pollard,59.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Attempts,rush_attempts,Tony Pollard,12.5,-108,-114.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Tony Pollard,10.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Tony Pollard,1.5,-150,122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Tony Pollard,8.5,100,-122.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Rush,rush_longest,Tony Pollard,11.5,-121,-103.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Receiving Yards,rec_yards,Nico Collins,70.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Calvin Ridley,10.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Calvin Ridley,1.5,179,-218.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Calvin Ridley,8.5,-118,-105.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Wan'Dale Robinson,33.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Wan'Dale Robinson,3.5,-122,100.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Wan'Dale Robinson,15.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Elic Ayomanor,19.5,-108,-114.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Elic Ayomanor,1.5,-148,119.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Elic Ayomanor,12.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Yards,rush_yards,Tyjae Spears,11.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush + Rec Yards,rush_rec_yards,Tyjae Spears,26.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Attempts,rush_attempts,Tyjae Spears,3.5,-104,-120.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Tyjae Spears,11.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Tyjae Spears,1.5,-173,139.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Tyjae Spears,8.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Rush,rush_longest,Tyjae Spears,6.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Pass Yards,pass_yards,C.J. Stroud,230.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Gunnar Helm,15.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Gunnar Helm,2.5,153,-186.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Gunnar Helm,9.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Pass Yards,pass_yards,Cam Ward,185.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Pass TDs,pass_td,Cam Ward,0.5,-205,159.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Yards,rush_yards,Cam Ward,12.5,-109,-113.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Rush Attempts,rush_attempts,Cam Ward,3.5,117,-143.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Pass + Rush Yards,pass_rush_yards,Cam Ward,214.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Completions,pass_completions,Cam Ward,19.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Pass Attempts,pass_attempts,Cam Ward,33.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,INTs Thrown,pass_int,Cam Ward,0.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receiving Yards,rec_yards,Carnell Tate,45.5,-113,-109.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Receptions,rec_catches,Carnell Tate,4.5,-115,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Completion,pass_longest,Cam Ward,31.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Rush,rush_longest,Cam Ward,7.5,-125,102.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Longest Reception,rec_longest,Carnell Tate,19.5,-104,-120.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,FG Made,field_goals,Joey Slye,1.5,129,-159.0
+2026-10-06T11-02-10Z,2026,4,2026_04_TEN_BAL,BAL,TEN,,underdog,Kicking Points,kick_points,Joey Slye,5.5,101,-124.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Rush Yards,rush_yards,J.K. Dobbins,55.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Receiving Yards,rec_yards,Jaylen Waddle,54.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Pass Yards,pass_yards,Bo Nix,213.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Pass Yards,pass_yards,Justin Herbert,206.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Rush Yards,rush_yards,Christian McCaffrey,53.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Receiving Yards,rec_yards,George Kittle,57.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Receiving Yards,rec_yards,Jaxon Smith-Njigba,93.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DEN_SF,SF,DEN,,underdog,Pass Yards,pass_yards,Brock Purdy,225.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LAC_SEA,SEA,LAC,,underdog,Pass Yards,pass_yards,Sam Darnold,227.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Rush Yards,rush_yards,Jahmyr Gibbs,95.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receiving Yards,rec_yards,Amon-Ra St. Brown,76.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Receiving Yards,rec_yards,Jameson Williams,55.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DET_CAR,CAR,DET,,underdog,Pass Yards,pass_yards,Jared Goff,255.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_ARI_NYG,NYG,ARI,,underdog,Pass Yards,pass_yards,Jacoby Brissett,234.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Rush Yards,rush_yards,Kyren Williams,69.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,,underdog,Rush Yards,rush_yards,James Cook,75.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_NE_BUF,BUF,NE,,underdog,Pass Yards,pass_yards,Josh Allen,245.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Puka Nacua,92.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Receiving Yards,rec_yards,Davante Adams,62.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_LA_PHI,PHI,LA,,underdog,Pass Yards,pass_yards,Matthew Stafford,280.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Javonte Williams,9.5,-117,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,Javonte Williams,4.5,123,-152.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Bucky Irving,2.5,-162,132.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,CeeDee Lamb,24.5,-110,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,CeeDee Lamb,10.5,123,-152.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Emeka Egbuka,16.5,-120,-104.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Emeka Egbuka,4.5,-115,-106.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,George Pickens,6.5,-112,-112.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Jake Ferguson,13.5,-103,-120.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,Jake Ferguson,4.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Kenny Gainwell,8.5,-103,-120.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Cade Otton,5.5,101,-124.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,INTs Thrown,pass_int,Dak Prescott,0.5,102,-125.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Ryan Flournoy,16.5,-106,-117.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Targets,rec_targets,Ryan Flournoy,5.5,120,-148.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,INTs Thrown,pass_int,Jalon Daniels,0.5,-182,147.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Ted Hurst,16.5,-107,-115.0
+2026-10-06T11-02-10Z,2026,4,2026_04_DAL_HOU,HOU,DAL,,underdog,Longest Reception,rec_longest,Tyler Goodson,2.5,-115,-107.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Longest Reception,rec_longest,Chris Godwin,15.5,-112,-110.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Ted Hurst,3.5,125,-154.0
+2026-10-06T11-02-10Z,2026,4,2026_04_GB_TB,TB,GB,,underdog,Targets,rec_targets,Chris Godwin,5.5,118,-145.0
