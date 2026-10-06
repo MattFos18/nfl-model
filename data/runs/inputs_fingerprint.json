@@ -585,11 +585,6 @@
 "Out"
 ],
 [
-"MIN",
-"Nick Samac",
-"Out"
-],
-[
 "NE",
 "A.J. Brown",
 "Out"
@@ -847,11 +842,6 @@
 [
 "TB",
 "Benjamin Morrison",
-"Out"
-],
-[
-"TB",
-"Jalen McMillan",
 "Out"
 ],
 [
@@ -2719,5 +2709,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-06 04:07 UTC"
+"written_at": "2026-10-06 04:34 UTC"
 }

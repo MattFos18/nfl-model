@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-10-06 04:09 UTC
+# Tie-out (sources and page), 2026-10-06 04:37 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -125,12 +125,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.0% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-06T03:52Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | {'espn': '2026-10-06T03:52Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-06T04:21Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | {'espn': '2026-10-06T04:21Z', 'oddsapi': '2026-10-05T12:23Z', 'props': '2026-10- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (32 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-10-06 03:48 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
+| every step of the newest weekly run finished (2026-10-06 04:18 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
 | the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
@@ -185,7 +185,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | live results: each final's spread, total and winner calls re-graded from its score and close | [] | [] | yes |
 | live results: each final's spread and total calls re-graded from its score and the opening line | [] | [] | yes |
 | live results: the week's records against the opener = the finals' open calls recounted | ['9-7', '10-6'] | ['9-7', '10-6'] | yes |
-| live results: status and score of every game = the saved ESPN scoreboard | {'ATL@NO': ('final', 24, 45), 'PIT@CLE': ('final', 27, 24), 'IND@WAS': ('final', | {'ATL@NO': ('final', 24, 45), 'PIT@CLE': ('final', 27, 24), 'IND@WAS': ('final', | yes |
+| live results: status and score of every game = the saved ESPN scoreboard | {'PIT@CLE': ('final', 27, 24), 'IND@WAS': ('final', 13, 30), 'NE@BUF': ('final', | {'PIT@CLE': ('final', 27, 24), 'IND@WAS': ('final', 13, 30), 'NE@BUF': ('final', | yes |
 | play-by-play: one game per started game with a saved ESPN summary | ['2026_04_ARI_NYG', '2026_04_ATL_NO', '2026_04_DAL_HOU', '2026_04_DEN_SF', '2026 | ['2026_04_ARI_NYG', '2026_04_ATL_NO', '2026_04_DAL_HOU', '2026_04_DEN_SF', '2026 | yes |
 | play-by-play: drives, plays, scoring plays and win-probability points per game = the saved summary re-parsed | [] | [] | yes |
 | play-by-play: a final's score in the summary = the scoreboard's | [] | [] | yes |
