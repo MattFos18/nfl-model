@@ -2,7 +2,7 @@ test,window,line_weight,model_weight,model_t,real_pct,placebo_mean,placebo_95th,
 encompassing,2019-22,0.7,0.354,2.12,,,,,,,,,,,,,
 encompassing,2023-25,0.95,0.231,1.1,,,,,,,,,,,,,
 encompassing,all,0.776,0.325,2.5,,,,,,,,,,,,,
-placebo,all,,,,0.631,0.512,0.531,0.0,,,,,,,,,
+placebo,all,,,,0.631,0.512,0.53,0.0,,,,,,,,,
 bootstrap,all,,,,,,,,187.0,0.572,0.631,0.684,0.001,,,,
 season,2019,,,,,,,,,,,,,256.0,25-13,10.227,10.211
 season,2020,,,,,,,,,,,,,256.0,22-10,9.795,9.83

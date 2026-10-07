@@ -6,7 +6,7 @@
 - Encompassing, 2023-25: margin = 0.17 + 0.950 x line + 0.231 x model (model t = 1.10). A model weight above zero with t past 2 means the line does not already contain what the model knows.
 - Encompassing, all: margin = -0.44 + 0.776 x line + 0.325 x model (model t = 2.50). A model weight above zero with t past 2 means the line does not already contain what the model knows.
 
-- Placebo: the real 4+ record is 118-69 (63.1%). Shuffling the model's lines within each week 2,000 times gives a mean of 51.2% and a 95th percentile of 53.1%; 0.00% of shuffles reach the real record.
+- Placebo: the real 4+ record is 118-69 (63.1%). Shuffling the model's lines within each week 2,000 times gives a mean of 51.2% and a 95th percentile of 53.0%; 0.00% of shuffles reach the real record.
 
 - Bootstrap on the 187 real 4+ flags: 90% interval for the win rate 57.2% to 68.4%; 0.1% of resamples fall under the 52.4% break-even.
 

@@ -12,6 +12,11 @@
 "00-0036389",
 "2026-10-11 09:30"
 ],
+"2026_05_CHI_GB": [
+"00-0036264",
+"00-0038416",
+"2026-10-11 13:00"
+],
 "2026_05_CIN_MIA": [
 "00-0038128",
 "00-0036442",
@@ -56,11 +61,6 @@
 "00-0033119",
 "00-0033106",
 "2026-10-11 16:25"
-],
-"2026_05_CHI_GB": [
-"00-0036264",
-"00-0038416",
-"2026-10-11 13:00"
 ],
 "2026_05_SF_SEA": [
 "00-0035704",
@@ -452,6 +452,16 @@
 [
 "TB",
 "Baker Mayfield",
+"Out"
+],
+[
+"TB",
+"Benjamin Morrison",
+"Out"
+],
+[
+"TB",
+"SirVocea Dennis",
 "Out"
 ],
 [
@@ -1168,12 +1178,6 @@
 ],
 [
 "TB",
-"Benjamin Morrison",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Chase McLaughlin",
 "",
 "Did Not Participate In Practice"
@@ -1213,12 +1217,6 @@
 "SirVocea Dennis",
 "",
 "Did Not Participate In Practice"
-],
-[
-"TB",
-"SirVocea Dennis",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -1279,5 +1277,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 14:12 UTC"
+"written_at": "2026-10-07 16:08 UTC"
 }

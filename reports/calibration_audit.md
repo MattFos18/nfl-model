@@ -1,4 +1,4 @@
-# Calibration audit, 2026-10-07 14:15 UTC
+# Calibration audit, 2026-10-07 16:10 UTC
 
 Every chance the model states against what happened, regular season, from the committed prediction table (pred_v3) and results (games). Said is the mean stated chance in the bucket, z is how many binomial standard errors the outcome sits from it. A bucket with 150+ games and |z| over 2.5 fails the health check (the three checked tables are the calibrated home win chance, the calibrated cover chance and the calibrated over chance, the figures the cards show); every other table is the audit's record and does not fail. Windows are the backtest's: 2015-18 untouched, 2019-22 tuning, 2023-25 held out. Rebuilt by nflmodel.tie_check on every run.
 
@@ -345,16 +345,13 @@ Pushes dropped. p_over (the normal curve, picks file only) is quoted for referen
 
 ## Season odds (reports/season_calibration.csv): bands of 30+ teams more than 2 SE out
 
-38 bands with 30+ teams; 6 more than 2 SE from what was said.
+38 bands with 30+ teams; 3 more than 2 SE from what was said.
 
 | Odds | Window | Band | Teams | Said | Happened | z |
 |---|---|---|---|---|---|---|
-| division | 2023-25 | 0-0.05 | 186 | 0.009 | 0.043 | +5.0 |
-| division | 2023-25 | 0.05-0.15 | 76 | 0.097 | 0.171 | +2.2 |
-| playoffs | 2023-25 | 0.05-0.15 | 42 | 0.093 | 0.262 | +3.8 |
+| division | 2023-25 | 0-0.05 | 186 | 0.009 | 0.048 | +5.7 |
+| playoffs | 2023-25 | 0.05-0.15 | 43 | 0.091 | 0.256 | +3.7 |
 | playoffs | 2023-25 | 0.7-0.85 | 40 | 0.774 | 0.600 | -2.6 |
-| playoffs | 2023-25 | 0.85-0.95 | 41 | 0.899 | 0.805 | -2.0 |
-| super bowl | 2023-25 | 0-0.05 | 375 | 0.009 | 0.019 | +2.0 |
 
 ## Player props (data/tracker/props_graded.csv)
 
