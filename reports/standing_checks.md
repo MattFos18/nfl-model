@@ -24,7 +24,7 @@ Every bug class fixed on 1-2 Oct 2026, checked again (nflmodel/standing_checks.p
 | OK | qtotals shadow: its last run left the live table (pred_v3) unchanged | 0 |
 | OK | qtotals shadow: priced beside the live table there now (pred_v3 not re-run since) | 0 |
 | OK | one unit a bet: no Kelly stake or stake_pct on the page or in the picks file | 0 |
-| OK | appended logs: every row has the header's fields (rule_history, pred_history, the bet trackers) | 0 of 6377 |
+| OK | appended logs: every row has the header's fields (rule_history, pred_history, the bet trackers) | 0 of 6407 |
 | OK | future-data leak: ratings for 2024 Weeks 1-9 unchanged when later games are corrupted (audit.leakage_test) | largest change 0 |
 | OK | future-data leak: 2024 Weeks 1-9 predictions unchanged when later targets are corrupted (audit.leakage_test) | largest change 0 |
 | OK | future-data leak: 2024 Week 9 games' own predictions unchanged when their own scores are corrupted (audit.leakage_test) | largest change 0 |

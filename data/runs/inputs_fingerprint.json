@@ -226,6 +226,11 @@
 ],
 [
 "HOU",
+"Kayden McDonald",
+"Out"
+],
+[
+"HOU",
 "Tank Dell",
 "Out"
 ],
@@ -376,7 +381,7 @@
 ],
 [
 "SEA",
-"Jadarian Price",
+"Irv Charles",
 "Out"
 ],
 [
@@ -387,11 +392,6 @@
 [
 "SF",
 "Christian Kirk",
-"Out"
-],
-[
-"SF",
-"Dante Pettis",
 "Out"
 ],
 [
@@ -1469,6 +1469,12 @@
 ],
 [
 "SF",
+"Kaelon Black",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Mike Evans",
 "Questionable (ESPN)",
 ""
@@ -1710,5 +1716,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 22:47 UTC"
+"written_at": "2026-10-07 23:22 UTC"
 }
