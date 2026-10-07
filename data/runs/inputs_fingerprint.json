@@ -157,17 +157,17 @@
 [
 "DAL",
 "Cobie Durant",
-"Doubtful"
+"Out"
 ],
 [
 "DAL",
 "DeMarvion Overshown",
-"Doubtful"
+"Out"
 ],
 [
 "DAL",
 "Drew Shelton",
-"Doubtful"
+"Out"
 ],
 [
 "DAL",
@@ -421,6 +421,11 @@
 ],
 [
 "SF",
+"Dante Pettis",
+"Out"
+],
+[
+"SF",
 "James Thompson Jr.",
 "Doubtful"
 ],
@@ -525,6 +530,12 @@
 ],
 [
 "BAL",
+"Cam Jurgens",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Chris Moore",
 "Questionable (ESPN)",
 ""
@@ -550,6 +561,12 @@
 [
 "BAL",
 "Trey Hendrickson",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Zay Flowers",
 "Questionable (ESPN)",
 ""
 ],
@@ -702,6 +719,12 @@
 "Joey Porter Jr.",
 "",
 "Full Participation in Practice"
+],
+[
+"DAL",
+"Jonathan Mingo",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
@@ -1131,6 +1154,12 @@
 ],
 [
 "PIT",
+"Michael Pittman Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "Rico Dowdle",
 "Questionable (ESPN)",
 ""
@@ -1164,12 +1193,6 @@
 "Anthony Nelson",
 "",
 "Limited Participation in Practice"
-],
-[
-"TB",
-"Anthony Nelson",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -1346,5 +1369,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 19:13 UTC"
+"written_at": "2026-10-07 19:48 UTC"
 }
