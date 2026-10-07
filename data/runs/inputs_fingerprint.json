@@ -150,6 +150,11 @@
 "Out"
 ],
 [
+"CLE",
+"Mason Graham",
+"Doubtful"
+],
+[
 "DAL",
 "Cobie Durant",
 "Doubtful"
@@ -383,11 +388,6 @@
 "NYJ",
 "David Onyemata",
 "Out"
-],
-[
-"NYJ",
-"Mason Taylor",
-"Doubtful"
 ],
 [
 "PHI",
@@ -651,12 +651,6 @@
 [
 "CLE",
 "Elgton Jenkins",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
-"Mason Graham",
 "Questionable (ESPN)",
 ""
 ],
@@ -1069,8 +1063,8 @@
 ""
 ],
 [
-"PHI",
-"Cam Jurgens",
+"NYJ",
+"Mason Taylor",
 "Questionable (ESPN)",
 ""
 ],
@@ -1184,12 +1178,6 @@
 ],
 [
 "TB",
-"Chase McLaughlin",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Josiah Trotter",
 "",
 "Full Participation in Practice"
@@ -1217,6 +1205,12 @@
 "SirVocea Dennis",
 "",
 "Did Not Participate In Practice"
+],
+[
+"TEN",
+"Amani Hooker",
+"Questionable (ESPN)",
+""
 ],
 [
 "WAS",
@@ -1275,7 +1269,63 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_05_CHI_GB": {
+"wind": 15.6,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_CIN_MIA": {
+"wind": 10.9,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_LV_NE": {
+"wind": 8.6,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_CLE_NYJ": {
+"wind": 7.3,
+"cold": false,
+"rain": true,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_IND_PIT": {
+"wind": 8.1,
+"cold": false,
+"rain": true,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_HOU_TEN": {
+"wind": 10.5,
+"cold": false,
+"rain": true,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_NYG_WAS": {
+"wind": 7.1,
+"cold": false,
+"rain": true,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 16:08 UTC"
+"written_at": "2026-10-07 17:29 UTC"
 }
