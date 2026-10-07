@@ -391,11 +391,6 @@
 ],
 [
 "PHI",
-"Dallas Goedert",
-"Doubtful"
-],
-[
-"PHI",
 "Tank Bigsby",
 "Out"
 ],
@@ -432,12 +427,12 @@
 [
 "SF",
 "Kyle Juszczyk",
-"Doubtful"
+"Out"
 ],
 [
 "SF",
 "Marques Sigle",
-"Doubtful"
+"Out"
 ],
 [
 "SF",
@@ -956,6 +951,12 @@
 ],
 [
 "MIN",
+"Jordan Addison",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
 "Justin Jefferson",
 "Questionable (ESPN)",
 ""
@@ -1076,6 +1077,12 @@
 ],
 [
 "PHI",
+"Dallas Goedert",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "DeVonta Smith",
 "Questionable (ESPN)",
 ""
@@ -1147,6 +1154,12 @@
 ""
 ],
 [
+"SF",
+"Upton Stout",
+"Questionable (ESPN)",
+""
+],
+[
 "TB",
 "Anthony Nelson",
 "",
@@ -1193,12 +1206,6 @@
 "Ko Kieft",
 "",
 "Limited Participation in Practice"
-],
-[
-"TB",
-"Ko Kieft",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -1339,5 +1346,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 18:50 UTC"
+"written_at": "2026-10-07 19:13 UTC"
 }
