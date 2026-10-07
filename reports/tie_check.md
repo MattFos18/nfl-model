@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-10-06 22:26 UTC
+# Tie-out (sources and page), 2026-10-07 00:26 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -114,7 +114,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | picks markdown header records (tuning, held out, untouched) | 80-52 38-17 67-54 | 80-52 38-17 67-54 | yes |
 | line watch: every source ran without an error on the newest snapshot | no error | no error | yes |
 | prop lines: book names resolve to rostered players (99%+) | 100.0% | 99% or more | yes |
-| published page size under 60 MB (the cap is 64 MB a version) | 58.9 MB | under 60 MB | yes |
+| published page size under 60 MB (the cap is 64 MB a version) | 59.0 MB | under 60 MB | yes |
 | live check: injuries, starters and forecasts pulled without an error | no error | no error | yes |
 | the page's freshness limits (fresh.js late_h) = nflmodel/pulls.py LATE_H | {'every_run': 2.0, 'model': 96.0} | {'every_run': 2.0, 'model': 96.0} | yes |
 | docs section 4 effects table: QB points per unit = the fit that priced the week (pred_v3) | +18.058 | +18.058 | yes |
@@ -125,12 +125,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.0% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-06T22:08Z', 'oddsapi': '2026-10-06T12:02Z', 'props': '2026-10- | {'espn': '2026-10-06T22:08Z', 'oddsapi': '2026-10-06T12:02Z', 'props': '2026-10- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-07T00:10Z', 'oddsapi': '2026-10-06T12:02Z', 'props': '2026-10- | {'espn': '2026-10-07T00:10Z', 'oddsapi': '2026-10-06T12:02Z', 'props': '2026-10- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (30 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-10-06 22:05 UTC, 40 steps so far) | all ok | all ok | yes |
+| every step of the newest weekly run finished (2026-10-07 00:06 UTC, 40 steps so far) | all ok | all ok | yes |
 | the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
@@ -153,8 +153,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
 | card breakdowns rebuild the expected points from the page's files (30 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-06T22-08-57Z | 2026-10-06T22-08-57Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-06T22-08-57Z | 2026-10-06T22-08-57Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-07T00-10-31Z | 2026-10-07T00-10-31Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-07T00-10-31Z | 2026-10-07T00-10-31Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.0005 | 0.0006 or under | yes |
 | card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.00021 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
@@ -163,7 +163,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | every player ESPN lists Out or Doubtful for a game not yet started is counted on its card | [] | [] | yes |
 | QB-out check: the injury load behind the QB swaps ran without an error | ok | ok | yes |
 | this week's QB swaps (starter ruled out -> QB priced) = the cards' QB names | [] | [] | yes |
-| card ML chart open and newest (home ML, away ML, home no-vig %) = the consensus log's opening and newest moneylines | {'2026_05_TB_DAL': [-205, 170, 64.5, -467, 350, 78.8], '2026_05_PHI_JAX': [110,  | {'2026_05_TB_DAL': [-205, 170, 64.5, -467, 350, 78.8], '2026_05_PHI_JAX': [110,  | yes |
+| card ML chart open and newest (home ML, away ML, home no-vig %) = the consensus log's opening and newest moneylines | {'2026_05_TB_DAL': [-205, 170, 64.5, -462, 350, 78.7], '2026_05_PHI_JAX': [110,  | {'2026_05_TB_DAL': [-205, 170, 64.5, -462, 350, 78.7], '2026_05_PHI_JAX': [110,  | yes |
 | card line = the lines log's consensus now (newest snapshot per game before kickoff, median across sources, to the half point) | {'2026_05_TB_DAL': [8.5, 47.5], '2026_05_PHI_JAX': [7.0, 42.5], '2026_05_CIN_MIA | {'2026_05_TB_DAL': [8.5, 47.5], '2026_05_PHI_JAX': [7.0, 42.5], '2026_05_CIN_MIA | yes |
 | no unplayed game priced on the schedule's line while the lines log has rows for it (2 Oct 2026) | [] | [] | yes |
 | card edges = model minus the card's line (spread and total, worst gap) | 0.0 | 0.002 or under | yes |
