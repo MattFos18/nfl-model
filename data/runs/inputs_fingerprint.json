@@ -386,7 +386,7 @@
 ],
 [
 "NYJ",
-"David Onyemata",
+"Tim Patrick",
 "Out"
 ],
 [
@@ -997,6 +997,12 @@
 ""
 ],
 [
+"NE",
+"Rhamondre Stevenson",
+"Questionable (ESPN)",
+""
+],
+[
 "NO",
 "Anfernee Jennings",
 "Questionable (ESPN)",
@@ -1250,6 +1256,12 @@
 ],
 [
 "WAS",
+"Stefon Diggs",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Terry McLaurin",
 "Questionable (ESPN)",
 ""
@@ -1271,7 +1283,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 15.6,
+"wind": 14.9,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1279,7 +1291,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.9,
+"wind": 11.4,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1287,7 +1299,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_LV_NE": {
-"wind": 8.6,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1295,7 +1307,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CLE_NYJ": {
-"wind": 7.3,
+"wind": 5.9,
 "cold": false,
 "rain": true,
 "src": "open-meteo",
@@ -1303,7 +1315,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_IND_PIT": {
-"wind": 8.1,
+"wind": 5.9,
 "cold": false,
 "rain": true,
 "src": "open-meteo",
@@ -1311,7 +1323,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_HOU_TEN": {
-"wind": 10.5,
+"wind": 7.4,
 "cold": false,
 "rain": true,
 "src": "open-meteo",
@@ -1319,7 +1331,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_NYG_WAS": {
-"wind": 7.1,
+"wind": 10.5,
 "cold": false,
 "rain": true,
 "src": "open-meteo",
@@ -1327,5 +1339,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 17:29 UTC"
+"written_at": "2026-10-07 18:50 UTC"
 }
