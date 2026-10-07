@@ -489,3 +489,4 @@ checked,reprice,changes,errors
 2026-10-07 12:20 UTC,False,,
 2026-10-07 12:50 UTC,False,,
 2026-10-07 13:20 UTC,False,,
+2026-10-07 13:51 UTC,True,2026_05_PHI_JAX: forecast now inside the window the model uses,
