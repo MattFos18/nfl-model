@@ -270,6 +270,11 @@
 "Out"
 ],
 [
+"IND",
+"Will Mallory",
+"Out"
+],
+[
 "JAX",
 "Caleb Ransaw",
 "Out"
@@ -382,6 +387,16 @@
 [
 "NYJ",
 "Breece Hall",
+"Doubtful"
+],
+[
+"NYJ",
+"Dylan Parham",
+"Doubtful"
+],
+[
+"NYJ",
+"Kiko Mauigoa",
 "Doubtful"
 ],
 [
@@ -609,6 +624,12 @@
 [
 "CHI",
 "Cam Lewis",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
+"D'Andre Swift",
 "Questionable (ESPN)",
 ""
 ],
@@ -1069,20 +1090,14 @@
 ""
 ],
 [
-"NYJ",
-"Dylan Parham",
+"NYG",
+"Malik Nabers",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NYJ",
 "Jarvis Brownlee Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Kiko Mauigoa",
 "Questionable (ESPN)",
 ""
 ],
@@ -1179,6 +1194,12 @@
 [
 "SEA",
 "Ty Okada",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Mike Evans",
 "Questionable (ESPN)",
 ""
 ],
@@ -1305,7 +1326,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 8.3,
+"wind": 8.5,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1369,5 +1390,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 19:48 UTC"
+"written_at": "2026-10-07 20:14 UTC"
 }
