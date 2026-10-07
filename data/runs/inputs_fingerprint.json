@@ -1269,6 +1269,15 @@
 ""
 ]
 ],
-"weather": {},
-"written_at": "2026-10-07 06:27 UTC"
+"weather": {
+"2026_05_PHI_JAX": {
+"wind": 8.3,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+}
+},
+"written_at": "2026-10-07 14:12 UTC"
 }
