@@ -1,1 +1,1 @@
-window.PLAYS={"checked":"2026-10-07 17:14 UTC","games":{},"note":"ESPN's play-by-play for every game under way or final, as saved by the line watch; displayed as ESPN's, never priced"};
+window.PLAYS={"checked":"2026-10-07 17:59 UTC","games":{},"note":"ESPN's play-by-play for every game under way or final, as saved by the line watch; displayed as ESPN's, never priced"};
