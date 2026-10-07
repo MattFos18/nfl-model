@@ -95,11 +95,6 @@
 "Out"
 ],
 [
-"BAL",
-"Ethan Pocic",
-"Out"
-],
-[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
@@ -211,12 +206,12 @@
 ],
 [
 "GB",
-"Jayden Reed",
+"Micah Parsons",
 "Out"
 ],
 [
 "GB",
-"Micah Parsons",
+"Savion Williams",
 "Out"
 ],
 [
@@ -282,11 +277,6 @@
 [
 "LV",
 "Dont'e Thornton Jr.",
-"Out"
-],
-[
-"LV",
-"Jack Bech",
 "Out"
 ],
 [
@@ -456,13 +446,28 @@
 ],
 [
 "WAS",
+"Deatrich Wise Jr.",
+"Out"
+],
+[
+"WAS",
 "Jaylin Lane",
+"Out"
+],
+[
+"WAS",
+"Jeremy McNichols",
 "Out"
 ],
 [
 "WAS",
 "Marcus Mariota",
 "Doubtful"
+],
+[
+"WAS",
+"Trey Amos",
+"Out"
 ]
 ],
 "reports": [
@@ -492,7 +497,25 @@
 ],
 [
 "ATL",
+"Cameron Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Jake Matthews",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Michael Jerrell",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Yasir Abdullah",
 "Questionable (ESPN)",
 ""
 ],
@@ -1044,6 +1067,24 @@
 ],
 [
 "LV",
+"Brock Bowers",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Cody White",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Folorunso Fatukasi",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Jackson Powers-Johnson",
 "Questionable (ESPN)",
 ""
@@ -1051,6 +1092,12 @@
 [
 "LV",
 "Jalen Nailor",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Spencer Burford",
 "Questionable (ESPN)",
 ""
 ],
@@ -1111,6 +1158,12 @@
 [
 "MIN",
 "Brett Thorson",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Brian O'Neill",
 "Questionable (ESPN)",
 ""
 ],
@@ -1657,5 +1710,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 22:18 UTC"
+"written_at": "2026-10-07 22:47 UTC"
 }
