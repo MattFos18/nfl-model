@@ -125,16 +125,6 @@
 "Out"
 ],
 [
-"CHI",
-"Noah Sewell",
-"Out"
-],
-[
-"CHI",
-"Shemar Turner",
-"Out"
-],
-[
 "CIN",
 "Jalen Davis",
 "Out"
@@ -312,11 +302,6 @@
 [
 "LV",
 "Jack Bech",
-"Out"
-],
-[
-"MIA",
-"De'Von Achane",
 "Out"
 ],
 [
@@ -623,13 +608,31 @@
 ],
 [
 "CHI",
-"Cam Lewis",
+"D'Andre Swift",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CHI",
-"D'Andre Swift",
+"Darnell Wright",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
+"Joe Thuney",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
+"Jonah Jackson",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
+"Keyshaun Elliott",
 "Questionable (ESPN)",
 ""
 ],
@@ -641,7 +644,7 @@
 ],
 [
 "CIN",
-"B.J. Hill",
+"Barrett Carter",
 "Questionable (ESPN)",
 ""
 ],
@@ -659,7 +662,25 @@
 ],
 [
 "CIN",
+"Dalton Risner",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Dexter Lawrence II",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
 "Ja'Marr Chase",
+"Questionable (ESPN)",
+""
+],
+[
+"CIN",
+"Jordan Battle",
 "Questionable (ESPN)",
 ""
 ],
@@ -683,7 +704,25 @@
 ],
 [
 "CLE",
+"Derek Barnett",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Elgton Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Grant Delpit",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Mike Hall Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -833,6 +872,18 @@
 ],
 [
 "IND",
+"Akeem Davis-Gaither",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Ashton Dulin",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Jaylon Carlies",
 "Questionable (ESPN)",
 ""
@@ -840,6 +891,12 @@
 [
 "IND",
 "Keenan Allen",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Tanor Bortolini",
 "Questionable (ESPN)",
 ""
 ],
@@ -953,7 +1010,19 @@
 ],
 [
 "MIA",
+"Austin Jackson",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Caleb Douglas",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Chris Bell",
 "Questionable (ESPN)",
 ""
 ],
@@ -971,7 +1040,19 @@
 ],
 [
 "MIA",
+"JuJu Brents",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "Robert Beal Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Tucker Addington",
 "Questionable (ESPN)",
 ""
 ],
@@ -1049,6 +1130,12 @@
 ],
 [
 "NO",
+"Alvin Kamara",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Anfernee Jennings",
 "Questionable (ESPN)",
 ""
@@ -1078,8 +1165,26 @@
 ""
 ],
 [
+"NO",
+"Tyler Shough",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Cam Skattebo",
+"Questionable (ESPN)",
+""
+],
+[
 "NYG",
 "Chauncey Golston",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Isaiah Likely",
 "Questionable (ESPN)",
 ""
 ],
@@ -1104,12 +1209,6 @@
 [
 "NYJ",
 "Kingsley Enagbare",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Mason Taylor",
 "Questionable (ESPN)",
 ""
 ],
@@ -1164,6 +1263,12 @@
 [
 "PHI",
 "Zack Baun",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Jalen Ramsey",
 "Questionable (ESPN)",
 ""
 ],
@@ -1271,13 +1376,25 @@
 ],
 [
 "WAS",
+"Ben Sinnott",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Charles Omenihu",
 "Questionable (ESPN)",
 ""
 ],
 [
 "WAS",
-"Jayden Daniels",
+"Chig Okonkwo",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Jacory Croskey-Merritt",
 "Questionable (ESPN)",
 ""
 ],
@@ -1376,7 +1493,7 @@
 "2026_05_HOU_TEN": {
 "wind": 7.4,
 "cold": false,
-"rain": true,
+"rain": false,
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
@@ -1388,7 +1505,15 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_05_SF_SEA": {
+"wind": 7.1,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-07 20:14 UTC"
+"written_at": "2026-10-07 21:16 UTC"
 }
