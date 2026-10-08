@@ -336,11 +336,6 @@
 ],
 [
 "NO",
-"Jordyn Tyson",
-"Out"
-],
-[
-"NO",
 "Lorenzo Styles Jr.",
 "Out"
 ],
@@ -387,6 +382,11 @@
 [
 "PHI",
 "Tank Bigsby",
+"Out"
+],
+[
+"PIT",
+"DeShon Elliott",
 "Out"
 ],
 [
@@ -1279,6 +1279,12 @@
 ],
 [
 "HOU",
+"Aireontae Ersery",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
 "Azeez Al-Shaair",
 "",
 "Limited Participation in Practice"
@@ -1286,6 +1292,12 @@
 [
 "HOU",
 "Azeez Al-Shaair",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Blake Fisher",
 "Questionable (ESPN)",
 ""
 ],
@@ -1297,15 +1309,15 @@
 ],
 [
 "HOU",
-"Jadeveon Clowney",
-"",
-"Limited Participation in Practice"
+"Ed Ingram",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
 "Jadeveon Clowney",
-"Questionable (ESPN)",
-""
+"",
+"Limited Participation in Practice"
 ],
 [
 "HOU",
@@ -1333,21 +1345,9 @@
 ],
 [
 "HOU",
-"Logan Hall",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
 "M.J. Stewart",
 "",
 "Full Participation in Practice"
-],
-[
-"HOU",
-"Nate Thomas",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -1687,25 +1687,13 @@
 ],
 [
 "LV",
-"Brock Bowers",
+"Ashton Jeanty",
 "Questionable (ESPN)",
 ""
 ],
 [
 "LV",
 "Cody White",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
-"Folorunso Fatukasi",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
-"Jackson Powers-Johnson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1870,12 +1858,6 @@
 "Brett Thorson",
 "",
 "Full Participation in Practice"
-],
-[
-"MIN",
-"Brett Thorson",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIN",
@@ -2185,6 +2167,12 @@
 ],
 [
 "NO",
+"Jeremiah Wright",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Julian Blackmon",
 "",
 "Limited Participation in Practice"
@@ -2218,12 +2206,6 @@
 "Michael Reid",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Mike Reid",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2408,6 +2390,12 @@
 [
 "PHI",
 "DeVonta Smith",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Dontayvion Wicks",
 "Questionable (ESPN)",
 ""
 ],
@@ -2797,6 +2785,12 @@
 ],
 [
 "WAS",
+"Nick Cross",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Percy Butler",
 "",
 "Did Not Participate In Practice"
@@ -2836,12 +2830,6 @@
 "Sonny Styles",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Sonny Styles",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -2960,5 +2948,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 21:27 UTC"
+"written_at": "2026-10-08 22:57 UTC"
 }
