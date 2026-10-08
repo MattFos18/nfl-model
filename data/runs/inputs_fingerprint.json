@@ -341,12 +341,27 @@
 ],
 [
 "NO",
+"Jaylan Ford",
+"Out"
+],
+[
+"NO",
 "Jordyn Tyson",
+"Out"
+],
+[
+"NO",
+"Lorenzo Styles Jr.",
 "Out"
 ],
 [
 "NYG",
 "Braxton Berrios",
+"Out"
+],
+[
+"NYG",
+"Chauncey Golston",
 "Out"
 ],
 [
@@ -1406,12 +1421,6 @@
 ],
 [
 "NYG",
-"Chauncey Golston",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Chris Manhertz",
 "Questionable (ESPN)",
 ""
@@ -1815,5 +1824,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 00:53 UTC"
+"written_at": "2026-10-08 01:28 UTC"
 }
