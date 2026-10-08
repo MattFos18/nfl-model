@@ -37,7 +37,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 15 only | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 1 | 0 | nothing settled |  | +0.00 | 9-13 | 16-13 | 8-3 |
 | shadow: Over, total 41 or lower and a 55%+ chance | 3 | 1 | 0-1 (0%) | -1.00 | +0.00 | 50-37 | 30-25 | 55-35 |
-| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 6 | 2 | 1-1 (50%) | -0.05 | +0.00 | 156-131 | 201-149 | 80-57 |
+| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 8 | 2 | 1-1 (50%) | -0.05 | +0.00 | 156-131 | 201-149 | 80-57 |
 
 Live against the backtest: the flag has won 2 of 3 settled; at the backtest rate of 63.1% (2019 to 2025), 3 bets land between 0 and 3 wins nine times in ten. The live record is inside the range. With fewer than 30 settled this says little either way.
 
