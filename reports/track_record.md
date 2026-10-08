@@ -14,13 +14,13 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4.5+ edge | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 46-36 | 55-39 | 23-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
-| shadow: boosted trees alone, 5+ edge | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
+| shadow: boosted trees alone, 5+ edge | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
 | shadow: Under, 55%+ chance (the totals flag) | 9 | 5 | 3-2 (60%) | +0.77 | +0.11 | 142-117 | 183-134 | 86-61 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 6 | 2 | 1-1 (50%) | -0.05 | +0.00 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 3 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
-| shadow: Under, 60%+ chance | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 69-51 | 97-71 | 37-27 |
+| shadow: Under, 60%+ chance | 1 | 1 | 0-1 (0%) | -1.00 | +0.00 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 2 | 2 | 0-2 (0%) | -2.00 | +0.00 | 119-97 | 143-88 | 77-52 |
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 8 | 4 | 4-0 (100%) | +1.32 | +0.00 | 117-35 | 101-29 | 129-38 |
@@ -37,7 +37,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 15 only | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 0 | 0 | | | | 9-13 | 16-13 | 8-3 |
 | shadow: Over, total 41 or lower and a 55%+ chance | 3 | 1 | 0-1 (0%) | -1.00 | +0.00 | 50-37 | 30-25 | 55-35 |
-| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 8 | 2 | 1-1 (50%) | -0.05 | +0.00 | 156-131 | 201-149 | 80-57 |
+| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 7 | 2 | 1-1 (50%) | -0.05 | +0.00 | 156-131 | 201-149 | 80-57 |
 
 Live against the backtest: the flag has won 2 of 3 settled; at the backtest rate of 63.1% (2019 to 2025), 3 bets land between 0 and 3 wins nine times in ten. The live record is inside the range. With fewer than 30 settled this says little either way.
 
@@ -68,7 +68,7 @@ Every bet:
 |     2026 |      4 | 2026_04_IND_WAS | WAS +4.5 |   -102 |     4.5 |     0 | loss     |   -1    |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
-|     2026 |      5 | 2026_05_BAL_ATL | BAL +3   |    100 |   nan   |   nan | pending  |  nan    |
+|     2026 |      5 | 2026_05_BAL_ATL | BAL +3   |   -102 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 

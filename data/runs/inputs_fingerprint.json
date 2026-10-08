@@ -165,11 +165,6 @@
 "Out"
 ],
 [
-"DAL",
-"Tyler Smith",
-"Out"
-],
-[
 "DEN",
 "Jonah Coleman",
 "Out"
@@ -1130,6 +1125,12 @@
 "Tyler Smith",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"DAL",
+"Tyler Smith",
+"Questionable (ESPN)",
+""
 ],
 [
 "DEN",
@@ -2912,7 +2913,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 12.4,
+"wind": 13.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2920,7 +2921,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CIN_MIA": {
-"wind": 12.4,
+"wind": 11.9,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2928,7 +2929,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_LV_NE": {
-"wind": 8.9,
+"wind": 7.7,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2936,22 +2937,6 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CLE_NYJ": {
-"wind": 7.9,
-"cold": false,
-"rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
-},
-"2026_05_IND_PIT": {
-"wind": 10.5,
-"cold": false,
-"rain": true,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
-},
-"2026_05_HOU_TEN": {
 "wind": 8.1,
 "cold": false,
 "rain": false,
@@ -2959,8 +2944,24 @@
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
 },
+"2026_05_IND_PIT": {
+"wind": 8.6,
+"cold": false,
+"rain": true,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_05_HOU_TEN": {
+"wind": 6.2,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
 "2026_05_NYG_WAS": {
-"wind": 15.0,
+"wind": 17.1,
 "cold": false,
 "rain": true,
 "src": "open-meteo",
@@ -2968,7 +2969,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_SF_SEA": {
-"wind": 8.8,
+"wind": 8.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2976,5 +2977,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 16:35 UTC"
+"written_at": "2026-10-08 19:05 UTC"
 }
