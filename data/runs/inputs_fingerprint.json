@@ -461,11 +461,6 @@
 ],
 [
 "TEN",
-"Jackson Slater",
-"Out"
-],
-[
-"TEN",
 "Joshua Williams",
 "Out"
 ],
@@ -522,7 +517,7 @@
 ],
 [
 "ATL",
-"Cameron Thomas",
+"Divine Deablo",
 "Questionable (ESPN)",
 ""
 ],
@@ -546,7 +541,7 @@
 ],
 [
 "ATL",
-"Michael Jerrell",
+"Samson Ebukam",
 "Questionable (ESPN)",
 ""
 ],
@@ -606,12 +601,6 @@
 ],
 [
 "BAL",
-"Chris Moore",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Durham Smythe",
 "",
 "Did Not Participate In Practice"
@@ -633,12 +622,6 @@
 "Kyle Hamilton",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Kyle Hamilton",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -675,18 +658,6 @@
 "Rashod Bateman",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Rashod Bateman",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
-"Ronnie Stanley",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -864,15 +835,15 @@
 ],
 [
 "CIN",
-"Barrett Carter",
-"",
-"Limited Participation in Practice"
+"B.J. Hill",
+"Questionable (ESPN)",
+""
 ],
 [
 "CIN",
 "Barrett Carter",
-"Questionable (ESPN)",
-""
+"",
+"Limited Participation in Practice"
 ],
 [
 "CIN",
@@ -891,12 +862,6 @@
 "Colbie Young",
 "",
 "Limited Participation in Practice"
-],
-[
-"CIN",
-"Colbie Young",
-"Questionable (ESPN)",
-""
 ],
 [
 "CIN",
@@ -948,12 +913,6 @@
 ],
 [
 "CIN",
-"Jordan Battle",
-"Questionable (ESPN)",
-""
-],
-[
-"CIN",
 "Kyle Dugger",
 "",
 "Did Not Participate In Practice"
@@ -985,6 +944,12 @@
 [
 "CIN",
 "Tee Higgins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Carsen Ryan",
 "Questionable (ESPN)",
 ""
 ],
@@ -1020,12 +985,6 @@
 ],
 [
 "CLE",
-"Grant Delpit",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Kalia Davis",
 "",
 "Limited Participation in Practice"
@@ -1035,6 +994,12 @@
 "Mason Graham",
 "",
 "Did Not Participate In Practice"
+],
+[
+"CLE",
+"Mekhi Blackmon",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
@@ -1434,12 +1399,6 @@
 ],
 [
 "IND",
-"Akeem Davis-Gaither",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Arden Key",
 "",
 "Did Not Participate In Practice"
@@ -1461,6 +1420,12 @@
 "Charvarius Ward",
 "",
 "Limited Participation in Practice"
+],
+[
+"IND",
+"Charvarius Ward",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
@@ -1824,6 +1789,12 @@
 ],
 [
 "MIA",
+"Jaylen Wright",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
 "JuJu Brents",
 "Questionable (ESPN)",
 ""
@@ -1833,6 +1804,12 @@
 "Julius Brents",
 "",
 "Limited Participation in Practice"
+],
+[
+"MIA",
+"Justin Joly",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
@@ -2190,6 +2167,12 @@
 ],
 [
 "NO",
+"Chris Olave",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Davon Godchaux",
 "",
 "Full Participation in Practice"
@@ -2259,12 +2242,6 @@
 "Tyler Shough",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Tyler Shough",
-"Questionable (ESPN)",
-""
 ],
 [
 "NYG",
@@ -2628,9 +2605,27 @@
 ],
 [
 "TEN",
+"Carnell Tate",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "David Martin-Robinson",
 "",
 "Full Participation in Practice"
+],
+[
+"TEN",
+"David Martin-Robinson",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Gunnar Helm",
+"Questionable (ESPN)",
+""
 ],
 [
 "TEN",
@@ -2693,22 +2688,10 @@
 "Did Not Participate In Practice"
 ],
 [
-"TEN",
-"Tony Pollard",
-"Questionable (ESPN)",
-""
-],
-[
 "WAS",
 "Ben Sinnott",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Ben Sinnott",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -2905,7 +2888,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 8.5,
+"wind": 6.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2977,5 +2960,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 19:05 UTC"
+"written_at": "2026-10-08 21:27 UTC"
 }
