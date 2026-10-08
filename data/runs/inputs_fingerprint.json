@@ -271,11 +271,6 @@
 ],
 [
 "LA",
-"Myles Garrett",
-"Out"
-],
-[
-"LA",
 "Terrance Ferguson",
 "Out"
 ],
@@ -948,12 +943,6 @@
 [
 "HOU",
 "Jamal Hill",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
-"Kenneth Murray Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -1824,5 +1813,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 01:28 UTC"
+"written_at": "2026-10-08 02:02 UTC"
 }
