@@ -141,6 +141,16 @@
 ],
 [
 "DAL",
+"Ajani Cornelius",
+"Out"
+],
+[
+"DAL",
+"Camden Brown",
+"Out"
+],
+[
+"DAL",
 "Cobie Durant",
 "Out"
 ],
@@ -157,6 +167,16 @@
 [
 "DAL",
 "Jalen Thompson",
+"Out"
+],
+[
+"DAL",
+"James Houston",
+"Out"
+],
+[
+"DAL",
+"Joey Porter Jr.",
 "Out"
 ],
 [
@@ -452,6 +472,21 @@
 [
 "TB",
 "Benjamin Morrison",
+"Out"
+],
+[
+"TB",
+"Billy Schrauth",
+"Out"
+],
+[
+"TB",
+"DeMonte Capehart",
+"Out"
+],
+[
+"TB",
+"Luke Haggard",
 "Out"
 ],
 [
@@ -1069,12 +1104,6 @@
 ],
 [
 "DAL",
-"Jonathan Mingo",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "Malik Hooker",
 "",
 "Full Participation in Practice"
@@ -1090,12 +1119,6 @@
 "Tyler Smith",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"DAL",
-"Tyler Smith",
-"Questionable (ESPN)",
-""
 ],
 [
 "DEN",
@@ -2884,60 +2907,60 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 13.3,
+"wind": 9.1,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 11.9,
+"wind": 10.8,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 7.7,
+"wind": 7.9,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 8.1,
+"wind": 11.4,
 "cold": false,
-"rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"rain": true,
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 8.6,
+"wind": 7.8,
 "cold": false,
 "rain": true,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 6.2,
-"cold": false,
-"rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
-},
-"2026_05_NYG_WAS": {
-"wind": 17.1,
+"wind": 6.8,
 "cold": false,
 "rain": true,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
+},
+"2026_05_NYG_WAS": {
+"wind": 15.2,
+"cold": false,
+"rain": true,
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_05_SF_SEA": {
 "wind": 8.2,
@@ -2948,5 +2971,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 22:57 UTC"
+"written_at": "2026-10-08 23:18 UTC"
 }

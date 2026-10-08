@@ -23,6 +23,6 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
 | games: kickoff wind 40 mph or under | yes | 0 games |
 | forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2174 games: 0 partial, 0 missing |
-| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 0 games |
+| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 7 games |
 
 Result: PASS (20 of 20)
