@@ -86,6 +86,11 @@
 ],
 [
 "ARI",
+"Isaiah Adams",
+"Out"
+],
+[
+"ARI",
 "Paris Johnson Jr.",
 "Out"
 ],
@@ -221,6 +226,11 @@
 ],
 [
 "HOU",
+"Braden Smith",
+"Out"
+],
+[
+"HOU",
 "Jaylin Smith",
 "Out"
 ],
@@ -252,6 +262,11 @@
 [
 "JAX",
 "Caleb Ransaw",
+"Out"
+],
+[
+"JAX",
+"Christian Braswell",
 "Out"
 ],
 [
@@ -312,6 +327,11 @@
 [
 "MIN",
 "Josh Oliver",
+"Out"
+],
+[
+"MIN",
+"Michael Jurgens",
 "Out"
 ],
 [
@@ -431,12 +451,12 @@
 ],
 [
 "TEN",
-"Fernando Carmona",
+"Jackson Slater",
 "Out"
 ],
 [
 "TEN",
-"Jackson Slater",
+"Joshua Williams",
 "Out"
 ],
 [
@@ -475,12 +495,6 @@
 [
 "ARI",
 "Dadrion Taylor-Demerson",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
-"Isaiah Adams",
 "Questionable (ESPN)",
 ""
 ],
@@ -1801,5 +1815,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 00:28 UTC"
+"written_at": "2026-10-08 00:53 UTC"
 }
