@@ -405,6 +405,11 @@
 "Doubtful"
 ],
 [
+"PIT",
+"Michael Pittman Jr.",
+"Out"
+],
+[
 "SEA",
 "Irv Charles",
 "Out"
@@ -1011,12 +1016,6 @@
 "Elgton Jenkins",
 "",
 "Full Participation in Practice"
-],
-[
-"CLE",
-"Elgton Jenkins",
-"Questionable (ESPN)",
-""
 ],
 [
 "CLE",
@@ -2520,12 +2519,6 @@
 ],
 [
 "PIT",
-"Michael Pittman Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Rico Dowdle",
 "",
 "Limited Participation in Practice"
@@ -2983,5 +2976,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 12:05 UTC"
+"written_at": "2026-10-08 16:35 UTC"
 }
