@@ -569,3 +569,4 @@ checked,reprice,changes,errors
 2026-10-09 04:31 UTC,False,"2026_05_SF_SEA: wind 12 to 9 mph | 2026_05_SF_SEA: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
 2026-10-09 05:03 UTC,False,"2026_05_SF_SEA: wind 12 to 6 mph | 2026_05_SF_SEA: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
 2026-10-09 05:31 UTC,False,"2026_05_SF_SEA: wind 12 to 9 mph | 2026_05_SF_SEA: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
+2026-10-09 06:04 UTC,True,"2026_05_SF_SEA: wind 12 to 9 mph | 2026_05_SF_SEA: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
