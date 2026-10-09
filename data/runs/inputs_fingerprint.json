@@ -126,11 +126,6 @@
 ],
 [
 "CHI",
-"Caleb Williams",
-"Out"
-],
-[
-"CHI",
 "Kyle Monangai",
 "Out"
 ],
@@ -350,6 +345,16 @@
 "Out"
 ],
 [
+"LV",
+"Jalen Nailor",
+"Out"
+],
+[
+"LV",
+"Trey Zuhn III",
+"Out"
+],
+[
 "MIA",
 "Kenneth Grant",
 "Out"
@@ -367,6 +372,16 @@
 [
 "MIN",
 "Ben Yurosek",
+"Out"
+],
+[
+"MIN",
+"Charles Demmings",
+"Out"
+],
+[
+"MIN",
+"Christian Darrisaw",
 "Out"
 ],
 [
@@ -421,7 +436,22 @@
 ],
 [
 "NO",
+"Anfernee Jennings",
+"Out"
+],
+[
+"NO",
 "Jaylan Ford",
+"Out"
+],
+[
+"NO",
+"Jeremiah Wright",
+"Out"
+],
+[
+"NO",
+"Kaden Elliss",
 "Out"
 ],
 [
@@ -991,6 +1021,12 @@
 "Caleb Williams",
 "",
 "Did Not Participate In Practice"
+],
+[
+"CHI",
+"Caleb Williams",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -2218,12 +2254,6 @@
 ],
 [
 "LV",
-"Cody White",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Dareke Young",
 "",
 "Full Participation in Practice"
@@ -2254,12 +2284,6 @@
 ],
 [
 "LV",
-"Jalen Nailor",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Segun Olubi",
 "",
 "Full Participation in Practice"
@@ -2272,21 +2296,9 @@
 ],
 [
 "LV",
-"Spencer Burford",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Trey Zuhn III",
 "",
 "Limited Participation in Practice"
-],
-[
-"LV",
-"Trey Zuhn III",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIA",
@@ -2464,21 +2476,9 @@
 ],
 [
 "MIN",
-"Charles Demmings",
-"Questionable (ESPN)",
-""
-],
-[
-"MIN",
 "Christian Darrisaw",
 "",
 "Did Not Participate In Practice"
-],
-[
-"MIN",
-"Christian Darrisaw",
-"Questionable (ESPN)",
-""
 ],
 [
 "MIN",
@@ -2662,12 +2662,6 @@
 ],
 [
 "NO",
-"Anfernee Jennings",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Barion Brown",
 "",
 "Limited Participation in Practice"
@@ -2686,21 +2680,9 @@
 ],
 [
 "NO",
-"Carl Granderson",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Chris Olave",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Chris Olave",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2728,12 +2710,6 @@
 ],
 [
 "NO",
-"Jeremiah Wright",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Julian Blackmon",
 "",
 "Limited Participation in Practice"
@@ -2752,12 +2728,6 @@
 ],
 [
 "NO",
-"Kaden Elliss",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Lorenzo Styles Jr.",
 "",
 "Full Participation in Practice"
@@ -2773,12 +2743,6 @@
 "Noah Fant",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Noah Fant",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -3737,5 +3701,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-09 18:31 UTC"
+"written_at": "2026-10-09 19:32 UTC"
 }
