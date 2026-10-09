@@ -111,6 +111,13 @@
   "message": "2026_05_SF_SEA: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
+ "standing checks|last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_05_BAL_ATL BAL": {
+  "count": 1,
+  "first": "2026-10-09 18:07 UTC",
+  "last": "2026-10-09 18:07 UTC",
+  "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_05_BAL_ATL BAL",
+  "source": "standing checks"
+ },
  "standing checks|last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 30: 2026_04_IND_WAS WAS": {
   "count": 1,
   "first": "2026-10-04 15:30 UTC",

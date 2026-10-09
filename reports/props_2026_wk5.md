@@ -1,6 +1,6 @@
 # Week 5, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-09 17:29 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-09 18:06 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -421,12 +421,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rush_attempts    |   0.6   |          0.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rush_rec_yards   |  55.6   |          0.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rush_longest     |   6.5   |          0.6  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_yards       | 234.3   |         37.9  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_yards       | 233.4   |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_td          |   1.468 |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_int         |   0.781 |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_attempts    |  36.3   |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_completions |  24.2   |         37.9  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_rush_yards  | 234.3   |         37.9  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_rush_yards  | 233.4   |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0038416  | Tyson Bagent             | pass_longest     |  25     |         37.9  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0041538  | Dillon Thieneman         | def_tackles      |   7.8   |         60.4  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0041538  | Dillon Thieneman         | def_sacks        |   0.08  |         60.4  | live   |
@@ -514,12 +514,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | rush_attempts    |   2.4   |          2.4  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | rush_rec_yards   |   8.9   |          2.4  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | rush_longest     |   7.1   |          2.4  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_yards       | 227.8   |         34.7  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_yards       | 227     |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_td          |   1.533 |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_int         |   0.715 |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_attempts    |  33.3   |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_completions |  20.9   |         34.7  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 236.7   |         34.7  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 235.9   |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | pass_longest     |  34.7   |         34.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0034431  | Zaire Franklin           | def_tackles      |   7.9   |         72.1  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0034431  | Zaire Franklin           | def_sacks        |   0.14  |         72.1  | live   |
@@ -700,12 +700,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rush_attempts    |   1.3   |          1.3  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rush_rec_yards   |  49     |          1.3  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rush_longest     |   7     |          1.3  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_yards       | 214.3   |         31.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_yards       | 214.4   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_td          |   1.245 |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_int         |   0.655 |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_attempts    |  28.9   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_completions |  18.4   |         31.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_rush_yards  | 241.9   |         31.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_rush_yards  | 242     |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_longest     |  29.2   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041522  | Jacob Rodriguez          | def_tackles      |  11.2   |         65.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041522  | Jacob Rodriguez          | def_sacks        |   0.08  |         65.4  | live   |
@@ -1698,12 +1698,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_attempts    |   3.7   |          3.7  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_rec_yards   |  18.9   |          3.7  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_longest     |  10.5   |          3.7  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 210.5   |         34.1  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_yards       | 211     |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_td          |   1.191 |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_int         |   0.702 |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_attempts    |  31.5   |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_completions |  18.5   |         34.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 215.4   |         34.1  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_rush_yards  | 215.9   |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | pass_longest     |  29.6   |         34.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041509  | Arvell Reese             | def_tackles      |   9.2   |         63.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041509  | Arvell Reese             | def_sacks        |   0.08  |         63.3  | live   |
@@ -1791,12 +1791,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rush_attempts    |   6.4   |          6.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rush_rec_yards   |  30.5   |          6.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rush_longest     |   8.4   |          6.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_yards       | 198     |         32.8  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_yards       | 198.3   |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_td          |   1.395 |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_int         |   0.676 |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_attempts    |  30.4   |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_completions |  18.6   |         32.8  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_rush_yards  | 223.9   |         32.8  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_rush_yards  | 224.2   |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039910  | Jayden Daniels           | pass_longest     |  29.9   |         32.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037616  | Nick Cross               | def_tackles      |   6.5   |         64.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037616  | Nick Cross               | def_sacks        |   0.1   |         64.8  | live   |
