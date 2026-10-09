@@ -91,9 +91,9 @@
   "source": "live weather"
  },
  "live weather|2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 29,
+  "count": 30,
   "first": "2026-10-07 13:57 UTC",
-  "last": "2026-10-09 10:53 UTC",
+  "last": "2026-10-09 13:25 UTC",
   "message": "2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -504,17 +504,24 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 7,
+  "count": 8,
   "first": "2026-10-08 23:11 UTC",
-  "last": "2026-10-09 10:54 UTC",
+  "last": "2026-10-09 13:26 UTC",
   "message": "2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 4,
+  "count": 5,
   "first": "2026-10-08 23:28 UTC",
-  "last": "2026-10-09 06:13 UTC",
+  "last": "2026-10-09 13:27 UTC",
   "message": "2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_05_HOU_TEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-09 13:28 UTC",
+  "last": "2026-10-09 13:28 UTC",
+  "message": "2026_05_HOU_TEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature": {
