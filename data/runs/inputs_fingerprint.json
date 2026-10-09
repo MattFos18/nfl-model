@@ -372,7 +372,7 @@
 [
 "NYJ",
 "Adonai Mitchell",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -382,17 +382,17 @@
 [
 "NYJ",
 "Breece Hall",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
 "Dylan Parham",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
 "Kiko Mauigoa",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -3072,12 +3072,6 @@
 ],
 [
 "PHI",
-"Quinyon Mitchell",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Saquon Barkley",
 "",
 "Did Not Participate In Practice"
@@ -3691,7 +3685,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.4,
+"wind": 5.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3739,7 +3733,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 7.3,
+"wind": 6.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3763,5 +3757,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-09 13:43 UTC"
+"written_at": "2026-10-09 15:44 UTC"
 }
