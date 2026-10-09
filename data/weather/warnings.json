@@ -518,16 +518,23 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-09 02:28 UTC",
-  "last": "2026-10-09 03:39 UTC",
+  "last": "2026-10-09 03:59 UTC",
   "message": "2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
+ "wind_live|2026_05_SF_SEA: reading from GFS run 2026-10-08T12Z (logged 2026-10-09T03-37-50Z) is more than 6 hours behind the newest run (2026-10-09T00Z); not used": {
+  "count": 1,
+  "first": "2026-10-09 04:00 UTC",
+  "last": "2026-10-09 04:00 UTC",
+  "message": "2026_05_SF_SEA: reading from GFS run 2026-10-08T12Z (logged 2026-10-09T03-37-50Z) is more than 6 hours behind the newest run (2026-10-09T00Z); not used",
+  "source": "wind_live"
+ },
  "wind_live|2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 4,
+  "count": 5,
   "first": "2026-10-09 02:28 UTC",
-  "last": "2026-10-09 03:39 UTC",
+  "last": "2026-10-09 03:59 UTC",
   "message": "2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
