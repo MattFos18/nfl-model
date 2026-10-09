@@ -545,6 +545,18 @@
 ""
 ],
 [
+"ARI",
+"Karson Sharar",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Walter Nolen III",
+"Questionable (ESPN)",
+""
+],
+[
 "ATL",
 "Cameron Thomas",
 "",
@@ -744,7 +756,7 @@
 ],
 [
 "BUF",
-"T.J. Sanders",
+"Landon Jackson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1119,18 +1131,6 @@
 "Tyler Smith",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"DEN",
-"Adam Trautman",
-"Questionable (ESPN)",
-""
-],
-[
-"DEN",
-"Dondrea Tillman",
-"Questionable (ESPN)",
-""
 ],
 [
 "DEN",
@@ -1542,6 +1542,12 @@
 ],
 [
 "JAX",
+"Eric Murray",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
 "Jakobi Meyers",
 "",
 "Full Participation in Practice"
@@ -1620,13 +1626,31 @@
 ],
 [
 "LA",
+"Grant Stuard",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Jaylen Watson",
 "Questionable (ESPN)",
 ""
 ],
 [
 "LA",
-"Konata Mumpfield",
+"Josaiah Stewart",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Nate Landman",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Quentin Lake",
 "Questionable (ESPN)",
 ""
 ],
@@ -2706,6 +2730,12 @@
 ],
 [
 "WAS",
+"Charles Omenihu",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Chig Okonkwo",
 "",
 "Limited Participation in Practice"
@@ -2957,7 +2987,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.2,
+"wind": 7.7,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2965,5 +2995,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-08 23:42 UTC"
+"written_at": "2026-10-09 01:53 UTC"
 }
