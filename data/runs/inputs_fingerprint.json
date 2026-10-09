@@ -116,6 +116,11 @@
 ],
 [
 "CHI",
+"Kyle Monangai",
+"Out"
+],
+[
+"CHI",
 "Kyler Gordon",
 "Out"
 ],
@@ -1017,12 +1022,6 @@
 "Kyle Monangai",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CHI",
-"Kyle Monangai",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -3390,12 +3389,6 @@
 ],
 [
 "TEN",
-"Carnell Tate",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
 "David Martin-Robinson",
 "",
 "Did Not Participate In Practice"
@@ -3685,7 +3678,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.2,
+"wind": 5.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3693,7 +3686,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 10.8,
+"wind": 11.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3701,7 +3694,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.2,
+"wind": 10.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3717,7 +3710,7 @@
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 9.9,
+"wind": 11.3,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -3725,7 +3718,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 6.5,
+"wind": 9.3,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -3733,7 +3726,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 6.5,
+"wind": 8.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3741,7 +3734,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 12.8,
+"wind": 12.9,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -3749,7 +3742,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.9,
+"wind": 9.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3757,5 +3750,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-09 15:44 UTC"
+"written_at": "2026-10-09 17:31 UTC"
 }
