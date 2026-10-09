@@ -532,9 +532,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-09 05:01 UTC",
-  "last": "2026-10-09 08:01 UTC",
+  "last": "2026-10-09 08:15 UTC",
   "message": "2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
