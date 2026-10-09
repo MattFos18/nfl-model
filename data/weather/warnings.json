@@ -91,9 +91,9 @@
   "source": "live weather"
  },
  "live weather|2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 28,
+  "count": 29,
   "first": "2026-10-07 13:57 UTC",
-  "last": "2026-10-09 08:21 UTC",
+  "last": "2026-10-09 10:53 UTC",
   "message": "2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -504,9 +504,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-08 23:11 UTC",
-  "last": "2026-10-09 08:22 UTC",
+  "last": "2026-10-09 10:54 UTC",
   "message": "2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
