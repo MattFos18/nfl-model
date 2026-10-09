@@ -6,8 +6,8 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 |---|---|---|---|---|---|---|---|
 | Spreads, 4+ edge | 3 | -0.17 | 33% | 1 | 1 | 1 | -1.4% (1) |
 | Unders, 55%+ chance | 5 | +0.00 | 20% | 3 | 1 | 3 | -0.6% (3) |
-| Wind unders, 10+ mph | 2 | +0.00 | 0% | 2 | 0 | 3 | +0.4% (2) |
-| All live bets | 10 | -0.05 | 20% | 6 | 2 | 7 | -0.4% (6) |
+| Wind unders, 10+ mph | 2 | +0.00 | 0% | 2 | 0 | 2 | +0.4% (2) |
+| All live bets | 10 | -0.05 | 20% | 6 | 2 | 6 | -0.4% (6) |
 
 ## Every bet
 
@@ -29,4 +29,3 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | windunder   |      4 | 2026_04_NE_BUF  | Under 49.5 | 2026-10-03 23:00 UTC | first flag   |   49.5 |       nan   |    49.5 |       0   | +0.9%      | 2026-10-04 16:56 UTC | closed   |
 | windunder   |      5 | 2026_05_CIN_MIA | Under 42.5 | 2026-10-08 23:06 UTC | first flag   |   42.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      5 | 2026_05_NYG_WAS | Under 42.5 | 2026-10-08 23:06 UTC | first flag   |   41.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| windunder   |      5 | 2026_05_SF_SEA  | Under 45.5 | 2026-10-09 03:35 UTC | first flag   |   45.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
