@@ -531,6 +531,13 @@
   "message": "2026_05_SF_SEA: reading from GFS run 2026-10-08T12Z (logged 2026-10-09T03-37-50Z) is more than 6 hours behind the newest run (2026-10-09T00Z); not used",
   "source": "wind_live"
  },
+ "wind_live|2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-09 05:01 UTC",
+  "last": "2026-10-09 05:01 UTC",
+  "message": "2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
  "wind_live|2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
   "count": 5,
   "first": "2026-10-09 02:28 UTC",
