@@ -676,7 +676,17 @@
 ],
 [
 "SEA",
+"Chazz Surratt",
+"Out"
+],
+[
+"SEA",
 "Irv Charles",
+"Out"
+],
+[
+"SEA",
+"Julian Neal",
 "Out"
 ],
 [
@@ -692,7 +702,7 @@
 [
 "SF",
 "James Thompson Jr.",
-"Doubtful"
+"Out"
 ],
 [
 "SF",
@@ -707,7 +717,7 @@
 [
 "SF",
 "Nick Bosa",
-"Doubtful"
+"Out"
 ],
 [
 "TB",
@@ -823,12 +833,6 @@
 "Dadrion Taylor-Demerson",
 "",
 "Limited Participation in Practice"
-],
-[
-"ARI",
-"Dadrion Taylor-Demerson",
-"Questionable (ESPN)",
-""
 ],
 [
 "ARI",
@@ -2860,12 +2864,6 @@
 ],
 [
 "SEA",
-"Chazz Surratt",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Ernest Jones",
 "",
 "Limited Participation in Practice"
@@ -2902,33 +2900,15 @@
 ],
 [
 "SEA",
-"Julian Neal",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Leonard Williams",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "SEA",
-"Leonard Williams",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Nehemiah Pritchett",
 "",
 "Limited Participation in Practice"
-],
-[
-"SEA",
-"Nehemiah Pritchett",
-"Questionable (ESPN)",
-""
 ],
 [
 "SEA",
@@ -3287,7 +3267,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.4,
+"wind": 4.7,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3295,7 +3275,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 9.1,
+"wind": 11.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3303,7 +3283,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.4,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3351,7 +3331,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 6.8,
+"wind": 8.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3359,5 +3339,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-09 22:32 UTC"
+"written_at": "2026-10-09 23:09 UTC"
 }
