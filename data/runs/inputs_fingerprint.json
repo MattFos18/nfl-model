@@ -1092,9 +1092,21 @@
 ],
 [
 "DAL",
+"Alijah Clark",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "CeeDee Lamb",
 "",
 "Full Participation in Practice"
+],
+[
+"DAL",
+"CeeDee Lamb",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
@@ -1125,6 +1137,12 @@
 "Tyler Goodson",
 "",
 "Full Participation in Practice"
+],
+[
+"DAL",
+"Tyler Guyton",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
@@ -2947,7 +2965,7 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 7.9,
+"wind": 7.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2955,7 +2973,7 @@
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 11.4,
+"wind": 9.1,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2963,7 +2981,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 7.8,
+"wind": 5.9,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2979,7 +2997,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 15.2,
+"wind": 14.3,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2987,13 +3005,13 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 7.7,
+"wind": 12.0,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
+"src": "mos",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-09 01:53 UTC"
+"written_at": "2026-10-09 03:48 UTC"
 }

@@ -6,6 +6,20 @@
   "message": "games inside the forecast window without every live reading: 2026_04_NE_BUF (no wind), 2026_04_TEN_BAL (no wind)",
   "source": "data checks"
  },
+ "data checks|games inside the forecast window without every live reading: 2026_05_SF_SEA (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-10-09 03:37 UTC",
+  "last": "2026-10-09 03:37 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_05_SF_SEA (no wind, temperature, rain)",
+  "source": "data checks"
+ },
+ "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing": {
+  "count": 1,
+  "first": "2026-10-09 03:37 UTC",
+  "last": "2026-10-09 03:37 UTC",
+  "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
+  "source": "data checks"
+ },
  "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 43 missing": {
   "count": 1,
   "first": "2026-10-02 22:31 UTC",
@@ -77,10 +91,17 @@
   "source": "live weather"
  },
  "live weather|2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 25,
+  "count": 26,
   "first": "2026-10-07 13:57 UTC",
-  "last": "2026-10-09 01:36 UTC",
+  "last": "2026-10-09 03:37 UTC",
   "message": "2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_05_SF_SEA: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-09 03:37 UTC",
+  "last": "2026-10-09 03:37 UTC",
+  "message": "2026_05_SF_SEA: no GFS MOS reading for temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_05_SF_SEA: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
@@ -483,30 +504,30 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-08 23:11 UTC",
-  "last": "2026-10-09 01:37 UTC",
+  "last": "2026-10-09 03:38 UTC",
   "message": "2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-08 23:28 UTC",
-  "last": "2026-10-09 01:37 UTC",
+  "last": "2026-10-09 03:39 UTC",
   "message": "2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature": {
-  "count": 3,
+  "count": 5,
   "first": "2026-10-09 02:28 UTC",
-  "last": "2026-10-09 03:30 UTC",
+  "last": "2026-10-09 03:39 UTC",
   "message": "2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 4,
   "first": "2026-10-09 02:28 UTC",
-  "last": "2026-10-09 02:59 UTC",
+  "last": "2026-10-09 03:39 UTC",
   "message": "2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
