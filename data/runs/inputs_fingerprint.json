@@ -69,7 +69,7 @@
 ],
 "2026_05_BAL_ATL": [
 "00-0039917",
-"00-0034796",
+"00-0035993",
 "2026-10-11 20:20"
 ],
 "2026_05_BUF_LA": [
@@ -79,6 +79,11 @@
 ]
 },
 "injuries": [
+[
+"ARI",
+"Andrew Wingard",
+"Out"
+],
 [
 "ARI",
 "Hunter Long",
@@ -97,6 +102,16 @@
 [
 "BAL",
 "Durham Smythe",
+"Out"
+],
+[
+"BAL",
+"Ja'Kobi Lane",
+"Out"
+],
+[
+"BAL",
+"Lamar Jackson",
 "Out"
 ],
 [
@@ -131,6 +146,11 @@
 ],
 [
 "CLE",
+"Carsen Ryan",
+"Out"
+],
+[
+"CLE",
 "Dillon Gabriel",
 "Out"
 ],
@@ -142,7 +162,22 @@
 [
 "CLE",
 "Mason Graham",
-"Doubtful"
+"Out"
+],
+[
+"CLE",
+"Mike Hall Jr.",
+"Out"
+],
+[
+"CLE",
+"Teven Jenkins",
+"Out"
+],
+[
+"CLE",
+"Tylan Wallace",
+"Out"
 ],
 [
 "DAL",
@@ -355,6 +390,36 @@
 "Out"
 ],
 [
+"NE",
+"Carlton Davis III",
+"Out"
+],
+[
+"NE",
+"Channing Canada",
+"Out"
+],
+[
+"NE",
+"Christian Gonzalez",
+"Out"
+],
+[
+"NE",
+"Karon Prunty",
+"Out"
+],
+[
+"NE",
+"Mack Hollins",
+"Out"
+],
+[
+"NE",
+"Reggie Gilliam",
+"Out"
+],
+[
 "NO",
 "Jaylan Ford",
 "Out"
@@ -539,12 +604,6 @@
 ],
 [
 "ARI",
-"Andrew Wingard",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
 "Budda Baker",
 "",
 "Full Participation in Practice"
@@ -701,12 +760,6 @@
 ],
 [
 "BAL",
-"Andrew Vorhees",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Calais Campbell",
 "",
 "Full Participation in Practice"
@@ -758,12 +811,6 @@
 "Lamar Jackson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"BAL",
-"Lamar Jackson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -1169,12 +1216,6 @@
 ],
 [
 "CLE",
-"Carsen Ryan",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Derek Barnett",
 "",
 "Limited Participation in Practice"
@@ -1235,33 +1276,15 @@
 ],
 [
 "CLE",
-"Mike Hall Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Teven Jenkins",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "CLE",
-"Teven Jenkins",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Tylan Wallace",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CLE",
-"Tylan Wallace",
-"Questionable (ESPN)",
-""
 ],
 [
 "DAL",
@@ -2501,21 +2524,9 @@
 ],
 [
 "NE",
-"Carlton Davis III",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Channing Canada",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Channing Canada",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2558,12 +2569,6 @@
 "Christian Gonzalez",
 "",
 "Did Not Participate In Practice"
-],
-[
-"NE",
-"Christian Gonzalez",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2603,21 +2608,9 @@
 ],
 [
 "NE",
-"Karon Prunty",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Mack Hollins",
 "",
 "Did Not Participate In Practice"
-],
-[
-"NE",
-"Mack Hollins",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2636,12 +2629,6 @@
 "Reggie Gilliam",
 "",
 "Did Not Participate In Practice"
-],
-[
-"NE",
-"Reggie Gilliam",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -3726,7 +3713,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 8.2,
+"wind": 6.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3750,5 +3737,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-09 17:31 UTC"
+"written_at": "2026-10-09 18:31 UTC"
 }
