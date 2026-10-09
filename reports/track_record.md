@@ -32,7 +32,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 2 | 1-1 (50%) | -0.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 2 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |
-| shadow: 3.5+ edge on dogs, 4+ on every other side | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
+| shadow: 3.5+ edge on dogs, 4+ on every other side | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
 | shadow: 4+ edge, weeks 1 to 15 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 0 | 0 | | | | 9-13 | 16-13 | 8-3 |
