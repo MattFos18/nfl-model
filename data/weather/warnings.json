@@ -497,9 +497,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-09 02:28 UTC",
-  "last": "2026-10-09 02:59 UTC",
+  "last": "2026-10-09 03:30 UTC",
   "message": "2026_05_SF_SEA: GFS MOS run 2026-10-08T12Z at KBFI gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
