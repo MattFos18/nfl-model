@@ -3260,7 +3260,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.4,
+"wind": 6.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3268,7 +3268,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 11.4,
+"wind": 12.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3276,7 +3276,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.4,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3284,30 +3284,6 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 7.2,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_CLE_NYJ": {
-"wind": 12.7,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_IND_PIT": {
-"wind": 5.8,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_HOU_TEN": {
 "wind": 6.9,
 "cold": false,
 "rain": false,
@@ -3315,8 +3291,32 @@
 "temp_src": "mos",
 "rain_src": "mos"
 },
+"2026_05_CLE_NYJ": {
+"wind": 12.8,
+"cold": false,
+"rain": true,
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
+},
+"2026_05_IND_PIT": {
+"wind": 11.8,
+"cold": false,
+"rain": true,
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
+},
+"2026_05_HOU_TEN": {
+"wind": 7.1,
+"cold": false,
+"rain": false,
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
+},
 "2026_05_NYG_WAS": {
-"wind": 11.9,
+"wind": 12.2,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -3324,7 +3324,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.4,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3332,5 +3332,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 03:09 UTC"
+"written_at": "2026-10-10 05:40 UTC"
 }
