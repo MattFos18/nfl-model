@@ -135,6 +135,11 @@
 "Out"
 ],
 [
+"BUF",
+"Joshua Palmer",
+"Out"
+],
+[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
@@ -347,11 +352,6 @@
 [
 "HOU",
 "Tank Dell",
-"Out"
-],
-[
-"IND",
-"Alec Pierce",
 "Out"
 ],
 [
@@ -1136,12 +1136,6 @@
 "Joe Andreessen",
 "",
 "Full Participation in Practice"
-],
-[
-"BUF",
-"Joshua Palmer",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -2506,6 +2500,12 @@
 ""
 ],
 [
+"PIT",
+"Yahya Black",
+"Questionable (ESPN)",
+""
+],
+[
 "SEA",
 "Beau Stephens",
 "",
@@ -2844,7 +2844,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.1,
+"wind": 6.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2860,7 +2860,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.2,
+"wind": 10.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2916,5 +2916,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 16:41 UTC"
+"written_at": "2026-10-10 18:28 UTC"
 }
