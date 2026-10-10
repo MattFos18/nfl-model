@@ -518,10 +518,17 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 14,
+  "count": 15,
   "first": "2026-10-08 23:28 UTC",
-  "last": "2026-10-10 06:12 UTC",
+  "last": "2026-10-10 10:03 UTC",
   "message": "2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_05_CLE_NYJ: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-10 10:04 UTC",
+  "last": "2026-10-10 10:04 UTC",
+  "message": "2026_05_CLE_NYJ: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_05_HOU_TEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
