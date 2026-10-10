@@ -165,6 +165,11 @@
 "Out"
 ],
 [
+"CHI",
+"Shemar Turner",
+"Out"
+],
+[
 "CIN",
 "Jalen Davis",
 "Out"
@@ -391,12 +396,12 @@
 ],
 [
 "LA",
-"Terrance Ferguson",
+"Myles Garrett",
 "Out"
 ],
 [
-"LAC",
-"Branson Taylor",
+"LA",
+"Terrance Ferguson",
 "Out"
 ],
 [
@@ -441,11 +446,6 @@
 ],
 [
 "LAC",
-"Scott Matlock",
-"Out"
-],
-[
-"LAC",
 "Trevor Penning",
 "Out"
 ],
@@ -453,6 +453,11 @@
 "LAC",
 "Trey Lance",
 "Doubtful"
+],
+[
+"LAC",
+"Trey Lance",
+"Out"
 ],
 [
 "LV",
@@ -477,11 +482,6 @@
 [
 "MIA",
 "Justin Joly",
-"Out"
-],
-[
-"MIA",
-"Kenneth Grant",
 "Out"
 ],
 [
@@ -637,11 +637,6 @@
 [
 "NYJ",
 "Kiko Mauigoa",
-"Out"
-],
-[
-"NYJ",
-"Tim Patrick",
 "Out"
 ],
 [
@@ -802,11 +797,6 @@
 [
 "WAS",
 "Charles Omenihu",
-"Out"
-],
-[
-"WAS",
-"Deatrich Wise Jr.",
 "Out"
 ],
 [
@@ -1855,6 +1845,12 @@
 ],
 [
 "LAC",
+"Branson Taylor",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Cam Hart",
 "",
 "Full Participation in Practice"
@@ -1924,6 +1920,12 @@
 "Scott Matlock",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"LAC",
+"Scott Matlock",
+"Questionable (ESPN)",
+""
 ],
 [
 "LV",
@@ -2032,6 +2034,12 @@
 "Kenneth Grant",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"MIA",
+"Kenneth Grant",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
@@ -2906,5 +2914,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 20:09 UTC"
+"written_at": "2026-10-10 21:00 UTC"
 }
