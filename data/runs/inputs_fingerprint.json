@@ -136,6 +136,11 @@
 ],
 [
 "BUF",
+"Ed Oliver",
+"Out"
+],
+[
+"BUF",
 "Joshua Palmer",
 "Out"
 ],
@@ -332,6 +337,11 @@
 [
 "HOU",
 "Braden Smith",
+"Out"
+],
+[
+"HOU",
+"Bryce Oliver",
 "Out"
 ],
 [
@@ -1127,12 +1137,6 @@
 ],
 [
 "BUF",
-"Ed Oliver",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Joe Andreessen",
 "",
 "Full Participation in Practice"
@@ -1148,6 +1152,12 @@
 "Landon Jackson",
 "",
 "Limited Participation in Practice"
+],
+[
+"BUF",
+"Landon Jackson",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -2916,5 +2926,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 18:28 UTC"
+"written_at": "2026-10-10 19:06 UTC"
 }

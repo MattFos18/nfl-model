@@ -1,4 +1,4 @@
-# Tie-out (sources and page), 2026-10-10 18:30 UTC
+# Tie-out (sources and page), 2026-10-10 19:09 UTC
 
 The same number must read the same everywhere it appears. Each row: what was compared, what it says, what it should say.
 
@@ -125,12 +125,12 @@ The same number must read the same everywhere it appears. Each row: what was com
 | 2025 All-Pros (not linemen) rank in the top half of their group | all in the top half | all in the top half | yes |
 | player tables built after the tables they read (none stale) | in order | in order | yes |
 | snap counts matched to a player by id (PFR id, else a name unique on that team's roster), worst position group | 99.1% (2026 DL) | 99% or more | yes |
-| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-10T18:14Z', 'oddsapi': '2026-10-10T12:03Z', 'props': '2026-10- | {'espn': '2026-10-10T18:14Z', 'oddsapi': '2026-10-10T12:03Z', 'props': '2026-10- | yes |
+| This week's pull times = the newest rows in the line and prop logs | {'espn': '2026-10-10T18:49Z', 'oddsapi': '2026-10-10T12:03Z', 'props': '2026-10- | {'espn': '2026-10-10T18:49Z', 'oddsapi': '2026-10-10T12:03Z', 'props': '2026-10- | yes |
 | season simulation's equation on the as-of profiles rebuilds the equation's expected points for the week being priced (the blend's pull excluded) (30 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | calibration: calibrated home win chance (p_home_cal, the cards' figure) by decile = the home win rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated cover chance by band of the edge = the cover rate of the model's side (2019 on, the calibration window, and pooled; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
 | calibration: calibrated over chance (p_over_cal, the cards' figure) by decile = the over rate (regular season, per window and pooled, each season with the fit in force for it; buckets of 150+ games within 2.5 SE) | all within | all within | yes |
-| every step of the newest weekly run finished (2026-10-10 18:08 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
+| every step of the newest weekly run finished (2026-10-10 18:43 UTC, 40 steps so far) | tie check (sources): RuntimeError: numbers disagree: see reports/tie_check.md | all ok | NO |
 | the model's numbers for past seasons reproduce the previous commit's | skipped: the code that builds the data changed since the last build | skipped: the code that builds the data changed since the last build | yes |
 | the trees' numbers in pred_v3 = their stored fits (trees_cache.parquet; worst gap, team-games without one) | 0.00e+00; 0 | 1e-9 or under; 0 | yes |
 | backtests the pages quote were re-run on the current model, predictions and code (inputs changed since) | all current | all current | yes |
@@ -153,8 +153,8 @@ The same number must read the same everywhere it appears. Each row: what was com
 | report injury lines add up to the model's injury inputs (every unplayed game, within 0.05) | [] | [] | yes |
 | card breakdowns rebuild the expected points from the page's files (30 sides, worst gap in points) | 0.0 | 0.01 or under | yes |
 | game-log model inputs rebuild the expected points from the team files (120 sides, worst gap in points) | 0.001 | 0.01 or under | yes |
-| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-10T18-14-55Z | 2026-10-10T18-14-55Z | yes |
-| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-10T18-14-55Z | 2026-10-10T18-14-55Z | yes |
+| cards' newest line snapshot = the line log's newest snapshot for the cards' games | 2026-10-10T18-49-35Z | 2026-10-10T18-49-35Z | yes |
+| cards' Vegas win chance uses the line log's newest moneyline snapshot | 2026-10-10T18-49-35Z | 2026-10-10T18-49-35Z | yes |
 | card calibration on the page reproduces the run's calibrated cover odds at the run's line (worst gap) | 0.00044 | 0.0006 or under | yes |
 | card calibrated over chance = week.js cal.over on the card's raw over chance (worst gap) | 0.0002 | 0.0006 or under | yes |
 | card calibrated win chance = week.js cal.home on the card's raw win chance (worst gap) | 0.0 | 0.0006 or under | yes |
@@ -230,7 +230,7 @@ The same number must read the same everywhere it appears. Each row: what was com
 | props record summary on the page = props.market_summary(props_vs_market.csv) | [{'stat': 'anytime_td', 'edge': 'all', 'n': 561, 'wins': 309, 'losses': 252, 'pu | [{'stat': 'anytime_td', 'edge': 'all', 'n': 561, 'wins': 309, 'losses': 252, 'pu | yes |
 | page rankings: QB replacement level | -0.12 | -0.12 | yes |
 | season odds are for the week being priced | 2026 5 | 2026 5 | yes |
-| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1465, 0.1325, 0.1118, 0.1077, 0.1003, 0.0656, 0.0612, 0.0587, 0.029, 0.0 | [32, [0.1465, 0.1325, 0.1118, 0.1077, 0.1003, 0.0656, 0.0612, 0.0587, 0.029, 0.0 | yes |
+| season odds on the page = reports/season_odds.csv (teams; Super Bowl, division and playoff odds) | [32, [0.1466, 0.1326, 0.1115, 0.1077, 0.1001, 0.0656, 0.0613, 0.0588, 0.0291, 0. | [32, [0.1466, 0.1326, 0.1115, 0.1077, 0.1001, 0.0656, 0.0613, 0.0588, 0.0291, 0. | yes |
 | season odds add up (one champion, two conference champions, eight division winners, the playoff field, the byes) | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | {'champion': 1.0, 'conference': 2.0, 'division': 8.0, 'playoffs': 14.0, 'byes':  | yes |
 | expected wins across the league = regular-season games (every game gives one win, a tie half each) | 272.0 | 272.0 | yes |
 | season wins on the page = record + the chance in each game left (worst team, wins) | 0.052 | 0.1 or under | yes |
