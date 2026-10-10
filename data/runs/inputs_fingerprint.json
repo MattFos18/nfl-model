@@ -2834,7 +2834,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.6,
+"wind": 5.4,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2842,7 +2842,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 12.2,
+"wind": 11.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2850,7 +2850,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.3,
+"wind": 10.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2858,7 +2858,7 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 6.9,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2866,7 +2866,7 @@
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 12.8,
+"wind": 9.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2874,7 +2874,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 9.2,
+"wind": 9.9,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2882,7 +2882,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 7.1,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2890,7 +2890,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 12.2,
+"wind": 13.0,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2898,7 +2898,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 9.2,
+"wind": 8.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2906,5 +2906,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 08:48 UTC"
+"written_at": "2026-10-10 11:21 UTC"
 }
