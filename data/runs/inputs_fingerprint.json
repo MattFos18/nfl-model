@@ -1129,6 +1129,12 @@
 ],
 [
 "BUF",
+"Joshua Palmer",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Keon Coleman",
 "",
 "Full Participation in Practice"
@@ -1138,12 +1144,6 @@
 "Landon Jackson",
 "",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Landon Jackson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -2257,6 +2257,12 @@
 ],
 [
 "NO",
+"Christen Miller",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Davon Godchaux",
 "",
 "Full Participation in Practice"
@@ -2866,7 +2872,7 @@
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 9.4,
+"wind": 12.7,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2906,5 +2912,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 11:21 UTC"
+"written_at": "2026-10-10 13:29 UTC"
 }

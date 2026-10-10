@@ -15,19 +15,19 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the underdog or pick'em | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
 | shadow: boosted trees alone, 5+ edge | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
-| shadow: Under, 55%+ chance (the totals flag) | 8 | 5 | 3-2 (60%) | +0.77 | +0.12 | 142-117 | 183-134 | 86-61 |
-| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 5 | 2 | 1-1 (50%) | -0.05 | +0.00 | 135-96 | 167-123 | 80-57 |
+| shadow: Under, 55%+ chance (the totals flag) | 9 | 5 | 3-2 (60%) | +0.77 | +0.11 | 142-117 | 183-134 | 86-61 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 6 | 2 | 1-1 (50%) | -0.05 | +0.00 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
 | shadow: Under, 60%+ chance | 3 | 1 | 0-1 (0%) | -1.00 | +0.00 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 32-26 | 42-18 | 19-13 |
-| shadow: Under, forecast wind 10+ mph (outdoor games) | 5 | 2 | 0-2 (0%) | -2.00 | +0.00 | 119-97 | 143-88 | 77-52 |
+| shadow: Under, forecast wind 10+ mph (outdoor games) | 6 | 2 | 0-2 (0%) | -2.00 | +0.00 | 119-97 | 143-88 | 77-52 |
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 7 | 4 | 4-0 (100%) | +1.32 | +0.00 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 6 | 3 | 2-1 (67%) | +0.82 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 63-46 | 96-71 | 27-18 |
-| shadow: Under, 55%+ chance and forecast wind 10+ mph | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 57-40 | 82-48 | 43-22 |
+| shadow: Under, 55%+ chance and forecast wind 10+ mph | 3 | 1 | 0-1 (0%) | -1.00 | +0.00 | 57-40 | 82-48 | 43-22 |
 | shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 5 | 4 | 0-4 (0%) | -4.00 | +0.20 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 2 | 1-1 (50%) | -0.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
