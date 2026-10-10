@@ -2834,7 +2834,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 6.0,
+"wind": 5.6,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2850,7 +2850,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.1,
+"wind": 10.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2906,5 +2906,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 06:22 UTC"
+"written_at": "2026-10-10 08:48 UTC"
 }
