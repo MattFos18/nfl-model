@@ -336,22 +336,7 @@
 ],
 [
 "HOU",
-"Bryce Oliver",
-"Out"
-],
-[
-"HOU",
 "Jaylin Smith",
-"Out"
-],
-[
-"HOU",
-"Kayden McDonald",
-"Out"
-],
-[
-"HOU",
-"M.J. Stewart",
 "Out"
 ],
 [
@@ -1084,12 +1069,6 @@
 ],
 [
 "BUF",
-"Christian Benford",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "DJ Moore",
 "",
 "Did Not Participate In Practice"
@@ -1237,12 +1216,6 @@
 "Noah Sewell",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"CHI",
-"Noah Sewell",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -1618,6 +1591,12 @@
 ],
 [
 "HOU",
+"Kayden McDonald",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
 "Logan Hall",
 "",
 "Full Participation in Practice"
@@ -1627,6 +1606,12 @@
 "M.J. Stewart",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"HOU",
+"M.J. Stewart",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -2511,12 +2496,6 @@
 ""
 ],
 [
-"PIT",
-"Yahya Black",
-"Questionable (ESPN)",
-""
-],
-[
 "SEA",
 "Beau Stephens",
 "",
@@ -2855,7 +2834,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 6.0,
+"wind": 5.6,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2927,5 +2906,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 19:29 UTC"
+"written_at": "2026-10-10 20:09 UTC"
 }
