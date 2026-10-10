@@ -386,11 +386,6 @@
 ],
 [
 "JAX",
-"Christian Braswell",
-"Out"
-],
-[
-"JAX",
 "Eric Murray",
 "Doubtful"
 ],
@@ -482,6 +477,11 @@
 [
 "MIA",
 "Caleb Douglas",
+"Out"
+],
+[
+"MIA",
+"De'Von Achane",
 "Out"
 ],
 [
@@ -2838,7 +2838,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.6,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2846,7 +2846,7 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 6.7,
+"wind": 6.5,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2854,7 +2854,7 @@
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 12.6,
+"wind": 12.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2862,7 +2862,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 9.1,
+"wind": 8.8,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2878,7 +2878,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 13.8,
+"wind": 13.7,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2886,7 +2886,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 9.1,
+"wind": 8.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2894,5 +2894,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 21:35 UTC"
+"written_at": "2026-10-10 22:10 UTC"
 }
