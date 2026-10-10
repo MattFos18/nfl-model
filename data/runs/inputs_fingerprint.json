@@ -96,6 +96,11 @@
 ],
 [
 "ARI",
+"Marvin Harrison Jr.",
+"Out"
+],
+[
+"ARI",
 "Paris Johnson Jr.",
 "Out"
 ],
@@ -357,6 +362,11 @@
 [
 "IND",
 "Ashton Dulin",
+"Out"
+],
+[
+"IND",
+"Darius Slayton",
 "Out"
 ],
 [
@@ -1669,12 +1679,6 @@
 ],
 [
 "IND",
-"Darius Slayton",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "DeForest Buckner",
 "",
 "Did Not Participate In Practice"
@@ -2848,7 +2852,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 11.4,
+"wind": 12.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2864,15 +2868,15 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 6.8,
+"wind": 6.7,
 "cold": false,
-"rain": false,
+"rain": true,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 12.7,
+"wind": 12.6,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2880,7 +2884,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 9.9,
+"wind": 9.1,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2888,7 +2892,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 6.8,
+"wind": 6.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2896,7 +2900,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 13.0,
+"wind": 13.8,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2904,7 +2908,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.8,
+"wind": 9.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2912,5 +2916,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 15:40 UTC"
+"written_at": "2026-10-10 16:41 UTC"
 }
