@@ -655,11 +655,6 @@
 "Out"
 ],
 [
-"PHI",
-"Uar Bernard",
-"Out"
-],
-[
 "PIT",
 "DeShon Elliott",
 "Out"
@@ -3305,7 +3300,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 10.4,
+"wind": 5.8,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -3337,5 +3332,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 02:39 UTC"
+"written_at": "2026-10-10 03:09 UTC"
 }
