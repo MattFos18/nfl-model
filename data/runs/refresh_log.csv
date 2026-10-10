@@ -624,3 +624,4 @@ checked,reprice,changes,errors
 2026-10-10 10:35 UTC,False,2026_05_CHI_GB: wind 12 to 9 mph,
 2026-10-10 11:05 UTC,True,2026_05_CHI_GB: wind 12 to 9 mph,
 2026-10-10 11:35 UTC,False,2026_05_CHI_GB: wind 11 to 9 mph | 2026_05_CLE_NYJ: wind 9 to 13 mph,
+2026-10-10 12:05 UTC,False,2026_05_CHI_GB: wind 11 to 9 mph | 2026_05_CLE_NYJ: wind 9 to 13 mph,
