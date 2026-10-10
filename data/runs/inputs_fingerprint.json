@@ -110,6 +110,11 @@
 "Out"
 ],
 [
+"ATL",
+"Za'Darius Smith",
+"Out"
+],
+[
 "BAL",
 "Cam Jurgens",
 "Out"
@@ -506,11 +511,6 @@
 ],
 [
 "MIN",
-"Ben Yurosek",
-"Out"
-],
-[
-"MIN",
 "Charles Demmings",
 "Out"
 ],
@@ -527,11 +527,6 @@
 [
 "MIN",
 "Josh Oliver",
-"Out"
-],
-[
-"MIN",
-"Michael Jurgens",
 "Out"
 ],
 [
@@ -576,22 +571,12 @@
 ],
 [
 "NO",
-"Jaylan Ford",
-"Out"
-],
-[
-"NO",
 "Jeremiah Wright",
 "Out"
 ],
 [
 "NO",
 "Kaden Elliss",
-"Out"
-],
-[
-"NO",
-"Lorenzo Styles Jr.",
 "Out"
 ],
 [
@@ -737,11 +722,6 @@
 [
 "SF",
 "Marques Sigle",
-"Out"
-],
-[
-"SF",
-"Mykel Williams",
 "Out"
 ],
 [
@@ -954,12 +934,6 @@
 "Za'Darius Smith",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"ATL",
-"Za'Darius Smith",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -1773,33 +1747,15 @@
 ],
 [
 "LA",
-"Grant Stuard",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Jaylen Watson",
 "",
 "Limited Participation in Practice"
 ],
 [
 "LA",
-"Jaylen Watson",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Josaiah Stewart",
 "",
 "Did Not Participate In Practice"
-],
-[
-"LA",
-"Josaiah Stewart",
-"Questionable (ESPN)",
-""
 ],
 [
 "LA",
@@ -1812,12 +1768,6 @@
 "Nate Landman",
 "",
 "Did Not Participate In Practice"
-],
-[
-"LA",
-"Nate Landman",
-"Questionable (ESPN)",
-""
 ],
 [
 "LA",
@@ -2067,6 +2017,12 @@
 ],
 [
 "MIN",
+"Ben Yurosek",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
 "Brett Thorson",
 "",
 "Full Participation in Practice"
@@ -2118,6 +2074,12 @@
 "Michael Jurgens",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"MIN",
+"Michael Jurgens",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -2283,6 +2245,12 @@
 ],
 [
 "NO",
+"Jaylan Ford",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Julian Blackmon",
 "Questionable",
 "Limited Participation in Practice"
@@ -2301,9 +2269,21 @@
 ],
 [
 "NO",
+"Lorenzo Styles Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Michael Reid",
 "",
 "Full Participation in Practice"
+],
+[
+"NO",
+"Nathan Shepherd",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2914,5 +2894,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 21:00 UTC"
+"written_at": "2026-10-10 21:35 UTC"
 }
