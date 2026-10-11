@@ -2849,7 +2849,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 12.6,
+"wind": 13.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2865,15 +2865,15 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 5.4,
+"wind": 5.5,
 "cold": false,
-"rain": false,
+"rain": true,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_05_CLE_NYJ": {
-"wind": 13.2,
+"wind": 13.5,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2881,7 +2881,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 9.4,
+"wind": 8.8,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2889,7 +2889,7 @@
 "rain_src": "mos"
 },
 "2026_05_HOU_TEN": {
-"wind": 6.8,
+"wind": 6.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2897,7 +2897,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 9.3,
+"wind": 9.2,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2905,7 +2905,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.8,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2913,5 +2913,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 08:56 UTC"
+"written_at": "2026-10-11 10:50 UTC"
 }
