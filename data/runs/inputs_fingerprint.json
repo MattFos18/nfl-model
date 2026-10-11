@@ -146,6 +146,11 @@
 ],
 [
 "BUF",
+"Josh Palmer",
+"Out"
+],
+[
+"BUF",
 "Joshua Palmer",
 "Out"
 ],
@@ -1019,13 +1024,13 @@
 "BUF",
 "Christian Benford",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "BUF",
 "DJ Moore",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Limited Participation in Practice"
 ],
 [
 "BUF",
@@ -1042,8 +1047,8 @@
 [
 "BUF",
 "Dee Alford",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Limited Participation in Practice"
 ],
 [
 "BUF",
@@ -1056,12 +1061,6 @@
 "Dorian Williams",
 "",
 "Full Participation in Practice"
-],
-[
-"BUF",
-"Ed Oliver",
-"",
-"Did Not Participate In Practice"
 ],
 [
 "BUF",
@@ -1078,8 +1077,8 @@
 [
 "BUF",
 "Landon Jackson",
-"",
-"Limited Participation in Practice"
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "BUF",
@@ -1109,7 +1108,7 @@
 "BUF",
 "Terrel Bernard",
 "",
-"Full Participation in Practice"
+"Did Not Participate In Practice"
 ],
 [
 "CHI",
@@ -1721,37 +1720,49 @@
 "LA",
 "Aaron Donald",
 "",
-"Limited Participation in Practice"
+"Did Not Participate In Practice"
+],
+[
+"LA",
+"Alaric Jackson",
+"",
+"Did Not Participate In Practice"
+],
+[
+"LA",
+"Byron Young",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "LA",
 "Colby Parkinson",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "LA",
 "Davante Adams",
 "",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "LA",
 "Grant Stuard",
 "",
-"Did Not Participate In Practice"
+"Limited Participation in Practice"
 ],
 [
 "LA",
 "Jaylen Watson",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
 ],
 [
 "LA",
 "Josaiah Stewart",
 "",
-"Did Not Participate In Practice"
+"Limited Participation in Practice"
 ],
 [
 "LA",
@@ -1763,19 +1774,25 @@
 "LA",
 "Nate Landman",
 "",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "LA",
 "Quentin Lake",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Limited Participation in Practice"
 ],
 [
 "LA",
 "Quentin Lake",
 "Questionable (ESPN)",
 ""
+],
+[
+"LA",
+"Tyler Higbee",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "LAC",
@@ -2391,6 +2408,12 @@
 ],
 [
 "PHI",
+"Chance Campbell",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Dallas Goedert",
 "",
 "Full Participation in Practice"
@@ -2818,7 +2841,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 4.0,
+"wind": 4.7,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2826,7 +2849,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 9.9,
+"wind": 12.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2890,5 +2913,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 04:27 UTC"
+"written_at": "2026-10-11 06:27 UTC"
 }
