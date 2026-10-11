@@ -1,6 +1,6 @@
 # Week 5, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-11 21:30 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-11 21:43 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -195,11 +195,11 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_td           |   0.282 |          9.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_targets      |   9.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_longest      |  20.6   |          9.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_yards        |  33.2   |          5.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_catches      |   3.2   |          5.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.177 |          5.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_targets      |   5.6   |          5.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_longest      |  14.6   |          5.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_yards        |  33.2   |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_catches      |   3.1   |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.176 |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_targets      |   5.5   |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_longest      |  14.6   |          5.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_yards        |  28.1   |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_catches      |   3.4   |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_td           |   0.322 |          5.4  | live   |
@@ -207,17 +207,17 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_longest      |  15.2   |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_yards        |  24.2   |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_catches      |   3.2   |          5.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.206 |          5.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.204 |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_targets      |   5.2   |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_longest      |  13.7   |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_yards        |  21.6   |          4.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_catches      |   2.8   |          4.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.189 |          4.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_catches      |   2.7   |          4.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.172 |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_targets      |   4.5   |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_longest      |  11.2   |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_yards        |  15.1   |          3    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_catches      |   1.8   |          3    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.126 |          3    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_catches      |   1.7   |          3    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.122 |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_targets      |   3     |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_longest      |  12.2   |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_yards        |   9.5   |          2.9  | live   |
@@ -240,10 +240,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_attempts    |   5     |          5    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_rec_yards   |  17.8   |          5    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_longest     |   8.9   |          5    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_yards       |  12.7   |          3.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_yards       |  12.8   |          3.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_td          |   0.086 |          3.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_attempts    |   3.4   |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_rec_yards   |  19.9   |          3.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_rec_yards   |  20     |          3.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_longest     |   7.1   |          3.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_yards       |   4.7   |          1.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_td          |   0.061 |          1.6  | live   |
@@ -285,27 +285,27 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033787  | Jake Elliott             | field_goals      |   1.51  |         18.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_yards        |  63.4   |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_catches      |   4.6   |          8.3  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.545 |          8.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.543 |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_targets      |   8.3   |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_longest      |  19.8   |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_yards        |  41.6   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_catches      |   4     |          6.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_td           |   0.385 |          6.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_td           |   0.383 |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_targets      |   6.2   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_longest      |  15.5   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_yards        |  38.4   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_catches      |   3.8   |          6.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_td           |   0.353 |          6.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_td           |   0.351 |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_targets      |   6.1   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_longest      |  16.5   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_yards        |  28.9   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_catches      |   2.6   |          4.8  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_td           |   0.269 |          4.8  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_td           |   0.268 |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_targets      |   4.8   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_longest      |  15.9   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_yards        |  14.5   |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_catches      |   2     |          3.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_td           |   0.163 |          3.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_td           |   0.16  |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_longest      |  16     |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_yards        |  10.1   |          2.1  | live   |
@@ -383,7 +383,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rec_longest      |  17.3   |          8    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_yards        |  47.4   |          7.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_catches      |   4.5   |          7.3  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_td           |   0.363 |          7.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_td           |   0.364 |          7.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_targets      |   7.3   |          7.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040126  | Colston Loveland         | rec_longest      |  16.4   |          7.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0039919  | Rome Odunze              | rec_yards        |  45.3   |          6.8  | live   |
@@ -393,14 +393,14 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0039919  | Rome Odunze              | rec_longest      |  19.3   |          6.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_yards        |  40.6   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_catches      |   4.3   |          5.7  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.226 |          5.7  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_td           |   0.229 |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_targets      |   5.7   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0032464  | Kalif Raymond            | rec_longest      |  14.6   |          5.7  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_yards        |  14.3   |          3.4  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_catches      |   2.5   |          3.4  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_td           |   0.082 |          3.4  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_targets      |   3.4   |          3.4  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_longest      |  11.6   |          3.4  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_yards        |  14.3   |          3.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_catches      |   2.4   |          3.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_td           |   0.082 |          3.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_targets      |   3.3   |          3.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rec_longest      |  11.6   |          3.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036290  | Cole Kmet                | rec_yards        |  11.5   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036290  | Cole Kmet                | rec_catches      |   1.6   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036290  | Cole Kmet                | rec_td           |   0.133 |          2.5  | live   |
@@ -408,13 +408,13 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036290  | Cole Kmet                | rec_longest      |  10.5   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_yards        |   5     |          1.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_catches      |   0.8   |          1.3  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_td           |   0.042 |          1.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_td           |   0.043 |          1.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_targets      |   1.3   |          1.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040277  | Jahdae Walker            | rec_longest      |  12.2   |          1.3  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_yards       |  72.2   |         16.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_yards       |  72.5   |         16.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_td          |   0.599 |         16.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_attempts    |  16.3   |         16.3  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_rec_yards   |  86.5   |         16.3  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_rec_yards   |  86.8   |         16.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0036275  | D'Andre Swift            | rush_longest     |  13.8   |         16.3  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rush_yards       |   2.6   |          0.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rush_td          |   0.017 |          0.6  | live   |
@@ -456,22 +456,22 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0031203  | Cairo Santos             | field_goals      |   1.68  |         21.01 | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_yards        |  53.7   |          7    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_catches      |   3.9   |          7    | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_td           |   0.33  |          7    | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_td           |   0.327 |          7    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_targets      |   7     |          7    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040667  | Matthew Golden           | rec_longest      |  16.7   |          7    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_yards        |  55.6   |          6.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_catches      |   3.9   |          6.8  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_td           |   0.479 |          6.8  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_td           |   0.477 |          6.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038124  | Christian Watson         | rec_longest      |  21.7   |          6.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_yards        |  40.8   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_catches      |   3.5   |          5.7  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_td           |   0.382 |          5.7  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_td           |   0.38  |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_targets      |   5.7   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038996  | Tucker Kraft             | rec_longest      |  17.5   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_yards        |  12.9   |          2.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_catches      |   1.7   |          2.7  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_td           |   0.102 |          2.7  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_td           |   0.092 |          2.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rec_longest      |   9.7   |          2.7  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0038090  | Skyy Moore               | rec_yards        |  13.9   |          2.6  | live   |
@@ -486,7 +486,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0033858  | Jonnu Smith              | rec_longest      |  10.6   |          1.8  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_yards        |   6.2   |          1.2  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_catches      |   0.6   |          1.2  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_td           |   0.064 |          1.2  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_td           |   0.063 |          1.2  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_targets      |   1.2   |          1.2  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0037091  | Bo Melton                | rec_longest      |   9.2   |          1.2  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rush_yards       |  34.6   |         10.1  | live   |
@@ -494,10 +494,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rush_attempts    |  10.1   |         10.1  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rush_rec_yards   |  47.5   |         10.1  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0039811  | MarShawn Lloyd           | rush_longest     |   8.1   |         10.1  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_yards       |  36.2   |          8.6  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_yards       |  36.3   |          8.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_td          |   0.249 |          8.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_attempts    |   8.6   |          8.6  | live   |
-|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_rec_yards   |  36.2   |          8.6  | live   |
+|     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_rec_yards   |  36.3   |          8.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040142  | Kaleb Johnson            | rush_longest     |   7.6   |          8.6  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | rush_yards       |   9.5   |          2.4  | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0036264  | Jordan Love              | rush_td          |   0.089 |          2.4  | live   |
@@ -544,22 +544,22 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CHI_GB  | GB     | 00-0040899  | Trey Smack               | field_goals      |   1.6   |         21.94 | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_yards        |  64.5   |          9.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_catches      |   5.7   |          9.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_td           |   0.566 |          9.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_td           |   0.563 |          9.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_targets      |   9.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036410  | Tee Higgins              | rec_longest      |  21.1   |          9.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_yards        |  48.6   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_catches      |   5.5   |          8.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_td           |   0.414 |          8.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_td           |   0.413 |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_targets      |   8.8   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036900  | Ja'Marr Chase            | rec_longest      |  21.4   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_yards        |  28.4   |          6.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_catches      |   4.5   |          6.2  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_td           |   0.237 |          6.2  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_td           |   0.236 |          6.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_targets      |   6.2   |          6.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rec_longest      |  11.6   |          6.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_yards        |  25.1   |          4.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_catches      |   2.8   |          4.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_td           |   0.23  |          4.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_catches      |   2.9   |          4.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_td           |   0.211 |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_targets      |   4.6   |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0040785  | Dohnte Meyers            | rec_longest      |  14.6   |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034829  | Mike Gesicki             | rec_yards        |  21.6   |          3.9  | live   |
@@ -579,18 +579,18 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rec_longest      |   8.8   |          2    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_yards        |   7.7   |          1.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_catches      |   1.1   |          1.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_td           |   0.091 |          1.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_td           |   0.09  |          1.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_targets      |   1.6   |          1.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0034613  | Tanner Hudson            | rec_longest      |   9.8   |          1.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_yards       |  67.7   |         16.5  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_yards       |  67.8   |         16.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_td          |   0.488 |         16.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_attempts    |  16.5   |         16.5  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_rec_yards   |  96.1   |         16.5  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_rec_yards   |  96.2   |         16.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0038597  | Chase Brown              | rush_longest     |  12.8   |         16.5  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_yards       |  17     |          4.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_yards       |  17.1   |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_td          |   0.151 |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_attempts    |   4.6   |          4.6  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_rec_yards   |  25.4   |          4.6  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_rec_yards   |  25.5   |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0033526  | Samaje Perine            | rush_longest     |   8.5   |          4.6  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036442  | Joe Burrow               | rush_yards       |   9.7   |          3    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036442  | Joe Burrow               | rush_td          |   0.13  |          3    | live   |
@@ -637,27 +637,27 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | CIN    | 00-0036854  | Evan McPherson           | field_goals      |   1.73  |         25.86 | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_yards        |  49     |          7.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_catches      |   4.9   |          7.5  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_td           |   0.306 |          7.5  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_td           |   0.307 |          7.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_targets      |   7.5   |          7.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rec_longest      |  14     |          7.5  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_yards        |  25.1   |          4.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_catches      |   2.3   |          4.4  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_td           |   0.187 |          4.4  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_td           |   0.189 |          4.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_targets      |   4.4   |          4.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041525  | Chris Bell               | rec_longest      |  13     |          4.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_yards        |  27.1   |          3.9  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_catches      |   2.7   |          3.9  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_td           |   0.186 |          3.9  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_td           |   0.187 |          3.9  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037252  | Greg Dulcich             | rec_longest      |  16.1   |          3.9  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_yards        |  18.3   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_catches      |   2     |          3.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_td           |   0.148 |          3.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_targets      |   3.8   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_longest      |   6.6   |          3.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_yards        |  18.3   |          3.7  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_catches      |   1.9   |          3.7  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_td           |   0.154 |          3.7  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_targets      |   3.7   |          3.7  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041529  | Kevin Coleman Jr.        | rec_longest      |   6.6   |          3.7  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_yards        |   8     |          1.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_catches      |   1     |          1.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_td           |   0.055 |          1.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_td           |   0.056 |          1.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_targets      |   1.8   |          1.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0037666  | Jalen Tolbert            | rec_longest      |  10.2   |          1.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rec_yards        |   8.7   |          1.6  | live   |
@@ -675,20 +675,20 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rec_td           |   0.015 |          1    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rec_targets      |   1     |          1    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rec_longest      |   9.4   |          1    | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_yards       |  36.4   |          8.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_yards       |  36.5   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_td          |   0.269 |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_attempts    |   8.8   |          8.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_rec_yards   |  45.1   |          8.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_rec_yards   |  45.2   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0040198  | Ollie Gordon II          | rush_longest     |   8.9   |          8.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rush_yards       |  16.7   |          5.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rush_td          |   0.128 |          5.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rush_attempts    |   5.2   |          5.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rush_rec_yards   |  20.8   |          5.2  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039874  | Jaylen Wright            | rush_longest     |   8.8   |          5.2  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_yards       |  27.6   |          5    | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_td          |   0.217 |          5    | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_yards       |  27.7   |          5    | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_td          |   0.218 |          5    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_attempts    |   5     |          5    | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_rec_yards   |  27.6   |          5    | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_rec_yards   |  27.7   |          5    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | rush_longest     |   9.4   |          5    | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rush_yards       |   6.4   |          1.3  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0039880  | Malik Washington         | rush_td          |   0.033 |          1.3  | live   |
@@ -700,7 +700,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_int         |   0.655 |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_attempts    |  28.9   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_completions |  18.4   |         31.8  | live   |
-|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_rush_yards  | 243.1   |         31.8  | live   |
+|     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_rush_yards  | 243.2   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0038128  | Malik Willis             | pass_longest     |  29.2   |         31.8  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041522  | Jacob Rodriguez          | def_tackles      |  11.2   |         65.4  | live   |
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0041522  | Jacob Rodriguez          | def_sacks        |   0.08  |         65.4  | live   |
@@ -730,22 +730,22 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CIN_MIA | MIA    | 00-0036816  | Riley Patterson          | field_goals      |   1.57  |         18.87 | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_yards        |  58.2   |          9.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_catches      |   6     |          9.2  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_td           |   0.531 |          9.2  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_td           |   0.527 |          9.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_targets      |   9.2   |          9.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039338  | Brock Bowers             | rec_longest      |  17.9   |          9.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_yards        |  32.5   |          5.9  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_catches      |   3.3   |          5.9  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_td           |   0.216 |          5.9  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_td           |   0.214 |          5.9  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_targets      |   5.9   |          5.9  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0038563  | Tre Tucker               | rec_longest      |  16.3   |          5.9  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_yards        |  32     |          5.6  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_catches      |   3.6   |          5.6  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_td           |   0.242 |          5.6  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_catches      |   3.7   |          5.6  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_td           |   0.241 |          5.6  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_targets      |   5.6   |          5.6  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0039066  | Michael Mayer            | rec_longest      |  13.3   |          5.6  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_yards        |  24     |          5.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_catches      |   3.8   |          5.7  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_td           |   0.179 |          5.7  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_td           |   0.177 |          5.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_targets      |   5.7   |          5.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0040122  | Ashton Jeanty            | rec_longest      |  13.8   |          5.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0035891  | Cody White               | rec_yards        |  12.4   |          2.3  | live   |
@@ -813,12 +813,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_LV_NE   | LV     | 00-0035269  | Matt Gay                 | field_goals      |   1.67  |         18.6  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_yards        |  50.1   |          7.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_catches      |   4.2   |          7.1  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_td           |   0.355 |          7.1  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_td           |   0.356 |          7.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_targets      |   7.1   |          7.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0037816  | Romeo Doubs              | rec_longest      |  18.3   |          7.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_yards        |  31.1   |          4.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_catches      |   2.9   |          4.7  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_td           |   0.29  |          4.7  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_td           |   0.291 |          4.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_targets      |   4.7   |          4.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0033090  | Hunter Henry             | rec_longest      |  15.1   |          4.7  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0038621  | DeMario Douglas          | rec_yards        |  33     |          4.8  | live   |
@@ -838,7 +838,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040131  | Kyle Williams            | rec_longest      |  11.4   |          2.5  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_yards        |  13.4   |          2.5  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_catches      |   1.6   |          2.5  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_td           |   0.145 |          2.5  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_td           |   0.136 |          2.5  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_targets      |   2.5   |          2.5  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040563  | Efton Chism III          | rec_longest      |  12.8   |          2.5  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rec_yards        |   8     |          1.8  | live   |
@@ -846,20 +846,20 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rec_td           |   0.052 |          1.8  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rec_targets      |   1.8   |          1.8  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rec_longest      |   9.6   |          1.8  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_yards       |  43.6   |         12.2  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_yards       |  43.8   |         12.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_td          |   0.384 |         12.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_attempts    |  12.2   |         12.2  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_rec_yards   |  51.6   |         12.2  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_rec_yards   |  51.8   |         12.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040734  | TreVeyon Henderson       | rush_longest     |  12.4   |         12.2  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_yards       |  34     |         11.2  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_yards       |  34.1   |         11.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_td          |   0.294 |         11.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_attempts    |  11.2   |         11.2  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_rec_yards   |  55.6   |         11.2  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_rec_yards   |  55.7   |         11.2  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0036875  | Rhamondre Stevenson      | rush_longest     |  11.6   |         11.2  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_yards       |  23     |          6.1  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_yards       |  23.1   |          6.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_td          |   0.191 |          6.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_attempts    |   6.1   |          6.1  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_rec_yards   |  23     |          6.1  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_rec_yards   |  23.1   |          6.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | rush_longest     |  10.2   |          6.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040556  | Corey Kiner              | rush_yards       |   9.4   |          3.3  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040556  | Corey Kiner              | rush_td          |   0.08  |          3.3  | live   |
@@ -871,7 +871,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_int         |   0.723 |         35.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_attempts    |  31.9   |         35.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_completions |  20.7   |         35.1  | live   |
-|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_rush_yards  | 253.2   |         35.1  | live   |
+|     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_rush_yards  | 253.3   |         35.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0039851  | Drake Maye               | pass_longest     |  34.1   |         35.1  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0034720  | Robert Spillane          | def_tackles      |   5.7   |         57.8  | live   |
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0034720  | Robert Spillane          | def_sacks        |   0.03  |         57.8  | live   |
@@ -901,26 +901,26 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_LV_NE   | NE     | 00-0040200  | Andy Borregales          | field_goals      |   1.57  |         22.45 | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_yards        |  57.9   |         10.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_catches      |   5.9   |         10.3  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_td           |   0.423 |         10.3  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_td           |   0.414 |         10.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_targets      |  10.3   |         10.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036322  | Justin Jefferson         | rec_longest      |  18.7   |         10.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_yards        |  44.6   |          7.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_catches      |   5.1   |          7.3  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_td           |   0.486 |          7.3  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_td           |   0.478 |          7.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_targets      |   7.3   |          7.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0035229  | T.J. Hockenson           | rec_longest      |  13.8   |          7.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_yards        |  25.2   |          5    | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_catches      |   2.9   |          5    | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_td           |   0.186 |          5    | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_catches      |   3     |          5    | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_td           |   0.183 |          5    | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_targets      |   5     |          5    | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rec_longest      |  10.5   |          5    | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_yards        |  16.3   |          3.3  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_catches      |   1.8   |          3.3  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_td           |   0.199 |          3.3  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_catches      |   1.9   |          3.3  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_td           |   0.201 |          3.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_targets      |   3.3   |          3.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0036259  | Jauan Jennings           | rec_longest      |  14     |          3.3  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_yards       |  65.7   |         16.8  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_td          |   0.412 |         16.8  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_td          |   0.414 |         16.8  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_attempts    |  16.8   |         16.8  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_rec_yards   |  90.9   |         16.8  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0033293  | Aaron Jones              | rush_longest     |  11.9   |         16.8  | live   |
@@ -969,31 +969,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_MIN_NO  | MIN    | 00-0039404  | Will Reichard            | field_goals      |   1.85  |         22.74 | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_yards        |  75.6   |         11.4  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_catches      |   6.7   |         11.4  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_td           |   0.529 |         11.4  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_td           |   0.525 |         11.4  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_targets      |  11.4   |         11.4  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0037239  | Chris Olave              | rec_longest      |  24.5   |         11.4  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_yards        |  38.8   |          6.7  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_catches      |   4     |          6.7  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_td           |   0.299 |          6.7  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_td           |   0.296 |          6.7  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_targets      |   6.7   |          6.7  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0039424  | Devaughn Vele            | rec_longest      |  15.4   |          6.7  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_yards        |  41.7   |          6.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_catches      |   4.3   |          6.5  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_td           |   0.302 |          6.5  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_td           |   0.3   |          6.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_targets      |   6.5   |          6.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0036040  | Juwan Johnson            | rec_longest      |  18.4   |          6.5  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_yards        |  13.9   |          4.6  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_catches      |   3.2   |          4.6  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_td           |   0.087 |          4.6  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_targets      |   4.6   |          4.6  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_longest      |  10.5   |          4.6  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_yards        |  13.9   |          4.5  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_catches      |   3.2   |          4.5  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_td           |   0.086 |          4.5  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_targets      |   4.5   |          4.5  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0033906  | Alvin Kamara             | rec_longest      |  10.5   |          4.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0035644  | Noah Fant                | rec_yards        |  16.5   |          3.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0035644  | Noah Fant                | rec_catches      |   2.4   |          3.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0035644  | Noah Fant                | rec_td           |   0.178 |          3.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0035644  | Noah Fant                | rec_targets      |   3.5   |          3.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0035644  | Noah Fant                | rec_longest      |  11.5   |          3.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_yards        |  12.8   |          3.1  | live   |
-|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_catches      |   1.6   |          3.1  | live   |
+|     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_catches      |   1.5   |          3.1  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_td           |   0.121 |          3.1  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_targets      |   3.1   |          3.1  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0041067  | Bryce Lance              | rec_longest      |   9.5   |          3.1  | live   |
@@ -1060,55 +1060,55 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0038588  | Jordan Howden            | def_solo_tackles |   1.9   |         58.5  | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0034161  | Daniel Carlson           | kick_points      |   6.8   |         20.29 | live   |
 |     2026 |      5 | 2026_05_MIN_NO  | NO     | 00-0034161  | Daniel Carlson           | field_goals      |   1.6   |         20.29 | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_yards        |  39.9   |          7.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_catches      |   4.6   |          7.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_td           |   0.281 |          7.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_targets      |   7.9   |          7.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_longest      |  14.2   |          7.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_yards        |  39.9   |          8    | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_catches      |   4.7   |          8    | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_td           |   0.257 |          8    | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_targets      |   8     |          8    | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041547  | KC Concepcion            | rec_longest      |  14.2   |          8    | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_yards        |  41.1   |          6.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_catches      |   4.1   |          6.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_td           |   0.429 |          6.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_catches      |   4.2   |          6.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_td           |   0.361 |          6.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_targets      |   6.9   |          6.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040663  | Harold Fannin Jr.        | rec_longest      |  15.8   |          6.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_yards        |  41.9   |          6.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_catches      |   3.5   |          6.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_td           |   0.295 |          6.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_targets      |   6.1   |          6.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_longest      |  27     |          6.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_yards        |  17.7   |          4.2  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_catches      |   2.9   |          4.2  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_td           |   0.093 |          4.2  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_targets      |   4.2   |          4.2  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_longest      |  11.4   |          4.2  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_yards        |  15.9   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_catches      |   1.8   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_td           |   0.144 |          3.8  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_targets      |   3.8   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_longest      |  13.7   |          3.8  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_yards        |  11.8   |          2.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_catches      |   1.9   |          2.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_td           |   0.064 |          2.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_targets      |   2.7   |          2.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_longest      |   9.4   |          2.7  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_yards        |  41.9   |          6.2  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_catches      |   3.6   |          6.2  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_td           |   0.27  |          6.2  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_targets      |   6.2   |          6.2  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0041037  | Denzel Boston            | rec_longest      |  27     |          6.2  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_yards        |  17.7   |          4.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_catches      |   2.9   |          4.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_td           |   0.078 |          4.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_targets      |   4.3   |          4.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rec_longest      |  11.4   |          4.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_yards        |  15.9   |          3.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_catches      |   1.8   |          3.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_td           |   0.121 |          3.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_targets      |   3.9   |          3.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0036407  | Jerry Jeudy              | rec_longest      |  13.7   |          3.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_yards        |  11.8   |          2.8  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_catches      |   1.9   |          2.8  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_td           |   0.057 |          2.8  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_targets      |   2.8   |          2.8  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rec_longest      |   9.4   |          2.8  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_yards        |   5.8   |          1.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_catches      |   0.7   |          1.5  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_td           |   0.049 |          1.5  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_td           |   0.041 |          1.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_targets      |   1.5   |          1.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040782  | Isaiah Bond              | rec_longest      |  12.2   |          1.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_yards        |   5.4   |          1.3  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_catches      |   0.8   |          1.3  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_td           |   0.04  |          1.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_td           |   0.033 |          1.3  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_targets      |   1.3   |          1.3  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0039920  | Malachi Corley           | rec_longest      |  10.4   |          1.3  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_yards       |  44.2   |         16.6  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_yards       |  44.4   |         16.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_td          |   0.398 |         16.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_attempts    |  16.6   |         16.6  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_rec_yards   |  61.9   |         16.6  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_rec_yards   |  62.1   |         16.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040784  | Quinshon Judkins         | rush_longest     |  11.7   |         16.6  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_yards       |  30.5   |          8.5  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_yards       |  30.6   |          8.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_td          |   0.252 |          8.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_attempts    |   8.5   |          8.5  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_rec_yards   |  30.5   |          8.5  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_rec_yards   |  30.6   |          8.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | rush_longest     |  10.2   |          8.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rush_yards       |   7.4   |          2.3  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040466  | Raheim Sanders           | rush_td          |   0.059 |          2.3  | live   |
@@ -1125,7 +1125,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_int         |   0.698 |         33.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_attempts    |  31     |         33.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_completions |  20.8   |         33.9  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 238.9   |         33.9  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 239     |         33.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0033537  | Deshaun Watson           | pass_longest     |  35.3   |         33.9  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040579  | Carson Schwesinger       | def_tackles      |   8.6   |         61.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0040579  | Carson Schwesinger       | def_sacks        |   0.1   |         61.6  | live   |
@@ -1153,48 +1153,48 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0038565  | Mekhi Blackmon           | def_solo_tackles |   2.4   |         61.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0038428  | Andre Szmyt              | kick_points      |   6.6   |         18.73 | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | CLE    | 00-0038428  | Andre Szmyt              | field_goals      |   1.63  |         18.73 | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_yards        |  65.1   |         11.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_catches      |   7     |         11.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_td           |   0.481 |         11.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_targets      |  11.4   |         11.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_longest      |  17.8   |         11.4  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_yards        |  65.1   |         11.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_catches      |   6.9   |         11.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_td           |   0.409 |         11.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_targets      |  11.3   |         11.3  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037740  | Garrett Wilson           | rec_longest      |  17.8   |         11.3  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_yards        |  28.2   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_catches      |   3.4   |          5.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_td           |   0.255 |          5.7  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_td           |   0.235 |          5.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_targets      |   5.7   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0041032  | Kenyon Sadiq             | rec_longest      |  14.1   |          5.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_yards        |  23.2   |          4.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_catches      |   3.1   |          4.7  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_td           |   0.173 |          4.7  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_td           |   0.146 |          4.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_targets      |   4.7   |          4.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039451  | Isaiah Williams          | rec_longest      |  14.2   |          4.7  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_yards        |  18.1   |          4.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_catches      |   2.8   |          4.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_td           |   0.166 |          4.4  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_catches      |   2.7   |          4.4  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_td           |   0.141 |          4.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_targets      |   4.4   |          4.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0040736  | Mason Taylor             | rec_longest      |  11.7   |          4.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_yards        |  11.6   |          2.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_catches      |   1.7   |          2.6  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_td           |   0.083 |          2.6  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_td           |   0.069 |          2.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0032385  | Sterling Shepard         | rec_longest      |  10.9   |          2.6  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_yards        |  10.2   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_catches      |   1.7   |          2.5  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_td           |   0.125 |          2.5  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_td           |   0.104 |          2.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_targets      |   2.5   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0037805  | Jeremy Ruckert           | rec_longest      |   9.7   |          2.5  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_yards        |  10.1   |          2.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_catches      |   1.6   |          2.4  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_td           |   0.053 |          2.4  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_td           |   0.045 |          2.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rec_longest      |   8     |          2.4  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_yards        |   7.7   |          2    | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_catches      |   1.2   |          2    | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_td           |   0.07  |          2    | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_td           |   0.058 |          2    | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_targets      |   2     |          2    | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0036427  | Tyler Johnson            | rec_longest      |  11.6   |          2    | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_yards       |  45.5   |         11.1  | live   |
-|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_td          |   0.301 |         11.1  | live   |
+|     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_td          |   0.302 |         11.1  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_attempts    |  11.1   |         11.1  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_rec_yards   |  55.6   |         11.1  | live   |
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0039794  | Braelon Allen            | rush_longest     |   8.7   |         11.1  | live   |
@@ -1248,37 +1248,37 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_CLE_NYJ | NYJ    | 00-0038905  | Blake Grupe              | field_goals      |   1.6   |         19.09 | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_yards        |  38.6   |          7.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_catches      |   4.3   |          7.4  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_td           |   0.221 |          7.4  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_td           |   0.19  |          7.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_targets      |   7.4   |          7.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0030279  | Keenan Allen             | rec_longest      |  14.1   |          7.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_yards        |  42.5   |          7.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_catches      |   4.7   |          7.3  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_td           |   0.356 |          7.3  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_td           |   0.305 |          7.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_targets      |   7.3   |          7.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0040128  | Tyler Warren             | rec_longest      |  14.1   |          7.3  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_yards        |  42.4   |          6.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_catches      |   4.1   |          6.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_td           |   0.287 |          6.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_targets      |   6.9   |          6.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_longest      |  15.1   |          6.9  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_yards        |  42.4   |          7    | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_catches      |   4.1   |          7    | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_td           |   0.245 |          7    | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_targets      |   7     |          7    | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0038997  | Josh Downs               | rec_longest      |  15.1   |          7    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_yards        |  18.5   |          3.9  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_catches      |   2.7   |          3.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_td           |   0.096 |          3.9  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_td           |   0.082 |          3.9  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rec_longest      |  11.1   |          3.9  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_yards        |  16.9   |          2.5  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_catches      |   1.7   |          2.5  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_td           |   0.104 |          2.5  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_targets      |   2.5   |          2.5  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_longest      |  14.9   |          2.5  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_yards        |  16.9   |          2.6  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_catches      |   1.7   |          2.6  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_td           |   0.088 |          2.6  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_targets      |   2.6   |          2.6  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0032951  | Laquon Treadwell         | rec_longest      |  14.9   |          2.6  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_yards        |   5.3   |          1.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_catches      |   0.6   |          1.1  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_td           |   0.042 |          1.1  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_td           |   0.036 |          1.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_targets      |   1.1   |          1.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0033217  | Mo Alie-Cox              | rec_longest      |   9.7   |          1.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_yards        |   3.6   |          0.7  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_catches      |   0.4   |          0.7  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_td           |   0.029 |          0.7  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_td           |   0.025 |          0.7  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_targets      |   0.7   |          0.7  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0037292  | Andrew Ogletree          | rec_longest      |   7.3   |          0.7  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rush_yards       |  75.3   |         20    | live   |
@@ -1286,10 +1286,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rush_attempts    |  20     |         20    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rush_rec_yards   |  93.8   |         20    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0036223  | Jonathan Taylor          | rush_longest     |  15.6   |         20    | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_yards       |  10.8   |          3.2  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_td          |   0.073 |          3.2  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_yards       |  10.9   |          3.2  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_td          |   0.074 |          3.2  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_attempts    |   3.2   |          3.2  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_rec_yards   |  10.8   |          3.2  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_rec_yards   |  10.9   |          3.2  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0041125  | Seth McGowan             | rush_longest     |   7.6   |          3.2  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0035710  | Daniel Jones             | rush_yards       |   8.5   |          2.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0035710  | Daniel Jones             | rush_td          |   0.119 |          2.8  | live   |
@@ -1336,43 +1336,43 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_IND_PIT | IND    | 00-0039576  | Spencer Shrader          | field_goals      |   1.72  |         17.72 | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_yards        |  57     |          7.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_catches      |   4.1   |          7.8  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_td           |   0.365 |          7.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_td           |   0.313 |          7.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_targets      |   7.8   |          7.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0035640  | DK Metcalf               | rec_longest      |  18.8   |          7.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_yards        |  27.2   |          4.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_catches      |   2.7   |          4.8  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_td           |   0.244 |          4.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_td           |   0.21  |          4.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_targets      |   4.8   |          4.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0039739  | Roman Wilson             | rec_longest      |  15.1   |          4.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_yards        |  27.7   |          4.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_catches      |   2.9   |          4.3  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_td           |   0.283 |          4.3  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_td           |   0.242 |          4.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_targets      |   4.3   |          4.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036894  | Pat Freiermuth           | rec_longest      |  14.2   |          4.3  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_yards        |  24.5   |          4.5  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_catches      |   3.3   |          4.5  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_td           |   0.117 |          4.5  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_td           |   0.1   |          4.5  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_targets      |   4.5   |          4.5  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rec_longest      |  13     |          4.5  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_yards        |  20     |          3.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_catches      |   2.1   |          3.4  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_td           |   0.174 |          3.4  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_td           |   0.149 |          3.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_targets      |   3.4   |          3.4  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0038558  | Darnell Washington       | rec_longest      |  14.5   |          3.4  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_yards        |  14.7   |          2.7  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_catches      |   1.7   |          2.7  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_td           |   0.126 |          2.7  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_targets      |   2.7   |          2.7  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_longest      |  11.4   |          2.7  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_yards        |  14.7   |          2.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_catches      |   1.7   |          2.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_td           |   0.127 |          2.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_targets      |   2.8   |          2.8  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0041489  | Germie Bernard           | rec_longest      |  11.4   |          2.8  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_yards        |   4.9   |          1    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_catches      |   0.6   |          1    | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_td           |   0.05  |          1    | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_td           |   0.041 |          1    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_targets      |   1     |          1    | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0036862  | Ben Skowronek            | rec_longest      |  10.1   |          1    | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_yards       |  87.4   |         18.1  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_yards       |  87.6   |         18.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_td          |   0.509 |         18.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_attempts    |  18.1   |         18.1  | live   |
-|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_rec_yards   | 111.9   |         18.1  | live   |
+|     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_rec_yards   | 112.1   |         18.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0037228  | Jaylen Warren            | rush_longest     |  13.7   |         18.1  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0023459  | Aaron Rodgers            | rush_yards       |   5.1   |          1.7  | live   |
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0023459  | Aaron Rodgers            | rush_td          |   0.077 |          1.7  | live   |
@@ -1419,12 +1419,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_IND_PIT | PIT    | 00-0031136  | Chris Boswell            | field_goals      |   1.63  |         20.58 | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_yards        |  62     |          9.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_catches      |   5.3   |          9.6  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_td           |   0.479 |          9.6  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_td           |   0.478 |          9.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_targets      |   9.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0036554  | Nico Collins             | rec_longest      |  23     |          9.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_yards        |  37.3   |          6.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_catches      |   3.1   |          6.7  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_td           |   0.296 |          6.7  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_td           |   0.295 |          6.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_targets      |   6.7   |          6.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038618  | Xavier Hutchinson        | rec_longest      |  15.2   |          6.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034383  | Dalton Schultz           | rec_yards        |  40     |          6.5  | live   |
@@ -1434,7 +1434,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034383  | Dalton Schultz           | rec_longest      |  16.8   |          6.5  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_yards        |  25.4   |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_catches      |   2.3   |          3.9  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_td           |   0.235 |          3.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_td           |   0.236 |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038608  | Kayshon Boutte           | rec_longest      |  15.5   |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0038728  | Jared Wayne              | rec_yards        |  16.4   |          3.1  | live   |
@@ -1454,7 +1454,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0040583  | Woody Marks              | rec_longest      |   8.4   |          2.4  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_yards        |  10     |          2.2  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_catches      |   1.4   |          2.2  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_td           |   0.13  |          2.2  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_td           |   0.129 |          2.2  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_targets      |   2.2   |          2.2  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0034981  | Foster Moreau            | rec_longest      |   9.3   |          2.2  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0035685  | David Montgomery         | rush_yards       |  42.3   |         14.2  | live   |
@@ -1512,22 +1512,22 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | HOU    | 00-0032726  | Ka'imi Fairbairn         | field_goals      |   1.82  |         24.66 | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_yards        |  56.9   |         11    | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_catches      |   6.6   |         11    | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_td           |   0.329 |         11    | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_td           |   0.328 |         11    | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_targets      |  11     |         11    | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041438  | Carnell Tate             | rec_longest      |  19.2   |         11    | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_yards        |  43.6   |          8.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_catches      |   4.8   |          8.6  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_td           |   0.275 |          8.6  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_td           |   0.277 |          8.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_targets      |   8.6   |          8.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0038117  | Wan'Dale Robinson        | rec_longest      |  16.5   |          8.6  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_yards        |  19.1   |          4.4  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_catches      |   1.9   |          4.4  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_td           |   0.16  |          4.4  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_td           |   0.159 |          4.4  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_targets      |   4.4   |          4.4  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040170  | Elic Ayomanor            | rec_longest      |  15     |          4.4  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_yards        |  17.2   |          3.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_catches      |   2.5   |          3.8  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_td           |   0.155 |          3.8  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_td           |   0.154 |          3.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_targets      |   3.8   |          3.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040584  | Gunnar Helm              | rec_longest      |  11     |          3.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035261  | Tony Pollard             | rec_yards        |  12.7   |          3.4  | live   |
@@ -1547,7 +1547,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0034837  | Calvin Ridley            | rec_longest      |  14.7   |          2.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_yards        |   9.9   |          2.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_catches      |   1.6   |          2.7  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_td           |   0.11  |          2.7  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_td           |   0.109 |          2.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040705  | Chimere Dike             | rec_longest      |  13     |          2.7  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035261  | Tony Pollard             | rush_yards       |  54.1   |         13.8  | live   |
@@ -1555,15 +1555,15 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035261  | Tony Pollard             | rush_attempts    |  13.8   |         13.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035261  | Tony Pollard             | rush_rec_yards   |  66.8   |         13.8  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035261  | Tony Pollard             | rush_longest     |  12.9   |         13.8  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_yards       |  13.1   |          3.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_yards       |  13.2   |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_td          |   0.106 |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_attempts    |   3.9   |          3.9  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_rec_yards   |  25.8   |          3.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_rec_yards   |  25.9   |          3.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0039032  | Tyjae Spears             | rush_longest     |   8.5   |          3.9  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_yards       |  11.1   |          2.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_yards       |  11.2   |          2.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_td          |   0.136 |          2.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_attempts    |   2.9   |          2.9  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_rec_yards   |  11.1   |          2.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_rec_yards   |  11.2   |          2.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | rush_longest     |   7.5   |          2.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0037594  | Julius Chestnut          | rush_yards       |   3.1   |          0.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0037594  | Julius Chestnut          | rush_td          |   0.027 |          0.9  | live   |
@@ -1575,7 +1575,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_int         |   0.76  |         36.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_attempts    |  34.1   |         36.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_completions |  21.5   |         36.9  | live   |
-|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_rush_yards  | 203.2   |         36.9  | live   |
+|     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_rush_yards  | 203.3   |         36.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0040676  | Cam Ward                 | pass_longest     |  30.4   |         36.9  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041479  | Anthony Hill Jr.         | def_tackles      |   9     |         67.1  | live   |
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0041479  | Anthony Hill Jr.         | def_sacks        |   0.08  |         67.1  | live   |
@@ -1605,17 +1605,17 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_HOU_TEN | TEN    | 00-0035192  | Joey Slye                | field_goals      |   1.51  |         18.04 | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_yards        |  61.2   |          9.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_catches      |   5.9   |          9.6  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_td           |   0.345 |          9.6  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_td           |   0.347 |          9.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_targets      |   9.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0037838  | Isaiah Likely            | rec_longest      |  14.7   |          9.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_yards        |  50.3   |          8    | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_catches      |   4.4   |          8    | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_td           |   0.294 |          8    | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_td           |   0.292 |          8    | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_targets      |   8     |          8    | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039337  | Malik Nabers             | rec_longest      |  17.9   |          8    | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_yards        |  22.3   |          4.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_catches      |   2.4   |          4.3  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_td           |   0.159 |          4.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_td           |   0.158 |          4.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_targets      |   4.3   |          4.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041042  | Malachi Fields           | rec_longest      |  15.6   |          4.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036309  | Darnell Mooney           | rec_yards        |  16.3   |          3.5  | live   |
@@ -1623,11 +1623,11 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036309  | Darnell Mooney           | rec_td           |   0.102 |          3.5  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036309  | Darnell Mooney           | rec_targets      |   3.5   |          3.5  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036309  | Darnell Mooney           | rec_longest      |  13.4   |          3.5  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_yards        |  16.6   |          3.3  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_catches      |   2.3   |          3.3  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_td           |   0.086 |          3.3  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_targets      |   3.3   |          3.3  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_longest      |  12.9   |          3.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_yards        |  16.6   |          3.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_catches      |   2.3   |          3.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_td           |   0.085 |          3.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_targets      |   3.4   |          3.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rec_longest      |  12.9   |          3.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039847  | Theo Johnson             | rec_yards        |  13.4   |          3.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039847  | Theo Johnson             | rec_catches      |   1.8   |          3.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039847  | Theo Johnson             | rec_td           |   0.133 |          3.2  | live   |
@@ -1640,7 +1640,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0038938  | Jalin Hyatt              | rec_longest      |   7.7   |          2.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_yards        |   8.5   |          2.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_catches      |   1.4   |          2.2  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_td           |   0.034 |          2.2  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_td           |   0.035 |          2.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_targets      |   2.2   |          2.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rec_longest      |  11.2   |          2.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0040715  | Cam Skattebo             | rush_yards       |  57.6   |         16.9  | live   |
@@ -1653,10 +1653,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036893  | Najee Harris             | rush_attempts    |   8.2   |          8.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036893  | Najee Harris             | rush_rec_yards   |  26.2   |          8.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0036893  | Najee Harris             | rush_longest     |   8.6   |          8.2  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_yards       |  11.2   |          3.6  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_td          |   0.068 |          3.6  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_yards       |  11.3   |          3.6  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_td          |   0.069 |          3.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_attempts    |   3.6   |          3.6  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_rec_yards   |  19.7   |          3.6  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_rec_yards   |  19.8   |          3.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039384  | Tyrone Tracy Jr.         | rush_longest     |  10.5   |          3.6  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | rush_yards       |   5     |          1.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0031503  | Jameis Winston           | rush_td          |   0.054 |          1.4  | live   |
@@ -1696,26 +1696,26 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0039000  | Deonte Banks             | def_solo_tackles |   2.2   |         63.2  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041145  | Dominic Zvada            | kick_points      |   6.9   |         20.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | NYG    | 00-0041145  | Dominic Zvada            | field_goals      |   1.69  |         20.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_yards        |  53.8   |          9.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_catches      |   5.1   |          9.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_td           |   0.292 |          9.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_targets      |   9.1   |          9.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_longest      |  19.3   |          9.1  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_yards        |  53.8   |          9    | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_catches      |   5     |          9    | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_td           |   0.29  |          9    | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_targets      |   9     |          9    | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0035659  | Terry McLaurin           | rec_longest      |  19.3   |          9    | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_yards        |  28.7   |          5.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_catches      |   3.1   |          5.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_td           |   0.208 |          5.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_td           |   0.202 |          5.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_targets      |   5.4   |          5.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041040  | Antonio Williams         | rec_longest      |  13.1   |          5.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_yards        |  21.6   |          4.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_catches      |   2.6   |          4.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_td           |   0.187 |          4.1  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_td           |   0.183 |          4.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_targets      |   4.1   |          4.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037809  | Chig Okonkwo             | rec_longest      |  13.4   |          4.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_yards        |  18     |          3.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_catches      |   1.8   |          3.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_td           |   0.106 |          3.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_targets      |   3.4   |          3.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_longest      |  12.6   |          3.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_yards        |  18     |          3.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_catches      |   1.8   |          3.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_td           |   0.106 |          3.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_targets      |   3.3   |          3.3  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0036626  | Dyami Brown              | rec_longest      |  12.6   |          3.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rec_yards        |  11.6   |          2.9  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rec_catches      |   2.1   |          2.9  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rec_td           |   0.063 |          2.9  | live   |
@@ -1723,7 +1723,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rec_longest      |   9.8   |          2.9  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_yards        |  12.8   |          3.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_catches      |   1.5   |          3.1  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_td           |   0.13  |          3.1  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_td           |   0.129 |          3.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_targets      |   3.1   |          3.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037742  | Treylon Burks            | rec_longest      |  12.2   |          3.1  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039355  | Luke McCaffrey           | rec_yards        |  16.1   |          2.7  | live   |
@@ -1733,7 +1733,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0039355  | Luke McCaffrey           | rec_longest      |  15.6   |          2.7  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_yards        |  10.5   |          2.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_catches      |   1.5   |          2.4  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_td           |   0.058 |          2.4  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_td           |   0.059 |          2.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033699  | Austin Ekeler            | rec_longest      |  10.3   |          2.4  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_yards       |  45.9   |         13.3  | live   |
@@ -1742,7 +1742,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_rec_yards   |  53.4   |         13.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0040242  | Jacory Croskey-Merritt   | rush_longest     |  11.3   |         13.3  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_yards       |  24.1   |          6.8  | live   |
-|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_td          |   0.155 |          6.8  | live   |
+|     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_td          |   0.156 |          6.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_attempts    |   6.8   |          6.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_rec_yards   |  35.7   |          6.8  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0037256  | Rachaad White            | rush_longest     |  10.1   |          6.8  | live   |
