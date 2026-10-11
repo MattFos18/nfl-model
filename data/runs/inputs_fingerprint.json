@@ -2857,7 +2857,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 11.4,
+"wind": 11.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2913,5 +2913,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 06:27 UTC"
+"written_at": "2026-10-11 08:56 UTC"
 }
