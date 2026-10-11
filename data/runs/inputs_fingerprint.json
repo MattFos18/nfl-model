@@ -106,11 +106,6 @@
 ],
 [
 "ARI",
-"Marvin Harrison Jr.",
-"Out"
-],
-[
-"ARI",
 "Paris Johnson Jr.",
 "Out"
 ],
@@ -462,6 +457,11 @@
 [
 "GB",
 "Jacob Monk",
+"Out"
+],
+[
+"GB",
+"Javon Hargrave",
 "Out"
 ],
 [
@@ -942,11 +942,6 @@
 [
 "NYJ",
 "Francisco Mauigoa",
-"Out"
-],
-[
-"NYJ",
-"Kenyon Sadiq",
 "Out"
 ],
 [
@@ -1725,6 +1720,12 @@
 ],
 [
 "CLE",
+"Quinshon Judkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Raheim Sanders",
 "Questionable (ESPN)",
 ""
@@ -1890,12 +1891,6 @@
 "Javon Hargrave",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Javon Hargrave",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -2697,6 +2692,12 @@
 ],
 [
 "NYJ",
+"Kenyon Sadiq",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Kingsley Enagbare",
 "Questionable",
 "Full Participation in Practice"
@@ -3170,5 +3171,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 20:55 UTC"
+"written_at": "2026-10-11 21:22 UTC"
 }
