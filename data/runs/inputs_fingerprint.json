@@ -1183,6 +1183,12 @@
 ],
 [
 "CHI",
+"Noah Sewell",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
 "Shemar Turner",
 "Questionable",
 "Full Participation in Practice"
@@ -2298,6 +2304,12 @@
 "Full Participation in Practice"
 ],
 [
+"NO",
+"Vernon Broughton",
+"Questionable (ESPN)",
+""
+],
+[
 "NYG",
 "Andrew Thomas",
 "",
@@ -2822,7 +2834,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 5.6,
+"wind": 6.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2830,7 +2842,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 12.2,
+"wind": 12.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2846,9 +2858,9 @@
 "rain_src": "mos"
 },
 "2026_05_LV_NE": {
-"wind": 6.5,
+"wind": 5.8,
 "cold": false,
-"rain": true,
+"rain": false,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
@@ -2862,7 +2874,7 @@
 "rain_src": "mos"
 },
 "2026_05_IND_PIT": {
-"wind": 8.8,
+"wind": 9.4,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2878,7 +2890,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 13.7,
+"wind": 13.0,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2886,7 +2898,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.5,
+"wind": 8.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2894,5 +2906,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-10 22:10 UTC"
+"written_at": "2026-10-11 00:32 UTC"
 }
