@@ -386,7 +386,27 @@
 ],
 [
 "JAX",
+"Albert Regis",
+"Out"
+],
+[
+"JAX",
+"Alijah Huzzie",
+"Out"
+],
+[
+"JAX",
+"CJ Williams",
+"Out"
+],
+[
+"JAX",
 "Caleb Ransaw",
+"Out"
+],
+[
+"JAX",
+"Daniel Faalele",
 "Out"
 ],
 [
@@ -396,7 +416,17 @@
 ],
 [
 "JAX",
+"Eric Murray",
+"Out"
+],
+[
+"JAX",
 "Jaylon Jones",
+"Out"
+],
+[
+"JAX",
+"Wesley Williams",
 "Out"
 ],
 [
@@ -637,6 +667,11 @@
 [
 "PHI",
 "Hollywood Brown",
+"Out"
+],
+[
+"PHI",
+"Jonathan Greenard",
 "Out"
 ],
 [
@@ -2456,12 +2491,6 @@
 ],
 [
 "PHI",
-"Jonathan Greenard",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Quinyon Mitchell",
 "",
 "Full Participation in Practice"
@@ -2849,7 +2878,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 13.1,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2857,7 +2886,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 11.3,
+"wind": 11.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2897,7 +2926,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 9.2,
+"wind": 10.3,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2905,7 +2934,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 8.6,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2913,5 +2942,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 10:50 UTC"
+"written_at": "2026-10-11 12:48 UTC"
 }
