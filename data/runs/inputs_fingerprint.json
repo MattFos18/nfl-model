@@ -261,11 +261,6 @@
 ],
 [
 "CLE",
-"KC Concepcion",
-"Out"
-],
-[
-"CLE",
 "Kalia Davis",
 "Out"
 ],
@@ -480,11 +475,6 @@
 "Out"
 ],
 [
-"GB",
-"Skyy Moore",
-"Out"
-],
-[
 "HOU",
 "Aiden Fisher",
 "Out"
@@ -502,11 +492,6 @@
 [
 "HOU",
 "Collin Wright",
-"Out"
-],
-[
-"HOU",
-"David Montgomery",
 "Out"
 ],
 [
@@ -815,11 +800,6 @@
 "Out"
 ],
 [
-"MIN",
-"T.J. Hockenson",
-"Out"
-],
-[
 "NE",
 "A.J. Brown",
 "Out"
@@ -862,11 +842,6 @@
 [
 "NE",
 "Reggie Gilliam",
-"Out"
-],
-[
-"NE",
-"TreVeyon Henderson",
 "Out"
 ],
 [
@@ -1072,11 +1047,6 @@
 [
 "PIT",
 "Rico Dowdle",
-"Out"
-],
-[
-"PIT",
-"Roman Wilson",
 "Out"
 ],
 [
@@ -1743,6 +1713,12 @@
 ],
 [
 "CLE",
+"KC Concepcion",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Mekhi Blackmon",
 "",
 "Full Participation in Practice"
@@ -1917,9 +1893,21 @@
 ],
 [
 "GB",
+"Javon Hargrave",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
 "Lukas Van Ness",
 "",
 "Limited Participation in Practice"
+],
+[
+"GB",
+"Skyy Moore",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -1944,6 +1932,12 @@
 "Braden Smith",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"HOU",
+"David Montgomery",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -2462,6 +2456,12 @@
 "Full Participation in Practice"
 ],
 [
+"MIN",
+"T.J. Hockenson",
+"Questionable (ESPN)",
+""
+],
+[
 "NE",
 "Brenden Schooler",
 "",
@@ -2511,6 +2511,12 @@
 ],
 [
 "NE",
+"Dre'Mont Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Morgan Moses",
 "Questionable",
 "Limited Participation in Practice"
@@ -2520,6 +2526,12 @@
 "Rhamondre Stevenson",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NE",
+"TreVeyon Henderson",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -2814,6 +2826,12 @@
 "Rico Dowdle",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"PIT",
+"Roman Wilson",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
@@ -3135,46 +3153,6 @@
 ]
 ],
 "weather": {
-"2026_05_CHI_GB": {
-"wind": 12.4,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_CIN_MIA": {
-"wind": 11.0,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_LV_NE": {
-"wind": 5.1,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_CLE_NYJ": {
-"wind": 14.1,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_05_IND_PIT": {
-"wind": 9.1,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_05_NYG_WAS": {
 "wind": 8.8,
 "cold": false,
@@ -3192,5 +3170,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 20:16 UTC"
+"written_at": "2026-10-11 20:55 UTC"
 }
