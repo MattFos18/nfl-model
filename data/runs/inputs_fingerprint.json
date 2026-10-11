@@ -246,6 +246,11 @@
 ],
 [
 "CLE",
+"KC Concepcion",
+"Out"
+],
+[
+"CLE",
 "Kalia Davis",
 "Out"
 ],
@@ -1767,27 +1772,21 @@
 ],
 [
 "GB",
-"Jager Burton",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Javon Hargrave",
 "Questionable",
 "Limited Participation in Practice"
 ],
 [
 "GB",
-"Javon Hargrave",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Lukas Van Ness",
 "",
 "Limited Participation in Practice"
+],
+[
+"GB",
+"Skyy Moore",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -1935,6 +1934,12 @@
 ],
 [
 "JAX",
+"Anton Harrison",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
 "Cole Van Lanen",
 "",
 "Full Participation in Practice"
@@ -1980,6 +1985,12 @@
 "Montaric Brown",
 "",
 "Limited Participation in Practice"
+],
+[
+"JAX",
+"Montaric Brown",
+"Questionable (ESPN)",
+""
 ],
 [
 "JAX",
@@ -2210,6 +2221,12 @@
 "Full Participation in Practice"
 ],
 [
+"LV",
+"Tonka Hemingway",
+"Questionable (ESPN)",
+""
+],
+[
 "MIA",
 "Austin Jackson",
 "",
@@ -2312,6 +2329,12 @@
 "Full Participation in Practice"
 ],
 [
+"MIN",
+"T.J. Hockenson",
+"Questionable (ESPN)",
+""
+],
+[
 "NE",
 "Brenden Schooler",
 "",
@@ -2331,21 +2354,9 @@
 ],
 [
 "NE",
-"Christian Barmore",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Christian Elliss",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Christian Elliss",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2370,12 +2381,6 @@
 "Morgan Moses",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Morgan Moses",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2433,12 +2438,6 @@
 ],
 [
 "NO",
-"Jaylan Ford",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Julian Blackmon",
 "Questionable",
 "Limited Participation in Practice"
@@ -2448,12 +2447,6 @@
 "Lorenzo Styles Jr.",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"NO",
-"Lorenzo Styles Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -2622,12 +2615,6 @@
 "Quinyon Mitchell",
 "",
 "Full Participation in Practice"
-],
-[
-"PHI",
-"Tyler Steen",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -2853,6 +2840,12 @@
 ],
 [
 "TEN",
+"Kevin Winston Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "Marcus Harris",
 "",
 "Limited Participation in Practice"
@@ -2973,14 +2966,6 @@
 ]
 ],
 "weather": {
-"2026_05_PHI_JAX": {
-"wind": 4.5,
-"cold": false,
-"rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
-},
 "2026_05_CHI_GB": {
 "wind": 12.4,
 "cold": false,
@@ -3046,5 +3031,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 16:30 UTC"
+"written_at": "2026-10-11 18:15 UTC"
 }
