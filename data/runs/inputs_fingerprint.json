@@ -701,11 +701,6 @@
 ],
 [
 "SF",
-"Christian Kirk",
-"Out"
-],
-[
-"SF",
 "James Thompson Jr.",
 "Out"
 ],
@@ -2823,7 +2818,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 6.3,
+"wind": 4.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2839,7 +2834,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 10.2,
+"wind": 10.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2895,5 +2890,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 01:36 UTC"
+"written_at": "2026-10-11 02:36 UTC"
 }
