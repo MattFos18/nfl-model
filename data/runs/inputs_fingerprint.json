@@ -1752,6 +1752,12 @@
 "Limited Participation in Practice"
 ],
 [
+"JAX",
+"Ross Matiscik",
+"Questionable (ESPN)",
+""
+],
+[
 "LA",
 "Aaron Donald",
 "",
@@ -2870,7 +2876,7 @@
 ],
 "weather": {
 "2026_05_PHI_JAX": {
-"wind": 4.7,
+"wind": 5.8,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -2878,7 +2884,7 @@
 "rain_src": "open-meteo"
 },
 "2026_05_CHI_GB": {
-"wind": 10.2,
+"wind": 13.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2886,7 +2892,7 @@
 "rain_src": "mos"
 },
 "2026_05_CIN_MIA": {
-"wind": 11.4,
+"wind": 11.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2926,7 +2932,7 @@
 "rain_src": "mos"
 },
 "2026_05_NYG_WAS": {
-"wind": 10.3,
+"wind": 9.2,
 "cold": false,
 "rain": true,
 "src": "mos",
@@ -2934,7 +2940,7 @@
 "rain_src": "mos"
 },
 "2026_05_SF_SEA": {
-"wind": 6.8,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2942,5 +2948,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 12:48 UTC"
+"written_at": "2026-10-11 14:59 UTC"
 }
