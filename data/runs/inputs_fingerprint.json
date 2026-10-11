@@ -116,6 +116,36 @@
 ],
 [
 "ATL",
+"Christian Harris",
+"Out"
+],
+[
+"ATL",
+"Cooper Rush",
+"Out"
+],
+[
+"ATL",
+"Ethan Onianwa",
+"Out"
+],
+[
+"ATL",
+"Jack Strand",
+"Out"
+],
+[
+"ATL",
+"Malcolm DeWalt IV",
+"Out"
+],
+[
+"ATL",
+"Robert Longerbeam",
+"Out"
+],
+[
+"ATL",
 "Yasir Abdullah",
 "Out"
 ],
@@ -126,12 +156,27 @@
 ],
 [
 "BAL",
+"Aeneas Peebles",
+"Out"
+],
+[
+"BAL",
+"Andrew Vorhees",
+"Out"
+],
+[
+"BAL",
 "Cam Jurgens",
 "Out"
 ],
 [
 "BAL",
 "Durham Smythe",
+"Out"
+],
+[
+"BAL",
+"Elijah Sarratt",
 "Out"
 ],
 [
@@ -1091,6 +1136,11 @@
 ],
 [
 "SF",
+"Deebo Samuel Sr.",
+"Out"
+],
+[
+"SF",
 "Enrique Cruz Jr.",
 "Out"
 ],
@@ -1300,6 +1350,12 @@
 "Limited Participation in Practice"
 ],
 [
+"ARI",
+"Wydett Williams Jr.",
+"Questionable (ESPN)",
+""
+],
+[
 "ATL",
 "Cameron Thomas",
 "",
@@ -1313,21 +1369,9 @@
 ],
 [
 "ATL",
-"Divine Deablo",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
 "Jake Matthews",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"ATL",
-"Jake Matthews",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -1340,12 +1384,6 @@
 "Samson Ebukam",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"ATL",
-"Samson Ebukam",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -1403,12 +1441,6 @@
 ],
 [
 "BAL",
-"Marlon Humphrey",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Rashod Bateman",
 "",
 "Full Participation in Practice"
@@ -1424,12 +1456,6 @@
 "Zay Flowers",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Zay Flowers",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1685,6 +1711,12 @@
 ],
 [
 "CLE",
+"Carson Schwesinger",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Derek Barnett",
 "",
 "Limited Participation in Practice"
@@ -1820,6 +1852,12 @@
 "Pat Bryant",
 "",
 "Did Not Participate In Practice"
+],
+[
+"DEN",
+"Talanoa Hufanga",
+"Questionable (ESPN)",
+""
 ],
 [
 "DEN",
@@ -2225,6 +2263,12 @@
 ],
 [
 "LAC",
+"Bud Dupree",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Cam Hart",
 "",
 "Full Participation in Practice"
@@ -2276,6 +2320,12 @@
 "Scott Matlock",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"LAC",
+"Tre' Harris",
+"Questionable (ESPN)",
+""
 ],
 [
 "LV",
@@ -2849,6 +2899,12 @@
 ],
 [
 "SEA",
+"Drake Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Ernest Jones",
 "",
 "Full Participation in Practice"
@@ -3161,14 +3217,6 @@
 ]
 ],
 "weather": {
-"2026_05_NYG_WAS": {
-"wind": 8.8,
-"cold": false,
-"rain": true,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_05_SF_SEA": {
 "wind": 8.6,
 "cold": false,
@@ -3178,5 +3226,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 21:45 UTC"
+"written_at": "2026-10-11 23:42 UTC"
 }
