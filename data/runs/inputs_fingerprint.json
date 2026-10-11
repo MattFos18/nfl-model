@@ -480,6 +480,11 @@
 "Out"
 ],
 [
+"GB",
+"Skyy Moore",
+"Out"
+],
+[
 "HOU",
 "Aiden Fisher",
 "Out"
@@ -507,11 +512,6 @@
 [
 "HOU",
 "Febechi Nwaiwu",
-"Out"
-],
-[
-"HOU",
-"Jaylin Smith",
 "Out"
 ],
 [
@@ -967,6 +967,11 @@
 [
 "NYJ",
 "Francisco Mauigoa",
+"Out"
+],
+[
+"NYJ",
+"Kenyon Sadiq",
 "Out"
 ],
 [
@@ -1743,6 +1748,18 @@
 "Full Participation in Practice"
 ],
 [
+"CLE",
+"Raheim Sanders",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Tytus Howard",
+"Questionable (ESPN)",
+""
+],
+[
 "DAL",
 "Alijah Clark",
 "",
@@ -1905,12 +1922,6 @@
 "Limited Participation in Practice"
 ],
 [
-"GB",
-"Skyy Moore",
-"Questionable (ESPN)",
-""
-],
-[
 "HOU",
 "Aireontae Ersery",
 "Questionable",
@@ -1945,6 +1956,12 @@
 "Jadeveon Clowney",
 "",
 "Did Not Participate In Practice"
+],
+[
+"HOU",
+"Jalen Pitre",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -2614,6 +2631,12 @@
 ],
 [
 "NYG",
+"Colton Hood",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Deonte Banks",
 "",
 "Full Participation in Practice"
@@ -2643,6 +2666,12 @@
 "Full Participation in Practice"
 ],
 [
+"NYG",
+"Tyler Nubin",
+"Questionable (ESPN)",
+""
+],
+[
 "NYJ",
 "Jarvis Brownlee Jr.",
 "",
@@ -2651,12 +2680,6 @@
 [
 "NYJ",
 "Joseph Ossai",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Kenyon Sadiq",
 "Questionable (ESPN)",
 ""
 ],
@@ -3152,14 +3175,6 @@
 "temp_src": "mos",
 "rain_src": "mos"
 },
-"2026_05_HOU_TEN": {
-"wind": 7.3,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_05_NYG_WAS": {
 "wind": 8.8,
 "cold": false,
@@ -3177,5 +3192,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 19:51 UTC"
+"written_at": "2026-10-11 20:16 UTC"
 }

@@ -23,7 +23,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 60%+ chance | 4 | 1 | 0-1 (0%) | -1.00 | +0.25 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 1 | 0 | nothing settled |  | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 5 | 2 | 0-2 (0%) | -2.00 | +0.20 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 7 | 4 | 4-0 (100%) | +1.32 | +0.00 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 7 | 5 | 4-1 (80%) | +0.32 | +0.00 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 3 | 2-1 (67%) | +0.82 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 4 | 1 | 0-1 (0%) | -1.00 | +0.25 | 63-46 | 96-71 | 27-18 |
@@ -36,7 +36,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
 | shadow: 4+ edge, weeks 1 to 15 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 0 | 0 | | | | 9-13 | 16-13 | 8-3 |
-| shadow: Over, total 41 or lower and a 55%+ chance | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 50-37 | 30-25 | 55-35 |
+| shadow: Over, total 41 or lower and a 55%+ chance | 2 | 2 | 0-2 (0%) | -2.00 | +0.00 | 50-37 | 30-25 | 55-35 |
 | shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 5 | 2 | 1-1 (50%) | -0.05 | +0.20 | 156-131 | 201-149 | 80-57 |
 
 Live against the backtest: the flag has won 2 of 3 settled; at the backtest rate of 63.1% (2019 to 2025), 3 bets land between 0 and 3 wins nine times in ten. The live record is inside the range. With fewer than 30 settled this says little either way.
