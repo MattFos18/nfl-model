@@ -546,9 +546,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_05_NYG_WAS: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-09 22:14 UTC",
-  "last": "2026-10-09 22:14 UTC",
+  "last": "2026-10-11 04:11 UTC",
   "message": "2026_05_NYG_WAS: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
