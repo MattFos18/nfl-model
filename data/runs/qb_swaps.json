@@ -9,22 +9,16 @@
   "CAR Mike Jackson",
   "CAR Trevor Etienne",
   "CAR Xavier Legette",
+  "HOU Nate Thomas",
   "KC Tyquan Thornton",
   "MIA Robert Beal Jr.",
+  "NO Mike Reid",
   "NYJ Kiko Mauigoa",
   "PHI Hollywood Brown",
   "SEA Irv Charles"
  ],
  "swaps": [],
  "conflicts": [
-  {
-   "game_id": "2026_05_CHI_GB",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
   {
    "game_id": "2026_05_SF_SEA",
    "team": "SEA",
@@ -40,22 +34,6 @@
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
-  },
-  {
-   "game_id": "2026_06_CHI_ATL",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
-   "game_id": "2026_07_NE_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
   },
   {
    "game_id": "2026_07_KC_SEA",
@@ -74,28 +52,12 @@
    "priced_name": "Sam Darnold"
   },
   {
-   "game_id": "2026_08_CHI_SEA",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
    "game_id": "2026_09_ARI_SEA",
    "team": "SEA",
    "named": "00-0035704",
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
-  },
-  {
-   "game_id": "2026_09_TB_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
   },
   {
    "game_id": "2026_10_SEA_LV",
@@ -106,22 +68,6 @@
    "priced_name": "Sam Darnold"
   },
   {
-   "game_id": "2026_11_NO_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
-   "game_id": "2026_12_CHI_DET",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
    "game_id": "2026_12_SEA_SF",
    "team": "SEA",
    "named": "00-0035704",
@@ -130,28 +76,12 @@
    "priced_name": "Sam Darnold"
   },
   {
-   "game_id": "2026_13_JAX_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
    "game_id": "2026_13_DAL_SEA",
    "team": "SEA",
    "named": "00-0035704",
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
-  },
-  {
-   "game_id": "2026_14_CHI_MIA",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
   },
   {
    "game_id": "2026_14_NYG_SEA",
@@ -170,22 +100,6 @@
    "priced_name": "Sam Darnold"
   },
   {
-   "game_id": "2026_15_CHI_BUF",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
-   "game_id": "2026_16_GB_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
    "game_id": "2026_16_LA_SEA",
    "team": "SEA",
    "named": "00-0035704",
@@ -202,28 +116,12 @@
    "priced_name": "Sam Darnold"
   },
   {
-   "game_id": "2026_17_DET_CHI",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
-  },
-  {
    "game_id": "2026_18_SEA_LA",
    "team": "SEA",
    "named": "00-0035704",
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
-  },
-  {
-   "game_id": "2026_18_CHI_MIN",
-   "team": "CHI",
-   "named": "00-0038416",
-   "priced": "00-0039918",
-   "named_name": "Tyson Bagent",
-   "priced_name": "Caleb Williams"
   }
  ]
 }
