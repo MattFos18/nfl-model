@@ -750,6 +750,11 @@
 "Out"
 ],
 [
+"MIN",
+"T.J. Hockenson",
+"Out"
+],
+[
 "NE",
 "A.J. Brown",
 "Out"
@@ -947,11 +952,6 @@
 [
 "PHI",
 "Tank Bigsby",
-"Out"
-],
-[
-"PHI",
-"Will Shipley",
 "Out"
 ],
 [
@@ -1531,6 +1531,12 @@
 "Full Participation in Practice"
 ],
 [
+"CHI",
+"T.J. Edwards",
+"Questionable (ESPN)",
+""
+],
+[
 "CIN",
 "B.J. Hill",
 "",
@@ -1811,6 +1817,12 @@
 "Braden Smith",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"HOU",
+"David Montgomery",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -2210,6 +2222,12 @@
 ],
 [
 "LV",
+"Patrick Johnson",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Segun Olubi",
 "",
 "Full Participation in Practice"
@@ -2255,6 +2273,18 @@
 "Jaylen Wright",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"MIA",
+"Jonah Savaiinaea",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Jordyn Brooks",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
@@ -2329,12 +2359,6 @@
 "Full Participation in Practice"
 ],
 [
-"MIN",
-"T.J. Hockenson",
-"Questionable (ESPN)",
-""
-],
-[
 "NE",
 "Brenden Schooler",
 "",
@@ -2387,6 +2411,18 @@
 "Rhamondre Stevenson",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NE",
+"TreVeyon Henderson",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Will Campbell",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2522,6 +2558,12 @@
 ],
 [
 "NYJ",
+"Joseph Ossai",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Kingsley Enagbare",
 "Questionable",
 "Full Participation in Practice"
@@ -2618,9 +2660,21 @@
 ],
 [
 "PHI",
+"Will Shipley",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Zack Baun",
 "",
 "Full Participation in Practice"
+],
+[
+"PIT",
+"Ben Skowronek",
+"Questionable (ESPN)",
+""
 ],
 [
 "PIT",
@@ -2639,6 +2693,12 @@
 "Rico Dowdle",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"PIT",
+"Roman Wilson",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
@@ -3031,5 +3091,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-11 18:15 UTC"
+"written_at": "2026-10-11 18:59 UTC"
 }
