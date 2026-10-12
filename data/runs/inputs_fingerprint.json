@@ -611,22 +611,12 @@
 ],
 [
 "NO",
-"Mike Reid",
-"Out"
-],
-[
-"NO",
 "Nathan Shepherd",
 "Out"
 ],
 [
 "NO",
 "Vernon Broughton",
-"Out"
-],
-[
-"NO",
-"Zach Wilson",
 "Out"
 ],
 [
@@ -776,6 +766,11 @@
 ],
 [
 "SF",
+"Deebo Samuel Sr.",
+"Out"
+],
+[
+"SF",
 "Dre Greenlaw",
 "Out"
 ],
@@ -821,21 +816,6 @@
 ],
 [
 "TB",
-"Billy Schrauth",
-"Out"
-],
-[
-"TB",
-"DeMonte Capehart",
-"Out"
-],
-[
-"TB",
-"Luke Haggard",
-"Out"
-],
-[
-"TB",
 "SirVocea Dennis",
 "Out"
 ],
@@ -846,37 +826,12 @@
 ],
 [
 "TEN",
-"Brandon Crenshaw-Dickson",
-"Out"
-],
-[
-"TEN",
 "David Martin-Robinson",
 "Out"
 ],
 [
 "TEN",
-"Jackie Marshall",
-"Out"
-],
-[
-"TEN",
-"Jaylon Jones",
-"Out"
-],
-[
-"TEN",
 "Joshua Williams",
-"Out"
-],
-[
-"TEN",
-"Michael Carter",
-"Out"
-],
-[
-"TEN",
-"Nicholas Singleton",
 "Out"
 ],
 [
@@ -912,11 +867,6 @@
 [
 "WAS",
 "Stefon Diggs",
-"Out"
-],
-[
-"WAS",
-"Tanoa Togiai",
 "Out"
 ],
 [
@@ -2583,12 +2533,6 @@
 ],
 [
 "SF",
-"Deebo Samuel Sr.",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Dre Greenlaw",
 "",
 "Full Participation in Practice"
@@ -2841,5 +2785,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 20:03 UTC"
+"written_at": "2026-10-12 20:32 UTC"
 }
