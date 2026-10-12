@@ -296,6 +296,11 @@
 ],
 [
 "DET",
+"Devin White",
+"Doubtful"
+],
+[
+"DET",
 "Rock Ya-Sin",
 "Out"
 ],
@@ -771,6 +776,11 @@
 ],
 [
 "SF",
+"Christian Kirk",
+"Out"
+],
+[
+"SF",
 "Deebo Samuel Sr.",
 "Out"
 ],
@@ -1212,6 +1222,12 @@
 ],
 [
 "CHI",
+"Jonathan Garvin",
+"Questionable (ESPN)",
+""
+],
+[
+"CHI",
 "Kyler Gordon",
 "Questionable",
 "Full Participation in Practice"
@@ -1485,12 +1501,6 @@
 "D.J. Wonnum",
 "",
 "Full Participation in Practice"
-],
-[
-"DET",
-"Devin White",
-"Questionable (ESPN)",
-""
 ],
 [
 "DET",
@@ -2820,5 +2830,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 21:23 UTC"
+"written_at": "2026-10-12 22:25 UTC"
 }
