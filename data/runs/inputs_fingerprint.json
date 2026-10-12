@@ -1337,6 +1337,12 @@
 ],
 [
 "ATL",
+"C.J. Henderson",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Cameron Thomas",
 "",
 "Full Participation in Practice"
@@ -1361,6 +1367,12 @@
 ],
 [
 "ATL",
+"Michael Penix Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Samson Ebukam",
 "Questionable",
 "Limited Participation in Practice"
@@ -1376,6 +1388,12 @@
 "Andrew Vorhees",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"BAL",
+"Broderick Washington Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1418,12 +1436,6 @@
 "Marlon Humphrey",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Matt Hibner",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -3209,5 +3221,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 02:29 UTC"
+"written_at": "2026-10-12 04:27 UTC"
 }
