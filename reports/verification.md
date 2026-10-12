@@ -33,11 +33,11 @@ PFR counts a few things differently from nflverse (sacks in plays, penalty first
 
 ## 2. Points in the team table equal the schedule scores
 
-7812 team-game rows, 0 mismatches.
+7814 team-game rows, 0 mismatches.
 
 ## 3. What one offense gained equals what the other defense allowed
 
-7812 pairs, 0 mismatches.
+7814 pairs, 0 mismatches.
 
 ## 4. Known results
 

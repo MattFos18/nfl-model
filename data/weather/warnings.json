@@ -112,9 +112,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_SEA_DEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-12 00:19 UTC",
-  "last": "2026-10-12 04:20 UTC",
+  "last": "2026-10-12 13:46 UTC",
   "message": "2026_06_SEA_DEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },

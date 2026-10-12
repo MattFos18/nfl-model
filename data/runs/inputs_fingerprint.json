@@ -1071,6 +1071,11 @@
 ],
 [
 "PIT",
+"Roman Wilson",
+"Doubtful"
+],
+[
+"PIT",
 "Terell Smith",
 "Out"
 ],
@@ -2884,12 +2889,6 @@
 "Limited Participation in Practice"
 ],
 [
-"PIT",
-"Roman Wilson",
-"Questionable (ESPN)",
-""
-],
-[
 "SEA",
 "Beau Stephens",
 "",
@@ -3221,5 +3220,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 04:27 UTC"
+"written_at": "2026-10-12 13:58 UTC"
 }
