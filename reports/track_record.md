@@ -15,8 +15,8 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the underdog or pick'em | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
 | shadow: boosted trees alone, 5+ edge | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
-| shadow: Under, 55%+ chance (the totals flag) | 10 | 8 | 4-4 (50%) | -0.32 | +0.20 | 142-117 | 183-134 | 86-61 |
-| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 7 | 5 | 2-3 (40%) | -1.14 | +0.14 | 135-96 | 167-123 | 80-57 |
+| shadow: Under, 55%+ chance (the totals flag) | 10 | 9 | 4-5 (44%) | -1.32 | +0.20 | 142-117 | 183-134 | 86-61 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 7 | 6 | 2-4 (33%) | -2.14 | +0.14 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
@@ -28,7 +28,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 4 | 4 | 1-3 (25%) | -2.09 | +0.25 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 2 | 2 | 1-1 (50%) | -0.09 | +0.50 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 5 | 4 | 0-4 (0%) | -4.00 | +0.20 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 5 | 4 | 0-4 (0%) | -4.00 | +0.40 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 2 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |

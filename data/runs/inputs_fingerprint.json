@@ -1136,11 +1136,6 @@
 ],
 [
 "SF",
-"Deebo Samuel Sr.",
-"Out"
-],
-[
-"SF",
 "Enrique Cruz Jr.",
 "Out"
 ],
@@ -2965,6 +2960,12 @@
 ],
 [
 "SF",
+"Deebo Samuel Sr.",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Dre Greenlaw",
 "",
 "Full Participation in Practice"
@@ -3216,15 +3217,6 @@
 "Full Participation in Practice"
 ]
 ],
-"weather": {
-"2026_05_SF_SEA": {
-"wind": 8.6,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-}
-},
-"written_at": "2026-10-11 23:42 UTC"
+"weather": {},
+"written_at": "2026-10-12 00:34 UTC"
 }
