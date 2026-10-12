@@ -500,6 +500,11 @@
 "Out"
 ],
 [
+"LV",
+"Tyler Scott",
+"Out"
+],
+[
 "MIA",
 "Caleb Douglas",
 "Out"
@@ -1450,6 +1455,12 @@
 "Pat Bryant",
 "",
 "Did Not Participate In Practice"
+],
+[
+"DEN",
+"Sai'vion Jones",
+"Questionable (ESPN)",
+""
 ],
 [
 "DEN",
@@ -2467,7 +2478,19 @@
 ],
 [
 "SEA",
+"Beau Stephens",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Drake Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Drew Lock",
 "Questionable (ESPN)",
 ""
 ],
@@ -2497,9 +2520,21 @@
 ],
 [
 "SEA",
+"Jaxon Smith-Njigba",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Leonard Williams",
 "",
 "Full Participation in Practice"
+],
+[
+"SEA",
+"Leonard Williams",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
@@ -2785,5 +2820,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 20:32 UTC"
+"written_at": "2026-10-12 21:23 UTC"
 }
