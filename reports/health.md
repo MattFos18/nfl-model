@@ -1,10 +1,10 @@
-# Health check, 2026-10-12 13:12 UTC
+# Health check, 2026-10-12 21:42 UTC
 
 **BROKEN**: 2 failing, 5 warnings, 55 ok.
 
 | Level | Check | Detail |
 |---|---|---|
-| OK | weekly run is fresh | last run 2026-10-12 04:18 UTC, 9 hours ago (limit 72) |
+| OK | weekly run is fresh | last run 2026-10-12 21:14 UTC, 0 hours ago (limit 72) |
 | FAIL | every step of the latest run ok | tie check (sources): error, tie check (page): error |
 | OK | latest run has the step: verify | present |
 | OK | latest run has the step: tie check (sources) | present |
@@ -13,12 +13,12 @@
 | OK | latest run has the step: record picks | present |
 | OK | latest run has the step: standing checks | present |
 | OK | picks week's sources | week 5: in play; the week before it is complete |
-| OK | runs in the last seven days | 108 (four scheduled: Tue, Thu, Sat, Sun) |
+| OK | runs in the last seven days | 112 (four scheduled: Tue, Thu, Sat, Sun) |
 | OK | verification suite passed | Result: PASS |
-| FAIL | tie-out passed | Result: FAIL (254 of 260 tie) |
-| OK | line watch is logging | last snapshot 0.0 hours ago, 433 in the last seven days (every 30 minutes when GitHub's cron fires) |
-| OK | line watch returns rows | 0 of 123 snapshots in the last two days logged no lines |
-| OK | live forecast pull (wind_live) ok in the line watch | no failure in the 62 snapshots of the last day |
+| FAIL | tie-out passed | Result: FAIL (257 of 260 tie) |
+| OK | line watch is logging | last snapshot 0.4 hours ago, 440 in the last seven days (every 30 minutes when GitHub's cron fires) |
+| OK | line watch returns rows | 0 of 130 snapshots in the last two days logged no lines |
+| OK | live forecast pull (wind_live) ok in the line watch | no failure in the 69 snapshots of the last day |
 | OK | kickoff forecasts are fresh | fetched 4 hours ago (limit 96) |
 | OK | kickoff forecast for every outdoor game inside the window | 1 of 1 games have a reading |
 | OK | GFS MOS reading for every US outdoor game within 59 hours of kickoff | 0 of 0 games have one |
@@ -54,14 +54,14 @@
 | OK | shadow rule recorded for the week: shadowqtotals | picks: []; tracker: [] |
 | OK | page flag threshold = code | page 4.0, code 4.0 |
 | OK | page inputs = code | 17 on the page, 17 in code |
-| OK | page data is fresh | built 9 hours ago (limit 96) |
-| OK | cards carry the newest line snapshot | cards 2026-10-12T13-10-40Z, log 2026-10-12T13-10-40Z |
-| OK | props panel carries the newest prop-line pull | page 2026-10-12T10-39-45Z, log 2026-10-12T10-39-45Z |
+| OK | page data is fresh | built 0 hours ago (limit 96) |
+| OK | cards carry the newest line snapshot | cards 2026-10-12T21-16-37Z, log 2026-10-12T21-16-37Z |
+| OK | props panel carries the newest prop-line pull | page 2026-10-12T16-40-48Z, log 2026-10-12T16-40-48Z |
 | OK | injury reports cover the week being priced | raw injuries not on this machine (the weekly run checks them) |
 | OK | page rankings use the code's QB replacement level | page -0.12, code -0.12 |
 | OK | QB-out check loaded the injury reports (week 5) | ok |
 | OK | QB swaps priced this week (week 5) | no named starter ruled out |
-| WARN | ESPN Out/Doubtful players all matched to a roster player | 12 unmatched: BUF Joshua Palmer, CAR Ikem Ekwonu, CAR Mike Jackson, CAR Trevor Etienne, CAR Xavier Legette, HOU Nate Thomas, KC Tyquan Thornton, MIA Robert Beal Jr. |
+| WARN | ESPN Out/Doubtful players all matched to a roster player | 11 unmatched: BUF Joshua Palmer, CAR Ikem Ekwonu, CAR Taylor Moton, CAR Tershawn Wharton, CAR Trevor Etienne, CAR Xavier Legette, KC Tyquan Thornton, MIA Robert Beal Jr. |
 | WARN | warnings from data checks (last 36 hours) | 1: played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing |
 | WARN | warnings from live weather (last 36 hours) | 2: 2026_06_SEA_DEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo; 2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo |
 | WARN | warnings from wind_live (last 36 hours) | 4: 2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean; 2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean; 2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean; 2026_05_NYG_WAS: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean |
