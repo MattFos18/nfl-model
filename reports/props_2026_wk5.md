@@ -1,6 +1,6 @@
 # Week 5, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 23:33 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 23:50 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -1814,58 +1814,58 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0033551  | Rasul Douglas            | def_solo_tackles |   2.2   |         64.9  | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041182  | Drew Stevens             | kick_points      |   6.9   |         21.13 | live   |
 |     2026 |      5 | 2026_05_NYG_WAS | WAS    | 00-0041182  | Drew Stevens             | field_goals      |   1.64  |         21.13 | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_yards        |  52.3   |          7.9  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_yards        |  52.4   |          7.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_catches      |   4.4   |          7.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_td           |   0.369 |          7.9  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_td           |   0.376 |          7.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_targets      |   7.9   |          7.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036613  | Jaylen Waddle            | rec_longest      |  17.5   |          7.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_yards        |  39.4   |          7.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_yards        |  39.5   |          7.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_catches      |   3.5   |          7.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_td           |   0.316 |          7.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_td           |   0.321 |          7.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_targets      |   7.1   |          7.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0034348  | Courtland Sutton         | rec_longest      |  15.4   |          7.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_yards        |  34.9   |          6.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_yards        |  35     |          6.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_catches      |   4.8   |          6.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_td           |   0.244 |          6.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_td           |   0.249 |          6.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rec_longest      |  12.9   |          6.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_yards        |  19.5   |          4.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_yards        |  19.6   |          4.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_catches      |   2.3   |          4.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_td           |   0.175 |          4.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_td           |   0.179 |          4.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_targets      |   4.1   |          4.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0033881  | Evan Engram              | rec_longest      |  12.1   |          4.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_yards        |  17.7   |          3.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_yards        |  17.8   |          3.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_catches      |   2.4   |          3.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_td           |   0.147 |          3.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_td           |   0.149 |          3.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_targets      |   3.7   |          3.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_longest      |  14.3   |          3.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_yards        |  12.6   |          2.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_catches      |   1.4   |          2.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_td           |   0.132 |          2.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_td           |   0.135 |          2.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_longest      |  11.3   |          2.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_yards        |  11.7   |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_catches      |   1.5   |          2.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_td           |   0.114 |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_td           |   0.117 |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039868  | Troy Franklin            | rec_longest      |  14.6   |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_yards        |   9     |          1.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_catches      |   1.2   |          1.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_td           |   0.05  |          1.9  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_td           |   0.051 |          1.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_targets      |   1.9   |          1.9  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rec_longest      |  11     |          1.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_yards       |  52.1   |         13.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_td          |   0.336 |         13.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_yards       |  52.3   |         13.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_td          |   0.34  |         13.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_attempts    |  13.8   |         13.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_rec_yards   |  57.9   |         13.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_rec_yards   |  58.1   |         13.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036158  | J.K. Dobbins             | rush_longest     |  13.2   |         13.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_yards       |  19.8   |          7    | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_td          |   0.254 |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_yards       |  19.9   |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_td          |   0.257 |          7    | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_attempts    |   7     |          7    | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_rec_yards   |  54.7   |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_rec_yards   |  54.9   |          7    | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0040730  | RJ Harvey                | rush_longest     |   9.3   |          7    | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_yards       |  14.9   |          4.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_td          |   0.199 |          4.4  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_td          |   0.201 |          4.4  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_attempts    |   4.4   |          4.4  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_rec_yards   |  14.9   |          4.4  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | rush_longest     |   8.1   |          4.4  | live   |
@@ -1874,132 +1874,132 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rush_attempts    |   1.2   |          1.2  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rush_rec_yards   |  13.1   |          1.2  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0037085  | Tyler Badie              | rush_longest     |   6.2   |          1.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_yards       | 220.9   |         37.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_td          |   1.577 |         37.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_yards       | 222.2   |         37.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_td          |   1.611 |         37.3  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_int         |   0.768 |         37.3  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_attempts    |  36     |         37.3  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_completions |  22.4   |         37.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_rush_yards  | 235.8   |         37.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_rush_yards  | 237.1   |         37.3  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039732  | Bo Nix                   | pass_longest     |  33.7   |         37.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_tackles      |   9.8   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_sacks        |   0.03  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_solo_tackles |   4.1   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_tackles      |   6.2   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_sacks        |   0.06  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_solo_tackles |   3.8   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_tackles      |   5.3   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_sacks        |   0.13  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_solo_tackles |   3.2   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_tackles      |   4.1   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_sacks        |   0.03  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_solo_tackles |   2.8   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_tackles      |   4     |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_sacks        |   0.2   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_solo_tackles |   1.6   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_tackles      |   3.8   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_sacks        |   0.08  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_solo_tackles |   2.6   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_tackles      |   3.3   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_sacks        |   0.37  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_solo_tackles |   1.4   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_tackles      |   3.1   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_sacks        |   0.06  |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_solo_tackles |   2.2   |         66.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0032569  | Wil Lutz                 | kick_points      |   7.1   |         23.17 | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0032569  | Wil Lutz                 | field_goals      |   1.66  |         23.17 | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_yards        |  33.8   |          6.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_catches      |   3.2   |          6.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_td           |   0.247 |          6.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_targets      |   6.2   |          6.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_longest      |  17.7   |          6.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040727  | Tre Harris               | rec_yards        |  31.2   |          5.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040727  | Tre Harris               | rec_catches      |   3.5   |          5.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040727  | Tre Harris               | rec_td           |   0.185 |          5.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040727  | Tre Harris               | rec_targets      |   5.7   |          5.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040727  | Tre Harris               | rec_longest      |  15.5   |          5.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_yards        |  28.9   |          5.5  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_catches      |   3.3   |          5.5  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_td           |   0.236 |          5.5  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_targets      |   5.5   |          5.5  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_longest      |  16.5   |          5.5  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_yards        |  31.3   |          5.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_tackles      |   9.8   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_sacks        |   0.03  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0031898  | Alex Singleton           | def_solo_tackles |   4.1   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_tackles      |   6.2   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_sacks        |   0.06  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036221  | Brandon Jones            | def_solo_tackles |   3.8   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_tackles      |   5.3   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_sacks        |   0.13  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036564  | Talanoa Hufanga          | def_solo_tackles |   3.2   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_tackles      |   4.1   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_sacks        |   0.03  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036874  | Pat Surtain II           | def_solo_tackles |   2.8   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_tackles      |   4     |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_sacks        |   0.2   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0036428  | Justin Strnad            | def_solo_tackles |   1.6   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_tackles      |   3.8   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_sacks        |   0.08  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0038552  | Riley Moss               | def_solo_tackles |   2.6   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_tackles      |   3.3   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_sacks        |   0.37  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0035763  | Malcolm Roach            | def_solo_tackles |   1.4   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_tackles      |   3.1   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_sacks        |   0.06  |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0039371  | Kris Abrams-Draine       | def_solo_tackles |   2.2   |         66.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0032569  | Wil Lutz                 | kick_points      |   7.2   |         23.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | DEN    | 00-0032569  | Wil Lutz                 | field_goals      |   1.67  |         23.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_yards        |  38.6   |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_catches      |   3.7   |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_td           |   0.26  |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_targets      |   7     |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038544  | Quentin Johnston         | rec_longest      |  17.7   |          7    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_yards        |  33.4   |          6.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_catches      |   3.8   |          6.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_td           |   0.249 |          6.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_targets      |   6.3   |          6.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039915  | Ladd McConkey            | rec_longest      |  16.5   |          6.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_yards        |  32.6   |          5.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_catches      |   3.2   |          5.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_td           |   0.238 |          5.1  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_td           |   0.25  |          5.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_targets      |   5.1   |          5.1  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040189  | Oronde Gadsden II        | rec_longest      |  14.4   |          5.1  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_yards        |  15.9   |          3.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_yards        |  16.4   |          3.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_catches      |   2.4   |          3.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_td           |   0.093 |          3.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_td           |   0.097 |          3.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rec_longest      |   9.3   |          3.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_yards        |  11     |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_yards        |  11.4   |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_catches      |   1.8   |          2.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_td           |   0.063 |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_td           |   0.066 |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rec_longest      |  10.4   |          2.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_yards        |   8.4   |          2.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_catches      |   1.2   |          2.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_td           |   0.096 |          2.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_targets      |   2.3   |          2.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_longest      |   9.1   |          2.3  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_yards        |   8.9   |          2.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_catches      |   1.3   |          2.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_td           |   0.067 |          2.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_targets      |   2.2   |          2.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_longest      |  10.8   |          2.2  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_yards       |  47.4   |         13.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_td          |   0.411 |         13.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_yards        |   9.5   |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_catches      |   1.3   |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_td           |   0.101 |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_targets      |   2.6   |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034272  | Marquez Valdes-Scantling | rec_longest      |   9.1   |          2.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_yards        |   9.2   |          2.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_catches      |   1.3   |          2.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_td           |   0.071 |          2.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_targets      |   2.3   |          2.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rec_longest      |  10.8   |          2.3  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038046  | Charlie Kolar            | rec_yards        |  10.1   |          2.2  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038046  | Charlie Kolar            | rec_catches      |   1.4   |          2.2  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038046  | Charlie Kolar            | rec_td           |   0.092 |          2.2  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038046  | Charlie Kolar            | rec_targets      |   2.2   |          2.2  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038046  | Charlie Kolar            | rec_longest      |  10.4   |          2.2  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_yards       |  47.3   |         13.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_td          |   0.405 |         13.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_attempts    |  13.7   |         13.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_rec_yards   |  58.4   |         13.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_rec_yards   |  58.7   |         13.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0040666  | Omarion Hampton          | rush_longest     |  12.1   |         13.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_yards       |  29.4   |          6.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_td          |   0.151 |          6.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_yards       |  29.3   |          6.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_td          |   0.149 |          6.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_attempts    |   6.7   |          6.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_rec_yards   |  45.3   |          6.7  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_rec_yards   |  45.7   |          6.7  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038454  | Keaton Mitchell          | rush_longest     |   9.8   |          6.7  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_yards       |  22.1   |          4.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_td          |   0.149 |          4.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_yards       |  22     |          4.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_td          |   0.148 |          4.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_attempts    |   4.8   |          4.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_rec_yards   |  22.1   |          4.8  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_rec_yards   |  22     |          4.8  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | rush_longest     |  10.1   |          4.8  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_yards       |  10.6   |          3.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_td          |   0.078 |          3.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_yards       |  10.5   |          3.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_td          |   0.077 |          3.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_attempts    |   3.6   |          3.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_rec_yards   |  19.5   |          3.6  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_rec_yards   |  19.7   |          3.6  | live   |
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039391  | Kimani Vidal             | rush_longest     |  11     |          3.6  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 213.2   |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_td          |   1.351 |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_int         |   0.801 |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_attempts    |  34.8   |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_completions |  22.7   |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 235.3   |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_longest     |  33.4   |         38.9  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_tackles      |   6.6   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_sacks        |   0.14  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_solo_tackles |   3.1   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_tackles      |   5.9   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_sacks        |   0.13  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_solo_tackles |   3.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_tackles      |   4.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_sacks        |   0.13  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_solo_tackles |   1.9   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_tackles      |   4.1   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_sacks        |   0.04  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_solo_tackles |   2     |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_tackles      |   3.9   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_sacks        |   0.03  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_solo_tackles |   2.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_tackles      |   3.7   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_sacks        |   0.84  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_solo_tackles |   2.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_tackles      |   3.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_sacks        |   0.03  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_solo_tackles |   2.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_tackles      |   3.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_sacks        |   0.26  |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_solo_tackles |   1.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0037224  | Cameron Dicker           | kick_points      |   6.8   |         20.25 | live   |
-|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0037224  | Cameron Dicker           | field_goals      |   1.65  |         20.25 | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_yards       | 212.2   |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_td          |   1.316 |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_int         |   0.803 |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_attempts    |  34.9   |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_completions |  22.7   |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_rush_yards  | 234.2   |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036355  | Justin Herbert           | pass_longest     |  33.4   |         39    | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_tackles      |   6.6   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_sacks        |   0.14  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0038553  | Daiyan Henley            | def_solo_tackles |   3.1   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_tackles      |   5.9   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_sacks        |   0.13  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0034790  | Derwin James             | def_solo_tackles |   3.2   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_tackles      |   4.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_sacks        |   0.14  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0035202  | Del'Shawn Phillips       | def_solo_tackles |   1.9   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_tackles      |   4.1   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_sacks        |   0.04  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0036992  | Elijah Molden            | def_solo_tackles |   2     |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_tackles      |   3.9   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_sacks        |   0.03  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0030294  | Tony Jefferson           | def_solo_tackles |   2.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_tackles      |   3.7   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_sacks        |   0.84  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039111  | Tuli Tuipulotu           | def_solo_tackles |   2.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_tackles      |   3.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_sacks        |   0.03  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0039369  | Cam Hart                 | def_solo_tackles |   2.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_tackles      |   3.4   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_sacks        |   0.26  |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0041544  | Akheem Mesidor           | def_solo_tackles |   1.2   |         64.5  | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0037224  | Cameron Dicker           | kick_points      |   6.7   |         19.82 | live   |
+|     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0037224  | Cameron Dicker           | field_goals      |   1.65  |         19.82 | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  77.3   |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_catches      |   6.7   |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.622 |         11.4  | live   |

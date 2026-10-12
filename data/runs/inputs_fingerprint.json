@@ -526,6 +526,11 @@
 ],
 [
 "LAC",
+"Tre' Harris",
+"Doubtful"
+],
+[
+"LAC",
 "Trevor Penning",
 "Out"
 ],
@@ -877,6 +882,11 @@
 [
 "TB",
 "Benjamin Morrison",
+"Out"
+],
+[
+"TB",
+"David Sills V",
 "Out"
 ],
 [
@@ -1955,12 +1965,6 @@
 "Full Participation in Practice"
 ],
 [
-"LAC",
-"Tre' Harris",
-"Questionable (ESPN)",
-""
-],
-[
 "LV",
 "Ashton Jeanty",
 "Questionable",
@@ -2856,5 +2860,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 23:20 UTC"
+"written_at": "2026-10-12 23:53 UTC"
 }
