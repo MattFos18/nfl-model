@@ -526,8 +526,18 @@
 ],
 [
 "HOU",
+"David Montgomery",
+"Doubtful"
+],
+[
+"HOU",
 "Febechi Nwaiwu",
 "Out"
+],
+[
+"HOU",
+"Jalen Pitre",
+"Doubtful"
 ],
 [
 "HOU",
@@ -1978,12 +1988,6 @@
 ],
 [
 "HOU",
-"David Montgomery",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
 "Ed Ingram",
 "Questionable",
 "Limited Participation in Practice"
@@ -1993,12 +1997,6 @@
 "Jadeveon Clowney",
 "",
 "Did Not Participate In Practice"
-],
-[
-"HOU",
-"Jalen Pitre",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -3220,5 +3218,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 16:24 UTC"
+"written_at": "2026-10-12 17:02 UTC"
 }
