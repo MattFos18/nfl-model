@@ -1015,6 +1015,11 @@
 "Out"
 ],
 [
+"PHI",
+"Will Shipley",
+"Doubtful"
+],
+[
 "PIT",
 "DeShon Elliott",
 "Out"
@@ -2850,12 +2855,6 @@
 ],
 [
 "PHI",
-"Will Shipley",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Zack Baun",
 "",
 "Full Participation in Practice"
@@ -3216,5 +3215,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 15:32 UTC"
+"written_at": "2026-10-12 16:02 UTC"
 }

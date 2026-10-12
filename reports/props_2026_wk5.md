@@ -1,6 +1,6 @@
 # Week 5, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 15:41 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 15:59 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -190,146 +190,141 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_TB_DAL  | DAL    | 00-0033877  | Malik Hooker             | def_solo_tackles |   2.1   |         63.6  | live   |
 |     2026 |      5 | 2026_05_TB_DAL  | DAL    | 00-0037692  | Brandon Aubrey           | kick_points      |   8.6   |         29.5  | live   |
 |     2026 |      5 | 2026_05_TB_DAL  | DAL    | 00-0037692  | Brandon Aubrey           | field_goals      |   1.85  |         29.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_yards        |  66     |          9.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_yards        |  66.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_catches      |   5.7   |          9.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_td           |   0.282 |          9.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_td           |   0.287 |          9.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_targets      |   9.6   |          9.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036912  | DeVonta Smith            | rec_longest      |  20.6   |          9.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_yards        |  33.2   |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_yards        |  33.5   |          5.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_catches      |   3.1   |          5.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.175 |          5.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_td           |   0.179 |          5.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_targets      |   5.5   |          5.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038393  | Dontayvion Wicks         | rec_longest      |  14.6   |          5.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_yards        |  28.1   |          5.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_yards        |  28.4   |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_catches      |   3.4   |          5.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_td           |   0.322 |          5.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_td           |   0.327 |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_targets      |   5.4   |          5.4  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034351  | Dallas Goedert           | rec_longest      |  15.2   |          5.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_yards        |  24.2   |          5.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_yards        |  24.4   |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_catches      |   3.2   |          5.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.204 |          5.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_td           |   0.208 |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_targets      |   5.2   |          5.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0030061  | Zach Ertz                | rec_longest      |  13.7   |          5.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_yards        |  21.6   |          4.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_yards        |  21.8   |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_catches      |   2.7   |          4.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.171 |          4.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_td           |   0.174 |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_targets      |   4.5   |          4.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040867  | Makai Lemon              | rec_longest      |  11.2   |          4.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_yards        |  15.1   |          3    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_yards        |  15.2   |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_catches      |   1.8   |          3    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.121 |          3    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_td           |   0.123 |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_targets      |   3     |          3    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040024  | Darius Cooper            | rec_longest      |  12.2   |          3    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_yards        |   9.5   |          2.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_yards        |   9.6   |          2.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_catches      |   1.8   |          2.9  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_td           |   0.062 |          2.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_td           |   0.063 |          2.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rec_longest      |   9.4   |          2.9  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rec_yards        |   7.2   |          1.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rec_catches      |   1.1   |          1.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rec_td           |   0.03  |          1.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rec_targets      |   1.7   |          1.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rec_longest      |   8.3   |          1.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_yards       |  38     |         11.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_td          |   0.221 |         11.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_attempts    |  11.2   |         11.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_rec_yards   |  47.5   |         11.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_longest     |  14.2   |         11.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_yards       |  17.8   |          5    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_td          |   0.224 |          5    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033246  | Johnny Mundt             | rec_yards        |   6.6   |          1.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033246  | Johnny Mundt             | rec_catches      |   0.7   |          1.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033246  | Johnny Mundt             | rec_td           |   0.042 |          1.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033246  | Johnny Mundt             | rec_targets      |   1.4   |          1.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033246  | Johnny Mundt             | rec_longest      |   9.3   |          1.4  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_yards       |  40.9   |         11.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_td          |   0.24  |         11.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_attempts    |  11.5   |         11.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_rec_yards   |  50.5   |         11.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034844  | Saquon Barkley           | rush_longest     |  14.2   |         11.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_yards       |  18.7   |          5    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_td          |   0.243 |          5    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_attempts    |   5     |          5    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_rec_yards   |  17.8   |          5    | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_rec_yards   |  18.7   |          5    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | rush_longest     |   8.9   |          5    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_yards       |  12.8   |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_td          |   0.086 |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_attempts    |   3.4   |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_rec_yards   |  20     |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039746  | Will Shipley             | rush_longest     |   7.1   |          3.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_yards       |   4.7   |          1.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_td          |   0.061 |          1.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_yards       |   4.9   |          1.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_td          |   0.066 |          1.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_attempts    |   1.6   |          1.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_rec_yards   |   4.7   |          1.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_rec_yards   |   4.9   |          1.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0038400  | Tanner McKee             | rush_longest     |   5.9   |          1.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_yards       | 203     |         35.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_td          |   1.159 |         35.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_yards       | 203.4   |         35.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_td          |   1.17  |         35.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_int         |   0.731 |         35.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_attempts    |  33.1   |         35.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_completions |  20.8   |         35.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_rush_yards  | 220.8   |         35.5  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_rush_yards  | 222.1   |         35.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036389  | Jalen Hurts              | pass_longest     |  31.8   |         35.5  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_tackles      |   8.1   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_sacks        |   0.08  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_solo_tackles |   4.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_tackles      |   7     |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_sacks        |   0.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_solo_tackles |   3.3   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_tackles      |   6.4   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_sacks        |   0.08  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_solo_tackles |   3.8   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_tackles      |   4.7   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_sacks        |   0.03  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_solo_tackles |   2.8   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_tackles      |   4.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_sacks        |   0.06  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_solo_tackles |   2     |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_tackles      |   3.8   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_sacks        |   0.05  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_solo_tackles |   3.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_tackles      |   3.8   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_sacks        |   0.2   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_solo_tackles |   1.7   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_tackles      |   3.7   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_sacks        |   0.11  |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_solo_tackles |   2.7   |         64.4  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033787  | Jake Elliott             | kick_points      |   6.2   |         18.07 | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033787  | Jake Elliott             | field_goals      |   1.51  |         18.07 | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_tackles      |   8.1   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_sacks        |   0.08  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039826  | Jeremiah Trotter Jr.     | def_solo_tackles |   4.2   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_tackles      |   7     |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_sacks        |   0.2   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0036418  | Zack Baun                | def_solo_tackles |   3.3   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_tackles      |   6.4   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_sacks        |   0.08  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040708  | Jihaad Campbell          | def_solo_tackles |   3.8   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_tackles      |   4.7   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_sacks        |   0.03  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0039841  | Cooper DeJean            | def_solo_tackles |   2.8   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_tackles      |   4.2   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_sacks        |   0.06  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0040749  | Andrew Mukuba            | def_solo_tackles |   2     |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_tackles      |   3.8   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_sacks        |   0.05  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0034993  | Marcus Epps              | def_solo_tackles |   3.1   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_tackles      |   3.8   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_sacks        |   0.2   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0037073  | Jordan Davis             | def_solo_tackles |   1.7   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_tackles      |   3.7   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_sacks        |   0.11  |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0032580  | Jonathan Jones           | def_solo_tackles |   2.7   |         64.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033787  | Jake Elliott             | kick_points      |   6.3   |         18.22 | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | PHI    | 00-0033787  | Jake Elliott             | field_goals      |   1.51  |         18.22 | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_yards        |  63.4   |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_catches      |   4.6   |          8.3  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.543 |          8.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_td           |   0.541 |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_targets      |   8.3   |          8.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038606  | Parker Washington        | rec_longest      |  19.8   |          8.3  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_yards        |  41.6   |          6.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_yards        |  41.5   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_catches      |   4     |          6.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_td           |   0.383 |          6.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_td           |   0.381 |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_targets      |   6.2   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038935  | Brenton Strange          | rec_longest      |  15.5   |          6.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_yards        |  38.4   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_catches      |   3.8   |          6.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_td           |   0.352 |          6.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_td           |   0.35  |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_targets      |   6.1   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034960  | Jakobi Meyers            | rec_longest      |  16.5   |          6.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_yards        |  28.9   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_catches      |   2.6   |          4.8  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_td           |   0.268 |          4.8  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_td           |   0.266 |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_targets      |   4.8   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039893  | Brian Thomas Jr.         | rec_longest      |  15.9   |          4.8  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_yards        |  14.5   |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_catches      |   2.1   |          3.6  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_td           |   0.161 |          3.6  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_td           |   0.16  |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040718  | Travis Hunter            | rec_longest      |  16     |          3.6  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_yards        |  10.1   |          2.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_catches      |   1     |          2.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_td           |   0.113 |          2.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_td           |   0.112 |          2.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_targets      |   2.1   |          2.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036841  | Austin Trammell          | rec_longest      |   8.4   |          2.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_yards        |   9.7   |          1.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_yards        |   9.6   |          1.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_catches      |   1.2   |          1.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_td           |   0.077 |          1.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_targets      |   1.9   |          1.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rec_longest      |   9.3   |          1.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_yards        |   4.8   |          1.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_catches      |   0.8   |          1.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_td           |   0.038 |          1.2  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_td           |   0.037 |          1.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_targets      |   1.2   |          1.2  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0032104  | Ameer Abdullah           | rec_longest      |   7.8   |          1.2  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_yards       |  57.6   |         13.9  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_td          |   0.463 |         13.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_yards       |  57.5   |         13.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_td          |   0.461 |         13.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_attempts    |  13.9   |         13.9  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_rec_yards   |  67.3   |         13.9  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_rec_yards   |  67.1   |         13.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0040719  | Bhayshul Tuten           | rush_longest     |   9.9   |         13.9  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_yards       |  24.4   |          7.3  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_td          |   0.275 |          7.3  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_td          |   0.274 |          7.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_attempts    |   7.3   |          7.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_rec_yards   |  24.4   |          7.3  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0038611  | Chris Rodriguez Jr.      | rush_longest     |  10.5   |          7.3  | live   |
@@ -339,16 +334,16 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | rush_rec_yards   |  13.3   |          3.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | rush_longest     |   8.3   |          3.5  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_yards       |   6.5   |          2.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_td          |   0.095 |          2.7  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_td          |   0.094 |          2.7  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_attempts    |   2.7   |          2.7  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_rec_yards   |   6.5   |          2.7  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0033319  | Nick Mullens             | rush_longest     |   5.2   |          2.7  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_yards       | 238     |         35.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_td          |   1.848 |         35.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_yards       | 237.5   |         35.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_td          |   1.837 |         35.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_int         |   0.723 |         35.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_attempts    |  32.4   |         35.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_completions |  20.4   |         35.1  | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_rush_yards  | 251.3   |         35.1  | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_rush_yards  | 250.8   |         35.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0036971  | Trevor Lawrence          | pass_longest     |  33.2   |         35.1  | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034413  | Foyesade Oluokun         | def_tackles      |   6.6   |         61    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0034413  | Foyesade Oluokun         | def_sacks        |   0.03  |         61    | live   |
@@ -374,8 +369,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0037313  | Montaric Brown           | def_tackles      |   3.1   |         61    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0037313  | Montaric Brown           | def_sacks        |   0.03  |         61    | live   |
 |     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0037313  | Montaric Brown           | def_solo_tackles |   2.6   |         61    | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039409  | Cam Little               | kick_points      |   8.1   |         27.18 | live   |
-|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039409  | Cam Little               | field_goals      |   1.75  |         27.18 | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039409  | Cam Little               | kick_points      |   8.1   |         27.03 | live   |
+|     2026 |      5 | 2026_05_PHI_JAX | JAX    | 00-0039409  | Cam Little               | field_goals      |   1.75  |         27.03 | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rec_yards        |  52.2   |          8    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rec_catches      |   4.9   |          8    | live   |
 |     2026 |      5 | 2026_05_CHI_GB  | CHI    | 00-0040735  | Luther Burden III        | rec_td           |   0.291 |          8    | live   |
