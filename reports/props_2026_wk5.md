@@ -1,6 +1,6 @@
 # Week 5, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 17:11 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-12 17:29 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2007,7 +2007,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DEN_LAC | LAC    | 00-0037224  | Cameron Dicker           | field_goals      |   1.65  |         20.31 | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_yards        |  77.3   |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_catches      |   6.7   |         11.4  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.623 |         11.4  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_td           |   0.622 |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_targets      |  11.4   |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036963  | Amon-Ra St. Brown        | rec_longest      |  21.7   |         11.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039065  | Sam LaPorta              | rec_yards        |  53.6   |          7.8  | live   |
@@ -2032,7 +2032,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0040669  | Isaac TeSlaa             | rec_longest      |  15.4   |          3.9  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_yards        |   8     |          1.9  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_catches      |   1.2   |          1.9  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_td           |   0.112 |          1.9  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_td           |   0.111 |          1.9  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_targets      |   1.9   |          1.9  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0036754  | Brock Wright             | rec_longest      |   9.5   |          1.9  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039139  | Jahmyr Gibbs             | rush_yards       |  84.4   |         19.4  | live   |
@@ -2051,7 +2051,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | rush_rec_yards   |   5.7   |          2    | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | rush_longest     |   6.3   |          2    | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_yards       | 282.1   |         38.7  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.066 |         38.7  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_td          |   2.065 |         38.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_int         |   0.797 |         38.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_attempts    |  36.2   |         38.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0033106  | Jared Goff               | pass_completions |  24.1   |         38.7  | live   |
@@ -2081,8 +2081,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0037236  | Aidan Hutchinson         | def_tackles      |   3.2   |         65.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0037236  | Aidan Hutchinson         | def_sacks        |   0.69  |         65.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0037236  | Aidan Hutchinson         | def_solo_tackles |   2     |         65.5  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.5   |         29.72 | live   |
-|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.81  |         29.72 | live   |
+|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039172  | Jake Bates               | kick_points      |   8.5   |         29.7  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | DET    | 00-0039172  | Jake Bates               | field_goals      |   1.81  |         29.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037744  | Trey McBride             | rec_yards        |  75.6   |         13.1  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037744  | Trey McBride             | rec_catches      |   8.8   |         13.1  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037744  | Trey McBride             | rec_td           |   0.644 |         13.1  | live   |
@@ -2090,7 +2090,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037744  | Trey McBride             | rec_longest      |  18.8   |         13.1  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_yards        |  79.9   |         12.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_catches      |   7.1   |         12.5  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_td           |   0.483 |         12.5  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_td           |   0.484 |         12.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_targets      |  12.5   |         12.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038559  | Michael Wilson           | rec_longest      |  20.2   |         12.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039849  | Marvin Harrison Jr.      | rec_yards        |  28.4   |          5    | live   |
@@ -2123,10 +2123,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039041  | Elijah Higgins           | rec_td           |   0.088 |          2.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039041  | Elijah Higgins           | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039041  | Elijah Higgins           | rec_longest      |  10.9   |          2.4  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_yards       |  44.6   |         11.7  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_yards       |  44.7   |         11.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_td          |   0.341 |         11.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_attempts    |  11.7   |         11.7  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_rec_yards   |  59.6   |         11.7  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_rec_yards   |  59.7   |         11.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0041027  | Jeremiyah Love           | rush_longest     |  11.9   |         11.7  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037263  | Tyler Allgeier           | rush_yards       |  22.3   |          6.2  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037263  | Tyler Allgeier           | rush_td          |   0.248 |          6.2  | live   |
@@ -2143,12 +2143,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037157  | Bam Knight               | rush_attempts    |   3     |          3    | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037157  | Bam Knight               | rush_rec_yards   |  17.3   |          3    | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0037157  | Bam Knight               | rush_longest     |   8.9   |          3    | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 250     |         44.5  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.656 |         44.5  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_yards       | 250.1   |         44.5  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_td          |   1.657 |         44.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_int         |   0.917 |         44.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_attempts    |  41.3   |         44.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_completions |  27.1   |         44.5  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 261.3   |         44.5  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_rush_yards  | 261.4   |         44.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0033119  | Jacoby Brissett          | pass_longest     |  32.2   |         44.5  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0040645  | Cody Simon               | def_tackles      |   7.4   |         64.2  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0040645  | Cody Simon               | def_sacks        |   0.09  |         64.2  | live   |
@@ -2174,8 +2174,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039807  | Max Melton               | def_tackles      |   3.5   |         64.2  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039807  | Max Melton               | def_sacks        |   0.04  |         64.2  | live   |
 |     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0039807  | Max Melton               | def_solo_tackles |   2.2   |         64.2  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038567  | Chad Ryland              | kick_points      |   7.4   |         24.1  | live   |
-|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038567  | Chad Ryland              | field_goals      |   1.68  |         24.1  | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038567  | Chad Ryland              | kick_points      |   7.4   |         24.11 | live   |
+|     2026 |      5 | 2026_05_DET_ARI | ARI    | 00-0038567  | Chad Ryland              | field_goals      |   1.68  |         24.11 | live   |
 |     2026 |      5 | 2026_05_SF_SEA  | SF     | 00-0031408  | Mike Evans               | rec_yards        |  38.8   |          7.2  | live   |
 |     2026 |      5 | 2026_05_SF_SEA  | SF     | 00-0031408  | Mike Evans               | rec_catches      |   3.8   |          7.2  | live   |
 |     2026 |      5 | 2026_05_SF_SEA  | SF     | 00-0031408  | Mike Evans               | rec_td           |   0.344 |          7.2  | live   |
