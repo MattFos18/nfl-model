@@ -141,6 +141,21 @@
 ],
 [
 "BUF",
+"Ar'maj Reed-Adams",
+"Out"
+],
+[
+"BUF",
+"DJ Moore",
+"Out"
+],
+[
+"BUF",
+"Dee Alford",
+"Out"
+],
+[
+"BUF",
 "Ed Oliver",
 "Out"
 ],
@@ -152,6 +167,16 @@
 [
 "BUF",
 "Joshua Palmer",
+"Out"
+],
+[
+"BUF",
+"Jude Bowry",
+"Out"
+],
+[
+"BUF",
+"Landon Jackson",
 "Out"
 ],
 [
@@ -421,12 +446,37 @@
 ],
 [
 "LA",
+"Bill Murray",
+"Out"
+],
+[
+"LA",
+"CJ Daniels",
+"Out"
+],
+[
+"LA",
+"Larrell Murchison",
+"Out"
+],
+[
+"LA",
+"Max Klare",
+"Out"
+],
+[
+"LA",
 "Myles Garrett",
 "Out"
 ],
 [
 "LA",
 "Terrance Ferguson",
+"Out"
+],
+[
+"LA",
+"Ty Simpson",
 "Out"
 ],
 [
@@ -1096,12 +1146,6 @@
 ],
 [
 "BUF",
-"DJ Moore",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Damar Hamlin",
 "",
 "Full Participation in Practice"
@@ -1111,12 +1155,6 @@
 "Dee Alford",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Dee Alford",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1141,12 +1179,6 @@
 "Landon Jackson",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"BUF",
-"Landon Jackson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1837,12 +1869,6 @@
 "Quentin Lake",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"LA",
-"Quentin Lake",
-"Questionable (ESPN)",
-""
 ],
 [
 "LA",
@@ -2830,5 +2856,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 22:25 UTC"
+"written_at": "2026-10-12 23:20 UTC"
 }
