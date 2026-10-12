@@ -81,17 +81,7 @@
 "injuries": [
 [
 "ARI",
-"Andrew Billings",
-"Out"
-],
-[
-"ARI",
 "Andrew Wingard",
-"Out"
-],
-[
-"ARI",
-"Carson Beck",
 "Out"
 ],
 [
@@ -110,41 +100,6 @@
 "Out"
 ],
 [
-"ARI",
-"Starling Thomas V",
-"Out"
-],
-[
-"ATL",
-"Christian Harris",
-"Out"
-],
-[
-"ATL",
-"Cooper Rush",
-"Out"
-],
-[
-"ATL",
-"Ethan Onianwa",
-"Out"
-],
-[
-"ATL",
-"Jack Strand",
-"Out"
-],
-[
-"ATL",
-"Malcolm DeWalt IV",
-"Out"
-],
-[
-"ATL",
-"Robert Longerbeam",
-"Out"
-],
-[
 "ATL",
 "Yasir Abdullah",
 "Out"
@@ -152,11 +107,6 @@
 [
 "ATL",
 "Za'Darius Smith",
-"Out"
-],
-[
-"BAL",
-"Aeneas Peebles",
 "Out"
 ],
 [
@@ -172,11 +122,6 @@
 [
 "BAL",
 "Durham Smythe",
-"Out"
-],
-[
-"BAL",
-"Elijah Sarratt",
 "Out"
 ],
 [
@@ -221,16 +166,6 @@
 ],
 [
 "CHI",
-"Jamree Kromah",
-"Out"
-],
-[
-"CHI",
-"Jayden Loving",
-"Out"
-],
-[
-"CHI",
 "Keyshaun Elliott",
 "Out"
 ],
@@ -246,11 +181,6 @@
 ],
 [
 "CHI",
-"Ozzy Trapilo",
-"Out"
-],
-[
-"CHI",
 "Shemar Turner",
 "Out"
 ],
@@ -261,32 +191,12 @@
 ],
 [
 "CIN",
-"Connor Lew",
-"Out"
-],
-[
-"CIN",
-"Jack Endries",
-"Out"
-],
-[
-"CIN",
-"Jalen Davis",
-"Out"
-],
-[
-"CIN",
 "Kyle Dugger",
 "Out"
 ],
 [
 "CIN",
-"Landon Robinson",
-"Out"
-],
-[
-"CIN",
-"Myles Hinton",
+"Swayze Bozeman",
 "Out"
 ],
 [
@@ -321,32 +231,12 @@
 ],
 [
 "CLE",
-"Parker Brailsford",
-"Out"
-],
-[
-"CLE",
-"Taylen Green",
-"Out"
-],
-[
-"CLE",
 "Teven Jenkins",
 "Out"
 ],
 [
 "CLE",
 "Tylan Wallace",
-"Out"
-],
-[
-"DAL",
-"Ajani Cornelius",
-"Out"
-],
-[
-"DAL",
-"Camden Brown",
 "Out"
 ],
 [
@@ -362,11 +252,6 @@
 [
 "DAL",
 "Drew Shelton",
-"Out"
-],
-[
-"DAL",
-"James Houston",
 "Out"
 ],
 [
@@ -482,11 +367,6 @@
 [
 "GB",
 "Chris Brooks",
-"Out"
-],
-[
-"GB",
-"Donovan Jennings",
 "Out"
 ],
 [
@@ -902,6 +782,11 @@
 [
 "NO",
 "Jeremiah Wright",
+"Out"
+],
+[
+"NO",
+"Jordyn Tyson",
 "Out"
 ],
 [
@@ -1732,7 +1617,7 @@
 ],
 [
 "CIN",
-"Swayze Bozeman",
+"Tanner Hudson",
 "Questionable (ESPN)",
 ""
 ],
@@ -3232,5 +3117,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-12 19:01 UTC"
+"written_at": "2026-10-12 19:26 UTC"
 }
