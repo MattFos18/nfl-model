@@ -261,6 +261,11 @@
 ],
 [
 "LAC",
+"KeAndre Lambert-Smith",
+"Out"
+],
+[
+"LAC",
 "Rashawn Slater",
 "Out"
 ],
@@ -697,12 +702,6 @@
 [
 "DEN",
 "Riley Moss",
-"Questionable (ESPN)",
-""
-],
-[
-"DEN",
-"Sai'vion Jones",
 "Questionable (ESPN)",
 ""
 ],
@@ -1177,7 +1176,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 10.9,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1185,5 +1184,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 22:02 UTC"
+"written_at": "2026-10-13 23:04 UTC"
 }
