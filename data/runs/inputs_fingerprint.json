@@ -175,11 +175,6 @@
 "Out"
 ],
 [
-"DAL",
-"Jonathan Bullard",
-"Out"
-],
-[
 "DEN",
 "Pat Bryant",
 "Out"
@@ -247,6 +242,11 @@
 [
 "KC",
 "Tyquan Thornton",
+"Out"
+],
+[
+"LA",
+"Alaric Jackson",
 "Out"
 ],
 [
@@ -1184,5 +1184,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 23:04 UTC"
+"written_at": "2026-10-13 23:33 UTC"
 }
