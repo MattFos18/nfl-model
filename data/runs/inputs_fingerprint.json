@@ -171,6 +171,11 @@
 ],
 [
 "CAR",
+"Cam Jackson",
+"Out"
+],
+[
+"CAR",
 "Ikem Ekwonu",
 "Out"
 ],
@@ -626,6 +631,11 @@
 ],
 [
 "PHI",
+"Jalyx Hunt",
+"Doubtful"
+],
+[
+"PHI",
 "Jonathan Greenard",
 "Out"
 ],
@@ -869,12 +879,6 @@
 ],
 [
 "CAR",
-"Cam Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Damien Lewis",
 "Questionable (ESPN)",
 ""
@@ -1091,12 +1095,6 @@
 ],
 [
 "PHI",
-"Jalyx Hunt",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Michael Carter II",
 "Questionable (ESPN)",
 ""
@@ -1154,5 +1152,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 15:49 UTC"
+"written_at": "2026-10-13 16:21 UTC"
 }
