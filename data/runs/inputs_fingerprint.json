@@ -155,11 +155,6 @@
 "Out"
 ],
 [
-"CHI",
-"Shemar Turner",
-"Out"
-],
-[
 "CLE",
 "Dillon Gabriel",
 "Out"
@@ -257,6 +252,11 @@
 [
 "KC",
 "Tyquan Thornton",
+"Out"
+],
+[
+"LA",
+"Alaric Jackson",
 "Out"
 ],
 [
@@ -1195,5 +1195,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 21:01 UTC"
+"written_at": "2026-10-13 21:23 UTC"
 }
