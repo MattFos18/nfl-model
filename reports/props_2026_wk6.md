@@ -1,47 +1,47 @@
 # Week 6, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-13 14:54 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-13 15:28 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_yards        |  73.1   |         10.2  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_catches      |   6.8   |         10.2  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_td           |   0.479 |         10.2  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_td           |   0.577 |         10.2  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_targets      |  10.2   |         10.2  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038543  | Jaxon Smith-Njigba       | rec_longest      |  26.2   |         10.2  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_yards        |  21.3   |          4.4  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_catches      |   2.8   |          4.4  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_td           |   0.168 |          4.4  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_td           |   0.203 |          4.4  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_targets      |   4.4   |          4.4  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039793  | AJ Barner                | rec_longest      |  13     |          4.4  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_yards        |  20.4   |          4.1  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_catches      |   2.4   |          4.1  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_td           |   0.141 |          4.1  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_td           |   0.17  |          4.1  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_targets      |   4.1   |          4.1  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0033908  | Cooper Kupp              | rec_longest      |  14.4   |          4.1  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_yards        |  18.2   |          3.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_catches      |   2     |          3.9  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_td           |   0.115 |          3.9  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_td           |   0.138 |          3.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_targets      |   3.9   |          3.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0037545  | Rashid Shaheed           | rec_longest      |  12.9   |          3.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_yards        |  12.2   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_catches      |   1.9   |          2.6  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_td           |   0.053 |          2.6  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_td           |   0.064 |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0039299  | George Holani            | rec_longest      |   9.5   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_yards        |   9.1   |          2    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_catches      |   1.4   |          2    | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_td           |   0.039 |          2    | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_td           |   0.047 |          2    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_targets      |   2     |          2    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rec_longest      |   9.5   |          2    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_yards        |   7.6   |          1.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_catches      |   1.2   |          1.8  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_td           |   0.083 |          1.8  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_td           |   0.1   |          1.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_targets      |   1.8   |          1.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040648  | Tory Horton              | rec_longest      |  11.8   |          1.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_yards        |   4.6   |          1    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_catches      |   0.6   |          1    | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_td           |   0.031 |          1    | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_td           |   0.037 |          1    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_targets      |   1     |          1    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0040739  | Elijah Arroyo            | rec_longest      |   9.4   |          1    | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0038797  | Emanuel Wilson           | rush_yards       |  62.5   |         17.7  | live   |
@@ -99,42 +99,42 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_SEA_DEN | SEA    | 00-0031492  | Jason Myers              | field_goals      |   1.75  |         19.77 | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_yards        |  48.4   |          7.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_catches      |   4.2   |          7.7  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_td           |   0.262 |          7.7  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_td           |   0.315 |          7.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_targets      |   7.7   |          7.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036613  | Jaylen Waddle            | rec_longest      |  16.9   |          7.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_yards        |  33.4   |          6.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_catches      |   3.2   |          6.6  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_td           |   0.23  |          6.6  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_td           |   0.277 |          6.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_targets      |   6.6   |          6.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0034348  | Courtland Sutton         | rec_longest      |  14.8   |          6.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_yards        |  26.2   |          5.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_catches      |   4.1   |          5.8  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_td           |   0.153 |          5.8  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_td           |   0.184 |          5.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_targets      |   5.8   |          5.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0040730  | RJ Harvey                | rec_longest      |  12.1   |          5.8  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_yards        |  20.1   |          4.3  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_catches      |   2.4   |          4.3  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_td           |   0.136 |          4.3  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_td           |   0.164 |          4.3  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_targets      |   4.3   |          4.3  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0033881  | Evan Engram              | rec_longest      |  13.1   |          4.3  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_yards        |  14.4   |          3.5  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_catches      |   2.3   |          3.5  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_td           |   0.103 |          3.5  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_td           |   0.125 |          3.5  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_targets      |   3.5   |          3.5  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0038976  | Marvin Mims Jr.          | rec_longest      |  13.6   |          3.5  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_yards        |  10.9   |          2.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_catches      |   1.4   |          2.7  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_td           |   0.097 |          2.7  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_td           |   0.117 |          2.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0035406  | Lil'Jordan Humphrey      | rec_longest      |  11     |          2.7  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_yards        |  11.9   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_catches      |   1.5   |          2.6  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_td           |   0.087 |          2.6  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_td           |   0.105 |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0039868  | Troy Franklin            | rec_longest      |  14.1   |          2.6  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_yards        |   7.7   |          1.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_catches      |   1.2   |          1.9  | live   |
-|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_td           |   0.035 |          1.9  | live   |
+|     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_td           |   0.042 |          1.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_targets      |   1.9   |          1.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0037085  | Tyler Badie              | rec_longest      |  10     |          1.9  | live   |
 |     2026 |      6 | 2026_06_SEA_DEN | DEN    | 00-0036158  | J.K. Dobbins             | rush_yards       |  55.3   |         14.5  | live   |
