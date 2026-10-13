@@ -26,7 +26,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 11 | 7 | 5-2 (71%) | -0.35 | -0.27 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
-| shadow: Under, model total 3+ points below the line | 4 | 4 | 1-3 (25%) | -2.09 | +0.25 | 63-46 | 96-71 | 27-18 |
+| shadow: Under, model total 3+ points below the line | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 3 | 2 | 1-1 (50%) | -0.09 | +0.33 | 57-40 | 82-48 | 43-22 |
 | shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 5 | 5 | 1-4 (20%) | -3.09 | +0.40 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |

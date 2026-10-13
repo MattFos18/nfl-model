@@ -545,6 +545,11 @@
 "Doubtful"
 ],
 [
+"NE",
+"Will Campbell",
+"Doubtful"
+],
+[
 "NO",
 "Anfernee Jennings",
 "Out"
@@ -1052,12 +1057,6 @@
 ""
 ],
 [
-"NE",
-"Will Campbell",
-"Questionable (ESPN)",
-""
-],
-[
 "NYG",
 "Colton Hood",
 "Questionable (ESPN)",
@@ -1144,7 +1143,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 10.8,
+"wind": 11.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1152,5 +1151,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 16:21 UTC"
+"written_at": "2026-10-13 16:55 UTC"
 }
