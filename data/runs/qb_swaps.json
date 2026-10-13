@@ -5,41 +5,19 @@
  "week": 6,
  "espn_unmatched": [
   "BUF Joshua Palmer",
-  "CIN Colbie Young",
-  "CIN Kyle Dugger",
   "CIN Swayze Bozeman",
   "CIN Tanner Hudson",
-  "DET Ben Bartch",
   "DET Brian Branch",
   "DET Cade Mays",
   "DET Devin White",
-  "DET Rock Ya-Sin",
   "DET Tom Kennedy",
-  "MIA Caleb Douglas",
-  "MIA Justin Joly",
-  "MIA Reese Taylor",
-  "MIA Robert Beal Jr.",
   "MIA Storm Duck",
-  "MIN Charles Demmings",
-  "MIN Christian Darrisaw",
   "MIN Donovan Jackson",
-  "MIN Jordan Addison",
   "MIN Josh Oliver",
-  "NYJ Kiko Mauigoa",
   "PHI Hollywood Brown",
   "SEA Irv Charles"
  ],
- "swaps": [
-  {
-   "game_id": "2026_06_BAL_CLE",
-   "team": "BAL",
-   "from": "00-0034796",
-   "from_name": "Lamar Jackson",
-   "to": "00-0035993",
-   "to_name": "Tyler Huntley",
-   "source": "depth chart"
-  }
- ],
+ "swaps": [],
  "conflicts": [
   {
    "game_id": "2026_06_SEA_DEN",
