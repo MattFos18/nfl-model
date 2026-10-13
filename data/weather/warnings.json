@@ -588,16 +588,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_SEA_DEN: GFS MOS run 2026-10-12T18Z at KDEN gave no wind, rain chance, temperature": {
-  "count": 7,
+  "count": 8,
   "first": "2026-10-13 06:36 UTC",
-  "last": "2026-10-13 09:26 UTC",
+  "last": "2026-10-13 09:56 UTC",
   "message": "2026_06_SEA_DEN: GFS MOS run 2026-10-12T18Z at KDEN gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
  "wind_live|2026_06_SEA_DEN: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 7,
+  "count": 8,
   "first": "2026-10-13 06:36 UTC",
-  "last": "2026-10-13 09:26 UTC",
+  "last": "2026-10-13 09:56 UTC",
   "message": "2026_06_SEA_DEN: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
