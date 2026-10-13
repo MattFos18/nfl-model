@@ -535,6 +535,11 @@
 "Out"
 ],
 [
+"NE",
+"TreVeyon Henderson",
+"Doubtful"
+],
+[
 "NO",
 "Anfernee Jennings",
 "Out"
@@ -1044,12 +1049,6 @@
 ],
 [
 "NE",
-"TreVeyon Henderson",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Will Campbell",
 "Questionable (ESPN)",
 ""
@@ -1147,7 +1146,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 9.9,
+"wind": 10.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1155,5 +1154,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 14:57 UTC"
+"written_at": "2026-10-13 15:49 UTC"
 }
