@@ -406,6 +406,11 @@
 ],
 [
 "IND",
+"Alec Pierce",
+"Out"
+],
+[
+"IND",
 "Arden Key",
 "Out"
 ],
@@ -1195,6 +1200,12 @@
 "Ray Davis",
 "",
 "Full Participation in Practice"
+],
+[
+"BUF",
+"Spencer Brown",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -2854,5 +2865,5 @@
 ]
 ],
 "weather": {},
-"written_at": "2026-10-13 00:48 UTC"
+"written_at": "2026-10-13 03:25 UTC"
 }
