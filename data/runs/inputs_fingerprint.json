@@ -231,11 +231,6 @@
 ],
 [
 "IND",
-"Alec Pierce",
-"Out"
-],
-[
-"IND",
 "Arden Key",
 "Out"
 ],
@@ -252,11 +247,6 @@
 [
 "KC",
 "Tyquan Thornton",
-"Out"
-],
-[
-"LA",
-"Alaric Jackson",
 "Out"
 ],
 [
@@ -1187,7 +1177,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 11.7,
+"wind": 10.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1195,5 +1185,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-13 21:23 UTC"
+"written_at": "2026-10-13 22:02 UTC"
 }
