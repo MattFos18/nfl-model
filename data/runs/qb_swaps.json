@@ -2,7 +2,7 @@
  "status": "ok",
  "detail": "",
  "season": 2026,
- "week": 5,
+ "week": 6,
  "espn_unmatched": [
   "BUF Joshua Palmer",
   "CAR Ikem Ekwonu",
@@ -16,7 +16,17 @@
   "PHI Hollywood Brown",
   "SEA Irv Charles"
  ],
- "swaps": [],
+ "swaps": [
+  {
+   "game_id": "2026_06_BAL_CLE",
+   "team": "BAL",
+   "from": "00-0034796",
+   "from_name": "Lamar Jackson",
+   "to": "00-0035993",
+   "to_name": "Tyler Huntley",
+   "source": "depth chart"
+  }
+ ],
  "conflicts": [
   {
    "game_id": "2026_06_SEA_DEN",
