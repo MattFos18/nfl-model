@@ -5,9 +5,9 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | Rule | Closed bets | Avg CLV (pts) | Beat the close | Same | Worse | Pending | Avg CLV (no-vig prob) |
 |---|---|---|---|---|---|---|---|
 | Spreads, 4+ edge | 3 | -0.17 | 33% | 1 | 1 | 0 | -1.4% (1) |
-| Unders, 55%+ chance | 9 | +0.11 | 22% | 5 | 2 | 1 | -0.3% (5) |
+| Unders, 55%+ chance | 10 | +0.00 | 20% | 5 | 3 | 0 | -0.3% (5) |
 | Wind unders, 10+ mph | 5 | -0.60 | 20% | 2 | 2 | 0 | +0.4% (2) |
-| All live bets | 17 | -0.15 | 24% | 8 | 5 | 1 | -0.3% (8) |
+| All live bets | 18 | -0.19 | 22% | 8 | 6 | 0 | -0.3% (8) |
 
 ## Every bet
 
@@ -25,7 +25,7 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | shadowunder |      5 | 2026_05_LV_NE   | Under 45.5 | 2026-10-06 16:28 UTC | first flag   |   45.5 |       nan   |    45.5 |       0   | +0.0%      | 2026-10-11 16:13 UTC | closed   |
 | shadowunder |      5 | 2026_05_IND_PIT | Under 41.5 | 2026-10-06 16:28 UTC | first flag   |   44.5 |       nan   |    41.5 |       3   |            | 2026-10-11 16:13 UTC | closed   |
 | shadowunder |      5 | 2026_05_DET_ARI | Under 55.5 | 2026-10-11 18:38 UTC | first flag   |   55.5 |       nan   |    55.5 |       0   | +0.0%      | 2026-10-11 20:06 UTC | closed   |
-| shadowunder |      5 | 2026_05_BUF_LA  | Under 55.5 | 2026-10-06 16:28 UTC | first flag   |   54.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |      5 | 2026_05_BUF_LA  | Under 55.5 | 2026-10-06 16:28 UTC | first flag   |   54.5 |       nan   |    55.5 |      -1   |            | 2026-10-13 00:09 UTC | closed   |
 | windunder   |      4 | 2026_04_PIT_CLE | Under 38.5 | 2026-10-01 23:22 UTC | tracker row  |   38.5 |       nan   |    38.5 |       0   | +0.0%      | 2026-10-02 00:12 UTC | closed   |
 | windunder   |      4 | 2026_04_NE_BUF  | Under 49.5 | 2026-10-03 23:00 UTC | first flag   |   49.5 |       nan   |    49.5 |       0   | +0.9%      | 2026-10-04 16:56 UTC | closed   |
 | windunder   |      5 | 2026_05_CHI_GB  | Under 47.5 | 2026-10-09 10:49 UTC | first flag   |   45.5 |       nan   |    47.5 |      -2   |            | 2026-10-11 16:13 UTC | closed   |

@@ -9,7 +9,7 @@
   "snap counts: 2026_05_BUF_LA",
   "charting (participation, FTN): 2026_05_BUF_LA"
  ],
- "all_kicked_off": false,
- "pending": false,
- "checked": "2026-10-12 23:57 UTC"
+ "all_kicked_off": true,
+ "pending": true,
+ "checked": "2026-10-13 00:27 UTC"
 }
