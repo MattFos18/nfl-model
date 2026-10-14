@@ -1255,13 +1255,21 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 9.9,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
+},
+"2026_06_HOU_JAX": {
+"wind": 10.1,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 06:40 UTC"
+"written_at": "2026-10-14 14:03 UTC"
 }
