@@ -195,6 +195,11 @@
 "Doubtful"
 ],
 [
+"DEN",
+"Talanoa Hufanga",
+"Out"
+],
+[
 "GB",
 "Chris Brooks",
 "Out"
@@ -760,12 +765,6 @@
 "Did Not Participate In Practice"
 ],
 [
-"DEN",
-"Talanoa Hufanga",
-"Questionable (ESPN)",
-""
-],
-[
 "GB",
 "Aaron Banks",
 "Questionable (ESPN)",
@@ -1270,7 +1269,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 11.3,
+"wind": 10.5,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1278,7 +1277,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_NYJ_NE": {
-"wind": 9.7,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1286,7 +1285,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_NO_NYG": {
-"wind": 7.4,
+"wind": 7.8,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1294,7 +1293,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_CAR_PHI": {
-"wind": 6.1,
+"wind": 5.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1302,7 +1301,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_PIT_TB": {
-"wind": 20.8,
+"wind": 22.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1310,5 +1309,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 18:14 UTC"
+"written_at": "2026-10-14 18:35 UTC"
 }

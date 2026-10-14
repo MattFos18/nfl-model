@@ -28,11 +28,11 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 2 | 2 | 1-1 (50%) | -0.09 | +0.50 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 6 | 5 | 1-4 (20%) | -3.09 | +0.33 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 7 | 5 | 1-4 (20%) | -3.09 | +0.29 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 4 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |
-| shadow: 3.5+ edge on dogs, 4+ on every other side | 6 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
+| shadow: 3.5+ edge on dogs, 4+ on every other side | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
 | shadow: 4+ edge, weeks 1 to 15 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 2 | 0 | nothing settled |  | +0.00 | 9-13 | 16-13 | 8-3 |
