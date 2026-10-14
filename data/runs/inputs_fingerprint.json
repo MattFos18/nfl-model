@@ -95,6 +95,11 @@
 "Out"
 ],
 [
+"ARI",
+"Wydett Williams Jr.",
+"Out"
+],
+[
 "ATL",
 "Yasir Abdullah",
 "Out"
@@ -178,6 +183,11 @@
 "CLE",
 "Kalia Davis",
 "Out"
+],
+[
+"CLE",
+"Mason Graham",
+"Doubtful"
 ],
 [
 "CLE",
@@ -391,6 +401,16 @@
 ],
 [
 "SEA",
+"Chazz Surratt",
+"Out"
+],
+[
+"SEA",
+"Drake Thomas",
+"Out"
+],
+[
+"SEA",
 "Julian Neal",
 "Out"
 ],
@@ -480,12 +500,6 @@
 [
 "ARI",
 "Jeremiyah Love",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
-"Wydett Williams Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -647,13 +661,37 @@
 ],
 [
 "CLE",
+"Denzel Boston",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Derek Barnett",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Elgton Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Grant Delpit",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "KC Concepcion",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CLE",
-"Mason Graham",
+"Maliek Collins",
 "Questionable (ESPN)",
 ""
 ],
@@ -1037,6 +1075,12 @@
 ],
 [
 "NO",
+"Colby Wooden",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Jeremiah Wright",
 "Questionable (ESPN)",
 ""
@@ -1050,6 +1094,12 @@
 [
 "NO",
 "Nathan Shepherd",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Tyree Wilson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1211,21 +1261,9 @@
 ],
 [
 "SEA",
-"Chazz Surratt",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Drake Thomas",
 "",
 "Did Not Participate In Practice"
-],
-[
-"SEA",
-"Drake Thomas",
-"Questionable (ESPN)",
-""
 ],
 [
 "SEA",
@@ -1380,7 +1418,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 8.2,
+"wind": 7.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1444,5 +1482,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 22:07 UTC"
+"written_at": "2026-10-14 22:35 UTC"
 }
