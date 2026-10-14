@@ -106,11 +106,6 @@
 ],
 [
 "BAL",
-"Durham Smythe",
-"Out"
-],
-[
-"BAL",
 "Ja'Kobi Lane",
 "Out"
 ],
@@ -241,6 +236,11 @@
 ],
 [
 "HOU",
+"Henry To'oTo'o",
+"Out"
+],
+[
+"HOU",
 "Jalen Pitre",
 "Doubtful"
 ],
@@ -362,6 +362,11 @@
 [
 "NYJ",
 "Omar Cooper Jr.",
+"Out"
+],
+[
+"PHI",
+"Grant Calcaterra",
 "Out"
 ],
 [
@@ -535,13 +540,61 @@
 ],
 [
 "BAL",
+"Emery Jones Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"John Simpson",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Lamar Jackson",
 "Questionable (ESPN)",
 ""
 ],
 [
 "BAL",
-"Trey Hendrickson",
+"Marlon Humphrey",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Matt Hibner",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Nick Vannett",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Rashod Bateman",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Roger Rosengarten",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Teddye Buchanan",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Trenton Simpson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1297,12 +1350,6 @@
 ],
 [
 "SEA",
-"Jaxon Smith-Njigba",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Leonard Williams",
 "",
 "Limited Participation in Practice"
@@ -1482,5 +1529,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 22:35 UTC"
+"written_at": "2026-10-14 23:06 UTC"
 }
