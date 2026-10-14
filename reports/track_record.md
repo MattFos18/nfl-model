@@ -18,7 +18,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 55%+ chance (the totals flag) | 14 | 10 | 4-6 (40%) | -2.32 | +0.14 | 142-117 | 183-134 | 86-61 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 11 | 7 | 2-5 (29%) | -3.14 | +0.09 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 3 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
-| shadow: 4+ edge on road sides, 6+ on home sides | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
+| shadow: 4+ edge on road sides, 6+ on home sides | 4 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
 | shadow: Under, 60%+ chance | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 32-26 | 42-18 | 19-13 |
@@ -35,7 +35,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 3.5+ edge on dogs, 4+ on every other side | 6 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
 | shadow: 4+ edge, weeks 1 to 15 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
-| shadow: 6+ edge | 1 | 0 | nothing settled |  | +0.00 | 9-13 | 16-13 | 8-3 |
+| shadow: 6+ edge | 2 | 0 | nothing settled |  | +0.00 | 9-13 | 16-13 | 8-3 |
 | shadow: Over, total 41 or lower and a 55%+ chance | 3 | 2 | 0-2 (0%) | -2.00 | +0.00 | 50-37 | 30-25 | 55-35 |
 | shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 10 | 6 | 2-4 (33%) | -2.14 | +0.10 | 156-131 | 201-149 | 80-57 |
 
