@@ -696,9 +696,45 @@
 ],
 [
 "DEN",
+"Ben Powers",
+"",
+"Full Participation in Practice"
+],
+[
+"DEN",
+"Brandon Jones",
+"",
+"Full Participation in Practice"
+],
+[
+"DEN",
+"Pat Surtain II",
+"",
+"Did Not Participate In Practice"
+],
+[
+"DEN",
+"Riley Moss",
+"",
+"Limited Participation in Practice"
+],
+[
+"DEN",
 "Riley Moss",
 "Questionable (ESPN)",
 ""
+],
+[
+"DEN",
+"Sai'vion Jones",
+"",
+"Full Participation in Practice"
+],
+[
+"DEN",
+"Talanoa Hufanga",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "DEN",
@@ -1050,9 +1086,27 @@
 ],
 [
 "SEA",
+"Beau Stephens",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Chazz Surratt",
+"",
+"Did Not Participate In Practice"
+],
+[
+"SEA",
 "Chazz Surratt",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"Drake Thomas",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "SEA",
@@ -1063,8 +1117,32 @@
 [
 "SEA",
 "Drew Lock",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Drew Lock",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"George Holani",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Irvin Charles",
+"",
+"Full Participation in Practice"
+],
+[
+"SEA",
+"Jaxon Smith-Njigba",
+"",
+"Limited Participation in Practice"
 ],
 [
 "SEA",
@@ -1075,8 +1153,20 @@
 [
 "SEA",
 "Leonard Williams",
+"",
+"Limited Participation in Practice"
+],
+[
+"SEA",
+"Leonard Williams",
 "Questionable (ESPN)",
 ""
+],
+[
+"SEA",
+"Zach Charbonnet",
+"",
+"Limited Participation in Practice"
 ],
 [
 "SF",
@@ -1165,7 +1255,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 10.2,
+"wind": 9.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1173,5 +1263,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-14 01:13 UTC"
+"written_at": "2026-10-14 06:40 UTC"
 }
