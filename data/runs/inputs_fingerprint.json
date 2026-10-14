@@ -76,11 +76,6 @@
 "injuries": [
 [
 "ARI",
-"Hunter Long",
-"Out"
-],
-[
-"ARI",
 "Isaiah Adams",
 "Out"
 ],
@@ -197,7 +192,7 @@
 [
 "DEN",
 "Pat Surtain II",
-"Doubtful"
+"Out"
 ],
 [
 "DEN",
@@ -207,11 +202,6 @@
 [
 "GB",
 "Chris Brooks",
-"Out"
-],
-[
-"GB",
-"Edgerrin Cooper",
 "Out"
 ],
 [
@@ -291,23 +281,8 @@
 ],
 [
 "LAC",
-"Rashawn Slater",
-"Out"
-],
-[
-"LAC",
 "Tre' Harris",
 "Doubtful"
-],
-[
-"LAC",
-"Trevor Penning",
-"Out"
-],
-[
-"LAC",
-"Trey Lance",
-"Out"
 ],
 [
 "LV",
@@ -362,6 +337,11 @@
 [
 "NYJ",
 "Omar Cooper Jr.",
+"Out"
+],
+[
+"PHI",
+"Eli Stowers",
 "Out"
 ],
 [
@@ -780,7 +760,7 @@
 ],
 [
 "DAL",
-"Alijah Clark",
+"Ameer Speed",
 "Questionable (ESPN)",
 ""
 ],
@@ -805,12 +785,6 @@
 [
 "DAL",
 "Joey Porter Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
-"Tyler Guyton",
 "Questionable (ESPN)",
 ""
 ],
@@ -876,7 +850,31 @@
 ],
 [
 "GB",
+"Devonte Wyatt",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Evan Williams",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
 "Jacob Monk",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Jonathan Ford",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Keisean Nixon",
 "Questionable (ESPN)",
 ""
 ],
@@ -972,6 +970,18 @@
 ],
 [
 "LAC",
+"Daiyan Henley",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Dalvin Tomlinson",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Derwin James Jr.",
 "Questionable (ESPN)",
 ""
@@ -984,7 +994,25 @@
 ],
 [
 "LAC",
+"Elijah Molden",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Jamaree Caldwell",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Joe Alt",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Justin Eboigbe",
 "Questionable (ESPN)",
 ""
 ],
@@ -996,7 +1024,19 @@
 ],
 [
 "LAC",
+"Kendall Williamson",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Ladd McConkey",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Marquez Valdes-Scantling",
 "Questionable (ESPN)",
 ""
 ],
@@ -1242,6 +1282,12 @@
 ],
 [
 "PHI",
+"Dontayvion Wicks",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
 "Drew Kendall",
 "Questionable (ESPN)",
 ""
@@ -1323,12 +1369,6 @@
 "Drew Lock",
 "",
 "Limited Participation in Practice"
-],
-[
-"SEA",
-"Drew Lock",
-"Questionable (ESPN)",
-""
 ],
 [
 "SEA",
@@ -1529,5 +1569,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 23:06 UTC"
+"written_at": "2026-10-14 23:34 UTC"
 }
