@@ -580,7 +580,19 @@
 ],
 [
 "CAR",
+"AJ Dillon",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Damien Lewis",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
+"Darren Waller",
 "Questionable (ESPN)",
 ""
 ],
@@ -592,13 +604,13 @@
 ],
 [
 "CAR",
-"Jalen Coker",
+"Monroe Freeling",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CAR",
-"Monroe Freeling",
+"Tommy Tremble",
 "Questionable (ESPN)",
 ""
 ],
@@ -813,6 +825,12 @@
 ""
 ],
 [
+"IND",
+"Keenan Allen",
+"Questionable (ESPN)",
+""
+],
+[
 "JAX",
 "Eric Murray",
 "Questionable (ESPN)",
@@ -964,6 +982,12 @@
 ],
 [
 "NO",
+"Chris Olave",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Jeremiah Wright",
 "Questionable (ESPN)",
 ""
@@ -1012,13 +1036,13 @@
 ],
 [
 "NYJ",
-"Kenyon Sadiq",
+"Dane Belton",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NYJ",
-"Kiko Mauigoa",
+"Kenyon Sadiq",
 "Questionable (ESPN)",
 ""
 ],
@@ -1072,7 +1096,19 @@
 ],
 [
 "PIT",
+"Jalen Ramsey",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "Jamel Dean",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Keeanu Benton",
 "Questionable (ESPN)",
 ""
 ],
@@ -1204,19 +1240,19 @@
 ],
 [
 "TEN",
-"Cor'Dale Flott",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
 "David Martin-Robinson",
 "Questionable (ESPN)",
 ""
 ],
 [
 "TEN",
-"Tony Pollard",
+"Marcus Harris",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Tyjae Spears",
 "Questionable (ESPN)",
 ""
 ],
@@ -1261,7 +1297,7 @@
 "rain_src": "mos"
 },
 "2026_06_HOU_JAX": {
-"wind": 10.1,
+"wind": 10.5,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1307,7 +1343,15 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_06_LAC_KC": {
+"wind": 15.3,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 18:35 UTC"
+"written_at": "2026-10-14 21:01 UTC"
 }

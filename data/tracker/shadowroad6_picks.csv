@@ -1,5 +1,4 @@
 run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,p_cover
 2026-10-04 12:37 UTC,2026,4,2026_04_IND_WAS,WAS +4.5,-102,1.0,2.58,DraftKings,5.08,2.49,0.673
 2026-10-04 16:01 UTC,2026,4,2026_04_JAX_CIN,JAX +2.5,-105,1.0,2.12,DraftKings,-4.87,-1.79,0.621
-2026-10-14 18:24 UTC,2026,6,2026_06_CHI_ATL,ATL +2.5,-105,1.0,2.97,DraftKings,6.22,-3.23,0.658
-2026-10-14 18:24 UTC,2026,6,2026_06_CAR_PHI,PHI +1.5,-122,1.0,1.68,DraftKings,7.01,5.5,0.684
+2026-10-14 20:46 UTC,2026,6,2026_06_CAR_PHI,PHI +1.5,-118,1.0,2.1,DraftKings,7.02,5.5,0.685
