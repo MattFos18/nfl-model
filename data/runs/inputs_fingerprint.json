@@ -271,6 +271,11 @@
 ],
 [
 "LAC",
+"Evan Svoboda",
+"Out"
+],
+[
+"LAC",
 "KeAndre Lambert-Smith",
 "Out"
 ],
@@ -306,22 +311,12 @@
 ],
 [
 "NE",
-"TreVeyon Henderson",
-"Doubtful"
-],
-[
-"NE",
 "Will Campbell",
 "Doubtful"
 ],
 [
 "NO",
 "Jordyn Tyson",
-"Out"
-],
-[
-"NYG",
-"Braxton Berrios",
 "Out"
 ],
 [
@@ -479,6 +474,12 @@
 [
 "ARI",
 "Andrew Wingard",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Jeremiyah Love",
 "Questionable (ESPN)",
 ""
 ],
@@ -814,7 +815,13 @@
 ],
 [
 "IND",
-"Darius Slayton",
+"Jalen Travis",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Jaylahn Tuimoloau",
 "Questionable (ESPN)",
 ""
 ],
@@ -826,7 +833,13 @@
 ],
 [
 "IND",
-"Keenan Allen",
+"Josh Downs",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Matt Goncalves",
 "Questionable (ESPN)",
 ""
 ],
@@ -975,6 +988,12 @@
 ""
 ],
 [
+"NE",
+"TreVeyon Henderson",
+"Questionable (ESPN)",
+""
+],
+[
 "NO",
 "Anfernee Jennings",
 "Questionable (ESPN)",
@@ -1012,7 +1031,31 @@
 ],
 [
 "NYG",
+"Abdul Carter",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Andrew Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Colton Hood",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Darnell Mooney",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Greg Newsome II",
 "Questionable (ESPN)",
 ""
 ],
@@ -1025,6 +1068,12 @@
 [
 "NYG",
 "Jermaine Eluemunor",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Theo Johnson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1222,7 +1271,19 @@
 ],
 [
 "TB",
+"Ayden Garnes",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
 "Benjamin Morrison",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Sean Tucker",
 "Questionable (ESPN)",
 ""
 ],
@@ -1353,5 +1414,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 21:01 UTC"
+"written_at": "2026-10-14 21:37 UTC"
 }
