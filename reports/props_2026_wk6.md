@@ -1,6 +1,6 @@
 # Week 6, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-14 18:11 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-14 18:22 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -617,12 +617,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034975  | Justice Hill             | rush_attempts    |   3.2   |          3.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034975  | Justice Hill             | rush_rec_yards   |  26.7   |          3.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034975  | Justice Hill             | rush_longest     |   8.7   |          3.2  | live   |
-|     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_yards       | 230.5   |         30.7  | live   |
+|     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_yards       | 231     |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_td          |   1.8   |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_int         |   0.626 |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_attempts    |  27.7   |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_completions |  18.2   |         30.7  | live   |
-|     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_rush_yards  | 248.6   |         30.7  | live   |
+|     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_rush_yards  | 249.1   |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034796  | Lamar Jackson            | pass_longest     |  33.6   |         30.7  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034874  | Roquan Smith             | def_tackles      |   6.9   |         60.4  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | BAL    | 00-0034874  | Roquan Smith             | def_sacks        |   0.07  |         60.4  | live   |
@@ -710,12 +710,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0038794  | Jaleel McLaughlin        | rush_attempts    |   0.8   |          0.8  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0038794  | Jaleel McLaughlin        | rush_rec_yards   |   6.5   |          0.8  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0038794  | Jaleel McLaughlin        | rush_longest     |   8.7   |          0.8  | live   |
-|     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_yards       | 210.7   |         37.2  | live   |
+|     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_yards       | 211.2   |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_td          |   1.331 |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_int         |   0.759 |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_attempts    |  33     |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_completions |  21.1   |         37.2  | live   |
-|     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 238.5   |         37.2  | live   |
+|     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_rush_yards  | 239     |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0033537  | Deshaun Watson           | pass_longest     |  33.3   |         37.2  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0040579  | Carson Schwesinger       | def_tackles      |   8.5   |         63.1  | live   |
 |     2026 |      6 | 2026_06_BAL_CLE | CLE    | 00-0040579  | Carson Schwesinger       | def_sacks        |   0.15  |         63.1  | live   |
@@ -1517,12 +1517,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0034771  | Mason Rudolph            | rush_attempts    |   1.5   |          1.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0034771  | Mason Rudolph            | rush_rec_yards   |   3.3   |          1.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0034771  | Mason Rudolph            | rush_longest     |   5.6   |          1.5  | live   |
-|     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 200     |         36.3  | live   |
+|     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_yards       | 199.3   |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_td          |   1.212 |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_int         |   0.741 |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_attempts    |  34     |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_completions |  21.4   |         36.3  | live   |
-|     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 204.1   |         36.3  | live   |
+|     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_rush_yards  | 203.4   |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0023459  | Aaron Rodgers            | pass_longest     |  34.5   |         36.3  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0038135  | Jaquan Brisker           | def_tackles      |   6.9   |         64.6  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | PIT    | 00-0038135  | Jaquan Brisker           | def_sacks        |   0.08  |         64.6  | live   |
@@ -1610,12 +1610,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0038951  | Sean Tucker              | rush_attempts    |   3.4   |          3.4  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0038951  | Sean Tucker              | rush_rec_yards   |  11.5   |          3.4  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0038951  | Sean Tucker              | rush_longest     |   8.3   |          3.4  | live   |
-|     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_yards       | 199.5   |         35.5  | live   |
+|     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_yards       | 198.8   |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_td          |   1.321 |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_int         |   0.724 |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_attempts    |  33.1   |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_completions |  21.8   |         35.5  | live   |
-|     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_rush_yards  | 219.9   |         35.5  | live   |
+|     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_rush_yards  | 219.2   |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041251  | Jalon Daniels            | pass_longest     |  27.1   |         35.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041502  | Josiah Trotter           | def_tackles      |   9.1   |         60.5  | live   |
 |     2026 |      6 | 2026_06_PIT_TB  | TB     | 00-0041502  | Josiah Trotter           | def_sacks        |   0.19  |         60.5  | live   |
