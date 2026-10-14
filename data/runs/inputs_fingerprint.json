@@ -310,13 +310,13 @@
 "Out"
 ],
 [
-"NE",
-"Will Campbell",
-"Doubtful"
-],
-[
 "NO",
 "Jordyn Tyson",
+"Out"
+],
+[
+"NYG",
+"Braxton Berrios",
 "Out"
 ],
 [
@@ -492,12 +492,6 @@
 [
 "ATL",
 "C.J. Henderson",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
-"Michael Penix Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -701,12 +695,6 @@
 ],
 [
 "DAL",
-"CeeDee Lamb",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "Cobie Durant",
 "Questionable (ESPN)",
 ""
@@ -869,6 +857,12 @@
 ],
 [
 "KC",
+"L'Jarius Sneed",
+"Questionable (ESPN)",
+""
+],
+[
+"KC",
 "Rashee Rice",
 "Questionable (ESPN)",
 ""
@@ -965,13 +959,19 @@
 ],
 [
 "NE",
-"Charles Woods",
+"Christian Elliss",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NE",
 "Christian Gonzalez",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Craig Woodson",
 "Questionable (ESPN)",
 ""
 ],
@@ -989,7 +989,37 @@
 ],
 [
 "NE",
+"Kevin Byard",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Marcus Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Morgan Moses",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "TreVeyon Henderson",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Will Campbell",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Alvin Kamara",
 "Questionable (ESPN)",
 ""
 ],
@@ -1350,7 +1380,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 8.8,
+"wind": 8.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1414,5 +1444,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 21:37 UTC"
+"written_at": "2026-10-14 22:07 UTC"
 }
