@@ -68,11 +68,17 @@ def roster_name_ids() -> dict:
     return _ROSTER_NAMES
 
 
+# PFR ids whose roster entry carries another first name (checked by hand, one line each with the date)
+PFR_ALIASES = {"OkoyCJ00": "00-0039176"}   # 15 Oct 2026: NYG DL CJ Okoye is Basil Okoye on the roster (same team, position and surname)
+
+
 def map_pfr(df: pd.DataFrame, pfr: str = "pfr_player_id", name: str = "player", team: str = "team", season: str = "season") -> pd.Series:
     """The gsis id of each row of a PFR table (snap counts, PFR advanced stats): by PFR id, else by the name if it is
     unique on that team's roster that season. Never by the name alone league-wide (two Cody Whites, two Connor
     McGoverns)."""
     out = df[pfr].map(pfr_ids())
+    if out.isna().any():
+        out = out.fillna(df[pfr].map(PFR_ALIASES))
     miss = out.isna()
     if miss.any() and all(c in df.columns for c in (name, team, season)):
         from .features import TEAM_FIX

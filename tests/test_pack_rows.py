@@ -28,3 +28,11 @@ def test_map_pfr_tries_exact_name_before_the_suffix_free_one(monkeypatch):
                                                           (2026, "SF", "marvinharrison"): "B", (2026, "SF", "marvinharrisonjr"): "C", (2026, "SF", "~marvinharrison"): None})
     df = pd.DataFrame({"pfr_player_id": ["x", "y", "z"], "player": ["James Thompson Jr.", "Marvin Harrison", "Marvin Harrison Jr."], "team": "SF", "season": 2026})
     assert list(ids.map_pfr(df)) == ["A", "B", "C"]
+
+
+def test_hand_checked_pfr_alias_maps_okoye(monkeypatch):
+    import pandas as pd
+    from nflmodel import ids
+    monkeypatch.setattr(ids, "pfr_ids", lambda: {"nobody": "Q"}); monkeypatch.setattr(ids, "roster_name_ids", lambda: {})
+    df = pd.DataFrame({"pfr_player_id": ["OkoyCJ00"], "player": ["CJ Okoye"], "team": "NYG", "season": 2026})
+    assert list(ids.map_pfr(df)) == ["00-0039176"]
