@@ -112,58 +112,58 @@
   "source": "live weather"
  },
  "live weather|2026_06_BAL_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 17,
+  "count": 18,
   "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_BAL_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_CAR_PHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 17,
+  "count": 18,
   "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_CAR_PHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_DAL_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 7,
+  "count": 8,
   "first": "2026-10-15 00:54 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_DAL_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 20,
+  "count": 21,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_LAC_KC: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 14,
+  "count": 15,
   "first": "2026-10-14 20:49 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_LAC_KC: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_NO_NYG: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 17,
+  "count": 18,
   "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_NO_NYG: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_NYJ_NE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 17,
+  "count": 18,
   "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_NYJ_NE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_PIT_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 17,
+  "count": 18,
   "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 13:45 UTC",
+  "last": "2026-10-15 14:17 UTC",
   "message": "2026_06_PIT_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
