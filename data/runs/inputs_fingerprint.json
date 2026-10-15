@@ -86,6 +86,11 @@
 ],
 [
 "ARI",
+"Kitan Crawford",
+"Out"
+],
+[
+"ARI",
 "Wydett Williams Jr.",
 "Out"
 ],
@@ -226,12 +231,22 @@
 ],
 [
 "HOU",
+"Ja'Marcus Ingram",
+"Out"
+],
+[
+"HOU",
 "Jalen Pitre",
 "Doubtful"
 ],
 [
 "HOU",
 "Tank Dell",
+"Out"
+],
+[
+"IND",
+"Alec Pierce",
 "Out"
 ],
 [
@@ -266,6 +281,11 @@
 ],
 [
 "LAC",
+"Denzel Perryman",
+"Out"
+],
+[
+"LAC",
 "KeAndre Lambert-Smith",
 "Out"
 ],
@@ -287,6 +307,11 @@
 [
 "NE",
 "A.J. Brown",
+"Out"
+],
+[
+"NE",
+"Marcus Bryant",
 "Out"
 ],
 [
@@ -346,8 +371,18 @@
 ],
 [
 "PHI",
+"Jakorian Bennett",
+"Out"
+],
+[
+"PHI",
 "Jalyx Hunt",
 "Doubtful"
+],
+[
+"PHI",
+"Landon Dickerson",
+"Out"
 ],
 [
 "PHI",
@@ -1681,5 +1716,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 01:04 UTC"
+"written_at": "2026-10-15 01:43 UTC"
 }
