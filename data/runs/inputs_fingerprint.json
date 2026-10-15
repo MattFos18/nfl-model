@@ -86,11 +86,6 @@
 ],
 [
 "ARI",
-"Paris Johnson Jr.",
-"Out"
-],
-[
-"ARI",
 "Wydett Williams Jr.",
 "Out"
 ],
@@ -267,11 +262,6 @@
 [
 "LA",
 "Myles Garrett",
-"Out"
-],
-[
-"LA",
-"Terrance Ferguson",
 "Out"
 ],
 [
@@ -479,6 +469,12 @@
 [
 "ARI",
 "Andrew Wingard",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Devin Duvernay",
 "Questionable (ESPN)",
 ""
 ],
@@ -1017,6 +1013,30 @@
 ""
 ],
 [
+"LA",
+"Colby Parkinson",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Davis Allen",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Josh Wallace",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
+"Nate Landman",
+"Questionable (ESPN)",
+""
+],
+[
 "LAC",
 "Brenen Thompson",
 "Questionable (ESPN)",
@@ -1114,13 +1134,19 @@
 ],
 [
 "LV",
-"Jalen Nailor",
+"Brock Bowers",
 "Questionable (ESPN)",
 ""
 ],
 [
 "LV",
-"Patrick Johnson",
+"Folorunso Fatukasi",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Jalen Nailor",
 "Questionable (ESPN)",
 ""
 ],
@@ -1145,6 +1171,12 @@
 [
 "NE",
 "Channing Canada",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Charles Woods",
 "Questionable (ESPN)",
 ""
 ],
@@ -1639,7 +1671,15 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_06_DAL_GB": {
+"wind": 17.2,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 00:11 UTC"
+"written_at": "2026-10-15 01:04 UTC"
 }
