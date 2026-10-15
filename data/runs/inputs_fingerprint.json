@@ -142,7 +142,7 @@
 [
 "CHI",
 "Dayo Odeyingbo",
-"Out"
+"Doubtful"
 ],
 [
 "CHI",
@@ -235,6 +235,11 @@
 "Doubtful"
 ],
 [
+"HOU",
+"Tank Dell",
+"Out"
+],
+[
 "IND",
 "Arden Key",
 "Out"
@@ -271,11 +276,6 @@
 ],
 [
 "LAC",
-"Evan Svoboda",
-"Out"
-],
-[
-"LAC",
 "KeAndre Lambert-Smith",
 "Out"
 ],
@@ -283,6 +283,11 @@
 "LAC",
 "Tre' Harris",
 "Doubtful"
+],
+[
+"LV",
+"Carter Runyon",
+"Out"
 ],
 [
 "LV",
@@ -436,11 +441,6 @@
 ],
 [
 "TB",
-"Antoine Winfield Jr.",
-"Doubtful"
-],
-[
-"TB",
 "Baker Mayfield",
 "Doubtful"
 ],
@@ -491,6 +491,12 @@
 [
 "ATL",
 "C.J. Henderson",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Divine Deablo",
 "Questionable (ESPN)",
 ""
 ],
@@ -604,19 +610,25 @@
 ],
 [
 "BUF",
-"Landon Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Spencer Brown",
 "Questionable (ESPN)",
 ""
 ],
 [
 "BUF",
+"T.J. Sanders",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Te'Cory Couch",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
+"Ty Johnson",
 "Questionable (ESPN)",
 ""
 ],
@@ -885,6 +897,24 @@
 ""
 ],
 [
+"HOU",
+"Azeez Al-Shaair",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Jadeveon Clowney",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Trent Brown",
+"Questionable (ESPN)",
+""
+],
+[
 "IND",
 "Ashton Dulin",
 "Questionable (ESPN)",
@@ -922,13 +952,43 @@
 ],
 [
 "JAX",
+"Cole Van Lanen",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Emmanuel Pregnon",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
 "Eric Murray",
 "Questionable (ESPN)",
 ""
 ],
 [
 "JAX",
+"Jarrian Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Jourdan Lewis",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
 "Montaric Brown",
+"Questionable (ESPN)",
+""
+],
+[
+"JAX",
+"Nate Boerkircher",
 "Questionable (ESPN)",
 ""
 ],
@@ -1270,7 +1330,7 @@
 ],
 [
 "PHI",
-"Chance Campbell",
+"AJ Epenesa",
 "Questionable (ESPN)",
 ""
 ],
@@ -1289,6 +1349,12 @@
 [
 "PHI",
 "Drew Kendall",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"E.J. Jenkins",
 "Questionable (ESPN)",
 ""
 ],
@@ -1319,6 +1385,12 @@
 [
 "PHI",
 "Saquon Barkley",
+"Questionable (ESPN)",
+""
+],
+[
+"PHI",
+"Tyler Steen",
 "Questionable (ESPN)",
 ""
 ],
@@ -1396,12 +1468,6 @@
 ],
 [
 "SEA",
-"Leonard Williams",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "Zach Charbonnet",
 "",
 "Limited Participation in Practice"
@@ -1421,6 +1487,12 @@
 [
 "SF",
 "Nick Bosa",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Antoine Winfield Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -1521,7 +1593,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 10.5,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1529,7 +1601,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_NYJ_NE": {
-"wind": 9.2,
+"wind": 9.9,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1537,7 +1609,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_NO_NYG": {
-"wind": 7.8,
+"wind": 7.4,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1545,7 +1617,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_CAR_PHI": {
-"wind": 5.2,
+"wind": 5.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1553,7 +1625,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_PIT_TB": {
-"wind": 22.0,
+"wind": 19.6,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1561,7 +1633,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_LAC_KC": {
-"wind": 15.3,
+"wind": 15.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1569,5 +1641,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-14 23:34 UTC"
+"written_at": "2026-10-15 00:11 UTC"
 }
