@@ -227,7 +227,7 @@
 [
 "HOU",
 "David Montgomery",
-"Doubtful"
+"Out"
 ],
 [
 "HOU",
@@ -242,7 +242,7 @@
 [
 "HOU",
 "Jalen Pitre",
-"Doubtful"
+"Out"
 ],
 [
 "HOU",
@@ -1541,7 +1541,7 @@
 ],
 [
 "HOU",
-"Jadeveon Clowney",
+"Jake Hansen",
 "Questionable (ESPN)",
 ""
 ],
@@ -1574,12 +1574,6 @@
 "Trent Brown",
 "",
 "Did Not Participate In Practice"
-],
-[
-"HOU",
-"Trent Brown",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -1826,6 +1820,12 @@
 "Patrick Mahomes",
 "",
 "Full Participation in Practice"
+],
+[
+"KC",
+"Peter Woods",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
@@ -2597,6 +2597,12 @@
 ],
 [
 "NYG",
+"Malik Harrison",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Najee Harris",
 "",
 "Full Participation in Practice"
@@ -3212,7 +3218,7 @@
 "rain_src": "mos"
 },
 "2026_06_HOU_JAX": {
-"wind": 11.4,
+"wind": 12.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3276,5 +3282,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 21:32 UTC"
+"written_at": "2026-10-15 22:19 UTC"
 }
