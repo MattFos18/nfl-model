@@ -2,8 +2,8 @@ rule,season,week,game_id,bet,odds,run_at,taken_at,taken_from,line_best,kickoff_e
 model,2026,4,2026_04_IND_WAS,WAS +4.5,-102,2026-10-04 12:37 UTC,2026-09-27 20:12 UTC,first flag,4.5,2026-10-04 09:30,spread,WAS,4.5,4.5,2026-10-04 13:03 UTC,0.0,False,0.49675806890618934,0.4826358742837298,-0.01412219462245956,closed
 model,2026,4,2026_04_JAX_CIN,JAX +2.5,-105,2026-10-04 16:01 UTC,2026-09-27 20:41 UTC,first flag,2.5,2026-10-04 13:00,spread,JAX,3.0,2.5,2026-10-04 16:56 UTC,0.5,True,,,,closed
 model,2026,4,2026_04_ARI_NYG,NYG +2.5,-108,2026-10-04 16:01 UTC,2026-09-29 14:19 UTC,first flag,2.5,2026-10-04 13:00,spread,NYG,1.5,2.5,2026-10-04 16:56 UTC,-1.0,False,,,,closed
-model,2026,6,2026_06_CHI_ATL,ATL +1.5,-118,2026-10-15 20:44 UTC,2026-10-13 14:29 UTC,first flag,1.5,2026-10-18 13:00,spread,ATL,3.0,,,,,,,,pending
-model,2026,6,2026_06_CAR_PHI,PHI +3.5,-110,2026-10-15 20:44 UTC,2026-10-13 18:09 UTC,first flag,3.5,2026-10-18 13:00,spread,PHI,-1.5,,,,,,,,pending
+model,2026,6,2026_06_CHI_ATL,ATL +1.5,-118,2026-10-15 21:11 UTC,2026-10-13 14:29 UTC,first flag,1.5,2026-10-18 13:00,spread,ATL,3.0,,,,,,,,pending
+model,2026,6,2026_06_CAR_PHI,PHI +3.5,-110,2026-10-15 21:11 UTC,2026-10-13 18:09 UTC,first flag,3.5,2026-10-18 13:00,spread,PHI,-1.5,,,,,,,,pending
 shadowunder,2026,3,2026_03_LAC_BUF,Under 50.5,-110,2026-09-27 16:15 UTC,2026-09-27 16:15 UTC,tracker row,,2026-09-27 13:00,total,under,50.5,50.5,2026-09-27 16:21 UTC,0.0,False,0.5108342361863489,0.5108342361863489,0.0,closed
 shadowunder,2026,3,2026_03_NE_JAX,Under 46.5,-110,2026-09-27 16:15 UTC,2026-09-27 16:15 UTC,tracker row,,2026-09-27 13:00,total,under,46.5,46.5,2026-09-27 16:21 UTC,0.0,False,0.5,0.5,0.0,closed
 shadowunder,2026,3,2026_03_LA_DEN,Under 44.5,-110,2026-09-27 23:16 UTC,2026-09-27 23:16 UTC,tracker row,,2026-09-27 20:20,total,under,44.5,43.5,2026-09-28 00:12 UTC,1.0,True,,,,closed
@@ -14,10 +14,9 @@ shadowunder,2026,5,2026_05_LV_NE,Under 45.5,-110,2026-10-11 16:07 UTC,2026-10-06
 shadowunder,2026,5,2026_05_IND_PIT,Under 41.5,-110,2026-10-11 16:07 UTC,2026-10-06 16:28 UTC,first flag,,2026-10-11 13:00,total,under,44.5,41.5,2026-10-11 16:13 UTC,3.0,True,,,,closed
 shadowunder,2026,5,2026_05_DET_ARI,Under 55.5,-110,2026-10-11 20:03 UTC,2026-10-11 18:38 UTC,first flag,,2026-10-11 16:25,total,under,55.5,55.5,2026-10-11 20:06 UTC,0.0,False,0.5043297540699688,0.5043297540699688,0.0,closed
 shadowunder,2026,5,2026_05_BUF_LA,Under 55.5,-110,2026-10-12 23:35 UTC,2026-10-06 16:28 UTC,first flag,,2026-10-12 20:15,total,under,54.5,55.5,2026-10-13 00:09 UTC,-1.0,False,,,,closed
-shadowunder,2026,6,2026_06_CHI_ATL,Under 51.5,-118,2026-10-15 20:44 UTC,2026-10-13 14:29 UTC,first flag,,2026-10-18 13:00,total,under,49.5,,,,,,,,pending
-shadowunder,2026,6,2026_06_PIT_TB,Under 39.5,-110,2026-10-15 20:44 UTC,2026-10-14 17:23 UTC,first flag,,2026-10-18 13:00,total,under,39.5,,,,,,,,pending
-shadowunder,2026,6,2026_06_LAC_KC,Under 42.5,-110,2026-10-15 20:44 UTC,2026-10-14 20:46 UTC,first flag,,2026-10-18 16:25,total,under,42.5,,,,,,,,pending
-shadowunder,2026,6,2026_06_DAL_GB,Under 53.5,-110,2026-10-15 20:44 UTC,2026-10-14 15:24 UTC,first flag,,2026-10-18 20:20,total,under,53.5,,,,,,,,pending
+shadowunder,2026,6,2026_06_CHI_ATL,Under 51.5,-118,2026-10-15 21:11 UTC,2026-10-13 14:29 UTC,first flag,,2026-10-18 13:00,total,under,49.5,,,,,,,,pending
+shadowunder,2026,6,2026_06_PIT_TB,Under 39.5,-110,2026-10-15 21:11 UTC,2026-10-14 17:23 UTC,first flag,,2026-10-18 13:00,total,under,39.5,,,,,,,,pending
+shadowunder,2026,6,2026_06_DAL_GB,Under 53.5,-110,2026-10-15 21:11 UTC,2026-10-14 15:24 UTC,first flag,,2026-10-18 20:20,total,under,53.5,,,,,,,,pending
 windunder,2026,4,2026_04_PIT_CLE,Under 38.5,-110,2026-10-01 23:22 UTC,2026-10-01 23:22 UTC,tracker row,,2026-10-01 20:15,total,under,38.5,38.5,2026-10-02 00:12 UTC,0.0,False,0.5108342361863489,0.5108342361863489,0.0,closed
 windunder,2026,4,2026_04_NE_BUF,Under 49.5,-110,2026-10-04 16:01 UTC,2026-10-03 23:00 UTC,first flag,,2026-10-04 13:00,total,under,49.5,49.5,2026-10-04 16:56 UTC,0.0,False,0.4956702459300312,0.5043297540699688,0.008659508139937655,closed
 windunder,2026,5,2026_05_CHI_GB,Under 47.5,-110,2026-10-11 16:07 UTC,2026-10-09 10:49 UTC,first flag,,2026-10-11 13:00,total,under,45.5,47.5,2026-10-11 16:13 UTC,-2.0,False,,,,closed

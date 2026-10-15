@@ -755,12 +755,6 @@
 ],
 [
 "BAL",
-"Marlon Humphrey",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Matt Hibner",
 "Questionable (ESPN)",
 ""
@@ -773,15 +767,15 @@
 ],
 [
 "BAL",
-"Nick Vannett",
-"",
-"Limited Participation in Practice"
+"Mike Green",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
 "Nick Vannett",
-"Questionable (ESPN)",
-""
+"",
+"Limited Participation in Practice"
 ],
 [
 "BAL",
@@ -800,12 +794,6 @@
 "Roger Rosengarten",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Roger Rosengarten",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -842,6 +830,12 @@
 "Trey Hendrickson",
 "",
 "Full Participation in Practice"
+],
+[
+"BAL",
+"Zay Flowers",
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -1130,12 +1124,6 @@
 "Elgton Jenkins",
 "",
 "Limited Participation in Practice"
-],
-[
-"CLE",
-"Elgton Jenkins",
-"Questionable (ESPN)",
-""
 ],
 [
 "CLE",
@@ -2285,7 +2273,7 @@
 ],
 [
 "NE",
-"Christian Gonzalez",
+"Cory Durden",
 "Questionable (ESPN)",
 ""
 ],
@@ -3288,5 +3276,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 21:06 UTC"
+"written_at": "2026-10-15 21:32 UTC"
 }
