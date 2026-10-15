@@ -320,6 +320,11 @@
 "Out"
 ],
 [
+"NO",
+"Zach Wood",
+"Out"
+],
+[
 "NYG",
 "Braxton Berrios",
 "Out"
@@ -1079,12 +1084,6 @@
 ],
 [
 "LAC",
-"Bud Dupree",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Daiyan Henley",
 "Questionable (ESPN)",
 ""
@@ -1716,5 +1715,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 01:43 UTC"
+"written_at": "2026-10-15 02:10 UTC"
 }
