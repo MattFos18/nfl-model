@@ -286,6 +286,11 @@
 ],
 [
 "LAC",
+"Alec Ingold",
+"Out"
+],
+[
+"LAC",
 "Denzel Perryman",
 "Out"
 ],
@@ -461,6 +466,11 @@
 ],
 [
 "SF",
+"Demarcus Robinson",
+"Out"
+],
+[
+"SF",
 "Dre Greenlaw",
 "Out"
 ],
@@ -601,21 +611,27 @@
 ],
 [
 "ATL",
+"Cameron Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Divine Deablo",
 "",
 "Limited Participation in Practice"
 ],
 [
 "ATL",
-"Divine Deablo",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
 "Jake Matthews",
 "",
 "Full Participation in Practice"
+],
+[
+"ATL",
+"Kendal Daniels",
+"Questionable (ESPN)",
+""
 ],
 [
 "ATL",
@@ -1639,12 +1655,6 @@
 ],
 [
 "IND",
-"Jaylahn Tuimoloau",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Jaylon Carlies",
 "",
 "Did Not Participate In Practice"
@@ -1669,12 +1679,6 @@
 ],
 [
 "IND",
-"Josh Downs",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Keenan Allen",
 "",
 "Did Not Participate In Practice"
@@ -1684,12 +1688,6 @@
 "Matt Goncalves",
 "",
 "Limited Participation in Practice"
-],
-[
-"IND",
-"Matt Goncalves",
-"Questionable (ESPN)",
-""
 ],
 [
 "IND",
@@ -2563,12 +2561,6 @@
 ],
 [
 "NYG",
-"Darnell Mooney",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Elijah Campbell",
 "",
 "Full Participation in Practice"
@@ -2971,12 +2963,6 @@
 ],
 [
 "PIT",
-"Rico Dowdle",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Roman Wilson",
 "",
 "Did Not Participate In Practice"
@@ -3032,6 +3018,12 @@
 [
 "SF",
 "Kyle Juszczyk",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Mike Evans",
 "Questionable (ESPN)",
 ""
 ],
@@ -3296,5 +3288,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 19:05 UTC"
+"written_at": "2026-10-15 21:06 UTC"
 }
