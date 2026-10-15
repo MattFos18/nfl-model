@@ -28,8 +28,8 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | shadowunder |      5 | 2026_05_IND_PIT | Under 41.5 | 2026-10-06 16:28 UTC | first flag   |   44.5 |       nan   |    41.5 |       3   |            | 2026-10-11 16:13 UTC | closed   |
 | shadowunder |      5 | 2026_05_DET_ARI | Under 55.5 | 2026-10-11 18:38 UTC | first flag   |   55.5 |       nan   |    55.5 |       0   | +0.0%      | 2026-10-11 20:06 UTC | closed   |
 | shadowunder |      5 | 2026_05_BUF_LA  | Under 55.5 | 2026-10-06 16:28 UTC | first flag   |   54.5 |       nan   |    55.5 |      -1   |            | 2026-10-13 00:09 UTC | closed   |
-| shadowunder |      6 | 2026_06_CHI_ATL | Under 51.5 | 2026-10-13 14:29 UTC | first flag   |   49.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| shadowunder |      6 | 2026_06_NO_NYG  | Under 45.5 | 2026-10-13 14:29 UTC | first flag   |   45.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |      6 | 2026_06_CHI_ATL | Under 50.5 | 2026-10-13 14:29 UTC | first flag   |   49.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |      6 | 2026_06_PIT_TB  | Under 39.5 | 2026-10-14 17:23 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | shadowunder |      6 | 2026_06_LAC_KC  | Under 42.5 | 2026-10-14 20:46 UTC | first flag   |   42.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | shadowunder |      6 | 2026_06_DAL_GB  | Under 53.5 | 2026-10-14 15:24 UTC | first flag   |   53.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      4 | 2026_04_PIT_CLE | Under 38.5 | 2026-10-01 23:22 UTC | tracker row  |   38.5 |       nan   |    38.5 |       0   | +0.0%      | 2026-10-02 00:12 UTC | closed   |
