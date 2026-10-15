@@ -1,62 +1,62 @@
 {
  "calibration start": {
   "inputs": {
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "experiments/calibration_start.py": "bb0d33e9362eb2ac",
    "nflmodel/picks.py": "4e3e0275bf81e802"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  },
  "legitimacy tests": {
   "inputs": {
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "experiments/legitimacy.py": "00dc25396cef6215"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  },
  "props by season": {
   "inputs": {
    "data/processed/defender_games.parquet": "eace6936cffb54a4",
-   "data/processed/features_asof.parquet": "7a19ad5ec90724b6",
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/features_asof.parquet": "80957eced2fa6105",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "data/processed/scheme_plays.parquet": "b66a763efb5b7ec0",
    "data/processed/snap_exposure.parquet": "7dda1c199c95dcc1",
-   "data/processed/trends_asof.parquet": "ae305ba745ad885a",
+   "data/processed/trends_asof.parquet": "4eea47d31305472e",
    "experiments/props_by_season.py": "4a9807dbaf89fc81",
    "nflmodel/props.py": "cc440e5a31342a33",
    "nflmodel/props_sit.py": "082bc1c67725ecb2"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  },
  "season backtest": {
   "inputs": {
-   "data/processed/features_asof.parquet": "7a19ad5ec90724b6",
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/features_asof.parquet": "80957eced2fa6105",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "experiments/season_backtest.py": "1201a9f91e1301c3",
    "nflmodel/model.py": "7993ec8a639e86f0",
    "nflmodel/season.py": "e42571481c009808"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  },
  "sizing backtest": {
   "inputs": {
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "experiments/sizing_backtest.py": "b096f97eb74e4a49",
    "nflmodel/picks.py": "4e3e0275bf81e802"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  },
  "threshold sweep": {
   "inputs": {
-   "data/processed/games.parquet": "e1f18e7d2e31067a",
-   "data/processed/pred_v3.parquet": "351515048669f4ae",
+   "data/processed/games.parquet": "7cc89a46f0d8f4eb",
+   "data/processed/pred_v3.parquet": "5f77948974c518d1",
    "experiments/threshold.py": "af2c8cb03f2b48fa"
   },
-  "ran_at": "2026-10-15 14:14 UTC"
+  "ran_at": "2026-10-15 16:16 UTC"
  }
 }

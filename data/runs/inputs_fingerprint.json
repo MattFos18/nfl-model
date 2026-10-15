@@ -471,6 +471,11 @@
 ],
 [
 "TB",
+"Antoine Winfield Jr.",
+"Doubtful"
+],
+[
+"TB",
 "Baker Mayfield",
 "Doubtful"
 ],
@@ -3040,12 +3045,6 @@
 ],
 [
 "TB",
-"Antoine Winfield Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Ayden Garnes",
 "",
 "Did Not Participate In Practice"
@@ -3227,7 +3226,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 7.8,
+"wind": 7.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3299,5 +3298,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 14:29 UTC"
+"written_at": "2026-10-15 16:36 UTC"
 }
