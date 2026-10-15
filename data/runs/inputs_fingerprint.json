@@ -186,6 +186,21 @@
 ],
 [
 "DEN",
+"Dallen Bentley",
+"Out"
+],
+[
+"DEN",
+"Jordan Jackson",
+"Out"
+],
+[
+"DEN",
+"Kage Casey",
+"Out"
+],
+[
+"DEN",
 "Pat Bryant",
 "Out"
 ],
@@ -196,7 +211,17 @@
 ],
 [
 "DEN",
+"Sam Ehlinger",
+"Out"
+],
+[
+"DEN",
 "Talanoa Hufanga",
+"Out"
+],
+[
+"DEN",
+"Tyler Onyedim",
 "Out"
 ],
 [
@@ -436,6 +461,16 @@
 ],
 [
 "SEA",
+"Avery Smith",
+"Out"
+],
+[
+"SEA",
+"Brandon Pili",
+"Out"
+],
+[
+"SEA",
 "Chazz Surratt",
 "Out"
 ],
@@ -446,7 +481,22 @@
 ],
 [
 "SEA",
+"Jalen Milroe",
+"Out"
+],
+[
+"SEA",
 "Julian Neal",
+"Out"
+],
+[
+"SEA",
+"Montorie Foster Jr.",
+"Out"
+],
+[
+"SEA",
+"Robert Henry Jr.",
 "Out"
 ],
 [
@@ -517,6 +567,11 @@
 [
 "WAS",
 "Jeremy McNichols",
+"Out"
+],
+[
+"WAS",
+"Jordan Magee",
 "Out"
 ],
 [
@@ -1307,12 +1362,6 @@
 ],
 [
 "DAL",
-"Joey Porter Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "Shavon Revel Jr.",
 "",
 "Full Participation in Practice"
@@ -1352,12 +1401,6 @@
 "Riley Moss",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"DEN",
-"Riley Moss",
-"Questionable (ESPN)",
-""
 ],
 [
 "DEN",
@@ -1418,12 +1461,6 @@
 "Evan Williams",
 "",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Evan Williams",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -2075,12 +2112,6 @@
 ],
 [
 "LAC",
-"Marquez Valdes-Scantling",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Quentin Johnston",
 "",
 "Limited Participation in Practice"
@@ -2429,12 +2460,6 @@
 ],
 [
 "NO",
-"Colby Wooden",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Jeremiah Wright",
 "",
 "Full Participation in Practice"
@@ -2454,6 +2479,12 @@
 [
 "NO",
 "Kaden Elliss",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"Lorenzo Styles Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -2480,12 +2511,6 @@
 "Tyree Wilson",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Tyree Wilson",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -3185,7 +3210,19 @@
 ],
 [
 "WAS",
+"Austin Ekeler",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Charles Omenihu",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Jacory Croskey-Merritt",
 "Questionable (ESPN)",
 ""
 ],
@@ -3203,6 +3240,18 @@
 ],
 [
 "WAS",
+"Terry McLaurin",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Treylon Burks",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Tyler Owens",
 "Questionable (ESPN)",
 ""
@@ -3210,7 +3259,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 7.5,
+"wind": 11.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3226,44 +3275,44 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 9.4,
+"wind": 6.2,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.2,
+"wind": 4.7,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 3.6,
+"wind": 6.8,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 3.6,
+"wind": 9.3,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 20.5,
+"wind": 10.6,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_LAC_KC": {
 "wind": 15.0,
@@ -3282,5 +3331,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 22:19 UTC"
+"written_at": "2026-10-15 23:18 UTC"
 }
