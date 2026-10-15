@@ -155294,10 +155294,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,George Holani,2.0,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Emanuel Wilson,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,J.K. Dobbins,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Rashid Shaheed,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Lil'Jordan Humphrey,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Sacks,def_sacks,Nik Bonitto,0.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-15T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Tory Horton,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,2026-10-18T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,C.J. Stroud,267.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,2026-10-18T09:30:00.000-04:00,prizepicks,Pass Yards,pass_yards,C.J. Stroud,256.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,2026-10-18T09:30:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Trevor Lawrence,244.5,-119,-119.0
@@ -155467,8 +155464,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Darnell Washington,2.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,FG Made,field_goals,Chris Boswell,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,FG Made,field_goals,Chase McLaughlin,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,Aaron Rodgers,0.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Aaron Rodgers,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,2026-10-18T13:00:00.000-04:00,prizepicks,INT,pass_int,Jalon Daniels,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Tyler Shough,247.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Tyler Shough,235.5,-119,-119.0
@@ -155525,8 +155520,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Isaiah Likely,5.0,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jameis Winston,4.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Rec Targets,rec_targets,Cam Skattebo,2.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Rush Yards,rush_yards,J.J. McCarthy,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,2026-10-18T13:00:00.000-04:00,prizepicks,Receptions,rec_catches,Najee Harris,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_CAR_PHI,PHI,CAR,2026-10-18T13:00:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Bryce Young,252.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_CAR_PHI,PHI,CAR,2026-10-18T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Bryce Young,240.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_CAR_PHI,PHI,CAR,2026-10-18T13:00:00.000-04:00,prizepicks,Pass Yards,pass_yards,Tanner McKee,190.5,-119,-119.0
@@ -155793,7 +155786,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,2026-10-18T16:05:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Jacoby Brissett,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,2026-10-18T16:05:00.000-04:00,prizepicks,Receptions,rec_catches,Jalen Brooks,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,2026-10-18T16:05:00.000-04:00,prizepicks,Receptions,rec_catches,Elijah Higgins,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,2026-10-18T16:05:00.000-04:00,prizepicks,Longest Rush,rush_longest,Matthew Stafford,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,2026-10-18T16:25:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Patrick Mahomes,244.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,2026-10-18T16:25:00.000-04:00,prizepicks,Pass Yards,pass_yards,Patrick Mahomes,226.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,2026-10-18T16:25:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Justin Herbert,214.5,-119,-119.0
@@ -155883,9 +155875,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,Receptions,rec_catches,Ashton Jeanty,3.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,Pass TDs,pass_td,Josh Allen,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,FG Made,field_goals,Tyler Bass,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kirk Cousins,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,FG Made,field_goals,Matt Gay,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,2026-10-18T16:25:00.000-04:00,prizepicks,Longest Rush,rush_longest,Kirk Cousins,1.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Dak Prescott,288.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Pass Yards,pass_yards,Dak Prescott,278.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jordan Love,277.5,-119,-119.0
@@ -155993,8 +155983,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Jacory Croskey-Merritt,3.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Jacory Croskey-Merritt,2.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,FG Made,field_goals,Drew Stevens,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Kaelon Black,1.5,-119,-119.0
-2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Kaelon Black,0.5,-119,-119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Sacks,def_sacks,Nik Bonitto,0.75,-117,-106.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Rush Yards,rush_yards,J.K. Dobbins,49.5,-103,-121.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Rush + Rec Yards,rush_rec_yards,J.K. Dobbins,54.5,-112,-112.0
@@ -156057,8 +156045,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Longest Reception,rec_longest,Troy Franklin,11.5,-120,-104.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Targets,rec_targets,Troy Franklin,3.5,132,-164.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receiving Yards,rec_yards,Tory Horton,4.5,-105,-118.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receptions,rec_catches,Tory Horton,0.5,-112,-112.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Longest Reception,rec_longest,Tory Horton,0.5,-112,-110.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Pass Yards,pass_yards,Sam Darnold,224.5,-114,-108.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Pass TDs,pass_td,Sam Darnold,1.5,125,-154.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Rush Yards,rush_yards,Sam Darnold,4.5,-137,111.0
@@ -156069,9 +156055,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Rush Yards,rush_yards,George Holani,14.5,100,-122.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receiving Yards,rec_yards,George Holani,14.5,139,-173.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receiving Yards,rec_yards,Lil'Jordan Humphrey,4.5,-121,-103.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receptions,rec_catches,Lil'Jordan Humphrey,0.5,-159,129.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Receptions,rec_catches,George Holani,1.5,-157,127.0
-2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Longest Reception,rec_longest,Lil'Jordan Humphrey,1.5,-113,-109.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Longest Rush,rush_longest,George Holani,6.5,-129,105.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Longest Reception,rec_longest,George Holani,7.5,-124,101.0
 2026-10-15T19-39-45Z,2026,6,2026_06_SEA_DEN,DEN,SEA,,underdog,Targets,rec_targets,George Holani,2.5,113,-139.0
@@ -156119,9 +156103,7 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Pass + Rush Yards,pass_rush_yards,Trevor Lawrence,249.5,101,-124.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,INTs Thrown,pass_int,Trevor Lawrence,0.5,-127,104.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receiving Yards,rec_yards,Chris Rodriguez,4.5,227,-295.0
-2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receptions,rec_catches,Chris Rodriguez,0.5,127,-157.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Completion,pass_longest,Trevor Lawrence,38.5,-110,-112.0
-2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Reception,rec_longest,Chris Rodriguez,0.5,149,-186.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Rush,rush_longest,Chris Rodriguez,8.5,105,-129.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Rush,rush_longest,Trevor Lawrence,9.5,-112,-110.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receiving Yards,rec_yards,Brenton Strange,39.5,103,-125.0
@@ -156172,7 +156154,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Sacks,def_sacks,Will Anderson,0.5,-141,119.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receiving Yards,rec_yards,Josh Cameron,14.5,-124,101.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receiving Yards,rec_yards,Nate Boerkircher,4.5,-129,105.0
-2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receptions,rec_catches,Nate Boerkircher,0.5,-189,151.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Receptions,rec_catches,Josh Cameron,1.5,-114,-108.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Reception,rec_longest,Nate Boerkircher,6.5,-105,-118.0
 2026-10-15T19-39-45Z,2026,6,2026_06_HOU_JAX,JAX,HOU,,underdog,Longest Reception,rec_longest,Josh Cameron,11.5,-117,-106.0
@@ -156354,7 +156335,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Targets,rec_targets,Cade Otton,5.5,102,-125.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass Yards,pass_yards,Aaron Rodgers,224.5,-134,109.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass TDs,pass_td,Aaron Rodgers,1.5,129,-159.0
-2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Rush Yards,rush_yards,Aaron Rodgers,0.5,114,-139.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Rush Attempts,rush_attempts,Aaron Rodgers,1.5,114,-141.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass + Rush Yards,pass_rush_yards,Aaron Rodgers,229.5,-122,100.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass Attempts,pass_attempts,Aaron Rodgers,33.5,-107,-115.0
@@ -156363,7 +156343,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Receptions,rec_catches,Darnell Washington,2.5,109,-134.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Longest Completion,pass_longest,Aaron Rodgers,35.5,-117,-106.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Longest Reception,rec_longest,Darnell Washington,11.5,-121,-102.0
-2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Longest Rush,rush_longest,Aaron Rodgers,0.5,-103,-120.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Targets,rec_targets,Darnell Washington,3.5,-122,-102.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass Yards,pass_yards,Jalon Daniels,174.5,-107,-115.0
 2026-10-15T19-39-45Z,2026,6,2026_06_PIT_TB,TB,PIT,,underdog,Pass TDs,pass_td,Jalon Daniels,0.5,-257,204.0
@@ -156484,7 +156463,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Rush Attempts,rush_attempts,Najee Harris,5.5,-120,-104.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Receiving Yards,rec_yards,Najee Harris,4.5,179,-223.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Longest Rush,rush_longest,Najee Harris,9.5,-102,-121.0
-2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Longest Reception,rec_longest,Najee Harris,0.5,114,-139.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Rush Yards,rush_yards,Cam Skattebo,59.5,-109,-113.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Rush Attempts,rush_attempts,Cam Skattebo,14.5,-121,-102.0
 2026-10-15T19-39-45Z,2026,6,2026_06_NO_NYG,NYG,NO,,underdog,Receiving Yards,rec_yards,Cam Skattebo,14.5,108,-132.0
@@ -156669,14 +156647,11 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Targets,rec_targets,Elijah Higgins,1.5,-154,125.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Pass Yards,pass_yards,Matthew Stafford,274.5,-129,105.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Pass TDs,pass_td,Matthew Stafford,2.5,102,-125.0
-2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Rush Yards,rush_yards,Matthew Stafford,0.5,128,-159.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Rush Attempts,rush_attempts,Matthew Stafford,1.5,-145,118.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Pass + Rush Yards,pass_rush_yards,Matthew Stafford,279.5,-125,102.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,INTs Thrown,pass_int,Matthew Stafford,0.5,122,-150.0
-2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Longest Rush,rush_longest,Matthew Stafford,0.5,101,-124.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Longest Completion,pass_longest,Matthew Stafford,39.5,-112,-110.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receiving Yards,rec_yards,Davis Allen,4.5,-164,133.0
-2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receptions,rec_catches,Davis Allen,0.5,-209,168.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Longest Reception,rec_longest,Davis Allen,6.5,-117,-106.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Pass Yards,pass_yards,Jacoby Brissett,249.5,103,-125.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Pass TDs,pass_td,Jacoby Brissett,1.5,137,-170.0
@@ -156693,7 +156668,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receiving Yards,rec_yards,Tutu Atwell,4.5,-122,-102.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receiving Yards,rec_yards,Jeremiyah Love,14.5,145,-179.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receiving Yards,rec_yards,Jalen Brooks,14.5,-137,112.0
-2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receptions,rec_catches,Tutu Atwell,0.5,-154,125.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receptions,rec_catches,Jeremiyah Love,1.5,-148,120.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receptions,rec_catches,Colby Parkinson,1.5,-105,-118.0
 2026-10-15T19-39-45Z,2026,6,2026_06_ARI_LA,LA,ARI,,underdog,Receptions,rec_catches,Jalen Brooks,1.5,-112,-112.0
@@ -156718,7 +156692,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Rush Attempts,rush_attempts,Omarion Hampton,9.5,-129,105.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Receiving Yards,rec_yards,Omarion Hampton,4.5,117,-143.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Receiving Yards,rec_yards,Kenneth Walker III,24.5,127,-157.0
-2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Receptions,rec_catches,Omarion Hampton,0.5,-197,157.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Receptions,rec_catches,Kenneth Walker III,3.5,139,-173.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Longest Reception,rec_longest,Omarion Hampton,3.5,-104,-120.0
 2026-10-15T19-39-45Z,2026,6,2026_06_LAC_KC,KC,LAC,,underdog,Longest Rush,rush_longest,Omarion Hampton,10.5,-109,-113.0
@@ -156817,7 +156790,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Pass Yards,pass_yards,Kirk Cousins,249.5,106,-130.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Pass TDs,pass_td,Kirk Cousins,1.5,-152,123.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Rush Yards,rush_yards,Mike Washington,14.5,-129,108.0
-2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Rush Yards,rush_yards,Kirk Cousins,0.5,-110,-112.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Rush Attempts,rush_attempts,Kirk Cousins,1.5,150,-179.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Rush Attempts,rush_attempts,Mike Washington,4.5,117,-143.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Pass + Rush Yards,pass_rush_yards,Kirk Cousins,249.5,-108,-114.0
@@ -156825,7 +156797,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,INTs Thrown,pass_int,Kirk Cousins,0.5,-132,108.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Longest Rush,rush_longest,Mike Washington,7.5,-121,-102.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Longest Completion,pass_longest,Kirk Cousins,34.5,-110,-112.0
-2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Longest Rush,rush_longest,Kirk Cousins,1.5,-107,-115.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,FG Made,field_goals,Tyler Bass,1.5,-121,-103.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,FG Made,field_goals,Matt Gay,1.5,-106,-115.0
 2026-10-15T19-39-45Z,2026,6,2026_06_BUF_LV,LV,BUF,,underdog,Kicking Points,kick_points,Matt Gay,6.5,-120,-104.0
@@ -156894,7 +156865,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Mark Redman,4.5,151,-189.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Christian Watson,79.5,105,-129.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Pierre Strong Jr.,14.5,138,-167.0
-2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Mark Redman,0.5,107,-127.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Christian Watson,4.5,-143,116.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Pierre Strong Jr.,1.5,-150,123.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Bo Melton,1.5,-132,108.0
@@ -156902,7 +156872,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,MarShawn Lloyd,7.5,-109,-113.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Christian Watson,26.5,-107,-115.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Rush,rush_longest,Pierre Strong Jr.,8.5,102,-129.0
-2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Mark Redman,0.5,113,-134.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Rush,rush_longest,MarShawn Lloyd,12.5,-109,-113.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Pierre Strong Jr.,8.5,-105,-118.0
 2026-10-15T19-39-45Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Bo Melton,11.5,-114,-108.0
@@ -156956,7 +156925,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Jacory Croskey-Merritt,39.5,-112,-112.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Jacory Croskey-Merritt,49.5,-114,-108.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Jacory Croskey-Merritt,4.5,112,-141.0
-2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Jacory Croskey-Merritt,0.5,-186,151.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Jacory Croskey-Merritt,11.5,-109,-113.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Jacory Croskey-Merritt,3.5,-105,-118.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass Yards,pass_yards,Brock Purdy,249.5,-107,-115.0
@@ -156973,8 +156941,361 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Kaelon Black,29.5,-154,129.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Kaelon Black,7.5,109,-134.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Kaelon Black,4.5,135,-162.0
-2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Kaelon Black,0.5,-141,112.0
-2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Kaelon Black,1.5,-107,-115.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Kaelon Black,10.5,-106,-117.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,FG Made,field_goals,Drew Stevens,1.5,-103,-122.0
 2026-10-15T19-39-45Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Kicking Points,kick_points,Drew Stevens,6.5,100,-124.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jaxon Smith-Njigba,,105,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Emanuel Wilson,,115,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,J.K. Dobbins,,195,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Jaylen Waddle,,240,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Courtland Sutton,,265,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,RJ Harvey,,310,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,AJ Barner,,310,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Bo Nix,,425,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Cooper Kupp,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Rashid Shaheed,,475,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Seattle Seahawks D/ST,,500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Evan Engram,,500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Denver Broncos D/ST,,550,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,George Holani,,550,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Troy Franklin,,650,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Sam Darnold,,950,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Elijah Arroyo,,950,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Marvin Mims Jr.,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Tory Horton,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Adam Trautman,,1100,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Nate Adkins,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Tyler Badie,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Lil'Jordan Humphrey,,1500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Eric Saubert,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Velus Jones Jr.,,2500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Nick Kallerup,,2500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Dallen Bentley,,2500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Adam Prentice,,3500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Brady Russell,,4500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_anytime_td,anytime_td,Montorie Foster Jr.,,6000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_pass_yds,pass_yards,Sam Darnold,222.5,-110,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_pass_yds,pass_yards,Bo Nix,198.5,-112,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jaxon Smith-Njigba,92.5,-114,-110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Jaylen Waddle,45.5,-114,-110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Courtland Sutton,32.5,-109,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,AJ Barner,26.5,-111,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Cooper Kupp,22.5,-108,-116.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,RJ Harvey,21.5,-108,-116.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Rashid Shaheed,20.5,-116,-108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Evan Engram,20.5,-113,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Troy Franklin,17.5,-110,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Marvin Mims Jr.,10.5,-111,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,George Holani,10.5,-107,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Emanuel Wilson,9.5,-114,-110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Lil'Jordan Humphrey,3.5,-113,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,J.K. Dobbins,3.5,-106,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_reception_yds,rec_yards,Tory Horton,2.5,-112,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Jaxon Smith-Njigba,6.5,-137,108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Jaylen Waddle,4.5,122,-156.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,RJ Harvey,3.5,-121,-106.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Courtland Sutton,3.5,132,-169.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,AJ Barner,2.5,-158,124.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Evan Engram,2.5,-141,111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Cooper Kupp,2.5,114,-145.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Rashid Shaheed,1.5,-176,137.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Troy Franklin,1.5,-151,118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,George Holani,1.5,-137,108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Emanuel Wilson,1.5,-119,-107.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Marvin Mims Jr.,1.5,143,-184.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,J.K. Dobbins,1.5,158,-204.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Lil'Jordan Humphrey,0.5,-141,110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_receptions,rec_catches,Tory Horton,0.5,-121,-106.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,Emanuel Wilson,67.5,-110,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,J.K. Dobbins,48.5,-110,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,RJ Harvey,15.5,-107,-117.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,Bo Nix,13.5,-112,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,George Holani,13.5,-109,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,Sam Darnold,5.5,-105,-119.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,Rashid Shaheed,1.5,-116,-108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_rush_yds,rush_yards,Jaxon Smith-Njigba,0.5,299,-393.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Ernest Jones,9.5,108,-139.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Alex Singleton,8.5,-131,101.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Brandon Jones,6.5,108,-140.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Nick Emmanwori,5.5,-133,103.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Devon Witherspoon,5.5,-128,-101.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Justin Strnad,4.5,-158,122.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Julian Love,4.5,-123,-105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Ty Okada,4.5,119,-154.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,draftkings,player_tackles_assists,def_tackles,Josh Jobe,4.5,122,-159.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jaxon Smith-Njigba,,105,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Emanuel Wilson,,120,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,J.K. Dobbins,,195,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Courtland Sutton,,250,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Jaylen Waddle,,260,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,RJ Harvey,,310,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,AJ Barner,,310,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Bo Nix,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Cooper Kupp,,460,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Rashid Shaheed,,470,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Evan Engram,,490,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,George Holani,,500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Troy Franklin,,700,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Denver Broncos Defense,,700,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Seattle Seahawks Defense,,800,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Sam Darnold,,850,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Elijah Arroyo,,900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Tory Horton,,900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Marvin Mims Jr.,,950,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Adam Trautman,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Tyler Badie,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Lil'Jordan Humphrey,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Nate Adkins,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Dallen Bentley,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Eric Saubert,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Nick Kallerup,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Velus Jones Jr.,,2500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Robert Henry Jr.,,2500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Adam Prentice,,2700,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Brady Russell,,4500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_anytime_td,anytime_td,Montorie Foster Jr.,,5500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_pass_yds,pass_yards,Sam Darnold,223.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_pass_yds,pass_yards,Bo Nix,197.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Troy Franklin,17.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Courtland Sutton,31.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,RJ Harvey,21.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Rashid Shaheed,22.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Marvin Mims Jr.,11.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Cooper Kupp,22.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jaxon Smith-Njigba,92.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Tory Horton,3.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Jaylen Waddle,46.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Evan Engram,21.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Lil'Jordan Humphrey,5.5,-102,-125.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,George Holani,10.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,J.K. Dobbins,4.5,108,-138.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,AJ Barner,26.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_reception_yds,rec_yards,Emanuel Wilson,9.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Jaxon Smith-Njigba,6.5,-138,104.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Evan Engram,2.5,-152,114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,RJ Harvey,3.5,-108,-122.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Troy Franklin,1.5,-125,-106.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Courtland Sutton,3.5,124,-166.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Cooper Kupp,2.5,112,-148.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Tory Horton,0.5,-122,-108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,George Holani,1.5,-166,124.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Lil'Jordan Humphrey,0.5,-166,124.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Rashid Shaheed,2.5,148,-200.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,J.K. Dobbins,1.5,154,-210.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,AJ Barner,2.5,-158,118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Emanuel Wilson,1.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Jaylen Waddle,4.5,106,-140.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_receptions,rec_catches,Marvin Mims Jr.,1.5,130,-174.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Jaxon Smith-Njigba,0.5,290,-410.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,George Holani,14.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,RJ Harvey,14.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Marvin Mims Jr.,1.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,J.K. Dobbins,48.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Emanuel Wilson,66.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Rashid Shaheed,2.5,102,-130.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Sam Darnold,5.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,fanduel,player_rush_yds,rush_yards,Bo Nix,12.5,-113,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,George Holani,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Marvin Mims Jr.,,900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Adam Trautman,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jaxon Smith-Njigba,,100,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Bo Nix,,400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Lil'Jordan Humphrey,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Courtland Sutton,,230,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Brady Russell,,1900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Nate Adkins,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Tyler Badie,,1100,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,RJ Harvey,,280,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Eric Saubert,,1100,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,AJ Barner,,300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Evan Engram,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Sam Darnold,,800,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Troy Franklin,,650,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Nick Kallerup,,1700,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Cooper Kupp,,350,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Tory Horton,,750,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Emanuel Wilson,,110,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,J.K. Dobbins,,180,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Rashid Shaheed,,400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Adam Prentice,,1900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Elijah Arroyo,,800,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Velus Jones Jr.,,1700,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Montorie Foster Jr.,,3400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Jaylen Waddle,,230,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_anytime_td,anytime_td,Dallen Bentley,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Sam Darnold,223.5,-115,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_pass_yds,pass_yards,Bo Nix,195.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Emanuel Wilson,9.5,-115,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Courtland Sutton,31.5,-116,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,George Holani,9.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,RJ Harvey,21.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Troy Franklin,17.5,-115,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jaxon Smith-Njigba,93.5,-112,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Cooper Kupp,22.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Marvin Mims Jr.,10.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Rashid Shaheed,21.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Tory Horton,3.5,-123,-104.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,J.K. Dobbins,3.5,-112,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Jaylen Waddle,45.5,-116,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Evan Engram,20.5,-116,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,Lil'Jordan Humphrey,3.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_reception_yds,rec_yards,AJ Barner,27.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Troy Franklin,1.5,-141,109.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Cooper Kupp,2.5,117,-152.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Jaxon Smith-Njigba,6.5,-149,115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Jaylen Waddle,4.5,115,-149.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,RJ Harvey,3.5,-111,-116.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,George Holani,1.5,-156,120.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Emanuel Wilson,1.5,-123,-105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Marvin Mims Jr.,1.5,145,-192.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,AJ Barner,2.5,-167,128.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Evan Engram,2.5,-147,114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Courtland Sutton,3.5,128,-167.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Rashid Shaheed,1.5,-185,141.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Tory Horton,0.5,-130,100.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,J.K. Dobbins,1.5,155,-204.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_receptions,rec_catches,Lil'Jordan Humphrey,0.5,-149,115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,George Holani,14.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,RJ Harvey,14.5,-115,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Bo Nix,13.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,J.K. Dobbins,48.5,-115,-112.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Emanuel Wilson,67.5,-120,-108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_rush_yds,rush_yards,Sam Darnold,5.5,-114,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Ty Okada,4.5,118,-154.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Julian Love,4.5,-123,-105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Brandon Jones,6.5,109,-141.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Ernest Jones,9.5,122,-159.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Alex Singleton,8.5,-130,100.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Justin Strnad,4.5,-159,122.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Josh Jobe,4.5,122,-159.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Nick Emmanwori,5.5,-120,-108.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betonlineag,player_tackles_assists,def_tackles,Devon Witherspoon,5.5,-128,-101.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,AJ Barner,,300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Brady Russell,,3300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Nate Adkins,,1300,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Bo Nix,,460,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Elijah Arroyo,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Cooper Kupp,,425,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,RJ Harvey,,265,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Rashid Shaheed,,400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Evan Engram,,600,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Lil'Jordan Humphrey,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Troy Franklin,,600,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Eric Saubert,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,J.K. Dobbins,,170,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Adam Trautman,,900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Emanuel Wilson,,105,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jaxon Smith-Njigba,,-103,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Tyler Badie,,1100,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Marvin Mims Jr.,,900,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Montorie Foster Jr.,,2200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Sam Darnold,,1200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Jaylen Waddle,,240,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,George Holani,,410,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Adam Prentice,,2200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Velus Jones Jr.,,1800,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Tory Horton,,850,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Courtland Sutton,,270,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Dallen Bentley,,2400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_anytime_td,anytime_td,Nick Kallerup,,2200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_pass_yds,pass_yards,Bo Nix,200.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_pass_yds,pass_yards,Sam Darnold,219.5,-114,-117.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,AJ Barner,26.5,-113,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Emanuel Wilson,9.5,-110,-121.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Jaxon Smith-Njigba,93.5,-117,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,George Holani,9.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Marvin Mims Jr.,10.5,-118,-113.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Courtland Sutton,31.5,-117,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Jaylen Waddle,46.5,-114,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Cooper Kupp,22.5,-114,-117.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Rashid Shaheed,23.5,-117,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Troy Franklin,17.5,-113,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,RJ Harvey,21.5,-112,-120.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_reception_yds,rec_yards,Evan Engram,21.5,-112,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Cooper Kupp,2.5,116,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Rashid Shaheed,1.5,-200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,RJ Harvey,3.5,-127,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Troy Franklin,1.5,-130,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Emanuel Wilson,1.5,-120,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Jaxon Smith-Njigba,6.5,-136,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Jaylen Waddle,4.5,106,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Marvin Mims Jr.,1.5,133,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,George Holani,1.5,-125,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,AJ Barner,2.5,-152,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Courtland Sutton,3.5,123,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_receptions,rec_catches,Evan Engram,2.5,-150,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,Sam Darnold,4.5,-117,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,Emanuel Wilson,66.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,George Holani,14.5,-109,-122.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,RJ Harvey,15.5,-114,-117.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,J.K. Dobbins,48.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_rush_yds,rush_yards,Bo Nix,13.5,-117,-114.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Josh Jobe,4.5,125,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Brandon Jones,6.5,108,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Devon Witherspoon,5.5,-132,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Nick Emmanwori,5.5,-115,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Ty Okada,4.5,118,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Alex Singleton,8.5,-129,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Ernest Jones,9.5,108,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Justin Strnad,4.5,-157,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betrivers,player_tackles_assists,def_tackles,Julian Love,4.5,-124,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,RJ Harvey,,290,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Rashid Shaheed,,360,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Tyler Badie,,1050,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Bo Nix,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Lil'Jordan Humphrey,,1500,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jaylen Waddle,,280,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Denver Broncos D/ST,,450,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,AJ Barner,,320,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Adam Trautman,,1200,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Troy Franklin,,600,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Nate Adkins,,1400,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,George Holani,,350,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Tory Horton,,775,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Seattle Seahawks D/ST,,475,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,J.K. Dobbins,,170,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Marvin Mims Jr.,,600,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Emanuel Wilson,,115,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Adam Prentice,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Cooper Kupp,,425,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Courtland Sutton,,280,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Evan Engram,,575,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Sam Darnold,,1150,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Brady Russell,,3000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Eric Saubert,,2000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Jaxon Smith-Njigba,,110,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_anytime_td,anytime_td,Elijah Arroyo,,1000,
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_pass_yds,pass_yards,Bo Nix,200.5,105,-140.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_pass_yds,pass_yards,Sam Darnold,223.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,RJ Harvey,21.5,-118,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Courtland Sutton,32.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,George Holani,9.5,-120,-110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Troy Franklin,15.5,-120,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Evan Engram,19.5,-120,-111.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,AJ Barner,24.5,-140,105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jaxon Smith-Njigba,92.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,J.K. Dobbins,3.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Emanuel Wilson,9.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Jaylen Waddle,45.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Cooper Kupp,22.5,-111,-120.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Rashid Shaheed,21.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_reception_yds,rec_yards,Tory Horton,2.5,-145,105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,AJ Barner,2.5,-150,110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Emanuel Wilson,1.5,-125,-105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Evan Engram,2.5,-145,105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,George Holani,1.5,-135,100.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Jaxon Smith-Njigba,6.5,-155,115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Troy Franklin,1.5,-155,115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,RJ Harvey,3.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Cooper Kupp,2.5,130,-175.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Jaylen Waddle,4.5,110,-150.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Marvin Mims Jr.,1.5,120,-160.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Rashid Shaheed,1.5,-190,140.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Courtland Sutton,3.5,135,-185.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_receptions,rec_catches,Tory Horton,0.5,-140,105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,Emanuel Wilson,65.5,-125,-105.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,Sam Darnold,4.5,-115,-115.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,Bo Nix,14.5,-110,-120.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,George Holani,13.5,-120,-110.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,J.K. Dobbins,47.5,-111,-118.0
+2026-10-15T20-09-56Z,2026,6,2026_06_SEA_DEN,DEN,SEA,2026-10-16T00:15:00Z,betmgm,player_rush_yds,rush_yards,RJ Harvey,14.5,-110,-120.0
