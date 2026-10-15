@@ -3,6 +3,9 @@
 One dated line per change to the model, the bet rules, the data sources or the way we work. Newest first. The full
 record of every study stays in `reports/decision_log.md`; this is the short version to skim at session start.
 
+## 15 Oct 2026
+- Page size: props_record.js stores repeated text columns once (`export_web.pack_rows` dictionary, unpacked by the page and `tie_check._unpack`), about 2.8 MB smaller; the page was 60.3 MB against the 60 MB check. Snap counts: the name fallback in `ids.map_pfr` ignores Jr./Sr./II-V (James Thompson vs James Thompson Jr. left SF's DL at 98.3%).
+
 ## 6 Oct 2026
 - Weekly run: the input steps (ratings, trends, players, positions, scheme, player splits) run again when the picks week moves while they run (`weekly.rerun_if_week_moved`). The Tuesday run priced week 5 as of week 4: no injuries, Mayfield and the WAS starter counted as playing.
 
