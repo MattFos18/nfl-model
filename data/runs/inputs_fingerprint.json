@@ -116,6 +116,11 @@
 ],
 [
 "CAR",
+"Jonathon Brooks",
+"Out"
+],
+[
+"CAR",
 "Taylor Moton",
 "Out"
 ],
@@ -127,11 +132,6 @@
 [
 "CAR",
 "Trevor Etienne",
-"Out"
-],
-[
-"CAR",
-"Xavier Legette",
 "Out"
 ],
 [
@@ -212,6 +212,11 @@
 [
 "GB",
 "Jordon Riley",
+"Out"
+],
+[
+"GB",
+"Josh Jacobs",
 "Out"
 ],
 [
@@ -2870,12 +2875,6 @@
 ],
 [
 "PHI",
-"Michael Carter II",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Saquon Barkley",
 "",
 "Did Not Participate In Practice"
@@ -3297,5 +3296,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 17:55 UTC"
+"written_at": "2026-10-15 19:05 UTC"
 }
