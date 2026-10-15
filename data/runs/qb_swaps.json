@@ -12,9 +12,20 @@
   "DET Tom Kennedy",
   "MIA Storm Duck",
   "MIN Donovan Jackson",
+  "MIN Jordan Mason",
   "MIN Josh Oliver"
  ],
- "swaps": [],
+ "swaps": [
+  {
+   "game_id": "2026_06_CAR_PHI",
+   "team": "PHI",
+   "from": "00-0036389",
+   "from_name": "Jalen Hurts",
+   "to": "00-0038400",
+   "to_name": "Tanner McKee",
+   "source": "depth chart"
+  }
+ ],
  "conflicts": [
   {
    "game_id": "2026_06_SEA_DEN",

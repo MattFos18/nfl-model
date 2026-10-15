@@ -15,23 +15,23 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the underdog or pick'em | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
 | shadow: boosted trees alone, 5+ edge | 5 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
-| shadow: Under, 55%+ chance (the totals flag) | 13 | 10 | 4-6 (40%) | -2.32 | +0.15 | 142-117 | 183-134 | 86-61 |
-| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 10 | 7 | 2-5 (29%) | -3.14 | +0.10 | 135-96 | 167-123 | 80-57 |
+| shadow: Under, 55%+ chance (the totals flag) | 14 | 10 | 4-6 (40%) | -2.32 | +0.14 | 142-117 | 183-134 | 86-61 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 11 | 7 | 2-5 (29%) | -3.14 | +0.09 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
 | shadow: Under, 60%+ chance | 6 | 4 | 1-3 (25%) | -2.09 | +0.17 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 2 | 1 | 0-1 (0%) | -1.00 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 5 | 5 | 2-3 (40%) | -1.18 | +0.20 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 14 | 7 | 5-2 (71%) | -0.35 | -0.36 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 7 | 5-2 (71%) | -0.35 | -0.38 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 6 | 4 | 1-3 (25%) | -2.09 | +0.17 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 2 | 2 | 1-1 (50%) | -0.09 | +0.50 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 7 | 5 | 1-4 (20%) | -3.09 | +0.29 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 8 | 5 | 1-4 (20%) | -3.09 | +0.25 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
-| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 4 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |
+| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 3 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |
 | shadow: 3.5+ edge on dogs, 4+ on every other side | 6 | 3 | 2-1 (67%) | +0.88 | +0.00 | 83-69 | 102-73 | 53-29 |
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
 | shadow: 4+ edge, weeks 1 to 15 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
@@ -69,7 +69,7 @@ Every bet:
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
 |     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -118 |   nan   |   nan | pending  |  nan    |
-|     2026 |      6 | 2026_06_CAR_PHI | PHI +1.5 |   -118 |   nan   |   nan | pending  |  nan    |
+|     2026 |      6 | 2026_06_CAR_PHI | PHI +3.5 |   -110 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
