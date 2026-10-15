@@ -25,8 +25,12 @@ def _js(name: str):
 
 
 def _unpack(d: dict) -> dict:
-    """The inverse of export_web.pack_rows: {cols, rows} back to a list of dicts (props_record.js, 28 Sep 2026)."""
-    return {k: ([dict(zip(v["cols"], r)) for r in v["rows"]] if isinstance(v, dict) and "cols" in v and "rows" in v else v) for k, v in d.items()}
+    """The inverse of export_web.pack_rows: {cols, rows} (text columns in "dict" stored by position) back to a list of dicts
+    (props_record.js, 28 Sep 2026)."""
+    def rows(v):
+        dic = v.get("dict") or {}
+        return [{c: (dic[c][x] if c in dic else x) for c, x in zip(v["cols"], r)} for r in v["rows"]]
+    return {k: (rows(v) if isinstance(v, dict) and "cols" in v and "rows" in v else v) for k, v in d.items()}
 
 
 def check_sources() -> list[tuple[str, str, str, bool]]:

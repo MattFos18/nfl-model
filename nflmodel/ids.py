@@ -8,6 +8,12 @@ from .features import RAW
 norm = lambda v: "".join(ch for ch in str(v).lower() if ch.isalpha())
 
 
+def name_key(v) -> str:
+    """norm with generational suffixes dropped (Jr., Sr., II to V): "James Thompson" in the snap counts is "James Thompson Jr." on the roster."""
+    import re
+    return norm(re.sub(r"\s+(jr|sr|ii|iii|iv|v)\.?$", "", str(v).lower().strip()))
+
+
 _PFR_IDS: dict = {}
 
 
@@ -57,6 +63,7 @@ def roster_name_ids() -> dict:
         r["team"] = r.team.replace(TEAM_FIX)
         for s, t, g, n in zip(r.season, r.team, r.gsis_id, r.full_name):
             seen.setdefault((int(s), t, norm(n)), set()).add(g)
+            seen.setdefault((int(s), t, "~" + name_key(n)), set()).add(g)   # the suffix-free fallback; the exact name is tried first, so Marvin Harrison and Marvin Harrison Jr. on one roster still resolve
     _ROSTER_NAMES.update({k: next(iter(v)) for k, v in seen.items() if len(v) == 1})
     return _ROSTER_NAMES
 
@@ -70,5 +77,5 @@ def map_pfr(df: pd.DataFrame, pfr: str = "pfr_player_id", name: str = "player", 
     if miss.any() and all(c in df.columns for c in (name, team, season)):
         from .features import TEAM_FIX
         rn = roster_name_ids(); m = df[miss]
-        out.loc[miss] = [rn.get((int(s), TEAM_FIX.get(t, t), norm(n))) for s, t, n in zip(m[season], m[team], m[name])]
+        out.loc[miss] = [rn.get((int(s), TEAM_FIX.get(t, t), norm(n))) or rn.get((int(s), TEAM_FIX.get(t, t), "~" + name_key(n))) for s, t, n in zip(m[season], m[team], m[name])]
     return out

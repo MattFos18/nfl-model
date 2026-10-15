@@ -1024,11 +1024,22 @@ def _add_injuries(wk: list, cur_week: int, cur_season: int | None = None) -> Non
 
 
 def pack_rows(d: dict) -> dict:
-    """Each list of same-keyed dicts becomes {cols, rows}; everything else stays. The page and tie_check unpack it."""
+    """Each list of same-keyed dicts becomes {cols, rows}; everything else stays. A text column that repeats a lot (game
+    ids, names, timestamps) is stored once in "dict" and its cells hold the position (15 Oct 2026: the page was 60.3 MB of a
+    64 MB cap). The page and tie_check unpack it."""
     out = {}
     for k, v in d.items():
         if isinstance(v, list) and v and all(isinstance(x, dict) for x in v) and all(list(x.keys()) == list(v[0].keys()) for x in v):
-            cols = list(v[0].keys()); out[k] = {"cols": cols, "rows": [[x[c] for c in cols] for x in v]}
+            cols = list(v[0].keys()); rows = [[x[c] for c in cols] for x in v]; dic = {}
+            for j, c in enumerate(cols):
+                vals = [r[j] for r in rows]
+                if all(isinstance(x, str) for x in vals):
+                    u = sorted(set(vals))
+                    if len(u) * 4 < len(vals):
+                        ix = {x: i for i, x in enumerate(u)}; dic[c] = u
+                        for r in rows:
+                            r[j] = ix[r[j]]
+            out[k] = {"cols": cols, "rows": rows, **({"dict": dic} if dic else {})}
         else:
             out[k] = v
     return out
