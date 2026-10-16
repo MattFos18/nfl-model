@@ -86,6 +86,11 @@
 ],
 [
 "ARI",
+"Jeremiyah Love",
+"Out"
+],
+[
+"ARI",
 "Kitan Crawford",
 "Out"
 ],
@@ -163,6 +168,11 @@
 "CHI",
 "Dayo Odeyingbo",
 "Doubtful"
+],
+[
+"CHI",
+"Kyle Monangai",
+"Out"
 ],
 [
 "CHI",
@@ -330,6 +340,16 @@
 "Out"
 ],
 [
+"JAX",
+"Montaric Brown",
+"Out"
+],
+[
+"JAX",
+"Ross Matiscik",
+"Out"
+],
+[
 "KC",
 "Rashee Rice",
 "Out"
@@ -396,7 +416,17 @@
 ],
 [
 "NO",
+"Anfernee Jennings",
+"Out"
+],
+[
+"NO",
 "Jordyn Tyson",
+"Out"
+],
+[
+"NO",
+"Kaden Elliss",
 "Out"
 ],
 [
@@ -672,12 +702,6 @@
 "Jeremiyah Love",
 "",
 "Did Not Participate In Practice"
-],
-[
-"ARI",
-"Jeremiyah Love",
-"Questionable (ESPN)",
-""
 ],
 [
 "ARI",
@@ -1209,12 +1233,6 @@
 ],
 [
 "CHI",
-"Kyle Monangai",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "Kyler Gordon",
 "",
 "Full Participation in Practice"
@@ -1665,12 +1683,6 @@
 ],
 [
 "HOU",
-"Azeez Al-Shaair",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
 "Dalton Schultz",
 "",
 "Limited Participation in Practice"
@@ -1704,12 +1716,6 @@
 "Jake Hansen",
 "",
 "Did Not Participate In Practice"
-],
-[
-"HOU",
-"Jake Hansen",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -1845,21 +1851,9 @@
 ],
 [
 "JAX",
-"Cole Van Lanen",
-"Questionable (ESPN)",
-""
-],
-[
-"JAX",
 "Emmanuel Pregnon",
 "",
 "Limited Participation in Practice"
-],
-[
-"JAX",
-"Emmanuel Pregnon",
-"Questionable (ESPN)",
-""
 ],
 [
 "JAX",
@@ -1869,21 +1863,9 @@
 ],
 [
 "JAX",
-"Eric Murray",
-"Questionable (ESPN)",
-""
-],
-[
-"JAX",
 "Jarrian Jones",
 "",
 "Limited Participation in Practice"
-],
-[
-"JAX",
-"Jarrian Jones",
-"Questionable (ESPN)",
-""
 ],
 [
 "JAX",
@@ -1899,21 +1881,9 @@
 ],
 [
 "JAX",
-"Jourdan Lewis",
-"Questionable (ESPN)",
-""
-],
-[
-"JAX",
 "Montaric Brown",
 "",
 "Did Not Participate In Practice"
-],
-[
-"JAX",
-"Montaric Brown",
-"Questionable (ESPN)",
-""
 ],
 [
 "JAX",
@@ -1923,21 +1893,9 @@
 ],
 [
 "JAX",
-"Nate Boerkircher",
-"Questionable (ESPN)",
-""
-],
-[
-"JAX",
 "Ross Matiscik",
 "",
 "Did Not Participate In Practice"
-],
-[
-"JAX",
-"Ross Matiscik",
-"Questionable (ESPN)",
-""
 ],
 [
 "KC",
@@ -2070,6 +2028,12 @@
 "Omar Speights",
 "",
 "Full Participation in Practice"
+],
+[
+"LA",
+"Trent McDuffie",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
@@ -2571,12 +2535,6 @@
 ],
 [
 "NO",
-"Anfernee Jennings",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Chris Olave",
 "",
 "Did Not Participate In Practice"
@@ -2619,12 +2577,6 @@
 ],
 [
 "NO",
-"Kaden Elliss",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
 "Lorenzo Styles Jr.",
 "",
 "Limited Participation in Practice"
@@ -2664,12 +2616,6 @@
 "Vernon Broughton",
 "",
 "Limited Participation in Practice"
-],
-[
-"NO",
-"Vernon Broughton",
-"Questionable (ESPN)",
-""
 ],
 [
 "NO",
@@ -3722,7 +3668,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 5.2,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3778,5 +3724,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 18:56 UTC"
+"written_at": "2026-10-16 19:35 UTC"
 }

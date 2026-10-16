@@ -14,7 +14,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4.5+ edge | 4 | 2 | 1-1 (50%) | -0.05 | +0.00 | 46-36 | 55-39 | 23-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
-| shadow: boosted trees alone, 5+ edge | 4 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
+| shadow: boosted trees alone, 5+ edge | 5 | 2 | 1-1 (50%) | -0.05 | +0.00 | 94-78 | 91-67 | 36-18 |
 | shadow: Under, 55%+ chance (the totals flag) | 14 | 11 | 5-6 (45%) | -1.41 | +0.14 | 142-117 | 183-134 | 86-61 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 11 | 8 | 3-5 (38%) | -2.23 | +0.09 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
@@ -23,7 +23,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 60%+ chance | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 3 | 2 | 1-1 (50%) | -0.09 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 9 | 6 | 3-3 (50%) | -0.27 | +0.11 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 8 | 6-2 (75%) | -0.02 | -0.38 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 8 | 6-2 (75%) | -0.02 | -0.62 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 63-46 | 96-71 | 27-18 |
