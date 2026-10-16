@@ -38,7 +38,7 @@
 "2026-10-18 13:00"
 ],
 "2026_06_CAR_PHI": [
-"00-0036389",
+"00-0038400",
 "00-0039150",
 "2026-10-18 13:00"
 ],
@@ -512,7 +512,7 @@
 [
 "PHI",
 "Will Shipley",
-"Doubtful"
+"Out"
 ],
 [
 "PIT",
@@ -970,12 +970,6 @@
 "Zay Flowers",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Zay Flowers",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1840,6 +1834,12 @@
 "Matt Goncalves",
 "",
 "Limited Participation in Practice"
+],
+[
+"IND",
+"Tyler Warren",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
@@ -3656,7 +3656,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 10.7,
+"wind": 12.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3696,7 +3696,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 10.9,
+"wind": 12.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3728,5 +3728,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 20:03 UTC"
+"written_at": "2026-10-16 20:35 UTC"
 }
