@@ -69,7 +69,7 @@ Every bet:
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
 |     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -120 |   nan   |   nan | pending  |  nan    |
-|     2026 |      6 | 2026_06_CAR_PHI | PHI +3.5 |   -110 |   nan   |   nan | pending  |  nan    |
+|     2026 |      6 | 2026_06_CAR_PHI | PHI +3.5 |   -115 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
