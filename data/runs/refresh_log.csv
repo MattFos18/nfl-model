@@ -908,3 +908,4 @@ checked,reprice,changes,errors
 2026-10-16 09:50 UTC,False,2026_06_NYJ_NE: wind 8 to 6 mph,
 2026-10-16 10:22 UTC,False,"2026_06_NYJ_NE: wind 8 to 6 mph | 2026_06_CAR_PHI: wind 10 to 13 mph | 2026_06_DAL_GB: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
 2026-10-16 10:53 UTC,True,"2026_06_BAL_CLE: wind 8 to 6 mph | 2026_06_NYJ_NE: wind 8 to 6 mph | 2026_06_CAR_PHI: wind 10 to 13 mph | 2026_06_DAL_GB: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
+2026-10-16 11:53 UTC,False,2026_06_BAL_CLE: weather source changed (src: open-meteo to mos) | 2026_06_NYJ_NE: wind 9 to 6 mph,
