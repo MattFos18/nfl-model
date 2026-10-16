@@ -382,7 +382,7 @@
 [
 "NYJ",
 "Adonai Mitchell",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -392,17 +392,17 @@
 [
 "NYJ",
 "Breece Hall",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
 "Dylan Parham",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
 "Joseph Ossai",
-"Doubtful"
+"Out"
 ],
 [
 "NYJ",
@@ -3738,7 +3738,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 11.4,
+"wind": 10.8,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3754,7 +3754,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 5.8,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3810,5 +3810,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 13:34 UTC"
+"written_at": "2026-10-16 15:48 UTC"
 }
