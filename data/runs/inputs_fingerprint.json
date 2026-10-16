@@ -567,7 +567,7 @@
 [
 "TEN",
 "Kevin Winston Jr.",
-"Doubtful"
+"Out"
 ],
 [
 "WAS",
@@ -3746,7 +3746,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 6.7,
+"wind": 8.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3754,7 +3754,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 8.6,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3762,7 +3762,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 7.2,
+"wind": 8.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3770,7 +3770,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 12.7,
+"wind": 12.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3778,7 +3778,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 10.6,
+"wind": 10.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3786,7 +3786,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 9.1,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3794,7 +3794,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 9.1,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3810,5 +3810,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 15:48 UTC"
+"written_at": "2026-10-16 16:38 UTC"
 }
