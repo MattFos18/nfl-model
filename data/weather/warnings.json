@@ -679,16 +679,16 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature": {
-  "count": 11,
+  "count": 12,
   "first": "2026-10-16 06:31 UTC",
-  "last": "2026-10-16 09:20 UTC",
+  "last": "2026-10-16 09:50 UTC",
   "message": "2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
  "wind_live|2026_06_DAL_GB: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 11,
+  "count": 12,
   "first": "2026-10-16 06:31 UTC",
-  "last": "2026-10-16 09:20 UTC",
+  "last": "2026-10-16 09:50 UTC",
   "message": "2026_06_DAL_GB: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
