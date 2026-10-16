@@ -766,11 +766,6 @@
 ],
 [
 "WAS",
-"Jeremy McNichols",
-"Out"
-],
-[
-"WAS",
 "Jordan Magee",
 "Out"
 ],
@@ -778,11 +773,6 @@
 "WAS",
 "Marcus Mariota",
 "Doubtful"
-],
-[
-"WAS",
-"Trey Amos",
-"Out"
 ]
 ],
 "reports": [
@@ -1169,12 +1159,6 @@
 "Ty Johnson",
 "",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Ty Johnson",
-"Questionable (ESPN)",
-""
 ],
 [
 "CAR",
@@ -2198,12 +2182,6 @@
 ],
 [
 "LV",
-"Jalen Nailor",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Patrick Johnson",
 "",
 "Full Participation in Practice"
@@ -2924,12 +2902,6 @@
 ],
 [
 "SF",
-"Carver Willis",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Christian Kirk",
 "",
 "Limited Participation in Practice"
@@ -2996,12 +2968,6 @@
 ],
 [
 "SF",
-"Kyle Juszczyk",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Marques Sigle",
 "",
 "Did Not Participate In Practice"
@@ -3047,6 +3013,12 @@
 "Romello Height",
 "",
 "Full Participation in Practice"
+],
+[
+"SF",
+"Romello Height",
+"Questionable (ESPN)",
+""
 ],
 [
 "SF",
@@ -3278,6 +3250,12 @@
 ],
 [
 "WAS",
+"Javon Kinlaw",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Javontae Jean-Baptiste",
 "",
 "Did Not Participate In Practice"
@@ -3326,6 +3304,12 @@
 ],
 [
 "WAS",
+"Lucas Patrick",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Marcus Mariota",
 "",
 "Did Not Participate In Practice"
@@ -3356,15 +3340,15 @@
 ],
 [
 "WAS",
-"Quan Martin",
-"Questionable (ESPN)",
-""
+"Rachaad White",
+"",
+"Full Participation in Practice"
 ],
 [
 "WAS",
 "Rachaad White",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "WAS",
@@ -3423,7 +3407,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 12.3,
+"wind": 12.5,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3431,7 +3415,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 8.1,
+"wind": 9.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3439,7 +3423,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 6.8,
+"wind": 6.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3447,7 +3431,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 7.9,
+"wind": 7.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3455,7 +3439,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 12.2,
+"wind": 10.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3479,7 +3463,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 8.6,
+"wind": 8.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3495,5 +3479,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 22:06 UTC"
+"written_at": "2026-10-16 23:18 UTC"
 }
