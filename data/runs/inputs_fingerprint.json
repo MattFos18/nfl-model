@@ -167,7 +167,12 @@
 [
 "CHI",
 "Dayo Odeyingbo",
-"Doubtful"
+"Out"
+],
+[
+"CHI",
+"Keyshaun Elliott",
+"Out"
 ],
 [
 "CHI",
@@ -187,7 +192,7 @@
 [
 "CHI",
 "T.J. Edwards",
-"Doubtful"
+"Out"
 ],
 [
 "CLE",
@@ -392,7 +397,7 @@
 [
 "LAC",
 "Tre' Harris",
-"Doubtful"
+"Out"
 ],
 [
 "LV",
@@ -623,6 +628,11 @@
 "TB",
 "Baker Mayfield",
 "Out"
+],
+[
+"TB",
+"Benjamin Morrison",
+"Doubtful"
 ],
 [
 "TB",
@@ -1218,12 +1228,6 @@
 "Keyshaun Elliott",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CHI",
-"Keyshaun Elliott",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -2205,12 +2209,6 @@
 ],
 [
 "LAC",
-"Ladd McConkey",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Marquez Valdes-Scantling",
 "",
 "Full Participation in Practice"
@@ -2220,12 +2218,6 @@
 "Quentin Johnston",
 "",
 "Limited Participation in Practice"
-],
-[
-"LAC",
-"Quentin Johnston",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -3033,6 +3025,12 @@
 ],
 [
 "PIT",
+"DK Metcalf",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "DeShon Elliott",
 "",
 "Limited Participation in Practice"
@@ -3078,6 +3076,12 @@
 "Rico Dowdle",
 "",
 "Full Participation in Practice"
+],
+[
+"PIT",
+"Rico Dowdle",
+"Questionable (ESPN)",
+""
 ],
 [
 "PIT",
@@ -3327,12 +3331,6 @@
 ],
 [
 "TB",
-"Benjamin Morrison",
-"Questionable (ESPN)",
-""
-],
-[
-"TB",
 "Chris Godwin Jr.",
 "",
 "Full Participation in Practice"
@@ -3342,6 +3340,12 @@
 "David Sills",
 "",
 "Full Participation in Practice"
+],
+[
+"TB",
+"Josiah Trotter",
+"Questionable (ESPN)",
+""
 ],
 [
 "TB",
@@ -3668,7 +3672,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 6.8,
+"wind": 5.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3724,5 +3728,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 19:35 UTC"
+"written_at": "2026-10-16 20:03 UTC"
 }
