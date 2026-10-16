@@ -22,7 +22,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
 | shadow: Under, 60%+ chance | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 3 | 2 | 1-1 (50%) | -0.09 | +0.00 | 32-26 | 42-18 | 19-13 |
-| shadow: Under, forecast wind 10+ mph (outdoor games) | 7 | 6 | 3-3 (50%) | -0.27 | +0.14 | 119-97 | 143-88 | 77-52 |
+| shadow: Under, forecast wind 10+ mph (outdoor games) | 8 | 6 | 3-3 (50%) | -0.27 | +0.12 | 119-97 | 143-88 | 77-52 |
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 8 | 6-2 (75%) | -0.02 | -0.38 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
@@ -37,7 +37,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, weeks 1 to 15 only | 5 | 3 | 2-1 (67%) | +0.88 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 1 | 0 | nothing settled |  | +0.00 | 9-13 | 16-13 | 8-3 |
 | shadow: Over, total 41 or lower and a 55%+ chance | 4 | 2 | 0-2 (0%) | -2.00 | +0.00 | 50-37 | 30-25 | 55-35 |
-| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 10 | 7 | 3-4 (43%) | -1.23 | +0.10 | 156-131 | 201-149 | 80-57 |
+| shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 11 | 7 | 3-4 (43%) | -1.23 | +0.09 | 156-131 | 201-149 | 80-57 |
 
 Live against the backtest: the flag has won 2 of 3 settled; at the backtest rate of 63.1% (2019 to 2025), 3 bets land between 0 and 3 wins nine times in ten. The live record is inside the range. With fewer than 30 settled this says little either way.
 

@@ -6,8 +6,8 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 |---|---|---|---|---|---|---|---|
 | Spreads, 4+ edge | 3 | -0.17 | 33% | 1 | 1 | 2 | -1.4% (1) |
 | Unders, 55%+ chance | 11 | +0.00 | 18% | 6 | 3 | 2 | -0.3% (6) |
-| Wind unders, 10+ mph | 6 | -0.50 | 17% | 3 | 2 | 1 | +0.3% (3) |
-| All live bets | 20 | -0.17 | 20% | 10 | 6 | 5 | -0.2% (10) |
+| Wind unders, 10+ mph | 6 | -0.50 | 17% | 3 | 2 | 2 | +0.3% (3) |
+| All live bets | 20 | -0.17 | 20% | 10 | 6 | 6 | -0.2% (10) |
 
 ## Every bet
 
@@ -37,4 +37,5 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | windunder   |      5 | 2026_05_CIN_MIA | Under 44.5 | 2026-10-08 23:06 UTC | first flag   |   42.5 |       nan   |    44.5 |      -2   |            | 2026-10-11 16:13 UTC | closed   |
 | windunder   |      5 | 2026_05_CLE_NYJ | Under 38.5 | 2026-10-08 23:06 UTC | first flag   |   39.5 |       nan   |    38.5 |       1   |            | 2026-10-11 16:13 UTC | closed   |
 | windunder   |      6 | 2026_06_SEA_DEN | Under 40.5 | 2026-10-13 15:30 UTC | first flag   |   40.5 |       nan   |    40.5 |       0   | +0.0%      | 2026-10-15 23:59 UTC | closed   |
+| windunder   |      6 | 2026_06_CAR_PHI | Under 38.5 | 2026-10-16 10:55 UTC | first flag   |   38.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      6 | 2026_06_PIT_TB  | Under 39.5 | 2026-10-15 23:07 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |

@@ -147,9 +147,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 33,
+  "count": 34,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-16 08:47 UTC",
+  "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -189,9 +189,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-16 00:38 UTC",
-  "last": "2026-10-16 08:47 UTC",
+  "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -672,24 +672,38 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature": {
-  "count": 1,
+  "count": 3,
   "first": "2026-10-16 10:50 UTC",
-  "last": "2026-10-16 10:50 UTC",
+  "last": "2026-10-16 11:00 UTC",
   "message": "2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-16 10:53 UTC",
-  "last": "2026-10-16 10:54 UTC",
+  "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-16 10:53 UTC",
-  "last": "2026-10-16 10:54 UTC",
+  "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no rain chance; using the 2026-10-16T10-20-15Z reading": {
+  "count": 7,
+  "first": "2026-10-16 11:03 UTC",
+  "last": "2026-10-16 11:16 UTC",
+  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no rain chance; using the 2026-10-16T10-20-15Z reading",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no temperature; using the 2026-10-16T10-20-15Z reading": {
+  "count": 6,
+  "first": "2026-10-16 11:03 UTC",
+  "last": "2026-10-16 11:16 UTC",
+  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no temperature; using the 2026-10-16T10-20-15Z reading",
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -700,9 +714,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-16 10:50 UTC",
-  "last": "2026-10-16 10:50 UTC",
+  "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -742,9 +756,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-16 06:41 UTC",
-  "last": "2026-10-16 08:49 UTC",
+  "last": "2026-10-16 11:01 UTC",
   "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
