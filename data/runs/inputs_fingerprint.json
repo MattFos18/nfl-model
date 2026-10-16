@@ -491,11 +491,6 @@
 ],
 [
 "SEA",
-"Elijah Arroyo",
-"Doubtful"
-],
-[
-"SEA",
 "Jalen Milroe",
 "Out"
 ],
@@ -3004,6 +2999,12 @@
 ],
 [
 "SEA",
+"Elijah Arroyo",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "George Holani",
 "",
 "Full Participation in Practice"
@@ -3316,14 +3317,6 @@
 ]
 ],
 "weather": {
-"2026_06_SEA_DEN": {
-"wind": 7.7,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_06_HOU_JAX": {
 "wind": 12.3,
 "cold": false,
@@ -3333,7 +3326,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 9.2,
+"wind": 7.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3341,7 +3334,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.7,
+"wind": 5.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3357,7 +3350,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 9.3,
+"wind": 9.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3365,7 +3358,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 10.6,
+"wind": 11.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3373,12 +3366,12 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 13.3,
+"wind": 9.0,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
+"src": "mos",
+"temp_src": "mos",
+"rain_src": "mos"
 },
 "2026_06_DAL_GB": {
 "wind": 13.8,
@@ -3397,5 +3390,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 02:27 UTC"
+"written_at": "2026-10-16 04:48 UTC"
 }
