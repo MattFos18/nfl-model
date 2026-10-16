@@ -147,9 +147,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 37,
+  "count": 38,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-16 16:26 UTC",
+  "last": "2026-10-16 17:00 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -189,9 +189,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 9,
+  "count": 10,
   "first": "2026-10-16 00:38 UTC",
-  "last": "2026-10-16 16:26 UTC",
+  "last": "2026-10-16 17:00 UTC",
   "message": "2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -718,6 +718,13 @@
   "first": "2026-10-16 10:50 UTC",
   "last": "2026-10-16 10:59 UTC",
   "message": "2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-16 17:02 UTC",
+  "last": "2026-10-16 17:02 UTC",
+  "message": "2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature": {

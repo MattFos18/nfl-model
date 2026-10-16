@@ -291,6 +291,11 @@
 ],
 [
 "IND",
+"Jaylon Carlies",
+"Out"
+],
+[
+"IND",
 "Will Mallory",
 "Out"
 ],
@@ -547,12 +552,12 @@
 [
 "TB",
 "Antoine Winfield Jr.",
-"Doubtful"
+"Out"
 ],
 [
 "TB",
 "Baker Mayfield",
-"Doubtful"
+"Out"
 ],
 [
 "TB",
@@ -1826,12 +1831,6 @@
 "Jaylon Carlies",
 "",
 "Did Not Participate In Practice"
-],
-[
-"IND",
-"Jaylon Carlies",
-"Questionable (ESPN)",
-""
 ],
 [
 "IND",
@@ -3738,7 +3737,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 10.8,
+"wind": 10.7,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3746,7 +3745,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 8.1,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3754,7 +3753,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 6.8,
+"wind": 5.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3770,7 +3769,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 12.2,
+"wind": 13.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3810,5 +3809,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 16:38 UTC"
+"written_at": "2026-10-16 17:15 UTC"
 }
