@@ -671,11 +671,39 @@
   "message": "2026_05_SF_SEA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
+ "wind_live|2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature": {
+  "count": 1,
+  "first": "2026-10-16 10:50 UTC",
+  "last": "2026-10-16 10:50 UTC",
+  "message": "2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading": {
+  "count": 3,
+  "first": "2026-10-16 10:53 UTC",
+  "last": "2026-10-16 10:54 UTC",
+  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading": {
+  "count": 3,
+  "first": "2026-10-16 10:53 UTC",
+  "last": "2026-10-16 10:54 UTC",
+  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading",
+  "source": "wind_live"
+ },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 4,
   "first": "2026-10-16 02:11 UTC",
   "last": "2026-10-16 08:48 UTC",
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-16 10:50 UTC",
+  "last": "2026-10-16 10:50 UTC",
+  "message": "2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature": {
