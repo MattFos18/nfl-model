@@ -250,6 +250,11 @@
 "Out"
 ],
 [
+"GB",
+"Savion Williams",
+"Out"
+],
+[
 "HOU",
 "David Montgomery",
 "Out"
@@ -1920,6 +1925,12 @@
 ],
 [
 "LA",
+"Kam Curl",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Nate Landman",
 "",
 "Limited Participation in Practice"
@@ -2151,12 +2162,6 @@
 "Brock Bowers",
 "",
 "Limited Participation in Practice"
-],
-[
-"LV",
-"Brock Bowers",
-"Questionable (ESPN)",
-""
 ],
 [
 "LV",
@@ -2868,12 +2873,6 @@
 ],
 [
 "PHI",
-"Marcus Epps",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Marquise Brown",
 "",
 "Limited Participation in Practice"
@@ -3030,6 +3029,24 @@
 ],
 [
 "SF",
+"Carver Willis",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Colton McKivitz",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Gracen Halton",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "James Thompson Jr.",
 "Questionable (ESPN)",
 ""
@@ -3048,7 +3065,25 @@
 ],
 [
 "SF",
+"Mykel Williams",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Nick Bosa",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Siran Neal",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Upton Stout",
 "Questionable (ESPN)",
 ""
 ],
@@ -3222,13 +3257,37 @@
 ],
 [
 "WAS",
+"Fabian Moreau",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Jacory Croskey-Merritt",
 "Questionable (ESPN)",
 ""
 ],
 [
 "WAS",
+"Javontae Jean-Baptiste",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Jeremy Reaves",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Percy Butler",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Quan Martin",
 "Questionable (ESPN)",
 ""
 ],
@@ -3259,7 +3318,7 @@
 ],
 "weather": {
 "2026_06_SEA_DEN": {
-"wind": 11.0,
+"wind": 7.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3315,7 +3374,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 15.0,
+"wind": 13.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3323,7 +3382,15 @@
 "rain_src": "open-meteo"
 },
 "2026_06_DAL_GB": {
-"wind": 15.5,
+"wind": 13.8,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_06_WAS_SF": {
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3331,5 +3398,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-15 23:18 UTC"
+"written_at": "2026-10-16 00:51 UTC"
 }
