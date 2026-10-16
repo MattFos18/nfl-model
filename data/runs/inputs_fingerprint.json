@@ -111,12 +111,27 @@
 ],
 [
 "BAL",
+"Broderick Washington Jr.",
+"Out"
+],
+[
+"BAL",
+"Cam Jurgens",
+"Out"
+],
+[
+"BAL",
 "Ja'Kobi Lane",
 "Out"
 ],
 [
 "BAL",
 "Lamar Jackson",
+"Out"
+],
+[
+"BAL",
+"Matt Hibner",
 "Out"
 ],
 [
@@ -211,12 +226,17 @@
 ],
 [
 "CLE",
-"Mason Graham",
-"Doubtful"
+"Mike Hall Jr.",
+"Out"
 ],
 [
 "CLE",
 "Raheim Sanders",
+"Out"
+],
+[
+"CLE",
+"Teven Jenkins",
 "Out"
 ],
 [
@@ -391,8 +411,33 @@
 ],
 [
 "LAC",
+"Derwin James Jr.",
+"Out"
+],
+[
+"LAC",
+"Donte Jackson",
+"Out"
+],
+[
+"LAC",
+"Joe Alt",
+"Out"
+],
+[
+"LAC",
+"Kayode Awosika",
+"Out"
+],
+[
+"LAC",
 "KeAndre Lambert-Smith",
 "Out"
+],
+[
+"LAC",
+"Rodney Shelley",
+"Doubtful"
 ],
 [
 "LAC",
@@ -507,6 +552,11 @@
 [
 "PHI",
 "Landon Dickerson",
+"Out"
+],
+[
+"PHI",
+"Saquon Barkley",
 "Out"
 ],
 [
@@ -637,6 +687,11 @@
 [
 "TB",
 "David Sills V",
+"Out"
+],
+[
+"TEN",
+"Jordan Elliott",
 "Out"
 ],
 [
@@ -805,12 +860,6 @@
 ],
 [
 "BAL",
-"Broderick Washington Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Calais Campbell",
 "",
 "Full Participation in Practice"
@@ -820,12 +869,6 @@
 "Cam Jurgens",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Cam Jurgens",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -853,12 +896,6 @@
 ],
 [
 "BAL",
-"John Simpson",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Kyle Hamilton",
 "",
 "Full Participation in Practice"
@@ -883,12 +920,6 @@
 ],
 [
 "BAL",
-"Matt Hibner",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Matthew Hibner",
 "",
 "Did Not Participate In Practice"
@@ -901,12 +932,6 @@
 ],
 [
 "BAL",
-"Mike Green",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Nick Vannett",
 "",
 "Full Participation in Practice"
@@ -916,12 +941,6 @@
 "Rashod Bateman",
 "",
 "Did Not Participate In Practice"
-],
-[
-"BAL",
-"Rashod Bateman",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -943,21 +962,9 @@
 ],
 [
 "BAL",
-"Teddye Buchanan",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Trenton Simpson",
 "",
 "Limited Participation in Practice"
-],
-[
-"BAL",
-"Trenton Simpson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -1261,12 +1268,6 @@
 ],
 [
 "CLE",
-"Carsen Ryan",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Carson Schwesinger",
 "",
 "Did Not Participate In Practice"
@@ -1282,12 +1283,6 @@
 "Denzel Boston",
 "",
 "Limited Participation in Practice"
-],
-[
-"CLE",
-"Denzel Boston",
-"Questionable (ESPN)",
-""
 ],
 [
 "CLE",
@@ -1327,12 +1322,6 @@
 ],
 [
 "CLE",
-"Grant Delpit",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "KC Concepcion",
 "",
 "Limited Participation in Practice"
@@ -1351,27 +1340,21 @@
 ],
 [
 "CLE",
-"Maliek Collins",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Mason Graham",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "CLE",
-"Mike Hall Jr.",
-"",
-"Did Not Participate In Practice"
+"Mason Graham",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
 "Mike Hall Jr.",
-"Questionable (ESPN)",
-""
+"",
+"Did Not Participate In Practice"
 ],
 [
 "CLE",
@@ -1393,33 +1376,15 @@
 ],
 [
 "CLE",
-"Teven Jenkins",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Tylan Wallace",
 "",
 "Limited Participation in Practice"
 ],
 [
 "CLE",
-"Tylan Wallace",
-"Questionable (ESPN)",
-""
-],
-[
-"CLE",
 "Tytus Howard",
 "",
 "Limited Participation in Practice"
-],
-[
-"CLE",
-"Tytus Howard",
-"Questionable (ESPN)",
-""
 ],
 [
 "DAL",
@@ -1795,12 +1760,6 @@
 ],
 [
 "IND",
-"Jalen Travis",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Jaylahn Tuimoloau",
 "",
 "Limited Participation in Practice"
@@ -2101,33 +2060,15 @@
 ],
 [
 "LAC",
-"Derwin James Jr.",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Donte Jackson",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "LAC",
-"Donte Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Elijah Molden",
 "",
 "Limited Participation in Practice"
-],
-[
-"LAC",
-"Elijah Molden",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2149,33 +2090,15 @@
 ],
 [
 "LAC",
-"Joe Alt",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Justin Eboigbe",
 "",
 "Limited Participation in Practice"
 ],
 [
 "LAC",
-"Justin Eboigbe",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Kayode Awosika",
 "",
 "Did Not Participate In Practice"
-],
-[
-"LAC",
-"Kayode Awosika",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2188,12 +2111,6 @@
 "Kendall Williamson",
 "",
 "Limited Participation in Practice"
-],
-[
-"LAC",
-"Kendall Williamson",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2224,12 +2141,6 @@
 "Rodney Shelley",
 "",
 "Did Not Participate In Practice"
-],
-[
-"LAC",
-"Rodney Shelley",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2845,12 +2756,6 @@
 ],
 [
 "PHI",
-"DeVonta Smith",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Dontayvion Wicks",
 "",
 "Did Not Participate In Practice"
@@ -2980,12 +2885,6 @@
 "Saquon Barkley",
 "",
 "Did Not Participate In Practice"
-],
-[
-"PHI",
-"Saquon Barkley",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -3385,12 +3284,6 @@
 ],
 [
 "TEN",
-"Amani Hooker",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
 "Cordale Flott",
 "",
 "Full Participation in Practice"
@@ -3400,12 +3293,6 @@
 "David Martin-Robinson",
 "",
 "Limited Participation in Practice"
-],
-[
-"TEN",
-"David Martin-Robinson",
-"Questionable (ESPN)",
-""
 ],
 [
 "TEN",
@@ -3696,7 +3583,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 12.8,
+"wind": 10.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3728,5 +3615,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 20:35 UTC"
+"written_at": "2026-10-16 21:04 UTC"
 }
