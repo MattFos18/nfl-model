@@ -311,6 +311,11 @@
 ],
 [
 "LA",
+"Keagen Trost",
+"Out"
+],
+[
+"LA",
 "Myles Garrett",
 "Out"
 ],
@@ -486,12 +491,12 @@
 ],
 [
 "SEA",
-"Jalen Milroe",
-"Out"
+"Elijah Arroyo",
+"Doubtful"
 ],
 [
 "SEA",
-"Julian Neal",
+"Jalen Milroe",
 "Out"
 ],
 [
@@ -918,12 +923,6 @@
 [
 "BUF",
 "Joshua Palmer",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
-"Spencer Brown",
 "Questionable (ESPN)",
 ""
 ],
@@ -1412,6 +1411,12 @@
 "Sai'vion Jones",
 "",
 "Full Participation in Practice"
+],
+[
+"DEN",
+"Tyler Badie",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -2186,12 +2191,6 @@
 "Foley Fatukasi",
 "",
 "Limited Participation in Practice"
-],
-[
-"LV",
-"Folorunso Fatukasi",
-"Questionable (ESPN)",
-""
 ],
 [
 "LV",
@@ -3334,7 +3333,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 6.2,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3398,5 +3397,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 00:51 UTC"
+"written_at": "2026-10-16 02:27 UTC"
 }
