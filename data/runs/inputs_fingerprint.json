@@ -281,12 +281,17 @@
 ],
 [
 "GB",
-"Chris Brooks",
+"Benjamin St-Juste",
 "Out"
 ],
 [
 "GB",
 "Javon Hargrave",
+"Out"
+],
+[
+"GB",
+"Jonathan Ford",
 "Out"
 ],
 [
@@ -307,6 +312,11 @@
 [
 "GB",
 "Savion Williams",
+"Out"
+],
+[
+"GB",
+"Skyy Moore",
 "Out"
 ],
 [
@@ -372,6 +382,11 @@
 [
 "JAX",
 "Ross Matiscik",
+"Out"
+],
+[
+"KC",
+"Josh Simmons",
 "Out"
 ],
 [
@@ -461,6 +476,16 @@
 ],
 [
 "NE",
+"Carlton Davis III",
+"Out"
+],
+[
+"NE",
+"Karon Prunty",
+"Out"
+],
+[
+"NE",
 "Marcus Bryant",
 "Out"
 ],
@@ -492,6 +517,11 @@
 [
 "NYG",
 "Chauncey Golston",
+"Out"
+],
+[
+"NYG",
+"Theo Johnson",
 "Out"
 ],
 [
@@ -1544,7 +1574,7 @@
 ],
 [
 "GB",
-"Benjamin St-Juste",
+"Brandon Cisse",
 "Questionable (ESPN)",
 ""
 ],
@@ -1553,12 +1583,6 @@
 "Devonte Wyatt",
 "",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Devonte Wyatt",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1592,12 +1616,6 @@
 ],
 [
 "GB",
-"Jonathan Ford",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Jordon Riley",
 "",
 "Limited Participation in Practice"
@@ -1607,12 +1625,6 @@
 "Keisean Nixon",
 "",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Keisean Nixon",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1631,12 +1643,6 @@
 "Skyy Moore",
 "",
 "Did Not Participate In Practice"
-],
-[
-"GB",
-"Skyy Moore",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -1880,12 +1886,6 @@
 ],
 [
 "KC",
-"Josh Simmons",
-"Questionable (ESPN)",
-""
-],
-[
-"KC",
 "L'Jarius Sneed",
 "",
 "Limited Participation in Practice"
@@ -1907,12 +1907,6 @@
 "Peter Woods",
 "",
 "Limited Participation in Practice"
-],
-[
-"KC",
-"Peter Woods",
-"Questionable (ESPN)",
-""
 ],
 [
 "KC",
@@ -2252,12 +2246,6 @@
 ],
 [
 "NE",
-"Carlton Davis III",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Channing Canada",
 "",
 "Limited Participation in Practice"
@@ -2273,12 +2261,6 @@
 "Charles Woods",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Charles Woods",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2306,12 +2288,6 @@
 ],
 [
 "NE",
-"Cory Durden",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Craig Woodson",
 "",
 "Limited Participation in Practice"
@@ -2336,33 +2312,15 @@
 ],
 [
 "NE",
-"Dre'Mont Jones",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Karon Prunty",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "NE",
-"Karon Prunty",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Kevin Byard",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Kevin Byard",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2378,21 +2336,9 @@
 ],
 [
 "NE",
-"Marcus Jones",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Morgan Moses",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Morgan Moses",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -2648,12 +2594,6 @@
 ],
 [
 "NYG",
-"Theo Johnson",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Tyler Nubin",
 "",
 "Did Not Participate In Practice"
@@ -2762,12 +2702,6 @@
 ],
 [
 "PHI",
-"Dontayvion Wicks",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Drew Kendall",
 "",
 "Limited Participation in Practice"
@@ -2783,12 +2717,6 @@
 "E.J. Jenkins",
 "",
 "Limited Participation in Practice"
-],
-[
-"PHI",
-"E.J. Jenkins",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -2807,12 +2735,6 @@
 "Grant Calcaterra",
 "",
 "Limited Participation in Practice"
-],
-[
-"PHI",
-"Hollywood Brown",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -3320,12 +3242,6 @@
 ],
 [
 "TEN",
-"Marcus Harris",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
 "Tony Pollard",
 "",
 "Full Participation in Practice"
@@ -3559,7 +3475,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 5.2,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3615,5 +3531,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 21:04 UTC"
+"written_at": "2026-10-16 21:30 UTC"
 }
