@@ -664,6 +664,20 @@
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
+ "wind_live|2026_06_LAC_KC: GFS MOS run 2026-10-15T12Z at KMCI gave no wind, rain chance, temperature": {
+  "count": 1,
+  "first": "2026-10-16 03:00 UTC",
+  "last": "2026-10-16 03:00 UTC",
+  "message": "2026_06_LAC_KC: GFS MOS run 2026-10-15T12Z at KMCI gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
+ "wind_live|2026_06_LAC_KC: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-16 03:00 UTC",
+  "last": "2026-10-16 03:00 UTC",
+  "message": "2026_06_LAC_KC: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
  "wind_live|2026_06_PIT_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 1,
   "first": "2026-10-15 23:03 UTC",
