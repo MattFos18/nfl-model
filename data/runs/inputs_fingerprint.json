@@ -3746,15 +3746,15 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 5.4,
+"wind": 6.7,
 "cold": false,
 "rain": false,
-"src": "open-meteo",
+"src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 8.6,
+"wind": 5.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3802,7 +3802,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 9.5,
+"wind": 11.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3810,5 +3810,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 11:16 UTC"
+"written_at": "2026-10-16 13:34 UTC"
 }
