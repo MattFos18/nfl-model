@@ -96,12 +96,22 @@
 ],
 [
 "ATL",
+"C.J. Henderson",
+"Out"
+],
+[
+"ATL",
 "Yasir Abdullah",
 "Out"
 ],
 [
 "BAL",
 "Ja'Kobi Lane",
+"Out"
+],
+[
+"BAL",
+"Lamar Jackson",
 "Out"
 ],
 [
@@ -511,6 +521,11 @@
 ],
 [
 "SEA",
+"Jadarian Price",
+"Out"
+],
+[
+"SEA",
 "Jalen Milroe",
 "Out"
 ],
@@ -685,21 +700,9 @@
 ],
 [
 "ATL",
-"C.J. Henderson",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
 "Cameron Thomas",
 "",
 "Limited Participation in Practice"
-],
-[
-"ATL",
-"Cameron Thomas",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -724,12 +727,6 @@
 "Kendal Daniels",
 "",
 "Limited Participation in Practice"
-],
-[
-"ATL",
-"Kendal Daniels",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -832,12 +829,6 @@
 "Lamar Jackson",
 "",
 "Did Not Participate In Practice"
-],
-[
-"BAL",
-"Lamar Jackson",
-"Questionable (ESPN)",
-""
 ],
 [
 "BAL",
@@ -2785,6 +2776,12 @@
 ],
 [
 "NYG",
+"Jermaine Eluemunor",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Malik Harrison",
 "",
 "Limited Participation in Practice"
@@ -3780,7 +3777,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 11.2,
+"wind": 9.9,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3788,5 +3785,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 17:48 UTC"
+"written_at": "2026-10-16 18:33 UTC"
 }

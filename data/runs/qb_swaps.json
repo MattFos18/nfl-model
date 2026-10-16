@@ -17,6 +17,15 @@
  ],
  "swaps": [
   {
+   "game_id": "2026_06_BAL_CLE",
+   "team": "BAL",
+   "from": "00-0034796",
+   "from_name": "Lamar Jackson",
+   "to": "00-0035993",
+   "to_name": "Tyler Huntley",
+   "source": "depth chart"
+  },
+  {
    "game_id": "2026_06_CAR_PHI",
    "team": "PHI",
    "from": "00-0036389",
