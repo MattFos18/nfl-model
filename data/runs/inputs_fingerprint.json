@@ -331,16 +331,6 @@
 ],
 [
 "HOU",
-"Henry To'oTo'o",
-"Out"
-],
-[
-"HOU",
-"Ja'Marcus Ingram",
-"Out"
-],
-[
-"HOU",
 "Jalen Pitre",
 "Out"
 ],
@@ -402,11 +392,6 @@
 [
 "LA",
 "Alaric Jackson",
-"Out"
-],
-[
-"LA",
-"Keagen Trost",
 "Out"
 ],
 [
@@ -517,11 +502,6 @@
 [
 "NO",
 "Kaden Elliss",
-"Out"
-],
-[
-"NO",
-"Zach Wood",
 "Out"
 ],
 [
@@ -1618,9 +1598,21 @@
 ],
 [
 "HOU",
+"Henry To'oTo'o",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
 "Ja'Marcus Ingram",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"HOU",
+"Ja'Marcus Ingram",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
@@ -1873,6 +1865,12 @@
 "Keagen Trost",
 "",
 "Full Participation in Practice"
+],
+[
+"LA",
+"Keagen Trost",
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
@@ -2299,6 +2297,12 @@
 "Zach Wood",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"NO",
+"Zach Wood",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -3209,5 +3213,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 18:42 UTC"
+"written_at": "2026-10-17 19:22 UTC"
 }
