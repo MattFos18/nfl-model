@@ -216,13 +216,6 @@
   "message": "2026_04_ARI_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T12Z); not used": {
-  "count": 62,
-  "first": "2026-10-03 16:03 UTC",
-  "last": "2026-10-03 21:45 UTC",
-  "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T12Z); not used",
-  "source": "wind_live"
- },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T18Z); not used": {
   "count": 51,
   "first": "2026-10-03 22:03 UTC",
@@ -476,9 +469,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-17 08:42 UTC",
-  "last": "2026-10-17 08:42 UTC",
+  "last": "2026-10-17 22:07 UTC",
   "message": "2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
