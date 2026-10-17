@@ -133,9 +133,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 53,
+  "count": 54,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-17 10:45 UTC",
+  "last": "2026-10-17 12:53 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
