@@ -1,6 +1,6 @@
 # Week 6, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-17 05:38 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-17 06:09 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                     | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:-------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2236,12 +2236,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | rush_attempts    |   2.7   |          2.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | rush_rec_yards   |   8.8   |          2.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | rush_longest     |   7.4   |          2.7  | live   |
-|     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_yards       | 253.4   |         39.4  | live   |
+|     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_yards       | 253     |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_td          |   1.782 |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_int         |   0.804 |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_attempts    |  37.5   |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_completions |  24.7   |         39.4  | live   |
-|     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_rush_yards  | 262.2   |         39.4  | live   |
+|     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_rush_yards  | 261.8   |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0033077  | Dak Prescott             | pass_longest     |  37.3   |         39.4  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0038625  | Dee Winters              | def_tackles      |   5.9   |         60.5  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | DAL    | 00-0038625  | Dee Winters              | def_sacks        |   0.03  |         60.5  | live   |
@@ -2319,12 +2319,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | rush_attempts    |   1.9   |          1.9  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | rush_rec_yards   |   7.7   |          1.9  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | rush_longest     |   7.1   |          1.9  | live   |
-|     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_yards       | 254.3   |         35.7  | live   |
+|     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_yards       | 253.9   |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_td          |   1.807 |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_int         |   0.728 |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_attempts    |  34.2   |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_completions |  21.5   |         35.7  | live   |
-|     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 262     |         35.7  | live   |
+|     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_rush_yards  | 261.6   |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0036264  | Jordan Love              | pass_longest     |  35.3   |         35.7  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0034431  | Zaire Franklin           | def_tackles      |   7.3   |         65.8  | live   |
 |     2026 |      6 | 2026_06_DAL_GB  | GB     | 00-0034431  | Zaire Franklin           | def_sacks        |   0.08  |         65.8  | live   |
@@ -2412,12 +2412,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0033699  | Austin Ekeler            | rush_attempts    |   4.1   |          4.1  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0033699  | Austin Ekeler            | rush_rec_yards   |  19.4   |          4.1  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0033699  | Austin Ekeler            | rush_longest     |   7.6   |          4.1  | live   |
-|     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_yards       | 211.7   |         36.2  | live   |
+|     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_yards       | 211.9   |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_td          |   1.503 |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_int         |   0.738 |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_attempts    |  33.2   |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_completions |  20.5   |         36.2  | live   |
-|     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_rush_yards  | 241.9   |         36.2  | live   |
+|     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_rush_yards  | 242.1   |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0039910  | Jayden Daniels           | pass_longest     |  29.7   |         36.2  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0041028  | Sonny Styles             | def_tackles      |   6.6   |         61.3  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | WAS    | 00-0041028  | Sonny Styles             | def_sacks        |   0.17  |         61.3  | live   |
@@ -2495,12 +2495,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0040177  | Jordan James             | rush_attempts    |   3.8   |          3.8  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0040177  | Jordan James             | rush_rec_yards   |  14.2   |          3.8  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0040177  | Jordan James             | rush_longest     |   8.3   |          3.8  | live   |
-|     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_yards       | 265.8   |         35    | live   |
+|     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_yards       | 266.1   |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_td          |   2.108 |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_int         |   0.714 |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_attempts    |  33.8   |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_completions |  22.7   |         35    | live   |
-|     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_rush_yards  | 286.4   |         35    | live   |
+|     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_rush_yards  | 286.7   |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0037834  | Brock Purdy              | pass_longest     |  35.7   |         35    | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0034815  | Fred Warner              | def_tackles      |   8.8   |         63.1  | live   |
 |     2026 |      6 | 2026_06_WAS_SF  | SF     | 00-0034815  | Fred Warner              | def_sacks        |   0.07  |         63.1  | live   |
