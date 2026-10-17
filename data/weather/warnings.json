@@ -133,9 +133,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 56,
+  "count": 57,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-17 16:44 UTC",
+  "last": "2026-10-17 17:12 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -420,9 +420,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 23,
+  "count": 24,
   "first": "2026-10-16 02:11 UTC",
-  "last": "2026-10-17 16:45 UTC",
+  "last": "2026-10-17 17:13 UTC",
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -497,9 +497,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 16,
+  "count": 17,
   "first": "2026-10-16 06:41 UTC",
-  "last": "2026-10-17 16:46 UTC",
+  "last": "2026-10-17 17:14 UTC",
   "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },

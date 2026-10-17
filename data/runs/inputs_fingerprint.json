@@ -801,6 +801,21 @@
 ],
 [
 "WAS",
+"Charles Omenihu",
+"Out"
+],
+[
+"WAS",
+"Jacory Croskey-Merritt",
+"Out"
+],
+[
+"WAS",
+"Javontae Jean-Baptiste",
+"Out"
+],
+[
+"WAS",
 "Jeremy McNichols",
 "Out"
 ],
@@ -812,7 +827,7 @@
 [
 "WAS",
 "Marcus Mariota",
-"Doubtful"
+"Out"
 ]
 ],
 "reports": [
@@ -2942,12 +2957,6 @@
 ],
 [
 "WAS",
-"Charles Omenihu",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Fabian Moreau",
 "",
 "Limited Participation in Practice"
@@ -2966,12 +2975,6 @@
 ],
 [
 "WAS",
-"Jacory Croskey-Merritt",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Javon Kinlaw",
 "",
 "Did Not Participate In Practice"
@@ -2987,12 +2990,6 @@
 "Javontae Jean-Baptiste",
 "",
 "Did Not Participate In Practice"
-],
-[
-"WAS",
-"Javontae Jean-Baptiste",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3213,5 +3210,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 17:01 UTC"
+"written_at": "2026-10-17 17:29 UTC"
 }
