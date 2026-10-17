@@ -771,6 +771,11 @@
 ],
 [
 "WAS",
+"Jeremy McNichols",
+"Out"
+],
+[
+"WAS",
 "Jordan Magee",
 "Out"
 ],
@@ -3422,7 +3427,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 6.5,
+"wind": 4.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3430,7 +3435,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 7.3,
+"wind": 6.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3438,7 +3443,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 10.8,
+"wind": 8.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3446,7 +3451,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 11.0,
+"wind": 12.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3454,7 +3459,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 10.2,
+"wind": 10.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3478,5 +3483,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-17 03:32 UTC"
+"written_at": "2026-10-17 04:32 UTC"
 }
