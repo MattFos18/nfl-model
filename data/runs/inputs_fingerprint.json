@@ -91,11 +91,6 @@
 ],
 [
 "ARI",
-"Kitan Crawford",
-"Out"
-],
-[
-"ARI",
 "Wydett Williams Jr.",
 "Out"
 ],
@@ -697,7 +692,12 @@
 [
 "SF",
 "Marques Sigle",
-"Doubtful"
+"Out"
+],
+[
+"SF",
+"Nick Bosa",
+"Out"
 ],
 [
 "SF",
@@ -824,6 +824,12 @@
 "Kitan Crawford",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"ARI",
+"Kitan Crawford",
+"Questionable (ESPN)",
+""
 ],
 [
 "ARI",
@@ -2693,12 +2699,6 @@
 ],
 [
 "SF",
-"Colton McKivitz",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Deebo Samuel Sr.",
 "",
 "Did Not Participate In Practice"
@@ -2732,12 +2732,6 @@
 "James Thompson Jr.",
 "",
 "Limited Participation in Practice"
-],
-[
-"SF",
-"James Thompson Jr.",
-"Questionable (ESPN)",
-""
 ],
 [
 "SF",
@@ -2780,12 +2774,6 @@
 "Nick Bosa",
 "",
 "Did Not Participate In Practice"
-],
-[
-"SF",
-"Nick Bosa",
-"Questionable (ESPN)",
-""
 ],
 [
 "SF",
@@ -3128,7 +3116,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 8.6,
+"wind": 10.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3136,7 +3124,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.2,
+"wind": 5.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3152,7 +3140,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 9.0,
+"wind": 8.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3192,5 +3180,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 21:02 UTC"
+"written_at": "2026-10-17 21:41 UTC"
 }
