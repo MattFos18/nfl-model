@@ -953,3 +953,4 @@ checked,reprice,changes,errors
 2026-10-17 09:36 UTC,False,2026_06_WAS_SF: weather source changed (src: mos to open-meteo),
 2026-10-17 10:04 UTC,False,2026_06_WAS_SF: wind 9 to 6 mph,
 2026-10-17 10:37 UTC,True,"2026_06_NO_NYG: wind 8 to 6 mph | 2026_06_WAS_SF: weather source changed (temp_src: open-meteo to mos, rain_src: open-meteo to mos)",
+2026-10-17 11:37 UTC,False,2026_06_BAL_CLE: wind 10 to 8 mph,
