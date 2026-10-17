@@ -390,11 +390,6 @@
 "Out"
 ],
 [
-"IND",
-"Will Mallory",
-"Out"
-],
-[
 "JAX",
 "Anton Harrison",
 "Out"
@@ -2545,12 +2540,6 @@
 ],
 [
 "PIT",
-"DK Metcalf",
-"Questionable (ESPN)",
-""
-],
-[
-"PIT",
 "Jalen Ramsey",
 "Questionable",
 "Limited Participation in Practice"
@@ -2582,6 +2571,12 @@
 [
 "PIT",
 "Keeanu Benton",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Pat Freiermuth",
 "Questionable (ESPN)",
 ""
 ],
@@ -3146,7 +3141,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 11.0,
+"wind": 13.2,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3162,7 +3157,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 6.5,
+"wind": 5.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3170,7 +3165,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 6.0,
+"wind": 6.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3178,7 +3173,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 7.6,
+"wind": 8.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3186,7 +3181,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 12.6,
+"wind": 12.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3202,7 +3197,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 9.5,
+"wind": 8.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3210,7 +3205,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 8.5,
+"wind": 9.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3218,5 +3213,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 15:09 UTC"
+"written_at": "2026-10-17 17:01 UTC"
 }
