@@ -216,13 +216,6 @@
   "message": "2026_04_ARI_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T00Z); not used": {
-  "count": 47,
-  "first": "2026-10-03 04:25 UTC",
-  "last": "2026-10-03 09:30 UTC",
-  "message": "2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T00Z); not used",
-  "source": "wind_live"
- },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-03T06Z); not used": {
   "count": 53,
   "first": "2026-10-03 10:00 UTC",
@@ -546,9 +539,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature": {
-  "count": 10,
+  "count": 11,
   "first": "2026-10-17 06:15 UTC",
-  "last": "2026-10-17 09:05 UTC",
+  "last": "2026-10-17 09:34 UTC",
   "message": "2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
