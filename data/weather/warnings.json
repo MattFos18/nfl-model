@@ -525,9 +525,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature": {
-  "count": 5,
+  "count": 6,
   "first": "2026-10-17 06:15 UTC",
-  "last": "2026-10-17 07:33 UTC",
+  "last": "2026-10-17 08:04 UTC",
   "message": "2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature",
   "source": "wind_live"
  },

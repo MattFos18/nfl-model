@@ -947,3 +947,4 @@ checked,reprice,changes,errors
 2026-10-17 06:39 UTC,False,2026_06_NYJ_NE: wind 7 to 5 mph,
 2026-10-17 07:05 UTC,False,2026_06_NYJ_NE: wind 7 to 5 mph,
 2026-10-17 07:33 UTC,False,2026_06_NYJ_NE: wind 7 to 5 mph,
+2026-10-17 08:08 UTC,False,2026_06_NYJ_NE: wind 7 to 5 mph | 2026_06_WAS_SF: weather source changed (src: mos to open-meteo),
