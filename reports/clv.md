@@ -17,7 +17,7 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | model       |      4 | 2026_04_JAX_CIN | JAX +2.5   | 2026-09-27 20:41 UTC | first flag   |    3   |         2.5 |     2.5 |       0.5 |            | 2026-10-04 16:56 UTC | closed   |
 | model       |      4 | 2026_04_ARI_NYG | NYG +2.5   | 2026-09-29 14:19 UTC | first flag   |    1.5 |         2.5 |     2.5 |      -1   |            | 2026-10-04 16:56 UTC | closed   |
 | model       |      6 | 2026_06_CHI_ATL | ATL +1.5   | 2026-10-13 14:29 UTC | first flag   |    3   |         1.5 |   nan   |     nan   |            | nan                  | pending  |
-| model       |      6 | 2026_06_CAR_PHI | PHI +3.5   | 2026-10-13 18:09 UTC | first flag   |   -1.5 |         3.5 |   nan   |     nan   |            | nan                  | pending  |
+| model       |      6 | 2026_06_CAR_PHI | PHI +3     | 2026-10-13 18:09 UTC | first flag   |   -1.5 |         3   |   nan   |     nan   |            | nan                  | pending  |
 | shadowunder |      3 | 2026_03_LAC_BUF | Under 50.5 | 2026-09-27 16:15 UTC | tracker row  |   50.5 |       nan   |    50.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_NE_JAX  | Under 46.5 | 2026-09-27 16:15 UTC | tracker row  |   46.5 |       nan   |    46.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_LA_DEN  | Under 44.5 | 2026-09-27 23:16 UTC | tracker row  |   44.5 |       nan   |    43.5 |       1   |            | 2026-09-28 00:12 UTC | closed   |
@@ -39,5 +39,5 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | windunder   |      5 | 2026_05_CLE_NYJ | Under 38.5 | 2026-10-08 23:06 UTC | first flag   |   39.5 |       nan   |    38.5 |       1   |            | 2026-10-11 16:13 UTC | closed   |
 | windunder   |      6 | 2026_06_SEA_DEN | Under 40.5 | 2026-10-13 15:30 UTC | first flag   |   40.5 |       nan   |    40.5 |       0   | +0.0%      | 2026-10-15 23:59 UTC | closed   |
 | windunder   |      6 | 2026_06_CAR_PHI | Under 39.5 | 2026-10-16 10:55 UTC | first flag   |   38.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| windunder   |      6 | 2026_06_PIT_TB  | Under 39.5 | 2026-10-15 23:07 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| windunder   |      6 | 2026_06_PIT_TB  | Under 38.5 | 2026-10-15 23:07 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      6 | 2026_06_LAC_KC  | Under 41.5 | 2026-10-16 16:23 UTC | first flag   |   41.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |

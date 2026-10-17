@@ -480,6 +480,11 @@
 "Out"
 ],
 [
+"LV",
+"Tonka Hemingway",
+"Out"
+],
+[
 "NE",
 "A.J. Brown",
 "Out"
@@ -2206,12 +2211,6 @@
 ],
 [
 "LV",
-"Tonka Hemingway",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Trey Zuhn III",
 "",
 "Limited Participation in Practice"
@@ -3407,7 +3406,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 12.5,
+"wind": 12.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3471,7 +3470,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 9.9,
+"wind": 10.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3479,5 +3478,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-16 23:18 UTC"
+"written_at": "2026-10-17 03:32 UTC"
 }
