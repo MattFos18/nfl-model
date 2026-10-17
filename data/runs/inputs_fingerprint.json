@@ -236,6 +236,11 @@
 ],
 [
 "DAL",
+"DeMarvion Overshown",
+"Out"
+],
+[
+"DAL",
 "Drew Shelton",
 "Out"
 ],
@@ -597,6 +602,11 @@
 [
 "PHI",
 "Landon Dickerson",
+"Out"
+],
+[
+"PHI",
+"Lane Johnson",
 "Out"
 ],
 [
@@ -1409,12 +1419,6 @@
 "DeMarvion Overshown",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"DAL",
-"DeMarvion Overshown",
-"Questionable (ESPN)",
-""
 ],
 [
 "DAL",
@@ -2948,12 +2952,6 @@
 ],
 [
 "WAS",
-"Austin Ekeler",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Charles Omenihu",
 "",
 "Did Not Participate In Practice"
@@ -2963,12 +2961,6 @@
 "Fabian Moreau",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Fabian Moreau",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3014,12 +3006,6 @@
 ],
 [
 "WAS",
-"Jeremy Reaves",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Jordan Magee",
 "",
 "Limited Participation in Practice"
@@ -3056,6 +3042,12 @@
 ],
 [
 "WAS",
+"Nick Cross",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
 "Percy Butler",
 "",
 "Limited Participation in Practice"
@@ -3080,12 +3072,6 @@
 ],
 [
 "WAS",
-"Rachaad White",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Stefon Diggs",
 "",
 "Limited Participation in Practice"
@@ -3104,12 +3090,6 @@
 ],
 [
 "WAS",
-"Terry McLaurin",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Trey Amos",
 "",
 "Full Participation in Practice"
@@ -3119,12 +3099,6 @@
 "Treylon Burks",
 "",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Treylon Burks",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -3213,5 +3187,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 19:22 UTC"
+"written_at": "2026-10-17 20:02 UTC"
 }
