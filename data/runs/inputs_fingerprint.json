@@ -14,7 +14,7 @@
 ],
 "2026_06_CHI_ATL": [
 "00-0039917",
-"00-0038416",
+"00-0039918",
 "2026-10-18 13:00"
 ],
 "2026_06_BAL_CLE": [
@@ -122,11 +122,6 @@
 [
 "BAL",
 "Cam Jurgens",
-"Out"
-],
-[
-"BAL",
-"Ja'Kobi Lane",
 "Out"
 ],
 [
@@ -321,11 +316,6 @@
 ],
 [
 "GB",
-"Savion Williams",
-"Out"
-],
-[
-"GB",
 "Skyy Moore",
 "Out"
 ],
@@ -441,11 +431,6 @@
 ],
 [
 "LAC",
-"KeAndre Lambert-Smith",
-"Out"
-],
-[
-"LAC",
 "Rodney Shelley",
 "Doubtful"
 ],
@@ -472,11 +457,6 @@
 [
 "LV",
 "Tonka Hemingway",
-"Out"
-],
-[
-"NE",
-"A.J. Brown",
 "Out"
 ],
 [
@@ -557,11 +537,6 @@
 [
 "NYJ",
 "Joseph Ossai",
-"Out"
-],
-[
-"NYJ",
-"Omar Cooper Jr.",
 "Out"
 ],
 [
@@ -951,6 +926,12 @@
 "Ja'Kobi Lane",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"BAL",
+"Ja'Kobi Lane",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1583,6 +1564,12 @@
 "Limited Participation in Practice"
 ],
 [
+"GB",
+"Savion Williams",
+"Questionable (ESPN)",
+""
+],
+[
 "HOU",
 "Azeez Al-Shaair",
 "",
@@ -1992,6 +1979,12 @@
 ],
 [
 "LAC",
+"KeAndre Lambert-Smith",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
 "Kendall Williamson",
 "",
 "Full Participation in Practice"
@@ -2091,6 +2084,12 @@
 "A.J. Brown",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NE",
+"A.J. Brown",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -2427,6 +2426,12 @@
 "Omar Cooper Jr.",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"NYJ",
+"Omar Cooper Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -3115,7 +3120,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 13.2,
+"wind": 13.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3123,7 +3128,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 10.4,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3131,7 +3136,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 5.7,
+"wind": 4.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3147,7 +3152,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 8.0,
+"wind": 9.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3187,5 +3192,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 20:02 UTC"
+"written_at": "2026-10-17 21:02 UTC"
 }
