@@ -3146,7 +3146,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 12.1,
+"wind": 11.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3154,7 +3154,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 8.4,
+"wind": 10.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3162,7 +3162,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.8,
+"wind": 6.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3218,5 +3218,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 13:01 UTC"
+"written_at": "2026-10-17 15:09 UTC"
 }
