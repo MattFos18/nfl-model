@@ -206,11 +206,6 @@
 ],
 [
 "CHI",
-"Kyler Gordon",
-"Out"
-],
-[
-"CHI",
 "Montez Sweat",
 "Out"
 ],
@@ -1292,6 +1287,12 @@
 "Kyler Gordon",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"CHI",
+"Kyler Gordon",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -3154,7 +3155,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 5.7,
+"wind": 4.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3170,7 +3171,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 8.0,
+"wind": 9.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3210,5 +3211,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 17:29 UTC"
+"written_at": "2026-10-17 17:59 UTC"
 }
