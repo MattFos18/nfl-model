@@ -170,21 +170,6 @@
 "Doubtful"
 ],
 [
-"CAR",
-"Taylor Moton",
-"Out"
-],
-[
-"CAR",
-"Tershawn Wharton",
-"Out"
-],
-[
-"CAR",
-"Trevor Etienne",
-"Out"
-],
-[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
@@ -786,11 +771,6 @@
 ],
 [
 "TEN",
-"Joshua Williams",
-"Out"
-],
-[
-"TEN",
 "Kevin Winston Jr.",
 "Out"
 ],
@@ -1236,9 +1216,21 @@
 ],
 [
 "CAR",
+"Taylor Moton",
+"Questionable (ESPN)",
+""
+],
+[
+"CAR",
 "Tershawn Wharton",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"CAR",
+"Tershawn Wharton",
+"Questionable (ESPN)",
+""
 ],
 [
 "CAR",
@@ -1257,6 +1249,12 @@
 "Trevor Etienne",
 "Questionable",
 "Full Participation in Practice"
+],
+[
+"CAR",
+"Trevor Etienne",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -3155,7 +3153,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.2,
+"wind": 5.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3171,7 +3169,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 9.0,
+"wind": 8.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3211,5 +3209,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 17:59 UTC"
+"written_at": "2026-10-17 18:42 UTC"
 }
