@@ -341,11 +341,6 @@
 ],
 [
 "CLE",
-"Grant Delpit",
-"Out"
-],
-[
-"CLE",
 "Kalia Davis",
 "Out"
 ],
@@ -446,7 +441,22 @@
 ],
 [
 "GB",
+"Aaron Banks",
+"Out"
+],
+[
+"GB",
 "Benjamin St-Juste",
+"Out"
+],
+[
+"GB",
+"Donovan Jennings",
+"Out"
+],
+[
+"GB",
+"Jager Burton",
 "Out"
 ],
 [
@@ -1490,6 +1500,12 @@
 ],
 [
 "BUF",
+"Dalton Kincaid",
+"Questionable (ESPN)",
+""
+],
+[
+"BUF",
 "Dee Alford",
 "Questionable",
 "Limited Participation in Practice"
@@ -1688,6 +1704,12 @@
 ],
 [
 "CLE",
+"Grant Delpit",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Justin Jefferson",
 "Questionable (ESPN)",
 ""
@@ -1850,33 +1872,15 @@
 ],
 [
 "GB",
-"Aaron Banks",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Anthony Campbell",
 "Questionable",
 "Limited Participation in Practice"
 ],
 [
 "GB",
-"Anthony Campbell",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Brandon Cisse",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Brandon Cisse",
-"Questionable (ESPN)",
-""
 ],
 [
 "GB",
@@ -1898,12 +1902,6 @@
 ],
 [
 "GB",
-"Jacob Monk",
-"Questionable (ESPN)",
-""
-],
-[
-"GB",
 "Keisean Nixon",
 "",
 "Limited Participation in Practice"
@@ -1919,12 +1917,6 @@
 "Savion Williams",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"GB",
-"Savion Williams",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -2153,6 +2145,12 @@
 "Chamarri Conner",
 "",
 "Full Participation in Practice"
+],
+[
+"KC",
+"Jaylon Moore",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
@@ -2669,6 +2667,12 @@
 "Najee Harris",
 "",
 "Full Participation in Practice"
+],
+[
+"NYG",
+"Tremaine Edmunds",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
@@ -3269,7 +3273,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 9.2,
+"wind": 9.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3285,5 +3289,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 21:58 UTC"
+"written_at": "2026-10-18 23:20 UTC"
 }
