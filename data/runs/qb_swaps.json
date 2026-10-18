@@ -21,17 +21,7 @@
   "NYG CJ Okoye",
   "PHI Hollywood Brown"
  ],
- "swaps": [
-  {
-   "game_id": "2026_06_BAL_CLE",
-   "team": "BAL",
-   "from": "00-0034796",
-   "from_name": "Lamar Jackson",
-   "to": "00-0035993",
-   "to_name": "Tyler Huntley",
-   "source": "depth chart"
-  }
- ],
+ "swaps": [],
  "conflicts": [
   {
    "game_id": "2026_06_CHI_ATL",

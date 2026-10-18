@@ -27,13 +27,6 @@
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
  },
- "live weather|2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 30,
-  "first": "2026-10-02 21:00 UTC",
-  "last": "2026-10-04 17:08 UTC",
-  "message": "2026_04_IND_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
  "live weather|2026_05_CHI_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 20,
   "first": "2026-10-07 17:14 UTC",
@@ -209,13 +202,6 @@
   "message": "2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 56,
-  "first": "2026-10-02 18:14 UTC",
-  "last": "2026-10-04 16:57 UTC",
-  "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 32,
   "first": "2026-10-02 19:31 UTC",
@@ -385,9 +371,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-17 08:42 UTC",
-  "last": "2026-10-17 22:07 UTC",
+  "last": "2026-10-18 17:38 UTC",
   "message": "2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },

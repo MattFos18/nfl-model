@@ -19,7 +19,7 @@
 ],
 "2026_06_BAL_CLE": [
 "00-0033537",
-"00-0034796",
+"00-0035993",
 "2026-10-18 13:00"
 ],
 "2026_06_TEN_IND": [
@@ -811,7 +811,7 @@
 ],
 [
 "PHI",
-"Joe Milton III",
+"Joe Milton",
 "Out"
 ],
 [
@@ -1567,6 +1567,12 @@
 ],
 [
 "CLE",
+"Grant Delpit",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "KC Concepcion",
 "",
 "Full Participation in Practice"
@@ -1948,12 +1954,6 @@
 "Will Mallory",
 "",
 "Full Participation in Practice"
-],
-[
-"JAX",
-"Ameer Abdullah",
-"Questionable (ESPN)",
-""
 ],
 [
 "JAX",
@@ -3085,14 +3085,6 @@
 ]
 ],
 "weather": {
-"2026_06_HOU_JAX": {
-"wind": 12.1,
-"cold": false,
-"rain": false,
-"src": "open-meteo",
-"temp_src": "open-meteo",
-"rain_src": "open-meteo"
-},
 "2026_06_BAL_CLE": {
 "wind": 8.9,
 "cold": false,
@@ -3134,7 +3126,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 10.4,
+"wind": 13.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3158,5 +3150,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 16:35 UTC"
+"written_at": "2026-10-18 17:48 UTC"
 }
