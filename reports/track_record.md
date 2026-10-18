@@ -14,7 +14,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4.5+ edge | 3 | 2 | 1-1 (50%) | -0.05 | +0.00 | 46-36 | 55-39 | 23-15 |
 | shadow: 4+ edge, model's side the underdog or pick'em | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 50-41 | 69-38 | 30-14 |
-| shadow: boosted trees alone, 5+ edge | 5 | 2 | 1-1 (50%) | -0.05 | -2.60 | 94-78 | 91-67 | 36-18 |
+| shadow: boosted trees alone, 5+ edge | 4 | 2 | 1-1 (50%) | -0.05 | -3.25 | 94-78 | 91-67 | 36-18 |
 | shadow: Under, 55%+ chance (the totals flag) | 14 | 11 | 5-6 (45%) | -1.41 | +0.14 | 142-117 | 183-134 | 86-61 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 11 | 8 | 3-5 (38%) | -2.23 | +0.09 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
@@ -68,7 +68,7 @@ Every bet:
 |     2026 |      4 | 2026_04_IND_WAS | WAS +4.5 |   -102 |     4.5 |     0 | loss     |   -1    |
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
-|     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -118 |   nan   |   nan | pending  |  nan    |
+|     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -112 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
