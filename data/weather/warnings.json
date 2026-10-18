@@ -133,9 +133,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 69,
+  "count": 70,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-18 11:24 UTC",
+  "last": "2026-10-18 12:30 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -235,13 +235,6 @@
   "first": "2026-10-02 18:14 UTC",
   "last": "2026-10-04 16:57 UTC",
   "message": "2026_04_DET_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_04_GB_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 6,
-  "first": "2026-10-02 19:34 UTC",
-  "last": "2026-10-04 12:04 UTC",
-  "message": "2026_04_GB_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -371,9 +364,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 35,
+  "count": 36,
   "first": "2026-10-16 02:11 UTC",
-  "last": "2026-10-18 11:25 UTC",
+  "last": "2026-10-18 12:31 UTC",
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -448,9 +441,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 22,
+  "count": 23,
   "first": "2026-10-16 06:41 UTC",
-  "last": "2026-10-18 06:25 UTC",
+  "last": "2026-10-18 12:32 UTC",
   "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },

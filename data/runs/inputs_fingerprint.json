@@ -316,12 +316,37 @@
 ],
 [
 "HOU",
+"Braden Smith",
+"Out"
+],
+[
+"HOU",
 "David Montgomery",
 "Out"
 ],
 [
 "HOU",
+"Febechi Nwaiwu",
+"Out"
+],
+[
+"HOU",
 "Jalen Pitre",
+"Out"
+],
+[
+"HOU",
+"Marlin Klein",
+"Out"
+],
+[
+"HOU",
+"Nate Thomas",
+"Out"
+],
+[
+"HOU",
+"Sabastian Harsh",
 "Out"
 ],
 [
@@ -351,7 +376,22 @@
 ],
 [
 "JAX",
+"Albert Regis",
+"Out"
+],
+[
+"JAX",
 "Anton Harrison",
+"Out"
+],
+[
+"JAX",
+"CJ Williams",
+"Out"
+],
+[
+"JAX",
+"Jalen Huskey",
 "Out"
 ],
 [
@@ -362,6 +402,11 @@
 [
 "JAX",
 "Ross Matiscik",
+"Out"
+],
+[
+"JAX",
+"Wesley Williams",
 "Out"
 ],
 [
@@ -1590,21 +1635,9 @@
 ],
 [
 "HOU",
-"Henry To'oTo'o",
-"Questionable (ESPN)",
-""
-],
-[
-"HOU",
 "Ja'Marcus Ingram",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"HOU",
-"Ja'Marcus Ingram",
-"Questionable (ESPN)",
-""
 ],
 [
 "HOU",
@@ -3031,7 +3064,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 12.3,
+"wind": 12.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3047,7 +3080,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 3.6,
+"wind": 5.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3103,5 +3136,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 11:33 UTC"
+"written_at": "2026-10-18 12:47 UTC"
 }
