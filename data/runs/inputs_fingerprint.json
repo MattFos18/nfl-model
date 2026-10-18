@@ -716,6 +716,11 @@
 ],
 [
 "LAC",
+"Ladd McConkey",
+"Out"
+],
+[
+"LAC",
 "Rodney Shelley",
 "Doubtful"
 ],
@@ -1530,12 +1535,6 @@
 "TJ Parker",
 "",
 "Full Participation in Practice"
-],
-[
-"BUF",
-"Te'Cory Couch",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -2565,6 +2564,12 @@
 ],
 [
 "NO",
+"Quincy Riley",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Tyler Shough",
 "",
 "Full Participation in Practice"
@@ -2598,12 +2603,6 @@
 "Andrew Thomas",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"NYG",
-"Andrew Thomas",
-"Questionable (ESPN)",
-""
 ],
 [
 "NYG",
@@ -3261,14 +3260,6 @@
 ]
 ],
 "weather": {
-"2026_06_PIT_TB": {
-"wind": 12.7,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_06_LAC_KC": {
 "wind": 10.4,
 "cold": false,
@@ -3286,7 +3277,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 10.2,
+"wind": 10.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3294,5 +3285,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 21:02 UTC"
+"written_at": "2026-10-18 21:58 UTC"
 }
