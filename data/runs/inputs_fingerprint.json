@@ -200,6 +200,36 @@
 "Out"
 ],
 [
+"BAL",
+"Rashod Bateman",
+"Out"
+],
+[
+"BUF",
+"Ar'maj Reed-Adams",
+"Out"
+],
+[
+"BUF",
+"DJ Moore",
+"Out"
+],
+[
+"BUF",
+"Ed Oliver",
+"Out"
+],
+[
+"BUF",
+"Jude Bowry",
+"Out"
+],
+[
+"BUF",
+"Mike Danna",
+"Out"
+],
+[
 "CAR",
 "AJ Dillon",
 "Out"
@@ -591,12 +621,47 @@
 ],
 [
 "LA",
+"Bill Murray",
+"Out"
+],
+[
+"LA",
+"CJ Daniels",
+"Out"
+],
+[
+"LA",
+"Larrell Murchison",
+"Out"
+],
+[
+"LA",
 "Myles Garrett",
+"Out"
+],
+[
+"LA",
+"Trent McDuffie",
+"Out"
+],
+[
+"LA",
+"Tutu Atwell",
+"Out"
+],
+[
+"LA",
+"Ty Simpson",
 "Out"
 ],
 [
 "LAC",
 "Alec Ingold",
+"Out"
+],
+[
+"LAC",
+"Bud Dupree",
 "Out"
 ],
 [
@@ -633,6 +698,11 @@
 "LAC",
 "Rodney Shelley",
 "Doubtful"
+],
+[
+"LAC",
+"Rodney Shelley",
+"Out"
 ],
 [
 "LAC",
@@ -687,6 +757,11 @@
 [
 "NE",
 "Marcus Bryant",
+"Out"
+],
+[
+"NE",
+"Romeo Doubs",
 "Out"
 ],
 [
@@ -1166,6 +1241,12 @@
 ],
 [
 "ATL",
+"Avieon Terrell",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Cameron Thomas",
 "",
 "Full Participation in Practice"
@@ -1286,12 +1367,6 @@
 ],
 [
 "BAL",
-"Rashod Bateman",
-"Questionable (ESPN)",
-""
-],
-[
-"BAL",
 "Roger Rosengarten",
 "",
 "Full Participation in Practice"
@@ -1358,45 +1433,21 @@
 ],
 [
 "BUF",
-"DJ Moore",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Dee Alford",
 "Questionable",
 "Limited Participation in Practice"
 ],
 [
 "BUF",
-"Dee Alford",
-"Questionable (ESPN)",
-""
-],
-[
-"BUF",
 "Ed Oliver",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Ed Oliver",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
 "Josh Palmer",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"BUF",
-"Joshua Palmer",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1421,12 +1472,6 @@
 "T.J. Sanders",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"BUF",
-"T.J. Sanders",
-"Questionable (ESPN)",
-""
 ],
 [
 "BUF",
@@ -1589,6 +1634,12 @@
 "Grant Delpit",
 "",
 "Full Participation in Practice"
+],
+[
+"CLE",
+"Justin Jefferson",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
@@ -1898,6 +1949,12 @@
 ],
 [
 "IND",
+"Anthony Gould",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Charvarius Ward",
 "",
 "Full Participation in Practice"
@@ -1961,6 +2018,12 @@
 "Matt Goncalves",
 "",
 "Limited Participation in Practice"
+],
+[
+"IND",
+"Sauce Gardner",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
@@ -2096,12 +2159,6 @@
 ],
 [
 "LA",
-"Kam Curl",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Keagen Trost",
 "",
 "Full Participation in Practice"
@@ -2126,12 +2183,6 @@
 ],
 [
 "LA",
-"Trent McDuffie",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Tyler Higbee",
 "",
 "Did Not Participate In Practice"
@@ -2147,12 +2198,6 @@
 "Brenen Thompson",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"LAC",
-"Brenen Thompson",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2174,21 +2219,9 @@
 ],
 [
 "LAC",
-"Daiyan Henley",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Dalvin Tomlinson",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"LAC",
-"Dalvin Tomlinson",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2204,12 +2237,6 @@
 ],
 [
 "LAC",
-"Jamaree Caldwell",
-"Questionable (ESPN)",
-""
-],
-[
-"LAC",
 "Justin Eboigbe",
 "",
 "Full Participation in Practice"
@@ -2219,12 +2246,6 @@
 "KeAndre Lambert-Smith",
 "Questionable",
 "Full Participation in Practice"
-],
-[
-"LAC",
-"KeAndre Lambert-Smith",
-"Questionable (ESPN)",
-""
 ],
 [
 "LAC",
@@ -2414,12 +2435,6 @@
 ],
 [
 "NE",
-"Romeo Doubs",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "TreVeyon Henderson",
 "Questionable",
 "Limited Participation in Practice"
@@ -2537,6 +2552,12 @@
 "Greg Newsome II",
 "",
 "Limited Participation in Practice"
+],
+[
+"NYG",
+"Greg Newsome II",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -2699,6 +2720,12 @@
 "Zack Baun",
 "",
 "Full Participation in Practice"
+],
+[
+"PIT",
+"Brandin Echols",
+"Questionable (ESPN)",
+""
 ],
 [
 "PIT",
@@ -3209,7 +3236,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 10.2,
+"wind": 12.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3217,5 +3244,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 19:07 UTC"
+"written_at": "2026-10-18 19:31 UTC"
 }
