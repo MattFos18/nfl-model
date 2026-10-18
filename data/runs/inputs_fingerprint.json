@@ -200,11 +200,6 @@
 "Out"
 ],
 [
-"BAL",
-"Rashod Bateman",
-"Out"
-],
-[
 "BUF",
 "Ar'maj Reed-Adams",
 "Out"
@@ -807,11 +802,6 @@
 [
 "NE",
 "Marcus Bryant",
-"Out"
-],
-[
-"NE",
-"Romeo Doubs",
 "Out"
 ],
 [
@@ -1420,6 +1410,12 @@
 "Rashod Bateman",
 "",
 "Full Participation in Practice"
+],
+[
+"BAL",
+"Rashod Bateman",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -2077,6 +2073,12 @@
 ],
 [
 "IND",
+"Rigoberto Sanchez",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Sauce Gardner",
 "Questionable (ESPN)",
 ""
@@ -2176,6 +2178,12 @@
 "Alex Bachman",
 "",
 "Full Participation in Practice"
+],
+[
+"LA",
+"Blake Grupe",
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
@@ -2401,6 +2409,12 @@
 ],
 [
 "NE",
+"Ben Brown",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Channing Canada",
 "Questionable",
 "Limited Participation in Practice"
@@ -2474,6 +2488,12 @@
 [
 "NE",
 "Morgan Moses",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Romeo Doubs",
 "Questionable (ESPN)",
 ""
 ],
@@ -2578,6 +2598,12 @@
 "Andrew Thomas",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NYG",
+"Andrew Thomas",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -2746,12 +2772,6 @@
 "Mac McWilliams",
 "",
 "Full Participation in Practice"
-],
-[
-"PHI",
-"Makai Lemon",
-"Questionable (ESPN)",
-""
 ],
 [
 "PHI",
@@ -3241,38 +3261,6 @@
 ]
 ],
 "weather": {
-"2026_06_BAL_CLE": {
-"wind": 8.9,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_06_NYJ_NE": {
-"wind": 3.5,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_06_NO_NYG": {
-"wind": 5.7,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_06_CAR_PHI": {
-"wind": 6.0,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_06_PIT_TB": {
 "wind": 12.7,
 "cold": false,
@@ -3290,7 +3278,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 10.1,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3306,5 +3294,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 20:09 UTC"
+"written_at": "2026-10-18 21:02 UTC"
 }

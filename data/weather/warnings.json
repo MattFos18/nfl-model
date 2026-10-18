@@ -21,9 +21,9 @@
   "source": "data checks"
  },
  "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-09 03:37 UTC",
-  "last": "2026-10-12 04:20 UTC",
+  "last": "2026-10-18 20:50 UTC",
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
  },
@@ -194,13 +194,6 @@
   "last": "2026-10-15 17:40 UTC",
   "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_06_CAR_PHI PHI",
   "source": "standing checks"
- },
- "wind_live|2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 19,
-  "first": "2026-10-03 10:29 UTC",
-  "last": "2026-10-04 20:20 UTC",
-  "message": "2026_04_DEN_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
  },
  "wind_live|2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 41,
