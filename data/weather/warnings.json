@@ -265,13 +265,6 @@
   "message": "2026_04_GB_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_04_JAX_CIN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
-  "first": "2026-10-03 23:57 UTC",
-  "last": "2026-10-03 23:57 UTC",
-  "message": "2026_04_JAX_CIN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 32,
   "first": "2026-10-02 19:31 UTC",
@@ -279,25 +272,11 @@
   "message": "2026_04_LAC_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_04_LA_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
-  "first": "2026-10-02 19:33 UTC",
-  "last": "2026-10-03 23:58 UTC",
-  "message": "2026_04_LA_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_04_NE_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 10,
   "first": "2026-10-02 21:02 UTC",
   "last": "2026-10-04 16:08 UTC",
   "message": "2026_04_NE_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_04_NYJ_CHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
-  "first": "2026-10-03 23:57 UTC",
-  "last": "2026-10-03 23:57 UTC",
-  "message": "2026_04_NYJ_CHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_04_TEN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -539,9 +518,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
+  "count": 4,
   "first": "2026-10-17 14:48 UTC",
-  "last": "2026-10-17 16:16 UTC",
+  "last": "2026-10-18 00:58 UTC",
   "message": "2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
