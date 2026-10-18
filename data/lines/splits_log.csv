@@ -98509,3 +98509,15 @@ ts,source,away,home,kickoff_text,market,side_label,side,line,odds,handle_pct,bet
 2026-10-18T21-47-53Z,dknetwork,NE,CHI,"10/22, 08:15PM",total,Under 48.5,under,48.5,-115,0,10,2026_07_NE_CHI
 2026-10-18T21-47-53Z,dknetwork,DAL,GB,"10/18, 08:20PM",spread,DAL Cowboys -1.5,DAL,-1.5,102,49,48,2026_06_DAL_GB
 2026-10-18T21-47-53Z,dknetwork,DAL,GB,"10/18, 08:20PM",spread,GB Packers +1.5,GB,1.5,-122,51,52,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",ml,GB Packers,GB,,-108,51,55,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",ml,DAL Cowboys,DAL,,-112,49,45,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",spread,DAL Cowboys -1.5,DAL,-1.5,102,49,48,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",spread,GB Packers +1.5,GB,1.5,-122,51,52,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",total,Over 53.5,over,53.5,-112,84,76,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,DAL,GB,"10/18, 08:20PM",total,Under 53.5,under,53.5,-108,16,24,2026_06_DAL_GB
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",ml,SF 49ers,SF,,-455,75,95,2026_06_WAS_SF
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",ml,WAS Commanders,WAS,,350,25,5,2026_06_WAS_SF
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",spread,SF 49ers -7.5,SF,-7.5,-110,69,72,2026_06_WAS_SF
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",spread,WAS Commanders +7.5,WAS,7.5,-110,31,28,2026_06_WAS_SF
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",total,Over 52.5,over,52.5,-105,60,47,2026_06_WAS_SF
+2026-10-18T22-07-26Z,dknetwork,WAS,SF,"10/19, 08:15PM",total,Under 52.5,under,52.5,-115,40,53,2026_06_WAS_SF
