@@ -1860,12 +1860,6 @@
 ],
 [
 "LA",
-"Keagen Trost",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Nate Landman",
 "",
 "Full Participation in Practice"
@@ -3113,7 +3107,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 4.0,
+"wind": 3.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3121,7 +3115,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 5.6,
+"wind": 5.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3145,7 +3139,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 10.6,
+"wind": 10.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3161,7 +3155,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 10.2,
+"wind": 10.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3169,5 +3163,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 02:25 UTC"
+"written_at": "2026-10-18 04:26 UTC"
 }
