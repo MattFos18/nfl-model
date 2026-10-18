@@ -601,6 +601,31 @@
 ],
 [
 "KC",
+"Diego Pounds",
+"Out"
+],
+[
+"KC",
+"Garrett Nussmeier",
+"Out"
+],
+[
+"KC",
+"Jack Pyburn",
+"Out"
+],
+[
+"KC",
+"Jadon Canady",
+"Out"
+],
+[
+"KC",
+"Jared Wiley",
+"Out"
+],
+[
+"KC",
 "Josh Simmons",
 "Out"
 ],
@@ -716,7 +741,27 @@
 ],
 [
 "LV",
+"Aidan O'Connell",
+"Out"
+],
+[
+"LV",
+"Bryce Cabeldue",
+"Out"
+],
+[
+"LV",
 "Carter Runyon",
+"Out"
+],
+[
+"LV",
+"Cian Slone",
+"Out"
+],
+[
+"LV",
+"Dalton Johnson",
 "Out"
 ],
 [
@@ -727,6 +772,11 @@
 [
 "LV",
 "Tonka Hemingway",
+"Out"
+],
+[
+"LV",
+"Tristin McCollum",
 "Out"
 ],
 [
@@ -1241,7 +1291,7 @@
 ],
 [
 "ATL",
-"Avieon Terrell",
+"Billy Bowman Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -1286,6 +1336,12 @@
 "Kendal Daniels",
 "",
 "Full Participation in Practice"
+],
+[
+"ATL",
+"Kendal Daniels",
+"Questionable (ESPN)",
+""
 ],
 [
 "ATL",
@@ -1523,12 +1579,6 @@
 ],
 [
 "CAR",
-"Jaelan Phillips",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
 "Jalen Coker",
 "",
 "Full Participation in Practice"
@@ -1586,6 +1636,12 @@
 "Joe Thuney",
 "",
 "Full Participation in Practice"
+],
+[
+"CHI",
+"Jonah Jackson",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -2105,12 +2161,6 @@
 ],
 [
 "KC",
-"L'Jarius Sneed",
-"Questionable (ESPN)",
-""
-],
-[
-"KC",
 "Patrick Mahomes",
 "",
 "Full Participation in Practice"
@@ -2338,12 +2388,6 @@
 "Limited Participation in Practice"
 ],
 [
-"LV",
-"Trey Zuhn III",
-"Questionable (ESPN)",
-""
-],
-[
 "NE",
 "A.J. Brown",
 "Questionable",
@@ -2483,6 +2527,12 @@
 ],
 [
 "NO",
+"Kool-Aid McKinstry",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Lorenzo Styles Jr.",
 "Questionable",
 "Limited Participation in Practice"
@@ -2540,6 +2590,12 @@
 "Darnell Mooney",
 "",
 "Full Participation in Practice"
+],
+[
+"NYG",
+"Darnell Mooney",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
@@ -2690,6 +2746,12 @@
 "Mac McWilliams",
 "",
 "Full Participation in Practice"
+],
+[
+"PHI",
+"Makai Lemon",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -3228,7 +3290,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 9.2,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3236,7 +3298,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 12.9,
+"wind": 10.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3244,5 +3306,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 19:31 UTC"
+"written_at": "2026-10-18 20:09 UTC"
 }
