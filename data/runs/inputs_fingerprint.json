@@ -76,7 +76,17 @@
 "injuries": [
 [
 "ARI",
+"Andrew Billings",
+"Out"
+],
+[
+"ARI",
 "Andrew Wingard",
+"Out"
+],
+[
+"ARI",
+"Carson Beck",
 "Out"
 ],
 [
@@ -87,6 +97,16 @@
 [
 "ARI",
 "Jeremiyah Love",
+"Out"
+],
+[
+"ARI",
+"Jerrick Reed II",
+"Out"
+],
+[
+"ARI",
+"Starling Thomas V",
 "Out"
 ],
 [
@@ -1104,21 +1124,9 @@
 ],
 [
 "ARI",
-"Blake Gillikin",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
 "Budda Baker",
 "Questionable",
 "Did Not Participate In Practice"
-],
-[
-"ARI",
-"Budda Baker",
-"Questionable (ESPN)",
-""
 ],
 [
 "ARI",
@@ -1152,21 +1160,9 @@
 ],
 [
 "ARI",
-"Kitan Crawford",
-"Questionable (ESPN)",
-""
-],
-[
-"ARI",
 "Zaven Collins",
 "Questionable",
 "Did Not Participate In Practice"
-],
-[
-"ARI",
-"Zaven Collins",
-"Questionable (ESPN)",
-""
 ],
 [
 "ATL",
@@ -1287,6 +1283,12 @@
 "Rashod Bateman",
 "",
 "Full Participation in Practice"
+],
+[
+"BAL",
+"Rashod Bateman",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1503,6 +1505,12 @@
 "Thomas Incoom",
 "",
 "Full Participation in Practice"
+],
+[
+"CAR",
+"Thomas Incoom",
+"Questionable (ESPN)",
+""
 ],
 [
 "CAR",
@@ -2322,6 +2330,12 @@
 ],
 [
 "NE",
+"Alijah Vera-Tucker",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Channing Canada",
 "Questionable",
 "Limited Participation in Practice"
@@ -2394,6 +2408,12 @@
 ],
 [
 "NE",
+"Morgan Moses",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Romeo Doubs",
 "Questionable (ESPN)",
 ""
@@ -2415,6 +2435,12 @@
 "Alvin Kamara",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"NO",
+"Cesar Ruiz",
+"Questionable (ESPN)",
+""
 ],
 [
 "NO",
@@ -2655,6 +2681,12 @@
 "Marquise Brown",
 "",
 "Full Participation in Practice"
+],
+[
+"PHI",
+"Nolan Smith Jr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "PHI",
@@ -3169,7 +3201,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 10.1,
+"wind": 9.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3185,5 +3217,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 18:18 UTC"
+"written_at": "2026-10-18 19:07 UTC"
 }
