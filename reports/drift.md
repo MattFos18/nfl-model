@@ -13,6 +13,6 @@
 | total   | Over rate                                                 |     0.4852 |         2597 |   0.5184 |        353 |        0.5062 |              81 |  1.17 |    2.99 | ok      |
 | key     | Margin exactly 3                                          |     0.146  |         2623 |   0.1558 |        353 |        0.1728 |              81 |  0.49 |    2.96 | ok      |
 | key     | Margin exactly 7                                          |     0.0858 |         2623 |   0.0963 |        353 |        0.0988 |              81 |  0.66 |    2.56 | ok      |
-| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.1345 |        353 |       -0.0171 |              81 |  0.03 |    1.4  | ok      |
-| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.1362 |        341 |        1.0207 |              76 | -0.35 |    3.01 | ok      |
+| model   | Model miss minus the line's miss                          |     0.13   |         2623 |   0.1345 |        353 |       -0.0174 |              81 |  0.03 |    1.4  | ok      |
+| model   | Model home lean (model margin minus real)                 |     0.3946 |         2581 |   0.1363 |        341 |        1.0212 |              76 | -0.35 |    3.01 | ok      |
 | model   | 4+ flag win rate                                          |     0.5938 |          288 |   0.68   |         25 |        0.6    |               5 |  0.84 |    2.33 | ok      |
