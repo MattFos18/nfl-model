@@ -3031,7 +3031,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 11.9,
+"wind": 12.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3039,7 +3039,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 11.2,
+"wind": 10.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3047,7 +3047,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 3.7,
+"wind": 3.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3063,7 +3063,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 6.2,
+"wind": 6.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3071,7 +3071,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 12.7,
+"wind": 12.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3087,7 +3087,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 9.0,
+"wind": 9.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3095,7 +3095,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 10.1,
+"wind": 9.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3103,5 +3103,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 09:12 UTC"
+"written_at": "2026-10-18 11:33 UTC"
 }
