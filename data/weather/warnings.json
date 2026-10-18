@@ -133,9 +133,9 @@
   "source": "live weather"
  },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 66,
+  "count": 67,
   "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-18 04:08 UTC",
+  "last": "2026-10-18 06:23 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -208,13 +208,6 @@
   "last": "2026-10-04 15:30 UTC",
   "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 30: 2026_04_IND_WAS WAS",
   "source": "standing checks"
- },
- "wind_live|2026_04_ARI_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
-  "first": "2026-10-03 23:58 UTC",
-  "last": "2026-10-04 04:25 UTC",
-  "message": "2026_04_ARI_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
  },
  "wind_live|2026_04_DAL_HOU: reading from GFS run 2026-10-02T12Z (logged 2026-10-02T16-30-10Z) is more than 6 hours behind the newest run (2026-10-04T00Z); not used": {
   "count": 60,
@@ -385,9 +378,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 32,
+  "count": 33,
   "first": "2026-10-16 02:11 UTC",
-  "last": "2026-10-18 04:09 UTC",
+  "last": "2026-10-18 06:24 UTC",
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
@@ -462,9 +455,9 @@
   "source": "wind_live"
  },
  "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 21,
+  "count": 22,
   "first": "2026-10-16 06:41 UTC",
-  "last": "2026-10-17 21:26 UTC",
+  "last": "2026-10-18 06:25 UTC",
   "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },

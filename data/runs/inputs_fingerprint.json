@@ -1729,7 +1729,7 @@
 [
 "IND",
 "Will Mallory",
-"Questionable",
+"",
 "Full Participation in Practice"
 ],
 [
@@ -2472,26 +2472,8 @@
 ],
 [
 "PHI",
-"Eli Stowers",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"PHI",
 "Fred Johnson",
 "",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Grant Calcaterra",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Jakorian Bennett",
-"Questionable",
 "Full Participation in Practice"
 ],
 [
@@ -2511,12 +2493,6 @@
 "Jonathan Greenard",
 "",
 "Full Participation in Practice"
-],
-[
-"PHI",
-"Landon Dickerson",
-"Questionable",
-"Limited Participation in Practice"
 ],
 [
 "PHI",
@@ -2557,7 +2533,7 @@
 [
 "PIT",
 "DK Metcalf",
-"Questionable",
+"",
 "Did Not Participate In Practice"
 ],
 [
@@ -2594,6 +2570,12 @@
 "PIT",
 "Keeanu Benton",
 "Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Pat Freiermuth",
+"Questionable",
 ""
 ],
 [
@@ -2671,7 +2653,7 @@
 [
 "SF",
 "Christian Kirk",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -2684,25 +2666,13 @@
 "SF",
 "Colton McKivitz",
 "",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Deebo Samuel Sr.",
-"",
-"Did Not Participate In Practice"
-],
-[
-"SF",
-"Garret Wallow",
-"",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "SF",
 "Gracen Halton",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Limited Participation in Practice"
 ],
 [
 "SF",
@@ -2720,7 +2690,13 @@
 "SF",
 "James Thompson Jr.",
 "",
-"Limited Participation in Practice"
+"Full Participation in Practice"
+],
+[
+"SF",
+"Kaelon Black",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "SF",
@@ -2730,14 +2706,8 @@
 ],
 [
 "SF",
-"Marques Sigle",
-"",
-"Did Not Participate In Practice"
-],
-[
-"SF",
 "Mike Evans",
-"",
+"Questionable",
 "Did Not Participate In Practice"
 ],
 [
@@ -2749,7 +2719,7 @@
 [
 "SF",
 "Mykel Williams",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -2760,20 +2730,14 @@
 ],
 [
 "SF",
-"Nick Bosa",
-"",
-"Did Not Participate In Practice"
-],
-[
-"SF",
 "Romello Height",
 "",
-"Did Not Participate In Practice"
+"Limited Participation in Practice"
 ],
 [
 "SF",
 "Siran Neal",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -2791,7 +2755,7 @@
 [
 "SF",
 "Upton Stout",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -2928,39 +2892,21 @@
 ],
 [
 "WAS",
-"Charles Omenihu",
-"",
-"Did Not Participate In Practice"
-],
-[
-"WAS",
 "Fabian Moreau",
 "",
 "Limited Participation in Practice"
 ],
 [
 "WAS",
-"Jacory Croskey-Merritt",
-"",
-"Did Not Participate In Practice"
-],
-[
-"WAS",
 "Javon Kinlaw",
-"",
-"Did Not Participate In Practice"
+"Questionable",
+"Limited Participation in Practice"
 ],
 [
 "WAS",
 "Javon Kinlaw",
 "Questionable (ESPN)",
 ""
-],
-[
-"WAS",
-"Javontae Jean-Baptiste",
-"",
-"Did Not Participate In Practice"
 ],
 [
 "WAS",
@@ -2971,7 +2917,7 @@
 [
 "WAS",
 "Jeremy McNichols",
-"",
+"Questionable",
 "Full Participation in Practice"
 ],
 [
@@ -2983,20 +2929,20 @@
 [
 "WAS",
 "Jordan Magee",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
 "WAS",
 "K'Lavon Chaisson",
 "",
-"Did Not Participate In Practice"
+"Full Participation in Practice"
 ],
 [
 "WAS",
 "Lucas Patrick",
-"",
-"Limited Participation in Practice"
+"Questionable",
+"Full Participation in Practice"
 ],
 [
 "WAS",
@@ -3006,14 +2952,8 @@
 ],
 [
 "WAS",
-"Marcus Mariota",
-"",
-"Did Not Participate In Practice"
-],
-[
-"WAS",
 "Nick Cross",
-"",
+"Questionable",
 "Full Participation in Practice"
 ],
 [
@@ -3025,7 +2965,7 @@
 [
 "WAS",
 "Percy Butler",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -3049,7 +2989,7 @@
 [
 "WAS",
 "Stefon Diggs",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -3062,12 +3002,12 @@
 "WAS",
 "Terry McLaurin",
 "",
-"Did Not Participate In Practice"
+"Limited Participation in Practice"
 ],
 [
 "WAS",
 "Trey Amos",
-"",
+"Questionable",
 "Full Participation in Practice"
 ],
 [
@@ -3079,7 +3019,7 @@
 [
 "WAS",
 "Tyler Owens",
-"",
+"Questionable",
 "Limited Participation in Practice"
 ],
 [
@@ -3091,7 +3031,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 10.3,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3099,7 +3039,7 @@
 "rain_src": "open-meteo"
 },
 "2026_06_BAL_CLE": {
-"wind": 10.4,
+"wind": 11.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3107,7 +3047,7 @@
 "rain_src": "mos"
 },
 "2026_06_NYJ_NE": {
-"wind": 3.8,
+"wind": 5.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3115,7 +3055,7 @@
 "rain_src": "mos"
 },
 "2026_06_NO_NYG": {
-"wind": 5.8,
+"wind": 5.3,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3123,7 +3063,7 @@
 "rain_src": "mos"
 },
 "2026_06_CAR_PHI": {
-"wind": 6.7,
+"wind": 6.2,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3131,7 +3071,7 @@
 "rain_src": "mos"
 },
 "2026_06_PIT_TB": {
-"wind": 12.8,
+"wind": 12.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3139,7 +3079,7 @@
 "rain_src": "mos"
 },
 "2026_06_LAC_KC": {
-"wind": 10.7,
+"wind": 10.5,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3147,7 +3087,7 @@
 "rain_src": "mos"
 },
 "2026_06_DAL_GB": {
-"wind": 8.8,
+"wind": 9.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3155,7 +3095,7 @@
 "rain_src": "mos"
 },
 "2026_06_WAS_SF": {
-"wind": 10.6,
+"wind": 10.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3163,5 +3103,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 04:26 UTC"
+"written_at": "2026-10-18 06:41 UTC"
 }

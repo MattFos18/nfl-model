@@ -4,10 +4,10 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 
 | Rule | Closed bets | Avg CLV (pts) | Beat the close | Same | Worse | Pending | Avg CLV (no-vig prob) |
 |---|---|---|---|---|---|---|---|
-| Spreads, 4+ edge | 3 | -0.17 | 33% | 1 | 1 | 2 | -1.4% (1) |
+| Spreads, 4+ edge | 3 | -0.17 | 33% | 1 | 1 | 1 | -1.4% (1) |
 | Unders, 55%+ chance | 11 | +0.00 | 18% | 6 | 3 | 4 | -0.3% (6) |
 | Wind unders, 10+ mph | 6 | -0.50 | 17% | 3 | 2 | 4 | +0.3% (3) |
-| All live bets | 20 | -0.17 | 20% | 10 | 6 | 10 | -0.2% (10) |
+| All live bets | 20 | -0.17 | 20% | 10 | 6 | 9 | -0.2% (10) |
 
 ## Every bet
 
@@ -17,7 +17,6 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | model       |      4 | 2026_04_JAX_CIN | JAX +2.5   | 2026-09-27 20:41 UTC | first flag   |    3   |         2.5 |     2.5 |       0.5 |            | 2026-10-04 16:56 UTC | closed   |
 | model       |      4 | 2026_04_ARI_NYG | NYG +2.5   | 2026-09-29 14:19 UTC | first flag   |    1.5 |         2.5 |     2.5 |      -1   |            | 2026-10-04 16:56 UTC | closed   |
 | model       |      6 | 2026_06_CHI_ATL | ATL +1.5   | 2026-10-13 14:29 UTC | first flag   |    3   |         1.5 |   nan   |     nan   |            | nan                  | pending  |
-| model       |      6 | 2026_06_CAR_PHI | PHI +3     | 2026-10-13 18:09 UTC | first flag   |   -1.5 |         3   |   nan   |     nan   |            | nan                  | pending  |
 | shadowunder |      3 | 2026_03_LAC_BUF | Under 50.5 | 2026-09-27 16:15 UTC | tracker row  |   50.5 |       nan   |    50.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_NE_JAX  | Under 46.5 | 2026-09-27 16:15 UTC | tracker row  |   46.5 |       nan   |    46.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_LA_DEN  | Under 44.5 | 2026-09-27 23:16 UTC | tracker row  |   44.5 |       nan   |    43.5 |       1   |            | 2026-09-28 00:12 UTC | closed   |
