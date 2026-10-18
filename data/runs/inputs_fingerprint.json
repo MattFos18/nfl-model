@@ -606,11 +606,6 @@
 ],
 [
 "PIT",
-"Derrick Harmon",
-"Out"
-],
-[
-"PIT",
 "Michael Pittman Jr.",
 "Out"
 ],
@@ -2783,12 +2778,6 @@
 ],
 [
 "SF",
-"Romello Height",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Siran Neal",
 "",
 "Limited Participation in Practice"
@@ -3108,7 +3097,7 @@
 ],
 "weather": {
 "2026_06_HOU_JAX": {
-"wind": 11.6,
+"wind": 10.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -3180,5 +3169,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-17 23:44 UTC"
+"written_at": "2026-10-18 02:25 UTC"
 }

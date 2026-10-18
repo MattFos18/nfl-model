@@ -41,5 +41,5 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | windunder   |      6 | 2026_06_SEA_DEN | Under 40.5 | 2026-10-13 15:30 UTC | first flag   |   40.5 |       nan   |    40.5 |       0   | +0.0%      | 2026-10-15 23:59 UTC | closed   |
 | windunder   |      6 | 2026_06_BAL_CLE | Under 39.5 | 2026-10-17 10:39 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      6 | 2026_06_PIT_TB  | Under 38.5 | 2026-10-15 23:07 UTC | first flag   |   39.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| windunder   |      6 | 2026_06_LAC_KC  | Under 40.5 | 2026-10-16 16:23 UTC | first flag   |   41.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| windunder   |      6 | 2026_06_LAC_KC  | Under 41.5 | 2026-10-16 16:23 UTC | first flag   |   41.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      6 | 2026_06_WAS_SF  | Under 52.5 | 2026-10-17 23:30 UTC | first flag   |   52.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |

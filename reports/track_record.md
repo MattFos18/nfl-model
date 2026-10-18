@@ -28,7 +28,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 5 | 4 | 1-3 (25%) | -2.09 | +0.20 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 4 | 3 | 2-1 (67%) | +0.82 | +0.25 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 7 | 5 | 1-4 (20%) | -3.09 | +0.29 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 8 | 5 | 1-4 (20%) | -3.09 | +0.25 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 3 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 4 | 2 | 2-0 (100%) | +1.88 | +0.00 | 20-12 | 23-16 | 19-5 |
@@ -69,7 +69,7 @@ Every bet:
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
 |     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -120 |   nan   |   nan | pending  |  nan    |
-|     2026 |      6 | 2026_06_CAR_PHI | PHI +3   |   -102 |   nan   |   nan | pending  |  nan    |
+|     2026 |      6 | 2026_06_CAR_PHI | PHI +3   |   -105 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
