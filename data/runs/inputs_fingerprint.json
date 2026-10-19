@@ -1796,6 +1796,12 @@
 ],
 [
 "DAL",
+"Dee Winters",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "James Houston",
 "",
 "Full Participation in Practice"
@@ -1805,6 +1811,12 @@
 "Joey Porter Jr.",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"DAL",
+"KaVontae Turpin",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
@@ -3266,14 +3278,6 @@
 ]
 ],
 "weather": {
-"2026_06_LAC_KC": {
-"wind": 10.4,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_06_DAL_GB": {
 "wind": 9.4,
 "cold": false,
@@ -3291,5 +3295,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-18 23:41 UTC"
+"written_at": "2026-10-19 01:52 UTC"
 }
