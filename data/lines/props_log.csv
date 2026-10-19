@@ -184071,7 +184071,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Receptions,rec_catches,MarShawn Lloyd,2.0,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,FG Made,field_goals,Trey Smack,1.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Rec Targets,rec_targets,Jonnu Smith,1.5,-119,-119.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,Longest Reception,rec_longest,Savion Williams,1.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,2026-10-18T20:20:00.000-04:00,prizepicks,INT,pass_int,Dak Prescott,0.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Brock Purdy,270.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jayden Daniels,249.5,-119,-119.0
@@ -184130,7 +184129,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Terry McLaurin,3.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Antonio Williams,3.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,FG Made,field_goals,Drew Stevens,1.5,-119,-119.0
-2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Kaelon Black,0.5,-119,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Yards,rush_yards,Javonte Williams,69.5,-112,-112.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Javonte Williams,14.5,110,-136.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Attempts,rush_attempts,Javonte Williams,17.5,-102,-121.0
@@ -184158,18 +184156,14 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Kaleb Johnson,4.5,295,-400.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,Kaleb Johnson,29.5,304,-119.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Attempts,rush_attempts,Kaleb Johnson,4.5,129,-159.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Kaleb Johnson,0.5,157,-197.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Kaleb Johnson,0.5,192,-233.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Rush,rush_longest,Kaleb Johnson,7.5,103,-127.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Jake Ferguson,24.5,103,-127.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Jake Ferguson,3.5,131,-162.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Jake Ferguson,11.5,-118,-105.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Targets,rec_targets,Jake Ferguson,4.5,-132,107.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Jonnu Smith,4.5,-137,111.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Jonnu Smith,0.5,-193,155.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Jonnu Smith,5.5,-122,-102.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,KaVontae Turpin,4.5,-129,104.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,KaVontae Turpin,0.5,-152,123.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,KaVontae Turpin,5.5,-108,-114.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Pass Yards,pass_yards,Jordan Love,274.5,-112,-112.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Pass TDs,pass_td,Jordan Love,1.5,-189,154.0
@@ -184194,7 +184188,6 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Ryan Flournoy,16.5,-113,-109.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Targets,rec_targets,Ryan Flournoy,5.5,114,-141.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receiving Yards,rec_yards,Brevyn Spann-Ford,4.5,103,-125.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Brevyn Spann-Ford,0.5,-143,116.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Brevyn Spann-Ford,3.5,-113,-109.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Yards,rush_yards,Pierre Strong Jr.,14.5,-132,107.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Yards,rush_yards,MarShawn Lloyd,39.5,-137,111.0
@@ -184210,17 +184203,10 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,MarShawn Lloyd,59.5,-112,-112.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush + Rec Yards,rush_rec_yards,Tyler Goodson,29.5,312,-345.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Rush Attempts,rush_attempts,Tyler Goodson,3.5,138,-170.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Savion Williams,0.5,-130,106.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Tyler Goodson,0.5,104,-130.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Christian Watson,4.5,-143,116.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Mark Redman,0.5,119,-150.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Pierre Strong Jr.,1.5,-189,152.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,Bo Melton,0.5,-162,130.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Receptions,rec_catches,MarShawn Lloyd,1.5,-176,143.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Savion Williams,1.5,-112,-110.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Mark Redman,0.5,124,-157.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,MarShawn Lloyd,7.5,-109,-113.0
-2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Tyler Goodson,0.5,123,-154.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Rush,rush_longest,Pierre Strong Jr.,7.5,-127,103.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Bo Melton,9.5,-122,100.0
 2026-10-18T22-29-15Z,2026,6,2026_06_DAL_GB,GB,DAL,,underdog,Longest Reception,rec_longest,Christian Watson,26.5,-117,-106.0
@@ -184316,11 +184302,246 @@ ts,season,week,game_id,home,away,start,book,market,stat,player,line,over_price,u
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Kaelon Black,4.5,166,-209.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Kaelon Black,29.5,-117,-106.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Kaelon Black,6.5,-130,106.0
-2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Kaelon Black,0.5,-110,-112.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Antonio Williams,2.5,123,-152.0
-2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Kaelon Black,0.5,109,-134.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Antonio Williams,12.5,-117,-106.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Kaelon Black,9.5,-102,-122.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Antonio Williams,3.5,-112,-112.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,FG Made,field_goals,Drew Stevens,1.5,106,-130.0
 2026-10-18T22-29-15Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Kicking Points,kick_points,Drew Stevens,6.5,-105,-118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Brock Purdy,270.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Jayden Daniels,249.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Brock Purdy,246.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Jayden Daniels,206.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Christian McCaffrey,105.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Mike Evans,70.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,George Kittle,65.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Rachaad White,62.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Christian McCaffrey,60.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Rachaad White,47.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Stefon Diggs,41.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Christian McCaffrey,39.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Jayden Daniels,37.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Brock Purdy,37.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Jayden Daniels,33.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Jayden Daniels,30.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Brock Purdy,30.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Chig Okonkwo,24.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Kaelon Black,23.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,George Kittle,23.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Mike Evans,23.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Brock Purdy,21.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Antonio Williams,20.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Terry McLaurin,20.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Brock Purdy,19.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Austin Ekeler,19.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Jayden Daniels,19.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Stefon Diggs,17.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Christian McCaffrey,16.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Christian McCaffrey,15.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Christian McCaffrey,14.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Jayden Daniels,14.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Chig Okonkwo,13.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Rachaad White,13.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Rachaad White,12.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Antonio Williams,12.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Brock Purdy,9.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Kaelon Black,9.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Rachaad White,8.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Kicking Points,kick_points,Eddy Pineiro,8.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Mike Evans,8.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Austin Ekeler,7.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Austin Ekeler,7.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,George Kittle,7.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Kicking Points,kick_points,Drew Stevens,6.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Kaelon Black,6.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Austin Ekeler,6.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Stefon Diggs,6.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Christian McCaffrey,5.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Mike Evans,5.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,George Kittle,5.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Terry McLaurin,5.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Christian McCaffrey,4.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Austin Ekeler,4.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Chig Okonkwo,4.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Stefon Diggs,4.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Terry McLaurin,3.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Antonio Williams,3.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Rec Targets,rec_targets,Rachaad White,3.0,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,FG Made,field_goals,Drew Stevens,1.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,2026-10-19T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Kaelon Black,0.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Drake Maye,269.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Pass+Rush Yds,pass_rush_yards,Caleb Williams,257.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Caleb Williams,236.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Yards,pass_yards,Drake Maye,231.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush+Rec Yds,rush_rec_yards,Rhamondre Stevenson,66.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,D'Andre Swift,65.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Luther Burden III,54.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,A.J. Brown,54.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Rhamondre Stevenson,42.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Rome Odunze,41.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Colston Loveland,40.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Drake Maye,38.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Completion,pass_longest,Caleb Williams,36.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Caleb Williams,32.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Attempts,pass_attempts,Drake Maye,31.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,TreVeyon Henderson,29.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Hunter Henry,29.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Drake Maye,28.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,DeMario Douglas,27.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Kalif Raymond,25.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Luther Burden III,21.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Drake Maye,20.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Pass Completions,pass_completions,Caleb Williams,20.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,A.J. Brown,20.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Rome Odunze,19.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,D'Andre Swift,19.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Efton Chism III,18.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Yards,rush_yards,Caleb Williams,17.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Colston Loveland,17.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receiving Yards,rec_yards,Rhamondre Stevenson,16.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Kalif Raymond,15.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Hunter Henry,15.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,D'Andre Swift,15.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,D'Andre Swift,14.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Drake Maye,12.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Rhamondre Stevenson,11.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,D'Andre Swift,11.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Reception,rec_longest,Rhamondre Stevenson,10.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Longest Rush,rush_longest,Caleb Williams,9.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Kicking Points,kick_points,Cairo Santos,7.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,TreVeyon Henderson,7.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Kicking Points,kick_points,Andy Borregales,6.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Luther Burden III,4.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,A.J. Brown,4.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Rush Attempts,rush_attempts,Drake Maye,4.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,Receptions,rec_catches,Kalif Raymond,2.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,Pass TDs,pass_td,Drake Maye,1.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,2026-10-22T20:15:00.000-04:00,prizepicks,FG Made,field_goals,Cairo Santos,1.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,2026-10-22T20:15:00.000-04:00,prizepicks,INT,pass_int,Drake Maye,0.5,-119,-119.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Pass Yards,pass_yards,Caleb Williams,249.5,-103,-121.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Pass TDs,pass_td,Caleb Williams,1.5,-136,110.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Rush Yards,rush_yards,Caleb Williams,19.5,-115,-106.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Christian McCaffrey,59.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Christian McCaffrey,39.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Christian McCaffrey,99.5,-143,117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Rush Attempts,rush_attempts,Caleb Williams,4.5,111,-136.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Christian McCaffrey,14.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Passing Completions,pass_completions,Caleb Williams,20.5,-107,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Pass Attempts,pass_attempts,Caleb Williams,32.5,-105,-118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,INTs Thrown,pass_int,Caleb Williams,0.5,105,-129.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Christian McCaffrey,4.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Christian McCaffrey,15.5,-115,-107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Rush,rush_longest,Caleb Williams,9.5,-114,-108.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Christian McCaffrey,15.5,-104,-120.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Completion,pass_longest,Caleb Williams,36.5,-106,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Christian McCaffrey,6.5,113,-139.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receiving Yards,rec_yards,A.J. Brown,59.5,100,-122.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Mike Evans,69.5,-132,107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receptions,rec_catches,A.J. Brown,4.5,-108,-114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Mike Evans,5.5,102,-125.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Reception,rec_longest,A.J. Brown,20.5,-115,-107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Mike Evans,23.5,-115,-107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Mike Evans,8.5,111,-137.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Terry McLaurin,49.5,105,-129.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Terry McLaurin,3.5,-125,102.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Terry McLaurin,20.5,-102,-121.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Terry McLaurin,6.5,113,-139.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Rush Yards,rush_yards,Rhamondre Stevenson,39.5,-139,113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,George Kittle,69.5,103,-127.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receiving Yards,rec_yards,Rhamondre Stevenson,14.5,-170,138.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Rush + Rec Yards,rush_rec_yards,Rhamondre Stevenson,69.5,104,-129.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Rush Attempts,rush_attempts,Rhamondre Stevenson,11.5,104,-127.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receptions,rec_catches,Rhamondre Stevenson,2.5,-139,113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,George Kittle,5.5,106,-130.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,George Kittle,23.5,-110,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Rush,rush_longest,Rhamondre Stevenson,11.5,-105,-118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Reception,rec_longest,Rhamondre Stevenson,10.5,-107,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,George Kittle,7.5,122,-150.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Rush Yards,rush_yards,D'Andre Swift,69.5,100,-122.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receiving Yards,rec_yards,D'Andre Swift,24.5,106,-130.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Rush + Rec Yards,rush_rec_yards,D'Andre Swift,99.5,110,-136.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Rush Attempts,rush_attempts,D'Andre Swift,15.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receptions,rec_catches,D'Andre Swift,2.5,-139,114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Rush,rush_longest,D'Andre Swift,14.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Reception,rec_longest,D'Andre Swift,11.5,-104,-118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass Yards,pass_yards,Jayden Daniels,199.5,-139,114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass TDs,pass_td,Jayden Daniels,1.5,114,-139.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Jayden Daniels,39.5,-108,-114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Jayden Daniels,6.5,-139,114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass + Rush Yards,pass_rush_yards,Jayden Daniels,249.5,100,-122.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass Attempts,pass_attempts,Jayden Daniels,30.5,-109,-113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,INTs Thrown,pass_int,Jayden Daniels,0.5,139,-173.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Completion,pass_longest,Jayden Daniels,31.5,-105,-118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Jayden Daniels,14.5,100,-122.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receiving Yards,rec_yards,Rome Odunze,39.5,-132,108.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receptions,rec_catches,Rome Odunze,3.5,132,-162.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Reception,rec_longest,Rome Odunze,19.5,-117,-106.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Austin Ekeler,19.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Austin Ekeler,4.5,-157,129.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Austin Ekeler,29.5,106,-130.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Austin Ekeler,4.5,-124,-102.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Austin Ekeler,1.5,124,-152.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Austin Ekeler,7.5,-122,103.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Austin Ekeler,6.5,-103,-121.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Stefon Diggs,39.5,-129,105.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Stefon Diggs,4.5,124,-154.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Stefon Diggs,16.5,-115,-107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Rachaad White,49.5,106,-130.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Rachaad White,14.5,109,-134.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Rachaad White,64.5,-109,-113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Rachaad White,13.5,102,-125.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Rachaad White,2.5,112,-137.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Rachaad White,8.5,-107,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Rachaad White,12.5,-104,-120.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Rachaad White,3.5,116,-143.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receiving Yards,rec_yards,Hunter Henry,24.5,-145,118.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Receptions,rec_catches,Hunter Henry,2.5,-152,123.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Reception,rec_longest,Hunter Henry,15.5,-102,-121.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Pass Yards,pass_yards,Drake Maye,249.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Pass TDs,pass_td,Drake Maye,1.5,102,-125.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Rush Yards,rush_yards,Drake Maye,29.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Rush Attempts,rush_attempts,Drake Maye,4.5,-114,-108.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Passing Completions,pass_completions,Drake Maye,20.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Pass Attempts,pass_attempts,Drake Maye,31.5,-129,102.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,INTs Thrown,pass_int,Drake Maye,0.5,101,-124.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Completion,pass_longest,Drake Maye,38.5,-109,-113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Longest Rush,rush_longest,Drake Maye,12.5,-120,-104.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receiving Yards,rec_yards,Luther Burden,59.5,104,-129.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receptions,rec_catches,Luther Burden,4.5,-112,-110.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Reception,rec_longest,Luther Burden,21.5,-107,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Chig Okonkwo,24.5,-125,102.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Chig Okonkwo,2.5,-152,123.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Chig Okonkwo,12.5,-120,-104.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receiving Yards,rec_yards,Colston Loveland,39.5,-130,106.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receptions,rec_catches,Colston Loveland,3.5,-132,108.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Reception,rec_longest,Colston Loveland,17.5,-112,-110.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass Yards,pass_yards,Brock Purdy,249.5,-107,-115.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass TDs,pass_td,Brock Purdy,2.5,131,-162.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Brock Purdy,19.5,107,-132.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Brock Purdy,4.5,108,-132.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass + Rush Yards,pass_rush_yards,Brock Purdy,269.5,-108,-114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Passing Completions,pass_completions,Brock Purdy,21.5,108,-134.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Pass Attempts,pass_attempts,Brock Purdy,30.5,-118,-104.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,INTs Thrown,pass_int,Brock Purdy,0.5,111,-136.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Brock Purdy,9.5,-115,-107.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Completion,pass_longest,Brock Purdy,37.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receiving Yards,rec_yards,Kalif Raymond,24.5,-122,100.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Receptions,rec_catches,Kalif Raymond,2.5,-120,-103.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Longest Reception,rec_longest,Kalif Raymond,15.5,-108,-114.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Yards,rush_yards,Kaelon Black,24.5,-106,-117.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Antonio Williams,24.5,111,-137.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receiving Yards,rec_yards,Kaelon Black,4.5,179,-218.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush + Rec Yards,rush_rec_yards,Kaelon Black,29.5,-118,-104.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Rush Attempts,rush_attempts,Kaelon Black,6.5,-122,100.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Antonio Williams,2.5,129,-159.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Receptions,rec_catches,Kaelon Black,0.5,-104,-120.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Rush,rush_longest,Kaelon Black,9.5,-109,-113.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Antonio Williams,12.5,-117,-106.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Longest Reception,rec_longest,Kaelon Black,0.5,116,-145.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Targets,rec_targets,Antonio Williams,3.5,-112,-112.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,FG Made,field_goals,Cairo Santos,1.5,-125,103.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,FG Made,field_goals,Andy Borregales,1.5,102,-124.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,FG Made,field_goals,Drew Stevens,1.5,106,-130.0
+2026-10-19T04-31-20Z,2026,6,2026_06_CHI_ATL,ATL,CHI,,underdog,Kicking Points,kick_points,Cairo Santos,7.5,-112,-110.0
+2026-10-19T04-31-20Z,2026,6,2026_06_NYJ_NE,NE,NYJ,,underdog,Kicking Points,kick_points,Andy Borregales,6.5,-112,-110.0
+2026-10-19T04-31-20Z,2026,6,2026_06_WAS_SF,SF,WAS,,underdog,Kicking Points,kick_points,Drew Stevens,6.5,104,-127.0
