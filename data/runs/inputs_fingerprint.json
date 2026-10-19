@@ -486,11 +486,6 @@
 ],
 [
 "NE",
-"Behren Morton",
-"Out"
-],
-[
-"NE",
 "Carlton Davis III",
 "Out"
 ],
@@ -501,27 +496,12 @@
 ],
 [
 "NE",
-"Dametrious Crownover",
-"Out"
-],
-[
-"NE",
 "Karon Prunty",
-"Out"
-],
-[
-"NE",
-"Tanner Arkin",
 "Out"
 ],
 [
 "NO",
 "Anfernee Jennings",
-"Out"
-],
-[
-"NO",
-"John Ridgeway III",
 "Out"
 ],
 [
@@ -536,17 +516,7 @@
 ],
 [
 "NO",
-"Mike Reid",
-"Out"
-],
-[
-"NO",
 "Nathan Shepherd",
-"Out"
-],
-[
-"NO",
-"Zach Wilson",
 "Out"
 ],
 [
@@ -556,17 +526,7 @@
 ],
 [
 "NYG",
-"CJ Okoye",
-"Out"
-],
-[
-"NYG",
 "Colton Hood",
-"Out"
-],
-[
-"NYG",
-"Jake Haener",
 "Out"
 ],
 [
@@ -601,17 +561,7 @@
 ],
 [
 "NYJ",
-"Jack Heflin",
-"Out"
-],
-[
-"NYJ",
 "Joseph Ossai",
-"Out"
-],
-[
-"NYJ",
-"Nahshon Wright",
 "Out"
 ],
 [
@@ -636,11 +586,6 @@
 ],
 [
 "PHI",
-"Hollywood Brown",
-"Out"
-],
-[
-"PHI",
 "Jakorian Bennett",
 "Out"
 ],
@@ -652,11 +597,6 @@
 [
 "PHI",
 "Jalyx Hunt",
-"Out"
-],
-[
-"PHI",
-"Joe Milton",
 "Out"
 ],
 [
@@ -696,52 +636,12 @@
 ],
 [
 "PIT",
-"Drew Allar",
-"Out"
-],
-[
-"PIT",
-"Eli Heidenreich",
-"Out"
-],
-[
-"PIT",
-"Kevin Jobity Jr.",
-"Out"
-],
-[
-"PIT",
 "Michael Pittman Jr.",
 "Out"
 ],
 [
 "PIT",
 "Roman Wilson",
-"Out"
-],
-[
-"PIT",
-"Sean Murphy-Bunting",
-"Out"
-],
-[
-"PIT",
-"Terell Smith",
-"Out"
-],
-[
-"PIT",
-"Will Howard",
-"Out"
-],
-[
-"SEA",
-"Avery Smith",
-"Out"
-],
-[
-"SEA",
-"Brandon Pili",
 "Out"
 ],
 [
@@ -756,22 +656,12 @@
 ],
 [
 "SEA",
+"Elijah Arroyo",
+"Doubtful"
+],
+[
+"SEA",
 "Jadarian Price",
-"Out"
-],
-[
-"SEA",
-"Jalen Milroe",
-"Out"
-],
-[
-"SEA",
-"Montorie Foster Jr.",
-"Out"
-],
-[
-"SEA",
-"Robert Henry Jr.",
 "Out"
 ],
 [
@@ -841,11 +731,6 @@
 ],
 [
 "TB",
-"Billy Schrauth",
-"Out"
-],
-[
-"TB",
 "David Sills",
 "Out"
 ],
@@ -856,32 +741,7 @@
 ],
 [
 "TB",
-"DeMonte Capehart",
-"Out"
-],
-[
-"TB",
-"Luke Haggard",
-"Out"
-],
-[
-"TB",
 "Sean Tucker",
-"Out"
-],
-[
-"TEN",
-"Alontae Taylor",
-"Out"
-],
-[
-"TEN",
-"Brandon Crenshaw-Dickson",
-"Out"
-],
-[
-"TEN",
-"Jackie Marshall",
 "Out"
 ],
 [
@@ -892,16 +752,6 @@
 [
 "TEN",
 "Kevin Winston Jr.",
-"Out"
-],
-[
-"TEN",
-"Kylen Granson",
-"Out"
-],
-[
-"TEN",
-"Nicholas Singleton",
 "Out"
 ],
 [
@@ -2569,12 +2419,6 @@
 ],
 [
 "SEA",
-"Elijah Arroyo",
-"Questionable (ESPN)",
-""
-],
-[
-"SEA",
 "George Holani",
 "",
 "Full Participation in Practice"
@@ -2968,5 +2812,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 17:20 UTC"
+"written_at": "2026-10-19 17:52 UTC"
 }
