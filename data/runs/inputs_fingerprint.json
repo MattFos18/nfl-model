@@ -420,6 +420,11 @@
 "Out"
 ],
 [
+"DAL",
+"KaVontae Turpin",
+"Out"
+],
+[
 "DEN",
 "Dallen Bentley",
 "Out"
@@ -742,11 +747,6 @@
 [
 "LAC",
 "Kayode Awosika",
-"Out"
-],
-[
-"LAC",
-"Ladd McConkey",
 "Out"
 ],
 [
@@ -1814,12 +1814,6 @@
 ],
 [
 "DAL",
-"KaVontae Turpin",
-"Questionable (ESPN)",
-""
-],
-[
-"DAL",
 "LT Overton",
 "Questionable",
 "Did Not Participate In Practice"
@@ -2333,6 +2327,12 @@
 "Ladd McConkey",
 "",
 "Full Participation in Practice"
+],
+[
+"LAC",
+"Ladd McConkey",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
@@ -3295,5 +3295,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 01:52 UTC"
+"written_at": "2026-10-19 02:52 UTC"
 }
