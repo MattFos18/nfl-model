@@ -420,11 +420,6 @@
 "Out"
 ],
 [
-"DAL",
-"KaVontae Turpin",
-"Out"
-],
-[
 "DEN",
 "Dallen Bentley",
 "Out"
@@ -1814,6 +1809,12 @@
 ],
 [
 "DAL",
+"KaVontae Turpin",
+"Questionable (ESPN)",
+""
+],
+[
+"DAL",
 "LT Overton",
 "Questionable",
 "Did Not Participate In Practice"
@@ -1889,6 +1890,12 @@
 "Brandon Cisse",
 "Questionable",
 "Limited Participation in Practice"
+],
+[
+"GB",
+"Brandon Cisse",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -3278,16 +3285,8 @@
 ]
 ],
 "weather": {
-"2026_06_DAL_GB": {
-"wind": 9.4,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
 "2026_06_WAS_SF": {
-"wind": 10.8,
+"wind": 10.4,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3295,5 +3294,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 02:52 UTC"
+"written_at": "2026-10-19 04:44 UTC"
 }

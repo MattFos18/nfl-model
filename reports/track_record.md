@@ -15,15 +15,15 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge, model's side the underdog or pick'em | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 52-37 | 72-43 | 30-14 |
 | shadow: 4+ edge, weeks 1 to 13 only | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 50-41 | 69-38 | 30-14 |
 | shadow: boosted trees alone, 5+ edge | 4 | 4 | 1-3 (25%) | -2.05 | -3.25 | 94-78 | 91-67 | 36-18 |
-| shadow: Under, 55%+ chance (the totals flag) | 15 | 13 | 5-8 (38%) | -3.41 | +0.07 | 142-117 | 183-134 | 86-61 |
-| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 12 | 10 | 3-7 (30%) | -4.23 | +0.00 | 135-96 | 167-123 | 80-57 |
+| shadow: Under, 55%+ chance (the totals flag) | 15 | 14 | 6-8 (43%) | -2.50 | +0.13 | 142-117 | 183-134 | 86-61 |
+| shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 12 | 11 | 4-7 (36%) | -3.32 | +0.08 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
 | shadow: Under, 60%+ chance | 5 | 5 | 1-4 (20%) | -3.09 | +0.20 | 69-51 | 97-71 | 37-27 |
-| shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 4 | 2 | 1-1 (50%) | -0.09 | -0.25 | 32-26 | 42-18 | 19-13 |
+| shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 4 | 3 | 2-1 (67%) | +0.82 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 9 | 8 | 4-4 (50%) | -0.36 | +0.11 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 12 | 7-5 (58%) | -2.69 | -0.38 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 13 | 13 | 8-5 (62%) | -2.36 | -0.38 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 5 | 5 | 1-4 (20%) | -3.09 | +0.20 | 63-46 | 96-71 | 27-18 |
