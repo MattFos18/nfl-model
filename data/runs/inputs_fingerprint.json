@@ -687,7 +687,7 @@
 [
 "SEA",
 "Elijah Arroyo",
-"Doubtful"
+"Out"
 ],
 [
 "SEA",
@@ -721,12 +721,27 @@
 ],
 [
 "SF",
+"Enrique Cruz Jr.",
+"Out"
+],
+[
+"SF",
 "Garret Wallow",
 "Out"
 ],
 [
 "SF",
+"Kurtis Rourke",
+"Out"
+],
+[
+"SF",
 "Marques Sigle",
+"Out"
+],
+[
+"SF",
+"Naquan Jones",
 "Out"
 ],
 [
@@ -791,6 +806,16 @@
 ],
 [
 "WAS",
+"Fabian Moreau",
+"Out"
+],
+[
+"WAS",
+"Isaac Yiadom",
+"Out"
+],
+[
+"WAS",
 "Jacory Croskey-Merritt",
 "Out"
 ],
@@ -802,6 +827,16 @@
 [
 "WAS",
 "Marcus Mariota",
+"Out"
+],
+[
+"WAS",
+"T.J. Maguranyanga",
+"Out"
+],
+[
+"WAS",
+"Tanoa Togiai",
 "Out"
 ]
 ],
@@ -2434,6 +2469,12 @@
 ],
 [
 "SF",
+"Brett Toth",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Carver Willis",
 "",
 "Full Participation in Practice"
@@ -2461,12 +2502,6 @@
 "Gracen Halton",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"SF",
-"Gracen Halton",
-"Questionable (ESPN)",
-""
 ],
 [
 "SF",
@@ -2500,21 +2535,9 @@
 ],
 [
 "SF",
-"Mike Evans",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Mykel Williams",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"SF",
-"Mykel Williams",
-"Questionable (ESPN)",
-""
 ],
 [
 "SF",
@@ -2530,12 +2553,6 @@
 ],
 [
 "SF",
-"Siran Neal",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Trent Williams",
 "",
 "Full Participation in Practice"
@@ -2545,12 +2562,6 @@
 "Upton Stout",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"SF",
-"Upton Stout",
-"Questionable (ESPN)",
-""
 ],
 [
 "TB",
@@ -2668,12 +2679,6 @@
 ],
 [
 "WAS",
-"Javon Kinlaw",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Jayden Daniels",
 "",
 "Full Participation in Practice"
@@ -2710,33 +2715,15 @@
 ],
 [
 "WAS",
-"Lucas Patrick",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Nick Cross",
 "Questionable",
 "Full Participation in Practice"
 ],
 [
 "WAS",
-"Nick Cross",
-"Questionable (ESPN)",
-""
-],
-[
-"WAS",
 "Percy Butler",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Percy Butler",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -2755,12 +2742,6 @@
 "Stefon Diggs",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Stefon Diggs",
-"Questionable (ESPN)",
-""
 ],
 [
 "WAS",
@@ -2785,17 +2766,11 @@
 "Tyler Owens",
 "Questionable",
 "Limited Participation in Practice"
-],
-[
-"WAS",
-"Tyler Owens",
-"Questionable (ESPN)",
-""
 ]
 ],
 "weather": {
 "2026_06_WAS_SF": {
-"wind": 10.2,
+"wind": 9.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -2803,5 +2778,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 22:15 UTC"
+"written_at": "2026-10-19 23:46 UTC"
 }
