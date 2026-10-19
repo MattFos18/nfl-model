@@ -411,6 +411,11 @@
 ],
 [
 "LA",
+"Blake Grupe",
+"Out"
+],
+[
+"LA",
 "Myles Garrett",
 "Out"
 ],
@@ -507,6 +512,11 @@
 [
 "NE",
 "Karon Prunty",
+"Out"
+],
+[
+"NE",
+"Romeo Doubs",
 "Out"
 ],
 [
@@ -781,22 +791,7 @@
 ],
 [
 "WAS",
-"Jeremy McNichols",
-"Out"
-],
-[
-"WAS",
-"Jordan Magee",
-"Out"
-],
-[
-"WAS",
 "Marcus Mariota",
-"Out"
-],
-[
-"WAS",
-"Trey Amos",
 "Out"
 ]
 ],
@@ -1721,12 +1716,6 @@
 ],
 [
 "LA",
-"Blake Grupe",
-"Questionable (ESPN)",
-""
-],
-[
-"LA",
 "Byron Young",
 "",
 "Did Not Participate In Practice"
@@ -2034,12 +2023,6 @@
 [
 "NE",
 "Morgan Moses",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
-"Romeo Doubs",
 "Questionable (ESPN)",
 ""
 ],
@@ -2816,5 +2799,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 20:16 UTC"
+"written_at": "2026-10-19 20:42 UTC"
 }
