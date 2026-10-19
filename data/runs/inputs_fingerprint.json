@@ -76,17 +76,7 @@
 "injuries": [
 [
 "ARI",
-"Andrew Billings",
-"Out"
-],
-[
-"ARI",
 "Andrew Wingard",
-"Out"
-],
-[
-"ARI",
-"Carson Beck",
 "Out"
 ],
 [
@@ -101,47 +91,12 @@
 ],
 [
 "ARI",
-"Jerrick Reed II",
-"Out"
-],
-[
-"ARI",
-"Starling Thomas V",
-"Out"
-],
-[
-"ARI",
 "Wydett Williams Jr.",
 "Out"
 ],
 [
 "ATL",
 "C.J. Henderson",
-"Out"
-],
-[
-"ATL",
-"Christian Harris",
-"Out"
-],
-[
-"ATL",
-"Drake Jackson",
-"Out"
-],
-[
-"ATL",
-"Ethan Onianwa",
-"Out"
-],
-[
-"ATL",
-"Jack Strand",
-"Out"
-],
-[
-"ATL",
-"Malcolm DeWalt IV",
 "Out"
 ],
 [
@@ -171,16 +126,6 @@
 ],
 [
 "BAL",
-"Elijah Sarratt",
-"Out"
-],
-[
-"BAL",
-"K'Von Wallace",
-"Out"
-],
-[
-"BAL",
 "Lamar Jackson",
 "Out"
 ],
@@ -196,27 +141,12 @@
 ],
 [
 "BUF",
-"Ar'maj Reed-Adams",
-"Out"
-],
-[
-"BUF",
 "DJ Moore",
 "Out"
 ],
 [
 "BUF",
 "Ed Oliver",
-"Out"
-],
-[
-"BUF",
-"Jude Bowry",
-"Out"
-],
-[
-"BUF",
-"Mike Danna",
 "Out"
 ],
 [
@@ -3279,5 +3209,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 15:44 UTC"
+"written_at": "2026-10-19 16:45 UTC"
 }
