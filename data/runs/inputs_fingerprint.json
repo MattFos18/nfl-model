@@ -156,22 +156,7 @@
 ],
 [
 "CAR",
-"Albert Reese IV",
-"Out"
-],
-[
-"CAR",
 "Cam Jackson",
-"Out"
-],
-[
-"CAR",
-"Haynes King",
-"Out"
-],
-[
-"CAR",
-"Ja'Tavion Sanders",
 "Out"
 ],
 [
@@ -190,38 +175,13 @@
 "Out"
 ],
 [
-"CAR",
-"TeRah Edwards",
-"Out"
-],
-[
-"CAR",
-"Torricelli Simpkins III",
-"Out"
-],
-[
 "CHI",
 "Anthony Johnson Jr.",
 "Out"
 ],
 [
 "CHI",
-"Case Keenum",
-"Out"
-],
-[
-"CHI",
 "Dayo Odeyingbo",
-"Out"
-],
-[
-"CHI",
-"Jayden Loving",
-"Out"
-],
-[
-"CHI",
-"Jordan McFadden",
 "Out"
 ],
 [
@@ -276,37 +236,12 @@
 ],
 [
 "CLE",
-"Noah Igbinoghene",
-"Out"
-],
-[
-"CLE",
-"Parker Brailsford",
-"Out"
-],
-[
-"CLE",
 "Quinshon Judkins",
 "Out"
 ],
 [
 "CLE",
-"Taylen Green",
-"Out"
-],
-[
-"CLE",
 "Teven Jenkins",
-"Out"
-],
-[
-"DAL",
-"Alijah Clark",
-"Out"
-],
-[
-"DAL",
-"Camden Brown",
 "Out"
 ],
 [
@@ -325,31 +260,6 @@
 "Out"
 ],
 [
-"DAL",
-"Emari Demercado",
-"Out"
-],
-[
-"DAL",
-"James Houston",
-"Out"
-],
-[
-"DEN",
-"Dallen Bentley",
-"Out"
-],
-[
-"DEN",
-"Jordan Jackson",
-"Out"
-],
-[
-"DEN",
-"Kage Casey",
-"Out"
-],
-[
 "DEN",
 "Pat Bryant",
 "Out"
@@ -361,17 +271,7 @@
 ],
 [
 "DEN",
-"Sam Ehlinger",
-"Out"
-],
-[
-"DEN",
 "Talanoa Hufanga",
-"Out"
-],
-[
-"DEN",
-"Tyler Onyedim",
 "Out"
 ],
 [
@@ -382,16 +282,6 @@
 [
 "GB",
 "Benjamin St-Juste",
-"Out"
-],
-[
-"GB",
-"Donovan Jennings",
-"Out"
-],
-[
-"GB",
-"Jager Burton",
 "Out"
 ],
 [
@@ -431,37 +321,12 @@
 ],
 [
 "HOU",
-"Braden Smith",
-"Out"
-],
-[
-"HOU",
 "David Montgomery",
 "Out"
 ],
 [
 "HOU",
-"Febechi Nwaiwu",
-"Out"
-],
-[
-"HOU",
 "Jalen Pitre",
-"Out"
-],
-[
-"HOU",
-"Marlin Klein",
-"Out"
-],
-[
-"HOU",
-"Nate Thomas",
-"Out"
-],
-[
-"HOU",
-"Sabastian Harsh",
 "Out"
 ],
 [
@@ -486,18 +351,13 @@
 ],
 [
 "IND",
-"Dalton Tucker",
-"Out"
-],
-[
-"IND",
 "Jaylon Carlies",
 "Out"
 ],
 [
 "IND",
-"Riley Leonard",
-"Out"
+"Sauce Gardner",
+"Doubtful"
 ],
 [
 "IND",
@@ -506,22 +366,7 @@
 ],
 [
 "JAX",
-"Albert Regis",
-"Out"
-],
-[
-"JAX",
 "Anton Harrison",
-"Out"
-],
-[
-"JAX",
-"CJ Williams",
-"Out"
-],
-[
-"JAX",
-"Jalen Huskey",
 "Out"
 ],
 [
@@ -532,36 +377,6 @@
 [
 "JAX",
 "Ross Matiscik",
-"Out"
-],
-[
-"JAX",
-"Wesley Williams",
-"Out"
-],
-[
-"KC",
-"Diego Pounds",
-"Out"
-],
-[
-"KC",
-"Garrett Nussmeier",
-"Out"
-],
-[
-"KC",
-"Jack Pyburn",
-"Out"
-],
-[
-"KC",
-"Jadon Canady",
-"Out"
-],
-[
-"KC",
-"Jared Wiley",
 "Out"
 ],
 [
@@ -586,37 +401,12 @@
 ],
 [
 "LA",
-"Bill Murray",
-"Out"
-],
-[
-"LA",
-"CJ Daniels",
-"Out"
-],
-[
-"LA",
-"Larrell Murchison",
-"Out"
-],
-[
-"LA",
 "Myles Garrett",
 "Out"
 ],
 [
 "LA",
 "Trent McDuffie",
-"Out"
-],
-[
-"LA",
-"Tutu Atwell",
-"Out"
-],
-[
-"LA",
-"Ty Simpson",
 "Out"
 ],
 [
@@ -681,27 +471,7 @@
 ],
 [
 "LV",
-"Aidan O'Connell",
-"Out"
-],
-[
-"LV",
-"Bryce Cabeldue",
-"Out"
-],
-[
-"LV",
 "Carter Runyon",
-"Out"
-],
-[
-"LV",
-"Cian Slone",
-"Out"
-],
-[
-"LV",
-"Dalton Johnson",
 "Out"
 ],
 [
@@ -712,11 +482,6 @@
 [
 "LV",
 "Tonka Hemingway",
-"Out"
-],
-[
-"LV",
-"Tristin McCollum",
 "Out"
 ],
 [
@@ -2000,12 +1765,6 @@
 ],
 [
 "IND",
-"Sauce Gardner",
-"Questionable (ESPN)",
-""
-],
-[
-"IND",
 "Tyler Warren",
 "Questionable",
 "Limited Participation in Practice"
@@ -3209,5 +2968,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-19 16:45 UTC"
+"written_at": "2026-10-19 17:20 UTC"
 }
