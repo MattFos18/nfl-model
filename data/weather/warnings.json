@@ -182,9 +182,9 @@
   "source": "live weather"
  },
  "live weather|2026_07_NE_CHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 6,
+  "count": 7,
   "first": "2026-10-19 01:38 UTC",
-  "last": "2026-10-19 10:01 UTC",
+  "last": "2026-10-19 14:08 UTC",
   "message": "2026_07_NE_CHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
