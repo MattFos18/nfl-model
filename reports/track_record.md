@@ -20,7 +20,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
 | shadow: 4+ edge on road sides, 6+ on home sides | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 43-25 | 48-32 | 21-8 |
 | shadow: 4+ edge, road sides only | 2 | 2 | 1-1 (50%) | -0.05 | +0.00 | 40-14 | 37-22 | 17-6 |
-| shadow: Under, 60%+ chance | 6 | 5 | 1-4 (20%) | -3.09 | +0.17 | 69-51 | 97-71 | 37-27 |
+| shadow: Under, 60%+ chance | 7 | 5 | 1-4 (20%) | -3.09 | +0.14 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 4 | 3 | 2-1 (67%) | +0.82 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 8 | 8 | 4-4 (50%) | -0.36 | +0.12 | 119-97 | 143-88 | 77-52 |
 | shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 15 | 13 | 8-5 (62%) | -2.36 | -0.87 | 117-35 | 101-29 | 129-38 |

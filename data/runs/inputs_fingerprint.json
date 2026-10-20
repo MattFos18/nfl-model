@@ -410,11 +410,6 @@
 "Out"
 ],
 [
-"MIA",
-"Storm Duck",
-"Out"
-],
-[
 "MIN",
 "Donovan Jackson",
 "Out"
@@ -971,7 +966,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 7.8,
+"wind": 8.9,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -979,5 +974,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-20 14:59 UTC"
+"written_at": "2026-10-20 16:14 UTC"
 }
