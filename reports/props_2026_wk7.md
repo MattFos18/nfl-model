@@ -1,6 +1,6 @@
 # Week 7, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-20 20:20 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-20 20:38 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -1503,12 +1503,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0040784  | Quinshon Judkins        | rush_rec_yards   |  56.1   |         16.1  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0040784  | Quinshon Judkins        | rush_longest     |  11.5   |         16.1  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_yards       |  33     |          8.9  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_td          |   0.234 |          8.9  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_td          |   0.233 |          8.9  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_attempts    |   8.9   |          8.9  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_rec_yards   |  33     |          8.9  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0039373  | Audric Estimé           | rush_longest     |  10     |          8.9  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_yards       |  27.4   |          7.8  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_td          |   0.217 |          7.8  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_td          |   0.216 |          7.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_attempts    |   7.8   |          7.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_rec_yards   |  27.4   |          7.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | rush_longest     |  10.1   |          7.8  | live   |
@@ -1518,7 +1518,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038794  | Jaleel McLaughlin       | rush_rec_yards   |  20.9   |          3    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038794  | Jaleel McLaughlin       | rush_longest     |   8.8   |          3    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_yards       | 207.8   |         33.7  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_td          |   1.345 |         33.7  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_td          |   1.344 |         33.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_int         |   0.687 |         33.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_attempts    |  29.6   |         33.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0033537  | Deshaun Watson          | pass_completions |  18.9   |         33.7  | live   |
@@ -1548,8 +1548,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0034856  | Denzel Ward             | def_tackles      |   3     |         58.1  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0034856  | Denzel Ward             | def_sacks        |   0.03  |         58.1  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0034856  | Denzel Ward             | def_solo_tackles |   2     |         58.1  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038428  | Andre Szmyt             | kick_points      |   6.9   |         20.74 | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038428  | Andre Szmyt             | field_goals      |   1.67  |         20.74 | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038428  | Andre Szmyt             | kick_points      |   6.9   |         20.73 | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0038428  | Andre Szmyt             | field_goals      |   1.67  |         20.73 | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0041438  | Carnell Tate            | rec_yards        |  51.6   |          9    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0041438  | Carnell Tate            | rec_catches      |   5.5   |          9    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0041438  | Carnell Tate            | rec_td           |   0.337 |          9    | live   |
@@ -1580,14 +1580,14 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040584  | Gunnar Helm             | rec_td           |   0.112 |          2.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040584  | Gunnar Helm             | rec_targets      |   2.7   |          2.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040584  | Gunnar Helm             | rec_longest      |  10.5   |          2.7  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_yards        |   9.8   |          2.6  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_yards        |   9.9   |          2.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_catches      |   1.6   |          2.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_td           |   0.107 |          2.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040705  | Chimere Dike            | rec_longest      |  13.1   |          2.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_yards        |   9.6   |          2.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_catches      |   1.7   |          2.5  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_td           |   0.055 |          2.5  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_td           |   0.056 |          2.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_targets      |   2.5   |          2.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rec_longest      |   8.4   |          2.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rush_yards       |  67.1   |         16.9  | live   |
@@ -1611,7 +1611,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0037594  | Julius Chestnut         | rush_rec_yards   |   3.3   |          1    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0037594  | Julius Chestnut         | rush_longest     |   6.5   |          1    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_yards       | 183.1   |         34.6  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_td          |   1.199 |         34.6  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_td          |   1.2   |         34.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_int         |   0.706 |         34.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_attempts    |  32.1   |         34.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | pass_completions |  20.1   |         34.6  | live   |
@@ -1641,8 +1641,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_tackles      |   4.2   |         60.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_sacks        |   0.12  |         60.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_solo_tackles |   3.1   |         60.4  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | kick_points      |   6.4   |         18.52 | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | field_goals      |   1.59  |         18.52 | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | kick_points      |   6.4   |         18.54 | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | field_goals      |   1.59  |         18.54 | live   |
 |     2026 |      7 | 2026_07_DEN_ARI | DEN    | 00-0036613  | Jaylen Waddle           | rec_yards        |  56.4   |          8.2  | live   |
 |     2026 |      7 | 2026_07_DEN_ARI | DEN    | 00-0036613  | Jaylen Waddle           | rec_catches      |   4.5   |          8.2  | live   |
 |     2026 |      7 | 2026_07_DEN_ARI | DEN    | 00-0036613  | Jaylen Waddle           | rec_td           |   0.418 |          8.2  | live   |
