@@ -731,11 +731,6 @@
 ],
 [
 "SF",
-"Mike Evans",
-"Out"
-],
-[
-"SF",
 "Naquan Jones",
 "Out"
 ],
@@ -2547,6 +2542,12 @@
 ],
 [
 "SF",
+"Mike Evans",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Mykel Williams",
 "Questionable",
 "Limited Participation in Practice"
@@ -2786,15 +2787,6 @@
 "Limited Participation in Practice"
 ]
 ],
-"weather": {
-"2026_06_WAS_SF": {
-"wind": 9.8,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-}
-},
-"written_at": "2026-10-20 03:39 UTC"
+"weather": {},
+"written_at": "2026-10-20 04:01 UTC"
 }
