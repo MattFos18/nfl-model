@@ -9,7 +9,7 @@
   "snap counts: 2026_06_WAS_SF",
   "charting (participation, FTN): 2026_06_WAS_SF"
  ],
- "all_kicked_off": false,
- "pending": false,
- "checked": "2026-10-19 23:49 UTC"
+ "all_kicked_off": true,
+ "pending": true,
+ "checked": "2026-10-20 00:37 UTC"
 }
