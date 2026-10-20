@@ -116,7 +116,7 @@
 ],
 [
 "CLE",
-"Bub Means",
+"Dylan Sampson",
 "Out"
 ],
 [
@@ -255,6 +255,11 @@
 "Out"
 ],
 [
+"LA",
+"Terrance Ferguson",
+"Out"
+],
+[
 "LV",
 "Carter Runyon",
 "Out"
@@ -308,6 +313,11 @@
 "NYJ",
 "Adonai Mitchell",
 "Doubtful"
+],
+[
+"PHI",
+"Carson Steele",
+"Out"
 ],
 [
 "PHI",
@@ -685,6 +695,12 @@
 ],
 [
 "LV",
+"Corey Rucker",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Tonka Hemingway",
 "Questionable (ESPN)",
 ""
@@ -770,6 +786,12 @@
 [
 "NE",
 "Channing Canada",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
+"Jeremiah Webb",
 "Questionable (ESPN)",
 ""
 ],
@@ -895,12 +917,6 @@
 ],
 [
 "PHI",
-"Carson Steele",
-"Questionable (ESPN)",
-""
-],
-[
-"PHI",
 "Jalyx Hunt",
 "Questionable (ESPN)",
 ""
@@ -972,6 +988,12 @@
 ""
 ],
 [
+"SF",
+"Upton Stout",
+"Questionable (ESPN)",
+""
+],
+[
 "TB",
 "Baker Mayfield",
 "Questionable (ESPN)",
@@ -1012,5 +1034,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-20 21:54 UTC"
+"written_at": "2026-10-20 23:01 UTC"
 }
