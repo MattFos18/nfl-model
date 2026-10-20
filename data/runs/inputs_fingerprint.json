@@ -210,11 +210,6 @@
 "Out"
 ],
 [
-"CHI",
-"Tyrique Stevenson Sr.",
-"Out"
-],
-[
 "CLE",
 "Dillon Gabriel",
 "Out"
@@ -667,6 +662,11 @@
 [
 "PIT",
 "Roman Wilson",
+"Out"
+],
+[
+"SEA",
+"Anthony Bradford",
 "Out"
 ],
 [
@@ -1225,6 +1225,12 @@
 "Grady Jarrett",
 "",
 "Full Participation in Practice"
+],
+[
+"CHI",
+"Jack Sanborn",
+"Questionable (ESPN)",
+""
 ],
 [
 "CHI",
@@ -2470,12 +2476,6 @@
 ],
 [
 "SF",
-"Brett Toth",
-"Questionable (ESPN)",
-""
-],
-[
-"SF",
 "Carver Willis",
 "",
 "Full Participation in Practice"
@@ -2779,5 +2779,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-20 00:34 UTC"
+"written_at": "2026-10-20 00:58 UTC"
 }
