@@ -454,10 +454,17 @@
   "message": "2026_07_NE_CHI: GFS MOS run 2026-10-19T18Z at KMDW gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
+ "wind_live|2026_07_NE_CHI: GFS MOS run 2026-10-20T00Z at KMDW gave no wind, rain chance, temperature": {
+  "count": 1,
+  "first": "2026-10-20 10:02 UTC",
+  "last": "2026-10-20 10:02 UTC",
+  "message": "2026_07_NE_CHI: GFS MOS run 2026-10-20T00Z at KMDW gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
  "wind_live|2026_07_NE_CHI: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 7,
+  "count": 8,
   "first": "2026-10-20 06:31 UTC",
-  "last": "2026-10-20 09:32 UTC",
+  "last": "2026-10-20 10:02 UTC",
   "message": "2026_07_NE_CHI: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
