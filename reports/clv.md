@@ -5,9 +5,9 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | Rule | Closed bets | Avg CLV (pts) | Beat the close | Same | Worse | Pending | Avg CLV (no-vig prob) |
 |---|---|---|---|---|---|---|---|
 | Spreads, 4+ edge | 4 | +0.25 | 50% | 1 | 1 | 0 | -1.4% (1) |
-| Unders, 55%+ chance | 14 | -0.29 | 14% | 6 | 6 | 0 | -0.3% (6) |
+| Unders, 55%+ chance | 14 | -0.29 | 14% | 6 | 6 | 3 | -0.3% (6) |
 | Wind unders, 10+ mph | 8 | -0.12 | 25% | 4 | 2 | 0 | -0.2% (4) |
-| All live bets | 26 | -0.15 | 23% | 11 | 9 | 0 | -0.3% (11) |
+| All live bets | 26 | -0.15 | 23% | 11 | 9 | 3 | -0.3% (11) |
 
 ## Every bet
 
@@ -31,6 +31,9 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | shadowunder |      6 | 2026_06_CHI_ATL | Under 51.5 | 2026-10-13 14:29 UTC | first flag   |   49.5 |       nan   |    51.5 |      -2   |            | 2026-10-18 16:58 UTC | closed   |
 | shadowunder |      6 | 2026_06_NO_NYG  | Under 46.5 | 2026-10-13 14:29 UTC | first flag   |   45.5 |       nan   |    46.5 |      -1   |            | 2026-10-18 16:58 UTC | closed   |
 | shadowunder |      6 | 2026_06_DAL_GB  | Under 53.5 | 2026-10-14 15:24 UTC | first flag   |   53.5 |       nan   |    54.5 |      -1   |            | 2026-10-19 00:19 UTC | closed   |
+| shadowunder |      7 | 2026_07_NE_CHI  | Under 50.5 | 2026-10-20 14:25 UTC | first flag   |   50.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |      7 | 2026_07_PIT_NO  | Under 44.5 | 2026-10-20 14:25 UTC | first flag   |   44.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |      7 | 2026_07_CIN_BAL | Under 51.5 | 2026-10-20 14:25 UTC | first flag   |   51.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      4 | 2026_04_PIT_CLE | Under 38.5 | 2026-10-01 23:22 UTC | tracker row  |   38.5 |       nan   |    38.5 |       0   | +0.0%      | 2026-10-02 00:12 UTC | closed   |
 | windunder   |      4 | 2026_04_NE_BUF  | Under 49.5 | 2026-10-03 23:00 UTC | first flag   |   49.5 |       nan   |    49.5 |       0   | +0.9%      | 2026-10-04 16:56 UTC | closed   |
 | windunder   |      5 | 2026_05_CHI_GB  | Under 47.5 | 2026-10-09 10:49 UTC | first flag   |   45.5 |       nan   |    47.5 |      -2   |            | 2026-10-11 16:13 UTC | closed   |
