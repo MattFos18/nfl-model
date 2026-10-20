@@ -166,6 +166,11 @@
 ],
 [
 "DET",
+"Kerby Joseph",
+"Out"
+],
+[
+"DET",
 "Tom Kennedy",
 "Out"
 ],
@@ -999,7 +1004,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 8.9,
+"wind": 9.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1007,5 +1012,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-20 21:39 UTC"
+"written_at": "2026-10-20 21:54 UTC"
 }
