@@ -101,6 +101,11 @@
 ],
 [
 "CHI",
+"Jack Sanborn",
+"Out"
+],
+[
+"CHI",
 "Kyle Monangai",
 "Out"
 ],
@@ -438,11 +443,6 @@
 "TB",
 "Antoine Winfield Jr.",
 "Doubtful"
-],
-[
-"TB",
-"David Sills V",
-"Out"
 ]
 ],
 "reports": [
@@ -541,12 +541,6 @@
 "Jack Sanborn",
 "",
 "Did Not Participate In Practice"
-],
-[
-"CHI",
-"Jack Sanborn",
-"Questionable (ESPN)",
-""
 ],
 [
 "CHI",
@@ -832,12 +826,6 @@
 ],
 [
 "NE",
-"A.J. Brown",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Alijah Vera-Tucker",
 "",
 "Did Not Participate In Practice"
@@ -874,9 +862,21 @@
 ],
 [
 "NE",
+"Christian Elliss",
+"Questionable (ESPN)",
+""
+],
+[
+"NE",
 "Craig Woodson",
 "",
 "Full Participation in Practice"
+],
+[
+"NE",
+"Craig Woodson",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -907,6 +907,12 @@
 "Kevin Byard",
 "",
 "Full Participation in Practice"
+],
+[
+"NE",
+"Kevin Byard",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -1126,13 +1132,37 @@
 ],
 [
 "TB",
-"Benjamin Morrison",
+"Bucky Irving",
 "Questionable (ESPN)",
 ""
 ],
 [
 "TB",
-"Sean Tucker",
+"Calijah Kancey",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Christian Rozeboom",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Emeka Egbuka",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Luke Goedeke",
+"Questionable (ESPN)",
+""
+],
+[
+"TB",
+"Zyon McCollum",
 "Questionable (ESPN)",
 ""
 ],
@@ -1205,5 +1235,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 19:36 UTC"
+"written_at": "2026-10-21 20:02 UTC"
 }
