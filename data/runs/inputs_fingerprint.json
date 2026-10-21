@@ -146,7 +146,7 @@
 ],
 [
 "DEN",
-"Pat Bryant",
+"Jonah Coleman",
 "Out"
 ],
 [
@@ -504,6 +504,12 @@
 ],
 [
 "BAL",
+"John Simpson",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Lamar Jackson",
 "Questionable (ESPN)",
 ""
@@ -523,6 +529,12 @@
 [
 "BAL",
 "Rashod Bateman",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Tavius Robinson",
 "Questionable (ESPN)",
 ""
 ],
@@ -577,12 +589,6 @@
 [
 "CHI",
 "Tyrique Stevenson Sr.",
-"Questionable (ESPN)",
-""
-],
-[
-"CIN",
-"Colbie Young",
 "Questionable (ESPN)",
 ""
 ],
@@ -852,6 +858,12 @@
 ],
 [
 "LA",
+"Nate Landman",
+"Questionable (ESPN)",
+""
+],
+[
+"LA",
 "Trent McDuffie",
 "Questionable (ESPN)",
 ""
@@ -870,19 +882,7 @@
 ],
 [
 "MIA",
-"JuJu Brents",
-"Questionable (ESPN)",
-""
-],
-[
-"MIA",
-"Justin Joly",
-"Questionable (ESPN)",
-""
-],
-[
-"MIA",
-"Michael Taaffe",
+"Jaylen Wright",
 "Questionable (ESPN)",
 ""
 ],
@@ -895,6 +895,18 @@
 [
 "MIA",
 "Robert Beal Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Tucker Addington",
+"Questionable (ESPN)",
+""
+],
+[
+"MIA",
+"Will Kacmarek",
 "Questionable (ESPN)",
 ""
 ],
@@ -1387,5 +1399,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 21:07 UTC"
+"written_at": "2026-10-21 21:37 UTC"
 }
