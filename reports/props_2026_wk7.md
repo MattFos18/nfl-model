@@ -1,6 +1,6 @@
 # Week 7, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-21 20:15 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-21 20:34 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -1457,14 +1457,14 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_MIA_NYJ | NYJ    | 00-0039789  | Qwan'tez Stiggers       | def_solo_tackles |   2.3   |         57.1  | live   |
 |     2026 |      7 | 2026_07_MIA_NYJ | NYJ    | 00-0034794  | Jason Sanders           | kick_points      |   7.5   |         24.65 | live   |
 |     2026 |      7 | 2026_07_MIA_NYJ | NYJ    | 00-0034794  | Jason Sanders           | field_goals      |   1.74  |         24.65 | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_yards        |  44.7   |          6.5  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_yards        |  40.5   |          6.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_catches      |   3.4   |          6.5  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_td           |   0.372 |          6.5  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_td           |   0.337 |          6.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_targets      |   6.5   |          6.5  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041037  | Denzel Boston           | rec_longest      |  22.2   |          6.5  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_yards        |  34.5   |          6.4  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_yards        |  31.3   |          6.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_catches      |   3.7   |          6.4  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_td           |   0.281 |          6.4  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_td           |   0.255 |          6.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_targets      |   6.4   |          6.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0041547  | KC Concepcion           | rec_longest      |  13.1   |          6.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | CLE    | 00-0040663  | Harold Fannin Jr.       | rec_yards        |  36.1   |          5.9  | live   |
@@ -1560,9 +1560,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038117  | Wan'Dale Robinson       | rec_td           |   0.296 |          8.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038117  | Wan'Dale Robinson       | rec_targets      |   8.3   |          8.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038117  | Wan'Dale Robinson       | rec_longest      |  16.4   |          8.3  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_yards        |  14.3   |          4    | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_yards        |  15.8   |          4    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_catches      |   3     |          4    | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_td           |   0.071 |          4    | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_td           |   0.078 |          4    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_targets      |   4     |          4    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rec_longest      |  11.2   |          4    | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040170  | Elic Ayomanor           | rec_yards        |  15.3   |          3.6  | live   |
@@ -1570,9 +1570,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040170  | Elic Ayomanor           | rec_td           |   0.147 |          3.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040170  | Elic Ayomanor           | rec_targets      |   3.6   |          3.6  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040170  | Elic Ayomanor           | rec_longest      |  13.8   |          3.6  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_yards        |  14.3   |          2.8  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_yards        |  13     |          2.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_catches      |   1.4   |          2.8  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_td           |   0.096 |          2.8  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_td           |   0.087 |          2.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_targets      |   2.8   |          2.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0034837  | Calvin Ridley           | rec_longest      |  13.7   |          2.8  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040584  | Gunnar Helm             | rec_yards        |  11.3   |          2.7  | live   |
@@ -1595,10 +1595,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rush_attempts    |  16.7   |         16.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rush_rec_yards   |  76.3   |         16.7  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035261  | Tony Pollard            | rush_longest     |  13     |         16.7  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_yards       |  10.1   |          3.3  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_yards       |  10.8   |          3.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_td          |   0.095 |          3.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_attempts    |   3.3   |          3.3  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_rec_yards   |  24.4   |          3.3  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_rec_yards   |  26.6   |          3.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0039032  | Tyjae Spears            | rush_longest     |   8     |          3.3  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | rush_yards       |  10.6   |          2.9  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0040676  | Cam Ward                | rush_td          |   0.14  |          2.9  | live   |

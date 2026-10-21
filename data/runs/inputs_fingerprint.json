@@ -236,11 +236,6 @@
 ],
 [
 "IND",
-"Arden Key",
-"Out"
-],
-[
-"IND",
 "Sauce Gardner",
 "Doubtful"
 ],
@@ -598,13 +593,31 @@
 ],
 [
 "CLE",
+"Denzel Boston",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Derek Barnett",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Grant Delpit",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CLE",
-"Justin Jefferson",
+"KC Concepcion",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Maliek Collins",
 "Questionable (ESPN)",
 ""
 ],
@@ -629,6 +642,12 @@
 [
 "CLE",
 "Teven Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
+"Tytus Howard",
 "Questionable (ESPN)",
 ""
 ],
@@ -706,7 +725,43 @@
 ],
 [
 "IND",
+"Austin Ajiake",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Bryce Boettcher",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Drew Ogletree",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Jalen Travis",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
 "Jaylon Carlies",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Justin Walley",
+"Questionable (ESPN)",
+""
+],
+[
+"IND",
+"Matt Goncalves",
 "Questionable (ESPN)",
 ""
 ],
@@ -1168,6 +1223,12 @@
 ],
 [
 "TEN",
+"Calvin Ridley",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
 "Kevin Winston Jr.",
 "Questionable (ESPN)",
 ""
@@ -1175,12 +1236,6 @@
 [
 "TEN",
 "Tony Adams",
-"Questionable (ESPN)",
-""
-],
-[
-"TEN",
-"Tyjae Spears",
 "Questionable (ESPN)",
 ""
 ]
@@ -1235,5 +1290,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 20:02 UTC"
+"written_at": "2026-10-21 20:37 UTC"
 }
