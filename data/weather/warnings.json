@@ -189,9 +189,9 @@
   "source": "live weather"
  },
  "live weather|2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-21 13:55 UTC",
-  "last": "2026-10-21 13:55 UTC",
+  "last": "2026-10-21 16:29 UTC",
   "message": "2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },

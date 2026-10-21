@@ -586,6 +586,12 @@
 ],
 [
 "CLE",
+"Carson Schwesinger",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Grant Delpit",
 "Questionable (ESPN)",
 ""
@@ -1157,7 +1163,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 8.2,
+"wind": 8.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1165,7 +1171,7 @@
 "rain_src": "mos"
 },
 "2026_07_PIT_NO": {
-"wind": 13.4,
+"wind": 13.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1173,5 +1179,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 14:12 UTC"
+"written_at": "2026-10-21 16:36 UTC"
 }
