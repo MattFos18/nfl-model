@@ -182,23 +182,23 @@
   "source": "live weather"
  },
  "live weather|2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 8,
+  "count": 9,
   "first": "2026-10-21 17:01 UTC",
-  "last": "2026-10-21 21:21 UTC",
+  "last": "2026-10-21 21:51 UTC",
   "message": "2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_07_CLE_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 8,
+  "count": 9,
   "first": "2026-10-21 17:01 UTC",
-  "last": "2026-10-21 21:21 UTC",
+  "last": "2026-10-21 21:51 UTC",
   "message": "2026_07_CLE_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_07_MIA_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 8,
+  "count": 9,
   "first": "2026-10-21 17:01 UTC",
-  "last": "2026-10-21 21:21 UTC",
+  "last": "2026-10-21 21:51 UTC",
   "message": "2026_07_MIA_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
@@ -210,16 +210,16 @@
   "source": "live weather"
  },
  "live weather|2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 10,
+  "count": 11,
   "first": "2026-10-21 13:55 UTC",
-  "last": "2026-10-21 21:21 UTC",
+  "last": "2026-10-21 21:51 UTC",
   "message": "2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_07_TB_CAR: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 8,
+  "count": 9,
   "first": "2026-10-21 17:01 UTC",
-  "last": "2026-10-21 21:21 UTC",
+  "last": "2026-10-21 21:51 UTC",
   "message": "2026_07_TB_CAR: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },

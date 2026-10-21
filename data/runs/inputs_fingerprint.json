@@ -151,8 +151,8 @@
 ],
 [
 "DEN",
-"Pat Surtain II",
-"Doubtful"
+"Jonah Elliss",
+"Out"
 ],
 [
 "DEN",
@@ -218,11 +218,6 @@
 "HOU",
 "Jake Hummel",
 "Out"
-],
-[
-"HOU",
-"Jalen Pitre",
-"Doubtful"
 ],
 [
 "HOU",
@@ -382,16 +377,6 @@
 [
 "PHI",
 "Lane Johnson",
-"Out"
-],
-[
-"PIT",
-"DeShon Elliott",
-"Out"
-],
-[
-"PIT",
-"Roman Wilson",
 "Out"
 ],
 [
@@ -696,6 +681,12 @@
 ],
 [
 "DEN",
+"Pat Surtain II",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
 "Tyler Badie",
 "Questionable (ESPN)",
 ""
@@ -762,13 +753,55 @@
 ],
 [
 "HOU",
+"Azeez Al-Shaair",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Blake Fisher",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Dalton Schultz",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
 "David Montgomery",
 "Questionable (ESPN)",
 ""
 ],
 [
 "HOU",
-"Reed Blankenship",
+"Henry To'oTo'o",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Jadeveon Clowney",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Jalen Pitre",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Logan Hall",
+"Questionable (ESPN)",
+""
+],
+[
+"HOU",
+"Trent Brown",
 "Questionable (ESPN)",
 ""
 ],
@@ -912,7 +945,7 @@
 ],
 [
 "MIN",
-"Charles Demmings",
+"Brian O'Neill",
 "Questionable (ESPN)",
 ""
 ],
@@ -924,7 +957,13 @@
 ],
 [
 "MIN",
-"Jordan Addison",
+"James Pierre",
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Justin Jefferson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1062,7 +1101,19 @@
 ],
 [
 "NO",
+"Alvin Kamara",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
 "Anfernee Jennings",
+"Questionable (ESPN)",
+""
+],
+[
+"NO",
+"CJ Donaldson",
 "Questionable (ESPN)",
 ""
 ],
@@ -1075,18 +1126,6 @@
 [
 "NO",
 "Kaden Elliss",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
-"Kool-Aid McKinstry",
-"Questionable (ESPN)",
-""
-],
-[
-"NO",
-"Nathan Shepherd",
 "Questionable (ESPN)",
 ""
 ],
@@ -1236,6 +1275,12 @@
 ],
 [
 "PIT",
+"Alex Highsmith",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "Ben Skowronek",
 "Questionable (ESPN)",
 ""
@@ -1243,6 +1288,18 @@
 [
 "PIT",
 "Brandin Echols",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Rico Dowdle",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
+"Sebastian Joseph-Day",
 "Questionable (ESPN)",
 ""
 ],
@@ -1351,7 +1408,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 7.6,
+"wind": 6.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1359,7 +1416,7 @@
 "rain_src": "mos"
 },
 "2026_07_PIT_NO": {
-"wind": 13.1,
+"wind": 13.6,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1399,5 +1456,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 21:37 UTC"
+"written_at": "2026-10-21 22:07 UTC"
 }
