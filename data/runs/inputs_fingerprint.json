@@ -201,6 +201,11 @@
 ],
 [
 "HOU",
+"Jake Hummel",
+"Out"
+],
+[
+"HOU",
 "Jalen Pitre",
 "Doubtful"
 ],
@@ -690,12 +695,6 @@
 ],
 [
 "LV",
-"Corey Rucker",
-"Questionable (ESPN)",
-""
-],
-[
-"LV",
 "Tonka Hemingway",
 "Questionable (ESPN)",
 ""
@@ -781,12 +780,6 @@
 [
 "NE",
 "Channing Canada",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
-"Jeremiah Webb",
 "Questionable (ESPN)",
 ""
 ],
@@ -1029,5 +1022,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-20 23:55 UTC"
+"written_at": "2026-10-21 00:51 UTC"
 }
