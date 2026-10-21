@@ -101,8 +101,18 @@
 ],
 [
 "CHI",
+"Kyle Monangai",
+"Out"
+],
+[
+"CHI",
 "Montez Sweat",
 "Out"
+],
+[
+"CHI",
+"T.J. Edwards",
+"Doubtful"
 ],
 [
 "CIN",
@@ -516,13 +526,7 @@
 ],
 [
 "CAR",
-"AJ Dillon",
-"Questionable (ESPN)",
-""
-],
-[
-"CAR",
-"Monroe Freeling",
+"Jaelan Phillips",
 "Questionable (ESPN)",
 ""
 ],
@@ -552,12 +556,6 @@
 ],
 [
 "CHI",
-"Jonah Jackson",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "Keyshaun Elliott",
 "",
 "Full Participation in Practice"
@@ -570,27 +568,21 @@
 ],
 [
 "CHI",
-"Kyle Monangai",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "T.J. Edwards",
 "",
 "Did Not Participate In Practice"
 ],
 [
 "CHI",
-"T.J. Edwards",
-"Questionable (ESPN)",
-""
-],
-[
-"CHI",
 "Tyrique Stevenson",
 "",
 "Full Participation in Practice"
+],
+[
+"CHI",
+"Tyrique Stevenson Sr.",
+"Questionable (ESPN)",
+""
 ],
 [
 "CIN",
@@ -1213,5 +1205,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 18:56 UTC"
+"written_at": "2026-10-21 19:36 UTC"
 }

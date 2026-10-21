@@ -10,11 +10,11 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 
 | Rule | Bets | Settled | Record | Units | Avg CLV | Backtest 2015-18 | Backtest 2019-22 | Backtest 2023-25 |
 |---|---|---|---|---|---|---|---|---|
-| 4+ edge (the flag, bet) | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 67-54 | 80-52 | 38-17 |
-| shadow: 4.5+ edge | 3 | 3 | 1-2 (33%) | -1.05 | +0.00 | 46-36 | 55-39 | 23-15 |
-| shadow: 4+ edge, model's side the underdog or pick'em | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 52-37 | 72-43 | 30-14 |
-| shadow: 4+ edge, weeks 1 to 13 only | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 50-41 | 69-38 | 30-14 |
-| shadow: boosted trees alone, 5+ edge | 6 | 4 | 1-3 (25%) | -2.05 | -2.17 | 94-78 | 91-67 | 36-18 |
+| 4+ edge (the flag, bet) | 5 | 4 | 2-2 (50%) | -0.12 | +0.00 | 67-54 | 80-52 | 38-17 |
+| shadow: 4.5+ edge | 4 | 3 | 1-2 (33%) | -1.05 | +0.00 | 46-36 | 55-39 | 23-15 |
+| shadow: 4+ edge, model's side the underdog or pick'em | 5 | 4 | 2-2 (50%) | -0.12 | +0.00 | 52-37 | 72-43 | 30-14 |
+| shadow: 4+ edge, weeks 1 to 13 only | 5 | 4 | 2-2 (50%) | -0.12 | +0.00 | 50-41 | 69-38 | 30-14 |
+| shadow: boosted trees alone, 5+ edge | 7 | 4 | 1-3 (25%) | -2.05 | -1.86 | 94-78 | 91-67 | 36-18 |
 | shadow: Under, 55%+ chance (the totals flag) | 16 | 14 | 6-8 (43%) | -2.50 | +0.12 | 142-117 | 183-134 | 86-61 |
 | shadow: Under, 59%+ chance in weeks 1 to 3, 55%+ after | 13 | 11 | 4-7 (36%) | -3.32 | +0.08 | 135-96 | 167-123 | 80-57 |
 | shadow: 4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125 | 2 | 2 | 2-0 (100%) | +1.60 | +0.50 | 19-10 | 16-14 | 15-3 |
@@ -23,7 +23,7 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 60%+ chance | 6 | 5 | 1-4 (20%) | -3.09 | +0.17 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 4 | 3 | 2-1 (67%) | +0.82 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 8 | 8 | 4-4 (50%) | -0.36 | +0.12 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 16 | 13 | 8-5 (62%) | -2.36 | -0.69 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 16 | 13 | 8-5 (62%) | -2.36 | -0.50 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 6 | 5 | 1-4 (20%) | -3.09 | +0.17 | 63-46 | 96-71 | 27-18 |
@@ -31,10 +31,10 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 10 | 7 | 3-4 (43%) | -1.27 | +0.20 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 4 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
-| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 20-12 | 23-16 | 19-5 |
-| shadow: 3.5+ edge on dogs, 4+ on every other side | 5 | 4 | 2-2 (50%) | -0.12 | +0.00 | 83-69 | 102-73 | 53-29 |
+| shadow: 4+ edge, model's side a dog at +0.5 to +3 | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 20-12 | 23-16 | 19-5 |
+| shadow: 3.5+ edge on dogs, 4+ on every other side | 6 | 4 | 2-2 (50%) | -0.12 | +0.00 | 83-69 | 102-73 | 53-29 |
 | shadow: 4+ edge, weeks 1 to 4 only | 3 | 3 | 2-1 (67%) | +0.88 | +0.00 | 22-14 | 19-12 | 19-4 |
-| shadow: 4+ edge, weeks 1 to 15 only | 4 | 4 | 2-2 (50%) | -0.12 | +0.00 | 57-46 | 72-43 | 33-14 |
+| shadow: 4+ edge, weeks 1 to 15 only | 5 | 4 | 2-2 (50%) | -0.12 | +0.00 | 57-46 | 72-43 | 33-14 |
 | shadow: 6+ edge | 0 | 0 | | | | 9-13 | 16-13 | 8-3 |
 | shadow: Over, total 41 or lower and a 55%+ chance | 6 | 4 | 0-4 (0%) | -4.00 | +0.00 | 50-37 | 30-25 | 55-35 |
 | shadow: Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow) | 12 | 10 | 4-6 (40%) | -2.32 | +0.08 | 156-131 | 201-149 | 80-57 |
@@ -43,7 +43,7 @@ Live against the backtest: the flag has won 2 of 4 settled; at the backtest rate
 
 ## Model picks (flagged at a 4+ spread edge, at the best number)
 
-4 recorded, 4 settled, 0 pending.
+5 recorded, 4 settled, 1 pending.
 
 |     |   bets |   wins |   losses |   pushes |   win_pct |   units |    roi |   avg_clv |
 |:----|-------:|-------:|---------:|---------:|----------:|--------:|-------:|----------:|
@@ -70,6 +70,7 @@ Every bet:
 |     2026 |      4 | 2026_04_JAX_CIN | JAX +2.5 |   -105 |     2.5 |     0 | win      |    0.95 |
 |     2026 |      4 | 2026_04_ARI_NYG | NYG +2.5 |   -108 |     2.5 |     0 | win      |    0.93 |
 |     2026 |      6 | 2026_06_CHI_ATL | ATL +1.5 |   -112 |     1.5 |     0 | loss     |   -1    |
+|     2026 |      7 | 2026_07_CIN_BAL | BAL +1.5 |   -120 |   nan   |   nan | pending  |  nan    |
 
 ## Matt's bets
 
