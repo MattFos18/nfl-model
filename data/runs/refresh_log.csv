@@ -1153,3 +1153,4 @@ checked,reprice,changes,errors
 2026-10-21 12:19 UTC,False,,
 2026-10-21 12:49 UTC,False,,
 2026-10-21 13:19 UTC,False,,
+2026-10-21 13:50 UTC,True,2026_07_PIT_NO: forecast now inside the window the model uses,
