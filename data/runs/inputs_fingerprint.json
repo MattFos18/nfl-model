@@ -345,11 +345,6 @@
 "Out"
 ],
 [
-"NYG",
-"Braxton Berrios",
-"Out"
-],
-[
 "NYJ",
 "Joseph Ossai",
 "Doubtful"
@@ -503,6 +498,12 @@
 ],
 [
 "BAL",
+"Jaylinn Hawkins",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
 "Lamar Jackson",
 "Questionable (ESPN)",
 ""
@@ -510,6 +511,12 @@
 [
 "BAL",
 "Matt Hibner",
+"Questionable (ESPN)",
+""
+],
+[
+"BAL",
+"Olaivavega Ioane",
 "Questionable (ESPN)",
 ""
 ],
@@ -605,6 +612,12 @@
 ],
 [
 "CLE",
+"Elgton Jenkins",
+"Questionable (ESPN)",
+""
+],
+[
+"CLE",
 "Grant Delpit",
 "Questionable (ESPN)",
 ""
@@ -695,7 +708,49 @@
 ],
 [
 "GB",
+"Anthony Campbell",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
 "Benjamin St-Juste",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Bo Melton",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Brandon Cisse",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Christian Watson",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Jordan Love",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Matthew Golden",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Savion Williams",
 "Questionable (ESPN)",
 ""
 ],
@@ -810,12 +865,6 @@
 [
 "MIA",
 "Caleb Douglas",
-"Questionable (ESPN)",
-""
-],
-[
-"MIA",
-"Jonah Savaiinaea",
 "Questionable (ESPN)",
 ""
 ],
@@ -1037,13 +1086,19 @@
 ],
 [
 "NYG",
-"Colton Hood",
+"Andrew Thomas",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NYG",
-"Darnell Mooney",
+"Charlie Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Colton Hood",
 "Questionable (ESPN)",
 ""
 ],
@@ -1056,6 +1111,30 @@
 [
 "NYG",
 "Jermaine Eluemunor",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Jevon Holland",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Jordan Stout",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Kayvon Thibodeaux",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
+"Marcus Mbow",
 "Questionable (ESPN)",
 ""
 ],
@@ -1092,6 +1171,24 @@
 [
 "NYJ",
 "Dylan Parham",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
+"Kene Nwangwu",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
+"T'Vondre Sweat",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
+"Will McDonald IV",
 "Questionable (ESPN)",
 ""
 ],
@@ -1290,5 +1387,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 20:37 UTC"
+"written_at": "2026-10-21 21:07 UTC"
 }
