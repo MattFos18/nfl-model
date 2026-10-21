@@ -1157,13 +1157,21 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 9.8,
+"wind": 8.2,
 "cold": false,
 "rain": false,
 "src": "mos",
 "temp_src": "mos",
 "rain_src": "mos"
+},
+"2026_07_PIT_NO": {
+"wind": 13.4,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 06:34 UTC"
+"written_at": "2026-10-21 14:12 UTC"
 }
