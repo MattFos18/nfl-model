@@ -80,6 +80,11 @@
 "Out"
 ],
 [
+"ATL",
+"A.J. Terrell Jr.",
+"Out"
+],
+[
 "CAR",
 "Cam Jackson",
 "Out"
@@ -152,7 +157,7 @@
 [
 "DEN",
 "Jonah Elliss",
-"Out"
+"Doubtful"
 ],
 [
 "DEN",
@@ -441,7 +446,19 @@
 ],
 [
 "ATL",
+"Avieon Terrell",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
 "Billy Bowman Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Brian Robinson Jr.",
 "Questionable (ESPN)",
 ""
 ],
@@ -460,6 +477,30 @@
 [
 "ATL",
 "Kendal Daniels",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Michael Jerrell",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Olamide Zaccheaus",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Samson Ebukam",
+"Questionable (ESPN)",
+""
+],
+[
+"ATL",
+"Za'Darius Smith",
 "Questionable (ESPN)",
 ""
 ],
@@ -681,6 +722,12 @@
 ],
 [
 "DEN",
+"Jaylen Waddle",
+"Questionable (ESPN)",
+""
+],
+[
+"DEN",
 "Pat Surtain II",
 "Questionable (ESPN)",
 ""
@@ -885,7 +932,19 @@
 ],
 [
 "KC",
+"L'Jarius Sneed",
+"Questionable (ESPN)",
+""
+],
+[
+"KC",
 "Rashee Rice",
+"Questionable (ESPN)",
+""
+],
+[
+"KC",
+"Travis Kelce",
 "Questionable (ESPN)",
 ""
 ],
@@ -898,6 +957,12 @@
 [
 "LA",
 "Trent McDuffie",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Brock Bowers",
 "Questionable (ESPN)",
 ""
 ],
@@ -1293,6 +1358,12 @@
 ],
 [
 "PIT",
+"Jalen Ramsey",
+"Questionable (ESPN)",
+""
+],
+[
+"PIT",
 "Rico Dowdle",
 "Questionable (ESPN)",
 ""
@@ -1305,13 +1376,43 @@
 ],
 [
 "SEA",
+"Beau Stephens",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Chazz Surratt",
 "Questionable (ESPN)",
 ""
 ],
 [
 "SEA",
+"Connor O'Toole",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
 "Drake Thomas",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Drew Lock",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Rashid Shaheed",
+"Questionable (ESPN)",
+""
+],
+[
+"SEA",
+"Tyrice Knight",
 "Questionable (ESPN)",
 ""
 ],
@@ -1408,7 +1509,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 6.8,
+"wind": 7.1,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1456,5 +1557,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 22:07 UTC"
+"written_at": "2026-10-21 23:48 UTC"
 }
