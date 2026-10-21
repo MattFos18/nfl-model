@@ -43,6 +43,14 @@
    "priced_name": "Baker Mayfield"
   },
   {
+   "game_id": "2026_07_NYG_HOU",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
+  },
+  {
    "game_id": "2026_07_KC_SEA",
    "team": "SEA",
    "named": "00-0035704",
@@ -83,6 +91,14 @@
    "priced_name": "Lamar Jackson"
   },
   {
+   "game_id": "2026_09_NYG_PHI",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
+  },
+  {
    "game_id": "2026_09_ARI_SEA",
    "team": "SEA",
    "named": "00-0035704",
@@ -97,6 +113,14 @@
    "priced": "00-0034855",
    "named_name": "Jalon Daniels",
    "priced_name": "Baker Mayfield"
+  },
+  {
+   "game_id": "2026_10_WAS_NYG",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   },
   {
    "game_id": "2026_10_SEA_LV",
@@ -131,12 +155,28 @@
    "priced_name": "Baker Mayfield"
   },
   {
+   "game_id": "2026_11_JAX_NYG",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
+  },
+  {
    "game_id": "2026_12_BAL_HOU",
    "team": "BAL",
    "named": "00-0035993",
    "priced": "00-0034796",
    "named_name": "Tyler Huntley",
    "priced_name": "Lamar Jackson"
+  },
+  {
+   "game_id": "2026_12_NYG_IND",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   },
   {
    "game_id": "2026_12_SEA_SF",
@@ -153,6 +193,14 @@
    "priced": "00-0034855",
    "named_name": "Jalon Daniels",
    "priced_name": "Baker Mayfield"
+  },
+  {
+   "game_id": "2026_13_SF_NYG",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   },
   {
    "game_id": "2026_13_LAC_TB",
@@ -195,12 +243,28 @@
    "priced_name": "Sam Darnold"
   },
   {
+   "game_id": "2026_14_NYG_SEA",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
+  },
+  {
    "game_id": "2026_15_SEA_PHI",
    "team": "SEA",
    "named": "00-0035704",
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_15_CLE_NYG",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   },
   {
    "game_id": "2026_15_BAL_PIT",
@@ -243,6 +307,14 @@
    "priced_name": "Lamar Jackson"
   },
   {
+   "game_id": "2026_16_NYG_DET",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
+  },
+  {
    "game_id": "2026_17_BAL_CIN",
    "team": "BAL",
    "named": "00-0035993",
@@ -257,6 +329,14 @@
    "priced": "00-0034869",
    "named_name": "Drew Lock",
    "priced_name": "Sam Darnold"
+  },
+  {
+   "game_id": "2026_17_NYG_DAL",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   },
   {
    "game_id": "2026_17_LA_TB",
@@ -289,6 +369,14 @@
    "priced": "00-0034855",
    "named_name": "Jalon Daniels",
    "priced_name": "Baker Mayfield"
+  },
+  {
+   "game_id": "2026_18_PHI_NYG",
+   "team": "NYG",
+   "named": "00-0039923",
+   "priced": "00-0031503",
+   "named_name": "J.J. McCarthy",
+   "priced_name": "Jameis Winston"
   }
  ]
 }

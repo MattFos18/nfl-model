@@ -181,6 +181,27 @@
   "message": "2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
+ "live weather|2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-21 17:01 UTC",
+  "last": "2026-10-21 17:01 UTC",
+  "message": "2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_07_CLE_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-21 17:01 UTC",
+  "last": "2026-10-21 17:01 UTC",
+  "message": "2026_07_CLE_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_07_MIA_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-21 17:01 UTC",
+  "last": "2026-10-21 17:01 UTC",
+  "message": "2026_07_MIA_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
  "live weather|2026_07_NE_CHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 26,
   "first": "2026-10-19 01:38 UTC",
@@ -189,10 +210,17 @@
   "source": "live weather"
  },
  "live weather|2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 2,
+  "count": 3,
   "first": "2026-10-21 13:55 UTC",
-  "last": "2026-10-21 16:29 UTC",
+  "last": "2026-10-21 17:01 UTC",
   "message": "2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_07_TB_CAR: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-21 17:01 UTC",
+  "last": "2026-10-21 17:01 UTC",
+  "message": "2026_07_TB_CAR: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "standing checks|last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_05_BAL_ATL BAL": {

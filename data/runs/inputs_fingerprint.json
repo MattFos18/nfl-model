@@ -29,7 +29,7 @@
 ],
 "2026_07_NYG_HOU": [
 "00-0039163",
-"00-0031503",
+"00-0039923",
 "2026-10-25 13:00"
 ],
 "2026_07_IND_MIN": [
@@ -323,11 +323,6 @@
 "NYG",
 "Braxton Berrios",
 "Out"
-],
-[
-"NYJ",
-"Adonai Mitchell",
-"Doubtful"
 ],
 [
 "PHI",
@@ -1024,6 +1019,12 @@
 ],
 [
 "NYJ",
+"Adonai Mitchell",
+"Questionable (ESPN)",
+""
+],
+[
+"NYJ",
 "Breece Hall",
 "Questionable (ESPN)",
 ""
@@ -1163,7 +1164,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 8.0,
+"wind": 7.6,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1177,7 +1178,39 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_07_CIN_BAL": {
+"wind": 4.5,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_07_TB_CAR": {
+"wind": 8.7,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_07_MIA_NYJ": {
+"wind": 7.1,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
+},
+"2026_07_CLE_TEN": {
+"wind": 1.3,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 16:36 UTC"
+"written_at": "2026-10-21 17:13 UTC"
 }
