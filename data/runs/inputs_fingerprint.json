@@ -325,6 +325,16 @@
 "Out"
 ],
 [
+"NYJ",
+"Joseph Ossai",
+"Doubtful"
+],
+[
+"NYJ",
+"Kiko Mauigoa",
+"Doubtful"
+],
+[
 "PHI",
 "Eli Stowers",
 "Out"
@@ -1036,18 +1046,6 @@
 ""
 ],
 [
-"NYJ",
-"Joseph Ossai",
-"Questionable (ESPN)",
-""
-],
-[
-"NYJ",
-"Kiko Mauigoa",
-"Questionable (ESPN)",
-""
-],
-[
 "PHI",
 "AJ Epenesa",
 "Questionable (ESPN)",
@@ -1160,6 +1158,12 @@
 "Tony Adams",
 "Questionable (ESPN)",
 ""
+],
+[
+"TEN",
+"Tyjae Spears",
+"Questionable (ESPN)",
+""
 ]
 ],
 "weather": {
@@ -1212,5 +1216,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 17:13 UTC"
+"written_at": "2026-10-21 17:47 UTC"
 }
