@@ -17,8 +17,8 @@ shadowunder,2026,6,2026_06_SEA_DEN,Under 40.5,-110,2026-10-15 23:07 UTC,2026-10-
 shadowunder,2026,6,2026_06_CHI_ATL,Under 51.5,-112,2026-10-18 16:23 UTC,2026-10-13 14:29 UTC,first flag,,2026-10-18 13:00,total,under,49.5,51.5,2026-10-18 16:58 UTC,-2.0,False,,,,closed
 shadowunder,2026,6,2026_06_NO_NYG,Under 46.5,-110,2026-10-18 16:23 UTC,2026-10-13 14:29 UTC,first flag,,2026-10-18 13:00,total,under,45.5,46.5,2026-10-18 16:58 UTC,-1.0,False,,,,closed
 shadowunder,2026,6,2026_06_DAL_GB,Under 53.5,-110,2026-10-18 23:31 UTC,2026-10-14 15:24 UTC,first flag,,2026-10-18 20:20,total,under,53.5,54.5,2026-10-19 00:19 UTC,-1.0,False,,,,closed
-shadowunder,2026,7,2026_07_NE_CHI,Under 50.5,-110,2026-10-21 03:14 UTC,2026-10-20 14:25 UTC,first flag,,2026-10-22 20:15,total,under,50.5,,,,,,,,pending
-shadowunder,2026,7,2026_07_PIT_NO,Under 44.5,-110,2026-10-21 03:14 UTC,2026-10-20 14:25 UTC,first flag,,2026-10-25 09:30,total,under,44.5,,,,,,,,pending
+shadowunder,2026,7,2026_07_NE_CHI,Under 50.5,-110,2026-10-21 06:14 UTC,2026-10-20 14:25 UTC,first flag,,2026-10-22 20:15,total,under,50.5,,,,,,,,pending
+shadowunder,2026,7,2026_07_PIT_NO,Under 44.5,-110,2026-10-21 06:14 UTC,2026-10-20 14:25 UTC,first flag,,2026-10-25 09:30,total,under,44.5,,,,,,,,pending
 windunder,2026,4,2026_04_PIT_CLE,Under 38.5,-110,2026-10-01 23:22 UTC,2026-10-01 23:22 UTC,tracker row,,2026-10-01 20:15,total,under,38.5,38.5,2026-10-02 00:12 UTC,0.0,False,0.5108342361863489,0.5108342361863489,0.0,closed
 windunder,2026,4,2026_04_NE_BUF,Under 49.5,-110,2026-10-04 16:01 UTC,2026-10-03 23:00 UTC,first flag,,2026-10-04 13:00,total,under,49.5,49.5,2026-10-04 16:56 UTC,0.0,False,0.4956702459300312,0.5043297540699688,0.008659508139937655,closed
 windunder,2026,5,2026_05_CHI_GB,Under 47.5,-110,2026-10-11 16:07 UTC,2026-10-09 10:49 UTC,first flag,,2026-10-11 13:00,total,under,45.5,47.5,2026-10-11 16:13 UTC,-2.0,False,,,,closed

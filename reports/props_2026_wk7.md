@@ -1,20 +1,20 @@
 # Week 7, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-21 06:13 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-21 06:30 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_yards        |  56     |         10.5  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_yards        |  55.9   |         10.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_catches      |   6.2   |         10.5  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_td           |   0.405 |         10.5  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_td           |   0.403 |         10.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_targets      |  10.5   |         10.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0035676  | A.J. Brown              | rec_longest      |  18.2   |         10.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_yards        |  40     |          6.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_catches      |   4.1   |          6.3  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_td           |   0.294 |          6.3  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_td           |   0.293 |          6.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_targets      |   6.3   |          6.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0038621  | DeMario Douglas         | rec_longest      |  15.3   |          6.3  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0033090  | Hunter Henry            | rec_yards        |  32.9   |          5.1  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0033090  | Hunter Henry            | rec_yards        |  32.8   |          5.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0033090  | Hunter Henry            | rec_catches      |   3.5   |          5.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0033090  | Hunter Henry            | rec_td           |   0.302 |          5.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0033090  | Hunter Henry            | rec_targets      |   5.1   |          5.1  | live   |
@@ -26,7 +26,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rec_longest      |  12.4   |          3.7  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_yards        |  18.8   |          3.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_catches      |   2.2   |          3.3  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_td           |   0.15  |          3.3  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_td           |   0.149 |          3.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_targets      |   3.3   |          3.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040563  | Efton Chism III         | rec_longest      |  12.2   |          3.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0041395  | Eli Raridon             | rec_yards        |  16.1   |          3.1  | live   |
@@ -45,31 +45,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rec_targets      |   1.6   |          1.6  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rec_longest      |   9.2   |          1.6  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_yards       |  39.3   |         10.8  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_td          |   0.308 |         10.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_td          |   0.307 |         10.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_attempts    |  10.8   |         10.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_rec_yards   |  58.6   |         10.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036875  | Rhamondre Stevenson     | rush_longest     |  11.6   |         10.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_yards       |  29.8   |          8.3  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_td          |   0.291 |          8.3  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_td          |   0.29  |          8.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_attempts    |   8.3   |          8.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_rec_yards   |  36.3   |          8.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040734  | TreVeyon Henderson      | rush_longest     |  11.8   |          8.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_yards       |  21.9   |          5.2  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_td          |   0.192 |          5.2  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_td          |   0.191 |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_attempts    |   5.2   |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_rec_yards   |  21.9   |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | rush_longest     |  10.2   |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_yards       |  19.2   |          5    | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_td          |   0.122 |          5    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_td          |   0.121 |          5    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_attempts    |   5     |          5    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_rec_yards   |  19.2   |          5    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040556  | Corey Kiner             | rush_longest     |   8.7   |          5    | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_yards       | 248.4   |         36.5  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_td          |   1.626 |         36.5  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_yards       | 248     |         36.5  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_td          |   1.616 |         36.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_int         |   0.745 |         36.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_attempts    |  33.6   |         36.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_completions |  22.1   |         36.5  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_rush_yards  | 270.3   |         36.5  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_rush_yards  | 269.9   |         36.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0039851  | Drake Maye              | pass_longest     |  35     |         36.5  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0034720  | Robert Spillane         | def_tackles      |   6.6   |         72.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0034720  | Robert Spillane         | def_sacks        |   0.04  |         72.1  | live   |
@@ -95,58 +95,58 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036307  | Kindle Vildor           | def_tackles      |   4     |         72.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036307  | Kindle Vildor           | def_sacks        |   0.07  |         72.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0036307  | Kindle Vildor           | def_solo_tackles |   2.9   |         72.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040200  | Andy Borregales         | kick_points      |   7.2   |         23.63 | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040200  | Andy Borregales         | field_goals      |   1.61  |         23.63 | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_yards        |  51.4   |          8.1  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040200  | Andy Borregales         | kick_points      |   7.2   |         23.52 | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | NE     | 00-0040200  | Andy Borregales         | field_goals      |   1.61  |         23.52 | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_yards        |  51.3   |          8.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_catches      |   5.1   |          8.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_td           |   0.341 |          8.1  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_td           |   0.34  |          8.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_targets      |   8.1   |          8.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040735  | Luther Burden III       | rec_longest      |  17.9   |          8.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_yards        |  42.7   |          7.2  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_yards        |  42.6   |          7.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_catches      |   4.2   |          7.2  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_td           |   0.4   |          7.2  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_td           |   0.399 |          7.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_targets      |   7.2   |          7.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040126  | Colston Loveland        | rec_longest      |  15.7   |          7.2  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_yards        |  43.3   |          7    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_yards        |  43.2   |          7    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_catches      |   3.3   |          7    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_td           |   0.293 |          7    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_targets      |   7     |          7    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039919  | Rome Odunze             | rec_longest      |  18.3   |          7    | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_yards        |  28.3   |          4.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_yards        |  28.2   |          4.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_catches      |   3.5   |          4.8  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_td           |   0.225 |          4.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_td           |   0.224 |          4.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_targets      |   4.8   |          4.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0032464  | Kalif Raymond           | rec_longest      |  13.7   |          4.8  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_yards        |  16.9   |          3.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_catches      |   2.5   |          3.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_td           |   0.109 |          3.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_targets      |   3.9   |          3.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_longest      |  11.2   |          3.9  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_yards        |  16.9   |          3.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_catches      |   2.5   |          3.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_td           |   0.109 |          3.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_targets      |   3.8   |          3.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rec_longest      |  11.2   |          3.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_yards        |  15.1   |          2.9  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_catches      |   1.8   |          2.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_td           |   0.095 |          2.9  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_td           |   0.094 |          2.9  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_targets      |   2.9   |          2.9  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rec_longest      |  10.9   |          2.9  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_yards        |  10.5   |          2.4  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_catches      |   1.5   |          2.4  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_td           |   0.153 |          2.4  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_td           |   0.152 |          2.4  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_targets      |   2.4   |          2.4  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036290  | Cole Kmet               | rec_longest      |  10     |          2.4  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_yards        |   8.1   |          2.1  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_yards        |   8     |          2.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_catches      |   1.3   |          2.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_td           |   0.051 |          2.1  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_td           |   0.05  |          2.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_targets      |   2.1   |          2.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rec_longest      |  10.7   |          2.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_yards       |  45.1   |         13.2  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_yards       |  45.2   |         13.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_td          |   0.426 |         13.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_attempts    |  13.2   |         13.2  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_rec_yards   |  62     |         13.2  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_rec_yards   |  62.1   |         13.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0036275  | D'Andre Swift           | rush_longest     |  13.2   |         13.2  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_yards       |  38.8   |         11.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_td          |   0.308 |         11.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_attempts    |  11.9   |         11.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_rec_yards   |  46.9   |         11.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_longest     |  13.1   |         11.9  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_yards       |  38.8   |         12    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_td          |   0.308 |         12    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_attempts    |  12     |         12    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_rec_yards   |  46.8   |         12    | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0040236  | Kyle Monangai           | rush_longest     |  13.1   |         12    | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rush_yards       |  18.6   |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rush_td          |   0.138 |          5.2  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039021  | Roschon Johnson         | rush_attempts    |   5.2   |          5.2  | live   |
@@ -157,13 +157,13 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | rush_attempts    |   5.1   |          5.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | rush_rec_yards   |  20.7   |          5.1  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | rush_longest     |   9.3   |          5.1  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_yards       | 228.6   |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_td          |   1.69  |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_int         |   0.794 |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_attempts    |  37.4   |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_completions |  22.2   |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_rush_yards  | 249.3   |         38.9  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_longest     |  33.9   |         38.9  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_yards       | 227.9   |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_td          |   1.681 |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_int         |   0.792 |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_attempts    |  37.3   |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_completions |  22.2   |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_rush_yards  | 248.6   |         38.8  | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039918  | Caleb Williams          | pass_longest     |  33.9   |         38.8  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0035525  | Devin Bush              | def_tackles      |   7.2   |         66.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0035525  | Devin Bush              | def_sacks        |   0.14  |         66.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0035525  | Devin Bush              | def_solo_tackles |   3.3   |         66.3  | live   |
@@ -188,8 +188,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039071  | Tyrique Stevenson       | def_tackles      |   4     |         66.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039071  | Tyrique Stevenson       | def_sacks        |   0.03  |         66.3  | live   |
 |     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0039071  | Tyrique Stevenson       | def_solo_tackles |   2.7   |         66.3  | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0031203  | Cairo Santos            | kick_points      |   7.4   |         24.03 | live   |
-|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0031203  | Cairo Santos            | field_goals      |   1.66  |         24.03 | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0031203  | Cairo Santos            | kick_points      |   7.4   |         23.91 | live   |
+|     2026 |      7 | 2026_07_NE_CHI  | CHI    | 00-0031203  | Cairo Santos            | field_goals      |   1.65  |         23.91 | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0035640  | DK Metcalf              | rec_yards        |  54.5   |          8.8  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0035640  | DK Metcalf              | rec_catches      |   4.8   |          8.8  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0035640  | DK Metcalf              | rec_td           |   0.348 |          8.8  | live   |
@@ -434,9 +434,6 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0039435  | Tatum Bethune           | def_tackles      |   7.7   |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0039435  | Tatum Bethune           | def_sacks        |   0.11  |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0039435  | Tatum Bethune           | def_solo_tackles |   2.9   |         59.9  | live   |
-|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0034982  | Dre Greenlaw            | def_tackles      |   5.4   |         59.9  | live   |
-|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0034982  | Dre Greenlaw            | def_sacks        |   0.08  |         59.9  | live   |
-|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0034982  | Dre Greenlaw            | def_solo_tackles |   2     |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0041078  | Jaden Dugger            | def_tackles      |   5.3   |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0041078  | Jaden Dugger            | def_sacks        |   0.16  |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0041078  | Jaden Dugger            | def_solo_tackles |   3.5   |         59.9  | live   |
@@ -452,6 +449,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0035717  | Nick Bosa               | def_tackles      |   3.9   |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0035717  | Nick Bosa               | def_sacks        |   0.27  |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0035717  | Nick Bosa               | def_solo_tackles |   1.9   |         59.9  | live   |
+|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0036329  | Ashtyn Davis            | def_tackles      |   3.9   |         59.9  | live   |
+|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0036329  | Ashtyn Davis            | def_sacks        |   0.04  |         59.9  | live   |
+|     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0036329  | Ashtyn Davis            | def_solo_tackles |   2.5   |         59.9  | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0034173  | Eddy Pineiro            | kick_points      |   7.8   |         28.02 | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | SF     | 00-0034173  | Eddy Pineiro            | field_goals      |   1.66  |         28.02 | live   |
 |     2026 |      7 | 2026_07_SF_ATL  | ATL    | 00-0037238  | Drake London            | rec_yards        |  75.4   |          9.6  | live   |
@@ -1005,11 +1005,11 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0039000  | Deonte Banks            | def_tackles      |   3.7   |         65.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0039000  | Deonte Banks            | def_sacks        |   0.04  |         65.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0039000  | Deonte Banks            | def_solo_tackles |   2.5   |         65.4  | live   |
-|     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0041145  | Dominic Zvada           | kick_points      |   6.8   |         19.32 | live   |
-|     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0041145  | Dominic Zvada           | field_goals      |   1.67  |         19.32 | live   |
+|     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0041145  | Dominic Zvada           | kick_points      |   6.8   |         19.33 | live   |
+|     2026 |      7 | 2026_07_NYG_HOU | NYG    | 00-0041145  | Dominic Zvada           | field_goals      |   1.67  |         19.33 | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_yards        |  61.2   |          8.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_catches      |   4.7   |          8.4  | live   |
-|     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_td           |   0.476 |          8.4  | live   |
+|     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_td           |   0.474 |          8.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_targets      |   8.4   |          8.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0036554  | Nico Collins            | rec_longest      |  22.9   |          8.4  | live   |
 |     2026 |      7 | 2026_07_NYG_HOU | HOU    | 00-0034383  | Dalton Schultz          | rec_yards        |  35.5   |          6.1  | live   |
@@ -1638,9 +1638,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035643  | Jeffery Simmons         | def_tackles      |   4.5   |         60.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035643  | Jeffery Simmons         | def_sacks        |   0.62  |         60.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035643  | Jeffery Simmons         | def_solo_tackles |   2.3   |         60.4  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_tackles      |   4.2   |         60.4  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_sacks        |   0.12  |         60.4  | live   |
-|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038121  | Alontae Taylor          | def_solo_tackles |   3.1   |         60.4  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038620  | Erick Hallett           | def_tackles      |   4.5   |         60.4  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038620  | Erick Hallett           | def_sacks        |   0.07  |         60.4  | live   |
+|     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0038620  | Erick Hallett           | def_solo_tackles |   2.4   |         60.4  | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | kick_points      |   6.4   |         18.52 | live   |
 |     2026 |      7 | 2026_07_CLE_TEN | TEN    | 00-0035192  | Joey Slye               | field_goals      |   1.59  |         18.52 | live   |
 |     2026 |      7 | 2026_07_DEN_ARI | DEN    | 00-0036613  | Jaylen Waddle           | rec_yards        |  56.4   |          8.2  | live   |
@@ -2000,9 +2000,9 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_GB_DET  | DET    | 00-0037236  | Aidan Hutchinson        | def_solo_tackles |   1.7   |         60.7  | live   |
 |     2026 |      7 | 2026_07_GB_DET  | DET    | 00-0039172  | Jake Bates              | kick_points      |   8.4   |         28.71 | live   |
 |     2026 |      7 | 2026_07_GB_DET  | DET    | 00-0039172  | Jake Bates              | field_goals      |   1.77  |         28.71 | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_yards        | 110.6   |         14.8  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_yards        | 110.5   |         14.8  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_catches      |   9.3   |         14.8  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_td           |   0.732 |         14.8  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_td           |   0.731 |         14.8  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_targets      |  14.8   |         14.8  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rec_longest      |  26.4   |         14.8  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0037840  | Kyren Williams          | rec_yards        |  32.3   |          6    | live   |
@@ -2012,7 +2012,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0037840  | Kyren Williams          | rec_longest      |  11.6   |          6    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_yards        |  32.2   |          4.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_catches      |   3.1   |          4.7  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_td           |   0.282 |          4.7  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_td           |   0.281 |          4.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_targets      |   4.7   |          4.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0033110  | Tyler Higbee            | rec_longest      |  14.7   |          4.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0036244  | Colby Parkinson         | rec_yards        |  17.3   |          3.5  | live   |
@@ -2058,10 +2058,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_yards       |   4.6   |          0.9  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_td          |   0.033 |          0.9  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_attempts    |   0.9   |          0.9  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_rec_yards   | 115.2   |          0.9  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_rec_yards   | 115.1   |          0.9  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0039075  | Puka Nacua              | rush_longest     |   7.4   |          0.9  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_yards       | 271.2   |         39.6  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_td          |   1.866 |         39.6  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_td          |   1.864 |         39.6  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_int         |   0.808 |         39.6  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_attempts    |  38.1   |         39.6  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LA     | 00-0026498  | Matthew Stafford        | pass_completions |  24.1   |         39.6  | live   |
@@ -2103,7 +2103,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0038563  | Tre Tucker              | rec_longest      |  17.1   |          6.2  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_yards        |  29.1   |          6    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_catches      |   3.8   |          6    | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_td           |   0.219 |          6    | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_td           |   0.22  |          6    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_targets      |   6     |          6    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0040122  | Ashton Jeanty           | rec_longest      |  14.4   |          6    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039066  | Michael Mayer           | rec_yards        |  32.5   |          5.6  | live   |
@@ -2111,7 +2111,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039066  | Michael Mayer           | rec_td           |   0.253 |          5.6  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039066  | Michael Mayer           | rec_targets      |   5.6   |          5.6  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039066  | Michael Mayer           | rec_longest      |  13.6   |          5.6  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037291  | Jalen Nailor            | rec_yards        |  16     |          3.3  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037291  | Jalen Nailor            | rec_yards        |  16.1   |          3.3  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037291  | Jalen Nailor            | rec_catches      |   1.7   |          3.3  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037291  | Jalen Nailor            | rec_td           |   0.154 |          3.3  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037291  | Jalen Nailor            | rec_targets      |   3.3   |          3.3  | live   |
@@ -2151,12 +2151,12 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039407  | Dylan Laube             | rush_attempts    |   1     |          1    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039407  | Dylan Laube             | rush_rec_yards   |   8.9   |          1    | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0039407  | Dylan Laube             | rush_longest     |   6     |          1    | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_yards       | 231.4   |         37.5  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_td          |   1.626 |         37.5  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_yards       | 231.5   |         37.5  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_td          |   1.628 |         37.5  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_int         |   0.765 |         37.5  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_attempts    |  35.9   |         37.5  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_completions |  22.7   |         37.5  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_rush_yards  | 234.1   |         37.5  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_rush_yards  | 234.2   |         37.5  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0029604  | Kirk Cousins            | pass_longest     |  32     |         37.5  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037615  | Nakobe Dean             | def_tackles      |   9.2   |         66.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0037615  | Nakobe Dean             | def_sacks        |   0.32  |         66.7  | live   |
@@ -2182,8 +2182,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0036901  | Eric Stokes             | def_tackles      |   3.4   |         66.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0036901  | Eric Stokes             | def_sacks        |   0.08  |         66.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0036901  | Eric Stokes             | def_solo_tackles |   2.4   |         66.7  | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | kick_points      |   7.6   |         24.18 | live   |
-|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | field_goals      |   1.76  |         24.18 | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | kick_points      |   7.6   |         24.2  | live   |
+|     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | field_goals      |   1.76  |         24.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_yards        |  38.4   |          7.4  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_catches      |   4.5   |          7.4  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_td           |   0.298 |          7.4  | live   |
@@ -2416,7 +2416,7 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0036997  | Javonte Williams        | rush_rec_yards   |  77.2   |         18.3  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0036997  | Javonte Williams        | rush_longest     |  12.8   |         18.3  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_yards       |  16.9   |          3.9  | live   |
-|     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_td          |   0.087 |          3.9  | live   |
+|     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_td          |   0.088 |          3.9  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_attempts    |   3.9   |          3.9  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_rec_yards   |  16.9   |          3.9  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0038705  | Emari Demercado         | rush_longest     |   9.2   |          3.9  | live   |
@@ -2503,10 +2503,10 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0040024  | Darius Cooper           | rec_td           |   0.124 |          2.6  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0040024  | Darius Cooper           | rec_targets      |   2.6   |          2.6  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0040024  | Darius Cooper           | rec_longest      |  14.4   |          2.6  | live   |
-|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_yards       |  61.5   |         19.1  | live   |
+|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_yards       |  61.4   |         19.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_td          |   0.538 |         19.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_attempts    |  19.1   |         19.1  | live   |
-|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_rec_yards   |  81     |         19.1  | live   |
+|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_rec_yards   |  80.9   |         19.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0037258  | Dameon Pierce           | rush_longest     |   7.7   |         19.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0034844  | Saquon Barkley          | rush_yards       |  35.4   |         11.3  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0034844  | Saquon Barkley          | rush_td          |   0.225 |         11.3  | live   |
@@ -2549,5 +2549,5 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033393  | Kenny Moore II          | def_tackles      |   3.7   |         67.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033393  | Kenny Moore II          | def_sacks        |   0.11  |         67.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033393  | Kenny Moore II          | def_solo_tackles |   2.4   |         67.1  | live   |
-|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033787  | Jake Elliott            | kick_points      |   6.8   |         22.75 | live   |
-|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033787  | Jake Elliott            | field_goals      |   1.55  |         22.75 | live   |
+|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033787  | Jake Elliott            | kick_points      |   6.8   |         22.74 | live   |
+|     2026 |      7 | 2026_07_DAL_PHI | PHI    | 00-0033787  | Jake Elliott            | field_goals      |   1.55  |         22.74 | live   |

@@ -515,14 +515,38 @@
 [
 "CHI",
 "Jack Sanborn",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CHI",
+"Jack Sanborn",
 "Questionable (ESPN)",
 ""
 ],
 [
 "CHI",
 "Jonah Jackson",
+"",
+"Limited Participation in Practice"
+],
+[
+"CHI",
+"Jonah Jackson",
 "Questionable (ESPN)",
 ""
+],
+[
+"CHI",
+"Keyshaun Elliott",
+"",
+"Full Participation in Practice"
+],
+[
+"CHI",
+"Kyle Monangai",
+"",
+"Did Not Participate In Practice"
 ],
 [
 "CHI",
@@ -533,8 +557,20 @@
 [
 "CHI",
 "T.J. Edwards",
+"",
+"Did Not Participate In Practice"
+],
+[
+"CHI",
+"T.J. Edwards",
 "Questionable (ESPN)",
 ""
+],
+[
+"CHI",
+"Tyrique Stevenson",
+"",
+"Full Participation in Practice"
 ],
 [
 "CIN",
@@ -773,8 +809,38 @@
 [
 "NE",
 "A.J. Brown",
+"",
+"Limited Participation in Practice"
+],
+[
+"NE",
+"A.J. Brown",
 "Questionable (ESPN)",
 ""
+],
+[
+"NE",
+"Alijah Vera-Tucker",
+"",
+"Did Not Participate In Practice"
+],
+[
+"NE",
+"Andy Borregales",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Ben Brown",
+"",
+"Did Not Participate In Practice"
+],
+[
+"NE",
+"Carlton Davis III",
+"",
+"Limited Participation in Practice"
 ],
 [
 "NE",
@@ -785,8 +851,50 @@
 [
 "NE",
 "Channing Canada",
+"",
+"Limited Participation in Practice"
+],
+[
+"NE",
+"Channing Canada",
 "Questionable (ESPN)",
 ""
+],
+[
+"NE",
+"Christian Elliss",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Craig Woodson",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Drake Maye",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Dre'Mont Jones",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Joshua Farmer",
+"",
+"Did Not Participate In Practice"
+],
+[
+"NE",
+"Karon Prunty",
+"",
+"Limited Participation in Practice"
 ],
 [
 "NE",
@@ -796,9 +904,39 @@
 ],
 [
 "NE",
+"Kevin Byard",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Marcus Bryant",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Morgan Moses",
+"",
+"Limited Participation in Practice"
+],
+[
+"NE",
 "Morgan Moses",
 "Questionable (ESPN)",
 ""
+],
+[
+"NE",
+"TreVeyon Henderson",
+"",
+"Full Participation in Practice"
+],
+[
+"NE",
+"Will Campbell",
+"",
+"Full Participation in Practice"
 ],
 [
 "NO",
@@ -1019,7 +1157,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 9.1,
+"wind": 9.8,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1027,5 +1165,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-10-21 03:33 UTC"
+"written_at": "2026-10-21 06:34 UTC"
 }
