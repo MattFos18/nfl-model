@@ -297,12 +297,27 @@
 [
 "NE",
 "Alijah Vera-Tucker",
-"Doubtful"
+"Out"
 ],
 [
 "NE",
 "Ben Brown",
-"Doubtful"
+"Out"
+],
+[
+"NE",
+"Carlton Davis III",
+"Out"
+],
+[
+"NE",
+"Channing Canada",
+"Out"
+],
+[
+"NE",
+"Karon Prunty",
+"Out"
 ],
 [
 "NE",
@@ -855,21 +870,9 @@
 ],
 [
 "NE",
-"Carlton Davis III",
-"Questionable (ESPN)",
-""
-],
-[
-"NE",
 "Channing Canada",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Channing Canada",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -906,12 +909,6 @@
 "Karon Prunty",
 "",
 "Limited Participation in Practice"
-],
-[
-"NE",
-"Karon Prunty",
-"Questionable (ESPN)",
-""
 ],
 [
 "NE",
@@ -1184,7 +1181,7 @@
 "rain_src": "open-meteo"
 },
 "2026_07_CIN_BAL": {
-"wind": 4.5,
+"wind": 5.0,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1192,7 +1189,7 @@
 "rain_src": "open-meteo"
 },
 "2026_07_TB_CAR": {
-"wind": 8.7,
+"wind": 8.6,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1200,7 +1197,7 @@
 "rain_src": "open-meteo"
 },
 "2026_07_MIA_NYJ": {
-"wind": 7.1,
+"wind": 7.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1208,7 +1205,7 @@
 "rain_src": "open-meteo"
 },
 "2026_07_CLE_TEN": {
-"wind": 1.3,
+"wind": 2.1,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1216,5 +1213,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 17:47 UTC"
+"written_at": "2026-10-21 18:56 UTC"
 }
