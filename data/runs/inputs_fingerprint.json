@@ -80,6 +80,16 @@
 "Out"
 ],
 [
+"BAL",
+"T.J. Tampa",
+"Out"
+],
+[
+"CAR",
+"Bam Martin-Scott",
+"Out"
+],
+[
 "CAR",
 "Cam Jackson",
 "Out"
@@ -282,6 +292,11 @@
 [
 "LV",
 "Dont'e Thornton Jr.",
+"Out"
+],
+[
+"MIA",
+"Kyle Louis",
 "Out"
 ],
 [
@@ -1648,5 +1663,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-22 01:11 UTC"
+"written_at": "2026-10-22 01:39 UTC"
 }
