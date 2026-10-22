@@ -1,6 +1,6 @@
 # Week 7, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-22 02:59 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-22 03:29 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -226,31 +226,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036862  | Ben Skowronek           | rec_targets      |   1     |          1    | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036862  | Ben Skowronek           | rec_longest      |  10.1   |          1    | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_yards       |  70.9   |         16.6  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_td          |   0.521 |         16.6  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_td          |   0.568 |         16.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_attempts    |  16.6   |         16.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_rec_yards   |  96.8   |         16.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0037228  | Jaylen Warren           | rush_longest     |  13.9   |         16.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_yards       |  29.7   |          9.1  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_td          |   0.237 |          9.1  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_td          |   0.258 |          9.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_attempts    |   9.1   |          9.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_rec_yards   |  42.9   |          9.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0036139  | Rico Dowdle             | rush_longest     |  12.4   |          9.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_yards       |   3.6   |          1.6  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_td          |   0.063 |          1.6  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_td          |   0.069 |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_attempts    |   1.6   |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_rec_yards   |   3.6   |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0034771  | Mason Rudolph           | rush_longest     |   5.6   |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_yards       |   4.3   |          1.5  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_td          |   0.062 |          1.5  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_td          |   0.068 |          1.5  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_attempts    |   1.5   |          1.5  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_rec_yards   |   4.3   |          1.5  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | rush_longest     |   6.5   |          1.5  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_yards       | 202.5   |         36.6  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_yards       | 201.1   |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_td          |   1.377 |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_int         |   0.747 |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_attempts    |  34.1   |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_completions |  21.5   |         36.6  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_rush_yards  | 206.8   |         36.6  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_rush_yards  | 205.4   |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0023459  | Aaron Rodgers           | pass_longest     |  33.5   |         36.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0038135  | Jaquan Brisker          | def_tackles      |   6.9   |         65.5  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | PIT    | 00-0038135  | Jaquan Brisker          | def_sacks        |   0.08  |         65.5  | live   |
@@ -319,31 +319,31 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rec_targets      |   1.6   |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rec_longest      |   7.9   |          1.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_yards       |  35.1   |         10.3  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_td          |   0.335 |         10.3  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_td          |   0.365 |         10.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_attempts    |  10.3   |         10.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_rec_yards   |  42.6   |         10.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0038551  | Kendre Miller           | rush_longest     |   9     |         10.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_yards       |  20.1   |          7.3  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_td          |   0.191 |          7.3  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_td          |   0.208 |          7.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_attempts    |   7.3   |          7.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_rec_yards   |  34.3   |          7.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0033906  | Alvin Kamara            | rush_longest     |   9.8   |          7.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_yards       |  12.8   |          3.4  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_td          |   0.173 |          3.4  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_td          |   0.188 |          3.4  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_attempts    |   3.4   |          3.4  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_rec_yards   |  12.8   |          3.4  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | rush_longest     |   9     |          3.4  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_yards       |  12.7   |          3.3  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_td          |   0.1   |          3.3  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_td          |   0.108 |          3.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_attempts    |   3.3   |          3.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_rec_yards   |  12.7   |          3.3  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0041326  | CJ Donaldson            | rush_longest     |   7.6   |          3.3  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_yards       | 219     |         39.1  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_yards       | 217.4   |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_td          |   1.376 |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_int         |   0.798 |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_attempts    |  36.2   |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_completions |  24.1   |         39.1  | live   |
-|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_rush_yards  | 231.8   |         39.1  | live   |
+|     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_rush_yards  | 230.2   |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0040743  | Tyler Shough            | pass_longest     |  32     |         39.1  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0035316  | Kaden Elliss            | def_tackles      |   6.3   |         61.6  | live   |
 |     2026 |      7 | 2026_07_PIT_NO  | NO     | 00-0035316  | Kaden Elliss            | def_sacks        |   0.14  |         61.6  | live   |
