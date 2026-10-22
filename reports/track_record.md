@@ -23,12 +23,12 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 60%+ chance | 6 | 5 | 1-4 (20%) | -3.09 | +0.17 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 4 | 3 | 2-1 (67%) | +0.82 | +0.00 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 8 | 8 | 4-4 (50%) | -0.36 | +0.12 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 16 | 13 | 8-5 (62%) | -2.36 | -0.81 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 16 | 13 | 8-5 (62%) | -2.36 | -0.50 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 7 | 7 | 3-4 (43%) | -1.27 | +0.00 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 6 | 5 | 1-4 (20%) | -3.09 | +0.17 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 3 | 3 | 2-1 (67%) | +0.82 | +0.33 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 9 | 7 | 3-4 (43%) | -1.27 | +0.22 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 10 | 7 | 3-4 (43%) | -1.27 | +0.20 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 4 | 3 | 1-2 (33%) | -1.09 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 1 | 1 | 1-0 (100%) | +0.95 | +0.00 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 4 | 3 | 2-1 (67%) | +0.88 | +0.00 | 20-12 | 23-16 | 19-5 |
