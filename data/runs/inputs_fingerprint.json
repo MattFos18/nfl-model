@@ -1612,7 +1612,7 @@
 ],
 "weather": {
 "2026_07_NE_CHI": {
-"wind": 7.1,
+"wind": 5.0,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -1620,7 +1620,7 @@
 "rain_src": "mos"
 },
 "2026_07_PIT_NO": {
-"wind": 13.6,
+"wind": 16.3,
 "cold": false,
 "rain": false,
 "src": "open-meteo",
@@ -1668,5 +1668,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-22 02:19 UTC"
+"written_at": "2026-10-22 04:46 UTC"
 }
