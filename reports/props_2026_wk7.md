@@ -1,6 +1,6 @@
 # Week 7, 2026: player projections (readings, graded next run)
 
-Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-22 00:58 UTC.
+Volume (the team's plays per game moved by the game script from the current consensus spread and total (the newest line snapshot), shared among the players who are playing by usage decayed 0.85 per game back, the share moved 75% (receiving) and 100% (rushing) of the way toward his usage over every game he was active for, a game without a touch counting 0; reports/props_backtest17.csv) x the player's yards per touch shrunk toward the league (receivers 100 targets, rushers 25 carries, QBs 50 dropbacks of weight) and moved toward what the defense allows (receivers 25%, rushers 25%, QBs 50%) x a median factor that rises with the player's mean, since a small role's median sits far below its mean and a star's close to it (receivers 0.69 to 0.869, a logistic centred at 32.6 mean yards; rushers 0.84 flat; QBs 0.63 + 0.00091 x mean yards; reports/props_backtest15.csv). Passing yards also blend the opponent's allowed dropbacks (a quarter) and drop 0.5% per mph of kickoff wind above 10. The rule the backtest rounds chose: 19.12 / 18.14 yards off on receiving, 17.68 / 16.96 on rushing and 56.56 / 56.04 on passing yards per player-game, 2019-22 / 2023-25 (reports/props_by_season.csv). Each team's players are then moved toward what the game model's expected points say the team should produce (yards a quarter of the way, passing half; touchdowns half, passing fully; reports/props_backtest6.csv). Receptions: targets x catch rate shrunk toward the league (25 targets) x 0.9; touchdowns: volume x his rate shrunk toward the league's for his position (200 / 200 / 400 touches), receiving and passing scores moved 2.0% per point of expected margin; the touchdown volume from his usage over every game he was active for, a game without a touch counting 0 (round 14: Poisson log loss 0.4171 / 0.3905 receiving and 0.4195 / 0.3768 rushing on every game a projected player played, reports/props_backtest14.csv); interceptions at the league rate (reports/props_backtest5.csv). Not a market comparison. Built 2026-10-22 01:09 UTC.
 
 |   season |   week | game_id         | team   | player_id   | name                    | stat             |    proj |   proj_volume | made   |
 |---------:|-------:|:----------------|:-------|:------------|:------------------------|:-----------------|--------:|--------------:|:-------|
@@ -2184,53 +2184,53 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0036901  | Eric Stokes             | def_solo_tackles |   2.4   |         66.7  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | kick_points      |   7.6   |         24.2  | live   |
 |     2026 |      7 | 2026_07_LA_LV   | LV     | 00-0035269  | Matt Gay                | field_goals      |   1.76  |         24.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_yards        |  38.4   |          7.4  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_catches      |   4.5   |          7.4  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_td           |   0.298 |          7.4  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_targets      |   7.4   |          7.4  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_longest      |  20.1   |          7.4  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_yards        |  39.1   |          6.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_catches      |   3.9   |          6.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_td           |   0.259 |          6.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_yards        |  38.3   |          7.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_catches      |   4.5   |          7.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_td           |   0.293 |          7.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_targets      |   7.3   |          7.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039067  | Rashee Rice             | rec_longest      |  20.1   |          7.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_yards        |  38.9   |          6.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_catches      |   3.8   |          6.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_td           |   0.256 |          6.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0039894  | Xavier Worthy           | rec_longest      |  16     |          6.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_yards        |  38.8   |          6.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_yards        |  38.6   |          6.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_catches      |   4.3   |          6.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_td           |   0.305 |          6.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_td           |   0.301 |          6.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_targets      |   6.8   |          6.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0030506  | Travis Kelce            | rec_longest      |  18.2   |          6.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_yards        |  23.9   |          4.6  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_yards        |  23.7   |          4.6  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_catches      |   3     |          4.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_td           |   0.142 |          4.6  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_td           |   0.141 |          4.6  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_targets      |   4.6   |          4.6  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rec_longest      |  11.7   |          4.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_yards        |  13.4   |          3    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_catches      |   1.7   |          3    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_td           |   0.122 |          3    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_targets      |   3     |          3    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_longest      |  11.5   |          3    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_yards        |  12.7   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_catches      |   1.5   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_td           |   0.111 |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_targets      |   2.5   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_longest      |   9.1   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_yards        |   9.8   |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_yards        |  13.4   |          2.9  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_catches      |   1.7   |          2.9  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_td           |   0.121 |          2.9  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_targets      |   2.9   |          2.9  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036637  | Noah Gray               | rec_longest      |  11.5   |          2.9  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_yards        |  12.7   |          2.4  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_catches      |   1.5   |          2.4  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_td           |   0.109 |          2.4  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_targets      |   2.4   |          2.4  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040646  | Jalen Royals            | rec_longest      |   9.1   |          2.4  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_yards        |   9.7   |          2.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_catches      |   1.3   |          2.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_td           |   0.057 |          2.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_targets      |   2.1   |          2.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rec_longest      |   9.2   |          2.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_yards        |   9.8   |          2.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_catches      |   1.4   |          2.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_td           |   0.065 |          2.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_targets      |   2.2   |          2.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_longest      |  12.4   |          2.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_yards       |  82.7   |         19    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_td          |   0.592 |         19    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_attempts    |  19     |         19    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_rec_yards   | 106.6   |         19    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_longest     |  17.5   |         19    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_yards        |   9.8   |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_catches      |   1.4   |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_td           |   0.064 |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_targets      |   2.1   |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rec_longest      |  12.4   |          2.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_yards       |  82.9   |         19.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_td          |   0.587 |         19.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_attempts    |  19.1   |         19.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_rec_yards   | 106.6   |         19.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0038134  | Kenneth Walker III      | rush_longest     |  17.5   |         19.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_yards       |  12.7   |          3.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_td          |   0.125 |          3.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_td          |   0.124 |          3.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_attempts    |   3.2   |          3.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_rec_yards   |  12.7   |          3.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | rush_longest     |   8.4   |          3.2  | live   |
@@ -2240,17 +2240,17 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rush_rec_yards   |  19.7   |          3.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0041013  | Emmett Johnson          | rush_longest     |   7.5   |          3.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_yards       |   4     |          1.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_td          |   0.028 |          1.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_td          |   0.027 |          1.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_attempts    |   1.2   |          1.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_rec_yards   |  13.8   |          1.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_rec_yards   |  13.7   |          1.2  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0040078  | Brashard Smith          | rush_longest     |   7.4   |          1.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_yards       | 217.4   |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_td          |   1.338 |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_int         |   0.761 |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_attempts    |  35.2   |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_completions |  22.6   |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_rush_yards  | 230.1   |         37.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_longest     |  36.9   |         37.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_yards       | 215.4   |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_td          |   1.307 |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_int         |   0.757 |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_attempts    |  35     |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_completions |  22.5   |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_rush_yards  | 228.1   |         37.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033873  | Patrick Mahomes         | pass_longest     |  36.9   |         37.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036621  | Nick Bolton             | def_tackles      |   9     |         63.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036621  | Nick Bolton             | def_sacks        |   0.08  |         63.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0036621  | Nick Bolton             | def_solo_tackles |   4     |         63.5  | live   |
@@ -2275,41 +2275,41 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0037192  | George Karlaftis        | def_tackles      |   3.4   |         63.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0037192  | George Karlaftis        | def_sacks        |   0.28  |         63.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0037192  | George Karlaftis        | def_solo_tackles |   1.5   |         63.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033303  | Harrison Butker         | kick_points      |   7     |         20.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033303  | Harrison Butker         | field_goals      |   1.7   |         20.2  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_yards        |  89.6   |         11.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_catches      |   7     |         11.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_td           |   0.698 |         11.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_targets      |  11.1   |         11.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_longest      |  26.3   |         11.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_yards        |  27.6   |          5    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033303  | Harrison Butker         | kick_points      |   7     |         19.81 | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | KC     | 00-0033303  | Harrison Butker         | field_goals      |   1.7   |         19.81 | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_yards        |  89.3   |         11    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_catches      |   6.9   |         11    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_td           |   0.693 |         11    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_targets      |  11     |         11    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038543  | Jaxon Smith-Njigba      | rec_longest      |  26.3   |         11    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_yards        |  27.4   |          5    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_catches      |   2.8   |          5    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_td           |   0.227 |          5    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_td           |   0.225 |          5    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_targets      |   5     |          5    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033908  | Cooper Kupp             | rec_longest      |  14.2   |          5    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_yards        |  21.4   |          4.5  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_yards        |  21.3   |          4.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_catches      |   2.2   |          4.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_td           |   0.156 |          4.5  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_td           |   0.154 |          4.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_targets      |   4.5   |          4.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037545  | Rashid Shaheed          | rec_longest      |  14.4   |          4.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_yards        |  21.7   |          4.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_yards        |  21.5   |          4.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_catches      |   2.6   |          4.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_td           |   0.211 |          4.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_td           |   0.209 |          4.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_targets      |   4.1   |          4.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039793  | AJ Barner               | rec_longest      |  12.9   |          4.1  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_yards        |  11.1   |          2.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_catches      |   1.4   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_td           |   0.153 |          2.5  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_td           |   0.152 |          2.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_targets      |   2.5   |          2.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0040648  | Tory Horton             | rec_longest      |  11.7   |          2.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_yards        |  11     |          2    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_yards        |  10.9   |          2    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_catches      |   1.3   |          2    | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_td           |   0.055 |          2    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_td           |   0.054 |          2    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_targets      |   2     |          2    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rec_longest      |   9.5   |          2    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_yards        |   7.7   |          1.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_catches      |   0.9   |          1.5  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_td           |   0.046 |          1.5  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_td           |   0.044 |          1.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_targets      |   1.5   |          1.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rec_longest      |   9     |          1.5  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033576  | Eric Saubert            | rec_yards        |   3.3   |          0.8  | live   |
@@ -2317,33 +2317,33 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033576  | Eric Saubert            | rec_td           |   0.037 |          0.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033576  | Eric Saubert            | rec_targets      |   0.8   |          0.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0033576  | Eric Saubert            | rec_longest      |   7.4   |          0.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_yards       |  52.9   |         15.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_td          |   0.447 |         15.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_attempts    |  15.6   |         15.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_rec_yards   |  60.6   |         15.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_longest     |   9.9   |         15.6  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_yards       |  16.8   |          5.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_td          |   0.16  |          5.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_attempts    |   5.1   |          5.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_rec_yards   |  27.8   |          5.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_longest     |   7.7   |          5.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_yards       |   9.3   |          2.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_yards       |  53.3   |         15.7  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_td          |   0.445 |         15.7  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_attempts    |  15.7   |         15.7  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_rec_yards   |  61     |         15.7  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038797  | Emanuel Wilson          | rush_longest     |   9.9   |         15.7  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_yards       |  16.8   |          5.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_td          |   0.16  |          5.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_attempts    |   5.2   |          5.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_rec_yards   |  27.7   |          5.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0039299  | George Holani           | rush_longest     |   7.7   |          5.2  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_yards       |   9.4   |          2.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_td          |   0.067 |          2.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_attempts    |   2.3   |          2.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_rec_yards   |   9.3   |          2.3  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_rec_yards   |   9.4   |          2.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0037745  | Velus Jones Jr.         | rush_longest     |   8.8   |          2.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_yards       |   5.4   |          1.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_td          |   0.06  |          1.8  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_td          |   0.059 |          1.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_attempts    |   1.8   |          1.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_rec_yards   |   5.4   |          1.8  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | rush_longest     |   7.1   |          1.8  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_yards       | 218.5   |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_td          |   1.515 |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_int         |   0.696 |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_attempts    |  31.7   |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_completions |  20.2   |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_rush_yards  | 223.9   |         34.1  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_longest     |  32.3   |         34.1  | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_yards       | 217.1   |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_td          |   1.49  |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_int         |   0.694 |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_attempts    |  31.6   |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_completions |  20.2   |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_rush_yards  | 222.5   |         34    | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0034869  | Sam Darnold             | pass_longest     |  32.3   |         34    | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0036994  | Ernest Jones            | def_tackles      |   9.1   |         64.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0036994  | Ernest Jones            | def_sacks        |   0.18  |         64.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0036994  | Ernest Jones            | def_solo_tackles |   4.9   |         64.3  | live   |
@@ -2368,8 +2368,8 @@ Volume (the team's plays per game moved by the game script from the current cons
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038765  | Ty Okada                | def_tackles      |   3.5   |         64.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038765  | Ty Okada                | def_sacks        |   0.1   |         64.3  | live   |
 |     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0038765  | Ty Okada                | def_solo_tackles |   2.3   |         64.3  | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0031492  | Jason Myers             | kick_points      |   7.6   |         22.66 | live   |
-|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0031492  | Jason Myers             | field_goals      |   1.78  |         22.66 | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0031492  | Jason Myers             | kick_points      |   7.5   |         22.34 | live   |
+|     2026 |      7 | 2026_07_KC_SEA  | SEA    | 00-0031492  | Jason Myers             | field_goals      |   1.77  |         22.34 | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0036358  | CeeDee Lamb             | rec_yards        |  74.6   |         11.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0036358  | CeeDee Lamb             | rec_catches      |   6.4   |         11.1  | live   |
 |     2026 |      7 | 2026_07_DAL_PHI | DAL    | 00-0036358  | CeeDee Lamb             | rec_td           |   0.466 |         11.1  | live   |

@@ -385,6 +385,11 @@
 "Out"
 ],
 [
+"PIT",
+"DeShon Elliott",
+"Out"
+],
+[
 "SEA",
 "Anthony Bradford",
 "Out"
@@ -998,7 +1003,25 @@
 ],
 [
 "LV",
+"Folorunso Fatukasi",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Kolton Miller",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Mike Washington Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
+"Quay Walker",
 "Questionable (ESPN)",
 ""
 ],
@@ -1256,6 +1279,12 @@
 ],
 [
 "NYG",
+"Greg Newsome II",
+"Questionable (ESPN)",
+""
+],
+[
+"NYG",
 "Jermaine Eluemunor",
 "Questionable (ESPN)",
 ""
@@ -1448,6 +1477,12 @@
 ],
 [
 "SF",
+"Ashtyn Davis",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Jaden Dugger",
 "Questionable (ESPN)",
 ""
@@ -1472,7 +1507,19 @@
 ],
 [
 "SF",
+"Mykel Williams",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Nick Bosa",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
+"Siran Neal",
 "Questionable (ESPN)",
 ""
 ],
@@ -1591,7 +1638,15 @@
 "src": "open-meteo",
 "temp_src": "open-meteo",
 "rain_src": "open-meteo"
+},
+"2026_07_KC_SEA": {
+"wind": 9.2,
+"cold": false,
+"rain": false,
+"src": "open-meteo",
+"temp_src": "open-meteo",
+"rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-22 00:20 UTC"
+"written_at": "2026-10-22 01:11 UTC"
 }
