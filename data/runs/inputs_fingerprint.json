@@ -443,6 +443,11 @@
 "TB",
 "Antoine Winfield Jr.",
 "Doubtful"
+],
+[
+"TEN",
+"Dorian Mausi",
+"Out"
 ]
 ],
 "reports": [
@@ -1663,5 +1668,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-22 01:39 UTC"
+"written_at": "2026-10-22 02:19 UTC"
 }
