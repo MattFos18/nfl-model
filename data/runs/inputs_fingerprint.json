@@ -75,11 +75,6 @@
 },
 "injuries": [
 [
-"ARI",
-"James Conner",
-"Out"
-],
-[
 "ATL",
 "A.J. Terrell Jr.",
 "Out"
@@ -345,6 +340,11 @@
 "Out"
 ],
 [
+"NYG",
+"Paulson Adebo",
+"Out"
+],
+[
 "NYJ",
 "Joseph Ossai",
 "Doubtful"
@@ -434,7 +434,43 @@
 ],
 [
 "ARI",
+"Budda Baker",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Carson Beck",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Garrett Williams",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Jedrick Wills Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
 "Jeremiyah Love",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Max Melton",
+"Questionable (ESPN)",
+""
+],
+[
+"ARI",
+"Walter Nolen III",
 "Questionable (ESPN)",
 ""
 ],
@@ -471,12 +507,6 @@
 [
 "ATL",
 "Divine Deablo",
-"Questionable (ESPN)",
-""
-],
-[
-"ATL",
-"Kendal Daniels",
 "Questionable (ESPN)",
 ""
 ],
@@ -968,6 +998,12 @@
 ],
 [
 "LV",
+"Mike Washington Jr.",
+"Questionable (ESPN)",
+""
+],
+[
+"LV",
 "Tonka Hemingway",
 "Questionable (ESPN)",
 ""
@@ -1220,12 +1256,6 @@
 ],
 [
 "NYG",
-"Greg Newsome II",
-"Questionable (ESPN)",
-""
-],
-[
-"NYG",
 "Jermaine Eluemunor",
 "Questionable (ESPN)",
 ""
@@ -1418,6 +1448,12 @@
 ],
 [
 "SF",
+"Jaden Dugger",
+"Questionable (ESPN)",
+""
+],
+[
+"SF",
 "Luke Gifford",
 "Questionable (ESPN)",
 ""
@@ -1557,5 +1593,5 @@
 "rain_src": "open-meteo"
 }
 },
-"written_at": "2026-10-21 23:48 UTC"
+"written_at": "2026-10-22 00:20 UTC"
 }
