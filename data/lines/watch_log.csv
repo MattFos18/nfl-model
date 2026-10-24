@@ -1748,3 +1748,4 @@ ts,season,week,rows,errors
 2026-10-22T11-01-34Z,2026,7,14,
 2026-10-22T11-31-43Z,2026,7,14,
 2026-10-22T21-26-27Z,2026,7,224,
+2026-10-24T17-12-51Z,2026,7,13,oddsapi: 401 Client Error: Unauthorized for url: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds?regions=us&mark
