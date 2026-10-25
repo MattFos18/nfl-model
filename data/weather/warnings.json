@@ -14,9 +14,9 @@
   "source": "data checks"
  },
  "data checks|games inside the forecast window without every live reading: 2026_07_CIN_BAL (no wind, temperature, rain), 2026_07_CLE_TEN (no wind, temperature, rain), 2026_07_DAL_PHI (no wind, temperature, rain), 2026_07_KC_SEA (no wind, temperature, rain), 2026_07_MIA_NYJ (no wind, temperature, rain), 2026_07_TB_CAR (no wind, temperature, rain)": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-24 17:10 UTC",
-  "last": "2026-10-24 17:10 UTC",
+  "last": "2026-10-25 16:59 UTC",
   "message": "games inside the forecast window without every live reading: 2026_07_CIN_BAL (no wind, temperature, rain), 2026_07_CLE_TEN (no wind, temperature, rain), 2026_07_DAL_PHI (no wind, temperature, rain), 2026_07_KC_SEA (no wind, temperature, rain), 2026_07_MIA_NYJ (no wind, temperature, rain), 2026_07_TB_CAR (no wind, temperature, rain)",
   "source": "data checks"
  },
@@ -26,13 +26,6 @@
   "last": "2026-10-18 20:50 UTC",
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
- },
- "live weather|2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 66,
-  "first": "2026-10-07 13:57 UTC",
-  "last": "2026-10-11 16:13 UTC",
-  "message": "2026_05_PHI_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
  },
  "live weather|2026_06_BAL_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 24,
@@ -173,34 +166,6 @@
   "last": "2026-10-15 17:40 UTC",
   "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_06_CAR_PHI PHI",
   "source": "standing checks"
- },
- "wind_live|2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 41,
-  "first": "2026-10-08 23:11 UTC",
-  "last": "2026-10-11 16:14 UTC",
-  "message": "2026_05_CHI_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 24,
-  "first": "2026-10-08 23:28 UTC",
-  "last": "2026-10-11 16:14 UTC",
-  "message": "2026_05_CIN_MIA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_05_NYG_WAS: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 4,
-  "first": "2026-10-09 22:14 UTC",
-  "last": "2026-10-11 12:39 UTC",
-  "message": "2026_05_NYG_WAS: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 21,
-  "first": "2026-10-09 05:01 UTC",
-  "last": "2026-10-11 12:40 UTC",
-  "message": "2026_05_SF_SEA: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
  },
  "wind_live|2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature": {
   "count": 3,
@@ -377,11 +342,46 @@
   "message": "2026_06_WAS_SF: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
+ "wind_live|2026_07_CIN_BAL: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-13-01Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_CIN_BAL: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-13-01Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
  "wind_live|2026_07_CIN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 1,
   "first": "2026-10-24 17:13 UTC",
   "last": "2026-10-24 17:13 UTC",
   "message": "2026_07_CIN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_07_CLE_TEN: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_CLE_TEN: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_07_DAL_PHI: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_DAL_PHI: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_07_KC_SEA: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_KC_SEA: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_07_MIA_NYJ: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_MIA_NYJ: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
   "source": "wind_live"
  },
  "wind_live|2026_07_NE_CHI: GFS MOS run 2026-10-19T18Z at KMDW gave no wind, rain chance, temperature": {
@@ -403,6 +403,13 @@
   "first": "2026-10-20 06:31 UTC",
   "last": "2026-10-20 10:02 UTC",
   "message": "2026_07_NE_CHI: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_07_TB_CAR: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
+  "count": 1,
+  "first": "2026-10-25 16:59 UTC",
+  "last": "2026-10-25 16:59 UTC",
+  "message": "2026_07_TB_CAR: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
   "source": "wind_live"
  }
 }

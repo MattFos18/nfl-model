@@ -5,11 +5,14 @@
  "week": 7,
  "espn_unmatched": [
   "BUF C.J. Gardner-Johnson",
+  "CLE Audric Estime",
   "HOU Jake Hummel",
+  "HOU Nate Thomas",
   "JAX Anton Harrison",
   "LAC Alec Ingold",
   "LAC Denzel Perryman",
   "MIA Robert Beal Jr.",
+  "NO Mike Reid",
   "NYJ Kiko Mauigoa",
   "WAS Javontae Jean-Baptiste",
   "WAS Jaylin Lane",
@@ -29,14 +32,6 @@
  ],
  "conflicts": [
   {
-   "game_id": "2026_07_CIN_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_07_TB_CAR",
    "team": "TB",
    "named": "00-0041251",
@@ -53,28 +48,12 @@
    "priced_name": "Jameis Winston"
   },
   {
-   "game_id": "2026_08_BAL_BUF",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_08_ATL_TB",
    "team": "TB",
    "named": "00-0041251",
    "priced": "00-0034855",
    "named_name": "Jalon Daniels",
    "priced_name": "Baker Mayfield"
-  },
-  {
-   "game_id": "2026_09_JAX_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_09_NYG_PHI",
@@ -101,22 +80,6 @@
    "priced_name": "Jameis Winston"
   },
   {
-   "game_id": "2026_10_LAC_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
-   "game_id": "2026_11_BAL_CAR",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_11_TB_DET",
    "team": "TB",
    "named": "00-0041251",
@@ -131,14 +94,6 @@
    "priced": "00-0031503",
    "named_name": "J.J. McCarthy",
    "priced_name": "Jameis Winston"
-  },
-  {
-   "game_id": "2026_12_BAL_HOU",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_12_NYG_IND",
@@ -174,14 +129,6 @@
   },
   {
    "game_id": "2026_14_TB_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
-   "game_id": "2026_14_TB_BAL",
    "team": "TB",
    "named": "00-0041251",
    "priced": "00-0034855",
@@ -205,14 +152,6 @@
    "priced_name": "Jameis Winston"
   },
   {
-   "game_id": "2026_15_BAL_PIT",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_15_NO_TB",
    "team": "TB",
    "named": "00-0041251",
@@ -229,28 +168,12 @@
    "priced_name": "Baker Mayfield"
   },
   {
-   "game_id": "2026_16_CLE_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_16_NYG_DET",
    "team": "NYG",
    "named": "00-0039923",
    "priced": "00-0031503",
    "named_name": "J.J. McCarthy",
    "priced_name": "Jameis Winston"
-  },
-  {
-   "game_id": "2026_17_BAL_CIN",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_17_NYG_DAL",
@@ -267,14 +190,6 @@
    "priced": "00-0034855",
    "named_name": "Jalon Daniels",
    "priced_name": "Baker Mayfield"
-  },
-  {
-   "game_id": "2026_18_PIT_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_18_TB_NO",
