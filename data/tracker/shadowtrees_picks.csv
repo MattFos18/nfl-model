@@ -5,3 +5,4 @@ run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,
 2026-10-18 16:23 UTC,2026,6,2026_06_TEN_IND,TEN -6.5,-110,1.0,,DraftKings,0.54,0.78,0.513
 2026-10-24 17:08 UTC,2026,7,2026_07_CIN_BAL,BAL +1.5,-115,1.0,0.99,DraftKings,4.86,6.4,0.624
 2026-10-25 16:57 UTC,2026,7,2026_07_DEN_ARI,DEN -4.5,-110,1.0,,DraftKings,-3.8,2.76,0.588
+2026-10-27 15:42 UTC,2026,8,2026_08_KC_DEN,DEN +1.5,-110,1.0,1.24,DraftKings,4.38,1.71,0.611

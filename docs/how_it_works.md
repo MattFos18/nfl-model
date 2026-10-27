@@ -76,25 +76,25 @@ coefficients the cards break down:
 <!-- auto:effects -->
 | Input | Points per unit | Points per SD | Raw points, 2013 to 2025 |
 |---|---|---|---|
-| Starting QB rating | +18.179 | +1.76 |  |
-| Own offense points rating | +0.844 | +1.22 |  |
-| Opponent defense points rating | -0.994 | -1.12 |  |
-| Opponent's offseason turnover, defense | +4.647 | +1.08 |  |
-| Home | +1.843 | +0.92 | 23.77 with it (3,407 team-games), 21.87 without |
-| Offseason turnover, offense | -4.145 | -0.90 |  |
+| Starting QB rating | +18.163 | +1.76 |  |
+| Own offense points rating | +0.838 | +1.21 |  |
+| Opponent defense points rating | -0.981 | -1.11 |  |
+| Opponent's offseason turnover, defense | +4.710 | +1.10 |  |
+| Offseason turnover, offense | -4.248 | -0.92 |  |
+| Home | +1.819 | +0.91 | 23.77 with it (3,407 team-games), 21.87 without |
 | Wind (outdoor), per mph | -0.157 | -0.84 | 23.82 points in calm air, 21.4 at 11 to 15 mph |
-| Opponent's defensive snaps out | +0.645 | +0.42 |  |
+| Opponent's defensive snaps out | +0.634 | +0.41 |  |
 | Opponent out of the race | +1.249 | +0.41 |  |
-| Skill players out: value lost | -30.434 | -0.40 |  |
-| Opponent defense EPA per play | -12.520 | -0.30 |  |
-| Opponent's skill players out: value lost | +18.705 | +0.25 |  |
-| Warm-climate or dome team outdoors in the cold | -1.750 | -0.22 | 19.68 with it (95 team-games), 22.87 without |
-| Offensive snaps out | -0.294 | -0.19 |  |
-| Out of the race | -0.493 | -0.16 |  |
-| Cold | +0.401 | +0.10 | 22.29 with it (374 team-games), 22.85 without |
-| Own offense EPA per play | +2.168 | +0.07 |  |
+| Skill players out: value lost | -31.151 | -0.41 |  |
+| Opponent defense EPA per play | -13.235 | -0.32 |  |
+| Opponent's skill players out: value lost | +19.124 | +0.25 |  |
+| Warm-climate or dome team outdoors in the cold | -1.766 | -0.22 | 19.68 with it (95 team-games), 22.87 without |
+| Offensive snaps out | -0.274 | -0.18 |  |
+| Out of the race | -0.506 | -0.17 |  |
+| Cold | +0.407 | +0.10 | 22.29 with it (374 team-games), 22.85 without |
+| Own offense EPA per play | +2.197 | +0.07 |  |
 
-The fit that priced Week 7 of 2026: 7,310 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
+The fit that priced Week 8 of 2026: 7,338 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
 <!-- /auto:effects -->
 
 Two expected scores per game give the spread (home minus away) and the total.

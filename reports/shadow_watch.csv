@@ -1,28 +1,28 @@
 rule,label,hidden,record,settled,units,roi,compared_with,base_record,base_roi,luck_p,status
-shadow45,4.5+ edge,False,1-2,3,-1.05,-0.328,model,2-2,-0.028,0.892,tracking
-shadowdog,"4+ edge, model's side the underdog or pick'em",False,2-2,4,-0.12,-0.028,model,2-2,-0.028,0.722,tracking
-shadowearly,"4+ edge, weeks 1 to 13 only",False,2-2,4,-0.12,-0.028,model,2-2,-0.028,0.722,tracking
-shadowtrees,"boosted trees alone, 5+ edge",False,1-3,4,-2.05,-0.477,model,2-2,-0.028,0.949,tracking
-shadowunder,"Under, 55%+ chance (the totals flag)",False,7-9,16,-2.59,-0.148,break-even,0-0,,0.827,tracking
-shadowunderearly,"Under, 59%+ chance in weeks 1 to 3, 55%+ after",False,5-8,13,-3.41,-0.239,shadowunder,7-9,-0.148,0.9,tracking
-shadowhook,"4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125",False,2-0,2,1.6,0.64,model,2-2,-0.028,0.309,tracking
-shadowroad6,"4+ edge on road sides, 6+ on home sides",True,1-1,2,-0.05,-0.023,model,2-2,-0.028,0.773,tracking
-shadowroad,"4+ edge, road sides only",True,1-1,2,-0.05,-0.023,model,2-2,-0.028,0.773,tracking
-shadowunder60,"Under, 60%+ chance",True,2-4,6,-2.18,-0.33,shadowunder,7-9,-0.148,0.911,tracking
-shadowunderprime,"Under, 55%+ chance, prime time (TNF, SNF, MNF) only",True,2-2,4,-0.18,-0.041,shadowunder,7-9,-0.148,0.722,tracking
+shadow45,4.5+ edge,False,1-3,4,-2.05,-0.472,model,2-3,-0.207,0.949,tracking
+shadowdog,"4+ edge, model's side the underdog or pick'em",False,2-3,5,-1.12,-0.207,model,2-3,-0.207,0.841,tracking
+shadowearly,"4+ edge, weeks 1 to 13 only",False,2-3,5,-1.12,-0.207,model,2-3,-0.207,0.841,tracking
+shadowtrees,"boosted trees alone, 5+ edge",False,2-4,6,-2.14,-0.327,model,2-3,-0.207,0.911,tracking
+shadowunder,"Under, 55%+ chance (the totals flag)",False,8-9,17,-1.68,-0.09,break-even,0-0,,0.752,tracking
+shadowunderearly,"Under, 59%+ chance in weeks 1 to 3, 55%+ after",False,6-8,14,-2.5,-0.163,shadowunder,8-9,-0.09,0.837,tracking
+shadowhook,"4+ edge on +2.5, +3, -3 or -3.5, half a point bought on or off 3 at -125",False,2-0,2,1.6,0.64,model,2-3,-0.207,0.309,tracking
+shadowroad6,"4+ edge on road sides, 6+ on home sides",True,1-1,2,-0.05,-0.023,model,2-3,-0.207,0.773,tracking
+shadowroad,"4+ edge, road sides only",True,1-1,2,-0.05,-0.023,model,2-3,-0.207,0.773,tracking
+shadowunder60,"Under, 60%+ chance",True,2-4,6,-2.18,-0.33,shadowunder,8-9,-0.09,0.911,tracking
+shadowunderprime,"Under, 55%+ chance, prime time (TNF, SNF, MNF) only",True,2-2,4,-0.18,-0.041,shadowunder,8-9,-0.09,0.722,tracking
 windunder,"Under, forecast wind 10+ mph (outdoor games)",False,4-4,8,-0.36,-0.041,break-even,0-0,,0.687,tracking
-shadowteasedog,"6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130)",True,8-5,13,-2.36,-0.06,break-even,0-0,,0.922,tracking
+shadowteasedog,"6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130)",True,9-7,16,-4.03,-0.083,break-even,0-0,,0.974,tracking
 shadowrain,"Under, forecast rain chance 50%+ (outdoor games)",True,3-4,7,-1.27,-0.165,break-even,0-0,,0.811,tracking
 shadowcold,"Under, forecast temperature below 32 F (outdoor games)",True,0-0,0,0.0,,break-even,0-0,,,tracking
-shadowunder3,"Under, model total 3+ points below the line",True,2-4,6,-2.18,-0.33,shadowunder,7-9,-0.148,0.911,tracking
-shadowunderwind,"Under, 55%+ chance and forecast wind 10+ mph",True,2-1,3,0.82,0.248,shadowunder,7-9,-0.148,0.536,tracking
-shadowtreestotal,"Total, boosted trees' own total 9.5%+ of the line off it, either side",True,3-4,7,-1.27,-0.167,shadowunder,7-9,-0.148,0.811,tracking
-shadowwestcoast,"West Coast or Mountain team on the road at 1pm ET, any game",True,1-2,3,-1.09,-0.333,break-even,0-0,,0.892,tracking
-shadowroaddog,"4+ edge, model's side the road underdog",True,1-0,1,0.95,0.907,model,2-2,-0.028,0.524,tracking
-shadowsmalldog,"4+ edge, model's side a dog at +0.5 to +3",True,2-1,3,0.88,0.27,model,2-2,-0.028,0.536,tracking
-shadowdog35,"3.5+ edge on dogs, 4+ on every other side",True,2-2,4,-0.12,-0.028,model,2-2,-0.028,0.722,tracking
-shadowwk4,"4+ edge, weeks 1 to 4 only",True,2-1,3,0.88,0.279,model,2-2,-0.028,0.536,tracking
-shadowwk15,"4+ edge, weeks 1 to 15 only",True,2-2,4,-0.12,-0.028,model,2-2,-0.028,0.722,tracking
+shadowunder3,"Under, model total 3+ points below the line",True,2-4,6,-2.18,-0.33,shadowunder,8-9,-0.09,0.911,tracking
+shadowunderwind,"Under, 55%+ chance and forecast wind 10+ mph",True,2-1,3,0.82,0.248,shadowunder,8-9,-0.09,0.536,tracking
+shadowtreestotal,"Total, boosted trees' own total 9.5%+ of the line off it, either side",True,4-5,9,-1.36,-0.139,shadowunder,8-9,-0.09,0.791,tracking
+shadowwestcoast,"West Coast or Mountain team on the road at 1pm ET, any game",True,1-3,4,-2.09,-0.477,break-even,0-0,,0.949,tracking
+shadowroaddog,"4+ edge, model's side the road underdog",True,1-0,1,0.95,0.907,model,2-3,-0.207,0.524,tracking
+shadowsmalldog,"4+ edge, model's side a dog at +0.5 to +3",True,2-2,4,-0.12,-0.028,model,2-3,-0.207,0.722,tracking
+shadowdog35,"3.5+ edge on dogs, 4+ on every other side",True,2-3,5,-1.12,-0.207,model,2-3,-0.207,0.841,tracking
+shadowwk4,"4+ edge, weeks 1 to 4 only",True,2-1,3,0.88,0.279,model,2-3,-0.207,0.536,tracking
+shadowwk15,"4+ edge, weeks 1 to 15 only",True,2-3,5,-1.12,-0.207,model,2-3,-0.207,0.841,tracking
 shadow6,6+ edge,True,0-0,0,0.0,,model,0-0,,,tracking
-shadowoverlow,"Over, total 41 or lower and a 55%+ chance",True,0-4,4,-4.0,-0.909,shadowunder,7-9,-0.148,1.0,tracking
-shadowqtotals,"Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow)",True,5-7,12,-2.41,-0.183,shadowunder,7-9,-0.148,0.849,tracking
+shadowoverlow,"Over, total 41 or lower and a 55%+ chance",True,2-4,6,-2.18,-0.331,shadowunder,8-9,-0.09,0.911,tracking
+shadowqtotals,"Under, 55%+ chance from the total with Questionable players priced in (the Questionable-in-totals shadow)",True,5-7,12,-2.41,-0.183,shadowunder,8-9,-0.09,0.849,tracking
