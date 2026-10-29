@@ -21,9 +21,9 @@
   "source": "data checks"
  },
  "data checks|games inside the forecast window without every live reading: 2026_08_CAR_GB (no wind, temperature, rain)": {
-  "count": 1,
+  "count": 2,
   "first": "2026-10-27 15:44 UTC",
-  "last": "2026-10-27 15:44 UTC",
+  "last": "2026-10-29 22:42 UTC",
   "message": "games inside the forecast window without every live reading: 2026_08_CAR_GB (no wind, temperature, rain)",
   "source": "data checks"
  },
@@ -33,20 +33,6 @@
   "last": "2026-10-27 15:44 UTC",
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
- },
- "live weather|2026_06_BAL_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 22:04 UTC",
-  "message": "2026_06_BAL_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_CAR_PHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 22:04 UTC",
-  "message": "2026_06_CAR_PHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
  },
  "live weather|2026_06_DAL_GB: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
   "count": 2,
@@ -74,27 +60,6 @@
   "first": "2026-10-14 20:49 UTC",
   "last": "2026-10-16 02:11 UTC",
   "message": "2026_06_LAC_KC: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_NO_NYG: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 22:04 UTC",
-  "message": "2026_06_NO_NYG: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_NYJ_NE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 22:04 UTC",
-  "message": "2026_06_NYJ_NE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_PIT_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 17:26 UTC",
-  "last": "2026-10-15 22:04 UTC",
-  "message": "2026_06_PIT_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_06_WAS_SF: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
@@ -160,12 +125,68 @@
   "message": "2026_07_TB_CAR: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
- "standing checks|last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_06_CAR_PHI PHI": {
+ "live weather|2026_08_ATL_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 1,
-  "first": "2026-10-15 17:40 UTC",
-  "last": "2026-10-15 17:40 UTC",
-  "message": "last game's starting QB ruled out and qb_out = 1 (picks week): 1 of 28: 2026_06_CAR_PHI PHI",
-  "source": "standing checks"
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_ATL_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_BAL_BUF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_BAL_BUF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_CLE_PIT: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_CLE_PIT: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_IND_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_IND_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_KC_DEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_KC_DEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_LV_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_LV_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_NE_MIA: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_NE_MIA: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_PHI_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_PHI_WAS: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_08_TEN_CIN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-10-29 22:44 UTC",
+  "last": "2026-10-29 22:44 UTC",
+  "message": "2026_08_TEN_CIN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
  },
  "standing checks|the stored tables still reproduce pred_v3's totals (2026 Week 7): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 1.48)": {
   "count": 1,
@@ -403,6 +424,13 @@
   "first": "2026-10-25 16:59 UTC",
   "last": "2026-10-25 16:59 UTC",
   "message": "2026_07_TB_CAR: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_CAR_GB: reading from GFS run 2026-10-27T06Z (logged 2026-10-27T15-44-44Z) is more than 6 hours behind the newest run (2026-10-29T18Z); not used": {
+  "count": 1,
+  "first": "2026-10-29 22:42 UTC",
+  "last": "2026-10-29 22:42 UTC",
+  "message": "2026_08_CAR_GB: reading from GFS run 2026-10-27T06Z (logged 2026-10-27T15-44-44Z) is more than 6 hours behind the newest run (2026-10-29T18Z); not used",
   "source": "wind_live"
  }
 }
