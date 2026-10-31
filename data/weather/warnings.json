@@ -1,23 +1,16 @@
 {
- "data checks|games inside the forecast window without every live reading: 2026_06_DAL_GB (no temperature, rain)": {
-  "count": 2,
-  "first": "2026-10-16 06:37 UTC",
-  "last": "2026-10-16 08:45 UTC",
-  "message": "games inside the forecast window without every live reading: 2026_06_DAL_GB (no temperature, rain)",
-  "source": "data checks"
- },
- "data checks|games inside the forecast window without every live reading: 2026_06_WAS_SF (no temperature, rain)": {
-  "count": 1,
-  "first": "2026-10-17 08:39 UTC",
-  "last": "2026-10-17 08:39 UTC",
-  "message": "games inside the forecast window without every live reading: 2026_06_WAS_SF (no temperature, rain)",
-  "source": "data checks"
- },
  "data checks|games inside the forecast window without every live reading: 2026_07_CIN_BAL (no wind, temperature, rain), 2026_07_CLE_TEN (no wind, temperature, rain), 2026_07_DAL_PHI (no wind, temperature, rain), 2026_07_KC_SEA (no wind, temperature, rain), 2026_07_MIA_NYJ (no wind, temperature, rain), 2026_07_TB_CAR (no wind, temperature, rain)": {
   "count": 2,
   "first": "2026-10-24 17:10 UTC",
   "last": "2026-10-25 16:59 UTC",
   "message": "games inside the forecast window without every live reading: 2026_07_CIN_BAL (no wind, temperature, rain), 2026_07_CLE_TEN (no wind, temperature, rain), 2026_07_DAL_PHI (no wind, temperature, rain), 2026_07_KC_SEA (no wind, temperature, rain), 2026_07_MIA_NYJ (no wind, temperature, rain), 2026_07_TB_CAR (no wind, temperature, rain)",
+  "source": "data checks"
+ },
+ "data checks|games inside the forecast window without every live reading: 2026_08_ATL_TB (no wind, temperature, rain), 2026_08_BAL_BUF (no wind, temperature, rain), 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_CLE_PIT (no wind, temperature, rain), 2026_08_IND_JAX (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_LV_NYJ (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain), 2026_08_TEN_CIN (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-10-31 18:07 UTC",
+  "last": "2026-10-31 18:07 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_08_ATL_TB (no wind, temperature, rain), 2026_08_BAL_BUF (no wind, temperature, rain), 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_CLE_PIT (no wind, temperature, rain), 2026_08_IND_JAX (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_LV_NYJ (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain), 2026_08_TEN_CIN (no wind, temperature, rain)",
   "source": "data checks"
  },
  "data checks|games inside the forecast window without every live reading: 2026_08_CAR_GB (no wind, temperature, rain)": {
@@ -34,46 +27,11 @@
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
  },
- "live weather|2026_06_DAL_GB: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
-  "count": 2,
-  "first": "2026-10-16 06:39 UTC",
-  "last": "2026-10-16 08:47 UTC",
-  "message": "2026_06_DAL_GB: no GFS MOS reading for temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_DAL_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 18,
-  "first": "2026-10-15 00:54 UTC",
-  "last": "2026-10-16 04:37 UTC",
-  "message": "2026_06_DAL_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
  "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 73,
   "first": "2026-10-14 13:53 UTC",
   "last": "2026-10-18 16:27 UTC",
   "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_LAC_KC: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 24,
-  "first": "2026-10-14 20:49 UTC",
-  "last": "2026-10-16 02:11 UTC",
-  "message": "2026_06_LAC_KC: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_WAS_SF: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
-  "count": 2,
-  "first": "2026-10-17 06:15 UTC",
-  "last": "2026-10-17 08:43 UTC",
-  "message": "2026_06_WAS_SF: no GFS MOS reading for temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 22,
-  "first": "2026-10-16 00:38 UTC",
-  "last": "2026-10-17 04:15 UTC",
-  "message": "2026_06_WAS_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
@@ -195,53 +153,11 @@
   "message": "the stored tables still reproduce pred_v3's totals (2026 Week 7): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 1.48)",
   "source": "standing checks"
  },
- "wind_live|2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature": {
-  "count": 3,
-  "first": "2026-10-16 10:50 UTC",
-  "last": "2026-10-16 11:00 UTC",
-  "message": "2026_06_BAL_CLE: GFS MOS run 2026-10-16T00Z at KBKL gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
- "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading": {
-  "count": 4,
-  "first": "2026-10-16 10:53 UTC",
-  "last": "2026-10-16 10:59 UTC",
-  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no rain chance; using the 2026-10-16T10-20-15Z reading",
-  "source": "wind_live"
- },
- "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading": {
-  "count": 4,
-  "first": "2026-10-16 10:53 UTC",
-  "last": "2026-10-16 10:59 UTC",
-  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-50-41Z) has no temperature; using the 2026-10-16T10-20-15Z reading",
-  "source": "wind_live"
- },
- "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no rain chance; using the 2026-10-16T10-20-15Z reading": {
-  "count": 7,
-  "first": "2026-10-16 11:03 UTC",
-  "last": "2026-10-16 11:16 UTC",
-  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no rain chance; using the 2026-10-16T10-20-15Z reading",
-  "source": "wind_live"
- },
- "wind_live|2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no temperature; using the 2026-10-16T10-20-15Z reading": {
-  "count": 6,
-  "first": "2026-10-16 11:03 UTC",
-  "last": "2026-10-16 11:16 UTC",
-  "message": "2026_06_BAL_CLE: newest pull (2026-10-16T10-59-50Z) has no temperature; using the 2026-10-16T10-20-15Z reading",
-  "source": "wind_live"
- },
  "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 38,
   "first": "2026-10-16 02:11 UTC",
   "last": "2026-10-18 16:02 UTC",
   "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
-  "first": "2026-10-16 10:50 UTC",
-  "last": "2026-10-16 10:59 UTC",
-  "message": "2026_06_BAL_CLE: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -251,39 +167,11 @@
   "message": "2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature": {
-  "count": 12,
-  "first": "2026-10-16 06:31 UTC",
-  "last": "2026-10-16 09:50 UTC",
-  "message": "2026_06_DAL_GB: GFS MOS run 2026-10-15T18Z at KGRB gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
  "wind_live|2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 3,
   "first": "2026-10-17 02:06 UTC",
   "last": "2026-10-18 19:54 UTC",
   "message": "2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_DAL_GB: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 12,
-  "first": "2026-10-16 06:31 UTC",
-  "last": "2026-10-16 09:50 UTC",
-  "message": "2026_06_DAL_GB: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_LAC_KC: GFS MOS run 2026-10-15T12Z at KMCI gave no wind, rain chance, temperature": {
-  "count": 3,
-  "first": "2026-10-16 03:00 UTC",
-  "last": "2026-10-16 03:45 UTC",
-  "message": "2026_06_LAC_KC: GFS MOS run 2026-10-15T12Z at KMCI gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
- "wind_live|2026_06_LAC_KC: GFS MOS run 2026-10-15T18Z at KMCI gave no wind, rain chance, temperature": {
-  "count": 1,
-  "first": "2026-10-16 04:00 UTC",
-  "last": "2026-10-16 04:00 UTC",
-  "message": "2026_06_LAC_KC: GFS MOS run 2026-10-15T18Z at KMCI gave no wind, rain chance, temperature",
   "source": "wind_live"
  },
  "wind_live|2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -293,20 +181,6 @@
   "message": "2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_06_LAC_KC: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 4,
-  "first": "2026-10-16 03:00 UTC",
-  "last": "2026-10-16 04:00 UTC",
-  "message": "2026_06_LAC_KC: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_NO_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
-  "first": "2026-10-17 08:44 UTC",
-  "last": "2026-10-17 08:44 UTC",
-  "message": "2026_06_NO_NYG: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 25,
   "first": "2026-10-16 06:41 UTC",
@@ -314,46 +188,11 @@
   "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
- "wind_live|2026_06_PIT_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
-  "first": "2026-10-15 23:03 UTC",
-  "last": "2026-10-17 06:18 UTC",
-  "message": "2026_06_PIT_TB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_SEA_DEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 2,
-  "first": "2026-10-13 12:58 UTC",
-  "last": "2026-10-15 23:10 UTC",
-  "message": "2026_06_SEA_DEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature": {
-  "count": 11,
-  "first": "2026-10-17 06:15 UTC",
-  "last": "2026-10-17 09:34 UTC",
-  "message": "2026_06_WAS_SF: GFS MOS run 2026-10-16T18Z at KSJC gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
- "wind_live|2026_06_WAS_SF: GFS MOS run 2026-10-17T00Z at KSJC gave no wind, rain chance, temperature": {
-  "count": 1,
-  "first": "2026-10-17 10:04 UTC",
-  "last": "2026-10-17 10:04 UTC",
-  "message": "2026_06_WAS_SF: GFS MOS run 2026-10-17T00Z at KSJC gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
  "wind_live|2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 9,
   "first": "2026-10-17 14:48 UTC",
   "last": "2026-10-18 19:21 UTC",
   "message": "2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_WAS_SF: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 9,
-  "first": "2026-10-17 06:15 UTC",
-  "last": "2026-10-17 10:04 UTC",
-  "message": "2026_06_WAS_SF: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_07_CIN_BAL: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-13-01Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
@@ -424,6 +263,13 @@
   "first": "2026-10-25 16:59 UTC",
   "last": "2026-10-25 16:59 UTC",
   "message": "2026_07_TB_CAR: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_BAL_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-10-31 18:11 UTC",
+  "last": "2026-10-31 18:11 UTC",
+  "message": "2026_08_BAL_BUF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_08_CAR_GB: reading from GFS run 2026-10-27T06Z (logged 2026-10-27T15-44-44Z) is more than 6 hours behind the newest run (2026-10-29T18Z); not used": {

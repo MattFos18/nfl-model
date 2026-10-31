@@ -14,14 +14,6 @@
  "swaps": [],
  "conflicts": [
   {
-   "game_id": "2026_08_BAL_BUF",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_08_PHI_WAS",
    "team": "PHI",
    "named": "00-0036389",
@@ -30,36 +22,12 @@
    "priced_name": "Tanner McKee"
   },
   {
-   "game_id": "2026_09_JAX_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_09_NYG_PHI",
    "team": "PHI",
    "named": "00-0036389",
    "priced": "00-0038400",
    "named_name": "Jalen Hurts",
    "priced_name": "Tanner McKee"
-  },
-  {
-   "game_id": "2026_10_LAC_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
-   "game_id": "2026_11_BAL_CAR",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_11_PIT_PHI",
@@ -78,28 +46,12 @@
    "priced_name": "Tanner McKee"
   },
   {
-   "game_id": "2026_12_BAL_HOU",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_13_PHI_ARI",
    "team": "PHI",
    "named": "00-0036389",
    "priced": "00-0038400",
    "named_name": "Jalen Hurts",
    "priced_name": "Tanner McKee"
-  },
-  {
-   "game_id": "2026_14_TB_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_14_IND_PHI",
@@ -118,14 +70,6 @@
    "priced_name": "Tanner McKee"
   },
   {
-   "game_id": "2026_15_BAL_PIT",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_16_HOU_PHI",
    "team": "PHI",
    "named": "00-0036389",
@@ -134,36 +78,12 @@
    "priced_name": "Tanner McKee"
   },
   {
-   "game_id": "2026_16_CLE_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
-   "game_id": "2026_17_BAL_CIN",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
-  },
-  {
    "game_id": "2026_17_PHI_SF",
    "team": "PHI",
    "named": "00-0036389",
    "priced": "00-0038400",
    "named_name": "Jalen Hurts",
    "priced_name": "Tanner McKee"
-  },
-  {
-   "game_id": "2026_18_PIT_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0034796",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Lamar Jackson"
   },
   {
    "game_id": "2026_18_PHI_NYG",
