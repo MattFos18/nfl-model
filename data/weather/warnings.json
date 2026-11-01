@@ -20,19 +20,19 @@
   "message": "games inside the forecast window without every live reading: 2026_08_CAR_GB (no wind, temperature, rain)",
   "source": "data checks"
  },
+ "data checks|games inside the forecast window without every live reading: 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-11-01 18:18 UTC",
+  "last": "2026-11-01 18:18 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain)",
+  "source": "data checks"
+ },
  "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing": {
   "count": 4,
   "first": "2026-10-09 03:37 UTC",
   "last": "2026-10-27 15:44 UTC",
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
- },
- "live weather|2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 73,
-  "first": "2026-10-14 13:53 UTC",
-  "last": "2026-10-18 16:27 UTC",
-  "message": "2026_06_HOU_JAX: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
  },
  "live weather|2026_07_CIN_BAL: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 17,
@@ -153,39 +153,11 @@
   "message": "the stored tables still reproduce pred_v3's totals (2026 Week 7): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 1.48)",
   "source": "standing checks"
  },
- "wind_live|2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 38,
-  "first": "2026-10-16 02:11 UTC",
-  "last": "2026-10-18 16:02 UTC",
-  "message": "2026_06_BAL_CLE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
-  "first": "2026-10-16 17:02 UTC",
-  "last": "2026-10-17 20:46 UTC",
-  "message": "2026_06_CAR_PHI: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
   "count": 3,
   "first": "2026-10-17 02:06 UTC",
   "last": "2026-10-18 19:54 UTC",
   "message": "2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
-  "first": "2026-10-17 08:42 UTC",
-  "last": "2026-10-18 17:38 UTC",
-  "message": "2026_06_LAC_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 25,
-  "first": "2026-10-16 06:41 UTC",
-  "last": "2026-10-18 16:03 UTC",
-  "message": "2026_06_NYJ_NE: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
@@ -277,6 +249,41 @@
   "first": "2026-10-29 22:42 UTC",
   "last": "2026-10-29 22:42 UTC",
   "message": "2026_08_CAR_GB: reading from GFS run 2026-10-27T06Z (logged 2026-10-27T15-44-44Z) is more than 6 hours behind the newest run (2026-10-29T18Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_CHI_SEA: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used": {
+  "count": 1,
+  "first": "2026-11-01 18:18 UTC",
+  "last": "2026-11-01 18:18 UTC",
+  "message": "2026_08_CHI_SEA: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_KC_DEN: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used": {
+  "count": 1,
+  "first": "2026-11-01 18:18 UTC",
+  "last": "2026-11-01 18:18 UTC",
+  "message": "2026_08_KC_DEN: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_KC_DEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-11-01 18:19 UTC",
+  "last": "2026-11-01 18:19 UTC",
+  "message": "2026_08_KC_DEN: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_NE_MIA: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used": {
+  "count": 1,
+  "first": "2026-11-01 18:18 UTC",
+  "last": "2026-11-01 18:18 UTC",
+  "message": "2026_08_NE_MIA: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_08_PHI_WAS: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used": {
+  "count": 1,
+  "first": "2026-11-01 18:18 UTC",
+  "last": "2026-11-01 18:18 UTC",
+  "message": "2026_08_PHI_WAS: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used",
   "source": "wind_live"
  }
 }
