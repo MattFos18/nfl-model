@@ -27,6 +27,13 @@
   "message": "games inside the forecast window without every live reading: 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain)",
   "source": "data checks"
  },
+ "data checks|games inside the forecast window without every live reading: 2026_09_JAX_BAL (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-11-03 17:34 UTC",
+  "last": "2026-11-03 17:34 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_09_JAX_BAL (no wind, temperature, rain)",
+  "source": "data checks"
+ },
  "data checks|played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing": {
   "count": 4,
   "first": "2026-10-09 03:37 UTC",
@@ -60,13 +67,6 @@
   "first": "2026-10-21 17:01 UTC",
   "last": "2026-10-22 21:26 UTC",
   "message": "2026_07_MIA_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_07_NE_CHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 26,
-  "first": "2026-10-19 01:38 UTC",
-  "last": "2026-10-20 05:36 UTC",
-  "message": "2026_07_NE_CHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
@@ -153,19 +153,12 @@
   "message": "the stored tables still reproduce pred_v3's totals (2026 Week 7): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 1.48)",
   "source": "standing checks"
  },
- "wind_live|2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 3,
-  "first": "2026-10-17 02:06 UTC",
-  "last": "2026-10-18 19:54 UTC",
-  "message": "2026_06_DAL_GB: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
- "wind_live|2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 9,
-  "first": "2026-10-17 14:48 UTC",
-  "last": "2026-10-18 19:21 UTC",
-  "message": "2026_06_WAS_SF: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
+ "standing checks|the stored tables still reproduce pred_v3's totals (2026 Week 8): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 4.12)": {
+  "count": 1,
+  "first": "2026-11-03 17:58 UTC",
+  "last": "2026-11-03 17:58 UTC",
+  "message": "the stored tables still reproduce pred_v3's totals (2026 Week 8): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 4.12)",
+  "source": "standing checks"
  },
  "wind_live|2026_07_CIN_BAL: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-13-01Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
   "count": 1,
@@ -207,27 +200,6 @@
   "first": "2026-10-25 16:59 UTC",
   "last": "2026-10-25 16:59 UTC",
   "message": "2026_07_MIA_NYJ: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
-  "source": "wind_live"
- },
- "wind_live|2026_07_NE_CHI: GFS MOS run 2026-10-19T18Z at KMDW gave no wind, rain chance, temperature": {
-  "count": 7,
-  "first": "2026-10-20 06:31 UTC",
-  "last": "2026-10-20 09:32 UTC",
-  "message": "2026_07_NE_CHI: GFS MOS run 2026-10-19T18Z at KMDW gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
- "wind_live|2026_07_NE_CHI: GFS MOS run 2026-10-20T00Z at KMDW gave no wind, rain chance, temperature": {
-  "count": 1,
-  "first": "2026-10-20 10:02 UTC",
-  "last": "2026-10-20 10:02 UTC",
-  "message": "2026_07_NE_CHI: GFS MOS run 2026-10-20T00Z at KMDW gave no wind, rain chance, temperature",
-  "source": "wind_live"
- },
- "wind_live|2026_07_NE_CHI: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
-  "count": 8,
-  "first": "2026-10-20 06:31 UTC",
-  "last": "2026-10-20 10:02 UTC",
-  "message": "2026_07_NE_CHI: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  },
  "wind_live|2026_07_TB_CAR: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
