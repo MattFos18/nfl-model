@@ -4,4 +4,4 @@ run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,
 2026-10-18 16:23 UTC,2026,6,2026_06_CHI_ATL,ATL +1.5,-112,1.0,1.92,DraftKings,5.76,-4.23,0.65
 2026-10-24 17:08 UTC,2026,7,2026_07_CIN_BAL,BAL +1.5,-115,1.0,0.99,DraftKings,4.86,6.4,0.624
 2026-11-01 18:14 UTC,2026,8,2026_08_KC_DEN,DEN +1.5,-120,1.0,0.34,DraftKings,4.72,-0.18,0.62
-2026-11-03 17:30 UTC,2026,9,2026_09_DAL_IND,IND +6,-110,1.0,1.45,Draft Kings,4.69,-0.22,0.671
+2026-11-05 23:30 UTC,2026,9,2026_09_HOU_LAC,LAC +6,-112,1.0,1.37,Draft Kings,4.92,2.27,0.677

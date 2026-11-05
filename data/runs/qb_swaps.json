@@ -4,27 +4,36 @@
  "season": 2026,
  "week": 9,
  "espn_unmatched": [
-  "HOU Jaylin Noel",
-  "NO Jordyn Tyson",
-  "NO Travis Etienne Jr.",
-  "NYG Tremaine Edmunds",
-  "NYG Tyrone Tracy Jr.",
+  "PIT Ben Skowronek",
+  "PIT Brandin Echols",
+  "PIT Doneiko Slaughter",
+  "PIT Michael Pittman Jr.",
+  "PIT Sebastian Joseph-Day",
   "SF Brandon Aiyuk",
-  "SF De'Zhaun Stribling",
-  "SF Demarcus Robinson"
+  "TEN Carnell Tate",
+  "TEN Dorian Mausi",
+  "TEN Jaylon Jones",
+  "TEN Tommy Townsend",
+  "TEN Tyjae Spears"
  ],
- "swaps": [
-  {
-   "game_id": "2026_09_JAX_BAL",
-   "team": "BAL",
-   "from": "00-0035993",
-   "from_name": "Tyler Huntley",
-   "to": "00-0040981",
-   "to_name": "Joe Fagnano",
-   "source": "depth chart"
-  }
- ],
+ "swaps": [],
  "conflicts": [
+  {
+   "game_id": "2026_09_CLE_NO",
+   "team": "CLE",
+   "named": "00-0040668",
+   "priced": "00-0033537",
+   "named_name": "Shedeur Sanders",
+   "priced_name": "Deshaun Watson"
+  },
+  {
+   "game_id": "2026_09_NYG_PHI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
   {
    "game_id": "2026_09_ARI_SEA",
    "team": "ARI",
@@ -50,6 +59,22 @@
    "priced_name": "Jacoby Brissett"
   },
   {
+   "game_id": "2026_11_PIT_PHI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
+   "game_id": "2026_12_PHI_DAL",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
    "game_id": "2026_12_WAS_ARI",
    "team": "ARI",
    "named": "00-0035289",
@@ -66,12 +91,44 @@
    "priced_name": "Jacoby Brissett"
   },
   {
+   "game_id": "2026_13_PHI_ARI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
+   "game_id": "2026_14_IND_PHI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
+   "game_id": "2026_15_SEA_PHI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
    "game_id": "2026_15_NYJ_ARI",
    "team": "ARI",
    "named": "00-0035289",
    "priced": "00-0033119",
    "named_name": "Gardner Minshew",
    "priced_name": "Jacoby Brissett"
+  },
+  {
+   "game_id": "2026_16_HOU_PHI",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
   },
   {
    "game_id": "2026_16_ARI_NO",
@@ -90,12 +147,28 @@
    "priced_name": "Jacoby Brissett"
   },
   {
+   "game_id": "2026_17_PHI_SF",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
+  },
+  {
    "game_id": "2026_18_SF_ARI",
    "team": "ARI",
    "named": "00-0035289",
    "priced": "00-0033119",
    "named_name": "Gardner Minshew",
    "priced_name": "Jacoby Brissett"
+  },
+  {
+   "game_id": "2026_18_PHI_NYG",
+   "team": "PHI",
+   "named": "00-0039398",
+   "priced": "00-0038400",
+   "named_name": "Joe Milton III",
+   "priced_name": "Tanner McKee"
   }
  ]
 }
