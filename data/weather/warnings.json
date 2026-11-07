@@ -27,6 +27,13 @@
   "message": "games inside the forecast window without every live reading: 2026_08_CHI_SEA (no wind, temperature, rain), 2026_08_KC_DEN (no wind, temperature, rain), 2026_08_NE_MIA (no wind, temperature, rain), 2026_08_PHI_WAS (no wind, temperature, rain)",
   "source": "data checks"
  },
+ "data checks|games inside the forecast window without every live reading: 2026_09_ARI_SEA (no wind, temperature, rain), 2026_09_DEN_CAR (no wind, temperature, rain), 2026_09_DET_MIA (no wind, temperature, rain), 2026_09_GB_NE (no wind, temperature, rain), 2026_09_LA_WAS (no wind, temperature, rain), 2026_09_LV_SF (no wind, temperature, rain), 2026_09_NYG_PHI (no wind, temperature, rain), 2026_09_NYJ_KC (no wind, temperature, rain), 2026_09_TB_CHI (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-11-07 18:27 UTC",
+  "last": "2026-11-07 18:27 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_09_ARI_SEA (no wind, temperature, rain), 2026_09_DEN_CAR (no wind, temperature, rain), 2026_09_DET_MIA (no wind, temperature, rain), 2026_09_GB_NE (no wind, temperature, rain), 2026_09_LA_WAS (no wind, temperature, rain), 2026_09_LV_SF (no wind, temperature, rain), 2026_09_NYG_PHI (no wind, temperature, rain), 2026_09_NYJ_KC (no wind, temperature, rain), 2026_09_TB_CHI (no wind, temperature, rain)",
+  "source": "data checks"
+ },
  "data checks|games inside the forecast window without every live reading: 2026_09_JAX_BAL (no wind, temperature, rain)": {
   "count": 2,
   "first": "2026-11-03 17:34 UTC",
@@ -40,13 +47,6 @@
   "last": "2026-10-27 15:44 UTC",
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 1 missing",
   "source": "data checks"
- },
- "live weather|2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 20,
-  "first": "2026-10-21 13:55 UTC",
-  "last": "2026-10-24 17:12 UTC",
-  "message": "2026_07_PIT_NO: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
  },
  "live weather|2026_08_ATL_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 1,
@@ -195,13 +195,6 @@
   "message": "2026_07_CIN_BAL: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-13-01Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used",
   "source": "wind_live"
  },
- "wind_live|2026_07_CIN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
-  "count": 1,
-  "first": "2026-10-24 17:13 UTC",
-  "last": "2026-10-24 17:13 UTC",
-  "message": "2026_07_CIN_BAL: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
-  "source": "wind_live"
- },
  "wind_live|2026_07_CLE_TEN: reading from GFS run 2026-10-24T12Z (logged 2026-10-24T17-12-47Z) is more than 6 hours behind the newest run (2026-10-25T12Z); not used": {
   "count": 1,
   "first": "2026-10-25 16:59 UTC",
@@ -286,11 +279,25 @@
   "message": "2026_08_PHI_WAS: reading from GFS run 2026-10-31T12Z (logged 2026-10-31T18-09-57Z) is more than 6 hours behind the newest run (2026-11-01T12Z); not used",
   "source": "wind_live"
  },
+ "wind_live|2026_09_DEN_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-11-07 18:28 UTC",
+  "last": "2026-11-07 18:28 UTC",
+  "message": "2026_09_DEN_CAR: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
  "wind_live|2026_09_JAX_BAL: reading from GFS run 2026-11-03T12Z (logged 2026-11-03T17-34-17Z) is more than 6 hours behind the newest run (2026-11-05T18Z); not used": {
   "count": 1,
   "first": "2026-11-05 23:32 UTC",
   "last": "2026-11-05 23:32 UTC",
   "message": "2026_09_JAX_BAL: reading from GFS run 2026-11-03T12Z (logged 2026-11-03T17-34-17Z) is more than 6 hours behind the newest run (2026-11-05T18Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_09_NYJ_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean": {
+  "count": 1,
+  "first": "2026-11-07 18:29 UTC",
+  "last": "2026-11-07 18:29 UTC",
+  "message": "2026_09_NYJ_KC: wind reading from GFS MOS alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
 }
