@@ -4,6 +4,9 @@
  "season": 2026,
  "week": 9,
  "espn_unmatched": [
+  "BUF Joshua Palmer",
+  "NO Mike Reid",
+  "NYG CJ Okoye",
   "PIT Ben Skowronek",
   "PIT Brandin Echols",
   "PIT Doneiko Slaughter",
@@ -16,16 +19,18 @@
   "TEN Tommy Townsend",
   "TEN Tyjae Spears"
  ],
- "swaps": [],
- "conflicts": [
+ "swaps": [
   {
-   "game_id": "2026_09_CLE_NO",
-   "team": "CLE",
-   "named": "00-0040668",
-   "priced": "00-0033537",
-   "named_name": "Shedeur Sanders",
-   "priced_name": "Deshaun Watson"
-  },
+   "game_id": "2026_09_BUF_MIN",
+   "team": "MIN",
+   "from": "00-0035228",
+   "from_name": "Kyler Murray",
+   "to": "00-0032950",
+   "to_name": "Carson Wentz",
+   "source": "depth chart"
+  }
+ ],
+ "conflicts": [
   {
    "game_id": "2026_09_NYG_PHI",
    "team": "PHI",
