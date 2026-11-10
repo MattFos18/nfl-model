@@ -76,25 +76,25 @@ coefficients the cards break down:
 <!-- auto:effects -->
 | Input | Points per unit | Points per SD | Raw points, 2013 to 2025 |
 |---|---|---|---|
-| Starting QB rating | +18.041 | +1.75 |  |
-| Own offense points rating | +0.825 | +1.19 |  |
-| Opponent defense points rating | -0.978 | -1.10 |  |
-| Opponent's offseason turnover, defense | +4.695 | +1.09 |  |
-| Home | +1.836 | +0.92 | 23.77 with it (3,407 team-games), 21.87 without |
-| Offseason turnover, offense | -4.236 | -0.92 |  |
-| Wind (outdoor), per mph | -0.158 | -0.84 | 23.82 points in calm air, 21.4 at 11 to 15 mph |
-| Opponent's defensive snaps out | +0.638 | +0.42 |  |
-| Skill players out: value lost | -31.522 | -0.41 |  |
-| Opponent out of the race | +1.247 | +0.41 |  |
-| Opponent defense EPA per play | -13.636 | -0.33 |  |
-| Opponent's skill players out: value lost | +18.760 | +0.25 |  |
-| Warm-climate or dome team outdoors in the cold | -1.754 | -0.22 | 19.68 with it (95 team-games), 22.87 without |
-| Offensive snaps out | -0.270 | -0.18 |  |
-| Out of the race | -0.500 | -0.16 |  |
-| Own offense EPA per play | +3.261 | +0.10 |  |
-| Cold | +0.403 | +0.10 | 22.29 with it (374 team-games), 22.85 without |
+| Starting QB rating | +18.133 | +1.75 |  |
+| Own offense points rating | +0.814 | +1.17 |  |
+| Opponent defense points rating | -0.981 | -1.11 |  |
+| Opponent's offseason turnover, defense | +4.687 | +1.09 |  |
+| Offseason turnover, offense | -4.192 | -0.91 |  |
+| Home | +1.814 | +0.91 | 23.77 with it (3,407 team-games), 21.87 without |
+| Wind (outdoor), per mph | -0.158 | -0.85 | 23.82 points in calm air, 21.4 at 11 to 15 mph |
+| Skill players out: value lost | -31.958 | -0.42 |  |
+| Opponent out of the race | +1.254 | +0.41 |  |
+| Opponent's defensive snaps out | +0.631 | +0.41 |  |
+| Opponent defense EPA per play | -13.371 | -0.32 |  |
+| Opponent's skill players out: value lost | +18.821 | +0.25 |  |
+| Warm-climate or dome team outdoors in the cold | -1.757 | -0.22 | 19.68 with it (95 team-games), 22.87 without |
+| Offensive snaps out | -0.286 | -0.19 |  |
+| Out of the race | -0.479 | -0.16 |  |
+| Own offense EPA per play | +3.941 | +0.12 |  |
+| Cold | +0.406 | +0.10 | 22.29 with it (374 team-games), 22.85 without |
 
-The fit that priced Week 9 of 2026: 7,366 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
+The fit that priced Week 10 of 2026: 7,396 team-games from 2013 on. Points per SD is the unit's worth times the input's spread in those games, so the inputs can be compared. The flags, the wind in mph and the shares out are measured from zero; the ratings and the QB from the league average. Raw points: what teams scored with the flag on and off, before any adjustment.
 <!-- /auto:effects -->
 
 Two expected scores per game give the spread (home minus away) and the total.

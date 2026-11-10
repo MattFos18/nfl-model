@@ -7,3 +7,4 @@ run_at,season,week,game_id,bet,odds,stake,stake_pct,book,spread_edge,total_edge,
 2026-11-01 18:14 UTC,2026,8,2026_08_KC_DEN,DEN +1.5,-120,1.0,0.34,DraftKings,4.72,-0.18,0.62
 2026-11-08 18:12 UTC,2026,9,2026_09_HOU_LAC,LAC +5.5,-112,1.0,1.04,Draft Kings,4.42,2.27,0.652
 2026-11-08 18:12 UTC,2026,9,2026_09_LV_SF,LV +9.5,-110,1.0,1.04,Draft Kings,-4.07,1.76,0.657
+2026-11-10 17:27 UTC,2026,10,2026_10_LAC_BAL,LAC +5.5,-112,1.0,2.73,DraftKings,-7.77,-2.35,0.737

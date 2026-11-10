@@ -1,97 +1,87 @@
 {
 "season": 2026,
-"week": 9,
+"week": 10,
 "starters": {
-"2026_09_JAX_BAL": [
-"00-0040981",
-"00-0036971",
-"2026-11-05 20:15"
-],
-"2026_09_CIN_ATL": [
-"00-0039917",
-"00-0036442",
-"2026-11-08 09:30"
-],
-"2026_09_DEN_CAR": [
-"00-0039150",
-"00-0039732",
-"2026-11-08 13:00"
-],
-"2026_09_DAL_IND": [
-"00-0035710",
-"00-0033077",
-"2026-11-08 13:00"
-],
-"2026_09_NYJ_KC": [
-"00-0033873",
-"00-0030565",
-"2026-11-08 13:00"
-],
-"2026_09_DET_MIA": [
-"00-0038128",
-"00-0033106",
-"2026-11-08 13:00"
-],
-"2026_09_CLE_NO": [
-"00-0040743",
-"00-0040668",
-"2026-11-08 13:00"
-],
-"2026_09_NYG_PHI": [
-"00-0039398",
+"2026_10_WAS_NYG": [
 "00-0039923",
-"2026-11-08 13:00"
-],
-"2026_09_LA_WAS": [
 "00-0039910",
-"00-0026498",
-"2026-11-08 13:00"
+"2026-11-12 20:15"
 ],
-"2026_09_HOU_LAC": [
-"00-0036355",
-"00-0039163",
-"2026-11-08 16:05"
-],
-"2026_09_LV_SF": [
-"00-0037834",
-"00-0029604",
-"2026-11-08 16:05"
-],
-"2026_09_GB_NE": [
+"2026_10_NE_DET": [
+"00-0033106",
 "00-0039851",
+"2026-11-15 09:30"
+],
+"2026_10_KC_ATL": [
+"00-0039917",
+"00-0033873",
+"2026-11-15 13:00"
+],
+"2026_10_HOU_CLE": [
+"00-0033537",
+"00-0039163",
+"2026-11-15 13:00"
+],
+"2026_10_MIN_GB": [
 "00-0036264",
-"2026-11-08 16:25"
-],
-"2026_09_ARI_SEA": [
-"00-0035704",
-"00-0035289",
-"2026-11-08 16:25"
-],
-"2026_09_TB_CHI": [
-"00-0039918",
-"00-0034855",
-"2026-11-08 20:20"
-],
-"2026_09_BUF_MIN": [
 "00-0035228",
+"2026-11-15 13:00"
+],
+"2026_10_MIA_IND": [
+"00-0035710",
+"00-0038128",
+"2026-11-15 13:00"
+],
+"2026_10_CAR_NO": [
+"00-0040743",
+"00-0039150",
+"2026-11-15 13:00"
+],
+"2026_10_BUF_NYJ": [
+"00-0030565",
 "00-0034857",
-"2026-11-09 20:15"
+"2026-11-15 13:00"
+],
+"2026_10_JAX_TEN": [
+"00-0040676",
+"00-0036971",
+"2026-11-15 13:00"
+],
+"2026_10_LA_ARI": [
+"00-0035289",
+"00-0026498",
+"2026-11-15 16:05"
+],
+"2026_10_SEA_LV": [
+"00-0029604",
+"00-0034869",
+"2026-11-15 16:05"
+],
+"2026_10_SF_DAL": [
+"00-0033077",
+"00-0037834",
+"2026-11-15 16:25"
+],
+"2026_10_PIT_CIN": [
+"00-0036442",
+"00-0023459",
+"2026-11-15 20:20"
+],
+"2026_10_LAC_BAL": [
+"00-0035993",
+"00-0036355",
+"2026-11-16 20:15"
 ]
 },
 "injuries": [
 [
 "ARI",
-"Bam Knight",
-"Out"
+"Gardner Minshew II",
+"Doubtful"
 ],
 [
 "ARI",
 "James Conner",
-"Out"
-],
-[
-"ARI",
-"Jayden Williams",
 "Out"
 ],
 [
@@ -101,32 +91,17 @@
 ],
 [
 "ARI",
-"Jon Gaines II",
-"Out"
-],
-[
-"ARI",
 "Kendrick Bourne",
 "Out"
 ],
 [
-"ATL",
-"Andy Dalton",
+"ARI",
+"Michael Wilson",
 "Out"
 ],
 [
 "ATL",
 "Anterio Thompson",
-"Out"
-],
-[
-"ATL",
-"Billy Bowman Jr.",
-"Out"
-],
-[
-"ATL",
-"Brian Robinson",
 "Out"
 ],
 [
@@ -141,28 +116,13 @@
 ],
 [
 "ATL",
-"Drake Jackson",
-"Out"
-],
-[
-"ATL",
-"Jack Strand",
-"Out"
-],
-[
-"ATL",
-"Robert Longerbeam",
-"Out"
-],
-[
-"ATL",
 "Samson Ebukam",
 "Out"
 ],
 [
 "ATL",
 "Zachariah Branch",
-"Out"
+"Doubtful"
 ],
 [
 "BAL",
@@ -171,37 +131,7 @@
 ],
 [
 "BAL",
-"Aeneas Peebles",
-"Out"
-],
-[
-"BAL",
-"Elijah Sarratt",
-"Out"
-],
-[
-"BAL",
-"Emery Jones Jr.",
-"Out"
-],
-[
-"BAL",
-"Jaylinn Hawkins",
-"Out"
-],
-[
-"BAL",
-"Kedon Slovis",
-"Out"
-],
-[
-"BAL",
 "Lamar Jackson",
-"Out"
-],
-[
-"BAL",
-"Nate Wiggins",
 "Out"
 ],
 [
@@ -216,11 +146,6 @@
 ],
 [
 "BUF",
-"Josh Palmer",
-"Out"
-],
-[
-"BUF",
 "Joshua Palmer",
 "Out"
 ],
@@ -231,32 +156,12 @@
 ],
 [
 "CAR",
-"AJ Dillon",
-"Out"
-],
-[
-"CAR",
-"Bobby Okereke",
-"Out"
-],
-[
-"CAR",
 "Brady Christensen",
 "Out"
 ],
 [
 "CAR",
-"Damien Lewis",
-"Out"
-],
-[
-"CAR",
-"Haynes King",
-"Out"
-],
-[
-"CAR",
-"Jaelan Phillips",
+"Jaycee Horn",
 "Out"
 ],
 [
@@ -266,32 +171,12 @@
 ],
 [
 "CAR",
-"TeRah Edwards",
-"Out"
-],
-[
-"CAR",
-"Will Lee III",
+"Mike Jackson",
 "Out"
 ],
 [
 "CAR",
 "Xavier Legette",
-"Out"
-],
-[
-"CHI",
-"Braxton Jones",
-"Out"
-],
-[
-"CHI",
-"Kentavius Street",
-"Out"
-],
-[
-"CHI",
-"Zavier Scott",
 "Out"
 ],
 [
@@ -306,82 +191,12 @@
 ],
 [
 "CIN",
-"Connor Lew",
-"Out"
-],
-[
-"CIN",
 "Erick All Jr.",
 "Out"
 ],
 [
-"CIN",
-"Kyle Dugger",
-"Out"
-],
-[
-"CIN",
-"Landon Robinson",
-"Out"
-],
-[
-"CIN",
-"Myles Hinton",
-"Out"
-],
-[
-"CLE",
-"Deshaun Watson",
-"Out"
-],
-[
-"CLE",
-"Justin Jefferson",
-"Out"
-],
-[
-"CLE",
-"Maliek Collins",
-"Out"
-],
-[
-"CLE",
-"Noah Igbinoghene",
-"Out"
-],
-[
-"CLE",
-"Parker Brailsford",
-"Out"
-],
-[
-"CLE",
-"Taylen Green",
-"Out"
-],
-[
 "DAL",
-"Ajani Cornelius",
-"Out"
-],
-[
-"DAL",
-"DeMarvion Overshown",
-"Out"
-],
-[
-"DAL",
-"George Pickens",
-"Out"
-],
-[
-"DAL",
-"Jalen Thompson",
-"Out"
-],
-[
-"DAL",
-"Joey Porter Jr.",
+"Jake Ferguson",
 "Out"
 ],
 [
@@ -391,82 +206,17 @@
 ],
 [
 "DAL",
-"KaVontae Turpin",
-"Out"
-],
-[
-"DAL",
-"Luke Schoonmaker",
-"Out"
-],
-[
-"DAL",
 "Malachi Lawrence",
 "Out"
 ],
 [
 "DAL",
-"Tyrus Wheat",
+"P.J. Locke",
 "Out"
 ],
 [
-"DEN",
-"Brandon Jones",
-"Out"
-],
-[
-"DEN",
-"Dallen Bentley",
-"Out"
-],
-[
-"DEN",
-"Eyioma Uwazurike",
-"Out"
-],
-[
-"DEN",
-"Kage Casey",
-"Out"
-],
-[
-"DEN",
-"Kris Abrams-Draine",
-"Out"
-],
-[
-"DEN",
-"Lil'Jordan Humphrey",
-"Out"
-],
-[
-"DEN",
-"Sam Ehlinger",
-"Out"
-],
-[
-"DEN",
-"Talanoa Hufanga",
-"Out"
-],
-[
-"DET",
-"Ahmed Hassanein",
-"Out"
-],
-[
-"DET",
-"Cade Mays",
-"Out"
-],
-[
-"DET",
-"D.J. Reed",
-"Out"
-],
-[
-"DET",
-"DJ Wonnum",
+"DAL",
+"Tyler Goodson",
 "Out"
 ],
 [
@@ -481,16 +231,6 @@
 ],
 [
 "DET",
-"Jackson Meeks",
-"Out"
-],
-[
-"DET",
-"Jacob Saylors",
-"Out"
-],
-[
-"DET",
 "Jimmy Rolder",
 "Out"
 ],
@@ -500,18 +240,13 @@
 "Out"
 ],
 [
-"DET",
-"Mekhi Wingo",
-"Out"
-],
-[
 "GB",
 "Chris Brooks",
 "Out"
 ],
 [
 "GB",
-"Josh Whyle",
+"Josh Jacobs",
 "Out"
 ],
 [
@@ -521,42 +256,12 @@
 ],
 [
 "GB",
-"Sean Rhyan",
-"Out"
-],
-[
-"GB",
-"Travis Glover",
-"Out"
-],
-[
-"GB",
 "Zaire Franklin",
-"Out"
-],
-[
-"HOU",
-"David Montgomery",
-"Out"
+"Doubtful"
 ],
 [
 "HOU",
 "Jaylin Noel",
-"Out"
-],
-[
-"HOU",
-"Reed Blankenship",
-"Out"
-],
-[
-"IND",
-"A.J. Haulcy",
-"Out"
-],
-[
-"IND",
-"Akeem Davis-Gaither",
 "Out"
 ],
 [
@@ -566,72 +271,12 @@
 ],
 [
 "IND",
-"Charlie Heck",
-"Out"
-],
-[
-"IND",
-"Justin Walley",
-"Out"
-],
-[
-"IND",
-"Pharaoh Brown",
-"Out"
-],
-[
-"IND",
-"Riley Leonard",
-"Out"
-],
-[
-"IND",
-"Will Mallory",
-"Out"
-],
-[
-"JAX",
-"Alijah Huzzie",
-"Out"
-],
-[
-"JAX",
-"CJ Williams",
-"Out"
+"Jalen Travis",
+"Doubtful"
 ],
 [
 "JAX",
 "Cam'Ron Silmon-Craig",
-"Out"
-],
-[
-"JAX",
-"Eric Murray",
-"Out"
-],
-[
-"JAX",
-"Wesley Williams",
-"Out"
-],
-[
-"KC",
-"Ben VanSumeren",
-"Out"
-],
-[
-"KC",
-"Diego Pounds",
-"Out"
-],
-[
-"KC",
-"Garrett Nussmeier",
-"Out"
-],
-[
-"KC",
-"Jack Pyburn",
 "Out"
 ],
 [
@@ -641,27 +286,7 @@
 ],
 [
 "KC",
-"Mansoor Delane",
-"Out"
-],
-[
-"KC",
 "Omarr Norman-Lott",
-"Out"
-],
-[
-"KC",
-"Peter Woods",
-"Out"
-],
-[
-"LA",
-"Bill Murray",
-"Out"
-],
-[
-"LA",
-"Darryl Peterson III",
 "Out"
 ],
 [
@@ -671,28 +296,13 @@
 ],
 [
 "LA",
-"Desjuan Johnson",
-"Out"
-],
-[
-"LA",
 "Jaylen Watson",
 "Out"
 ],
 [
 "LA",
-"Joe Cardona",
+"Puka Nacua",
 "Doubtful"
-],
-[
-"LA",
-"Joe Cardona",
-"Out"
-],
-[
-"LA",
-"Keagen Trost",
-"Out"
 ],
 [
 "LA",
@@ -700,78 +310,13 @@
 "Out"
 ],
 [
-"LA",
-"Trent McDuffie",
-"Out"
-],
-[
-"LA",
-"Ty Simpson",
-"Out"
-],
-[
-"LAC",
-"Brenen Thompson",
-"Doubtful"
-],
-[
-"LAC",
-"David Njoku",
-"Doubtful"
-],
-[
 "LAC",
 "David Njoku",
 "Out"
 ],
 [
 "LAC",
-"Deane Leonard",
-"Out"
-],
-[
-"LAC",
 "Denzel Perryman",
-"Doubtful"
-],
-[
-"LAC",
-"Denzel Perryman",
-"Out"
-],
-[
-"LAC",
-"Derwin James Jr.",
-"Out"
-],
-[
-"LAC",
-"Kayode Awosika",
-"Doubtful"
-],
-[
-"LAC",
-"Kendall Williamson",
-"Out"
-],
-[
-"LV",
-"Thomas Booker",
-"Out"
-],
-[
-"LV",
-"Thomas Booker IV",
-"Out"
-],
-[
-"MIA",
-"Christian Haynes",
-"Out"
-],
-[
-"MIA",
-"Chukwuebuka Godrick",
 "Out"
 ],
 [
@@ -781,27 +326,7 @@
 ],
 [
 "MIA",
-"Jalen Tolbert",
-"Out"
-],
-[
-"MIA",
-"Jaylen Wright",
-"Out"
-],
-[
-"MIA",
-"Justin Joly",
-"Out"
-],
-[
-"MIA",
-"Marcellas Dial Jr.",
-"Out"
-],
-[
-"MIA",
-"Reese Taylor",
+"Zach Sieler",
 "Out"
 ],
 [
@@ -810,19 +335,9 @@
 "Out"
 ],
 [
-"MIN",
-"Jauan Jennings",
-"Out"
-],
-[
-"MIN",
-"Kyler Murray",
-"Out"
-],
-[
 "NE",
-"A.J. Brown",
-"Out"
+"Ben Brown",
+"Doubtful"
 ],
 [
 "NE",
@@ -831,112 +346,17 @@
 ],
 [
 "NE",
-"TreVeyon Henderson",
-"Out"
+"Rhamondre Stevenson",
+"Doubtful"
 ],
 [
 "NO",
-"CJ Donaldson",
-"Out"
-],
-[
-"NO",
-"Christen Miller",
-"Out"
-],
-[
-"NO",
-"Jaylan Ford",
-"Out"
-],
-[
-"NO",
-"John Ridgeway III",
-"Out"
-],
-[
-"NO",
-"Mason Murphy",
-"Out"
-],
-[
-"NO",
-"Mike Reid",
-"Out"
+"Erik McCoy",
+"Doubtful"
 ],
 [
 "NO",
 "Travis Etienne Jr.",
-"Out"
-],
-[
-"NO",
-"Zach Wilson",
-"Out"
-],
-[
-"NYG",
-"CJ Okoye",
-"Out"
-],
-[
-"NYG",
-"Cam Skattebo",
-"Doubtful"
-],
-[
-"NYG",
-"Cam Skattebo",
-"Out"
-],
-[
-"NYG",
-"Colton Hood",
-"Out"
-],
-[
-"NYG",
-"Josh Sills",
-"Out"
-],
-[
-"NYG",
-"Marcus Mbow",
-"Out"
-],
-[
-"NYG",
-"Nikko Reed",
-"Out"
-],
-[
-"NYG",
-"Thomas Fidone II",
-"Out"
-],
-[
-"NYG",
-"Tyrone Tracy Jr.",
-"Out"
-],
-[
-"NYJ",
-"Blake Freeland",
-"Out"
-],
-[
-"NYJ",
-"Garrett Wilson",
-"Out"
-],
-[
-"NYJ",
-"Joseph Ossai",
-"Out"
-],
-[
-"NYJ",
-"Kohl Levao",
 "Out"
 ],
 [
@@ -946,92 +366,32 @@
 ],
 [
 "NYJ",
-"Nahshon Wright",
-"Out"
-],
-[
-"NYJ",
-"T'Vondre Sweat",
-"Out"
-],
-[
-"NYJ",
-"Tim Patrick",
-"Out"
-],
-[
-"NYJ",
-"Trevin Wallace",
-"Out"
-],
-[
-"NYJ",
 "VJ Payne",
 "Out"
 ],
 [
-"PHI",
-"Britain Covey",
+"PIT",
+"Michael Pittman Jr.",
 "Out"
 ],
 [
-"PHI",
-"DeVonta Smith",
-"Out"
-],
-[
-"PHI",
-"Dontayvion Wicks",
-"Out"
-],
-[
-"PHI",
-"Jihaad Campbell",
-"Out"
-],
-[
-"PHI",
-"Jonathan Jones",
-"Out"
-],
-[
-"PHI",
-"Michael Carter II",
-"Out"
-],
-[
-"SEA",
-"Brandon Pili",
+"PIT",
+"Sebastian Joseph-Day",
 "Out"
 ],
 [
 "SEA",
 "Charles Cross",
-"Out"
-],
-[
-"SEA",
-"Leonard Williams",
-"Out"
+"Doubtful"
 ],
 [
 "SEA",
 "Quenton Nelson",
-"Out"
-],
-[
-"SEA",
-"Rashid Shaheed",
-"Out"
+"Doubtful"
 ],
 [
 "SEA",
 "Sam Darnold",
-"Out"
-],
-[
-"SEA",
-"Uchenna Nwosu",
 "Out"
 ],
 [
@@ -1041,22 +401,17 @@
 ],
 [
 "SF",
+"C.J. West",
+"Out"
+],
+[
+"SF",
 "Christian Kirk",
 "Out"
 ],
 [
 "SF",
-"De'Zhaun Stribling",
-"Out"
-],
-[
-"SF",
-"Deebo Samuel Sr.",
-"Out"
-],
-[
-"SF",
-"Mike Evans",
+"Gracen Halton",
 "Out"
 ],
 [
@@ -1065,23 +420,13 @@
 "Out"
 ],
 [
-"TB",
-"Jalen McMillan",
+"TEN",
+"Dorian Mausi",
 "Out"
 ],
 [
-"TB",
-"Josh Hayes",
-"Out"
-],
-[
-"TB",
-"Yaya Diaby",
-"Out"
-],
-[
-"WAS",
-"Athan Kaliakmanis",
+"TEN",
+"James Williams Sr.",
 "Out"
 ],
 [
@@ -1096,16 +441,6 @@
 ],
 [
 "WAS",
-"Fabian Moreau",
-"Out"
-],
-[
-"WAS",
-"Isaac Yiadom",
-"Out"
-],
-[
-"WAS",
 "Javon Kinlaw",
 "Out"
 ],
@@ -1116,134 +451,40 @@
 ],
 [
 "WAS",
-"Tanoa Togiai",
-"Out"
-],
-[
-"WAS",
-"Terry McLaurin",
-"Out"
-],
-[
-"WAS",
-"Treylon Burks",
-"Out"
+"Lucas Patrick",
+"Doubtful"
 ]
 ],
 "reports": [
 [
 "ARI",
-"Budda Baker",
-"",
-"Full Participation in Practice"
+"Bam Knight",
+"Questionable (ESPN)",
+""
 ],
 [
 "ARI",
 "Hjalte Froholdt",
-"",
-"Full Participation in Practice"
-],
-[
-"ARI",
-"Isaac Seumalo",
-"",
-"Full Participation in Practice"
-],
-[
-"ARI",
-"Isaiah Adams",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"ARI",
-"Isaiah Adams",
 "Questionable (ESPN)",
 ""
 ],
 [
 "ARI",
-"Jacoby Brissett",
-"",
-"Did Not Participate In Practice"
-],
-[
-"ARI",
-"Josh Sweat",
-"",
-"Full Participation in Practice"
-],
-[
-"ARI",
-"Max Melton",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"ARI",
-"Max Melton",
+"Jayden Williams",
 "Questionable (ESPN)",
 ""
 ],
 [
 "ARI",
-"Michael Wilson",
-"",
-"Limited Participation in Practice"
-],
-[
-"ARI",
-"Reggie Virgil",
-"",
-"Full Participation in Practice"
-],
-[
-"ARI",
-"Walter Nolen",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"ARI",
-"Walter Nolen III",
+"Jon Gaines II",
 "Questionable (ESPN)",
 ""
 ],
 [
-"ATL",
-"Beaux Collins",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"ATL",
-"Billy Bowman Jr.",
-"",
-"Full Participation in Practice"
-],
-[
-"ATL",
-"Divine Deablo",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"ATL",
-"James Pearce Jr.",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"ATL",
-"Yasir Abdullah",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Adam Randall",
-"Questionable",
-"Full Participation in Practice"
+"ARI",
+"Roy Lopez",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1253,33 +494,9 @@
 ],
 [
 "BAL",
-"Calais Campbell",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Joe Fagnano",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"John Jenkins",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"John Simpson",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Justice Hill",
-"",
-"Full Participation in Practice"
+"Jaylinn Hawkins",
+"Questionable (ESPN)",
+""
 ],
 [
 "BAL",
@@ -1289,63 +506,9 @@
 ],
 [
 "BAL",
-"Mark Andrews",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Matthew Hibner",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
 "Nate Wiggins",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"BAL",
-"Olaivavega Ioane",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Roger Rosengarten",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Ronnie Stanley",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Roquan Smith",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Trey Hendrickson",
-"",
-"Full Participation in Practice"
-],
-[
-"BAL",
-"Tyler Loop",
-"",
-"Did Not Participate In Practice"
-],
-[
-"BUF",
-"Alec Anderson",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "BUF",
@@ -1355,63 +518,9 @@
 ],
 [
 "BUF",
-"Ar'maj Reed-Adams",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Bradley Chubb",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"DJ Moore",
-"",
-"Limited Participation in Practice"
-],
-[
-"BUF",
-"Dalton Kincaid",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Dee Alford",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Deone Walker",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Dion Dawkins",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"BUF",
 "Dion Dawkins",
 "Questionable (ESPN)",
 ""
-],
-[
-"BUF",
-"Ed Oliver",
-"",
-"Did Not Participate In Practice"
-],
-[
-"BUF",
-"Greg Gaines",
-"Questionable",
-"Limited Participation in Practice"
 ],
 [
 "BUF",
@@ -1420,478 +529,124 @@
 ""
 ],
 [
-"BUF",
-"Joe Andreessen",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Jordan Hancock",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"BUF",
-"Keon Coleman",
-"",
-"Limited Participation in Practice"
-],
-[
-"BUF",
-"Khalil Shakir",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Sam Franklin Jr.",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Spencer Brown",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"T.J. Sanders",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"TJ Parker",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Terrel Bernard",
-"",
-"Did Not Participate In Practice"
-],
-[
-"BUF",
-"Ty Johnson",
-"",
-"Full Participation in Practice"
-],
-[
-"BUF",
-"Tyrell Shavers",
-"Questionable",
-"Full Participation in Practice"
-],
-[
 "CAR",
-"Bobby Brown III",
-"",
-"Full Participation in Practice"
-],
-[
-"CAR",
-"Brady Christensen",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"CAR",
-"Bryce Young",
-"",
-"Full Participation in Practice"
-],
-[
-"CAR",
-"Corey Bullock",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"CAR",
-"Torricelli Simpkins III",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"CAR",
-"Trevis Gipson",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"D'Marco Jackson",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"Grady Jarrett",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"Joe Thuney",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"Kyle Monangai",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"CHI",
-"Kyle Monangai",
+"Bobby Okereke",
 "Questionable (ESPN)",
 ""
 ],
 [
-"CHI",
-"Malik Muhammad",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"CHI",
-"Malik Muhammad II",
+"CAR",
+"Damien Lewis",
 "Questionable (ESPN)",
 ""
 ],
 [
-"CHI",
-"T.J. Edwards",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"Theo Benedet",
-"",
-"Full Participation in Practice"
-],
-[
-"CHI",
-"Tyrique Stevenson",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"CHI",
-"Tyrique Stevenson Sr.",
+"CAR",
+"Jaelan Phillips",
 "Questionable (ESPN)",
 ""
 ],
 [
-"CHI",
-"Zavier Scott",
-"",
-"Did Not Participate In Practice"
+"CAR",
+"Will Lee III",
+"Questionable (ESPN)",
+""
 ],
 [
 "CIN",
-"B.J. Hill",
-"",
-"Did Not Participate In Practice"
-],
-[
-"CIN",
-"Cedric Johnson",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"CIN",
-"DJ Turner II",
-"",
-"Full Participation in Practice"
-],
-[
-"CIN",
-"Dexter Lawrence",
-"",
-"Did Not Participate In Practice"
-],
-[
-"CIN",
-"Jonathan Allen",
-"",
-"Limited Participation in Practice"
-],
-[
-"CIN",
-"Jordan Battle",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Austin Barber",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Carson Schwesinger",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Denzel Boston",
-"",
-"Full Participation in Practice"
+"Kyle Dugger",
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
 "Deshaun Watson",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "CLE",
-"Elgton Jenkins",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Emmanuel McNeil-Warren",
-"",
-"Limited Participation in Practice"
-],
-[
-"CLE",
-"Harold Fannin Jr.",
-"",
-"Limited Participation in Practice"
-],
-[
-"CLE",
-"Jared Verse",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Myles Harden",
-"",
-"Full Participation in Practice"
-],
-[
-"CLE",
-"Quincy Williams",
-"",
-"Limited Participation in Practice"
-],
-[
-"DAL",
-"Broderick Jones",
-"",
-"Did Not Participate In Practice"
-],
-[
-"DAL",
-"Caleb Downs",
-"",
-"Full Participation in Practice"
+"Maliek Collins",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
 "DeMarvion Overshown",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
-"Dee Winters",
-"",
-"Full Participation in Practice"
-],
-[
-"DAL",
-"Drew Shelton",
-"",
-"Full Participation in Practice"
+"Donovan Ezeiruaku",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
 "George Pickens",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"DAL",
-"Jake Ferguson",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
 "Joey Porter Jr.",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
-"Jonathan Bullard",
-"Questionable",
-"Full Participation in Practice"
+"Jonathan Mingo",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
-"Kenny Clark",
-"",
-"Full Participation in Practice"
+"KaVontae Turpin",
+"Questionable (ESPN)",
+""
 ],
 [
 "DAL",
 "Luke Schoonmaker",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"DAL",
-"Marist Liufau",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"DAL",
-"P.J. Locke",
-"",
-"Full Participation in Practice"
-],
-[
-"DAL",
-"Tyler Smith",
-"",
-"Full Participation in Practice"
-],
-[
-"DAL",
-"Von Miller",
-"",
-"Did Not Participate In Practice"
-],
-[
-"DEN",
-"Courtland Sutton",
-"",
-"Full Participation in Practice"
-],
-[
-"DEN",
-"Dondrea Tillman",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"DEN",
-"Jaylen Waddle",
-"",
-"Full Participation in Practice"
-],
-[
-"DEN",
-"Pat Bryant",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"DEN",
-"Talanoa Hufanga",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"DEN",
-"Zach Allen",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "DET",
-"Amen Ogbongbemiga",
-"",
-"Full Participation in Practice"
+"Cade Mays",
+"Questionable (ESPN)",
+""
 ],
 [
 "DET",
-"Amon-Ra St. Brown",
-"Questionable",
-"Limited Participation in Practice"
+"D.J. Reed",
+"Questionable (ESPN)",
+""
 ],
 [
 "DET",
-"Brian Branch",
-"",
-"Full Participation in Practice"
+"DJ Wonnum",
+"Questionable (ESPN)",
+""
 ],
 [
 "DET",
 "Jacob Saylors",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"DET",
-"Rock Ya-Sin",
-"",
-"Full Participation in Practice"
-],
-[
-"DET",
-"Sione Vaki",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"GB",
-"Aaron Banks",
-"",
-"Limited Participation in Practice"
-],
-[
-"GB",
-"Chris Brooks",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"GB",
-"Christian Watson",
-"",
-"Limited Participation in Practice"
-],
-[
-"GB",
-"Javon Bullard",
-"",
-"Did Not Participate In Practice"
-],
-[
-"GB",
-"Keisean Nixon",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"GB",
-"Keisean Nixon",
 "Questionable (ESPN)",
 ""
 ],
 [
 "GB",
-"MarShawn Lloyd",
-"Questionable",
-"Limited Participation in Practice"
+"Bo Melton",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Josh Whyle",
+"Questionable (ESPN)",
+""
 ],
 [
 "GB",
@@ -1900,454 +655,226 @@
 ""
 ],
 [
-"HOU",
-"Azeez Al-Shaair",
-"",
-"Full Participation in Practice"
+"GB",
+"Sean Rhyan",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Travis Glover",
+"Questionable (ESPN)",
+""
+],
+[
+"GB",
+"Ty'Ron Hopper",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
-"Blake Fisher",
-"",
-"Full Participation in Practice"
+"David Montgomery",
+"Questionable (ESPN)",
+""
 ],
 [
 "HOU",
-"Braden Smith",
-"",
-"Full Participation in Practice"
-],
-[
-"HOU",
-"Brevin Jordan",
-"",
-"Full Participation in Practice"
-],
-[
-"HOU",
-"Jalen Pitre",
-"",
-"Full Participation in Practice"
+"Reed Blankenship",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
-"Andrew Ogletree",
-"",
-"Full Participation in Practice"
+"A.J. Haulcy",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
-"Anthony Gould",
-"",
-"Full Participation in Practice"
+"Akeem Davis-Gaither",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
-"Bryce Boettcher",
-"",
-"Full Participation in Practice"
+"Jaylon Carlies",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
-"Charvarius Ward",
-"",
-"Full Participation in Practice"
+"Justin Walley",
+"Questionable (ESPN)",
+""
 ],
 [
 "IND",
-"Grover Stewart",
-"",
-"Full Participation in Practice"
-],
-[
-"IND",
-"Jalen Travis",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"IND",
-"Jonathan Taylor",
-"",
-"Full Participation in Practice"
-],
-[
-"IND",
-"Keenan Allen",
-"",
-"Full Participation in Practice"
-],
-[
-"IND",
-"Will Mallory",
-"",
-"Did Not Participate In Practice"
-],
-[
-"JAX",
-"Antonio Johnson",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"Bhayshul Tuten",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"JAX",
-"Branson Combs",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"Chris Rodriguez Jr.",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"DaVon Hamilton",
-"",
-"Did Not Participate In Practice"
-],
-[
-"JAX",
-"Eric Murray",
-"",
-"Did Not Participate In Practice"
-],
-[
-"JAX",
-"Ezra Cleveland",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"Jakobi Meyers",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"Jarrian Jones",
-"",
-"Limited Participation in Practice"
-],
-[
-"JAX",
-"Travon Walker",
-"Questionable",
-"Limited Participation in Practice"
+"Mo Alie-Cox",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
-"Drue Tranquill",
-"",
-"Full Participation in Practice"
+"Jaylon Moore",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
-"Nick Bolton",
-"",
-"Full Participation in Practice"
-],
-[
-"KC",
-"Nikko Remigio",
-"Questionable",
-"Full Participation in Practice"
+"Mansoor Delane",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
 "Patrick Mahomes",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
-"Rashee Rice",
-"",
-"Full Participation in Practice"
+"Peter Woods",
+"Questionable (ESPN)",
+""
 ],
 [
 "KC",
-"Travis Kelce",
-"",
-"Full Participation in Practice"
+"Xavier Worthy",
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
-"Aaron Donald",
-"",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Alaric Jackson",
-"",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Byron Young",
-"",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Colby Parkinson",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"LA",
-"Grant Stuard",
-"Questionable",
-"Limited Participation in Practice"
+"Joe Cardona",
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
 "Jordan Whittington",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"LA",
-"Kam Curl",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"LA",
-"Matthew Stafford",
-"",
-"Full Participation in Practice"
-],
-[
-"LA",
-"Myles Garrett",
-"",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Puka Nacua",
-"",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Ronnie Rivers",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
 "Steve Avila",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "LA",
 "Trent McDuffie",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"LA",
-"Tyler Higbee",
-"",
-"Did Not Participate In Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
-"Bud Dupree",
-"",
-"Full Participation in Practice"
+"Brenen Thompson",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
-"Daiyan Henley",
-"",
-"Full Participation in Practice"
+"Deane Leonard",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
-"Donte Jackson",
-"",
-"Full Participation in Practice"
+"Isas Waxter",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
-"Khalil Mack",
-"",
-"Full Participation in Practice"
+"Justin Eboigbe",
+"Questionable (ESPN)",
+""
 ],
 [
 "LAC",
-"Rodney Shelley",
-"",
-"Full Participation in Practice"
+"Justin Herbert",
+"Questionable (ESPN)",
+""
 ],
 [
-"LV",
-"Darien Porter",
-"Questionable",
-"Full Participation in Practice"
+"LAC",
+"Kayode Awosika",
+"Questionable (ESPN)",
+""
 ],
 [
-"LV",
-"Darien Porter",
+"LAC",
+"Kendall Williamson",
+"Questionable (ESPN)",
+""
+],
+[
+"LAC",
+"Ladd McConkey",
 "Questionable (ESPN)",
 ""
 ],
 [
 "LV",
-"Dont'e Thornton Jr.",
-"",
-"Full Participation in Practice"
+"Thomas Booker IV",
+"Questionable (ESPN)",
+""
 ],
 [
 "LV",
-"Foley Fatukasi",
-"",
-"Full Participation in Practice"
-],
-[
-"LV",
-"Ian Thomas",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Chop Robinson",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Dante Trader Jr.",
-"",
-"Full Participation in Practice"
+"Trey Zuhn III",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
 "Jaylen Wright",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"MIA",
-"Kadyn Proctor",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Kaytron Allen",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Malik Herring",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
 "Malik Willis",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Michael Taaffe",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Reese Taylor",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Tucker Addington",
-"",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "MIA",
 "Will Kacmarek",
-"",
-"Full Participation in Practice"
-],
-[
-"MIA",
-"Zach Sieler",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "MIN",
-"Andrew Van Ginkel",
-"",
-"Full Participation in Practice"
+"Jauan Jennings",
+"Questionable (ESPN)",
+""
 ],
 [
 "MIN",
-"Christian Darrisaw",
-"",
-"Did Not Participate In Practice"
-],
-[
-"MIN",
-"Harrison Smith",
-"",
-"Limited Participation in Practice"
-],
-[
-"MIN",
-"Isaiah Rodgers",
-"",
-"Full Participation in Practice"
-],
-[
-"MIN",
-"Jake Golday",
-"",
-"Full Participation in Practice"
-],
-[
-"MIN",
-"Jay Ward",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"MIN",
-"Jay Ward",
+"Kyler Murray",
 "Questionable (ESPN)",
 ""
 ],
 [
 "MIN",
 "Theo Jackson",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
+],
+[
+"MIN",
+"Tyrion Ingram-Dawkins",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
-"Brenden Schooler",
-"Questionable",
-"Limited Participation in Practice"
+"A.J. Brown",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
@@ -2358,671 +885,235 @@
 [
 "NE",
 "Carlton Davis III",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Christian Barmore",
-"",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Drake Maye",
-"",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Dre'Mont Jones",
-"",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Gabe Jacas",
-"",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Hunter Henry",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NE",
-"Hunter Henry",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NE",
-"Kevin Byard",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"NE",
-"Mack Hollins",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NE",
-"Mack Hollins",
+"Charles Woods",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NE",
-"Marcus Jones",
-"",
-"Full Participation in Practice"
+"TreVeyon Henderson",
+"Questionable (ESPN)",
+""
 ],
 [
 "NE",
-"Morgan Moses",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NE",
-"Morgan Moses",
+"Will Campbell",
 "Questionable (ESPN)",
 ""
 ],
 [
 "NO",
-"Alvin Kamara",
-"",
-"Full Participation in Practice"
-],
-[
-"NO",
-"Asim Richards",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NO",
-"Cesar Ruiz",
-"",
-"Full Participation in Practice"
-],
-[
-"NO",
-"Davon Godchaux",
-"",
-"Full Participation in Practice"
-],
-[
-"NO",
-"Jordyn Tyson",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NO",
-"Justin Reid",
-"",
-"Full Participation in Practice"
-],
-[
-"NO",
-"Kelvin Banks Jr.",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"NO",
-"Martin Emerson",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"NO",
-"Nathan Shepherd",
-"",
-"Full Participation in Practice"
+"CJ Donaldson",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
 "Abdul Carter",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
-"Andrew Thomas",
-"",
-"Full Participation in Practice"
+"Cam Skattebo",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
 "Charlie Jones",
-"Questionable",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
-"Colton Hood",
-"",
-"Full Participation in Practice"
+"Darnell Mooney",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
-"DJ Reader",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Darius Alexander",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Jermaine Eluemunor",
-"",
-"Full Participation in Practice"
+"J.J. McCarthy",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYG",
 "Malik Harrison",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Malik Nabers",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Marcus Mbow",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Micah McFadden",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Theo Johnson",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Thomas Fidone II",
-"",
-"Full Participation in Practice"
-],
-[
-"NYG",
-"Trace Ford",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
-"Breece Hall",
-"",
-"Full Participation in Practice"
+"Garrett Wilson",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
-"David Bailey",
-"",
-"Full Participation in Practice"
+"Joseph Ossai",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
-"Demario Davis",
-"",
-"Full Participation in Practice"
+"Nahshon Wright",
+"Questionable (ESPN)",
+""
 ],
 [
 "NYJ",
-"Harrison Phillips",
-"Questionable",
-"Full Participation in Practice"
+"Trevin Wallace",
+"Questionable (ESPN)",
+""
 ],
 [
-"NYJ",
-"Mason Taylor",
-"",
-"Full Participation in Practice"
+"PIT",
+"Ben Skowronek",
+"Questionable (ESPN)",
+""
 ],
 [
-"PHI",
-"Dallas Goedert",
-"",
-"Full Participation in Practice"
+"PIT",
+"Brandin Echols",
+"Questionable (ESPN)",
+""
 ],
 [
-"PHI",
-"Elijah Moore",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Jake Elliott",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Jalyx Hunt",
-"",
-"Limited Participation in Practice"
-],
-[
-"PHI",
-"Jonathan Greenard",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Jordan Davis",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Jordan Mailata",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Kenny Moore II",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Landon Dickerson",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Markel Bell",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Moro Ojomo",
-"",
-"Full Participation in Practice"
-],
-[
-"PHI",
-"Saquon Barkley",
-"",
-"Limited Participation in Practice"
-],
-[
-"PHI",
-"Tanner McKee",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"PHI",
-"Zack Baun",
-"",
-"Full Participation in Practice"
-],
-[
-"SEA",
-"Anthony Bradford",
-"",
-"Full Participation in Practice"
-],
-[
-"SEA",
-"Connor O'Toole",
-"Questionable",
-"Did Not Participate In Practice"
-],
-[
-"SEA",
-"Connor O'Toole",
+"PIT",
+"Doneiko Slaughter",
 "Questionable (ESPN)",
 ""
 ],
 [
 "SEA",
-"Derick Hall",
-"",
-"Full Participation in Practice"
+"Brandon Pili",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
 "Drew Lock",
-"",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
-"Ernest Jones",
-"",
-"Full Participation in Practice"
+"Leonard Williams",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
-"Jaxon Smith-Njigba",
-"",
-"Full Participation in Practice"
+"Rashid Shaheed",
+"Questionable (ESPN)",
+""
 ],
 [
 "SEA",
-"Nick Emmanwori",
-"",
-"Full Participation in Practice"
-],
-[
-"SEA",
-"Tory Horton",
-"",
-"Full Participation in Practice"
-],
-[
-"SEA",
-"Tyrice Knight",
-"",
-"Full Participation in Practice"
-],
-[
-"SEA",
-"Velus Jones Jr.",
-"",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Christian McCaffrey",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Demarcus Robinson",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Garret Wallow",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Luke Gifford",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Marques Sigle",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Mykel Williams",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Nate Hobbs",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Nick Bosa",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Siran Neal",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Siran Neal",
+"Uchenna Nwosu",
 "Questionable (ESPN)",
 ""
 ],
 [
 "SF",
-"Trent Williams",
-"",
-"Full Participation in Practice"
-],
-[
-"SF",
-"Upton Stout",
-"Questionable",
-"Limited Participation in Practice"
-],
-[
-"SF",
-"Upton Stout",
+"Deebo Samuel Sr.",
 "Questionable (ESPN)",
 ""
 ],
 [
-"TB",
-"A'Shawn Robinson",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Baker Mayfield",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Bucky Irving",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Cade Otton",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Chris Godwin Jr.",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Cody Mauch",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Elijah Roberts",
-"",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Emeka Egbuka",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"TB",
-"Emeka Egbuka",
+"SF",
+"Deommodore Lenoir",
 "Questionable (ESPN)",
 ""
 ],
 [
-"TB",
-"Kenny Gainwell",
-"",
-"Full Participation in Practice"
+"SF",
+"Mike Evans",
+"Questionable (ESPN)",
+""
 ],
 [
-"TB",
-"Tristan Wirfs",
-"",
-"Limited Participation in Practice"
+"SF",
+"Renardo Green",
+"Questionable (ESPN)",
+""
 ],
 [
-"TB",
-"Tykee Smith",
-"",
-"Full Participation in Practice"
+"TEN",
+"Carnell Tate",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"JC Latham",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Jaylon Jones",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Marcus Harris",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Peter Skoronski",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Tommy Townsend",
+"Questionable (ESPN)",
+""
+],
+[
+"TEN",
+"Tyjae Spears",
+"Questionable (ESPN)",
+""
+],
+[
+"WAS",
+"Chig Okonkwo",
+"Questionable (ESPN)",
+""
 ],
 [
 "WAS",
 "Colson Yankoff",
-"",
-"Full Participation in Practice"
-],
-[
-"WAS",
-"Deatrich Wise",
-"",
-"Limited Participation in Practice"
-],
-[
-"WAS",
-"Jayden Daniels",
-"",
-"Full Participation in Practice"
-],
-[
-"WAS",
-"Jer'Zhan Newton",
-"Questionable",
-"Full Participation in Practice"
-],
-[
-"WAS",
-"John Bates",
-"",
-"Limited Participation in Practice"
-],
-[
-"WAS",
-"Josh Conerly Jr.",
-"",
-"Full Participation in Practice"
-],
-[
-"WAS",
-"Sam Cosmi",
-"",
-"Full Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "WAS",
 "Shy Tuttle",
-"",
-"Limited Participation in Practice"
+"Questionable (ESPN)",
+""
 ],
 [
 "WAS",
-"Stefon Diggs",
-"",
-"Did Not Participate In Practice"
+"Treylon Burks",
+"Questionable (ESPN)",
+""
 ]
 ],
 "weather": {
-"2026_09_DEN_CAR": {
-"wind": 5.8,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_NYJ_KC": {
-"wind": 6.3,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_DET_MIA": {
-"wind": 8.3,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_NYG_PHI": {
-"wind": 14.4,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_LA_WAS": {
-"wind": 10.3,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_LV_SF": {
-"wind": 8.7,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_GB_NE": {
-"wind": 6.5,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_ARI_SEA": {
-"wind": 8.2,
-"cold": false,
-"rain": false,
-"src": "mos",
-"temp_src": "mos",
-"rain_src": "mos"
-},
-"2026_09_TB_CHI": {
-"wind": 11.4,
+"2026_10_WAS_NYG": {
+"wind": 7.7,
 "cold": false,
 "rain": false,
 "src": "mos",
@@ -3030,5 +1121,5 @@
 "rain_src": "mos"
 }
 },
-"written_at": "2026-11-08 18:30 UTC"
+"written_at": "2026-11-10 17:46 UTC"
 }
