@@ -4,6 +4,7 @@
  "season": 2026,
  "week": 10,
  "espn_unmatched": [
+  "BUF Mike Danna",
   "CHI Braxton Jones",
   "CHI Kentavius Street",
   "CHI Kyle Monangai",
@@ -13,6 +14,7 @@
   "DEN Eyioma Uwazurike",
   "DEN Kris Abrams-Draine",
   "DEN Talanoa Hufanga",
+  "NO Mike Reid",
   "NYG CJ Okoye",
   "PHI Britain Covey",
   "PHI DeVonta Smith",
@@ -24,15 +26,6 @@
   "TB Yaya Diaby"
  ],
  "swaps": [
-  {
-   "game_id": "2026_10_MIA_IND",
-   "team": "MIA",
-   "from": "00-0038128",
-   "from_name": "Malik Willis",
-   "to": "00-0040014",
-   "to_name": "Kyle McCord",
-   "source": "depth chart"
-  },
   {
    "game_id": "2026_10_LA_ARI",
    "team": "ARI",

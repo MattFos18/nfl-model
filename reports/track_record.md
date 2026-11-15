@@ -23,12 +23,12 @@ Backtest columns: the same rule on the three backtest windows, regular season we
 | shadow: Under, 60%+ chance | 9 | 9 | 3-6 (33%) | -3.27 | +0.44 | 69-51 | 97-71 | 37-27 |
 | shadow: Under, 55%+ chance, prime time (TNF, SNF, MNF) only | 6 | 6 | 2-4 (33%) | -2.18 | +0.08 | 32-26 | 42-18 | 19-13 |
 | shadow: Under, forecast wind 10+ mph (outdoor games) | 17 | 15 | 6-9 (40%) | -3.55 | +0.06 | 119-97 | 143-88 | 77-52 |
-| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 23 | 20 | 12-8 (60%) | -4.04 | -0.54 | 117-35 | 101-29 | 129-38 |
+| shadow: 6-point teaser leg on dogs at +1.5 to +2.5, any game (a leg of a two-team teaser at -130) | 23 | 21 | 12-9 (57%) | -5.04 | -0.54 | 117-35 | 101-29 | 129-38 |
 | shadow: Under, forecast rain chance 50%+ (outdoor games) | 12 | 12 | 4-8 (33%) | -4.36 | +0.08 | 46-32 | 55-30 | 36-21 |
 | shadow: Under, forecast temperature below 32 F (outdoor games) | 0 | 0 | | | | 28-16 | 21-15 | 11-10 |
 | shadow: Under, model total 3+ points below the line | 9 | 9 | 3-6 (33%) | -3.27 | +0.44 | 63-46 | 96-71 | 27-18 |
 | shadow: Under, 55%+ chance and forecast wind 10+ mph | 8 | 7 | 2-5 (29%) | -3.18 | +0.25 | 57-40 | 82-48 | 43-22 |
-| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 15 | 12 | 6-6 (50%) | -0.55 | +0.13 | 153-114 | 102-83 | 88-57 |
+| shadow: Total, boosted trees' own total 9.5%+ of the line off it, either side | 16 | 12 | 6-6 (50%) | -0.55 | +0.12 | 153-114 | 102-83 | 88-57 |
 | shadow: West Coast or Mountain team on the road at 1pm ET, any game | 8 | 8 | 5-3 (62%) | +1.55 | +0.00 | 42-58 | 57-43 | 48-38 |
 | shadow: 4+ edge, model's side the road underdog | 2 | 2 | 1-1 (50%) | -0.05 | +0.50 | 33-12 | 35-17 | 14-5 |
 | shadow: 4+ edge, model's side a dog at +0.5 to +3 | 5 | 5 | 3-2 (60%) | +0.71 | +0.30 | 20-12 | 23-16 | 19-5 |
@@ -77,7 +77,7 @@ Every bet:
 |     2026 |      8 | 2026_08_KC_DEN  | DEN +1.5 |   -120 |    -1.5 |   3   | win      |    0.83 |
 |     2026 |      9 | 2026_09_HOU_LAC | LAC +5.5 |   -112 |     5.5 |   0   | loss     |   -1    |
 |     2026 |      9 | 2026_09_LV_SF   | LV +9.5  |   -110 |     8.5 |   1   | loss     |   -1    |
-|     2026 |     10 | 2026_10_SF_DAL  | DAL +4.5 |   -115 |   nan   | nan   | pending  |  nan    |
+|     2026 |     10 | 2026_10_SF_DAL  | DAL +4.5 |   -112 |   nan   | nan   | pending  |  nan    |
 
 ## Matt's bets
 
