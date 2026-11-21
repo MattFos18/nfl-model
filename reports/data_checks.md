@@ -8,7 +8,7 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | games: one row per game | yes | 0 duplicate game ids |
 | games: every team's full regular season (finished seasons) | yes | 11 seasons, 2015 to 2025 |
 | games: no team twice in one week | yes | 0 repeats in 2026 |
-| games: scores whole numbers from 0 to 80 | yes | 3033 played games |
+| games: scores whole numbers from 0 to 80 | yes | 3046 played games |
 | games: result and total add up from the scores | yes | 0 games off |
 | games: closing spread and total for every played game | yes | 0 missing |
 | games: lines in range (spread within 30, total 25 to 70) | yes | 0 out of range |
@@ -19,10 +19,10 @@ The tables the model reads, checked for shape before pricing (nflmodel/data_chec
 | predictions: every played regular-season game priced | yes | 0 missing |
 | predictions: finite and in range (total 20 to 75, spread within 35) | yes | 3167 games |
 | games: every played game's starting QB dropped back in it | yes | 0 team-games |
-| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace; 1 within it (warning): 2026_10_NE_DET |
+| games: every played game has play-by-play (36 h grace after kickoff) | yes | 0 past the grace |
 | games: neutral-site and overseas games at their real stadium and roof (venues.py) | yes | 0 games |
 | games: kickoff wind 40 mph or under | yes | 0 games |
-| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2224 games: 0 partial, 0 missing |
-| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 2 games; 2 short (warning): 2026_10_LAC_BAL (no wind, temperature, rain), 2026_10_PIT_CIN (no wind, temperature, rain) |
+| forecasts: every played outdoor US game since 2015 has its wind, temperature and rain readings | yes | 2232 games: 0 partial, 2 missing (warning); missing: 2026_10_LA_ARI, 2026_11_IND_HOU |
+| forecasts: every unplayed outdoor game inside the live window (66 h) has wind, temperature and rain | yes | 8 games; 8 short (warning): 2026_11_ARI_KC (no wind, temperature, rain), 2026_11_BAL_CAR (no wind, temperature, rain), 2026_11_CIN_WAS (no wind, temperature, rain), 2026_11_JAX_NYG (no wind, temperature, rain), 2026_11_LV_DEN (no wind, temperature, rain), 2026_11_MIA_BUF (no wind, temperature, rain) |
 
 Result: PASS (20 of 20)

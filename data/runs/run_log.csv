@@ -25613,3 +25613,63 @@ tie check (sources),error,RuntimeError: numbers disagree: see reports/tie_check.
 export data room,ok,,99.1,2026-11-15 19:13 UTC
 tie check (page),error,RuntimeError: page files disagree with the sources: see reports/tie_check.md,9.3,2026-11-15 19:13 UTC
 standing checks,ok,True,35.4,2026-11-15 19:13 UTC
+pull,ok,"[('2026-11-21T20:19:50', 'schedules', 'all', 'https://github.com/nflverse/nflverse-data/releases/download/schedules/games.csv', 'ok', 2191359, 'd1260c9c194f'), ('2026-11-21T20:19:50', 'players', 'all'",5.8,2026-11-21 20:19 UTC
+pull player history,ok,"[('2026-11-21T20:19:56', 'pfr_advstats', 2018, 'https://github.com/nflverse/nflverse-data/releases/download/pfr_advstats/advstats_week_def_2018.parquet', 'cached', 149299, ''), ('2026-11-21T20:19:56',",0.0,2026-11-21 20:19 UTC
+build,ok,"team_games (8202, 142)",117.0,2026-11-21 20:19 UTC
+features,ok,[40 rows x 8 columns],9.9,2026-11-21 20:19 UTC
+snap exposure,ok,"snap exposure (338652, 10) seasons 2013 to 2026",1.1,2026-11-21 20:19 UTC
+verify,ok,Result: PASS,0.3,2026-11-21 20:19 UTC
+data checks,ok,True,0.3,2026-11-21 20:19 UTC
+weather,ok,"            game_id          kickoff_et  ...  precip        fetched_at
+0   2026_11_MIA_BUF 2026-11-22 13:00:00  ...     0.0  2026-11-21 15:22
+1   2026_11_BAL_CAR 2026-11-22 13:00:00  ...     0.0  2026",0.6,2026-11-21 20:19 UTC
+wind forecast,ok,8,7.6,2026-11-21 20:19 UTC
+lines,ok,"{'ts': '2026-11-21T20-22-13Z', 'season': 2026, 'week': 10, 'rows': 12, 'errors': 'oddsapi: 401 Client Error: Unauthorized for url: https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds?regi",12.3,2026-11-21 20:19 UTC
+live results,ok,"live results: week 11, 1 final of 13, 0 in progress; spread 0-0, total 0-0, winner 0-0; play-by-play for 15 games",4.4,2026-11-21 20:19 UTC
+ratings,ok,"(7668, 51) QB-out check: ok; swaps: none",17.8,2026-11-21 20:19 UTC
+trends,ok,head-to-head cover margin      96                 0.355         7.079            2.793,40.6,2026-11-21 20:19 UTC
+players,ok,max           0.104589         1.360481    14.000000,87.8,2026-11-21 20:19 UTC
+positions,ok,Skill    503.0  0.007822  0.00240  0.0867,18.7,2026-11-21 20:19 UTC
+scheme,ok,"scheme_plays (367336, 83) profiles for 32 teams as of 2026 11",4.7,2026-11-21 20:19 UTC
+player splits,ok,player_splits.js 1.82 MB,58.7,2026-11-21 20:19 UTC
+week moved mid-run,ok,"(2026, 10) -> (2026, 11): input steps run again",0.0,2026-11-21 20:19 UTC
+"ratings (again, week 11)",ok,"(7668, 51) QB-out check: ok; swaps: ARI Gardner Minshew -> Josh Johnson (depth chart)",18.0,2026-11-21 20:19 UTC
+"trends (again, week 11)",ok,head-to-head cover margin      96                 0.355         7.079            2.793,40.7,2026-11-21 20:19 UTC
+"players (again, week 11)",ok,max           0.104589         1.360481    14.000000,88.7,2026-11-21 20:19 UTC
+"positions (again, week 11)",ok,Skill    478.0  0.007682  0.00275  0.0684,18.0,2026-11-21 20:19 UTC
+"scheme (again, week 11)",ok,"scheme_plays (367336, 83) profiles for 32 teams as of 2026 11",4.7,2026-11-21 20:19 UTC
+"player splits (again, week 11)",ok,player_splits.js 1.82 MB,59.8,2026-11-21 20:19 UTC
+model,ok,   opp_skill_out_value           12.498       0.012          0.156,37.6,2026-11-21 20:19 UTC
+qt shadow,ok,"qt shadow: 3300 games, 16631 Questionable listings priced, 46s",47.2,2026-11-21 20:19 UTC
+opener study,ok,opener study written,37.5,2026-11-21 20:19 UTC
+props by season,ok,DONE,19.7,2026-11-21 20:19 UTC
+props,error,"RuntimeError: on_upcast=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/pandas/core/internals/blocks.py"", line 48",0.4,2026-11-21 20:19 UTC
+sizing backtest,ok,   2025   14-6    0.700        6.73,3.6,2026-11-21 20:19 UTC
+threshold sweep,ok,DONE,1.2,2026-11-21 20:19 UTC
+calibration start,ok,   last 5 seasons     0.5288     0.5359     0.5429              0.69326            0.25006                0.68250              0.5639             0.5851             94              0.69274            ,1.2,2026-11-21 20:19 UTC
+season backtest,ok,"{'shrink0.1_sig1': 'not adopted', 'shrink0.1_sig1.15': 'not adopted', 'shrink0.2_sig1': 'not adopted', 'shrink0.2_sig1.15': 'not adopted', 'shrink0.3_sig1': 'not adopted', 'shrink0.3_sig1.15': 'not ad",66.9,2026-11-21 20:19 UTC
+legitimacy tests,ok,"Reading: the line beats the model on the miss every season (it should; it is the market). The question the flag rests on is whether the model's disagreements with the line carry information, which the",11.4,2026-11-21 20:19 UTC
+audit reports,ok,"Closing line value is not measurable in this backtest: nflverse stores closing lines only. It starts being logged from the first live week (open, midweek, close).",1.9,2026-11-21 20:19 UTC
+picks,ok,"              game_id  season  week  ...     bet_p  bet_odds  stake_pct
+3178  2026_11_IND_HOU    2026    11  ...  0.559990    -110.0       1.90
+3179  2026_11_MIA_BUF    2026    11  ...       NaN      ",0.8,2026-11-21 20:19 UTC
+log run,ok,"                    run_at  season  ...  total_line        bet
+3178  2026-11-21 20:19 UTC    2026  ...        44.5  IND +12.5
+3179  2026-11-21 20:19 UTC    2026  ...        44.5           
+3180  2026-",0.0,2026-11-21 20:19 UTC
+record picks,ok,"                 run_at  season  week  ...  spread_edge  total_edge  p_cover
+0  2026-10-04 12:37 UTC    2026     4  ...         5.08        2.49    0.673
+1  2026-10-04 16:01 UTC    2026     4  ...    ",0.4,2026-11-21 20:19 UTC
+inputs fingerprint,ok,"{'season': 2026, 'week': 11, 'starters': {'2026_11_IND_HOU': ['00-0039163', '00-0035710', '2026-11-19 20:15'], '2026_11_MIA_BUF': ['00-0034857', '00-0040014', '2026-11-22 13:00'], '2026_11_BAL_CAR': [",0.5,2026-11-21 20:19 UTC
+grade,ok,,5.7,2026-11-21 20:19 UTC
+closing line value,ok,"CLV 2026: 50 closed, 11 pending, avg +0.03 pts, 22% beat the close",0.8,2026-11-21 20:19 UTC
+forecast history,ok,"8 games fetched in 2s, 2235 stored, 0 left",2.5,2026-11-21 20:19 UTC
+drift monitor,ok,"**0 alerts, 0 to watch.** Long run = 2015 to 2024; recent = 2025 and 2026 so far. ALERT at |z| >= 2.5 or a CUSUM trip (h 5); WATCH at |z| >= 2.0.",0.4,2026-11-21 20:19 UTC
+shadow watch,ok,"**0 rules ready for a look.** READY = 30+ settled live bets, a win rate past break-even beyond luck (p <= 0.1) and 5+ points more return per unit risked than the rule it would replace over the same se",0.8,2026-11-21 20:19 UTC
+ready checks,ok,**1 ready.** Each READY row opens a GitHub issue labelled ready-check (once per title).,0.3,2026-11-21 20:19 UTC
+tie check (sources),error,RuntimeError: numbers disagree: see reports/tie_check.md,2.5,2026-11-21 20:19 UTC
+export data room,ok,,84.1,2026-11-21 20:19 UTC
+tie check (page),error,RuntimeError: page files disagree with the sources: see reports/tie_check.md,7.1,2026-11-21 20:19 UTC
+standing checks,ok,True,28.2,2026-11-21 20:19 UTC

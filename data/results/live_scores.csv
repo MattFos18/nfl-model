@@ -1,15 +1,28 @@
 game_id,status,detail,home_score,away_score,close_spread,close_total,model_spread,model_total,priced_at,spread_call,spread_result,total_call,total_result,winner_call,winner_result,open_spread,open_total,spread_call_open,spread_result_open,total_call_open,total_result_open,checked
-2026_10_KC_ATL,in_progress,2:00 - 2nd,3.0,7.0,-3.0,47.5,-2.545,48.2,2026-11-14 18:55 UTC,ATL,,Over,,KC,,-3.5,45.5,ATL,,Over,,2026-11-15 19:16 UTC
-2026_10_HOU_CLE,in_progress,2:00 - 2nd,10.0,17.0,-4.5,40.5,-3.077,40.774,2026-11-14 18:55 UTC,CLE,,Over,,HOU,,-4.5,39.5,CLE,,Over,,2026-11-15 19:16 UTC
-2026_10_MIN_GB,in_progress,4:54 - 2nd,0.0,17.0,2.5,42.5,4.113,46.693,2026-11-14 18:55 UTC,GB,,Over,,GB,,5.5,40.5,MIN,,Over,,2026-11-15 19:16 UTC
-2026_10_JAX_TEN,in_progress,2:00 - 2nd,10.0,13.0,-10.5,46.5,-11.516,46.715,2026-11-14 18:55 UTC,JAX,,Over,,JAX,,-10.5,46.5,JAX,,Over,,2026-11-15 19:16 UTC
-2026_10_MIA_IND,in_progress,2:00 - 2nd,7.0,7.0,4.5,37.5,6.049,43.942,2026-11-14 18:55 UTC,IND,,Over,,IND,,2.5,40.5,IND,,Over,,2026-11-15 19:16 UTC
-2026_10_CAR_NO,in_progress,2:00 - 2nd,0.0,7.0,2.5,48.5,1.176,48.911,2026-11-14 18:55 UTC,CAR,,Over,,NO,,1.5,48.5,CAR,,Over,,2026-11-15 19:16 UTC
-2026_10_BUF_NYJ,in_progress,2:15 - 2nd,3.0,10.0,-8.5,50.5,-8.46,48.731,2026-11-14 18:55 UTC,NYJ,,Under,,BUF,,-8.5,50.5,NYJ,,Under,,2026-11-15 19:16 UTC
-2026_10_NE_DET,final,Final,35.0,10.0,2.5,49.5,2.393,52.199,2026-11-14 18:55 UTC,NE,loss,Over,loss,DET,win,2.5,51.5,NE,loss,Over,loss,2026-11-15 19:16 UTC
-2026_10_SEA_LV,scheduled,11/15 - 4:05 PM EST,,,-6.5,40.5,-3.74,49.385,2026-11-14 18:55 UTC,LV,,Over,,SEA,,-3.5,43.5,SEA,,Over,,2026-11-15 19:16 UTC
-2026_10_LA_ARI,scheduled,11/15 - 4:05 PM EST,,,-9.5,38.5,-7.571,47.18,2026-11-14 18:55 UTC,ARI,,Over,,LA,,-9.5,40.5,ARI,,Over,,2026-11-15 19:16 UTC
-2026_10_SF_DAL,scheduled,11/15 - 4:25 PM EST,,,-4.5,55.5,-0.345,56.864,2026-11-14 18:55 UTC,DAL,,Over,,SF,,-4.5,55.5,DAL,,Over,,2026-11-15 19:16 UTC
-2026_10_PIT_CIN,scheduled,11/15 - 8:20 PM EST,,,3.5,49.5,5.039,49.836,2026-11-14 18:55 UTC,CIN,,Over,,CIN,,3.5,48.5,CIN,,Over,,2026-11-15 19:16 UTC
-2026_10_WAS_NYG,final,Final,21.0,24.0,1.5,40.5,1.089,39.297,2026-11-12 23:25 UTC,WAS,win,Under,loss,NYG,loss,2.5,41.5,WAS,win,Under,loss,2026-11-15 19:16 UTC
-2026_10_LAC_BAL,scheduled,11/16 - 8:15 PM EST,,,4.5,38.5,1.618,42.846,2026-11-14 18:55 UTC,LAC,,Over,,BAL,,5.5,38.5,LAC,,Over,,2026-11-15 19:16 UTC
+2026_10_WAS_NYG,final,Final,21.0,24.0,1.5,40.5,1.089,39.297,2026-11-12 23:25 UTC,WAS,win,Under,loss,NYG,loss,2.5,41.5,WAS,win,Under,loss,2026-11-21 20:22 UTC
+2026_10_NE_DET,final,Final,35.0,10.0,2.5,49.5,2.393,52.199,2026-11-14 18:55 UTC,NE,loss,Over,loss,DET,win,2.5,51.5,NE,loss,Over,loss,2026-11-21 20:22 UTC
+2026_10_KC_ATL,final,Final,13.0,35.0,-3.0,47.5,-2.545,48.2,2026-11-14 18:55 UTC,ATL,loss,Over,win,KC,win,-3.5,45.5,ATL,loss,Over,win,2026-11-21 20:22 UTC
+2026_10_HOU_CLE,final,Final,27.0,24.0,-4.5,40.5,-3.077,40.774,2026-11-14 18:55 UTC,CLE,win,Over,win,HOU,loss,-4.5,39.5,CLE,win,Over,win,2026-11-21 20:22 UTC
+2026_10_MIN_GB,final,Final,10.0,30.0,2.5,42.5,4.113,46.693,2026-11-14 18:55 UTC,GB,loss,Over,loss,GB,loss,5.5,40.5,MIN,win,Over,loss,2026-11-21 20:22 UTC
+2026_10_JAX_TEN,final,Final,23.0,40.0,-10.5,46.5,-11.516,46.715,2026-11-14 18:55 UTC,JAX,win,Over,win,JAX,win,-10.5,46.5,JAX,win,Over,win,2026-11-21 20:22 UTC
+2026_10_MIA_IND,final,Final,24.0,22.0,4.5,37.5,6.049,43.942,2026-11-14 18:55 UTC,IND,loss,Over,win,IND,win,2.5,40.5,IND,loss,Over,win,2026-11-21 20:22 UTC
+2026_10_CAR_NO,final,Final,17.0,20.0,2.5,48.5,1.176,48.911,2026-11-14 18:55 UTC,CAR,win,Over,loss,NO,loss,1.5,48.5,CAR,win,Over,loss,2026-11-21 20:22 UTC
+2026_10_BUF_NYJ,final,Final,12.0,31.0,-8.5,50.5,-8.46,48.731,2026-11-14 18:55 UTC,NYJ,loss,Under,win,BUF,win,-8.5,50.5,NYJ,loss,Under,win,2026-11-21 20:22 UTC
+2026_10_SEA_LV,final,Final,13.0,21.0,-6.5,40.5,-3.74,49.385,2026-11-15 19:13 UTC,LV,loss,Over,loss,SEA,win,-3.5,43.5,SEA,win,Over,loss,2026-11-21 20:22 UTC
+2026_10_LA_ARI,final,Final,6.0,34.0,-9.5,38.5,-7.553,47.18,2026-11-15 19:13 UTC,ARI,loss,Over,win,LA,win,-9.5,40.5,ARI,loss,Over,loss,2026-11-21 20:22 UTC
+2026_10_SF_DAL,final,Final,40.0,46.0,-4.5,55.5,-0.345,56.864,2026-11-15 19:13 UTC,DAL,loss,Over,win,SF,win,-4.5,55.5,DAL,loss,Over,win,2026-11-21 20:22 UTC
+2026_10_PIT_CIN,final,Final,38.0,18.0,3.5,49.5,5.039,49.704,2026-11-15 19:13 UTC,CIN,win,Over,win,CIN,win,3.5,48.5,CIN,win,Over,win,2026-11-21 20:22 UTC
+2026_10_LAC_BAL,final,Final,20.0,23.0,4.5,38.5,1.642,43.077,2026-11-15 19:13 UTC,LAC,win,Over,win,BAL,loss,5.5,38.5,LAC,win,Over,win,2026-11-21 20:22 UTC
+2026_11_IND_HOU,final,Final,26.0,3.0,12.5,44.5,,,,,,,,,,,,,,,,2026-11-21 20:22 UTC
+2026_11_MIA_BUF,scheduled,11/22 - 1:00 PM EST,,,16.5,44.5,,,,,,,,,,16.5,44.5,,,,,2026-11-21 20:22 UTC
+2026_11_NO_CHI,scheduled,11/22 - 1:00 PM EST,,,11.5,48.5,,,,,,,,,,11.5,48.5,,,,,2026-11-21 20:22 UTC
+2026_11_TEN_DAL,scheduled,11/22 - 1:00 PM EST,,,7.5,54.5,,,,,,,,,,7.5,54.5,,,,,2026-11-21 20:22 UTC
+2026_11_TB_DET,scheduled,11/22 - 1:00 PM EST,,,4.5,46.5,,,,,,,,,,4.5,46.5,,,,,2026-11-21 20:22 UTC
+2026_11_ARI_KC,scheduled,11/22 - 1:00 PM EST,,,15.5,40.5,,,,,,,,,,15.5,40.5,,,,,2026-11-21 20:22 UTC
+2026_11_PIT_PHI,scheduled,11/22 - 1:00 PM EST,,,-3.5,37.5,,,,,,,,,,-3.5,37.5,,,,,2026-11-21 20:22 UTC
+2026_11_BAL_CAR,scheduled,11/22 - 1:00 PM EST,,,3.0,43.5,,,,,,,,,,3.0,43.5,,,,,2026-11-21 20:22 UTC
+2026_11_NYJ_LAC,scheduled,11/22 - 4:05 PM EST,,,3.0,42.5,,,,,,,,,,3.0,42.5,,,,,2026-11-21 20:22 UTC
+2026_11_LV_DEN,scheduled,11/22 - 4:25 PM EST,,,10.5,40.5,,,,,,,,,,10.5,40.5,,,,,2026-11-21 20:22 UTC
+2026_11_JAX_NYG,scheduled,11/22 - 4:25 PM EST,,,-6.0,46.5,,,,,,,,,,-6.0,46.5,,,,,2026-11-21 20:22 UTC
+2026_11_MIN_SF,scheduled,11/22 - 8:20 PM EST,,,3.0,46.5,,,,,,,,,,3.0,46.5,,,,,2026-11-21 20:22 UTC
+2026_11_CIN_WAS,scheduled,11/23 - 8:15 PM EST,,,-6.0,54.5,,,,,,,,,,-6.0,54.5,,,,,2026-11-21 20:22 UTC
