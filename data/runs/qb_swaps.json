@@ -6,10 +6,12 @@
  "espn_unmatched": [
   "ATL Divine Deablo",
   "ATL Zachariah Branch",
+  "BUF Mike Danna",
   "CLE Michael Burton",
   "CLE Ronnie Hickman",
   "GB Josh Jacobs",
   "GB Kevin Zeitler",
+  "GB Luke Musgrave",
   "GB Micah Parsons",
   "GB Sean Rhyan",
   "GB Zaire Franklin",
@@ -18,6 +20,8 @@
   "LA Davante Adams",
   "LA Dylan McMahon",
   "LA Joe Cardona",
+  "LA Justin Dedich",
+  "LA Kobie Turner",
   "LA Puka Nacua",
   "LA Steve Avila",
   "LA Terrance Ferguson",
@@ -27,22 +31,13 @@
   "NE Carlton Davis III",
   "NE Drake Maye",
   "NE Walter Rouse",
+  "PIT Gabriel Rubio",
   "SEA Charles Cross",
   "SEA Leonard Williams",
   "SEA Quenton Nelson",
   "SEA Sam Darnold"
  ],
- "swaps": [
-  {
-   "game_id": "2026_11_ARI_KC",
-   "team": "ARI",
-   "from": "00-0035289",
-   "from_name": "Gardner Minshew",
-   "to": "00-0026300",
-   "to_name": "Josh Johnson",
-   "source": "depth chart"
-  }
- ],
+ "swaps": [],
  "conflicts": [
   {
    "game_id": "2026_11_BAL_CAR",

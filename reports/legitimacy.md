@@ -1,4 +1,4 @@
-# Legitimacy tests, 2026-11-21
+# Legitimacy tests, 2026-11-22
 
 1791 regular-season games 2019 to 2025, weeks 1 to 17, walk-forward predictions.
 
