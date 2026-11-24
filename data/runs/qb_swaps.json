@@ -2,59 +2,20 @@
  "status": "ok",
  "detail": "",
  "season": 2026,
- "week": 11,
- "espn_unmatched": [
-  "ATL Divine Deablo",
-  "ATL Zachariah Branch",
-  "BUF Mike Danna",
-  "CLE Michael Burton",
-  "CLE Ronnie Hickman",
-  "GB Josh Jacobs",
-  "GB Kevin Zeitler",
-  "GB Luke Musgrave",
-  "GB Micah Parsons",
-  "GB Sean Rhyan",
-  "GB Zaire Franklin",
-  "HOU Nate Thomas",
-  "LA Coleman Shelton",
-  "LA Davante Adams",
-  "LA Dylan McMahon",
-  "LA Joe Cardona",
-  "LA Justin Dedich",
-  "LA Kobie Turner",
-  "LA Puka Nacua",
-  "LA Steve Avila",
-  "LA Terrance Ferguson",
-  "NE A.J. Brown",
-  "NE Ben Brown",
-  "NE Brenden Schooler",
-  "NE Carlton Davis III",
-  "NE Drake Maye",
-  "NE Walter Rouse",
-  "PIT Gabriel Rubio",
-  "SEA Charles Cross",
-  "SEA Leonard Williams",
-  "SEA Quenton Nelson",
-  "SEA Sam Darnold"
+ "week": 12,
+ "espn_unmatched": [],
+ "swaps": [
+  {
+   "game_id": "2026_12_NE_LAC",
+   "team": "NE",
+   "from": "00-0039851",
+   "from_name": "Drake Maye",
+   "to": "00-0038476",
+   "to_name": "Tommy DeVito",
+   "source": "most dropbacks this season"
+  }
  ],
- "swaps": [],
  "conflicts": [
-  {
-   "game_id": "2026_11_BAL_CAR",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
-  },
-  {
-   "game_id": "2026_12_BAL_HOU",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
-  },
   {
    "game_id": "2026_12_NYG_IND",
    "team": "IND",
@@ -64,12 +25,44 @@
    "priced_name": "Daniel Jones"
   },
   {
-   "game_id": "2026_14_TB_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
+   "game_id": "2026_12_ATL_MIN",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
+  },
+  {
+   "game_id": "2026_12_WAS_ARI",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
+  },
+  {
+   "game_id": "2026_13_PHI_ARI",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
+  },
+  {
+   "game_id": "2026_13_CAR_MIN",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
+  },
+  {
+   "game_id": "2026_14_MIN_NE",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
   },
   {
    "game_id": "2026_14_IND_PHI",
@@ -80,14 +73,6 @@
    "priced_name": "Daniel Jones"
   },
   {
-   "game_id": "2026_15_BAL_PIT",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
-  },
-  {
    "game_id": "2026_15_IND_TEN",
    "team": "IND",
    "named": "00-0039164",
@@ -96,12 +81,20 @@
    "priced_name": "Daniel Jones"
   },
   {
-   "game_id": "2026_16_CLE_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
+   "game_id": "2026_15_NYJ_ARI",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
+  },
+  {
+   "game_id": "2026_15_DET_MIN",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
   },
   {
    "game_id": "2026_16_CIN_IND",
@@ -112,12 +105,20 @@
    "priced_name": "Daniel Jones"
   },
   {
-   "game_id": "2026_17_BAL_CIN",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
+   "game_id": "2026_16_WAS_MIN",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
+  },
+  {
+   "game_id": "2026_16_ARI_NO",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
   },
   {
    "game_id": "2026_17_IND_CLE",
@@ -128,12 +129,28 @@
    "priced_name": "Daniel Jones"
   },
   {
-   "game_id": "2026_18_PIT_BAL",
-   "team": "BAL",
-   "named": "00-0035993",
-   "priced": "00-0033119",
-   "named_name": "Tyler Huntley",
-   "priced_name": "Jacoby Brissett"
+   "game_id": "2026_17_MIN_NYJ",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
+  },
+  {
+   "game_id": "2026_17_LV_ARI",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
+  },
+  {
+   "game_id": "2026_18_SF_ARI",
+   "team": "ARI",
+   "named": "00-0035289",
+   "priced": "00-0026300",
+   "named_name": "Gardner Minshew",
+   "priced_name": "Josh Johnson"
   },
   {
    "game_id": "2026_18_JAX_IND",
@@ -142,6 +159,14 @@
    "priced": "00-0035710",
    "named_name": "Anthony Richardson",
    "priced_name": "Daniel Jones"
+  },
+  {
+   "game_id": "2026_18_CHI_MIN",
+   "team": "MIN",
+   "named": "00-0029604",
+   "priced": "00-0035228",
+   "named_name": "Kirk Cousins",
+   "priced_name": "Kyler Murray"
   }
  ]
 }
