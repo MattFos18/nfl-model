@@ -4,10 +4,10 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 
 | Rule | Closed bets | Avg CLV (pts) | Beat the close | Same | Worse | Pending | Avg CLV (no-vig prob) |
 |---|---|---|---|---|---|---|---|
-| Spreads, 4+ edge | 10 | +0.20 | 40% | 5 | 1 | 2 | -0.2% (5) |
-| Unders, 55%+ chance | 29 | -0.02 | 14% | 17 | 8 | 3 | -0.3% (17) |
-| Wind unders, 10+ mph | 21 | +0.00 | 14% | 15 | 3 | 1 | -0.2% (15) |
-| All live bets | 60 | +0.03 | 18% | 37 | 12 | 6 | -0.3% (37) |
+| Spreads, 4+ edge | 11 | +0.18 | 36% | 6 | 1 | 3 | -0.2% (6) |
+| Unders, 55%+ chance | 31 | -0.02 | 13% | 19 | 8 | 1 | -0.3% (19) |
+| Wind unders, 10+ mph | 22 | +0.00 | 14% | 16 | 3 | 1 | -0.2% (16) |
+| All live bets | 64 | +0.02 | 17% | 41 | 12 | 5 | -0.2% (41) |
 
 ## Every bet
 
@@ -23,8 +23,10 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | model       |      9 | 2026_09_LV_SF   | LV +9.5    | 2026-11-07 18:25 UTC | first flag   |   10   |         9.5 |     9.5 |       0.5 |            | 2026-11-08 18:17 UTC | closed   |
 | model       |     10 | 2026_10_SF_DAL  | DAL +4.5   | 2026-11-14 18:55 UTC | first flag   |    4.5 |         4.5 |     4.5 |       0   | -0.7%      | 2026-11-15 19:16 UTC | closed   |
 | model       |     11 | 2026_11_NO_CHI  | NO +11.5   | 2026-11-21 20:19 UTC | first flag   |   11.5 |        11.5 |    11.5 |       0   | +0.0%      | 2026-11-21 20:22 UTC | closed   |
-| model       |     12 | 2026_12_CHI_DET | DET +2.5   | 2026-11-24 20:29 UTC | first flag   |    2.5 |         2.5 |   nan   |     nan   |            | nan                  | pending  |
-| model       |     12 | 2026_12_NYG_IND | IND +6.5   | 2026-11-24 20:29 UTC | first flag   |    6.5 |         6.5 |   nan   |     nan   |            | nan                  | pending  |
+| model       |     12 | 2026_12_CHI_DET | DET +2.5   | 2026-11-24 20:29 UTC | first flag   |    2.5 |         2.5 |     2.5 |       0   | +0.0%      | 2026-11-24 20:31 UTC | closed   |
+| model       |     12 | 2026_12_DEN_PIT | PIT +4.5   | 2026-11-27 01:37 UTC | first flag   |    4.5 |         4.5 |   nan   |     nan   |            | nan                  | pending  |
+| model       |     12 | 2026_12_NYG_IND | IND +6     | 2026-11-24 20:29 UTC | first flag   |    6.5 |         6   |   nan   |     nan   |            | nan                  | pending  |
+| model       |     12 | 2026_12_NE_LAC  | LAC +2.5   | 2026-11-27 01:37 UTC | first flag   |    2.5 |         2.5 |   nan   |     nan   |            | nan                  | pending  |
 | shadowunder |      3 | 2026_03_LAC_BUF | Under 50.5 | 2026-09-27 16:15 UTC | tracker row  |   50.5 |       nan   |    50.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_NE_JAX  | Under 46.5 | 2026-09-27 16:15 UTC | tracker row  |   46.5 |       nan   |    46.5 |       0   | +0.0%      | 2026-09-27 16:21 UTC | closed   |
 | shadowunder |      3 | 2026_03_LA_DEN  | Under 44.5 | 2026-09-27 23:16 UTC | tracker row  |   44.5 |       nan   |    43.5 |       1   |            | 2026-09-28 00:12 UTC | closed   |
@@ -54,9 +56,9 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | shadowunder |     11 | 2026_11_TEN_DAL | Under 54.5 | 2026-11-21 20:19 UTC | first flag   |   54.5 |       nan   |    54.5 |       0   | +0.0%      | 2026-11-21 20:22 UTC | closed   |
 | shadowunder |     11 | 2026_11_PIT_PHI | Under 37.5 | 2026-11-21 20:19 UTC | first flag   |   37.5 |       nan   |    37.5 |       0   | +0.0%      | 2026-11-21 20:22 UTC | closed   |
 | shadowunder |     11 | 2026_11_CIN_WAS | Under 54.5 | 2026-11-21 20:19 UTC | first flag   |   54.5 |       nan   |    54.5 |       0   | -2.4%      | 2026-11-22 20:09 UTC | closed   |
-| shadowunder |     12 | 2026_12_CHI_DET | Under 55.5 | 2026-11-24 20:29 UTC | first flag   |   55.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| shadowunder |     12 | 2026_12_KC_BUF  | Under 47.5 | 2026-11-24 20:29 UTC | first flag   |   47.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
-| shadowunder |     12 | 2026_12_NO_CIN  | Under 50.5 | 2026-11-24 20:29 UTC | first flag   |   50.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| shadowunder |     12 | 2026_12_CHI_DET | Under 55.5 | 2026-11-24 20:29 UTC | first flag   |   55.5 |       nan   |    55.5 |       0   | +0.0%      | 2026-11-24 20:31 UTC | closed   |
+| shadowunder |     12 | 2026_12_KC_BUF  | Under 47.5 | 2026-11-24 20:29 UTC | first flag   |   47.5 |       nan   |    47.5 |       0   | +0.0%      | 2026-11-24 20:31 UTC | closed   |
+| shadowunder |     12 | 2026_12_TEN_JAX | Under 49.5 | 2026-11-27 01:37 UTC | first flag   |   49.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
 | windunder   |      4 | 2026_04_PIT_CLE | Under 38.5 | 2026-10-01 23:22 UTC | tracker row  |   38.5 |       nan   |    38.5 |       0   | +0.0%      | 2026-10-02 00:12 UTC | closed   |
 | windunder   |      4 | 2026_04_NE_BUF  | Under 49.5 | 2026-10-03 23:00 UTC | first flag   |   49.5 |       nan   |    49.5 |       0   | +0.9%      | 2026-10-04 16:56 UTC | closed   |
 | windunder   |      5 | 2026_05_CHI_GB  | Under 47.5 | 2026-10-09 10:49 UTC | first flag   |   45.5 |       nan   |    47.5 |      -2   |            | 2026-10-11 16:13 UTC | closed   |
@@ -78,4 +80,5 @@ Each live bet's consensus line when the game first flagged for that side (the tr
 | windunder   |     11 | 2026_11_ARI_KC  | Under 40.5 | 2026-11-21 20:19 UTC | first flag   |   40.5 |       nan   |    40.5 |       0   | +0.0%      | 2026-11-21 20:22 UTC | closed   |
 | windunder   |     11 | 2026_11_PIT_PHI | Under 37.5 | 2026-11-21 20:19 UTC | first flag   |   37.5 |       nan   |    37.5 |       0   | +0.0%      | 2026-11-21 20:22 UTC | closed   |
 | windunder   |     11 | 2026_11_CIN_WAS | Under 54.5 | 2026-11-21 20:19 UTC | first flag   |   54.5 |       nan   |    54.5 |       0   | -2.4%      | 2026-11-22 20:09 UTC | closed   |
-| windunder   |     12 | 2026_12_KC_BUF  | Under 47.5 | 2026-11-24 20:29 UTC | first flag   |   47.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |
+| windunder   |     12 | 2026_12_KC_BUF  | Under 47.5 | 2026-11-24 20:29 UTC | first flag   |   47.5 |       nan   |    47.5 |       0   | +0.0%      | 2026-11-24 20:31 UTC | closed   |
+| windunder   |     12 | 2026_12_DEN_PIT | Under 36.5 | 2026-11-27 01:37 UTC | first flag   |   36.5 |       nan   |   nan   |     nan   |            | nan                  | pending  |

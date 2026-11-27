@@ -13,13 +13,6 @@
   "message": "games inside the forecast window without every live reading: 2026_10_LAC_BAL (no wind, temperature, rain), 2026_10_PIT_CIN (no wind, temperature, rain)",
   "source": "data checks"
  },
- "data checks|games inside the forecast window without every live reading: 2026_10_WAS_NYG (no wind, temperature, rain)": {
-  "count": 2,
-  "first": "2026-11-10 17:30 UTC",
-  "last": "2026-11-12 23:29 UTC",
-  "message": "games inside the forecast window without every live reading: 2026_10_WAS_NYG (no wind, temperature, rain)",
-  "source": "data checks"
- },
  "data checks|games inside the forecast window without every live reading: 2026_11_ARI_KC (no wind, temperature, rain), 2026_11_BAL_CAR (no wind, temperature, rain), 2026_11_CIN_WAS (no wind, temperature, rain), 2026_11_JAX_NYG (no wind, temperature, rain), 2026_11_LV_DEN (no wind, temperature, rain), 2026_11_MIA_BUF (no wind, temperature, rain), 2026_11_NO_CHI (no wind, temperature, rain), 2026_11_PIT_PHI (no wind, temperature, rain)": {
   "count": 1,
   "first": "2026-11-21 20:22 UTC",
@@ -32,6 +25,13 @@
   "first": "2026-11-22 20:08 UTC",
   "last": "2026-11-22 20:08 UTC",
   "message": "games inside the forecast window without every live reading: 2026_11_CIN_WAS (no wind, temperature, rain), 2026_11_LV_DEN (no wind, temperature, rain)",
+  "source": "data checks"
+ },
+ "data checks|games inside the forecast window without every live reading: 2026_12_DEN_PIT (no wind, temperature, rain), 2026_12_NO_CIN (no wind, temperature, rain), 2026_12_NYJ_MIA (no wind, temperature, rain), 2026_12_TEN_JAX (no wind, temperature, rain)": {
+  "count": 1,
+  "first": "2026-11-27 01:39 UTC",
+  "last": "2026-11-27 01:39 UTC",
+  "message": "games inside the forecast window without every live reading: 2026_12_DEN_PIT (no wind, temperature, rain), 2026_12_NO_CIN (no wind, temperature, rain), 2026_12_NYJ_MIA (no wind, temperature, rain), 2026_12_TEN_JAX (no wind, temperature, rain)",
   "source": "data checks"
  },
  "data checks|games inside the forecast window without every live reading: 2026_12_KC_BUF (no wind, temperature, rain)": {
@@ -48,46 +48,11 @@
   "message": "played outdoor games since 2015 without every forecast reading: 0 partial, 2 missing",
   "source": "data checks"
  },
- "live weather|2026_10_BUF_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
-  "first": "2026-11-12 23:30 UTC",
-  "last": "2026-11-12 23:30 UTC",
-  "message": "2026_10_BUF_NYJ: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_10_HOU_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
-  "first": "2026-11-12 23:30 UTC",
-  "last": "2026-11-12 23:30 UTC",
-  "message": "2026_10_HOU_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_10_JAX_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
-  "first": "2026-11-12 23:30 UTC",
-  "last": "2026-11-12 23:30 UTC",
-  "message": "2026_10_JAX_TEN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_10_MIN_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
-  "first": "2026-11-12 23:30 UTC",
-  "last": "2026-11-12 23:30 UTC",
-  "message": "2026_10_MIN_GB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
  "live weather|2026_10_NE_DET: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 2,
   "first": "2026-11-12 23:30 UTC",
   "last": "2026-11-14 18:57 UTC",
   "message": "2026_10_NE_DET: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
-  "source": "live weather"
- },
- "live weather|2026_10_PIT_CIN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
-  "count": 1,
-  "first": "2026-11-12 23:30 UTC",
-  "last": "2026-11-12 23:30 UTC",
-  "message": "2026_10_PIT_CIN: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "live weather|2026_11_MIN_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
@@ -104,11 +69,53 @@
   "message": "2026_11_PIT_PHI: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
+ "live weather|2026_12_CAR_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_CAR_TB: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
  "live weather|2026_12_DEN_PIT: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
   "count": 1,
   "first": "2026-11-24 20:31 UTC",
   "last": "2026-11-24 20:31 UTC",
   "message": "2026_12_DEN_PIT: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_12_LV_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_LV_CLE: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_12_NO_CIN: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_NO_CIN: no GFS MOS reading for temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_12_NYJ_MIA: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_NYJ_MIA: no GFS MOS reading for temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_12_SEA_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_SEA_SF: no GFS MOS reading for wind, temp, rain; priced on Open-Meteo",
+  "source": "live weather"
+ },
+ "live weather|2026_12_TEN_JAX: no GFS MOS reading for temp, rain; priced on Open-Meteo": {
+  "count": 1,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:40 UTC",
+  "message": "2026_12_TEN_JAX: no GFS MOS reading for temp, rain; priced on Open-Meteo",
   "source": "live weather"
  },
  "standing checks|the stored tables still reproduce pred_v3's totals (2026 Week 10): 1 of 14: recomputed model_total / p_over_emp differ from pred_v3 (largest total gap 1.3)": {
@@ -146,13 +153,6 @@
   "message": "2026_10_PIT_CIN: reading from GFS run 2026-11-14T12Z (logged 2026-11-14T18-57-53Z) is more than 6 hours behind the newest run (2026-11-15T12Z); not used",
   "source": "wind_live"
  },
- "wind_live|2026_10_WAS_NYG: reading from GFS run 2026-11-10T12Z (logged 2026-11-10T17-30-46Z) is more than 6 hours behind the newest run (2026-11-12T18Z); not used": {
-  "count": 1,
-  "first": "2026-11-12 23:29 UTC",
-  "last": "2026-11-12 23:29 UTC",
-  "message": "2026_10_WAS_NYG: reading from GFS run 2026-11-10T12Z (logged 2026-11-10T17-30-46Z) is more than 6 hours behind the newest run (2026-11-12T18Z); not used",
-  "source": "wind_live"
- },
  "wind_live|2026_11_CIN_WAS: reading from GFS run 2026-11-21T12Z (logged 2026-11-21T20-22-05Z) is more than 6 hours behind the newest run (2026-11-22T12Z); not used": {
   "count": 1,
   "first": "2026-11-22 20:08 UTC",
@@ -172,6 +172,48 @@
   "first": "2026-11-22 20:08 UTC",
   "last": "2026-11-22 20:17 UTC",
   "message": "2026_11_PIT_PHI: reading from GFS run 2026-11-21T12Z (logged 2026-11-21T20-22-05Z) is more than 6 hours behind the newest run (2026-11-22T12Z); not used",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_NO_CIN: GFS MOS run 2026-11-26T12Z at KLUK gave no wind, rain chance, temperature": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_NO_CIN: GFS MOS run 2026-11-26T12Z at KLUK gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_NO_CIN: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_NO_CIN: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_NYJ_MIA: GFS MOS run 2026-11-26T12Z at KMIA gave no wind, rain chance, temperature": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_NYJ_MIA: GFS MOS run 2026-11-26T12Z at KMIA gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_NYJ_MIA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_NYJ_MIA: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_TEN_JAX: GFS MOS run 2026-11-26T12Z at KJAX gave no wind, rain chance, temperature": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_TEN_JAX: GFS MOS run 2026-11-26T12Z at KJAX gave no wind, rain chance, temperature",
+  "source": "wind_live"
+ },
+ "wind_live|2026_12_TEN_JAX: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean": {
+  "count": 2,
+  "first": "2026-11-27 01:40 UTC",
+  "last": "2026-11-27 01:41 UTC",
+  "message": "2026_12_TEN_JAX: wind reading from the Japan model alone (the other forecast is missing), not the two-model mean",
   "source": "wind_live"
  }
 }

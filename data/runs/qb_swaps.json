@@ -3,7 +3,9 @@
  "detail": "",
  "season": 2026,
  "week": 12,
- "espn_unmatched": [],
+ "espn_unmatched": [
+  "BUF Mike Danna"
+ ],
  "swaps": [
   {
    "game_id": "2026_12_NE_LAC",
@@ -12,10 +14,18 @@
    "from_name": "Drake Maye",
    "to": "00-0038476",
    "to_name": "Tommy DeVito",
-   "source": "most dropbacks this season"
+   "source": "depth chart"
   }
  ],
  "conflicts": [
+  {
+   "game_id": "2026_12_DEN_PIT",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
+  },
   {
    "game_id": "2026_12_NYG_IND",
    "team": "IND",
@@ -57,6 +67,14 @@
    "priced_name": "Kyler Murray"
   },
   {
+   "game_id": "2026_13_HOU_PIT",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
+  },
+  {
    "game_id": "2026_14_MIN_NE",
    "team": "MIN",
    "named": "00-0029604",
@@ -71,6 +89,22 @@
    "priced": "00-0035710",
    "named_name": "Anthony Richardson",
    "priced_name": "Daniel Jones"
+  },
+  {
+   "game_id": "2026_14_PIT_JAX",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
+  },
+  {
+   "game_id": "2026_15_BAL_PIT",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
   },
   {
    "game_id": "2026_15_IND_TEN",
@@ -121,6 +155,14 @@
    "priced_name": "Josh Johnson"
   },
   {
+   "game_id": "2026_16_CAR_PIT",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
+  },
+  {
    "game_id": "2026_17_IND_CLE",
    "team": "IND",
    "named": "00-0039164",
@@ -137,6 +179,14 @@
    "priced_name": "Kyler Murray"
   },
   {
+   "game_id": "2026_17_PIT_TEN",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
+  },
+  {
    "game_id": "2026_17_LV_ARI",
    "team": "ARI",
    "named": "00-0035289",
@@ -151,6 +201,14 @@
    "priced": "00-0026300",
    "named_name": "Gardner Minshew",
    "priced_name": "Josh Johnson"
+  },
+  {
+   "game_id": "2026_18_PIT_BAL",
+   "team": "PIT",
+   "named": "00-0034771",
+   "priced": "00-0023459",
+   "named_name": "Mason Rudolph",
+   "priced_name": "Aaron Rodgers"
   },
   {
    "game_id": "2026_18_JAX_IND",
